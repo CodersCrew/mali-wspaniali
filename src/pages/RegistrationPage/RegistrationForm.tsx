@@ -1,23 +1,22 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { TextField, Button } from '@material-ui/core/';
+import { RegistrationUser } from './types';
 
-interface RegistrationFormProps {
-    user: any;
+type RegistrationFormProps = {
+    user: RegistrationUser;
     onSubmit: any;
     onChange: any;
-    errors: any;
+    errors: {
+        email?: boolean;
+        password?: boolean;
+    }
 }
 
-const RegistrationForm = (props: RegistrationFormProps) => {
+const RegistrationForm = (props: RegistrationFormProps): ReactElement => {
   const { user, onSubmit, onChange, errors } = props;
 
   return (
     <form className={'registration-form'} autoComplete="off">
-      {errors.onSubmit && (
-        <div className="alert alert-danger" role="alert">
-          {errors.onSubmit}
-        </div>
-      )}
       <TextField
         required
         onChange={onChange}

@@ -1,47 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement, ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Typography } from '@material-ui/core/';
 import * as registrationActions from '../../actions/registrationActions';
 import RegistrationForm from './RegistrationForm';
+import AlertDialog from './AlertDialog';
+import { State, Users } from './types';
 
-
-const RegistrationPage = ( props: any ) => {
+type RegistrationPageProps = {
+    registerUser: Function;
+}
+const RegistrationPage = (props: RegistrationPageProps): ReactElement => {
   const [user, setUser] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
+  const [alert, setAlert] = useState(false);
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: FormEvent<HTMLInputElement>): void => {
     event.preventDefault();
     if (user.email !== '' && user.password !== '') {
-        props.registerUser(user);
+      props.registerUser(user);
     } else {
-        window.confirm('Email and password cannot be empty');
+      setAlert(true);
     }
-    setUser({email: '', password: ''});
+    setUser({ email: '', password: '' });
   };
 
-  const handleChange = (event: any) => {
-    const {id, value } = event.target;
-    setUser( prevUser => ({
-        ...prevUser,
-        [id] : value
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const { id, value } = event.target;
+    setUser(prevUser => ({
+      ...prevUser,
+      [id]: value,
     }));
   };
 
   return (
     <>
-        <Link to="/">Wróć do strony głównej</Link>
-        <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-            <Typography variant="h4" gutterBottom style={{ display: 'flex' }}>
-                Zarejestruj się
-            </Typography>
-            <RegistrationForm user={user} onChange={handleChange} onSubmit={handleSubmit} errors={errors} />
-        </Container>
+      <Link to="/">Wróć do strony głównej</Link>
+      <Container maxWidth="sm" style={{ marginTop: '100px' }}>
+        <Typography variant="h4" gutterBottom style={{ display: 'flex' }}>
+          Zarejestruj się
+        </Typography>
+        <RegistrationForm
+          user={user}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          errors={errors}
+        />
+        {alert === true ? <AlertDialog open={alert} setAlert={setAlert} /> : ''}
+      </Container>
     </>
   );
 };
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: State): object {
     return {
         users: state.users,
     }

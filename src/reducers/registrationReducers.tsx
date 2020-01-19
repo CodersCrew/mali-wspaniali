@@ -2,15 +2,11 @@ import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE,
 } from '../actions/registrationActions';
+import { Users } from '../pages/RegistrationPage/types';
 
-export default function registrationReducer (state = {}, action: any) {
-    interface Users {
-        [key: number]: string;
-    }
+export default function registrationReducer (state = {}, action: any): Users {
     let key: number;
     let newState: Users;
-
-    console.log(action.userData);
 
     switch (action.type) {
       case REGISTER_USER_SUCCESS:
