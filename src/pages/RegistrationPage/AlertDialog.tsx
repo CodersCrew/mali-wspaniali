@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core/';
 
+type AlertDialogProps = {
+  setAlert: Function
+  open: boolean
+}
 
-const AlertDialog = (props: any) => {
+const AlertDialog = (props: AlertDialogProps): ReactElement => {
+  const { setAlert, open } = props;
 
-  const handleClose = () => {
-    props.setAlert(false);
+  const handleClose = (): void => {
+    setAlert(false);
   };
 
   return (
     <div>
-      <Dialog open={props.open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{'Email and password are required'}</DialogTitle>
         <DialogActions>
           <Button onClick={handleClose} color="primary" autoFocus>
@@ -20,6 +25,6 @@ const AlertDialog = (props: any) => {
       </Dialog>
     </div>
   );
-}
+};
 
 export default AlertDialog;

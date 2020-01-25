@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, FormEventHandler } from 'react'
 import { TextField, Button } from '@material-ui/core/';
 import { RegistrationUser } from './types';
 
 type RegistrationFormProps = {
     user: RegistrationUser;
-    onSubmit: any;
-    onChange: any;
+    onSubmit: FormEventHandler;
+    onChange: FormEventHandler;
     errors: {
         email?: boolean;
         password?: boolean;

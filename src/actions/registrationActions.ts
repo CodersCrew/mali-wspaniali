@@ -5,13 +5,26 @@ import { RegistrationUser } from '../pages/RegistrationPage/types'
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
 
+interface RegisterUserSuccessAction extends Action<'REGISTER_USER_SUCCESS'> {
+  type: typeof REGISTER_USER_SUCCESS
+  userData: RegistrationUser
+}
 
-export function registerUserSuccess(userData: object): any {
+interface RegisterUserFailureAction extends Action<'REGISTER_USER_FAILURE'> {
+  type: typeof REGISTER_USER_FAILURE
+}
+
+export type RegistrationActions =
+  | RegisterUserSuccessAction
+  | RegisterUserFailureAction;
+
+
+export function registerUserSuccess(userData: RegistrationUser ): RegisterUserSuccessAction {
   return { type: REGISTER_USER_SUCCESS, userData };
 }
 
-export function registerUserFailure(userData: object): any {
-  return { type: REGISTER_USER_FAILURE, userData };
+export function registerUserFailure(): RegisterUserFailureAction {
+  return { type: REGISTER_USER_FAILURE };
 }
 
 export function registerUser(user: RegistrationUser) {
@@ -20,7 +33,7 @@ export function registerUser(user: RegistrationUser) {
       .then(response => {
         if (response.errors) {
           console.log(response.errors);
-          dispatch(registerUserFailure(user));
+          dispatch(registerUserFailure());
         } else {
           dispatch(registerUserSuccess(user));
         }

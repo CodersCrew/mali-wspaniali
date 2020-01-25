@@ -5,11 +5,13 @@ import { Container, Typography } from '@material-ui/core/';
 import * as registrationActions from '../../actions/registrationActions';
 import RegistrationForm from './RegistrationForm';
 import AlertDialog from './AlertDialog';
-import { State, Users } from './types';
+import { RegistrationState } from './types';
 
 type RegistrationPageProps = {
     registerUser: Function;
-}
+    users: RegistrationState;
+};
+
 const RegistrationPage = (props: RegistrationPageProps): ReactElement => {
   const [user, setUser] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
@@ -52,10 +54,12 @@ const RegistrationPage = (props: RegistrationPageProps): ReactElement => {
   );
 };
 
-function mapStateToProps(state: State): object {
-    return {
-        users: state.users,
-    }
+function mapStateToProps(
+  state: RegistrationState,
+): Pick<RegistrationPageProps, 'users'> {
+  return {
+    users: state,
+  };
 }
 
 const mapDispatchToProps = {

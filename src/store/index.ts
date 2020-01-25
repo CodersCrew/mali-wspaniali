@@ -4,10 +4,10 @@ import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from "../reducers";
 
-function configureStore(initialState: object): Store {
+function configureStore(): Store {
     return createStore(
       reducers,
-      initialState,
+      undefined,
       composeWithDevTools(
         applyMiddleware(thunk, reduxImmutableStateInvariant()),
       ),
