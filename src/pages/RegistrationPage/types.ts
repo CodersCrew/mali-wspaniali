@@ -1,6 +1,6 @@
 export type RegistrationUser = {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 };
 
 export type RegistrationState = RegistrationUser[];

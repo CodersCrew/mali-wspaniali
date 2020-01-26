@@ -7,7 +7,10 @@ import { RegistrationState } from '../pages/RegistrationPage/types';
 
 const initialState: RegistrationState = [];
 
-export default function registrationReducer(state = initialState, action: RegistrationActions ): RegistrationState {
+export default function registrationReducer(
+  state = initialState,
+  action: RegistrationActions,
+): RegistrationState {
   switch (action.type) {
     case REGISTER_USER_SUCCESS:
       return [...state, action.userData];
@@ -17,5 +20,4 @@ export default function registrationReducer(state = initialState, action: Regist
     default:
       return state;
   }
-};
-
+}

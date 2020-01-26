@@ -1,16 +1,16 @@
-import React, { ReactElement, FormEventHandler } from 'react'
+import React, { ReactElement, FormEventHandler } from 'react';
 import { TextField, Button } from '@material-ui/core/';
 import { RegistrationUser } from './types';
 
 type RegistrationFormProps = {
-    user: RegistrationUser;
-    onSubmit: FormEventHandler;
-    onChange: FormEventHandler;
-    errors: {
-        email?: boolean;
-        password?: boolean;
-    }
-}
+  user: RegistrationUser;
+  onSubmit: FormEventHandler;
+  onChange: FormEventHandler;
+  errors: {
+    email?: boolean;
+    password?: boolean;
+  };
+};
 
 const RegistrationForm = (props: RegistrationFormProps): ReactElement => {
   const { user, onSubmit, onChange, errors } = props;
