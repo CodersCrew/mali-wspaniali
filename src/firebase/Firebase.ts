@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import config from './config';
 
-import UserCredential = firebase.auth.UserCredential;
+type UserCredential = firebase.auth.UserCredential;
 
 class Firebase {
     private auth: firebase.auth.Auth;
