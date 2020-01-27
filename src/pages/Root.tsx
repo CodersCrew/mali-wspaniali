@@ -1,7 +1,7 @@
-import React from "react";
-import HomePage from "./HomePage";
-import LoginPage from "./LoginPage";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import HomePage from './HomePage';
+import LoginPage from './LoginPage';
 
 const Root = () => {
   return (
