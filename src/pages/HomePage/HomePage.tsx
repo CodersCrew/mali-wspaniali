@@ -1,18 +1,11 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, makeStyles } from '@material-ui/core/';
 
-const useStyles = makeStyles({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-});
-
-const HomePage = (): ReactElement => {
-  const { container } = useStyles();
+export const HomePage = () => {
+  const classes = useStyles();
   return (
-    <Container className={container}>
+    <Container className={classes.container}>
       <Link to="./login">
         <Button variant="contained" color="primary">
           Go to Login Page
@@ -27,4 +20,9 @@ const HomePage = (): ReactElement => {
   );
 };
 
-export default HomePage;
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+});

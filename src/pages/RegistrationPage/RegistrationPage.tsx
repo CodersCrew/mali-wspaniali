@@ -1,42 +1,33 @@
-import React, { useState, ReactElement, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
 import {
-  registerUserType,
+  RegisterUserType,
   registerUser,
 } from '../../actions/registrationActions';
-import RegistrationForm from './RegistrationForm';
-import AlertDialog from './AlertDialog';
+import { RegistrationForm } from './RegistrationForm';
+import { AlertDialog } from './AlertDialog';
 import { RegistrationState } from './types';
 
 type RegistrationPageProps = {
-  registerUser: registerUserType;
+  registerUser: RegisterUserType;
   users: RegistrationState;
 };
 
-const useStyles = makeStyles({
-  container: {
-    marginTop: '100px',
-  },
-  h4: {
-    display: 'flex',
-  },
-});
-
-const RegistrationPage = (props: RegistrationPageProps): ReactElement => {
+const RegistrationPage = (props: RegistrationPageProps) => {
   const [user, setUser] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
-  const [alert, setAlert] = useState(false);
-  const { container, h4 } = useStyles();
-
-  const handleSubmit = (event: FormEvent<HTMLInputElement>): void => {
+  const [isAlert, setAlert] = useState(false);
+  const classes = useStyles();
+  // eslint-disable-next-line consistent-return
+  const handleSubmit = (event: MouseEvent<HTMLElement>): void => {
     event.preventDefault();
     const { email, password } = user;
 
     if (email === '' || password === '') return setAlert(true);
     props.registerUser(user);
-    return setUser({ email: '', password: '' });
+    setUser({ email: '', password: '' });
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -50,8 +41,8 @@ const RegistrationPage = (props: RegistrationPageProps): ReactElement => {
   return (
     <>
       <Link to="/">Wróć do strony głównej</Link>
-      <Container maxWidth="sm" className={container}>
-        <Typography variant="h4" gutterBottom className={h4}>
+      <Container maxWidth="sm" className={classes.container}>
+        <Typography variant="h4" gutterBottom className={classes.h4}>
           Zarejestruj się
         </Typography>
         <RegistrationForm
@@ -60,17 +51,26 @@ const RegistrationPage = (props: RegistrationPageProps): ReactElement => {
           onSubmit={handleSubmit}
           errors={errors}
         />
-        {alert && <AlertDialog open={alert} setAlert={setAlert} />}
+        {isAlert && <AlertDialog isOpen={isAlert} setAlert={setAlert} />}
       </Container>
     </>
   );
 };
 
+const useStyles = makeStyles({
+  container: {
+    marginTop: '100px',
+  },
+  h4: {
+    display: 'flex',
+  },
+});
+
 function mapStateToProps(
-  state: RegistrationState,
+  users: RegistrationState,
 ): Pick<RegistrationPageProps, 'users'> {
   return {
-    users: state,
+    users,
   };
 }
 

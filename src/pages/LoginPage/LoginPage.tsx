@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   return (
     <Link to="/">
       <Button variant="contained" color="primary">
@@ -12,4 +12,3 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;

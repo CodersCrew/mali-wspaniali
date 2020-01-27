@@ -4,7 +4,7 @@ import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import RegistrationPage from "./RegistrationPage";
 
-const Root = () => {
+ export const Root = () => {
   return (
     <Router>
       <div>
@@ -16,4 +16,3 @@ const Root = () => {
   );
 };
 
-export default Root;

@@ -7,7 +7,7 @@ import { RegistrationState } from '../pages/RegistrationPage/types';
 
 const initialState: RegistrationState = [];
 
-export default function registrationReducer(
+export function registrationReducer(
   state = initialState,
   action: RegistrationActions,
 ): RegistrationState {

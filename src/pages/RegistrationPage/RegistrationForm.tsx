@@ -1,22 +1,22 @@
-import React, { ReactElement, FormEventHandler } from 'react';
+import React, { ChangeEvent, MouseEvent } from 'react';
 import { TextField, Button } from '@material-ui/core/';
 import { RegistrationUser } from './types';
 
 type RegistrationFormProps = {
   user: RegistrationUser;
-  onSubmit: FormEventHandler;
-  onChange: FormEventHandler;
+  onSubmit: (event: MouseEvent<HTMLElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
   errors: {
     email?: boolean;
     password?: boolean;
   };
 };
 
-const RegistrationForm = (props: RegistrationFormProps): ReactElement => {
+export const RegistrationForm = (props: RegistrationFormProps) => {
   const { user, onSubmit, onChange, errors } = props;
 
   return (
-    <form className={'registration-form'} autoComplete="off">
+    <form className={"registration-form"} autoComplete="off">
       <TextField
         required
         onChange={onChange}
@@ -46,5 +46,3 @@ const RegistrationForm = (props: RegistrationFormProps): ReactElement => {
     </form>
   );
 };
-
-export default RegistrationForm;
