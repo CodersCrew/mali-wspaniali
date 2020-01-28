@@ -6,6 +6,8 @@ type AlertDialogProps = {
   isOpen: boolean;
 };
 
+const dialogTitle = 'E-mail i hasło są wymagane';
+
 export const AlertDialog = (props: AlertDialogProps) => {
   const { setAlert, isOpen } = props;
 
@@ -15,7 +17,7 @@ export const AlertDialog = (props: AlertDialogProps) => {
 
   return (
     <Dialog open={isOpen} onClose={handleClose}>
-      <DialogTitle>Email and password are required</DialogTitle>
+      <DialogTitle>{dialogTitle}</DialogTitle>
       <DialogActions>
         <Button onClick={handleClose} color="primary" autoFocus>
           OK

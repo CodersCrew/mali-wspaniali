@@ -3,7 +3,7 @@ export type RegistrationUser = {
   password: string;
 };
 
-export type RegistrationState = RegistrationUser[];
+export type RegistrationState = RegistrationUser;
 
 export type AppState = {
   registrationState: RegistrationState;

@@ -16,7 +16,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
   const { user, onSubmit, onChange, errors } = props;
 
   return (
-    <form className={"registration-form"} autoComplete="off">
+    <form className="registration-form" autoComplete="off">
       <TextField
         required
         onChange={onChange}
@@ -31,7 +31,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         onChange={onChange}
         value={user.password}
         id="password"
-        label="Password"
+        label="Hasło"
         error={errors.password}
         fullWidth
       />

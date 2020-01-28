@@ -6,12 +6,12 @@ export const HomePage = () => {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
-      <Link to="./login">
+      <Link to="/login">
         <Button variant="contained" color="primary">
           Go to Login Page
         </Button>
       </Link>
-      <Link to="./register">
+      <Link to="/register">
         <Button variant="contained" color="primary">
           Go to Registration Page
         </Button>

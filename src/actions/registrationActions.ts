@@ -38,14 +38,12 @@ export type RegisterUserType = (
 
 // NOTE: Remove after connecting to the DB 
 // - I added it so I don't have comment out many parts of the code
-function firebaseDoCreateUserWithEmailAndPassword(
+function CreateUserWithEmailAndPassword(
   email: string,
   password: string,
 ): Promise<DummyReturn> {
   return new Promise(resolve => {
-    resolve({
-      errors: false,
-    });
+    resolve({ errors: false });
   });
 }
 
@@ -57,7 +55,7 @@ export const registerUser = (
   user: RegistrationUser,
 ): ThunkResult<RegistrationState, RegistrationActions> => {
   return function(dispatch: Dispatch): Promise<void> {
-    return firebaseDoCreateUserWithEmailAndPassword(user.email, user.password)
+    return CreateUserWithEmailAndPassword(user.email, user.password)
       .then(response => {
         if (!response.errors) {
           dispatch(registerUserSuccess(user));

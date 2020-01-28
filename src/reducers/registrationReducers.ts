@@ -5,15 +5,15 @@ import {
 } from '../actions/registrationActions';
 import { RegistrationState } from '../pages/RegistrationPage/types';
 
-const initialState: RegistrationState = [];
+const initialState: RegistrationState = {email: '', password: ''};
 
-export function registrationReducer(
+export function userReducer(
   state = initialState,
   action: RegistrationActions,
 ): RegistrationState {
   switch (action.type) {
     case REGISTER_USER_SUCCESS:
-      return [...state, action.userData];
+      return action.userData;
     case REGISTER_USER_FAILURE:
       console.log('error');
       return state;
