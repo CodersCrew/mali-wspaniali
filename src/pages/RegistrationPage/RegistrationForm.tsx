@@ -1,5 +1,5 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
-import { TextField, Button } from '@material-ui/core/';
+import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { RegistrationUser } from './types';
 
 type RegistrationFormProps = {
@@ -14,6 +14,7 @@ type RegistrationFormProps = {
 
 export const RegistrationForm = (props: RegistrationFormProps) => {
   const { user, onSubmit, onChange, errors } = props;
+  const classes = useStyles();
 
   return (
     <form className="registration-form" autoComplete="off">
@@ -39,10 +40,17 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         onClick={onSubmit}
         variant="contained"
         color="primary"
-        style={{ marginTop: '20px', float: 'right' }}
+        className={classes.button}
       >
         Wyślij
       </Button>
     </form>
   );
 };
+
+const useStyles = makeStyles({
+  button: {
+    marginTop: '20px',
+    float: 'right',
+  },
+});
