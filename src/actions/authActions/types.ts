@@ -1,4 +1,5 @@
 export interface loginActionTypes {
-  isAuthenticated: boolean | null;
-  uuid: string | null;
+  email: String | null;
+  password: String | null;
+  isAuthenticated: boolean;
 }

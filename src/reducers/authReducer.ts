@@ -1,4 +1,3 @@
-import { IAuthenticate, IUnauthenticate } from '../../src/actions/authActions';
 import {
   AUTHENTICATE,
   UNAUTHENTICATE,
@@ -7,20 +6,21 @@ import { loginActionTypes } from '../../src/actions/authActions/types';
 
 export default function authReducer(
   state: loginActionTypes = {
-    uuid: null,
-    isAuthenticated: null,
+    email: null,
+    password: null,
+    isAuthenticated: false,
   },
-  action: IAuthenticate | IUnauthenticate,
+  action: any,
 ): loginActionTypes {
   switch (action.type) {
     case AUTHENTICATE:
       return {
-        ...state,
-        uuid: 'placeholder-uuid',
         isAuthenticated: true,
+        email: action.email,
+        password: action.password,
       };
     case UNAUTHENTICATE:
-      return { uuid: null, isAuthenticated: false };
+      return { ...state, isAuthenticated: false };
   }
   return state;
 }

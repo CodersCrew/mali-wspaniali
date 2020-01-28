@@ -1,6 +1,4 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core/';
 import { authenticate } from '../../actions/authActions';
 import { connect } from 'react-redux';
@@ -12,34 +10,37 @@ const Container = styled.div`
   align-items: center;
 `;
 
-interface LoginPageTypes {
-  authenticate: () => void;
-}
+const LoginPage = ({ authenticate }: any) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-const LoginPage = ({ authenticate }: LoginPageTypes) => {
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    setEmail('');
+    setPassword('');
+    authenticate({ email, password });
+  };
+
   return (
     <Container>
-      <form autoComplete="off">
+      <form onSubmit={e => onSubmit(e)} autoComplete="off">
         <TextField
           required
-          // onChange={onChange}
-          // value={user.email}
+          onChange={e => setEmail(e.target.value)}
+          value={email}
           id="email"
           label="E-mail"
-          // error={errors.email}
-          fullWidth
         />
         <TextField
           required
-          // onChange={onChange}
-          // value={user.password}
+          onChange={e => setPassword(e.target.value)}
+          value={password}
           id="password"
           label="Password"
-          // error={errors.password}`
-          fullWidth
+          type="password"
         />
         <Button
-          // onClick={onSubmit}
+          type="submit"
           variant="contained"
           color="primary"
           style={{ marginTop: '20px', float: 'right' }}
@@ -51,8 +52,7 @@ const LoginPage = ({ authenticate }: LoginPageTypes) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(authenticate, dispatch);
+const mapDispatchToProps = { authenticate };
 
 export default connect(
   null,
