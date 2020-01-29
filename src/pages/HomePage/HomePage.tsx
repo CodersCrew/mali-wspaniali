@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
-import i18next from "i18next";n, Container, makeStyles } from '@material-ui/core/';
+import i18next from "i18next";
 import { Button, Container, makeStyles } from '@material-ui/core/';
 
 export const HomePage = () => {
@@ -14,7 +14,7 @@ export const HomePage = () => {
       </Link>
       <Link to="/register">
         <Button variant="contained" color="primary">
-          Go to Registration Page
+            {i18next.t('registrationPage')}
         </Button>
       </Link>
     </Container>

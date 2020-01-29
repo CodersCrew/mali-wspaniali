@@ -1,15 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
 import i18next from "i18next";
+import {Button, Container, makeStyles} from '@material-ui/core/';
 
 export const LoginPage = () => {
-  return (
-    <Link to="/">
-      <Button variant="contained" color="primary">
-          {i18next.t('homePage')}
-      </Button>
-    </Link>
-  );
+    const classes = useStyles();
+    return (
+        <Container className={classes.container}>
+            <Link to="/login">
+                <Button variant="contained" color="primary">
+                    {i18next.t('loginPage')}
+                </Button>
+            </Link>
+            <Link to="/register">
+                <Button variant="contained" color="primary">
+                    {i18next.t('registrationPage')}
+                </Button>
+            </Link>
+        </Container>
+    );
 };
 
+const useStyles = makeStyles({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+});
