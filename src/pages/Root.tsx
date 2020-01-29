@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 
-
 function Page() {
 
     const { t, i18n } = useTranslation();
@@ -44,6 +43,5 @@ const Root = () => {
 
     );
 };
-
 
 export default Root;
