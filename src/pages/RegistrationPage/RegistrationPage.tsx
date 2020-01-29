@@ -41,10 +41,10 @@ const RegistrationPage = (props: RegistrationPageProps) => {
 
   return (
     <>
-      <Link to="/">Wróć do strony głównej</Link>
+      <Link to="/">{i18next.t('homePage')}</Link>
       <Container maxWidth="sm" className={classes.container}>
         <Typography variant="h4" gutterBottom className={classes.h4}>
-          {i18next.t('registrationPage')}
+          {i18next.t('register')}
         </Typography>
         <RegistrationForm
           user={user}

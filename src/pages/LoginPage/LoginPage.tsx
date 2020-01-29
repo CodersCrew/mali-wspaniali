@@ -14,7 +14,7 @@ export const LoginPage = () => {
             </Link>
             <Link to="/register">
                 <Button variant="contained" color="primary">
-                    {i18next.t('registrationPage')}
+                    {i18next.t('register')}
                 </Button>
             </Link>
         </Container>

@@ -3,6 +3,7 @@ import { useTranslation, withTranslation, Trans } from 'react-i18next';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
+import RegistrationPage from "./RegistrationPage/RegistrationPage";
 
 function Page() {
 
@@ -14,6 +15,7 @@ function Page() {
     return (
         <div className="App">
             <div className="App-header">
+                <button onClick={() => changeLanguage('pl')}>pl</button>
                 <button onClick={() => changeLanguage('de')}>de</button>
                 <button onClick={() => changeLanguage('en')}>en</button>
             </div>
@@ -29,6 +31,8 @@ const Loader = () => (
 
 const homePage = withTranslation()(HomePage);
 const loginPage = withTranslation()(LoginPage);
+const registrationPage = withTranslation()(RegistrationPage);
+
 const Root = () => {
     return (
         <Suspense fallback={<Loader />}>
@@ -37,6 +41,7 @@ const Root = () => {
                 <div>
                     <Route exact path="/" component={homePage} />
                     <Route path="/login" component={loginPage} />
+                    <Route path="/register" component={registrationPage} />
                 </div>
             </Router>
         </Suspense>
