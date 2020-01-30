@@ -1,13 +1,14 @@
-import React, { Component, Suspense } from 'react';
-import { useTranslation, withTranslation, Trans } from 'react-i18next';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, {Component, Suspense} from 'react';
+import {useTranslation, withTranslation, Trans} from 'react-i18next';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import {Button, makeStyles} from '@material-ui/core/';
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import RegistrationPage from "./RegistrationPage/RegistrationPage";
 
 function Page() {
 
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const changeLanguage = (lng: string) => {
         return i18n.changeLanguage(lng);
     };
@@ -15,9 +16,16 @@ function Page() {
     return (
         <div className="App">
             <div className="App-header">
-                <button onClick={() => changeLanguage('pl')}>pl</button>
-                <button onClick={() => changeLanguage('de')}>de</button>
-                <button onClick={() => changeLanguage('en')}>en</button>
+                <Button
+                    onClick={() => changeLanguage('pl')}
+                    variant="contained">pl
+                </Button>
+                <Button onClick={() => changeLanguage('de')}
+                        variant="contained">de
+                </Button>
+                <Button onClick={() => changeLanguage('en')}
+                        variant="contained"
+                        color="default">en</Button>
             </div>
         </div>
     );
@@ -35,18 +43,19 @@ const registrationPage = withTranslation()(RegistrationPage);
 
 const Root = () => {
     return (
-        <Suspense fallback={<Loader />}>
-           < Page/>
+        <Suspense fallback={<Loader/>}>
+            < Page/>
             <Router>
                 <div>
-                    <Route exact path="/" component={homePage} />
-                    <Route path="/login" component={loginPage} />
-                    <Route path="/register" component={registrationPage} />
+                    <Route exact path="/" component={homePage}/>
+                    <Route path="/login" component={loginPage}/>
+                    <Route path="/register" component={registrationPage}/>
                 </div>
             </Router>
         </Suspense>
 
     );
 };
+
 
 export default Root;
