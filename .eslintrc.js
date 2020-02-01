@@ -20,6 +20,8 @@ module.exports = {
       { devDependencies: true },
     ],
     'no-useless-constructor': 'off',
+    'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
     'import/extensions': [
       'error',
