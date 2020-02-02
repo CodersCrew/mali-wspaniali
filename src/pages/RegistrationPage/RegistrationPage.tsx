@@ -1,58 +1,45 @@
-import React, { useState, ChangeEvent, MouseEvent } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
 import {
-  RegisterUserType,
   registerUser,
+  RegisterUserType,
 } from '../../actions/registrationActions';
 import { RegistrationForm } from './RegistrationForm';
-import { AlertDialog } from './AlertDialog';
-import { RegistrationState } from './types';
+import { Loader } from '../../components/Loader';
+import { RegistrationState, RegistrationUser } from './types';
 
 type RegistrationPageProps = {
-  registerUser: RegisterUserType;
-  users: RegistrationState;
+  registerUser: RegisterUserType,
+  user: RegistrationUser,
+  loading: boolean,
 };
 
+
 const RegistrationPage = (props: RegistrationPageProps) => {
-  const [user, setUser] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
-  const [isAlert, setAlert] = useState(false);
   const classes = useStyles();
-  // eslint-disable-next-line consistent-return
-  const handleSubmit = (event: MouseEvent<HTMLElement>): void => {
-    event.preventDefault();
-    const { email, password } = user;
-
-    if (email === '' || password === '') return setAlert(true);
-    props.registerUser(user);
-    setUser({ email: '', password: '' });
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const { id, value } = event.target;
-    setUser(prevUser => ({
-      ...prevUser,
-      [id]: value,
-    }));
-  };
-
+  const { loading } = props;
+  console.log(loading)
+  
   return (
     <>
-      <Link to="/">Wróć do strony głównej</Link>
-      <Container maxWidth="sm" className={classes.container}>
-        <Typography variant="h4" gutterBottom className={classes.h4}>
-          Zarejestruj się
-        </Typography>
-        <RegistrationForm
-          user={user}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-          errors={errors}
-        />
-        {isAlert && <AlertDialog isOpen={isAlert} setAlert={setAlert} />}
-      </Container>
+      {loading ? <Loader /> : (
+        <>
+          <Link to="/">Wróć do strony głównej</Link>
+          <Container maxWidth="sm" className={classes.container}>
+            <Typography variant="h4" gutterBottom className={classes.h4}>
+              Zarejestruj się
+            </Typography>
+            <RegistrationForm
+              registerUser={props.registerUser}
+            />
+            <p>
+              Masz już konto? <Link to="login">Zaloguj się</Link>
+            </p>
+          </Container>
+        </>
+      )}
     </>
   );
 };
@@ -67,10 +54,11 @@ const useStyles = makeStyles({
 });
 
 function mapStateToProps(
-  users: RegistrationState,
-): Pick<RegistrationPageProps, 'users'> {
+  state: RegistrationState,
+): Pick<RegistrationPageProps, 'user' & 'loading'> {
   return {
-    users,
+    user: state.user,
+    loading: state.apiCallsInProgress > 0,
   };
 }
 

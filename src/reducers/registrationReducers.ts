@@ -3,17 +3,20 @@ import {
   REGISTER_USER_FAILURE,
   RegistrationActions,
 } from '../actions/registrationActions';
-import { RegistrationState } from '../pages/RegistrationPage/types';
-
-const initialState: RegistrationState = {email: '', password: ''};
+import { RegistrationUser } from '../pages/RegistrationPage/types';
+import { initialState } from './initialState';
 
 export function userReducer(
-  state = initialState,
+  state = initialState.user,
   action: RegistrationActions,
-): RegistrationState {
+): RegistrationUser {
   switch (action.type) {
     case REGISTER_USER_SUCCESS:
-      return action.userData;
+      return {
+        ...state,
+        email: action.userData.email,
+        password: action.userData.password,
+      }
     case REGISTER_USER_FAILURE:
       console.log('error');
       return state;

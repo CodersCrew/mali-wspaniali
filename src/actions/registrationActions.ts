@@ -4,6 +4,7 @@ import {
   RegistrationUser,
   RegistrationState,
 } from '../pages/RegistrationPage/types';
+import { beginApiCall } from './apiStatusActions';
 
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
@@ -42,11 +43,13 @@ function CreateUserWithEmailAndPassword(
   email: string,
   password: string,
 ): Promise<DummyReturn> {
-  return new Promise(resolve => {
-    resolve({ errors: false });
+  return new Promise((resolve, reject) => {
+    setTimeout(function(){
+      resolve({ errors: false });
+    }, 3000);
   });
 }
-
+ 
 type DummyReturn = {
   errors: boolean;
 };
@@ -55,6 +58,8 @@ export const registerUser = (
   user: RegistrationUser,
 ): ThunkResult<RegistrationState, RegistrationActions> => {
   return function(dispatch: Dispatch): Promise<void> {
+    console.log(user)
+    dispatch(beginApiCall());
     return CreateUserWithEmailAndPassword(user.email, user.password)
       .then(response => {
         if (!response.errors) {

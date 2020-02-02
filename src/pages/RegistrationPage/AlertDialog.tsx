@@ -6,7 +6,7 @@ type AlertDialogProps = {
   isOpen: boolean;
 };
 
-const dialogTitle = 'E-mail i hasło są wymagane';
+const dialogTitle = 'Podane hasła nie są takie same';
 
 export const AlertDialog = (props: AlertDialogProps) => {
   const { setAlert, isOpen } = props;
