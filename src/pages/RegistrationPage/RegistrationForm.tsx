@@ -1,5 +1,6 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
-import { TextField, Button, makeStyles } from '@material-ui/core/';
+import {TextField, Button, makeStyles } from '@material-ui/core/';
+import i18next from "i18next";
 import { RegistrationUser } from './types';
 
 type RegistrationFormProps = {
@@ -32,7 +33,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         onChange={onChange}
         value={user.password}
         id="password"
-        label="Hasło"
+        label= {i18next.t('password')}
         error={errors.password}
         fullWidth
       />
@@ -42,7 +43,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         color="primary"
         className={classes.button}
       >
-        Wyślij
+          {i18next.t('send')}
       </Button>
     </form>
   );
