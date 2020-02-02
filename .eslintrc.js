@@ -7,16 +7,18 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'prettier/@typescript-eslint',
+    "plugin:react/recommended"
   ],
   root: true,
   env: {
     node: true,
     jest: true,
+    browser: true,
   },
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['**/*spec.ts'] },
+      { devDependencies: true },
     ],
     'no-useless-constructor': 'off',
     'import/prefer-default-export': 'off',
@@ -33,5 +35,9 @@ module.exports = {
       },
     ],
     "i18next/no-literal-string": 2
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "semi": ["warn", "always"],
+    "quotes": ["warn", "single", "avoid-escape"],
   },
 };
