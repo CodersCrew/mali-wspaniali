@@ -4,8 +4,8 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import RegistrationPage from "./RegistrationPage"
-import Loader from "../internationalization/utils/Loader";
-import Page from "../internationalization/utils/ChangeLanguage";
+import Loader from "../components/Loader";
+import Page from "../components/ChangeLanguage";
 
 const homePage = withTranslation()(HomePage);
 const loginPage = withTranslation()(LoginPage);
