@@ -1,5 +1,5 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
-import {Typography, TextField, Button, makeStyles } from '@material-ui/core/';
+import {TextField, Button, makeStyles } from '@material-ui/core/';
 import i18next from "i18next";
 import { RegistrationUser } from './types';
 

@@ -1,41 +1,11 @@
-import React, {Component, Suspense} from 'react';
-import {useTranslation, withTranslation, Trans} from 'react-i18next';
+import React, {Suspense} from 'react';
+import {withTranslation} from 'react-i18next';
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import {Button, makeStyles} from '@material-ui/core/';
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
-import RegistrationPage from "./RegistrationPage/RegistrationPage";
-
-function Page() {
-
-    const {t, i18n} = useTranslation();
-    const changeLanguage = (lng: string) => {
-        return i18n.changeLanguage(lng);
-    };
-
-    return (
-        <div className="App">
-            <div className="App-header">
-                <Button
-                    onClick={() => changeLanguage('pl')}
-                    variant="contained">pl
-                </Button>
-                <Button onClick={() => changeLanguage('de')}
-                        variant="contained">de
-                </Button>
-                <Button onClick={() => changeLanguage('en')}
-                        variant="contained"
-                        color="default">en</Button>
-            </div>
-        </div>
-    );
-}
-
-const Loader = () => (
-    <div className="App">
-        <div>loading...</div>
-    </div>
-);
+import RegistrationPage from "./RegistrationPage"
+import Loader from "../internationalization/utils/Loader";
+import Page from "../internationalization/utils/ChangeLanguage";
 
 const homePage = withTranslation()(HomePage);
 const loginPage = withTranslation()(LoginPage);
@@ -56,6 +26,5 @@ const Root = () => {
 
     );
 };
-
 
 export default Root;

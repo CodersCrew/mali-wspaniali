@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import i18next from "i18next";
 import { Button, Container, makeStyles } from '@material-ui/core/';
