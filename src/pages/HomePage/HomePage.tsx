@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {Link} from "react-router-dom";
+import i18next from "i18next";
 import { Button, Container, makeStyles } from '@material-ui/core/';
 
 export const HomePage = () => {
@@ -8,12 +9,12 @@ export const HomePage = () => {
     <Container className={classes.container}>
       <Link to="/login">
         <Button variant="contained" color="primary">
-          Go to Login Page
+            {i18next.t('loginPage')}
         </Button>
       </Link>
       <Link to="/register">
         <Button variant="contained" color="primary">
-          Go to Registration Page
+            {i18next.t('registrationPage')}
         </Button>
       </Link>
     </Container>

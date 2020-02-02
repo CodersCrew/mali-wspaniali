@@ -1,4 +1,5 @@
 module.exports = {
+  plugins: ['i18next'],
   parser: '@typescript-eslint/parser',
   extends: [
     'airbnb-base',
@@ -33,6 +34,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    "i18next/no-literal-string": 2
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "semi": ["warn", "always"],

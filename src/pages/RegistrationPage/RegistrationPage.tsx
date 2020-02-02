@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
+import i18next from "i18next";
 import {
   RegisterUserType,
   registerUser,
@@ -40,10 +41,10 @@ const RegistrationPage = (props: RegistrationPageProps) => {
 
   return (
     <>
-      <Link to="/">Wróć do strony głównej</Link>
+      <Link to="/">{i18next.t('homePage')}</Link>
       <Container maxWidth="sm" className={classes.container}>
         <Typography variant="h4" gutterBottom className={classes.h4}>
-          Zarejestruj się
+          {i18next.t('register')}
         </Typography>
         <RegistrationForm
           user={user}
