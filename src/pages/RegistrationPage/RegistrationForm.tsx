@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { AlertDialog } from './AlertDialog';
 import { RegisterUserType } from '../../actions/registrationActions';
-
+import i18next from "i18next";
 
 type RegistrationFormProps = {
   registerUser: RegisterUserType;
@@ -62,7 +62,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         value={password}
         id="password"
         type="password"
-        label="Podaj Hasło"
+        label= {i18next.t('password')}
         // error={errors.password}
         fullWidth
       />
@@ -72,7 +72,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         value={passwordConfirm}
         id="passwordConfirm"
         type="password"
-        label="Powtórz Hasło"
+        label= {i18next.t('password')}
         // error={errors.password}
         fullWidth
       />
@@ -82,7 +82,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         color="primary"
         className={classes.button}
       >
-        Wyślij
+          {i18next.t('send')}
       </Button>
       {isAlert && <AlertDialog isOpen={isAlert} setAlert={setAlert} />}
     </form>

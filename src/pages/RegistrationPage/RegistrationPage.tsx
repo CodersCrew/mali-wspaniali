@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
+import i18next from "i18next";
 import {
   registerUser,
   RegisterUserType,
 } from '../../actions/registrationActions';
 import { RegistrationForm } from './RegistrationForm';
-import { Loader } from '../../components/Loader';
+import Loader from '../../components/Loader';
 import { RegistrationState, RegistrationUser } from './types';
 
 type RegistrationPageProps = {
@@ -26,10 +27,10 @@ const RegistrationPage = (props: RegistrationPageProps) => {
     <>
       {loading ? <Loader /> : (
         <>
-          <Link to="/">Wróć do strony głównej</Link>
+          <Link to="/">{i18next.t('homePage')}</Link>
           <Container maxWidth="sm" className={classes.container}>
             <Typography variant="h4" gutterBottom className={classes.h4}>
-              Zarejestruj się
+              {i18next.t('register')}
             </Typography>
             <RegistrationForm
               registerUser={props.registerUser}
