@@ -1,9 +1,11 @@
 import { Action, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { User, UserInfo } from '@firebase/auth-types';
 import {
   RegistrationUser,
   RegistrationState,
 } from '../pages/RegistrationPage/types';
+import { firebase } from '../firebase/Firebase';
 import { beginApiCall } from './apiStatusActions';
 
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -11,7 +13,7 @@ export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
 
 interface RegisterUserSuccessAction extends Action<'REGISTER_USER_SUCCESS'> {
   type: 'REGISTER_USER_SUCCESS';
-  userData: RegistrationUser;
+  userData: Pick<UserInfo, 'email'>
 }
 
 interface RegisterUserFailureAction extends Action<'REGISTER_USER_FAILURE'> {
@@ -23,7 +25,7 @@ export type RegistrationActions =
   | RegisterUserFailureAction;
 
 export function registerUserSuccess(
-  userData: RegistrationUser,
+  userData: Pick<UserInfo, 'email'>
 ): RegisterUserSuccessAction {
   return { type: REGISTER_USER_SUCCESS, userData };
 }
@@ -39,38 +41,61 @@ export type RegisterUserType = (
 
 // NOTE: Remove after connecting to the DB 
 // - I added it so I don't have comment out many parts of the code
-function CreateUserWithEmailAndPassword(
-  email: string,
-  password: string,
-): Promise<DummyReturn> {
-  return new Promise((resolve, reject) => {
-    setTimeout(function(){
-      resolve({ errors: false });
-    }, 3000);
-  });
-}
+// function CreateUserWithEmailAndPassword(
+//   email: string,
+//   password: string,
+// ): Promise<DummyReturn> {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(function(){
+//       reject();
+//     }, 3000);
+//   });
+// }
  
-type DummyReturn = {
-  errors: boolean;
-};
+// type DummyReturn = {
+//   errors: boolean;
+// };
+
+// export const registerUser = (
+//   user: RegistrationUser,
+// ): ThunkResult<RegistrationState, RegistrationActions> => {
+//   return function(dispatch: Dispatch): Promise<void> {
+    
+//     return CreateUserWithEmailAndPassword(user.email, user.password)
+//       .then(response => {
+//         if (!response.errors) {
+//           dispatch(registerUserSuccess(user));
+//           return;
+//         }
+//         console.log(response.errors);
+//         dispatch(registerUserFailure());
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   };
+// };
+
 
 export const registerUser = (
   user: RegistrationUser,
 ): ThunkResult<RegistrationState, RegistrationActions> => {
-  return function(dispatch: Dispatch): Promise<void> {
-    console.log(user)
+  return async (dispatch: Dispatch): Promise<void> => {
     dispatch(beginApiCall());
-    return CreateUserWithEmailAndPassword(user.email, user.password)
-      .then(response => {
-        if (!response.errors) {
-          dispatch(registerUserSuccess(user));
-          return;
+    try {
+        const userData = await firebase.auth.handleCreateUserWithEmailAndPassword(
+          user.email,
+          user.password,
+        );
+        if (userData.user) {
+          dispatch(registerUserSuccess({
+              email: userData.user.email
+          }));
+        } else {
+          dispatch(registerUserFailure());
         }
-        console.log(response.errors);
+    } catch (error) {
         dispatch(registerUserFailure());
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    }
   };
 };

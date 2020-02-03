@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
+import { useHistory } from 'react-router-dom';
 import { AlertDialog } from './AlertDialog';
 import { RegisterUserType } from '../../actions/registrationActions';
 import i18next from "i18next";
@@ -7,6 +8,10 @@ import i18next from "i18next";
 type RegistrationFormProps = {
   registerUser: RegisterUserType;
 };
+
+type RegistrationError = {
+  message: string
+}
 
 const initialState = {
   email: '',
@@ -18,8 +23,12 @@ const initialState = {
 export const RegistrationForm = (props: RegistrationFormProps) => {
   const [form, setForm] = useState({ ...initialState });
   const [isAlert, setAlert] = useState(false);
-  const { email, password, passwordConfirm, error } = form;
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState({message: ''});
+
+  const { email, password, passwordConfirm} = form;
   const classes = useStyles();
+  const history = useHistory();
 
   // eslint-disable-next-line consistent-return
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
@@ -28,8 +37,16 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
     if (password !== passwordConfirm) return setAlert(true);
 
     const user = { email, password };
-    props.registerUser(user);
     setForm({ ...initialState });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    props.registerUser(user).then(() => {
+      history.push('/login');
+    // eslint-disable-next-line no-shadow
+    }).catch((error: RegistrationError) => {
+        setIsError(true);
+        setError( error );
+      });
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -85,6 +102,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
           {i18next.t('send')}
       </Button>
       {isAlert && <AlertDialog isOpen={isAlert} setAlert={setAlert} />}
+      {isError && <p>{error.message}</p>}
     </form>
   );
 };

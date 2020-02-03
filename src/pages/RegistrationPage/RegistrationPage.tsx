@@ -21,7 +21,6 @@ type RegistrationPageProps = {
 const RegistrationPage = (props: RegistrationPageProps) => {
   const classes = useStyles();
   const { loading } = props;
-  console.log(loading)
   
   return (
     <>
