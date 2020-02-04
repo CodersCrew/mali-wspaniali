@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
+import i18next from 'i18next';
 import { AlertDialog } from './AlertDialog';
 import { RegisterUserType } from '../../actions/registrationActions';
-import i18next from "i18next";
 
 type RegistrationFormProps = {
   registerUser: RegisterUserType;
@@ -38,14 +38,11 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
 
     const user = { email, password };
     setForm({ ...initialState });
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
     props.registerUser(user).then(() => {
-      history.push('/login');
-    // eslint-disable-next-line no-shadow
-    }).catch((error: RegistrationError) => {
+        history.push('/login');
+      }).catch((err: RegistrationError) => {
         setIsError(true);
-        setError( error );
+        setError( err );
       });
   };
 

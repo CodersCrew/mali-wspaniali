@@ -1,9 +1,9 @@
+import { UserInfo } from '@firebase/auth-types';
 import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE,
   RegistrationActions,
 } from '../actions/registrationActions';
-import { UserInfo } from '@firebase/auth-types';
 import { initialState } from './initialState';
 
 export function userReducer(

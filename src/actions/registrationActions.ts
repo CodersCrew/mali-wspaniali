@@ -1,6 +1,6 @@
 import { Action, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { User, UserInfo } from '@firebase/auth-types';
+import { UserInfo } from '@firebase/auth-types';
 import {
   RegistrationUser,
   RegistrationState,
@@ -35,9 +35,10 @@ export function registerUserFailure(): RegisterUserFailureAction {
 }
 
 type ThunkResult<S, A> = ThunkAction<void, S, null, Action<A>> | void;
-export type RegisterUserType = (
-  user: RegistrationUser,
-) => ThunkResult<RegistrationState, RegistrationActions>;
+export type RegisterUserType = (user: RegistrationUser) => Promise<void> 
+// export type RegisterUserType = (
+//   user: RegistrationUser,
+// ) => ThunkResult<RegistrationState, RegistrationActions>;
 
 // NOTE: Remove after connecting to the DB 
 // - I added it so I don't have comment out many parts of the code

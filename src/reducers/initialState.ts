@@ -1,7 +1,6 @@
 export const initialState = {
     user: {
-        email: '',
-        password: ''
+        email: ''
     },
     apiCallsInProgress: 0,
 };

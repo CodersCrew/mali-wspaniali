@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
 import i18next from "i18next";
@@ -62,11 +63,15 @@ function mapStateToProps(
   };
 }
 
-const mapDispatchToProps = {
-  registerUser,
-};
+// const mapDispatchToProps = {
+//   registerUser,
+// };
 
-export default connect(
+const mapDispatchToProps = (dispatch: any) => ({
+  registerUser: (user: RegistrationUser) => dispatch(registerUser(user)),
+});
+
+export default connect (
   mapStateToProps,
   mapDispatchToProps,
-)(RegistrationPage);
+) (RegistrationPage);

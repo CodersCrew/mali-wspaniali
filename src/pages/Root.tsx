@@ -9,21 +9,20 @@ import Page from "../components/ChangeLanguage";
 
 const homePage = withTranslation()(HomePage);
 const loginPage = withTranslation()(LoginPage);
-const registrationPage = withTranslation()(RegistrationPage);
+// const registrationPage = withTranslation()(RegistrationPage);
 
 const Root = () => {
     return (
-        <Suspense fallback={<Loader/>}>
-            < Page/>
-            <Router>
-                <div>
-                    <Route exact path="/" component={homePage}/>
-                    <Route path="/login" component={loginPage}/>
-                    <Route path="/register" component={registrationPage}/>
-                </div>
-            </Router>
-        </Suspense>
-
+      <Suspense fallback={<Loader />}>
+        <Page />
+        <Router>
+          <div>
+            <Route exact path="/" component={homePage} />
+            <Route path="/login" component={loginPage} />
+            <Route path="/register" component={RegistrationPage} />
+          </div>
+        </Router>
+      </Suspense>
     );
 };
 
