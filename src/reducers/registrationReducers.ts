@@ -14,9 +14,8 @@ export function userReducer(
     case REGISTER_USER_SUCCESS:
       return {
         email: action.userData.email,
-      }
+      };
     case REGISTER_USER_FAILURE:
-      console.log('error');
       return state;
     default:
       return state;

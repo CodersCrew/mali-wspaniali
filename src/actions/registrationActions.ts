@@ -81,22 +81,41 @@ export type RegisterUserType = (user: RegistrationUser) => Promise<void>
 export const registerUser = (
   user: RegistrationUser,
 ): ThunkResult<RegistrationState, RegistrationActions> => {
-  return async (dispatch: Dispatch): Promise<void> => {
-    dispatch(beginApiCall());
-    try {
-        const userData = await firebase.auth.handleCreateUserWithEmailAndPassword(
-          user.email,
-          user.password,
-        );
-        if (userData.user) {
-          dispatch(registerUserSuccess({
-              email: userData.user.email
-          }));
-        } else {
-          dispatch(registerUserFailure());
-        }
-    } catch (error) {
+  return (dispatch: Dispatch): Promise<void> => {
+    return firebase.auth.handleCreateUserWithEmailAndPassword(
+      user.email,
+      user.password,
+    ).then((userData) => {
+      if (userData.user) {
+        dispatch(registerUserSuccess({
+            email: userData.user.email
+        }));
+      } else {
         dispatch(registerUserFailure());
-    }
-  };
+        throw new Error('Something went wrong');
+      }
+    }).catch((error) => {
+      dispatch(registerUserFailure());
+      throw new Error(error.message);
+    });
+  }
+
+  // return async (dispatch: Dispatch): Promise<void> => {
+  //   dispatch(beginApiCall());
+  //   try {
+  //       const userData = await firebase.auth.handleCreateUserWithEmailAndPassword(
+  //         user.email,
+  //         user.password,
+  //       );
+  //       if (userData.user) {
+  //         dispatch(registerUserSuccess({
+  //             email: userData.user.email
+  //         }));
+  //       } else {
+  //         dispatch(registerUserFailure('Something went wrong'));
+  //       }
+  //   } catch (error) {
+  //       dispatch(registerUserFailure(error.message));
+  //   }
+  // };
 };

@@ -9,23 +9,16 @@ type RegistrationFormProps = {
   registerUser: RegisterUserType;
 };
 
-type RegistrationError = {
-  message: string
-}
-
 const initialState = {
   email: '',
   password: '',
   passwordConfirm: '',
-  error: null,
 };
 
 export const RegistrationForm = (props: RegistrationFormProps) => {
   const [form, setForm] = useState({ ...initialState });
   const [isAlert, setAlert] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [error, setError] = useState({message: ''});
-
+  const [alertMessage, setAlertMessage] = useState('');
   const { email, password, passwordConfirm} = form;
   const classes = useStyles();
   const history = useHistory();
@@ -34,15 +27,19 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (password !== passwordConfirm) return setAlert(true);
+    if (password !== passwordConfirm) {
+      setAlertMessage('Podane hasła nie są takie same');
+      return setAlert(true);
+    }
 
     const user = { email, password };
-    setForm({ ...initialState });
+    
     props.registerUser(user).then(() => {
+        setForm({ ...initialState });
         history.push('/login');
-      }).catch((err: RegistrationError) => {
-        setIsError(true);
-        setError( err );
+      }).catch((err) => {
+        setAlertMessage(err.message);
+        setAlert(true);
       });
   };
 
@@ -67,7 +64,6 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         id="email"
         type="email"
         label="E-mail"
-        // error={errors.email}
         fullWidth
       />
       <TextField
@@ -76,8 +72,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         value={password}
         id="password"
         type="password"
-        label= {i18next.t('password')}
-        // error={errors.password}
+        label={i18next.t('password')}
         fullWidth
       />
       <TextField
@@ -86,8 +81,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         value={passwordConfirm}
         id="passwordConfirm"
         type="password"
-        label= {i18next.t('password')}
-        // error={errors.password}
+        label={i18next.t('password')}
         fullWidth
       />
       <Button
@@ -96,10 +90,15 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         color="primary"
         className={classes.button}
       >
-          {i18next.t('send')}
+        {i18next.t('send')}
       </Button>
-      {isAlert && <AlertDialog isOpen={isAlert} setAlert={setAlert} />}
-      {isError && <p>{error.message}</p>}
+      {isAlert && (
+        <AlertDialog
+          isOpen={isAlert}
+          setAlert={setAlert}
+          message={alertMessage}
+        />
+      )}
     </form>
   );
 };
