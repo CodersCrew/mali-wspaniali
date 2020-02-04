@@ -1,9 +1,7 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/auth';
 
-const auth = firebaseApp.auth();
-
-export const authRepository = {
+export const authRepository = (auth: firebaseApp.auth.Auth) => ({
     handleCreateUserWithEmailAndPassword: (email: string, password: string) => auth.createUserWithEmailAndPassword(email, password),
     handleSignInWithEmailAndPassword: (email: string, password: string) => auth.signInWithEmailAndPassword(email, password),
     handleSignOut: () => auth.signOut(),
@@ -14,4 +12,4 @@ export const authRepository = {
         }
     },
     onAuthStateChanged: (onAuthStateChangedFunction: (user: firebaseApp.User | null) => void) => auth.onAuthStateChanged(onAuthStateChangedFunction),
-};
+});
