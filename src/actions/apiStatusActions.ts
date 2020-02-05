@@ -8,4 +8,4 @@ export interface BeginApiCallAction extends Action<'BEGIN_API_CALL'> {
 
 export function beginApiCall() {
     return { type: BEGIN_API_CALL };
-}
+} 
