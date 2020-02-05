@@ -28,7 +28,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
     event.preventDefault();
 
     if (password !== passwordConfirm) {
-      setAlertMessage('Podane hasła nie są takie same');
+      setAlertMessage(i18next.t('passwordMismatch'));
       return setAlert(true);
     }
 

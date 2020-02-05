@@ -5,6 +5,8 @@
   "register": "Register",
   "eMail": "E-Mail-Adresse",
   "password": "Password",
-  "send": "send"
-
+  "send": "send",
+  "alreadyHaveAccount": "Already have an account?",
+  "login": "Login",
+  "passwordMismatch": "Passowrds do not match"
 }

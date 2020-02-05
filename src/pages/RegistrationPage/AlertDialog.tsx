@@ -14,7 +14,6 @@ export const AlertDialog = (props: AlertDialogProps) => {
     setAlert(false);
   };
 
-
   return (
     <Dialog open={isOpen} onClose={handleClose}>
       <DialogTitle>{message}</DialogTitle>

@@ -5,5 +5,8 @@
   "register": "Zarejestruj",
   "eMail": "E-mail",
   "password": "Hasło",
-  "send": "Wyślij"
+  "send": "Wyślij",
+  "alreadyHaveAccount": "Masz już konto?",
+  "login": "Zaloguj się",
+  "passwordMismatch": "Podane hasła nie są takie same"
 }

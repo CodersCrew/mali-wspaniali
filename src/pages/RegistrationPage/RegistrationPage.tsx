@@ -34,7 +34,7 @@ const RegistrationPage = (props: RegistrationPageProps) => {
               registerUser={props.registerUser}
             />
             <p>
-              Masz już konto? <Link to="login">Zaloguj się</Link>
+              {i18next.t('alreadyHaveAccount')} <Link to="login">{i18next.t('login')}</Link>
             </p>
           </Container>
         </>
@@ -61,6 +61,7 @@ function mapStateToProps(
   };
 }
 
+// TypeScript doesn't allow this
 // const mapDispatchToProps = {
 //   registerUser,
 // };
