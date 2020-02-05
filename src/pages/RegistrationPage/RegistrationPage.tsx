@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import { connect  } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
-import i18next from "i18next";
-import {
-  registerUser,
-  RegisterUserType,
-} from '../../actions/registrationActions';
+import i18next from 'i18next';
+import { WithTranslation } from 'react-i18next';
+import { registerUser, RegisterUserType } from '../../actions/registrationActions';
 import { RegistrationForm } from './RegistrationForm';
 import Loader from '../../components/Loader';
 import { RegistrationState, RegistrationUser } from './types';
@@ -17,7 +15,7 @@ type RegistrationPageProps = {
   loading: boolean,
 };
 
-const RegistrationPage = (props: RegistrationPageProps) => {
+const RegistrationPage = (props: RegistrationPageProps & PropsWithChildren<WithTranslation>) => {
   const classes = useStyles();
   // Loading is not used yet
   const { loading } = props;
