@@ -1,6 +1,6 @@
-import {useTranslation} from "react-i18next";
+import {useTranslation} from 'react-i18next';
 import {Button} from '@material-ui/core/';
-import React from "react";
+import React from 'react';
 
 function Page() {
 

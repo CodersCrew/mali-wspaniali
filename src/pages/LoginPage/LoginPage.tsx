@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core/';
-import { authenticate } from '../../actions/authActions';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import firebaseApp from 'firebase/app';
+import { authenticate } from '../../actions/authActions';
 
 const Container = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const LoginPage = ({ authenticate }: any) => {
+const LoginPage = ({ login }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,7 +19,7 @@ const LoginPage = ({ authenticate }: any) => {
     e.preventDefault();
     setEmail('');
     setPassword('');
-    authenticate({ email, password });
+      login({ email, password });
   };
 
   return (
@@ -48,11 +49,19 @@ const LoginPage = ({ authenticate }: any) => {
           Log In
         </Button>
       </form>
+      <Button
+          variant="contained"
+          color="primary"
+          style={{ marginTop: '20px', float: 'right' }}
+          onClick={() => console.log(firebaseApp.auth().currentUser)}
+      >
+        Check
+      </Button>
     </Container>
   );
 };
 
-const mapDispatchToProps = { authenticate };
+const mapDispatchToProps = { login: authenticate };
 
 export default connect(
   null,

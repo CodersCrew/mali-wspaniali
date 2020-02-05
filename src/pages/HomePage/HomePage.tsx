@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { unauthenticate } from '../../actions/authActions';
-import i18next from "i18next";
+import i18next from 'i18next';
 import { Button, Container, makeStyles } from '@material-ui/core/';
+import {WithTranslation} from 'react-i18next';
+import { unauthenticate } from '../../actions/authActions';
 
 interface HomePageTypes {
-  unauthenticate: () => void;
+  logout: () => void;
 }
 
-export const HomePage = ({ unauthenticate }: HomePageTypes) => {
+export const HomePage = ({ logout }: HomePageTypes & PropsWithChildren<WithTranslation>) => {
     const classes = useStyles();
     return (
     <>
       <Link to="./login">
-        <Button onClick={unauthenticate} color="secondary" variant="outlined">
+        <Button onClick={logout} color="secondary" variant="outlined">
           Log Out
         </Button>
       </Link>
@@ -42,8 +42,9 @@ const useStyles = makeStyles({
     },
 });
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(unauthenticate, dispatch);
+const mapDispatchToProps = {
+    logout: unauthenticate
+};
 
 export default connect(
   null,
