@@ -8,6 +8,7 @@
   "send": "send",
   "alreadyHaveAccount": "Already have an account?",
   "login": "Login",
-  "passwordMismatch": "Passowrds do not match",
-  "registerSuccess": "Konto zostało utworzone. Możesz się zalogować."
+  "passwordMismatch": "Passwords do not match",
+  "registerSuccess": "Account created. Please login.",
+  "passwordConfirm": "Repeat password"
 }

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
-import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { AlertDialog } from './AlertDialog';
 import { RegisterUserType } from '../../actions/registrationActions';
 
@@ -22,13 +22,14 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
   const { email, password, passwordConfirm} = form;
   const classes = useStyles();
   const history = useHistory();
+  const { t } = useTranslation();
 
   // eslint-disable-next-line consistent-return
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     if (password !== passwordConfirm) {
-      setAlertMessage(i18next.t('passwordMismatch'));
+      setAlertMessage(t('passwordMismatch'));
       return setAlert(true);
     }
 
@@ -72,7 +73,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         value={password}
         id="password"
         type="password"
-        label={i18next.t('password')}
+        label={t('password')}
         fullWidth
       />
       <TextField
@@ -81,7 +82,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         value={passwordConfirm}
         id="passwordConfirm"
         type="password"
-        label={i18next.t('password')}
+        label={t('passwordConfirm')}
         fullWidth
       />
       <Button
@@ -90,7 +91,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         color="primary"
         className={classes.button}
       >
-        {i18next.t('send')}
+        {t('send')}
       </Button>
       {isAlert && (
         <AlertDialog

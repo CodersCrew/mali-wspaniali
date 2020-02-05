@@ -2,8 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import { connect  } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
-import i18next from 'i18next';
-import { WithTranslation } from 'react-i18next';
+import { WithTranslation, useTranslation } from 'react-i18next';
 import { registerUser, RegisterUserType } from '../../actions/registrationActions';
 import { RegistrationForm } from './RegistrationForm';
 import Loader from '../../components/Loader';
@@ -17,6 +16,7 @@ type RegistrationPageProps = {
 
 const RegistrationPage = (props: RegistrationPageProps & PropsWithChildren<WithTranslation>) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   // Loading is not used yet
   const { loading } = props;
   
@@ -24,16 +24,16 @@ const RegistrationPage = (props: RegistrationPageProps & PropsWithChildren<WithT
     <>
       {loading ? <Loader /> : (
         <>
-          <Link to="/">{i18next.t('homePage')}</Link>
+          <Link to="/">{t('homePage')}</Link>
           <Container maxWidth="sm" className={classes.container}>
             <Typography variant="h4" gutterBottom className={classes.h4}>
-              {i18next.t('register')}
+              {t('register')}
             </Typography>
             <RegistrationForm
               registerUser={props.registerUser}
             />
             <p>
-              {i18next.t('alreadyHaveAccount')} <Link to="login">{i18next.t('login')}</Link>
+              {t('alreadyHaveAccount')} <Link to="login">{t('login')}</Link>
             </p>
           </Container>
         </>

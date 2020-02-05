@@ -9,5 +9,6 @@
   "alreadyHaveAccount": "Masz już konto?",
   "login": "Zaloguj się",
   "passwordMismatch": "Podane hasła nie są takie same",
-  "registerSuccess": "Account created. Please login."
+  "registerSuccess": "Konto zostało utworzone. Możesz się zalogować.",
+  "passwordConfirm": "Powtórz hasło"
 }

@@ -9,5 +9,6 @@
   "alreadyHaveAccount": "",
   "login": "",
   "passwordMismatch": "",
-  "registerSuccess": ""
+  "registerSuccess": "",
+  "passwordConfirm": ""
 }
