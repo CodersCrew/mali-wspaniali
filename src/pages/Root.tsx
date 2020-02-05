@@ -1,11 +1,11 @@
 import React, {Suspense} from 'react';
 import {withTranslation} from 'react-i18next';
-import {BrowserRouter as Router, Route} from "react-router-dom";
-import HomePage from "./HomePage";
-import LoginPage from "./LoginPage";
-import RegistrationPage from "./RegistrationPage"
-import Loader from "../components/Loader";
-import Page from "../components/ChangeLanguage";
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import HomePage from './HomePage';
+import LoginPage from './LoginPage';
+import RegistrationPage from './RegistrationPage';
+import Loader from '../components/Loader';
+import Page from '../components/ChangeLanguage';
 
 const homePage = withTranslation()(HomePage);
 const loginPage = withTranslation()(LoginPage);
