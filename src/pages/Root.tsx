@@ -9,6 +9,7 @@ import Page from "../components/ChangeLanguage";
 
 const homePage = withTranslation()(HomePage);
 const loginPage = withTranslation()(LoginPage);
+// TS issue
 // const registrationPage = withTranslation()(RegistrationPage);
 
 const Root = () => {

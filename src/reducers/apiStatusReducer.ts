@@ -1,13 +1,13 @@
 import { initialState } from './initialState';
-import { BEGIN_API_CALL } from '../actions/apiStatusActions';
+import { BEGIN_API_CALL, BeginApiCallAction } from '../actions/apiStatusActions';
 
 function actionTypeEndsInSuccess(type: string) {
-    return type.substring(type.length - 8) === "_SUCCESS";
+    return type.substring(type.length - 8) === '_SUCCESS';
 }
 
 export function apiCallStatusReducer(
     state = initialState.apiCallsInProgress,
-    action: any
+    action: BeginApiCallAction
 ) {
     if (action.type === BEGIN_API_CALL) {
         return 1;

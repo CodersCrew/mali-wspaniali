@@ -8,5 +8,6 @@
   "send": "Wyślij",
   "alreadyHaveAccount": "Masz już konto?",
   "login": "Zaloguj się",
-  "passwordMismatch": "Podane hasła nie są takie same"
+  "passwordMismatch": "Podane hasła nie są takie same",
+  "registerSuccess": "Account created. Please login."
 }

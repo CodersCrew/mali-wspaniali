@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect  } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
 import i18next from "i18next";
 import {
@@ -19,6 +19,7 @@ type RegistrationPageProps = {
 
 const RegistrationPage = (props: RegistrationPageProps) => {
   const classes = useStyles();
+  // Loading is not used yet
   const { loading } = props;
   
   return (

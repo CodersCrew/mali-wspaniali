@@ -8,5 +8,6 @@
   "send": "send",
   "alreadyHaveAccount": "",
   "login": "",
-  "passwordMismatch": ""
+  "passwordMismatch": "",
+  "registerSuccess": ""
 }
