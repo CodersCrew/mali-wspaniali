@@ -4,28 +4,37 @@ import * as constants from './constants';
 
 type IAuthenticate = {
   type?: constants.AUTHENTICATE;
-  email: String | null;
-  password: String | null;
+  email: string;
+  password: string;
   isAuthenticated?: boolean | null;
 };
 
 export type AuthenticationAction = IAuthenticate | IUnauthenticate;
 
-export const authenticate = (content: IAuthenticate) => (
-  dispatch: Dispatch,
-) => {
-  axios
-    .post('https://6q7yl104k.sse.codesandbox.io/login', content)
-    .then(res => {
+export const authenticate = (content: IAuthenticate) => {
+  return (dispatch: Dispatch, getState: any, {getFirebase}: any) => {
+
+    const firebase = getFirebase();
+  //axios.post('https://6q7yl104k.sse.codesandbox.io/login', content)
+    firebase.auth().signInWithEmailAndPassword(
+      content.email,
+      content.password
+    ).then((res: any) => {
       dispatch({
         type: constants.AUTHENTICATE,
         content,
       });
     })
-    .catch(error => {
+    .catch((error: any) => {
       console.log(error);
+      dispatch({
+        type: constants.UNAUTHENTICATE,
+        error,
+      })
     });
+  }
 };
+
 
 export interface IUnauthenticate {
   type: constants.UNAUTHENTICATE;
