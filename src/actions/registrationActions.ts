@@ -2,7 +2,7 @@ import { Action, Dispatch, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { UserInfo } from '@firebase/auth-types';
 import { RegistrationUser } from '../pages/RegistrationPage/types';
-import { firebase } from '../firebase/Firebase';
+import { createUser } from '../queries/userQueries';
 
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
@@ -35,22 +35,23 @@ export type RegisterUserType = (user: RegistrationUser) => Promise<void>
 export const registerUser: ActionCreator<ThunkAction<Promise<void>, string, RegistrationUser,
  RegistrationActions>> = (user: RegistrationUser) => {
   return (dispatch: Dispatch): Promise<void> => {
-    return firebase.auth.handleCreateUserWithEmailAndPassword(
-      user.email,
-      user.password,
-    ).then((userData) => {
-      if (userData.user) {
-        dispatch(registerUserSuccess({
-            email: userData.user.email
-      }));
-      } else {
+    return createUser(user)
+      .then(userData => {
+        if (userData) {
+          dispatch(
+            registerUserSuccess({
+              email: userData.email,
+            }),
+          );
+        } else {
+          dispatch(registerUserFailure());
+          // These errors are handled in handleSubmit in registration form
+          throw new Error('Something went wrong');
+        }
+      })
+      .catch(error => {
         dispatch(registerUserFailure());
-        // These errors are handled in handleSubmit in registration form
-        throw new Error('Something went wrong');
-      }
-    }).catch((error) => {
-      dispatch(registerUserFailure());
-      throw new Error(error.message);
-    });
+        throw new Error(error.message);
+      });
   };
 };
