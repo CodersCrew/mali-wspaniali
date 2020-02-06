@@ -1,10 +1,7 @@
-import { Action, Dispatch } from 'redux';
+import { Action, Dispatch, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { UserInfo } from '@firebase/auth-types';
-import {
-  RegistrationUser,
-  RegistrationState,
-} from '../pages/RegistrationPage/types';
+import { RegistrationUser } from '../pages/RegistrationPage/types';
 import { firebase } from '../firebase/Firebase';
 
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -33,12 +30,10 @@ export function registerUserFailure(): RegisterUserFailureAction {
   return { type: REGISTER_USER_FAILURE };
 }
 
-type ThunkResult<S, A> = ThunkAction<void, S, null, Action<A>> | void;
 export type RegisterUserType = (user: RegistrationUser) => Promise<void> 
 
-export const registerUser = (
-  user: RegistrationUser,
-): ThunkResult<RegistrationState, RegistrationActions> => {
+export const registerUser: ActionCreator<ThunkAction<Promise<void>, string, RegistrationUser,
+ RegistrationActions>> = (user: RegistrationUser) => {
   return (dispatch: Dispatch): Promise<void> => {
     return firebase.auth.handleCreateUserWithEmailAndPassword(
       user.email,

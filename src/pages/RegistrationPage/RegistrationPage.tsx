@@ -60,14 +60,9 @@ function mapStateToProps(
   };
 }
 
-// TypeScript doesn't allow this
-// const mapDispatchToProps = {
-//   registerUser,
-// };
-
-const mapDispatchToProps = (dispatch: any) => ({
-  registerUser: (user: RegistrationUser) => dispatch(registerUser(user)),
-});
+const mapDispatchToProps = {
+  registerUser,
+};
 
 export default connect (
   mapStateToProps,
