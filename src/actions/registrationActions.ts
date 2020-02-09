@@ -30,7 +30,7 @@ export function registerUserFailure(): RegisterUserFailureAction {
   return { type: REGISTER_USER_FAILURE };
 }
 
-export type RegisterUserType = (user: RegistrationUser) => Promise<void> 
+export type RegisterUser = (user: RegistrationUser) => Promise<void> 
 
 export const registerUser: ActionCreator<ThunkAction<Promise<void>, string, RegistrationUser,
  RegistrationActions>> = (user: RegistrationUser) => {

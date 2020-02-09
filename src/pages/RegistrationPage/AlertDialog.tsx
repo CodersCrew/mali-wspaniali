@@ -2,16 +2,16 @@ import React from 'react';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core/';
 
 type AlertDialogProps = {
-  setAlert: (value: boolean) => void;
+  setIsAlert: (value: boolean) => void;
   isOpen: boolean;
   message: string;
 };
 
 export const AlertDialog = (props: AlertDialogProps) => {
-  const { setAlert, isOpen, message } = props;
+  const { setIsAlert, isOpen, message } = props;
 
   const handleClose = (): void => {
-    setAlert(false);
+    setIsAlert(false);
   };
 
   return (

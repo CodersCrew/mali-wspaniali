@@ -3,10 +3,10 @@ import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AlertDialog } from './AlertDialog';
-import { RegisterUserType } from '../../actions/registrationActions';
+import { RegisterUser } from '../../actions/registrationActions';
 
 type RegistrationFormProps = {
-  registerUser: RegisterUserType;
+  registerUser: RegisterUser;
 };
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
 
 export const RegistrationForm = (props: RegistrationFormProps) => {
   const [form, setForm] = useState({ ...initialState });
-  const [isAlert, setAlert] = useState(false);
+  const [isAlert, setIsAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const { email, password, passwordConfirm} = form;
   const classes = useStyles();
@@ -30,7 +30,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
 
     if (password !== passwordConfirm) {
       setAlertMessage(t('passwordMismatch'));
-      return setAlert(true);
+      return setIsAlert(true);
     }
 
     const user = { email, password };
@@ -40,7 +40,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         history.push('/login');
       }).catch((err) => {
         setAlertMessage(err.message);
-        setAlert(true);
+        setIsAlert(true);
       });
   };
 
@@ -96,7 +96,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
       {isAlert && (
         <AlertDialog
           isOpen={isAlert}
-          setAlert={setAlert}
+          setIsAlert={setIsAlert}
           message={alertMessage}
         />
       )}

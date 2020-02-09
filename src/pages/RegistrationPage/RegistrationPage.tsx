@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect  } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
 import { WithTranslation, useTranslation } from 'react-i18next';
-import { registerUser, RegisterUserType } from '../../actions/registrationActions';
+import { registerUser, RegisterUser } from '../../actions/registrationActions';
 import { RegistrationForm } from './RegistrationForm';
 import Loader from '../../components/Loader';
 import { RegistrationState, RegistrationUser } from './types';
 
 type RegistrationPageProps = {
-  registerUser: RegisterUserType,
+  registerUser: RegisterUser,
   user: RegistrationUser,
   loading: boolean,
 };
@@ -53,10 +53,9 @@ const useStyles = makeStyles({
 
 function mapStateToProps(
   state: RegistrationState,
-): Pick<RegistrationPageProps, 'user' & 'loading'> {
+): Pick<RegistrationPageProps, 'user'> {
   return {
     user: state.user,
-    loading: state.apiCallsInProgress > 0,
   };
 }
 

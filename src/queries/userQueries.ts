@@ -7,6 +7,5 @@ export const createUser = async (user: RegistrationUser): Promise<User | null> =
       user.email,
       user.password);
 
-    const fbUser = userData.user ?  userData.user : null;
-    return fbUser;
-}
+    return userData.user || null;
+};

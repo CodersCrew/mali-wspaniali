@@ -5,7 +5,6 @@ export type RegistrationUser = {
 
 export type RegistrationState = {
   user: RegistrationUser;
-  apiCallsInProgress: number;
 };
 
 export type AppState = {
