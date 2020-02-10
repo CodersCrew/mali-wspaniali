@@ -1,5 +1,6 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/auth';
+import firebase from 'firebase';
 
 export const authRepository = (auth: firebaseApp.auth.Auth) => ({
     handleCreateUserWithEmailAndPassword: (email: string, password: string) => auth.createUserWithEmailAndPassword(email, password),

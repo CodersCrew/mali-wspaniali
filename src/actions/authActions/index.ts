@@ -17,11 +17,11 @@ export const authenticate = (content: Authenticate) => {
     firebase.auth.handleSignInWithEmailAndPassword(
       content.email,
       content.password
-    ).then((res: any) => {
+    ).then((res: any) => {      
       dispatch({
         type: constants.AUTHENTICATE,
-        content,
-      });
+        content,        
+      });      
     })
     .catch((error: any) => {
       console.log(error);

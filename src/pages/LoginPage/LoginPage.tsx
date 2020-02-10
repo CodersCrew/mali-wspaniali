@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core/';
+import { TextField, Button} from '@material-ui/core/';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import firebaseApp from 'firebase/app';
 import { authenticate } from '../../actions/authActions';
+import i18next from 'i18next';
+import { withRouter } from 'react-router-dom'
+import * as firebase from 'firebase'
 
 const Container = styled.div`
   display: flex;
@@ -11,19 +15,33 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const LoginPage = ({ login }: any) => {
+const LoginPage = ({ login, history } : any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setErrors] = useState("");
 
   const onSubmit = (e: any) => {
     e.preventDefault();
     setEmail('');
     setPassword('');
-      login({ email, password });
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).
+    then( ()=>{
+      login({ email, password })
+      .then( (res:any)=>{
+        if (res.user) 
+        history.push('/')
+      })
+    })      
+    .catch(e => {
+      setErrors(e.message);
+    });
+    
   };
 
   return (
-    <Container>
+    <Container>  
+    <Link to="/">{i18next.t('homePage')}</Link>
+    <br></br>   
       <form onSubmit={e => onSubmit(e)} autoComplete="off">
         <TextField
           required
@@ -57,13 +75,18 @@ const LoginPage = ({ login }: any) => {
       >
         Check
       </Button>
+      <br></br>      
+        <span>{error}</span>       
     </Container>
   );
 };
+
+
+
 
 const mapDispatchToProps = { login: authenticate };
 
 export default connect(
   null,
   mapDispatchToProps,
-)(LoginPage);
+)(withRouter(LoginPage));
