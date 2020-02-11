@@ -5,24 +5,19 @@ import { Container, Typography, makeStyles } from '@material-ui/core/';
 import { WithTranslation, useTranslation } from 'react-i18next';
 import { registerUser, RegisterUser } from '../../actions/registrationActions';
 import { RegistrationForm } from './RegistrationForm';
-import Loader from '../../components/Loader';
 import { RegistrationState, RegistrationUser } from './types';
 
 type RegistrationPageProps = {
   registerUser: RegisterUser,
   user: RegistrationUser,
-  loading: boolean,
 };
 
 const RegistrationPage = (props: RegistrationPageProps & PropsWithChildren<WithTranslation>) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  // Loading is not used yet
-  const { loading } = props;
   
   return (
     <>
-      {loading ? <Loader /> : (
         <>
           <Link to="/">{t('homePage')}</Link>
           <Container maxWidth="sm" className={classes.container}>
@@ -37,7 +32,6 @@ const RegistrationPage = (props: RegistrationPageProps & PropsWithChildren<WithT
             </p>
           </Container>
         </>
-      )}
     </>
   );
 };

@@ -45,7 +45,6 @@ export const registerUser: ActionCreator<ThunkAction<Promise<void>, string, Regi
           );
         } else {
           dispatch(registerUserFailure());
-          // These errors are handled in handleSubmit in registration form
           throw new Error('Something went wrong');
         }
       })
