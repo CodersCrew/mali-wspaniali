@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import RegistrationPage from './RegistrationPage';
+import AdminResultsPage from './AdminResultsPage';
 import Loader from '../components/Loader';
 import Page from '../components/ChangeLanguage';
 
@@ -20,6 +21,7 @@ const Root = () => {
                     <Route exact path="/" component={homePage}/>
                     <Route path="/login" component={loginPage}/>
                     <Route path="/register" component={registrationPage}/>
+                    <Route path="/adminresults" component={AdminResultsPage}/>
                 </div>
             </Router>
         </Suspense>

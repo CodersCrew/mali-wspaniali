@@ -6,7 +6,9 @@ import {authRepository} from './authRepository';
 
 firebaseApp.initializeApp(config);
 const auth = firebaseApp.auth();
+//const db = firebaseApp.firestore();
 
 export const firebase = {
-    auth: authRepository(auth)
+    auth: authRepository(auth),
+//    firestore: db
 };
