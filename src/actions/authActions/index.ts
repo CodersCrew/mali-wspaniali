@@ -2,12 +2,13 @@ import { Dispatch } from 'redux';
 import * as constants from './constants';
 import {firebase} from '../../firebase/Firebase';
 
-type Authenticate = {
+export type Authenticate = {
   type?: constants.AUTHENTICATE;
   email: string;
   password: string;
-  isAuthenticated?: boolean | null;
-};
+  isAuthenticated?: boolean | null;    
+  }
+
 
 export type AuthenticationAction = Authenticate | Unauthenticate;
 

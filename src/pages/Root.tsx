@@ -7,12 +7,15 @@ import RegistrationPage from './RegistrationPage';
 import Loader from '../components/Loader';
 import Page from '../components/ChangeLanguage';
 
+export const AuthContext = React.createContext(null);
+
 const homePage = withTranslation()(HomePage);
-const loginPage = withTranslation()(LoginPage);
+const loginPage = LoginPage;
 const registrationPage = withTranslation()(RegistrationPage);
 
-const Root = () => {
-    return (
+
+const Root = () => {    
+    return (      
         <Suspense fallback={<Loader/>}>
             < Page/>
             <Router>
@@ -22,8 +25,7 @@ const Root = () => {
                     <Route path="/register" component={registrationPage}/>
                 </div>
             </Router>
-        </Suspense>
-
+        </Suspense>        
     );
 };
 

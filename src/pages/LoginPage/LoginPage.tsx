@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState, useContext, useEffect } from 'react';
 import { TextField, Button} from '@material-ui/core/';
-import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import firebaseApp from 'firebase/app';
-import { authenticate } from '../../actions/authActions';
-import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom'
-import * as firebase from 'firebase'
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from "../Root";
+import {firebase} from '../../firebase/Firebase'
+import firebaseConfig from "../../firebase/config";
+
+export interface User{
+  userId:number;
+  id:number;
+  title:string;
+  body:string;
+  response: Object
+}
 
 const Container = styled.div`
   display: flex;
@@ -15,34 +23,55 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const LoginPage = ({ login, history } : any) => {
+const LoginPage = () => {
+
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  function readSession() {
+      const user = window.sessionStorage.getItem(
+              `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
+          );
+          if (user) setLoggedIn(true)
+    }
+    useEffect(() => {
+      readSession()
+    }, [])
+
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setErrors] = useState("");
+  const { t } = useTranslation();
+  const history = useHistory();
+  
+  const Auth = useContext(AuthContext);
 
-  const onSubmit = (e: any) => {
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setEmail('');
     setPassword('');
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).
+    firebase.auth.handleSession().
     then( ()=>{
-      login({ email, password })
-      .then( (res:any)=>{
-        if (res.user) 
+      firebase.auth.handleSignInWithEmailAndPassword(email, password)
+      .then((res: any)=>{
+        if (res.user) Auth.setLoggedIn(true);
         history.push('/')
       })
     })      
-    .catch(e => {
+    .catch((e) => {
       setErrors(e.message);
     });
     
   };
 
   return (
+    <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
+    Is logged in? {JSON.stringify(isLoggedIn)}
     <Container>  
-    <Link to="/">{i18next.t('homePage')}</Link>
-    <br></br>   
-      <form onSubmit={e => onSubmit(e)} autoComplete="off">
+    <Link to="/">{t('homePage')}</Link>   
+      <form onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e)}
+       autoComplete="off">
         <TextField
           required
           onChange={e => setEmail(e.target.value)}
@@ -66,27 +95,12 @@ const LoginPage = ({ login, history } : any) => {
         >
           Log In
         </Button>
-      </form>
-      <Button
-          variant="contained"
-          color="primary"
-          style={{ marginTop: '20px', float: 'right' }}
-          onClick={() => console.log(firebaseApp.auth().currentUser)}
-      >
-        Check
-      </Button>
-      <br></br>      
-        <span>{error}</span>       
+      </form>     
+        <span>{t(error)? <p>Sorry, you've provided wrong credentials or haven't been registered...</p>: null}</span>       
     </Container>
+    </AuthContext.Provider>
   );
 };
 
 
-
-
-const mapDispatchToProps = { login: authenticate };
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(withRouter(LoginPage));
+export default withRouter(LoginPage);
