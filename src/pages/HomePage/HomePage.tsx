@@ -1,25 +1,28 @@
-import React, {PropsWithChildren} from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import i18next from 'i18next';
 import { Button, Container, makeStyles } from '@material-ui/core/';
-import {WithTranslation} from 'react-i18next';
-import { unauthenticate } from '../../actions/authActions';
+import {firebase} from '../../firebase/Firebase';
+import {withTranslation} from 'react-i18next';
+import { AuthContext } from '../Root';
 
-interface HomePageTypes {
-  logout: () => void;
-}
+export const HomePage = () => {
+  const classes = useStyles();
 
-export const HomePage = ({ logout }: HomePageTypes & PropsWithChildren<WithTranslation>) => {
-    const classes = useStyles();
-    return (
-    <>
-      <Link to="./login">
-        <Button onClick={logout} color="secondary" variant="outlined">
+  const Auth = useContext(AuthContext);
+
+  const handleLogoutClick = () => {
+    Auth.setLoggedIn(false);
+    firebase.auth.handleSignOut();
+  } 
+
+    return (  
+        <Container className={classes.container}>
+          <Link to="./">
+        <Button  onClick={handleLogoutClick} color="secondary" variant="outlined">
           Log Out
         </Button>
       </Link>
-        <Container className={classes.container}>
             <Link to="/login">
                 <Button variant="contained" color="primary">
                     {i18next.t('loginPage')}
@@ -30,8 +33,7 @@ export const HomePage = ({ logout }: HomePageTypes & PropsWithChildren<WithTrans
                     {i18next.t('registrationPage')}
                 </Button>
             </Link>
-        </Container>
-    </>
+        </Container>        
   );
 };
 
@@ -42,11 +44,5 @@ const useStyles = makeStyles({
     },
 });
 
-const mapDispatchToProps = {
-    logout: unauthenticate
-};
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(HomePage);
+export default withTranslation()(HomePage);

@@ -1,21 +1,11 @@
-import React, { FormEvent, useState, useContext, useEffect } from 'react';
+import React, { FormEvent, useState, useContext } from 'react';
 import { TextField, Button} from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom'
+import { useTranslation, withTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from "../Root";
-import {firebase} from '../../firebase/Firebase'
-import firebaseConfig from "../../firebase/config";
-
-export interface User{
-  userId:number;
-  id:number;
-  title:string;
-  body:string;
-  response: Object
-}
+import {firebase} from '../../firebase/Firebase';
+import { AuthContext } from '../../pages/Root';
 
 const Container = styled.div`
   display: flex;
@@ -23,29 +13,16 @@ const Container = styled.div`
   align-items: center;
 `;
 
+
 const LoginPage = () => {
-
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  function readSession() {
-      const user = window.sessionStorage.getItem(
-              `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
-          );
-          if (user) setLoggedIn(true)
-    }
-    useEffect(() => {
-      readSession()
-    }, [])
-
-
-
+  
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setErrors] = useState("");
   const { t } = useTranslation();
-  const history = useHistory();
-  
-  const Auth = useContext(AuthContext);
 
+  const Auth = useContext(AuthContext);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -55,20 +32,25 @@ const LoginPage = () => {
     then( ()=>{
       firebase.auth.handleSignInWithEmailAndPassword(email, password)
       .then((res: any)=>{
-        if (res.user) Auth.setLoggedIn(true);
+        if (res.user) {
+        console.log(res.user)
         history.push('/')
+        Auth.setLoggedIn(true)
+        }
       })
     })      
     .catch((e) => {
       setErrors(e.message);
-    });
-    
+    });    
   };
 
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
-    Is logged in? {JSON.stringify(isLoggedIn)}
-    <Container>  
+function redirectUser () {  history.push('/') }
+
+
+  
+  return (      
+    <Container> 
+     { Auth.isLoggedIn ? redirectUser(): t("You are not logged in") } 
     <Link to="/">{t('homePage')}</Link>   
       <form onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e)}
        autoComplete="off">
@@ -96,11 +78,10 @@ const LoginPage = () => {
           Log In
         </Button>
       </form>     
-        <span>{t(error)? <p>Sorry, you've provided wrong credentials or haven't been registered...</p>: null}</span>       
+        <span>{(error)? t("Sorry, you've provided wrong credentials or haven't been registered..."): null}</span>      
     </Container>
-    </AuthContext.Provider>
-  );
+    )     
 };
 
 
-export default withRouter(LoginPage);
+export default withTranslation()(LoginPage);
