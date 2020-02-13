@@ -45,8 +45,6 @@ const LoginPage = () => {
   };
 
 function redirectUser () {  history.push('/') }
-
-
   
   return (      
     <Container> 

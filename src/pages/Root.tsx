@@ -20,7 +20,6 @@ export const AuthContext = React.createContext({
 
 const Root = () => {   
     const [isLoggedIn, setLoggedIn] = useState(false);
-
     function readSession() {
         const user = window.sessionStorage.getItem(
                 `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
