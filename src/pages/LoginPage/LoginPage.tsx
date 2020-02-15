@@ -17,6 +17,11 @@ export const LoginPage = () => {
                     {i18next.t('register')}
                 </Button>
             </Link>
+            <Link to="/users">
+                <Button variant="contained" color="primary">
+                    {i18next.t('users')}
+                </Button>
+            </Link>
         </Container>
     );
 };

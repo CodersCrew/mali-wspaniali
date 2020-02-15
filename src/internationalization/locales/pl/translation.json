@@ -5,5 +5,9 @@
   "register": "Zarejestruj",
   "eMail": "E-mail",
   "password": "Hasło",
-  "send": "Wyślij"
+  "send": "Wyślij",
+  "users": "Użytkownicy",
+  "email": "E-mail",
+  "firstName": "Imię",
+  "lastName": "Nazwisko"
 }

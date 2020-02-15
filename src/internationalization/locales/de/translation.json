@@ -5,5 +5,9 @@
   "register": "Melde dich",
   "eMail": "E-Mail-Adresse",
   "password": "Kennwort",
-  "send": "send"
+  "send": "send",
+  "users": "Benutzer",
+  "email": "E-mail",
+  "firstName": "Vorname",
+  "lastName": "Nachname"
 }
