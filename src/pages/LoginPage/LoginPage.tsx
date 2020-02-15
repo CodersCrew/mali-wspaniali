@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import {firebase} from '../../firebase/Firebase';
-import firebaseApp from 'firebase/app';
+import firebaseApp, { User } from 'firebase/app';
 
 
 export interface LoginActionTypes {
@@ -19,18 +19,10 @@ const Container = styled.div`
   align-items: center;
 `;
 
-let flag:boolean;
 
-export function isUserLogged ():boolean {
-  firebase.auth.onAuthStateChanged(function(user) {
-    if (user) flag = true
-    else flag = false
-  });
-  return flag
-}
+export function isUserLogged (): User| null {return firebase.auth.getCurrentUser();}
 
-const LoginPage = () => {
-  
+const LoginPage = () => {  
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,15 +49,14 @@ const LoginPage = () => {
     });    
   };
 
-let signedUser = () => {
-  if (isUserLogged()) history.push('/')
-}
-  
-  return (      
-    <Container> 
-      { signedUser() } 
+
+
+if ( isUserLogged() )  history.push('/') 
+
+ return (      
+    <Container>      
     <Link to="/">{t('homePage')}</Link>   
-      <form onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e)}
+      <form onSubmit={(event: FormEvent<HTMLFormElement>) => handleSubmit(event)}
        autoComplete="off">
         <TextField
           required
