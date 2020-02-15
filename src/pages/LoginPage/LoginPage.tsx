@@ -6,6 +6,12 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import {firebase} from '../../firebase/Firebase';
 import { AuthContext } from '../../pages/Root';
+import firebaseApp from 'firebase/app';
+
+export interface LoginActionTypes {
+  email: string | null;
+  password: string | null
+}
 
 const Container = styled.div`
   display: flex;
@@ -31,7 +37,7 @@ const LoginPage = () => {
     firebase.auth.handleSession().
     then( ()=>{
       firebase.auth.handleSignInWithEmailAndPassword(email, password)
-      .then((res: any)=>{
+      .then((res: firebaseApp.auth.UserCredential)=>{
         if (res.user) {
         console.log(res.user)
         history.push('/')
