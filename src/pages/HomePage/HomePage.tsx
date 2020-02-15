@@ -1,23 +1,22 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import i18next from 'i18next';
 import { Button, Container, makeStyles } from '@material-ui/core/';
 import {firebase} from '../../firebase/Firebase';
 import {withTranslation} from 'react-i18next';
-import { AuthContext } from '../Root';
 
 export const HomePage = () => {
   const classes = useStyles();
-
-  const Auth = useContext(AuthContext);
+  
 
   const handleLogoutClick = () => {
-    Auth.setLoggedIn(false);
     firebase.auth.handleSignOut();
+    console.log('Sighed Out');
   } 
 
     return (  
         <Container className={classes.container}>
+          
           <Link to="./">
         <Button  onClick={handleLogoutClick} color="secondary" variant="outlined">
           Log Out

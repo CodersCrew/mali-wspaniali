@@ -16,4 +16,10 @@ export const authRepository = (auth: firebaseApp.auth.Auth) => ({
         }
     },
     onAuthStateChanged: (onAuthStateChangedFunction: (user: firebaseApp.User | null) => void) => auth.onAuthStateChanged(onAuthStateChangedFunction),
+    getCurrentUser: (): firebaseApp.User | null => {
+        let user=auth.currentUser
+        console.log(user)
+        return user
+    }
+    
 });

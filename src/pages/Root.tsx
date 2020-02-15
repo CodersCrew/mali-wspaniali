@@ -5,35 +5,15 @@ import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import Loader from '../components/Loader';
 import Page from '../components/ChangeLanguage';
-import firebaseConfig from "../firebase/config";
-
 
 const homePage = withTranslation()(HomePage);
 const loginPage = LoginPage;
 
-export const AuthContext = React.createContext({    
-        isLoggedIn : false,
-        setLoggedIn : (isLoggedIn:boolean) => {}
-}); 
+
 
 const Root = () => {   
-    const [isLoggedIn, setLoggedIn] = useState(false);
-    function readSession() {
-        const user = window.sessionStorage.getItem(
-                `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
-            );
-            if (user) { 
-              setLoggedIn(true);
-            }
-      }
-
-      useEffect(() => {
-        readSession()
-      }, [])
 
     return ( 
-        <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>  
-        Is logged in? {JSON.stringify(isLoggedIn)}
         <Suspense fallback={<Loader/>}>
             < Page/>
             <Router>
@@ -42,8 +22,7 @@ const Root = () => {
                     <Route path="/login" component={loginPage} />
                 </div>
             </Router>
-        </Suspense> 
-        </AuthContext.Provider>       
+        </Suspense>       
     );
 };
 

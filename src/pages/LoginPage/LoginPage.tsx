@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import {firebase} from '../../firebase/Firebase';
-import { AuthContext } from '../../pages/Root';
 import firebaseApp from 'firebase/app';
+
 
 export interface LoginActionTypes {
   email: string | null;
@@ -19,19 +19,27 @@ const Container = styled.div`
   align-items: center;
 `;
 
+let flag:boolean;
+
+export function isUserLogged ():boolean {
+  firebase.auth.onAuthStateChanged(function(user) {
+    if (user) flag = true
+    else flag = false
+  });
+  return flag
+}
 
 const LoginPage = () => {
   
-  const history = useHistory();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setErrors] = useState("");
   const { t } = useTranslation();
+  const history = useHistory();
 
-  const Auth = useContext(AuthContext);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
     setEmail('');
     setPassword('');
     firebase.auth.handleSession().
@@ -41,33 +49,34 @@ const LoginPage = () => {
         if (res.user) {
         console.log(res.user)
         history.push('/')
-        Auth.setLoggedIn(true)
         }
       })
     })      
-    .catch((e) => {
-      setErrors(e.message);
+    .catch((event) => {
+      setErrors(event.message);
     });    
   };
 
-function redirectUser () {  history.push('/') }
+let signedUser = () => {
+  if (isUserLogged()) history.push('/')
+}
   
   return (      
     <Container> 
-     { Auth.isLoggedIn ? redirectUser(): t("You are not logged in") } 
+      { signedUser() } 
     <Link to="/">{t('homePage')}</Link>   
       <form onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e)}
        autoComplete="off">
         <TextField
           required
-          onChange={e => setEmail(e.target.value)}
+          onChange={event => setEmail(event.target.value)}
           value={email}
           id="email"
           label="E-mail"
         />
         <TextField
           required
-          onChange={e => setPassword(e.target.value)}
+          onChange={event => setPassword(event.target.value)}
           value={password}
           id="password"
           label="Password"
