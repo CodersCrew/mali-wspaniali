@@ -16,7 +16,7 @@ const initialState = {
 };
 
 export const RegistrationForm = (props: RegistrationFormProps) => {
-  const [form, setForm] = useState({ ...initialState });
+  const [form, setForm] = useState(initialState);
   const [isAlert, setIsAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const { email, password, passwordConfirm} = form;
@@ -36,7 +36,6 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
     const user = { email, password };
     
     props.registerUser(user).then(() => {
-        setForm({ ...initialState });
         history.push('/login');
       }).catch((err) => {
         setAlertMessage(err.message);
