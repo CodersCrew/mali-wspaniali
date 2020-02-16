@@ -5,6 +5,10 @@
   "register": "Register",
   "eMail": "E-Mail-Adresse",
   "password": "Password",
-  "send": "send"
-
+  "send": "send",
+  "alreadyHaveAccount": "Already have an account?",
+  "login": "Login",
+  "passwordMismatch": "Passwords do not match",
+  "registerSuccess": "Account created. Please login.",
+  "passwordConfirm": "Repeat password"
 }

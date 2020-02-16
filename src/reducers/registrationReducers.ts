@@ -1,22 +1,19 @@
+import { UserInfo } from '@firebase/auth-types';
 import {
   REGISTER_USER_SUCCESS,
-  REGISTER_USER_FAILURE,
   RegistrationActions,
 } from '../actions/registrationActions';
-import { RegistrationState } from '../pages/RegistrationPage/types';
-
-const initialState: RegistrationState = {email: '', password: ''};
+import { initialState } from './initialState';
 
 export function userReducer(
-  state = initialState,
+  state = initialState.user,
   action: RegistrationActions,
-): RegistrationState {
+): Pick<UserInfo, 'email'> {
   switch (action.type) {
     case REGISTER_USER_SUCCESS:
-      return action.userData;
-    case REGISTER_USER_FAILURE:
-      console.log('error');
-      return state;
+      return {
+        email: action.userData.email,
+      };
     default:
       return state;
   }

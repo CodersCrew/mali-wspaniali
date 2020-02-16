@@ -1,16 +1,15 @@
-import { Action, Dispatch } from 'redux';
+import { Action, Dispatch, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import {
-  RegistrationUser,
-  RegistrationState,
-} from '../pages/RegistrationPage/types';
+import { UserInfo } from '@firebase/auth-types';
+import { RegistrationUser } from '../pages/RegistrationPage/types';
+import { createUser } from '../queries/userQueries';
 
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
 
 interface RegisterUserSuccessAction extends Action<'REGISTER_USER_SUCCESS'> {
   type: 'REGISTER_USER_SUCCESS';
-  userData: RegistrationUser;
+  userData: Pick<UserInfo, 'email'>
 }
 
 interface RegisterUserFailureAction extends Action<'REGISTER_USER_FAILURE'> {
@@ -22,7 +21,7 @@ export type RegistrationActions =
   | RegisterUserFailureAction;
 
 export function registerUserSuccess(
-  userData: RegistrationUser,
+  userData: Pick<UserInfo, 'email'>
 ): RegisterUserSuccessAction {
   return { type: REGISTER_USER_SUCCESS, userData };
 }
@@ -31,41 +30,27 @@ export function registerUserFailure(): RegisterUserFailureAction {
   return { type: REGISTER_USER_FAILURE };
 }
 
-type ThunkResult<S, A> = ThunkAction<void, S, null, Action<A>> | void;
-export type RegisterUserType = (
-  user: RegistrationUser,
-) => ThunkResult<RegistrationState, RegistrationActions>;
+export type RegisterUser = (user: RegistrationUser) => Promise<void> 
 
-// NOTE: Remove after connecting to the DB 
-// - I added it so I don't have comment out many parts of the code
-function CreateUserWithEmailAndPassword(
-  email: string,
-  password: string,
-): Promise<DummyReturn> {
-  return new Promise(resolve => {
-    resolve({ errors: false });
-  });
-}
-
-type DummyReturn = {
-  errors: boolean;
-};
-
-export const registerUser = (
-  user: RegistrationUser,
-): ThunkResult<RegistrationState, RegistrationActions> => {
-  return function(dispatch: Dispatch): Promise<void> {
-    return CreateUserWithEmailAndPassword(user.email, user.password)
-      .then(response => {
-        if (!response.errors) {
-          dispatch(registerUserSuccess(user));
-          return;
+export const registerUser: ActionCreator<ThunkAction<Promise<void>, string, RegistrationUser,
+ RegistrationActions>> = (user: RegistrationUser) => {
+  return (dispatch: Dispatch): Promise<void> => {
+    return createUser(user)
+      .then(userData => {
+        if (userData) {
+          dispatch(
+            registerUserSuccess({
+              email: userData.email,
+            }),
+          );
+        } else {
+          dispatch(registerUserFailure());
+          throw new Error('Something went wrong');
         }
-        console.log(response.errors);
-        dispatch(registerUserFailure());
       })
       .catch(error => {
-        console.log(error);
+        dispatch(registerUserFailure());
+        throw new Error(error.message);
       });
   };
 };

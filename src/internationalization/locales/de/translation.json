@@ -5,5 +5,10 @@
   "register": "Melde dich",
   "eMail": "E-Mail-Adresse",
   "password": "Kennwort",
-  "send": "send"
+  "send": "send",
+  "alreadyHaveAccount": "",
+  "login": "",
+  "passwordMismatch": "",
+  "registerSuccess": "",
+  "passwordConfirm": ""
 }
