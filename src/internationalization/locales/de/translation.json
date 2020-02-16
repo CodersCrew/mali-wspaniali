@@ -1,9 +1,10 @@
 {
-  "loginPage": "Gehe zur Anmeldeseite",
-  "homePage": "Gehe zur Startseite",
-  "registrationPage": "Gehe zur Registrationseite",
-  "register": "Melde dich",
-  "eMail": "E-Mail-Adresse",
-  "password": "Kennwort",
-  "send": "send"
+    "loginPage": "Gehe zur Anmeldeseite",
+    "homePage": "Gehe zur Startseite",
+    "registrationPage": "Gehe zur Registrationseite",
+    "register": "Melde dich",
+    "eMail": "E-Mail-Adresse",
+    "password": "Kennwort",
+    "send": "send",
+    "login-error": "Entschuldigung, Sie haben falsche Anmeldeinformationen angegeben oder wurden nicht registriert ..."
 }

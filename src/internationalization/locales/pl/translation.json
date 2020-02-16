@@ -1,9 +1,10 @@
 {
-  "loginPage": "Logowanie",
-  "homePage": "Strona główna",
-  "registrationPage": "Rejestracja",
-  "register": "Zarejestruj",
-  "eMail": "E-mail",
-  "password": "Hasło",
-  "send": "Wyślij"
+    "loginPage": "Logowanie",
+    "homePage": "Strona główna",
+    "registrationPage": "Rejestracja",
+    "register": "Zarejestruj",
+    "eMail": "E-mail",
+    "password": "Hasło",
+    "send": "Wyślij",
+    "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany ..."
 }

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useContext } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { TextField, Button} from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -16,8 +16,9 @@ export interface LoginActionTypes {
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center
 `;
+
 
 
 export function isUserLogged (): User| null {return firebase.auth.getCurrentUser();}
@@ -42,20 +43,20 @@ const LoginPage = () => {
         console.log(res.user)
         history.push('/')
         }
-      })
-    })      
-    .catch((event) => {
-      setErrors(event.message);
-    });    
+      }).catch((error) => {
+        setErrors(error.message);
+      }) 
+    })        
   };
 
 
 
 if ( isUserLogged() )  history.push('/') 
 
- return (      
-    <Container>      
-    <Link to="/">{t('homePage')}</Link>   
+ return ( 
+   <>  
+   <Link to="/">{t('homePage')}</Link>      
+    <Container>          
       <form onSubmit={(event: FormEvent<HTMLFormElement>) => handleSubmit(event)}
        autoComplete="off">
         <TextField
@@ -63,14 +64,14 @@ if ( isUserLogged() )  history.push('/')
           onChange={event => setEmail(event.target.value)}
           value={email}
           id="email"
-          label="E-mail"
+          label={t('eMail')}
         />
         <TextField
           required
           onChange={event => setPassword(event.target.value)}
           value={password}
           id="password"
-          label="Password"
+          label={t('password')}
           type="password"
         />
         <Button
@@ -79,11 +80,12 @@ if ( isUserLogged() )  history.push('/')
           color="primary"
           style={{ marginTop: '20px', float: 'right' }}
         >
-          Log In
+          {t('send')}
         </Button>
       </form>     
-        <span>{(error)? t("Sorry, you've provided wrong credentials or haven't been registered..."): null}</span>      
+        <span>{(error)? t('login-error'): null}</span>      
     </Container>
+    </>
     )     
 };
 

@@ -1,10 +1,10 @@
 {
-  "loginPage": "Go to login page",
-  "homePage": "Go to home page",
-  "registrationPage": "Go to registaration page",
-  "register": "Register",
-  "eMail": "E-Mail-Adresse",
-  "password": "Password",
-  "send": "send"
-
+    "loginPage": "Go to login page",
+    "homePage": "Go to home page",
+    "registrationPage": "Go to registaration page",
+    "register": "Register",
+    "eMail": "E-Mail-Adress",
+    "password": "Password",
+    "send": "send",
+    "login-error": "Sorry, you've provided wrong credentials or haven't been registered..."
 }

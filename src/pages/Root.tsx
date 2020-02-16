@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect, useState } from 'react';
+import React, {Suspense} from 'react';
 import {withTranslation} from 'react-i18next';
 import {BrowserRouter as Router, Route} from 'react-router-dom'; 
 import HomePage from './HomePage';
@@ -14,7 +14,6 @@ const registrationPage = withTranslation()(RegistrationPage);
 
 
 const Root = () => {   
-
     return ( 
         <Suspense fallback={<Loader/>}>
             < Page/>
