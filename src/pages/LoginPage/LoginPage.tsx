@@ -1,11 +1,11 @@
 import React, { FormEvent, useState } from 'react';
 import { TextField, Button} from '@material-ui/core/';
-import { Link } from 'react-router-dom';
+import { Link,  useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
-import {firebase} from '../../firebase/Firebase';
 import firebaseApp, { User } from 'firebase/app';
+import {firebase} from '../../firebase/Firebase';
+
 
 
 export interface LoginActionTypes {
@@ -27,7 +27,7 @@ const LoginPage = () => {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setErrors] = useState("");
+  const [error, setErrors] = useState('');
   const { t } = useTranslation();
   const history = useHistory();
 
@@ -40,19 +40,15 @@ const LoginPage = () => {
       firebase.auth.handleSignInWithEmailAndPassword(email, password)
       .then((res: firebaseApp.auth.UserCredential)=>{
         if (res.user) {
-        console.log(res.user)
-        history.push('/')
+        history.push('/');
         }
       }).catch((error) => {
         setErrors(error.message);
-      }) 
-    })        
+      }); 
+    });     
   };
 
-
-
-if ( isUserLogged() )  history.push('/') 
-
+if ( isUserLogged() )  history.push('/');
  return ( 
    <>  
    <Link to="/">{t('homePage')}</Link>      
@@ -86,8 +82,8 @@ if ( isUserLogged() )  history.push('/')
         <span>{(error)? t('login-error'): null}</span>      
     </Container>
     </>
-    )     
-};
+    );
+  };
 
 
 export default withTranslation()(LoginPage);

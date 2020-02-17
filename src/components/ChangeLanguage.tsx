@@ -4,7 +4,7 @@ import React from 'react';
 
 function Page() {
 
-    const {t, i18n} = useTranslation();
+    const {i18n} = useTranslation();
     const changeLanguage = (lng: string) => {
         return i18n.changeLanguage(lng);
     };

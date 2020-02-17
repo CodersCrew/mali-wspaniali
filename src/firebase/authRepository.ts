@@ -1,8 +1,7 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/auth';
-import * as firebase from 'firebase'
+import * as firebase from 'firebase';
 
-//firebase.auth() = firebaseApp.auth.Auth
 
 export const authRepository = (auth: firebaseApp.auth.Auth) => ({
     handleSession: ()=>  auth.setPersistence(firebase.auth.Auth.Persistence.SESSION),
