@@ -1,15 +1,15 @@
 {
-  "loginPage": "Go to login page",
-  "homePage": "Go to home page",
-  "registrationPage": "Go to registaration page",
-  "register": "Register",
-  "eMail": "E-Mail-Adresse",
-  "password": "Password",
-  "send": "send",
-  "alreadyHaveAccount": "Already have an account?",
-  "login": "Login",
-  "passwordMismatch": "Passwords do not match",
-  "registerSuccess": "Account created. Please login.",
-  "passwordConfirm": "Repeat password"
-}
+    "loginPage": "Go to login page",
+    "homePage": "Go to home page",
+    "registrationPage": "Go to registaration page",
+    "register": "Register",
+    "eMail": "E-Mail-Adress",
+    "password": "Password",
+    "send": "send",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Login",
+    "passwordMismatch": "Passwords do not match",
+    "registerSuccess": "Account created. Please login.",
+    "passwordConfirm": "Repeat password",
     "login-error": "Sorry, you've provided wrong credentials or haven't been registered..."
+}

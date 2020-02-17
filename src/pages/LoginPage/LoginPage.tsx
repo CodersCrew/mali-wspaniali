@@ -42,8 +42,8 @@ const LoginPage = () => {
         if (res.user) {
         history.push('/');
         }
-      }).catch((error) => {
-        setErrors(error.message);
+      }).catch((errorMes) => {
+        setErrors(errorMes.message);
       }); 
     });     
   };
