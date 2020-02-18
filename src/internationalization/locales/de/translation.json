@@ -11,6 +11,6 @@
     "passwordMismatch": "",
     "registerSuccess": "",
     "passwordConfirm": "",
-    "login-error": "Entschuldigung, Sie haben falsche Anmeldeinformationen angegeben oder wurden nicht registriert ..."
+    "error": "Entschuldigung, Sie haben falsche Anmeldeinformationen angegeben oder wurden nicht registriert ...",
     "logout": "Abmelden"
 }
