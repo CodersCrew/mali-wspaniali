@@ -1,0 +1,39 @@
+name: CI
+
+on: push
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 12.x ]
+    name: Use node.js ${{ matrix.node }} 
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - run: npm run lint
+#      - run: npm test
+    env:
+      CI: true
+  build-and-deploy:
+    needs: lint-and-test
+    if: github.ref == 'refs/heads/MALWSP-145-github-actions'
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        run: npx firebase deploy --only hosting
+    env:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
