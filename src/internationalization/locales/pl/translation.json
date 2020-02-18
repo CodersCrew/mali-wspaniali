@@ -11,6 +11,6 @@
     "passwordMismatch": "Podane hasła nie są takie same",
     "registerSuccess": "Konto zostało utworzone. Możesz się zalogować.",
     "passwordConfirm": "Powtórz hasło",
+    "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany ..."
     "logout": "Wyloguj",
-    "error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany ..."
 }

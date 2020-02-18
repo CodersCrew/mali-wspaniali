@@ -11,6 +11,6 @@
     "passwordMismatch": "Passwords do not match",
     "registerSuccess": "Account created. Please login.",
     "passwordConfirm": "Repeat password",
+    "login-error": "Sorry, you've provided wrong credentials or haven't been registered..."
     "logout": "Log Out",
-    "error": "Sorry, you've provided wrong credentials or haven't been registered..."
 }
