@@ -16,7 +16,7 @@ export const HomePage = () => {
 
     return (  
         <Container className={classes.container}>          
-          <Link to="./">
+          <Link to="/">
         <Button  onClick={handleLogoutClick} color="secondary" variant="outlined">
         {t('logout')}
         </Button>
