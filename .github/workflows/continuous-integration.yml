@@ -1,4 +1,4 @@
-name: CI
+name: CI 🤷
 
 on: push
 
@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         node: [ 12.x ]
-    name: Use node.js ${{ matrix.node }} 
+    name: Lint and test
     steps:
       - uses: actions/checkout@v2
       - name: Setup node
@@ -17,13 +17,11 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm run lint
-#      - run: npm test
+      - run: npm test -- --passWithNoTests
     env:
       CI: true
-  build-and-deploy:
-    needs: lint-and-test
-    if: github.ref == 'refs/heads/MALWSP-145-github-actions'
-    name: Build and deploy
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -32,8 +30,25 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
-      - name: Deploy
-        run: npx firebase deploy --only hosting
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: build
+  deploy:
+    needs: [lint-and-test, build]
+    if: github.ref == 'refs/heads/MALWSP-145-github-actions'
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: npm install
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: build
+      - name: Deploy to Firebase
+        run: npx firebase deploy --only hosting,functions
     env:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
