@@ -6,28 +6,19 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import firebaseApp, { User } from 'firebase/app';
 import {firebase} from '../../firebase/Firebase';
 
-
-
-export interface LoginActionTypes {
-  email: string | null;
-  password: string | null
-}
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center
 `;
 
-
-
-export function isUserLogged (): User| null {return firebase.auth.getCurrentUser();}
+export const isUserLogged = (): User| null => firebase.auth.getCurrentUser();
 
 const LoginPage = () => {  
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setErrors] = useState('');
+  const [error, setError] = useState('');
   const { t } = useTranslation();
   const history = useHistory();
 
@@ -36,24 +27,29 @@ const LoginPage = () => {
     setEmail('');
     setPassword('');
     firebase.auth.handleSession().
-    then( ()=>{
-      firebase.auth.handleSignInWithEmailAndPassword(email, password)
-      .then((res: firebaseApp.auth.UserCredential)=>{
-        if (res.user) {
-        history.push('/');
-        }
-      }).catch((errorMes) => {
-        setErrors(errorMes.message);
-      }); 
-    });     
+      then( ()=>{
+        firebase.auth.handleSignInWithEmailAndPassword(email, password)
+          .then((res: firebaseApp.auth.UserCredential)=>{
+            if (res.user) {
+            history.push('/');
+          }
+        }).catch((errorMes) => {
+          setError(errorMes.message);
+        }); 
+      });     
   };
 
-if ( isUserLogged() )  history.push('/');
+  firebase.auth.onAuthStateChanged(function(user: User| null):void {
+    if (user) {
+      history.push('/');
+    } 
+  });
+ 
  return ( 
    <>  
    <Link to="/">{t('homePage')}</Link>      
     <Container>          
-      <form onSubmit={(event: FormEvent<HTMLFormElement>) => handleSubmit(event)}
+      <form onSubmit={handleSubmit}
        autoComplete="off">
         <TextField
           required
@@ -79,7 +75,7 @@ if ( isUserLogged() )  history.push('/');
           {t('send')}
         </Button>
       </form>     
-        <span>{(error)? t('login-error'): null}</span>      
+        <span>{(error)? t('error'): null}</span>      
     </Container>
     </>
     );
