@@ -12,5 +12,5 @@
     "registerSuccess": "Account created. Please login.",
     "passwordConfirm": "Repeat password",
     "logout": "Log Out",
-    "error": "Sorry, you've provided wrong credentials or haven't been registered..."
+    "login-error": "Sorry, you've provided wrong credentials or haven't been registered..."
 }

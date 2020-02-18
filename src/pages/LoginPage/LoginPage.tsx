@@ -12,8 +12,6 @@ const Container = styled.div`
   align-items: center
 `;
 
-export const isUserLogged = (): User| null => firebase.auth.getCurrentUser();
-
 export const LoginPage = () => {  
   
   const [email, setEmail] = useState('');
@@ -75,11 +73,9 @@ export const LoginPage = () => {
           {t('send')}
         </Button>
       </form>     
-        <span>{(error)? t('error'): null}</span>      
+        <span>{(error) && t('login-error')}</span>      
     </Container>
     </>
     );
   };
 
-
-//export default withTranslation()(LoginPage);
