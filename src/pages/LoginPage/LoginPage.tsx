@@ -14,7 +14,7 @@ const Container = styled.div`
 
 export const isUserLogged = (): User| null => firebase.auth.getCurrentUser();
 
-const LoginPage = () => {  
+export const LoginPage = () => {  
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -82,4 +82,4 @@ const LoginPage = () => {
   };
 
 
-export default withTranslation()(LoginPage);
+//export default withTranslation()(LoginPage);
