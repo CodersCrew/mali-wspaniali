@@ -20,7 +20,7 @@ const RegistrationPage = (props: RegistrationPageProps & PropsWithChildren<WithT
   
   return (
     <>
-        <AuthorizationComponent roles={[Role.Parent]}>
+      <>
           <Link to="/">{t('homePage')}</Link>
           <Container maxWidth="sm" className={classes.container}>
             <Typography variant="h4" gutterBottom className={classes.h4}>
@@ -33,7 +33,7 @@ const RegistrationPage = (props: RegistrationPageProps & PropsWithChildren<WithT
               {t('alreadyHaveAccount')} <Link to="login">{t('login')}</Link>
             </p>
           </Container>
-        </AuthorizationComponent>
+        </>
     </>
   );
 };

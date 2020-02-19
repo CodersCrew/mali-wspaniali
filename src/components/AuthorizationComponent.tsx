@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 import { AuthService } from '../services/authService';
 import {AuthorizationProps} from '../interfaces/AuthorizationProps';
-import {firebase} from '../firebase/Firebase';
+
+
 
 interface IState {
   authorized: boolean,
@@ -31,33 +32,19 @@ constructor(newProps: AuthorizationProps) {
     authorized: false,
     isLoaded: false
   };
-
-  console.log('constructor');
 }
 
-async componentDidMount() {
-   console.log('didmount');
-   this.authService.isUserInRole().then((res)=>{
-       console.log('test');
-       console.log(res);
-   }).catch( (error) =>{
-     console.log('error');
-   });
-}
-
-componentWillUnmount() {
-  console.log('unmount');
+ async componentDidMount() {
   this.setState({
-    authorized: false,
-    isLoaded: false
+    authorized: await this.authService.isUserInRole(),
+    isLoaded: true
   });
 }
 
   render() {
-    console.log('render');
+
     if(this.state.isLoaded)
     {
-      console.log('inside inloaded');
       return (
         this.state.authorized === true ? <React.Fragment>{this.props.children}</React.Fragment> : (<Redirect to="/not-found" />)
       );

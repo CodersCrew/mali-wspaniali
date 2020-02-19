@@ -8,8 +8,6 @@ firebaseApp.initializeApp(config);
 
 const auth = firebaseApp.auth();
 
-console.log('first');
-
 export const firebase = {
     auth: authRepository(auth),
 };

@@ -10,13 +10,7 @@ export class AuthService {
   }
 
   async isUserInRole(): Promise<boolean> {
-    console.log('second');
-    console.log(this.userRoles);
-    const test = firebase.auth;
-    if(await firebase.auth.getUserRole() === undefined){
-      console.log('jest undefined');
-      setTimeout( async () => await this.isUserInRole(), 1000);
-    }
+    console.log(await firebase.auth.getUserRole());
     return this.userRoles.includes(await firebase.auth.getUserRole() as Role);
   }
 }
