@@ -1,51 +1,109 @@
-import React, { ChangeEvent, MouseEvent } from 'react';
-import {TextField, Button, makeStyles } from '@material-ui/core/';
-import i18next from "i18next";
-import { RegistrationUser } from './types';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { TextField, Button, makeStyles } from '@material-ui/core/';
+import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { AlertDialog } from './AlertDialog';
+import { RegisterUser } from '../../actions/registrationActions';
 
 type RegistrationFormProps = {
-  user: RegistrationUser;
-  onSubmit: (event: MouseEvent<HTMLElement>) => void;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
-  errors: {
-    email?: boolean;
-    password?: boolean;
-  };
+  registerUser: RegisterUser;
+};
+
+const initialState = {
+  email: '',
+  password: '',
+  passwordConfirm: '',
 };
 
 export const RegistrationForm = (props: RegistrationFormProps) => {
-  const { user, onSubmit, onChange, errors } = props;
+  const [form, setForm] = useState({ ...initialState });
+  const [isAlert, setIsAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const { email, password, passwordConfirm} = form;
   const classes = useStyles();
+  const history = useHistory();
+  const { t } = useTranslation();
+
+  // eslint-disable-next-line consistent-return
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+
+    if (password !== passwordConfirm) {
+      setAlertMessage(t('passwordMismatch'));
+      return setIsAlert(true);
+    }
+
+    const user = { email, password };
+    
+    props.registerUser(user).then(() => {
+        setForm({ ...initialState });
+        history.push('/login');
+      }).catch((err) => {
+        setAlertMessage(err.message);
+        setIsAlert(true);
+      });
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const { id, value } = event.target;
+    setForm(prevForm => ({
+      ...prevForm,
+      [id]: value,
+    }));
+  };
 
   return (
-    <form className="registration-form" autoComplete="off">
+    
+    <form
+      className="registration-form"
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
       <TextField
         required
-        onChange={onChange}
-        value={user.email}
+        onChange={handleChange}
+        value={email}
         id="email"
+        type="email"
         label="E-mail"
-        error={errors.email}
         fullWidth
       />
       <TextField
         required
-        onChange={onChange}
-        value={user.password}
+        onChange={handleChange}
+        value={password}
         id="password"
-        label= {i18next.t('password')}
-        error={errors.password}
+        type="password"
+        label={t('password')}
+        fullWidth
+      />
+      <TextField
+        required
+        onChange={handleChange}
+        value={passwordConfirm}
+        id="passwordConfirm"
+        type="password"
+        label={t('passwordConfirm')}
         fullWidth
       />
       <Button
-        onClick={onSubmit}
+        type="submit"
         variant="contained"
         color="primary"
         className={classes.button}
       >
-          {i18next.t('send')}
+        {t('send')}
       </Button>
+      {isAlert && (
+        <AlertDialog
+          isOpen={isAlert}
+          setIsAlert={setIsAlert}
+          message={alertMessage}
+        />
+      )}
+
     </form>
+
   );
 };
 

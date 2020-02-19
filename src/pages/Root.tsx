@@ -18,8 +18,8 @@ const Root = () => {
         <Suspense fallback={<Loader/>}>
             < Page/>
             <Router>
-                <div>                    
-                    <Route exact path="/" component={homePage} />
+                <div>
+                    <Route exact path="/" component={homePage}/>                    
                     <Route path="/login" component={loginPage} />
                     <Route path="/register" component={registrationPage}/>
                 </div>

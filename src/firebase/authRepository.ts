@@ -1,8 +1,7 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/auth';
-import * as firebase from 'firebase'
+import * as firebase from 'firebase';
 
-//firebase.auth() = firebaseApp.auth.Auth
 
 export const authRepository = (auth: firebaseApp.auth.Auth) => ({
     handleSession: ()=>  auth.setPersistence(firebase.auth.Auth.Persistence.SESSION),
@@ -16,5 +15,7 @@ export const authRepository = (auth: firebaseApp.auth.Auth) => ({
         }
     },
     onAuthStateChanged: (onAuthStateChangedFunction: (user: firebaseApp.User | null) => void) => auth.onAuthStateChanged(onAuthStateChangedFunction),
-    getCurrentUser: (): firebaseApp.User | null => auth.currentUser    
+    getCurrentUser:  (): firebaseApp.User | null =>  auth.currentUser,
+    getUserRole: () => auth.currentUser?.getIdTokenResult().then(
+      (idTokenResult) => String(idTokenResult.claims.role))
 });

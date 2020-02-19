@@ -1,59 +1,39 @@
-import React, { useState, ChangeEvent, MouseEvent } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect  } from 'react-redux';
 import { Container, Typography, makeStyles } from '@material-ui/core/';
-import i18next from "i18next";
-import {
-  RegisterUserType,
-  registerUser,
-} from '../../actions/registrationActions';
+import { WithTranslation, useTranslation } from 'react-i18next';
+import { registerUser, RegisterUser } from '../../actions/registrationActions';
 import { RegistrationForm } from './RegistrationForm';
-import { AlertDialog } from './AlertDialog';
-import { RegistrationState } from './types';
+import { RegistrationState, RegistrationUser } from './types';
+import AuthorizationComponent from '../../components/AuthorizationComponent';
+import { Role } from '../../common/roles';
 
 type RegistrationPageProps = {
-  registerUser: RegisterUserType;
-  users: RegistrationState;
+  registerUser: RegisterUser,
+  user: RegistrationUser,
 };
 
-const RegistrationPage = (props: RegistrationPageProps) => {
-  const [user, setUser] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
-  const [isAlert, setAlert] = useState(false);
+const RegistrationPage = (props: RegistrationPageProps & PropsWithChildren<WithTranslation>) => {
   const classes = useStyles();
-  // eslint-disable-next-line consistent-return
-  const handleSubmit = (event: MouseEvent<HTMLElement>): void => {
-    event.preventDefault();
-    const { email, password } = user;
-
-    if (email === '' || password === '') return setAlert(true);
-    props.registerUser(user);
-    setUser({ email: '', password: '' });
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const { id, value } = event.target;
-    setUser(prevUser => ({
-      ...prevUser,
-      [id]: value,
-    }));
-  };
-
+  const { t } = useTranslation();
+  
   return (
     <>
-      <Link to="/">{i18next.t('homePage')}</Link>
-      <Container maxWidth="sm" className={classes.container}>
-        <Typography variant="h4" gutterBottom className={classes.h4}>
-          {i18next.t('register')}
-        </Typography>
-        <RegistrationForm
-          user={user}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-          errors={errors}
-        />
-        {isAlert && <AlertDialog isOpen={isAlert} setAlert={setAlert} />}
-      </Container>
+        <AuthorizationComponent roles={[Role.Parent]}>
+          <Link to="/">{t('homePage')}</Link>
+          <Container maxWidth="sm" className={classes.container}>
+            <Typography variant="h4" gutterBottom className={classes.h4}>
+              {t('register')}
+            </Typography>
+            <RegistrationForm
+              registerUser={props.registerUser}
+            />
+            <p>
+              {t('alreadyHaveAccount')} <Link to="login">{t('login')}</Link>
+            </p>
+          </Container>
+        </AuthorizationComponent>
     </>
   );
 };
@@ -68,10 +48,10 @@ const useStyles = makeStyles({
 });
 
 function mapStateToProps(
-  users: RegistrationState,
-): Pick<RegistrationPageProps, 'users'> {
+  state: RegistrationState,
+): Pick<RegistrationPageProps, 'user'> {
   return {
-    users,
+    user: state.user,
   };
 }
 
@@ -79,7 +59,7 @@ const mapDispatchToProps = {
   registerUser,
 };
 
-export default connect(
+export default connect (
   mapStateToProps,
   mapDispatchToProps,
-)(RegistrationPage);
+) (RegistrationPage);
