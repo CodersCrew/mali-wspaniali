@@ -1,4 +1,4 @@
-name: CI 🤷
+name: CI ⚡
 
 on: push
 
@@ -38,7 +38,7 @@ jobs:
           path: build
   deploy:
     needs: [lint-and-test, build]
-    if: github.ref == 'refs/heads/MALWSP-145-github-actions'
+    if: github.ref == 'refs/heads/master'
     name: Deploy
     runs-on: ubuntu-latest
     steps:
