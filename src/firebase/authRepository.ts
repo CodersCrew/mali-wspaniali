@@ -1,7 +1,9 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/auth';
 
+
 export const authRepository = (auth: firebaseApp.auth.Auth) => ({
+    handleSession: ()=>  auth.setPersistence(firebaseApp.auth.Auth.Persistence.SESSION),
     handleCreateUserWithEmailAndPassword: (email: string, password: string) => auth.createUserWithEmailAndPassword(email, password),
     handleSignInWithEmailAndPassword: (email: string, password: string) => auth.signInWithEmailAndPassword(email, password),
     handleSignOut: () => auth.signOut(),
@@ -12,4 +14,5 @@ export const authRepository = (auth: firebaseApp.auth.Auth) => ({
         }
     },
     onAuthStateChanged: (onAuthStateChangedFunction: (user: firebaseApp.User | null) => void) => auth.onAuthStateChanged(onAuthStateChangedFunction),
+    getCurrentUser: (): firebaseApp.User | null => auth.currentUser    
 });
