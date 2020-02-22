@@ -19,7 +19,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
   const [form, setForm] = useState(initialState);
   const [isAlert, setIsAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const { email, password, passwordConfirm} = form;
+  const { email, password, passwordConfirm } = form;
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation();
@@ -34,10 +34,13 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
     }
 
     const user = { email, password };
-    
-    props.registerUser(user).then(() => {
+
+    props
+      .registerUser(user)
+      .then(() => {
         history.push('/login');
-      }).catch((err) => {
+      })
+      .catch(err => {
         setAlertMessage(err.message);
         setIsAlert(true);
       });

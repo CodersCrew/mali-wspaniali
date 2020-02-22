@@ -9,5 +9,4 @@ export type RegistrationState = {
 
 export type AppState = {
   registrationState: RegistrationState;
-}
-
+};
