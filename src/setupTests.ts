@@ -5,7 +5,7 @@
 import '@testing-library/jest-dom/extend-expect';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({
-        push: jest.fn(),
-    }),
+  useHistory: () => ({
+    push: jest.fn(),
+  }),
 }));
