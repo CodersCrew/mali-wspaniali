@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import firebaseApp, { User } from 'firebase/app';
-import { firebase } from '../../firebase/Firebase';
+import { firebase } from '../../firebase/firebase';
 
 const Container = styled.div`
   display: flex;

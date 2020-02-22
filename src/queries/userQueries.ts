@@ -1,5 +1,5 @@
 import { User } from '@firebase/auth-types';
-import { firebase } from '../firebase/Firebase';
+import { firebase } from '../firebase/firebase';
 import { RegistrationUser } from '../pages/RegistrationPage/types';
 
 export const createUser = async (
