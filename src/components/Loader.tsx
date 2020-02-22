@@ -1,5 +1,3 @@
 import React from 'react';
 
-export const Loader = () => (
-    <div>loading...</div>
-);
+export const Loader = () => <div>loading...</div>;

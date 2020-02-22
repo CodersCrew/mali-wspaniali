@@ -9,20 +9,20 @@ export const ChangeLanguage = () => {
   };
 
   return (
-      <>
-        <Button onClick={() => changeLanguage('pl')} variant="contained">
-          pl
-        </Button>
-        <Button onClick={() => changeLanguage('de')} variant="contained">
-          de
-        </Button>
-        <Button
-          onClick={() => changeLanguage('en')}
-          variant="contained"
-          color="default"
-        >
-          en
-        </Button>
-      </>
+    <>
+      <Button onClick={() => changeLanguage('pl')} variant="contained">
+        pl
+      </Button>
+      <Button onClick={() => changeLanguage('de')} variant="contained">
+        de
+      </Button>
+      <Button
+        onClick={() => changeLanguage('en')}
+        variant="contained"
+        color="default"
+      >
+        en
+      </Button>
+    </>
   );
 };

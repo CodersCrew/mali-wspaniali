@@ -12,25 +12,23 @@ type RegistrationPageProps = {
   user: RegistrationUser;
 };
 
-const RegistrationPage = (
-  props: RegistrationPageProps,
-) => {
+const RegistrationPage = (props: RegistrationPageProps) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
-      <>
-        <Link to="/">{t('homePage')}</Link>
-        <Container maxWidth="sm" className={classes.container}>
-          <Typography variant="h4" gutterBottom className={classes.h4}>
-            {t('register')}
-          </Typography>
-          <RegistrationForm registerUser={props.registerUser} />
-          <p>
-            {t('alreadyHaveAccount')} <Link to="login">{t('login')}</Link>
-          </p>
-        </Container>
-      </>
+    <>
+      <Link to="/">{t('homePage')}</Link>
+      <Container maxWidth="sm" className={classes.container}>
+        <Typography variant="h4" gutterBottom className={classes.h4}>
+          {t('register')}
+        </Typography>
+        <RegistrationForm registerUser={props.registerUser} />
+        <p>
+          {t('alreadyHaveAccount')} <Link to="login">{t('login')}</Link>
+        </p>
+      </Container>
+    </>
   );
 };
 
