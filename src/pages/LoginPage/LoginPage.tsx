@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, Button } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import firebaseApp, { User } from 'firebase/app';
 import { firebase } from '../../firebase/Firebase';
 
