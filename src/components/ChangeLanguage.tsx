@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@material-ui/core/';
 import React from 'react';
 
-function Page() {
+export const ChangeLanguage = () => {
   const { i18n } = useTranslation();
   const changeLanguage = (lng: string) => {
     return i18n.changeLanguage(lng);
@@ -27,6 +27,4 @@ function Page() {
       </div>
     </div>
   );
-}
-
-export default Page;
+};

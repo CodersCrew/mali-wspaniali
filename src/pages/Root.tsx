@@ -1,15 +1,15 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import HomePage from './HomePage';
-import { LoginPage } from './LoginPage/LoginPage';
-import RegistrationPage from './RegistrationPage';
+import { HomePage } from './HomePage';
+import { LoginPage } from './LoginPage';
+import { RegistrationPage } from './RegistrationPage';
 import { Loader } from '../components/Loader';
-import Page from '../components/ChangeLanguage';
+import { ChangeLanguage } from '../components/ChangeLanguage';
 
-const Root = () => {
+export const Root = () => {
   return (
     <Suspense fallback={<Loader />}>
-      <Page />
+      <ChangeLanguage />
       <Router>
         <div>
           <Route exact path="/" component={HomePage} />
@@ -20,5 +20,3 @@ const Root = () => {
     </Suspense>
   );
 };
-
-export default Root;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import './internationalization/i18n';
-import Root from './pages/Root';
+import { Root } from './pages/Root';
 import { configureStore } from './store';
 
 import * as serviceWorker from './serviceWorker';

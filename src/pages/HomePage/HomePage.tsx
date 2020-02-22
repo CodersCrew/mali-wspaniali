@@ -44,5 +44,3 @@ const useStyles = makeStyles({
     flexDirection: 'column',
   },
 });
-
-export default HomePage;
