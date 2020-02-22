@@ -37,7 +37,7 @@ export const LoginPage = () => {
     });
   };
 
-  firebase.auth.onAuthStateChanged(function(user: User | null): void {
+  firebase.auth.onAuthStateChanged((user: User | null) => {
     if (user) {
       history.push('/');
     }
