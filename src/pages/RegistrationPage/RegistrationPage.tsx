@@ -19,7 +19,6 @@ const RegistrationPage = (
   const { t } = useTranslation();
 
   return (
-    <>
       <>
         <Link to="/">{t('homePage')}</Link>
         <Container maxWidth="sm" className={classes.container}>
@@ -32,7 +31,6 @@ const RegistrationPage = (
           </p>
         </Container>
       </>
-    </>
   );
 };
 

@@ -9,8 +9,7 @@ export const ChangeLanguage = () => {
   };
 
   return (
-    <div className="App">
-      <div className="App-header">
+      <>
         <Button onClick={() => changeLanguage('pl')} variant="contained">
           pl
         </Button>
@@ -24,7 +23,6 @@ export const ChangeLanguage = () => {
         >
           en
         </Button>
-      </div>
-    </div>
+      </>
   );
 };
