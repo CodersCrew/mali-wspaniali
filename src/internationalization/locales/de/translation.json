@@ -7,5 +7,8 @@
   "password": "Kennwort",
   "send": "send",
   "searchResult": "Suchergebnisse",
-  "noResults": "Keine Suchergebnisse"
+  "noResults": "Keine Suchergebnisse",
+  "fullName": "Vor- und Nachname",
+  "noTests": "keine Tests"
+
 }

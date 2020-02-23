@@ -7,5 +7,7 @@
   "password": "Hasło",
   "send": "Wyślij",
   "searchResult": "Wynik wyszukiwania",
-  "noResults": "Brak wyników"
+  "noResults": "Brak wyników",
+  "fullName": "Imię i Nazwisko",
+  "noTests": "Brak testów"
 }

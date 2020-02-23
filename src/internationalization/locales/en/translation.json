@@ -7,5 +7,7 @@
   "password": "Password",
   "send": "send",
   "searchResult": "Search Result",
-  "noResults": "No Results"
+  "noResults": "No Results",
+  "fullName": "Full Name",
+  "noTests": "No Tests"
 }
