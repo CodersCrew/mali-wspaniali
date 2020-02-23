@@ -4,7 +4,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { TestResultsTableHead } from '../../components/TestResultsTableHead/TestResultsTableHead';
 import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/firebase';
+import { firebase } from '../../firebase/Firebase';
 import { TestResultsTableRow } from '../../components/TestResultsTableRow/TestResultsTableRow';
 
 export const AdminResultsPage = () => {

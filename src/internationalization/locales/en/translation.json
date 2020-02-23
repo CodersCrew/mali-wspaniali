@@ -3,11 +3,18 @@
   "homePage": "Go to home page",
   "registrationPage": "Go to registaration page",
   "register": "Register",
-  "eMail": "E-Mail-Adresse",
+  "eMail": "E-Mail-Adress",
   "password": "Password",
   "send": "send",
   "searchResult": "Search Result",
   "noResults": "No Results",
   "fullName": "Full Name",
-  "noTests": "No Tests"
+  "noTests": "No Tests",
+  "alreadyHaveAccount": "Already have an account?",
+  "login": "Login",
+  "passwordMismatch": "Passwords do not match",
+  "registerSuccess": "Account created. Please login.",
+  "passwordConfirm": "Repeat password",
+  "logout": "Log Out",
+  "login-error": "Sorry, you've provided wrong credentials or haven't been registered..."
 }

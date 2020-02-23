@@ -2,12 +2,19 @@
   "loginPage": "Logowanie",
   "homePage": "Strona główna",
   "registrationPage": "Rejestracja",
-  "register": "Zarejestruj",
+  "register": "Zarejestruj się",
   "eMail": "E-mail",
   "password": "Hasło",
   "send": "Wyślij",
   "searchResult": "Wynik wyszukiwania",
   "noResults": "Brak wyników",
   "fullName": "Imię i Nazwisko",
-  "noTests": "Brak testów"
+  "noTests": "Brak testów",
+  "alreadyHaveAccount": "Masz już konto?",
+  "login": "Zaloguj się",
+  "passwordMismatch": "Podane hasła nie są takie same",
+  "registerSuccess": "Konto zostało utworzone. Możesz się zalogować.",
+  "passwordConfirm": "Powtórz hasło",
+  "logout": "Wyloguj",
+  "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany ..."
 }

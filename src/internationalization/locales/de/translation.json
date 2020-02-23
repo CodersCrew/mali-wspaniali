@@ -9,6 +9,12 @@
   "searchResult": "Suchergebnisse",
   "noResults": "Keine Suchergebnisse",
   "fullName": "Vor- und Nachname",
-  "noTests": "keine Tests"
-
+  "noTests": "keine Tests",
+  "alreadyHaveAccount": "",
+  "login": "",
+  "passwordMismatch": "",
+  "registerSuccess": "",
+  "passwordConfirm": "",
+  "login-error": "Entschuldigung, Sie haben falsche Anmeldeinformationen angegeben oder wurden nicht registriert ...",
+  "logout": "Abmelden"
 }
