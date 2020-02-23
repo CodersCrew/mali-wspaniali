@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography, Table, TableBody, TableHead, TableRow, TableCell, IconButton } from '@material-ui/core/';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import i18next from "i18next"; // ADD LATER
+import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/firebase';
 
 interface Results {
@@ -35,6 +35,8 @@ export const AdminResultsPage = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [lastVisible, setLastVisible] = useState();
+  const { t } = useTranslation();
+
   useEffect(() => {
     const firstQuery = firebase.db
       .collection("children")
@@ -88,7 +90,7 @@ export const AdminResultsPage = () => {
     return (
       <Container >
         <Typography variant="h2" align="center" gutterBottom >
-          Results
+          {t('searchResult')}
       </Typography>
         <Table>
           <TableHead>
@@ -129,7 +131,7 @@ export const AdminResultsPage = () => {
   } else {
     return (
       <Typography variant="h3" align="center" gutterBottom>
-        No results
+        {t('noResults')}
       </Typography>
     )
   }

@@ -5,6 +5,7 @@
   "register": "Register",
   "eMail": "E-Mail-Adresse",
   "password": "Password",
-  "send": "send"
-
+  "send": "send",
+  "searchResult": "Search Result",
+  "noResults": "No Results"
 }

@@ -5,5 +5,7 @@
   "register": "Melde dich",
   "eMail": "E-Mail-Adresse",
   "password": "Kennwort",
-  "send": "send"
+  "send": "send",
+  "searchResult": "Suchergebnisse",
+  "noResults": "Keine Suchergebnisse"
 }
