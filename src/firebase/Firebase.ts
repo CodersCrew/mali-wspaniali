@@ -10,5 +10,5 @@ const db = firebaseApp.firestore();
 
 export const firebase = {
     auth: authRepository(auth),
-    firestore: db
+    db
 };

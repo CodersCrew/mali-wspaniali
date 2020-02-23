@@ -3,78 +3,85 @@ import { Container, Typography, Table, TableBody, TableHead, TableRow, TableCell
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import i18next from "i18next"; // ADD LATER
-import { firebase } from '../../firebase/Firebase';
+import { firebase } from '../../firebase/firebase';
 
-const AdminResultsPage = () => {
-  const [data, setData] = useState<Array<firebase.firestore.DocumentData>>([]);
+interface Results {
+  title: string;
+  description: string;
+  date: Date;
+  points: number;
+}
+
+interface Agreements {
+  agreementId: string;
+  isAgreed: boolean;
+}
+
+interface Child {
+  firstName: string;
+  lastName: string;
+  userid: string;
+  birthYear: number;
+  birthQuarter: number;
+  city: string;
+  kindergartenNo: string;
+  groupNo: string;
+  results: Results;
+  agreements: Agreements;
+}
+
+export const AdminResultsPage = () => {
+  const [data, setData] = useState<firebase.firestore.DocumentData[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [lastVisible, setLastVisible] = useState();
   useEffect(() => {
-    const firstQuery = firebase.firestore
+    const firstQuery = firebase.db
       .collection("children")
       .orderBy("lastName")
       .limit(rowsPerPage);
 
-    firstQuery.get()
-      .then((snapshots) => {
-        if (!snapshots.empty) {
-          const documents: Array<firebase.firestore.DocumentData> = [];
-          snapshots.docs.map((doc) => {
-            const document = doc.data();
-            documents.push(document);
-          });
-          setData(documents);
-          setLastVisible(snapshots.docs[snapshots.docs.length - 1])
-        } else {
-          setData([]);
-        }
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    firstQuery.onSnapshot((snapshots) => {
+      if (!snapshots.empty) {
+        const documents: firebase.firestore.DocumentData[] = snapshots.docs.map((doc) => doc.data());
+        setData(documents);
+        setLastVisible(snapshots.docs[snapshots.docs.length - 1])
+      } else {
+        setData([]);
+      }
+    });
   }, []);
 
   const getData = (query: firebase.firestore.Query<firebase.firestore.DocumentData>) => {
-    query.get()
-      .then((snapshots) => {
+    query.onSnapshot((snapshots) => {
         if (!snapshots.empty) {
-          const documents: Array<firebase.firestore.DocumentData> = [];
-          snapshots.docs.map((doc) => {
-            const document = doc.data();
-            documents.push(document);
-          });
+          const documents: firebase.firestore.DocumentData[] = snapshots.docs.map((doc) => doc.data());
           setData(documents);
           setLastVisible(snapshots.docs[snapshots.docs.length - 1])
         } else {
           setData([]);
         }
-      })
-      .catch(function (error) {
-        console.error(error);
       });
   }
 
   const nextPageChangeHandler = () => {
-    const query = firebase.firestore
+    const query = firebase.db
       .collection("children")
       .orderBy("lastName")
       .limit(rowsPerPage)
       .startAfter(lastVisible)
     getData(query);
-    const newPage = page + 1;
-    setPage(newPage)
+    setPage(page + 1)
   }
 
   const previousPageChangeHandler = () => {
-    const query = firebase.firestore
+    const query = firebase.db
       .collection("children")
       .orderBy("lastName")
       .limit(rowsPerPage)
       .endBefore(lastVisible);
     getData(query);
-    const newPage = page - 1;
-    setPage(newPage)
+    setPage(page - 1)
   }
 
   if (data.length !== 0) {
@@ -87,19 +94,19 @@ const AdminResultsPage = () => {
           <TableHead>
             <TableRow>
               <TableCell>Child Name</TableCell>
-              {data[0].results.map((elem: any) => {
+              {data[0].results.map((result: Results) => {
                 return (
-                  <TableCell>{elem.title} score</TableCell>
+                  <TableCell>{result.title} score</TableCell>
                 )
               })}
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((elem: any) => {
+            {data.map((child: firebase.firestore.DocumentData) => {
               return (
                 <TableRow>
-                  <TableCell>{`${elem.firstName} ${elem.lastName}`}</TableCell>
-                  {elem.results.map((result: any) => {
+                  <TableCell>{`${child.firstName} ${child.lastName}`}</TableCell>
+                  {child.results.map((result: Results) => {
                     return (
                       <TableCell>{result.points}</TableCell>
                     )
@@ -110,8 +117,12 @@ const AdminResultsPage = () => {
           </TableBody>
         </Table>
         <div>
-          <IconButton disabled={page === 0 ? true : false} onClick={previousPageChangeHandler}><ArrowBackIosIcon /></IconButton>
-          <IconButton onClick={nextPageChangeHandler}><ArrowForwardIosIcon /></IconButton>
+          <IconButton disabled={page === 0 ? true : false} onClick={previousPageChangeHandler}>
+            <ArrowBackIosIcon />
+          </IconButton>
+          <IconButton onClick={nextPageChangeHandler}>
+            <ArrowForwardIosIcon />
+          </IconButton>
         </div>
       </Container>
     )
@@ -123,5 +134,3 @@ const AdminResultsPage = () => {
     )
   }
 }
-
-export default AdminResultsPage;

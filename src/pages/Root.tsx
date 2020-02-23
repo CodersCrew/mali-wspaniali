@@ -21,7 +21,7 @@ const Root = () => {
                     <Route exact path="/" component={homePage}/>
                     <Route path="/login" component={loginPage}/>
                     <Route path="/register" component={registrationPage}/>
-                    <Route path="/adminresults" component={AdminResultsPage}/>
+                    <Route path="/admin/results" component={AdminResultsPage}/>
                 </div>
             </Router>
         </Suspense>
