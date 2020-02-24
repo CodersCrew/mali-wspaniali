@@ -3,8 +3,11 @@ import { TextField, Button } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import firebaseApp, { User } from 'firebase/app';
-import { firebase } from '../../firebase/firebase';
+import { User, UserCredential } from '../../firebase/firebase';
+import {
+  handleSignInWithEmailAndPassword,
+  onAuthStateChanged,
+} from '../../queries/authQueries';
 
 const Container = styled.div`
   display: flex;
@@ -15,29 +18,29 @@ const Container = styled.div`
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [loginError, setLoginError] = useState('');
   const { t } = useTranslation();
   const history = useHistory();
+
+  const handleSubmitSuccess = ({ user }: UserCredential) => {
+    if (user) history.push('/');
+  };
+
+  const handleSubmitError = (error: Error) => setLoginError(error.message);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     setEmail('');
     setPassword('');
-    firebase.auth.handleSession().then(() => {
-      firebase.auth
-        .handleSignInWithEmailAndPassword(email, password)
-        .then((res: firebaseApp.auth.UserCredential) => {
-          if (res.user) {
-            history.push('/');
-          }
-        })
-        .catch(errorMes => {
-          setError(errorMes.message);
-        });
-    });
+    handleSignInWithEmailAndPassword(
+      email,
+      password,
+      handleSubmitSuccess,
+      handleSubmitError,
+    );
   };
 
-  firebase.auth.onAuthStateChanged((user: User | null) => {
+  onAuthStateChanged((user: User | null) => {
     if (user) {
       history.push('/');
     }
@@ -72,7 +75,7 @@ export const LoginPage = () => {
             {t('send')}
           </Button>
         </form>
-        <span>{error && t('login-error')}</span>
+        <span>{loginError && t('login-error')}</span>
       </Container>
     </>
   );
