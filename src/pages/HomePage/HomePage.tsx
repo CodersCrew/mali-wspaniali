@@ -30,7 +30,12 @@ export const HomePage = () => {
                 <Button variant="contained" color="primary">
                     {t('registrationPage')}
                 </Button>
+            <Link to="/child/a8g6zDTz9qHbgbWUmoPT/">
+                <Button variant="contained" color="primary">
+                    {t('childProfilePage')}
+                </Button>
             </Link>
+        </Link>
         </Container>        
   );
 };

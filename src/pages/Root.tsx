@@ -6,6 +6,7 @@ import { LoginPage }  from './LoginPage/LoginPage';
 import RegistrationPage from './RegistrationPage';
 import { Loader } from '../components/Loader';
 import Page from '../components/ChangeLanguage';
+import {childProfilePage} from './childProfilePage';
 
 const homePage = withTranslation()(HomePage);
 const loginPage = LoginPage;
@@ -20,6 +21,7 @@ const Root = () => {
             <Route exact path="/" component={homePage} />
             <Route path="/login" component={loginPage} />
             <Route path="/register" component={registrationPage} />
+            <Route path="/child/:childID" component={childProfilePage}/>
           </div>
         </Router>
       </Suspense>
