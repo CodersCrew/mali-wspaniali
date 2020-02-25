@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography, Table, TableBody, IconButton } from '@material-ui/core/';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { TestResultsTableHead } from '../../components/TestResultsTableHead/TestResultsTableHead';
 import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/Firebase';
 import { TestResultsTableRow } from '../../components/TestResultsTableRow/TestResultsTableRow';
@@ -13,44 +12,39 @@ export const AdminResultsPage = () => {
   const [rowsPerPage] = useState(10);
   const [lastVisible, setLastVisible] = useState();
   const { t } = useTranslation();
+  const [listeners, setListeners] = useState<(()=>void)[]>([]);
 
-  const getData = (query: firebase.firestore.Query<firebase.firestore.DocumentData>) => {
-    query.onSnapshot((snapshots) => {
-      if (!snapshots.empty) {
-        const documents: firebase.firestore.DocumentData[] = snapshots.docs.map((doc) => doc.data());
-        setChildrenList(documents);
-        setLastVisible(snapshots.docs[snapshots.docs.length - 1])
-      } else {
-        setChildrenList([]);
-      }
-    });
+  const addNewListener = (listener:(()=>void)) => {
+    let newListeners: (()=>void)[] = listeners;
+    newListeners.push(listener);
+    setListeners(newListeners)
+  }
+
+  const detachListeners = () => {
+    listeners.forEach((listener) => () => listener());
   }
 
   useEffect(() => {
-    const firstQuery = firebase.db
-      .collection("child")
-      .orderBy("lastName")
-      .limit(rowsPerPage);
-      getData(firstQuery);
+    const { documents, unsubscribe, lastVisible } = firebase.child.getChildrenFirstPage(rowsPerPage);
+    setLastVisible(lastVisible);
+    setChildrenList(documents);
+    addNewListener(unsubscribe);
+    return () => detachListeners();
   }, []);
 
   const nextPageChangeHandler = () => {
-    const query = firebase.db
-      .collection("child")
-      .orderBy("lastName")
-      .limit(rowsPerPage)
-      .startAfter(lastVisible)
-    getData(query);
+    const { documents, unsubscribe, newLastVisible } = firebase.child.getChildrenNextPage(rowsPerPage, lastVisible[0]);
+    setLastVisible(newLastVisible);
+    setChildrenList(documents);
+    addNewListener(unsubscribe);
     setPage(page + 1)
   }
 
   const previousPageChangeHandler = () => {
-    const query = firebase.db
-      .collection("child")
-      .orderBy("lastName")
-      .limit(rowsPerPage)
-      .endBefore(lastVisible);
-    getData(query);
+    const { documents, unsubscribe, newLastVisible } = firebase.child.getChildrenNextPage(rowsPerPage, lastVisible[0]);
+    setLastVisible(newLastVisible);
+    setChildrenList(documents);
+    addNewListener(unsubscribe);
     setPage(page - 1)
   }
 
@@ -70,7 +64,6 @@ export const AdminResultsPage = () => {
         {t('searchResult')}
       </Typography>
       <Table>
-        <TestResultsTableHead childrenList={childrenList} />
         <TableBody>
           {childrenList.map((child: firebase.firestore.DocumentData) => <TestResultsTableRow key={child.userId} child={child} />)}
         </TableBody>
