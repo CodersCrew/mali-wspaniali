@@ -14,3 +14,6 @@ export const firebase = {
   auth: authRepository(auth),
   child: childRepository(db),
 };
+
+export type UserCredential = firebaseApp.auth.UserCredential;
+export type User = firebaseApp.User;

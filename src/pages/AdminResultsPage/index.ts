@@ -1,3 +1,1 @@
-import { AdminResultsPage } from './AdminResultsPage';
-
-export default AdminResultsPage;
+export { AdminResultsPage } from './AdminResultsPage';

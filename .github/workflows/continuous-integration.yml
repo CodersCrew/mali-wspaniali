@@ -33,6 +33,7 @@ jobs:
     env:
       CI: true
   build:
+    needs: [lint-and-test]
     name: Build
     runs-on: ubuntu-latest
     steps:

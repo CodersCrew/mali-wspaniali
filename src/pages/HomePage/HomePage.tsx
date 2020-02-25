@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, makeStyles } from '@material-ui/core/';
-import { withTranslation, useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/Firebase';
+import { useTranslation } from 'react-i18next';
+import { firebase } from '../../firebase/firebase';
 
 export const HomePage = () => {
   const classes = useStyles();
@@ -44,5 +44,3 @@ const useStyles = makeStyles({
     flexDirection: 'column',
   },
 });
-
-export default withTranslation()(HomePage);

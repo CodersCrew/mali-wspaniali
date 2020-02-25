@@ -1,9 +1,9 @@
 {
   "loginPage": "Go to login page",
   "homePage": "Go to home page",
-  "registrationPage": "Go to registaration page",
+  "registrationPage": "Go to registration page",
   "register": "Register",
-  "eMail": "E-Mail-Adress",
+  "eMail": "E-Mail-Address",
   "password": "Password",
   "send": "send",
   "searchResult": "Search Result",
@@ -16,5 +16,9 @@
   "registerSuccess": "Account created. Please login.",
   "passwordConfirm": "Repeat password",
   "logout": "Log Out",
-  "login-error": "Sorry, you've provided wrong credentials or haven't been registered..."
+  "login-error": "Sorry, you've provided wrong credentials or haven't been registered...",
+  "languages": {
+    "pl": "Polish",
+    "en": "English"
+  }
 }

@@ -16,5 +16,9 @@
   "registerSuccess": "Konto zostało utworzone. Możesz się zalogować.",
   "passwordConfirm": "Powtórz hasło",
   "logout": "Wyloguj",
-  "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany ..."
+  "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany ...",
+  "languages": {
+    "pl": "Polski",
+    "en": "Angielski"
+  }
 }
