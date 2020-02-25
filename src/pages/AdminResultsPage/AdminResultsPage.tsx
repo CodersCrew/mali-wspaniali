@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/Firebase';
+import { firebase } from '../../firebase/firebase';
 import { Document } from '../../firebase/types';
 import {
   Container,
