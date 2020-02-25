@@ -14,40 +14,44 @@ const Container = styled.div`
 `;
 
 interface Child {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   userId: string
 }
 
-let childInfo : Child;
 
 export const childProfilePage = () => {  
 
   const { childID  }  = useParams();  
 
   const [error, setError] = useState('');
-  const  [childiD, setChildId]  = useState('');  
+  let  [child, setChild]  = useState({
+    firstName: '',
+    lastName: '',
+    userId: ''
+  });  
+  
   const { t } = useTranslation();
 
-  const fetchDataOfChildFromFB =  () => {
+  const fetchDataOfChildFromFB = async () => {
     console.log(childID);  
 
     const childRef = firebase.auth.getDB().collection('child').doc(childID);
-    const getDoc = childRef.get()
-      .then(doc => {
+      try {
+        let doc = await childRef.get()     
         if (!doc.exists) {
-          console.log('No such document!');
-        } else {
-          childInfo = doc.data() as Child;
-          console.log('Document data:', childInfo);           
-          setChildId(childInfo.userId);
-        }
-      })
-      .catch(errorMes => {
+            console.log('No such document!');
+          } else {
+            child = doc.data() as Child;
+            console.log('Document data:', child);           
+            setChild(child);
+          }
+        }        
+      catch(errorMes) {
         setError(errorMes);
         console.log('Error getting document', errorMes);
-      });
-  };
+      }
+    };
 
  return ( 
    <>  
@@ -64,7 +68,7 @@ export const childProfilePage = () => {
           {t('Child Info')}
         </Button>  
 
-        {childiD} 
+        { (child !== null)? child.firstName +'\n'+ child.lastName +'\n'+ child.userId : '' } 
 
         <span>{(error) && t('child-error')}</span>      
     </Container>
