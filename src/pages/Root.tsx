@@ -1,29 +1,22 @@
 import React, { Suspense } from 'react';
-import { withTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import HomePage from './HomePage';
-import { LoginPage } from './LoginPage/LoginPage';
-import RegistrationPage from './RegistrationPage';
+import { HomePage } from './HomePage';
+import { LoginPage } from './LoginPage';
+import { RegistrationPage } from './RegistrationPage';
 import { Loader } from '../components/Loader';
-import Page from '../components/ChangeLanguage';
+import { LanguageSelector } from '../components/LanguageSelector';
 
-const homePage = withTranslation()(HomePage);
-const loginPage = LoginPage;
-const registrationPage = withTranslation()(RegistrationPage);
-
-const Root = () => {
+export const Root = () => {
   return (
     <Suspense fallback={<Loader />}>
-      <Page />
+      <LanguageSelector />
       <Router>
         <div>
-          <Route exact path="/" component={homePage} />
-          <Route path="/login" component={loginPage} />
-          <Route path="/register" component={registrationPage} />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegistrationPage} />
         </div>
       </Router>
     </Suspense>
   );
 };
-
-export default Root;

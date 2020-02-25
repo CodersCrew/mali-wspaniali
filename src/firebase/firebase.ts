@@ -11,3 +11,6 @@ const auth = firebaseApp.auth();
 export const firebase = {
   auth: authRepository(auth),
 };
+
+export type UserCredential = firebaseApp.auth.UserCredential;
+export type User = firebaseApp.User;

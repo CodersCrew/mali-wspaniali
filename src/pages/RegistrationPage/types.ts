@@ -6,7 +6,3 @@ export type RegistrationUser = {
 export type RegistrationState = {
   user: RegistrationUser;
 };
-
-export type AppState = {
-  registrationState: RegistrationState;
-};

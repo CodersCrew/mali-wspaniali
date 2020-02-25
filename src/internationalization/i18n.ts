@@ -43,5 +43,3 @@ i18n
       excludeCacheFor: ['cimode'],
     },
   });
-
-export default i18n;
