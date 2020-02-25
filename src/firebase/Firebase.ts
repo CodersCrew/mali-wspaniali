@@ -6,7 +6,6 @@ import { authRepository } from './authRepository';
 import { childRepository } from './childRepository';
 
 firebaseApp.initializeApp(config);
-
 const auth = firebaseApp.auth();
 const db = firebaseApp.firestore();
 db.enablePersistence();

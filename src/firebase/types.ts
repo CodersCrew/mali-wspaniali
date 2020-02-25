@@ -1,3 +1,5 @@
+export type Document = firebase.firestore.DocumentData;
+
 export interface Results {
   title: string;
   description: string;
@@ -20,5 +22,5 @@ export interface Child {
   kindergartenNo: string;
   groupNo: string;
   results: Results[];
-  agreements: Agreements;
+  agreements: Agreements[];
 }

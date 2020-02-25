@@ -1,10 +1,11 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/firestore';
+import { Document } from './types';
 
 export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
   getChildrenFirstPage: (rowsPerPage: number) => {
-    const documents: firebaseApp.firestore.DocumentData[] = [];
-    const lastVisible: firebaseApp.firestore.DocumentData[] = [];
+    const documents: Document[] = [];
+    const lastVisible: Document[] = [];
     const unsubscribe = () =>
       db
         .collection('child')
@@ -16,12 +17,9 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
         });
     return { documents, unsubscribe, lastVisible };
   },
-  getChildrenNextPage: (
-    rowsPerPage: number,
-    previousLastVisible: firebaseApp.firestore.DocumentData,
-  ) => {
-    const documents: firebaseApp.firestore.DocumentData[] = [];
-    const newLastVisible: firebaseApp.firestore.DocumentData[] = [];
+  getChildrenNextPage: (rowsPerPage: number, previousLastVisible: Document) => {
+    const documents: Document[] = [];
+    const newLastVisible: Document[] = [];
     const unsubscribe = () =>
       db
         .collection('child')
@@ -34,12 +32,9 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
         });
     return { documents, unsubscribe, newLastVisible };
   },
-  getChildrenPrevPage: (
-    rowsPerPage: number,
-    previousLastVisible: firebaseApp.firestore.DocumentData,
-  ) => {
-    const documents: firebaseApp.firestore.DocumentData[] = [];
-    const newLastVisible: firebaseApp.firestore.DocumentData[] = [];
+  getChildrenPrevPage: (rowsPerPage: number, previousLastVisible: Document) => {
+    const documents: Document[] = [];
+    const newLastVisible: Document[] = [];
     const unsubscribe = () =>
       db
         .collection('child')
