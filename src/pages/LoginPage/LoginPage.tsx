@@ -30,14 +30,14 @@ export const LoginPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    setEmail('');
-    setPassword('');
     handleSignInWithEmailAndPassword(
       email,
       password,
       handleSubmitSuccess,
       handleSubmitError,
     );
+    setEmail('');
+    setPassword('');
   };
 
   onAuthStateChanged((user: User | null) => {
