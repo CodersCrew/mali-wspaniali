@@ -13,20 +13,19 @@ const loginPage = LoginPage;
 const registrationPage = withTranslation()(RegistrationPage);
 
 const Root = () => {
-    return (
-        <Suspense fallback={<Loader/>}>
-            <Page />
-            <Router>
-                <div>
-                    <Route exact path="/" component={homePage}/>
-                    <Route path="/login" component={loginPage}/>
-                    <Route path="/register" component={registrationPage}/>
-                    <Route path="/admin/results" component={AdminResultsPage}/>
-                </div>
-            </Router>
-        </Suspense>
-
-    );
+  return (
+    <Suspense fallback={<Loader />}>
+      <Page />
+      <Router>
+        <div>
+          <Route exact path="/" component={homePage} />
+          <Route path="/login" component={loginPage} />
+          <Route path="/register" component={registrationPage} />
+          <Route path="/admin/results" component={AdminResultsPage} />
+        </div>
+      </Router>
+    </Suspense>
+  );
 };
 
 export default Root;

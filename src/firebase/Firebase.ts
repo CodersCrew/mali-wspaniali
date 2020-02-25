@@ -12,6 +12,6 @@ const db = firebaseApp.firestore();
 db.enablePersistence();
 
 export const firebase = {
-    auth: authRepository(auth),
-    child: childRepository(db)
-};  
+  auth: authRepository(auth),
+  child: childRepository(db),
+};
