@@ -29,7 +29,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
     event.preventDefault();
 
     if (password !== passwordConfirm) {
-      setAlertMessage(t('passwordMismatch'));
+      setAlertMessage(t('registration-page.password-mismatch'));
       return setIsAlert(true);
     }
 
@@ -84,7 +84,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         value={passwordConfirm}
         id="passwordConfirm"
         type="password"
-        label={t('passwordConfirm')}
+        label={t('registration-page.password-confirm')}
         fullWidth
       />
       <Button
@@ -93,7 +93,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         color="primary"
         className={classes.button}
       >
-        {t('send')}
+        {t('registration-page.register')}
       </Button>
       {isAlert && (
         <AlertDialog

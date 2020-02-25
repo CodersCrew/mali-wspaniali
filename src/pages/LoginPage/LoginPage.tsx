@@ -48,7 +48,7 @@ export const LoginPage = () => {
 
   return (
     <>
-      <Link to="/">{t('homePage')}</Link>
+      <Link to="/">{t('go-to-home-page')}</Link>
       <Container>
         <form onSubmit={handleSubmit} autoComplete="off">
           <TextField
@@ -56,7 +56,7 @@ export const LoginPage = () => {
             onChange={event => setEmail(event.target.value)}
             value={email}
             id="email"
-            label={t('eMail')}
+            label={t('e-mail')}
           />
           <TextField
             required
@@ -72,10 +72,10 @@ export const LoginPage = () => {
             color="primary"
             style={{ marginTop: '20px', float: 'right' }}
           >
-            {t('send')}
+            {t('login-page.login')}
           </Button>
         </form>
-        <span>{loginError && t('login-error')}</span>
+        <span>{loginError && t('login-page.login-error')}</span>
       </Container>
     </>
   );
