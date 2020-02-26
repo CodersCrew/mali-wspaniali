@@ -41,11 +41,10 @@ export const HomePage = () => {
 };
 
 const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
 });
-
 
 export default withTranslation()(HomePage);

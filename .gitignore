@@ -25,3 +25,6 @@ yarn-error.log*
 
 # webstorm files
 .idea
+
+# firebase cache
+/.firebase

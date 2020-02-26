@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { withTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './HomePage';
-import LoginPage from './LoginPage';
+import { LoginPage } from './LoginPage/LoginPage';
 import RegistrationPage from './RegistrationPage';
 import ChildProfile from './ChildProfile';
 import { Loader } from '../components/Loader';
@@ -16,14 +16,13 @@ const childProfile = withTranslation()(ChildProfile);
 
 const Root = () => {
   return (
-    <Suspense fallback={ <Loader /> }>
+    <Suspense fallback={<Loader />}>
       <Page />
       <Router>
         <div>
-          <Route exact path="/" component={ homePage } />
-          <Route path="/login" component={ loginPage } />
-          <Route path="/register" component={ registrationPage } />
-          <Route path="/child/:childID" component={ childProfile } />
+          <Route exact path="/" component={homePage} />
+          <Route path="/login" component={loginPage} />
+          <Route path="/register" component={registrationPage} />
         </div>
       </Router>
     </Suspense>

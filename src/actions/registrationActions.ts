@@ -9,7 +9,7 @@ export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
 
 interface RegisterUserSuccessAction extends Action<'REGISTER_USER_SUCCESS'> {
   type: 'REGISTER_USER_SUCCESS';
-  userData: Pick<UserInfo, 'email'>
+  userData: Pick<UserInfo, 'email'>;
 }
 
 interface RegisterUserFailureAction extends Action<'REGISTER_USER_FAILURE'> {
@@ -21,7 +21,7 @@ export type RegistrationActions =
   | RegisterUserFailureAction;
 
 export function registerUserSuccess(
-  userData: Pick<UserInfo, 'email'>
+  userData: Pick<UserInfo, 'email'>,
 ): RegisterUserSuccessAction {
   return { type: REGISTER_USER_SUCCESS, userData };
 }
@@ -30,10 +30,11 @@ export function registerUserFailure(): RegisterUserFailureAction {
   return { type: REGISTER_USER_FAILURE };
 }
 
-export type RegisterUser = (user: RegistrationUser) => Promise<void> 
+export type RegisterUser = (user: RegistrationUser) => Promise<void>;
 
-export const registerUser: ActionCreator<ThunkAction<Promise<void>, string, RegistrationUser,
- RegistrationActions>> = (user: RegistrationUser) => {
+export const registerUser: ActionCreator<
+  ThunkAction<Promise<void>, string, RegistrationUser, RegistrationActions>
+> = (user: RegistrationUser) => {
   return (dispatch: Dispatch): Promise<void> => {
     return createUser(user)
       .then(userData => {
