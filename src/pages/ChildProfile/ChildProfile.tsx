@@ -42,11 +42,11 @@ export const ChildProfile = () => {
       console.log('Document data:', childInfo);
       setChild(childInfo);
     }
-  }
+  };
 
   useEffect(() => {
     fetchChild();
-  }, [childID])
+  }, [childID]);
 
   return (
     <>
@@ -57,7 +57,7 @@ export const ChildProfile = () => {
       </Container>
     </>
   );
-}
+};
 
 
 
