@@ -2,16 +2,17 @@ import React, { Suspense } from 'react';
 import { withTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './HomePage';
-import { LoginPage } from './LoginPage/LoginPage';
+import LoginPage from './LoginPage';
 import RegistrationPage from './RegistrationPage';
+import ChildProfile from './ChildProfile';
 import { Loader } from '../components/Loader';
 import Page from '../components/ChangeLanguage';
-import { ChildProfile } from './ChildProfile/ChildProfile';
+
 
 const homePage = withTranslation()(HomePage);
-const loginPage = LoginPage;
+const loginPage = withTranslation()(LoginPage);
 const registrationPage = withTranslation()(RegistrationPage);
-const childProfile = ChildProfile;
+const childProfile = withTranslation()(ChildProfile);
 
 const Root = () => {
   return (

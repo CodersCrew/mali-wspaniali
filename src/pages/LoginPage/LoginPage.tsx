@@ -14,6 +14,7 @@ const Container = styled.div`
 
 export const LoginPage = () => {  
   
+export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -78,4 +79,5 @@ export const LoginPage = () => {
     </>
     );
   };
+export default withTranslation()(LoginPage);
 

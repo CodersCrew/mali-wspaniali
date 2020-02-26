@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/Firebase';
 
 const Container = styled.div`
@@ -58,6 +58,8 @@ export const ChildProfile = () => {
     </>
   );
 };
+
+export default withTranslation()(ChildProfile);
 
 
 
