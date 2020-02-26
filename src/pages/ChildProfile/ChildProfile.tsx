@@ -30,7 +30,7 @@ export const ChildProfile = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    setChild(fetchChild(childID));
+    setChild(fetchChild(childID) as Child);
   }, [childID]);
 
   return (

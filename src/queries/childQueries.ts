@@ -1,13 +1,11 @@
 import { firebase } from '../firebase/Firebase';
-import { Child } from '../pages/ChildProfile/ChildProfile'
 
-let childInfo: Child;
+let childInfo: Record<string, any> | undefined;
 
 export const fetchChild = (childId: string | undefined) => {
-
-    const childRef = firebase.child.getChildDocById(childId);
-    childRef.get().then(doc => {
-        childInfo = doc.data() as Child;
-    }).catch(error => console.log(error));
+    firebase.child.getChildDocById(childId).get().then(doc => {
+        if (!doc.exists) console.log('No such child!');
+        else childInfo = doc.data();
+    });
     return childInfo;
 };

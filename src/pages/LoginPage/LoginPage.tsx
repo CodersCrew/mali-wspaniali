@@ -79,39 +79,5 @@ export const LoginPage = () => {
   );
 };
 
-export default withTranslation()(LoginPage);
+export default LoginPage;
 
-  return (
-    <>
-      <Link to="/">{t('homePage')}</Link>
-      <Container>
-        <form onSubmit={handleSubmit} autoComplete="off">
-          <TextField
-            required
-            onChange={event => setEmail(event.target.value)}
-            value={email}
-            id="email"
-            label={t('eMail')}
-          />
-          <TextField
-            required
-            onChange={event => setPassword(event.target.value)}
-            value={password}
-            id="password"
-            label={t('password')}
-            type="password"
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            style={{ marginTop: '20px', float: 'right' }}
-          >
-            {t('send')}
-          </Button>
-        </form>
-        <span>{error && t('login-error')}</span>
-      </Container>
-    </>
-  );
-};
