@@ -1,18 +1,23 @@
 {
-  "loginPage": "Go to login page",
-  "homePage": "Go to home page",
-  "registrationPage": "Go to registration page",
-  "register": "Register",
-  "eMail": "E-Mail-Address",
+  "home-page": {
+    "go-to-login-page": "Go to login page",
+    "log-out": "Log Out",
+    "go-to-registration-page": "Go to registration page"
+  },
+  "login-page": {
+    "login": "Login",
+    "login-error": "Sorry, you've provided wrong credentials or haven't been registered"
+  },
+  "registration-page": {
+    "already-have-account": "Already have an account?",
+    "password-mismatch": "Passwords do not match",
+    "register-success": "Account created. Please login.",
+    "password-confirm": "Repeat password",
+    "register": "Register"
+  },
+  "e-mail": "E-Mail Address",
   "password": "Password",
-  "send": "send",
-  "alreadyHaveAccount": "Already have an account?",
-  "login": "Login",
-  "passwordMismatch": "Passwords do not match",
-  "registerSuccess": "Account created. Please login.",
-  "passwordConfirm": "Repeat password",
-  "logout": "Log Out",
-  "login-error": "Sorry, you've provided wrong credentials or haven't been registered...",
+  "go-to-home-page": "Go to home page",
   "languages": {
     "pl": "Polish",
     "en": "English"
