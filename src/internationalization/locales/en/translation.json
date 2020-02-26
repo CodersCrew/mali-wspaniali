@@ -13,6 +13,7 @@
     "passwordConfirm": "Repeat password",
     "logout": "Log Out",
     "login-error": "Sorry, you've provided wrong credentials or haven't been registered...",
-    "child-profile": "A Child's Profile"
-}
+    "child-profile": {
+        "child-profile": "A Child's Profile"
+    }
 }

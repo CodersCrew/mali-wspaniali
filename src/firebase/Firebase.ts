@@ -1,4 +1,4 @@
-import firebaseApp from 'firebase/app';
+import firebaseApp, { firestore } from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import config from './config';
@@ -12,5 +12,5 @@ const childQueries = firebaseApp.firestore();
 
 export const firebase = {
     auth: authRepository(auth),
-    childQueries: childRepository(childQueries)
+    child: childRepository(firestore)
 };

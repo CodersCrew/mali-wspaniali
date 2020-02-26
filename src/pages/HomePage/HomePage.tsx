@@ -33,7 +33,7 @@ export const HomePage = () => {
             </Link>
             <Link to="/child/a8g6zDTz9qHbgbWUmoPT/">
                 <Button variant="contained" color="primary">
-                    { t('child-profile') }
+                    { t('child-profile.child-profile') }
                 </Button>
             </Link>
         </Container>

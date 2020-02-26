@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './HomePage';
 import { LoginPage } from './LoginPage/LoginPage';
 import RegistrationPage from './RegistrationPage';
-import ChildProfile from './ChildProfile';
+import { ChildProfile } from './ChildProfile/ChildProfile';
 import { Loader } from '../components/Loader';
 import Page from '../components/ChangeLanguage';
 
@@ -12,7 +12,6 @@ import Page from '../components/ChangeLanguage';
 const homePage = withTranslation()(HomePage);
 const loginPage = withTranslation()(LoginPage);
 const registrationPage = withTranslation()(RegistrationPage);
-const childProfile = withTranslation()(ChildProfile);
 
 const Root = () => {
   return (
@@ -20,9 +19,10 @@ const Root = () => {
       <Page />
       <Router>
         <div>
-          <Route exact path="/" component={homePage} />
-          <Route path="/login" component={loginPage} />
-          <Route path="/register" component={registrationPage} />
+          <Route exact path="/" component={ homePage } />
+          <Route path="/login" component={ loginPage } />
+          <Route path="/register" component={ registrationPage } />
+          <Route path="/child/:childID" component={ ChildProfile } />
         </div>
       </Router>
     </Suspense>
