@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { fetchChild } from '../../queries/childQueries';
 
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center,
-  margin-right: 50px
-`;
+const divStyle = {
+  margin: '40px',
+  border: '5px solid #99e699',
+  width: 'fit-content'
+};
 
 export interface Child {
   firstName: string;
