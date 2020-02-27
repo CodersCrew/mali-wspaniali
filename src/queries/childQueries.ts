@@ -1,6 +1,6 @@
 import { firebase } from '../firebase/Firebase';
 
-let childInfo: Record<string, any> | undefined;
+let childInfo: object | undefined;
 
 export const fetchChild = (childId: string | undefined) => {
     firebase.child.getChildDocById(childId).get().then(doc => {
