@@ -34,10 +34,10 @@ export const ChildProfile = () => {
   return (
     <>
       <Link to="/">{ t('homePage') }</Link>
-      <Container>
+      <div style={ divStyle }>
         <span>{ t('child-profile.child-profile') } </span>
         { child && `\n${child.userId}\n${child.firstName}\n${child.lastName}` }
-      </Container>
+      </div>
     </>
   );
 };
