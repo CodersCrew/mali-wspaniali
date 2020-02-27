@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { fetchChild } from '../../queries/childQueries';
+import { childData, Child } from './childTypes';
 
 
 const divStyle = {
@@ -11,24 +12,25 @@ const divStyle = {
   width: 'fit-content'
 };
 
-export interface Child {
-  firstName: string;
-  lastName: string;
-  userId: string
-}
-
 export const ChildProfile = () => {
 
+  const { t } = useTranslation();
   const { childID } = useParams();
+  const [childError, setChildError] = useState('');
   const [child, setChild] = useState({
     firstName: '',
     lastName: '',
     userId: ''
   });
-  const { t } = useTranslation();
+
+  const childDocSuccess = (childDoc: childData | undefined) => {
+    if (childDoc !== undefined) setChild(childDoc.data() as Child);
+  };
+
+  const childDocError = (error: Error) => setChildError(error.message);
 
   useEffect(() => {
-    setChild(fetchChild(childID) as Child);
+    fetchChild(childID, childDocSuccess, childDocError);
   }, [childID]);
 
   return (
@@ -37,6 +39,7 @@ export const ChildProfile = () => {
       <div style={ divStyle }>
         <span>{ t('child-profile.child-profile') } </span>
         { child && `\n${child.userId}\n${child.firstName}\n${child.lastName}` }
+        <span>{ childError } </span>
       </div>
     </>
   );
