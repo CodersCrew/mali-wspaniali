@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './HomePage';
 import { LoginPage } from './LoginPage/LoginPage';
 import RegistrationPage from './RegistrationPage';
-import { ChildProfile } from './ChildProfile/ChildProfile';
+import ChildProfile from './ChildProfile';
 import { Loader } from '../components/Loader';
 import Page from '../components/ChangeLanguage';
 
@@ -15,7 +15,7 @@ const registrationPage = withTranslation()(RegistrationPage);
 
 const Root = () => {
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={ <Loader /> }>
       <Page />
       <Router>
         <div>

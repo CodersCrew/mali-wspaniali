@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { fetchChild } from '../../queries/childQueries';
-import { childData, Child } from './childTypes';
+import { ChildData, Child } from '../../firebase/childRepository';
 
 
 const divStyle = {
@@ -23,8 +23,8 @@ export const ChildProfile = () => {
     userId: ''
   });
 
-  const childDocSuccess = (childDoc: childData | undefined) => {
-    if (childDoc !== undefined) setChild(childDoc.data() as Child);
+  const childDocSuccess = (childDoc?: ChildData) => {
+    if (childDoc) setChild(childDoc.data() as Child);
   };
 
   const childDocError = (error: Error) => setChildError(error.message);
@@ -39,7 +39,6 @@ export const ChildProfile = () => {
       <div style={ divStyle }>
         <span>{ t('child-profile.child-profile') } </span>
         { child && `\n${child.userId}\n${child.firstName}\n${child.lastName}` }
-        <span>{ childError } </span>
       </div>
     </>
   );

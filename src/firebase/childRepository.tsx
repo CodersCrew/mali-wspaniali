@@ -1,7 +1,17 @@
 import firebaseApp from 'firebase/app';
-import 'firebase/auth';
+
+
+export type ChildData = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>;
+export interface Child {
+    firstName: string;
+    lastName: string;
+    userId: string
+}
 
 
 export const childRepository = (firestore: typeof firebaseApp.firestore) => ({
-    getChildDocById: (childID: string | undefined) => firestore().collection('child').doc(childID).get()
+    getChildDocById: (childId: string | undefined, successCallback: (childDoc?: ChildData) => void, failCallback: (error: Error) => void) => firestore().collection('child').doc(childId).onSnapshot(childDoc => {
+        if (childDoc) successCallback(childDoc);
+        else failCallback(new Error);
+    })
 });

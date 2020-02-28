@@ -1,10 +1,8 @@
-import { firebase } from '../firebase/Firebase';
-import { childData } from '../pages/ChildProfile/childTypes';
+import { firebase } from '../firebase/firebase';
+import { ChildData } from '../firebase/childRepository';
 
-export const fetchChild = (childId: string | undefined, successCallback: (childDoc: childData | undefined) => void,
+export const fetchChild = (childId: string | undefined, successCallback: (childDoc?: ChildData) => void,
     failCallback: (error: Error) => void) => {
-    firebase.child.getChildDocById(childId).then((childDoc: childData) => {
-        successCallback(childDoc);
-    }).catch(failCallback);
+    firebase.child.getChildDocById(childId, successCallback, failCallback);
 };
 
