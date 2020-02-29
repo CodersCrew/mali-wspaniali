@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { fetchChild } from '../../queries/childQueries';
 import { ChildData, Child } from '../../firebase/childRepository';
