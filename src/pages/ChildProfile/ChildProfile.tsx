@@ -6,18 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { fetchChild } from '../../queries/childQueries';
 import { ChildData, Child } from '../../firebase/childRepository';
 
-
-const Section = styled.div`
+const Container = styled.div`
   margin: '40px',
   border: '5px solid #99e699',
   width: 'fit-content'
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center,
-  margin-right: 50px
 `;
 
 export const ChildProfile = () => {
@@ -45,9 +37,8 @@ export const ChildProfile = () => {
     <>
       <Link to="/">{ t('homePage') }</Link>
       <Container>
-        <Section>{ t('child-profile.child-profile') }
+        { t('child-profile.child-profile') }
           { child && `\n${child.userId}\n${child.firstName}\n${child.lastName}` }
-        </Section>
       </Container>
     </>
   );
