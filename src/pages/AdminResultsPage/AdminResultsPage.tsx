@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/firebase';
+import { getChildrenFirstPage, getChildrenPaginated } from '../../queries/childQueries';
 import { Document } from '../../firebase/types';
 import { Container, Typography, Table, TableBody } from '@material-ui/core/';
 import { TestResultsTableRow } from './TestResultsTableRow';
@@ -31,7 +31,7 @@ export const AdminResultsPage = () => {
       documents,
       unsubscribe,
       lastVisible,
-    } = firebase.child.getChildrenFirstPage(rowsPerPage);
+    } = getChildrenFirstPage(rowsPerPage);
     setLastVisible(lastVisible);
     setChildrenList(documents);
     addNewListener(unsubscribe);
@@ -41,8 +41,8 @@ export const AdminResultsPage = () => {
   const pageChangeHandler = (direction: string) => {
     const { documents, unsubscribe, newLastVisible, newFirstVisible } =
       direction === 'next'
-        ? firebase.child.getChildrenPaginated(rowsPerPage, lastVisible, null)
-        : firebase.child.getChildrenPaginated(rowsPerPage, null, firstVisible);
+        ? getChildrenPaginated(rowsPerPage, lastVisible, null)
+        : getChildrenPaginated(rowsPerPage, null, firstVisible);
     setLastVisible(newLastVisible);
     setFirstVisible(newFirstVisible);
     setChildrenList(documents);
