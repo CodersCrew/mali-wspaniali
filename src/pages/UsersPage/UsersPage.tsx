@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getUsers } from '../../queries/userQueries';
+import { getUsers, getUsersPaginated } from '../../queries/userQueries';
 import {
   TableContainer,
   Table,
@@ -16,6 +16,7 @@ import {
 import { Link } from 'react-router-dom';
 import { Document } from '../../firebase/types';
 import { UsersTableRow } from './UsersTableRow';
+import { Pagination } from './Pagination';
 
 export const UsersPage = () => {
   const [usersList, setUsersList] = useState<Document[]>([]);
@@ -23,6 +24,7 @@ export const UsersPage = () => {
   const [rowsPerPage] = useState(10);
   const [lastVisible, setLastVisible] = useState();
   const [firstVisible, setFirstVisible] = useState();
+  const [isLoading, setLoading] = useState(true);
   const { t } = useTranslation();
   const [listeners, setListeners] = useState<(() => void)[]>([]);
   const classes = useStyles();
@@ -38,15 +40,37 @@ export const UsersPage = () => {
   };
 
   useEffect(() => {
-    const {
-      documents,
-      unsubscribe,
-    } = getUsers(rowsPerPage);
-    setLastVisible(documents[documents.length - 1]);
-    setUsersList(documents);
-    addNewListener(unsubscribe);
+    async function waitForUsers() {
+      const { documents, unsubscribe, loading, lastVisible } = await getUsers(
+        rowsPerPage,
+      );
+      if (loading === false) {
+        setLastVisible(lastVisible);
+        setLoading(loading);
+        setUsersList(documents);
+        addNewListener(unsubscribe);
+      }
+    }
+    waitForUsers();
     return () => detachListeners();
   }, []);
+
+  const pageChangeHandler = async (direction: string) => {
+    const { documents, unsubscribe, loading, newLastVisible, newFirstVisible } =
+      direction === 'next'
+        ? await getUsersPaginated(rowsPerPage, lastVisible, null)
+        : await getUsersPaginated(rowsPerPage, null, firstVisible);
+    if (loading === false) {
+      setLastVisible(newLastVisible);
+      setFirstVisible(newFirstVisible);
+      setUsersList(documents);
+      addNewListener(unsubscribe);
+      setLoading(loading);
+      direction === 'next' ? setPage(page + 1) : setPage(page - 1);
+    }
+  };
+
+  if (isLoading) return <h2>Loading</h2>;
 
   return (
     <>
@@ -66,11 +90,17 @@ export const UsersPage = () => {
             </TableHead>
             <TableBody>
               {usersList.map(user => (
-                <UsersTableRow user={user} key={user.userId}/>
+                <UsersTableRow user={user} key={user.userId} />
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <Pagination
+          page={page}
+          pageChangeHandler={pageChangeHandler}
+          documentsCount={usersList.length}
+          rowsPerPage={rowsPerPage}
+        />
       </Container>
     </>
   );
