@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core/';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { TestResultsTableRow } from '../../components/TestResultsTableRow/TestResultsTableRow';
+import { TestResultsTableRow } from './TestResultsTableRow';
 
 export const AdminResultsPage = () => {
   const [childrenList, setChildrenList] = useState<Document[]>([]);
