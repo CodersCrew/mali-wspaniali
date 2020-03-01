@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getChildrenFirstPage, getChildrenPaginated } from '../../queries/childQueries';
+import {
+  getChildrenFirstPage,
+  getChildrenPaginated,
+} from '../../queries/childQueries';
 import { Document } from '../../firebase/types';
 import { Container, Typography, Table, TableBody } from '@material-ui/core/';
 import { TestResultsTableRow } from './TestResultsTableRow';
@@ -10,9 +13,10 @@ import { Pagination } from './Pagination';
 export const AdminResultsPage = () => {
   const [childrenList, setChildrenList] = useState<Document[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage] = useState(1);
+  const [rowsPerPage] = useState(10);
   const [lastVisible, setLastVisible] = useState();
   const [firstVisible, setFirstVisible] = useState();
+  const [isLoading, setLoading] = useState(true);
   const { t } = useTranslation();
   const [listeners, setListeners] = useState<(() => void)[]>([]);
 
@@ -27,29 +31,41 @@ export const AdminResultsPage = () => {
   };
 
   useEffect(() => {
-    const {
-      documents,
-      unsubscribe,
-      lastVisible,
-    } = getChildrenFirstPage(rowsPerPage);
-    setLastVisible(lastVisible);
-    setChildrenList(documents);
-    addNewListener(unsubscribe);
+    async function waitForData() {
+      const {
+        documents,
+        unsubscribe,
+        loading,
+        lastVisible,
+      } = await getChildrenFirstPage(rowsPerPage);
+      if (loading === false) {
+        setLastVisible(lastVisible);
+        setChildrenList(documents);
+        setLoading(loading);
+        addNewListener(unsubscribe);
+      }
+    }
+    waitForData();
     return () => detachListeners();
   }, []);
 
-  const pageChangeHandler = (direction: string) => {
-    const { documents, unsubscribe, newLastVisible, newFirstVisible } =
+  const pageChangeHandler = async (direction: string) => {
+    const { documents, unsubscribe, loading, newLastVisible, newFirstVisible } =
       direction === 'next'
-        ? getChildrenPaginated(rowsPerPage, lastVisible, null)
-        : getChildrenPaginated(rowsPerPage, null, firstVisible);
-    setLastVisible(newLastVisible);
-    setFirstVisible(newFirstVisible);
-    setChildrenList(documents);
-    addNewListener(unsubscribe);
-    direction === 'next' ? setPage(page + 1) : setPage(page - 1);
+        ? await getChildrenPaginated(rowsPerPage, lastVisible, null)
+        : await getChildrenPaginated(rowsPerPage, null, firstVisible);
+        if(loading === false) {
+          setLastVisible(newLastVisible);
+          setFirstVisible(newFirstVisible);
+          setChildrenList(documents);
+          addNewListener(unsubscribe);
+          setLoading(loading);
+          direction === 'next' ? setPage(page + 1) : setPage(page - 1);
+        }
   };
 
+
+  if (isLoading) return (<h2>loading</h2>);
   if (childrenList.length === 0) return <NoResults />;
 
   return (

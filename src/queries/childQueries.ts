@@ -1,16 +1,17 @@
 import { firebase } from '../firebase/firebase';
 import { Document } from '../firebase/types';
 
-export const getChildrenFirstPage = (rowsPerPage: number) => {
+export const getChildrenFirstPage = async (rowsPerPage: number) => {
   const {
     documents,
     unsubscribe,
+    loading,
     lastVisible,
-  } = firebase.child.getChildrenFirstPage(rowsPerPage);
-  return { documents, unsubscribe, lastVisible };
+  } = await firebase.child.getChildrenFirstPage(rowsPerPage);
+  return { documents, unsubscribe, loading, lastVisible };
 };
 
-export const getChildrenPaginated = (
+export const getChildrenPaginated = async (
   rowsPerPage: number,
   last: Document | null,
   first: Document | null,
@@ -18,8 +19,9 @@ export const getChildrenPaginated = (
   const {
     documents,
     unsubscribe,
+    loading,
     newLastVisible,
     newFirstVisible,
-  } = firebase.child.getChildrenPaginated(rowsPerPage, last, first);
-  return { documents, unsubscribe, newLastVisible, newFirstVisible };
+  } = await firebase.child.getChildrenPaginated(rowsPerPage, last, first);
+  return { documents, unsubscribe, loading, newLastVisible, newFirstVisible };
 };
