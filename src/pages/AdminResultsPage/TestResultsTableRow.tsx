@@ -14,7 +14,7 @@ export const TestResultsTableRow = ({ child }: { child: Document }) => {
         </TableCell>
       ));
     } else {
-      return <TableCell>{t('noResults')}</TableCell>;
+      return <TableCell>{t('no-results')}</TableCell>;
     }
   };
   return (

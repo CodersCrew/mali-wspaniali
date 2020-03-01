@@ -70,7 +70,7 @@ export const AdminResultsPage = () => {
   const renderEmpty = () => {
     return (
       <Typography variant="h3" align="center" gutterBottom>
-        {t('noResults')}
+        {t('no-results')}
       </Typography>
     );
   };
@@ -80,7 +80,7 @@ export const AdminResultsPage = () => {
   return (
     <Container>
       <Typography variant="h2" align="center" gutterBottom>
-        {t('searchResult')}
+        {t('search-result')}
       </Typography>
       <Table>
         <TableBody>
