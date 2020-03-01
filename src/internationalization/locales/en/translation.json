@@ -21,5 +21,9 @@
   "languages": {
     "pl": "Polish",
     "en": "English"
+  },
+  "parent-profile": {
+    "parent": "Parent",
+    "no-parent": "There is no parent with the given id"
   }
 }
