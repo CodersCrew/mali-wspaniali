@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './HomePage';
 import { LoginPage } from './LoginPage/LoginPage';
 import RegistrationPage from './RegistrationPage';
-import ChildProfile from './ChildProfile';
+import { ChildProfile } from './ChildProfile';
 import { Loader } from '../components/Loader';
 import Page from '../components/ChangeLanguage';
 

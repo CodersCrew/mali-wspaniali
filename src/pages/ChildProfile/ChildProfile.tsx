@@ -27,7 +27,9 @@ export const ChildProfile = () => {
     if (childDoc) setChild(childDoc.data() as Child);
   };
 
-  const childDocError = (error: Error) => setChildError(error.message);
+  const childDocError = (message: string) => {
+    setChildError(message);
+  };
 
   useEffect(() => {
     fetchChild(childID, childDocSuccess, childDocError);
@@ -38,7 +40,8 @@ export const ChildProfile = () => {
       <Link to="/">{ t('homePage') }</Link>
       <Container>
         { t('child-profile.child-profile') }
-          { child && `\n${child.userId}\n${child.firstName}\n${child.lastName}` }
+        { child && `\n${child.userId}\n${child.firstName}\n${child.lastName}` }
+        { childError }
       </Container>
     </>
   );

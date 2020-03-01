@@ -1,3 +1,3 @@
 import { ChildProfile } from './ChildProfile';
 
-export default ChildProfile;
+export { ChildProfile };
