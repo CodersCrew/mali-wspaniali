@@ -18,25 +18,9 @@ type paginationPromiseTypes = {
 
 export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
   getUsersFirstPage: (rowsPerPage: number) => {
-    /*db.collection('user')
-      .get()
-      .then(snap => snap.forEach(doc => console.log(doc.data())));
-    const documents: Document[] = [];
-    let loading: boolean = true;
-    const unsubscribe = db
-      .collection('user')
-      .orderBy('role')
-      .limit(rowsPerPage)
-      .onSnapshot(snapshot => {
-        snapshot.forEach(doc => {
-          documents.push(doc.data());
-        });
-      });
-    return { documents, unsubscribe, loading };
-    */
     return new Promise<initialPromiseTypes>((resolve, reject) => {
       const documents: Document[] = [];
-      let loading: boolean = true;
+      let loading = true;
       let lastVisible: Document | null = null;
       const unsubscribe = db
         .collection('user')
@@ -65,39 +49,11 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
     previousLastVisible: Document | null,
     previousFirstVisible: Document | null,
   ) => {
-    /*const documents: Document[] = [];
-    const getQuery = () => {
-      if (previousFirstVisible) {
-        return () =>
-          db
-            .collection('user')
-            .orderBy('lastName')
-            .limit(rowsPerPage)
-            .endBefore(previousFirstVisible)
-            .onSnapshot(snapshots => {
-              snapshots.docs.forEach(doc => documents.push(doc.data()));
-            });
-      }
-      return () =>
-        db
-          .collection('child')
-          .orderBy('lastName')
-          .limit(rowsPerPage)
-          .startAfter(previousLastVisible)
-          .onSnapshot(snapshots => {
-            snapshots.docs.forEach(doc => documents.push(doc.data()));
-          });
-    };
-    const unsubscribe = getQuery();
-    const newFirstVisible: Document = documents[0];
-    const newLastVisible: Document = documents[documents.length - 1];
-    return { documents, unsubscribe, newLastVisible, newFirstVisible };
-    */
     return new Promise<paginationPromiseTypes>((resolve, reject) => {
       const documents: Document[] = [];
-      let loading: boolean = true;
-      let newFirstVisible: Document = documents[0];
-      let newLastVisible: Document = documents[documents.length - 1];
+      let loading = true;
+      let newFirstVisible: Document | null = null;
+      let newLastVisible: Document | null = null;
       if (previousFirstVisible) {
         const unsubscribe = db
           .collection('user')
@@ -107,6 +63,7 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
           .onSnapshot(
             snapshot => {
               if (!snapshot.empty) {
+                [newFirstVisible] = snapshot.docs;
                 newLastVisible = snapshot.docs[snapshot.docs.length - 1];
                 loading = false;
                 snapshot.forEach(doc => {
@@ -134,6 +91,7 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
           .onSnapshot(
             snapshot => {
               if (!snapshot.empty) {
+                [newFirstVisible] = snapshot.docs;
                 newLastVisible = snapshot.docs[snapshot.docs.length - 1];
                 loading = false;
                 snapshot.forEach(doc => {
@@ -151,7 +109,7 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
             (error: Error) => {
               reject(error);
             },
-          );;
+          );
       }
     });
   },

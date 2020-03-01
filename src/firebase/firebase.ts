@@ -13,7 +13,7 @@ db.enablePersistence();
 
 export const firebase = {
   auth: authRepository(auth),
-  user: userRepository(db)
+  user: userRepository(db),
 };
 
 export type UserCredential = firebaseApp.auth.UserCredential;
