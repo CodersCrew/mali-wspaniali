@@ -1,10 +1,12 @@
 
 export type ChildData = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>;
 
-export interface Child {
-    firstName: string;
-    lastName: string;
-    userId: string
+export class Child {
+    childDetails: {
+        firstName: string | undefined;
+        lastName: string | undefined;
+        userId: string | undefined;
+    } | undefined
 }
 
 export const childRepository = (firestore: firebase.firestore.Firestore) => ({

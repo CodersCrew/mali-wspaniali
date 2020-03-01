@@ -17,18 +17,15 @@ export const ChildProfile = () => {
   const { t } = useTranslation();
   const { childID } = useParams();
   const [childError, setChildError] = useState('');
-  const [child, setChild] = useState({
-    firstName: '',
-    lastName: '',
-    userId: ''
-  });
+  const [child, setChild] = useState(new Child());
 
   const childDocSuccess = (childDoc?: ChildData) => {
-    if (childDoc) setChild(childDoc.data() as Child);
+    if (childDoc) setChild({ childDetails: childDoc.data() } as Child);
   };
 
   const childDocError = (message: string) => {
     setChildError(message);
+    setChild({ childDetails: undefined } as Child)
   };
 
   useEffect(() => {
@@ -40,8 +37,7 @@ export const ChildProfile = () => {
       <Link to="/">{ t('homePage') }</Link>
       <Container>
         { t('child-profile.child-profile') }
-        { child && `\n${child.userId}\n${child.firstName}\n${child.lastName}` }
-        { childError }
+        { (child.childDetails !== undefined) ? `\n${child.childDetails.userId}\n${child.childDetails.firstName}\n${child.childDetails.lastName}` : ` \n${childError}` }
       </Container>
     </>
   );
