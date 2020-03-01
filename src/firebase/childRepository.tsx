@@ -1,9 +1,5 @@
 import firebase from 'firebase/app';
 
-import { useTranslation } from 'react-i18next';
-
-const { t } = useTranslation();
-
 export type ChildData = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>;
 
 export interface Child {
@@ -17,6 +13,6 @@ export const childRepository = (firestore: firebase.firestore.Firestore) => ({
         successCallback: (childDoc: ChildData) => void, failCallback: (message: string) => void) =>
         firestore.collection('child').doc(childId).onSnapshot(childDoc => {
             if (childDoc.data()) successCallback(childDoc);
-            else failCallback(t('child-profile.no-child'));
+            else failCallback('child-profile.no-child');
         })
 });

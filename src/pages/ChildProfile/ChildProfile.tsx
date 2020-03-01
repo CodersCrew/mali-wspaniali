@@ -28,28 +28,29 @@ export const ChildProfile = () => {
         userId: childDocument.userId,
       });
     }
+  }
 
 
-    const childDocError = (message: string) => {
-      setChildError(message);
-      setChild(undefined);
-    };
-
-    useEffect(() => {
-      fetchChild(childID, childDocSuccess, childDocError);
-    }, [childID]);
-
-    return (
-      <>
-        <Link to="/">{ t('homePage') }</Link>
-        <Container>
-          { t('child-profile.child-profile') }
-          { (child !== undefined) ? `\n${child.userId}\n${child.firstName}\n${child.lastName}` : ` \n${childError}` }
-        </Container>
-      </>
-    );
+  const childDocError = (message: string) => {
+    setChildError(message);
+    setChild(undefined);
   };
+
+  useEffect(() => {
+    fetchChild(childID, childDocSuccess, childDocError);
+  }, [childID]);
+
+  return (
+    <>
+      <Link to="/">{ t('homePage') }</Link>
+      <Container>
+        { t('child-profile.child-profile') }
+        { (child !== undefined) ? `\n ${child.userId}\n ${child.firstName}\n ${child.lastName}` : ` \n ${t(childError)}` }
+      </Container>
+    </>
+  );
 };
+
 
 
 
