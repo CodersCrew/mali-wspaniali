@@ -24,8 +24,6 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
     previousFirstVisible: Document | null,
   ) => {
     const documents: Document[] = [];
-    let newLastVisible: Document | null = null;
-    let newFirstVisible: Document | null = null;
     const getFunction = () => {
       if (previousFirstVisible) {
         return () =>
@@ -37,21 +35,20 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
             .onSnapshot({ includeMetadataChanges: true }, snapshots => {
               snapshots.docs.forEach(doc => documents.push(doc.data()));
             });
-      } else {
-        return () =>
-          db
-            .collection('child')
-            .orderBy('lastName')
-            .limit(rowsPerPage)
-            .startAfter(previousLastVisible)
-            .onSnapshot({ includeMetadataChanges: true }, snapshots => {
-              snapshots.docs.forEach(doc => documents.push(doc.data()));
-            });
       }
+      return () =>
+        db
+          .collection('child')
+          .orderBy('lastName')
+          .limit(rowsPerPage)
+          .startAfter(previousLastVisible)
+          .onSnapshot({ includeMetadataChanges: true }, snapshots => {
+            snapshots.docs.forEach(doc => documents.push(doc.data()));
+          });
     };
     const unsubscribe = getFunction();
-    newFirstVisible = documents[0];
-    newLastVisible = documents[documents.length - 1];
+    const newFirstVisible: Document = documents[0];
+    const newLastVisible: Document = documents[documents.length - 1];
     return { documents, unsubscribe, newLastVisible, newFirstVisible };
   },
 });
