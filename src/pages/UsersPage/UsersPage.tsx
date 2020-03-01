@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { getUsers } from '../../queries/userQueries';
 import {
   TableContainer,
   Table,
@@ -12,49 +14,59 @@ import {
   Paper,
 } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
-import i18next from 'i18next';
+import { Document } from '../../firebase/types';
+import { UsersTableRow } from './UsersTableRow';
 
 export const UsersPage = () => {
+  const [usersList, setUsersList] = useState<Document[]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage] = useState(10);
+  const [lastVisible, setLastVisible] = useState();
+  const [firstVisible, setFirstVisible] = useState();
+  const { t } = useTranslation();
+  const [listeners, setListeners] = useState<(() => void)[]>([]);
   const classes = useStyles();
 
-  function createData(email: string, firstname: string, lastname: string) {
-    return { email, firstname, lastname };
-  }
+  const addNewListener = (listener: () => void) => {
+    let newListeners: (() => void)[] = listeners;
+    newListeners.push(listener);
+    setListeners(newListeners);
+  };
 
-  /**
-   * @TODO Remove dummy data and replace with real data from Firebase
-   */
-  const rows = [
-    createData('john@doe.com', 'John', 'Doe'),
-    createData('katie@doe.pl', 'Katie', 'Doe'),
-    createData('alex@doe.pl', 'Alex', 'Doe'),
-  ];
+  const detachListeners = () => {
+    listeners.forEach(listener => () => listener());
+  };
+
+  useEffect(() => {
+    const {
+      documents,
+      unsubscribe,
+    } = getUsers(rowsPerPage);
+    setLastVisible(documents[documents.length - 1]);
+    setUsersList(documents);
+    addNewListener(unsubscribe);
+    return () => detachListeners();
+  }, []);
 
   return (
     <>
-      <Link to="/">{i18next.t('homePage')}</Link>
+      <Link to="/">{t('homePage')}</Link>
       <Container className={classes.container}>
         <Typography variant="h4" gutterBottom className={classes.h4}>
-          {i18next.t('users')}
+          {t('users')}
         </Typography>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>{i18next.t('email')}</TableCell>
-                <TableCell align="right">{i18next.t('firstName')}</TableCell>
-                <TableCell align="right">{i18next.t('lastName')}</TableCell>
+                <TableCell>{t('email')}</TableCell>
+                <TableCell align="right">{t('firstName')}</TableCell>
+                <TableCell align="right">{t('lastName')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
-                <TableRow key={row.email}>
-                  <TableCell component="th" scope="row">
-                    {row.email}
-                  </TableCell>
-                  <TableCell align="right">{row.firstname}</TableCell>
-                  <TableCell align="right">{row.lastname}</TableCell>
-                </TableRow>
+              {usersList.map(user => (
+                <UsersTableRow user={user} key={user.userId}/>
               ))}
             </TableBody>
           </Table>

@@ -12,3 +12,11 @@ export const createUser = async (
 
   return userData.user || null;
 };
+
+export const getUsers = (rowsPerPage: number) => {
+  const {
+    documents,
+    unsubscribe,
+  } = firebase.user.getUsersFirstPage(rowsPerPage);
+  return { documents, unsubscribe };
+};
