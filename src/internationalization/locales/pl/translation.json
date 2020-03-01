@@ -14,6 +14,7 @@
     "logout": "Wyloguj",
     "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany ...",
     "child-profile": {
-        "child-profile": "Profil dziecka"
+        "child-profile": "Profil dziecka",
+        "no-child": "Przepraszamy, nie ma dziecka o tym ID"
     }
 }

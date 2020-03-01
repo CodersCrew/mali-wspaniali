@@ -14,6 +14,7 @@
     "login-error": "Entschuldigung, Sie haben falsche Anmeldeinformationen angegeben oder wurden nicht registriert ...",
     "logout": "Abmelden",
     "child-profile": {
-        "child-profile": "Das Profil eines Kindes"
+        "child-profile": "Das Profil eines Kindes",
+        "no-child": "Entschuldigung, es gibt kein Kind mit dieser ID"
     }
 }

@@ -17,30 +17,38 @@ export const ChildProfile = () => {
   const { t } = useTranslation();
   const { childID } = useParams();
   const [childError, setChildError] = useState('');
-  const [child, setChild] = useState(new Child());
+  const [child, setChild] = useState<Child | undefined>();
 
-  const childDocSuccess = (childDoc?: ChildData) => {
-    if (childDoc) setChild({ childDetails: childDoc.data() } as Child);
+  const childDocSuccess = (childDoc: ChildData) => {
+    const childDocument = childDoc.data();
+    if (childDocument) {
+      setChild({
+        firstName: childDocument.firstName,
+        lastName: childDocument.lastName,
+        userId: childDocument.userId,
+      });
+    }
+
+
+    const childDocError = (message: string) => {
+      setChildError(message);
+      setChild(undefined);
+    };
+
+    useEffect(() => {
+      fetchChild(childID, childDocSuccess, childDocError);
+    }, [childID]);
+
+    return (
+      <>
+        <Link to="/">{ t('homePage') }</Link>
+        <Container>
+          { t('child-profile.child-profile') }
+          { (child !== undefined) ? `\n${child.userId}\n${child.firstName}\n${child.lastName}` : ` \n${childError}` }
+        </Container>
+      </>
+    );
   };
-
-  const childDocError = (message: string) => {
-    setChildError(message);
-    setChild({ childDetails: undefined } as Child)
-  };
-
-  useEffect(() => {
-    fetchChild(childID, childDocSuccess, childDocError);
-  }, [childID]);
-
-  return (
-    <>
-      <Link to="/">{ t('homePage') }</Link>
-      <Container>
-        { t('child-profile.child-profile') }
-        { (child.childDetails !== undefined) ? `\n${child.childDetails.userId}\n${child.childDetails.firstName}\n${child.childDetails.lastName}` : ` \n${childError}` }
-      </Container>
-    </>
-  );
 };
 
 

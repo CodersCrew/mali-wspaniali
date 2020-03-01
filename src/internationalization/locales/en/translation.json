@@ -14,6 +14,7 @@
     "logout": "Log Out",
     "login-error": "Sorry, you've provided wrong credentials or haven't been registered...",
     "child-profile": {
-        "child-profile": "A Child's Profile"
+        "child-profile": "A Child's Profile",
+        "no-child": "Sorry, there is no child with this ID"
     }
 }
