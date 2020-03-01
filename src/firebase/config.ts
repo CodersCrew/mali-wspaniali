@@ -1,12 +1,12 @@
 const config = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_DATABASE_URL,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_APP_ID,
-    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+  apiKey: 'AIzaSyB2sCxvNBPxgeNm-Rx6JsQnPJApQHrzllw',
+  authDomain: 'mal-wsp-dev.firebaseapp.com',
+  databaseURL: 'https://mal-wsp-dev.firebaseio.com',
+  projectId: 'mal-wsp-dev',
+  storageBucket: 'mal-wsp-dev.appspot.com',
+  messagingSenderId: '631811229782',
+  appId: '1:631811229782:web:9d31d087dd929b3e1913f7',
+  measurementId: 'G-R6BZ822FY4',
 };
 
 export default config;

@@ -2,22 +2,21 @@ import React from 'react';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core/';
 
 type AlertDialogProps = {
-  setAlert: (value: boolean) => void;
+  setIsAlert: (value: boolean) => void;
   isOpen: boolean;
+  message: string;
 };
 
-const dialogTitle = 'E-mail i hasło są wymagane';
-
 export const AlertDialog = (props: AlertDialogProps) => {
-  const { setAlert, isOpen } = props;
+  const { setIsAlert, isOpen, message } = props;
 
   const handleClose = (): void => {
-    setAlert(false);
+    setIsAlert(false);
   };
 
   return (
     <Dialog open={isOpen} onClose={handleClose}>
-      <DialogTitle>{dialogTitle}</DialogTitle>
+      <DialogTitle>{message}</DialogTitle>
       <DialogActions>
         <Button onClick={handleClose} color="primary" autoFocus>
           OK
