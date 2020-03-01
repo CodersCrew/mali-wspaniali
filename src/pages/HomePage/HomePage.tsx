@@ -21,17 +21,17 @@ export const HomePage = () => {
           color="secondary"
           variant="outlined"
         >
-          {t('logout')}
+          {t('home-page.log-out')}
         </Button>
       </Link>
       <Link to="/login">
         <Button variant="contained" color="primary">
-          {t('loginPage')}
+          {t('home-page.go-to-login-page')}
         </Button>
       </Link>
       <Link to="/register">
         <Button variant="contained" color="primary">
-          {t('registrationPage')}
+          {t('home-page.go-to-registration-page')}
         </Button>
       </Link>
     </Container>
