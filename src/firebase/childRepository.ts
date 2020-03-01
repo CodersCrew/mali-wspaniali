@@ -5,7 +5,7 @@ import { Document } from './types';
 export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
   getChildrenFirstPage: (rowsPerPage: number) => {
     const documents: Document[] = [];
-    const lastVisible: Document[] = [];
+    let lastVisible: Document | null = null;
     const unsubscribe = () =>
       db
         .collection('child')
@@ -13,38 +13,45 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
         .limit(rowsPerPage)
         .onSnapshot({ includeMetadataChanges: true }, snapshots => {
           snapshots.docs.forEach(doc => documents.push(doc.data()));
-          lastVisible.push(snapshots.docs[snapshots.docs.length - 1]);
         });
+    lastVisible = documents[documents.length - 1];
     return { documents, unsubscribe, lastVisible };
   },
-  getChildrenNextPage: (rowsPerPage: number, previousLastVisible: Document) => {
+
+  getChildrenPaginated: (
+    rowsPerPage: number,
+    previousLastVisible: Document | null,
+    previousFirstVisible: Document | null,
+  ) => {
     const documents: Document[] = [];
-    const newLastVisible: Document[] = [];
-    const unsubscribe = () =>
-      db
-        .collection('child')
-        .orderBy('lastName')
-        .limit(rowsPerPage)
-        .startAfter(previousLastVisible)
-        .onSnapshot({ includeMetadataChanges: true }, snapshots => {
-          snapshots.docs.forEach(doc => documents.push(doc.data()));
-          newLastVisible.push(snapshots.docs[snapshots.docs.length - 1]);
-        });
-    return { documents, unsubscribe, newLastVisible };
-  },
-  getChildrenPrevPage: (rowsPerPage: number, previousLastVisible: Document) => {
-    const documents: Document[] = [];
-    const newLastVisible: Document[] = [];
-    const unsubscribe = () =>
-      db
-        .collection('child')
-        .orderBy('lastName')
-        .limit(rowsPerPage)
-        .endBefore(previousLastVisible)
-        .onSnapshot({ includeMetadataChanges: true }, snapshots => {
-          snapshots.docs.forEach(doc => documents.push(doc.data()));
-          newLastVisible.push(snapshots.docs[snapshots.docs.length - 1]);
-        });
-    return { documents, unsubscribe, newLastVisible };
+    let newLastVisible: Document | null = null;
+    let newFirstVisible: Document | null = null;
+    const getFunction = () => {
+      if (previousFirstVisible) {
+        return () =>
+          db
+            .collection('child')
+            .orderBy('lastName')
+            .limit(rowsPerPage)
+            .endBefore(previousFirstVisible)
+            .onSnapshot({ includeMetadataChanges: true }, snapshots => {
+              snapshots.docs.forEach(doc => documents.push(doc.data()));
+            });
+      } else {
+        return () =>
+          db
+            .collection('child')
+            .orderBy('lastName')
+            .limit(rowsPerPage)
+            .startAfter(previousLastVisible)
+            .onSnapshot({ includeMetadataChanges: true }, snapshots => {
+              snapshots.docs.forEach(doc => documents.push(doc.data()));
+            });
+      }
+    };
+    const unsubscribe = getFunction();
+    newFirstVisible = documents[0];
+    newLastVisible = documents[documents.length - 1];
+    return { documents, unsubscribe, newLastVisible, newFirstVisible };
   },
 });

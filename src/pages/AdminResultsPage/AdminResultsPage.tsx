@@ -2,22 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/firebase';
 import { Document } from '../../firebase/types';
-import {
-  Container,
-  Typography,
-  Table,
-  TableBody,
-  IconButton,
-} from '@material-ui/core/';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { Container, Typography, Table, TableBody } from '@material-ui/core/';
 import { TestResultsTableRow } from './TestResultsTableRow';
+import { NoResults } from './NoResults';
+import { Pagination } from './Pagination';
 
 export const AdminResultsPage = () => {
   const [childrenList, setChildrenList] = useState<Document[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage] = useState(10);
+  const [rowsPerPage] = useState(1);
   const [lastVisible, setLastVisible] = useState();
+  const [firstVisible, setFirstVisible] = useState();
   const { t } = useTranslation();
   const [listeners, setListeners] = useState<(() => void)[]>([]);
 
@@ -43,39 +38,19 @@ export const AdminResultsPage = () => {
     return () => detachListeners();
   }, []);
 
-  const nextPageChangeHandler = () => {
-    const {
-      documents,
-      unsubscribe,
-      newLastVisible,
-    } = firebase.child.getChildrenNextPage(rowsPerPage, lastVisible[0]);
+  const pageChangeHandler = (direction: string) => {
+    const { documents, unsubscribe, newLastVisible, newFirstVisible } =
+      direction === 'next'
+        ? firebase.child.getChildrenPaginated(rowsPerPage, lastVisible, null)
+        : firebase.child.getChildrenPaginated(rowsPerPage, null, firstVisible);
     setLastVisible(newLastVisible);
+    setFirstVisible(newFirstVisible);
     setChildrenList(documents);
     addNewListener(unsubscribe);
-    setPage(page + 1);
+    direction === 'next' ? setPage(page + 1) : setPage(page - 1);
   };
 
-  const previousPageChangeHandler = () => {
-    const {
-      documents,
-      unsubscribe,
-      newLastVisible,
-    } = firebase.child.getChildrenNextPage(rowsPerPage, lastVisible[0]);
-    setLastVisible(newLastVisible);
-    setChildrenList(documents);
-    addNewListener(unsubscribe);
-    setPage(page - 1);
-  };
-
-  const renderEmpty = () => {
-    return (
-      <Typography variant="h3" align="center" gutterBottom>
-        {t('no-results')}
-      </Typography>
-    );
-  };
-
-  if (childrenList.length === 0) return renderEmpty();
+  if (childrenList.length === 0) return <NoResults />;
 
   return (
     <Container>
@@ -89,17 +64,12 @@ export const AdminResultsPage = () => {
           ))}
         </TableBody>
       </Table>
-      <div>
-        <IconButton disabled={page === 0} onClick={previousPageChangeHandler}>
-          <ArrowBackIosIcon />
-        </IconButton>
-        <IconButton
-          disabled={childrenList.length < rowsPerPage}
-          onClick={nextPageChangeHandler}
-        >
-          <ArrowForwardIosIcon />
-        </IconButton>
-      </div>
+      <Pagination
+        page={page}
+        pageChangeHandler={pageChangeHandler}
+        documentsCount={childrenList.length}
+        rowsPerPage={rowsPerPage}
+      />
     </Container>
   );
 };
