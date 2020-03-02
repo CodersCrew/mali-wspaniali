@@ -1,43 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, makeStyles } from '@material-ui/core/';
-import { withTranslation, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/firebase';
 
-
 export const HomePage = () => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    const handleLogoutClick = () => {
-        firebase.auth.handleSignOut();
-    };
+  const handleLogoutClick = () => {
+    firebase.auth.handleSignOut();
+  };
 
-    return (
-        <Container className={ classes.container }>
-            <Link to="/">
-                <Button onClick={ handleLogoutClick } color="secondary" variant="outlined">
-                    { t('logout') }
-                </Button>
-            </Link>
-            <Link to="/login">
-                <Button variant="contained" color="primary">
-                    { t('loginPage') }
-                </Button>
-            </Link>
-            <Link to="/register">
-                <Button variant="contained" color="primary">
-                    { t('registrationPage') }
-                </Button>
-            </Link>
-            <Link to="/child/a8g6zDTz9qHbgbWUmoPT/">
-                <Button variant="contained" color="primary">
-                    { t('child-profile.child-profile') }
-                </Button>
-            </Link>
-        </Container>
-    );
+  return (
+    <Container className={ classes.container }>
+      <Link to="/">
+        <Button onClick={ handleLogoutClick } color="secondary" variant="outlined">
+          { t('logout') }
+        </Button>
+      </Link>
+      <Link to="/login">
+        <Button variant="contained" color="primary">
+          { t('loginPage') }
+        </Button>
+      </Link>
+      <Link to="/register">
+        <Button variant="contained" color="primary">
+          { t('registrationPage') }
+        </Button>
+      </Link>
+      <Link to="/child/a8g6zDTz9qHbgbWUmoPT/">
+        <Button variant="contained" color="primary">
+          { t('child-profile.child-profile') }
+        </Button>
+      </Link>
+    </Container>
+  );
 };
 
 const useStyles = makeStyles({
@@ -46,5 +45,3 @@ const useStyles = makeStyles({
     flexDirection: 'column',
   },
 });
-
-export default withTranslation()(HomePage);
