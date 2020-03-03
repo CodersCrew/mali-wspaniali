@@ -2,14 +2,7 @@ import firebaseApp from 'firebase/app';
 import 'firebase/firestore';
 import { Document } from './types';
 
-type initialPromiseTypes = {
-  documents: Document[];
-  loading: boolean;
-  unsubscribe: () => void;
-  lastVisible: Document | null;
-};
-
-type paginationPromiseTypes = {
+type dataPromiseTypes = {
   documents: Document[];
   loading: boolean;
   unsubscribe: () => void;
@@ -18,90 +11,43 @@ type paginationPromiseTypes = {
 };
 
 export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
-  getChildrenFirstPage: (rowsPerPage: number) => {
-    return new Promise<initialPromiseTypes>((resolve, reject) => {
-      db.collection('child')
-        .get()
-        .then(snapshot => snapshot.forEach(snap => console.log(snap.data())));
-      const documents: Document[] = [];
-      let lastVisible: Document | null = null;
-      let loading = true;
-      const unsubscribe = db
-        .collection('child')
-        .orderBy('lastName')
-        .limit(rowsPerPage)
-        .onSnapshot(
-          snapshot => {
-            if (!snapshot.empty) {
-              lastVisible = snapshot.docs[snapshot.docs.length - 1];
-              loading = false;
-              snapshot.forEach(doc => {
-                documents.push(doc.data());
-              });
-            }
-            resolve({ documents, unsubscribe, loading, lastVisible });
-          },
-          (error: Error) => {
-            reject(error);
-          },
-        );
-    });
-  },
-
-  getChildrenPaginated: (
+  getChildrenData: (
     rowsPerPage: number,
     previousLastVisible: Document | null,
     previousFirstVisible: Document | null,
-  ) => {
-    return new Promise<paginationPromiseTypes>((resolve, reject) => {
-      const documents: Document[] = [];
-      let loading = true;
-      let newFirstVisible: Document | null = null;
-      let newLastVisible: Document | null = null;
-      if (previousFirstVisible) {
-        const unsubscribe = db
-          .collection('child')
-          .orderBy('lastName')
-          .limit(rowsPerPage)
-          .endBefore(previousFirstVisible)
-          .onSnapshot(
-            snapshot => {
-              if (!snapshot.empty) {
-                [newFirstVisible] = snapshot.docs;
-                newLastVisible = snapshot.docs[snapshot.docs.length - 1];
-                loading = false;
-                snapshot.forEach(doc => {
-                  documents.push(doc.data());
-                });
-              }
-              resolve({
-                documents,
-                unsubscribe,
-                loading,
-                newLastVisible,
-                newFirstVisible,
-              });
-            },
-            (error: Error) => {
-              reject(error);
-            },
-          );
+  ): Promise<dataPromiseTypes> => {
+    const documents: Document[] = [];
+    let loading = true;
+    let newFirstVisible: Document | null = null;
+    let newLastVisible: Document | null = null;
+    const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
+      if (!snapshot.empty) {
+        [newFirstVisible] = snapshot.docs;
+        newLastVisible = snapshot.docs[snapshot.docs.length - 1];
+        loading = false;
+        snapshot.forEach(doc => {
+          documents.push(doc.data());
+        });
       } else {
-        const unsubscribe = db
-          .collection('child')
-          .orderBy('lastName')
-          .limit(rowsPerPage)
+        [newFirstVisible] = snapshot.docs;
+        newLastVisible = snapshot.docs[snapshot.docs.length - 1];
+        loading = false;
+      }
+    };
+    const getQuery = (
+      resolve: (value: dataPromiseTypes) => void,
+      reject: (reason: Error) => void,
+    ): (() => void) => {
+      const childRefWithLimit = db
+        .collection('child')
+        .orderBy('lastName')
+        .limit(rowsPerPage);
+      if (previousLastVisible && !previousFirstVisible) {
+        const unsubscribe = childRefWithLimit
           .startAfter(previousLastVisible)
           .onSnapshot(
             snapshot => {
-              if (!snapshot.empty) {
-                [newFirstVisible] = snapshot.docs;
-                newLastVisible = snapshot.docs[snapshot.docs.length - 1];
-                loading = false;
-                snapshot.forEach(doc => {
-                  documents.push(doc.data());
-                });
-              }
+              handleData(snapshot);
               resolve({
                 documents,
                 unsubscribe,
@@ -114,7 +60,47 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
               reject(error);
             },
           );
+        return unsubscribe;
       }
+      if (!previousLastVisible && previousFirstVisible) {
+        const unsubscribe = childRefWithLimit
+          .endBefore(previousFirstVisible)
+          .onSnapshot(
+            snapshot => {
+              handleData(snapshot);
+              resolve({
+                documents,
+                unsubscribe,
+                loading,
+                newLastVisible,
+                newFirstVisible,
+              });
+            },
+            (error: Error) => {
+              reject(error);
+            },
+          );
+        return unsubscribe;
+      }
+      const unsubscribe = childRefWithLimit.onSnapshot(
+        snapshot => {
+          handleData(snapshot);
+          resolve({
+            documents,
+            unsubscribe,
+            loading,
+            newLastVisible,
+            newFirstVisible,
+          });
+        },
+        (error: Error) => {
+          reject(error);
+        },
+      );
+      return unsubscribe;
+    };
+    return new Promise<dataPromiseTypes>((resolve, reject) => {
+      getQuery(resolve, reject);
     });
   },
 });

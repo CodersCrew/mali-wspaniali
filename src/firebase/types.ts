@@ -15,7 +15,7 @@ export interface Agreement {
 export interface Child {
   firstName: string;
   lastName: string;
-  userid: string;
+  userId: string;
   birthYear: number;
   birthQuarter: number;
   city: string;
