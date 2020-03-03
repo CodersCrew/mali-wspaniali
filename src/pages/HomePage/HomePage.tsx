@@ -17,17 +17,17 @@ export const HomePage = () => {
     <Container className={ classes.container }>
       <Link to="/">
         <Button onClick={ handleLogoutClick } color="secondary" variant="outlined">
-          { t('logout') }
+          { t('home-page.log-out') }
         </Button>
       </Link>
       <Link to="/login">
         <Button variant="contained" color="primary">
-          { t('loginPage') }
+          { t('home-page.go-to-login-page') }
         </Button>
       </Link>
       <Link to="/register">
         <Button variant="contained" color="primary">
-          { t('registrationPage') }
+          { t('home-page.go-to-registration-page') }
         </Button>
       </Link>
       <Link to="/child/a8g6zDTz9qHbgbWUmoPT/">
