@@ -10,7 +10,7 @@ type Props = {
   rowsPerPage: number;
 };
 
-export const Pagination = ({
+export const UserPagePagination = ({
   page,
   pageChangeHandler,
   documentsCount,

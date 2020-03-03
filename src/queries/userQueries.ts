@@ -13,16 +13,7 @@ export const createUser = async (
   return userData.user || null;
 };
 
-export const getUsers = async (rowsPerPage: number) => {
-  const {
-    documents,
-    unsubscribe,
-    loading,
-    lastVisible,
-  } = await firebase.user.getUsersFirstPage(rowsPerPage);
-  return { documents, unsubscribe, loading, lastVisible };
-};
-export const getUsersPaginated = async (
+export const getUsersData = async (
   rowsPerPage: number,
   last: Document | null,
   first: Document | null,
@@ -33,6 +24,6 @@ export const getUsersPaginated = async (
     unsubscribe,
     newLastVisible,
     newFirstVisible,
-  } = await firebase.user.getUsersPaginated(rowsPerPage, last, first);
+  } = await firebase.user.getUsersData(rowsPerPage, last, first);
   return { documents, unsubscribe, loading, newLastVisible, newFirstVisible };
 };
