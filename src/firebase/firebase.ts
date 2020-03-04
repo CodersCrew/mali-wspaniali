@@ -17,4 +17,4 @@ export const firebase = {
 
 export type UserCredential = firebaseApp.auth.UserCredential;
 export type User = firebaseApp.User;
-export type DocumentSnapshot = firebaseApp.firestore.DocumentSnapshot;
+export type DocumentData = firebaseApp.firestore.DocumentData;

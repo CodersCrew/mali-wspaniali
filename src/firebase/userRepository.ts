@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 
 export type OnSnapshotCallback = (
-  snapshot: firebase.firestore.DocumentSnapshot,
+  data: firebase.firestore.DocumentData,
 ) => void;
 
 export const userRepository = (firestore: firebase.firestore.Firestore) => ({
@@ -9,6 +9,11 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
     return firestore
       .collection('user')
       .doc(id)
-      .onSnapshot(onSnapshotCallback);
+      .onSnapshot(snapshot => {
+        const parentData = snapshot.data();
+        if (parentData) {
+          onSnapshotCallback(parentData);
+        }
+      });
   },
 });
