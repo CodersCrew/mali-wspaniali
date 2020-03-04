@@ -2,6 +2,7 @@ import { User } from '@firebase/auth-types';
 import { firebase } from '../firebase/firebase';
 import { RegistrationUser } from '../pages/RegistrationPage/types';
 import { OnSnapshotCallback } from '../firebase/userRepository';
+import { Parent } from '../pages/ParentProfile/types';
 
 export const createUser = async (
   user: RegistrationUser,
@@ -16,5 +17,5 @@ export const createUser = async (
 
 export const getUserById = (
   id: string,
-  onSnapshotCallback: OnSnapshotCallback,
+  onSnapshotCallback: OnSnapshotCallback<Parent>,
 ) => firebase.user.getUserById(id, onSnapshotCallback);

@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getUserById } from '../../queries/userQueries';
-import { DocumentData } from '../../firebase/firebase';
-
-export interface Parent {
-  email: string;
-}
+import { useSubscribed } from '../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../firebase/userRepository';
+import { Parent } from './types';
 
 export const ParentProfile = () => {
-  const [parent, setParent] = useState<Parent | null>(null);
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
-
-  const setUserCallback = (parentData: DocumentData) => {
-    if (parentData) {
-      setParent({ email: parentData.email });
-    }
-  };
-
-  useEffect(() => {
-    const unsubscribe = getUserById(id, setUserCallback);
-
-    return () => unsubscribe();
-  }, [id]);
+  const parent = useSubscribed<Parent | null>(
+    (callback: OnSnapshotCallback<Parent>) => getUserById(id, callback),
+  ) as Parent | null;
 
   return parent ? (
     <>
