@@ -28,7 +28,7 @@ export const ChildProfile = () => {
         userId: childDocument.userId,
       });
     }
-  }
+  };
 
 
   const childDocError = (message: string) => {
