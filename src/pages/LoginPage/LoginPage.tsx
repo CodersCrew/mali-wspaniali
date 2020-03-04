@@ -48,34 +48,34 @@ export const LoginPage = () => {
 
   return (
     <>
-      <Link to="/">{ t('go-to-home-page') }</Link>
+      <Link to="/">{t('go-to-home-page')}</Link>
       <Container>
-        <form onSubmit={ handleSubmit } autoComplete="off">
+        <form onSubmit={handleSubmit} autoComplete="off">
           <TextField
             required
-            onChange={ event => setEmail(event.target.value) }
-            value={ email }
+            onChange={event => setEmail(event.target.value)}
+            value={email}
             id="email"
-            label={ t('e-mail') }
+            label={t('e-mail')}
           />
           <TextField
             required
-            onChange={ event => setPassword(event.target.value) }
-            value={ password }
+            onChange={event => setPassword(event.target.value)}
+            value={password}
             id="password"
-            label={ t('password') }
+            label={t('password')}
             type="password"
           />
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            style={ { marginTop: '20px', float: 'right' } }
+            style={{ marginTop: '20px', float: 'right' }}
           >
-            { t('login-page.login') }
+            {t('login-page.login')}
           </Button>
         </form>
-        <span>{ loginError && t('login-page.login-error') }</span>
+        <span>{loginError && t('login-page.login-error')}</span>
       </Container>
     </>
   );

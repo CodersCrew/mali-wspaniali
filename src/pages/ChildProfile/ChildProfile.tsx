@@ -13,7 +13,6 @@ const Container = styled.div`
 `;
 
 export const ChildProfile = () => {
-
   const { t } = useTranslation();
   const { childID } = useParams();
   const [childError, setChildError] = useState('');
@@ -28,8 +27,7 @@ export const ChildProfile = () => {
         userId: childDocument.userId,
       });
     }
-  }
-
+  };
 
   const childDocError = (message: string) => {
     setChildError(message);
@@ -42,17 +40,13 @@ export const ChildProfile = () => {
 
   return (
     <>
-      <Link to="/">{ t('homePage') }</Link>
+      <Link to="/">{t('homePage')}</Link>
       <Container>
-        { t('child-profile.child-profile') }
-        { (child !== undefined) ? `\n ${child.userId}\n ${child.firstName}\n ${child.lastName}` : ` \n ${t(childError)}` }
+        {t('child-profile.child-profile')}
+        {child
+          ? `\n ${child.userId}\n ${child.firstName}\n ${child.lastName}`
+          : ` \n ${t(childError)}`}
       </Container>
     </>
   );
 };
-
-
-
-
-
-

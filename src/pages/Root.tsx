@@ -9,14 +9,14 @@ import { LanguageSelector } from '../components/LanguageSelector';
 
 export const Root = () => {
   return (
-    <Suspense fallback={ <Loader /> }>
+    <Suspense fallback={<Loader />}>
       <LanguageSelector />
       <Router>
         <div>
-          <Route exact path="/" component={ HomePage } />
-          <Route path="/login" component={ LoginPage } />
-          <Route path="/register" component={ RegistrationPage } />
-          <Route path="/child/:childID" component={ ChildProfile } />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegistrationPage} />
+          <Route path="/child/:childID" component={ChildProfile} />
         </div>
       </Router>
     </Suspense>
