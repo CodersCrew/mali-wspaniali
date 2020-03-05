@@ -14,7 +14,7 @@ const Container = styled.div`
 
 export const ChildProfile = () => {
   const { t } = useTranslation();
-  const { childID } = useParams();
+  const childID = useParams<string>();
   const [childError, setChildError] = useState('');
   const [child, setChild] = useState<Child | undefined>();
 

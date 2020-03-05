@@ -1,4 +1,5 @@
-import firebase from 'firebase/app';
+// eslint-disable-next-line import/no-cycle
+import { Firestore } from './firebase';
 
 export type ChildData = firebase.firestore.DocumentSnapshot<
   firebase.firestore.DocumentData
@@ -10,10 +11,14 @@ export interface Child {
   userId?: string;
 }
 
-export const childRepository = (firestore: firebase.firestore.Firestore) => ({
+export const childRepository = (firestore: Firestore) => ({
   getChildDocById: (
     childId: string,
-    successCallback: (childDoc: ChildData) => void,
+    successCallback: (
+      childDoc: firebase.firestore.DocumentSnapshot<
+        firebase.firestore.DocumentData
+      >,
+    ) => void,
     failCallback: (message: string) => void,
   ) =>
     firestore
