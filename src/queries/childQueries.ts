@@ -1,9 +1,9 @@
 import { firebase } from '../firebase/firebase';
-import { ChildData } from '../firebase/childRepository';
+import { Child } from '../firebase/childRepository';
 
 export const fetchChild = (
   childId: string,
-  successCallback: (childDoc: ChildData) => void,
+  successCallback: (childDoc: Child) => void,
   failCallback: (message: string) => void,
 ) => {
   firebase.child.getChildDocById(childId, successCallback, failCallback);

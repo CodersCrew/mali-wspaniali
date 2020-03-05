@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { fetchChild } from '../../queries/childQueries';
-import { ChildData, Child } from '../../firebase/childRepository';
+import { Child } from '../../firebase/childRepository';
 
 const Container = styled.div`
   margin: '40px',
@@ -18,8 +18,8 @@ export const ChildProfile = () => {
   const [childError, setChildError] = useState('');
   const [child, setChild] = useState<Child | undefined>();
 
-  const childDocSuccess = (childDoc: ChildData) => {
-    const childDocument = childDoc.data();
+  const childDocSuccess = (childDoc: Child) => {
+    const childDocument = childDoc;
     if (childDocument) {
       setChild({
         firstName: childDocument.firstName,
