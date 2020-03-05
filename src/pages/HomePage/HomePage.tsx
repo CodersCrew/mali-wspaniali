@@ -34,11 +34,7 @@ export const HomePage = () => {
           {t('home-page.go-to-registration-page')}
         </Button>
       </Link>
-      <Link to="/child/a8g6zDTz9qHbgbWUmoPT/">
-        <Button variant="contained" color="primary">
-          {t('child-profile.child-profile')}
-        </Button>
-      </Link>
+      <Link to="/child/a8g6zDTz9qHbgbWUmoPT/"></Link>
     </Container>
   );
 };

@@ -8,11 +8,11 @@ import { childRepository } from './childRepository';
 firebaseApp.initializeApp(config);
 
 const auth = firebaseApp.auth();
-const fireStore = firebaseApp.firestore();
+const firestore = firebaseApp.firestore();
 
 export const firebase = {
   auth: authRepository(auth),
-  child: childRepository(fireStore),
+  db: childRepository(firestore),
 };
 
 export type UserCredential = firebaseApp.auth.UserCredential;

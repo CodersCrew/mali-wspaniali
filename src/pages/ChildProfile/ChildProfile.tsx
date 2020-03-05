@@ -19,12 +19,11 @@ export const ChildProfile = () => {
   const [child, setChild] = useState<Child | undefined>();
 
   const childDocSuccess = (childDoc: Child) => {
-    const childDocument = childDoc;
-    if (childDocument) {
+    if (childDoc) {
       setChild({
-        firstName: childDocument.firstName,
-        lastName: childDocument.lastName,
-        userId: childDocument.userId,
+        firstName: childDoc.firstName,
+        lastName: childDoc.lastName,
+        userId: childDoc.userId,
       });
     }
   };
@@ -40,7 +39,7 @@ export const ChildProfile = () => {
 
   return (
     <>
-      <Link to="/">{t('homePage')}</Link>
+      <Link to="/">{t('home-page')}</Link>
       <Container>
         {t('child-profile.child-profile')}
         {child

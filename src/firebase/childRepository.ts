@@ -1,5 +1,4 @@
 import firebaseApp from 'firebase/app';
-import 'firebase/firestore';
 
 export interface Child {
   firstName?: string;
@@ -7,13 +6,13 @@ export interface Child {
   userId?: string;
 }
 
-export const childRepository = (child: firebaseApp.firestore.Firestore) => ({
+export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
   getChildDocById: (
     childId: string,
     successCallback: (childDoc: Child) => void,
     failCallback: (message: string) => void,
   ) =>
-    child
+    db
       .collection('child')
       .doc(childId)
       .onSnapshot(childDoc => {
