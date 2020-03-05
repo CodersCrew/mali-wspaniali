@@ -1,8 +1,9 @@
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import * as onCreateFunctions from './auth/onCreate';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
+admin.initializeApp(functions.config().firebase);
 
-export const helloWorld = functions.https.onRequest((request, response) => {
- response.send('Hello from Firebase!');
-});
+module.exports = {
+  ...onCreateFunctions,
+};
