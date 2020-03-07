@@ -6,5 +6,5 @@ export const fetchChild = (
   successCallback: (childDoc: Child) => void,
   failCallback: (message: string) => void,
 ) => {
-  firebase.db.getChildDocById(childId, successCallback, failCallback);
+  firebase.child.getChildDocById(childId, successCallback, failCallback);
 };
