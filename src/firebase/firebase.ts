@@ -12,7 +12,7 @@ const firestore = firebaseApp.firestore();
 
 export const firebase = {
   auth: authRepository(auth),
-  db: childRepository(firestore),
+  child: childRepository(firestore),
 };
 
 export type UserCredential = firebaseApp.auth.UserCredential;
