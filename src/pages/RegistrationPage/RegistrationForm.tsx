@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AlertDialog } from './AlertDialog';
 import { RegisterUser } from '../../actions/registrationActions';
+import { load } from '../../utils/load';
 
 type RegistrationFormProps = {
   registerUser: RegisterUser;
@@ -35,8 +36,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
 
     const user = { email, password };
 
-    props
-      .registerUser(user)
+    load(props.registerUser(user))
       .then(() => {
         history.push('/login');
       })

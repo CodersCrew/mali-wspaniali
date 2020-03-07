@@ -1,29 +1,33 @@
 {
-    "home-page": {
-        "go-to-login-page": "Strona logowania",
-        "log-out": "Wyloguj",
-        "go-to-registration-page": "Rejestracja"
-    },
-    "login-page": {
-        "login": "Zaloguj się",
-        "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany"
-    },
-    "registration-page": {
-        "already-have-account": "Masz już konto?",
-        "password-mismatch": "Podane hasła nie są takie same",
-        "register-success": "Konto zostało utworzone. Możesz się zalogować.",
-        "password-confirm": "Powtórz hasło",
-        "register": "Zarejestruj się"
-    },
-    "go-to-home-page": "Strona główna",
-    "e-mail": "Adres e-mail",
-    "password": "Hasło",
-    "languages": {
-        "pl": "Polski",
-        "en": "Angielski"
-    },
-    "child-profile": {
-        "child-profile": "Profil dziecka",
-        "no-child": "Przepraszamy, nie ma dziecka o tym ID"
-    }
+  "home-page": {
+    "go-to-login-page": "Strona logowania",
+    "log-out": "Wyloguj",
+    "go-to-registration-page": "Rejestracja"
+  },
+  "login-page": {
+    "login": "Zaloguj się",
+    "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany"
+  },
+  "registration-page": {
+    "already-have-account": "Masz już konto?",
+    "password-mismatch": "Podane hasła nie są takie same",
+    "register-success": "Konto zostało utworzone. Możesz się zalogować.",
+    "password-confirm": "Powtórz hasło",
+    "register": "Zarejestruj się"
+  },
+  "go-to-home-page": "Strona główna",
+  "e-mail": "Adres e-mail",
+  "password": "Hasło",
+  "languages": {
+    "pl": "Polski",
+    "en": "Angielski"
+  },
+  "child-profile": {
+    "child-profile": "Profil dziecka",
+    "no-child": "Przepraszamy, nie ma dziecka o tym ID"
+  },
+  "parent-profile": {
+    "parent": "Rodzic",
+    "no-parent": "Nie istnieje rodzic o takim id"
+  }
 }

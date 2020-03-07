@@ -25,5 +25,9 @@
     "child-profile": {
         "child-profile": "A Child's Profile",
         "no-child": "Sorry, there is no child with this ID"
+    },
+    "parent-profile": {
+        "parent": "Parent",
+        "no-parent": "There is no parent with the given id"
     }
 }

@@ -1,15 +1,15 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { HomePage } from './HomePage';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { ChildProfile } from './ChildProfile';
-import { Loader } from '../components/Loader';
+import { ParentProfile } from './ParentProfile';
 import { LanguageSelector } from '../components/LanguageSelector';
 
 export const Root = () => {
   return (
-    <Suspense fallback={<Loader />}>
+    <>
       <LanguageSelector />
       <Router>
         <div>
@@ -17,8 +17,9 @@ export const Root = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegistrationPage} />
           <Route path="/child/:childID" component={ChildProfile} />
+          <Route path="/admin/parent/:id" component={ParentProfile} />
         </div>
       </Router>
-    </Suspense>
+    </>
   );
 };
