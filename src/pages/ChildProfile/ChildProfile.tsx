@@ -23,7 +23,6 @@ export const ChildProfile = () => {
   const [childError, setChildError] = useState('');
   const [child, setChild] = useState<Child | undefined>();
   const classes = useStyles();
-  console.log(childID);
 
   const childDocSuccess = (childDoc: Child) => {
     if (childDoc) {
