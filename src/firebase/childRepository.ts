@@ -1,9 +1,9 @@
 import firebaseApp from 'firebase/app';
 
 export interface Child {
-  firstName?: string;
-  lastName?: string;
-  userId?: string;
+  firstName: string;
+  lastName: string;
+  userId: string;
 }
 
 export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
@@ -16,7 +16,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
       .collection('child')
       .doc(childId)
       .onSnapshot(childDoc => {
-        if (childDoc.data()) successCallback(childDoc as Child);
+        if (childDoc.data()) successCallback(childDoc.data() as Child);
         else failCallback('child-profile.no-child');
       }),
 });
