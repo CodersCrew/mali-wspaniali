@@ -23,7 +23,7 @@ const RegistrationPage = (props: RegistrationPageProps) => {
         <Typography variant="h4" gutterBottom className={classes.h4}>
           {t('registration-page.register')}
         </Typography>
-        <RegistrationForm registerUser={props.registerUser} />
+        <RegistrationForm />
         <p>
           {t('registration-page.already-have-account')}{' '}
           <Link to="login">{t('login')}</Link>

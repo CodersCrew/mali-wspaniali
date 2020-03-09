@@ -3,12 +3,8 @@ import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AlertDialog } from './AlertDialog';
-import { RegisterUser } from '../../actions/registrationActions';
 import { load } from '../../utils/load';
-
-type RegistrationFormProps = {
-  registerUser: RegisterUser;
-};
+import { createUser } from '../../queries/userQueries';
 
 const initialState = {
   email: '',
@@ -16,7 +12,7 @@ const initialState = {
   passwordConfirm: '',
 };
 
-export const RegistrationForm = (props: RegistrationFormProps) => {
+export const RegistrationForm = () => {
   const [form, setForm] = useState(initialState);
   const [isAlert, setIsAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -36,7 +32,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
 
     const user = { email, password };
 
-    load(props.registerUser(user))
+    load(createUser(user))
       .then(() => {
         history.push('/login');
       })
