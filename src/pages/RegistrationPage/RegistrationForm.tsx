@@ -1,7 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { makeStyles } from '@material-ui/core/';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AlertDialog } from './AlertDialog';

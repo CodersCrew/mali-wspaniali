@@ -25,7 +25,7 @@ describe('Registration Form', () => {
   });
 
   describe('when password and confirm password are not equal', () => {
-    beforeEach(async () => {
+    beforeEach(() => {
       fireEvent.change(emailInput, { target: { value: 'my@email.com' } });
       fireEvent.change(passwordInput, { target: { value: 'my-password' } });
       fireEvent.change(confirmPasswordInput, {
@@ -48,7 +48,7 @@ describe('Registration Form', () => {
   });
 
   describe('when password and confirm password are equal', () => {
-    beforeEach(async () => {
+    beforeEach(() => {
       fireEvent.change(emailInput, { target: { value: 'my@email.com' } });
       fireEvent.change(passwordInput, { target: { value: 'my-password' } });
       fireEvent.change(confirmPasswordInput, {

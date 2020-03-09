@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
+import { Container, Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { RegistrationForm } from './RegistrationForm';
 
