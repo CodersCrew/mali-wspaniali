@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Typography, makeStyles } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { RegistrationForm } from './RegistrationForm';
 
-const RegistrationPage = () => {
+export const RegistrationPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -33,5 +35,3 @@ const useStyles = makeStyles({
     display: 'flex',
   },
 });
-
-export default RegistrationPage;
