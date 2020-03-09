@@ -63,6 +63,9 @@ export const RegistrationForm = () => {
         id="email"
         type="email"
         label="E-mail"
+        inputProps={{
+          'data-testid': 'email',
+        }}
         fullWidth
       />
       <TextField
@@ -72,6 +75,9 @@ export const RegistrationForm = () => {
         id="password"
         type="password"
         label={t('password')}
+        inputProps={{
+          'data-testid': 'password',
+        }}
         fullWidth
       />
       <TextField
@@ -81,6 +87,9 @@ export const RegistrationForm = () => {
         id="passwordConfirm"
         type="password"
         label={t('registration-page.password-confirm')}
+        inputProps={{
+          'data-testid': 'confirmPassword',
+        }}
         fullWidth
       />
       <Button
@@ -96,6 +105,7 @@ export const RegistrationForm = () => {
           isOpen={isAlert}
           setIsAlert={setIsAlert}
           message={alertMessage}
+          data-testid="alert"
         />
       )}
     </form>
