@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Grid } from '@material-ui/core';
+import { useSubscribed } from '../../hooks/useSubscribed';
 import { fetchChild } from '../../queries/childQueries';
+import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { Child } from '../../firebase/childRepository';
 
 const useStyles = makeStyles(theme => ({
@@ -19,40 +20,24 @@ const useStyles = makeStyles(theme => ({
 
 export const ChildProfile = () => {
   const { t } = useTranslation();
-  const { childID } = useParams();
-  const [childError, setChildError] = useState('');
-  const [child, setChild] = useState<Child | undefined>();
+  const { childID } = useParams<{ childID: string }>();
+
+  const child = useSubscribed<Child | null>(
+    (callback: OnSnapshotCallback<Child>) => fetchChild(childID, callback),
+  ) as Child | null;
+
   const classes = useStyles();
-  console.log(childID);
 
-  const childDocSuccess = (childDoc: Child) => {
-    if (childDoc) {
-      setChild({
-        firstName: childDoc.firstName,
-        lastName: childDoc.lastName,
-        userId: childDoc.userId,
-      });
-    }
-  };
-
-  const childDocError = (message: string) => {
-    setChildError(message);
-    setChild(undefined);
-  };
-
-  useEffect(() => {
-    fetchChild(childID as string, childDocSuccess, childDocError);
-  }, [childID]);
-
-  return (
-    <>
-      <Link to="/">{t('home-page')}</Link>
-      <Grid container className={classes.paper}>
-        {t('child-profile.child-profile')}
-        {child
-          ? `\n ${child.userId}\n ${child.firstName}\n ${child.lastName}`
-          : ` \n ${t(childError)}`}
-      </Grid>
-    </>
+  return child ? (
+    <Grid container className={classes.paper}>
+      <div>{t('child-profile.child-profile')}</div>
+      <p>{child.userId}</p>
+      <p>{child.firstName}</p>
+      <p>{child.lastName}</p>
+    </Grid>
+  ) : (
+    <Grid container className={classes.paper}>
+      {t('child-profile.no-child')}
+    </Grid>
   );
 };

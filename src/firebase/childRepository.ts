@@ -1,4 +1,5 @@
 import firebaseApp from 'firebase/app';
+import { OnSnapshotCallback } from './userRepository';
 
 export interface Child {
   firstName: string;
@@ -9,14 +10,15 @@ export interface Child {
 export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
   getChildDocById: (
     childId: string,
-    successCallback: (childDoc: Child) => void,
-    failCallback: (message: string) => void,
-  ) =>
-    db
-      .collection('child')
+    onSnapshotCallback: OnSnapshotCallback<Child>,
+  ) => {
+    db.collection('child')
       .doc(childId)
-      .onSnapshot(childDoc => {
-        if (childDoc.data()) successCallback(childDoc.data() as Child);
-        else failCallback('child-profile.no-child');
-      }),
+      .onSnapshot(snapshot => {
+        const childData = snapshot.data() as Child;
+        if (childData) {
+          onSnapshotCallback(childData);
+        }
+      });
+  },
 });
