@@ -3,6 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import config from './config';
 import { authRepository } from './authRepository';
+import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
 
 firebaseApp.initializeApp(config);
@@ -12,9 +13,9 @@ const firestore = firebaseApp.firestore();
 
 export const firebase = {
   auth: authRepository(auth),
+  child: childRepository(firestore),
   user: userRepository(firestore),
 };
 
-export type UserCredential = firebaseApp.auth.UserCredential;
 export type User = firebaseApp.User;
-export type DocumentData = firebaseApp.firestore.DocumentData;
+export type UserCredential = firebaseApp.auth.UserCredential;
