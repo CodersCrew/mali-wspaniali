@@ -4,7 +4,6 @@ import { HomePage } from './HomePage';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { ParentProfile } from './ParentProfile';
-import { Loader } from '../components/Loader';
 import { LanguageSelector } from '../components/LanguageSelector';
 
 export const Root = () => {
