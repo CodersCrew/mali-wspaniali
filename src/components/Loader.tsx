@@ -15,7 +15,7 @@ export const Loader = () => {
 
 const useStyles = makeStyles({
   root: {
-    zIndex: 10,
+    zIndex: 1000,
     color: '#fff',
   },
 });
