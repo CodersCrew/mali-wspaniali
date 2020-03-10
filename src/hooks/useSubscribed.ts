@@ -13,7 +13,7 @@ export const useSubscribed = <T>(
         setState(data);
       }
     });
-  }, [action]);
+  }, []);
 
   return state;
 };
