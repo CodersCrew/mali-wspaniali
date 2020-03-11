@@ -3,18 +3,21 @@ import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { User, UserCredential } from '../../firebase/firebase';
-import {
-  handleSignInWithEmailAndPassword,
-  onAuthStateChanged,
-} from '../../queries/authQueries';
+import { handleSignInWithEmailAndPassword } from '../../queries/authQueries';
 
-export const LoginPage = () => {
+interface LoginPageProps {
+  user: User | null;
+}
+
+export const LoginPage = ({ user }: LoginPageProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const { t } = useTranslation();
   const classes = useStyles();
   const history = useHistory();
+
+  if (user) history.push('/');
 
   const handleSubmitSuccess = ({ user }: UserCredential) => {
     if (user) history.push('/');
@@ -33,12 +36,6 @@ export const LoginPage = () => {
     setEmail('');
     setPassword('');
   };
-
-  onAuthStateChanged((user: User | null) => {
-    if (user) {
-      history.push('/');
-    }
-  });
 
   return (
     <>
