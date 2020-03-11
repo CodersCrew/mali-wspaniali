@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/firebase';
+import { firebase, User } from '../../firebase/firebase';
 
-export const HomePage = () => {
+interface HomePageProps {
+  user: User | null;
+}
+
+export const HomePage = ({ user }: HomePageProps) => {
   const classes = useStyles();
 
   const { t } = useTranslation();
@@ -16,13 +20,15 @@ export const HomePage = () => {
   return (
     <Container className={classes.container}>
       <Link to="/">
-        <Button
-          onClick={handleLogoutClick}
-          color="secondary"
-          variant="outlined"
-        >
-          {t('home-page.log-out')}
-        </Button>
+        {user && (
+          <Button
+            onClick={handleLogoutClick}
+            color="secondary"
+            variant="outlined"
+          >
+            {t('home-page.log-out')}
+          </Button>
+        )}
       </Link>
       <Link to="/login">
         <Button variant="contained" color="primary">
