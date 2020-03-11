@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import { Parent } from '../pages/ParentProfile/types';
+import { logQuery } from '../utils/logQuery';
 
 export type OnSnapshotCallback<T extends firebase.firestore.DocumentData> = (
   data: T,
@@ -11,6 +12,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
       .collection('user')
       .doc(id)
       .onSnapshot(snapshot => {
+        logQuery(snapshot);
         const parentData = snapshot.data() as Parent;
         if (parentData) {
           onSnapshotCallback(parentData);

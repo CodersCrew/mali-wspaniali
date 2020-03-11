@@ -1,5 +1,6 @@
 import firebaseApp from 'firebase/app';
 import { OnSnapshotCallback } from './userRepository';
+import { logQuery } from '../utils/logQuery';
 
 export interface Child {
   firstName: string;
@@ -15,6 +16,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
     db.collection('child')
       .doc(childId)
       .onSnapshot(snapshot => {
+        logQuery(snapshot);
         const childData = snapshot.data() as Child;
         if (childData) {
           onSnapshotCallback(childData);
