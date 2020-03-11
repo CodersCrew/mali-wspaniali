@@ -1,19 +1,21 @@
 import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core';
 
 export const Loader = () => {
+  const classes = useStyles();
+
   return (
-    <div className="loader">
-      <StyledBackdrop open={true}>
-        <CircularProgress color="inherit" />
-      </StyledBackdrop>
-    </div>
+    <Backdrop classes={{ root: classes.root }} open={true}>
+      <CircularProgress color="inherit" />
+    </Backdrop>
   );
 };
 
-const StyledBackdrop = styled(Backdrop)`
-  z-index: 10;
-  color: '#fff';
-`;
+const useStyles = makeStyles({
+  root: {
+    zIndex: 1000,
+    color: '#fff',
+  },
+});
