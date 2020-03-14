@@ -28,6 +28,7 @@ export const getUsersData = async (
   } = await firebase.user.getUsersData(rowsPerPage, last, first);
   return { documents, unsubscribe, newLastVisible, newFirstVisible };
 };
+
 export const getUserById = (
   id: string,
   onSnapshotCallback: OnSnapshotCallback<Parent>,

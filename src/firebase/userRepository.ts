@@ -113,5 +113,5 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
     return new Promise<dataPromiseTypes>((resolve, reject) => {
       getQuery(resolve, reject);
     });
-  }
+  },
 });
