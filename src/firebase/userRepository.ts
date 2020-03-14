@@ -1,4 +1,6 @@
-import firebaseApp from 'firebase/app';
+import firebase from 'firebase/app';
+import { Parent } from '../pages/ParentProfile/types';
+import { logQuery } from '../utils/logQuery';
 import { Document } from './types';
 
 type dataPromiseTypes = {
@@ -8,7 +10,23 @@ type dataPromiseTypes = {
   newFirstVisible: Document | null;
 };
 
-export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
+export type OnSnapshotCallback<T extends firebase.firestore.DocumentData> = (
+  data: T,
+) => void;
+
+export const userRepository = (firestore: firebase.firestore.Firestore) => ({
+  getUserById: (id: string, onSnapshotCallback: OnSnapshotCallback<Parent>) => {
+    return firestore
+      .collection('user')
+      .doc(id)
+      .onSnapshot(snapshot => {
+        logQuery(snapshot);
+        const parentData = snapshot.data() as Parent;
+        if (parentData) {
+          onSnapshotCallback(parentData);
+        }
+      });
+  },
   getUsersData: (
     rowsPerPage: number,
     previousLastVisible: Document | null,
@@ -17,7 +35,7 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
     const documents: Document[] = [];
     let newFirstVisible: Document | null = null;
     let newLastVisible: Document | null = null;
-    const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
+    const handleData = (snapshot: firebase.firestore.QuerySnapshot) => {
       if (!snapshot.empty) {
         [newFirstVisible] = snapshot.docs;
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
@@ -34,7 +52,7 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
       resolve: (value: dataPromiseTypes) => void,
       reject: (reason: Error) => void,
     ): (() => void) => {
-      const userRefWithLimit = db
+      const userRefWithLimit = firestore
         .collection('user')
         .orderBy('role')
         .limit(rowsPerPage);
@@ -95,5 +113,5 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
     return new Promise<dataPromiseTypes>((resolve, reject) => {
       getQuery(resolve, reject);
     });
-  },
+  }
 });

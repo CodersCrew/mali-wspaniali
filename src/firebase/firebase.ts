@@ -3,18 +3,20 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import config from './config';
 import { authRepository } from './authRepository';
+import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
 
 firebaseApp.initializeApp(config);
 
 const auth = firebaseApp.auth();
-const db = firebaseApp.firestore();
-db.enablePersistence();
+const firestore = firebaseApp.firestore();
+firestore.enablePersistence();
 
 export const firebase = {
   auth: authRepository(auth),
-  user: userRepository(db),
+  child: childRepository(firestore),
+  user: userRepository(firestore),
 };
 
-export type UserCredential = firebaseApp.auth.UserCredential;
 export type User = firebaseApp.User;
+export type UserCredential = firebaseApp.auth.UserCredential;
