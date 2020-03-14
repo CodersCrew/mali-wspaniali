@@ -3,7 +3,6 @@ import { Document } from './types';
 
 type dataPromiseTypes = {
   documents: Document[];
-  loading: boolean;
   unsubscribe: () => void;
   newLastVisible: Document | null;
   newFirstVisible: Document | null;
@@ -16,14 +15,12 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
     previousFirstVisible: Document | null,
   ): Promise<dataPromiseTypes> => {
     const documents: Document[] = [];
-    let loading = true;
     let newFirstVisible: Document | null = null;
     let newLastVisible: Document | null = null;
     const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
       if (!snapshot.empty) {
         [newFirstVisible] = snapshot.docs;
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
-        loading = false;
         snapshot.forEach(doc => {
           documents.push(doc.data());
           documents[documents.length - 1].id = doc.id;
@@ -31,7 +28,6 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
       } else {
         [newFirstVisible] = snapshot.docs;
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
-        loading = false;
       }
     };
     const getQuery = (
@@ -51,7 +47,6 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
               resolve({
                 documents,
                 unsubscribe,
-                loading,
                 newLastVisible,
                 newFirstVisible,
               });
@@ -71,7 +66,6 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
               resolve({
                 documents,
                 unsubscribe,
-                loading,
                 newLastVisible,
                 newFirstVisible,
               });
@@ -88,7 +82,6 @@ export const userRepository = (db: firebaseApp.firestore.Firestore) => ({
           resolve({
             documents,
             unsubscribe,
-            loading,
             newLastVisible,
             newFirstVisible,
           });

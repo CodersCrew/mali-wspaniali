@@ -20,10 +20,9 @@ export const getUsersData = async (
 ) => {
   const {
     documents,
-    loading,
     unsubscribe,
     newLastVisible,
     newFirstVisible,
   } = await firebase.user.getUsersData(rowsPerPage, last, first);
-  return { documents, unsubscribe, loading, newLastVisible, newFirstVisible };
+  return { documents, unsubscribe, newLastVisible, newFirstVisible };
 };
