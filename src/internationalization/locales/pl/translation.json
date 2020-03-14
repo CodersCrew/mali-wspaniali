@@ -15,14 +15,14 @@
     "password-confirm": "Powtórz hasło",
     "register": "Zarejestruj się"
   },
-  "go-to-home-page": "Strona główna",
+  "users-page": {
+    "agreements": "Zgody",
+    "users-list": "Lista użytkowników"
+  },
   "e-mail": "Adres e-mail",
   "password": "Hasło",
-  "send": "Wyślij",
-  "users": "Użytkownicy",
-  "email": "E-mail",
-  "firstName": "Imię",
-  "lastName": "Nazwisko",
+  "no-results": "Brak wyników",
+  "go-to-home-page": "Strona główna",
   "languages": {
     "pl": "Polski",
     "en": "Angielski"

@@ -1,8 +1,11 @@
 import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core/';
 import { Document, Agreement } from '../../firebase/types';
+import { useTranslation } from 'react-i18next';
 
 export const UsersTableRow = ({ user }: { user: Document }) => {
+  const { t } = useTranslation();
+
   const userAgreements = () => {
     if (user.agreements) {
       user.agreements.map((aggr: Agreement) => (
@@ -12,7 +15,7 @@ export const UsersTableRow = ({ user }: { user: Document }) => {
         </TableCell>
       ));
     } else {
-      return <TableCell>No Agreements</TableCell>;
+      return <TableCell>{t("no-results")}</TableCell>;
     }
   };
   return (
