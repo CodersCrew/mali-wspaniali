@@ -6,6 +6,7 @@ import { useSubscribed } from '../../hooks/useSubscribed';
 import { fetchChild } from '../../queries/childQueries';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { Child } from '../../firebase/types';
+import { useAuthorization } from '../../hooks/useAuthorization';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const ChildProfile = () => {
+  useAuthorization(true);
   const { t } = useTranslation();
   const { childID } = useParams<{ childID: string }>();
 
