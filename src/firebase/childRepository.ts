@@ -24,7 +24,8 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
         snapshot.forEach(doc => {
           const docData = doc.data() as Child;
-          documents.push(docData);        });
+          documents.push(docData);
+        });
       } else {
         [newFirstVisible] = snapshot.docs;
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
