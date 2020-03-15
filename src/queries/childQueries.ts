@@ -9,9 +9,8 @@ export const getChildrenData = async (
   const {
     documents,
     unsubscribe,
-    loading,
     newLastVisible,
     newFirstVisible,
   } = await firebase.child.getChildrenData(rowsPerPage, last, first);
-  return { documents, unsubscribe, loading, newLastVisible, newFirstVisible };
+  return { documents, unsubscribe, newLastVisible, newFirstVisible };
 };

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell } from '@material-ui/core/';
-import { Result, Document } from '../../firebase/types';
+import { Result, Child } from '../../firebase/types';
 
-export const TestResultsTableRow = ({ child }: { child: Document }) => {
+export const TestResultsTableRow = ({ child }: { child: Child }) => {
   const { t } = useTranslation();
 
-  const setTests = () => {
+  const getTests = () => {
     if (child.results) {
       child.results.map((result: Result, index: number) => (
         <TableCell key={`${child.userId}-test${index}`}>
@@ -20,7 +20,7 @@ export const TestResultsTableRow = ({ child }: { child: Document }) => {
   return (
     <TableRow>
       <TableCell>{`${child.firstName} ${child.lastName}`}</TableCell>
-      {setTests()}
+      {getTests()}
     </TableRow>
   );
 };

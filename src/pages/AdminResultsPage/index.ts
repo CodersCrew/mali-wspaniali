@@ -1,1 +1,0 @@
-export { AdminResultsPage } from './AdminResultsPage';

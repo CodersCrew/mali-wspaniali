@@ -1,10 +1,9 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/firestore';
-import { Document } from './types';
+import { Document, Child } from './types';
 
 type dataPromiseTypes = {
-  documents: Document[];
-  loading: boolean;
+  documents: Child[];
   unsubscribe: () => void;
   newLastVisible: Document | null;
   newFirstVisible: Document | null;
@@ -16,22 +15,19 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
     previousLastVisible: Document | null,
     previousFirstVisible: Document | null,
   ): Promise<dataPromiseTypes> => {
-    const documents: Document[] = [];
-    let loading = true;
+    const documents: Child[] = [];
     let newFirstVisible: Document | null = null;
     let newLastVisible: Document | null = null;
     const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
       if (!snapshot.empty) {
         [newFirstVisible] = snapshot.docs;
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
-        loading = false;
         snapshot.forEach(doc => {
-          documents.push(doc.data());
-        });
+          const docData = doc.data() as Child;
+          documents.push(docData);        });
       } else {
         [newFirstVisible] = snapshot.docs;
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
-        loading = false;
       }
     };
     const getQuery = (
@@ -51,7 +47,6 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
               resolve({
                 documents,
                 unsubscribe,
-                loading,
                 newLastVisible,
                 newFirstVisible,
               });
@@ -71,7 +66,6 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
               resolve({
                 documents,
                 unsubscribe,
-                loading,
                 newLastVisible,
                 newFirstVisible,
               });
@@ -88,7 +82,6 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
           resolve({
             documents,
             unsubscribe,
-            loading,
             newLastVisible,
             newFirstVisible,
           });
