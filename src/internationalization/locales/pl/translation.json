@@ -21,5 +21,13 @@
   "languages": {
     "pl": "Polski",
     "en": "Angielski"
+  },
+  "child-profile": {
+    "child-profile": "Profil dziecka",
+    "no-child": "Przepraszamy, nie ma dziecka o tym ID"
+  },
+  "parent-profile": {
+    "parent": "Rodzic",
+    "no-parent": "Nie istnieje rodzic o takim id"
   }
 }

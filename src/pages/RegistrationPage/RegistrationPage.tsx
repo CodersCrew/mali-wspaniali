@@ -1,18 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Container, Typography, makeStyles } from '@material-ui/core/';
+import { Container, Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { registerUser, RegisterUser } from '../../actions/registrationActions';
 import { RegistrationForm } from './RegistrationForm';
-import { RegistrationState, RegistrationUser } from './types';
 
-type RegistrationPageProps = {
-  registerUser: RegisterUser;
-  user: RegistrationUser;
-};
-
-const RegistrationPage = (props: RegistrationPageProps) => {
+export const RegistrationPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -23,7 +15,7 @@ const RegistrationPage = (props: RegistrationPageProps) => {
         <Typography variant="h4" gutterBottom className={classes.h4}>
           {t('registration-page.register')}
         </Typography>
-        <RegistrationForm registerUser={props.registerUser} />
+        <RegistrationForm />
         <p>
           {t('registration-page.already-have-account')}{' '}
           <Link to="login">{t('login')}</Link>
@@ -41,20 +33,3 @@ const useStyles = makeStyles({
     display: 'flex',
   },
 });
-
-function mapStateToProps(
-  state: RegistrationState,
-): Pick<RegistrationPageProps, 'user'> {
-  return {
-    user: state.user,
-  };
-}
-
-const mapDispatchToProps = {
-  registerUser,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RegistrationPage);
