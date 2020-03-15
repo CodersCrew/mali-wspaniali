@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getChildrenData } from '../../queries/childQueries';
 import { Child } from '../../firebase/types';
+//import { Child } from '../../firebase/childRepository';
 import { Container, Typography, Table, TableBody } from '@material-ui/core/';
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { NoResults } from './NoResults';
@@ -34,7 +35,7 @@ export const TestResultsPage = () => {
       setLoading(false);
       setListeners([...listeners, unsubscribe]);
     }
-  }
+  };
 
   useEffect(() => {
     waitForData();
@@ -53,7 +54,9 @@ export const TestResultsPage = () => {
       setChildrenList(documents);
       setListeners([...listeners, unsubscribe]);
       setLoading(false);
-      direction === PaginationDirections.next ? setPage(page + 1) : setPage(page - 1);
+      direction === PaginationDirections.next
+        ? setPage(page + 1)
+        : setPage(page - 1);
     }
   };
 
@@ -63,7 +66,7 @@ export const TestResultsPage = () => {
   return (
     <Container>
       <Typography variant="h2" align="center" gutterBottom>
-        {t('search-result')}
+        {t('test-results.search-result')}
       </Typography>
       <Table>
         <TableBody>

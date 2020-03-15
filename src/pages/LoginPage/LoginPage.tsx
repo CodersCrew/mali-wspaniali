@@ -1,7 +1,6 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, Button } from '@material-ui/core/';
+import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { User, UserCredential } from '../../firebase/firebase';
 import {
@@ -9,17 +8,12 @@ import {
   onAuthStateChanged,
 } from '../../queries/authQueries';
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const { t } = useTranslation();
+  const classes = useStyles();
   const history = useHistory();
 
   const handleSubmitSuccess = ({ user }: UserCredential) => {
@@ -49,7 +43,7 @@ export const LoginPage = () => {
   return (
     <>
       <Link to="/">{t('go-to-home-page')}</Link>
-      <Container>
+      <div className={classes.container}>
         <form onSubmit={handleSubmit} autoComplete="off">
           <TextField
             required
@@ -76,7 +70,15 @@ export const LoginPage = () => {
           </Button>
         </form>
         <span>{loginError && t('login-page.login-error')}</span>
-      </Container>
+      </div>
     </>
   );
 };
+
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

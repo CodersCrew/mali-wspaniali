@@ -22,8 +22,16 @@
     "pl": "Polski",
     "en": "Angielski"
   },
-  "search-result": "Wynik wyszukiwania",
-  "no-results": "Brak wyników",
-  "full-name": "Imię i Nazwisko",
-  "no-tests": "Brak testów"
+  "test-results": {
+    "search-result": "Wynik wyszukiwania",
+    "no-results": "Brak wyników"
+  },
+  "child-profile": {
+    "child-profile": "Profil dziecka",
+    "no-child": "Przepraszamy, nie ma dziecka o tym ID"
+  },
+  "parent-profile": {
+    "parent": "Rodzic",
+    "no-parent": "Nie istnieje rodzic o takim id"
+  }
 }

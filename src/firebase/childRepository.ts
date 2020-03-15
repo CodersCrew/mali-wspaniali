@@ -1,6 +1,8 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/firestore';
 import { Document, Child } from './types';
+import { OnSnapshotCallback } from './userRepository';
+import { logQuery } from '../utils/logQuery';
 
 type dataPromiseTypes = {
   documents: Child[];
@@ -10,6 +12,20 @@ type dataPromiseTypes = {
 };
 
 export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
+  getChildDocById: (
+    childId: string,
+    onSnapshotCallback: OnSnapshotCallback<Child>,
+  ) => {
+    db.collection('child')
+      .doc(childId)
+      .onSnapshot(snapshot => {
+        logQuery(snapshot);
+        const childData = snapshot.data() as Child;
+        if (childData) {
+          onSnapshotCallback(childData);
+        }
+      });
+  },
   getChildrenData: (
     rowsPerPage: number,
     previousLastVisible: Document | null,
@@ -44,6 +60,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
           .startAfter(previousLastVisible)
           .onSnapshot(
             snapshot => {
+              logQuery(snapshot);
               handleData(snapshot);
               resolve({
                 documents,
@@ -63,6 +80,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
           .endBefore(previousFirstVisible)
           .onSnapshot(
             snapshot => {
+              logQuery(snapshot);
               handleData(snapshot);
               resolve({
                 documents,
@@ -79,6 +97,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
       }
       const unsubscribe = childRefWithLimit.onSnapshot(
         snapshot => {
+          logQuery(snapshot);
           handleData(snapshot);
           resolve({
             documents,

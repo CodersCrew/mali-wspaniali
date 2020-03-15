@@ -22,8 +22,16 @@
     "pl": "Polish",
     "en": "English"
   },
-  "search-result": "Search Result",
-  "no-results": "No Results",
-  "full-name": "Full Name",
-  "no-tests": "No Tests"
+  "child-profile": {
+    "child-profile": "A Child's Profile",
+    "no-child": "Sorry, there is no child with this id"
+  },
+  "parent-profile": {
+    "parent": "Parent",
+    "no-parent": "There is no parent with the given id"
+  },
+  "test-results": {
+    "search-result": "Search Result",
+    "no-results": "No Results"
+  }
 }

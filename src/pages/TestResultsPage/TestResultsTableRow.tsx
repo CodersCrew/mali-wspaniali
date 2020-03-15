@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell } from '@material-ui/core/';
 import { Result, Child } from '../../firebase/types';
+//import { Child } from '../../firebase/childRepository';
 
 export const TestResultsTableRow = ({ child }: { child: Child }) => {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ export const TestResultsTableRow = ({ child }: { child: Child }) => {
         </TableCell>
       ));
     } else {
-      return <TableCell>{t('no-results')}</TableCell>;
+      return <TableCell>{t('test-results.no-results')}</TableCell>;
     }
   };
   return (

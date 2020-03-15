@@ -1,5 +1,6 @@
 import { firebase } from '../firebase/firebase';
-import { Document } from '../firebase/types';
+import { Document, Child } from '../firebase/types';
+import { OnSnapshotCallback } from '../firebase/userRepository';
 
 export const getChildrenData = async (
   rowsPerPage: number,
@@ -13,4 +14,11 @@ export const getChildrenData = async (
     newFirstVisible,
   } = await firebase.child.getChildrenData(rowsPerPage, last, first);
   return { documents, unsubscribe, newLastVisible, newFirstVisible };
+};
+
+export const fetchChild = (
+  childId: string,
+  onSnapshotCallback: OnSnapshotCallback<Child>,
+) => {
+  firebase.child.getChildDocById(childId, onSnapshotCallback);
 };
