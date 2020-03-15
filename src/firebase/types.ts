@@ -6,6 +6,7 @@ export type Agreement = {
 };
 
 export type User = {
+  id: string;
   email: string;
   role: string;
   agreements: Agreement[];

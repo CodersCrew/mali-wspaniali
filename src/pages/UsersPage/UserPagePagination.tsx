@@ -10,6 +10,11 @@ type Props = {
   rowsPerPage: number;
 };
 
+export enum PaginationDirections {
+  next = 'NEXT',
+  prev = 'PREV',
+}
+
 export const UserPagePagination = ({
   page,
   pageChangeHandler,
@@ -20,13 +25,13 @@ export const UserPagePagination = ({
     <div>
       <IconButton
         disabled={page === 0}
-        onClick={() => pageChangeHandler('prev')}
+        onClick={() => pageChangeHandler(PaginationDirections.prev)}
       >
         <ArrowBackIosIcon />
       </IconButton>
       <IconButton
         disabled={documentsCount < rowsPerPage}
-        onClick={() => pageChangeHandler('next')}
+        onClick={() => pageChangeHandler(PaginationDirections.next)}
       >
         <ArrowForwardIosIcon />
       </IconButton>

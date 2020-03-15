@@ -1,10 +1,10 @@
 import firebase from 'firebase/app';
 import { Parent } from '../pages/ParentProfile/types';
 import { logQuery } from '../utils/logQuery';
-import { Document } from './types';
+import { Document, User } from './types';
 
 type dataPromiseTypes = {
-  documents: Document[];
+  documents: User[];
   unsubscribe: () => void;
   newLastVisible: Document | null;
   newFirstVisible: Document | null;
@@ -32,7 +32,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
     previousLastVisible: Document | null,
     previousFirstVisible: Document | null,
   ): Promise<dataPromiseTypes> => {
-    const documents: Document[] = [];
+    const documents: User[] = [] ;
     let newFirstVisible: Document | null = null;
     let newLastVisible: Document | null = null;
     const handleData = (snapshot: firebase.firestore.QuerySnapshot) => {
@@ -40,7 +40,8 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
         [newFirstVisible] = snapshot.docs;
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
         snapshot.forEach(doc => {
-          documents.push(doc.data());
+          const docData = doc.data() as User;
+          documents.push(docData);
           documents[documents.length - 1].id = doc.id;
         });
       } else {
