@@ -32,7 +32,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
     previousLastVisible: Document | null,
     previousFirstVisible: Document | null,
   ): Promise<dataPromiseTypes> => {
-    const documents: User[] = [] ;
+    const documents: User[] = [];
     let newFirstVisible: Document | null = null;
     let newLastVisible: Document | null = null;
     const handleData = (snapshot: firebase.firestore.QuerySnapshot) => {
