@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, RenderResult } from '@testing-library/react';
 import { RegistrationForm } from '../RegistrationForm';
 import * as userQueries from '../../../queries/userQueries';
-import * as Dialog from '../../../components/InfoDialog';
+import * as Dialog from '../../../components/AlertDialog';
 
 describe('Registration Form', () => {
   let alertDialogSpy: jasmine.Spy;
@@ -15,7 +15,7 @@ describe('Registration Form', () => {
   beforeEach(async () => {
     spyOn(userQueries, 'createUser').and.returnValue(Promise.resolve());
 
-    alertDialogSpy = spyOn(Dialog, 'openInfoDialog').and.returnValue(null);
+    alertDialogSpy = spyOn(Dialog, 'openAlertDialog').and.returnValue(null);
 
     registerForm = await render(<RegistrationForm />);
     button = await registerForm.findByRole('button');

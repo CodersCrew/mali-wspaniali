@@ -39,7 +39,7 @@
     "parent": "Rodzic",
     "no-parent": "Nie istnieje rodzic o takim id"
   },
-  "info-dialog": {
+  "alert-dialog": {
     "error": "Błąd",
     "warning": "Uwaga!",
     "info": "Info",

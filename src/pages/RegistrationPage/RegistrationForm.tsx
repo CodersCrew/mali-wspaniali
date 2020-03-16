@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { openInfoDialog } from '../../components/InfoDialog';
+import { openAlertDialog } from '../../components/AlertDialog';
 import { load } from '../../utils/load';
 import { createUser } from '../../queries/userQueries';
 
@@ -23,7 +23,7 @@ export const RegistrationForm = () => {
     event.preventDefault();
 
     if (password !== passwordConfirm) {
-      openInfoDialog({
+      openAlertDialog({
         type: 'error',
         description: t('registration-page.password-mismatch'),
       });
@@ -34,7 +34,7 @@ export const RegistrationForm = () => {
           history.push('/login');
         })
         .catch(err => {
-          openInfoDialog({ type: 'error', description: err.message });
+          openAlertDialog({ type: 'error', description: err.message });
         });
     }
   };

@@ -39,7 +39,7 @@
     "search-result": "Search Result",
     "no-results": "No Results"
   },
-  "info-dialog": {
+  "alert-dialog": {
     "error": "Error",
     "warning": "Warning",
     "info": "Info",
