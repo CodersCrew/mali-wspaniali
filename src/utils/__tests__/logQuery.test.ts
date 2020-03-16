@@ -127,6 +127,23 @@ describe('logQuery', () => {
       });
     });
   });
+
+  describe('when invoked in production env', () => {
+    beforeEach(() => {
+      global.process = {
+        ...global.process,
+        env: {
+          NODE_ENV: 'production',
+        },
+      };
+
+      logQuery(createDocumentSnapshot({ cache: false }));
+    });
+
+    it("doesn't invoke logger", () => {
+      expect(logSpy).toHaveBeenCalledTimes(0);
+    });
+  });
 });
 
 function createDocumentSnapshot({
