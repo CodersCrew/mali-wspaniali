@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AlertDialog } from './AlertDialog';
+import { openInfoDialog } from '../../components/InfoDialog';
 import { load } from '../../utils/load';
 import { createUser } from '../../queries/userQueries';
 
@@ -14,32 +14,29 @@ const initialState = {
 
 export const RegistrationForm = () => {
   const [form, setForm] = useState(initialState);
-  const [isAlert, setIsAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
   const { email, password, passwordConfirm } = form;
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation();
 
-  // eslint-disable-next-line consistent-return
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     if (password !== passwordConfirm) {
-      setAlertMessage(t('registration-page.password-mismatch'));
-      return setIsAlert(true);
-    }
-
-    const user = { email, password };
-
-    load(createUser(user))
-      .then(() => {
-        history.push('/login');
-      })
-      .catch(err => {
-        setAlertMessage(err.message);
-        setIsAlert(true);
+      openInfoDialog({
+        type: 'error',
+        description: t('registration-page.password-mismatch'),
       });
+    } else {
+      const user = { email, password };
+      load(createUser(user))
+        .then(() => {
+          history.push('/login');
+        })
+        .catch(err => {
+          openInfoDialog({ type: 'error', description: err.message });
+        });
+    }
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -100,14 +97,6 @@ export const RegistrationForm = () => {
       >
         {t('registration-page.register')}
       </Button>
-      {isAlert && (
-        <AlertDialog
-          isOpen={isAlert}
-          setIsAlert={setIsAlert}
-          message={alertMessage}
-          data-testid="alert"
-        />
-      )}
     </form>
   );
 };
