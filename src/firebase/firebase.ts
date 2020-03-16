@@ -9,7 +9,11 @@ import { userRepository } from './userRepository';
 firebaseApp.initializeApp(config);
 const auth = firebaseApp.auth();
 const firestore = firebaseApp.firestore();
-firestore.enablePersistence();
+
+// Disable caching for test enviroment
+if (process.env.NODE_ENV !== 'test') {
+  firestore.enablePersistence();
+}
 
 export const firebase = {
   auth: authRepository(auth),
