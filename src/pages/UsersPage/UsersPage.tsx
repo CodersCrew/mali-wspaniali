@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getUsersData } from '../../queries/userQueries';
 import Container from '@material-ui/core/Container';
@@ -14,14 +14,14 @@ import { Document } from '../../firebase/types';
 import { UsersTableRow } from './UsersTableRow';
 import { UserPagePagination, PaginationDirections } from './UserPagePagination';
 import { NoResults } from './NoResults';
+import { load } from '../../utils/load';
 
 export const UsersPage = () => {
   const [usersList, setUsersList] = useState<Document[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage] = useState(10);
   const [lastVisible, setLastVisible] = useState();
   const [firstVisible, setFirstVisible] = useState();
-  const [isLoading, setIsLoading] = useState(true);
   const [listeners, setListeners] = useState<(() => void)[]>([]);
   const { t } = useTranslation();
 
@@ -39,14 +39,13 @@ export const UsersPage = () => {
     if (unsubscribe) {
       setLastVisible(newLastVisible);
       setFirstVisible(newFirstVisible);
-      setIsLoading(false);
       setUsersList(documents);
       setListeners([...listeners, unsubscribe]);
     }
   };
 
   useEffect(() => {
-    waitForUsers();
+    load(waitForUsers());
     return () => detachListeners();
   }, []);
 
@@ -60,15 +59,12 @@ export const UsersPage = () => {
       setFirstVisible(newFirstVisible);
       setUsersList(documents);
       setListeners([...listeners, unsubscribe]);
-      setIsLoading(false);
       direction === PaginationDirections.next
         ? setPage(page + 1)
         : setPage(page - 1);
     }
   };
 
-
-  if (isLoading) return <h2>Loading</h2>;
   if (usersList.length === 0) return <NoResults />;
 
   return (
