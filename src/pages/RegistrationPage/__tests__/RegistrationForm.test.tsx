@@ -41,7 +41,7 @@ describe('Registration Form', () => {
       expect(alertDialogSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           description: 'registration-page.password-mismatch',
-          type: 'error'
+          type: 'error',
         }),
         // expect.anything(),
       );
