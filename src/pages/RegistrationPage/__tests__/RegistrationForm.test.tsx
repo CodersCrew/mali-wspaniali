@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, RenderResult } from '@testing-library/react';
 import { RegistrationForm } from '../RegistrationForm';
 import * as userQueries from '../../../queries/userQueries';
-import * as Dialog from '../AlertDialog';
+import * as Dialog from '../../../components/InfoDialog';
 
 describe('Registration Form', () => {
   let alertDialogSpy: jasmine.Spy;
@@ -15,7 +15,7 @@ describe('Registration Form', () => {
   beforeEach(async () => {
     spyOn(userQueries, 'createUser').and.returnValue(Promise.resolve());
 
-    alertDialogSpy = spyOn(Dialog, 'AlertDialog').and.returnValue(null);
+    alertDialogSpy = spyOn(Dialog, 'openInfoDialog').and.returnValue(null);
 
     registerForm = await render(<RegistrationForm />);
     button = await registerForm.findByRole('button');
@@ -40,9 +40,10 @@ describe('Registration Form', () => {
 
       expect(alertDialogSpy).toHaveBeenCalledWith(
         expect.objectContaining({
-          message: 'registration-page.password-mismatch',
+          description: 'registration-page.password-mismatch',
+          type: 'error'
         }),
-        expect.anything(),
+        // expect.anything(),
       );
     });
   });
