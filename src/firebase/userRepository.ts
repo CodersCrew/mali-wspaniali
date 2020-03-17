@@ -4,7 +4,7 @@ import { logQuery } from '../utils/logQuery';
 import { Document, User } from './types';
 
 type dataPromiseTypes = {
-  documents: User[];
+  users: User[];
   unsubscribe: () => void;
   newLastVisible: Document | null;
   newFirstVisible: Document | null;
@@ -32,7 +32,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
     previousLastVisible: Document | null,
     previousFirstVisible: Document | null,
   ): Promise<dataPromiseTypes> => {
-    const documents: User[] = [];
+    const users: User[] = [];
     let newFirstVisible: Document | null = null;
     let newLastVisible: Document | null = null;
     const handleData = (snapshot: firebase.firestore.QuerySnapshot) => {
@@ -41,8 +41,8 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
         newLastVisible = snapshot.docs[snapshot.docs.length - 1];
         snapshot.forEach(doc => {
           const docData = doc.data() as User;
-          documents.push(docData);
-          documents[documents.length - 1].id = doc.id;
+          users.push(docData);
+          users[users.length - 1].id = doc.id;
         });
       } else {
         [newFirstVisible] = snapshot.docs;
@@ -64,7 +64,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
             snapshot => {
               handleData(snapshot);
               resolve({
-                documents,
+                users,
                 unsubscribe,
                 newLastVisible,
                 newFirstVisible,
@@ -83,7 +83,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
             snapshot => {
               handleData(snapshot);
               resolve({
-                documents,
+                users,
                 unsubscribe,
                 newLastVisible,
                 newFirstVisible,
@@ -99,7 +99,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
         snapshot => {
           handleData(snapshot);
           resolve({
-            documents,
+            users,
             unsubscribe,
             newLastVisible,
             newFirstVisible,

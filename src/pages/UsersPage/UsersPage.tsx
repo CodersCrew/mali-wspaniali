@@ -31,7 +31,7 @@ export const UsersPage = () => {
 
   const waitForUsers = async () => {
     const {
-      documents,
+      users,
       unsubscribe,
       newLastVisible,
       newFirstVisible,
@@ -39,7 +39,7 @@ export const UsersPage = () => {
     if (unsubscribe) {
       setLastVisible(newLastVisible);
       setFirstVisible(newFirstVisible);
-      setUsersList(documents);
+      setUsersList(users);
       setListeners([...listeners, unsubscribe]);
     }
   };
@@ -50,14 +50,14 @@ export const UsersPage = () => {
   }, []);
 
   const pageChangeHandler = async (direction: string) => {
-    const { documents, unsubscribe, newLastVisible, newFirstVisible } =
+    const { users, unsubscribe, newLastVisible, newFirstVisible } =
       direction === PaginationDirections.next
         ? await getUsersData(rowsPerPage, lastVisible, null)
         : await getUsersData(rowsPerPage, null, firstVisible);
     if (unsubscribe) {
       setLastVisible(newLastVisible);
       setFirstVisible(newFirstVisible);
-      setUsersList(documents);
+      setUsersList(users);
       setListeners([...listeners, unsubscribe]);
       direction === PaginationDirections.next
         ? setPage(page + 1)

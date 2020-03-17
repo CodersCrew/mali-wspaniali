@@ -21,12 +21,12 @@ export const getUsersData = async (
   first: Document | null,
 ) => {
   const {
-    documents,
+    users,
     unsubscribe,
     newLastVisible,
     newFirstVisible,
   } = await firebase.user.getUsersData(rowsPerPage, last, first);
-  return { documents, unsubscribe, newLastVisible, newFirstVisible };
+  return { users, unsubscribe, newLastVisible, newFirstVisible };
 };
 
 export const getUserById = (
