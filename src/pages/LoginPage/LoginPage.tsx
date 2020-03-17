@@ -8,10 +8,10 @@ import {
   onAuthStateChanged,
 } from '../../queries/authQueries';
 
-const getUserRole = async(user: User): Promise<string> => {
+const getUserRole = async (user: User): Promise<string> => {
   const IdTokenResult = await user.getIdTokenResult();
-  return IdTokenResult.claims.role
-}
+  return IdTokenResult.claims.role;
+};
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -23,14 +23,14 @@ export const LoginPage = () => {
 
   const handleSubmitSuccess = ({ user }: UserCredential) => {
     if (user) {
-      getUserRole(user).then((role => {
-        if (role === "parent"){
-          history.push(`/parent/${user.uid}`)
-        } else if (role === "admin"){
-          history.push("admin")
-        } 
-      }))
-    };
+      getUserRole(user).then(role => {
+        if (role === 'parent') {
+          history.push(`/parent/${user.uid}`);
+        } else if (role === 'admin') {
+          history.push('admin');
+        }
+      });
+    }
   };
 
   const handleSubmitError = (error: Error) => setLoginError(error.message);
@@ -49,13 +49,13 @@ export const LoginPage = () => {
 
   onAuthStateChanged((user: User | null) => {
     if (user) {
-      getUserRole(user).then((role => {
-        if (role === "parent"){
-          history.push(`/parent/${user.uid}`)
-        } else if (role === "admin"){
-          history.push("/admin")
+      getUserRole(user).then(role => {
+        if (role === 'parent') {
+          history.push(`/parent/${user.uid}`);
+        } else if (role === 'admin') {
+          history.push('/admin');
         }
-      }))
+      });
     }
   });
 
