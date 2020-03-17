@@ -34,5 +34,9 @@
   "parent-profile": {
     "parent": "Parent",
     "no-parent": "There is no parent with the given id"
+  },
+  "test-results": {
+    "search-result": "Search Result",
+    "no-results": "No Results"
   }
 }

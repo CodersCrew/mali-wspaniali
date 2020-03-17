@@ -1,9 +1,29 @@
 export type Document = firebase.firestore.DocumentData;
 
-export type Agreement = {
+export interface Result {
+  title: string;
+  description: string;
+  date: Date;
+  points: number;
+}
+
+export interface Agreement {
   agreementId: string;
   isAgreed: boolean;
-};
+}
+
+export interface Child {
+  firstName: string;
+  lastName: string;
+  userId: string;
+  birthYear: number;
+  birthQuarter: number;
+  city: string;
+  kindergartenNo: string;
+  groupNo: string;
+  results: Result[];
+  agreements: Agreement[];
+}
 
 export type User = {
   id: string;

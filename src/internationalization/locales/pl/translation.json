@@ -27,6 +27,10 @@
     "pl": "Polski",
     "en": "Angielski"
   },
+  "test-results": {
+    "search-result": "Wynik wyszukiwania",
+    "no-results": "Brak wyników"
+  },
   "child-profile": {
     "child-profile": "Profil dziecka",
     "no-child": "Przepraszamy, nie ma dziecka o tym ID"
