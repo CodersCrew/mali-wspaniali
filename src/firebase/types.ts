@@ -24,3 +24,10 @@ export interface Child {
   results: Result[];
   agreements: Agreement[];
 }
+
+export type User = {
+  id: string;
+  email: string;
+  role: string;
+  agreements: Agreement[];
+};
