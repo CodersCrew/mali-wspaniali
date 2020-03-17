@@ -6,6 +6,6 @@ export const authRepository = (userId: string) => ({
       .firestore()
       .collection('user')
       .doc(userId)
-      .update({ role: 'Parent' });
+      .update({ role: 'parent' });
   },
 });
