@@ -8,6 +8,11 @@ import {
   onAuthStateChanged,
 } from '../../queries/authQueries';
 
+const getUserRole = async(user: User): Promise<string> => {
+  const IdTokenResult = await user.getIdTokenResult();
+  return IdTokenResult.claims.role
+}
+
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +22,15 @@ export const LoginPage = () => {
   const history = useHistory();
 
   const handleSubmitSuccess = ({ user }: UserCredential) => {
-    if (user) history.push('/');
+    if (user) {
+      getUserRole(user).then((role => {
+        if (role === "parent"){
+          history.push(`/parent/${user.uid}`)
+        } else if (role === "admin"){
+          history.push("admin")
+        } 
+      }))
+    };
   };
 
   const handleSubmitError = (error: Error) => setLoginError(error.message);
@@ -36,7 +49,13 @@ export const LoginPage = () => {
 
   onAuthStateChanged((user: User | null) => {
     if (user) {
-      history.push('/');
+      getUserRole(user).then((role => {
+        if (role === "parent"){
+          history.push(`/parent/${user.uid}`)
+        } else if (role === "admin"){
+          history.push("/admin")
+        }
+      }))
     }
   });
 
