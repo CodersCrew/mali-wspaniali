@@ -6,6 +6,7 @@ import { RegistrationPage } from './RegistrationPage';
 import { ChildProfile } from './ChildProfile';
 import { ParentProfile } from './ParentProfile';
 import { LanguageSelector } from '../components/LanguageSelector';
+import { UsersPage } from './UsersPage';
 
 export const Root = () => {
   return (
@@ -16,6 +17,7 @@ export const Root = () => {
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegistrationPage} />
+          <Route path="/admin/users" component={UsersPage} />
           <Route path="/child/:childID" component={ChildProfile} />
           <Route path="/admin/parent/:id" component={ParentProfile} />
         </div>
