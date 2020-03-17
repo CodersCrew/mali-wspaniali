@@ -41,3 +41,8 @@ export function load<T>(promise: Promise<T>): Promise<T> {
 
   return promise;
 }
+
+// Export for test purpose only
+export function getActiveLoadersCounter() {
+  return activeLoaders;
+}
