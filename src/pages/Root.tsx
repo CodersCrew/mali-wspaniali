@@ -4,7 +4,6 @@ import { HomePage } from './HomePage';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { TestResultsPage } from './TestResultsPage';
-import { Loader } from '../components/Loader';
 import { ChildProfile } from './ChildProfile';
 import { ParentProfile } from './ParentProfile';
 import { LanguageSelector } from '../components/LanguageSelector';
