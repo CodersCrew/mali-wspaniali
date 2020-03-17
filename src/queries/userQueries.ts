@@ -15,6 +15,20 @@ export const createUser = async (
   return userData.user || null;
 };
 
+export const getUsersData = async (
+  rowsPerPage: number,
+  last: Document | null,
+  first: Document | null,
+) => {
+  const {
+    users,
+    unsubscribe,
+    newLastVisible,
+    newFirstVisible,
+  } = await firebase.user.getUsersData(rowsPerPage, last, first);
+  return { users, unsubscribe, newLastVisible, newFirstVisible };
+};
+
 export const getUserById = (
   id: string,
   onSnapshotCallback: OnSnapshotCallback<Parent>,

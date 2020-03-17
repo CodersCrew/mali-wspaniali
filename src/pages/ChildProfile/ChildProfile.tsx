@@ -5,7 +5,7 @@ import { makeStyles, Grid } from '@material-ui/core';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { fetchChild } from '../../queries/childQueries';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { Child } from '../../firebase/childRepository';
+import { Child } from '../../firebase/types';
 
 const useStyles = makeStyles(theme => ({
   root: {
