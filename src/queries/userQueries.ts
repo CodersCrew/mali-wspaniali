@@ -21,6 +21,6 @@ export const getUserById = (
 ) => firebase.user.getUserById(id, onSnapshotCallback);
 
 export const getUserRole = async (user: User): Promise<string> => {
-  const IdTokenResult = await user.getIdTokenResult();
-  return IdTokenResult.claims.role;
+  const idTokenResult = await user.getIdTokenResult();
+  return idTokenResult.claims.role;
 };
