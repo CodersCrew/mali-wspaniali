@@ -38,5 +38,15 @@
   "test-results": {
     "search-result": "Search Result",
     "no-results": "No Results"
+  },
+  "alert-dialog": {
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info",
+    "success": "Success!"
+  },
+  "question-dialog": {
+    "yes": "Yes",
+    "no": "No"
   }
 }

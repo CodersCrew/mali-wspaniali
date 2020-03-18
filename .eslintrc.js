@@ -18,6 +18,7 @@ module.exports = {
     env: {
         node: true,
         jest: true,
+        jasmine: true,
         browser: true,
     },
     rules: {

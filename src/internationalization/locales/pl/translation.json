@@ -38,5 +38,15 @@
   "parent-profile": {
     "parent": "Rodzic",
     "no-parent": "Nie istnieje rodzic o takim id"
+  },
+  "alert-dialog": {
+    "error": "Błąd",
+    "warning": "Uwaga!",
+    "info": "Info",
+    "success": "Sukces!"
+  },
+  "question-dialog": {
+    "yes": "Tak",
+    "no": "Nie"
   }
 }
