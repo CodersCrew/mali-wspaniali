@@ -7,11 +7,7 @@ import {
   handleSignInWithEmailAndPassword,
   onAuthStateChanged,
 } from '../../queries/authQueries';
-
-const getUserRole = async (user: User): Promise<string> => {
-  const IdTokenResult = await user.getIdTokenResult();
-  return IdTokenResult.claims.role;
-};
+import { getUserRole } from '../../queries/userQueries';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
