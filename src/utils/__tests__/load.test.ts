@@ -40,7 +40,7 @@ describe('load', () => {
     it('attaches one loader', () => {
       expect(getActiveLoadersCounter()).toEqual(0);
 
-      Promise.all([load(Promise.resolve(1)), load(Promise.resolve(1))]).then(
+      Promise.all([load(Promise.resolve()), load(Promise.resolve())]).then(
         () => {
           expect(getActiveLoadersCounter()).toEqual(0);
         },
