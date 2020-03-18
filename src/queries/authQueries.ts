@@ -19,3 +19,8 @@ export const handleSignInWithEmailAndPassword = (
 export const onAuthStateChanged = (callback: OnAuthStateChangedCallback) => {
   firebase.auth.onAuthStateChanged(callback);
 };
+
+export const getUserRole = async (user: User): Promise<string> => {
+  const idTokenResult = await user.getIdTokenResult();
+  return idTokenResult.claims.role;
+};

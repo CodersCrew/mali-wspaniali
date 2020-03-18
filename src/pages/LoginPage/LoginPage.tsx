@@ -6,6 +6,7 @@ import { User, UserCredential } from '../../firebase/firebase';
 import {
   handleSignInWithEmailAndPassword,
   onAuthStateChanged,
+  getUserRole,
 } from '../../queries/authQueries';
 
 export const LoginPage = () => {
@@ -36,7 +37,14 @@ export const LoginPage = () => {
 
   onAuthStateChanged((user: User | null) => {
     if (user) {
-      history.push('/');
+      getUserRole(user).then(role => {
+        if (role === 'parent') {
+          history.push('/parent');
+        }
+        if (role === 'admin') {
+          history.push('/admin');
+        }
+      });
     }
   });
 
