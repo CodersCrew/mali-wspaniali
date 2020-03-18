@@ -43,7 +43,6 @@ describe('Registration Form', () => {
           description: 'registration-page.password-mismatch',
           type: 'error',
         }),
-        // expect.anything(),
       );
     });
   });

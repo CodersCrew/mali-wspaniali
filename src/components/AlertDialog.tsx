@@ -27,26 +27,10 @@ const AlertDialog = ({
 }: AlertDialogProps & ActionDialog) => {
   const { t } = useTranslation();
 
-  let title;
-  switch (type) {
-    case 'error':
-      title = t('alert-dialog.error');
-      break;
-    case 'warning':
-      title = t('alert-dialog.warning');
-      break;
-    case 'info':
-      title = t('alert-dialog.info');
-      break;
-    case 'success':
-      title = t('alert-dialog.success');
-      break;
-    default:
-      title = t('alert-dialog.info');
-  }
+  const title = t(`alert-dialog.${type}`);
 
   return (
-    <Dialog open={true} onClose={onClose}>
+    <Dialog open onClose={onClose}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{description}</DialogContent>
       <DialogActions>

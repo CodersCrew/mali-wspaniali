@@ -32,7 +32,7 @@ const QuestionDialog = ({
   };
 
   return (
-    <Dialog open={true} onClose={onClose}>
+    <Dialog open onClose={onClose}>
       <DialogContent>{question}</DialogContent>
       <DialogActions>
         <Button onClick={onYes} color="primary" autoFocus>
