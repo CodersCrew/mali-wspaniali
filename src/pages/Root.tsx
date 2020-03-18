@@ -17,8 +17,8 @@ export const Root = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegistrationPage} />
           <Route path="/child/:childID" component={ChildProfile} />
-          <Route path="/admin" />
-          <Route path="/parent/:id" component={ParentProfile} />
+          <Route path="/admin/parent/:id" component={ParentProfile} />
+          <Route path="/parent" />
         </div>
       </Router>
     </>
