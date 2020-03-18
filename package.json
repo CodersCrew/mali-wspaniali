@@ -48,7 +48,8 @@
     "test:coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "npm run build && firebase deploy",
+    "prettier": "prettier --write src/**/*"
   },
   "eslintConfig": {
     "extends": "react-app"
