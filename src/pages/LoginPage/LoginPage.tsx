@@ -18,15 +18,7 @@ export const LoginPage = () => {
   const history = useHistory();
 
   const handleSubmitSuccess = ({ user }: UserCredential) => {
-    if (user) {
-      getUserRole(user).then(role => {
-        if (role === 'parent') {
-          history.push(`/parent/${user.uid}`);
-        } else if (role === 'admin') {
-          history.push('admin');
-        }
-      });
-    }
+    if (user) history.push('/');
   };
 
   const handleSubmitError = (error: Error) => setLoginError(error.message);
