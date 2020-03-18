@@ -6,8 +6,8 @@ import { User, UserCredential } from '../../firebase/firebase';
 import {
   handleSignInWithEmailAndPassword,
   onAuthStateChanged,
+  getUserRole,
 } from '../../queries/authQueries';
-import { getUserRole } from '../../queries/userQueries';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
