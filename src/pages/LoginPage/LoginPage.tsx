@@ -39,7 +39,7 @@ export const LoginPage = () => {
     if (user) {
       getUserRole(user).then(role => {
         if (role === 'parent') {
-          history.push(`/parent/${user.uid}`);
+          history.push('/parent');
         } else if (role === 'admin') {
           history.push('/admin');
         }
