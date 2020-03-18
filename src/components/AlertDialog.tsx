@@ -9,11 +9,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { openDialog, ActionDialog } from '../utils/openDialog';
 
-export type dialogTypes = 'error' | 'warning' | 'info' | 'success';
+export type DialogTypes = 'error' | 'warning' | 'info' | 'success';
 
 type AlertDialogProps = {
   description: string;
-  type: dialogTypes;
+  type: DialogTypes;
 };
 
 export const openAlertDialog = (props: AlertDialogProps) => {

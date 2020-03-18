@@ -1,10 +1,13 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 
+export type Decision = {
+  accepted: boolean;
+};
+
 export interface ActionDialog {
   onClose: () => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onAnswer: (value: any) => void;
+  makeDecision: (decision: Decision) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,12 +25,11 @@ export function openDialog<T>(Dialog: React.FC<any>, options: T) {
             {...options}
             onClose={() => {
               ReactDOM.unmountComponentAtNode(dialogElement);
-              resolve({ cancel: true });
+              resolve({ close: true });
             }}
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onAnswer={(value: any) => {
+            makeDecision={(decision: Decision) => {
               ReactDOM.unmountComponentAtNode(dialogElement);
-              resolve({ answer: value, cancel: false });
+              resolve({ decision, close: false });
             }}
           />
         }

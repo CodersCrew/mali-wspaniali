@@ -19,26 +19,26 @@ export const openQuestionDialog = (props: QuestionDialogProps) => {
 const QuestionDialog = ({
   question,
   onClose,
-  onAnswer,
+  makeDecision,
 }: QuestionDialogProps & ActionDialog) => {
   const { t } = useTranslation();
 
-  const onYes = () => {
-    onAnswer('yes');
+  const onAccepted = () => {
+    makeDecision({ accepted: true });
   };
 
-  const onNo = () => {
-    onAnswer('no');
+  const onDeclined = () => {
+    makeDecision({ accepted: false });
   };
 
   return (
     <Dialog open onClose={onClose}>
       <DialogContent>{question}</DialogContent>
       <DialogActions>
-        <Button onClick={onYes} color="primary" autoFocus>
+        <Button onClick={onAccepted} color="primary" autoFocus>
           {t('question-dialog.yes')}
         </Button>
-        <Button onClick={onNo} color="primary" autoFocus>
+        <Button onClick={onDeclined} color="primary" autoFocus>
           {t('question-dialog.no')}
         </Button>
       </DialogActions>
