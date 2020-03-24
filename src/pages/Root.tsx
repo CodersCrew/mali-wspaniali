@@ -8,6 +8,7 @@ import { ChildProfile } from './ChildProfile';
 import { ParentProfile } from './ParentProfile';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { UsersPage } from './UsersPage';
+import { Newsletter } from './Newsletter';
 
 export const Root = () => {
   return (
@@ -24,6 +25,7 @@ export const Root = () => {
           <Route path="/admin" />
           <Route path="/admin/parent/:id" component={ParentProfile} />
           <Route path="/parent" />
+          <Route path="/admin/newsletter" component={Newsletter} />
         </div>
       </Router>
     </>
