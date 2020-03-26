@@ -17,16 +17,16 @@ export const Newsletter = () => {
 };
 
 const WorkSpace = () => {
-    const [text, setText] = useState('');
+    const [message, setMessage] = useState('');
 
     const handleChange = (value: any) => {
-        setText(value);
+        setMessage(value);
     };
 
     const handleSubmit = () => {
-        console.log(text);
+        console.log(message);
     };
-
+    
     const modules = {
         toolbar: [
             [{ 'header': [1, 2, 3, 4, false] }],
@@ -39,6 +39,9 @@ const WorkSpace = () => {
             ['link', 'image', 'video'],
             ['clean']
         ],
+        imageResize: {
+            modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+          }
     };
 
     const formats = [
@@ -50,7 +53,7 @@ const WorkSpace = () => {
 
     return (
         <>
-            <ReactQuill value={text} onChange={handleChange} theme="snow" modules={modules}
+            <ReactQuill value={message} onChange={handleChange} theme="snow" modules={modules}
                 formats={formats} placeholder="Tu wpisz swoją wiadomość" />
             <Button onClick={handleSubmit}>Wyślij</Button>
         </>

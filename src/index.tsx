@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './internationalization/i18n';
+import { Quill } from 'react-quill';
+import ImageResize from 'quill-image-resize-module-react';
 import { Root } from './pages/Root';
 
 import * as serviceWorker from './serviceWorker';
+
+Quill.register('modules/imageResize', ImageResize);
+
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 
