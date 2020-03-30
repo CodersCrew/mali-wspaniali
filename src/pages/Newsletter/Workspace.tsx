@@ -2,13 +2,14 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
+import { WorkspaceProps, Message } from './types';
 
 
-export const WorkSpace = (props: any) => {
+export const WorkSpace = (props: WorkspaceProps) => {
 
     const { t } = useTranslation();
 
-    const handleChange = (value: string) => {
+    const handleChange = (value: Message) => {
         props.setMessage(value);
     };
 

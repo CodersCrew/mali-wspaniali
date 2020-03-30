@@ -1,1 +1,1 @@
-export { Newsletter } from './Newsletter';
+export { NewsletterPage } from './Newsletter';

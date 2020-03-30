@@ -56,6 +56,8 @@
     "topic": "Topic",
     "recipients": "Recipients",
     "send": "Send",
-    "placeholder": "Write your message here"
+    "placeholder": "Write your message here",
+    "fill-required-fields": "Please fill the required fields.",
+    "empty-message": "The message cannot be empty."
   }
 }

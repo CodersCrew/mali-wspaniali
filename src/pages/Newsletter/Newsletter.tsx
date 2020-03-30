@@ -11,7 +11,7 @@ const initialState = {
     recipients: [],
 };
 
-export const Newsletter = () => {
+export const NewsletterPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [fields, setFields] = useState(initialState);
@@ -27,7 +27,12 @@ export const Newsletter = () => {
         }));
     };
 
+    // eslint-disable-next-line consistent-return
     const handleSubmit = () => {
+
+        if (!type || !topic || !recipients) return openAlertDialog({ type: 'error', description: t('newsletter.fill-required-fields') });
+        if (!message) return openAlertDialog({ type: 'error', description: t('newsletter.empty-message') });
+
         createMessage({ type, topic, recipients, message })
             .then((response) => {
                 if (response.error) { return openAlertDialog({ type: 'error', description: t('newsletter.sending-error') }); }
@@ -61,12 +66,13 @@ export const Newsletter = () => {
                     required
                     onChange={handleChange}
                     value={recipients}
+                    type="email"
                     id="recipients"
                     label={t('newsletter.recipients')}
                     fullWidth
                 />
             </div>
-            <WorkSpace message={message} setMessage={setMessage}/>
+            <WorkSpace message={message} setMessage={setMessage} />
             <Button onClick={handleSubmit}>{t('newsletter.send')}</Button>
         </div>
     );
