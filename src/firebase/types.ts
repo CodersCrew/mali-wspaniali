@@ -10,6 +10,12 @@ export interface Result {
 export interface Agreement {
   agreementId: string;
   isAgreed: boolean;
+  }
+
+export interface Agreements {
+  content: string;
+  required: boolean;
+  title: string;  
 }
 
 export interface Child {

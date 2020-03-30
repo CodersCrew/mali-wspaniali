@@ -8,6 +8,7 @@ import { ChildProfile } from './ChildProfile';
 import { ParentProfile } from './ParentProfile';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { UsersPage } from './UsersPage';
+import { AdminAgreementsPage } from './AdminAgreementsPage';
 
 export const Root = () => {
   return (
@@ -24,6 +25,7 @@ export const Root = () => {
           <Route path="/admin" />
           <Route path="/admin/parent/:id" component={ParentProfile} />
           <Route path="/parent" />
+          <Route path="/admin/agreements" component={AdminAgreementsPage} />
         </div>
       </Router>
     </>

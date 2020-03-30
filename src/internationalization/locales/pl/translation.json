@@ -19,6 +19,13 @@
     "agreements": "Zgody",
     "users-list": "Lista użytkowników"
   },
+  "admin-agreements-page": {
+    "agreements-list": "Lista zgód",
+    "agreement": "Zgoda",
+    "show": "Pokaż",
+    "agreements-all": "Wszystkie zgody",
+    "req": "* wymagane" 
+  },
   "e-mail": "Adres e-mail",
   "password": "Hasło",
   "no-results": "Brak wyników",
