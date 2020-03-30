@@ -48,5 +48,14 @@
   "question-dialog": {
     "yes": "Tak",
     "no": "Nie"
+  },
+  "newsletter": {
+    "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
+    "sending-success": "Newsletter został wysłany. Jego ID to ",
+    "type": "Typ",
+    "topic": "Temat",
+    "recipients": "Odbiorcy",
+    "send": "Wyślij",
+    "placeholder": "Tu wpisz swoją wiadomość"
   }
 }

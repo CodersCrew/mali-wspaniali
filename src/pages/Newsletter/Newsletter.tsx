@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Typography, Button, TextField, makeStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { createMessage } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { WorkSpace } from './Workspace';
@@ -12,6 +13,7 @@ const initialState = {
 
 export const Newsletter = () => {
     const classes = useStyles();
+    const { t } = useTranslation();
     const [fields, setFields] = useState(initialState);
     const [message, setMessage] = useState('');
     const { type, topic, recipients } = fields;
@@ -28,8 +30,8 @@ export const Newsletter = () => {
     const handleSubmit = () => {
         createMessage({ type, topic, recipients, message })
             .then((response) => {
-                if (response.error) { return openAlertDialog({ type: 'error', description: `${response.error}` }); }
-                return openAlertDialog({ type: 'success', description: `Newletter został wysłany. Jego ID to: ${response.documentId}` });
+                if (response.error) { return openAlertDialog({ type: 'error', description: t('newsletter.sending-error') }); }
+                return openAlertDialog({ type: 'success', description: t('newsletter.sending-success') + response.documentId });
             });
     };
 
@@ -44,7 +46,7 @@ export const Newsletter = () => {
                     onChange={handleChange}
                     value={type}
                     id="type"
-                    label="Type"
+                    label={t('newsletter.type')}
                     fullWidth
                 />
                 <TextField
@@ -52,7 +54,7 @@ export const Newsletter = () => {
                     onChange={handleChange}
                     value={topic}
                     id="topic"
-                    label="Topic"
+                    label={t('newsletter.topic')}
                     fullWidth
                 />
                 <TextField
@@ -60,12 +62,12 @@ export const Newsletter = () => {
                     onChange={handleChange}
                     value={recipients}
                     id="recipients"
-                    label="Recipients"
+                    label={t('newsletter.recipients')}
                     fullWidth
                 />
             </div>
-            <WorkSpace message={message} setMessage={setMessage} />
-            <Button onClick={handleSubmit}>Wyślij</Button>
+            <WorkSpace message={message} setMessage={setMessage}/>
+            <Button onClick={handleSubmit}>{t('newsletter.send')}</Button>
         </div>
     );
 };

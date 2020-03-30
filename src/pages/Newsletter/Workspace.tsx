@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useTranslation } from 'react-i18next';
 
 
 export const WorkSpace = (props: any) => {
+
+    const { t } = useTranslation();
 
     const handleChange = (value: string) => {
         props.setMessage(value);
@@ -35,6 +38,6 @@ export const WorkSpace = (props: any) => {
 
     return (
         <ReactQuill value={props.message} onChange={handleChange} theme="snow" modules={modules}
-            formats={formats} placeholder="Tu wpisz swoją wiadomość" />
+            formats={formats} placeholder={t('newsletter.placeholder')} />
     );
 };
