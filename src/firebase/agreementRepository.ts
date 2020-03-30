@@ -1,6 +1,5 @@
 import firebaseApp from 'firebase/app';
 import { Agreements } from './types';
-import { OnSnapshotCallback } from './userRepository';
 import { logQuery } from '../utils/logQuery';
 
 type dataPromiseTypes = {
@@ -9,21 +8,7 @@ type dataPromiseTypes = {
 };
 
 export const agreementRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getAgreementDocById: (
-      agreementId: string,
-      onSnapshotCallback: OnSnapshotCallback<Agreements>,
-    ) => {
-      db.collection('agreement')
-        .doc(agreementId)
-        .onSnapshot(snapshot => {
-          logQuery(snapshot);
-          const agreementData = snapshot.data() as Agreements;
-          if (agreementData) {
-            onSnapshotCallback(agreementData);
-          }
-        });
-    },
-    getAgreementsDatas: //(): Promise<dataPromiseTypes> 
+    getAgreementsDatas:  
     () => {
         const agreements: Agreements[] = [];
         const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
