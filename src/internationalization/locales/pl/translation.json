@@ -51,7 +51,7 @@
   },
   "newsletter": {
     "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
-    "sending-success": "Newsletter został wysłany. Jego ID to ",
+    "sending-success": "Newsletter został wysłany.",
     "type": "Typ",
     "topic": "Temat",
     "recipients": "Odbiorcy",

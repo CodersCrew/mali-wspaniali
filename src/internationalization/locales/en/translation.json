@@ -51,7 +51,7 @@
   },
   "newsletter": {
     "sending-error": "An error ocurred during sending the message.",
-    "sending-success": "Newsletter was sent. It's ID is ",
+    "sending-success": "The newsletter was sent.",
     "type": "Type",
     "topic": "Topic",
     "recipients": "Recipients",
