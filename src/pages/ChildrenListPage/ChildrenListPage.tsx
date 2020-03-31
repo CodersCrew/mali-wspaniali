@@ -4,36 +4,24 @@ import { useTranslation } from 'react-i18next';
 import { Button, Container, Typography, List, ListItem, ListItemText } from '@material-ui/core';
 import { getCurrentUser } from '../../queries/userQueries';
 import { getChildrenByUserId } from '../../queries/childQueries';
-import { QuerySnapshot } from '../../firebase/firebase';
 import { Child } from './types';
 
-interface ChildrenListProps {
-    children: [Child]
-};
-
-export const ChildrenListPage = (props: ChildrenListProps) => {
+export const ChildrenListPage = () => {
     const { t } = useTranslation();
     const [children, setChildren] = useState([] as Child[]);
 
     useEffect(() => {
         const currentUser = getCurrentUser();
 
-        if (currentUser != null) {
+        if (currentUser) {
             const unsubscribe = getChildrenByUserId(currentUser.uid, onSettingParentChildren);
             return () => unsubscribe();
         }
+
+        return undefined;
     }, []);
 
-    const onSettingParentChildren = (snapshot: QuerySnapshot) => {
-        let childArray = [] as Child[];
-        childArray = snapshot.docs.map(row => {
-            const childData = row.data();
-            return {
-                firstName: childData.firstName, 
-                lastName: childData.lastName, 
-                userId: childData.userId
-            };
-        });
+    const onSettingParentChildren = (childArray: Child[]) => {
         setChildren(childArray);
     };
 
@@ -50,8 +38,8 @@ export const ChildrenListPage = (props: ChildrenListProps) => {
                 </Typography>
                 {children.length ? (
                     <List component="nav" aria-label={t('parent-children-page.children')}>
-                        {children.map((child, index) => 
-                            <ListItem key={index} button>
+                        {children.map(child => 
+                            <ListItem key={child.userId} button>
                                 <ListItemText primary={`${child.firstName} ${child.lastName}`}/>
                             </ListItem>
                         )}
@@ -63,5 +51,5 @@ export const ChildrenListPage = (props: ChildrenListProps) => {
                 )}
             </Container>
         </>
-    )
-}
+    );
+};

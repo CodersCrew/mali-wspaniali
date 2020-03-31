@@ -1,4 +1,3 @@
-import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Document, Child } from './types';
 import { OnSnapshotCallback } from './userRepository';
