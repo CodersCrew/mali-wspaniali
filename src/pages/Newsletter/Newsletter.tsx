@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Typography, Button, TextField, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { WorkSpace } from './Workspace';
@@ -12,6 +13,7 @@ const initialState = {
 };
 
 export const NewsletterPage = () => {
+    useAuthorization(true, '/', ['admin']);
     const classes = useStyles();
     const { t } = useTranslation();
     const [fields, setFields] = useState(initialState);
@@ -36,7 +38,7 @@ export const NewsletterPage = () => {
         createNewsletter({ type, topic, recipients, message })
             .then((response) => {
                 if (response.error) { return openAlertDialog({ type: 'error', description: t('newsletter.sending-error') }); }
-                return openAlertDialog({ type: 'success', description: t('newsletter.sending-success') + response.documentId });
+                return openAlertDialog({ type: 'success', description: t('newsletter.sending-success') });
             });
     };
 
