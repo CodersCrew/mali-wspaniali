@@ -8,17 +8,16 @@ type dataPromiseTypes = {
 };
 
 export const agreementRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getAgreementsDatas:  
-    () => {
-        const agreements: Agreements[] = [];
-        const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
-          if (!snapshot.empty) {
-              snapshot.forEach(doc => {
-              const docData = doc.data() as Agreements;
-              agreements.push(docData);
-            });
-          } 
-            };
+  getAgreementsDatas: () => {
+    const agreements: Agreements[] = [];
+    const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
+      if (!snapshot.empty) {
+        snapshot.forEach(doc => {
+          const docData = doc.data() as Agreements;
+          agreements.push(docData);
+        });
+      }
+    };
     const getQuery = (
       resolve: (value: dataPromiseTypes) => void,
       reject: (reason: Error) => void,
@@ -44,5 +43,5 @@ export const agreementRepository = (db: firebaseApp.firestore.Firestore) => ({
     return new Promise<dataPromiseTypes>((resolve, reject) => {
       getQuery(resolve, reject);
     });
-  },      
+  },
 });
