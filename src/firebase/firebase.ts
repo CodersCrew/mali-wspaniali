@@ -10,7 +10,8 @@ import { userRepository } from './userRepository';
 firebaseApp.initializeApp(config);
 
 // Use emulator to test http functions
-firebaseApp.functions().useFunctionsEmulator('http://localhost:5000');
+firebaseApp.functions().useFunctionsEmulator('http://localhost:5001');
+
 const auth = firebaseApp.auth();
 const firestore = firebaseApp.firestore();
 

@@ -24,8 +24,3 @@ export const getUserRole = async (user: User): Promise<string> => {
   const idTokenResult = await user.getIdTokenResult();
   return idTokenResult.claims.role;
 };
-
-export const getCurrentUserIdToken = async () => {
-  const token = await firebase.auth.getCurrentUser()?.getIdToken();
-  return token;
-}

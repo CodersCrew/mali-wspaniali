@@ -1,38 +1,32 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { getCurrentUserIdToken } from '../queries/authQueries';
+import { getDatabaseBackup } from '../queries/httpQueries';
+import { load } from '../utils/load';
 
 export const DatabaseBackupButton = () => {
-  const getBackup = async () => {
-    const token = await getCurrentUserIdToken();
-    console.log(token);
-    if (token) {
-
-      // TODO CHANGE URL
-      fetch('http://localhost:5001/mal-wsp-dev/us-central1/default-databaseBackup', {
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      }).then(response => {
-        console.log(response);
-        response.blob().then(blob => {
-          let url = window.URL.createObjectURL(blob);
-          let a = document.createElement('a');
-          a.href = url;
-
-          //TODO ADD DATE TO NAME
-          
-          a.download = 'backup.json';
-          a.click();
-        });
-        //window.location.href = response.url;
-      });
-    }
+  const setFileName = () => {
+    const currentDate = new Date();
+    const date = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
+    return `backup-${date}.json`;
   };
+
+  const getBackup = () => {
+    load(
+      getDatabaseBackup().then(response => {
+        const json = JSON.stringify(response);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = setFileName();
+        a.click();
+      }),
+    );
+  };
+
   return (
     <Button variant="contained" color="primary" onClick={getBackup}>
-      Get database
+      Get database JSON
     </Button>
   );
 };
