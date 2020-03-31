@@ -1,5 +1,5 @@
 module.exports = {
-    plugins: ['i18next'],
+    plugins: ['i18next', 'react-hooks'],
     settings: {
         "react": {
             "version": "detect"
