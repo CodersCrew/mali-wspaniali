@@ -39,7 +39,7 @@ export const TestResultsPage = () => {
   useEffect(() => {
     waitForData();
     return () => detachListeners();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const pageChangeHandler = async (direction: string) => {
