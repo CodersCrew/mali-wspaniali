@@ -33,3 +33,7 @@ export const getUserById = (
   id: string,
   onSnapshotCallback: OnSnapshotCallback<Parent>,
 ) => firebase.user.getUserById(id, onSnapshotCallback);
+
+export const getCurrentUser = () => {
+  return firebase.auth.getCurrentUser();
+};

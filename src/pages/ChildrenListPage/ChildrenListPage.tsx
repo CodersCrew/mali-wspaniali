@@ -1,33 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Child } from './interface';
-import { getParentChildren } from '../../queries/childQueries';
-
 import { Button, Container, Typography, List, ListItem, ListItemText } from '@material-ui/core';
+import { getCurrentUser } from '../../queries/userQueries';
+import { getChildrenByUserId } from '../../queries/childQueries';
+import { QuerySnapshot } from '../../firebase/firebase';
+import { Child } from './types';
 
 interface ChildrenListProps {
     children: [Child]
 };
 
-const ChildrenListPage = (props: ChildrenListProps) => {
+export const ChildrenListPage = (props: ChildrenListProps) => {
     const { t } = useTranslation();
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState({});
-    const [children, setChildren] = useState<Array<Child>>([]);
+    const [children, setChildren] = useState([] as Child[]);
 
     useEffect(() => {
-        setLoading(true);
-        const parentId = "1";
-        getParentChildren(parentId)
-        .then(response => {   
-            setChildren(response);     
-            setLoading(false); 
-        }, err => {
-            setError(err);
-            setLoading(false);
-        });
+        const currentUser = getCurrentUser();
+
+        if (currentUser != null) {
+            const unsubscribe = getChildrenByUserId(currentUser.uid, onSettingParentChildren);
+            return () => unsubscribe();
+        }
     }, []);
+
+    const onSettingParentChildren = (snapshot: QuerySnapshot) => {
+        let childArray = [] as Child[];
+        childArray = snapshot.docs.map(row => {
+            const childData = row.data();
+            return {
+                firstName: childData.firstName, 
+                lastName: childData.lastName, 
+                userId: childData.userId
+            };
+        });
+        setChildren(childArray);
+    };
 
     return (
         <>
@@ -44,7 +52,7 @@ const ChildrenListPage = (props: ChildrenListProps) => {
                     <List component="nav" aria-label={t('parent-children-page.children')}>
                         {children.map((child, index) => 
                             <ListItem key={index} button>
-                                <ListItemText primary={child.firstName + " " + child.lastName}/>
+                                <ListItemText primary={`${child.firstName} ${child.lastName}`}/>
                             </ListItem>
                         )}
                     </List>
@@ -57,5 +65,3 @@ const ChildrenListPage = (props: ChildrenListProps) => {
         </>
     )
 }
-
-export default ChildrenListPage;

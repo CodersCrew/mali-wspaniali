@@ -1,3 +1,1 @@
-import ChildrenListPage from './ChildrenListPage';
-
-export default ChildrenListPage;
+export { ChildrenListPage } from './ChildrenListPage';
