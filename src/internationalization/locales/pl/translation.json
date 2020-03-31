@@ -50,6 +50,7 @@
     "no": "Nie"
   },
   "newsletter": {
+    "header": "Newsletter",
     "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
     "sending-success": "Newsletter został wysłany.",
     "type": "Typ",

@@ -43,7 +43,7 @@ export const NewsletterPage = () => {
     return (
         <div className={classes.container}>
             <Typography variant="h2" gutterBottom className={classes.h2}>
-                Newsletter
+                {t('newsletter.header')}
             </Typography>
             <div className={classes.inputFields}>
                 <TextField
