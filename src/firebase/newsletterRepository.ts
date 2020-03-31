@@ -4,10 +4,10 @@ import { Newsletter } from '../pages/Newsletter/types';
 export const newsletterRepository = (
   firestore: firebase.firestore.Firestore,
 ) => ({
-  saveMessage: (message: Newsletter) => {
+  saveNewsletter: (newsletter: Newsletter) => {
     return firestore
       .collection('newsletter')
-      .add(message)
+      .add(newsletter)
       .then(docRef => {
         return { documentId: docRef.id, error: false };
       })

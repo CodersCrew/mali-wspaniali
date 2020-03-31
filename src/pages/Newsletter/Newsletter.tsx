@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Typography, Button, TextField, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { createMessage } from '../../queries/newsletterQueries';
+import { createNewsletter } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { WorkSpace } from './Workspace';
 
@@ -33,7 +33,7 @@ export const NewsletterPage = () => {
         if (!type || !topic || !recipients) return openAlertDialog({ type: 'error', description: t('newsletter.fill-required-fields') });
         if (!message) return openAlertDialog({ type: 'error', description: t('newsletter.empty-message') });
 
-        createMessage({ type, topic, recipients, message })
+        createNewsletter({ type, topic, recipients, message })
             .then((response) => {
                 if (response.error) { return openAlertDialog({ type: 'error', description: t('newsletter.sending-error') }); }
                 return openAlertDialog({ type: 'success', description: t('newsletter.sending-success') + response.documentId });
