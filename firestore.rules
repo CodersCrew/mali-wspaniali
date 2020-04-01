@@ -5,5 +5,17 @@ service cloud.firestore {
     	allow read, write: if request.auth.token.role == "admin"
     	allow read, write: if request.auth.uid == userID
     }
+    match /child/{childID} {
+      allow read, write: if request.time < timestamp.date(2020, 5, 25);
+    }
+    match /agreement/{agreementID} {
+      allow read, write: if request.time < timestamp.date(2020, 5, 25);
+    }
+    match /documents/{documentsID} {
+      allow read, write: if request.time < timestamp.date(2020, 5, 25);
+    }
+    match /newsletter/{newsletterID} {
+      allow read, write: if request.time < timestamp.date(2020, 5, 25);
+    }
   }
 }
