@@ -1,3 +1,4 @@
+import firebaseApp from 'firebase/app';
 import 'firebase/firestore';
 import { Document, Child } from './types';
 import { OnSnapshotCallback } from './userRepository';
@@ -23,6 +24,22 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
         if (childData) {
           onSnapshotCallback(childData);
         }
+      });
+  },
+  getChildrenByUserId: (
+    id: string,
+    onSnapshotCallback: OnSnapshotCallback<Child[]>,
+  ) => {
+    return db
+      .collection('child')
+      .where('userId', '==', id)
+      .onSnapshot(snapshot => {
+        const children = snapshot.docs.map(doc => {
+          const child = doc.data() as Child;
+          child.id = doc.id;
+          return child;
+        });
+        return onSnapshotCallback(children);
       });
   },
   getChildrenData: (

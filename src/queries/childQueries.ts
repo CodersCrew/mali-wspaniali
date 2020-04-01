@@ -22,3 +22,10 @@ export const fetchChild = (
 ) => {
   firebase.child.getChildDocById(childId, onSnapshotCallback);
 };
+
+export const getChildrenByUserId = (
+  id: string,
+  onSnapshotCallback: OnSnapshotCallback<Child[]>,
+) => {
+  firebase.child.getChildrenByUserId(id, onSnapshotCallback);
+};

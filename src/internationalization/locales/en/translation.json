@@ -50,6 +50,10 @@
     "yes": "Yes",
     "no": "No"
   },
+  "parent-children": {
+    "children": "Children",
+    "no-children-has-been-found": "No children has been found"
+  },
   "newsletter": {
     "header": "Newsletter",
     "sending-error": "An error ocurred during sending the message.",

@@ -50,6 +50,10 @@
     "yes": "Tak",
     "no": "Nie"
   },
+  "parent-children": {
+    "children": "Dzieci",
+    "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
+  },
   "newsletter": {
     "header": "Newsletter",
     "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
