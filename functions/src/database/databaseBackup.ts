@@ -8,28 +8,21 @@ const getData = async () => {
     childCollection: [],
     agreementCollection: [],
   };
+  const collectionArray = ['user', 'child', 'agreement'];
   try {
-    const user = database
-      .collection('user')
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => data.userCollection.push(doc.data()));
-      });
-    const child = database
-      .collection('child')
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => data.childCollection.push(doc.data()));
-      });
-    const agreement = database
-      .collection('agreement')
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => data.agreementCollection.push(doc.data()));
-      });
-    await user;
-    await child;
-    await agreement;
+    const collectionPromises = Promise.all(
+      collectionArray.map(collection => {
+        return database
+          .collection(collection)
+          .get()
+          .then(snapshot => {
+            snapshot.forEach(doc =>
+              data[`${collection}Collection`].push(doc.data()),
+            );
+          });
+      }),
+    );
+    await collectionPromises;
     return data;
   } catch (error) {
     throw new Error(`Cound not get data, ${error}`);

@@ -48,5 +48,8 @@
   "question-dialog": {
     "yes": "Yes",
     "no": "No"
+  },
+  "database-backup": {
+    "get-backup-json": "Get backup in JSON format"
   }
 }

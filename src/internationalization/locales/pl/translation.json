@@ -48,5 +48,8 @@
   "question-dialog": {
     "yes": "Tak",
     "no": "Nie"
+  },
+  "database-backup": {
+    "get-backup-json": "Pobierz kopię bazy danych jako plik JSON"
   }
 }

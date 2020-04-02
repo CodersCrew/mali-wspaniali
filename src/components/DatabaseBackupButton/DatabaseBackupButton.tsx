@@ -1,14 +1,15 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import { getDatabaseBackup } from '../queries/httpQueries';
-import { load } from '../utils/load';
+import { getDatabaseBackup } from '../../queries/httpQueries';
+import { setFileName } from './utils';
+import { load } from '../../utils/load';
 
 export const DatabaseBackupButton = () => {
-  const setFileName = () => {
-    const currentDate = new Date();
-    const date = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
-    return `backup-${date}.json`;
-  };
+  // Temporary solution until admin page is up
+  const isProd = false;
+
+  const { t } = useTranslation();
 
   const getBackup = () => {
     load(
@@ -24,9 +25,11 @@ export const DatabaseBackupButton = () => {
     );
   };
 
-  return (
-    <Button variant="contained" color="primary" onClick={getBackup}>
-      Get database JSON
-    </Button>
-  );
+  if (isProd)
+    return (
+      <Button variant="contained" color="primary" onClick={getBackup}>
+        {t('database-backup.get-backup-json')}
+      </Button>
+    );
+  return null;
 };

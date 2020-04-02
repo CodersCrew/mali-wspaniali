@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Container, makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/firebase';
-import { DatabaseBackupButton } from '../../components/DatabaseBackupButton';
+import { DatabaseBackupButton } from '../../components/DatabaseBackupButton/DatabaseBackupButton';
 
 export const HomePage = () => {
   const classes = useStyles();
