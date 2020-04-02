@@ -1,6 +1,7 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/functions';
 import config from './config';
 import { authRepository } from './authRepository';
 import { childRepository } from './childRepository';

@@ -49,6 +49,9 @@
     "yes": "Tak",
     "no": "Nie"
   },
+  "database-backup": {
+    "get-backup-json": "Pobierz kopię bazy danych jako plik JSON"
+  },
   "newsletter": {
     "header": "Newsletter",
     "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
