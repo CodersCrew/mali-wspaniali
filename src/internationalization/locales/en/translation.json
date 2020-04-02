@@ -55,5 +55,17 @@
   "question-dialog": {
     "yes": "Yes",
     "no": "No"
+  },
+  "newsletter": {
+    "header": "Newsletter",
+    "sending-error": "An error ocurred during sending the message.",
+    "sending-success": "The newsletter was sent.",
+    "type": "Type",
+    "topic": "Topic",
+    "recipients": "Recipients",
+    "send": "Send",
+    "placeholder": "Write your message here",
+    "fill-required-fields": "Please fill the required fields.",
+    "empty-message": "The message cannot be empty."
   }
 }

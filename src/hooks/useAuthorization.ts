@@ -28,6 +28,7 @@ export const useAuthorization = (
     onAuthStateChanged(authUser => {
       checkAuthorization(authUser);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return user;
