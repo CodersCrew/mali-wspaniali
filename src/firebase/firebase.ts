@@ -6,6 +6,7 @@ import config from './config';
 import { authRepository } from './authRepository';
 import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
+import { newsletterRepository } from './newsletterRepository';
 
 firebaseApp.initializeApp(config);
 
@@ -24,6 +25,7 @@ export const firebase = {
   auth: authRepository(auth),
   child: childRepository(firestore),
   user: userRepository(firestore),
+  newsletter: newsletterRepository(firestore),
 };
 
 export type User = firebaseApp.User;

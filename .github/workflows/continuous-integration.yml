@@ -59,6 +59,8 @@ jobs:
         with:
           name: build
           path: build
+    env:
+      CI: true
   deploy:
     needs: [lint-and-test, build]
     if: github.ref == 'refs/heads/master'
