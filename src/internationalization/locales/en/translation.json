@@ -49,9 +49,6 @@
     "yes": "Yes",
     "no": "No"
   },
-  "database-backup": {
-    "get-backup-json": "Get backup in JSON format"
-  },
   "newsletter": {
     "header": "Newsletter",
     "sending-error": "An error ocurred during sending the message.",
