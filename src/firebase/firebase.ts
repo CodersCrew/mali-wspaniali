@@ -10,9 +10,6 @@ import { newsletterRepository } from './newsletterRepository';
 
 firebaseApp.initializeApp(config);
 
-// Use emulator to test http functions
-firebaseApp.functions().useFunctionsEmulator('http://localhost:5001');
-
 const auth = firebaseApp.auth();
 const firestore = firebaseApp.firestore();
 
