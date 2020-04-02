@@ -64,7 +64,7 @@ export const AdminAgreementsPage = () => {
 
   useEffect(() => {
     load(waitForAgreementsData());
-    return () => detachListeners();
+    return () => detachListeners(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleToggle = (id: string) => () => {
