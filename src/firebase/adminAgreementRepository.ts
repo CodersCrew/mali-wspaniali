@@ -1,20 +1,23 @@
 import firebaseApp from 'firebase/app';
-import { Agreements } from './types';
+import { AdminAgreement } from './types';
 import { logQuery } from '../utils/logQuery';
 
 type dataPromiseTypes = {
-  agreements: Agreements[];
+  agreement: AdminAgreement[];
   unsubscribe: () => void;
 };
 
-export const agreementRepository = (db: firebaseApp.firestore.Firestore) => ({
-  getAgreementsDatas: () => {
-    const agreements: Agreements[] = [];
+export const adminAgreementRepository = (
+  db: firebaseApp.firestore.Firestore,
+) => ({
+  getAgreementListData: () => {
+    const agreement: AdminAgreement[] = [];
     const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
       if (!snapshot.empty) {
         snapshot.forEach(doc => {
-          const docData = doc.data() as Agreements;
-          agreements.push(docData);
+          const docData = doc.data() as AdminAgreement;
+          docData.agreementId = doc.id;
+          agreement.push(docData);
         });
       }
     };
@@ -22,15 +25,13 @@ export const agreementRepository = (db: firebaseApp.firestore.Firestore) => ({
       resolve: (value: dataPromiseTypes) => void,
       reject: (reason: Error) => void,
     ): (() => void) => {
-      const agreementRefWithLimit = db
-        .collection('agreement')
-        .orderBy('required');
-      const unsubscribe = agreementRefWithLimit.onSnapshot(
+      const agreementRef = db.collection('agreement').orderBy('required');
+      const unsubscribe = agreementRef.onSnapshot(
         snapshot => {
           logQuery(snapshot);
           handleData(snapshot);
           resolve({
-            agreements,
+            agreement,
             unsubscribe,
           });
         },

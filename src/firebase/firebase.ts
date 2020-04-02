@@ -5,7 +5,7 @@ import config from './config';
 import { authRepository } from './authRepository';
 import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
-import { agreementRepository } from './agreementRepository';
+import { adminAgreementRepository } from './adminAgreementRepository';
 
 firebaseApp.initializeApp(config);
 
@@ -21,7 +21,7 @@ export const firebase = {
   auth: authRepository(auth),
   child: childRepository(firestore),
   user: userRepository(firestore),
-  agreements: agreementRepository(firestore),
+  agreement: adminAgreementRepository(firestore),
 };
 
 export type User = firebaseApp.User;

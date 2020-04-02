@@ -12,7 +12,8 @@ export interface Agreement {
   isAgreed: boolean;
 }
 
-export interface Agreements {
+export interface AdminAgreement {
+  agreementId: string;
   content: string;
   required: boolean;
   title: string;
