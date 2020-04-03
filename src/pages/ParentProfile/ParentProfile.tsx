@@ -8,19 +8,19 @@ import { Parent } from './types';
 import { useAuthorization } from '../../hooks/useAuthorization';
 
 export const ParentProfile = () => {
-  useAuthorization(true, '/', ['admin']);
-  const { id } = useParams<{ id: string }>();
-  const { t } = useTranslation();
-  const parent = useSubscribed<Parent | null>(
-    (callback: OnSnapshotCallback<Parent>) => getUserById(id, callback),
-  ) as Parent | null;
+    useAuthorization(true, '/', ['admin']);
+    const { id } = useParams<{ id: string }>();
+    const { t } = useTranslation();
+    const parent = useSubscribed<Parent | null>((callback: OnSnapshotCallback<Parent>) =>
+        getUserById(id, callback),
+    ) as Parent | null;
 
-  return parent ? (
-    <>
-      <div>{t('parent-profile.parent')}</div>
-      <div>{parent.email}</div>
-    </>
-  ) : (
-    <div>{t('parent-profile.no-parent')}</div>
-  );
+    return parent ? (
+        <>
+            <div>{t('parent-profile.parent')}</div>
+            <div>{parent.email}</div>
+        </>
+    ) : (
+        <div>{t('parent-profile.no-parent')}</div>
+    );
 };

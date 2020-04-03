@@ -20,7 +20,6 @@ export const NewsletterPage = () => {
     const [message, setMessage] = useState('');
     const { type, topic, recipients } = fields;
 
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const { id, value } = event.target;
         setFields(prevFields => ({
@@ -31,15 +30,29 @@ export const NewsletterPage = () => {
 
     // eslint-disable-next-line consistent-return
     const handleSubmit = () => {
-
-        if (!type || !topic || !recipients) return openAlertDialog({ type: 'error', description: t('newsletter.fill-required-fields') });
-        if (!message) return openAlertDialog({ type: 'error', description: t('newsletter.empty-message') });
-
-        createNewsletter({ type, topic, recipients, message })
-            .then((response) => {
-                if (response.error) { return openAlertDialog({ type: 'error', description: t('newsletter.sending-error') }); }
-                return openAlertDialog({ type: 'success', description: t('newsletter.sending-success') });
+        if (!type || !topic || !recipients)
+            return openAlertDialog({
+                type: 'error',
+                description: t('newsletter.fill-required-fields'),
             });
+        if (!message)
+            return openAlertDialog({
+                type: 'error',
+                description: t('newsletter.empty-message'),
+            });
+
+        createNewsletter({ type, topic, recipients, message }).then(response => {
+            if (response.error) {
+                return openAlertDialog({
+                    type: 'error',
+                    description: t('newsletter.sending-error'),
+                });
+            }
+            return openAlertDialog({
+                type: 'success',
+                description: t('newsletter.sending-success'),
+            });
+        });
     };
 
     return (
@@ -90,6 +103,6 @@ const useStyles = makeStyles({
         alignItems: 'center',
     },
     inputFields: {
-        marginBottom: '40px'
-    }
+        marginBottom: '40px',
+    },
 });
