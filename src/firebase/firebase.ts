@@ -28,3 +28,4 @@ export const firebase = {
 
 export type User = firebaseApp.User;
 export type UserCredential = firebaseApp.auth.UserCredential;
+export type QuerySnapshot = firebaseApp.firestore.QuerySnapshot;

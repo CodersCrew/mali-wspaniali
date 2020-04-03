@@ -34,6 +34,11 @@ export const HomePage = () => {
           {t('home-page.go-to-registration-page')}
         </Button>
       </Link>
+      <Link to="/parent/children">
+        <Button variant="contained" color="primary">
+          {t('home-page.go-to-parent-children-page')}
+        </Button>
+      </Link>
     </Container>
   );
 };
