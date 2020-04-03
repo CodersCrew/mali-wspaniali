@@ -13,6 +13,7 @@ export interface Agreement {
 }
 
 export interface Child {
+  id: string;
   firstName: string;
   lastName: string;
   userId: string;

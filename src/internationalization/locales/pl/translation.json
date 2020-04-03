@@ -2,7 +2,8 @@
   "home-page": {
     "go-to-login-page": "Strona logowania",
     "log-out": "Wyloguj",
-    "go-to-registration-page": "Rejestracja"
+    "go-to-registration-page": "Rejestracja",
+    "go-to-parent-children-page": "Moje dzieci"
   },
   "login-page": {
     "login": "Zaloguj się",
@@ -48,6 +49,10 @@
   "question-dialog": {
     "yes": "Tak",
     "no": "Nie"
+  },
+  "parent-children": {
+    "children": "Dzieci",
+    "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
   },
   "newsletter": {
     "header": "Newsletter",

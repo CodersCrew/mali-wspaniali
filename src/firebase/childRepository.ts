@@ -26,6 +26,22 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
         }
       });
   },
+  getChildrenByUserId: (
+    id: string,
+    onSnapshotCallback: OnSnapshotCallback<Child[]>,
+  ) => {
+    return db
+      .collection('child')
+      .where('userId', '==', id)
+      .onSnapshot(snapshot => {
+        const children = snapshot.docs.map(doc => {
+          const child = doc.data() as Child;
+          child.id = doc.id;
+          return child;
+        });
+        return onSnapshotCallback(children);
+      });
+  },
   getChildrenData: (
     rowsPerPage: number,
     previousLastVisible: Document | null,

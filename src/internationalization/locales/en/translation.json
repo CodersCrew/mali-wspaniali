@@ -2,7 +2,8 @@
   "home-page": {
     "go-to-login-page": "Go to login page",
     "log-out": "Log Out",
-    "go-to-registration-page": "Go to registration page"
+    "go-to-registration-page": "Go to registration page",
+    "go-to-parent-children-page": "Go to parent children page"
   },
   "login-page": {
     "login": "Login",
@@ -48,6 +49,10 @@
   "question-dialog": {
     "yes": "Yes",
     "no": "No"
+  },
+  "parent-children": {
+    "children": "Children",
+    "no-children-has-been-found": "No children has been found"
   },
   "newsletter": {
     "header": "Newsletter",

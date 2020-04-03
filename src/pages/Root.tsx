@@ -4,6 +4,7 @@ import { HomePage } from './HomePage';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { TestResultsPage } from './TestResultsPage';
+import { ChildrenListPage } from './ChildrenListPage';
 import { ChildProfile } from './ChildProfile';
 import { ParentProfile } from './ParentProfile';
 import { LanguageSelector } from '../components/LanguageSelector';
@@ -25,6 +26,7 @@ export const Root = () => {
           <Route path="/admin" />
           <Route path="/admin/parent/:id" component={ParentProfile} />
           <Route path="/parent" />
+          <Route path="/parent/children" component={ChildrenListPage} />
           <Route path="/admin/newsletter" component={NewsletterPage} />
         </div>
       </Router>
