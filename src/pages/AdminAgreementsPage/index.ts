@@ -1,0 +1,1 @@
+export { AdminAgreementsPage } from './AdminAgreementsPage';

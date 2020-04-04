@@ -12,6 +12,13 @@ export interface Agreement {
   isAgreed: boolean;
 }
 
+export interface AdminAgreement {
+  agreementId: string;
+  content: string;
+  required: boolean;
+  title: string;
+}
+
 export interface Child {
   id: string;
   firstName: string;

@@ -9,6 +9,7 @@ import { ChildProfile } from './ChildProfile';
 import { ParentProfile } from './ParentProfile';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { UsersPage } from './UsersPage';
+import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 
 export const Root = () => {
@@ -26,6 +27,7 @@ export const Root = () => {
           <Route path="/admin" />
           <Route path="/admin/parent/:id" component={ParentProfile} />
           <Route path="/parent" />
+          <Route path="/admin/agreements" component={AdminAgreementsPage} />
           <Route path="/parent/children" component={ChildrenListPage} />
           <Route path="/admin/newsletter" component={NewsletterPage} />
         </div>
