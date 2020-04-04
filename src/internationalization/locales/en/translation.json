@@ -20,6 +20,13 @@
         "agreements": "Agreements",
         "users-list": "Users List"
     },
+    "admin-agreements-page": {
+        "agreements-list": "Agreements list",
+        "agreement": "Agreement",
+        "show": "Show",
+        "agreements-all": "All agreements",
+        "req": "* required"
+    },
     "e-mail": "E-Mail Address",
     "password": "Password",
     "no-results": "No Results",
