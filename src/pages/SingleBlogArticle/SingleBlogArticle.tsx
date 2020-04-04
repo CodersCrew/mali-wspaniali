@@ -1,25 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { getSingleArticleById } from '../../queries/singleArticleQueries';
+import { load } from '../../utils/load';
+import { Article } from '../../firebase/types';
+import { Typography } from '@material-ui/core';
 
 
 export const SingleBlogArticle = () => {
-    const { t } = useTranslation(); 
-    const { articleId } = useParams<{ articleId: string}>();
-    const article = useSubscribed<Article | null>(
-        (callback: OnSnapshotCallback<Article>) =>
-        getArticleById(articleId, callback),
-    ) as Article | null;
+    useAuthorization(true, '/', ['admin', 'parent']);
+    const { t } = useTranslation();
+    const { articleId } = useParams<{ articleId: string }>();
+    const [article, setArticle] = useState<Article>();
+    const [listeners, setListeners] = useState<(() => void)[]>([]);
 
-    return article ? 
-    (
-        <>
-        </>
-    ) : 
+    const detachListeners = () => {
+        listeners.forEach(listener => () => listener());
+    };
+
+    const waitForArticleData = async (articleId: string) => {
+        const { article, unsubscribe } = await getSingleArticleById(articleId);
+        if (unsubscribe) {
+            setArticle(article);
+            setListeners([...listeners, unsubscribe]);
+        };
+    };
+
+    useEffect(() => {
+        load(waitForArticleData(articleId));
+        return () => detachListeners();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return article ?
         (
             <>
+                <Typography variant="h4">
+                    Jest
+            </Typography>
+            </>
+        ) :
+        (
+            <>
+                <Typography variant="h4">
+                    Ni ma
+            </Typography>
             </>
         )
 
