@@ -1,0 +1,1 @@
+export { SingleBlogArticle } from './SingleBlogArticle';
