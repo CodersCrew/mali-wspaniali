@@ -43,5 +43,6 @@ module.exports = {
         "@typescript-eslint/explicit-function-return-type": "off",
         "semi": ["warn", "always"],
         "quotes": ["warn", "single", "avoid-escape"],
+        "indent": ["warn", 4]
     },
 };

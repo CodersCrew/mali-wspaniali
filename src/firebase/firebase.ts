@@ -5,6 +5,7 @@ import config from './config';
 import { authRepository } from './authRepository';
 import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
+import { adminAgreementRepository } from './adminAgreementRepository';
 import { newsletterRepository } from './newsletterRepository';
 
 firebaseApp.initializeApp(config);
@@ -14,15 +15,17 @@ const firestore = firebaseApp.firestore();
 
 // Disable caching in test enviroment
 if (process.env.NODE_ENV !== 'test') {
-  firestore.enablePersistence();
+    firestore.enablePersistence();
 }
 
 export const firebase = {
-  auth: authRepository(auth),
-  child: childRepository(firestore),
-  user: userRepository(firestore),
-  newsletter: newsletterRepository(firestore),
+    auth: authRepository(auth),
+    child: childRepository(firestore),
+    user: userRepository(firestore),
+    agreement: adminAgreementRepository(firestore),
+    newsletter: newsletterRepository(firestore),
 };
 
 export type User = firebaseApp.User;
 export type UserCredential = firebaseApp.auth.UserCredential;
+export type QuerySnapshot = firebaseApp.firestore.QuerySnapshot;

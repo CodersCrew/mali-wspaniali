@@ -1,13 +1,13 @@
 export type Message = string;
 
 export type Newsletter = {
-    recipients: string[],
-    type: string,
-    topic: string,
+    recipients: string[];
+    type: string;
+    topic: string;
     message: Message;
-}
+};
 
 export type WorkspaceProps = {
-    message: string,
+    message: string;
     setMessage: (value: string | ((prevState: string) => string)) => void;
-}
+};

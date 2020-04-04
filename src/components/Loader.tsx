@@ -4,18 +4,18 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core';
 
 export const Loader = () => {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <Backdrop classes={{ root: classes.root }} open={true}>
-      <CircularProgress color="inherit" />
-    </Backdrop>
-  );
+    return (
+        <Backdrop classes={{ root: classes.root }} open={true}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
+    );
 };
 
 const useStyles = makeStyles({
-  root: {
-    zIndex: 1000,
-    color: '#fff',
-  },
+    root: {
+        zIndex: 1000,
+        color: '#fff',
+    },
 });
