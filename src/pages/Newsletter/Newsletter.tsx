@@ -7,102 +7,102 @@ import { openAlertDialog } from '../../components/AlertDialog';
 import { WorkSpace } from './Workspace';
 
 const initialState = {
-  type: '',
-  topic: '',
-  recipients: [],
+    type: '',
+    topic: '',
+    recipients: [],
 };
 
 export const NewsletterPage = () => {
-  useAuthorization(true, '/', ['admin']);
-  const classes = useStyles();
-  const { t } = useTranslation();
-  const [fields, setFields] = useState(initialState);
-  const [message, setMessage] = useState('');
-  const { type, topic, recipients } = fields;
+    useAuthorization(true, '/', ['admin']);
+    const classes = useStyles();
+    const { t } = useTranslation();
+    const [fields, setFields] = useState(initialState);
+    const [message, setMessage] = useState('');
+    const { type, topic, recipients } = fields;
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const { id, value } = event.target;
-    setFields(prevFields => ({
-      ...prevFields,
-      [id]: value,
-    }));
-  };
+    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        const { id, value } = event.target;
+        setFields(prevFields => ({
+            ...prevFields,
+            [id]: value,
+        }));
+    };
 
-  // eslint-disable-next-line consistent-return
-  const handleSubmit = () => {
-    if (!type || !topic || !recipients)
-      return openAlertDialog({
-        type: 'error',
-        description: t('newsletter.fill-required-fields'),
-      });
-    if (!message)
-      return openAlertDialog({
-        type: 'error',
-        description: t('newsletter.empty-message'),
-      });
+    // eslint-disable-next-line consistent-return
+    const handleSubmit = () => {
+        if (!type || !topic || !recipients)
+            return openAlertDialog({
+                type: 'error',
+                description: t('newsletter.fill-required-fields'),
+            });
+        if (!message)
+            return openAlertDialog({
+                type: 'error',
+                description: t('newsletter.empty-message'),
+            });
 
-    createNewsletter({ type, topic, recipients, message }).then(response => {
-      if (response.error) {
-        return openAlertDialog({
-          type: 'error',
-          description: t('newsletter.sending-error'),
+        createNewsletter({ type, topic, recipients, message }).then(response => {
+            if (response.error) {
+                return openAlertDialog({
+                    type: 'error',
+                    description: t('newsletter.sending-error'),
+                });
+            }
+            return openAlertDialog({
+                type: 'success',
+                description: t('newsletter.sending-success'),
+            });
         });
-      }
-      return openAlertDialog({
-        type: 'success',
-        description: t('newsletter.sending-success'),
-      });
-    });
-  };
+    };
 
-  return (
-    <div className={classes.container}>
-      <Typography variant="h2" gutterBottom className={classes.h2}>
-        {t('newsletter.header')}
-      </Typography>
-      <div className={classes.inputFields}>
-        <TextField
-          required
-          onChange={handleChange}
-          value={type}
-          id="type"
-          label={t('newsletter.type')}
-          fullWidth
-        />
-        <TextField
-          required
-          onChange={handleChange}
-          value={topic}
-          id="topic"
-          label={t('newsletter.topic')}
-          fullWidth
-        />
-        <TextField
-          required
-          onChange={handleChange}
-          value={recipients}
-          type="email"
-          id="recipients"
-          label={t('newsletter.recipients')}
-          fullWidth
-        />
-      </div>
-      <WorkSpace message={message} setMessage={setMessage} />
-      <Button onClick={handleSubmit}>{t('newsletter.send')}</Button>
-    </div>
-  );
+    return (
+        <div className={classes.container}>
+            <Typography variant="h2" gutterBottom className={classes.h2}>
+                {t('newsletter.header')}
+            </Typography>
+            <div className={classes.inputFields}>
+                <TextField
+                    required
+                    onChange={handleChange}
+                    value={type}
+                    id="type"
+                    label={t('newsletter.type')}
+                    fullWidth
+                />
+                <TextField
+                    required
+                    onChange={handleChange}
+                    value={topic}
+                    id="topic"
+                    label={t('newsletter.topic')}
+                    fullWidth
+                />
+                <TextField
+                    required
+                    onChange={handleChange}
+                    value={recipients}
+                    type="email"
+                    id="recipients"
+                    label={t('newsletter.recipients')}
+                    fullWidth
+                />
+            </div>
+            <WorkSpace message={message} setMessage={setMessage} />
+            <Button onClick={handleSubmit}>{t('newsletter.send')}</Button>
+        </div>
+    );
 };
 
 const useStyles = makeStyles({
-  h2: {
-    marginTop: '100px',
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  inputFields: {
-    marginBottom: '40px',
-  },
+    h2: {
+        marginTop: '100px',
+    },
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    inputFields: {
+        marginBottom: '40px',
+    },
 });

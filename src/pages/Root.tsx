@@ -13,25 +13,25 @@ import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 
 export const Root = () => {
-  return (
-    <>
-      <LanguageSelector />
-      <Router>
-        <div>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegistrationPage} />
-          <Route path="/admin/tests" component={TestResultsPage} />
-          <Route path="/admin/users" component={UsersPage} />
-          <Route path="/child/:childID" component={ChildProfile} />
-          <Route path="/admin" />
-          <Route path="/admin/parent/:id" component={ParentProfile} />
-          <Route path="/parent" />
-          <Route path="/admin/agreements" component={AdminAgreementsPage} />
-          <Route path="/parent/children" component={ChildrenListPage} />
-          <Route path="/admin/newsletter" component={NewsletterPage} />
-        </div>
-      </Router>
-    </>
-  );
+    return (
+        <>
+            <LanguageSelector />
+            <Router>
+                <div>
+                    <Route exact path="/" component={HomePage} />
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/register" component={RegistrationPage} />
+                    <Route path="/admin/tests" component={TestResultsPage} />
+                    <Route path="/admin/users" component={UsersPage} />
+                    <Route path="/child/:childID" component={ChildProfile} />
+                    <Route path="/admin" />
+                    <Route path="/admin/parent/:id" component={ParentProfile} />
+                    <Route path="/parent" />
+                    <Route path="/admin/agreements" component={AdminAgreementsPage} />
+                    <Route path="/parent/children" component={ChildrenListPage} />
+                    <Route path="/admin/newsletter" component={NewsletterPage} />
+                </div>
+            </Router>
+        </>
+    );
 };

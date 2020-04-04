@@ -1,76 +1,76 @@
 {
-  "home-page": {
-    "go-to-login-page": "Go to login page",
-    "log-out": "Log Out",
-    "go-to-registration-page": "Go to registration page",
-    "go-to-parent-children-page": "Go to parent children page"
-  },
-  "login-page": {
-    "login": "Login",
-    "login-error": "Sorry, you've provided wrong credentials or haven't been registered"
-  },
-  "registration-page": {
-    "already-have-account": "Already have an account?",
-    "password-mismatch": "Passwords do not match",
-    "register-success": "Account created. Please login.",
-    "password-confirm": "Repeat password",
-    "register": "Register"
-  },
-  "users-page": {
-    "agreements": "Agreements",
-    "users-list": "Users List"
-  },
-  "admin-agreements-page": {
-    "agreements-list": "Agreements list",
-    "agreement": "Agreement",
-    "show": "Show",
-    "agreements-all": "All agreements",
-    "req": "* required"
-  },
-  "e-mail": "E-Mail Address",
-  "password": "Password",
-  "no-results": "No Results",
-  "go-to-home-page": "Go to home page",
-  "languages": {
-    "pl": "Polish",
-    "en": "English"
-  },
-  "child-profile": {
-    "child-profile": "A Child's Profile",
-    "no-child": "Sorry, there is no child with this id"
-  },
-  "parent-profile": {
-    "parent": "Parent",
-    "no-parent": "There is no parent with the given id"
-  },
-  "test-results": {
-    "search-result": "Search Result",
-    "no-results": "No Results"
-  },
-  "alert-dialog": {
-    "error": "Error",
-    "warning": "Warning",
-    "info": "Info",
-    "success": "Success!"
-  },
-  "question-dialog": {
-    "yes": "Yes",
-    "no": "No"
-  },
-  "parent-children": {
-    "children": "Children",
-    "no-children-has-been-found": "No children has been found"
-  },
-  "newsletter": {
-    "header": "Newsletter",
-    "sending-error": "An error ocurred during sending the message.",
-    "sending-success": "The newsletter was sent.",
-    "type": "Type",
-    "topic": "Topic",
-    "recipients": "Recipients",
-    "send": "Send",
-    "placeholder": "Write your message here",
-    "fill-required-fields": "Please fill the required fields.",
-    "empty-message": "The message cannot be empty."
-  }
+    "home-page": {
+        "go-to-login-page": "Go to login page",
+        "log-out": "Log Out",
+        "go-to-registration-page": "Go to registration page",
+        "go-to-parent-children-page": "Go to parent children page"
+    },
+    "login-page": {
+        "login": "Login",
+        "login-error": "Sorry, you've provided wrong credentials or haven't been registered"
+    },
+    "registration-page": {
+        "already-have-account": "Already have an account?",
+        "password-mismatch": "Passwords do not match",
+        "register-success": "Account created. Please login.",
+        "password-confirm": "Repeat password",
+        "register": "Register"
+    },
+    "users-page": {
+        "agreements": "Agreements",
+        "users-list": "Users List"
+    },
+    "admin-agreements-page": {
+        "agreements-list": "Agreements list",
+        "agreement": "Agreement",
+        "show": "Show",
+        "agreements-all": "All agreements",
+        "req": "* required"
+    },
+    "e-mail": "E-Mail Address",
+    "password": "Password",
+    "no-results": "No Results",
+    "go-to-home-page": "Go to home page",
+    "languages": {
+        "pl": "Polish",
+        "en": "English"
+    },
+    "child-profile": {
+        "child-profile": "A Child's Profile",
+        "no-child": "Sorry, there is no child with this id"
+    },
+    "parent-profile": {
+        "parent": "Parent",
+        "no-parent": "There is no parent with the given id"
+    },
+    "test-results": {
+        "search-result": "Search Result",
+        "no-results": "No Results"
+    },
+    "alert-dialog": {
+        "error": "Error",
+        "warning": "Warning",
+        "info": "Info",
+        "success": "Success!"
+    },
+    "question-dialog": {
+        "yes": "Yes",
+        "no": "No"
+    },
+    "parent-children": {
+        "children": "Children",
+        "no-children-has-been-found": "No children has been found"
+    },
+    "newsletter": {
+        "header": "Newsletter",
+        "sending-error": "An error ocurred during sending the message.",
+        "sending-success": "The newsletter was sent.",
+        "type": "Type",
+        "topic": "Topic",
+        "recipients": "Recipients",
+        "send": "Send",
+        "placeholder": "Write your message here",
+        "fill-required-fields": "Please fill the required fields.",
+        "empty-message": "The message cannot be empty."
+    }
 }

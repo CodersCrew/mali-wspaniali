@@ -15,15 +15,15 @@ const firestore = firebaseApp.firestore();
 
 // Disable caching in test enviroment
 if (process.env.NODE_ENV !== 'test') {
-  firestore.enablePersistence();
+    firestore.enablePersistence();
 }
 
 export const firebase = {
-  auth: authRepository(auth),
-  child: childRepository(firestore),
-  user: userRepository(firestore),
-  agreement: adminAgreementRepository(firestore),
-  newsletter: newsletterRepository(firestore),
+    auth: authRepository(auth),
+    child: childRepository(firestore),
+    user: userRepository(firestore),
+    agreement: adminAgreementRepository(firestore),
+    newsletter: newsletterRepository(firestore),
 };
 
 export type User = firebaseApp.User;

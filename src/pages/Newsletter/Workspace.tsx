@@ -6,20 +6,20 @@ import { modules, formats } from './workspaceConfig';
 import { WorkspaceProps, Message } from './types';
 
 export const WorkSpace = (props: WorkspaceProps) => {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
 
-  const handleChange = (value: Message) => {
-    props.setMessage(value);
-  };
+    const handleChange = (value: Message) => {
+        props.setMessage(value);
+    };
 
-  return (
-    <ReactQuill
-      value={props.message}
-      onChange={handleChange}
-      theme="snow"
-      modules={modules}
-      formats={formats}
-      placeholder={t('newsletter.placeholder')}
-    />
-  );
+    return (
+        <ReactQuill
+            value={props.message}
+            onChange={handleChange}
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            placeholder={t('newsletter.placeholder')}
+        />
+    );
 };

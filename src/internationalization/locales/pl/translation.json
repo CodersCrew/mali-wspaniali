@@ -1,76 +1,76 @@
 {
-  "home-page": {
-    "go-to-login-page": "Strona logowania",
-    "log-out": "Wyloguj",
-    "go-to-registration-page": "Rejestracja",
-    "go-to-parent-children-page": "Moje dzieci"
-  },
-  "login-page": {
-    "login": "Zaloguj się",
-    "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany"
-  },
-  "registration-page": {
-    "already-have-account": "Masz już konto?",
-    "password-mismatch": "Podane hasła nie są takie same",
-    "register-success": "Konto zostało utworzone. Możesz się zalogować.",
-    "password-confirm": "Powtórz hasło",
-    "register": "Zarejestruj się"
-  },
-  "users-page": {
-    "agreements": "Zgody",
-    "users-list": "Lista użytkowników"
-  },
-  "admin-agreements-page": {
-    "agreements-list": "Lista zgód",
-    "agreement": "Zgoda",
-    "show": "Pokaż",
-    "agreements-all": "Wszystkie zgody",
-    "req": "* wymagane"
-  },
-  "e-mail": "Adres e-mail",
-  "password": "Hasło",
-  "no-results": "Brak wyników",
-  "go-to-home-page": "Strona główna",
-  "languages": {
-    "pl": "Polski",
-    "en": "Angielski"
-  },
-  "test-results": {
-    "search-result": "Wynik wyszukiwania",
-    "no-results": "Brak wyników"
-  },
-  "child-profile": {
-    "child-profile": "Profil dziecka",
-    "no-child": "Przepraszamy, nie ma dziecka o tym ID"
-  },
-  "parent-profile": {
-    "parent": "Rodzic",
-    "no-parent": "Nie istnieje rodzic o takim id"
-  },
-  "alert-dialog": {
-    "error": "Błąd",
-    "warning": "Uwaga!",
-    "info": "Info",
-    "success": "Sukces!"
-  },
-  "question-dialog": {
-    "yes": "Tak",
-    "no": "Nie"
-  },
-  "parent-children": {
-    "children": "Dzieci",
-    "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
-  },
-  "newsletter": {
-    "header": "Newsletter",
-    "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
-    "sending-success": "Newsletter został wysłany.",
-    "type": "Typ",
-    "topic": "Temat",
-    "recipients": "Odbiorcy",
-    "send": "Wyślij",
-    "placeholder": "Tu wpisz swoją wiadomość",
-    "fill-required-fields": "Proszę uzupełnić wymagane pola.",
-    "empty-message": "Wiadomość nie może być pusta."
-  }
+    "home-page": {
+        "go-to-login-page": "Strona logowania",
+        "log-out": "Wyloguj",
+        "go-to-registration-page": "Rejestracja",
+        "go-to-parent-children-page": "Moje dzieci"
+    },
+    "login-page": {
+        "login": "Zaloguj się",
+        "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany"
+    },
+    "registration-page": {
+        "already-have-account": "Masz już konto?",
+        "password-mismatch": "Podane hasła nie są takie same",
+        "register-success": "Konto zostało utworzone. Możesz się zalogować.",
+        "password-confirm": "Powtórz hasło",
+        "register": "Zarejestruj się"
+    },
+    "users-page": {
+        "agreements": "Zgody",
+        "users-list": "Lista użytkowników"
+    },
+    "admin-agreements-page": {
+        "agreements-list": "Lista zgód",
+        "agreement": "Zgoda",
+        "show": "Pokaż",
+        "agreements-all": "Wszystkie zgody",
+        "req": "* wymagane"
+    },
+    "e-mail": "Adres e-mail",
+    "password": "Hasło",
+    "no-results": "Brak wyników",
+    "go-to-home-page": "Strona główna",
+    "languages": {
+        "pl": "Polski",
+        "en": "Angielski"
+    },
+    "test-results": {
+        "search-result": "Wynik wyszukiwania",
+        "no-results": "Brak wyników"
+    },
+    "child-profile": {
+        "child-profile": "Profil dziecka",
+        "no-child": "Przepraszamy, nie ma dziecka o tym ID"
+    },
+    "parent-profile": {
+        "parent": "Rodzic",
+        "no-parent": "Nie istnieje rodzic o takim id"
+    },
+    "alert-dialog": {
+        "error": "Błąd",
+        "warning": "Uwaga!",
+        "info": "Info",
+        "success": "Sukces!"
+    },
+    "question-dialog": {
+        "yes": "Tak",
+        "no": "Nie"
+    },
+    "parent-children": {
+        "children": "Dzieci",
+        "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
+    },
+    "newsletter": {
+        "header": "Newsletter",
+        "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
+        "sending-success": "Newsletter został wysłany.",
+        "type": "Typ",
+        "topic": "Temat",
+        "recipients": "Odbiorcy",
+        "send": "Wyślij",
+        "placeholder": "Tu wpisz swoją wiadomość",
+        "fill-required-fields": "Proszę uzupełnić wymagane pola.",
+        "empty-message": "Wiadomość nie może być pusta."
+    }
 }
