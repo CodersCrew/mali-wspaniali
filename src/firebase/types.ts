@@ -1,14 +1,13 @@
 export type Document = firebase.firestore.DocumentData;
 
 export interface Article {
-  articleId: string;
-  headerHTML: string;
+  header: string;
   pictureUrl: string;    
   titles: string[];      //[1]short[2]long
-  contentHTML: string;    //[n]header[n+1]content
+  contentHTML: string;    
   tags: string[];
-  category: string;
-  descriptionHTML: string;
+  category: string[];
+  description: string;
   videoYtUrl: string;        //last video
   readingTime: number;
   redactor: Redactor;
@@ -16,11 +15,10 @@ export interface Article {
 }
 
 export interface Redactor {
-  profile: User;
+  avatarUrl: string;
   firstName: string;
   lastName: string;
   profession: string;
-  photoUrl: string;
   shortDescription: string;
 }
 
