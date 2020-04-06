@@ -61,33 +61,4 @@ jobs:
           path: build
     env:
       CI: true
-  deploy:
-    needs: [lint-and-test, build]
-    if: github.ref == 'refs/heads/master'
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Cache node modules
-        uses: actions/cache@v1
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Install Dependencies
-        run: npm install
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: build
-      - name: Deploy to Firebase
-        run: npx firebase deploy --only hosting
-    env:
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
