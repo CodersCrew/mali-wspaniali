@@ -1,52 +1,285 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import { getSingleArticleById } from '../../queries/singleArticleQueries';
+//import { useParams } from 'react-router-dom';
+//import { useTranslation } from 'react-i18next';
+//import { useAuthorization } from '../../hooks/useAuthorization';
+import { getSingleArticleById, getSimilarArticlesListData} from '../../queries/singleArticleQueries';
 import { load } from '../../utils/load';
 import { Article } from '../../firebase/types';
-import { Typography } from '@material-ui/core';
-
+import { Typography, Container, makeStyles, createStyles, Grid, createMuiTheme, Theme, ThemeProvider, Button, Box } from '@material-ui/core';
 
 export const SingleBlogArticle = () => {
-    useAuthorization(true, '/', ['admin', 'parent']);
-    const { t } = useTranslation();
-    const { articleId } = useParams<{ articleId: string }>();
+    //useAuthorization(true, '/', ['admin', 'parent']);
+    const theme = createMuiTheme({
+        typography: {
+            fontFamily: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                '"Segoe UI"',
+                'Roboto',
+                '"Helvetica Neue"',
+                'Arial',
+                'sans-serif',
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+                '"Montserrat"',
+            ].join(','),
+        },
+    });
+
+    const useStyles = makeStyles((theme: Theme) => 
+        createStyles({
+            typography : {
+                fontFamily: 'Montserrat',
+            },
+            rootBlogSingleArticleContainer: {
+                backgroundColor: '#008aad',
+            },
+            rootGrid: {
+                padding: '10px 20px 20px 5vw',
+            },
+            rootContainer: {
+                backgroundColor: '#f1f2f4',
+                borderRadius: '20px',
+                height: '1000px',
+                padding: '50px 0px 0px 5vw',
+            },
+            displayPath: {
+                justifyContent: 'flex-start',
+            },
+            displayPathText: {
+                fontWeight: 'bold',
+                letterSpacing: '2px',
+                lineHeight: '1.17',
+                margin: '0px 5px 0px 5px',
+
+            },
+            displayPathTextButton: {
+                margin: '-8px 0px 0px 0px',
+            },
+            displayPathTitle: {
+                color: '#656269',
+                letterSpacing: '2px',
+                lineHeight: '1.17',
+                fontSize: '12px',
+                padding: '1px 5px 0px 10px',
+            },
+            displayPathArrow: {
+                border: 'solid #ff7149',
+                borderWidth: '0px 3px 3px 0px',
+                padding: '4px',
+                margin: '0px 5px 0px 5px',
+                width: '5px',
+                height: '5px',
+                transform: 'rotate(-45deg)',
+
+            },
+            headerLongTitle: {
+                padding: '40px 0px 100px 0px',
+            },
+            headerLongTitleText: {
+                fontSize: '34px',
+                color: '#008aad',
+                fontWeight: 'bold',
+                letterSpacing: '2px',
+                lineHeight: '1.17',
+            },
+            content: {
+                backgroundColor: '#ffffff',
+                padding: '0px 30px 40px 30px'
+            },
+            contentHeader: {
+
+            },
+            contentHeaderText: {
+                fontSize: '20px',
+                fontWeight: 'bolder',
+                letterSpacing: '2px',
+                lineHeight: '1.17',
+                padding: '0px 0px 30px 0px',
+            },
+            contentHeaderPhoto: {
+                borderRadius: '4px',
+                border: 'solid #00000020',
+
+            },
+            contentHeaderPhotoMedia: {
+                maxHeight: '500px',
+            },
+            contentHeaderCategory: {
+                padding: '1px 0px 50px 0px',
+            },
+            contentHeaderCategoryBackground: {
+                backgroundColor: '#f5a56e',
+                height: '25px',
+                width: '85px',
+                borderRadius: '4px',
+                margin: '0px 0px 0px 5vw',
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                textAlign: 'center',
+            },
+            contentHeaderCategoryText: {
+                color: '#ffffff',
+                letterSpacing: '2px',
+                fontSize: '10px',
+                lineHeight: '1.17',
+            },
+            singleArticle: {
+                position: 'absolute',
+                width: '80%',
+                backgroundColor: theme.palette.background.paper,
+                boxShadow: theme.shadows[5],
+                padding: theme.spacing(2, 4, 3),
+            },
+        }),
+    );
+    const classes = useStyles();
+    //const { t } = useTranslation();
+    //const { articleId } = useParams<{ articleId: string }>();
+    const [articleId] = useState<string>('KRw6nEGIXsTnAXrpBIqg');
     const [article, setArticle] = useState<Article>();
+    const [similarArticles, setSimilarArticles] = useState<Article[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
 
     const detachListeners = () => {
         listeners.forEach(listener => () => listener());
     };
 
-    const waitForArticleData = async (articleId: string) => {
+    const waitForArticlesData = async () => {
         const { article, unsubscribe } = await getSingleArticleById(articleId);
         if (unsubscribe) {
             setArticle(article);
-            setListeners([...listeners, unsubscribe]);
+            const { articleList, unsubscribed } = await getSimilarArticlesListData(article, article.category, article.tags);
+            if (unsubscribed) {
+                setSimilarArticles(articleList);
+                setListeners([...listeners, unsubscribe, unsubscribed]);
+            };
         };
     };
 
     useEffect(() => {
-        load(waitForArticleData(articleId));
+        //load(waitForArticleData(articleId));
+        //load(waitForArticleListData());
+        load(waitForArticlesData());
         return () => detachListeners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return article ?
-        (
-            <>
-                <Typography variant="h4">
-                    Jest
-            </Typography>
-            </>
-        ) :
-        (
-            <>
-                <Typography variant="h4">
-                    Ni ma
-            </Typography>
-            </>
-        )
-
-}
+    return (
+        <>
+            <ThemeProvider theme={theme}>
+                <div className={classes.rootBlogSingleArticleContainer}>
+                    {article && similarArticles ? (
+                            <>
+                                <Container>
+                                    <Grid className={classes.rootGrid} container>
+                                        <Grid className={classes.rootContainer} item xs={12}
+                                        direction="row">
+                                            <Grid 
+                                                className={classes.displayPath} container 
+                                                xs={10} 
+                                                direction={"row"}
+                                            >
+                                                <Button
+                                                    className={classes.displayPathTextButton}
+                                                    href="#BLOG"
+                                                    disableElevation
+                                                    disableFocusRipple
+                                                    disableRipple
+                                                    disableTouchRipple
+                                                >
+                                                    <Typography className={classes.displayPathText}>
+                                                        BLOG
+                                                    </Typography>
+                                                </Button>
+                                                <Typography className={classes.displayPathArrow} />
+                                                <Button // eslint-disable-next-line
+                                                    className={classes. displayPathTextButton}
+                                                    href={`#${article.category[0].toUpperCase()}`}
+                                                    disableElevation
+                                                    disableFocusRipple
+                                                    disableRipple
+                                                    disableTouchRipple
+                                                >
+                                                    <Typography className={classes.displayPathText}>
+                                                        {article.category[0].toUpperCase()}
+                                                    </Typography>
+                                                </Button>
+                                                <Typography className={classes.displayPathArrow} />
+                                                <Typography className={classes.displayPathTitle}>
+                                                    {article.titles[0].toUpperCase()}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid
+                                                className={classes.headerLongTitle}
+                                                container
+                                                xs={10}
+                                                direction="row"
+                                            >
+                                                <Typography className={classes.headerLongTitleText}>
+                                                    {article.titles[1].toUpperCase()} 
+                                                </Typography>
+                                            </Grid>
+                                            <Grid
+                                                className={classes.content}
+                                                container
+                                                xs={11}
+                                            >
+                                                <Grid
+                                                    className={classes.contentHeaderCategory}
+                                                    container
+                                                    xs={12}
+                                                    direction="row"
+                                                >
+                                                    <Typography
+                                                        className={classes.contentHeaderCategoryText}
+                                                    >   
+                                                        <Box
+                                                            className={classes.contentHeaderCategoryBackground}
+                                                            fontWeight={600}  
+                                                        >
+                                                            {article.category[0]}
+                                                        </Box>
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid
+                                                    className={classes.contentHeader}
+                                                    container
+                                                    xs={12}
+                                                    direction="row"
+                                                >
+                                                    <Typography className={classes.contentHeaderText}>
+                                                        {`${article.header.toUpperCase()}`}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid
+                                                    className={classes.contentHeaderPhoto}
+                                                    container
+                                                    xs={12}
+                                                    direction="row"
+                                                >
+                                                    <Container
+                                                        className={classes.contentHeaderPhotoMedia}
+                                                    >
+                                                    <img src={article.pictureUrl}>
+                                                    </img>
+                                                    </Container>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Container>
+                            </>
+                        ) : (
+                            <>
+                                <Typography variant="h4"></Typography>
+                            </>
+                        )
+                    }
+                </div>
+            </ThemeProvider>
+        </>
+    );
+};

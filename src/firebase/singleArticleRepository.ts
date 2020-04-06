@@ -7,45 +7,90 @@ type dataPromiseTypes = {
     unsubscribe: () => void;
 };
 
+type listDataPromiseTypes = {
+    articleList: Article[];
+    unsubscribed: () => void;
+};
+
 export const singleArticleRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getArticleDocById: (
-        articleId: string,
-    ) => {
+    getArticleDocById: (articleId: string) => {
         let article: Article;
         const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
             if (!snapshot.empty) {
                 snapshot.forEach(doc => {
                     if (doc.id === articleId) {
                         article = doc.data() as Article;
-                    };
+                    }
                 });
-            };
+            }
         };
         const getQuery = (
             resolve: (value: dataPromiseTypes) => void,
             reject: (reason: Error) => void,
         ): (() => void) => {
-            const articleRef =
-                db.collection('blog-articles')
-                    .doc(articleId);
-            const unsubscribe =
-                articleRef.onSnapshot(
-                    snapshot => {
-                        logQuery(snapshot);
-                        handleData(snapshot);
-                        resolve({
-                            article,
-                            unsubscribe,
-                        });
-                    },
-                    (error: Error) => {
-                        reject(error);
-                    },
-                );
+            const articleRef = db.collection('blog-articles').orderBy('category');
+            const unsubscribe = articleRef.onSnapshot(
+                snapshot => {
+                    logQuery(snapshot);
+                    handleData(snapshot);
+                    resolve({
+                        article,
+                        unsubscribe,
+                    });
+                },
+                (error: Error) => {
+                    reject(error);
+                },
+            );
             return unsubscribe;
         };
-        return new Promise<dataPromiseTypes>((resolve,
-            reject) => {
+        return new Promise<dataPromiseTypes>((resolve, reject) => {
+            getQuery(resolve, reject);
+        });
+    },
+    getSimilarArticlesListData: (article: Article, category: string[], tags: string[]) => {
+        const articleList: Article[] = [];
+        const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
+            if (!snapshot.empty) {
+                snapshot.forEach(doc => {
+                    let docData = doc.data() as Article;
+                    if (!(articleList.length > 3) && !(articleList.includes(docData)) && (docData.titles[0] !== article.titles[0])) {
+                            // eslint-disable-next-line
+                        category.some(cat => {
+                            if (docData.category.includes(cat))
+                                articleList.push(docData);
+                        });
+                        // eslint-disable-next-line
+                        tags.some(tag => {
+                            if (docData.tags.includes(tag))
+                                articleList.push(docData);
+                        });
+                    }
+                });
+            }
+        };
+        const getQuery = (
+            resolve: (value: listDataPromiseTypes) => void,
+            reject: (reason: Error) => void,
+        ): (() => void) => {
+            const articleListRef = db.collection('blog-articles').orderBy('category');
+            const unsubscribed = articleListRef
+            .onSnapshot(
+                snapshot => {
+                    logQuery(snapshot);
+                    handleData(snapshot);
+                    resolve({
+                        articleList,
+                        unsubscribed,
+                    });
+                },
+                (error: Error) => {
+                    reject(error);
+                },
+            );
+            return unsubscribed;
+        };
+        return new Promise<listDataPromiseTypes>((resolve, reject) => {
             getQuery(resolve, reject);
         });
     },
