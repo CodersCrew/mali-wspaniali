@@ -53,17 +53,19 @@ export const singleArticleRepository = (db: firebaseApp.firestore.Firestore) => 
         const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
             if (!snapshot.empty) {
                 snapshot.forEach(doc => {
-                    let docData = doc.data() as Article;
-                    if (!(articleList.length > 3) && !(articleList.includes(docData)) && (docData.titles[0] !== article.titles[0])) {
-                            // eslint-disable-next-line
+                    const docData = doc.data() as Article;
+                    if (
+                        !(articleList.length > 3) &&
+                        !articleList.includes(docData) &&
+                        docData.titles[0] !== article.titles[0]
+                    ) {
+                        // eslint-disable-next-line
                         category.some(cat => {
-                            if (docData.category.includes(cat))
-                                articleList.push(docData);
+                            if (docData.category.includes(cat)) articleList.push(docData);
                         });
                         // eslint-disable-next-line
                         tags.some(tag => {
-                            if (docData.tags.includes(tag))
-                                articleList.push(docData);
+                            if (docData.tags.includes(tag)) articleList.push(docData);
                         });
                     }
                 });
@@ -74,8 +76,7 @@ export const singleArticleRepository = (db: firebaseApp.firestore.Firestore) => 
             reject: (reason: Error) => void,
         ): (() => void) => {
             const articleListRef = db.collection('blog-articles').orderBy('category');
-            const unsubscribed = articleListRef
-            .onSnapshot(
+            const unsubscribed = articleListRef.onSnapshot(
                 snapshot => {
                     logQuery(snapshot);
                     handleData(snapshot);
