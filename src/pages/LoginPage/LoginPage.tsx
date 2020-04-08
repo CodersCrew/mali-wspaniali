@@ -43,13 +43,19 @@ export const LoginPage = () => {
         <>
             <Link to="/">{t('go-to-home-page')}</Link>
             <div className={classes.container}>
-                <form onSubmit={handleSubmit} autoComplete="off">
+                <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
+                    <div className={classes.loginText}>
+                        {t('login-page.login-text')}
+                    </div>
                     <TextField
                         required
                         onChange={event => setEmail(event.target.value)}
                         value={email}
                         id="email"
                         label={t('e-mail')}
+                        variant="outlined"
+                        helperText={t('login-page.e-mail-helper-text')}
+                        className={classes.formItem}
                     />
                     <TextField
                         required
@@ -58,12 +64,14 @@ export const LoginPage = () => {
                         id="password"
                         label={t('password')}
                         type="password"
+                        variant="outlined"
+                        className={classes.formItem}
                     />
                     <Button
                         type="submit"
                         variant="contained"
                         color="primary"
-                        style={{ marginTop: '20px', float: 'right' }}
+                        style={{ marginTop: '20px', float: 'right', alignSelf: 'flex-end' }}
                     >
                         {t('login-page.login')}
                     </Button>
@@ -79,5 +87,23 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        height: '100vh',
+    },
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '80%',
+    },
+    formItem: {
+        margin: '20px',
+        width: '100%',
+    },
+    loginText: {
+        textAlign: 'center',
+        fontSize: '21px',
+        fontWeight: 'bold',
+        marginBottom: '25px',
     },
 });
