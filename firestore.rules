@@ -6,7 +6,8 @@ service cloud.firestore {
     	allow read, write: if request.auth.uid == userID
     }
     match /child/{childID} {
-      allow read, write: if request.time < timestamp.date(2020, 5, 25);
+    	allow read, write: if request.auth.token.role == "admin"
+    	allow read, create, update: if resource.data.userId == request.auth.uid
     }
     match /agreement/{agreementID} {
       allow read, write: if request.time < timestamp.date(2020, 5, 25);

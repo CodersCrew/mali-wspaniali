@@ -6,7 +6,6 @@ import { modules, formats } from './workspaceConfig';
 import { WorkspaceProps, Message } from './types';
 
 export const WorkSpace = (props: WorkspaceProps) => {
-
     const { t } = useTranslation();
 
     const handleChange = (value: Message) => {
@@ -14,7 +13,13 @@ export const WorkSpace = (props: WorkspaceProps) => {
     };
 
     return (
-        <ReactQuill value={props.message} onChange={handleChange} theme="snow" modules={modules}
-            formats={formats} placeholder={t('newsletter.placeholder')} />
+        <ReactQuill
+            value={props.message}
+            onChange={handleChange}
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            placeholder={t('newsletter.placeholder')}
+        />
     );
 };
