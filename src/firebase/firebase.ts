@@ -13,7 +13,6 @@ firebaseApp.initializeApp(config);
 
 const auth = firebaseApp.auth();
 const firestore = firebaseApp.firestore();
-firebaseApp.functions().useFunctionsEmulator('http://localhost:5001');
 
 // Disable caching in test enviroment
 if (process.env.NODE_ENV !== 'test') {

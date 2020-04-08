@@ -7,7 +7,7 @@ import { load } from '../../utils/load';
 
 export const DatabaseBackupButton = () => {
   // Temporary solution until admin page is up
-  const isProd = true;
+  const isProd = false;
 
   const { t } = useTranslation();
 
