@@ -2,6 +2,7 @@ import firebaseApp from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
+import 'firebase/storage';
 import config from './config';
 import { authRepository } from './authRepository';
 import { childRepository } from './childRepository';
@@ -12,6 +13,7 @@ firebaseApp.initializeApp(config);
 
 const auth = firebaseApp.auth();
 const firestore = firebaseApp.firestore();
+firebaseApp.functions().useFunctionsEmulator('http://localhost:5001');
 
 // Disable caching in test enviroment
 if (process.env.NODE_ENV !== 'test') {

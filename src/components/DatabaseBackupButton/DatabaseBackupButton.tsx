@@ -1,26 +1,43 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import { getDatabaseBackup } from '../../queries/httpQueries';
-import { setFileName } from './utils';
+import { getDatabaseBackup, getStorageRef } from '../../queries/httpQueries';
+import { getCurrentUserIdToken } from '../../queries/userQueries';
 import { load } from '../../utils/load';
 
 export const DatabaseBackupButton = () => {
   // Temporary solution until admin page is up
-  const isProd = false;
+  const isProd = true;
 
   const { t } = useTranslation();
 
   const getBackup = () => {
     load(
-      getDatabaseBackup().then(response => {
-        const json = JSON.stringify(response);
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = setFileName();
-        a.click();
+      getDatabaseBackup().then(async response => {
+        const fileName = response.data.fileName;
+        const fileRef = getStorageRef(response.data.backupUrl);
+        const [idToken, fileUrl] = await Promise.all([
+          getCurrentUserIdToken(),
+          fileRef.getDownloadURL(),
+        ]);
+        fetch(fileUrl, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        })
+          .then(response => {
+            response.blob().then(blob => {
+              let url = window.URL.createObjectURL(blob);
+              let a = document.createElement('a');
+              a.href = url;
+              a.download = fileName;
+              a.click();
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }),
     );
   };
