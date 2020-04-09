@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import Interweave from 'interweave';
+import { SingleArticleColors } from '../../colors';
 //import { useParams } from 'react-router-dom';
 //import { useTranslation } from 'react-i18next';
 //import { useAuthorization } from '../../hooks/useAuthorization';
@@ -24,13 +25,14 @@ export const SingleBlogArticle = () => {
                 fontFamily: 'Montserrat',
             },
             rootBlogSingleArticleContainer: {
-                backgroundColor: '#008aad',
+                backgroundColor: SingleArticleColors.mainColor,
+                maxWidth: 'inherit',
             },
             rootGrid: {
-                padding: '10px 20px 20px 5vw',
+                padding: '10px 20px 20px 0px',
             },
             rootContainer: {
-                backgroundColor: '#f1f2f4',
+                backgroundColor: SingleArticleColors.backgroundColor,
                 borderRadius: '20px',
                 height: '3000px',
                 padding: '50px 0px 0px 5vw',
@@ -48,14 +50,15 @@ export const SingleBlogArticle = () => {
                 margin: '-8px 0px 0px 0px',
             },
             displayPathTitle: {
-                color: '#656269',
+                color: SingleArticleColors.title,
                 letterSpacing: '2px',
                 lineHeight: '1.17',
                 fontSize: '12px',
                 padding: '1px 5px 0px 10px',
             },
             displayPathArrow: {
-                border: 'solid #ff7149',
+                border: 'solid',
+                borderColor: SingleArticleColors.arrow,
                 borderWidth: '0px 3px 3px 0px',
                 padding: '4px',
                 margin: '0px 5px 0px 5px',
@@ -68,13 +71,13 @@ export const SingleBlogArticle = () => {
             },
             headerLongTitleText: {
                 fontSize: '34px',
-                color: '#008aad',
+                color: SingleArticleColors.mainColor,
                 fontWeight: 'bold',
                 letterSpacing: '2px',
                 lineHeight: '1.17',
             },
             content: {
-                backgroundColor: '#ffffff',
+                backgroundColor: SingleArticleColors.contentBackground,
                 padding: '0px 30px 0px 30px',
             },
             contentHeader: {},
@@ -87,7 +90,8 @@ export const SingleBlogArticle = () => {
             },
             contentHeaderPhoto: {
                 borderRadius: '4px',
-                border: 'solid #d7d6d6',
+                border: 'solid',
+                borderColor: SingleArticleColors.break,
                 borderWidth: '2px',
             },
             contentHeaderPhotoMedia: {
@@ -99,7 +103,6 @@ export const SingleBlogArticle = () => {
                 padding: '1px 0px 50px 0px',
             },
             contentHeaderCategoryBackground: {
-                backgroundColor: '#f5a56e',
                 height: '25px',
                 width: '85px',
                 borderRadius: '4px',
@@ -110,7 +113,7 @@ export const SingleBlogArticle = () => {
                 textAlign: 'center',
             },
             contentHeaderCategoryText: {
-                color: '#ffffff',
+                color: SingleArticleColors.contentBackground,
                 letterSpacing: '2px',
                 fontSize: '10px',
                 lineHeight: '1.17',
@@ -122,8 +125,10 @@ export const SingleBlogArticle = () => {
             videoContent: {
                 padding: '15px 0px 0px 0px',
                 margin: '30px 0px 30px 0px',
-                borderTop: 'solid #d7d6d6',
-                borderBottom: 'solid #d7d6d6',
+                borderTop: 'solid',
+                borderTopColor: SingleArticleColors.break,
+                borderBottom: 'solid',
+                borderBottomColor: SingleArticleColors.break,
                 borderTopWidth: '1px',
                 borderBottomWidth: '1px',
             },
@@ -144,7 +149,7 @@ export const SingleBlogArticle = () => {
                 padding: '30px 0px 30px 0px',
             },
             videoContentTagsDisplayButton: {
-                backgroundColor: '#e0e0e0',
+                backgroundColor: SingleArticleColors.tagButton,
                 width: '15%',
                 height: '40px',
                 padding: '0px',
@@ -155,10 +160,9 @@ export const SingleBlogArticle = () => {
             },
             singleArticle: {
                 position: 'absolute',
-                width: '80%',
+                width: '100%',
                 backgroundColor: theme.palette.background.paper,
                 boxShadow: theme.shadows[5],
-                padding: theme.spacing(2, 4, 3),
             },
         }),
     );
@@ -187,8 +191,6 @@ export const SingleBlogArticle = () => {
     };
 
     useEffect(() => {
-        //load(waitForArticleData(articleId));
-        //load(waitForArticleListData());
         load(waitForArticlesData());
         return () => detachListeners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -197,7 +199,7 @@ export const SingleBlogArticle = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <div className={classes.rootBlogSingleArticleContainer}>
+                <Container className={classes.rootBlogSingleArticleContainer}>
                     {article && similarArticles ? (
                         <>
                             <Container>
@@ -245,14 +247,19 @@ export const SingleBlogArticle = () => {
                                                     xs={12}
                                                     direction="row"
                                                 >
-                                                    <Typography className={classes.contentHeaderCategoryText}>
-                                                        <Box
-                                                            className={classes.contentHeaderCategoryBackground}
-                                                            fontWeight={600}
+                                                    {article.category.map(cat => {
+                                                        return(
+                                                        <Typography className={classes.contentHeaderCategoryText}
                                                         >
-                                                            {article.category[0]}
-                                                        </Box>
-                                                    </Typography>
+                                                            <Box
+                                                                className={classes.contentHeaderCategoryBackground}
+                                                                fontWeight={600}
+                                                            >
+                                                                {cat}
+                                                            </Box>
+                                                        </Typography>
+                                                        )
+                                                    })}
                                                 </Grid>
                                                 <Grid container xs={12} direction="row">
                                                     <Typography className={classes.contentHeaderText}>
@@ -305,15 +312,14 @@ export const SingleBlogArticle = () => {
                                                 direction="row"
                                             >
                                                 <Container className={classes.videoContentTagsDisplay}>
-                                                    <Button
-                                                        className={classes.videoContentTagsDisplayButton}
-                                                    >{`#${article.tags[0]}`}</Button>
-                                                    <Button
-                                                        className={classes.videoContentTagsDisplayButton}
-                                                    >{`#${article.tags[1]}`}</Button>
-                                                    <Button
-                                                        className={classes.videoContentTagsDisplayButton}
-                                                    >{`#${article.tags[2]}`}</Button>
+                                                    {article.tags.map(tag =>{                               return (
+                                                            <Button
+                                                                className={classes.videoContentTagsDisplayButton}
+                                                            >{`#${tag}`}
+                                                            </Button>
+                                                        )
+                                                    }
+                                                    )}
                                                 </Container>
                                             </Grid>
                                         </Grid>
@@ -330,7 +336,7 @@ export const SingleBlogArticle = () => {
                             <Typography variant="h4"></Typography>
                         </>
                     )}
-                </div>
+                </Container>
             </ThemeProvider>
         </>
     );
