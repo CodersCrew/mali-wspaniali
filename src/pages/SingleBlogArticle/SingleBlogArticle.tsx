@@ -1,168 +1,27 @@
 import React, { useState, useEffect} from 'react';
-import Interweave from 'interweave';
-import { SingleArticleColors } from '../../colors';
 //import { useParams } from 'react-router-dom';
 //import { useTranslation } from 'react-i18next';
+import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
+
 //import { useAuthorization } from '../../hooks/useAuthorization';
 import { getSingleArticleById, getSimilarArticlesListData} from '../../queries/singleArticleQueries';
 import { load } from '../../utils/load';
 import { Article } from '../../firebase/types';
-import { Typography, Container, makeStyles, createStyles, Grid, createMuiTheme, Theme, ThemeProvider, Button, Box, CardMedia } from '@material-ui/core';
+import { DisplayPath } from './DisplayPath';
+import { DisplayHeader } from './DisplayHeader';
+import { DisplayContent } from './DisplayContent';
+import { DisplayVideo } from './DisplayVideo';
+import { DisplayRedactor } from './DisplayRedactor';
 
 export const SingleBlogArticle = () => {
     //useAuthorization(true, '/', ['admin', 'parent']);
-    const theme = createMuiTheme({
-        typography: {
-            fontFamily: [
-                '"Montserrat"',
-            ].join(','),
-        },
-    });
-
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             typography: {
                 fontFamily: 'Montserrat',
             },
-            rootBlogSingleArticleContainer: {
-                backgroundColor: SingleArticleColors.mainColor,
-                maxWidth: 'inherit',
-            },
             rootGrid: {
-                padding: '10px 20px 20px 0px',
-            },
-            rootContainer: {
-                backgroundColor: SingleArticleColors.backgroundColor,
-                borderRadius: '20px',
-                height: '3000px',
-                padding: '50px 0px 0px 5vw',
-            },
-            displayPath: {
-                justifyContent: 'flex-start',
-            },
-            displayPathText: {
-                fontWeight: 'bold',
-                letterSpacing: '2px',
-                lineHeight: '1.17',
-                margin: '0px 5px 0px 5px',
-            },
-            displayPathTextButton: {
-                margin: '-8px 0px 0px 0px',
-            },
-            displayPathTitle: {
-                color: SingleArticleColors.title,
-                letterSpacing: '2px',
-                lineHeight: '1.17',
-                fontSize: '12px',
-                padding: '1px 5px 0px 10px',
-            },
-            displayPathArrow: {
-                border: 'solid',
-                borderColor: SingleArticleColors.arrow,
-                borderWidth: '0px 3px 3px 0px',
-                padding: '4px',
-                margin: '0px 5px 0px 5px',
-                width: '5px',
-                height: '5px',
-                transform: 'rotate(-45deg)',
-            },
-            headerLongTitle: {
-                padding: '40px 0px 100px 0px',
-            },
-            headerLongTitleText: {
-                fontSize: '34px',
-                color: SingleArticleColors.mainColor,
-                fontWeight: 'bold',
-                letterSpacing: '2px',
-                lineHeight: '1.17',
-            },
-            content: {
-                backgroundColor: SingleArticleColors.contentBackground,
-                padding: '0px 30px 0px 30px',
-            },
-            contentHeader: {},
-            contentHeaderText: {
-                fontSize: '20px',
-                fontWeight: 'bolder',
-                letterSpacing: '2px',
-                lineHeight: '1.17',
-                padding: '0px 0px 30px 0px',
-            },
-            contentHeaderPhoto: {
-                borderRadius: '4px',
-                border: 'solid',
-                borderColor: SingleArticleColors.break,
-                borderWidth: '2px',
-            },
-            contentHeaderPhotoMedia: {
-                maxHeight: '500px',
-                height: '100%',
-                width: '100%',
-            },
-            contentHeaderCategory: {
-                padding: '1px 0px 50px 0px',
-            },
-            contentHeaderCategoryBackground: {
-                height: '25px',
-                width: '85px',
-                borderRadius: '4px',
-                margin: '0px 0px 0px 5vw',
-                display: 'flex',
-                justifyContent: 'center',
-                flexDirection: 'column',
-                textAlign: 'center',
-            },
-            contentHeaderCategoryText: {
-                color: SingleArticleColors.contentBackground,
-                letterSpacing: '2px',
-                fontSize: '10px',
-                lineHeight: '1.17',
-            },
-            mainContentHTML: {
-                padding: '30px 0px 0px 0px',
-                height: '600px',
-            },
-            videoContent: {
-                padding: '15px 0px 0px 0px',
-                margin: '30px 0px 30px 0px',
-                borderTop: 'solid',
-                borderTopColor: SingleArticleColors.break,
-                borderBottom: 'solid',
-                borderBottomColor: SingleArticleColors.break,
-                borderTopWidth: '1px',
-                borderBottomWidth: '1px',
-            },
-            videoContentPlayerContainer: {
-                padding: '15px 0px 80px 0px',
-            },
-            videoContentPlayer: {
-                width: '90%',
-                height: '100%',
-                minHeight: '400px',
-                padding: '30px 0px 0px 5%',
-                border: 'none',
-            },
-            videoContentTags: {
-                padding: '0px 0px 30px 0px',
-            },
-            videoContentTagsDisplay: {
-                padding: '30px 0px 30px 0px',
-            },
-            videoContentTagsDisplayButton: {
-                backgroundColor: SingleArticleColors.tagButton,
-                width: '15%',
-                height: '40px',
-                padding: '0px',
-                margin: '0px 5% 0px 0px',
-                fontFamily: 'Roboto',
-                fontSize: '15px',
-                fontWeight: 'bold',
-            },
-            singleArticle: {
-                position: 'absolute',
-                width: '100%',
-                backgroundColor: theme.palette.background.paper,
-                boxShadow: theme.shadows[5],
+                padding: '3.57vw 12.14vw 2.85vw 6.07vw',
             },
         }),
     );
@@ -177,7 +36,6 @@ export const SingleBlogArticle = () => {
     const detachListeners = () => {
         listeners.forEach(listener => () => listener());
     };
-
     const waitForArticlesData = async () => {
         const { article, unsubscribe } = await getSingleArticleById(articleId);
         if (unsubscribe) {
@@ -189,155 +47,34 @@ export const SingleBlogArticle = () => {
             };
         };
     };
-
     useEffect(() => {
         load(waitForArticlesData());
         return () => detachListeners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return (
+    return article && similarArticles ? (
         <>
-            <ThemeProvider theme={theme}>
-                <Container className={classes.rootBlogSingleArticleContainer}>
-                    {article && similarArticles ? (
-                        <>
-                            <Container>
-                                <Grid className={classes.rootGrid} container>
-                                    <Grid className={classes.rootContainer} item xs={12} direction="row">
-                                        <Grid className={classes.displayPath} container xs={10} direction={'row'}>
-                                            <Button
-                                                className={classes.displayPathTextButton}
-                                                href="#BLOG"
-                                                disableElevation
-                                                disableFocusRipple
-                                                disableRipple
-                                                disableTouchRipple
-                                            >
-                                                <Typography className={classes.displayPathText}>BLOG</Typography>
-                                            </Button>
-                                            <Typography className={classes.displayPathArrow} />
-                                            <Button // eslint-disable-next-line
-                                                className={classes.displayPathTextButton}
-                                                href={`#${article.category[0].toUpperCase()}`}
-                                                disableElevation
-                                                disableFocusRipple
-                                                disableRipple
-                                                disableTouchRipple
-                                            >
-                                                <Typography className={classes.displayPathText}>
-                                                    {article.category[0].toUpperCase()}
-                                                </Typography>
-                                            </Button>
-                                            <Typography className={classes.displayPathArrow} />
-                                            <Typography className={classes.displayPathTitle}>
-                                                {article.titles[0].toUpperCase()}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid className={classes.headerLongTitle} container xs={10} direction="row">
-                                            <Typography className={classes.headerLongTitleText}>
-                                                {article.titles[1].toUpperCase()}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid className={classes.content} container xs={11}>
-                                            <Grid className={classes.contentHeader} container xs={12} direction="row">
-                                                <Grid
-                                                    className={classes.contentHeaderCategory}
-                                                    container
-                                                    xs={12}
-                                                    direction="row"
-                                                >
-                                                    {article.category.map(cat => {
-                                                        return(
-                                                        <Typography className={classes.contentHeaderCategoryText}
-                                                        >
-                                                            <Box
-                                                                className={classes.contentHeaderCategoryBackground}
-                                                                fontWeight={600}
-                                                            >
-                                                                {cat}
-                                                            </Box>
-                                                        </Typography>
-                                                        )
-                                                    })}
-                                                </Grid>
-                                                <Grid container xs={12} direction="row">
-                                                    <Typography className={classes.contentHeaderText}>
-                                                        {`${article.header.toUpperCase()}`}
-                                                    </Typography>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid
-                                                className={classes.contentHeaderPhoto}
-                                                container
-                                                xs={12}
-                                                direction="row"
-                                            >
-                                                <CardMedia
-                                                    className={classes.contentHeaderPhotoMedia}
-                                                    component="img"
-                                                    image={article.pictureUrl}
-                                                />
-                                            </Grid>
-                                            <Grid>
-                                                <Grid
-                                                    className={classes.mainContentHTML}
-                                                    container
-                                                    xs={12}
-                                                    direction="row"
-                                                >
-                                                    <Interweave content={article.contentHTML} />
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className={classes.videoContent} container xs={11}>
-                                            <Grid
-                                                className={classes.videoContentPlayerContainer}
-                                                container
-                                                xs={12}
-                                                direction="row"
-                                            >
-                                                <Container>
-                                                    <CardMedia
-                                                        className={classes.videoContentPlayer}
-                                                        component="iframe"
-                                                        src={article.videoUrl}
-                                                    />
-                                                </Container>
-                                            </Grid>
-                                            <Grid
-                                                className={classes.videoContentTags}
-                                                container
-                                                xs={12}
-                                                direction="row"
-                                            >
-                                                <Container className={classes.videoContentTagsDisplay}>
-                                                    {article.tags.map(tag =>{                               return (
-                                                            <Button
-                                                                className={classes.videoContentTagsDisplayButton}
-                                                            >{`#${tag}`}
-                                                            </Button>
-                                                        )
-                                                    }
-                                                    )}
-                                                </Container>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid
-                                        >
-
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Container>
-                        </>
-                    ) : (
-                        <>
-                            <Typography variant="h4"></Typography>
-                        </>
-                    )}
-                </Container>
-            </ThemeProvider>
+            <Grid className={classes.rootGrid} container direction="column">
+                <Grid container direction="row">
+                    <DisplayPath category={article.category[0]} title={article.titles[0]} />
+                </Grid>
+                <Grid container direction="row">
+                    <DisplayHeader title={article.titles[1]} />
+                </Grid>
+                <Grid container direction="row">
+                   <DisplayContent category={article.category} header={article.header} pictureUrl={article.pictureUrl} contentHTML={article.contentHTML} />
+                </Grid>
+                <Grid container direction="row">
+                    <DisplayVideo videoUrl={article.videoUrl} tags={article.tags} />
+                </Grid>
+                <Grid container direction="row">
+                    <DisplayRedactor firstName={article.redactor.firstName} lastName={article.redactor.lastName} avatarUrl={article.redactor.avatarUrl} profession={article.redactor.profession} shortDescription={article.redactor.shortDescription} />
+                </Grid>
+            </Grid>
         </>
-    );
+    ) : (
+        <>
+        </>
+    )
 };
