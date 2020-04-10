@@ -2,7 +2,15 @@ import React from 'react';
 import { makeStyles, Theme, createStyles, Grid, Button, Typography } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 
-export const DisplayPath = ({category, title}: {category: string, title: string}) => {
+export const DisplayPath = ({
+    category,
+    title,
+    readingTime,
+}: {
+    category: string;
+    title: string;
+    readingTime: number;
+}) => {
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             pathText: {
@@ -34,6 +42,12 @@ export const DisplayPath = ({category, title}: {category: string, title: string}
                 height: '5px',
                 transform: 'rotate(-45deg)',
             },
+            readingTime: {
+                color: SingleArticleColors.title,
+                lineHeight: '1.17',
+                fontSize: '10px',
+                padding: '1px 5px 0px 10px',
+            },
         }),
     );
     const classes = useStyles();
@@ -61,7 +75,9 @@ export const DisplayPath = ({category, title}: {category: string, title: string}
                         <Typography className={classes.pathArrow} />
                     </div>
                     <div className={classes.pathTitleContainer}>
-                        <Typography className={classes.pathTitle}>{title.toUpperCase()}</Typography>
+                        <Typography
+                            className={classes.pathTitle}
+                        >{`${title.toUpperCase()}   (LENGTH - ${readingTime} MIN)`}</Typography>
                     </div>
                 </Grid>
             </Grid>
