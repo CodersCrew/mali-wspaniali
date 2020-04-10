@@ -11,8 +11,8 @@ import { ParentProfile } from './ParentProfile';
 import { UsersPage } from './UsersPage';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
-import { SingleBlogArticle } from './SingleBlogArticle';
 import { AppWrapper } from './AppWrapper/AppWrapper';
+import { SingleBlogArticle } from './SingleBlogArticle';
 
 export const Root = () => {
     return (
@@ -33,7 +33,7 @@ export const Root = () => {
                         <Route path="/admin/agreements" component={AdminAgreementsPage} />
                         <Route path="/parent/children" component={ChildrenListPage} />
                         <Route path="/admin/newsletter" component={NewsletterPage} />
-                        <Route path="/elo" component={SingleBlogArticle} />
+                        <Route path="/elos" component={SingleBlogArticle}/>
                     </AppWrapper>
                 </Switch>
             </Router>
