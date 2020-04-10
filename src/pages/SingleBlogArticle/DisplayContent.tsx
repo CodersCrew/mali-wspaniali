@@ -1,76 +1,86 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, Grid, Button, withStyles, Box, Typography, CardMedia } from '@material-ui/core';
+import {
+    makeStyles,
+    Theme,
+    createStyles,
+    Grid,
+    Button,
+    withStyles,
+    Box,
+    Typography,
+    CardMedia,
+} from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import parse from 'html-react-parser';
 
-export const DisplayContent = (
-    {category, 
-    header, 
+export const DisplayContent = ({
+    category,
+    header,
     pictureUrl,
-    contentHTML}: 
-    {category: string[],
-    header: string,
-    pictureUrl: string,
-    contentHTML: string}) => {
-
-        
-        let ColorButton = withStyles((theme: Theme) => ({
-            root: {
-                backgroundColor: SingleArticleColors.categories.emotions,
-                '&:hover': {
-                    backgroundColor: SingleArticleColors.categoriesHover.emotions,
-                },
+    contentHTML,
+}: {
+    category: string[];
+    header: string;
+    pictureUrl: string;
+    contentHTML: string;
+}) => {
+    let ColorButton = withStyles((theme: Theme) => ({
+        root: {
+            backgroundColor: SingleArticleColors.categories.emotions,
+            '&:hover': {
+                backgroundColor: SingleArticleColors.categoriesHover.emotions,
             },
-        }))(Button);
+        },
+    }))(Button);
 
-        const changeButtonStyle = (cat: string) => {
-            switch (cat) {
-                case 'Emotions':
-                    ColorButton = withStyles((theme: Theme) => ({
-                        root: {
-                            backgroundColor: SingleArticleColors.categories.emotions,
-                            '&:hover': {
-                                backgroundColor: SingleArticleColors.categoriesHover.emotions,
-                            },
+    const changeButtonStyle = (cat: string) => {
+        switch (cat) {
+            case 'Emotions':
+                ColorButton = withStyles((theme: Theme) => ({
+                    root: {
+                        backgroundColor: SingleArticleColors.categories.emotions,
+                        '&:hover': {
+                            backgroundColor: SingleArticleColors.categoriesHover.emotions,
                         },
-                    }))(Button);
-                    break;
-                case 'Activity':
-                    ColorButton = withStyles((theme: Theme) => ({
-                        root: {
-                            backgroundColor: SingleArticleColors.categories.activity,
-                            '&:hover': {
-                                backgroundColor: SingleArticleColors.categoriesHover.activity,
-                            },
+                    },
+                }))(Button);
+                break;
+            case 'Activity':
+                ColorButton = withStyles((theme: Theme) => ({
+                    root: {
+                        backgroundColor: SingleArticleColors.categories.activity,
+                        '&:hover': {
+                            backgroundColor: SingleArticleColors.categoriesHover.activity,
                         },
-                    }))(Button);
-                    break;
-                case 'Food':
-                    ColorButton = withStyles((theme: Theme) => ({
-                        root: {
-                            backgroundColor: SingleArticleColors.categories.food,
-                            '&:hover': {
-                                backgroundColor: SingleArticleColors.categoriesHover.food,
-                            },
+                    },
+                }))(Button);
+                break;
+            case 'Food':
+                ColorButton = withStyles((theme: Theme) => ({
+                    root: {
+                        backgroundColor: SingleArticleColors.categories.food,
+                        '&:hover': {
+                            backgroundColor: SingleArticleColors.categoriesHover.food,
                         },
-                    }))(Button);
-                    break;
-                case 'Other':
-                    ColorButton = withStyles((theme: Theme) => ({
-                        root: {
-                            backgroundColor: SingleArticleColors.categories.other,
-                            '&:hover': {
-                                backgroundColor: SingleArticleColors.categoriesHover.other,
-                            },
+                    },
+                }))(Button);
+                break;
+            case 'Other':
+                ColorButton = withStyles((theme: Theme) => ({
+                    root: {
+                        backgroundColor: SingleArticleColors.categories.other,
+                        '&:hover': {
+                            backgroundColor: SingleArticleColors.categoriesHover.other,
                         },
-                    }))(Button);
-                    break;
-                default:
-                    break;
-            }
-            return ColorButton;
-        };
-        
+                    },
+                }))(Button);
+                break;
+            default:
+                break;
+        }
+        return ColorButton;
+    };
+
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             contentGrid: {
@@ -156,9 +166,7 @@ export const DisplayContent = (
                 </Grid>
                 <Grid container direction="row">
                     <Grid className={classes.contentHeader} item xs={12}>
-                        <Typography className={classes.contentHeaderText}>
-                            {`${header.toUpperCase()}`}
-                        </Typography>
+                        <Typography className={classes.contentHeaderText}>{`${header.toUpperCase()}`}</Typography>
                     </Grid>
                 </Grid>
                 <Grid container direction="row">

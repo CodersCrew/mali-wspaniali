@@ -1,21 +1,19 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles, Grid, Avatar, Typography, Box } from '@material-ui/core';
 
-export const DisplayRedactor = (
-    {
-        firstName,
-        lastName,
-        avatarUrl,
-        profession,
-        shortDescription,
-    } : {
-        firstName: string,
-        lastName: string,
-        avatarUrl: string,
-        profession: string,
-        shortDescription: string,
-    }
-) => {
+export const DisplayRedactor = ({
+    firstName,
+    lastName,
+    avatarUrl,
+    profession,
+    shortDescription,
+}: {
+    firstName: string;
+    lastName: string;
+    avatarUrl: string;
+    profession: string;
+    shortDescription: string;
+}) => {
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             contentRedactorAvatarContainer: {
@@ -65,9 +63,7 @@ export const DisplayRedactor = (
                             <Typography className={classes.contentRedactorName}>
                                 {`${firstName} ${lastName}`}
                             </Typography>
-                            <Typography className={classes.contentRedactorProf}>
-                                {profession}
-                            </Typography>
+                            <Typography className={classes.contentRedactorProf}>{profession}</Typography>
                         </Grid>
                         <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
                             <Box fontWeight={500}>

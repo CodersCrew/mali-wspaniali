@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, Theme, createStyles, Grid, Typography } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 
-export const DisplayHeader = ({title}: {title: string}) => {
+export const DisplayHeader = ({ title }: { title: string }) => {
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             headerLongTitle: {
@@ -23,10 +23,8 @@ export const DisplayHeader = ({title}: {title: string}) => {
     return (
         <>
             <Grid className={classes.headerLongTitle} item xs={10}>
-                <Typography className={classes.headerLongTitleText}>
-                    {title.toUpperCase()}
-                </Typography>
+                <Typography className={classes.headerLongTitleText}>{title.toUpperCase()}</Typography>
             </Grid>
         </>
     );
-}
+};
