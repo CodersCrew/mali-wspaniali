@@ -71,7 +71,7 @@ export const LoginPage = () => {
                         type="submit"
                         variant="contained"
                         color="primary"
-                        style={{ marginTop: '20px', float: 'right', alignSelf: 'flex-end' }}
+                        className={classes.loginButton}
                     >
                         {t('login-page.login')}
                     </Button>
@@ -106,4 +106,8 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         marginBottom: '25px',
     },
+    loginButton: {
+        marginTop: '20px',
+        alignSelf: 'flex-end',
+    }
 });
