@@ -5,8 +5,6 @@ export const activeColor = '#FF7149';
 export const cardBackgroundColor = '#FFFFFF';
 export const secondaryColor = '#FF7149';
 export const SingleArticleColors = {
-           mainColor: '#008AAD',
-           backgroundColor: '#F1F2F4',
            title: '#656269',
            arrow: '#ff7149',
            contentBackground: '#FFFFFF',

@@ -82,10 +82,10 @@
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
     "single-article": {
-        "length": "DŁUGOŚĆ",
-        "Emotions": "EMOCJE",
-        "Activity": "AKTYWNOŚĆ",
-        "Food": "ŻYWNOŚĆ",
-        "Other": "INNE"
+        "length": "Długość",
+        "Emotions": "Emocje",
+        "Activity": "Aktywność",
+        "Food": "Żywność",
+        "Other": "Inne"
     }
 }
