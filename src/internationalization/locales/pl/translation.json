@@ -72,5 +72,12 @@
         "placeholder": "Tu wpisz swoją wiadomość",
         "fill-required-fields": "Proszę uzupełnić wymagane pola.",
         "empty-message": "Wiadomość nie może być pusta."
+    },
+    "single-article": {
+        "length": "DŁUGOŚĆ",
+        "Emotions": "EMOCJE",
+        "Activity": "AKTYWNOŚĆ",
+        "Food": "ŻYWNOŚĆ",
+        "Other": "INNE"
     }
 }

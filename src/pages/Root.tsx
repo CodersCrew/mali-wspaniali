@@ -33,7 +33,7 @@ export const Root = () => {
                         <Route path="/admin/agreements" component={AdminAgreementsPage} />
                         <Route path="/parent/children" component={ChildrenListPage} />
                         <Route path="/admin/newsletter" component={NewsletterPage} />
-                        <Route path="/elos" component={SingleBlogArticle}/>
+                        <Route path="/elos" component={SingleBlogArticle} />
                     </AppWrapper>
                 </Switch>
             </Router>

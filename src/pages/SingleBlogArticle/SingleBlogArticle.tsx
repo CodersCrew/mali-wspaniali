@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 //import { useParams } from 'react-router-dom';
-//import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 
 //import { useAuthorization } from '../../hooks/useAuthorization';
@@ -27,7 +26,6 @@ export const SingleBlogArticle = () => {
         }),
     );
     const classes = useStyles();
-    //const { t } = useTranslation();
     //const { articleId } = useParams<{ articleId: string }>();
     const [articleId] = useState<string>('KRw6nEGIXsTnAXrpBIqg');
     const [article, setArticle] = useState<Article>();

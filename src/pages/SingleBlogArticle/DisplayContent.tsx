@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import parse from 'html-react-parser';
+import { useTranslation } from 'react-i18next';
 
 export const DisplayContent = ({
     category,
@@ -131,6 +132,7 @@ export const DisplayContent = ({
     );
 
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <>
@@ -153,7 +155,7 @@ export const DisplayContent = ({
                                             >
                                                 <Box fontWeight={500}>
                                                     <Typography className={classes.contentCategoryText}>
-                                                        {cat.toUpperCase()}
+                                                        {t(`single-article.${cat}`)}
                                                     </Typography>
                                                 </Box>
                                             </ColorButton>
