@@ -57,7 +57,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                     if (
                         !(articleList.length > 3) &&
                         !articleList.includes(docData) &&
-                        docData.titles[0] !== article.titles[0]
+                        docData.title !== article.title
                     ) {
                         // eslint-disable-next-line
                         category.some(cat => {
