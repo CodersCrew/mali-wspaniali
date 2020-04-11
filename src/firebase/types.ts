@@ -3,7 +3,8 @@ export type Document = firebase.firestore.DocumentData;
 export interface Article {
     header: string;
     pictureUrl: string;
-    titles: string[];
+    title: string;
+    subtitle: string;
     contentHTML: string;
     tags: string[];
     category: string[];

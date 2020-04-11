@@ -3,43 +3,6 @@ import { Grid, CardMedia, Button, Theme, createStyles, makeStyles } from '@mater
 import { SingleArticleColors } from '../../colors';
 
 export const DisplayVideo = ({ videoUrl, tags }: { videoUrl: string; tags: string[] }) => {
-    const useStyles = makeStyles((theme: Theme) =>
-        createStyles({
-            contentVideoGrid: {
-                paddingTop: '2vw',
-            },
-            contentVideo: {
-                paddingLeft: '3vw',
-                paddingRight: '3vw',
-            },
-            contentVideoContainer: {
-                paddingTop: '6.4vw',
-                paddingBottom: '4.3vw',
-                borderTop: 'solid',
-                borderTopColor: SingleArticleColors.break,
-                borderBottom: 'solid',
-                borderBottomColor: SingleArticleColors.break,
-                borderTopWidth: '1px',
-                borderBottomWidth: '1px',
-            },
-            contentVideoPlayer: {
-                minWidth: '60vw',
-                minHeight: '35vw',
-            },
-            contentTags: {
-                paddingTop: '4vw',
-            },
-            contentTagsButton: {
-                backgroundColor: SingleArticleColors.tagButton,
-                width: '8vw',
-                height: '3vw',
-                fontFamily: 'Roboto',
-                fontSize: '12px',
-                fontWeight: 'bold',
-            },
-        }),
-    );
-
     const classes = useStyles();
 
     return (
@@ -75,3 +38,40 @@ export const DisplayVideo = ({ videoUrl, tags }: { videoUrl: string; tags: strin
         </>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        contentVideoGrid: {
+            paddingTop: '2vw',
+        },
+        contentVideo: {
+            paddingLeft: '3vw',
+            paddingRight: '3vw',
+        },
+        contentVideoContainer: {
+            paddingTop: '6.4vw',
+            paddingBottom: '4.3vw',
+            borderTop: 'solid',
+            borderTopColor: SingleArticleColors.break,
+            borderBottom: 'solid',
+            borderBottomColor: SingleArticleColors.break,
+            borderTopWidth: '1px',
+            borderBottomWidth: '1px',
+        },
+        contentVideoPlayer: {
+            minWidth: '60vw',
+            minHeight: '35vw',
+        },
+        contentTags: {
+            paddingTop: '4vw',
+        },
+        contentTagsButton: {
+            backgroundColor: SingleArticleColors.tagButton,
+            width: '8vw',
+            height: '3vw',
+            fontFamily: 'Roboto',
+            fontSize: '12px',
+            fontWeight: 'bold',
+        },
+    }),
+);

@@ -13,20 +13,9 @@ import { DisplayVideo } from './DisplayVideo';
 import { DisplayRedactor } from './DisplayRedactor';
 
 export const SingleBlogArticle = () => {
-    useAuthorization(true, '/', ['admin', 'parent']);
-    const useStyles = makeStyles((theme: Theme) =>
-        createStyles({
-            typography: {
-                fontFamily: 'Montserrat',
-            },
-            rootGrid: {
-                padding: '3.57vw 12.14vw 2.85vw 6.07vw',
-            },
-        }),
-    );
+    useAuthorization(true);
     const classes = useStyles();
     const { articleId } = useParams<{ articleId: string }>();
-    //const [articleId] = useState<string>('KRw6nEGIXsTnAXrpBIqg');
     const [article, setArticle] = useState<Article>();
     const [similarArticles, setSimilarArticles] = useState<Article[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
@@ -55,18 +44,18 @@ export const SingleBlogArticle = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return article && similarArticles ? (
+    return article ? (
         <>
             <Grid className={classes.rootGrid} container direction="column">
                 <Grid container direction="row">
                     <DisplayPath
                         category={article.category[0]}
-                        title={article.titles[0]}
+                        title={article.title}
                         readingTime={article.readingTime}
                     />
                 </Grid>
                 <Grid container direction="row">
-                    <DisplayHeader title={article.titles[1]} />
+                    <DisplayHeader title={article.subtitle} />
                 </Grid>
                 <Grid container direction="row">
                     <DisplayContent
@@ -88,9 +77,21 @@ export const SingleBlogArticle = () => {
                         shortDescription={article.redactor.shortDescription}
                     />
                 </Grid>
+                {similarArticles && <Grid></Grid>}
             </Grid>
         </>
     ) : (
         <></>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        typography: {
+            fontFamily: 'Montserrat',
+        },
+        rootGrid: {
+            padding: '3.57vw 12.14vw 2.85vw 6.07vw',
+        },
+    }),
+);

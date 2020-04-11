@@ -74,6 +74,7 @@
         "empty-message": "The message cannot be empty."
     },
     "single-article": {
+        "blog": "Blog",
         "length": "Length",
         "Emotions": "Emotions",
         "Activity": "Activity",

@@ -4,21 +4,6 @@ import { mainColor } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 
 export const DisplayHeader = ({ title }: { title: string }) => {
-    const useStyles = makeStyles((theme: Theme) =>
-        createStyles({
-            headerLongTitle: {
-                paddingTop: '3vw',
-                paddingBottom: '5vw',
-            },
-            headerLongTitleText: {
-                fontSize: '34px',
-                color: mainColor,
-                fontWeight: 'bold',
-                letterSpacing: letterSpace,
-                lineHeight: lineHeight,
-            },
-        }),
-    );
     const classes = useStyles();
 
     return (
@@ -29,3 +14,19 @@ export const DisplayHeader = ({ title }: { title: string }) => {
         </>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        headerLongTitle: {
+            paddingTop: '3vw',
+            paddingBottom: '5vw',
+        },
+        headerLongTitleText: {
+            fontSize: '34px',
+            color: mainColor,
+            fontWeight: 'bold',
+            letterSpacing: letterSpace,
+            lineHeight: lineHeight,
+        },
+    }),
+);

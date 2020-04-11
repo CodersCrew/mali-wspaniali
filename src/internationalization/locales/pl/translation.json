@@ -74,6 +74,7 @@
         "empty-message": "Wiadomość nie może być pusta."
     },
     "single-article": {
+        "blog": "Blog",
         "length": "Długość",
         "Emotions": "Emocje",
         "Activity": "Aktywność",
