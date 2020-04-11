@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, createStyles, Grid, Button, Typography } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 
@@ -51,6 +52,7 @@ export const DisplayPath = ({
         }),
     );
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <>
@@ -69,15 +71,15 @@ export const DisplayPath = ({
                         disableRipple
                         disableTouchRipple
                     >
-                        <Typography className={classes.pathText}>{category.toUpperCase()}</Typography>
+                        <Typography className={classes.pathText}>{t(`single-article.${category}`)}</Typography>
                     </Button>
                     <div className={classes.pathArrowContainer}>
                         <Typography className={classes.pathArrow} />
                     </div>
                     <div className={classes.pathTitleContainer}>
-                        <Typography
-                            className={classes.pathTitle}
-                        >{`${title.toUpperCase()}   (LENGTH - ${readingTime} MIN)`}</Typography>
+                        <Typography className={classes.pathTitle}>{`${title.toUpperCase()}   (${t(
+                            'single-article.length',
+                        )} - ${readingTime} MIN)`}</Typography>
                     </div>
                 </Grid>
             </Grid>
