@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles, Grid, Typography } from '@material-ui/core';
-import { SingleArticleColors } from '../../colors';
+import { mainColor } from '../../colors';
+import { lineHeight, letterSpace } from '../../fontStyle';
 
 export const DisplayHeader = ({ title }: { title: string }) => {
     const useStyles = makeStyles((theme: Theme) =>
@@ -11,10 +12,10 @@ export const DisplayHeader = ({ title }: { title: string }) => {
             },
             headerLongTitleText: {
                 fontSize: '34px',
-                color: SingleArticleColors.mainColor,
+                color: mainColor,
                 fontWeight: 'bold',
-                letterSpacing: '2px',
-                lineHeight: '1.17',
+                letterSpacing: letterSpace,
+                lineHeight: lineHeight,
             },
         }),
     );

@@ -74,10 +74,10 @@
         "empty-message": "The message cannot be empty."
     },
     "single-article": {
-        "length": "LENGTH",
-        "Emotions": "EMOTIONS",
-        "Activity": "ACTIVITY",
-        "Food": "FOOD",
-        "Other": "OTHER"
+        "length": "Length",
+        "Emotions": "Emotions",
+        "Activity": "Activity",
+        "Food": "Food",
+        "Other": "Other"
     }
 }

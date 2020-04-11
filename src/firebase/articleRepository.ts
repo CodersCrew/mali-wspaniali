@@ -12,7 +12,7 @@ type listDataPromiseTypes = {
     unsubscribed: () => void;
 };
 
-export const singleArticleRepository = (db: firebaseApp.firestore.Firestore) => ({
+export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
     getArticleDocById: (articleId: string) => {
         let article: Article;
         const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {

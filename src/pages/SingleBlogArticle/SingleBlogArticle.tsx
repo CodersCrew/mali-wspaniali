@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 
 import { useAuthorization } from '../../hooks/useAuthorization';
-import { getSingleArticleById, getSimilarArticlesListData } from '../../queries/singleArticleQueries';
+import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { load } from '../../utils/load';
 import { Article } from '../../firebase/types';
 import { DisplayPath } from './DisplayPath';
@@ -35,7 +35,7 @@ export const SingleBlogArticle = () => {
         listeners.forEach(listener => () => listener());
     };
     const waitForArticlesData = async () => {
-        const { article, unsubscribe } = await getSingleArticleById(articleId);
+        const { article, unsubscribe } = await getArticleById(articleId);
         if (unsubscribe) {
             setArticle(article);
             const { articleList, unsubscribed } = await getSimilarArticlesListData(

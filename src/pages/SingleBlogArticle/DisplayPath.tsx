@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, createStyles, Grid, Button, Typography } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
+import { lineHeight, letterSpace } from '../../fontStyle';
 
 export const DisplayPath = ({
     category,
@@ -16,8 +17,8 @@ export const DisplayPath = ({
         createStyles({
             pathText: {
                 fontWeight: 'bold',
-                letterSpacing: '2px',
-                lineHeight: '1.17',
+                letterSpacing: letterSpace,
+                lineHeight: lineHeight,
                 margin: '0px 5px 0px 5px',
             },
             pathTitleContainer: {
@@ -25,8 +26,8 @@ export const DisplayPath = ({
             },
             pathTitle: {
                 color: SingleArticleColors.title,
-                letterSpacing: '2px',
-                lineHeight: '1.17',
+                letterSpacing: letterSpace,
+                lineHeight: lineHeight,
                 fontSize: '12px',
                 padding: '1px 5px 0px 10px',
             },
@@ -45,7 +46,7 @@ export const DisplayPath = ({
             },
             readingTime: {
                 color: SingleArticleColors.title,
-                lineHeight: '1.17',
+                lineHeight: lineHeight,
                 fontSize: '10px',
                 padding: '1px 5px 0px 10px',
             },
@@ -71,7 +72,9 @@ export const DisplayPath = ({
                         disableRipple
                         disableTouchRipple
                     >
-                        <Typography className={classes.pathText}>{t(`single-article.${category}`)}</Typography>
+                        <Typography className={classes.pathText}>
+                            {t(`single-article.${category}`).toUpperCase()}
+                        </Typography>
                     </Button>
                     <div className={classes.pathArrowContainer}>
                         <Typography className={classes.pathArrow} />
@@ -79,7 +82,7 @@ export const DisplayPath = ({
                     <div className={classes.pathTitleContainer}>
                         <Typography className={classes.pathTitle}>{`${title.toUpperCase()}   (${t(
                             'single-article.length',
-                        )} - ${readingTime} MIN)`}</Typography>
+                        ).toUpperCase()} - ${readingTime} MIN)`}</Typography>
                     </div>
                 </Grid>
             </Grid>

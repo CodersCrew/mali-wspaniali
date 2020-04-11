@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles, Grid, Avatar, Typography, Box } from '@material-ui/core';
 
+import { lineHeight, letterSpace } from '../../fontStyle';
+
 export const DisplayRedactor = ({
     firstName,
     lastName,
@@ -29,13 +31,13 @@ export const DisplayRedactor = ({
             contentRedactorName: {
                 fontSize: '15px',
                 fontWeight: 'bold',
-                letterSpacing: '2px',
-                lineHeight: '1.17',
+                letterSpacing: letterSpace,
+                lineHeight: lineHeight,
             },
             contentRedactorProf: {
                 fontSize: '14px',
-                letterSpacing: '2px',
-                lineHeight: '1.17',
+                letterSpacing: letterSpace,
+                lineHeight: lineHeight,
             },
             contentRedactorDescriptionContainer: {
                 paddingTop: '1vw',

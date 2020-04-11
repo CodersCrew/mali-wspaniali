@@ -10,9 +10,11 @@ import {
     Typography,
     CardMedia,
 } from '@material-ui/core';
-import { SingleArticleColors } from '../../colors';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
+
+import { SingleArticleColors } from '../../colors';
+import { lineHeight, letterSpace } from '../../fontStyle';
 
 export const DisplayContent = ({
     category,
@@ -34,53 +36,10 @@ export const DisplayContent = ({
         },
     }))(Button);
 
-    const changeButtonStyle = (cat: string) => {
-        switch (cat) {
-            case 'Emotions':
-                ColorButton = withStyles((theme: Theme) => ({
-                    root: {
-                        backgroundColor: SingleArticleColors.categories.emotions,
-                        '&:hover': {
-                            backgroundColor: SingleArticleColors.categoriesHover.emotions,
-                        },
-                    },
-                }))(Button);
-                break;
-            case 'Activity':
-                ColorButton = withStyles((theme: Theme) => ({
-                    root: {
-                        backgroundColor: SingleArticleColors.categories.activity,
-                        '&:hover': {
-                            backgroundColor: SingleArticleColors.categoriesHover.activity,
-                        },
-                    },
-                }))(Button);
-                break;
-            case 'Food':
-                ColorButton = withStyles((theme: Theme) => ({
-                    root: {
-                        backgroundColor: SingleArticleColors.categories.food,
-                        '&:hover': {
-                            backgroundColor: SingleArticleColors.categoriesHover.food,
-                        },
-                    },
-                }))(Button);
-                break;
-            case 'Other':
-                ColorButton = withStyles((theme: Theme) => ({
-                    root: {
-                        backgroundColor: SingleArticleColors.categories.other,
-                        '&:hover': {
-                            backgroundColor: SingleArticleColors.categoriesHover.other,
-                        },
-                    },
-                }))(Button);
-                break;
-            default:
-                break;
-        }
-        return ColorButton;
-    };
+    const colorButtonpaddingTop = '2px';
+    const colorButtonHeight = '25px';
+    const colorButtonWidth = '85px';
+    const colorButtonBorderRadius = '4px';
 
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
@@ -93,15 +52,57 @@ export const DisplayContent = ({
             },
             contentCategoryText: {
                 color: SingleArticleColors.contentBackground,
-                letterSpacing: '2px',
+                letterSpacing: letterSpace,
                 fontSize: '10px',
-                lineHeight: '1.17',
+                lineHeight: lineHeight,
             },
-            contentCategoryButton: {
-                paddingTop: '2px',
-                height: '25px',
-                width: '85px',
-                borderRadius: '4px',
+            contentCategoryButtonEmotions: {
+                root: {
+                    backgroundColor: SingleArticleColors.categories.emotions,
+                    '&:hover': {
+                        backgroundColor: SingleArticleColors.categoriesHover.emotions,
+                    },
+                },
+                paddingTop: colorButtonpaddingTop,
+                height: colorButtonHeight,
+                width: colorButtonWidth,
+                borderRadius: colorButtonBorderRadius,
+            },
+            contentCategoryButtonActivity: {
+                root: {
+                    backgroundColor: SingleArticleColors.categories.activity,
+                    '&:hover': {
+                        backgroundColor: SingleArticleColors.categoriesHover.activity,
+                    },
+                },
+                paddingTop: colorButtonpaddingTop,
+                height: colorButtonHeight,
+                width: colorButtonWidth,
+                borderRadius: colorButtonBorderRadius,
+            },
+            contentCategoryButtonFood: {
+                root: {
+                    backgroundColor: SingleArticleColors.categories.food,
+                    '&:hover': {
+                        backgroundColor: SingleArticleColors.categoriesHover.food,
+                    },
+                },
+                paddingTop: colorButtonpaddingTop,
+                height: colorButtonHeight,
+                width: colorButtonWidth,
+                borderRadius: colorButtonBorderRadius,
+            },
+            contentCategoryButtonOther: {
+                root: {
+                    backgroundColor: SingleArticleColors.categories.other,
+                    '&:hover': {
+                        backgroundColor: SingleArticleColors.categoriesHover.other,
+                    },
+                },
+                paddingTop: colorButtonpaddingTop,
+                height: colorButtonHeight,
+                width: colorButtonWidth,
+                borderRadius: colorButtonBorderRadius,
             },
             contentHeader: {
                 paddingTop: '4vw',
@@ -110,14 +111,14 @@ export const DisplayContent = ({
             contentHeaderText: {
                 fontSize: '20px',
                 fontWeight: 'bolder',
-                letterSpacing: '2px',
-                lineHeight: '1.17',
+                letterSpacing: letterSpace,
+                lineHeight: lineHeight,
             },
             contentPhoto: {
                 paddingBottom: '2vw',
             },
             contentPhotoMedia: {
-                borderRadius: '4px',
+                borderRadius: colorButtonBorderRadius,
                 border: 'solid',
                 borderColor: SingleArticleColors.break,
                 borderWidth: '2px',
@@ -141,12 +142,11 @@ export const DisplayContent = ({
                     <Grid item xs={6}>
                         <Grid container direction="row">
                             {category.map(cat => {
-                                changeButtonStyle(cat);
                                 return (
                                     <>
                                         <Grid item xs={3}>
                                             <ColorButton
-                                                className={classes.contentCategoryButton}
+                                                className={`$classes.contentCategoryButton${cat}`}
                                                 href={`#${cat.toUpperCase()}`}
                                                 disableElevation
                                                 disableFocusRipple
@@ -155,7 +155,7 @@ export const DisplayContent = ({
                                             >
                                                 <Box fontWeight={500}>
                                                     <Typography className={classes.contentCategoryText}>
-                                                        {t(`single-article.${cat}`)}
+                                                        {t(`single-article.${cat}`).toUpperCase()}
                                                     </Typography>
                                                 </Box>
                                             </ColorButton>

@@ -74,10 +74,10 @@
         "empty-message": "Wiadomość nie może być pusta."
     },
     "single-article": {
-        "length": "DŁUGOŚĆ",
-        "Emotions": "EMOCJE",
-        "Activity": "AKTYWNOŚĆ",
-        "Food": "ŻYWNOŚĆ",
-        "Other": "INNE"
+        "length": "Długość",
+        "Emotions": "Emocje",
+        "Activity": "Aktywność",
+        "Food": "Żywność",
+        "Other": "Inne"
     }
 }

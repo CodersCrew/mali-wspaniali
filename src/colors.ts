@@ -1,8 +1,6 @@
 export const mainColor = '#008AAD';
 export const backgroundColor = '#F1F2F4';
 export const SingleArticleColors = {
-           mainColor: '#008AAD',
-           backgroundColor: '#F1F2F4',
            title: '#656269',
            arrow: '#ff7149',
            contentBackground: '#FFFFFF',
