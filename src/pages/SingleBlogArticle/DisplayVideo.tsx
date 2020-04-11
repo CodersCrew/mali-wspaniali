@@ -6,36 +6,32 @@ export const DisplayVideo = ({ videoUrl, tags }: { videoUrl: string; tags: strin
     const classes = useStyles();
 
     return (
-        <>
-            <Grid className={classes.contentVideoGrid} container direction="row">
-                <Grid className={classes.contentVideoContainer} container direction="row">
-                    <Grid item xs={12}>
-                        <Grid container direction="row">
-                            <Grid className={classes.contentVideo} item xs={12}>
-                                <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
-                            </Grid>
+        <Grid className={classes.contentVideoGrid} container direction="row">
+            <Grid className={classes.contentVideoContainer} container direction="row">
+                <Grid item xs={12}>
+                    <Grid container direction="row">
+                        <Grid className={classes.contentVideo} item xs={12}>
+                            <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
                         </Grid>
                     </Grid>
-                    <Grid className={classes.contentTags} item xs={12}>
-                        <Grid container direction="row">
-                            <Grid item xs={8}>
-                                <Grid container direction="row">
-                                    {tags.map(tag => {
-                                        return (
-                                            <>
-                                                <Grid item xs={3}>
-                                                    <Button className={classes.contentTagsButton}>{`#${tag}`}</Button>
-                                                </Grid>
-                                            </>
-                                        );
-                                    })}
-                                </Grid>
+                </Grid>
+                <Grid className={classes.contentTags} item xs={12}>
+                    <Grid container direction="row">
+                        <Grid item xs={8}>
+                            <Grid container direction="row">
+                                {tags.map(tag => {
+                                    return (
+                                        <Grid item xs={3}>
+                                            <Button className={classes.contentTagsButton}>{`#${tag}`}</Button>
+                                        </Grid>
+                                    );
+                                })}
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </>
+        </Grid>
     );
 };
 

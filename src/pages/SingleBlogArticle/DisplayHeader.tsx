@@ -7,11 +7,9 @@ export const DisplayHeader = ({ title }: { title: string }) => {
     const classes = useStyles();
 
     return (
-        <>
-            <Grid className={classes.headerLongTitle} item xs={10}>
-                <Typography className={classes.headerLongTitleText}>{title.toUpperCase()}</Typography>
-            </Grid>
-        </>
+        <Grid className={classes.headerLongTitle} item xs={10}>
+            <Typography className={classes.headerLongTitleText}>{title.toUpperCase()}</Typography>
+        </Grid>
     );
 };
 

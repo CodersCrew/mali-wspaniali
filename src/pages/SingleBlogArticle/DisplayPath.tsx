@@ -17,37 +17,35 @@ export const DisplayPath = ({
     const { t } = useTranslation();
 
     return (
-        <>
-            <Grid item xs={8}>
-                <Grid container direction="row">
-                    <Button href="#BLOG" disableElevation disableFocusRipple disableRipple disableTouchRipple>
-                        <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
-                    </Button>
-                    <div className={classes.pathArrowContainer}>
-                        <Typography className={classes.pathArrow} />
-                    </div>
-                    <Button
-                        href={`#${category.toUpperCase()}`}
-                        disableElevation
-                        disableFocusRipple
-                        disableRipple
-                        disableTouchRipple
-                    >
-                        <Typography className={classes.pathText}>
-                            {t(`single-article.${category}`).toUpperCase()}
-                        </Typography>
-                    </Button>
-                    <div className={classes.pathArrowContainer}>
-                        <Typography className={classes.pathArrow} />
-                    </div>
-                    <div className={classes.pathTitleContainer}>
-                        <Typography className={classes.pathTitle}>{`${title.toUpperCase()}   (${t(
-                            'single-article.length',
-                        ).toUpperCase()} - ${readingTime} MIN)`}</Typography>
-                    </div>
-                </Grid>
+        <Grid item xs={8}>
+            <Grid container direction="row">
+                <Button href="#BLOG" disableElevation disableFocusRipple disableRipple disableTouchRipple>
+                    <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
+                </Button>
+                <div className={classes.pathArrowContainer}>
+                    <Typography className={classes.pathArrow} />
+                </div>
+                <Button
+                    href={`#${category.toUpperCase()}`}
+                    disableElevation
+                    disableFocusRipple
+                    disableRipple
+                    disableTouchRipple
+                >
+                    <Typography className={classes.pathText}>
+                        {t(`single-article.${category}`).toUpperCase()}
+                    </Typography>
+                </Button>
+                <div className={classes.pathArrowContainer}>
+                    <Typography className={classes.pathArrow} />
+                </div>
+                <div className={classes.pathTitleContainer}>
+                    <Typography className={classes.pathTitle}>{`${title.toUpperCase()}   (${t(
+                        'single-article.length',
+                    ).toUpperCase()} - ${readingTime} MIN)`}</Typography>
+                </div>
             </Grid>
-        </>
+        </Grid>
     );
 };
 
