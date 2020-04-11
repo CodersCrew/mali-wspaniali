@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Container, makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/firebase';
+import { HomePageContent } from './HomePageContent';
 
 export const HomePage = () => {
     const classes = useStyles();
@@ -35,6 +36,7 @@ export const HomePage = () => {
                     {t('home-page.go-to-parent-children-page')}
                 </Button>
             </Link>
+            <HomePageContent />
         </Container>
     );
 };
