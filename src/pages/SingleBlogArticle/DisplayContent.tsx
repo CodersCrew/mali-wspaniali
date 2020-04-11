@@ -31,53 +31,49 @@ export const DisplayContent = ({
     const { t } = useTranslation();
 
     return (
-        <>
-            <Grid className={classes.contentGrid} container direction="column">
-                <Grid className={classes.contentCategory} container direction="row">
-                    <Grid item xs={6}>
-                        <Grid container direction="row">
-                            {category.map(cat => {
-                                return (
-                                    <>
-                                        <Grid item xs={3}>
-                                            <ColorButton
-                                                className={`$classes.contentCategoryButton${cat}`}
-                                                href={`#${cat.toUpperCase()}`}
-                                                disableElevation
-                                                disableFocusRipple
-                                                disableRipple
-                                                disableTouchRipple
-                                            >
-                                                <Box className={classes.contentCategoryTextBox}>
-                                                    <Typography className={classes.contentCategoryText}>
-                                                        {t(`single-article.${cat}`).toUpperCase()}
-                                                    </Typography>
-                                                </Box>
-                                            </ColorButton>
-                                        </Grid>
-                                    </>
-                                );
-                            })}
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid container direction="row">
-                    <Grid className={classes.contentHeader} item xs={12}>
-                        <Typography className={classes.contentHeaderText}>{`${header.toUpperCase()}`}</Typography>
-                    </Grid>
-                </Grid>
-                <Grid container direction="row">
-                    <Grid className={classes.contentPhoto} item xs={12}>
-                        <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
-                    </Grid>
-                </Grid>
-                <Grid container direction="row">
-                    <Grid className={classes.contentHTML} item xs={12}>
-                        {parse(contentHTML)}
+        <Grid className={classes.contentGrid} container direction="column">
+            <Grid className={classes.contentCategory} container direction="row">
+                <Grid item xs={6}>
+                    <Grid container direction="row">
+                        {category.map(cat => {
+                            return (
+                                <Grid item xs={3}>
+                                    <ColorButton
+                                        className={`$classes.contentCategoryButton${cat}`}
+                                        href={`#${cat.toUpperCase()}`}
+                                        disableElevation
+                                        disableFocusRipple
+                                        disableRipple
+                                        disableTouchRipple
+                                    >
+                                        <Box className={classes.contentCategoryTextBox}>
+                                            <Typography className={classes.contentCategoryText}>
+                                                {t(`single-article.${cat}`).toUpperCase()}
+                                            </Typography>
+                                        </Box>
+                                    </ColorButton>
+                                </Grid>
+                            );
+                        })}
                     </Grid>
                 </Grid>
             </Grid>
-        </>
+            <Grid container direction="row">
+                <Grid className={classes.contentHeader} item xs={12}>
+                    <Typography className={classes.contentHeaderText}>{`${header.toUpperCase()}`}</Typography>
+                </Grid>
+            </Grid>
+            <Grid container direction="row">
+                <Grid className={classes.contentPhoto} item xs={12}>
+                    <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
+                </Grid>
+            </Grid>
+            <Grid container direction="row">
+                <Grid className={classes.contentHTML} item xs={12}>
+                    {parse(contentHTML)}
+                </Grid>
+            </Grid>
+        </Grid>
     );
 };
 

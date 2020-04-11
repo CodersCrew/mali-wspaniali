@@ -45,41 +45,35 @@ export const SingleBlogArticle = () => {
     }, []);
 
     return article ? (
-        <>
-            <Grid className={classes.rootGrid} container direction="column">
-                <Grid container direction="row">
-                    <DisplayPath
-                        category={article.category[0]}
-                        title={article.title}
-                        readingTime={article.readingTime}
-                    />
-                </Grid>
-                <Grid container direction="row">
-                    <DisplayHeader title={article.subtitle} />
-                </Grid>
-                <Grid container direction="row">
-                    <DisplayContent
-                        category={article.category}
-                        header={article.header}
-                        pictureUrl={article.pictureUrl}
-                        contentHTML={article.contentHTML}
-                    />
-                </Grid>
-                <Grid container direction="row">
-                    <DisplayVideo videoUrl={article.videoUrl} tags={article.tags} />
-                </Grid>
-                <Grid container direction="row">
-                    <DisplayRedactor
-                        firstName={article.redactor.firstName}
-                        lastName={article.redactor.lastName}
-                        avatarUrl={article.redactor.avatarUrl}
-                        profession={article.redactor.profession}
-                        shortDescription={article.redactor.shortDescription}
-                    />
-                </Grid>
-                {similarArticles && <Grid></Grid>}
+        <Grid className={classes.rootGrid} container direction="column">
+            <Grid container direction="row">
+                <DisplayPath category={article.category[0]} title={article.title} readingTime={article.readingTime} />
             </Grid>
-        </>
+            <Grid container direction="row">
+                <DisplayHeader title={article.subtitle} />
+            </Grid>
+            <Grid container direction="row">
+                <DisplayContent
+                    category={article.category}
+                    header={article.header}
+                    pictureUrl={article.pictureUrl}
+                    contentHTML={article.contentHTML}
+                />
+            </Grid>
+            <Grid container direction="row">
+                <DisplayVideo videoUrl={article.videoUrl} tags={article.tags} />
+            </Grid>
+            <Grid container direction="row">
+                <DisplayRedactor
+                    firstName={article.redactor.firstName}
+                    lastName={article.redactor.lastName}
+                    avatarUrl={article.redactor.avatarUrl}
+                    profession={article.redactor.profession}
+                    shortDescription={article.redactor.shortDescription}
+                />
+            </Grid>
+            {similarArticles && <Grid></Grid>}
+        </Grid>
     ) : (
         <></>
     );

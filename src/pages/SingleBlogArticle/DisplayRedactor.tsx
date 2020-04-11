@@ -19,34 +19,24 @@ export const DisplayRedactor = ({
     const classes = useStyles();
 
     return (
-        <>
-            <Grid container direction="row">
-                <Grid className={classes.contentRedactorAvatarContainer} item xs={3}>
-                    <Avatar
-                        className={classes.contentRedactorAvatar}
-                        alt={`${firstName} ${lastName}`}
-                        src={avatarUrl}
-                    />
-                </Grid>
-                <Grid item xs={6}>
-                    <Grid container direction="column">
-                        <Grid className={classes.contentRedactorNameContainer} item xs={3}>
-                            <Typography className={classes.contentRedactorName}>
-                                {`${firstName} ${lastName}`}
-                            </Typography>
-                            <Typography className={classes.contentRedactorProf}>{profession}</Typography>
-                        </Grid>
-                        <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
-                            <Box fontWeight={500}>
-                                <Typography className={classes.contentRedactorDescription}>
-                                    {shortDescription}
-                                </Typography>
-                            </Box>
-                        </Grid>
+        <Grid container direction="row">
+            <Grid className={classes.contentRedactorAvatarContainer} item xs={3}>
+                <Avatar className={classes.contentRedactorAvatar} alt={`${firstName} ${lastName}`} src={avatarUrl} />
+            </Grid>
+            <Grid item xs={6}>
+                <Grid container direction="column">
+                    <Grid className={classes.contentRedactorNameContainer} item xs={3}>
+                        <Typography className={classes.contentRedactorName}>{`${firstName} ${lastName}`}</Typography>
+                        <Typography className={classes.contentRedactorProf}>{profession}</Typography>
+                    </Grid>
+                    <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
+                        <Box fontWeight={500}>
+                            <Typography className={classes.contentRedactorDescription}>{shortDescription}</Typography>
+                        </Box>
                     </Grid>
                 </Grid>
             </Grid>
-        </>
+        </Grid>
     );
 };
 
