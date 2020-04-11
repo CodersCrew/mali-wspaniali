@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-//import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 
-//import { useAuthorization } from '../../hooks/useAuthorization';
+import { useAuthorization } from '../../hooks/useAuthorization';
 import { getSingleArticleById, getSimilarArticlesListData } from '../../queries/singleArticleQueries';
 import { load } from '../../utils/load';
 import { Article } from '../../firebase/types';
@@ -13,7 +13,7 @@ import { DisplayVideo } from './DisplayVideo';
 import { DisplayRedactor } from './DisplayRedactor';
 
 export const SingleBlogArticle = () => {
-    //useAuthorization(true, '/', ['admin', 'parent']);
+    useAuthorization(true, '/', ['admin', 'parent']);
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             typography: {
@@ -22,12 +22,11 @@ export const SingleBlogArticle = () => {
             rootGrid: {
                 padding: '3.57vw 12.14vw 2.85vw 6.07vw',
             },
-            similarArtcilesContainer: {},
         }),
     );
     const classes = useStyles();
-    //const { articleId } = useParams<{ articleId: string }>();
-    const [articleId] = useState<string>('KRw6nEGIXsTnAXrpBIqg');
+    const { articleId } = useParams<{ articleId: string }>();
+    //const [articleId] = useState<string>('KRw6nEGIXsTnAXrpBIqg');
     const [article, setArticle] = useState<Article>();
     const [similarArticles, setSimilarArticles] = useState<Article[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
