@@ -27,111 +27,6 @@ export const DisplayContent = ({
     pictureUrl: string;
     contentHTML: string;
 }) => {
-    let ColorButton = withStyles((theme: Theme) => ({
-        root: {
-            backgroundColor: SingleArticleColors.categories.emotions,
-            '&:hover': {
-                backgroundColor: SingleArticleColors.categoriesHover.emotions,
-            },
-        },
-    }))(Button);
-
-    const colorButtonpaddingTop = '2px';
-    const colorButtonHeight = '25px';
-    const colorButtonWidth = '85px';
-    const colorButtonBorderRadius = '4px';
-
-    const useStyles = makeStyles((theme: Theme) =>
-        createStyles({
-            contentGrid: {
-                backgroundColor: SingleArticleColors.contentBackground,
-                padding: '0 2.14vw 2.85vw',
-            },
-            contentCategory: {
-                paddingLeft: '2.14vw',
-            },
-            contentCategoryText: {
-                color: SingleArticleColors.contentBackground,
-                letterSpacing: letterSpace,
-                fontSize: '10px',
-                lineHeight: lineHeight,
-            },
-            contentCategoryButtonEmotions: {
-                root: {
-                    backgroundColor: SingleArticleColors.categories.emotions,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.emotions,
-                    },
-                },
-                paddingTop: colorButtonpaddingTop,
-                height: colorButtonHeight,
-                width: colorButtonWidth,
-                borderRadius: colorButtonBorderRadius,
-            },
-            contentCategoryButtonActivity: {
-                root: {
-                    backgroundColor: SingleArticleColors.categories.activity,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.activity,
-                    },
-                },
-                paddingTop: colorButtonpaddingTop,
-                height: colorButtonHeight,
-                width: colorButtonWidth,
-                borderRadius: colorButtonBorderRadius,
-            },
-            contentCategoryButtonFood: {
-                root: {
-                    backgroundColor: SingleArticleColors.categories.food,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.food,
-                    },
-                },
-                paddingTop: colorButtonpaddingTop,
-                height: colorButtonHeight,
-                width: colorButtonWidth,
-                borderRadius: colorButtonBorderRadius,
-            },
-            contentCategoryButtonOther: {
-                root: {
-                    backgroundColor: SingleArticleColors.categories.other,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.other,
-                    },
-                },
-                paddingTop: colorButtonpaddingTop,
-                height: colorButtonHeight,
-                width: colorButtonWidth,
-                borderRadius: colorButtonBorderRadius,
-            },
-            contentHeader: {
-                paddingTop: '4vw',
-                paddingBottom: '2.14vw',
-            },
-            contentHeaderText: {
-                fontSize: '20px',
-                fontWeight: 'bolder',
-                letterSpacing: letterSpace,
-                lineHeight: lineHeight,
-            },
-            contentPhoto: {
-                paddingBottom: '2vw',
-            },
-            contentPhotoMedia: {
-                borderRadius: colorButtonBorderRadius,
-                border: 'solid',
-                borderColor: SingleArticleColors.break,
-                borderWidth: '2px',
-                maxHeight: '40vw',
-                maxWidth: '70vw',
-            },
-            contentHTML: {
-                paddingLeft: '2vw',
-                paddingBottom: '2vw',
-            },
-        }),
-    );
-
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -153,7 +48,7 @@ export const DisplayContent = ({
                                                 disableRipple
                                                 disableTouchRipple
                                             >
-                                                <Box fontWeight={500}>
+                                                <Box className={classes.contentCategoryTextBox}>
                                                     <Typography className={classes.contentCategoryText}>
                                                         {t(`single-article.${cat}`).toUpperCase()}
                                                     </Typography>
@@ -185,3 +80,111 @@ export const DisplayContent = ({
         </>
     );
 };
+
+let ColorButton = withStyles((theme: Theme) => ({
+    root: {
+        backgroundColor: SingleArticleColors.categories.emotions,
+        '&:hover': {
+            backgroundColor: SingleArticleColors.categoriesHover.emotions,
+        },
+    },
+}))(Button);
+
+const colorButtonpaddingTop = '2px';
+const colorButtonHeight = '25px';
+const colorButtonWidth = '85px';
+const colorButtonBorderRadius = '4px';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        contentGrid: {
+            backgroundColor: SingleArticleColors.contentBackground,
+            padding: '0 2.14vw 2.85vw',
+        },
+        contentCategory: {
+            paddingLeft: '2.14vw',
+        },
+        contentCategoryText: {
+            color: SingleArticleColors.contentBackground,
+            letterSpacing: letterSpace,
+            fontSize: '10px',
+            lineHeight: lineHeight,
+        },
+        contentCategoryTextBox: {
+            fontWeight: 500,
+        },
+        contentCategoryButtonEmotions: {
+            root: {
+                backgroundColor: SingleArticleColors.categories.emotions,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.emotions,
+                },
+            },
+            paddingTop: colorButtonpaddingTop,
+            height: colorButtonHeight,
+            width: colorButtonWidth,
+            borderRadius: colorButtonBorderRadius,
+        },
+        contentCategoryButtonActivity: {
+            root: {
+                backgroundColor: SingleArticleColors.categories.activity,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.activity,
+                },
+            },
+            paddingTop: colorButtonpaddingTop,
+            height: colorButtonHeight,
+            width: colorButtonWidth,
+            borderRadius: colorButtonBorderRadius,
+        },
+        contentCategoryButtonFood: {
+            root: {
+                backgroundColor: SingleArticleColors.categories.food,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.food,
+                },
+            },
+            paddingTop: colorButtonpaddingTop,
+            height: colorButtonHeight,
+            width: colorButtonWidth,
+            borderRadius: colorButtonBorderRadius,
+        },
+        contentCategoryButtonOther: {
+            root: {
+                backgroundColor: SingleArticleColors.categories.other,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.other,
+                },
+            },
+            paddingTop: colorButtonpaddingTop,
+            height: colorButtonHeight,
+            width: colorButtonWidth,
+            borderRadius: colorButtonBorderRadius,
+        },
+        contentHeader: {
+            paddingTop: '4vw',
+            paddingBottom: '2.14vw',
+        },
+        contentHeaderText: {
+            fontSize: '20px',
+            fontWeight: 'bolder',
+            letterSpacing: letterSpace,
+            lineHeight: lineHeight,
+        },
+        contentPhoto: {
+            paddingBottom: '2vw',
+        },
+        contentPhotoMedia: {
+            borderRadius: colorButtonBorderRadius,
+            border: 'solid',
+            borderColor: SingleArticleColors.break,
+            borderWidth: '2px',
+            maxHeight: '40vw',
+            maxWidth: '70vw',
+        },
+        contentHTML: {
+            paddingLeft: '2vw',
+            paddingBottom: '2vw',
+        },
+    }),
+);

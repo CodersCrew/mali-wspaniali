@@ -13,45 +13,6 @@ export const DisplayPath = ({
     title: string;
     readingTime: number;
 }) => {
-    const useStyles = makeStyles((theme: Theme) =>
-        createStyles({
-            pathText: {
-                fontWeight: 'bold',
-                letterSpacing: letterSpace,
-                lineHeight: lineHeight,
-                margin: '0px 5px 0px 5px',
-            },
-            pathTitleContainer: {
-                marginTop: '8px',
-            },
-            pathTitle: {
-                color: SingleArticleColors.title,
-                letterSpacing: letterSpace,
-                lineHeight: lineHeight,
-                fontSize: '12px',
-                padding: '1px 5px 0px 10px',
-            },
-            pathArrowContainer: {
-                marginTop: '10px',
-            },
-            pathArrow: {
-                border: 'solid',
-                borderColor: SingleArticleColors.arrow,
-                borderWidth: '0px 3px 3px 0px',
-                padding: '4px',
-                margin: '0px 5px 0px 5px',
-                width: '5px',
-                height: '5px',
-                transform: 'rotate(-45deg)',
-            },
-            readingTime: {
-                color: SingleArticleColors.title,
-                lineHeight: lineHeight,
-                fontSize: '10px',
-                padding: '1px 5px 0px 10px',
-            },
-        }),
-    );
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -60,7 +21,7 @@ export const DisplayPath = ({
             <Grid item xs={8}>
                 <Grid container direction="row">
                     <Button href="#BLOG" disableElevation disableFocusRipple disableRipple disableTouchRipple>
-                        <Typography className={classes.pathText}>BLOG</Typography>
+                        <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
                     </Button>
                     <div className={classes.pathArrowContainer}>
                         <Typography className={classes.pathArrow} />
@@ -89,3 +50,43 @@ export const DisplayPath = ({
         </>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        pathText: {
+            fontWeight: 'bold',
+            letterSpacing: letterSpace,
+            lineHeight: lineHeight,
+            margin: '0px 5px 0px 5px',
+        },
+        pathTitleContainer: {
+            marginTop: '8px',
+        },
+        pathTitle: {
+            color: SingleArticleColors.title,
+            letterSpacing: letterSpace,
+            lineHeight: lineHeight,
+            fontSize: '12px',
+            padding: '1px 5px 0px 10px',
+        },
+        pathArrowContainer: {
+            marginTop: '10px',
+        },
+        pathArrow: {
+            border: 'solid',
+            borderColor: SingleArticleColors.arrow,
+            borderWidth: '0px 3px 3px 0px',
+            padding: '4px',
+            margin: '0px 5px 0px 5px',
+            width: '5px',
+            height: '5px',
+            transform: 'rotate(-45deg)',
+        },
+        readingTime: {
+            color: SingleArticleColors.title,
+            lineHeight: lineHeight,
+            fontSize: '10px',
+            padding: '1px 5px 0px 10px',
+        },
+    }),
+);

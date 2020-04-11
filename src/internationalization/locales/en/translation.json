@@ -82,6 +82,7 @@
     "database-backup": {
       "get-backup-json": "Get database as JSON"
     "single-article": {
+        "blog": "Blog",
         "length": "Length",
         "Emotions": "Emotions",
         "Activity": "Activity",

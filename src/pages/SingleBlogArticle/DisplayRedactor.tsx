@@ -16,37 +16,6 @@ export const DisplayRedactor = ({
     profession: string;
     shortDescription: string;
 }) => {
-    const useStyles = makeStyles((theme: Theme) =>
-        createStyles({
-            contentRedactorAvatarContainer: {
-                paddingTop: '4.2vw',
-            },
-            contentRedactorAvatar: {
-                minWidth: '9vw',
-                minHeight: '9vw',
-            },
-            contentRedactorNameContainer: {
-                paddingTop: '4.5vw',
-            },
-            contentRedactorName: {
-                fontSize: '15px',
-                fontWeight: 'bold',
-                letterSpacing: letterSpace,
-                lineHeight: lineHeight,
-            },
-            contentRedactorProf: {
-                fontSize: '14px',
-                letterSpacing: letterSpace,
-                lineHeight: lineHeight,
-            },
-            contentRedactorDescriptionContainer: {
-                paddingTop: '1vw',
-            },
-            contentRedactorDescription: {
-                fontSize: '18px',
-            },
-        }),
-    );
     const classes = useStyles();
 
     return (
@@ -80,3 +49,35 @@ export const DisplayRedactor = ({
         </>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        contentRedactorAvatarContainer: {
+            paddingTop: '4.2vw',
+        },
+        contentRedactorAvatar: {
+            minWidth: '9vw',
+            minHeight: '9vw',
+        },
+        contentRedactorNameContainer: {
+            paddingTop: '4.5vw',
+        },
+        contentRedactorName: {
+            fontSize: '15px',
+            fontWeight: 'bold',
+            letterSpacing: letterSpace,
+            lineHeight: lineHeight,
+        },
+        contentRedactorProf: {
+            fontSize: '14px',
+            letterSpacing: letterSpace,
+            lineHeight: lineHeight,
+        },
+        contentRedactorDescriptionContainer: {
+            paddingTop: '1vw',
+        },
+        contentRedactorDescription: {
+            fontSize: '18px',
+        },
+    }),
+);
