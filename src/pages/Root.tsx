@@ -13,6 +13,7 @@ import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
 import { SingleBlogArticle } from './SingleBlogArticle';
+import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
 
 export const Root = () => {
     return (
@@ -21,7 +22,9 @@ export const Root = () => {
             <Router>
                 <Switch>
                     <Route exact path="/" component={HomePage} />
-                    <Route path="/login" component={LoginPage} />
+                    <LoginPageWrapper>
+                        <Route path="/login" component={LoginPage} />
+                    </LoginPageWrapper>
                     <Route path="/register" component={RegistrationPage} />
                     <AppWrapper>
                         <Route path="/admin/tests" component={TestResultsPage} />
