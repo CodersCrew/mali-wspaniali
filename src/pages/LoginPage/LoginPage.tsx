@@ -2,8 +2,22 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { User, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
+import { mainColor, backgroundColor } from '../../colors';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: mainColor,
+        },
+        secondary: {
+            main: '#FF7149',
+        }
+    }
+},
+);
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -38,7 +52,7 @@ export const LoginPage = () => {
     });
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <Link to="/">{t('go-to-home-page')}</Link>
             <div className={classes.container}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
@@ -70,14 +84,14 @@ export const LoginPage = () => {
                         type="submit"
                         variant="contained"
                         disabled={email === '' || password === ''}
-                        color="primary"
+                        color="secondary"
                         className={classes.loginButton}
                     >
                         {t('login-page.login')}
                     </Button>
                 </form>
             </div>
-        </>
+        </ThemeProvider>
     );
 };
 
@@ -109,5 +123,6 @@ const useStyles = makeStyles({
     loginButton: {
         marginTop: '20px',
         alignSelf: 'flex-end',
+        color: backgroundColor,
     }
 });
