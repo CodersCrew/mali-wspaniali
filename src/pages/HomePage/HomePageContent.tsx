@@ -2,6 +2,8 @@ import React from 'react';
 import {  makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { mainColor, backgroundColor, textColor } from '../../colors';
+import { ChildrenListPage } from '../ChildrenListPage';
+import { NewsletterPage } from '../Newsletter';
 
 export const HomePageContent = () => {
     const classes = useStyles();
@@ -13,21 +15,20 @@ export const HomePageContent = () => {
         <>
             <div className={ classes.ContentContainer }>
                 <div className={ classes.GoodAfternoonBox }>{ t('Dzien Dobry!') }</div>
-                <div className={ classes.CheckChildrenActivityBox }>{ t('Sprawdź aktywność swoich dzieci w programie') } <p className={ classes.maliWspanialiText }>Mali Wspaniali</p></div>
-                <div className = {classes.bodyItems}>
-                    <div className={ classes.ChildrenAva }>{ t('Władysław') }</div>
-                    <div className={ classes.ChildrenAva }>{ t('Małgorzata') }</div>
+                <div className={ classes.CheckChildrenActivityBox }>{ t('Sprawdź aktywność swoich dzieci w programie') } <p className={ classes.MaliWspanialiText }>Mali Wspaniali</p></div>
+                <div className={ classes.BodyItems }>
+
+                    <div className={ classes.ChildrenAva }>
+                        <ChildrenListPage />
+                    </div>
+
                     <div className={ classes.FoundationBox }></div>
                     <p className={ classes.ArticleText }>{ t('Najnowsze ARTYKUŁY') }</p>
+
                     <div className={ classes.ArticleBox }>
-                        <p className={ classes.ArticleText }>{ t('Tutaj będzie nazwa, która jest przeważnie bardzo długa') }</p>
-                        <p className={ classes.ArticleText }>{ t('Tutaj będzie zwykły tekst ok. do 2 zdań. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.') }</p>
+                        <NewsletterPage />
                     </div>
-                    <div className={ classes.ArticleBox }>
-                        <p className={ classes.ArticleText }>{ t('Tutaj będzie nazwa, która jest przeważnie bardzo długa') }</p>
-                        <p className={ classes.ArticleText }>{ t('Tutaj będzie zwykły tekst ok. do 2 zdań. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.') }</p>
-                        <button className = { classes.ButtonContainedSmallIconLeftPrimaryHover}>{ t('Czytaj Dalej') }</button>
-                    </div>
+
                 </div>
             </div>
         </>
@@ -53,11 +54,11 @@ const useStyles = makeStyles({
         color: textColor,
     },
 
-    maliWspanialiText: {
+    MaliWspanialiText: {
         fontWeight: 'bold',
         color: mainColor
     },
-    bodyItems: {
+    BodyItems: {
         display: 'flex',
         flexWrap: 'wrap',
         backgroundColor: '#ffffff',

@@ -6,8 +6,8 @@ export const AppWrapper: React.FC = ({ children }) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.background}>
-            <div className={classes.container}>{children}</div>
+        <div className={ classes.background }>
+            <div className={ classes.container }>{ children }</div>
         </div>
     );
 };
@@ -25,4 +25,5 @@ const useStyles = makeStyles({
         height: '100%',
         borderRadius: '10px',
     },
+
 });
