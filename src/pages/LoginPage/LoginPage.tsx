@@ -80,15 +80,18 @@ export const LoginPage = () => {
                         variant="outlined"
                         className={classes.formItem}
                     />
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        disabled={email === '' || password === ''}
-                        color="secondary"
-                        className={classes.loginButton}
-                    >
-                        {t('login-page.login')}
-                    </Button>
+                    <div className={classes.submitWrapper}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disabled={email === '' || password === ''}
+                            color="secondary"
+                            className={classes.loginButton}
+                        >
+                            {t('login-page.login')}
+                        </Button>
+                        <Link className={classes.forgotPasswordLink} to="/">{t('login-page.forgot-password')}</Link>
+                    </div>
                 </form>
             </div>
         </ThemeProvider>
@@ -120,9 +123,25 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         marginBottom: '25px',
     },
-    loginButton: {
+    submitWrapper: {
         marginTop: '20px',
-        alignSelf: 'flex-end',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    loginButton: {
         color: backgroundColor,
+    },
+    forgotPasswordLink: {
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '17px',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        color: '#FF7149',
+        textDecoration: 'none',
     }
 });
