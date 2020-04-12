@@ -22,8 +22,6 @@ export const LoginPage = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
-        setEmail('');
-        setPassword('');
     };
 
     onAuthStateChanged((user: User | null) => {
@@ -54,7 +52,8 @@ export const LoginPage = () => {
                         id="email"
                         label={t('e-mail')}
                         variant="outlined"
-                        helperText={t('login-page.e-mail-helper-text')}
+                        error={loginError !== ''}
+                        helperText={loginError ? t('login-page.login-error') : t('login-page.e-mail-helper-text')}
                         className={classes.formItem}
                     />
                     <TextField
@@ -76,7 +75,6 @@ export const LoginPage = () => {
                         {t('login-page.login')}
                     </Button>
                 </form>
-                <span>{loginError && t('login-page.login-error')}</span>
             </div>
         </>
     );
