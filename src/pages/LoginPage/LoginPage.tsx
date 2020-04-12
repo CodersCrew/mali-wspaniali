@@ -85,7 +85,7 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        height: '100%',
     },
     form: {
         display: 'flex',
@@ -93,6 +93,7 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'center',
         width: '80%',
+        minHeight: '90vh',
     },
     formItem: {
         margin: '20px',
