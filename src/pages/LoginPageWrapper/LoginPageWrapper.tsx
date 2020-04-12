@@ -1,13 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { mainColor, backgroundColor } from '../../colors';
+import Logo from '../../assets/MALWSP_logo.png';
 
 export const LoginPageWrapper: React.FC = ({ children }) => {
     const classes = useStyles();
 
     return (
         <div className={classes.background}>
-            <div className={classes.logoContainer}></div>
+            <div className={classes.logoContainer}>
+                <img src={Logo} alt="Mali Wspaniali Logo"></img>
+            </div>
             <div className={classes.formContainer}>{children}</div>
         </div>
     );
@@ -22,6 +25,9 @@ const useStyles = makeStyles({
         display: 'flex',
     },
     logoContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         flex: '2 0 0',
     },
     formContainer: {
