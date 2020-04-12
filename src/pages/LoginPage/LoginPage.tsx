@@ -56,8 +56,8 @@ export const LoginPage = () => {
             <Link to="/">{t('go-to-home-page')}</Link>
             <div className={classes.container}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                    <div className={classes.loginText}>
-                        {t('login-page.login-text')}
+                    <div className={classes.loginHeader}>
+                        {t('login-page.login-header')}
                     </div>
                     <TextField
                         required
@@ -117,7 +117,7 @@ const useStyles = makeStyles({
         margin: '20px',
         width: '100%',
     },
-    loginText: {
+    loginHeader: {
         textAlign: 'center',
         fontSize: '21px',
         fontWeight: 'bold',
