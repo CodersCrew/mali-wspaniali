@@ -53,7 +53,6 @@ export const LoginPage = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Link to="/">{t('go-to-home-page')}</Link>
             <div className={classes.container}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
                     <div className={classes.loginHeader}>
