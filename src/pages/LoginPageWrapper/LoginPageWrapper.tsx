@@ -43,6 +43,7 @@ const useStyles = makeStyles({
     },
     welcomeText: {
         marginTop: '50px',
+        width: '450px',
         color: backgroundColor,
         fontStyle: 'normal',
         fontWeight: 'bold',

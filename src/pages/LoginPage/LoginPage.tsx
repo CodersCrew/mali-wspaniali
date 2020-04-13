@@ -121,6 +121,7 @@ const useStyles = makeStyles({
         fontSize: '21px',
         fontWeight: 'bold',
         marginBottom: '25px',
+        textTransform: 'uppercase',
     },
     submitWrapper: {
         marginTop: '20px',
