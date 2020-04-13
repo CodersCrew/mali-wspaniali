@@ -3,9 +3,11 @@ import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 
 import { useAuthorization } from '../../hooks/useAuthorization';
+import { useSubscribed } from '../../hooks/useSubscribed';
 import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { load } from '../../utils/load';
 import { Article } from '../../firebase/types';
+import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { DisplayPath } from './DisplayPath';
 import { DisplayHeader } from './DisplayHeader';
 import { DisplayContent } from './DisplayContent';
@@ -16,17 +18,18 @@ export const SingleBlogArticle = () => {
     useAuthorization(true);
     const classes = useStyles();
     const { articleId } = useParams<{ articleId: string }>();
-    const [article, setArticle] = useState<Article>();
     const [similarArticles, setSimilarArticles] = useState<Article[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
+
+    const article = useSubscribed<Article | null>((onSnapshotCallback: OnSnapshotCallback<Article>) =>
+        getArticleById(articleId, onSnapshotCallback),
+    ) as Article;
 
     const detachListeners = () => {
         listeners.forEach(listener => () => listener());
     };
+
     const waitForArticlesData = async () => {
-        const { article, unsubscribe } = await getArticleById(articleId);
-        if (unsubscribe) {
-            setArticle(article);
             const { articleList, unsubscribed } = await getSimilarArticlesListData(
                 article,
                 article.category,
@@ -34,9 +37,8 @@ export const SingleBlogArticle = () => {
             );
             if (unsubscribed) {
                 setSimilarArticles(articleList);
-                setListeners([...listeners, unsubscribe, unsubscribed]);
+                setListeners([...listeners, unsubscribed]);
             }
-        }
     };
     useEffect(() => {
         load(waitForArticlesData());
