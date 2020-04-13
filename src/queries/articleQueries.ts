@@ -1,9 +1,9 @@
 import { firebase } from '../firebase/firebase';
 import { Article } from '../firebase/types';
+import { OnSnapshotCallback } from '../firebase/userRepository';
 
-export const getArticleById = async (articleId: string) => {
-    const { article, unsubscribe } = await firebase.article.getArticleDocById(articleId);
-    return { article, unsubscribe };
+export const getArticleById = (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
+    firebase.article.getArticleDocById(articleId, onSnapshotCallback);
 };
 
 export const getSimilarArticlesListData = async (article: Article, category: string[], tags: string[]) => {
