@@ -1,8 +1,7 @@
 import firebaseApp from 'firebase/app';
 import { Article } from './types';
 import { logQuery } from '../utils/logQuery';
-import {OnSnapshotCallback} from './userRepository';
-
+import { OnSnapshotCallback } from './userRepository';
 
 type dataPromiseTypes = {
     articleList: Article[];
@@ -18,7 +17,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                 logQuery(snapshot);
                 const article = snapshot.data() as Article;
                 if (article) {
-                    onSnapshotCallback(article); 
+                    onSnapshotCallback(article);
                 }
             });
     },
@@ -28,11 +27,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
             if (!snapshot.empty) {
                 snapshot.forEach(doc => {
                     const docData = doc.data() as Article;
-                    if (
-                        articleList.length <= 3 &&
-                        !articleList.includes(docData) &&
-                        docData.title !== article.title
-                    ) {
+                    if (articleList.length <= 3 && !articleList.includes(docData) && docData.title !== article.title) {
                         // eslint-disable-next-line
                         category.some(cat => {
                             if (docData.category.includes(cat)) articleList.push(docData);
@@ -49,7 +44,10 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
             resolve: (value: dataPromiseTypes) => void,
             reject: (reason: Error) => void,
         ): (() => void) => {
-            const articleListRef = db.collection('blog-articles').orderBy('category').limit(3);
+            const articleListRef = db
+                .collection('blog-articles')
+                .orderBy('category')
+                .limit(3);
             const unsubscribed = articleListRef.onSnapshot(
                 snapshot => {
                     logQuery(snapshot);
