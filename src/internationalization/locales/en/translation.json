@@ -72,5 +72,8 @@
         "placeholder": "Write your message here",
         "fill-required-fields": "Please fill the required fields.",
         "empty-message": "The message cannot be empty."
+    },
+    "database-backup": {
+      "get-backup-json": "Get database as JSON"
     }
 }
