@@ -30,15 +30,11 @@ export const SingleBlogArticle = () => {
     };
 
     const waitForArticlesData = async () => {
-            const { articleList, unsubscribed } = await getSimilarArticlesListData(
-                article,
-                article.category,
-                article.tags,
-            );
-            if (unsubscribed) {
-                setSimilarArticles(articleList);
-                setListeners([...listeners, unsubscribed]);
-            }
+        const { articleList, unsubscribed } = await getSimilarArticlesListData(article, article.category, article.tags);
+        if (unsubscribed) {
+            setSimilarArticles(articleList);
+            setListeners([...listeners, unsubscribed]);
+        }
     };
     useEffect(() => {
         load(waitForArticlesData());
