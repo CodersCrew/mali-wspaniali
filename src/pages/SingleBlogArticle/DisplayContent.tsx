@@ -34,28 +34,26 @@ export const DisplayContent = ({
         <Grid className={classes.contentGrid} container direction="column">
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
-                    <Grid container direction="row">
-                        {category.map(cat => {
-                            return (
-                                <Grid item xs={3}>
-                                    <ColorButton
-                                        className={`$classes.contentCategoryButton${cat}`}
-                                        href={`#${cat.toUpperCase()}`}
-                                        disableElevation
-                                        disableFocusRipple
-                                        disableRipple
-                                        disableTouchRipple
-                                    >
-                                        <Box className={classes.contentCategoryTextBox}>
-                                            <Typography className={classes.contentCategoryText}>
-                                                {t(`single-article.${cat}`).toUpperCase()}
-                                            </Typography>
-                                        </Box>
-                                    </ColorButton>
-                                </Grid>
-                            );
-                        })}
-                    </Grid>
+                    {category.map(cat => {
+                        return (
+                            <Grid item xs={3}>
+                                <ColorButton
+                                    className={`$classes.contentCategoryButton${cat}`}
+                                    href={`#${cat.toUpperCase()}`}
+                                    disableElevation
+                                    disableFocusRipple
+                                    disableRipple
+                                    disableTouchRipple
+                                >
+                                    <Box className={classes.contentCategoryTextBox}>
+                                        <Typography className={classes.contentCategoryText}>
+                                            {t(`single-article.${cat}`).toUpperCase()}
+                                        </Typography>
+                                    </Box>
+                                </ColorButton>
+                            </Grid>
+                        );
+                    })}
                 </Grid>
             </Grid>
             <Grid container direction="row">

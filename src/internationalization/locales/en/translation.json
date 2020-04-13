@@ -82,6 +82,6 @@
         "other": "other"
     },
     "database-backup": {
-      "get-backup-json": "Get database as JSON"
+        "get-backup-json": "Get database as JSON"
     }
 }

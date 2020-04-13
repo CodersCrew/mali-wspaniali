@@ -47,6 +47,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
             const articleListRef = db
                 .collection('blog-articles')
                 .orderBy('category')
+                .where('category', 'array-contains', article.category[0])
                 .limit(3);
             const unsubscribed = articleListRef.onSnapshot(
                 snapshot => {
