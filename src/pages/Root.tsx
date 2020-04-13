@@ -31,7 +31,7 @@ export const Root = () => {
                         <AppWrapper>
                             <Route path="/admin/tests" component={TestResultsPage} />
                             <Route path="/admin/users" component={UsersPage} />
-                            <Route path="/child/:childID" component={ChildProfile} />
+                            <Route path="/parent/child/:childID" component={ChildProfile} />
                             <Route path="/admin" />
                             <Route path="/admin/parent/:id" component={ParentProfile} />
                             <Route path="/parent" />
