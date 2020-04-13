@@ -21,7 +21,7 @@ export const DisplayContent = ({
     header,
     pictureUrl,
     contentHTML,
-}: {
+} : {
     category: string[];
     header: string;
     pictureUrl: string;
@@ -34,26 +34,29 @@ export const DisplayContent = ({
         <Grid className={classes.contentGrid} container direction="column">
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
-                    {category.map(cat => {
-                        return (
-                            <Grid item xs={3}>
-                                <ColorButton
-                                    className={`$classes.contentCategoryButton${cat}`}
-                                    href={`#${cat.toUpperCase()}`}
-                                    disableElevation
-                                    disableFocusRipple
-                                    disableRipple
-                                    disableTouchRipple
-                                >
-                                    <Box className={classes.contentCategoryTextBox}>
-                                        <Typography className={classes.contentCategoryText}>
-                                            {t(`single-article.${cat}`).toUpperCase()}
-                                        </Typography>
-                                    </Box>
-                                </ColorButton>
-                            </Grid>
-                        );
-                    })}
+                    <Grid container direction="row">
+                        {category.map(cat => {
+                            changeColorButton(cat);
+                            return (
+                                <Grid item xs={3}>
+                                    <ColorButton
+                                        className={classes.contentCategoryButton}
+                                        href={`#${cat.toUpperCase()}`}
+                                        disableElevation
+                                        disableFocusRipple
+                                        disableRipple
+                                        disableTouchRipple
+                                    >
+                                        <Box className={classes.contentCategoryTextBox}>
+                                            <Typography className={classes.contentCategoryText}>
+                                                {t(`single-article.${cat}`).toUpperCase()}
+                                            </Typography>
+                                        </Box>
+                                    </ColorButton>
+                                </Grid>
+                            );
+                        })}
+                    </Grid>
                 </Grid>
             </Grid>
             <Grid container direction="row">
@@ -84,10 +87,53 @@ let ColorButton = withStyles((theme: Theme) => ({
     },
 }))(Button);
 
-const colorButtonpaddingTop = '2px';
-const colorButtonHeight = '25px';
-const colorButtonWidth = '85px';
-const colorButtonBorderRadius = '4px';
+const changeColorButton = (category: string) => {
+    switch (category) {
+        case 'food':
+            ColorButton = withStyles((theme: Theme) => ({
+                root: {
+                    backgroundColor: SingleArticleColors.categories.food,
+                    '&:hover': {
+                        backgroundColor: SingleArticleColors.categoriesHover.food,
+                    },
+                },
+            }))(Button);
+            break;
+
+        case 'activity':
+            ColorButton = withStyles((theme: Theme) => ({
+                root: {
+                    backgroundColor: SingleArticleColors.categories.activity,
+                    '&:hover': {
+                        backgroundColor: SingleArticleColors.categoriesHover.activity,
+                    },
+                },
+            }))(Button);
+            break;
+
+        case 'other':
+            ColorButton = withStyles((theme: Theme) => ({
+                root: {
+                    backgroundColor: SingleArticleColors.categories.other,
+                    '&:hover': {
+                        backgroundColor: SingleArticleColors.categoriesHover.other,
+                    },
+                },
+            }))(Button);
+            break;
+
+        default:
+            ColorButton = withStyles((theme: Theme) => ({
+                root: {
+                    backgroundColor: SingleArticleColors.categories.emotions,
+                    '&:hover': {
+                        backgroundColor: SingleArticleColors.categoriesHover.emotions,
+                    },
+                },
+            }))(Button);
+            break;
+    }
+};
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -107,53 +153,11 @@ const useStyles = makeStyles((theme: Theme) =>
         contentCategoryTextBox: {
             fontWeight: 500,
         },
-        contentCategoryButtonEmotions: {
-            root: {
-                backgroundColor: SingleArticleColors.categories.emotions,
-                '&:hover': {
-                    backgroundColor: SingleArticleColors.categoriesHover.emotions,
-                },
-            },
-            paddingTop: colorButtonpaddingTop,
-            height: colorButtonHeight,
-            width: colorButtonWidth,
-            borderRadius: colorButtonBorderRadius,
-        },
-        contentCategoryButtonActivity: {
-            root: {
-                backgroundColor: SingleArticleColors.categories.activity,
-                '&:hover': {
-                    backgroundColor: SingleArticleColors.categoriesHover.activity,
-                },
-            },
-            paddingTop: colorButtonpaddingTop,
-            height: colorButtonHeight,
-            width: colorButtonWidth,
-            borderRadius: colorButtonBorderRadius,
-        },
-        contentCategoryButtonFood: {
-            root: {
-                backgroundColor: SingleArticleColors.categories.food,
-                '&:hover': {
-                    backgroundColor: SingleArticleColors.categoriesHover.food,
-                },
-            },
-            paddingTop: colorButtonpaddingTop,
-            height: colorButtonHeight,
-            width: colorButtonWidth,
-            borderRadius: colorButtonBorderRadius,
-        },
-        contentCategoryButtonOther: {
-            root: {
-                backgroundColor: SingleArticleColors.categories.other,
-                '&:hover': {
-                    backgroundColor: SingleArticleColors.categoriesHover.other,
-                },
-            },
-            paddingTop: colorButtonpaddingTop,
-            height: colorButtonHeight,
-            width: colorButtonWidth,
-            borderRadius: colorButtonBorderRadius,
+        contentCategoryButton: {
+            paddingTop: '2px',
+            height: '25px',
+            width: '85px',
+            borderRadius: '4px',
         },
         contentHeader: {
             paddingTop: '4vw',
@@ -169,7 +173,7 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingBottom: '2vw',
         },
         contentPhotoMedia: {
-            borderRadius: colorButtonBorderRadius,
+            borderRadius: '4px',
             border: 'solid',
             borderColor: SingleArticleColors.break,
             borderWidth: '2px',

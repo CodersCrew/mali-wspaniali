@@ -45,10 +45,14 @@ export const SingleBlogArticle = () => {
     return article ? (
         <Grid className={classes.rootGrid} container direction="column">
             <Grid container direction="row">
-                <DisplayPath category={article.category[0]} title={article.title} readingTime={article.readingTime} />
+                <DisplayPath
+                    category={article.category[0]}
+                    title={article.subtitle}
+                    readingTime={article.readingTime}
+                />
             </Grid>
             <Grid container direction="row">
-                <DisplayHeader title={article.subtitle} />
+                <DisplayHeader title={article.title} />
             </Grid>
             <Grid container direction="row">
                 <DisplayContent
