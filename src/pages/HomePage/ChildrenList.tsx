@@ -1,17 +1,25 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export interface Child {
     name: string,
     profilePic:string
 }
-export const ChildrenList: React.FC<Array<Child>> = ({ children }) =>
+export const ChildrenList = (props:{ maliChildren : Child[]}) =>
 {
     const classes = useStyles();
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
     return (
-        children.map((child, name) => { return (<p key={ name }>{ name }</p>); })
+        <>
+            { props.maliChildren.map((child: Child) => {
+                return (
+                    <div key={ child.name } className = {classes.ChildrenAva}>
+                        <p >{ child.name }</p>
+                    </div>
+                );
+            }) }
+        </>
     );
 };
 

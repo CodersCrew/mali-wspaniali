@@ -1,17 +1,28 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
-export const ArticleGrid = () =>
+export interface Article {
+    pictureURL: string,
+    title: string,
+    body: string
+}
+
+export const ArticleGrid = (props:{ maliArticles : Article[]}) =>
 {
     const classes = useStyles();
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     return (
         <>
-            <div className={ classes.ArticleBox }>
-
-            </div>
+            { props.maliArticles.map((article: Article) => {
+                return (
+                    <div key={ article.pictureURL } className = {classes.ArticleBox}>
+                        <p>{ article.title }</p>
+                        <p>{ article.body }</p>
+                    </div>
+                );
+            }) }
         </>
     );
 };
