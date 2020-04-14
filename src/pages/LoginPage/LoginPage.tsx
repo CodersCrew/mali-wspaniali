@@ -77,6 +77,8 @@ export const LoginPage = () => {
                         label={t('password')}
                         type="password"
                         variant="outlined"
+                        error={loginError !== ''}
+                        helperText={loginError ? t('login-page.login-error') : ''}
                         className={classes.formItem}
                     />
                     <div className={classes.submitWrapper}>
