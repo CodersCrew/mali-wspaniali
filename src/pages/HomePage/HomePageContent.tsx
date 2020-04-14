@@ -4,8 +4,9 @@ import {  makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { mainColor, backgroundColor, textColor } from '../../colors';
 import { FoundationBox } from './FoundationBox';
-import { ChildrenList, Child } from './ChildrenList';
-import { ArticleGrid, Article } from './ArticleGrid';
+import { ArticleGrid } from './ArticleGrid';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { ChildrenGrid } from './ChildrenGrid';
 
 export const HomePageContent = () => {
     const classes = useStyles();
@@ -38,6 +39,7 @@ export const HomePageContent = () => {
                 <div className={ classes.GoodAfternoonBox }>{ t('Dzien Dobry!') }</div>
                 <div className={ classes.CheckChildrenActivityBox }>{ t('Sprawdź aktywność swoich dzieci w programie') } <p className={ classes.MaliWspanialiText }>Mali Wspaniali</p></div>
                 <div className={ classes.BodyItems }>
+                    <ChildrenGrid />
 
                     <ChildrenList maliChildren ={ maliChildren }/>
 
