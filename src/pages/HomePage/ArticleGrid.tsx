@@ -1,28 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/';
-// import { useTranslation } from 'react-i18next';
+import { load } from '../../utils/load';
+import { getArticlesListData } from '../../queries/articleQueries';
+import { Article } from '../../firebase/types';
 
-export interface Article {
-    pictureURL: string,
-    title: string,
-    body: string
-}
 
-export const ArticleGrid = (props:{ maliArticles : Article[]}) =>
+export const ArticleGrid = () =>
 {
     const classes = useStyles();
-    // const { t } = useTranslation();
+    
+    const [articles, setArticles] = useState<Article[]>();
+
+
+    const waitForArticlesData = async () => {
+        const { articleList, unsubscribed } = await getArticlesListData();
+        if (articleList.length) {
+            setArticles(articleList);
+        }
+    };
+
+    useEffect(() => {
+        load(waitForArticlesData());
+    }, []);
+
 
     return (
         <>
-            { props.maliArticles.map((article: Article) => {
-                return (
-                    <div key={ article.pictureURL } className = {classes.ArticleBox}>
-                        <p>{ article.title }</p>
-                        <p>{ article.body }</p>
-                    </div>
-                );
-            }) }
+            {articles && articles.map(article=> <ArticleCard />) }
         </>
     );
 };

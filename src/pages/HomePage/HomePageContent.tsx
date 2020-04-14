@@ -4,33 +4,14 @@ import {  makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { mainColor, backgroundColor, textColor } from '../../colors';
 import { FoundationBox } from './FoundationBox';
-import { ChildrenList, Child } from './ChildrenList';
-import { ArticleGrid, Article } from './ArticleGrid';
+import { ArticleGrid } from './ArticleGrid';
+import { useAuthorization } from '../../hooks/useAuthorization';
 
 export const HomePageContent = () => {
+    useAuthorization(true);
     const classes = useStyles();
-
     const { t } = useTranslation();
 
-    const maliChildren: Child[] = [{
-        name: 'Wladyslaw',
-        profilePic: ''
-    },
-    {
-        name: 'Malgorzata',
-        profilePic: ''
-    },];
-    
-    const articles: Article[] = [{
-        pictureURL: 'pictureUrl1',
-        title: '',
-        body: ''
-    },
-    {
-        pictureURL: 'pictureUrl2',
-        title: '',
-        body: ''
-    },];
 
     return (
         <>
@@ -39,11 +20,9 @@ export const HomePageContent = () => {
                 <div className={ classes.CheckChildrenActivityBox }>{ t('Sprawdź aktywność swoich dzieci w programie') } <p className={ classes.MaliWspanialiText }>Mali Wspaniali</p></div>
                 <div className={ classes.BodyItems }>
 
-                    <ChildrenList maliChildren ={ maliChildren }/>
-
                     <FoundationBox />
 
-                    <ArticleGrid maliArticles={articles} />
+                    <ArticleGrid />
 
                 </div>
             </div>
