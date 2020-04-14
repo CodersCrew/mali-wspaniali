@@ -11,7 +11,7 @@ export const LoginPageWrapper: React.FC = ({ children }) => {
     return (
         <div className={classes.background}>
             <div className={classes.logoContainer}>
-                <img src={Logo} alt="Mali Wspaniali Logo"></img>
+                <img src={Logo} alt="Mali Wspaniali Logo" />
                 <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
             </div>
             <div className={classes.formContainer}>{children}</div>
