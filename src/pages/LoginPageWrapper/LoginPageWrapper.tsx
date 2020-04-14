@@ -49,8 +49,6 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         fontSize: '36px',
         lineHeight: '44px',
-        display: 'flex',
-        alignItems: 'center',
         textAlign: 'center',
         textTransform: 'uppercase',
     }
