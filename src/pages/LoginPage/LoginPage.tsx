@@ -83,7 +83,7 @@ export const LoginPage = () => {
                         <Button
                             type="submit"
                             variant="contained"
-                            disabled={email === '' || password === ''}
+                            disabled={!email || !password}
                             color="secondary"
                             className={classes.loginButton}
                         >
