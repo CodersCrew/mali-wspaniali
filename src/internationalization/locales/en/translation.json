@@ -84,8 +84,8 @@
     },
     "navbar": {
         "news": "News",
-        "messages": "messages",
-        "settings": "settings",
+        "messages": "Messages",
+        "settings": "Settings",
         "logout": "Log out"
     }
 }
