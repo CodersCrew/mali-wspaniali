@@ -6,6 +6,7 @@ import { mainColor, backgroundColor, textColor } from '../../colors';
 import { FoundationBox } from './FoundationBox';
 import { ArticleGrid } from './ArticleGrid';
 import { useAuthorization } from '../../hooks/useAuthorization';
+import { ChildrenGrid } from './ChildrenGrid';
 
 export const HomePageContent = () => {
     useAuthorization(true);
@@ -19,6 +20,7 @@ export const HomePageContent = () => {
                 <div className={ classes.GoodAfternoonBox }>{ t('Dzien Dobry!') }</div>
                 <div className={ classes.CheckChildrenActivityBox }>{ t('Sprawdź aktywność swoich dzieci w programie') } <p className={ classes.MaliWspanialiText }>Mali Wspaniali</p></div>
                 <div className={ classes.BodyItems }>
+                    <ChildrenGrid />
 
                     <FoundationBox />
 
