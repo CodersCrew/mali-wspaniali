@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { User, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
-import { mainColor, backgroundColor } from '../../colors';
+import { mainColor, backgroundColor, secondaryColor } from '../../colors';
 
 const theme = createMuiTheme({
     palette: {
@@ -13,7 +13,7 @@ const theme = createMuiTheme({
             main: mainColor,
         },
         secondary: {
-            main: '#FF7149',
+            main: secondaryColor,
         }
     }
 },
@@ -140,7 +140,7 @@ const useStyles = makeStyles({
         lineHeight: '17px',
         textAlign: 'center',
         textTransform: 'uppercase',
-        color: '#FF7149',
+        color: secondaryColor,
         textDecoration: 'none',
     }
 });
