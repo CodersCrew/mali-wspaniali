@@ -80,6 +80,7 @@ export const LoginPage = () => {
                         className={classes.formItem}
                     />
                     <div className={classes.submitWrapper}>
+                        <Link className={classes.forgotPasswordLink} to="/">{t('login-page.forgot-password')}</Link>
                         <Button
                             type="submit"
                             variant="contained"
@@ -89,7 +90,6 @@ export const LoginPage = () => {
                         >
                             {t('login-page.login')}
                         </Button>
-                        <Link className={classes.forgotPasswordLink} to="/">{t('login-page.forgot-password')}</Link>
                     </div>
                 </form>
             </div>
@@ -127,7 +127,6 @@ const useStyles = makeStyles({
         marginTop: '20px',
         width: '100%',
         display: 'flex',
-        flexDirection: 'row-reverse',
         alignItems: 'center',
         justifyContent: 'space-between',
     },
