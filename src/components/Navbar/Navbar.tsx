@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, IconButton, makeStyles, MenuList, MenuItem, ListItemIcon, Paper, Button, ListItem, ListItemText } from '@material-ui/core/';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
-import BuildIcon from '@material-ui/icons/Build';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import { Notifications, FormatListBulleted, QuestionAnswer, Build, PowerSettingsNew } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/firebase';
 import { secondaryColor } from '../../colors';
@@ -36,7 +32,7 @@ export const Navbar = () => {
         <div>
             <div className={classes.menuContainer}>
                 <IconButton color="inherit">
-                    <NotificationsIcon className={classes.notificationsIcon} />
+                    <Notifications className={classes.notificationsIcon} />
                 </IconButton>
                 <Avatar className={classes.avatar} >
                     <Button className={classes.avatarButton} onClick={handleAvatarClick}>{avatarContent}</Button>
@@ -63,9 +59,9 @@ const MenuListItems = (props: MenuListItemsProps) => {
     });
 
     const staticMenuItems: StaticMenuItem[] = [
-        { name: t('navbar.news'), link: '/blog', icon: <FormatListBulletedIcon /> },
-        { name: t('navbar.messages'), link: '/', icon: <QuestionAnswerIcon /> },
-        { name: t('navbar.settings'), link: '/', icon: <BuildIcon /> },
+        { name: t('navbar.news'), link: '/blog', icon: <FormatListBulleted /> },
+        { name: t('navbar.messages'), link: '/', icon: <QuestionAnswer /> },
+        { name: t('navbar.settings'), link: '/', icon: <Build /> },
     ];
 
     const handleLogoutClick = () => {
@@ -106,7 +102,7 @@ const MenuListItems = (props: MenuListItemsProps) => {
                 <MenuItem key='Logout' onClick={handleLogoutClick} component="div">
                     <ListItem className={classes.listItem}>
                         <ListItemIcon className={classes.listItemIcon}>
-                            <PowerSettingsNewIcon />
+                            <PowerSettingsNew />
                         </ListItemIcon>
                         <ListItemText className={classes.listItemText}>{t('navbar.logout')}</ListItemText>
                     </ListItem>
