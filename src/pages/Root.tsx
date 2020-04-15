@@ -12,6 +12,12 @@ import { UsersPage } from './UsersPage';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
+import {ParentHomePage} from './ParentHomePage';
+
+
+// To delete !!
+// import {Sidebar} from '../components/Sidebar';
+
 
 export const Root = () => {
     return (
@@ -23,12 +29,13 @@ export const Root = () => {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegistrationPage} />
                     <AppWrapper>
+                        {/* <Route path="/home/parent" component={Sidebar} /> */}
                         <Route path="/admin/tests" component={TestResultsPage} />
                         <Route path="/admin/users" component={UsersPage} />
                         <Route path="/child/:childID" component={ChildProfile} />
                         <Route path="/admin" />
                         <Route path="/admin/parent/:id" component={ParentProfile} />
-                        <Route path="/parent" />
+                        <Route path="/parent" component={ParentHomePage}/>
                         <Route path="/admin/agreements" component={AdminAgreementsPage} />
                         <Route path="/parent/children" component={ChildrenListPage} />
                         <Route path="/admin/newsletter" component={NewsletterPage} />
