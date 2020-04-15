@@ -15,7 +15,7 @@ import { MenuListItemsProps, ChildMenuItem, StaticMenuItem } from './types';
 export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
-    const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+    const [isMenuOpen, setMenuOpen] = useState(false);
 
     const currentUser = getCurrentUser();
     const children = useSubscribed<Child[]>((callback: OnSnapshotCallback<Child[]>) => {
@@ -38,7 +38,7 @@ export const Navbar = () => {
                     <Button className={classes.avatarButton} onClick={handleAvatarClick}>{avatarContent}</Button>
                 </Avatar>
             </div>
-            {isMenuOpen && <MenuListItems childrenData={children}></MenuListItems>}
+            {isMenuOpen && <MenuListItems childrenData={children} />}
         </div>
     );
 };
@@ -71,29 +71,29 @@ const MenuListItems = (props: MenuListItemsProps) => {
     return (
         <Paper className={classes.menuList}>
             <MenuList >
-                {childMenuItems.map((item: ChildMenuItem) => {
+                {childMenuItems.map(childItem => {
                     return (
-                        <MenuItem key={item.name} component="div">
-                            <Link to={item.link} className={classes.menuLink}>
+                        <MenuItem key={childItem.name} component="div">
+                            <Link to={childItem.link} className={classes.menuLink}>
                                 <ListItem className={classes.listItem}>
                                     <ListItemIcon >
-                                        <Avatar className={classes.listItemAvatar} src={item.avatar}></Avatar>
+                                        <Avatar className={classes.listItemAvatar} src={childItem.avatar}></Avatar>
                                     </ListItemIcon>
-                                    <ListItemText className={classes.listItemText}>{item.name}</ListItemText>
+                                    <ListItemText className={classes.listItemText}>{childItem.name}</ListItemText>
                                 </ListItem>
                             </Link>
                         </MenuItem>
                     );
                 })}
-                {staticMenuItems.map((item: StaticMenuItem) => {
+                {staticMenuItems.map(staticItem => {
                     return (
-                        <MenuItem key={item.name} component="div">
-                            <Link to={item.link} className={classes.menuLink}>
+                        <MenuItem key={staticItem.name} component="div">
+                            <Link to={staticItem.link} className={classes.menuLink}>
                                 <ListItem className={classes.listItem}>
                                     <ListItemIcon className={classes.listItemIcon}>
-                                        {item.icon}
+                                        {staticItem.icon}
                                     </ListItemIcon>
-                                    <ListItemText className={classes.listItemText}>{item.name}</ListItemText>
+                                    <ListItemText className={classes.listItemText}>{staticItem.name}</ListItemText>
                                 </ListItem>
                             </Link>
                         </MenuItem>
