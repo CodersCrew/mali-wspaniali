@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Avatar, MenuList, MenuItem, ListItemIcon, Paper, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
-import { FormatListBulleted, QuestionAnswer, Build, PowerSettingsNew } from '@material-ui/icons/';
+import { Avatar, MenuList, Paper, makeStyles } from '@material-ui/core/';
+import { FormatListBulleted, QuestionAnswer, Build } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/firebase';
 import { Child } from '../../firebase/types';
+import { MenuListItem, MenuLogoutItem } from './MenuItem';
 
 export type MenuListItemsProps = {
     childrenData: Child[];
@@ -16,54 +15,29 @@ export const MenuListItems = (props: MenuListItemsProps) => {
     const { childrenData } = props;
 
     const staticMenuItems = [
-        { name: t('navbar.news'), link: '/blog', icon: <FormatListBulleted /> },
+        { name: t('navbar.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
         { name: t('navbar.messages'), link: '/', icon: <QuestionAnswer /> },
         { name: t('navbar.settings'), link: '/', icon: <Build /> },
     ];
 
-    const handleLogoutClick = () => {
-        firebase.auth.handleSignOut();
-    };
-
     return (
         <Paper className={classes.menuList}>
-            <MenuList >
+            <MenuList>
                 {childrenData.map(child => {
+                    const { firstName, id, avatar } = child;
+                    const iconComponent = <Avatar className={classes.listItemAvatar} src={avatar} />;
+                    const link = `child/:${id}`;
                     return (
-                        <MenuItem key={child.firstName} component="div">
-                            <Link to={`/child/:${child.id}`} className={classes.menuLink}>
-                                <ListItem className={classes.listItem}>
-                                    <ListItemIcon >
-                                        <Avatar className={classes.listItemAvatar} src={child.avatar}></Avatar>
-                                    </ListItemIcon>
-                                    <ListItemText className={classes.listItemText}>{child.firstName}</ListItemText>
-                                </ListItem>
-                            </Link>
-                        </MenuItem>
+                        <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />
                     );
                 })}
                 {staticMenuItems.map(staticItem => {
+                    const { name, link, icon } = staticItem;
                     return (
-                        <MenuItem key={staticItem.name} component="div">
-                            <Link to={staticItem.link} className={classes.menuLink}>
-                                <ListItem className={classes.listItem}>
-                                    <ListItemIcon className={classes.listItemIcon}>
-                                        {staticItem.icon}
-                                    </ListItemIcon>
-                                    <ListItemText className={classes.listItemText}>{staticItem.name}</ListItemText>
-                                </ListItem>
-                            </Link>
-                        </MenuItem>
+                        <MenuListItem key={name} link={link} text={name} iconComponent={icon} />
                     );
                 })}
-                <MenuItem key='Logout' onClick={handleLogoutClick} component="div">
-                    <ListItem className={classes.listItem}>
-                        <ListItemIcon className={classes.listItemIcon}>
-                            <PowerSettingsNew />
-                        </ListItemIcon>
-                        <ListItemText className={classes.listItemText}>{t('navbar.logout')}</ListItemText>
-                    </ListItem>
-                </MenuItem>
+                <MenuLogoutItem />
             </MenuList>
         </Paper>
     );
@@ -76,21 +50,8 @@ const useStyles = makeStyles({
         marginLeft: 'calc(100vw - 210px)',
         marginTop: '10px',
     },
-    menuLink: {
-        textDecoration: 'none',
-        color: 'inherit'
-    },
-    listItem: {
-        padding: '0px'
-    },
     listItemAvatar: {
         width: '24px',
         height: '24px'
     },
-    listItemIcon: {
-        fontSize: '14px'
-    },
-    listItemText: {
-        fontSize: '14px'
-    }
 });

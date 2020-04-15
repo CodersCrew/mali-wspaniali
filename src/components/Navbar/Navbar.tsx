@@ -8,7 +8,7 @@ import { getChildrenByUserId } from '../../queries/childQueries';
 import { getCurrentUser } from '../../queries/userQueries';
 import { Child } from '../../firebase/types';
 import { MenuListItems } from './MenuListItems';
- 
+
 export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
