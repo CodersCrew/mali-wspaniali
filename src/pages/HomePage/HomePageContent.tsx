@@ -4,29 +4,26 @@ import {  makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { mainColor, backgroundColor, textColor } from '../../colors';
 import { FoundationBox } from './FoundationBox';
-import { ArticleGrid } from './ArticleGrid';
+import { ArticleGrid } from './ArticleGrid/ArticleGrid';
 import { useAuthorization } from '../../hooks/useAuthorization';
-import { ChildrenGrid } from './ChildrenGrid';
+import { ChildrenGrid } from './ChildrenGrid/ChildrenGrid';
 
 export const HomePageContent = () => {
     useAuthorization(true);
     const classes = useStyles();
     const { t } = useTranslation();
 
-
     return (
         <>
             <div className={ classes.ContentContainer }>
                 <div className={ classes.GoodAfternoonBox }>{ t('Dzien Dobry!') }</div>
-                <div className={ classes.CheckChildrenActivityBox }>{ t('Sprawdź aktywność swoich dzieci w programie') } <p className={ classes.MaliWspanialiText }>Mali Wspaniali</p></div>
-                <div className={ classes.BodyItems }>
+                <div className={ classes.CheckChildrenActivityBox }>{ t('Sprawdź aktywność swoich dzieci w programie') } <span className={ classes.MaliWspanialiText }>Mali Wspaniali</span></div>
+                <div className={ classes.BodyUpperItems }>
                     <ChildrenGrid />
-
-                    <FoundationBox />
-
-                    <ArticleGrid />
-
                 </div>
+                <FoundationBox />
+
+                <ArticleGrid />
             </div>
         </>
     );
@@ -36,6 +33,8 @@ const useStyles = makeStyles({
     ContentContainer: {
         borderRadius: '20px',
         backgroundColor,
+        marginLeft: '61px',
+        marginTop: '51px',
     },
     GoodAfternoonBox: {
         fontFamily: 'Montserrat',
@@ -55,7 +54,7 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         color: mainColor
     },
-    BodyItems: {
+    BodyUpperItems: {
         display: 'flex',
         flexWrap: 'wrap',
         backgroundColor: '#ffffff',

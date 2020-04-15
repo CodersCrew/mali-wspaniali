@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-// import { makeStyles } from '@material-ui/core/';
-import { load } from '../../utils/load';
-import { getArticlesListData } from '../../queries/articleQueries';
-import { Article } from '../../firebase/types';
+import { makeStyles } from '@material-ui/core/';
+import { useTranslation } from 'react-i18next';
+import { load } from '../../../utils/load';
+import { getArticlesListData } from '../../../queries/articleQueries';
+import { Article } from '../../../firebase/types';
 
 
 export const ArticleGrid = () =>
 {
     const [articles, setArticles] = useState<Article[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
+    const classes = useStyles();
+    const { t } = useTranslation();
 
     const waitForArticlesData = async () => {
         const { articleList, unsubscribed } = await getArticlesListData();
@@ -28,9 +31,8 @@ export const ArticleGrid = () =>
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
     return (
-        <>
+        <><p className={ classes.ArticleBoxTitle }>{ t( 'Najnowsze ARTYKUŁY' ) }</p>
             { articles && articles.map(article => <div key={ article.title }>
                 {article.description}
             </div>) }
@@ -38,14 +40,17 @@ export const ArticleGrid = () =>
     );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-/* const useStyles = makeStyles({
+
+const useStyles = makeStyles({
+
+    ArticleBoxTitle: {
+        fontFamily: 'Montserrat',
+        fontSize: '21px',
+        color: '#1d1d1b',
+    },
+
     ArticleBox: {
         borderRadius: '20px',
         backgroundColor: '#f1f2f4',
     },
-    ButtonContainedSmallIconLeftPrimaryHover: {
-        borderRadius: '4px',
-        backgroundColor: '#ff7149',
-    }
-}); */
+});
