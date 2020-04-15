@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { load } from '../../utils/load';
-import { getChildrenData } from '../../queries/childQueries';
-import { Child } from '../../firebase/types';
-
+import { makeStyles } from '@material-ui/core';
+import { getChildrenData } from '../../../queries/childQueries';
+import { Child } from '../../../firebase/types';
+import { ChildDisplay } from './ChildDisplay';
 
 export const ChildrenGrid = () =>
 {
     const [maliChildren, setMaliCildren] = useState<Child[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
 
+    const classes = useStyles();
 
     const waitForChildrenData = async () => {
         const { documents, unsubscribe } = await getChildrenData(2, null, null);
@@ -23,17 +24,23 @@ export const ChildrenGrid = () =>
     };
 
     useEffect(() => {
-        load(waitForChildrenData());
-        return () => detachListeners();		
+        waitForChildrenData();
+        return () => detachListeners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
     return (
         <>
-            { maliChildren && maliChildren.map(maliChild => <div key={ maliChild.firstName }>
-                {maliChild.firstName}
+            { maliChildren && maliChildren.map(maliChild => <div className={ classes.childrenBox } key={ maliChild.firstName }>
+                <ChildDisplay firstname = {maliChild.firstName} />
             </div>) }
         </>
     );
 };
+
+
+const useStyles = makeStyles({
+    childrenBox: {
+        marginTop: '30px',
+    }
+});
