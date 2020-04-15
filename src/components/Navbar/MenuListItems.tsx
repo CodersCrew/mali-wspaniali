@@ -4,24 +4,18 @@ import { Avatar, MenuList, MenuItem, ListItemIcon, Paper, ListItem, ListItemText
 import { FormatListBulleted, QuestionAnswer, Build, PowerSettingsNew } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/firebase';
-import { MenuListItemsProps, ChildMenuItem, StaticMenuItem } from './types';
+import { Child } from '../../firebase/types';
+
+export type MenuListItemsProps = {
+    childrenData: Child[];
+};
 
 export const MenuListItems = (props: MenuListItemsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { childrenData } = props;
 
-    const childMenuItems: ChildMenuItem[] = childrenData.map(child => {
-        return (
-            {
-                name: child.firstName,
-                link: `/child/:${child.id}`,
-                avatar: child.avatar
-            }
-        );
-    });
-
-    const staticMenuItems: StaticMenuItem[] = [
+    const staticMenuItems = [
         { name: t('navbar.news'), link: '/blog', icon: <FormatListBulleted /> },
         { name: t('navbar.messages'), link: '/', icon: <QuestionAnswer /> },
         { name: t('navbar.settings'), link: '/', icon: <Build /> },
@@ -34,15 +28,15 @@ export const MenuListItems = (props: MenuListItemsProps) => {
     return (
         <Paper className={classes.menuList}>
             <MenuList >
-                {childMenuItems.map(childItem => {
+                {childrenData.map(child => {
                     return (
-                        <MenuItem key={childItem.name} component="div">
-                            <Link to={childItem.link} className={classes.menuLink}>
+                        <MenuItem key={child.firstName} component="div">
+                            <Link to={`/child/:${child.id}`} className={classes.menuLink}>
                                 <ListItem className={classes.listItem}>
                                     <ListItemIcon >
-                                        <Avatar className={classes.listItemAvatar} src={childItem.avatar}></Avatar>
+                                        <Avatar className={classes.listItemAvatar} src={child.avatar}></Avatar>
                                     </ListItemIcon>
-                                    <ListItemText className={classes.listItemText}>{childItem.name}</ListItemText>
+                                    <ListItemText className={classes.listItemText}>{child.firstName}</ListItemText>
                                 </ListItem>
                             </Link>
                         </MenuItem>
