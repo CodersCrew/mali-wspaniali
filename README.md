@@ -16,4 +16,8 @@ $ yarn start
 
 ## Development environment
 
-https://malwsp-client.herokuapp.com/
+https://mali-wspaniali.now.sh/
+
+## Production environment
+
+https://mal-wsp-dev.firebaseapp.com/
