@@ -2,7 +2,17 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { backgroundColor, activeColor } from '../../colors';
 
-export const SidebarMenu = ({ openSidebar, menuItem }: any) => {
+interface MenuItemPropTypes {
+    label: string;
+    icon: JSX.Element;
+}
+
+interface SidebarMenuPropTypes {
+    menuItem: MenuItemPropTypes;
+    openSidebar: boolean;
+}
+
+export const SidebarMenu = ({ openSidebar, menuItem }: SidebarMenuPropTypes) => {
     const classes = useStyles();
     const {
         menuOpenedItem,

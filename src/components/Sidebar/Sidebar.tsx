@@ -11,9 +11,21 @@ import {
 } from '@material-ui/icons';
 import { mainColor, backgroundColor } from '../../colors';
 
-export const Sidebar = ({ toggleSidebar, openSidebar }: any) => {
+interface SidebarPropTypes {
+    toggleSidebar(): void;
+    openSidebar: boolean;
+}
+
+export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     const classes = useStyles();
-    const { sidebarLogoWrapper, sidebarSwitch } = classes;
+    const {
+        sidebarLogoWrapper,
+        sidebarSwitch,
+        logoutBtnWrapper,
+        logoutBtnOpened,
+        appVersion,
+        logoutBtnClosed,
+    } = classes;
 
     const sidebarContainer = openSidebar ? classes.sidebarContainerOpened : classes.sidebarContainerClosed;
     const sidebarSwitchIcon = openSidebar ? classes.switchIconOpened : classes.switchIconClosed;
@@ -66,14 +78,14 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: any) => {
                 {menuItems.map(menuItem => (
                     <SidebarMenu openSidebar={openSidebar} menuItem={menuItem} />
                 ))}
-                <div className={classes.logoutBtnWrapper}>
+                <div className={logoutBtnWrapper}>
                     {openSidebar ? (
                         <>
-                            <Button className={classes.logoutBtnOpened}>Wyloguj</Button>
-                            <span className={classes.appVersion}>Wersja 0.1</span>
+                            <Button className={logoutBtnOpened}>Wyloguj</Button>
+                            <span className={appVersion}>Wersja 0.1</span>
                         </>
                     ) : (
-                        <Button className={classes.logoutBtn}>
+                        <Button className={logoutBtnClosed}>
                             <PowerSettingsNew />
                         </Button>
                     )}
@@ -155,7 +167,11 @@ const useStyles = makeStyles({
         alignItems: 'center',
         borderRadius: '4px',
     },
-    logoutBtn: {
+    logoutBtnWrapper: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
+    logoutBtnClosed: {
         outline: 'none',
         border: 'none',
         background: 'none',
@@ -179,10 +195,6 @@ const useStyles = makeStyles({
             color: mainColor,
             backgroundColor,
         },
-    },
-    logoutBtnWrapper: {
-        display: 'flex',
-        justifyContent: 'center',
     },
     appVersion: {
         position: 'absolute',

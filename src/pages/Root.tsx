@@ -14,9 +14,6 @@ import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
 import { ParentHomePage } from './ParentHomePage';
 
-// To delete !!
-// import {Sidebar} from '../components/Sidebar';
-
 export const Root = () => {
     return (
         <>
@@ -27,7 +24,6 @@ export const Root = () => {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegistrationPage} />
                     <AppWrapper>
-                        {/* <Route path="/home/parent" component={Sidebar} /> */}
                         <Route path="/admin/tests" component={TestResultsPage} />
                         <Route path="/admin/users" component={UsersPage} />
                         <Route path="/child/:childID" component={ChildProfile} />
