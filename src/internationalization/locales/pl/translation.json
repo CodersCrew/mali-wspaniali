@@ -7,7 +7,13 @@
     },
     "login-page": {
         "login": "Zaloguj się",
-        "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany"
+        "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany",
+        "login-header": "Logowanie",
+        "e-mail-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
+        "forgot-password": "Zapomniałeś hasła?"
+    },
+    "login-wrapper": {
+        "welcome-text": "Witaj w świecie Małych Wspaniałych!"
     },
     "registration-page": {
         "already-have-account": "Masz już konto?",
@@ -72,5 +78,8 @@
         "placeholder": "Tu wpisz swoją wiadomość",
         "fill-required-fields": "Proszę uzupełnić wymagane pola.",
         "empty-message": "Wiadomość nie może być pusta."
+    },
+    "database-backup": {
+        "get-backup-json": "Pobierz kopię bazy jako JSON"
     }
 }

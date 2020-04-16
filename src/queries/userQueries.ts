@@ -25,3 +25,12 @@ export const getUserById = (id: string, onSnapshotCallback: OnSnapshotCallback<P
 export const getCurrentUser = () => {
     return firebase.auth.getCurrentUser();
 };
+
+export const getCurrentUserIdToken = async () => {
+    const currentUser = firebase.auth.getCurrentUser();
+    let idToken;
+    if (currentUser) {
+        idToken = await currentUser.getIdToken();
+    }
+    return idToken;
+};

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { backgroundColor, activeColor } from '../../colors';
 
 interface MenuItemPropTypes {
     label: string;
-    icon: JSX.Element;
+    icon: ReactElement;
 }
 
 interface SidebarMenuPropTypes {

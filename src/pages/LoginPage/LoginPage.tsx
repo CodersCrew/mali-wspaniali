@@ -2,8 +2,22 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { User, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
+import { mainColor, backgroundColor, secondaryColor } from '../../colors';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: mainColor,
+        },
+        secondary: {
+            main: secondaryColor,
+        }
+    }
+},
+);
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -22,8 +36,6 @@ export const LoginPage = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
-        setEmail('');
-        setPassword('');
     };
 
     onAuthStateChanged((user: User | null) => {
@@ -40,16 +52,22 @@ export const LoginPage = () => {
     });
 
     return (
-        <>
-            <Link to="/">{t('go-to-home-page')}</Link>
+        <ThemeProvider theme={theme}>
             <div className={classes.container}>
-                <form onSubmit={handleSubmit} autoComplete="off">
+                <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
+                    <div className={classes.loginHeader}>
+                        {t('login-page.login-header')}
+                    </div>
                     <TextField
                         required
                         onChange={event => setEmail(event.target.value)}
                         value={email}
                         id="email"
                         label={t('e-mail')}
+                        variant="outlined"
+                        error={loginError !== ''}
+                        helperText={loginError ? t('login-page.login-error') : t('login-page.e-mail-helper-text')}
+                        className={classes.formItem}
                     />
                     <TextField
                         required
@@ -58,19 +76,26 @@ export const LoginPage = () => {
                         id="password"
                         label={t('password')}
                         type="password"
+                        variant="outlined"
+                        error={loginError !== ''}
+                        helperText={loginError ? t('login-page.login-error') : ''}
+                        className={classes.formItem}
                     />
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        style={{ marginTop: '20px', float: 'right' }}
-                    >
-                        {t('login-page.login')}
-                    </Button>
+                    <div className={classes.submitWrapper}>
+                        <Link className={classes.forgotPasswordLink} to="/">{t('login-page.forgot-password')}</Link>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disabled={!email || !password}
+                            color="secondary"
+                            className={classes.loginButton}
+                        >
+                            {t('login-page.login')}
+                        </Button>
+                    </div>
                 </form>
-                <span>{loginError && t('login-page.login-error')}</span>
             </div>
-        </>
+        </ThemeProvider>
     );
 };
 
@@ -79,5 +104,45 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        height: '100%',
     },
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '80%',
+        minHeight: '90vh',
+    },
+    formItem: {
+        margin: '20px',
+        width: '100%',
+    },
+    loginHeader: {
+        textAlign: 'center',
+        fontSize: '21px',
+        fontWeight: 'bold',
+        marginBottom: '25px',
+        textTransform: 'uppercase',
+    },
+    submitWrapper: {
+        marginTop: '20px',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    loginButton: {
+        color: backgroundColor,
+    },
+    forgotPasswordLink: {
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '17px',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        color: secondaryColor,
+        textDecoration: 'none',
+    }
 });
