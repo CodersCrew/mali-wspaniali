@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { load } from '../../../utils/load';
 import { getArticlesListData } from '../../../queries/articleQueries';
 import { Article } from '../../../firebase/types';
+import { ArticleDisplay } from './ArticleDisplay';
 
 
 export const ArticleGrid = () =>
@@ -32,10 +33,12 @@ export const ArticleGrid = () =>
     }, []);
 
     return (
-        <><p className={ classes.ArticleBoxTitle }>{ t( 'Najnowsze ARTYKUŁY' ) }</p>
-            { articles && articles.map(article => <div key={ article.title }>
-                {article.description}
-            </div>) }
+        <><p className={ classes.ArticleBoxTitle }>{ t('Najnowsze ARTYKUŁY') }</p>
+            <div className={ classes.ArticleList }>
+                { articles && articles.map(article => <div key={ article.title }>
+                    <ArticleDisplay description={ article.description } articlePicture={ article.pictureUrl }/>
+                </div>) }
+            </div>
         </>
     );
 };
@@ -47,6 +50,11 @@ const useStyles = makeStyles({
         fontFamily: 'Montserrat',
         fontSize: '21px',
         color: '#1d1d1b',
+    },
+
+    ArticleList: {
+        display: 'flex',
+        flexDirection: 'row'
     },
 
     ArticleBox: {
