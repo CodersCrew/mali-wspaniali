@@ -9,7 +9,7 @@ export const FoundationBox = () =>
     return (
         <>
             <div className={ classes.FoundationBox }></div>
-            <p className={ classes.FoundationText }>{ }</p>
+            <p className={ classes.FoundationText }>Foundation Box smth I have no fucking idea about</p>
         </>
     );
 };

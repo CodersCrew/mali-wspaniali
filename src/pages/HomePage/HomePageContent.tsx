@@ -54,7 +54,7 @@ const useStyles = makeStyles({
     },
     BodyUpperItems: {
         display: 'flex',
-        flexWrap: 'wrap',
+        flexDirection: 'row',
         width: 'fit-content',
         height: 'fit-content'
     }
