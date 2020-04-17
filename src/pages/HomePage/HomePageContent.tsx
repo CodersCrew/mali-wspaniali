@@ -8,6 +8,7 @@ import { useAuthorization } from '../../hooks/useAuthorization';
 import { ChildrenGrid } from './ChildrenGrid/ChildrenGrid';
 
 export const HomePageContent = () => {
+    useAuthorization(true);
     const classes = useStyles();
 
     return (

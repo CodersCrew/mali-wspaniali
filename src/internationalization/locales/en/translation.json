@@ -7,13 +7,7 @@
     },
     "login-page": {
         "login": "Login",
-        "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
-        "login-header": "Log in",
-        "e-mail-helper-text": "Type in e-mail address provided to Mali Wspaniali's foundation",
-        "forgot-password": "Forgot password?"
-    },
-    "login-wrapper": {
-        "welcome-text": "Welcome to Mali Wspaniali's world!"
+        "login-error": "Sorry, you've provided wrong credentials or haven't been registered"
     },
     "registration-page": {
         "already-have-account": "Already have an account?",
@@ -79,14 +73,15 @@
         "fill-required-fields": "Please fill the required fields.",
         "empty-message": "The message cannot be empty."
     },
-    "database-backup": {
-      "get-backup-json": "Get database as JSON"
     "single-article": {
-        "blog": "Blog",
-        "length": "Length",
-        "Emotions": "Emotions",
-        "Activity": "Activity",
-        "Food": "Food",
-        "Other": "Other"
+        "blog": "blog",
+        "length": "length",
+        "emotions": "emotions",
+        "activity": "activity",
+        "food": "food",
+        "other": "other"
+    },
+    "database-backup": {
+        "get-backup-json": "Get database as JSON"
     }
 }
