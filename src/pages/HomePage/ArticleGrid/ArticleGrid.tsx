@@ -6,13 +6,8 @@ import { getArticlesListData } from '../../../queries/articleQueries';
 import { Article } from '../../../firebase/types';
 import { ArticleDisplay } from './ArticleDisplay';
 
-export interface Article {
-    pictureURL: string,
-    title: string,
-    body: string
-}
 
-export const ArticleGrid = (props:{ maliArticles : Article[]}) =>
+export const ArticleGrid = () =>
 {
     const [articles, setArticles] = useState<Article[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);

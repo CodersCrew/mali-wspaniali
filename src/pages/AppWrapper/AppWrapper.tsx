@@ -22,21 +22,13 @@ export const AppWrapper: FC = ({ children }) => {
     );
 };
 
-const theme = createMuiTheme({
-    typography: {
-        fontFamily: [
-            '"Montserrat"',
-        ].join(','),
-    },
-});
-
 const useStyles = makeStyles({
     background: {
         display: 'flex',
         backgroundColor: mainColor,
         minHeight: '100vh',
         height: '100%',
-        padding: '10px 10px 10px 100px',
+        padding: '10px',
     },
     wideContainer: {
         backgroundColor,
@@ -53,5 +45,4 @@ const useStyles = makeStyles({
         overflowX: 'hidden',
         width: '90%',
     },
-
 });
