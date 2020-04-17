@@ -81,5 +81,12 @@
     },
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
+    "single-article": {
+        "blog": "Blog",
+        "length": "Długość",
+        "Emotions": "Emocje",
+        "Activity": "Aktywność",
+        "Food": "Żywność",
+        "Other": "Inne"
     }
 }

@@ -1,5 +1,28 @@
 export type Document = firebase.firestore.DocumentData;
 
+export interface Article {
+    header: string;
+    pictureUrl: string;
+    title: string;
+    subtitle: string;
+    contentHTML: string;
+    tags: string[];
+    category: string[];
+    description: string;
+    videoUrl: string;
+    readingTime: number;
+    redactor: Redactor;
+    date: Date;
+}
+
+export interface Redactor {
+    avatarUrl: string;
+    firstName: string;
+    lastName: string;
+    profession: string;
+    shortDescription: string;
+}
+
 export interface Result {
     title: string;
     description: string;

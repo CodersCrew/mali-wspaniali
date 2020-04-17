@@ -14,6 +14,7 @@ import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
 import { ParentHomePage } from './ParentHomePage';
 import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
+import { SingleBlogArticle } from './SingleBlogArticle';
 
 export const Root = () => {
     return (
@@ -41,6 +42,18 @@ export const Root = () => {
                             <Route path="/admin/newsletter" component={NewsletterPage} />
                         </AppWrapper>
                     </Route>
+                    <AppWrapper>
+                        <Route path="/admin/tests" component={TestResultsPage} />
+                        <Route path="/admin/users" component={UsersPage} />
+                        <Route path="/child/:childID" component={ChildProfile} />
+                        <Route path="/admin" />
+                        <Route path="/admin/parent/:id" component={ParentProfile} />
+                        <Route path="/parent" />
+                        <Route path="/admin/agreements" component={AdminAgreementsPage} />
+                        <Route path="/parent/children" component={ChildrenListPage} />
+                        <Route path="/admin/newsletter" component={NewsletterPage} />
+                        <Route path="/article/:articleId" component={SingleBlogArticle} />
+                    </AppWrapper>
                 </Switch>
             </Router>
         </>
