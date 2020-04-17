@@ -10,3 +10,9 @@ export const getSimilarArticlesListData = async (article: Article, category: str
     const { articleList, unsubscribed } = await firebase.article.getSimilarArticlesListData(article, category, tags);
     return { articleList, unsubscribed };
 };
+
+export const getArticlesListData = async () => {
+    const { articleList, unsubscribed } = await firebase.article.getArticlesListData();
+    return { articleList, unsubscribed };
+};
+
