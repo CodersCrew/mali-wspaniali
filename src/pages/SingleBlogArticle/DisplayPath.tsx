@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
         pathText: {
             fontWeight: 'bold',
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
             margin: '0px 5px 0px 5px',
         },
         pathTitleContainer: {
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
         pathTitle: {
             color: SingleArticleColors.title,
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
             fontSize: '12px',
             padding: '1px 5px 0px 10px',
         },
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         readingTime: {
             color: SingleArticleColors.title,
-            lineHeight: lineHeight,
+            lineHeight,
             fontSize: '10px',
             padding: '1px 5px 0px 10px',
         },

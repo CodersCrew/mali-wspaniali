@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: mainColor,
             fontWeight: 'bold',
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
         },
     }),
 );

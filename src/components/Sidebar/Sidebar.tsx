@@ -1,5 +1,4 @@
 import React from 'react';
-import { SidebarMenu } from './SidebarMenu';
 import { Button, makeStyles } from '@material-ui/core';
 import {
     FastForward,
@@ -9,6 +8,7 @@ import {
     BuildSharp,
     FormatListBulletedSharp,
 } from '@material-ui/icons';
+import { SidebarMenu } from './SidebarMenu';
 import { mainColor, backgroundColor } from '../../colors';
 
 interface SidebarPropTypes {

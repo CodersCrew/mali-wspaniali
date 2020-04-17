@@ -56,12 +56,12 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: '15px',
             fontWeight: 'bold',
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
         },
         contentRedactorProf: {
             fontSize: '14px',
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
         },
         contentRedactorDescriptionContainer: {
             paddingTop: '1vw',
