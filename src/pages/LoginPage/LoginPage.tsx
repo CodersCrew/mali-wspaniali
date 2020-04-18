@@ -113,6 +113,12 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         width: '80%',
         minHeight: '90vh',
+
+        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+            minHeight: 'auto',
+            width: '100%',
+            margin: '0 15px',
+        },
     },
     formItem: {
         margin: '20px',
@@ -124,6 +130,10 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         marginBottom: '25px',
         textTransform: 'uppercase',
+
+        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+            marginTop: '40px',
+        },
     },
     submitWrapper: {
         marginTop: '20px',
@@ -134,6 +144,7 @@ const useStyles = makeStyles({
     },
     loginButton: {
         color: backgroundColor,
+        fontWeight: 'bold',
     },
     forgotPasswordLink: {
         fontStyle: 'normal',
