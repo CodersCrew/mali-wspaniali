@@ -40,7 +40,7 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
             label: 'Władysław',
             icon: (
                 <span className={classes.menuItemIcon}>
-                    <img src={require('../../img/mali_wspaniali_boy.svg')} alt="mali_wspaniali_boy" />
+                    <img src='../../img/mali_wspaniali_boy.svg' alt="mali_wspaniali_boy" />
                 </span>
             ),
         },
@@ -48,7 +48,7 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
             label: 'Małgorzata',
             icon: (
                 <span className={classes.menuItemIcon}>
-                    <img src={require('../../img/mali_wspaniali_girl.svg')} alt="mali_wspaniali_girl" />
+                    <img src='../../img/mali_wspaniali_girl.svg' alt="mali_wspaniali_girl" />
                 </span>
             ),
         },
@@ -69,7 +69,7 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     return (
         <div className={sidebarContainer}>
             <div className={sidebarLogoWrapper}>
-                <img src={require('../../img/mali_wspaniali_logo.png')} alt="mali_wspaniali" />
+                <img src='../../img/mali_wspaniali_logo.png' alt="mali_wspaniali" />
                 <button onClick={toggleSidebar} className={sidebarSwitch}>
                     <FastForward className={sidebarSwitchIcon} />
                 </button>
