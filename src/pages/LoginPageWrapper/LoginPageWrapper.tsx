@@ -58,8 +58,9 @@ const useStyles = makeStyles({
     },
     welcomeText: {
         marginTop: '50px',
-        width: '450px',
+        width: '480px',
         color: backgroundColor,
+        fontFamily: 'Montserrat',
         fontStyle: 'normal',
         fontWeight: 'bold',
         fontSize: '36px',
@@ -69,7 +70,7 @@ const useStyles = makeStyles({
 
         ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
             margin: '15px 0 30px 0',
-            width: '250px',
+            width: '280px',
             fontSize: '21px',
             lineHeight: '26px',
         },

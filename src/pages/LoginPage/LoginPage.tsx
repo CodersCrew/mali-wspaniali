@@ -8,6 +8,9 @@ import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } fro
 import { mainColor, backgroundColor, secondaryColor } from '../../colors';
 
 const theme = createMuiTheme({
+    typography: {
+        fontFamily: 'Montserrat',
+    },
     palette: {
         primary: {
             main: mainColor,
@@ -126,6 +129,7 @@ const useStyles = makeStyles({
     },
     loginHeader: {
         textAlign: 'center',
+        fontFamily: 'Montserrat',
         fontSize: '21px',
         fontWeight: 'bold',
         marginBottom: '25px',
@@ -147,6 +151,7 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
     },
     forgotPasswordLink: {
+        fontFamily: 'Montserrat',
         fontStyle: 'normal',
         fontWeight: 'bold',
         fontSize: '14px',
