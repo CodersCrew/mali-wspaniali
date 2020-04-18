@@ -18,14 +18,16 @@ const useStyles = makeStyles({
     childRectangle : {
         borderRadius: '8px',
   		boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
-  		backgroundColor: '#ffffff',
+        backgroundColor: '#ffffff',
+        height: '161px',
+        marginRight: '34.9px'
     },
     childAva: {
         width: '122px',
         height: '122.3px',
     },
     childName: {
-        fontFamily: 'Montserrat',
+        fontFamily: 'Montserrat, sans-serif',
         fontSize: '12px',
         fontWeight: 'bold',
         color: '#1d1d1b',

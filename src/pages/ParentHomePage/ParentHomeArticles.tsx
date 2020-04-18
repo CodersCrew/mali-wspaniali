@@ -20,31 +20,31 @@ export const ParentHomeArticles = () => {
             title: 'Tutaj będzie nazwa, która jest przeważnie bardzo długa',
             description:
                 'Tutaj będzie zwykły tekst ok. do 2 zdań. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.',
-            img: <img src={require('../../img/mali_wspaniali_img_one.png')} alt="mali_wspaniali_img_one" />,
+            img: <img src='../../img/mali_wspaniali_img_one.png' alt="mali_wspaniali_img_one" />,
         },
         {
             title: 'Tutaj będzie nazwa, która jest przeważnie bardzo długa',
             description:
                 'Tutaj będzie zwykły tekst ok. do 2 zdań. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.',
-            img: <img src={require('../../img/mali_wspaniali_img_two.png')} alt="mali_wspaniali_img_two" />,
+            img: <img src='../../img/mali_wspaniali_img_two.png' alt="mali_wspaniali_img_two" />,
         },
         {
             title: 'Tutaj będzie nazwa, która jest przeważnie bardzo długa',
             description:
                 'Tutaj będzie zwykły tekst ok. do 2 zdań. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.',
-            img: <img src={require('../../img/mali_wspaniali_img_three.png')} alt="mali_wspaniali_img_three" />,
+            img: <img src= '../../img/mali_wspaniali_img_three.png' alt="mali_wspaniali_img_three" />,
         },
         {
             title: 'Tutaj będzie nazwa, która jest przeważnie bardzo długa',
             description:
                 'Tutaj będzie zwykły tekst ok. do 2 zdań. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.',
-            img: <img src={require('../../img/mali_wspaniali_img_one.png')} alt="mali_wspaniali_img_one" />,
+            img: <img src='../../img/mali_wspaniali_img_one.png' alt="mali_wspaniali_img_one" />,
         },
         {
             title: 'Tutaj będzie nazwa, która jest przeważnie bardzo długa',
             description:
                 'Tutaj będzie zwykły tekst ok. do 2 zdań. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.',
-            img: <img src={require('../../img/mali_wspaniali_img_one.png')} alt="mali_wspaniali_img_one" />,
+            img: <img src= '../../img/mali_wspaniali_img_one.png' alt="mali_wspaniali_img_one" />,
         },
     ];
 
@@ -61,7 +61,7 @@ export const ParentHomeArticles = () => {
                             <Button className={articleButton}>
                                 <span className={articleButtonIcon}>
                                     <img
-                                        src={require('../../img/mali_wspaniali_more_btn.svg')}
+                                        src='../../img/mali_wspaniali_more_btn.svg'
                                         alt="mali_wspaniali_more"
                                     />
                                 </span>

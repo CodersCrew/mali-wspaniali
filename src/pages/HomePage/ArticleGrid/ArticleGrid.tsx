@@ -33,32 +33,25 @@ export const ArticleGrid = () =>
     }, []);
 
     return (
-        <><p className={ classes.ArticleBoxTitle }>{ t('Najnowsze ARTYKUŁY') }</p>
-            <div className={ classes.ArticleList }>
+        <><p className={ classes.articleHeader }>{ t('Najnowsze ARTYKUŁY') }</p>
+            <div className={ classes.articlesList }>
                 { articles && articles.map(article => <div key={ article.title }>
-                    <ArticleDisplay description={ article.description } articlePicture={ article.pictureUrl }/>
+                    <ArticleDisplay title = {article.title} description={ article.description } articlePicture={'../../img/mali_wspaniali_img_one.png' }/>
                 </div>) }
             </div>
         </>
     );
 };
 
-
 const useStyles = makeStyles({
 
-    ArticleBoxTitle: {
-        fontFamily: 'Montserrat',
-        fontSize: '21px',
-        color: '#1d1d1b',
+    articleHeader: {
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+        fontSize: 21,
     },
-
-    ArticleList: {
+    articlesList: {
         display: 'flex',
-        flexDirection: 'row'
-    },
-
-    ArticleBox: {
-        borderRadius: '20px',
-        backgroundColor: '#f1f2f4',
-    },
+        marginTop: 30,
+    }
 });

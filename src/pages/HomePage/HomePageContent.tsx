@@ -34,24 +34,30 @@ const useStyles = makeStyles({
         backgroundColor,
         marginLeft: '61px',
         marginTop: '51px',
+        position: 'absolute',
+        top: '10px',
+        left: '240px',
+        paddingLeft: '61px',
+        fontFamily: 'Montserrat, sans-serif',
     },
     GoodAfternoonBox: {
-        fontFamily: 'Montserrat',
         fontSize: '36px',
         fontWeight: 'bold',
         color: textColor,
+        marginTop: '51px'
     },
 
     CheckChildrenActivityBox: {
-        fontFamily: 'Montserrat',
         fontFize: '21px',
         fontWeight: 500,
         color: textColor,
+        marginTop: '20px',
     },
 
     MaliWspanialiText: {
         fontWeight: 'bold',
-        color: mainColor
+        color: mainColor,
+        marginLeft: '5px'
     },
     BodyUpperItems: {
         display: 'flex',
