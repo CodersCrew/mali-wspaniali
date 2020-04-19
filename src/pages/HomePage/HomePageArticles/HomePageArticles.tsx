@@ -28,6 +28,7 @@ export const HomePageArticles = () => {
     useEffect(() => {
         load(waitForArticlesData());
         return () => detachListeners();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
