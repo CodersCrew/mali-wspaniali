@@ -65,6 +65,7 @@ const useStyles = makeStyles({
         borderRadius: '4px',
         fontWeight: 'bold',
         maxWidth: '121px',
+        maxHeight: '163px',
     },
     infoWrapper: {
         display: 'flex',
@@ -73,6 +74,7 @@ const useStyles = makeStyles({
         background: cardBackgroundColor,
         padding: '20px 14px 20px 15px',
         position: 'relative',
+        maxHeight: '163px',
     },
     infoImage: {
         marginRight: 15,

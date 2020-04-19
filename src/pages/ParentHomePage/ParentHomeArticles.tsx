@@ -11,6 +11,7 @@ export const ParentHomeArticles = () => {
         articleImg,
         articleInfo,
         articleTitle,
+        articleDescription,
         articleButton,
         articleButtonIcon,
     } = classes;
@@ -57,7 +58,7 @@ export const ParentHomeArticles = () => {
                         <span className={articleImg}>{article.img}</span>
                         <div className={articleInfo}>
                             <span className={articleTitle}>{article.title}</span>
-                            <span>{article.description}</span>
+                            <span className={articleDescription}>{article.description}</span>
                             <Button className={articleButton}>
                                 <span className={articleButtonIcon}>
                                     <img
@@ -80,6 +81,7 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         fontWeight: 'bold',
         fontSize: 21,
+        lineHeight: '26px',
     },
     articlesList: {
         display: 'flex',
@@ -110,6 +112,9 @@ const useStyles = makeStyles({
         marginTop: 6,
         marginBottom: 10,
         fontWeight: 'bold',
+    },
+    articleDescription: {
+        marginBottom: 5,
     },
     articleButton: {
         padding: '4px 10px 4px 10px',

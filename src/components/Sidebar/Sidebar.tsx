@@ -97,7 +97,7 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
 
 const useStyles = makeStyles({
     sidebarContainerClosed: {
-        padding: '40px 16px 53px 7px',
+        padding: '30px 16px 63px 7px',
         color: '#fff',
         zIndex: 9,
         position: 'relative',
@@ -177,7 +177,7 @@ const useStyles = makeStyles({
         background: 'none',
         cursor: 'pointer',
         position: 'absolute',
-        bottom: 50,
+        bottom: 53,
         color: '#fff',
     },
     logoutBtnOpened: {
