@@ -145,6 +145,10 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+
+        '@media (max-width:767px)': {
+            margin: '0 0 20px 0',
+        },
     },
     loginButton: {
         color: backgroundColor,
