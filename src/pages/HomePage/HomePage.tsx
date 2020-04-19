@@ -4,11 +4,9 @@ import { HomePageChildren } from './HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles/HomePageArticles';
 import { mainColor } from '../../colors';
 import { Navbar } from '../../components/Navbar/Navbar';
-// import { useTranslation } from 'react-i18next';
 
 export const ParentHomePage = () => {
     const classes = useStyles();
-    // const { t } = useTranslation();
 
     const { container, header, description, link } = classes;
 
