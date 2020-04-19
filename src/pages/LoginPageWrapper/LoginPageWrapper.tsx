@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         padding: '10px',
         display: 'flex',
 
-        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+        '@media (max-width:767px)': {
             flexDirection: 'column',
             padding: 0
         },
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
         flex: '2 0 0',
         flexDirection: 'column',
 
-        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+        '@media (max-width:767px)': {
             flex: '0',
             marginTop: '15px'
         },
@@ -51,7 +51,7 @@ const useStyles = makeStyles({
         borderRadius: '10px',
         flex: '1 0 0',
 
-        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+        '@media (max-width:767px)': {
             minHeight: 'auto',
             borderRadius: '10px 10px 0 0',
         },
@@ -68,7 +68,7 @@ const useStyles = makeStyles({
         textAlign: 'center',
         textTransform: 'uppercase',
 
-        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+        '@media (max-width:767px)': {
             margin: '15px 0 30px 0',
             width: '280px',
             fontSize: '21px',
@@ -76,7 +76,7 @@ const useStyles = makeStyles({
         },
     },
     logo: {
-        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+        '@media (max-width:767px)': {
             maxWidth: '200px',
         },
     }

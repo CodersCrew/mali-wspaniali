@@ -117,7 +117,7 @@ const useStyles = makeStyles({
         width: '80%',
         minHeight: '90vh',
 
-        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+        '@media (max-width:767px)': {
             minHeight: 'auto',
             width: '100%',
             margin: '0 15px',
@@ -135,7 +135,7 @@ const useStyles = makeStyles({
         marginBottom: '25px',
         textTransform: 'uppercase',
 
-        ['@media (max-width:767px)']: { // eslint-disable-line no-useless-computed-key
+        '@media (max-width:767px)': {
             marginTop: '40px',
         },
     },
