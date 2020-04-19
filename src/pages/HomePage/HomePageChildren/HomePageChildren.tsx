@@ -26,6 +26,7 @@ export const HomePageChildren = () => {
     useEffect(() => {
         waitForChildrenData();
         return () => detachListeners();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

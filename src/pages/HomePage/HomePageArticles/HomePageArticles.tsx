@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { HomePageArticleItem } from './HomePageArticleItem';
 import { makeStyles } from '@material-ui/core';
-import { textColor } from '../../../colors';
 import { useTranslation } from 'react-i18next';
-import { load } from '../../../utils/load';
-import { Article } from '../../../firebase/types';
+import { HomePageArticleItem } from './HomePageArticleItem';
+import { textColor } from '../../../colors';
+import { load } from '../../../../src/utils/load';
+import { Article } from '../../../../src/firebase/types';
 import { getArticlesListData } from '../../../queries/articleQuerries';
 
 export const HomePageArticles = () => {
@@ -28,6 +28,7 @@ export const HomePageArticles = () => {
     useEffect(() => {
         load(waitForArticlesData());
         return () => detachListeners();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
