@@ -39,7 +39,7 @@ const useStyles = makeStyles({
         minHeight: 'calc(100vh - 20px)',
         height: '100%',
         borderRadius: '10px',
-        flex: '1 0 0'
+        flex: '1 0 0',
     },
     welcomeText: {
         marginTop: '50px',
@@ -51,5 +51,5 @@ const useStyles = makeStyles({
         lineHeight: '44px',
         textAlign: 'center',
         textTransform: 'uppercase',
-    }
+    },
 });

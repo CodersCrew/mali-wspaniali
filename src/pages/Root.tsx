@@ -12,6 +12,7 @@ import { UsersPage } from './UsersPage';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
+import { ParentHomePage } from './ParentHomePage';
 import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
 
 export const Root = () => {
@@ -31,10 +32,10 @@ export const Root = () => {
                         <AppWrapper>
                             <Route path="/admin/tests" component={TestResultsPage} />
                             <Route path="/admin/users" component={UsersPage} />
-                            <Route path="/parent/child/:childID" component={ChildProfile} />
+                            <Route path="/child/:childID" component={ChildProfile} />
                             <Route path="/admin" />
                             <Route path="/admin/parent/:id" component={ParentProfile} />
-                            <Route path="/parent" />
+                            <Route path="/parent" component={ParentHomePage} />
                             <Route path="/admin/agreements" component={AdminAgreementsPage} />
                             <Route path="/parent/children" component={ChildrenListPage} />
                             <Route path="/admin/newsletter" component={NewsletterPage} />
