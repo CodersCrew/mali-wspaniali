@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { SidebarMenu } from './SidebarMenu';
 import { Button, makeStyles } from '@material-ui/core';
 import {
@@ -10,6 +11,7 @@ import {
     FormatListBulletedSharp,
 } from '@material-ui/icons';
 import { mainColor, backgroundColor } from '../../colors';
+import { firebase } from '../../firebase/firebase';
 
 interface SidebarPropTypes {
     toggleSidebar(): void;
@@ -18,6 +20,7 @@ interface SidebarPropTypes {
 
 export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     const classes = useStyles();
+    const history = useHistory();
     const {
         sidebarLogoWrapper,
         sidebarSwitch,
@@ -30,6 +33,11 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     const sidebarContainer = openSidebar ? classes.sidebarContainerOpened : classes.sidebarContainerClosed;
     const sidebarSwitchIcon = openSidebar ? classes.switchIconOpened : classes.switchIconClosed;
     const sidebarItemsWrapper = openSidebar ? classes.menuItemsOpened : classes.menuItemsClosed;
+
+    const handleLogoutClick = () => {
+        firebase.auth.handleSignOut();
+        history.push('/login');
+    };
 
     const menuItems = [
         {
@@ -81,11 +89,13 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
                 <div className={logoutBtnWrapper}>
                     {openSidebar ? (
                         <>
-                            <Button className={logoutBtnOpened}>Wyloguj</Button>
+                            <Button className={logoutBtnOpened} onClick={handleLogoutClick}>
+                                Wyloguj
+                            </Button>
                             <span className={appVersion}>Wersja 0.1</span>
                         </>
                     ) : (
-                        <Button className={logoutBtnClosed}>
+                        <Button className={logoutBtnClosed} onClick={handleLogoutClick}>
                             <PowerSettingsNew />
                         </Button>
                     )}

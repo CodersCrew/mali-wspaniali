@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
-import { HomePage } from './HomePage';
+import { HomePage } from './HomePage_TO_DELETE';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { TestResultsPage } from './TestResultsPage';
@@ -12,7 +12,7 @@ import { UsersPage } from './UsersPage';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
-import { ParentHomePage } from './ParentHomePage';
+import { ParentHomePage } from './HomePage';
 import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
 
 export const Root = () => {
