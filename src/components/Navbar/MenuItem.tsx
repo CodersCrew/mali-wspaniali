@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { firebase } from '../../firebase/firebase';
 
 type menuListItemProps = {
-    link: string,
-    text: string,
-    iconComponent: ReactElement
-}
+    link: string;
+    text: string;
+    iconComponent: ReactElement;
+};
 
 export const MenuListItem = ({ link, text, iconComponent }: menuListItemProps) => {
     const classes = useStyles();
@@ -18,9 +18,7 @@ export const MenuListItem = ({ link, text, iconComponent }: menuListItemProps) =
         <MenuItem key={text} component="div">
             <Link to={link} className={classes.menuLink}>
                 <ListItem className={classes.listItem}>
-                    <ListItemIcon >
-                        {iconComponent}
-                    </ListItemIcon>
+                    <ListItemIcon>{iconComponent}</ListItemIcon>
                     <ListItemText className={classes.listItemText}>{text}</ListItemText>
                 </ListItem>
             </Link>
@@ -39,7 +37,7 @@ export const MenuLogoutItem = () => {
     };
 
     return (
-        <MenuItem key='Logout' onClick={handleLogoutClick} component="div">
+        <MenuItem key="Logout" onClick={handleLogoutClick} component="div">
             <ListItem className={classes.listItem}>
                 <ListItemIcon className={classes.listItemIcon}>
                     <PowerSettingsNew />
@@ -53,15 +51,15 @@ export const MenuLogoutItem = () => {
 const useStyles = makeStyles({
     menuLink: {
         textDecoration: 'none',
-        color: 'inherit'
+        color: 'inherit',
     },
     listItem: {
-        padding: '0px'
+        padding: '0px',
     },
     listItemIcon: {
-        fontSize: '14px'
+        fontSize: '14px',
     },
     listItemText: {
-        fontSize: '14px'
-    }
+        fontSize: '14px',
+    },
 });

@@ -27,15 +27,11 @@ export const MenuListItems = (props: MenuListItemsProps) => {
                     const { firstName, id, avatar } = child;
                     const iconComponent = <Avatar className={classes.listItemAvatar} src={avatar} />;
                     const link = `child/:${id}`;
-                    return (
-                        <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />
-                    );
+                    return <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />;
                 })}
                 {staticMenuItems.map(staticItem => {
                     const { name, link, icon } = staticItem;
-                    return (
-                        <MenuListItem key={name} link={link} text={name} iconComponent={icon} />
-                    );
+                    return <MenuListItem key={name} link={link} text={name} iconComponent={icon} />;
                 })}
                 <MenuLogoutItem />
             </MenuList>
@@ -52,6 +48,6 @@ const useStyles = makeStyles({
     },
     listItemAvatar: {
         width: '24px',
-        height: '24px'
+        height: '24px',
     },
 });
