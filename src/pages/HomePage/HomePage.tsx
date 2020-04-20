@@ -28,6 +28,7 @@ export const ParentHomePage = () => {
 const useStyles = makeStyles({
     container: {
         padding: '0 0 54px 60px',
+        fontFamily: 'Montserrat, sans-serif',
     },
     header: {
         fontSize: 36,
