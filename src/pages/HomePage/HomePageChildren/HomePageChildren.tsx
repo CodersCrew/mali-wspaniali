@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Close } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { getChildrenData } from '../../../queries/childQueries';
 import { Child } from '../../../firebase/types';
 import { HomePageChildCard } from './HomePageChildCard';
@@ -10,6 +11,7 @@ export const HomePageChildren = () => {
     const classes = useStyles();
     const [children, setChildren] = useState<Child[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
+    const { t } = useTranslation();
 
     const waitForChildrenData = async () => {
         const { documents, unsubscribe } = await getChildrenData(2, null, null);
@@ -39,16 +41,13 @@ export const HomePageChildren = () => {
                 <span className={classes.infoImage}>
                     <img src={require('../../../img/mali_wspaniali_info.png')} alt="mali_wspaniali_boy" />
                 </span>
-                <div>
+                <div className={classes.infoContent}>
                     <span>
                         <Close className={classes.infoCloseIcon} />
                     </span>
-                    <p className={classes.infoTitle}>Tutaj Nagłówek Fundacji</p>
+                    <p className={ classes.infoTitle }>{ t('home-page-content.foundation-header') }</p>
                     <span>
-                        Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing
-                        and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of
-                        the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and
+                        { t('home-page-content.foundation-content') }
                     </span>
                 </div>
             </div>
@@ -78,6 +77,9 @@ const useStyles = makeStyles({
         margin: 0,
         fontWeight: 'bold',
         marginBottom: 15,
+    },
+    infoContent: {
+        overflowY: 'scroll',
     },
     infoCloseIcon: {
         width: 14,

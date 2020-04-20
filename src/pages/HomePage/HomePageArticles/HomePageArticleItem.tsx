@@ -1,10 +1,12 @@
 import React from 'react';
 import { makeStyles, Button } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { cardBackgroundColor, activeColor, textColor } from '../../../colors';
 import { ArticleProps } from './types';
 
 export const HomePageArticleItem = ({ title, description, articlePicture }: ArticleProps) => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <div className={classes.articleCard}>
@@ -20,7 +22,7 @@ export const HomePageArticleItem = ({ title, description, articlePicture }: Arti
                     <span className={classes.articleButtonIcon}>
                         <img src={require('../../../img/mali_wspaniali_more_btn.svg')} alt="mali_wspaniali_more" />
                     </span>
-                    <span>Czytaj dalej</span>
+                    <span>{ t('home-page-content.article-card-btn') }</span>
                 </Button>
             </div>
         </div>
