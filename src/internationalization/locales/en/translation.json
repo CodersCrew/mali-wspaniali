@@ -83,5 +83,11 @@
     },
     "database-backup": {
         "get-backup-json": "Get database as JSON"
+    },
+    "navbar": {
+        "news": "News",
+        "messages": "Messages",
+        "settings": "Settings",
+        "logout": "Log out"
     }
 }

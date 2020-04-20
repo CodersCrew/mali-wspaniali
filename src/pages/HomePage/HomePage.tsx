@@ -1,49 +1,46 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Container, makeStyles } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/firebase';
-import { HomePageContent } from './HomePageContent';
+import { makeStyles } from '@material-ui/core';
+import { HomePageChildren } from './HomePageChildren/HomePageChildren';
+import { HomePageArticles } from './HomePageArticles/HomePageArticles';
+import { mainColor } from '../../colors';
+import { Navbar } from '../../components/Navbar/Navbar';
 
-export const HomePage = () => {
+export const ParentHomePage = () => {
     const classes = useStyles();
 
-    const { t } = useTranslation();
-
-    const handleLogoutClick = () => {
-        firebase.auth.handleSignOut();
-    };
+    const { container, header, description, link } = classes;
 
     return (
-        <Container className={classes.container}>
-            <Link to="/">
-                <Button onClick={handleLogoutClick} color="secondary" variant="outlined">
-                    {t('home-page.log-out')}
-                </Button>
-            </Link>
-            <Link to="/login">
-                <Button variant="contained" color="primary">
-                    {t('home-page.go-to-login-page')}
-                </Button>
-            </Link>
-            <Link to="/register">
-                <Button variant="contained" color="primary">
-                    {t('home-page.go-to-registration-page')}
-                </Button>
-            </Link>
-            <Link to="/parent/children">
-                <Button variant="contained" color="primary">
-                    {t('home-page.go-to-parent-children-page')}
-                </Button>
-            </Link>
-            <HomePageContent />
-        </Container>
+        <div className={container}>
+            <Navbar />
+            <h1 className={header}>Dzień dobry!</h1>
+            <p className={description}>
+                Sprawdź aktywność swoich dzieci w programie <span className={link}>Mali Wspaniali</span>
+            </p>
+            <HomePageChildren />
+            <HomePageArticles />
+        </div>
     );
 };
 
 const useStyles = makeStyles({
     container: {
-        display: 'flex',
-        flexDirection: 'column',
+        padding: '0 0 54px 60px',
+    },
+    header: {
+        fontSize: 36,
+        marginBottom: 20,
+        textTransform: 'uppercase',
+        marginTop: -25,
+        lineHeight: '44px',
+    },
+    description: {
+        marginBottom: 40,
+        fontSize: 21,
+        lineHeight: '26px',
+    },
+    link: {
+        color: mainColor,
+        fontWeight: 'bold',
     },
 });
