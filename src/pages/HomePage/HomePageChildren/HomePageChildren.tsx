@@ -35,7 +35,7 @@ export const HomePageChildren = () => {
         <div className={classes.infoContainer}>
             {children &&
                 children.map(child => (
-                    <HomePageChildCard firstname={child.firstName} avatar={child.avatar} userId={child.userId} />
+                    <HomePageChildCard key={child.userId} firstname={child.firstName} avatar={child.avatar} userId={child.userId} />
                 ))}
             <div className={classes.infoWrapper}>
                 <span className={classes.infoImage}>

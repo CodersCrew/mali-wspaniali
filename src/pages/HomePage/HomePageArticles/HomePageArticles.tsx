@@ -39,6 +39,7 @@ export const HomePageArticles = () => {
                     articles.map(article => (
                         <div key={article.title}>
                             <HomePageArticleItem
+                                articleId = {article.articleId}
                                 title={article.title}
                                 description={article.description}
                                 articlePicture={'../../img/mali_wspaniali_img_one.png'}

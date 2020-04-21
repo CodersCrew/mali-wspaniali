@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
-import { HomePage } from './HomePage_TO_DELETE';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { TestResultsPage } from './TestResultsPage';
@@ -21,7 +20,7 @@ export const Root = () => {
             <CssBaseline />
             <Router>
                 <Switch>
-                    <Route exact path="/" component={HomePage} />
+                    <Route exact path="/" component={ParentHomePage} />
                     <Route path={['/login']}>
                         <LoginPageWrapper>
                             <Route path="/login" component={LoginPage} />
