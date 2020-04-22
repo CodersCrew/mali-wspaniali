@@ -39,7 +39,7 @@ export const HomePageArticles = () => {
                     articles.map(article => (
                         <div key={article.title}>
                             <HomePageArticleItem
-                                articleId = {article.articleId}
+                                articleId={article.articleId}
                                 title={article.title}
                                 description={article.description}
                                 articlePicture={'../../img/mali_wspaniali_img_one.png'}
@@ -57,6 +57,7 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         fontSize: 21,
         color: textColor,
+        margin: '20px 0 20px 0',
     },
     articlesList: {
         display: 'flex',

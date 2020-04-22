@@ -1,5 +1,5 @@
 export interface ArticleProps {
-    articleId: string,
+    articleId: string;
     title: string;
     description: string;
     articlePicture: string;

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { cardBackgroundColor, activeColor, textColor } from '../../../colors';
 import { ArticleProps } from './types';
 
-export const HomePageArticleItem = ({articleId, title, description, articlePicture }: ArticleProps) => {
+export const HomePageArticleItem = ({ articleId, title, description, articlePicture }: ArticleProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -22,7 +22,11 @@ export const HomePageArticleItem = ({articleId, title, description, articlePictu
                     <span className={classes.articleButtonIcon}>
                         <img src={require('../../../img/mali_wspaniali_more_btn.svg')} alt="mali_wspaniali_more" />
                     </span>
-                    <span><a className={classes.articleLink} href={ `/article/${articleId}` }>{ t('home-page-content.article-card-btn') }</a></span>
+                    <span>
+                        <a className={classes.articleLink} href={`/article/${articleId}`}>
+                            {t('home-page-content.article-card-btn')}
+                        </a>
+                    </span>
                 </Button>
             </div>
         </div>
@@ -42,7 +46,7 @@ const useStyles = makeStyles({
         marginRight: 60,
         boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
         borderRadius: '4px',
-        marginTop: 26,
+        marginTop: 25,
         maxWidth: '306px',
         minHeight: '360px',
         maxHeight: '360px',
@@ -86,5 +90,5 @@ const useStyles = makeStyles({
     articleLink: {
         textDecoration: 'none',
         color: '#fff',
-    }
+    },
 });

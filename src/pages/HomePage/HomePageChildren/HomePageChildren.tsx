@@ -35,20 +35,23 @@ export const HomePageChildren = () => {
         <div className={classes.infoContainer}>
             {children &&
                 children.map(child => (
-                    <HomePageChildCard key={child.userId} firstname={child.firstName} avatar={child.avatar} userId={child.userId} />
+                    <HomePageChildCard
+                        key={child.userId}
+                        firstname={child.firstName}
+                        avatar={child.avatar}
+                        userId={child.userId}
+                    />
                 ))}
             <div className={classes.infoWrapper}>
                 <span className={classes.infoImage}>
                     <img src={require('../../../img/mali_wspaniali_info.png')} alt="mali_wspaniali_boy" />
                 </span>
-                <div className={classes.infoContent}>
+                <div>
                     <span>
                         <Close className={classes.infoCloseIcon} />
                     </span>
-                    <p className={ classes.infoTitle }>{ t('home-page-content.foundation-header') }</p>
-                    <span>
-                        { t('home-page-content.foundation-content') }
-                    </span>
+                    <p className={classes.infoTitle}>{t('home-page-content.foundation-header')}</p>
+                    <span className={classes.infoContent}>{t('home-page-content.foundation-content')}</span>
                 </div>
             </div>
         </div>

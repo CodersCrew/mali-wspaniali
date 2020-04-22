@@ -15,9 +15,10 @@ export const ParentHomePage = () => {
     return (
         <div className={container}>
             <Navbar />
-            <h1 className={ header }>{t('home-page-content.greeting') }</h1>
+            <h1 className={header}>{t('home-page-content.greeting')}</h1>
             <p className={description}>
-                { t('home-page-content.check-children-activity') } <span className={ link }>{ t('home-page-content.mali-wspaniali') }</span>
+                {t('home-page-content.check-children-activity')}{' '}
+                <span className={link}>{t('home-page-content.mali-wspaniali')}</span>
             </p>
             <HomePageChildren />
             <HomePageArticles />
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
         lineHeight: '44px',
     },
     description: {
-        marginBottom: 40,
+        margin: '20px 0 40px 0',
         fontSize: 21,
         lineHeight: '26px',
     },
