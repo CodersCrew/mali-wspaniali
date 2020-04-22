@@ -26,5 +26,5 @@ export const getUserRole = async (user: User): Promise<string> => {
 };
 
 export const handleLogout = () => {
-  firebase.auth.handleSignOut();
-}
+    firebase.auth.handleSignOut();
+};
