@@ -21,3 +21,5 @@ export const SingleArticleColors = {
         other: '#4191bf',
     },
 };
+export const darkFont = '#1d1d1b';
+export const whiteFont = '#ffffff';

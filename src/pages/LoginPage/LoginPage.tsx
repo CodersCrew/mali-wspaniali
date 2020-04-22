@@ -2,24 +2,11 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { User, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
-import { mainColor, backgroundColor, secondaryColor } from '../../colors';
-
-const theme = createMuiTheme({
-    typography: {
-        fontFamily: 'Montserrat',
-    },
-    palette: {
-        primary: {
-            main: mainColor,
-        },
-        secondary: {
-            main: secondaryColor,
-        },
-    },
-});
+import { backgroundColor, secondaryColor } from '../../colors';
+import { theme } from '../../theme';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');

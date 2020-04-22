@@ -1,0 +1,1 @@
+export { BlogMainPage } from './BlogMainPage';
