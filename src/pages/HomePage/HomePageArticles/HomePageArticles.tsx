@@ -36,16 +36,22 @@ export const HomePageArticles = () => {
             <p className={classes.articleHeader}>{t('home-page-content.recent-news')}</p>
             <div className={classes.articlesList}>
                 {articles &&
-                    articles.map(article => (
-                        <div key={article.title}>
-                            <HomePageArticleItem
-                                articleId={article.articleId}
-                                title={article.title}
-                                description={article.description}
-                                articlePicture={'../../img/mali_wspaniali_img_one.png'}
-                            />
-                        </div>
-                    ))}
+                    articles.map(article => {
+                        const { articleId, title, description, pictureUrl } = article;
+                        const ArticlePictureComponent = (
+                            <img className={classes.articleImg} alt="mali_wspaniali_img_one" src={pictureUrl} />
+                        );
+                        return (
+                            <div key={article.title}>
+                                <HomePageArticleItem
+                                    articleId={articleId}
+                                    title={title}
+                                    description={description}
+                                    ArticlePictureComponent={ArticlePictureComponent}
+                                />
+                            </div>
+                        );
+                    })}
             </div>
         </>
     );
@@ -62,5 +68,12 @@ const useStyles = makeStyles({
     articlesList: {
         display: 'flex',
         marginTop: 30,
+    },
+    articleImg: {
+        borderRadius: '4px',
+        position: 'relative',
+        top: '-26px',
+        maxHeight: '185px',
+        maxWidth: '276px',
     },
 });
