@@ -103,5 +103,8 @@
         "messages": "Messages",
         "settings": "Settings",
         "logout": "Log out"
+    },
+    "blog-article-card": {
+        "read-more": "READ MORE"
     }
 }

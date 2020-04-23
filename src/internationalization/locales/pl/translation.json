@@ -103,5 +103,8 @@
         "messages": "Wiadomości",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
+    },
+    "blog-article-card": {
+        "read-more": "CZYTAJ DALEJ"
     }
 }
