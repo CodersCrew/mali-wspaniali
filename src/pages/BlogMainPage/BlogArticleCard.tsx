@@ -20,58 +20,57 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div>
-                <Card className={classes.card} elevation={0}>
-                    <CardMedia
-                        component="img"
-                        alt={title}
-                        image={image}
-                        title={title}
-                        className={classes.cardIamge}
-                    />
-                    <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h2" className={classes.articleTitle}>
-                            {title}
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                            {description}
-                        </Typography>
-                    </CardContent>
-                    <Button
-                        href={link}
-                        variant="contained"
-                        color="secondary"
-                        startIcon={<SendIcon />}
-                        className={classes.readMoreButton}
-                        disableElevation
-                    >
-                        {t('blog-article-card.read-more')}
-                    </Button>
-                </Card>
-            </div>
+            <Card className={classes.card} elevation={0}>
+                <CardMedia
+                    component="img"
+                    alt={title}
+                    image={image}
+                    title={title}
+                    className={classes.cardIamge}
+                />
+                <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2" className={classes.articleTitle}>
+                        {title}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        {description}
+                    </Typography>
+                </CardContent>
+                <Button
+                    href={link}
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<SendIcon />}
+                    className={classes.readMoreButton}
+                    disableElevation
+                >
+                    {t('blog-article-card.read-more')}
+                </Button>
+            </Card>
         </ThemeProvider>
     );
 };
 
 const useStyles = makeStyles({
     card: {
-        maxWidth: '30%',
-        maxHeight: '100%',
+        width: '100%',
+        height: '83%',
         overflow: 'visible',
         backgroundColor: darkGrey,
         borderRadius: '4px',
-        position: 'absolute'
+        marginTop: '20%'
     },
     cardIamge: {
-        width: '90%',
-        height: '240px',
-        margin: '0 auto',
+        width: '100%',
+        maxHeight: '200px',
+        padding: '0 16px',
         position: 'relative',
         bottom: '30px'
     },
     cardContent: {
         position: 'relative',
         bottom: '20px',
+        paddingBottom: 0
     },
     articleTitle: {
         position: 'relative',
@@ -85,6 +84,6 @@ const useStyles = makeStyles({
         marginBottom: '5%',
         whiteSpace: 'nowrap',
         float: 'right',
-        marginRight: '5%'
+        marginRight: '10%'
     }
 });
