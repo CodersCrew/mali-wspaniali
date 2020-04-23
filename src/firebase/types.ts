@@ -52,6 +52,7 @@ export interface Child {
     city: string;
     kindergartenNo: string;
     groupNo: string;
+    avatar: string;
     results: Result[];
     agreements: Agreement[];
 }
