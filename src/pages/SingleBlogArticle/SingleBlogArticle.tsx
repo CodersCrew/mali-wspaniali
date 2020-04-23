@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme, Typography } from '@material-ui/core';
 
 import { useAuthorization } from '../../hooks/useAuthorization';
-import { getArticleById, 
-    getSimilarArticlesListData 
-} from '../../queries/articleQueries';
+import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { DisplayPath } from './DisplayPath';
@@ -19,20 +17,20 @@ export const SingleBlogArticle = () => {
     useAuthorization(true);
     const classes = useStyles();
     const { articleId } = useParams<{ articleId: string }>();
-    const [ article, setArticle ] = useState<Article>();
-    const [ similarArticles, setSimilarArticles ] = useState<Article[]>();
 
-    const art = useSubscribed<Article>((onSnapshotCallback: OnSnapshotCallback<Article>) =>
+    const article = useSubscribed<Article>((onSnapshotCallback: OnSnapshotCallback<Article>) =>
         getArticleById(articleId, onSnapshotCallback),
     ) as Article;
 
-    setArticle(art);
-
-    const similar = useSubscribed<Article[]>((onSnapshotCallback: OnSnapshotCallback<Article[]>) =>
-        getSimilarArticlesListData(article as Article, (article as Article).category, (article as Article).tags, onSnapshotCallback),
+    const similarArticles = useSubscribed<Article[], Article>(
+        (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+            if (article) {
+                getSimilarArticlesListData(article, article.category, article.tags, onSnapshotCallback);
+            }
+        },
+        [],
+        [article],
     ) as Article[];
-
-    setSimilarArticles(similar);
 
     return article ? (
         <Grid className={classes.rootGrid} container direction="column">

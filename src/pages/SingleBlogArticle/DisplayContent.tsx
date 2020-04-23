@@ -21,7 +21,7 @@ export const DisplayContent = ({
     header,
     pictureUrl,
     contentHTML,
-} : {
+}: {
     category: string[];
     header: string;
     pictureUrl: string;

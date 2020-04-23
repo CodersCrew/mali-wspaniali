@@ -11,6 +11,11 @@ export const getSimilarArticlesListData = async (article: Article, category: str
     return { articleList, unsubscribed };
 };
 */
-export const getSimilarArticlesListData = async (article: Article, category: string[], tags: string[], onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+export const getSimilarArticlesListData = async (
+    article: Article,
+    category: string[],
+    tags: string[],
+    onSnapshotCallback: OnSnapshotCallback<Article[]>,
+) => {
     firebase.article.getSimilarArticlesListData(article, category, tags, onSnapshotCallback);
-}
+};
