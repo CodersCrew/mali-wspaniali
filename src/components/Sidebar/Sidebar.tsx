@@ -97,7 +97,7 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
                         </>
                     ) : (
                         <Button className={logoutBtnClosed} onClick={handleLogoutClick}>
-                            <PowerSettingsNew />
+                            <PowerSettingsNew className={classes.logoutIcon} />
                         </Button>
                     )}
                 </div>
@@ -190,6 +190,12 @@ const useStyles = makeStyles({
         position: 'absolute',
         bottom: 53,
         color: '#fff',
+
+        '&:hover': {
+            outline: 'none',
+            border: 'none',
+            background: 'none',
+        },
     },
     logoutBtnOpened: {
         border: '1px solid #E3E3E8',
@@ -211,5 +217,11 @@ const useStyles = makeStyles({
         position: 'absolute',
         bottom: '25px',
         fontSize: '12px',
+    },
+    logoutIcon: {
+        '&:hover': {
+            opacity: 0.7,
+            borderRadius: '50%',
+        },
     },
 });

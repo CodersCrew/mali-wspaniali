@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { HomePageChildren } from './HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles/HomePageArticles';
 import { mainColor } from '../../colors';
@@ -9,13 +10,15 @@ export const ParentHomePage = () => {
     const classes = useStyles();
 
     const { container, header, description, link } = classes;
+    const { t } = useTranslation();
 
     return (
         <div className={container}>
             <Navbar />
-            <h1 className={header}>Dzień dobry!</h1>
+            <h1 className={header}>{t('home-page-content.greeting')}</h1>
             <p className={description}>
-                Sprawdź aktywność swoich dzieci w programie <span className={link}>Mali Wspaniali</span>
+                {t('home-page-content.check-children-activity')}{' '}
+                <span className={link}>{t('home-page-content.mali-wspaniali')}</span>
             </p>
             <HomePageChildren />
             <HomePageArticles />
@@ -26,6 +29,7 @@ export const ParentHomePage = () => {
 const useStyles = makeStyles({
     container: {
         padding: '0 0 54px 60px',
+        fontFamily: 'Montserrat, sans-serif',
     },
     header: {
         fontSize: 36,
@@ -35,7 +39,7 @@ const useStyles = makeStyles({
         lineHeight: '44px',
     },
     description: {
-        marginBottom: 40,
+        margin: '20px 0 40px 0',
         fontSize: 21,
         lineHeight: '26px',
     },

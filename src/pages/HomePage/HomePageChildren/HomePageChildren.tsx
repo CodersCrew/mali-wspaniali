@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Close } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { getChildrenData } from '../../../queries/childQueries';
 import { Child } from '../../../firebase/types';
 import { HomePageChildCard } from './HomePageChildCard';
@@ -10,6 +11,7 @@ export const HomePageChildren = () => {
     const classes = useStyles();
     const [children, setChildren] = useState<Child[]>();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
+    const { t } = useTranslation();
 
     const waitForChildrenData = async () => {
         const { documents, unsubscribe } = await getChildrenData(2, null, null);
@@ -33,7 +35,12 @@ export const HomePageChildren = () => {
         <div className={classes.infoContainer}>
             {children &&
                 children.map(child => (
-                    <HomePageChildCard firstname={child.firstName} avatar={child.avatar} userId={child.userId} />
+                    <HomePageChildCard
+                        key={child.userId}
+                        firstname={child.firstName}
+                        avatar={child.avatar}
+                        userId={child.userId}
+                    />
                 ))}
             <div className={classes.infoWrapper}>
                 <span className={classes.infoImage}>
@@ -43,13 +50,8 @@ export const HomePageChildren = () => {
                     <span>
                         <Close className={classes.infoCloseIcon} />
                     </span>
-                    <p className={classes.infoTitle}>Tutaj Nagłówek Fundacji</p>
-                    <span>
-                        Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing
-                        and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of
-                        the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and
-                    </span>
+                    <p className={classes.infoTitle}>{t('home-page-content.foundation-header')}</p>
+                    <span className={classes.infoContent}>{t('home-page-content.foundation-content')}</span>
                 </div>
             </div>
         </div>
@@ -78,6 +80,9 @@ const useStyles = makeStyles({
         margin: 0,
         fontWeight: 'bold',
         marginBottom: 15,
+    },
+    infoContent: {
+        overflowY: 'scroll',
     },
     infoCloseIcon: {
         width: 14,

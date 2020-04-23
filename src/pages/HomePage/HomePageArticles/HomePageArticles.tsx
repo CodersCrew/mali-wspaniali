@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageArticleItem } from './HomePageArticleItem';
 import { textColor } from '../../../colors';
-import { load } from '../../../../src/utils/load';
-import { Article } from '../../../../src/firebase/types';
+import { load } from '../../../utils/load';
+import { Article } from '../../../firebase/types';
 import { getArticlesListData } from '../../../queries/articleQuerries';
 
 export const HomePageArticles = () => {
@@ -33,12 +33,13 @@ export const HomePageArticles = () => {
 
     return (
         <>
-            <p className={classes.articleHeader}>{t('Najnowsze ARTYKUŁY')}</p>
+            <p className={classes.articleHeader}>{t('home-page-content.recent-news')}</p>
             <div className={classes.articlesList}>
                 {articles &&
                     articles.map(article => (
                         <div key={article.title}>
                             <HomePageArticleItem
+                                articleId={article.articleId}
                                 title={article.title}
                                 description={article.description}
                                 articlePicture={'../../img/mali_wspaniali_img_one.png'}
@@ -56,6 +57,7 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         fontSize: 21,
         color: textColor,
+        margin: '20px 0 20px 0',
     },
     articlesList: {
         display: 'flex',
