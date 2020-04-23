@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Theme, Typography } from '@material-ui/core';
 
 import { useAuthorization } from '../../hooks/useAuthorization';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
-import { load } from '../../utils/load';
+import { getArticleById, 
+    getSimilarArticlesListData 
+} from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { DisplayPath } from './DisplayPath';
@@ -13,34 +13,26 @@ import { DisplayHeader } from './DisplayHeader';
 import { DisplayContent } from './DisplayContent';
 import { DisplayVideo } from './DisplayVideo';
 import { DisplayRedactor } from './DisplayRedactor';
+import { useSubscribed } from '../../hooks/useSubscribed';
 
 export const SingleBlogArticle = () => {
     useAuthorization(true);
     const classes = useStyles();
     const { articleId } = useParams<{ articleId: string }>();
-    const [similarArticles, setSimilarArticles] = useState<Article[]>();
-    const [listeners, setListeners] = useState<(() => void)[]>([]);
+    const [ article, setArticle ] = useState<Article>();
+    const [ similarArticles, setSimilarArticles ] = useState<Article[]>();
 
-    const article = useSubscribed<Article | null>((onSnapshotCallback: OnSnapshotCallback<Article>) =>
+    const art = useSubscribed<Article>((onSnapshotCallback: OnSnapshotCallback<Article>) =>
         getArticleById(articleId, onSnapshotCallback),
     ) as Article;
 
-    const detachListeners = () => {
-        listeners.forEach(listener => () => listener());
-    };
+    setArticle(art);
 
-    const waitForArticlesData = async () => {
-        const { articleList, unsubscribed } = await getSimilarArticlesListData(article, article.category, article.tags);
-        if (unsubscribed) {
-            setSimilarArticles(articleList);
-            setListeners([...listeners, unsubscribed]);
-        }
-    };
-    useEffect(() => {
-        load(waitForArticlesData());
-        return () => detachListeners();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const similar = useSubscribed<Article[]>((onSnapshotCallback: OnSnapshotCallback<Article[]>) =>
+        getSimilarArticlesListData(article as Article, (article as Article).category, (article as Article).tags, onSnapshotCallback),
+    ) as Article[];
+
+    setSimilarArticles(similar);
 
     return article ? (
         <Grid className={classes.rootGrid} container direction="column">
@@ -77,7 +69,9 @@ export const SingleBlogArticle = () => {
             {similarArticles && <Grid></Grid>}
         </Grid>
     ) : (
-        <></>
+        <>
+            <Typography>ERROR</Typography>
+        </>
     );
 };
 

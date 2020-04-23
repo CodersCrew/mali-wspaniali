@@ -3,10 +3,12 @@ import { Article } from './types';
 import { logQuery } from '../utils/logQuery';
 import { OnSnapshotCallback } from './userRepository';
 
+/*
 type dataPromiseTypes = {
     articleList: Article[];
     unsubscribed: () => void;
 };
+*/
 
 export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
     getArticleDocById: (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
@@ -21,6 +23,33 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                 }
             });
     },
+    getSimilarArticlesListData: (article: Article, category: string[], tags: string[], onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+        return db
+            .collection('blog-articles')
+            .where('category', 'array-contains', article.category[0])
+            .limit(3)
+            .onSnapshot(snapshot => {
+                const articleList = [] as Article[];
+                snapshot.forEach(snap => {
+                    const docData = snap.data() as Article;
+                    if (articleList.length <= 3 && !articleList.includes(docData) && docData.title !== article.title) {
+                        // eslint-disable-next-line
+                        category.some(cat => {
+                            if (docData.category.includes(cat)) articleList.push(docData);
+                        });
+                        // eslint-disable-next-line
+                        tags.some(tag => {
+                            if (docData.tags.includes(tag)) articleList.push(docData);
+                        });
+                    }
+                });
+                if (articleList) {
+                    onSnapshotCallback(articleList);
+                }
+            })
+            
+    },
+    /*
     getSimilarArticlesListData: (article: Article, category: string[], tags: string[]) => {
         const articleList: Article[] = [];
         const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
@@ -68,4 +97,5 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
             getQuery(resolve, reject);
         });
     },
+    */
 });
