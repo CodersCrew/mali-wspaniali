@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { makeStyles, createStyles, Grid, Theme, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 
-import { useAuthorization } from '../../hooks/useAuthorization';
+//import { useAuthorization } from '../../hooks/useAuthorization';
 import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
@@ -14,7 +14,7 @@ import { DisplayRedactor } from './DisplayRedactor';
 import { useSubscribed } from '../../hooks/useSubscribed';
 
 export const SingleBlogArticle = () => {
-    useAuthorization(true);
+    //useAuthorization(true);
     const classes = useStyles();
     const { articleId } = useParams<{ articleId: string }>();
 
@@ -32,44 +32,42 @@ export const SingleBlogArticle = () => {
         [article],
     ) as Article[];
 
-    return article ? (
-        <Grid className={classes.rootGrid} container direction="column">
-            <Grid container direction="row">
-                <DisplayPath
-                    category={article.category[0]}
-                    title={article.subtitle}
-                    readingTime={article.readingTime}
-                />
+    return (
+        article && (
+            <Grid className={classes.rootGrid} container direction="column">
+                <Grid container direction="row">
+                    <DisplayPath
+                        category={article.category[0]}
+                        title={article.subtitle}
+                        readingTime={article.readingTime}
+                    />
+                </Grid>
+                <Grid container direction="row">
+                    <DisplayHeader title={article.title} />
+                </Grid>
+                <Grid container direction="row">
+                    <DisplayContent
+                        category={article.category}
+                        header={article.header}
+                        pictureUrl={article.pictureUrl}
+                        contentHTML={article.contentHTML}
+                    />
+                </Grid>
+                <Grid container direction="row">
+                    <DisplayVideo videoUrl={article.videoUrl} tags={article.tags} />
+                </Grid>
+                <Grid container direction="row">
+                    <DisplayRedactor
+                        firstName={article.redactor.firstName}
+                        lastName={article.redactor.lastName}
+                        avatarUrl={article.redactor.avatarUrl}
+                        profession={article.redactor.profession}
+                        shortDescription={article.redactor.shortDescription}
+                    />
+                </Grid>
+                {similarArticles && <Grid></Grid>}
             </Grid>
-            <Grid container direction="row">
-                <DisplayHeader title={article.title} />
-            </Grid>
-            <Grid container direction="row">
-                <DisplayContent
-                    category={article.category}
-                    header={article.header}
-                    pictureUrl={article.pictureUrl}
-                    contentHTML={article.contentHTML}
-                />
-            </Grid>
-            <Grid container direction="row">
-                <DisplayVideo videoUrl={article.videoUrl} tags={article.tags} />
-            </Grid>
-            <Grid container direction="row">
-                <DisplayRedactor
-                    firstName={article.redactor.firstName}
-                    lastName={article.redactor.lastName}
-                    avatarUrl={article.redactor.avatarUrl}
-                    profession={article.redactor.profession}
-                    shortDescription={article.redactor.shortDescription}
-                />
-            </Grid>
-            {similarArticles && <Grid></Grid>}
-        </Grid>
-    ) : (
-        <>
-            <Typography>ERROR</Typography>
-        </>
+        )
     );
 };
 

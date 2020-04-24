@@ -30,16 +30,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                 const articleList = [] as Article[];
                 snapshot.forEach(snap => {
                     const docData = snap.data() as Article;
-                    if (articleList.length <= 3 && !articleList.includes(docData) && docData.title !== article.title) {
-                        // eslint-disable-next-line
-                        category.some(cat => {
-                            if (docData.category.includes(cat)) articleList.push(docData);
-                        });
-                        // eslint-disable-next-line
-                        tags.some(tag => {
-                            if (docData.tags.includes(tag)) articleList.push(docData);
-                        });
-                    }
+                    if (docData.title !== article.title && !articleList.includes(docData)) articleList.push(docData);
                 });
                 if (articleList) {
                     onSnapshotCallback(articleList);
