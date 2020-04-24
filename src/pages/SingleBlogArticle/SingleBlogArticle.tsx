@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 
-//import { useAuthorization } from '../../hooks/useAuthorization';
+import { useAuthorization } from '../../hooks/useAuthorization';
 import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
@@ -14,7 +14,7 @@ import { DisplayRedactor } from './DisplayRedactor';
 import { useSubscribed } from '../../hooks/useSubscribed';
 
 export const SingleBlogArticle = () => {
-    //useAuthorization(true);
+    useAuthorization(true);
     const classes = useStyles();
     const { articleId } = useParams<{ articleId: string }>();
 
