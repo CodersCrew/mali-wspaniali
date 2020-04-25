@@ -1,36 +1,24 @@
 /* eslint-disable global-require */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Close } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { getChildrenData } from '../../../queries/childQueries';
+import { getChildrenListData } from '../../../queries/childQueries';
 import { Child } from '../../../firebase/types';
 import { HomePageChildCard } from './HomePageChildCard';
 import { cardBackgroundColor } from '../../../colors';
+import { useAuthorization } from '../../../hooks/useAuthorization';
+import { useSubscribed } from '../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
 
 export const HomePageChildren = () => {
+    useAuthorization(true);
     const classes = useStyles();
-    const [children, setChildren] = useState<Child[]>();
-    const [listeners, setListeners] = useState<(() => void)[]>([]);
     const { t } = useTranslation();
 
-    const waitForChildrenData = async () => {
-        const { documents, unsubscribe } = await getChildrenData(2, null, null);
-        if (unsubscribe) {
-            setChildren(documents);
-            setListeners([...listeners, unsubscribe]);
-        }
-    };
-
-    const detachListeners = () => {
-        listeners.forEach(listener => () => listener());
-    };
-
-    useEffect(() => {
-        waitForChildrenData();
-        return () => detachListeners();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const children = useSubscribed<Child[]>((callback: OnSnapshotCallback<Child[]>) => {
+        getChildrenListData(callback);
+    }) as Child[];
 
     return (
         <div className={classes.infoContainer}>

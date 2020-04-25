@@ -1,12 +1,12 @@
 /* eslint-disable global-require */
 import React from 'react';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles, Button, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { cardBackgroundColor, activeColor, textColor } from '../../../colors';
 import { ArticleProps } from './types';
 
-export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticleProps) => {
+export const HomePageArticleItem = ( { articleId, title, description, ArticlePictureComponent }: ArticleProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -17,11 +17,12 @@ export const HomePageArticleItem = ({ articleId, title, description, ArticlePict
                 <div className={classes.articleInfo}>
                     <span className={classes.articleTitle}>{title}</span>
                     <span className={classes.articleDescription}>{description}</span>
-                    <Button className={classes.articleButton}>
-                        <span className={classes.articleButtonIcon}>
-                            <img src={require('../../../img/mali_wspaniali_more_btn.svg')} alt="mali_wspaniali_more" />
-                        </span>
-                        <span>{t('home-page-content.article-card-btn')}</span>
+                    <Button
+                        variant="contained"
+                        className={classes.articleButton}
+                        endIcon={<Icon></Icon>}
+                    >
+                        {t('home-page-content.article-card-btn')}
                     </Button>
                 </div>
             </div>
@@ -62,14 +63,12 @@ const useStyles = makeStyles({
         wordBreak: 'break-word',
     },
     articleButton: {
-        padding: '4px 10px 4px 10px',
+        margin: '1px',
         background: activeColor,
-        borderRadius: '4px',
-        textTransform: 'uppercase',
-        color: '#fff',
-        fontSize: '13px',
         display: 'flex',
         alignSelf: 'flex-end',
+        color: '#fff',
+        padding: '4px 10px 4px 10px',
         marginTop: 10,
         position: 'absolute',
         bottom: 15,

@@ -1,41 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageArticleItem } from './HomePageArticleItem';
 import { textColor } from '../../../colors';
-import { load } from '../../../utils/load';
 import { Article } from '../../../firebase/types';
 import { getArticlesListData } from '../../../queries/articleQuerries';
+import { useSubscribed } from '../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
 
 export const HomePageArticles = () => {
     const classes = useStyles();
-    const [articles, setArticles] = useState<Article[]>();
-    const [listeners, setListeners] = useState<(() => void)[]>([]);
     const { t } = useTranslation();
 
-    const waitForArticlesData = async () => {
-        const { articleList, unsubscribed } = await getArticlesListData();
-        if (unsubscribed) {
-            setArticles(articleList);
-            setListeners([...listeners, unsubscribed]);
-        }
-    };
+    const articles = useSubscribed<Article[]>(
+        (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+            getArticlesListData(onSnapshotCallback);
+        },
+        [],
+    ) as Article[];
 
-    const detachListeners = () => {
-        listeners.forEach(listener => () => listener());
-    };
-
-    useEffect(() => {
-        load(waitForArticlesData());
-        return () => detachListeners();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    return (
-        <>
-            <p className={classes.articleHeader}>{t('home-page-content.recent-news')}</p>
-            <div className={classes.articlesList}>
-                {articles &&
+    return <>
+        <p className={classes.articleHeader}>{t('home-page-content.recent-news')}</p>
+        <div className={classes.articlesList}>
+            {articles &&
                     articles.map(article => {
                         const { articleId, title, description, pictureUrl } = article;
                         const ArticlePictureComponent = (
@@ -52,9 +39,8 @@ export const HomePageArticles = () => {
                             </div>
                         );
                     })}
-            </div>
-        </>
-    );
+        </div>
+    </>;
 };
 
 const useStyles = makeStyles({
