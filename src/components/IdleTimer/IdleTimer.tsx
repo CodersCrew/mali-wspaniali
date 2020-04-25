@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { CHECK_INTERVAL, MINUTES_UNTIL_AUTO_LOGOUT } from './config';
+import { CHECK_INTERVAL, MINUTES_UNTIL_AUTO_LOGOUT, EVENT_THROTTLE } from './config';
+import { throttle } from './throttle';
 import { onAuthStateChanged } from '../../queries/authQueries';
 import { handleLogout } from '../../queries/authQueries';
 
@@ -28,20 +29,28 @@ export const IdleTimer: React.FC = ({ children }) => {
         } else if (!loggedIn && timerId) {
             window.clearTimeout(timerId);
             setTimerId(null);
-            removeListeners();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => {
+            removeListeners();
+        };
     }, [loggedIn]);
 
     const reset = () => {
         lastAction = Date.now();
     };
 
+    const throttledReset = throttle(reset, EVENT_THROTTLE);
+
     const initListeners = () => {
         document.body.addEventListener('click', reset);
+        document.body.addEventListener('mousemove', throttledReset);
+        document.body.addEventListener('scroll', throttledReset);
     };
     const removeListeners = () => {
         document.body.removeEventListener('click', reset);
+        document.body.removeEventListener('mousemove', throttledReset);
+        document.body.removeEventListener('scroll', throttledReset);
     };
 
     const initInterval = () => {
@@ -57,7 +66,6 @@ export const IdleTimer: React.FC = ({ children }) => {
         const diff = timeleft - now;
         const isTimeout = diff < 0;
         if (isTimeout) {
-            console.log('logout');
             setTimerId(null);
             handleLogout();
             window.clearTimeout(intervalId);
