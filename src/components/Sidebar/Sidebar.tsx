@@ -1,15 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { SidebarMenu } from './SidebarMenu';
+import { SidebarMenuList } from './SidebarMenuList';
 import { Button, makeStyles } from '@material-ui/core';
-import {
-    FastForward,
-    Home,
-    Notifications,
-    PowerSettingsNew,
-    BuildSharp,
-    FormatListBulletedSharp,
-} from '@material-ui/icons';
+import { FastForward, PowerSettingsNew } from '@material-ui/icons';
 import { mainColor, backgroundColor } from '../../colors';
 import { firebase } from '../../firebase/firebase';
 
@@ -39,41 +32,6 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
         history.push('/login');
     };
 
-    const menuItems = [
-        {
-            label: 'Strona Główna',
-            icon: <Home />,
-        },
-        {
-            label: 'Władysław',
-            icon: (
-                <span className={classes.menuItemIcon}>
-                    <img src={require('../../img/mali_wspaniali_boy.svg')} alt="mali_wspaniali_boy" />
-                </span>
-            ),
-        },
-        {
-            label: 'Małgorzata',
-            icon: (
-                <span className={classes.menuItemIcon}>
-                    <img src={require('../../img/mali_wspaniali_girl.svg')} alt="mali_wspaniali_girl" />
-                </span>
-            ),
-        },
-        {
-            label: 'Aktualności',
-            icon: <FormatListBulletedSharp />,
-        },
-        {
-            label: 'Powiadomienia',
-            icon: <Notifications />,
-        },
-        {
-            label: 'Ustawienia',
-            icon: <BuildSharp />,
-        },
-    ];
-
     return (
         <div className={sidebarContainer}>
             <div className={sidebarLogoWrapper}>
@@ -83,9 +41,7 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
                 </button>
             </div>
             <div className={sidebarItemsWrapper}>
-                {menuItems.map(menuItem => (
-                    <SidebarMenu openSidebar={openSidebar} menuItem={menuItem} />
-                ))}
+                <SidebarMenuList openSidebar={openSidebar} />
                 <div className={logoutBtnWrapper}>
                     {openSidebar ? (
                         <>

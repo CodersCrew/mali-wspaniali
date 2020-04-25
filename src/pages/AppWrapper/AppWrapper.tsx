@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core';
 import { Sidebar } from '../../components/Sidebar';
 import { mainColor, backgroundColor } from '../../colors';
 
+const isMobile = window.screen.width < 1024;
+
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
     const [openSidebar, setOpenSidebar] = useState(false);
@@ -14,9 +16,7 @@ export const AppWrapper: FC = ({ children }) => {
 
     return (
         <div className={background}>
-            <div>
-                <Sidebar openSidebar={openSidebar} toggleSidebar={toggleSidebar} />
-            </div>
+            {isMobile ? null : <Sidebar openSidebar={openSidebar} toggleSidebar={toggleSidebar} />}
             <div className={containerStyle}>{children}</div>
         </div>
     );

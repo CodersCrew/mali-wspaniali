@@ -1,18 +1,16 @@
 import React, { ReactElement } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
 import { backgroundColor, activeColor } from '../../colors';
 
-interface MenuItemPropTypes {
-    label: string;
+type SidebarMenuItem = {
+    name: string;
+    link: string;
     icon: ReactElement;
-}
-
-interface SidebarMenuPropTypes {
-    menuItem: MenuItemPropTypes;
     openSidebar: boolean;
-}
+};
 
-export const SidebarMenu = ({ openSidebar, menuItem }: SidebarMenuPropTypes) => {
+export const SidebarMenuItem = ({ name, link, icon, openSidebar }: SidebarMenuItem) => {
     const classes = useStyles();
     const {
         menuOpenedItem,
@@ -28,10 +26,14 @@ export const SidebarMenu = ({ openSidebar, menuItem }: SidebarMenuPropTypes) => 
     const menuLabelStyle = openSidebar ? menuOpenedLabel : menuClosedLabel;
 
     return (
-        <div key={menuItem.label} className={menuItemStyle}>
-            <span className={menuIconStyle}>{menuItem.icon}</span>
-            <span className={menuLabelStyle}>{menuItem.label}</span>
-        </div>
+        <MenuItem key={name} className={menuItemStyle}>
+            <Link to={link}>
+                <ListItem>
+                    <ListItemIcon className={menuIconStyle}>{icon}</ListItemIcon>
+                    <ListItemText className={menuLabelStyle}>{name}</ListItemText>
+                </ListItem>
+            </Link>
+        </MenuItem>
     );
 };
 
