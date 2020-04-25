@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import React, { useState, useEffect } from 'react';
 import { Close } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
@@ -34,24 +35,32 @@ export const HomePageChildren = () => {
     return (
         <div className={classes.infoContainer}>
             {children &&
-                children.map(child => (
-                    <HomePageChildCard
-                        key={child.userId}
-                        firstname={child.firstName}
-                        avatar={child.avatar}
-                        userId={child.userId}
-                    />
-                ))}
+                children.map(child => {
+                    const { firstName, userId, avatar } = child;
+                    const link = `child/:${userId}`;
+                    const PictureComponent = (
+                        <img className={classes.childAva} alt="mali_wspaniali_child" src={avatar} />
+                    );
+                    return (
+                        <HomePageChildCard
+                            key={userId}
+                            firstname={firstName}
+                            userId={userId}
+                            link={link}
+                            PictureComponent={PictureComponent}
+                        />
+                    );
+                })}
             <div className={classes.infoWrapper}>
                 <span className={classes.infoImage}>
                     <img src={require('../../../img/mali_wspaniali_info.png')} alt="mali_wspaniali_boy" />
                 </span>
-                <div>
+                <div className={classes.infoContent}>
                     <span>
                         <Close className={classes.infoCloseIcon} />
                     </span>
                     <p className={classes.infoTitle}>{t('home-page-content.foundation-header')}</p>
-                    <span className={classes.infoContent}>{t('home-page-content.foundation-content')}</span>
+                    <span>{t('home-page-content.foundation-content')}</span>
                 </div>
             </div>
         </div>
@@ -59,6 +68,12 @@ export const HomePageChildren = () => {
 };
 
 const useStyles = makeStyles({
+    childAva: {
+        minWidth: '122px',
+        height: '126px',
+        objectFit: 'cover',
+        borderRadius: '4px 4px 0px 0px',
+    },
     infoContainer: {
         display: 'flex',
         marginBottom: 40,
@@ -82,7 +97,7 @@ const useStyles = makeStyles({
         marginBottom: 15,
     },
     infoContent: {
-        overflowY: 'scroll',
+        overflow: 'hidden',
     },
     infoCloseIcon: {
         width: 14,
