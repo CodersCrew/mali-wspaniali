@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageArticleItem } from './HomePageArticleItem';
 import { textColor } from '../../../colors';
@@ -57,23 +57,42 @@ export const HomePageArticles = () => {
     );
 };
 
-const useStyles = makeStyles({
-    articleHeader: {
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
-        fontSize: 21,
-        color: textColor,
-        margin: '20px 0 20px 0',
-    },
-    articlesList: {
-        display: 'flex',
-        marginTop: 30,
-    },
-    articleImg: {
-        borderRadius: '4px',
-        position: 'relative',
-        top: '-26px',
-        maxHeight: '185px',
-        maxWidth: '276px',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        articleHeader: {
+            textTransform: 'uppercase',
+            fontWeight: 'bold',
+            fontSize: 21,
+            color: textColor,
+            margin: '20px 0 20px 0',
+
+            [theme.breakpoints.down('sm')]: {
+                fontSize: 15,
+                margin: 0,
+                lineHeight: '18px',
+            },
+        },
+        articlesList: {
+            display: 'flex',
+            marginTop: 30,
+
+            [theme.breakpoints.down('sm')]: {
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginTop: 5,
+            },
+        },
+        articleImg: {
+            borderRadius: '4px',
+            position: 'relative',
+            width: '100%',
+            top: '-26px',
+            maxHeight: '185px',
+            maxWidth: '276px',
+
+            [theme.breakpoints.down('sm')]: {
+                maxWidth: 'none',
+            },
+        },
+    }),
+);

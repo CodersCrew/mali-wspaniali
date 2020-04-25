@@ -35,7 +35,7 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     return (
         <div className={sidebarContainer}>
             <div className={sidebarLogoWrapper}>
-                <img src={require('../../img/mali_wspaniali_logo.png')} alt="mali_wspaniali" />
+                <img src={require('../../assets/MALWSP_logo_nav.png')} alt="mali_wspaniali" />
                 <button onClick={toggleSidebar} className={sidebarSwitch}>
                     <FastForward className={sidebarSwitchIcon} />
                 </button>
