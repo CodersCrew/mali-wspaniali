@@ -12,23 +12,15 @@ type SidebarMenuItem = {
 
 export const SidebarMenuItem = ({ name, link, icon, openSidebar }: SidebarMenuItem) => {
     const classes = useStyles();
-    const {
-        menuOpenedItem,
-        menuClosedItem,
-        menuClosedIcon,
-        menuOpenedIcon,
-        menuOpenedLabel,
-        menuClosedLabel,
-    } = classes;
 
-    const menuItemStyle = openSidebar ? menuOpenedItem : menuClosedItem;
-    const menuIconStyle = openSidebar ? menuOpenedIcon : menuClosedIcon;
-    const menuLabelStyle = openSidebar ? menuOpenedLabel : menuClosedLabel;
+    const menuItemStyle = openSidebar ? classes.menuOpenedItem : classes.menuClosedItem;
+    const menuIconStyle = openSidebar ? classes.menuOpenedIcon : classes.menuClosedIcon;
+    const menuLabelStyle = openSidebar ? classes.menuOpenedLabel : classes.menuClosedLabel;
 
     return (
         <MenuItem key={name} className={menuItemStyle}>
-            <Link to={link}>
-                <ListItem>
+            <Link to={link} className={classes.menuLinkItem}>
+                <ListItem className={classes.menuItemWrapper}>
                     <ListItemIcon className={menuIconStyle}>{icon}</ListItemIcon>
                     <ListItemText className={menuLabelStyle}>{name}</ListItemText>
                 </ListItem>
@@ -45,10 +37,26 @@ const useStyles = makeStyles({
         width: 44,
         height: 40,
         marginBottom: 12,
+        borderRadius: '10px',
 
         '&:hover': {
             backgroundColor,
             borderRadius: '10px',
+            color: activeColor,
+        },
+    },
+    menuOpenedItem: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        cursor: 'pointer',
+        padding: '8px 11px 8px 24px',
+        marginBottom: 12,
+        overflow: 'inherit',
+
+        '&:hover': {
+            backgroundColor,
+            borderRadius: '4px',
             color: activeColor,
         },
     },
@@ -65,18 +73,19 @@ const useStyles = makeStyles({
         opacity: 1,
         width: 'auto',
         transition: 'all 0.1s',
+
+        '& span': {
+            fontWeight: 'bold',
+        },
     },
-    menuOpenedItem: {
+    menuItemWrapper: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        cursor: 'pointer',
-        padding: '8px 11px 8px 12px',
-        marginBottom: 12,
+        justifyContent: 'center',
+        width: '24px',
+        height: '24px',
 
         '&:hover': {
-            backgroundColor,
-            borderRadius: '4px',
             color: activeColor,
         },
     },
@@ -85,12 +94,21 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
+        color: '#FFFFFF',
+        width: 44,
+        height: 44,
+
+        '&:hover': {
+            color: activeColor,
+        },
     },
     menuOpenedIcon: {
-        marginRight: '22px',
         cursor: 'pointer',
         display: 'flex',
-        width: '24px',
-        height: '24px',
+        color: '#FFFFFF',
+    },
+    menuLinkItem: {
+        textDecoration: 'none',
+        color: '#FFFFFF',
     },
 });

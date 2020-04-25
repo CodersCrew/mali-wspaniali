@@ -26,21 +26,19 @@ export const HomePageInfo = () => {
     const renderInfoButtonText = isClickedReadMore ? 'Zwiń' : 'Czytaj więcej';
 
     return (
-        <div className={classes.infoWrapper} ref={infoRef}>
-            <span className={classes.infoHeader}>
+        <Grid className={classes.infoWrapper} ref={infoRef}>
+            <div className={classes.infoHeader}>
                 <img
-                    src={require('../../../img/mali_wspaniali_info.png')}
+                    src={require('../../../assets/MALWSP_foundation.png')}
                     alt="mali_wspaniali_info"
                     className={classes.infoImage}
                 />
                 {isMobile ? <p className={classes.infoTitle}>{t('home-page-content.foundation-header')}</p> : null}
-            </span>
+            </div>
             <div className={classes.infoContent}>
-                <span>
-                    <Close className={classes.infoCloseIcon} />
-                </span>
+                <Close className={classes.infoCloseIcon} />
                 {isMobile ? null : <p className={classes.infoTitle}>{t('home-page-content.foundation-header')}</p>}
-                <span>{t('home-page-content.foundation-content')}</span>
+                <p className={classes.infoDescription}>{t('home-page-content.foundation-content')}</p>
             </div>
             {isMobile ? (
                 <Grid item xs={4}>
@@ -49,7 +47,7 @@ export const HomePageInfo = () => {
                     </button>
                 </Grid>
             ) : null}
-        </div>
+        </Grid>
     );
 };
 
@@ -96,6 +94,9 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 marginBottom: 0,
             },
+        },
+        infoDescription: {
+            lineHeight: '18px',
         },
         infoContent: {
             overflow: 'hidden',

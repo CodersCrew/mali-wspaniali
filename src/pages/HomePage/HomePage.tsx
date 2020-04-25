@@ -5,6 +5,7 @@ import { HomePageChildren } from './HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles/HomePageArticles';
 import { mainColor } from '../../colors';
 import { Navbar } from '../../components/Navbar/Navbar';
+import { AppWrapper } from '../AppWrapper/AppWrapper';
 
 export const ParentHomePage = () => {
     const classes = useStyles();
@@ -13,20 +14,22 @@ export const ParentHomePage = () => {
     const { t } = useTranslation();
 
     return (
-        <Grid className={container}>
-            <Navbar />
-            <Grid item xs={12}>
-                <h1 className={header}>{t('home-page-content.greeting')}</h1>
+        <AppWrapper>
+            <Grid className={container}>
+                <Navbar />
+                <Grid item xs={12}>
+                    <h1 className={header}>{t('home-page-content.greeting')}</h1>
+                </Grid>
+                <Grid item xs={12}>
+                    <p className={description}>
+                        <span>{t('home-page-content.check-children-activity')} </span>
+                        <span className={link}>{t('home-page-content.mali-wspaniali')}</span>
+                    </p>
+                </Grid>
+                <HomePageChildren />
+                <HomePageArticles />
             </Grid>
-            <Grid item xs={12}>
-                <p className={description}>
-                    <span>{t('home-page-content.check-children-activity')} </span>
-                    <span className={link}>{t('home-page-content.mali-wspaniali')}</span>
-                </p>
-            </Grid>
-            <HomePageChildren />
-            <HomePageArticles />
-        </Grid>
+        </AppWrapper>
     );
 };
 

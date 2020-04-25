@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 import React from 'react';
-import { makeStyles, createStyles, Theme, Button, Grid } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, Button, Grid, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { cardBackgroundColor, activeColor, textColor } from '../../../colors';
@@ -15,14 +15,10 @@ export const HomePageArticleItem = ({ articleId, title, description, ArticlePict
             {ArticlePictureComponent}
             <div className={classes.articleInfo}>
                 <span className={classes.articleTitle}>{title}</span>
-                <span className={classes.articleDescription}>{description}</span>
+                <p className={classes.articleDescription}>{description}</p>
                 <Link className={classes.articleLink} to={`/article/${articleId}`}>
-                    <Button className={classes.articleButton}>
-                        <span className={classes.articleButtonIcon}>
-                            {/* Zaciagnac ikonke z biblioteki */}
-                            <img src={require('../../../img/mali_wspaniali_more_btn.svg')} alt="mali_wspaniali_more" />
-                        </span>
-                        <span>{t('home-page-content.article-card-btn')}</span>
+                    <Button variant="contained" className={classes.articleButton} startIcon={<Icon>send</Icon>}>
+                        {t('home-page-content.article-card-btn')}
                     </Button>
                 </Link>
             </div>
