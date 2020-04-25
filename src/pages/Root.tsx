@@ -13,7 +13,7 @@ import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
 import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
-import { IdleTimer } from './../components/IdleTimer/IdleTimer';
+import { IdleTimer } from '../components/IdleTimer/IdleTimer';
 
 export const Root = () => {
     return (

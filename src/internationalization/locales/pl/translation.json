@@ -20,7 +20,8 @@
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success": "Konto zostało utworzone. Możesz się zalogować.",
         "password-confirm": "Powtórz hasło",
-        "register": "Zarejestruj się"
+        "register": "Zarejestruj się",
+        "password-not-strong": "Hasło za słabe"
     },
     "users-page": {
         "agreements": "Zgody",

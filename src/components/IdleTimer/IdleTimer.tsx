@@ -30,10 +30,10 @@ export const IdleTimer: React.FC = ({ children }) => {
             window.clearTimeout(timerId);
             setTimerId(null);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         return () => {
             removeListeners();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
 
     const reset = () => {
@@ -61,6 +61,7 @@ export const IdleTimer: React.FC = ({ children }) => {
     };
 
     const check = (intervalId: NodeJS.Timeout) => {
+        console.log(lastAction);
         const now = Date.now();
         const timeleft = lastAction + MINUTES_UNTIL_AUTO_LOGOUT * 60 * 1000;
         const diff = timeleft - now;
