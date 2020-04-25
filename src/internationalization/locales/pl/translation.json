@@ -91,12 +91,12 @@
         "logout": "Wyloguj"
     },
     "home-page-content": {
-            "greeting": "Dzien Dobry!",
-            "check-children-activity": "Sprawdź aktywność swoich dzieci w programie",
-            "mali-wspaniali": "Mali Wspaniali",
-            "foundation-header":"Tutaj Nagłówek Fundacji",
-            "foundation-content":"Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
-            "recent-news": "Najnowsze ARTYKUŁY",
-            "article-card-btn": "Czytaj dalej"
+        "greeting": "Dzien Dobry!",
+        "check-children-activity": "Sprawdź aktywność swoich dzieci w programie",
+        "mali-wspaniali": "Mali Wspaniali",
+        "foundation-header": "Tutaj Nagłówek Fundacji",
+        "foundation-content": "Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
+        "recent-news": "Najnowsze ARTYKUŁY",
+        "article-card-btn": "Czytaj dalej"
     }
 }
