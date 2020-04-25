@@ -28,7 +28,6 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-not-strong'),
             });
         } else {
-            console.log('tested true');
             if (password !== passwordConfirm) {
                 openAlertDialog({
                     type: 'error',

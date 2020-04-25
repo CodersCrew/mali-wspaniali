@@ -61,7 +61,6 @@ export const IdleTimer: React.FC = ({ children }) => {
     };
 
     const check = (intervalId: NodeJS.Timeout) => {
-        console.log(lastAction);
         const now = Date.now();
         const timeleft = lastAction + MINUTES_UNTIL_AUTO_LOGOUT * 60 * 1000;
         const diff = timeleft - now;
