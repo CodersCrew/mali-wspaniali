@@ -7,13 +7,12 @@ export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
     const [openSidebar, setOpenSidebar] = useState(false);
 
-    const containerStyle = openSidebar ? classes.narrowContainer : classes.wideContainer;
     const toggleSidebar = () => setOpenSidebar(!openSidebar);
 
     return (
         <div className={classes.background}>
             <Sidebar openSidebar={openSidebar} toggleSidebar={toggleSidebar} />
-            <div className={containerStyle}>{children}</div>
+            <div className={classes.container}>{children}</div>
         </div>
     );
 };
@@ -26,14 +25,7 @@ const useStyles = makeStyles({
         height: '100%',
         padding: '10px',
     },
-    wideContainer: {
-        backgroundColor,
-        minHeight: 'calc(100vh - 20px)',
-        height: '100%',
-        borderRadius: '10px',
-        width: '100%',
-    },
-    narrowContainer: {
+    container: {
         backgroundColor,
         minHeight: 'calc(100vh - 20px)',
         height: '100%',
