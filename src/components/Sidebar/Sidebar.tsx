@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { SidebarMenuList } from './SidebarMenuList';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { firebase } from '../../firebase/firebase';
 import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
@@ -31,24 +31,34 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     );
 };
 
-const useStyles = makeStyles({
-    sidebarContainer: {
-        padding: '30px 20px 53px 10px',
-        color: '#fff',
-        zIndex: 9,
-        position: 'relative',
-        height: 'calc(100vh-20px)',
-        minWidth: '104px',
-        background: mainColor,
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        sidebarContainer: {
+            padding: '30px 20px 53px 10px',
+            color: '#fff',
+            zIndex: 9,
+            position: 'relative',
+            height: 'calc(100vh-20px)',
+            minWidth: '104px',
+            width: '104px',
+            transition: 'all 0.4s',
+            background: mainColor,
 
-        '&.opened': {
-            width: '240px',
+            '&.opened': {
+                minWidth: '240px',
+                width: '240px',
+                transition: 'all 0.5s',
+            },
+
+            [theme.breakpoints.down('sm')]: {
+                display: 'none',
+            },
         },
-    },
-    sidebarItemsContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1,
-        alignItems: 'center',
-    },
-});
+        sidebarItemsContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            alignItems: 'center',
+        },
+    }),
+);
