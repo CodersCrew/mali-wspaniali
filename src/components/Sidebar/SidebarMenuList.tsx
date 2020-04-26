@@ -11,7 +11,7 @@ import { getCurrentUser } from '../../queries/userQueries';
 import { cardBackgroundColor } from '../../colors';
 import { SidebarMenuListPropTypes } from './types';
 
-export const SidebarMenuList = ({ openSidebar }: SidebarMenuListPropTypes) => {
+export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const currentUser = getCurrentUser();
@@ -28,29 +28,27 @@ export const SidebarMenuList = ({ openSidebar }: SidebarMenuListPropTypes) => {
         { name: t('sidebar.settings'), link: '/', icon: <BuildSharp /> },
     ];
 
-    return (
-        <MenuList>
-            {children.map(child => {
-                const { firstName, id, avatar } = child;
+    const renderMenuItems = () => {
+        if (children) {
+            children.map(({ firstName, id, avatar }) => {
                 const iconComponent = (
                     <div className={classes.avatarWrapper}>
                         <Avatar src={avatar} className={classes.avatar} />
                     </div>
                 );
-                const link = `child/:${id}`;
+                const link = `/parent/child/:${id}`;
                 menuItems.splice(1, 0, { name: `${firstName}`, link: `${link}`, icon: iconComponent });
-                return menuItems.map(menuItem => (
-                    <SidebarMenuItem
-                        openSidebar={openSidebar}
-                        key={menuItem.name}
-                        name={menuItem.name}
-                        link={menuItem.link}
-                        icon={menuItem.icon}
-                    />
+                return menuItems.map(({ name, link, icon }) => (
+                    <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={link} icon={icon} />
                 ));
-            })}
-        </MenuList>
-    );
+            });
+        }
+        return menuItems.map(({ name, link, icon }) => (
+            <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={link} icon={icon} />
+        ));
+    };
+
+    return <MenuList>{renderMenuItems()}</MenuList>;
 };
 
 const useStyles = makeStyles({

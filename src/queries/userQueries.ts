@@ -34,3 +34,5 @@ export const getCurrentUserIdToken = async () => {
     }
     return idToken;
 };
+
+export const handleSignOut = () => firebase.auth.handleSignOut();

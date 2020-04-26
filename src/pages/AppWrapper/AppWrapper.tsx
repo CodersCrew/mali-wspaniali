@@ -5,13 +5,13 @@ import { mainColor, backgroundColor } from '../../colors';
 
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
-    const [openSidebar, setOpenSidebar] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const toggleSidebar = () => setOpenSidebar(!openSidebar);
+    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
     return (
         <div className={classes.background}>
-            <Sidebar openSidebar={openSidebar} toggleSidebar={toggleSidebar} />
+            <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div className={classes.container}>{children}</div>
         </div>
     );

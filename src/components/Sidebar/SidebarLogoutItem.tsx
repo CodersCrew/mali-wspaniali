@@ -6,12 +6,12 @@ import { SidebarLogoutPropTypes } from './types';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-export const SidebarLogoutItem = ({ handleLogoutClick, openSidebar }: SidebarLogoutPropTypes) => {
+export const SidebarLogoutItem = ({ handleLogoutClick, isSidebarOpen }: SidebarLogoutPropTypes) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const logoutBtnStyle = clsx(classes.logoutBtn, openSidebar ? 'opened' : null);
-    const logoutBtnContent = openSidebar ? t('sidebar.logout') : <PowerSettingsNew />;
+    const logoutBtnStyle = clsx(classes.logoutBtn, isSidebarOpen ? 'opened' : null);
+    const logoutBtnContent = isSidebarOpen ? t('sidebar.logout') : <PowerSettingsNew />;
 
     return (
         <div className={classes.logoutBtnContainer}>

@@ -1,13 +1,13 @@
 export interface SidebarPropTypes {
     toggleSidebar(): void;
-    openSidebar: boolean;
+    isSidebarOpen: boolean;
 }
 
 export interface SidebarLogoutPropTypes {
     handleLogoutClick(): void;
-    openSidebar: boolean;
+    isSidebarOpen: boolean;
 }
 
 export interface SidebarMenuListPropTypes {
-    openSidebar: boolean;
+    isSidebarOpen: boolean;
 }
