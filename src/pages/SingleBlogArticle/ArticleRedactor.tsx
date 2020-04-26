@@ -1,37 +1,33 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles, Grid, Avatar, Typography, Box } from '@material-ui/core';
-
 import { lineHeight, letterSpace } from '../../fontStyle';
+import { Redactor } from '../../firebase/types';
 
-export const DisplayRedactor = ({
-    firstName,
-    lastName,
-    avatarUrl,
-    profession,
-    shortDescription,
-}: {
-    firstName: string;
-    lastName: string;
-    avatarUrl: string;
-    profession: string;
-    shortDescription: string;
-}) => {
+export const ArticleRedactor = ({ redactor }: { redactor: Redactor }) => {
     const classes = useStyles();
 
     return (
         <Grid container direction="row">
             <Grid className={classes.contentRedactorAvatarContainer} item xs={3}>
-                <Avatar className={classes.contentRedactorAvatar} alt={`${firstName} ${lastName}`} src={avatarUrl} />
+                <Avatar
+                    className={classes.contentRedactorAvatar}
+                    alt={`${redactor.firstName} ${redactor.lastName}`}
+                    src={redactor.avatarUrl}
+                />
             </Grid>
             <Grid item xs={6}>
                 <Grid container direction="column">
                     <Grid className={classes.contentRedactorNameContainer} item xs={3}>
-                        <Typography className={classes.contentRedactorName}>{`${firstName} ${lastName}`}</Typography>
-                        <Typography className={classes.contentRedactorProf}>{profession}</Typography>
+                        <Typography
+                            className={classes.contentRedactorName}
+                        >{`${redactor.firstName} ${redactor.lastName}`}</Typography>
+                        <Typography className={classes.contentRedactorProf}>{redactor.profession}</Typography>
                     </Grid>
                     <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
-                        <Box fontWeight={500}>
-                            <Typography className={classes.contentRedactorDescription}>{shortDescription}</Typography>
+                        <Box className={classes.contentRedactorDescriptionBox}>
+                            <Typography className={classes.contentRedactorDescription}>
+                                {redactor.shortDescription}
+                            </Typography>
                         </Box>
                     </Grid>
                 </Grid>
@@ -65,6 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         contentRedactorDescriptionContainer: {
             paddingTop: '1vw',
+        },
+        contentRedactorDescriptionBox: {
+            fontWeight: 500,
         },
         contentRedactorDescription: {
             fontSize: '18px',

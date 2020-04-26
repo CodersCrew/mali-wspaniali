@@ -12,21 +12,11 @@ import {
 } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
-
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
+import { Content } from './types';
 
-export const DisplayContent = ({
-    category,
-    header,
-    pictureUrl,
-    contentHTML,
-}: {
-    category: string[];
-    header: string;
-    pictureUrl: string;
-    contentHTML: string;
-}) => {
+export const ArticleContent = ({ content }: { content: Content }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -35,7 +25,7 @@ export const DisplayContent = ({
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {category.map(cat => {
+                        {content.category.map(cat => {
                             changeColorButton(cat);
                             return (
                                 <Grid item xs={3}>
@@ -61,17 +51,17 @@ export const DisplayContent = ({
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHeader} item xs={12}>
-                    <Typography className={classes.contentHeaderText}>{`${header.toUpperCase()}`}</Typography>
+                    <Typography className={classes.contentHeaderText}>{`${content.header.toUpperCase()}`}</Typography>
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentPhoto} item xs={12}>
-                    <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
+                    <CardMedia className={classes.contentPhotoMedia} component="img" image={content.pictureUrl} />
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHTML} item xs={12}>
-                    {parse(contentHTML)}
+                    {parse(content.contentHTML)}
                 </Grid>
             </Grid>
         </Grid>

@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles, Grid, Typography } from '@material-ui/
 import { mainColor } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 
-export const DisplayHeader = ({ title }: { title: string }) => {
+export const ArticleHeader = ({ title }: { title: string }) => {
     const classes = useStyles();
 
     return (

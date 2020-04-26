@@ -1,17 +1,17 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
-
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { DisplayPath } from './DisplayPath';
-import { DisplayHeader } from './DisplayHeader';
-import { DisplayContent } from './DisplayContent';
-import { DisplayVideo } from './DisplayVideo';
-import { DisplayRedactor } from './DisplayRedactor';
+import { ArticlePath } from './ArticlePath';
+import { ArticleHeader } from './ArticleHeader';
+import { ArticleContent } from './ArticleContent';
+import { ArticleVideo } from './ArticleVideo';
+import { ArticleRedactor } from './ArticleRedactor';
 import { useSubscribed } from '../../hooks/useSubscribed';
+import { Video, Path, Content } from './types';
 
 export const SingleBlogArticle = () => {
     useAuthorization(true);
@@ -24,58 +24,56 @@ export const SingleBlogArticle = () => {
 
     const similarArticles = useSubscribed<Article[], Article>(
         (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-            if (article) {
-                getSimilarArticlesListData(article, article.category, article.tags, onSnapshotCallback);
-            }
+            getSimilarArticlesListData(article, article.category, article.tags, onSnapshotCallback);
         },
         [],
         [article],
     ) as Article[];
 
-    return (
-        article && (
+    if (article) {
+        const path = {
+            category: article.category[0],
+            subtitle: article.subtitle,
+            readingTime: article.readingTime,
+        } as Path;
+
+        const content = {
+            category: article.category,
+            header: article.header,
+            pictureUrl: article.pictureUrl,
+            contentHTML: article.contentHTML,
+        } as Content;
+
+        const video = {
+            videoUrl: article.videoUrl,
+            tags: article.tags,
+        } as Video;
+
+        return (
             <Grid className={classes.rootGrid} container direction="column">
                 <Grid container direction="row">
-                    <DisplayPath
-                        category={article.category[0]}
-                        title={article.subtitle}
-                        readingTime={article.readingTime}
-                    />
+                    <ArticlePath path={path} />
                 </Grid>
                 <Grid container direction="row">
-                    <DisplayHeader title={article.title} />
+                    <ArticleHeader title={article.title} />
                 </Grid>
                 <Grid container direction="row">
-                    <DisplayContent
-                        category={article.category}
-                        header={article.header}
-                        pictureUrl={article.pictureUrl}
-                        contentHTML={article.contentHTML}
-                    />
+                    <ArticleContent content={content} />
                 </Grid>
                 <Grid container direction="row">
-                    <DisplayVideo videoUrl={article.videoUrl} tags={article.tags} />
+                    <ArticleVideo video={video} />
                 </Grid>
                 <Grid container direction="row">
-                    <DisplayRedactor
-                        firstName={article.redactor.firstName}
-                        lastName={article.redactor.lastName}
-                        avatarUrl={article.redactor.avatarUrl}
-                        profession={article.redactor.profession}
-                        shortDescription={article.redactor.shortDescription}
-                    />
+                    <ArticleRedactor redactor={article.redactor} />
                 </Grid>
                 {similarArticles && <Grid></Grid>}
             </Grid>
-        )
-    );
+        );
+    } else return <div></div>;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        typography: {
-            fontFamily: 'Montserrat',
-        },
         rootGrid: {
             padding: '3.57vw 12.14vw 2.85vw 6.07vw',
         },

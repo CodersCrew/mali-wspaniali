@@ -3,16 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, createStyles, Grid, Button, Typography } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
+import { Path } from './types';
 
-export const DisplayPath = ({
-    category,
-    title,
-    readingTime,
-}: {
-    category: string;
-    title: string;
-    readingTime: number;
-}) => {
+export const ArticlePath = ({ path }: { path: Path }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -26,23 +19,23 @@ export const DisplayPath = ({
                     <Typography className={classes.pathArrow} />
                 </div>
                 <Button
-                    href={`#${category.toUpperCase()}`}
+                    href={`#${path.category.toUpperCase()}`}
                     disableElevation
                     disableFocusRipple
                     disableRipple
                     disableTouchRipple
                 >
                     <Typography className={classes.pathText}>
-                        {t(`single-article.${category}`).toUpperCase()}
+                        {t(`single-article.${path.category}`).toUpperCase()}
                     </Typography>
                 </Button>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
                 </div>
                 <div className={classes.pathTitleContainer}>
-                    <Typography className={classes.pathTitle}>{`${title.toUpperCase()}   (${t(
+                    <Typography className={classes.pathTitle}>{`${path.subtitle.toUpperCase()}   (${t(
                         'single-article.length',
-                    ).toUpperCase()} - ${readingTime} MIN)`}</Typography>
+                    ).toUpperCase()} - ${path.readingTime} MIN)`}</Typography>
                 </div>
             </Grid>
         </Grid>
