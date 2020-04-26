@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, makeStyles, Grid } from '@material-ui/core';
 import { BlogArticleCard } from './BlogArticleCard';
+import { CategoryTabs } from './CategoryTabs';
 
 export const BlogMainPage = () => {
 
@@ -15,6 +16,7 @@ export const BlogMainPage = () => {
     return (
         <div>
             <Typography variant="h4" gutterBottom className={classes.heading}>Tutaj dowiesz się jak zadbać o rozwój swojego dziecka</Typography>
+            <CategoryTabs />
 
             <Grid container xs={12} justify="space-around" spacing={2} className={classes.root}>
                 {[0, 1, 2, 3, 4, 5 ].map((value) => (
