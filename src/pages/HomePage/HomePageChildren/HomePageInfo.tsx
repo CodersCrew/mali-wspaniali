@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Close } from '@material-ui/icons';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { cardBackgroundColor } from '../../../colors';
+import InfoImage from '../../../assets/MALWSP_info.png';
 
 const isMobile = window.screen.width < 1024;
 
@@ -28,11 +29,7 @@ export const HomePageInfo = () => {
     return (
         <Grid className={classes.infoWrapper} ref={infoRef}>
             <div className={classes.infoHeader}>
-                <img
-                    src={require('../../../assets/MALWSP_foundation.png')}
-                    alt="mali_wspaniali_info"
-                    className={classes.infoImage}
-                />
+                <img src={InfoImage} alt="mali_wspaniali_info" className={classes.infoImage} />
                 {isMobile ? <p className={classes.infoTitle}>{t('home-page-content.foundation-header')}</p> : null}
             </div>
             <div className={classes.infoContent}>

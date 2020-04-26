@@ -3,17 +3,19 @@ import { FastForward } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
 import { mainColor } from '../../colors';
 import { SidebarPropTypes } from './types';
+import SidebarLogo from '../../assets/MALWSP_logo_nav.png';
+import clsx from 'clsx';
 
 export const SidebarTopItem = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     const classes = useStyles();
 
-    const sidebarSwitchIcon = openSidebar ? classes.switchIconOpened : classes.switchIconClosed;
+    const switcherIconStyle = clsx(classes.switcherIcon, openSidebar ? 'opened' : null);
 
     return (
         <div className={classes.sidebarLogoWrapper}>
-            <img src={require('../../assets/MALWSP_logo_nav.png')} alt="mali_wspaniali" />
-            <button onClick={toggleSidebar} className={classes.sidebarSwitch}>
-                <FastForward className={sidebarSwitchIcon} />
+            <img src={SidebarLogo} alt="mali_wspaniali" />
+            <button onClick={toggleSidebar} className={classes.sidebarSwitcher}>
+                <FastForward className={switcherIconStyle} />
             </button>
         </div>
     );
@@ -25,9 +27,9 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        marginBottom: 62,
+        marginBottom: 52,
     },
-    sidebarSwitch: {
+    sidebarSwitcher: {
         width: '30px',
         height: '30px',
         display: 'flex',
@@ -42,15 +44,13 @@ const useStyles = makeStyles({
         cursor: 'pointer',
         color: '#fff',
     },
-    switchIconClosed: {
+    switcherIcon: {
         width: 16,
         height: 16,
-        transition: 'transform 0.5s',
-    },
-    switchIconOpened: {
-        width: 16,
-        height: 16,
-        transform: 'rotate(-180deg)',
-        transition: 'transform 0.5s',
+        transition: 'transform 0.4s',
+
+        '&.opened': {
+            transform: 'rotate(-180deg)',
+        },
     },
 });

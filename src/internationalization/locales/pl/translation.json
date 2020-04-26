@@ -96,5 +96,12 @@
         "foundation-content": "Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
         "recent-news": "Najnowsze ARTYKUŁY",
         "article-card-btn": "Czytaj dalej"
+    },
+    "sidebar": {
+        "home": "Strona Główna",
+        "news": "Aktualności",
+        "notifications": "Powiadomienia",
+        "settings": "Ustawienia",
+        "logout": "Wyloguj"
     }
 }

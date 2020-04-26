@@ -7,13 +7,13 @@ import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
 import { mainColor } from '../../colors';
 import { SidebarPropTypes } from './types';
+import clsx from 'clsx';
 
 export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     const classes = useStyles();
     const history = useHistory();
 
-    const sidebarContainer = openSidebar ? classes.sidebarContainerOpened : classes.sidebarContainerClosed;
-    const sidebarItemsWrapper = openSidebar ? classes.menuItemsOpened : classes.menuItemsClosed;
+    const sidebarContainerStyle = clsx(classes.sidebarContainer, openSidebar ? 'opened' : null);
 
     const handleLogoutClick = () => {
         firebase.auth.handleSignOut();
@@ -21,9 +21,9 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
     };
 
     return (
-        <div className={sidebarContainer}>
+        <div className={sidebarContainerStyle}>
             <SidebarTopItem toggleSidebar={toggleSidebar} openSidebar={openSidebar} />
-            <div className={sidebarItemsWrapper}>
+            <div className={classes.sidebarItemsContainer}>
                 <SidebarMenuList openSidebar={openSidebar} />
                 <SidebarLogoutItem handleLogoutClick={handleLogoutClick} openSidebar={openSidebar} />
             </div>
@@ -32,42 +32,23 @@ export const Sidebar = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
 };
 
 const useStyles = makeStyles({
-    sidebarContainerClosed: {
-        padding: '30px 16px 53px 7px',
+    sidebarContainer: {
+        padding: '30px 20px 53px 10px',
         color: '#fff',
         zIndex: 9,
         position: 'relative',
-        transition: 'width 0.7s',
         height: 'calc(100vh-20px)',
         minWidth: '104px',
         background: mainColor,
+
+        '&.opened': {
+            width: '240px',
+        },
     },
-    sidebarContainerOpened: {
-        padding: '30px 16px 53px 7px',
-        height: 'calc(100vh-20px)',
-        color: '#fff',
-        zIndex: 9,
-        position: 'relative',
-        width: '240px',
-        transition: 'width 0.7s',
-        background: mainColor,
-    },
-    menuItemsClosed: {
+    sidebarItemsContainer: {
         display: 'flex',
         flexDirection: 'column',
         flex: 1,
         alignItems: 'center',
-    },
-    menuItemsOpened: {
-        alignItems: 'flex-start',
-    },
-    menuItemIcon: {
-        background: '#fff',
-        width: 22,
-        height: 22,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '4px',
     },
 });

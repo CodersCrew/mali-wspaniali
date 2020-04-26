@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles, createStyles, Theme, Button, Grid, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { cardBackgroundColor, activeColor, textColor } from '../../../colors';
+import { cardBackgroundColor, secondaryColor, textColor } from '../../../colors';
 import { ArticleProps } from './types';
 
 export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticleProps) => {
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         articleButton: {
             padding: '4px 10px 4px 10px',
-            background: activeColor,
+            background: secondaryColor,
             borderRadius: '4px',
             textTransform: 'uppercase',
             color: '#fff',

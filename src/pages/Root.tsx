@@ -34,7 +34,7 @@ export const Root = () => {
                             <Route path="/child/:childID" component={ChildProfile} />
                             <Route path="/admin" />
                             <Route path="/admin/parent/:id" component={ParentProfile} />
-                            <Route path="/parent" component={ParentHomePage} />
+                            <Route path="/parent" />
                             <Route path="/admin/agreements" component={AdminAgreementsPage} />
                             <Route path="/parent/children" component={ChildrenListPage} />
                             <Route path="/admin/newsletter" component={NewsletterPage} />

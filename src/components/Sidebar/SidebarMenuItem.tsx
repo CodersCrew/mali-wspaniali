@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
-import { backgroundColor, activeColor } from '../../colors';
+import { backgroundColor, secondaryColor } from '../../colors';
+import clsx from 'clsx';
 
 type SidebarMenuItem = {
     name: string;
@@ -13,16 +14,12 @@ type SidebarMenuItem = {
 export const SidebarMenuItem = ({ name, link, icon, openSidebar }: SidebarMenuItem) => {
     const classes = useStyles();
 
-    const menuItemStyle = openSidebar ? classes.menuOpenedItem : classes.menuClosedItem;
-    const menuIconStyle = openSidebar ? classes.menuOpenedIcon : classes.menuClosedIcon;
-    const menuLabelStyle = openSidebar ? classes.menuOpenedLabel : classes.menuClosedLabel;
-
     return (
-        <MenuItem key={name} className={menuItemStyle}>
-            <Link to={link} className={classes.menuLinkItem}>
+        <MenuItem key={name} className={clsx(classes.menuItem, openSidebar ? 'opened' : null)}>
+            <Link to={link}>
                 <ListItem className={classes.menuItemWrapper}>
-                    <ListItemIcon className={menuIconStyle}>{icon}</ListItemIcon>
-                    <ListItemText className={menuLabelStyle}>{name}</ListItemText>
+                    <ListItemIcon className={clsx(classes.menuItemIcon, 'closed')}>{icon}</ListItemIcon>
+                    <ListItemText className={classes.menuItemLabel}>{name}</ListItemText>
                 </ListItem>
             </Link>
         </MenuItem>
@@ -30,52 +27,51 @@ export const SidebarMenuItem = ({ name, link, icon, openSidebar }: SidebarMenuIt
 };
 
 const useStyles = makeStyles({
-    menuClosedItem: {
+    menuItem: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         width: 44,
         height: 40,
         marginBottom: 12,
+        cursor: 'pointer',
         borderRadius: '10px',
 
         '&:hover': {
             backgroundColor,
-            borderRadius: '10px',
-            color: activeColor,
+            color: secondaryColor,
         },
-    },
-    menuOpenedItem: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        cursor: 'pointer',
-        padding: '8px 11px 8px 24px',
-        marginBottom: 12,
-        overflow: 'inherit',
 
-        '&:hover': {
-            backgroundColor,
+        '&.opened': {
+            justifyContent: 'flex-start',
+            padding: '8px 11px 8px 10px',
+            width: '200px',
             borderRadius: '4px',
-            color: activeColor,
+
+            '& a': {
+                textDecoration: 'none',
+                color: '#FFFFFF',
+            },
+
+            '&:hover': {
+                backgroundColor,
+                color: secondaryColor,
+
+                '& div': {
+                    color: secondaryColor,
+                },
+            },
         },
     },
-    menuClosedLabel: {
+    menuItemLabel: {
         textTransform: 'uppercase',
-        fontWeight: 'bold',
-        opacity: 0,
-        width: 0,
-        transition: 'all 0.1s',
-    },
-    menuOpenedLabel: {
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
-        opacity: 1,
-        width: 'auto',
-        transition: 'all 0.1s',
 
         '& span': {
             fontWeight: 'bold',
+            fontSize: 14,
+            lineHeight: '17px',
+            fontFamily: 'Montserrat',
+            marginLeft: 5,
         },
     },
     menuItemWrapper: {
@@ -86,29 +82,25 @@ const useStyles = makeStyles({
         height: '24px',
 
         '&:hover': {
-            color: activeColor,
+            color: secondaryColor,
         },
     },
-    menuClosedIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+    menuItemIcon: {
         cursor: 'pointer',
+        display: 'flex',
         color: '#FFFFFF',
-        width: 44,
-        height: 44,
+        marginRight: 12,
 
-        '&:hover': {
-            color: activeColor,
+        '&.closed': {
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: 0,
+            width: 44,
+            height: 44,
+
+            '&:hover': {
+                color: secondaryColor,
+            },
         },
-    },
-    menuOpenedIcon: {
-        cursor: 'pointer',
-        display: 'flex',
-        color: '#FFFFFF',
-    },
-    menuLinkItem: {
-        textDecoration: 'none',
-        color: '#FFFFFF',
     },
 });
