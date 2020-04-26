@@ -4,7 +4,7 @@ import { SidebarMenuList } from './SidebarMenuList';
 import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import { handleSignOut } from '../../queries/userQueries';
+import { handleSignOut } from '../../queries/authQueries';
 import { mainColor } from '../../colors';
 import { SidebarPropTypes } from './types';
 import clsx from 'clsx';
