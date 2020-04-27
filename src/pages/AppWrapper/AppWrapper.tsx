@@ -31,7 +31,7 @@ const useStyles = makeStyles({
         backgroundColor: mainColor,
         minHeight: '100vh',
         height: '100%',
-        padding: '10px 10px 10px 100px',
+        padding: '10px 10px 10px 10px',
     },
     container: {
         backgroundColor,
