@@ -9,6 +9,7 @@ import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
 import { adminAgreementRepository } from './adminAgreementRepository';
 import { newsletterRepository } from './newsletterRepository';
+import { articleRepository } from './articleRepository';
 
 firebaseApp.initializeApp(config);
 
@@ -26,6 +27,7 @@ export const firebase = {
     user: userRepository(firestore),
     agreement: adminAgreementRepository(firestore),
     newsletter: newsletterRepository(firestore),
+    article: articleRepository(firestore),
 };
 
 export type User = firebaseApp.User;
