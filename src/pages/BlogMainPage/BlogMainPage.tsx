@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, makeStyles, Grid } from '@material-ui/core';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
+import { StyledPagination } from './Pagination';
 
 export const BlogMainPage = () => {
 
@@ -25,6 +26,7 @@ export const BlogMainPage = () => {
                         </Grid>
                     ))}
                 </Grid>
+                <StyledPagination />
             </div>
 
         </div>
