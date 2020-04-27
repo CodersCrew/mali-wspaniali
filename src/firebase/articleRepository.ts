@@ -37,4 +37,25 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                 }
             });
     },
+    getArticles: (
+        onSnapshotCallback: OnSnapshotCallback<Article[]>
+    ) => {
+        // const unsubscribe = 
+        db
+            .collection('blog-articles')
+            .orderBy('date')
+            .limit(6)
+            .onSnapshot(snapshot => {
+                const articleList = [] as Article[];
+                snapshot.forEach(snap => {
+                    const docData = snap.data() as Article;
+                    articleList.push(docData);
+                });
+                if (articleList) {
+                    onSnapshotCallback(articleList);
+                }
+                // unsubscribe();
+            });
+
+    }
 });

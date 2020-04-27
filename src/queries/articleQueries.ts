@@ -14,3 +14,8 @@ export const getSimilarArticlesListData = async (
 ) => {
     firebase.article.getSimilarArticlesListData(article, category, tags, onSnapshotCallback);
 };
+
+export const getArticles = (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+    firebase.article.getArticles(onSnapshotCallback);
+};
+ 
