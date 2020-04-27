@@ -19,14 +19,12 @@ export const CategoryTabs = () => {
     };
 
     return (
-
         <StyledTabs value={value} onChange={handleChange}>
             {categories.map((category) => {
                 return <StyledTab key={category.name} label={category.name} color={category.color} />;
             })}
         </StyledTabs>
     );
-
 };
 
 interface StyledTabsProps {
@@ -36,7 +34,8 @@ interface StyledTabsProps {
 
 const StyledTabs = withStyles({
     flexContainer: {
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
+        marginLeft: '3%'
     },
     indicator: {
         display: 'none',

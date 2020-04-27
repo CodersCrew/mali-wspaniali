@@ -12,23 +12,23 @@ export const BlogMainPage = () => {
     const link = "/"
 
 
-
     return (
         <div>
             <Typography variant="h4" gutterBottom className={classes.heading}>Tutaj dowiesz się jak zadbać o rozwój swojego dziecka</Typography>
             <CategoryTabs />
 
-            <Grid container xs={12} justify="space-around" spacing={2} className={classes.root}>
-                {[0, 1, 2, 3, 4, 5 ].map((value) => (
-                    <Grid key={value} item className={classes.articleCard} xs={4} zeroMinWidth>
-                        <BlogArticleCard title={title} image={image} description={description} link={link} />
-                    </Grid>
-                ))}
-            </Grid>
+            <div className={classes.gridBackground}>
+                <Grid container xs={12} justify="space-around" spacing={2} className={classes.gridContainer}>
+                    {[0, 1, 2, 3, 4, 5].map((value) => (
+                        <Grid key={value} item className={classes.articleCard} xs={4} zeroMinWidth>
+                            <BlogArticleCard title={title} image={image} description={description} link={link} />
+                        </Grid>
+                    ))}
+                </Grid>
+            </div>
 
         </div>
     );
-
 };
 
 const useStyles = makeStyles({
@@ -36,22 +36,23 @@ const useStyles = makeStyles({
         fontFamily: 'Montserrat',
         fontWeight: 'bold',
         fontSize: '34px',
-        // marginTop: '48px',
-        // marginLeft: '53px',
-        // position: 'absolute',
+        paddingTop: '4%',
+        marginBottom: '4%',
+        marginLeft: '3%',
         width: '60%',
         display: 'block'
     },
-    root: {
-        marginTop: '20px',
-        maxWidth: '100%'
-
+    gridContainer: {
+        maxWidth: '94%',
+        marginTop: '0',
+        marginLeft: '3%',
+        marginRight: '3%'
     },
     articleCard: {
 
     },
-    container: {
-        display: 'flex',
-        flexDirection: 'column'
-    }
+    gridBackground: {
+        backgroundColor: 'white',
+        borderRadius: '20px'
+    },
 });

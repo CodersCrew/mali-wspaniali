@@ -2,10 +2,9 @@ import React from 'react';
 import { Tab, withStyles, WithStyles, createStyles } from '@material-ui/core';
 import { whiteFont } from '../../colors';
 
-
 type Styles = {
     color: string;
-    [key: string]: any;
+    [key: string]: string;
 }
 
 type ColorsMapping = {
@@ -19,7 +18,6 @@ interface TabStyles extends WithStyles<typeof styles> {
 
 const styledBy = (property: string, mapping: ColorsMapping) => (props: Styles) =>
     mapping[props[property]];
-
 
 const styles = createStyles({
     root: {
@@ -35,9 +33,9 @@ const styles = createStyles({
         borderRadius: '4px',
         opacity: '1',
         whiteSpace: 'nowrap',
-        width: 'auto',
         color: whiteFont,
         textTransform: 'none',
+        flexShrink: 1
     },
     wrapper: {
         margin: '0 10px'
