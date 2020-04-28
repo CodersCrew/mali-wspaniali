@@ -1,29 +1,27 @@
 import React from 'react';
+import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
+import { HomePageArticles } from './HomePageArticles/HomePageArticles';
+import { AppWrapper } from '../AppWrapper/AppWrapper';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { HomePageChildren } from './HomePageChildren/HomePageChildren';
-import { HomePageArticles } from './HomePageArticles/HomePageArticles';
 import { mainColor } from '../../colors';
-import { Navbar } from '../../components/Navbar/Navbar';
-import { AppWrapper } from '../AppWrapper/AppWrapper';
 
 export const ParentHomePage = () => {
     const classes = useStyles();
-
-    const { container, header, description, link } = classes;
     const { t } = useTranslation();
 
     return (
         <AppWrapper>
-            <Grid className={container}>
+            <Grid className={classes.container}>
                 <Navbar />
                 <Grid item xs={12}>
-                    <h1 className={header}>{t('home-page-content.greeting')}</h1>
+                    <h1 className={classes.header}>{t('home-page-content.greeting')}</h1>
                 </Grid>
                 <Grid item xs={12}>
-                    <p className={description}>
+                    <p className={classes.description}>
                         <span>{t('home-page-content.check-children-activity')} </span>
-                        <span className={link}>{t('home-page-content.mali-wspaniali')}</span>
+                        <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
                     </p>
                 </Grid>
                 <HomePageChildren />
@@ -39,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: '0 0 54px 60px',
             fontFamily: 'Montserrat, sans-serif',
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 padding: '0 0 5px 0',
                 textAlign: 'center',
             },

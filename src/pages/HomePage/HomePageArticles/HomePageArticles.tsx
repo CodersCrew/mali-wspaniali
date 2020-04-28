@@ -21,35 +21,30 @@ export const HomePageArticles = () => {
         }
     };
 
-    const detachListeners = () => {
-        listeners.forEach(listener => () => listener());
-    };
+    const detachListeners = () => listeners.forEach(listener => () => listener());
 
     useEffect(() => {
         load(waitForArticlesData());
-        return () => detachListeners();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => detachListeners(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <>
-            <p className={classes.articleHeader}>{t('home-page-content.recent-news')}</p>
+            <h2 className={classes.articleHeader}>{t('home-page-content.recent-news')}</h2>
             <div className={classes.articlesList}>
                 {articles &&
-                    articles.map(article => {
-                        const { articleId, title, description, pictureUrl } = article;
+                    articles.map(({ articleId, title, description, pictureUrl }) => {
                         const ArticlePictureComponent = (
-                            <img className={classes.articleImg} alt="mali_wspaniali_img_one" src={pictureUrl} />
+                            <img className={classes.articleImg} alt="mali_wspaniali_article" src={pictureUrl} />
                         );
                         return (
-                            <div key={article.title}>
-                                <HomePageArticleItem
-                                    articleId={articleId}
-                                    title={title}
-                                    description={description}
-                                    ArticlePictureComponent={ArticlePictureComponent}
-                                />
-                            </div>
+                            <HomePageArticleItem
+                                key={title}
+                                articleId={articleId}
+                                title={title}
+                                description={description}
+                                ArticlePictureComponent={ArticlePictureComponent}
+                            />
                         );
                     })}
             </div>
@@ -76,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             marginTop: 30,
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('xs')]: {
                 flexDirection: 'column',
                 alignItems: 'center',
                 marginTop: 5,

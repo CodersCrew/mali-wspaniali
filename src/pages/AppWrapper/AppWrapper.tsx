@@ -3,21 +3,16 @@ import { makeStyles } from '@material-ui/core';
 import { Sidebar } from '../../components/Sidebar';
 import { mainColor, backgroundColor } from '../../colors';
 
-const isMobile = window.screen.width < 1024;
-
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
     const [openSidebar, setOpenSidebar] = useState(false);
-    const { background, narrowContainer, wideContainer } = classes;
-
-    const containerStyle = openSidebar ? narrowContainer : wideContainer;
 
     const toggleSidebar = () => setOpenSidebar(!openSidebar);
 
     return (
-        <div className={background}>
-            {isMobile ? null : <Sidebar openSidebar={openSidebar} toggleSidebar={toggleSidebar} />}
-            <div className={containerStyle}>{children}</div>
+        <div className={classes.background}>
+            <Sidebar openSidebar={openSidebar} toggleSidebar={toggleSidebar} />
+            <div className={classes.container}>{children}</div>
         </div>
     );
 };
@@ -30,19 +25,12 @@ const useStyles = makeStyles({
         height: '100%',
         padding: '10px',
     },
-    wideContainer: {
+    container: {
         backgroundColor,
         minHeight: 'calc(100vh - 20px)',
         height: '100%',
         borderRadius: '10px',
+        width: '100%',
         overflowX: 'hidden',
-    },
-    narrowContainer: {
-        backgroundColor,
-        minHeight: 'calc(100vh - 20px)',
-        height: '100%',
-        borderRadius: '10px',
-        overflowX: 'hidden',
-        width: '90%',
     },
 });

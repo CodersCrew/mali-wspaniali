@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-export interface ArticleProps {
+export interface ArticlePropTypes {
     articleId: string;
     title: string;
     description: string;

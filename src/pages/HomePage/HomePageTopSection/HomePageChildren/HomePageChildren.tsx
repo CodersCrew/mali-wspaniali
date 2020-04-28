@@ -1,14 +1,14 @@
-/* eslint-disable global-require */
 import React, { useState, useEffect } from 'react';
 import { HomePageChildCard } from './HomePageChildCard';
-import { HomePageInfo } from './HomePageInfo';
+import { HomePageInfo } from '../HomePageInfo/HomePageInfo';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
-import { getChildrenData } from '../../../queries/childQueries';
-import { Child } from '../../../firebase/types';
+import { getChildrenData } from '../../../../queries/childQueries';
+import { Child } from '../../../../firebase/types';
 
 export const HomePageChildren = () => {
     const classes = useStyles();
     const [children, setChildren] = useState<Child[]>();
+    const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(true);
     const [listeners, setListeners] = useState<(() => void)[]>([]);
 
     const waitForChildrenData = async () => {
@@ -19,47 +19,40 @@ export const HomePageChildren = () => {
         }
     };
 
-    const detachListeners = () => {
-        listeners.forEach(listener => () => listener());
-    };
+    const detachListeners = () => listeners.forEach(listener => () => listener());
+    const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
 
     useEffect(() => {
         waitForChildrenData();
-        return () => detachListeners();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => detachListeners(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div className={classes.infoContainer}>
             <div className={classes.childrenContainer}>
                 {children &&
-                    children.map(child => {
-                        const { firstName, userId, avatar } = child;
-                        const link = `child/:${userId}`;
+                    children.map(({ firstName, userId, avatar }) => {
                         const PictureComponent = (
-                            <img className={classes.childAva} alt="mali_wspaniali_child" src={avatar} />
+                            <img className={classes.childAvatar} alt="mali_wspaniali_child" src={avatar} />
                         );
                         return (
                             <HomePageChildCard
                                 key={userId}
                                 firstname={firstName}
                                 userId={userId}
-                                link={link}
                                 PictureComponent={PictureComponent}
                             />
                         );
                     })}
             </div>
-            <div>
-                <HomePageInfo />
-            </div>
+            {isInfoComponentVisible ? <HomePageInfo toggleInfoComponent={toggleInfoComponent} /> : null}
         </div>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        childAva: {
+        childAvatar: {
             minWidth: '122px',
             height: '126px',
             objectFit: 'cover',
@@ -70,8 +63,9 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: 40,
             padding: '0 50px 0 0',
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 flexDirection: 'column',
+                alignItems: 'center',
                 paddingRight: 0,
                 marginBottom: 30,
             },
@@ -79,10 +73,11 @@ const useStyles = makeStyles((theme: Theme) =>
         childrenContainer: {
             display: 'flex',
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 justifyContent: 'space-around',
                 paddingLeft: 20,
                 paddingRight: 20,
+                maxWidth: 400,
             },
         },
     }),

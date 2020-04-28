@@ -1,12 +1,11 @@
-/* eslint-disable global-require */
 import React from 'react';
 import { makeStyles, createStyles, Theme, Button, Grid, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { cardBackgroundColor, secondaryColor, textColor } from '../../../colors';
-import { ArticleProps } from './types';
+import { ArticlePropTypes } from './types';
 
-export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticleProps) => {
+export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticlePropTypes) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -14,11 +13,11 @@ export const HomePageArticleItem = ({ articleId, title, description, ArticlePict
         <Grid className={classes.articleCard}>
             {ArticlePictureComponent}
             <div className={classes.articleInfo}>
-                <span className={classes.articleTitle}>{title}</span>
+                <h2 className={classes.articleTitle}>{title}</h2>
                 <p className={classes.articleDescription}>{description}</p>
                 <Link className={classes.articleLink} to={`/article/${articleId}`}>
                     <Button variant="contained" className={classes.articleButton} startIcon={<Icon>send</Icon>}>
-                        {t('home-page-content.article-card-btn')}
+                        {t('home-page-content.read-more')}
                     </Button>
                 </Link>
             </div>
@@ -36,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: '4px',
             marginTop: 25,
+            minWidth: '306px',
             maxWidth: '306px',
             minHeight: '360px',
             maxHeight: '360px',
@@ -43,6 +43,14 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'relative',
 
             [theme.breakpoints.down('sm')]: {
+                minWidth: '270px',
+                maxWidth: '270px',
+                minHeight: '340px',
+                maxHeight: '340px',
+                marginRight: 40,
+            },
+
+            [theme.breakpoints.down('xs')]: {
                 margin: '42px 0 0 0',
                 width: 'auto',
                 maxWidth: 'none',
@@ -63,6 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: 10,
             fontWeight: 'bold',
             color: textColor,
+            fontSize: 14,
         },
         articleDescription: {
             wordBreak: 'break-word',
@@ -81,10 +90,6 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'absolute',
             bottom: 15,
             right: 15,
-        },
-        articleButtonIcon: {
-            marginRight: 9,
-            display: 'flex',
         },
         articleLink: {
             textDecoration: 'none',
