@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { load } from '../../utils/load';
 import { createUser } from '../../queries/userQueries';
+import { passwordStrengthTest } from './passwordStrengthTest';
 
 const initialState = {
     email: '',
@@ -21,21 +22,27 @@ export const RegistrationForm = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-
-        if (password !== passwordConfirm) {
+        if (!passwordStrengthTest(password)) {
             openAlertDialog({
                 type: 'error',
-                description: t('registration-page.password-mismatch'),
+                description: t('registration-page.password-not-strong'),
             });
         } else {
-            const user = { email, password };
-            load(createUser(user))
-                .then(() => {
-                    history.push('/login');
-                })
-                .catch(err => {
-                    openAlertDialog({ type: 'error', description: err.message });
+            if (password !== passwordConfirm) {
+                openAlertDialog({
+                    type: 'error',
+                    description: t('registration-page.password-mismatch'),
                 });
+            } else {
+                const user = { email, password };
+                load(createUser(user))
+                    .then(() => {
+                        history.push('/login');
+                    })
+                    .catch(err => {
+                        openAlertDialog({ type: 'error', description: err.message });
+                    });
+            }
         }
     };
 
