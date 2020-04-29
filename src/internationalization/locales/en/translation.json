@@ -88,7 +88,14 @@
         "other": "other"
     },
     "database-backup": {
-      "get-backup-json": "Get database as JSON"
+        "get-backup-json": "Get database as JSON"
+    },
+    "sidebar": {
+        "home": "Home",
+        "settings": "Settings",
+        "news": "News",
+        "notifications": "Notifications",
+        "logout": "Log out"
     },
     "navbar": {
         "news": "News",
