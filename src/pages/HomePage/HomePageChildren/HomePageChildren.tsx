@@ -23,7 +23,7 @@ export const HomePageChildren = () => {
     return (
         <div className={classes.infoContainer}>
             {children &&
-                children.map((child, index) => {
+                children.map((child) => {
                     const { firstName, userId, avatar } = child;
                     const link = `child/:${userId}`;
                     const PictureComponent = (
@@ -31,7 +31,7 @@ export const HomePageChildren = () => {
                     );
                     return (
                         <HomePageChildCard
-                            key={index}
+                            key={userId}
                             firstname={firstName}
                             userId={userId}
                             link={link}

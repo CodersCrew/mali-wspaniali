@@ -8,14 +8,14 @@ export const HomePageChildCard: FC<ChildProps> = ({ firstname, userId, link, Pic
     const classes = useStyles();
 
     return (
-        <Link to={link} className={classes.menuLink}>
-            <div className={classes.container} key={userId}>
+        <div className={ classes.container } key={ userId }>
+            <Link to={link} className={classes.menuLink}>
                 <span> {PictureComponent}</span>
-                <div>
+                <div className={classes.childName}>
                     <span className={classes.Child}>{firstname}</span>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     );
 };
 
@@ -44,10 +44,10 @@ const useStyles = makeStyles({
         objectFit: 'cover',
         borderRadius: '4px 4px 0px 0px',
     },
+
     childName: {
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: 'center'
     },
     Child: {
         fontSize: 12,

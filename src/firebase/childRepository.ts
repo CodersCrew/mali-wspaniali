@@ -40,7 +40,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
         onSnapshotCallback: OnSnapshotCallback<Child[]>,
     ) => {
         return db
-            .collection('blog-articles')
+            .collection('child')
             .limit(2)
             .onSnapshot(snapshot => {
                 const childrenList = [] as Child[];

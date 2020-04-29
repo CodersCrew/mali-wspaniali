@@ -11,10 +11,10 @@ export const HomePageArticleItem = ( { articleId, title, description, ArticlePic
     const { t } = useTranslation();
 
     return (
-        <Link className={classes.articleLink} to={`/article/${articleId}`}>
-            <div className={classes.articleCard}>
+        <div className={ classes.articleCard }>
+            <Link className={ classes.articleLink } to={ `/article/${articleId}` }>
                 {ArticlePictureComponent}
-                <div className={classes.articleInfo}>
+                <div className={ classes.articleInfo }>
                     <span className={classes.articleTitle}>{title}</span>
                     <span className={classes.articleDescription}>{description}</span>
                     <Button
@@ -25,8 +25,9 @@ export const HomePageArticleItem = ( { articleId, title, description, ArticlePic
                         {t('home-page-content.article-card-btn')}
                     </Button>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
+
     );
 };
 
