@@ -3,9 +3,7 @@ import { Article } from './types';
 import { OnSnapshotCallback } from './userRepository';
 
 export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getArticlesListData: (
-        onSnapshotCallback: OnSnapshotCallback<Article[]>,
-    ) => {
+    getArticlesListData: (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
         return db
             .collection('blog-articles')
             .limit(2)

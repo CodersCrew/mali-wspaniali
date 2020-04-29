@@ -6,28 +6,23 @@ import { Link } from 'react-router-dom';
 import { cardBackgroundColor, activeColor, textColor } from '../../../colors';
 import { ArticleProps } from './types';
 
-export const HomePageArticleItem = ( { articleId, title, description, ArticlePictureComponent }: ArticleProps) => {
+export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticleProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
-        <div className={ classes.articleCard }>
-            <Link className={ classes.articleLink } to={ `/article/${articleId}` }>
+        <div className={classes.articleCard}>
+            <Link className={classes.articleLink} to={`/article/${articleId}`}>
                 {ArticlePictureComponent}
-                <div className={ classes.articleInfo }>
+                <div className={classes.articleInfo}>
                     <span className={classes.articleTitle}>{title}</span>
                     <span className={classes.articleDescription}>{description}</span>
-                    <Button
-                        variant="contained"
-                        className={classes.articleButton}
-                        endIcon={<Icon></Icon>}
-                    >
+                    <Button variant="contained" className={classes.articleButton} endIcon={<Icon></Icon>}>
                         {t('home-page-content.article-card-btn')}
                     </Button>
                 </div>
             </Link>
         </div>
-
     );
 };
 

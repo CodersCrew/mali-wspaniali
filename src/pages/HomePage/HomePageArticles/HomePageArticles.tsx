@@ -12,21 +12,19 @@ export const HomePageArticles = () => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const articles = useSubscribed<Article[]>(
-        (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-            getArticlesListData(onSnapshotCallback);
-        },
-        [],
-    ) as Article[];
+    const articles = useSubscribed<Article[]>((onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+        getArticlesListData(onSnapshotCallback);
+    }, []) as Article[];
 
-    return <>
-        <p className={classes.articleHeader}>{t('home-page-content.recent-news')}</p>
-        <div className={classes.articlesList}>
-            {articles &&
+    return (
+        <>
+            <p className={classes.articleHeader}>{t('home-page-content.recent-news')}</p>
+            <div className={classes.articlesList}>
+                {articles &&
                     articles.map(article => {
                         const { articleId, title, description, pictureUrl } = article;
                         const ArticlePictureComponent = (
-                            <img className={ classes.articleImg } alt={title} src={pictureUrl} />
+                            <img className={classes.articleImg} alt={title} src={pictureUrl} />
                         );
                         return (
                             <div key={article.title}>
@@ -39,8 +37,9 @@ export const HomePageArticles = () => {
                             </div>
                         );
                     })}
-        </div>
-    </>;
+            </div>
+        </>
+    );
 };
 
 const useStyles = makeStyles({

@@ -36,9 +36,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                 return onSnapshotCallback(children);
             });
     },
-    getChildrenListData: (
-        onSnapshotCallback: OnSnapshotCallback<Child[]>,
-    ) => {
+    getChildrenListData: (onSnapshotCallback: OnSnapshotCallback<Child[]>) => {
         return db
             .collection('child')
             .limit(2)

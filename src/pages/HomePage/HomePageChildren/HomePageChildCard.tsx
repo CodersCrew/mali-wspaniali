@@ -8,7 +8,7 @@ export const HomePageChildCard: FC<ChildProps> = ({ firstname, userId, link, Pic
     const classes = useStyles();
 
     return (
-        <div className={ classes.container } key={ userId }>
+        <div className={classes.container} key={userId}>
             <Link to={link} className={classes.menuLink}>
                 <span> {PictureComponent}</span>
                 <div className={classes.childName}>
@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 
     childName: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     Child: {
         fontSize: 12,
