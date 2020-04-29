@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { CHECK_INTERVAL, MINUTES_UNTIL_AUTO_LOGOUT, EVENT_THROTTLE } from './config';
 import { throttle } from './throttle';
 import { onAuthStateChanged } from '../../queries/authQueries';
-import { handleLogout } from '../../queries/authQueries';
+import { handleSignOut } from '../../queries/authQueries';
 
 export const IdleTimer: React.FC = ({ children }) => {
     const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
@@ -67,7 +67,7 @@ export const IdleTimer: React.FC = ({ children }) => {
         const isTimeout = diff < 0;
         if (isTimeout) {
             setTimerId(null);
-            handleLogout();
+            handleSignOut();
             window.clearTimeout(intervalId);
             history.push('/');
         }

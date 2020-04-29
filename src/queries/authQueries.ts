@@ -25,6 +25,4 @@ export const getUserRole = async (user: User): Promise<string> => {
     return idTokenResult.claims.role;
 };
 
-export const handleLogout = () => {
-    firebase.auth.handleSignOut();
-};
+export const handleSignOut = () => firebase.auth.handleSignOut();

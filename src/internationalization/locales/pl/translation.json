@@ -91,6 +91,13 @@
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
     },
+    "sidebar": {
+        "home": "Strona Główna",
+        "settings": "Ustawienia",
+        "news": "Aktualności",
+        "notifications": "Powiadomienia",
+        "logout": "Wyloguj"
+    },
     "navbar": {
         "news": "Aktualności",
         "messages": "Wiadomości",
