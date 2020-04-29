@@ -1,38 +1,32 @@
+/* eslint-disable global-require */
 import React from 'react';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles, Button, Icon } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { cardBackgroundColor, activeColor, textColor } from '../../../colors';
 import { ArticleProps } from './types';
 
-export const HomePageArticleItem = ({ title, description, articlePicture }: ArticleProps) => {
+export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticleProps) => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <div className={classes.articleCard}>
-            <img
-                src={require('../../../img/mali_wspaniali_img_one.png')}
-                alt="mali_wspaniali_img_one"
-                className={classes.articleImg}
-            />
-            <div className={classes.articleInfo}>
-                <span className={classes.articleTitle}>{title}</span>
-                <span className={classes.articleDescription}>{description}</span>
-                <Button className={classes.articleButton}>
-                    <span className={classes.articleButtonIcon}>
-                        <img src={require('../../../img/mali_wspaniali_more_btn.svg')} alt="mali_wspaniali_more" />
-                    </span>
-                    <span>Czytaj dalej</span>
-                </Button>
-            </div>
+            <Link className={classes.articleLink} to={`/article/${articleId}`}>
+                {ArticlePictureComponent}
+                <div className={classes.articleInfo}>
+                    <span className={classes.articleTitle}>{title}</span>
+                    <span className={classes.articleDescription}>{description}</span>
+                    <Button variant="contained" className={classes.articleButton} endIcon={<Icon></Icon>}>
+                        {t('home-page-content.article-card-btn')}
+                    </Button>
+                </div>
+            </Link>
         </div>
     );
 };
 
 const useStyles = makeStyles({
-    articleImg: {
-        borderRadius: '4px',
-        position: 'relative',
-        top: '-26px',
-    },
     articleCard: {
         textAlign: 'center',
         padding: '0 15px 15px 15px',
@@ -40,7 +34,7 @@ const useStyles = makeStyles({
         marginRight: 60,
         boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
         borderRadius: '4px',
-        marginTop: 26,
+        marginTop: 25,
         maxWidth: '306px',
         minHeight: '360px',
         maxHeight: '360px',
@@ -53,6 +47,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         marginTop: '-26px',
         color: textColor,
+        overflow: 'hidden',
     },
     articleTitle: {
         marginTop: 6,
@@ -64,14 +59,12 @@ const useStyles = makeStyles({
         wordBreak: 'break-word',
     },
     articleButton: {
-        padding: '4px 10px 4px 10px',
+        margin: '1px',
         background: activeColor,
-        borderRadius: '4px',
-        textTransform: 'uppercase',
-        color: '#fff',
-        fontSize: '13px',
         display: 'flex',
         alignSelf: 'flex-end',
+        color: '#fff',
+        padding: '4px 10px 4px 10px',
         marginTop: 10,
         position: 'absolute',
         bottom: 15,
@@ -80,5 +73,9 @@ const useStyles = makeStyles({
     articleButtonIcon: {
         marginRight: 9,
         display: 'flex',
+    },
+    articleLink: {
+        textDecoration: 'none',
+        color: '#fff',
     },
 });

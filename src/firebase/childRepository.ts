@@ -36,6 +36,21 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                 return onSnapshotCallback(children);
             });
     },
+    getChildrenListData: (onSnapshotCallback: OnSnapshotCallback<Child[]>) => {
+        return db
+            .collection('child')
+            .limit(2)
+            .onSnapshot(snapshot => {
+                const childrenList = [] as Child[];
+                snapshot.forEach(snap => {
+                    const docData = snap.data() as Child;
+                    childrenList.push(docData);
+                });
+                if (childrenList) {
+                    onSnapshotCallback(childrenList);
+                }
+            });
+    },
     getChildrenData: (
         rowsPerPage: number,
         previousLastVisible: Document | null,

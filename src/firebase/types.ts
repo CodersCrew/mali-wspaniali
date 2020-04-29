@@ -1,6 +1,7 @@
 export type Document = firebase.firestore.DocumentData;
 
 export interface Article {
+    articleId: string;
     header: string;
     pictureUrl: string;
     title: string;

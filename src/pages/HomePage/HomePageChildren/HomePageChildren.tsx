@@ -1,55 +1,52 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable global-require */
+import React from 'react';
 import { Close } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
-import { getChildrenData } from '../../../queries/childQueries';
+import { useTranslation } from 'react-i18next';
+import { getChildrenListData } from '../../../queries/childQueries';
 import { Child } from '../../../firebase/types';
 import { HomePageChildCard } from './HomePageChildCard';
 import { cardBackgroundColor } from '../../../colors';
+import { useAuthorization } from '../../../hooks/useAuthorization';
+import { useSubscribed } from '../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
 
 export const HomePageChildren = () => {
+    useAuthorization(true);
     const classes = useStyles();
-    const [children, setChildren] = useState<Child[]>();
-    const [listeners, setListeners] = useState<(() => void)[]>([]);
+    const { t } = useTranslation();
 
-    const waitForChildrenData = async () => {
-        const { documents, unsubscribe } = await getChildrenData(2, null, null);
-        if (unsubscribe) {
-            setChildren(documents);
-            setListeners([...listeners, unsubscribe]);
-        }
-    };
-
-    const detachListeners = () => {
-        listeners.forEach(listener => () => listener());
-    };
-
-    useEffect(() => {
-        waitForChildrenData();
-        return () => detachListeners();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const children = useSubscribed<Child[]>((callback: OnSnapshotCallback<Child[]>) => {
+        getChildrenListData(callback);
+    }) as Child[];
 
     return (
         <div className={classes.infoContainer}>
             {children &&
-                children.map(child => (
-                    <HomePageChildCard firstname={child.firstName} avatar={child.avatar} userId={child.userId} />
-                ))}
+                children.map(child => {
+                    const { firstName, userId, avatar } = child;
+                    const link = `child/:${userId}`;
+                    const PictureComponent = <img className={classes.childAva} alt={firstName} src={avatar} />;
+                    return (
+                        <HomePageChildCard
+                            key={userId}
+                            firstname={firstName}
+                            userId={userId}
+                            link={link}
+                            PictureComponent={PictureComponent}
+                        />
+                    );
+                })}
             <div className={classes.infoWrapper}>
                 <span className={classes.infoImage}>
                     <img src={require('../../../img/mali_wspaniali_info.png')} alt="mali_wspaniali_boy" />
                 </span>
-                <div>
+                <div className={classes.infoContent}>
                     <span>
                         <Close className={classes.infoCloseIcon} />
                     </span>
-                    <p className={classes.infoTitle}>Tutaj Nagłówek Fundacji</p>
-                    <span>
-                        Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing
-                        and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of
-                        the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and
-                    </span>
+                    <p className={classes.infoTitle}>{t('home-page-content.foundation-header')}</p>
+                    <span>{t('home-page-content.foundation-content')}</span>
                 </div>
             </div>
         </div>
@@ -57,6 +54,12 @@ export const HomePageChildren = () => {
 };
 
 const useStyles = makeStyles({
+    childAva: {
+        minWidth: '122px',
+        height: '126px',
+        objectFit: 'cover',
+        borderRadius: '4px 4px 0px 0px',
+    },
     infoContainer: {
         display: 'flex',
         marginBottom: 40,
@@ -78,6 +81,9 @@ const useStyles = makeStyles({
         margin: 0,
         fontWeight: 'bold',
         marginBottom: 15,
+    },
+    infoContent: {
+        overflow: 'hidden',
     },
     infoCloseIcon: {
         width: 14,
