@@ -6,6 +6,9 @@ import { textColor } from '../../../colors';
 import { load } from '../../../utils/load';
 import { Article } from '../../../firebase/types';
 import { getArticlesListData } from '../../../queries/articleQuerries';
+import { ArticleCarousel } from './HomePageArticleCarousel';
+
+const isMobile = window.screen.width < 1024;
 
 export const HomePageArticles = () => {
     const classes = useStyles();
@@ -28,25 +31,34 @@ export const HomePageArticles = () => {
         return () => detachListeners(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const renderArticles = () => {
+        if (articles) {
+            return articles.map(({ articleId, title, description, pictureUrl }) => {
+                const ArticlePictureComponent = (
+                    <img className={classes.articleImg} alt="mali_wspaniali_article" src={pictureUrl} />
+                );
+                return (
+                    <HomePageArticleItem
+                        key={title}
+                        articleId={articleId}
+                        title={title}
+                        description={description}
+                        ArticlePictureComponent={ArticlePictureComponent}
+                    />
+                );
+            });
+        }
+    };
+
     return (
         <>
             <h2 className={classes.articleHeader}>{t('home-page-content.recent-news')}</h2>
             <div className={classes.articlesList}>
-                {articles &&
-                    articles.map(({ articleId, title, description, pictureUrl }) => {
-                        const ArticlePictureComponent = (
-                            <img className={classes.articleImg} alt="mali_wspaniali_article" src={pictureUrl} />
-                        );
-                        return (
-                            <HomePageArticleItem
-                                key={title}
-                                articleId={articleId}
-                                title={title}
-                                description={description}
-                                ArticlePictureComponent={ArticlePictureComponent}
-                            />
-                        );
-                    })}
+                {!isMobile && articles && articles.length > 4 ? (
+                    <ArticleCarousel>{renderArticles()}</ArticleCarousel>
+                ) : (
+                    renderArticles()
+                )}
             </div>
         </>
     );
@@ -71,10 +83,14 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             marginTop: 30,
 
+            [theme.breakpoints.down('md')]: {
+                marginLeft: 30,
+            },
+
             [theme.breakpoints.down('xs')]: {
                 flexDirection: 'column',
                 alignItems: 'center',
-                marginTop: 5,
+                margin: '5px 0 0 0',
             },
         },
         articleImg: {

@@ -52,8 +52,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('xs')]: {
                 margin: '42px 0 0 0',
-                width: 'auto',
-                maxWidth: 'none',
+                minWidth: 'calc(100vw - 20px)',
+                maxWidth: 'calc(100vw - 20px)',
                 minHeight: '330px',
                 maxHeight: '330px',
             },

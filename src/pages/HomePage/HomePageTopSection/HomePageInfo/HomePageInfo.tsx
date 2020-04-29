@@ -45,7 +45,16 @@ const useStyles = makeStyles((theme: Theme) =>
             maxHeight: '163px',
 
             [theme.breakpoints.down('md')]: {
-                marginTop: 30,
+                margin: '30px 30px 0 30px',
+                padding: '10px 10px 8px 10px',
+                maxHeight: '200px',
+                flexDirection: 'column',
+                textAlign: 'left',
+                overflowY: 'hidden',
+            },
+
+            [theme.breakpoints.down('xs')]: {
+                margin: '30px 0 0 0',
                 padding: '10px 10px 8px 10px',
                 maxHeight: '200px',
                 flexDirection: 'column',
