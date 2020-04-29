@@ -72,10 +72,13 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 'bold',
             color: textColor,
             fontSize: 14,
+            wordBreak: 'break-word',
         },
         articleDescription: {
             wordBreak: 'break-word',
             lineHeight: '18px',
+            marginTop: 0,
+            maxHeight: 60,
         },
         articleButton: {
             padding: '4px 10px 4px 10px',
