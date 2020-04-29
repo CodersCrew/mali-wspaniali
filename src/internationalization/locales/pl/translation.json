@@ -80,6 +80,14 @@
         "fill-required-fields": "Proszę uzupełnić wymagane pola.",
         "empty-message": "Wiadomość nie może być pusta."
     },
+    "single-article": {
+        "blog": "blog",
+        "length": "długość",
+        "emotions": "emocje",
+        "activity": "aktywność",
+        "food": "żywność",
+        "other": "inne"
+    },
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
     },
