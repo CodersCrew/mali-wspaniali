@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: 0,
             fontWeight: 'bold',
             marginBottom: 15,
-            fontSize: 14,
+            fontSize: 15,
 
             [theme.breakpoints.down('md')]: {
                 display: 'none',
@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight: '18px',
             margin: 0,
             height: 90,
+            fontSize: 14,
 
             [theme.breakpoints.down('md')]: {
                 marginTop: 0,

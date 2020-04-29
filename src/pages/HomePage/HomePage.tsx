@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: '20px 0 40px 0',
             fontSize: 21,
             lineHeight: '26px',
+            fontWeight: 500,
 
             [theme.breakpoints.down('sm')]: {
                 fontSize: 15,
@@ -74,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 textTransform: 'uppercase',
-                lineHeight: '26px',
+                lineHeight: '18px',
             },
         },
     }),

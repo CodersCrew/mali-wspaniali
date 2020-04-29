@@ -8,14 +8,14 @@ type SidebarMenuItem = {
     name: string;
     link: string;
     icon: ReactElement;
-    openSidebar: boolean;
+    isSidebarOpen: boolean;
 };
 
-export const SidebarMenuItem = ({ name, link, icon, openSidebar }: SidebarMenuItem) => {
+export const SidebarMenuItem = ({ name, link, icon, isSidebarOpen }: SidebarMenuItem) => {
     const classes = useStyles();
 
     return (
-        <MenuItem key={name} className={clsx(classes.menuItem, openSidebar ? 'opened' : null)}>
+        <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null)}>
             <Link to={link}>
                 <ListItem className={classes.menuItemWrapper}>
                     <ListItemIcon className={clsx(classes.menuItemIcon, 'closed')}>{icon}</ListItemIcon>

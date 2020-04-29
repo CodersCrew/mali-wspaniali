@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: 0,
             fontWeight: 'bold',
             fontSize: 14,
+            lineHeight: '18px',
 
             [theme.breakpoints.up('lg')]: {
                 display: 'none',

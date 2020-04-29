@@ -1,35 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageArticleItem } from './HomePageArticleItem';
+import { useSubscribed } from '../../../hooks/useSubscribed';
 import { textColor } from '../../../colors';
-import { load } from '../../../utils/load';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { Article } from '../../../firebase/types';
-import { getArticlesListData } from '../../../queries/articleQuerries';
+import { getArticlesListData } from '../../../queries/articleQueries';
 import { ArticleCarousel } from './HomePageArticleCarousel';
 
 const isMobile = window.screen.width < 1024;
 
 export const HomePageArticles = () => {
     const classes = useStyles();
-    const [articles, setArticles] = useState<Article[]>();
-    const [listeners, setListeners] = useState<(() => void)[]>([]);
     const { t } = useTranslation();
 
-    const waitForArticlesData = async () => {
-        const { articleList, unsubscribed } = await getArticlesListData();
-        if (unsubscribed) {
-            setArticles(articleList);
-            setListeners([...listeners, unsubscribed]);
-        }
-    };
-
-    const detachListeners = () => listeners.forEach(listener => () => listener());
-
-    useEffect(() => {
-        load(waitForArticlesData());
-        return () => detachListeners(); // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const articles = useSubscribed<Article[]>((onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+        getArticlesListData(onSnapshotCallback);
+    }, []) as Article[];
 
     const renderArticles = () => {
         if (articles) {

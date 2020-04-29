@@ -10,7 +10,7 @@ export const HomePageChildCard: FC<ChildPropTypes> = ({ firstname, userId, Pictu
     return (
         <Link to={`child/:${userId}`} className={classes.link}>
             <div className={classes.container} key={userId}>
-                <span> {PictureComponent}</span>
+                <span>{PictureComponent}</span>
                 <div>
                     <span className={classes.childName}>{firstname}</span>
                 </div>
@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('md')]: {
                 marginRight: 0,
+                width: '90px',
+                maxWidth: '100px',
+                maxHeight: '120px',
+                height: '120px',
             },
         },
         childName: {

@@ -6,10 +6,10 @@ import { SidebarPropTypes } from './types';
 import SidebarLogo from '../../assets/MALWSP_logo_nav.png';
 import clsx from 'clsx';
 
-export const SidebarTopItem = ({ toggleSidebar, openSidebar }: SidebarPropTypes) => {
+export const SidebarTopItem = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
     const classes = useStyles();
 
-    const switcherIconStyle = clsx(classes.switcherIcon, openSidebar ? 'opened' : null);
+    const switcherIconStyle = clsx(classes.switcherIcon, isSidebarOpen ? 'opened' : null);
 
     return (
         <div className={classes.sidebarLogoWrapper}>

@@ -1,50 +1,55 @@
 import firebaseApp from 'firebase/app';
-import { logQuery } from '../utils/logQuery';
 import { Article } from './types';
-
-type dataPromiseTypes = {
-    articleList: Article[];
-    unsubscribed: () => void;
-};
+import { logQuery } from '../utils/logQuery';
+import { OnSnapshotCallback } from './userRepository';
 
 export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getArticlesListData: () => {
-        let articleList: Article[] = [];
-        const handleData = (snapshot: firebaseApp.firestore.QuerySnapshot) => {
-            if (!snapshot.empty) {
-                snapshot.forEach(doc => {
-                    const docData = doc.data() as Article;
-                    if (articleList.length <= 5) {
-                        articleList = [...articleList, docData];
-                    }
+    getArticleDocById: (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
+        return db
+            .collection('blog-articles')
+            .doc(articleId)
+            .onSnapshot(snapshot => {
+                logQuery(snapshot);
+                const article = snapshot.data() as Article;
+                if (article) {
+                    onSnapshotCallback(article);
+                }
+            });
+    },
+    getSimilarArticlesListData: (
+        article: Article,
+        category: string[],
+        tags: string[],
+        onSnapshotCallback: OnSnapshotCallback<Article[]>,
+    ) => {
+        return db
+            .collection('blog-articles')
+            .where('category', 'array-contains', article.category[0])
+            .limit(3)
+            .onSnapshot(snapshot => {
+                const articleList = [] as Article[];
+                snapshot.forEach(snap => {
+                    const docData = snap.data() as Article;
+                    if (docData.title !== article.title && !articleList.includes(docData)) articleList.push(docData);
                 });
-            }
-        };
-        const getQuery = (
-            resolve: (value: dataPromiseTypes) => void,
-            reject: (reason: Error) => void,
-        ): (() => void) => {
-            const articleListRef = db
-                .collection('blog-articles')
-                .orderBy('category')
-                .limit(5);
-            const unsubscribed = articleListRef.onSnapshot(
-                snapshot => {
-                    logQuery(snapshot);
-                    handleData(snapshot);
-                    resolve({
-                        articleList,
-                        unsubscribed,
-                    });
-                },
-                (error: Error) => {
-                    reject(error);
-                },
-            );
-            return unsubscribed;
-        };
-        return new Promise<dataPromiseTypes>((resolve, reject) => {
-            getQuery(resolve, reject);
-        });
+                if (articleList) {
+                    onSnapshotCallback(articleList);
+                }
+            });
+    },
+    getArticlesListData: (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+        return db
+            .collection('blog-articles')
+            .limit(2)
+            .onSnapshot(snapshot => {
+                const articleList = [] as Article[];
+                snapshot.forEach(snap => {
+                    const docData = snap.data() as Article;
+                    articleList.push(docData);
+                });
+                if (articleList) {
+                    onSnapshotCallback(articleList);
+                }
+            });
     },
 });
