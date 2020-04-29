@@ -26,7 +26,7 @@ export const HomePageArticles = () => {
                     articles.map(article => {
                         const { articleId, title, description, pictureUrl } = article;
                         const ArticlePictureComponent = (
-                            <img className={classes.articleImg} alt="mali_wspaniali_img_one" src={pictureUrl} />
+                            <img className={ classes.articleImg } alt={title} src={pictureUrl} />
                         );
                         return (
                             <div key={article.title}>

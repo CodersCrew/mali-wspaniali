@@ -23,15 +23,15 @@ export const HomePageChildren = () => {
     return (
         <div className={classes.infoContainer}>
             {children &&
-                children.map(child => {
+                children.map((child, index) => {
                     const { firstName, userId, avatar } = child;
                     const link = `child/:${userId}`;
                     const PictureComponent = (
-                        <img className={classes.childAva} alt="mali_wspaniali_child" src={avatar} />
+                        <img className={classes.childAva} alt={firstName} src={avatar} />
                     );
                     return (
                         <HomePageChildCard
-                            key={userId}
+                            key={index}
                             firstname={firstName}
                             userId={userId}
                             link={link}
