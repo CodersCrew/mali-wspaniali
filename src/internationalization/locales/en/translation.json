@@ -20,7 +20,8 @@
         "password-mismatch": "Passwords do not match",
         "register-success": "Account created. Please login.",
         "password-confirm": "Repeat password",
-        "register": "Register"
+        "register": "Register",
+        "password-not-strong": "Password not strong enough"
     },
     "users-page": {
         "agreements": "Agreements",
