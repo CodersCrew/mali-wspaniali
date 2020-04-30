@@ -67,9 +67,8 @@ const useStyles = makeStyles((theme: Theme) =>
             overflow: 'hidden',
         },
         articleTitle: {
-            marginTop: 6,
+            marginTop: 4,
             marginBottom: 10,
-            fontWeight: 'bold',
             color: textColor,
             fontSize: 14,
             wordBreak: 'break-word',
@@ -79,6 +78,10 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight: '18px',
             marginTop: 0,
             maxHeight: 60,
+
+            [theme.breakpoints.down('sm')]: {
+                maxHeight: 40,
+            },
         },
         articleButton: {
             padding: '4px 10px 4px 10px',

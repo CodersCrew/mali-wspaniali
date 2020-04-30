@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
             maxHeight: '163px',
             height: '163px',
 
-            [theme.breakpoints.down('md')]: {
+            [theme.breakpoints.down('sm')]: {
                 marginRight: 0,
                 width: '90px',
                 maxWidth: '100px',
@@ -52,8 +52,8 @@ const useStyles = makeStyles((theme: Theme) =>
             textDecoration: 'none',
             color: '#000',
 
-            [theme.breakpoints.down('md')]: {
-                margin: '0 12px 0 12px',
+            [theme.breakpoints.down('sm')]: {
+                margin: '0 12px',
             },
         },
     }),

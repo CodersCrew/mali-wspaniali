@@ -53,10 +53,17 @@ export const HomePageChildren = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         childAvatar: {
-            minWidth: '122px',
+            width: '122px',
             height: '126px',
             objectFit: 'cover',
             borderRadius: '4px 4px 0px 0px',
+
+            [theme.breakpoints.down('sm')]: {
+                maxWidth: '90px',
+                width: '90px',
+                maxHeight: '90px',
+                height: '90px',
+            },
         },
         infoContainer: {
             display: 'flex',
@@ -78,6 +85,11 @@ const useStyles = makeStyles((theme: Theme) =>
                 paddingLeft: 20,
                 paddingRight: 20,
                 maxWidth: 400,
+            },
+
+            [theme.breakpoints.down('sm')]: {
+                justifyContent: 'center',
+                alignItems: 'center',
             },
         },
     }),
