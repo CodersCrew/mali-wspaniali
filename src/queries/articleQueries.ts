@@ -1,5 +1,5 @@
 import { firebase } from '../firebase/firebase';
-import { Article } from '../firebase/types';
+import { Article, PaginatedArticleList, Snapshot } from '../firebase/types';
 import { OnSnapshotCallback } from '../firebase/userRepository';
 
 export const getArticleById = (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
@@ -15,7 +15,7 @@ export const getSimilarArticlesListData = async (
     firebase.article.getSimilarArticlesListData(article, category, tags, onSnapshotCallback);
 };
 
-export const getArticles = (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-    firebase.article.getArticles(onSnapshotCallback);
+export const getArticles = (onSnapshotCallback: OnSnapshotCallback<PaginatedArticleList>, category?: string, startAfter?: Snapshot, endBefore?: Snapshot) => {
+    firebase.article.getArticles(onSnapshotCallback, category, startAfter, endBefore);
 };
  

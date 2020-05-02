@@ -1,5 +1,5 @@
-import firebaseApp from 'firebase/app';
-import { Article } from './types';
+import firebaseApp, { firestore } from 'firebase/app';
+import { Article, PaginatedArticleList, Snapshot } from './types';
 import { logQuery } from '../utils/logQuery';
 import { OnSnapshotCallback } from './userRepository';
 
@@ -38,22 +38,32 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
             });
     },
     getArticles: (
-        onSnapshotCallback: OnSnapshotCallback<Article[]>
+        onSnapshotCallback: OnSnapshotCallback<PaginatedArticleList>,
+        category?: string | undefined,
+        startAfter?: Snapshot,
+        endBefore?: Snapshot
     ) => {
+        let query = db.collection('blog-articles') as firestore.Query;
+        if (category) {
+            query = query.where('category', 'array-contains', category);
+        }
         // const unsubscribe = 
-        db
-            .collection('blog-articles')
-            .orderBy('date')
+        query.orderBy('date')
             .limit(6)
             .onSnapshot(snapshot => {
                 const articleList = [] as Article[];
+                const snapshots: Snapshot[] = [];
+
                 snapshot.forEach(snap => {
+                    snapshots.push(snap);
                     const docData = snap.data() as Article;
                     articleList.push(docData);
                 });
-                if (articleList) {
-                    onSnapshotCallback(articleList);
-                }
+                onSnapshotCallback({
+                    articleList,
+                    firstSnap: snapshots[0],
+                    lastSnap: snapshots[5]
+                });
                 // unsubscribe();
             });
 

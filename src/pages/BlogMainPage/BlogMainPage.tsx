@@ -1,36 +1,80 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, makeStyles, Grid } from '@material-ui/core';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { StyledPagination } from './Pagination';
 import { getArticles } from '../../queries/articleQueries';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { Article } from '../../firebase/types';
- 
+// import { useSubscribed } from '../../hooks/useSubscribed';
+import { PaginatedArticleList } from '../../firebase/types';
+
 
 export const BlogMainPage = () => {
 
     const classes = useStyles();
-    // const title = "Tutaj będzie nazwa, która jest przeważnie bardzo długa";
-    // const image = "https://images.unsplash.com/photo-1504450874802-0ba2bcd9b5ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80";
-    // const description = "Tutaj będzie zwykły tekst ok. do 2 zdań. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the."
     const link = '/';
 
-    const blogArticles = useSubscribed<Article[]>(getArticles, []) as Article[];
+    const [currentCategory, setCurrentCategory] = useState<string>('all');
+    const [blogArticles, setBlogArticles] = useState<PaginatedArticleList | null>(null);
+    useEffect(() => {
+        addArticlesToState(currentCategory);
+    }, [currentCategory]);
+
+    const addArticlesToState = (category: string | undefined) => {
+        let categoryKey = category;
+        if (categoryKey === 'all') {
+            categoryKey = undefined;
+        }
+
+        getArticles(
+            (blogArticlesFromSnapshot: PaginatedArticleList) => {
+                setBlogArticles(blogArticlesFromSnapshot);
+            },
+            categoryKey
+        );
+
+    };
+
+    // const changeCategory = (category: string) => {
+    //     setCurrentCategory(category);
+    //     addArticlesToState(currentCategory);
+    // };
+
+    // const paginationQuery = (next: boolean, prev: boolean, category: string) => {
+    //     if (!blogArticles) return;
+    //     let startAfter;
+    //     let endBefore;
+
+    //     if (next) {
+    //         startAfter = blogArticles.lastSnap;
+    //     }
+    //     if (prev) {
+    //         endBefore = blogArticles.firstSnap;
+    //     }
+
+    //     getArticles(
+    //         (blogArticlesFromSnapshot) => {
+    //             setBlogArticles(blogArticlesFromSnapshot);
+    //         },
+    //         category,
+    //         startAfter,
+    //         endBefore,
+    //     );
+    // };
+
 
     return (
         <div>
             <Typography variant="h4" gutterBottom className={classes.heading}>Tutaj dowiesz się jak zadbać o rozwój swojego dziecka</Typography>
-            <CategoryTabs />
-
+            <CategoryTabs setCategory={setCurrentCategory} />
             <div className={classes.gridBackground}>
-                <Grid container xs={12} justify="space-around" spacing={2} className={classes.gridContainer}>
-                    {blogArticles.map((article) => (
+                { blogArticles &&
+                <Grid container justify="space-around" spacing={2} className={classes.gridContainer}>
+                    {blogArticles.articleList.map((article) => (
                         <Grid key={article.title} item className={classes.articleCard} xs={4} zeroMinWidth>
                             <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={link} />
                         </Grid>
                     ))}
-                </Grid>
+                </Grid> }
                 <StyledPagination />
             </div>
 
