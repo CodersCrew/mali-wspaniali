@@ -1,5 +1,4 @@
 {
-    "manifest_version": 2,
     "default_locale": "en",
     "version_name": "v0.0",
     "name": "Mali Wspaniali App",
@@ -10,7 +9,7 @@
     "background_color": "#008AAD",
     "icons": [
         {
-            "src": "/favicon.ico",
+            "src": "/icons/favicon.ico",
             "sizes": "64x64 32x32 24x24 16x16",
             "type": "image/x-icon"
         },
