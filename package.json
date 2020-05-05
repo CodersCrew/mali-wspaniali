@@ -51,6 +51,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "test:cypress": "npx cypress open",
+    "test:cypress:run": "npx cypress run",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
     "deploy": "npm run build && firebase deploy",
