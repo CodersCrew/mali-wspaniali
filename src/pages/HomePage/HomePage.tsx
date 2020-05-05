@@ -1,10 +1,10 @@
 import React from 'react';
+import { makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles/HomePageArticles';
 import { AppWrapper } from '../AppWrapper/AppWrapper';
 import { Navbar } from '../../components/Navbar/Navbar';
-import { makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { mainColor } from '../../colors';
 
 export const ParentHomePage = () => {

@@ -25,6 +25,7 @@ const theme = createMuiTheme({
     },
 });
 
+// eslint-disable-next-line no-shadow
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         background: {

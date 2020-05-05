@@ -19,6 +19,7 @@ export const HomePageArticles = () => {
         getArticlesListData(onSnapshotCallback);
     }, []) as Article[];
 
+    // eslint-disable-next-line consistent-return
     const renderArticles = () => {
         if (articles) {
             return articles.map(({ articleId, title, description, pictureUrl }) => {

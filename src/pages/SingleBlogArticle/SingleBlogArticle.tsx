@@ -69,9 +69,11 @@ export const SingleBlogArticle = () => {
                 </Grid>
             </Grid>
         );
-    } else return <div></div>;
+    }
+    return <div></div>;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         rootGrid: {

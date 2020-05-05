@@ -2,23 +2,27 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/';
 import { textColor, cardBackgroundColor } from '../../colors';
 
-export const FoundationBox = () =>
-{
+export const FoundationBox = () => {
     const classes = useStyles();
 
     return (
         <>
-            <div className={ classes.FoundationBox }>
-                <div className = { classes.FoundationPicture}></div>
-                <p className={ classes.FoundationTitle }>Foundation Box Title</p>
-                <p className={ classes.FoundationText }>Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and</p>
+            <div className={classes.FoundationBox}>
+                <div className={classes.FoundationPicture}></div>
+                <p className={classes.FoundationTitle}>Foundation Box Title</p>
+                <p className={classes.FoundationText}>
+                    Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum is simply dummy text of the printing and
+                </p>
             </div>
         </>
     );
 };
 
 const useStyles = makeStyles({
-    FoundationBox: {        
+    FoundationBox: {
         marginTop: '30px',
         borderRadius: '4px',
         width: '904px',
@@ -31,7 +35,7 @@ const useStyles = makeStyles({
         height: '123px',
         border: 'ridge',
         marginTop: '20px',
-        marginLeft: '15px'
+        marginLeft: '15px',
     },
     FoundationTitle: {
         position: 'absolute',
@@ -43,8 +47,7 @@ const useStyles = makeStyles({
         width: '285px',
         height: '18px',
         fontWeight: 'bold',
-        margin: 0
-        
+        margin: 0,
     },
     FoundationText: {
         position: 'absolute',
@@ -55,9 +58,6 @@ const useStyles = makeStyles({
         fontFamily: 'Montserrat, sans-serif',
         fontSize: '15px',
         fontWeight: 'normal',
-        margin: 0
-    }
+        margin: 0,
+    },
 });
-
-
-
