@@ -6,13 +6,15 @@ export const getArticleById = (articleId: string, onSnapshotCallback: OnSnapshot
     firebase.article.getArticleDocById(articleId, onSnapshotCallback);
 };
 
-export const getSimilarArticlesListData = async (article: Article, category: string[], tags: string[]) => {
-    const { articleList, unsubscribed } = await firebase.article.getSimilarArticlesListData(article, category, tags);
-    return { articleList, unsubscribed };
+export const getSimilarArticlesListData = async (
+    article: Article,
+    category: string[],
+    tags: string[],
+    onSnapshotCallback: OnSnapshotCallback<Article[]>,
+) => {
+    firebase.article.getSimilarArticlesListData(article, category, tags, onSnapshotCallback);
 };
 
-export const getArticlesListData = async () => {
-    const { articleList, unsubscribed } = await firebase.article.getArticlesListData();
-    return { articleList, unsubscribed };
+export const getArticlesListData = async (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+    firebase.article.getArticlesListData(onSnapshotCallback);
 };
-

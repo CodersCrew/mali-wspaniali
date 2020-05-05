@@ -14,7 +14,8 @@
         "password-mismatch": "Passwords do not match",
         "register-success": "Account created. Please login.",
         "password-confirm": "Repeat password",
-        "register": "Register"
+        "register": "Register",
+        "password-not-strong": "Password not strong enough"
     },
     "users-page": {
         "agreements": "Agreements",
@@ -84,6 +85,13 @@
     "database-backup": {
         "get-backup-json": "Get database as JSON"
     },
+    "sidebar": {
+        "home": "Home",
+        "settings": "Settings",
+        "news": "News",
+        "notifications": "Notifications",
+        "logout": "Log out"
+    },
     "navbar": {
         "news": "News",
         "messages": "Messages",
@@ -97,6 +105,7 @@
         "foundation-header": "Foundation Header here",
         "foundation-content": "Here will be a brief introduction from the Foundation. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
         "recent-news": "Recent News",
-        "article-card-btn": "Read more"
+        "read-more": "Read more",
+        "read-less": "Less"
     }
 }

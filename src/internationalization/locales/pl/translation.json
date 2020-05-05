@@ -14,7 +14,8 @@
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success": "Konto zostało utworzone. Możesz się zalogować.",
         "password-confirm": "Powtórz hasło",
-        "register": "Zarejestruj się"
+        "register": "Zarejestruj się",
+        "password-not-strong": "Hasło za słabe"
     },
     "users-page": {
         "agreements": "Zgody",
@@ -84,6 +85,13 @@
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
     },
+    "sidebar": {
+        "home": "Strona Główna",
+        "settings": "Ustawienia",
+        "news": "Aktualności",
+        "notifications": "Powiadomienia",
+        "logout": "Wyloguj"
+    },
     "navbar": {
         "news": "Aktualności",
         "messages": "Wiadomości",
@@ -97,6 +105,7 @@
         "foundation-header": "Tutaj Nagłówek Fundacji",
         "foundation-content": "Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
         "recent-news": "Najnowsze ARTYKUŁY",
-        "article-card-btn": "Czytaj dalej"
+        "read-more": "Czytaj więcej",
+        "read-less": "Zwiń"
     }
 }

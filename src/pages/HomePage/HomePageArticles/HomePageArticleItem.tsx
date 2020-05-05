@@ -1,86 +1,105 @@
-/* eslint-disable global-require */
 import React from 'react';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, Button, Grid, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { cardBackgroundColor, activeColor, textColor } from '../../../colors';
-import { ArticleProps } from './types';
+import { cardBackgroundColor, secondaryColor, textColor } from '../../../colors';
+import { ArticlePropTypes } from './types';
 
-export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticleProps) => {
+export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticlePropTypes) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
-        <Link className={classes.articleLink} to={`/article/${articleId}`}>
-            <div className={classes.articleCard}>
-                {ArticlePictureComponent}
-                <div className={classes.articleInfo}>
-                    <span className={classes.articleTitle}>{title}</span>
-                    <span className={classes.articleDescription}>{description}</span>
-                    <Button className={classes.articleButton}>
-                        <span className={classes.articleButtonIcon}>
-                            <img src={require('../../../img/mali_wspaniali_more_btn.svg')} alt="mali_wspaniali_more" />
-                        </span>
-                        <span>{t('home-page-content.article-card-btn')}</span>
+        <Grid className={classes.articleCard}>
+            {ArticlePictureComponent}
+            <div className={classes.articleInfo}>
+                <h2 className={classes.articleTitle}>{title}</h2>
+                <p className={classes.articleDescription}>{description}</p>
+                <Link className={classes.articleLink} to={`/article/${articleId}`}>
+                    <Button variant="contained" className={classes.articleButton} startIcon={<Icon>send</Icon>}>
+                        {t('home-page-content.read-more')}
                     </Button>
-                </div>
+                </Link>
             </div>
-        </Link>
+        </Grid>
     );
 };
 
-const useStyles = makeStyles({
-    articleCard: {
-        textAlign: 'center',
-        padding: '0 15px 15px 15px',
-        background: cardBackgroundColor,
-        marginRight: 60,
-        boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
-        borderRadius: '4px',
-        marginTop: 25,
-        maxWidth: '306px',
-        minHeight: '360px',
-        maxHeight: '360px',
-        color: textColor,
-        position: 'relative',
-    },
-    articleInfo: {
-        textAlign: 'left',
-        display: 'flex',
-        flexDirection: 'column',
-        marginTop: '-26px',
-        color: textColor,
-        overflow: 'hidden',
-    },
-    articleTitle: {
-        marginTop: 6,
-        marginBottom: 10,
-        fontWeight: 'bold',
-        color: textColor,
-    },
-    articleDescription: {
-        wordBreak: 'break-word',
-    },
-    articleButton: {
-        padding: '4px 10px 4px 10px',
-        background: activeColor,
-        borderRadius: '4px',
-        textTransform: 'uppercase',
-        color: '#fff',
-        fontSize: '13px',
-        display: 'flex',
-        alignSelf: 'flex-end',
-        marginTop: 10,
-        position: 'absolute',
-        bottom: 15,
-        right: 15,
-    },
-    articleButtonIcon: {
-        marginRight: 9,
-        display: 'flex',
-    },
-    articleLink: {
-        textDecoration: 'none',
-        color: '#fff',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        articleCard: {
+            textAlign: 'center',
+            padding: '0 15px 15px 15px',
+            background: cardBackgroundColor,
+            marginRight: 60,
+            boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
+            borderRadius: '4px',
+            marginTop: 25,
+            minWidth: '306px',
+            maxWidth: '306px',
+            minHeight: '360px',
+            maxHeight: '360px',
+            color: textColor,
+            position: 'relative',
+
+            [theme.breakpoints.down('sm')]: {
+                minWidth: '270px',
+                maxWidth: '270px',
+                minHeight: '340px',
+                maxHeight: '340px',
+                marginRight: 40,
+            },
+
+            [theme.breakpoints.down('xs')]: {
+                margin: '42px 0 0 0',
+                minWidth: 'calc(100vw - 20px)',
+                maxWidth: 'calc(100vw - 20px)',
+                minHeight: '330px',
+                maxHeight: '330px',
+            },
+        },
+        articleInfo: {
+            textAlign: 'left',
+            display: 'flex',
+            flexDirection: 'column',
+            marginTop: '-26px',
+            color: textColor,
+            overflow: 'hidden',
+        },
+        articleTitle: {
+            marginTop: 4,
+            marginBottom: 10,
+            color: textColor,
+            fontSize: 14,
+            wordBreak: 'break-word',
+        },
+        articleDescription: {
+            wordBreak: 'break-word',
+            lineHeight: '18px',
+            marginTop: 0,
+            maxHeight: 60,
+
+            [theme.breakpoints.down('sm')]: {
+                maxHeight: 40,
+            },
+        },
+        articleButton: {
+            padding: '4px 10px 4px 10px',
+            background: secondaryColor,
+            borderRadius: '4px',
+            textTransform: 'uppercase',
+            color: '#fff',
+            fontSize: '13px',
+            display: 'flex',
+            alignSelf: 'flex-end',
+            marginTop: 10,
+            position: 'absolute',
+            bottom: 15,
+            right: 15,
+        },
+        articleLink: {
+            textDecoration: 'none',
+            color: '#fff',
+        },
+    }),
+);

@@ -12,8 +12,9 @@ import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
 import { ParentHomePage } from './HomePage';
-import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
 import { SingleBlogArticle } from './SingleBlogArticle';
+import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
+import { IdleTimer } from '../components/IdleTimer/IdleTimer';
 
 export const Root = () => {
     return (
@@ -21,38 +22,29 @@ export const Root = () => {
             <CssBaseline />
             <Router>
                 <Switch>
-                    <Route exact path="/" component={ParentHomePage} />
-                    <Route path={['/login']}>
-                        <LoginPageWrapper>
-                            <Route path="/login" component={LoginPage} />
-                        </LoginPageWrapper>
-                    </Route>
-                    <Route path="/register" component={RegistrationPage} />
-                    <Route path={['/admin', '/parent']}>
-                        <AppWrapper>
-                            <Route path="/admin/tests" component={TestResultsPage} />
-                            <Route path="/admin/users" component={UsersPage} />
-                            <Route path="/child/:childID" component={ChildProfile} />
-                            <Route path="/admin" />
-                            <Route path="/admin/parent/:id" component={ParentProfile} />
-                            <Route path="/parent" component={ParentHomePage} />
-                            <Route path="/admin/agreements" component={AdminAgreementsPage} />
-                            <Route path="/parent/children" component={ChildrenListPage} />
-                            <Route path="/admin/newsletter" component={NewsletterPage} />
-                        </AppWrapper>
-                    </Route>
-                    <AppWrapper>
-                        <Route path="/admin/tests" component={TestResultsPage} />
-                        <Route path="/admin/users" component={UsersPage} />
-                        <Route path="/child/:childID" component={ChildProfile} />
-                        <Route path="/admin" />
-                        <Route path="/admin/parent/:id" component={ParentProfile} />
-                        <Route path="/parent" />
-                        <Route path="/admin/agreements" component={AdminAgreementsPage} />
-                        <Route path="/parent/children" component={ChildrenListPage} />
-                        <Route path="/admin/newsletter" component={NewsletterPage} />
-                        <Route path="/article/:articleId" component={SingleBlogArticle} />
-                    </AppWrapper>
+                    <IdleTimer>
+                        <Route exact path="/" component={ParentHomePage} />
+                        <Route path={['/login']}>
+                            <LoginPageWrapper>
+                                <Route path="/login" component={LoginPage} />
+                            </LoginPageWrapper>
+                        </Route>
+                        <Route path="/register" component={RegistrationPage} />
+                        <Route path={['/admin', '/parent']}>
+                            <AppWrapper>
+                                <Route path="/admin/tests" component={TestResultsPage} />
+                                <Route path="/admin/users" component={UsersPage} />
+                                <Route path="/parent/child/:childID" component={ChildProfile} />
+                                <Route path="/admin" />
+                                <Route path="/admin/parent/:id" component={ParentProfile} />
+                                <Route path="/parent" />
+                                <Route path="/admin/agreements" component={AdminAgreementsPage} />
+                                <Route path="/parent/children" component={ChildrenListPage} />
+                                <Route path="/admin/newsletter" component={NewsletterPage} />
+                                <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
+                            </AppWrapper>
+                        </Route>
+                    </IdleTimer>
                 </Switch>
             </Router>
         </>
