@@ -47,24 +47,33 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
         if (category) {
             query = query.where('category', 'array-contains', category);
         }
-        // const unsubscribe = 
+        if (startAfter) {
+            query = query.startAfter(startAfter);
+        }
+        if (endBefore) {
+            query = query.endBefore(endBefore);
+        }
         query.orderBy('date')
-            .limit(6)
+            .limit(7)
             .onSnapshot(snapshot => {
                 const articleList = [] as Article[];
                 const snapshots: Snapshot[] = [];
+                let isMore = true;
 
                 snapshot.forEach(snap => {
                     snapshots.push(snap);
                     const docData = snap.data() as Article;
                     articleList.push(docData);
                 });
+                if (articleList.length < 7) {
+                    isMore = false;
+                }
                 onSnapshotCallback({
-                    articleList,
+                    articleList: articleList.slice(0, 6),
                     firstSnap: snapshots[0],
-                    lastSnap: snapshots[5]
+                    lastSnap: snapshots[5],
+                    isMore,
                 });
-                // unsubscribe();
             });
 
     }

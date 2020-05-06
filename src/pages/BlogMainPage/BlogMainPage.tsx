@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Typography, makeStyles, Grid } from '@material-ui/core';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
-import { StyledPagination } from './Pagination';
+import { Pagination } from './Pagination';
 import { getArticles } from '../../queries/articleQueries';
-// import { useSubscribed } from '../../hooks/useSubscribed';
-import { PaginatedArticleList } from '../../firebase/types';
-
+import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 
 export const BlogMainPage = () => {
 
@@ -15,67 +13,70 @@ export const BlogMainPage = () => {
 
     const [currentCategory, setCurrentCategory] = useState<string>('all');
     const [blogArticles, setBlogArticles] = useState<PaginatedArticleList | null>(null);
+    const [isLastPage, setIsLastPage] = useState(false);
+    const [isFirstPage, setIsFirstPage] = useState(true);
+
     useEffect(() => {
         addArticlesToState(currentCategory);
     }, [currentCategory]);
 
-    const addArticlesToState = (category: string | undefined) => {
-        let categoryKey = category;
-        if (categoryKey === 'all') {
-            categoryKey = undefined;
-        }
+    const addArticlesToState = (categoryKey: string | undefined, startAfter?: Snapshot, endBefore?: Snapshot) => {
+        const category = categoryKey === 'all' ? undefined : categoryKey;
 
         getArticles(
-            (blogArticlesFromSnapshot: PaginatedArticleList) => {
+            (blogArticlesFromSnapshot) => {
                 setBlogArticles(blogArticlesFromSnapshot);
+                setupPagination(blogArticlesFromSnapshot);
+                if (startAfter || endBefore) {
+                    changePagination(blogArticlesFromSnapshot, startAfter, endBefore);
+                }
             },
-            categoryKey
+            category,
+            startAfter,
+            endBefore,
         );
-
     };
 
-    // const changeCategory = (category: string) => {
-    //     setCurrentCategory(category);
-    //     addArticlesToState(currentCategory);
-    // };
+    const setupPagination = (blogArticlesFromSnapshot: PaginatedArticleList) => {
+        if (!blogArticlesFromSnapshot.isMore) {
+            setIsLastPage(true);
+        }
+    };
 
-    // const paginationQuery = (next: boolean, prev: boolean, category: string) => {
-    //     if (!blogArticles) return;
-    //     let startAfter;
-    //     let endBefore;
+    const changePagination = (blogArticlesFromSnapshot: any, startAfter?: Snapshot, endBefore?: Snapshot) => {
+        setIsLastPage(false);
+        if (!blogArticlesFromSnapshot.isMore && startAfter) {
+            setIsLastPage(true);
+        }
+        setIsFirstPage(false);
+        if (!blogArticlesFromSnapshot.isMore && endBefore) {
+            setIsFirstPage(true);
+        }
+    };
 
-    //     if (next) {
-    //         startAfter = blogArticles.lastSnap;
-    //     }
-    //     if (prev) {
-    //         endBefore = blogArticles.firstSnap;
-    //     }
+    const paginationQuery = (paginationDirection: string) => {
+        if (!blogArticles) return;
 
-    //     getArticles(
-    //         (blogArticlesFromSnapshot) => {
-    //             setBlogArticles(blogArticlesFromSnapshot);
-    //         },
-    //         category,
-    //         startAfter,
-    //         endBefore,
-    //     );
-    // };
+        const startAfter = paginationDirection === 'next' ? blogArticles.lastSnap : undefined;
+        const endBefore = paginationDirection === 'prev' ? blogArticles.firstSnap : undefined;
 
+        addArticlesToState(currentCategory, startAfter, endBefore);
+    };
 
     return (
         <div>
             <Typography variant="h4" gutterBottom className={classes.heading}>Tutaj dowiesz się jak zadbać o rozwój swojego dziecka</Typography>
             <CategoryTabs setCategory={setCurrentCategory} />
             <div className={classes.gridBackground}>
-                { blogArticles &&
-                <Grid container justify="space-around" spacing={2} className={classes.gridContainer}>
-                    {blogArticles.articleList.map((article) => (
-                        <Grid key={article.title} item className={classes.articleCard} xs={4} zeroMinWidth>
-                            <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={link} />
-                        </Grid>
-                    ))}
-                </Grid> }
-                <StyledPagination />
+                {blogArticles &&
+                    <Grid container justify="space-around" spacing={2} className={classes.gridContainer}>
+                        {blogArticles.articleList.map((article) => (
+                            <Grid key={article.title} item className={classes.articleCard} xs={4} zeroMinWidth>
+                                <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={link} />
+                            </Grid>
+                        ))}
+                    </Grid>}
+                <Pagination isFirst={isFirstPage} isLast={isLastPage} handleChange={paginationQuery} />
             </div>
 
         </div>

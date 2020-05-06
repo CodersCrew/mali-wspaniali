@@ -1,23 +1,41 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Pagination } from '@material-ui/lab';
+import { makeStyles, createStyles, Button } from '@material-ui/core/';
+import { mainColor } from '../../colors';
 
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        root: {
-            '& > *': {
-                marginTop: theme.spacing(2),
-            },
-        },
-    }),
-);
+type PaginationProps = {
+    isFirst: boolean,
+    isLast: boolean,
+    handleChange: (paginationDirection: string) => void
+}
 
-export const StyledPagination = () => {
+export const Pagination = ({isFirst, isLast, handleChange}: PaginationProps) => {
     const classes = useStyles();
 
+    const handleNextClick = () => {
+        handleChange('next');
+    };
+    const handlePrevClick = () => {
+        handleChange('prev');
+    };
+
     return (
-        <div className={classes.root}>
-            <Pagination count={10} variant="outlined" shape="rounded" />
+        <div className={classes.paginationContainer}>
+            <Button variant="outlined" disabled={isFirst} onClick={handlePrevClick}>Previous</Button>
+            <Button variant="contained" disabled={isLast} className={classes.next} onClick={handleNextClick}>Next</Button>
         </div>
     );
-}
+};
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        paginationContainer: {
+            display: 'flex',
+            justifyContent: 'center',
+            padding: '5%'
+        },
+        next: {
+            backgroundColor: mainColor,
+            marginLeft: '2%'
+        }
+    }),
+);

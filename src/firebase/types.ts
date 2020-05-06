@@ -69,4 +69,5 @@ export interface PaginatedArticleList {
     articleList: Article[];
     firstSnap: Snapshot;
     lastSnap: Snapshot;
+    isMore: boolean
 }
