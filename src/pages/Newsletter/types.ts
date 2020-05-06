@@ -11,3 +11,11 @@ export type WorkspaceProps = {
     message: string;
     setMessage: (value: string | ((prevState: string) => string)) => void;
 };
+
+export enum SidebarElementStates {
+    Inactive = 'INACTIVE',
+    Ready = 'READY',
+    Error = 'ERROR',
+    Done = 'DONE',
+    FileError = 'FILEERROR',
+}

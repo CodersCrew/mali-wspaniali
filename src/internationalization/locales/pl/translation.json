@@ -69,7 +69,8 @@
         "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
     },
     "newsletter": {
-        "header": "Newsletter",
+        "header": "Nowa wiadomość",
+        "subHeader": "Aby wysłać newsletter uzupełnij wszystkie wymagane pola.",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success": "Newsletter został wysłany.",
         "type": "Typ",
@@ -78,7 +79,14 @@
         "send": "Wyślij",
         "placeholder": "Tu wpisz swoją wiadomość",
         "fill-required-fields": "Proszę uzupełnić wymagane pola.",
-        "empty-message": "Wiadomość nie może być pusta."
+        "empty-message": "Wiadomość nie może być pusta.",
+        "sidebar": {
+            "fill": "Uzupełnij",
+            "newsletter-content": "Treść Newslettera",
+            "done": "Gotowe",
+            "error": "Uzupełnij dane",
+            "file-error": "Nieprawidłowy format pliku"
+        }
     },
     "single-article": {
         "blog": "blog",

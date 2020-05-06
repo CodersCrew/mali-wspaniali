@@ -69,7 +69,8 @@
         "no-children-has-been-found": "No children has been found"
     },
     "newsletter": {
-        "header": "Newsletter",
+        "header": "New Message",
+        "subHeader": "Fill all fields to send message",
         "sending-error": "An error ocurred during sending the message.",
         "sending-success": "The newsletter was sent.",
         "type": "Type",
@@ -78,7 +79,14 @@
         "send": "Send",
         "placeholder": "Write your message here",
         "fill-required-fields": "Please fill the required fields.",
-        "empty-message": "The message cannot be empty."
+        "empty-message": "The message cannot be empty.",
+        "sidebar": {
+            "fill": "Fill",
+            "newsletter-content": "Newsletter content",
+            "done": "Done",
+            "error": "Fill required",
+            "file-error": "File error"
+        }
     },
     "single-article": {
         "blog": "blog",
