@@ -10,6 +10,10 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+const cacheAssets = [
+    '/assets/MALWSP_logo_nav.png'
+];
+
 function registerValidSW(swUrl: string, config?: Config) {
     navigator.serviceWorker
         .register(swUrl)
@@ -22,6 +26,12 @@ function registerValidSW(swUrl: string, config?: Config) {
                 }
                 installingWorker.onstatechange = () => {
                     if (installingWorker.state === 'installed') {
+                        caches
+                            .open('testing-cache')
+                            .then(cache => {
+                                console.log("add to cache");
+                                cache.addAll(cacheAssets);
+                            });
                         if (navigator.serviceWorker.controller) {
                             // At this point, the updated precached content has been fetched,
                             // but the previous service worker will still serve the older
