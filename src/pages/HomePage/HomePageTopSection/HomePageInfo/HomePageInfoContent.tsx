@@ -1,18 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
-import { InfoContentPropTypes } from './types';
 import { Close } from '@material-ui/icons';
+import { InfoContentPropTypes } from './types';
 
 export const HomePageInfoContent = ({
     toggleInfoText,
     toggleInfoComponent,
-    setIsReadMoreBtnClicked,
+    isReadMoreBtnClicked,
 }: InfoContentPropTypes) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const renderInfoButtonText = setIsReadMoreBtnClicked
+    const renderInfoButtonText = isReadMoreBtnClicked
         ? t('home-page-content.read-less')
         : t('home-page-content.read-more');
 

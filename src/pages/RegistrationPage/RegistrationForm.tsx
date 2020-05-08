@@ -27,22 +27,20 @@ export const RegistrationForm = () => {
                 type: 'error',
                 description: t('registration-page.password-not-strong'),
             });
+        } else if (password !== passwordConfirm) {
+            openAlertDialog({
+                type: 'error',
+                description: t('registration-page.password-mismatch'),
+            });
         } else {
-            if (password !== passwordConfirm) {
-                openAlertDialog({
-                    type: 'error',
-                    description: t('registration-page.password-mismatch'),
+            const user = { email, password };
+            load(createUser(user))
+                .then(() => {
+                    history.push('/login');
+                })
+                .catch(err => {
+                    openAlertDialog({ type: 'error', description: err.message });
                 });
-            } else {
-                const user = { email, password };
-                load(createUser(user))
-                    .then(() => {
-                        history.push('/login');
-                    })
-                    .catch(err => {
-                        openAlertDialog({ type: 'error', description: err.message });
-                    });
-            }
         }
     };
 

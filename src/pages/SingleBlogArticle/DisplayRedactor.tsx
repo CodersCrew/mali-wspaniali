@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, Grid, Avatar, Typography, Box } from '@material-ui/core';
+import { makeStyles,  createStyles, Grid, Avatar, Typography, Box } from '@material-ui/core';
 
 import { lineHeight, letterSpace } from '../../fontStyle';
 
@@ -40,7 +40,7 @@ export const DisplayRedactor = ({
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         contentRedactorAvatarContainer: {
             paddingTop: '4.2vw',

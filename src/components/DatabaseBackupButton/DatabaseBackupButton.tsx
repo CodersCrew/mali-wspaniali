@@ -16,7 +16,7 @@ export const DatabaseBackupButton = () => {
         load(
             getDatabaseBackup()
                 .then(async response => {
-                    const fileName = response.data.fileName;
+                    const { fileName } = response.data;
                     const fileRef = getStorageRef(response.data.backupUrl);
                     const [idToken, fileUrl] = await Promise.all([getCurrentUserIdToken(), fileRef.getDownloadURL()]);
                     fetch(fileUrl, {
@@ -24,8 +24,8 @@ export const DatabaseBackupButton = () => {
                         headers: {
                             Authorization: `Bearer ${idToken}`,
                         },
-                    }).then(response => {
-                        response.blob().then(blob => {
+                    }).then(_response => {
+                        _response.blob().then(blob => {
                             const url = window.URL.createObjectURL(blob);
                             const a = document.createElement('a');
                             a.href = url;

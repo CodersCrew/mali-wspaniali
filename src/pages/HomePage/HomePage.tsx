@@ -3,7 +3,6 @@ import { makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles/HomePageArticles';
-import { AppWrapper } from '../AppWrapper/AppWrapper';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { mainColor } from '../../colors';
 
@@ -12,22 +11,20 @@ export const ParentHomePage = () => {
     const { t } = useTranslation();
 
     return (
-        <AppWrapper>
-            <Grid className={classes.container}>
-                <Navbar />
-                <Grid item xs={12}>
-                    <h1 className={classes.header}>{t('home-page-content.greeting')}</h1>
-                </Grid>
-                <Grid item xs={12}>
-                    <p className={classes.description}>
-                        <span>{t('home-page-content.check-children-activity')} </span>
-                        <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
-                    </p>
-                </Grid>
-                <HomePageChildren />
-                <HomePageArticles />
+        <Grid className={classes.container}>
+            <Navbar />
+            <Grid item xs={12}>
+                <h1 className={classes.header}>{t('home-page-content.greeting')}</h1>
             </Grid>
-        </AppWrapper>
+            <Grid item xs={12}>
+                <p className={classes.description}>
+                    <span>{t('home-page-content.check-children-activity')} </span>
+                    <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                </p>
+            </Grid>
+            <HomePageChildren />
+            <HomePageArticles />
+        </Grid>
     );
 };
 
@@ -46,7 +43,6 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: 36,
             marginBottom: 20,
             textTransform: 'uppercase',
-            marginTop: -25,
             lineHeight: '44px',
 
             [theme.breakpoints.down('sm')]: {

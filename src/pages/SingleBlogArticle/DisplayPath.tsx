@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme, createStyles, Grid, Button, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Button, Typography } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 
@@ -49,7 +49,7 @@ export const DisplayPath = ({
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         pathText: {
             fontWeight: 'bold',

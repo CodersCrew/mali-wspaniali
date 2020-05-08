@@ -40,7 +40,8 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
     getArticlesListData: (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
         return db
             .collection('blog-articles')
-            .limit(2)
+            .limit(5)
+            .orderBy('date', 'desc')
             .onSnapshot(snapshot => {
                 const articleList = [] as Article[];
                 snapshot.forEach(snap => {
@@ -53,3 +54,6 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
             });
     },
 });
+/*
+2aOnfaApunOxlwQC985VI50QAp22
+2aOnfaApunOxlwQC985VI50QAp22 */

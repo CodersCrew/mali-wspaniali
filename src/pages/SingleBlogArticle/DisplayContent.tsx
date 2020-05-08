@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     makeStyles,
-    Theme,
     createStyles,
     Grid,
     Button,
@@ -38,7 +37,7 @@ export const DisplayContent = ({
                         {category.map(cat => {
                             changeColorButton(cat);
                             return (
-                                <Grid item xs={3}>
+                                <Grid key={cat} item xs={3}>
                                     <ColorButton
                                         className={classes.contentCategoryButton}
                                         href={`#${cat.toUpperCase()}`}
@@ -78,7 +77,7 @@ export const DisplayContent = ({
     );
 };
 
-let ColorButton = withStyles((theme: Theme) => ({
+let ColorButton = withStyles(() => ({
     root: {
         backgroundColor: SingleArticleColors.categories.emotions,
         '&:hover': {
@@ -89,53 +88,53 @@ let ColorButton = withStyles((theme: Theme) => ({
 
 const changeColorButton = (category: string) => {
     switch (category) {
-        case 'food':
-            ColorButton = withStyles((theme: Theme) => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.food,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.food,
-                    },
+    case 'food':
+        ColorButton = withStyles(() => ({
+            root: {
+                backgroundColor: SingleArticleColors.categories.food,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.food,
                 },
-            }))(Button);
-            break;
+            },
+        }))(Button);
+        break;
 
-        case 'activity':
-            ColorButton = withStyles((theme: Theme) => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.activity,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.activity,
-                    },
+    case 'activity':
+        ColorButton = withStyles(() => ({
+            root: {
+                backgroundColor: SingleArticleColors.categories.activity,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.activity,
                 },
-            }))(Button);
-            break;
+            },
+        }))(Button);
+        break;
 
-        case 'other':
-            ColorButton = withStyles((theme: Theme) => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.other,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.other,
-                    },
+    case 'other':
+        ColorButton = withStyles(() => ({
+            root: {
+                backgroundColor: SingleArticleColors.categories.other,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.other,
                 },
-            }))(Button);
-            break;
+            },
+        }))(Button);
+        break;
 
-        default:
-            ColorButton = withStyles((theme: Theme) => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.emotions,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.emotions,
-                    },
+    default:
+        ColorButton = withStyles(() => ({
+            root: {
+                backgroundColor: SingleArticleColors.categories.emotions,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.emotions,
                 },
-            }))(Button);
-            break;
+            },
+        }))(Button);
+        break;
     }
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         contentGrid: {
             backgroundColor: SingleArticleColors.contentBackground,
@@ -148,7 +147,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: SingleArticleColors.contentBackground,
             letterSpacing: letterSpace,
             fontSize: '10px',
-            lineHeight: lineHeight,
+            lineHeight,
         },
         contentCategoryTextBox: {
             fontWeight: 500,
@@ -167,7 +166,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: '20px',
             fontWeight: 'bolder',
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
         },
         contentPhoto: {
             paddingBottom: '2vw',

@@ -27,7 +27,7 @@ export const HomePageInfo = ({ toggleInfoComponent }: HomePageInfoPropTypes) => 
             <HomePageInfoContent
                 toggleInfoText={toggleInfoText}
                 toggleInfoComponent={toggleInfoComponent}
-                setIsReadMoreBtnClicked={isReadMoreBtnClicked}
+                isReadMoreBtnClicked={isReadMoreBtnClicked}
             />
         </Grid>
     );

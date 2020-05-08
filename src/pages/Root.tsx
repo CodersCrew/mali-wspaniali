@@ -23,15 +23,15 @@ export const Root = () => {
             <Router>
                 <Switch>
                     <IdleTimer>
-                        <Route exact path="/" component={ParentHomePage} />
                         <Route path={['/login']}>
                             <LoginPageWrapper>
                                 <Route path="/login" component={LoginPage} />
                             </LoginPageWrapper>
                         </Route>
                         <Route path="/register" component={RegistrationPage} />
-                        <Route path={['/admin', '/parent']}>
+                        <Route path={['/admin', '/parent', '/']}>
                             <AppWrapper>
+                                <Route path="/" component={ParentHomePage} />
                                 <Route path="/admin/tests" component={TestResultsPage} />
                                 <Route path="/admin/users" component={UsersPage} />
                                 <Route path="/parent/child/:childID" component={ChildProfile} />

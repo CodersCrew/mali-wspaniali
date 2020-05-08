@@ -1,10 +1,10 @@
 import React from 'react';
 import { FastForward } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
 import { mainColor } from '../../colors';
 import { SidebarPropTypes } from './types';
 import SidebarLogo from '../../assets/MALWSP_logo_nav.png';
-import clsx from 'clsx';
 
 export const SidebarTopItem = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
     const classes = useStyles();

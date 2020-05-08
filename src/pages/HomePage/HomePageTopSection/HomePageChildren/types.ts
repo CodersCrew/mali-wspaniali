@@ -2,6 +2,6 @@ import { ReactElement } from 'react';
 
 export interface ChildPropTypes {
     firstname: string;
-    userId: string;
+    childId: string;
     PictureComponent: ReactElement;
 }

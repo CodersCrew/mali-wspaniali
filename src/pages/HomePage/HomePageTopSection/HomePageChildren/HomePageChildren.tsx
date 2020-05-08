@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { HomePageChildCard } from './HomePageChildCard';
 import { HomePageInfo } from '../HomePageInfo/HomePageInfo';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { getChildrenData } from '../../../../queries/childQueries';
 import { Child } from '../../../../firebase/types';
 
@@ -31,21 +31,21 @@ export const HomePageChildren = () => {
         <div className={classes.infoContainer}>
             <div className={classes.childrenContainer}>
                 {children &&
-                    children.map(({ firstName, userId, avatar }) => {
+                    children.map(({ firstName, childId, avatar }) => {
                         const PictureComponent = (
                             <img className={classes.childAvatar} alt="mali_wspaniali_child" src={avatar} />
                         );
                         return (
                             <HomePageChildCard
-                                key={userId}
+                                key={childId}
                                 firstname={firstName}
-                                userId={userId}
+                                childId={childId}
                                 PictureComponent={PictureComponent}
                             />
                         );
                     })}
             </div>
-            {isInfoComponentVisible ? <HomePageInfo toggleInfoComponent={toggleInfoComponent} /> : null}
+            {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
         </div>
     );
 };

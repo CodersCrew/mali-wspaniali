@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
-import { ChildPropTypes } from './types';
 import { Link } from 'react-router-dom';
+import { ChildPropTypes } from './types';
 import { cardBackgroundColor } from '../../../../colors';
 
-export const HomePageChildCard: FC<ChildPropTypes> = ({ firstname, userId, PictureComponent }) => {
+export const HomePageChildCard: FC<ChildPropTypes> = ({ firstname, childId, PictureComponent }) => {
     const classes = useStyles();
 
     return (
-        <Link to={`child/:${userId}`} className={classes.link}>
-            <div className={classes.container} key={userId}>
+        <Link to={`child/:${childId}`} className={classes.link}>
+            <div className={classes.container} key={childId}>
                 <span>{PictureComponent}</span>
                 <div>
                     <span className={classes.childName}>{firstname}</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, Grid, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 import { mainColor } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 
@@ -13,7 +13,7 @@ export const DisplayHeader = ({ title }: { title: string }) => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         headerLongTitle: {
             paddingTop: '3vw',
