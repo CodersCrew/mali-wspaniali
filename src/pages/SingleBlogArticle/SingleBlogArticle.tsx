@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useAuthorization } from '../../hooks/useAuthorization';
-import { getArticleById } from '../../queries/articleQueries';
+import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { ArticlePath } from './ArticlePath';
@@ -22,14 +22,15 @@ export const SingleBlogArticle = () => {
         getArticleById(articleId, onSnapshotCallback),
     ) as Article;
 
-    // FIX ME
-    // const similarArticles = useSubscribed<Article[], Article>(
-    //     (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-    //         getSimilarArticlesListData(article, article.category, article.tags, onSnapshotCallback);
-    //     },
-    //     [],
-    //     [article],
-    // ) as Article[];
+    const similarArticles = useSubscribed<Article[], Article>(
+        (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+            if(article) {
+                getSimilarArticlesListData(article, article.category, article.tags, onSnapshotCallback);
+            }
+        },
+        [],
+        [article],
+    ) as Article[];
 
     if (article) {
         const path = {
@@ -67,6 +68,7 @@ export const SingleBlogArticle = () => {
                 <Grid container direction="row">
                     <ArticleRedactor redactor={article.redactor} />
                 </Grid>
+                {similarArticles && <Grid></Grid>}
             </Grid>
         );
     }
