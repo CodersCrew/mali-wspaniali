@@ -33,7 +33,6 @@ export const ChildProfile = () => {
     return child ? (
         <Grid container className={classes.paper}>
             <div>{t('child-profile.child-profile')}</div>
-            <p>{child.childId}</p>
             <p>{child.firstName}</p>
             <p>{child.lastName}</p>
         </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Grid } from '@material-ui/core';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
@@ -75,8 +75,7 @@ export const SingleBlogArticle = () => {
     return <div></div>;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         rootGrid: {
             padding: '3.57vw 12.14vw 2.85vw 6.07vw',

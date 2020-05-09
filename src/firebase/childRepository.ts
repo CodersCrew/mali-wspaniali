@@ -26,7 +26,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
     getChildrenByUserId: (id: string, onSnapshotCallback: OnSnapshotCallback<Child[]>) => {
         return db
             .collection('child')
-            .where('childId', '==', id)
+            .where('userId', '==', id)
             .onSnapshot(snapshot => {
                 const children = snapshot.docs.map(doc => {
                     const child = doc.data() as Child;

@@ -69,7 +69,7 @@ export const TestResultsPage = () => {
             <Table>
                 <TableBody>
                     {childrenList.map((child: Child) => (
-                        <TestResultsTableRow key={child.childId} child={child} />
+                        <TestResultsTableRow key={child.userId} child={child} />
                     ))}
                 </TableBody>
             </Table>

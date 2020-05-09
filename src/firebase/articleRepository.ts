@@ -54,6 +54,3 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
             });
     },
 });
-/*
-2aOnfaApunOxlwQC985VI50QAp22
-2aOnfaApunOxlwQC985VI50QAp22 */

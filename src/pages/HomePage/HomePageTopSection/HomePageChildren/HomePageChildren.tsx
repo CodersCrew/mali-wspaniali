@@ -12,7 +12,7 @@ export const HomePageChildren = () => {
     const [listeners, setListeners] = useState<(() => void)[]>([]);
 
     const waitForChildrenData = async () => {
-        const { documents, unsubscribe } = await getChildrenData(2, null, null);
+        const { documents, unsubscribe } = await getChildrenData(5, null, null);
         if (unsubscribe) {
             setChildren(documents);
             setListeners([...listeners, unsubscribe]);
@@ -31,15 +31,15 @@ export const HomePageChildren = () => {
         <div className={classes.infoContainer}>
             <div className={classes.childrenContainer}>
                 {children &&
-                    children.map(({ firstName, childId, avatar }) => {
+                    children.map(({ firstName, userId, avatar }) => {
                         const PictureComponent = (
                             <img className={classes.childAvatar} alt="mali_wspaniali_child" src={avatar} />
                         );
                         return (
                             <HomePageChildCard
-                                key={childId}
+                                key={userId}
                                 firstname={firstName}
-                                childId={childId}
+                                userId={userId}
                                 PictureComponent={PictureComponent}
                             />
                         );

@@ -47,7 +47,7 @@ export interface Child {
     id: string;
     firstName: string;
     lastName: string;
-    childId: string;
+    userId: string;
     birthYear: number;
     birthQuarter: number;
     city: string;
