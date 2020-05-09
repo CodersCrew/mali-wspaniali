@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { cardBackgroundColor } from '../../../../colors';
 import { HomePageInfoHeader } from './HomePageInfoHeader';
@@ -8,21 +8,11 @@ import { HomePageInfoPropTypes } from './types';
 export const HomePageInfo = ({ toggleInfoComponent }: HomePageInfoPropTypes) => {
     const [isReadMoreBtnClicked, setIsReadMoreBtnClicked] = useState(false);
     const classes = useStyles();
-    const infoRef = useRef<HTMLDivElement>(null);
 
     const toggleInfoText = () => setIsReadMoreBtnClicked(!isReadMoreBtnClicked);
 
-    useEffect(() => {
-        if (infoRef && infoRef.current && isReadMoreBtnClicked) {
-            infoRef.current.style.maxHeight = 'none';
-        }
-        if (infoRef && infoRef.current && !isReadMoreBtnClicked) {
-            infoRef.current.style.maxHeight = '200px';
-        }
-    }, [isReadMoreBtnClicked]);
-
     return (
-        <Grid className={classes.infoContainer} ref={infoRef}>
+        <Grid className={`${classes.infoContainer} ${!isReadMoreBtnClicked ? classes.smallInfoContainer : ''}`}>
             <HomePageInfoHeader />
             <HomePageInfoContent
                 toggleInfoText={toggleInfoText}
@@ -61,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
                 textAlign: 'left',
                 overflowY: 'hidden',
             },
+        },
+        smallInfoContainer: {
+            maxHeight: '200px',
         },
     }),
 );
