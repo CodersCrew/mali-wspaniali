@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
-import { HomePage } from './HomePage';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { TestResultsPage } from './TestResultsPage';
@@ -12,6 +11,7 @@ import { UsersPage } from './UsersPage';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
+import { ParentHomePage } from './HomePage';
 import { SingleBlogArticle } from './SingleBlogArticle';
 import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
 import { IdleTimer } from '../components/IdleTimer/IdleTimer';
@@ -23,15 +23,15 @@ export const Root = () => {
             <Router>
                 <Switch>
                     <IdleTimer>
-                        <Route exact path="/" component={HomePage} />
                         <Route path={['/login']}>
                             <LoginPageWrapper>
                                 <Route path="/login" component={LoginPage} />
                             </LoginPageWrapper>
                         </Route>
                         <Route path="/register" component={RegistrationPage} />
-                        <Route path={['/admin', '/parent']}>
+                        <Route path={['/admin', '/parent', '/']}>
                             <AppWrapper>
+                                <Route path="/" component={ParentHomePage} />
                                 <Route path="/admin/tests" component={TestResultsPage} />
                                 <Route path="/admin/users" component={UsersPage} />
                                 <Route path="/parent/child/:childID" component={ChildProfile} />

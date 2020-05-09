@@ -24,7 +24,7 @@ export const SingleBlogArticle = () => {
 
     const similarArticles = useSubscribed<Article[], Article>(
         (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-            if(article) {
+            if (article) {
                 getSimilarArticlesListData(article, article.category, article.tags, onSnapshotCallback);
             }
         },
@@ -71,9 +71,11 @@ export const SingleBlogArticle = () => {
                 {similarArticles && <Grid></Grid>}
             </Grid>
         );
-    } else return <div></div>;
+    }
+    return <div></div>;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         rootGrid: {

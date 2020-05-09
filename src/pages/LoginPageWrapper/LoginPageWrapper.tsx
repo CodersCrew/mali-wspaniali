@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 
         '@media (max-width:767px)': {
             flexDirection: 'column',
-            padding: 0
+            padding: 0,
         },
     },
     logoContainer: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 
         '@media (max-width:767px)': {
             flex: '0',
-            marginTop: '15px'
+            marginTop: '15px',
         },
     },
     formContainer: {
@@ -67,7 +67,6 @@ const useStyles = makeStyles({
         lineHeight: '44px',
         textAlign: 'center',
         textTransform: 'uppercase',
-
         '@media (max-width:767px)': {
             margin: '15px 0 30px 0',
             width: '280px',
@@ -79,5 +78,5 @@ const useStyles = makeStyles({
         '@media (max-width:767px)': {
             maxWidth: '200px',
         },
-    }
+    },
 });

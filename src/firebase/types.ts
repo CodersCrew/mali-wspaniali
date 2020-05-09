@@ -1,6 +1,7 @@
 export type Document = firebase.firestore.DocumentData;
 
 export interface Article {
+    articleId: string;
     header: string;
     pictureUrl: string;
     title: string;
@@ -46,7 +47,7 @@ export interface Child {
     id: string;
     firstName: string;
     lastName: string;
-    userId: string;
+    childId: string;
     birthYear: number;
     birthQuarter: number;
     city: string;

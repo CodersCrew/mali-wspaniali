@@ -1,0 +1,1 @@
+export { HomePageInfo } from './HomePageInfo';
