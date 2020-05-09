@@ -26,10 +26,7 @@ export const BlogMainPage = () => {
         getArticles(
             (blogArticlesFromSnapshot) => {
                 setBlogArticles(blogArticlesFromSnapshot);
-                setupPagination(blogArticlesFromSnapshot);
-                if (startAfter || endBefore) {
-                    changePagination(blogArticlesFromSnapshot, startAfter, endBefore);
-                }
+                setupPagination(blogArticlesFromSnapshot, startAfter, endBefore);
             },
             category,
             startAfter,
@@ -37,21 +34,29 @@ export const BlogMainPage = () => {
         );
     };
 
-    const setupPagination = (blogArticlesFromSnapshot: PaginatedArticleList) => {
-        if (!blogArticlesFromSnapshot.isMore) {
-            setIsLastPage(true);
-        }
-    };
+    const setupPagination = (blogArticlesFromSnapshot: PaginatedArticleList, startAfter?: Snapshot, endBefore?: Snapshot) => {
 
-    const changePagination = (blogArticlesFromSnapshot: any, startAfter?: Snapshot, endBefore?: Snapshot) => {
-        setIsLastPage(false);
-        if (!blogArticlesFromSnapshot.isMore && startAfter) {
-            setIsLastPage(true);
-        }
-        setIsFirstPage(false);
-        if (!blogArticlesFromSnapshot.isMore && endBefore) {
+        if (!startAfter && !endBefore) {
             setIsFirstPage(true);
+            setIsLastPage(false);
+            if (!blogArticlesFromSnapshot.isMore) {
+                setIsLastPage(true);
+            }
+        } else {
+            if (startAfter) {
+                setIsFirstPage(false);
+            }
+            if (endBefore) {
+                setIsLastPage(false);
+            }
+            if (!blogArticlesFromSnapshot.isMore && startAfter) {
+                setIsLastPage(true);
+            }
+            if (!blogArticlesFromSnapshot.isMore && endBefore) {
+                setIsFirstPage(true);
+            }
         }
+
     };
 
     const paginationQuery = (paginationDirection: string) => {
@@ -71,7 +76,7 @@ export const BlogMainPage = () => {
                 {blogArticles &&
                     <Grid container justify="space-around" spacing={2} className={classes.gridContainer}>
                         {blogArticles.articleList.map((article) => (
-                            <Grid key={article.title} item className={classes.articleCard} xs={4} zeroMinWidth>
+                            <Grid key={article.id} item xs={4} zeroMinWidth>
                                 <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={link} />
                             </Grid>
                         ))}
@@ -99,9 +104,6 @@ const useStyles = makeStyles({
         marginTop: '0',
         marginLeft: '3%',
         marginRight: '3%'
-    },
-    articleCard: {
-
     },
     gridBackground: {
         backgroundColor: 'white',

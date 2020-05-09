@@ -2,6 +2,7 @@ export type Document = firebase.firestore.DocumentData;
 export type Snapshot = firebase.firestore.DocumentSnapshot;
 
 export interface Article {
+    id: string;
     header: string;
     pictureUrl: string;
     title: string;
