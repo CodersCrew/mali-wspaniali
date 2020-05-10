@@ -4,11 +4,12 @@ import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { darkGrey } from '../../colors';
 import { BlogArticleCardProps } from './types';
+import { ArticleBadge } from './ArticleBadge';
 
 export const BlogArticleCard = (props: BlogArticleCardProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { image, title, description, link } = props;
+    const { image, title, description, link, category } = props;
 
     return (
         <Card className={classes.card} elevation={0}>
@@ -19,6 +20,7 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
                 title={title}
                 className={classes.cardIamge}
             />
+            <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" className={classes.articleTitle}>
                     {title}
@@ -27,18 +29,18 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
                     {description}
                 </Typography>
             </CardContent>
-            <div className={classes.buttonContainer}>
-                <Button
-                    href={link}
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<SendIcon />}
-                    className={classes.readMoreButton}
-                    disableElevation
-                >
-                    {t('blog-article-card.read-more')}
-                </Button>
-            </div>
+            {/* <div className={classes.buttonContainer}> */}
+            <Button
+                href={link}
+                variant="contained"
+                color="secondary"
+                startIcon={<SendIcon />}
+                className={classes.readMoreButton}
+                disableElevation
+            >
+                {t('blog-article-card.read-more')}
+            </Button>
+            {/* </div> */}
         </Card>
     );
 };
@@ -71,15 +73,16 @@ const useStyles = makeStyles({
         fontSize: '15px',
         fontWeight: 'bold'
     },
-    buttonContainer: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        margin: '5%'
-    },
+    // buttonContainer: {
+    //     display: 'flex',
+    //     justifyContent: 'flex-end',
+    //     margin: '5%'
+    // },
     readMoreButton: {
         color: 'white',
         fontSize: '13px',
         whiteSpace: 'nowrap',
         borderRadius: '4px',
+        marginLeft: '50%'
     }
 });

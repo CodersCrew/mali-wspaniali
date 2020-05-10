@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Tabs, withStyles } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
-import { categories } from './BlogCategories';
+import { categoriesList } from './BlogCategories';
 
 type CategoryTabProps = {
     setCategory: Dispatch<SetStateAction<string>>
@@ -12,12 +12,12 @@ export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setCurrentTabIndex(newValue);
-        setCategory(categories[newValue].key); 
+        setCategory(categoriesList[newValue].key); 
     };
 
     return (
         <StyledTabs value={currentTabIndex} onChange={handleChange}>
-            {categories.map((category) => {
+            {categoriesList.map((category) => {
                 return <StyledTab key={category.name} label={category.name} color={category.color} />;
             })}
         </StyledTabs>

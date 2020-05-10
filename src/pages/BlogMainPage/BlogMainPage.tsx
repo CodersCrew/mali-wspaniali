@@ -8,6 +8,7 @@ import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
 import { getArticles } from '../../queries/articleQueries';
 import { PaginatedArticleList, Snapshot } from '../../firebase/types';
+import { articleCategories } from './types';
 
 export const BlogMainPage = () => {
 
@@ -75,7 +76,7 @@ export const BlogMainPage = () => {
                     <Grid container justify="space-around" spacing={2} className={classes.gridContainer}>
                         {blogArticles.articleList.map((article) => (
                             <Grid key={article.id} item xs={4} zeroMinWidth>
-                                <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={`/parent/article/:${article.id}`} />
+                                <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={`/parent/article/:${article.id}`} category={article.category[0] as articleCategories}/>
                             </Grid>
                         ))}
                     </Grid>}
