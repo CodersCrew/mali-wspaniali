@@ -27,8 +27,7 @@ export const ArticleContent = ({ content }: { content: Content }) => {
                         {content.category.map((cat) => {
                             changeColorButton(cat);
                             return (
-                                // eslint-disable-next-line react/jsx-key
-                                <Grid item xs={3}>
+                                <Grid key={cat} item xs={3}>
                                     <ColorButton
                                         className={classes.contentCategoryButton}
                                         href={`#${cat.toUpperCase()}`}
