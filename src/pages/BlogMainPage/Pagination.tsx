@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles, Button } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { mainColor } from '../../colors';
+import { mainColor, white } from '../../colors';
 
 type PaginationProps = {
     isFirst: boolean,
@@ -33,11 +33,15 @@ const useStyles = makeStyles(() =>
         paginationContainer: {
             display: 'flex',
             justifyContent: 'center',
-            padding: '5%'
+            padding: '5%',
         },
         next: {
             backgroundColor: mainColor,
-            marginLeft: '2%'
+            marginLeft: '2%',
+            color: white
+        },
+        prev: {
+            color: white
         }
     }),
 );

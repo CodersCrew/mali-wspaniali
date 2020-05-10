@@ -27,16 +27,18 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
                     {description}
                 </Typography>
             </CardContent>
-            <Button
-                href={link}
-                variant="contained"
-                color="secondary"
-                startIcon={<SendIcon />}
-                className={classes.readMoreButton}
-                disableElevation
-            >
-                {t('blog-article-card.read-more')}
-            </Button>
+            <div className={classes.buttonContainer}>
+                <Button
+                    href={link}
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<SendIcon />}
+                    className={classes.readMoreButton}
+                    disableElevation
+                >
+                    {t('blog-article-card.read-more')}
+                </Button>
+            </div>
         </Card>
     );
 };
@@ -44,11 +46,11 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
 const useStyles = makeStyles({
     card: {
         width: '100%',
-        height: '83%',
+        height: '400px',
         overflow: 'visible',
         backgroundColor: darkGrey,
         borderRadius: '4px',
-        marginTop: '20%'
+        marginTop: '20%',
     },
     cardIamge: {
         width: '100%',
@@ -60,7 +62,8 @@ const useStyles = makeStyles({
     cardContent: {
         position: 'relative',
         bottom: '20px',
-        paddingBottom: 0
+        paddingBottom: 0,
+        height: '120px',
     },
     articleTitle: {
         position: 'relative',
@@ -68,12 +71,15 @@ const useStyles = makeStyles({
         fontSize: '15px',
         fontWeight: 'bold'
     },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        margin: '5%'
+    },
     readMoreButton: {
         color: 'white',
         fontSize: '13px',
-        marginBottom: '5%',
         whiteSpace: 'nowrap',
-        float: 'right',
-        marginRight: '10%'
+        borderRadius: '4px',
     }
 });
