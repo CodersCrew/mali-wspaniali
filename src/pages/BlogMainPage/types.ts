@@ -5,11 +5,17 @@ export type Article = {
     title: string;
     category: string[];
     description: string;
-    // date: Date;
 }
 
 export type ArticleState = {
     categoryKey: string | undefined,
     startAfter: Snapshot,
     endBefore: Snapshot
+}
+
+export type BlogArticleCardProps = {
+    image: string,
+    title: string,
+    description: string,
+    link: string
 }

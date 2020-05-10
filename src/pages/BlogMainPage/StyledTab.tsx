@@ -1,13 +1,13 @@
 import React from 'react';
 import { Tab, withStyles, WithStyles, createStyles } from '@material-ui/core';
-import { whiteFont } from '../../colors';
+import { white, blogCategoryColors } from '../../colors';
 
 type Styles = {
     color: string;
     [key: string]: string;
 }
 
-type ColorsMapping = {
+type ColorsMap = {
     [key: string]: string;
 }
 
@@ -16,24 +16,24 @@ interface TabStyles extends WithStyles<typeof styles> {
     label: string;
 }
 
-const styledBy = (property: string, mapping: ColorsMapping) => (props: Styles) =>
-    mapping[props[property]];
+const styledBy = (property: string, colorsMap: ColorsMap) => (props: Styles) =>
+    colorsMap[props[property]];
 
 const styles = createStyles({
     root: {
         minHeight: '0',
         height: '35px',
         backgroundColor: styledBy('color', {
-            orange: '#ff7149',
-            yellow: '#fed448',
-            purple: '#c2559b',
-            lightOrange: '#f5a56e',
-            blue: '#4ca9df'
+            orange: blogCategoryColors.orange,
+            yellow: blogCategoryColors.yellow,
+            purple: blogCategoryColors.purple,
+            lightOrange: blogCategoryColors.lightOrange,
+            blue: blogCategoryColors.blue
         }),
         borderRadius: '4px',
         opacity: '1',
         whiteSpace: 'nowrap',
-        color: whiteFont,
+        color: white,
         textTransform: 'none',
         flexShrink: 1
     },

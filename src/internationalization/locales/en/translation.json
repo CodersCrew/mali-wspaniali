@@ -105,6 +105,13 @@
         "logout": "Log out"
     },
     "blog-article-card": {
-        "read-more": "READ MORE"
+        "read-more": "Read more"
+    },
+    "blog-main-page": {
+        "header": ""
+    },
+    "blog-pagination": {
+        "previous": "Previous",
+        "next": "Next"
     }
 }

@@ -68,14 +68,12 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                 if (articleList.length < 7) {
                     isMore = false;
                 }
-
                 let firstIndex = 0;
                 let lastIndex = 5;
                 if (endBefore && articleList.length > 6) {
                     firstIndex = 1;
                     lastIndex = 6;    
                 }
-
                 onSnapshotCallback({
                     articleList: articleList.slice(firstIndex, lastIndex + 1),
                     firstSnap: snapshots[firstIndex],
@@ -83,6 +81,5 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                     isMore,
                 });
             });
-
     }
 });

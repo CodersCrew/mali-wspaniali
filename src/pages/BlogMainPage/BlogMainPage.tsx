@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, makeStyles, Grid } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
@@ -9,8 +12,7 @@ import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 export const BlogMainPage = () => {
 
     const classes = useStyles();
-    const link = '/';
-
+    const { t } = useTranslation();
     const [currentCategory, setCurrentCategory] = useState<string>('all');
     const [blogArticles, setBlogArticles] = useState<PaginatedArticleList | null>(null);
     const [isLastPage, setIsLastPage] = useState(false);
@@ -35,7 +37,6 @@ export const BlogMainPage = () => {
     };
 
     const setupPagination = (blogArticlesFromSnapshot: PaginatedArticleList, startAfter?: Snapshot, endBefore?: Snapshot) => {
-
         if (!startAfter && !endBefore) {
             setIsFirstPage(true);
             setIsLastPage(false);
@@ -56,41 +57,36 @@ export const BlogMainPage = () => {
                 setIsFirstPage(true);
             }
         }
-
     };
 
     const paginationQuery = (paginationDirection: string) => {
         if (!blogArticles) return;
-
         const startAfter = paginationDirection === 'next' ? blogArticles.lastSnap : undefined;
         const endBefore = paginationDirection === 'prev' ? blogArticles.firstSnap : undefined;
-
         addArticlesToState(currentCategory, startAfter, endBefore);
     };
 
     return (
-        <div>
-            <Typography variant="h4" gutterBottom className={classes.heading}>Tutaj dowiesz się jak zadbać o rozwój swojego dziecka</Typography>
+        <ThemeProvider theme={theme}>
+            <Typography variant="h4" gutterBottom className={classes.heading}>{t('blog-main-page.header')}</Typography>
             <CategoryTabs setCategory={setCurrentCategory} />
             <div className={classes.gridBackground}>
                 {blogArticles &&
                     <Grid container justify="space-around" spacing={2} className={classes.gridContainer}>
                         {blogArticles.articleList.map((article) => (
                             <Grid key={article.id} item xs={4} zeroMinWidth>
-                                <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={link} />
+                                <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={`/parent/article/:${article.id}`} />
                             </Grid>
                         ))}
                     </Grid>}
                 <Pagination isFirst={isFirstPage} isLast={isLastPage} handleChange={paginationQuery} />
             </div>
-
-        </div>
+        </ThemeProvider>
     );
 };
 
 const useStyles = makeStyles({
     heading: {
-        fontFamily: 'Montserrat',
         fontWeight: 'bold',
         fontSize: '34px',
         paddingTop: '4%',
