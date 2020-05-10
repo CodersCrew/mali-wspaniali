@@ -1,37 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, SyntheticEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles, Button, Input } from '@material-ui/core';
 import { CloudUpload, DescriptionSharp } from '@material-ui/icons';
 
 export const DatabaseUploadButton = () => {
     const classes = useStyles();
-    const [state, setState] = useState({
-        file: '',
-    });
-
+    const { t } = useTranslation();
+    const [state, setState] = useState({ file: '' });
     const { file } = state;
 
-    const onChangeFile = (e: React.SyntheticEvent<EventTarget>) => {
+    const onSelectFile = (e: SyntheticEvent<EventTarget>) => {
         e.preventDefault();
+        const input = (e.target as HTMLInputElement).id;
         const inputValue = (e.target as HTMLInputElement).value;
-        const inputId = (e.target as HTMLInputElement).id;
-        setState(prev => ({
-            ...prev,
-            [inputId]: inputValue,
-        }));
+        setState(prev => ({ ...prev, [input]: inputValue }));
     };
 
     return (
         <div className={classes.container}>
             <Button className={classes.button} variant="contained" color="primary">
                 <label className={classes.label}>
-                    <DescriptionSharp className={classes.icon} /> Choose File
-                    <Input type="file" id="file" className={classes.input} onChange={onChangeFile} value={file} />
+                    <DescriptionSharp className={classes.icon} />
+                    <span>{t('database-upload.choose-file')}</span>
+                    <Input type="file" id="file" className={classes.input} onChange={onSelectFile} value={file} />
                 </label>
             </Button>
-            <div className={classes.file}>{file}</div>
+            <div className={classes.file}>{file.replace(/^.*\\/, '')}</div>
             {Boolean(file) ? (
                 <Button variant="contained" color="secondary">
-                    <CloudUpload className={classes.icon} /> Upload File
+                    <CloudUpload className={classes.icon} />
+                    <span>{t('database-upload.upload-file')}</span>
                 </Button>
             ) : null}
         </div>
@@ -57,6 +55,7 @@ const useStyles = makeStyles({
         marginRight: 30,
     },
     file: {
-        marginRight: 20,
+        marginRight: 30,
+        fontWeight: 'bold',
     },
 });
