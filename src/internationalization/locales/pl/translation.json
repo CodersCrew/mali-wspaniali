@@ -113,5 +113,12 @@
     "blog-pagination": {
         "previous": "Poprzednia",
         "next": "Następna"
+    },
+    "blog-categories": {
+        "all": "Wszystkie",
+        "food": "Żywienie",
+        "physical-activity": "Aktywność fizyczna",
+        "emotions": "Emocje",
+        "other": "Inne"
     }
 }

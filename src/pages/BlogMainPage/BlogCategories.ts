@@ -1,9 +1,14 @@
+import i18n from 'i18next';
+
+const {t} = i18n;
+ 
 export const categories = {
-    all: { name: 'Wszystkie', color: 'orange' },
-    food: { name: 'Żywienie', color: 'yellow' },
-    activity: { name: 'Aktywność fizyczna', color: 'purple' },
-    emotions: { name: 'Emocje', color: 'lightOrange' },
-    other: { name: 'Inne', color: 'blue' }
+  
+    all: { name: t('blog-categories.all'), color: 'orange' },
+    food: { name: t('blog-categories.food'), color: 'yellow' },
+    activity: { name: t('blog-categories.physical-activity'), color: 'purple' },
+    emotions: { name: t('blog-categories.emotions'), color: 'lightOrange' },
+    other: { name: t('blog-categories.other'), color: 'blue' }
 };
   
 export const categoriesList = Object.entries(categories).map(([key, value]) => {

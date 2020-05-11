@@ -11,12 +11,11 @@ type ArticleBadgeProps = {
 
 export const ArticleBadge = ({articleCategory}: ArticleBadgeProps) => {
 
-    // eslint-disable-next-line prefer-destructuring
-    const color = categories[articleCategory].color;
-    const categoryName = categories[articleCategory].name;
+    const { color } = categories[articleCategory];
+    const { name } = categories[articleCategory];
 
     return (
-        <StyledBadge color={color}>{categoryName}</StyledBadge>
+        <StyledBadge color={color}>{name}</StyledBadge>
     );
 };
 
