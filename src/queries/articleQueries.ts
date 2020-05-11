@@ -15,7 +15,11 @@ export const getSimilarArticlesListData = async (
     firebase.article.getSimilarArticlesListData(article, category, tags, onSnapshotCallback);
 };
 
-export const getArticles = (onSnapshotCallback: OnSnapshotCallback<PaginatedArticleList>, category?: string, startAfter?: Snapshot, endBefore?: Snapshot) => {
+export const getArticles = (
+    onSnapshotCallback: OnSnapshotCallback<PaginatedArticleList>,
+    category?: string,
+    startAfter?: Snapshot,
+    endBefore?: Snapshot,
+) => {
     firebase.article.getArticles(onSnapshotCallback, category, startAfter, endBefore);
 };
- 
