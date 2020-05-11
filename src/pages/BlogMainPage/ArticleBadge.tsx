@@ -1,7 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { WithStyles, createStyles, withStyles } from '@material-ui/core';
+import { ClassNameMap } from '@material-ui/styles/withStyles';
 import { categories } from './BlogCategories';
 import { articleCategories } from './types';
+import { blogCategoryColors } from '../../colors';
 
 type ArticleBadgeProps = {
     articleCategory: articleCategories;
@@ -9,19 +11,50 @@ type ArticleBadgeProps = {
 
 export const ArticleBadge = ({articleCategory}: ArticleBadgeProps) => {
 
-    const classes = useStyles();
-    // eslint-disable-next-line
-    // const color = categories[articleCategory].color;
+    // eslint-disable-next-line prefer-destructuring
+    const color = categories[articleCategory].color;
+    const categoryName = categories[articleCategory].name;
 
     return (
-        <div className={classes.articleBadge}>{categories[articleCategory].name}</div>
+        <StyledBadge color={color}>{categoryName}</StyledBadge>
     );
 };
 
-const useStyles = makeStyles({
-    articleBadge: {
+type BadgeProps = {
+    color: string,
+    children: string,
+    classes: Partial<ClassNameMap<keyof typeof styles>>
+}
+
+const Badge = ({ children, classes }: BadgeProps ) => {
+
+    return (
+        <div className={classes.root}>
+            { children } 
+        </div>
+    );
+};
+
+type Styles = {
+    color: string;
+    [key: string]: string;
+}
+
+type ColorsMap = {
+    [key: string]: string;
+}
+
+interface BadgeStyles extends WithStyles<typeof styles> {
+    color: string;
+    children: string,
+}
+
+const styledBy = (property: string, colorsMap: ColorsMap) => (props: Styles) =>
+    colorsMap[props[property]];
+
+const styles = createStyles({
+    root: {
         zIndex: 10,
-        backgroundColor: 'white',
         position: 'relative',
         bottom: '25%',
         float: 'right',
@@ -31,6 +64,16 @@ const useStyles = makeStyles({
         opacity: '90%',
         color: 'white',
         fontSize: '14px',
-        fontFamily: 'Montserrat'
-    },
+        fontFamily: 'Montserrat',
+        backgroundColor: styledBy('color', {
+            orange: blogCategoryColors.orange,
+            yellow: blogCategoryColors.yellow,
+            purple: blogCategoryColors.purple,
+            lightOrange: blogCategoryColors.lightOrange,
+            blue: blogCategoryColors.blue
+        }),
+    }
 });
+
+const StyledBadge = withStyles(styles)((props: BadgeStyles) => <Badge {...props} />);
+
