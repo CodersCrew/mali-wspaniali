@@ -92,8 +92,8 @@
         "get-backup-json": "Get database as JSON"
     },
     "database-upload": {
-        "choose-file": "Wybierz plik",
-        "upload-file": "Wyślij plik"
+        "choose-file": "Choose File",
+        "upload-file": "Upload File"
     },
     "sidebar": {
         "home": "Home",
