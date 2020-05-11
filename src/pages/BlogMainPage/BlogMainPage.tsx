@@ -22,6 +22,7 @@ export const BlogMainPage = () => {
 
     useEffect(() => {
         addArticlesToState(currentCategory);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentCategory]);
 
     const addArticlesToState = (categoryKey: string | undefined, startAfter?: Snapshot, endBefore?: Snapshot) => {
