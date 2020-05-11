@@ -11,7 +11,7 @@
     "icons": [
         {
             "src": "/icons/favicon.ico",
-            "sizes": "64x64",
+            "sizes": "16x16",
             "type": "image/x-icon"
         },
         {
