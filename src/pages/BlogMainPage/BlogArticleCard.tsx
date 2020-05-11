@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardMedia, CardContent, Typography, makeStyles, Button } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
-import { darkGrey } from '../../colors';
+import { darkGrey, white } from '../../colors';
 import { BlogArticleCardProps } from './types';
 import { ArticleBadge } from './ArticleBadge';
 
@@ -18,7 +18,7 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
                 alt={title}
                 image={image}
                 title={title}
-                className={classes.cardIamge}
+                className={classes.cardImage}
             />
             <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
@@ -29,7 +29,6 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
                     {description}
                 </Typography>
             </CardContent>
-            {/* <div className={classes.buttonContainer}> */}
             <Button
                 href={link}
                 variant="contained"
@@ -40,7 +39,6 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
             >
                 {t('blog-article-card.read-more')}
             </Button>
-            {/* </div> */}
         </Card>
     );
 };
@@ -54,7 +52,7 @@ const useStyles = makeStyles({
         borderRadius: '4px',
         marginTop: '20%',
     },
-    cardIamge: {
+    cardImage: {
         width: '100%',
         maxHeight: '200px',
         padding: '0 16px',
@@ -73,16 +71,13 @@ const useStyles = makeStyles({
         fontSize: '15px',
         fontWeight: 'bold'
     },
-    // buttonContainer: {
-    //     display: 'flex',
-    //     justifyContent: 'flex-end',
-    //     margin: '5%'
-    // },
     readMoreButton: {
-        color: 'white',
+        color: white,
         fontSize: '13px',
         whiteSpace: 'nowrap',
         borderRadius: '4px',
-        marginLeft: '50%'
+        float: 'right',
+        marginRight: '16px',
+        marginTop: '10%'
     }
 });

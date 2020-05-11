@@ -18,7 +18,7 @@ export type BlogArticleCardProps = {
     title: string,
     description: string,
     link: string,
-    category: articleCategories
+    category: ArticleCategories
 }
 
-export type articleCategories = 'all' | 'food' | 'activity' | 'emotions' | 'other'
+export type ArticleCategories = 'all' | 'food' | 'activity' | 'emotions' | 'other'

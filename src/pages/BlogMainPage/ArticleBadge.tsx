@@ -2,11 +2,11 @@ import React from 'react';
 import { WithStyles, createStyles, withStyles } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
 import { categories } from './BlogCategories';
-import { articleCategories } from './types';
+import { ArticleCategories } from './types';
 import { blogCategoryColors } from '../../colors';
 
 type ArticleBadgeProps = {
-    articleCategory: articleCategories;
+    articleCategory: ArticleCategories;
 }
 
 export const ArticleBadge = ({articleCategory}: ArticleBadgeProps) => {
