@@ -14,17 +14,17 @@ export const DatabaseBackupButton = () => {
 
     const getBackup = () => {
         load(
-            getDatabaseBackup().then(async response => {
-                const fileName = response.data.fileName;
-                const fileRef = getStorageRef(response.data.backupUrl);
-                const [idToken, fileUrl] = await Promise.all([getCurrentUserIdToken(), fileRef.getDownloadURL()]);
-                fetch(fileUrl, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${idToken}`,
-                    },
-                })
-                    .then(response => {
+            getDatabaseBackup()
+                .then(async response => {
+                    const fileName = response.data.fileName;
+                    const fileRef = getStorageRef(response.data.backupUrl);
+                    const [idToken, fileUrl] = await Promise.all([getCurrentUserIdToken(), fileRef.getDownloadURL()]);
+                    fetch(fileUrl, {
+                        method: 'GET',
+                        headers: {
+                            Authorization: `Bearer ${idToken}`,
+                        },
+                    }).then(response => {
                         response.blob().then(blob => {
                             let url = window.URL.createObjectURL(blob);
                             let a = document.createElement('a');
@@ -32,11 +32,12 @@ export const DatabaseBackupButton = () => {
                             a.download = fileName;
                             a.click();
                         });
-                    })
-            }).catch(error => {
-              console.log(error);
-              openAlertDialog({ type: 'error', description: error.message });
-          })
+                    });
+                })
+                .catch(error => {
+                    console.log(error);
+                    openAlertDialog({ type: 'error', description: error.message });
+                }),
         );
     };
 

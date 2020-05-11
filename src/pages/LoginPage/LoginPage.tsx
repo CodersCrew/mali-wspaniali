@@ -17,10 +17,9 @@ const theme = createMuiTheme({
         },
         secondary: {
             main: secondaryColor,
-        }
-    }
-},
-);
+        },
+    },
+});
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -58,9 +57,7 @@ export const LoginPage = () => {
         <ThemeProvider theme={theme}>
             <div className={classes.container}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                    <div className={classes.loginHeader}>
-                        {t('login-page.login-header')}
-                    </div>
+                    <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
                     <TextField
                         required
                         onChange={event => setEmail(event.target.value)}
@@ -85,7 +82,9 @@ export const LoginPage = () => {
                         className={classes.formItem}
                     />
                     <div className={classes.submitWrapper}>
-                        <Link className={classes.forgotPasswordLink} to="/">{t('login-page.forgot-password')}</Link>
+                        <Link className={classes.forgotPasswordLink} to="/">
+                            {t('login-page.forgot-password')}
+                        </Link>
                         <Button
                             type="submit"
                             variant="contained"
@@ -164,5 +163,5 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         color: secondaryColor,
         textDecoration: 'none',
-    }
+    },
 });
