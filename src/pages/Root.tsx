@@ -29,7 +29,7 @@ export const Root = () => {
                             </LoginPageWrapper>
                         </Route>
                         <Route path="/register" component={RegistrationPage} />
-                        <Route path={ ['/admin', '/parent', '/'] }>
+                        <Route path={['/admin', '/parent', '/']}>
                             <Route exact path={['/']}>
                                 <AppWrapper>
                                     <Route exact path="/" component={ParentHomePage} />

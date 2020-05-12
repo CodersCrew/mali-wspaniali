@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-    makeStyles,
-    createStyles,
-    Grid,
-    Button,
-    withStyles,
-    Box,
-    Typography,
-    CardMedia,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Button, withStyles, Box, Typography, CardMedia } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
@@ -24,7 +15,7 @@ export const ArticleContent = ({ content }: { content: Content }) => {
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {content.category.map((cat) => {
+                        {content.category.map(cat => {
                             changeColorButton(cat);
                             return (
                                 <Grid key={cat} item xs={3}>

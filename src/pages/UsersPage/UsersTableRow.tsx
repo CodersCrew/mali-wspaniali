@@ -13,7 +13,8 @@ export const UsersTableRow = ({ user }: { user: Document }) => {
                 <TableCell key={`${user.userId}-${agreement.agreementId}`}>
                     {agreement.agreementId}
                     {agreement.isAgreed}
-                </TableCell>));
+                </TableCell>
+            ));
         } else {
             return <TableCell>{t('no-results')}</TableCell>;
         }

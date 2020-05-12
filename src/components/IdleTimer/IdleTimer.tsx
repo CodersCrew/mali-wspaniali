@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CHECK_INTERVAL, MINUTES_UNTIL_AUTO_LOGOUT, EVENT_THROTTLE } from './config';
 import { throttle } from './throttle';
-import { onAuthStateChanged , handleSignOut } from '../../queries/authQueries';
-
+import { onAuthStateChanged, handleSignOut } from '../../queries/authQueries';
 
 export const IdleTimer: React.FC = ({ children }) => {
     const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
