@@ -6,14 +6,12 @@ import { CloudUpload, DescriptionSharp } from '@material-ui/icons';
 export const DatabaseUploadButton = () => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [state, setState] = useState({ file: '' });
-    const { file } = state;
+    const [file, setFile] = useState('');
 
     const onSelectFile = (e: SyntheticEvent<EventTarget>) => {
         e.preventDefault();
-        const input = (e.target as HTMLInputElement).id;
         const inputValue = (e.target as HTMLInputElement).value;
-        setState(prev => ({ ...prev, [input]: inputValue }));
+        setFile(inputValue);
     };
 
     return (
@@ -26,12 +24,12 @@ export const DatabaseUploadButton = () => {
                 </label>
             </Button>
             <div className={classes.file}>{file.replace(/^.*\\/, '')}</div>
-            {Boolean(file) ? (
+            {Boolean(file) && (
                 <Button variant="contained" color="secondary">
                     <CloudUpload className={classes.icon} />
                     <span>{t('database-upload.upload-file')}</span>
                 </Button>
-            ) : null}
+            )}
         </div>
     );
 };
