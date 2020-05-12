@@ -11,8 +11,7 @@ type ArticleBadgeProps = {
 
 export const ArticleBadge = ({articleCategory}: ArticleBadgeProps) => {
 
-    const { color } = categories[articleCategory];
-    const { name } = categories[articleCategory];
+    const { color, name } = categories[articleCategory];
 
     return (
         <StyledBadge color={color}>{name}</StyledBadge>

@@ -6,6 +6,7 @@ import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { getArticles } from '../../queries/articleQueries';
 import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 import { ArticleCategories } from './types';
@@ -71,11 +72,12 @@ export const BlogMainPage = () => {
 
     return (
         <ThemeProvider theme={theme}>
+            <Navbar />
             <Typography variant="h4" gutterBottom className={classes.heading}>{t('blog-main-page.header')}</Typography>
             <CategoryTabs setCategory={setCurrentCategory} />
             <div className={classes.gridBackground}>
                 {blogArticles &&
-                    <Grid container justify="space-around" spacing={2} className={classes.gridContainer}>
+                    <Grid container justify="space-around" spacing={4} className={classes.gridContainer}>
                         {blogArticles.articleList.map((article) => (
                             <Grid key={article.id} item xs={4} zeroMinWidth>
                                 <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={`/parent/article/:${article.id}`} category={article.category[0] as ArticleCategories}/>
@@ -92,11 +94,12 @@ const useStyles = makeStyles({
     heading: {
         fontWeight: 'bold',
         fontSize: '34px',
-        paddingTop: '4%',
         marginBottom: '4%',
         marginLeft: '3%',
         width: '60%',
-        display: 'block'
+        zIndex: 1,
+        position: 'relative',
+        bottom: '20px'
     },
     gridContainer: {
         maxWidth: '94%',

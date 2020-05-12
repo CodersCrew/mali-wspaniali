@@ -35,7 +35,8 @@ const styles = createStyles({
         whiteSpace: 'nowrap',
         color: white,
         textTransform: 'none',
-        flexShrink: 1
+        flexShrink: 2,
+        fontWeight: 600
     },
     wrapper: {
         margin: '0 10px'
