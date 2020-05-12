@@ -24,7 +24,7 @@ export const SingleBlogArticle = () => {
 
     const similarArticles = useSubscribed<Article[], Article>(
         (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-            if(article) {
+            if (article) {
                 getSimilarArticlesListData(article, article.category, article.tags, onSnapshotCallback);
             }
         },

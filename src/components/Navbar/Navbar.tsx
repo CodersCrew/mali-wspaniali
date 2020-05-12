@@ -22,7 +22,7 @@ export const Navbar = () => {
     }, []) as Child[];
 
     const handleAvatarClick = () => {
-        setMenuOpen((prevOpen) => !prevOpen);
+        setMenuOpen(prevOpen => !prevOpen);
     };
 
     return (
@@ -31,8 +31,10 @@ export const Navbar = () => {
                 <IconButton color="inherit">
                     <Notifications className={classes.notificationsIcon} />
                 </IconButton>
-                <Avatar className={classes.avatar} >
-                    <Button className={classes.avatarButton} onClick={handleAvatarClick}>{avatarContent}</Button>
+                <Avatar className={classes.avatar}>
+                    <Button className={classes.avatarButton} onClick={handleAvatarClick}>
+                        {avatarContent}
+                    </Button>
                 </Avatar>
             </div>
             {isMenuOpen && <MenuListItems childrenData={children} />}
@@ -59,6 +61,6 @@ const useStyles = makeStyles({
     menuContainer: {
         display: 'flex',
         justifyContent: 'flex-end',
-        marginTop: '30px'
+        marginTop: '30px',
     },
 });
