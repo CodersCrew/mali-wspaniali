@@ -1,0 +1,58 @@
+{
+    "default_locale": "en",
+    "version_name": "v0.0",
+    "name": "Mali Wspaniali App",
+    "short_name": "Mali Wspaniali",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#008AAD",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "/icons/favicon.ico",
+            "sizes": "16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/icons/72x72.png",
+            "type": "image/png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "/icons/96x96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "/icons/128x128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "/icons/144x144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "/icons/152x152.png",
+            "type": "image/png",
+            "sizes": "152x152"
+        },
+        {
+            "src": "/icons/192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/icons/384x384.png",
+            "type": "image/png",
+            "sizes": "384x384"
+        },
+        {
+            "src": "/icons/512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
