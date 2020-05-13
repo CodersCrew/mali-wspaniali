@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
@@ -24,6 +24,8 @@ export const Root = () => {
             <Router>
                 <Switch>
                     <IdleTimer>
+                        {/* a temporary solution until we don't have a home page */}
+                        <Route exact path="/" render={() => <Redirect to="/login" />} />
                         <Route path={['/login']}>
                             <LoginPageWrapper>
                                 <Route path="/login" component={LoginPage} />
