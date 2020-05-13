@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, Grid, Avatar, Typography, Box } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Avatar, Typography, Box } from '@material-ui/core';
 import { lineHeight, letterSpace } from '../../fontStyle';
 import { Redactor } from '../../firebase/types';
 
@@ -36,7 +36,7 @@ export const ArticleRedactor = ({ redactor }: { redactor: Redactor }) => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         contentRedactorAvatarContainer: {
             paddingTop: '4.2vw',
@@ -52,12 +52,12 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: '15px',
             fontWeight: 'bold',
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
         },
         contentRedactorProf: {
             fontSize: '14px',
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
         },
         contentRedactorDescriptionContainer: {
             paddingTop: '1vw',

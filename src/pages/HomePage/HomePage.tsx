@@ -1,47 +1,78 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Container, makeStyles } from '@material-ui/core/';
+import { makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/firebase';
+import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
+import { HomePageArticles } from './HomePageArticles/HomePageArticles';
+import { Navbar } from '../../components/Navbar/Navbar';
+import { mainColor } from '../../colors';
 
-export const HomePage = () => {
+export const ParentHomePage = () => {
     const classes = useStyles();
-
     const { t } = useTranslation();
 
-    const handleLogoutClick = () => {
-        firebase.auth.handleSignOut();
-    };
-
     return (
-        <Container className={classes.container}>
-            <Link to="/">
-                <Button onClick={handleLogoutClick} color="secondary" variant="outlined">
-                    {t('home-page.log-out')}
-                </Button>
-            </Link>
-            <Link to="/login">
-                <Button variant="contained" color="primary">
-                    {t('home-page.go-to-login-page')}
-                </Button>
-            </Link>
-            <Link to="/register">
-                <Button variant="contained" color="primary">
-                    {t('home-page.go-to-registration-page')}
-                </Button>
-            </Link>
-            <Link to="/parent/children">
-                <Button variant="contained" color="primary">
-                    {t('home-page.go-to-parent-children-page')}
-                </Button>
-            </Link>
-        </Container>
+        <Grid className={classes.container}>
+            <Navbar />
+            <Grid item xs={12}>
+                <h1 className={classes.header}>{t('home-page-content.greeting')}</h1>
+            </Grid>
+            <Grid item xs={12}>
+                <p className={classes.description}>
+                    <span>{t('home-page-content.check-children-activity')} </span>
+                    <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                </p>
+            </Grid>
+            <HomePageChildren />
+            <HomePageArticles />
+        </Grid>
     );
 };
 
-const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            padding: '0 0 54px 60px',
+            fontFamily: 'Montserrat, sans-serif',
+
+            [theme.breakpoints.down('md')]: {
+                padding: '0 0 5px 0',
+                textAlign: 'center',
+            },
+        },
+        header: {
+            fontSize: 36,
+            marginBottom: 20,
+            textTransform: 'uppercase',
+            lineHeight: '44px',
+
+            [theme.breakpoints.down('sm')]: {
+                marginTop: 25,
+                fontSize: 21,
+                lineHeight: '26px',
+            },
+        },
+        description: {
+            margin: '20px 0 40px 0',
+            fontSize: 21,
+            lineHeight: '26px',
+            fontWeight: 500,
+
+            [theme.breakpoints.down('sm')]: {
+                fontSize: 15,
+                display: 'flex',
+                flexDirection: 'column',
+                lineHeight: '18px',
+                margin: '15px 0 20px 0',
+            },
+        },
+        link: {
+            color: mainColor,
+            fontWeight: 'bold',
+
+            [theme.breakpoints.down('sm')]: {
+                textTransform: 'uppercase',
+                lineHeight: '18px',
+            },
+        },
+    }),
+);

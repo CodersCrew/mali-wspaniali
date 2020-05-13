@@ -108,6 +108,16 @@
         "settings": "Settings",
         "logout": "Log out"
     },
+    "home-page-content": {
+        "greeting": "Good Afternoon!",
+        "check-children-activity": "Check out the children activity in the programme",
+        "mali-wspaniali": "Mali Wspaniali",
+        "foundation-header": "Foundation Header here",
+        "foundation-content": "Here will be a brief introduction from the Foundation. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
+        "recent-news": "Recent News",
+        "read-more": "Read more",
+        "read-less": "Less"
+    },
     "blog-article-card": {
         "read-more": "Read more"
     },

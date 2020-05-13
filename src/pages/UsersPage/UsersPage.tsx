@@ -55,6 +55,7 @@ export const UsersPage = () => {
             setFirstVisible(newFirstVisible);
             setUsersList(users);
             setListeners([...listeners, unsubscribe]);
+            // eslint-disable-next-line no-unused-expressions
             direction === PaginationDirections.next ? setPage(page + 1) : setPage(page - 1);
         }
     };

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
-import { backgroundColor, secondaryColor } from '../../colors';
 import clsx from 'clsx';
+import { backgroundColor, secondaryColor } from '../../colors';
 
 type SidebarMenuItem = {
     name: string;

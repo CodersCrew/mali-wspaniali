@@ -1,5 +1,5 @@
 module.exports = {
-    plugins: ['i18next', 'react-hooks'],
+    plugins: [ 'i18next', 'react-hooks' ],
     settings: {
         "react": {
             "version": "detect"
@@ -43,9 +43,9 @@ module.exports = {
             },
         ],
         "@typescript-eslint/explicit-function-return-type": "off",
-        "semi": ["warn", "always"],
-        "quotes": ["warn", "single", "avoid-escape"],
-        "indent": ["warn", 4],
+        "semi": [ "warn", "always" ],
+        "quotes": [ "warn", "single", "avoid-escape" ],
+        "indent": [ "warn", 4 ],
         "react/prop-types": "off",
     },
 };

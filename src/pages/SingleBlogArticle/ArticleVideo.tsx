@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, CardMedia, Button, Theme, createStyles, makeStyles } from '@material-ui/core';
+import { Grid, CardMedia, Button, createStyles, makeStyles } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import { Video } from './types';
 
@@ -22,7 +22,7 @@ export const ArticleVideo = ({ video }: { video: Video }) => {
                             <Grid container direction="row">
                                 {video.tags.map(tag => {
                                     return (
-                                        <Grid item xs={3}>
+                                        <Grid key={tag} item xs={3}>
                                             <Button className={classes.contentTagsButton}>{`#${tag}`}</Button>
                                         </Grid>
                                     );
@@ -36,7 +36,7 @@ export const ArticleVideo = ({ video }: { video: Video }) => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         contentVideoGrid: {
             paddingTop: '2vw',

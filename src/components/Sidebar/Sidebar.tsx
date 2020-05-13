@@ -1,13 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import clsx from 'clsx';
 import { SidebarMenuList } from './SidebarMenuList';
 import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { handleSignOut } from '../../queries/authQueries';
 import { mainColor } from '../../colors';
 import { SidebarPropTypes } from './types';
-import clsx from 'clsx';
 
 export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
     const classes = useStyles();

@@ -67,7 +67,6 @@ const useStyles = makeStyles({
         lineHeight: '44px',
         textAlign: 'center',
         textTransform: 'uppercase',
-
         '@media (max-width:767px)': {
             margin: '15px 0 30px 0',
             width: '280px',
