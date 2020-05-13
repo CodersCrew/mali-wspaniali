@@ -30,20 +30,22 @@ export const Root = () => {
                             </LoginPageWrapper>
                         </Route>
                         <Route path="/register" component={RegistrationPage} />
-                            <Route path={['/admin', '/parent']}>
-                                <AppWrapper>
-                                    <Route path="/parent" component={ParentHomePage} />
-                                    <Route path="/admin/tests" component={TestResultsPage} />
-                                    <Route path="/admin/users" component={UsersPage} />
-                                    <Route path="/parent/child/:childID" component={ChildProfile} />
-                                    <Route path="/admin" />
-                                    <Route path="/admin/parent/:id" component={ParentProfile} />
-                                    <Route path="/admin/agreements" component={AdminAgreementsPage} />
-                                    <Route path="/parent/children" component={ChildrenListPage} />
-                                    <Route path="/admin/newsletter" component={NewsletterPage} />
-                                    <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
-                                </AppWrapper>
-                            </Route>
+                        <Route path={['/admin', '/parent']}>
+                            <AppWrapper>
+                                <Route path="/parent" component={ParentHomePage} />
+                                <Route path="/admin/tests" component={TestResultsPage} />
+                                <Route path="/admin/users" component={UsersPage} />
+                                <Route path="/parent/child/:childID" component={ChildProfile} />
+                                <Route path="/admin" />
+                                <Route path="/admin/parent/:id" component={ParentProfile} />
+                                <Route path="/admin/agreements" component={AdminAgreementsPage} />
+                                <Route path="/parent/children" component={ChildrenListPage} />
+                                <Route path="/admin/newsletter" component={NewsletterPage} />
+                                <Route path="/admin/newsletter" component={NewsletterPage} />
+                                <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
+                                <Route path="/parent/blog" component={BlogMainPage} />
+                            </AppWrapper>
+                        </Route>
                     </IdleTimer>
                 </Switch>
             </Router>

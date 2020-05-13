@@ -80,6 +80,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                 isMore,
             });
         });
+    },
     getArticlesListData: (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
         return db
             .collection('blog-articles')

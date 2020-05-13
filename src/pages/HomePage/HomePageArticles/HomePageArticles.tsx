@@ -22,14 +22,14 @@ export const HomePageArticles = () => {
     // eslint-disable-next-line consistent-return
     const renderArticles = () => {
         if (articles) {
-            return articles.map(({ articleId, title, description, pictureUrl }) => {
+            return articles.map(({ id, title, description, pictureUrl }) => {
                 const ArticlePictureComponent = (
                     <img className={classes.articleImg} alt="mali_wspaniali_article" src={pictureUrl} />
                 );
                 return (
                     <HomePageArticleItem
                         key={title}
-                        articleId={articleId}
+                        articleId={id}
                         title={title}
                         description={description}
                         ArticlePictureComponent={ArticlePictureComponent}

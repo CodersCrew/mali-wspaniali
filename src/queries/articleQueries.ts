@@ -22,6 +22,8 @@ export const getArticles = (
     endBefore?: Snapshot,
 ) => {
     firebase.article.getArticles(onSnapshotCallback, category, startAfter, endBefore);
+};
+
 export const getArticlesListData = async (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
     firebase.article.getArticlesListData(onSnapshotCallback);
 };
