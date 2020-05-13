@@ -1,5 +1,5 @@
-import firebaseApp from 'firebase/app';
-import { Article } from './types';
+import firebaseApp, { firestore } from 'firebase/app';
+import { Article, PaginatedArticleList, Snapshot } from './types';
 import { logQuery } from '../utils/logQuery';
 import { OnSnapshotCallback } from './userRepository';
 
@@ -37,6 +37,49 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                 }
             });
     },
+    getArticles: (
+        onSnapshotCallback: OnSnapshotCallback<PaginatedArticleList>,
+        category?: string | undefined,
+        startAfter?: Snapshot,
+        endBefore?: Snapshot,
+    ) => {
+        let query = db.collection('blog-articles').orderBy('date') as firestore.Query;
+        if (category) {
+            query = query.where('category', 'array-contains', category);
+        }
+        if (startAfter) {
+            query = query.startAfter(startAfter).limit(7);
+        }
+        if (endBefore) {
+            query = query.endBefore(endBefore).limitToLast(7);
+        }
+        query.onSnapshot(snapshot => {
+            const articleList = [] as Article[];
+            const snapshots: Snapshot[] = [];
+            let isMore = true;
+
+            snapshot.forEach(snap => {
+                snapshots.push(snap);
+                const docData = snap.data() as Article;
+                docData.id = snap.id;
+                articleList.push(docData);
+            });
+            if (articleList.length < 7) {
+                isMore = false;
+            }
+            let firstIndex = 0;
+            let lastIndex = 5;
+            if (endBefore && articleList.length > 6) {
+                firstIndex = 1;
+                lastIndex = 6;
+            }
+            onSnapshotCallback({
+                articleList: articleList.slice(firstIndex, lastIndex + 1),
+                firstSnap: snapshots[firstIndex],
+                lastSnap: snapshots[lastIndex],
+                isMore,
+            });
+        });
     getArticlesListData: (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
         return db
             .collection('blog-articles')

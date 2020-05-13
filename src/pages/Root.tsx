@@ -15,6 +15,7 @@ import { ParentHomePage } from './HomePage';
 import { SingleBlogArticle } from './SingleBlogArticle';
 import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
 import { IdleTimer } from '../components/IdleTimer/IdleTimer';
+import { BlogMainPage } from './BlogMainPage';
 
 export const Root = () => {
     return (
@@ -42,6 +43,7 @@ export const Root = () => {
                                 <Route path="/parent/children" component={ChildrenListPage} />
                                 <Route path="/admin/newsletter" component={NewsletterPage} />
                                 <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
+                                <Route path="/parent/blog" component={BlogMainPage} />
                             </AppWrapper>
                         </Route>
                     </IdleTimer>
