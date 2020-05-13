@@ -29,23 +29,20 @@ export const Root = () => {
                             </LoginPageWrapper>
                         </Route>
                         <Route path="/register" component={RegistrationPage} />
-                        <Route path={['/admin', '/parent', '/']}>
-                            <Route exact path={['/']}>
+                            <Route path={['/admin', '/parent']}>
                                 <AppWrapper>
-                                    <Route exact path="/" component={ParentHomePage} />
+                                    <Route path="/parent" component={ParentHomePage} />
                                     <Route path="/admin/tests" component={TestResultsPage} />
                                     <Route path="/admin/users" component={UsersPage} />
                                     <Route path="/parent/child/:childID" component={ChildProfile} />
                                     <Route path="/admin" />
                                     <Route path="/admin/parent/:id" component={ParentProfile} />
-                                    <Route path="/parent" />
                                     <Route path="/admin/agreements" component={AdminAgreementsPage} />
                                     <Route path="/parent/children" component={ChildrenListPage} />
                                     <Route path="/admin/newsletter" component={NewsletterPage} />
                                     <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
                                 </AppWrapper>
                             </Route>
-                        </Route>
                     </IdleTimer>
                 </Switch>
             </Router>
