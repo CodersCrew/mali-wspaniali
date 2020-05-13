@@ -89,7 +89,7 @@ export const BlogMainPage = () => {
                                     title={article.title}
                                     image={article.pictureUrl}
                                     description={article.description}
-                                    link={`/parent/article/:${article.id}`}
+                                    link={`/parent/article/${article.id}`}
                                     category={article.category[0] as ArticleCategories}
                                 />
                             </Grid>
