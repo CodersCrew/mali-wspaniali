@@ -45,13 +45,14 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
 
 const useStyles = makeStyles({
     card: {
-        width: '90%',
+        position: 'relative',
+        width: '100%',
         height: '400px',
         overflow: 'visible',
         backgroundColor: darkGrey,
         borderRadius: '4px',
         marginTop: '20%',
-        boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)'
+        boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
     },
     cardImage: {
         width: '100%',
@@ -74,11 +75,12 @@ const useStyles = makeStyles({
     },
     readMoreButton: {
         color: white,
-        fontSize: '15px',
+        fontSize: '13px',
         whiteSpace: 'nowrap',
         borderRadius: '4px',
-        float: 'right',
-        marginRight: '16px',
-        marginTop: '30px'
+        position: 'absolute',
+        right: '16px',
+        bottom: '16px',
+        marginTop: '10px',
     }
 });

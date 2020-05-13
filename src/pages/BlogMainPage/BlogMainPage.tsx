@@ -77,7 +77,7 @@ export const BlogMainPage = () => {
             <CategoryTabs setCategory={setCurrentCategory} />
             <div className={classes.gridBackground}>
                 {blogArticles &&
-                    <Grid container justify="space-around" spacing={4} className={classes.gridContainer}>
+                    <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                         {blogArticles.articleList.map((article) => (
                             <Grid key={article.id} item xs={4} zeroMinWidth>
                                 <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={`/parent/article/:${article.id}`} category={article.category[0] as ArticleCategories}/>
@@ -102,10 +102,8 @@ const useStyles = makeStyles({
         bottom: '20px'
     },
     gridContainer: {
-        maxWidth: '94%',
-        marginTop: '0',
-        marginLeft: '3%',
-        marginRight: '3%'
+        maxWidth: '92%',
+        margin: '0 4%'
     },
     gridBackground: {
         backgroundColor: white,
