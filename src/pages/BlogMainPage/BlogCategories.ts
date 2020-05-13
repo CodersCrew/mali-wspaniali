@@ -5,9 +5,9 @@ export const categories = {
     food: { name: i18n.t('blog-categories.food'), color: 'yellow' },
     activity: { name: i18n.t('blog-categories.physical-activity'), color: 'purple' },
     emotions: { name: i18n.t('blog-categories.emotions'), color: 'lightOrange' },
-    other: { name: i18n.t('blog-categories.other'), color: 'blue' }
+    other: { name: i18n.t('blog-categories.other'), color: 'blue' },
 };
-  
+
 export const categoriesList = Object.entries(categories).map(([key, value]) => {
-    return {key, ...value};
+    return { key, ...value };
 });

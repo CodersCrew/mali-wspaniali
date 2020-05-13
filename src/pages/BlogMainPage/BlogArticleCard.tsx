@@ -13,21 +13,13 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
 
     return (
         <Card className={classes.card} elevation={0}>
-            <CardMedia
-                component="img"
-                alt={title}
-                image={image}
-                title={title}
-                className={classes.cardImage}
-            />
+            <CardMedia component="img" alt={title} image={image} title={title} className={classes.cardImage} />
             <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" className={classes.articleTitle}>
                     {title}
                 </Typography>
-                <Typography variant="body2">
-                    {description}
-                </Typography>
+                <Typography variant="body2">{description}</Typography>
             </CardContent>
             <Button
                 href={link}
@@ -59,7 +51,7 @@ const useStyles = makeStyles({
         maxHeight: '200px',
         padding: '0 16px',
         position: 'relative',
-        bottom: '30px'
+        bottom: '30px',
     },
     cardContent: {
         position: 'relative',
@@ -71,7 +63,7 @@ const useStyles = makeStyles({
         position: 'relative',
         bottom: '10px',
         fontSize: '15px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     readMoreButton: {
         color: white,
@@ -82,5 +74,5 @@ const useStyles = makeStyles({
         right: '16px',
         bottom: '16px',
         marginTop: '10px',
-    }
+    },
 });

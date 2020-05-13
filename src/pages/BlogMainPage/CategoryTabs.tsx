@@ -4,20 +4,20 @@ import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 
 type CategoryTabProps = {
-    setCategory: Dispatch<SetStateAction<string>>
-}
+    setCategory: Dispatch<SetStateAction<string>>;
+};
 
 export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
     const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setCurrentTabIndex(newValue);
-        setCategory(categoriesList[newValue].key); 
+        setCategory(categoriesList[newValue].key);
     };
 
     return (
         <StyledTabs value={currentTabIndex} onChange={handleChange}>
-            {categoriesList.map((category) => {
+            {categoriesList.map(category => {
                 return <StyledTab key={category.name} label={category.name} color={category.color} />;
             })}
         </StyledTabs>
@@ -27,16 +27,14 @@ export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
 type StyledTabsProps = {
     value: number;
     onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
-}
+};
 
 const StyledTabs = withStyles({
     flexContainer: {
         alignItems: 'flex-end',
-        marginLeft: '3%'
+        marginLeft: '3%',
     },
     indicator: {
         display: 'none',
     },
-
 })((props: StyledTabsProps) => <Tabs {...props} />);
-

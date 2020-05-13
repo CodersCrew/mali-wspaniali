@@ -7,48 +7,39 @@ import { blogCategoryColors } from '../../colors';
 
 type ArticleBadgeProps = {
     articleCategory: ArticleCategories;
-}
+};
 
-export const ArticleBadge = ({articleCategory}: ArticleBadgeProps) => {
-
+export const ArticleBadge = ({ articleCategory }: ArticleBadgeProps) => {
     const { color, name } = categories[articleCategory];
 
-    return (
-        <StyledBadge color={color}>{name}</StyledBadge>
-    );
+    return <StyledBadge color={color}>{name}</StyledBadge>;
 };
 
 type BadgeProps = {
-    color: string,
-    children: string,
-    classes: Partial<ClassNameMap<keyof typeof styles>>
-}
+    color: string;
+    children: string;
+    classes: Partial<ClassNameMap<keyof typeof styles>>;
+};
 
-const Badge = ({ children, classes }: BadgeProps ) => {
-
-    return (
-        <div className={classes.root}>
-            { children } 
-        </div>
-    );
+const Badge = ({ children, classes }: BadgeProps) => {
+    return <div className={classes.root}>{children}</div>;
 };
 
 type Styles = {
     color: string;
     [key: string]: string;
-}
+};
 
 type ColorsMap = {
     [key: string]: string;
-}
+};
 
 interface BadgeStyles extends WithStyles<typeof styles> {
     color: string;
-    children: string,
+    children: string;
 }
 
-const styledBy = (property: string, colorsMap: ColorsMap) => (props: Styles) =>
-    colorsMap[props[property]];
+const styledBy = (property: string, colorsMap: ColorsMap) => (props: Styles) => colorsMap[props[property]];
 
 const styles = createStyles({
     root: {
@@ -68,10 +59,9 @@ const styles = createStyles({
             yellow: blogCategoryColors.yellow,
             purple: blogCategoryColors.purple,
             lightOrange: blogCategoryColors.lightOrange,
-            blue: blogCategoryColors.blue
+            blue: blogCategoryColors.blue,
         }),
-    }
+    },
 });
 
 const StyledBadge = withStyles(styles)((props: BadgeStyles) => <Badge {...props} />);
-
