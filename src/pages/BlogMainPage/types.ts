@@ -5,20 +5,20 @@ export type Article = {
     title: string;
     category: string[];
     description: string;
-}
+};
 
 export type ArticleState = {
-    categoryKey: string | undefined,
-    startAfter: Snapshot,
-    endBefore: Snapshot
-}
+    categoryKey: string | undefined;
+    startAfter: Snapshot;
+    endBefore: Snapshot;
+};
 
 export type BlogArticleCardProps = {
-    image: string,
-    title: string,
-    description: string,
-    link: string,
-    category: ArticleCategories
-}
+    image: string;
+    title: string;
+    description: string;
+    link: string;
+    category: ArticleCategories;
+};
 
-export type ArticleCategories = 'all' | 'food' | 'activity' | 'emotions' | 'other'
+export type ArticleCategories = 'all' | 'food' | 'activity' | 'emotions' | 'other';

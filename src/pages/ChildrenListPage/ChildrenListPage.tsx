@@ -1,8 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -25,30 +23,23 @@ export const ChildrenListPage = () => {
     }) as Child[];
 
     return (
-        <>
-            <Link to="/">
-                <Button variant="contained" color="primary">
-                    {t('go-to-home-page')}
-                </Button>
-            </Link>
-            <Container maxWidth="sm">
-                <Typography variant="h4" gutterBottom>
-                    {t('parent-children.children')}
+        <Container maxWidth="sm">
+            <Typography variant="h4" gutterBottom>
+                {t('parent-children.children')}
+            </Typography>
+            {children ? (
+                <List component="nav" aria-label={t('parent-children.children')}>
+                    {children.map(child => (
+                        <ListItem key={child.id} button>
+                            <ListItemText primary={`${child.firstName} ${child.lastName}`} />
+                        </ListItem>
+                    ))}
+                </List>
+            ) : (
+                <Typography variant="body1" paragraph={true}>
+                    {t('parent-children.no-children-has-been-found')}
                 </Typography>
-                {children ? (
-                    <List component="nav" aria-label={t('parent-children.children')}>
-                        {children.map(child => (
-                            <ListItem key={child.id} button>
-                                <ListItemText primary={`${child.firstName} ${child.lastName}`} />
-                            </ListItem>
-                        ))}
-                    </List>
-                ) : (
-                    <Typography variant="body1" paragraph={true}>
-                        {t('parent-children.no-children-has-been-found')}
-                    </Typography>
-                )}
-            </Container>
-        </>
+            )}
+        </Container>
     );
 };

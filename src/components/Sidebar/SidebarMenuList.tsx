@@ -36,8 +36,9 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
                         <Avatar src={avatar} className={classes.avatar} />
                     </div>
                 );
-                const link = `/parent/child/:${id}`;
+                const link = `/parent/child/${id}`;
                 menuItems.splice(1, 0, { name: `${firstName}`, link: `${link}`, icon: iconComponent });
+                // eslint-disable-next-line no-shadow
                 return menuItems.map(({ name, link, icon }) => (
                     <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={link} icon={icon} />
                 ));

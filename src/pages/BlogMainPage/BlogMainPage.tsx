@@ -13,7 +13,6 @@ import { ArticleCategories } from './types';
 import { white } from '../../colors';
 
 export const BlogMainPage = () => {
-
     const classes = useStyles();
     const { t } = useTranslation();
     const [currentCategory, setCurrentCategory] = useState<string>('all');
@@ -30,7 +29,7 @@ export const BlogMainPage = () => {
         const category = categoryKey === 'all' ? undefined : categoryKey;
 
         getArticles(
-            (blogArticlesFromSnapshot) => {
+            blogArticlesFromSnapshot => {
                 setBlogArticles(blogArticlesFromSnapshot);
                 setupPagination(blogArticlesFromSnapshot, startAfter, endBefore);
             },
@@ -40,7 +39,11 @@ export const BlogMainPage = () => {
         );
     };
 
-    const setupPagination = (blogArticlesFromSnapshot: PaginatedArticleList, startAfter?: Snapshot, endBefore?: Snapshot) => {
+    const setupPagination = (
+        blogArticlesFromSnapshot: PaginatedArticleList,
+        startAfter?: Snapshot,
+        endBefore?: Snapshot,
+    ) => {
         if (!startAfter && !endBefore) {
             setIsFirstPage(true);
             setIsLastPage(false);
@@ -73,17 +76,26 @@ export const BlogMainPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <Navbar />
-            <Typography variant="h4" gutterBottom className={classes.heading}>{t('blog-main-page.header')}</Typography>
+            <Typography variant="h4" gutterBottom className={classes.heading}>
+                {t('blog-main-page.header')}
+            </Typography>
             <CategoryTabs setCategory={setCurrentCategory} />
             <div className={classes.gridBackground}>
-                {blogArticles &&
+                {blogArticles && (
                     <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
-                        {blogArticles.articleList.map((article) => (
+                        {blogArticles.articleList.map(article => (
                             <Grid key={article.id} item xs={4} zeroMinWidth>
-                                <BlogArticleCard title={article.title} image={article.pictureUrl} description={article.description} link={`/parent/article/:${article.id}`} category={article.category[0] as ArticleCategories}/>
+                                <BlogArticleCard
+                                    title={article.title}
+                                    image={article.pictureUrl}
+                                    description={article.description}
+                                    link={`/parent/article/${article.id}`}
+                                    category={article.category[0] as ArticleCategories}
+                                />
                             </Grid>
                         ))}
-                    </Grid>}
+                    </Grid>
+                )}
                 <Pagination isFirst={isFirstPage} isLast={isLastPage} handleChange={paginationQuery} />
             </div>
         </ThemeProvider>
@@ -99,14 +111,14 @@ const useStyles = makeStyles({
         width: '60%',
         zIndex: 1,
         position: 'relative',
-        bottom: '20px'
+        bottom: '20px',
     },
     gridContainer: {
         maxWidth: '92%',
-        margin: '0 4%'
+        margin: '0 4%',
     },
     gridBackground: {
         backgroundColor: white,
-        borderRadius: '20px'
+        borderRadius: '20px',
     },
 });

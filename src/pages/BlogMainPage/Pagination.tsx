@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { mainColor, white } from '../../colors';
 
 type PaginationProps = {
-    isFirst: boolean,
-    isLast: boolean,
-    handleChange: (paginationDirection: string) => void
-}
+    isFirst: boolean;
+    isLast: boolean;
+    handleChange: (paginationDirection: string) => void;
+};
 
-export const Pagination = ({isFirst, isLast, handleChange}: PaginationProps) => {
+export const Pagination = ({ isFirst, isLast, handleChange }: PaginationProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -22,8 +22,12 @@ export const Pagination = ({isFirst, isLast, handleChange}: PaginationProps) => 
 
     return (
         <div className={classes.paginationContainer}>
-            <Button variant="outlined" disabled={isFirst} onClick={handlePrevClick}>{t('blog-pagination.previous')}</Button>
-            <Button variant="contained" disabled={isLast} className={classes.next} onClick={handleNextClick}>{t('blog-pagination.next')}</Button>
+            <Button variant="outlined" disabled={isFirst} onClick={handlePrevClick}>
+                {t('blog-pagination.previous')}
+            </Button>
+            <Button variant="contained" disabled={isLast} className={classes.next} onClick={handleNextClick}>
+                {t('blog-pagination.next')}
+            </Button>
         </div>
     );
 };
@@ -38,10 +42,10 @@ const useStyles = makeStyles(() =>
         next: {
             backgroundColor: mainColor,
             marginLeft: '2%',
-            color: white
+            color: white,
         },
         prev: {
-            color: white
-        }
+            color: white,
+        },
     }),
 );

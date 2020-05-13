@@ -5,19 +5,18 @@ import { white, blogCategoryColors } from '../../colors';
 type Styles = {
     color: string;
     [key: string]: string;
-}
+};
 
 type ColorsMap = {
     [key: string]: string;
-}
+};
 
 interface TabStyles extends WithStyles<typeof styles> {
     color: string;
     label: string;
 }
 
-const styledBy = (property: string, colorsMap: ColorsMap) => (props: Styles) =>
-    colorsMap[props[property]];
+const styledBy = (property: string, colorsMap: ColorsMap) => (props: Styles) => colorsMap[props[property]];
 
 const styles = createStyles({
     root: {
@@ -28,7 +27,7 @@ const styles = createStyles({
             yellow: blogCategoryColors.yellow,
             purple: blogCategoryColors.purple,
             lightOrange: blogCategoryColors.lightOrange,
-            blue: blogCategoryColors.blue
+            blue: blogCategoryColors.blue,
         }),
         borderRadius: '4px',
         opacity: '1',
@@ -36,14 +35,14 @@ const styles = createStyles({
         color: white,
         textTransform: 'none',
         flexShrink: 2,
-        fontWeight: 600
+        fontWeight: 600,
     },
     wrapper: {
-        margin: '0 10px'
+        margin: '0 10px',
     },
     selected: {
-        height: '45px'
-    }
+        height: '45px',
+    },
 });
 
 export const StyledTab = withStyles(styles)((props: TabStyles) => <Tab disableRipple {...props} />);
