@@ -91,6 +91,10 @@
     "database-backup": {
         "get-backup-json": "Get database as JSON"
     },
+    "database-upload": {
+        "choose-file": "Choose File",
+        "upload-file": "Upload File"
+    },
     "sidebar": {
         "home": "Home",
         "settings": "Settings",
@@ -113,5 +117,21 @@
         "recent-news": "Recent News",
         "read-more": "Read more",
         "read-less": "Less"
+    "blog-article-card": {
+        "read-more": "Read more"
+    },
+    "blog-main-page": {
+        "header": "Here you will find out, how to take care of your child's development"
+    },
+    "blog-pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "blog-categories": {
+        "all": "All",
+        "food": "Food",
+        "physical-activity": "Physical activity",
+        "emotions": "Emotions",
+        "other": "Other"
     }
 }

@@ -15,6 +15,7 @@ import { ParentHomePage } from './HomePage';
 import { SingleBlogArticle } from './SingleBlogArticle';
 import { LoginPageWrapper } from './LoginPageWrapper/LoginPageWrapper';
 import { IdleTimer } from '../components/IdleTimer/IdleTimer';
+import { BlogMainPage } from './BlogMainPage';
 
 export const Root = () => {
     return (

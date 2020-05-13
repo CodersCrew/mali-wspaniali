@@ -26,7 +26,7 @@ export const MenuListItems = (props: MenuListItemsProps) => {
                 {childrenData.map(child => {
                     const { firstName, id, avatar } = child;
                     const iconComponent = <Avatar className={classes.listItemAvatar} src={avatar} />;
-                    const link = `child/:${id}`;
+                    const link = `child/${id}`;
                     return <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />;
                 })}
                 {staticMenuItems.map(staticItem => {
