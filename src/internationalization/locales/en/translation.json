@@ -103,5 +103,22 @@
         "messages": "Messages",
         "settings": "Settings",
         "logout": "Log out"
+    },
+    "blog-article-card": {
+        "read-more": "Read more"
+    },
+    "blog-main-page": {
+        "header": "Here you will find out, how to take care of your child's development"
+    },
+    "blog-pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "blog-categories": {
+        "all": "All",
+        "food": "Food",
+        "physical-activity": "Physical activity",
+        "emotions": "Emotions",
+        "other": "Other"
     }
 }

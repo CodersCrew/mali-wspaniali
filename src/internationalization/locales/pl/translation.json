@@ -103,5 +103,22 @@
         "messages": "Wiadomości",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
+    },
+    "blog-article-card": {
+        "read-more": "Czytaj dalej"
+    },
+    "blog-main-page": {
+        "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
+    },
+    "blog-pagination": {
+        "previous": "Poprzednia",
+        "next": "Następna"
+    },
+    "blog-categories": {
+        "all": "Wszystkie",
+        "food": "Żywienie",
+        "physical-activity": "Aktywność fizyczna",
+        "emotions": "Emocje",
+        "other": "Inne"
     }
 }
