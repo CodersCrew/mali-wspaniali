@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 import { LoginPage } from './LoginPage';
 import { RegistrationPage } from './RegistrationPage';
@@ -24,6 +24,8 @@ export const Root = () => {
             <Router>
                 <Switch>
                     <IdleTimer>
+                        {/* a temporary solution until we don't have a home page */}
+                        <Route exact path="/" render={() => <Redirect to="/login" />} />
                         <Route path={['/login']}>
                             <LoginPageWrapper>
                                 <Route path="/login" component={LoginPage} />
@@ -32,11 +34,11 @@ export const Root = () => {
                         <Route path="/register" component={RegistrationPage} />
                         <Route path={['/admin', '/parent']}>
                             <AppWrapper>
-                                <Route path="/parent" component={ParentHomePage} />
+                                <Route exact path="/parent" component={ParentHomePage} />
                                 <Route path="/admin/tests" component={TestResultsPage} />
                                 <Route path="/admin/users" component={UsersPage} />
                                 <Route path="/parent/child/:childID" component={ChildProfile} />
-                                <Route path="/admin" />
+                                <Route exact path="/admin" />
                                 <Route path="/admin/parent/:id" component={ParentProfile} />
                                 <Route path="/admin/agreements" component={AdminAgreementsPage} />
                                 <Route path="/parent/children" component={ChildrenListPage} />
