@@ -6,9 +6,9 @@ import { createNewsletter } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { NewsletterSidebar } from './NewsletterSidebar';
-import { WorkSpace } from './Workspace';
 import { SidebarElementStates } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
+import { NewsletterContent } from './NewsletterContent';
 
 const initialState = {
     type: '',
@@ -90,27 +90,23 @@ export const NewsletterPage = () => {
                         filterRecipients={filterRecipients}
                     />
                 </Grid>
-                <WorkSpace message={message} setMessage={setMessage} />
-                <Button onClick={handleSubmit}>{t('newsletter.send')}</Button>
             </Grid>
+            <Grid container>
+                <Grid item xs={2} />
+                <Grid item xs={8}>
+                    <NewsletterContent
+                        handleChange={handleChange}
+                        fields={fields}
+                        message={message}
+                        setMessage={setMessage}
+                    />
+                </Grid>
+            </Grid>
+            <Button onClick={handleSubmit}>{t('newsletter.send')}</Button>
         </Grid>
     );
 };
-/*
-const useStyles = makeStyles({
-    h2: {
-        marginTop: '100px',
-    },
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    inputFields: {
-        marginBottom: '40px',
-    },
-});
-*/
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {

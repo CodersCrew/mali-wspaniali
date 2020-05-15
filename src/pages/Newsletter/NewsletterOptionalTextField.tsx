@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
 
 const preschools = ['Przedszkole 1', 'Przedszkole 2', 'Przedszkole 3', 'Przedszkole 4', 'Przedszkole 5'];
+const parents = ['Parent 1', 'Parent 2', 'Parent 3', 'Parent 4', 'Parent 5'];
 
 export const NewsletterOptionalTextField: React.FC<{
     classes: Record<'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem', string>;
@@ -17,6 +18,15 @@ export const NewsletterOptionalTextField: React.FC<{
         console.log('delete item', value);
         const filteredRecipients = recipients.filter(element => element !== value);
         filterRecipients(filteredRecipients);
+    };
+
+    const setMenuItems = (array: string[]) => {
+        return array.map(item => (
+            <MenuItem key={item} value={item}>
+                <Checkbox checked={recipients.indexOf(item) > -1} />
+                <ListItemText primary={item} />
+            </MenuItem>
+        ));
     };
     return (
         <TextField
@@ -61,12 +71,7 @@ export const NewsletterOptionalTextField: React.FC<{
                 },
             }}
         >
-            {preschools.map(preschool => (
-                <MenuItem key={preschool} value={preschool}>
-                    <Checkbox checked={recipients.indexOf(preschool) > -1} />
-                    <ListItemText primary={preschool} />
-                </MenuItem>
-            ))}
+            {partRecipients.primary === 'preschools' || partRecipients.secondary === 'preschool' ? setMenuItems(preschools) : setMenuItems(parents)}
         </TextField>
     );
 };
