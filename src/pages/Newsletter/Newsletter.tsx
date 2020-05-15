@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Typography, Button, TextField, makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
+import { Typography, Button, makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 //import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
@@ -8,11 +8,12 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { NewsletterSidebar } from './NewsletterSidebar';
 import { WorkSpace } from './Workspace';
 import { SidebarElementStates } from './types';
+import { NewsletterRecipent } from './NewsletterRecipient';
 
 const initialState = {
     type: '',
     topic: '',
-    recipients: [],
+    recipients: [] as string[],
 };
 
 export const NewsletterPage = () => {
@@ -25,10 +26,16 @@ export const NewsletterPage = () => {
     const [active] = useState([SidebarElementStates.Done, SidebarElementStates.Ready]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        const { id, value } = event.target;
+        const { name, value } = event.target;
         setFields(prevFields => ({
             ...prevFields,
-            [id]: value,
+            [name]: value,
+        }));
+    };
+    const filterRecipients = (filteredRecipients: string[]): void => {
+        setFields(prevFields => ({
+            ...prevFields,
+            recipients: filteredRecipients,
         }));
     };
 
@@ -73,34 +80,14 @@ export const NewsletterPage = () => {
                 </Typography>
             </Grid>
             <Grid container>
-                <Grid item>
+                <Grid item xs={2}>
                     <NewsletterSidebar active={active} />
                 </Grid>
-                <Grid item>
-                    <TextField
-                        required
-                        onChange={handleChange}
-                        value={type}
-                        id="type"
-                        label={t('newsletter.type')}
-                        fullWidth
-                    />
-                    <TextField
-                        required
-                        onChange={handleChange}
-                        value={topic}
-                        id="topic"
-                        label={t('newsletter.topic')}
-                        fullWidth
-                    />
-                    <TextField
-                        required
-                        onChange={handleChange}
-                        value={recipients}
-                        type="email"
-                        id="recipients"
-                        label={t('newsletter.recipients')}
-                        fullWidth
+                <Grid item xs={8}>
+                    <NewsletterRecipent
+                        handleChange={handleChange}
+                        recipients={recipients}
+                        filterRecipients={filterRecipients}
                     />
                 </Grid>
                 <WorkSpace message={message} setMessage={setMessage} />
