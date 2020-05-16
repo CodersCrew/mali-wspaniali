@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     menuList: {
         position: 'absolute',
         zIndex: 10,
-        marginLeft: 'calc(100vw - 210px)',
+        right: '40px',
         marginTop: '10px',
     },
     listItemAvatar: {
