@@ -42,7 +42,6 @@ const useStyles = makeStyles({
         marginBottom: 12,
         cursor: 'pointer',
         borderRadius: '10px',
-
         '&:hover': {
             backgroundColor,
             color: secondaryColor,
@@ -56,7 +55,6 @@ const useStyles = makeStyles({
             padding: '8px 11px 8px 10px',
             width: '200px',
             borderRadius: '4px',
-
             '& a': {
                 textDecoration: 'none',
                 color: '#FFFFFF',
@@ -68,7 +66,6 @@ const useStyles = makeStyles({
             '&:hover': {
                 backgroundColor,
                 color: secondaryColor,
-
                 '& div': {
                     color: secondaryColor,
                 },
@@ -92,7 +89,6 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         width: '24px',
         height: '24px',
-
         '&:hover': {
             color: secondaryColor,
         },
@@ -118,7 +114,6 @@ const useStyles = makeStyles({
             '&:hover': {
                 color: secondaryColor,
             },
-
         },
     },
     link: {
