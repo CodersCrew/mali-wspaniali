@@ -41,10 +41,16 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         container: {
             backgroundColor,
+            width: 'calc(100% - 107px)',
             minHeight: 'calc(100vh - 20px)',
             height: '100%',
+            marginLeft: '107px',
             borderRadius: '10px',
-            width: '100%',
+
+            [theme.breakpoints.down('sm')]: {
+                marginLeft: 'auto',
+                marginRight: 'auto'
+            },
         },
     }),
 );
