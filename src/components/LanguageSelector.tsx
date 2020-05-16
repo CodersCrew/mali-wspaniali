@@ -1,22 +1,76 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import { languages } from '../internationalization/constants';
+import clsx from 'clsx';
+import PLFlag from '../assets/pl.png';
+import ENFlag from '../assets/en.png';
+import { backgroundColor, secondaryColor } from '../colors';
 
-export const LanguageSelector = () => {
+interface Props {
+    isSidebarOpen: boolean;
+}
+
+export const LanguageSelector: React.FC<Props> = ({ isSidebarOpen }) => {
     const { i18n, t } = useTranslation();
+    const classes = useStyles();
+    const localStorageLanguage = localStorage.getItem('i18nextLng');
+
     const changeLanguage = (lng: string) => {
         return i18n.changeLanguage(lng);
     };
-
+    const languageImage = (flag: string, language: string, alt: string) => {
+        return (
+            <div className={classes.box} onClick={() => changeLanguage(language)}>
+                <img className={clsx(classes.img, isSidebarOpen ? 'opened' : null)}  src={flag} alt={alt} />
+                {isSidebarOpen && <span className={clsx(classes.name, isSidebarOpen ? 'opened' : null)}>{t(`languages.${language}`)}</span>}
+            </div>
+        );
+    };
     return (
-        <Container>
-            {languages.map(language => (
-                <Button onClick={() => changeLanguage(language)} variant="contained" key={language}>
-                    {t(`languages.${language}`)}
-                </Button>
-            ))}
+        <Container className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
+            {localStorageLanguage === 'pl' ?
+                languageImage(ENFlag, 'en', 'pl') :
+                languageImage(PLFlag, 'pl', 'en')
+            }
         </Container>
     );
 };
+
+const useStyles = makeStyles({
+    img: {
+        '&:hover': {
+            cursor: 'pointer',
+            boxShadow: '0 0 2px 0px #fff',
+            transition: 'all 0.3s ease-in-out',
+        },
+    },
+    container: {
+        position: 'absolute',
+        display: 'flex',
+        justifyContent: 'center',
+        bottom: 122,
+        padding: 5,
+        '&.opened': {
+            width: '50%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            borderRadius: '5px',
+            '&:hover': {
+                cursor: 'pointer',
+                backgroundColor,
+                color: secondaryColor,
+                transition: 'all 0.2s ease-in-out',
+            },
+        }
+    },
+    box: {
+        display: 'flex',
+    },
+    name: {
+        '&.opened': {
+            marginLeft: 5,
+        }
+    },
+
+});
