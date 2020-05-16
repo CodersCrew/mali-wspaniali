@@ -21,14 +21,14 @@ export const SidebarMenuItem = ({ name, link, icon, isSidebarOpen }: SidebarMenu
     const url = window.location.pathname;
 
     return (
-        <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null, getCurrentlyUrl(url, link))}>
-            <Link to={link}>
+        <Link className={classes.link} to={link}>
+            <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null, getCurrentlyUrl(url, link))}>
                 <ListItem className={clsx(classes.menuItemWrapper, getCurrentlyUrl(url, link))}>
                     <ListItemIcon className={clsx(classes.menuItemIcon, 'closed', getCurrentlyUrl(url, link))}>{icon}</ListItemIcon>
                     <ListItemText className={classes.menuItemLabel}>{name}</ListItemText>
                 </ListItem>
-            </Link>
-        </MenuItem>
+            </MenuItem>
+        </Link>
     );
 };
 
@@ -77,13 +77,13 @@ const useStyles = makeStyles({
     },
     menuItemLabel: {
         textTransform: 'uppercase',
-
         '& span': {
             fontWeight: 'bold',
             fontSize: 14,
             lineHeight: '17px',
             fontFamily: 'Montserrat',
             marginLeft: 5,
+            textDecoration: 'none',
         },
     },
     menuItemWrapper: {
@@ -121,4 +121,8 @@ const useStyles = makeStyles({
 
         },
     },
+    link: {
+        textDecoration: 'none',
+        color: '#FFFFFF',
+    }
 });
