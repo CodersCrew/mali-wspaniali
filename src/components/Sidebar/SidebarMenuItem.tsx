@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
 import clsx from 'clsx';
 import { backgroundColor, secondaryColor } from '../../colors';
@@ -10,7 +10,7 @@ type SidebarMenuItem = {
     icon: ReactElement;
     isSidebarOpen: boolean;
 }; 
-const getCurrentlyUrl = (pathUrl:string, link: string) => {
+const isActive = (pathUrl:string, link: string) => {
     if (pathUrl === link) {
         return 'active';
     }
@@ -18,13 +18,13 @@ const getCurrentlyUrl = (pathUrl:string, link: string) => {
 };
 export const SidebarMenuItem = ({ name, link, icon, isSidebarOpen }: SidebarMenuItem) => {
     const classes = useStyles();
-    const url = window.location.pathname;
+    const location = useLocation().pathname;
 
     return (
         <Link className={classes.link} to={link}>
-            <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null, getCurrentlyUrl(url, link))}>
-                <ListItem className={clsx(classes.menuItemWrapper, getCurrentlyUrl(url, link))}>
-                    <ListItemIcon className={clsx(classes.menuItemIcon, 'closed', getCurrentlyUrl(url, link))}>{icon}</ListItemIcon>
+            <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null, isActive(location, link))}>
+                <ListItem className={clsx(classes.menuItemWrapper, isActive(location, link))}>
+                    <ListItemIcon className={clsx(classes.menuItemIcon, 'closed', isActive(location, link))}>{icon}</ListItemIcon>
                     <ListItemText className={classes.menuItemLabel}>{name}</ListItemText>
                 </ListItem>
             </MenuItem>
