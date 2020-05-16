@@ -9,18 +9,22 @@ type SidebarMenuItem = {
     link: string;
     icon: ReactElement;
     isSidebarOpen: boolean;
-    
+}; 
+const getCurrentlyUrl = (pathUrl:string, link: string) => {
+    if (pathUrl === link) {
+        return 'active';
+    }
+    return null;
 };
-
 export const SidebarMenuItem = ({ name, link, icon, isSidebarOpen }: SidebarMenuItem) => {
     const classes = useStyles();
     const url = window.location.pathname;
 
     return (
-        <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null, url === link ? 'active' : null)}>
+        <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null, getCurrentlyUrl(url, link))}>
             <Link to={link}>
-                <ListItem className={clsx(classes.menuItemWrapper, url === link ? 'active' : null)}>
-                    <ListItemIcon className={clsx(classes.menuItemIcon, 'closed', url === link ? 'active' : null)}>{icon}</ListItemIcon>
+                <ListItem className={clsx(classes.menuItemWrapper, getCurrentlyUrl(url, link))}>
+                    <ListItemIcon className={clsx(classes.menuItemIcon, 'closed', getCurrentlyUrl(url, link))}>{icon}</ListItemIcon>
                     <ListItemText className={classes.menuItemLabel}>{name}</ListItemText>
                 </ListItem>
             </Link>
