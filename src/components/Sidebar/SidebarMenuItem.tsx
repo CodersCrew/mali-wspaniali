@@ -9,16 +9,18 @@ type SidebarMenuItem = {
     link: string;
     icon: ReactElement;
     isSidebarOpen: boolean;
+    
 };
 
 export const SidebarMenuItem = ({ name, link, icon, isSidebarOpen }: SidebarMenuItem) => {
     const classes = useStyles();
+    const url = window.location.pathname;
 
     return (
-        <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null)}>
+        <MenuItem key={name} className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null, url === link ? 'active' : null)}>
             <Link to={link}>
-                <ListItem className={classes.menuItemWrapper}>
-                    <ListItemIcon className={clsx(classes.menuItemIcon, 'closed')}>{icon}</ListItemIcon>
+                <ListItem className={clsx(classes.menuItemWrapper, url === link ? 'active' : null)}>
+                    <ListItemIcon className={clsx(classes.menuItemIcon, 'closed', url === link ? 'active' : null)}>{icon}</ListItemIcon>
                     <ListItemText className={classes.menuItemLabel}>{name}</ListItemText>
                 </ListItem>
             </Link>
@@ -41,7 +43,10 @@ const useStyles = makeStyles({
             backgroundColor,
             color: secondaryColor,
         },
-
+        '&.active': {
+            color: secondaryColor,
+            backgroundColor,
+        },
         '&.opened': {
             justifyContent: 'flex-start',
             padding: '8px 11px 8px 10px',
@@ -52,7 +57,10 @@ const useStyles = makeStyles({
                 textDecoration: 'none',
                 color: '#FFFFFF',
             },
-
+            '&.active': {
+                backgroundColor,
+                color: secondaryColor,
+            },
             '&:hover': {
                 backgroundColor,
                 color: secondaryColor,
@@ -84,13 +92,18 @@ const useStyles = makeStyles({
         '&:hover': {
             color: secondaryColor,
         },
+        '&.active': {
+            color: secondaryColor,
+        },
     },
     menuItemIcon: {
         cursor: 'pointer',
         display: 'flex',
         color: '#FFFFFF',
         marginRight: 12,
-
+        '&.active': {
+            color: secondaryColor,
+        },
         '&.closed': {
             alignItems: 'center',
             justifyContent: 'center',
@@ -101,6 +114,7 @@ const useStyles = makeStyles({
             '&:hover': {
                 color: secondaryColor,
             },
+
         },
     },
 });
