@@ -70,7 +70,7 @@
     },
     "newsletter": {
         "header": "Newsletter",
-        "sending-error": "An error ocurred during sending the message.",
+        "sending-error": "An error occurred during sending the message.",
         "sending-success": "The newsletter was sent.",
         "type": "Type",
         "topic": "Topic",

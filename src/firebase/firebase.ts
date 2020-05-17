@@ -16,7 +16,7 @@ firebaseApp.initializeApp(config);
 const auth = firebaseApp.auth();
 const firestore = firebaseApp.firestore();
 
-// Disable caching in test enviroment
+// Disable caching in test environment
 if (process.env.NODE_ENV !== 'test') {
     firestore.enablePersistence();
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core';
+import { white } from '../colors';
 
 export const Loader = () => {
     const classes = useStyles();
@@ -16,6 +17,6 @@ export const Loader = () => {
 const useStyles = makeStyles({
     root: {
         zIndex: 1000,
-        color: '#fff',
+        color: white,
     },
 });

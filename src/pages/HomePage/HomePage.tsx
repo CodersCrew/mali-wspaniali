@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
-import { HomePageArticles } from './HomePageArticles/HomePageArticles';
+import { HomePageChildren } from './HomePageTopSection/HomePageChildren';
+import { HomePageArticles } from './HomePageArticles';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { mainColor } from '../../colors';
 
