@@ -32,6 +32,7 @@ export const IdleTimer: React.FC = ({ children }) => {
         return () => {
             removeListeners();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
 
     const reset = () => {

@@ -30,7 +30,9 @@ export const LoginPage = () => {
     onAuthStateChanged(async (user: User | null) => {
         if (user) {
             const role = await getUserRole(user);
-            history.push(`/${role}`);
+            if (role) {
+                history.push(`/${role}`);
+            }
         }
     });
 
