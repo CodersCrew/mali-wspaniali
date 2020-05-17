@@ -10,6 +10,8 @@ import { getChildrenByUserId } from '../../queries/childQueries';
 import { getCurrentUser } from '../../queries/userQueries';
 import { cardBackgroundColor } from '../../colors';
 import { SidebarMenuListPropTypes } from './types';
+import BoyAvatar from '../../assets/boy.png';
+import GirlAvatar from '../../assets/girl.png';
 
 export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => {
     const { t } = useTranslation();
@@ -30,10 +32,10 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
 
     const renderMenuItems = () => {
         if (children) {
-            children.map(({ firstName, id, avatar }) => {
+            children.map(({ firstName, id, sex }) => {
                 const iconComponent = (
                     <div className={classes.avatarWrapper}>
-                        <Avatar src={avatar} className={classes.avatar} />
+                        <Avatar src={sex === 'male' ? BoyAvatar : GirlAvatar} className={classes.avatar} />
                     </div>
                 );
                 const link = `/parent/child/${id}`;
