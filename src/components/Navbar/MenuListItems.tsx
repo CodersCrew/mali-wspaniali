@@ -4,6 +4,8 @@ import { FormatListBulleted, QuestionAnswer, Build } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../firebase/types';
 import { MenuListItem, MenuLogoutItem } from './MenuItem';
+import BoyAvatar from '../../assets/boy.png';
+import GirlAvatar from '../../assets/girl.png';
 
 export type MenuListItemsProps = {
     childrenData: Child[];
@@ -24,8 +26,10 @@ export const MenuListItems = (props: MenuListItemsProps) => {
         <Paper className={classes.menuList}>
             <MenuList>
                 {childrenData.map(child => {
-                    const { firstName, id, avatar } = child;
-                    const iconComponent = <Avatar className={classes.listItemAvatar} src={avatar} />;
+                    const { firstName, id, sex } = child;
+                    const iconComponent = (
+                        <Avatar className={classes.listItemAvatar} src={sex === 'male' ? BoyAvatar : GirlAvatar} />
+                    );
                     const link = `child/${id}`;
                     return <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />;
                 })}
