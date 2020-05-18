@@ -28,7 +28,11 @@ export const MenuListItems = (props: MenuListItemsProps) => {
                 {childrenData.map(child => {
                     const { firstName, id, sex } = child;
                     const iconComponent = (
-                        <Avatar className={classes.listItemAvatar} src={sex === 'male' ? BoyAvatar : GirlAvatar} />
+                        <Avatar
+                            className={classes.listItemAvatar}
+                            src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                            variant="square"
+                        />
                     );
                     const link = `parent/child/${id}`;
                     return <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />;
@@ -53,5 +57,8 @@ const useStyles = makeStyles({
     listItemAvatar: {
         width: '24px',
         height: '24px',
+        '&> img': {
+            objectFit: 'contain',
+        },
     },
 });

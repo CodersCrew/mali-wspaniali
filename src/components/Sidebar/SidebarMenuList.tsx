@@ -2,26 +2,31 @@ import React from 'react';
 import { makeStyles, Avatar, MenuList } from '@material-ui/core/';
 import { Home, FormatListBulleted, Notifications, BuildSharp } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
+import { User } from '../../firebase/firebase';
 import { Child } from '../../firebase/types';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { getChildrenByUserId } from '../../queries/childQueries';
-import { getCurrentUser } from '../../queries/userQueries';
 import { cardBackgroundColor } from '../../colors';
 import { SidebarMenuListPropTypes } from './types';
 import BoyAvatar from '../../assets/boy.png';
 import GirlAvatar from '../../assets/girl.png';
+import { useAuthorization } from '../../hooks/useAuthorization';
 
 export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const currentUser = getCurrentUser();
-    const children = useSubscribed<Child[]>((callback: OnSnapshotCallback<Child[]>) => {
-        if (currentUser) {
-            getChildrenByUserId(currentUser.uid, callback);
-        }
-    }, []) as Child[];
+    const currentUser = useAuthorization(true);
+    const children = useSubscribed<Child[], User | null>(
+        (callback: OnSnapshotCallback<Child[]>) => {
+            if (currentUser) {
+                getChildrenByUserId(currentUser.uid, callback);
+            }
+        },
+        [],
+        [currentUser],
+    ) as Child[];
 
     const menuItems = [
         { name: t('sidebar.home'), link: '/', icon: <Home /> },
@@ -35,7 +40,11 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
             children.map(({ firstName, id, sex }) => {
                 const iconComponent = (
                     <div className={classes.avatarWrapper}>
-                        <Avatar src={sex === 'male' ? BoyAvatar : GirlAvatar} className={classes.avatar} />
+                        <Avatar
+                            src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                            className={classes.avatar}
+                            variant="square"
+                        />
                     </div>
                 );
                 const link = `/parent/child/${id}`;
@@ -67,5 +76,8 @@ const useStyles = makeStyles({
     avatar: {
         width: 24,
         height: 24,
+        '&> img': {
+            objectFit: 'contain',
+        },
     },
 });
