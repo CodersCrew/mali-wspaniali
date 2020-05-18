@@ -6,10 +6,9 @@ import { darkGrey, white } from '../../colors';
 import { BlogArticleCardProps } from './types';
 import { ArticleBadge } from './ArticleBadge';
 
-export const BlogArticleCard = (props: BlogArticleCardProps) => {
+export const BlogArticleCard = ({ image, title, description, link, category }: BlogArticleCardProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { image, title, description, link, category } = props;
 
     return (
         <Card className={classes.card} elevation={0}>

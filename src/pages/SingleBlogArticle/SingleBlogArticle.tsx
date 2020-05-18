@@ -68,11 +68,12 @@ export const SingleBlogArticle = () => {
                 <Grid container direction="row">
                     <ArticleRedactor redactor={article.redactor} />
                 </Grid>
-                {similarArticles && <Grid></Grid>}
+                {similarArticles && <Grid />}
             </Grid>
         );
     }
-    return <div></div>;
+    // TODO: display a placeholder when there is no article
+    return <div />;
 };
 
 const useStyles = makeStyles(() =>

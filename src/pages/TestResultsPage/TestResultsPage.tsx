@@ -48,13 +48,14 @@ export const TestResultsPage = () => {
                 ? await getChildrenData(rowsPerPage, lastVisible, null)
                 : await getChildrenData(rowsPerPage, null, firstVisible);
         if (unsubscribe) {
+            const newPageNumber = direction === PaginationDirections.next ? page + 1 : page - 1;
+
             setLastVisible(newLastVisible);
             setFirstVisible(newFirstVisible);
             setChildrenList(documents);
             setListeners([...listeners, unsubscribe]);
             setLoading(false);
-            // eslint-disable-next-line no-unused-expressions
-            direction === PaginationDirections.next ? setPage(page + 1) : setPage(page - 1);
+            setPage(newPageNumber);
         }
     };
 

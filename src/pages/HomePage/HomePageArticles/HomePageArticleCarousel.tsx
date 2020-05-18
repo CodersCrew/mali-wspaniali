@@ -8,12 +8,12 @@ export const ArticleCarousel: FC = ({ children }) => {
     const classes = useStyles();
 
     const settings = {
-        infinite: true,
+        infinite: false,
         speed: 500,
         variableWidth: true,
         slidesToShow: 2,
-        slidesToScrolL: 2,
-        className: `${classes.container}`,
+        slidesToScroll: 2,
+        className: classes.container,
     };
 
     return <Slider {...settings}>{children}</Slider>;

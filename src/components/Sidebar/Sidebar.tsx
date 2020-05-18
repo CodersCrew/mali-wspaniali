@@ -6,7 +6,7 @@ import { SidebarMenuList } from './SidebarMenuList';
 import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
 import { handleSignOut } from '../../queries/authQueries';
-import { mainColor } from '../../colors';
+import { mainColor, white } from '../../colors';
 import { SidebarPropTypes } from './types';
 
 export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         sidebarContainer: {
             padding: '30px 20px 53px 10px',
-            color: '#fff',
+            color: white,
             zIndex: 9,
             position: 'fixed',
             height: '100vh',
