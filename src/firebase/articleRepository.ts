@@ -6,7 +6,7 @@ import { OnSnapshotCallback } from './userRepository';
 export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
     getArticleDocById: (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
         return db
-            .collection('blog-articles')
+            .collection('article')
             .doc(articleId)
             .onSnapshot(snapshot => {
                 logQuery(snapshot);
@@ -23,7 +23,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
         onSnapshotCallback: OnSnapshotCallback<Article[]>,
     ) => {
         return db
-            .collection('blog-articles')
+            .collection('article')
             .where('category', 'array-contains', article.category[0])
             .limit(3)
             .onSnapshot(snapshot => {
@@ -43,7 +43,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
         startAfter?: Snapshot,
         endBefore?: Snapshot,
     ) => {
-        let query = db.collection('blog-articles').orderBy('date') as firestore.Query;
+        let query = db.collection('article').orderBy('date') as firestore.Query;
         if (category) {
             query = query.where('category', 'array-contains', category);
         }
@@ -83,7 +83,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
     },
     getArticlesListData: (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
         return db
-            .collection('blog-articles')
+            .collection('article')
             .limit(5)
             .orderBy('date', 'desc')
             .onSnapshot(snapshot => {
