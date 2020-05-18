@@ -28,30 +28,31 @@ export const NewsletterPage = () => {
         }));
     };
 
-    // eslint-disable-next-line consistent-return
-    const handleSubmit = () => {
-        if (!type || !topic || !recipients)
+    const handleSubmit = async () => {
+        if (!type || !topic || !recipients) {
             return openAlertDialog({
                 type: 'error',
                 description: t('newsletter.fill-required-fields'),
             });
-        if (!message)
+        }
+
+        if (!message) {
             return openAlertDialog({
                 type: 'error',
                 description: t('newsletter.empty-message'),
             });
+        }
 
-        createNewsletter({ type, topic, recipients, message }).then(response => {
-            if (response.error) {
-                return openAlertDialog({
-                    type: 'error',
-                    description: t('newsletter.sending-error'),
-                });
-            }
+        const response = await createNewsletter({ type, topic, recipients, message });
+        if (response.error) {
             return openAlertDialog({
-                type: 'success',
-                description: t('newsletter.sending-success'),
+                type: 'error',
+                description: t('newsletter.sending-error'),
             });
+        }
+        return openAlertDialog({
+            type: 'success',
+            description: t('newsletter.sending-success'),
         });
     };
 

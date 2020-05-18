@@ -16,7 +16,7 @@ export const DatabaseBackupButton = () => {
         load(
             getDatabaseBackup()
                 .then(async response => {
-                    const fileName = response.data.fileName;
+                    const { fileName } = response.data;
                     const fileRef = getStorageRef(response.data.backupUrl);
                     const [idToken, fileUrl] = await Promise.all([getCurrentUserIdToken(), fileRef.getDownloadURL()]);
                     fetch(fileUrl, {
@@ -24,10 +24,10 @@ export const DatabaseBackupButton = () => {
                         headers: {
                             Authorization: `Bearer ${idToken}`,
                         },
-                    }).then(response => {
-                        response.blob().then(blob => {
-                            let url = window.URL.createObjectURL(blob);
-                            let a = document.createElement('a');
+                    }).then(res => {
+                        res.blob().then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
                             a.href = url;
                             a.download = fileName;
                             a.click();
@@ -35,6 +35,7 @@ export const DatabaseBackupButton = () => {
                     });
                 })
                 .catch(error => {
+                    // eslint-disable-next-line no-console
                     console.log(error);
                     openAlertDialog({ type: 'error', description: error.message });
                 }),

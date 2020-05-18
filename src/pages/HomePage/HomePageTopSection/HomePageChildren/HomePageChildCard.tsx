@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ChildPropTypes } from './types';
 import { cardBackgroundColor } from '../../../../colors';
 
-export const HomePageChildCard: FC<ChildPropTypes> = ({ firstName, id, PictureComponent }) => {
+export const HomePageChildCard: FC<ChildPropTypes> = ({ id, firstName, PictureComponent }) => {
     const classes = useStyles();
 
     return (

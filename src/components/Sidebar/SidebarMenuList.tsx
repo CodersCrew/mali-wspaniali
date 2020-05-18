@@ -48,10 +48,9 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
                     </div>
                 );
                 const link = `/parent/child/${id}`;
-                menuItems.splice(1, 0, { name: `${firstName}`, link: `${link}`, icon: iconComponent });
-                // eslint-disable-next-line no-shadow
-                return menuItems.map(({ name, link, icon }) => (
-                    <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={link} icon={icon} />
+                menuItems.splice(1, 0, { name: firstName, link, icon: iconComponent });
+                return menuItems.map(({ name, link: itemLink, icon }) => (
+                    <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={itemLink} icon={icon} />
                 ));
             });
         }
