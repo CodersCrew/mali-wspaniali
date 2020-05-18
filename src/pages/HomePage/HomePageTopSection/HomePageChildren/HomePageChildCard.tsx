@@ -8,7 +8,7 @@ export const HomePageChildCard: FC<ChildPropTypes> = ({ firstName, id, PictureCo
     const classes = useStyles();
 
     return (
-        <Link to={`child/${id}`} className={classes.link}>
+        <Link to={`parent/child/${id}`} className={classes.link}>
             <div className={classes.container} key={id}>
                 <span>{PictureComponent}</span>
                 <div>

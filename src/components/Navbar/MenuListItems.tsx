@@ -30,7 +30,7 @@ export const MenuListItems = (props: MenuListItemsProps) => {
                     const iconComponent = (
                         <Avatar className={classes.listItemAvatar} src={sex === 'male' ? BoyAvatar : GirlAvatar} />
                     );
-                    const link = `child/${id}`;
+                    const link = `parent/child/${id}`;
                     return <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />;
                 })}
                 {staticMenuItems.map(staticItem => {
