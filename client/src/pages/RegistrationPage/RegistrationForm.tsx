@@ -7,7 +7,7 @@ import { openAlertDialog } from '../../components/AlertDialog';
 import { load } from '../../utils/load';
 import { createUser } from '../../queries/userQueries';
 import { passwordStrengthTest } from './passwordStrengthTest';
-// import { backgroundColor, secondaryColor } from '../../colors';
+import { backgroundColor, secondaryColor } from '../../colors';
 import { theme } from '../../theme';
 
 const initialState = {
@@ -35,27 +35,66 @@ export const RegistrationForm = () => {
         switch (step) {
             case 0:
                 return (
-                    <TextField
-                        required
-                        onChange={handleChange}
-                        value={email}
-                        id="email"
-                        type="email"
-                        label={t('e-mail')}
-                        variant="outlined"
-                        inputProps={{
-                            'data-testid': 'email',
-                        }}
-                        className={classes.formItem}
-                    />
+                    <>
+                        <TextField
+                            required
+                            onChange={handleChange}
+                            value={email}
+                            id="email"
+                            type="email"
+                            label={t('e-mail')}
+                            variant="outlined"
+                            inputProps={{
+                                'data-testid': 'email',
+                            }}
+                            className={classes.formItem}
+                            helperText={t('login-page.e-mail-helper-text')}
+                        />
+                        <div className={classes.buttonWrapper}>
+                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.prevButton}>
+                                {t('back')}
+                            </Button>
+                            <Button
+                                variant="contained"
+                                onClick={handleNext}
+                                className={classes.nextButton}
+                                color="secondary"
+                                disabled={!form.email}
+                            >
+                                {t('next')}
+                            </Button>
+                        </div>
+                    </>
                 );
 
             case 1:
-                return 'blablabla';
+                return (
+                    <>
+                        <p>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et dicta at saepe facilis
+                            rerum maxime odio architecto sequi totam.
+                        </p>
+                        <div className={classes.buttonWrapper}>
+                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.prevButton}>
+                                {t('back')}
+                            </Button>
+                            <Button
+                                variant="contained"
+                                onClick={handleNext}
+                                className={classes.nextButton}
+                                color="secondary"
+                            >
+                                {t('next')}
+                            </Button>
+                        </div>
+                    </>
+                );
+
             case 2:
-                return 'blablabla';
+                return 'lorem ipsum';
+
             case 3:
-                return 'blablabla';
+                return 'lorem ipsum';
 
             default:
                 return 'Unknown step';
@@ -112,8 +151,8 @@ export const RegistrationForm = () => {
                             <Step key={label}>
                                 <StepLabel>{label}</StepLabel>
                                 <StepContent>
-                                    <div>{getStepContent(idx)}</div>
-                                    <div>
+                                    <>{getStepContent(idx)}</>
+                                    {/* <div>
                                         <Button
                                             disabled={activeStep === 0}
                                             onClick={handleBack}
@@ -129,7 +168,7 @@ export const RegistrationForm = () => {
                                         >
                                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                         </Button>
-                                    </div>
+                                    </div> */}
                                 </StepContent>
                             </Step>
                         ))}
@@ -173,7 +212,7 @@ export const RegistrationForm = () => {
                         }}
                         className={classes.formItem}
                     /> */}
-                    <Button type="submit" variant="contained" color="primary" className={classes.button}>
+                    <Button type="submit" variant="contained" color="primary" className={classes.nextButton}>
                         {t('registration-page.register')}
                     </Button>
                 </form>
@@ -204,7 +243,7 @@ const useStyles = makeStyles({
         },
     },
     formItem: {
-        margin: '20px',
+        margin: '20px 0',
         width: '100%',
     },
     loginHeader: {
@@ -219,8 +258,22 @@ const useStyles = makeStyles({
             marginTop: '40px',
         },
     },
-    button: {
-        marginTop: '20px',
-        float: 'right',
+    buttonWrapper: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+
+        '@media (max-width:767px)': {
+            margin: '0 0 20px 0',
+        },
+    },
+    nextButton: {
+        color: backgroundColor,
+        fontWeight: 'bold',
+    },
+    prevButton: {
+        color: secondaryColor,
+        fontWeight: 'bold',
     },
 });
