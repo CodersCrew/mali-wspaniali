@@ -1,6 +1,17 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { TextField, Button, makeStyles, Stepper, Step, StepLabel, StepContent } from '@material-ui/core/';
-import { useHistory } from 'react-router-dom';
+import {
+    TextField,
+    Button,
+    makeStyles,
+    Stepper,
+    Step,
+    StepLabel,
+    StepContent,
+    Typography,
+    InputAdornment,
+} from '@material-ui/core/';
+import { Visibility } from '@material-ui/icons';
+import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { openAlertDialog } from '../../components/AlertDialog';
@@ -91,10 +102,76 @@ export const RegistrationForm = () => {
                 );
 
             case 2:
-                return 'lorem ipsum';
+                return (
+                    <>
+                        <Typography>{t('registration-page.create-password-text')}</Typography>
+                        <TextField
+                            required
+                            onChange={handleChange}
+                            value={password}
+                            id="password"
+                            type="password"
+                            label={t('password')}
+                            variant="outlined"
+                            inputProps={{
+                                'data-testid': 'password',
+                            }}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="start">
+                                        <Visibility />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            className={classes.formItem}
+                        />
+                        <TextField
+                            required
+                            onChange={handleChange}
+                            value={passwordConfirm}
+                            id="passwordConfirm"
+                            type="password"
+                            label={t('registration-page.password-confirm')}
+                            variant="outlined"
+                            inputProps={{
+                                'data-testid': 'confirmPassword',
+                            }}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="start">
+                                        <Visibility />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            disabled={!form.password}
+                            className={classes.formItem}
+                        />
+                        <div className={classes.buttonWrapper}>
+                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.prevButton}>
+                                {t('back')}
+                            </Button>
+                            <Button
+                                variant="contained"
+                                onClick={handleNext}
+                                className={classes.nextButton}
+                                color="secondary"
+                            >
+                                {t('registration-page.create-password')}
+                            </Button>
+                        </div>
+                    </>
+                );
 
             case 3:
-                return 'lorem ipsum';
+                return (
+                    <div className={classes.confirmWrapper}>
+                        <div className={classes.loginHeader}>{t('registration-page.register-success')}</div>
+                        <Typography>{t('registration-page.register-success-text')}</Typography>
+                        <Link className={classes.goToHomepageLink} to="/">
+                            {t('registration-page.go-to-homepage')}
+                        </Link>
+                    </div>
+                );
 
             default:
                 return 'Unknown step';
@@ -152,69 +229,10 @@ export const RegistrationForm = () => {
                                 <StepLabel>{label}</StepLabel>
                                 <StepContent>
                                     <>{getStepContent(idx)}</>
-                                    {/* <div>
-                                        <Button
-                                            disabled={activeStep === 0}
-                                            onClick={handleBack}
-                                            className={classes.button}
-                                        >
-                                            Back
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={handleNext}
-                                            className={classes.button}
-                                        >
-                                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                        </Button>
-                                    </div> */}
                                 </StepContent>
                             </Step>
                         ))}
                     </Stepper>
-                    {/* <TextField
-                        required
-                        onChange={handleChange}
-                        value={email}
-                        id="email"
-                        type="email"
-                        label={t('e-mail')}
-                        variant="outlined"
-                        inputProps={{
-                            'data-testid': 'email',
-                        }}
-                        className={classes.formItem}
-                    />
-                    <TextField
-                        required
-                        onChange={handleChange}
-                        value={password}
-                        id="password"
-                        type="password"
-                        label={t('password')}
-                        variant="outlined"
-                        inputProps={{
-                            'data-testid': 'password',
-                        }}
-                        className={classes.formItem}
-                    />
-                    <TextField
-                        required
-                        onChange={handleChange}
-                        value={passwordConfirm}
-                        id="passwordConfirm"
-                        type="password"
-                        label={t('registration-page.password-confirm')}
-                        variant="outlined"
-                        inputProps={{
-                            'data-testid': 'confirmPassword',
-                        }}
-                        className={classes.formItem}
-                    /> */}
-                    <Button type="submit" variant="contained" color="primary" className={classes.nextButton}>
-                        {t('registration-page.register')}
-                    </Button>
                 </form>
             </div>
         </ThemeProvider>
@@ -268,6 +286,14 @@ const useStyles = makeStyles({
             margin: '0 0 20px 0',
         },
     },
+    confirmWrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        marginTop: '30px',
+    },
     nextButton: {
         color: backgroundColor,
         fontWeight: 'bold',
@@ -275,5 +301,20 @@ const useStyles = makeStyles({
     prevButton: {
         color: secondaryColor,
         fontWeight: 'bold',
+    },
+    goToHomepageLink: {
+        fontFamily: 'Montserrat',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '17px',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        color: '#fff',
+        background: secondaryColor,
+        textDecoration: 'none',
+        borderRadius: '4px',
+        padding: '4px 10px',
+        marginTop: '50px',
     },
 });
