@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { TextField, Button, makeStyles } from '@material-ui/core/';
+import { TextField, Button, makeStyles, Stepper, Step, StepLabel, StepContent } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -18,10 +18,57 @@ const initialState = {
 
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
+    const [activeStep, setActiveStep] = useState(0);
     const { email, password, passwordConfirm } = form;
     const classes = useStyles();
     const history = useHistory();
     const { t } = useTranslation();
+
+    const steps = [
+        `${t('e-mail')}`,
+        `${t('registration-page.agreements-and-regulations')}`,
+        `${t('registration-page.create-password')}`,
+        `${t('registration-page.confirmation')}`,
+    ];
+
+    const getStepContent = (step: number) => {
+        switch (step) {
+            case 0:
+                return (
+                    <TextField
+                        required
+                        onChange={handleChange}
+                        value={email}
+                        id="email"
+                        type="email"
+                        label={t('e-mail')}
+                        variant="outlined"
+                        inputProps={{
+                            'data-testid': 'email',
+                        }}
+                        className={classes.formItem}
+                    />
+                );
+
+            case 1:
+                return 'blablabla';
+            case 2:
+                return 'blablabla';
+            case 3:
+                return 'blablabla';
+
+            default:
+                return 'Unknown step';
+        }
+    };
+
+    const handleNext = () => {
+        setActiveStep(prevActiveStep => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep(prevActiveStep => prevActiveStep - 1);
+    };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -60,6 +107,33 @@ export const RegistrationForm = () => {
             <div className={classes.container}>
                 <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
                     <div className={classes.loginHeader}>{t('registration-page.register')}</div>
+                    <Stepper activeStep={activeStep} orientation="vertical">
+                        {steps.map((label, idx) => (
+                            <Step key={label}>
+                                <StepLabel>{label}</StepLabel>
+                                <StepContent>
+                                    <div>{getStepContent(idx)}</div>
+                                    <div>
+                                        <Button
+                                            disabled={activeStep === 0}
+                                            onClick={handleBack}
+                                            className={classes.button}
+                                        >
+                                            Back
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={handleNext}
+                                            className={classes.button}
+                                        >
+                                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                        </Button>
+                                    </div>
+                                </StepContent>
+                            </Step>
+                        ))}
+                    </Stepper>
                     <TextField
                         required
                         onChange={handleChange}
