@@ -134,7 +134,7 @@ export const RegistrationForm = () => {
                             </Step>
                         ))}
                     </Stepper>
-                    <TextField
+                    {/* <TextField
                         required
                         onChange={handleChange}
                         value={email}
@@ -172,7 +172,7 @@ export const RegistrationForm = () => {
                             'data-testid': 'confirmPassword',
                         }}
                         className={classes.formItem}
-                    />
+                    /> */}
                     <Button type="submit" variant="contained" color="primary" className={classes.button}>
                         {t('registration-page.register')}
                     </Button>
