@@ -1,19 +1,35 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { mainColor } from '../../colors';
 import { NewsletterPrimaryTextField } from './NewsletterPrimaryTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSecondaryTextField } from './NewsletterSecondaryTextField';
+import { parentsMockData, preschoolsMockData } from './mockData';
 
 export const NewsletterRecipent: React.FC<{
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     recipients: string[];
-    filterRecipients:(filteredRecipients: string[]) => void;
+    filterRecipients: (filteredRecipients: string[]) => void;
 }> = ({ handleChange, recipients, filterRecipients }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [partRecipients, setPartRecipients] = useState({ primary: '', secondary: '' });
+
+    useEffect(() => {
+        if (partRecipients.secondary === '') {
+            console.log('reset recipieits');
+            filterRecipients([]);
+        }
+        if (partRecipients.primary === 'parent' && partRecipients.secondary === 'all') {
+            console.log('select all parents');
+            filterRecipients(parentsMockData);
+        }
+        if (partRecipients.primary === 'preschools' && partRecipients.secondary === 'all') {
+            console.log('select all preschools');
+            filterRecipients(preschoolsMockData);
+        }
+    }, [partRecipients]);
 
     const handlePartRecipientChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -69,6 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: '#ffffff',
             minHeight: 169,
             position: 'relative',
+            marginBottom: 35,
         },
         heading: {
             backgroundColor: mainColor,
@@ -81,6 +98,7 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: 4,
             position: 'relative',
             top: -15,
+            lineHeight: '22px',
         },
         textfield: {
             maxWidth: 'calc(100% - 60px)',

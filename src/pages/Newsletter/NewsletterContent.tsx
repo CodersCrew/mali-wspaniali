@@ -1,8 +1,21 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme, createStyles, TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
+import {
+    makeStyles,
+    Theme,
+    createStyles,
+    TextField,
+    Chip,
+    MenuItem,
+    Checkbox,
+    ListItemText,
+    IconButton,
+} from '@material-ui/core';
 import { mainColor } from '../../colors';
 import { WorkSpace } from './Workspace';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { openDialog } from '../../utils/openDialog';
+import { HelpModal } from './HelpModal';
 
 const newsletterTypesArray = ['Wyniki pomiarów', 'Zgody', 'Wydarzenia', 'Ważne', 'Inne'];
 export const NewsletterContent: React.FC<{
@@ -31,9 +44,18 @@ export const NewsletterContent: React.FC<{
         console.log('remove', value);
     };
 
+    const handleModalOpen = () => {
+        openDialog(HelpModal, null);
+    };
+
     return (
         <div className={classes.container}>
-            <div className={classes.heading}>{t('newsletter.content-heading')}</div>
+            <div className={classes.heading}>
+                {t('newsletter.content-heading')}
+                <IconButton onClick={handleModalOpen} size={'small'} color={'inherit'} className={classes.helpButton}>
+                    <HelpOutlineIcon className={classes.helpIcon} />
+                </IconButton>
+            </div>
             <TextField
                 className={classes.textfield}
                 required
@@ -98,6 +120,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: '#ffffff',
             minHeight: 169,
             position: 'relative',
+            marginBottom: 25,
         },
         heading: {
             backgroundColor: mainColor,
@@ -105,11 +128,15 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: 18,
             fontWeight: 500,
             margin: '0 10px',
-            padding: '8px 0 8px 16px',
+            padding: '8px 8px 8px 16px',
             boxShadow: '1px 1px 4px 0 rgba(0, 138, 173, 0.25)',
             borderRadius: 4,
             position: 'relative',
             top: -15,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            lineHeight: '22px',
         },
         textfield: {
             maxWidth: 'calc(100% - 60px)',
@@ -138,6 +165,15 @@ const useStyles = makeStyles((theme: Theme) =>
         selectItem: {
             fontSize: 12,
             color: '1d1d1b',
+        },
+        helpIcon: {
+            '&.MuiSvgIcon-root': {
+                width: 21,
+                height: 21,
+            },
+        },
+        helpButton: {
+            padding: 0,
         },
     }),
 );

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { Typography, Button, makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 //import { useAuthorization } from '../../hooks/useAuthorization';
@@ -6,7 +6,7 @@ import { createNewsletter } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { NewsletterSidebar } from './NewsletterSidebar';
-import { SidebarElementStates } from './types';
+import { SidebarElementState } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 
@@ -23,7 +23,17 @@ export const NewsletterPage = () => {
     const [fields, setFields] = useState(initialState);
     const [message, setMessage] = useState('');
     const { type, topic, recipients } = fields;
-    const [active] = useState([SidebarElementStates.Done, SidebarElementStates.Ready]);
+    const [sidebarState, setSidebarState] = useState([SidebarElementState.Ready, SidebarElementState.Inactive]);
+
+    useEffect(() => {
+        console.log(fields.recipients.length);
+        if (fields.recipients.length >= 1) {
+            setSidebarState([SidebarElementState.Done, SidebarElementState.Ready]);
+        }
+        if (fields.recipients.length === 0) {
+            setSidebarState([SidebarElementState.Ready, SidebarElementState.Inactive]);
+        }
+    }, [fields]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
@@ -32,6 +42,7 @@ export const NewsletterPage = () => {
             [name]: value,
         }));
     };
+
     const filterRecipients = (filteredRecipients: string[]): void => {
         setFields(prevFields => ({
             ...prevFields,
@@ -81,7 +92,7 @@ export const NewsletterPage = () => {
             </Grid>
             <Grid container>
                 <Grid item xs={2}>
-                    <NewsletterSidebar active={active} />
+                    <NewsletterSidebar sidebarState={sidebarState} />
                 </Grid>
                 <Grid item xs={8}>
                     <NewsletterRecipent
@@ -102,7 +113,15 @@ export const NewsletterPage = () => {
                     />
                 </Grid>
             </Grid>
-            <Button onClick={handleSubmit}>{t('newsletter.send')}</Button>
+            <Grid container>
+                <Grid item xs={2} />
+
+                <Grid item xs={8} className={classes.formButtonWrapper}>
+                    <Button className={classes.formButton} onClick={handleSubmit}>
+                        {t('newsletter.send')}
+                    </Button>
+                </Grid>
+            </Grid>
         </Grid>
     );
 };
@@ -135,6 +154,22 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: 40,
             lineHeight: '21px',
             fontWeight: 500,
+        },
+        formButtonWrapper: {
+            display: 'flex',
+            justifyContent: 'flex-end',
+        },
+        formButton: {
+            backgroundColor: '#ff7149',
+            fontSize: 14,
+            color: '#ffffff',
+            fontWeight: 'bold',
+            padding: '8px 22px',
+            lineHeight: 1.2,
+            boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.6)',
+            '&:hover': {
+              color: '#ff7149',
+            }
         },
     }),
 );

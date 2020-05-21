@@ -4,15 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { mainColor } from '../../colors';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { SidebarElementStates } from './types';
+import { SidebarElementState } from './types';
 
-export const NewsletterSidebar: React.FC<{ active: string[] }> = ({ active }) => {
+export const NewsletterSidebar: React.FC<{ sidebarState: string[] }> = ({
+    sidebarState,
+}) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     const setElement = (number: number) => {
-        switch (number === 1 ? active[0] : active[1]) {
-            case SidebarElementStates.Inactive:
+        switch (number === 1 ? sidebarState[0] : sidebarState[1]) {
+            case SidebarElementState.Inactive:
                 return (
                     <>
                         <div className={`${classes.numberWrapper} inactive`}>
@@ -23,21 +25,21 @@ export const NewsletterSidebar: React.FC<{ active: string[] }> = ({ active }) =>
                         </span>
                     </>
                 );
-            case SidebarElementStates.Done:
+            case SidebarElementState.Done:
                 return (
                     <>
                         <CheckCircleIcon className={classes.iconReady} />
                         <span className={`${classes.text} inactive`}>{t('newsletter.sidebar.done')}</span>
                     </>
                 );
-            case SidebarElementStates.Error:
+            case SidebarElementState.Error:
                 return (
                     <>
                         <WarningIcon className={classes.iconError} />
                         <span className={classes.text}>{t('newsletter.sidebar.error')}</span>
                     </>
                 );
-            case SidebarElementStates.FileError:
+            case SidebarElementState.FileError:
                 return (
                     <>
                         <WarningIcon className={classes.iconError} />

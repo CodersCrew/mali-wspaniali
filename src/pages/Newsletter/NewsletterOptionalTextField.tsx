@@ -1,8 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
-
-const preschools = ['Przedszkole 1', 'Przedszkole 2', 'Przedszkole 3', 'Przedszkole 4', 'Przedszkole 5'];
-const parents = ['Parent 1', 'Parent 2', 'Parent 3', 'Parent 4', 'Parent 5'];
+import { parentsMockData, preschoolsMockData } from './mockData';
 
 export const NewsletterOptionalTextField: React.FC<{
     classes: Record<'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem', string>;
@@ -71,7 +69,9 @@ export const NewsletterOptionalTextField: React.FC<{
                 },
             }}
         >
-            {partRecipients.primary === 'preschools' || partRecipients.secondary === 'preschool' ? setMenuItems(preschools) : setMenuItems(parents)}
+            {partRecipients.primary === 'preschools' || partRecipients.secondary === 'preschool'
+                ? setMenuItems(preschoolsMockData)
+                : setMenuItems(parentsMockData)}
         </TextField>
     );
 };
