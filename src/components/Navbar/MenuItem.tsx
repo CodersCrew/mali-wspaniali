@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
 import { PowerSettingsNew } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/firebase';
+import { handleSignOut } from '../../queries/authQueries';
 
 type menuListItemProps = {
     link: string;
@@ -32,7 +32,7 @@ export const MenuLogoutItem = () => {
     const history = useHistory();
 
     const handleLogoutClick = () => {
-        firebase.auth.handleSignOut();
+        handleSignOut();
         history.push('/login');
     };
 

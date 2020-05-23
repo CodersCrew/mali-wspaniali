@@ -1,45 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { User } from 'firebase';
 import { HomePageChildCard } from './HomePageChildCard';
-import { HomePageInfo } from '../HomePageInfo/HomePageInfo';
-import { getChildrenData } from '../../../../queries/childQueries';
+import { HomePageInfo } from '../HomePageInfo';
+import { getChildrenByUserId } from '../../../../queries/childQueries';
 import { Child } from '../../../../firebase/types';
+import { useSubscribed } from '../../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../../firebase/userRepository';
+import { useAuthorization } from '../../../../hooks/useAuthorization';
+import BoyAvatar from '../../../../assets/boy.png';
+import GirlAvatar from '../../../../assets/girl.png';
 
 export const HomePageChildren = () => {
+    const currentUser = useAuthorization(true);
     const classes = useStyles();
-    const [children, setChildren] = useState<Child[]>();
     const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(true);
-    const [listeners, setListeners] = useState<(() => void)[]>([]);
 
-    const waitForChildrenData = async () => {
-        const { documents, unsubscribe } = await getChildrenData(5, null, null);
-        if (unsubscribe) {
-            setChildren(documents);
-            setListeners([...listeners, unsubscribe]);
-        }
-    };
+    const children = useSubscribed<Child[], User | null>(
+        (callback: OnSnapshotCallback<Child[]>) => {
+            if (currentUser) {
+                getChildrenByUserId(currentUser.uid, callback);
+            }
+        },
+        [],
+        [currentUser],
+    ) as Child[];
 
-    const detachListeners = () => listeners.forEach(listener => () => listener());
     const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
-
-    useEffect(() => {
-        waitForChildrenData();
-        return () => detachListeners(); // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <div className={classes.infoContainer}>
             <div className={classes.childrenContainer}>
                 {children &&
-                    children.map(({ firstName, userId, avatar }) => {
+                    children.map(({ firstName, id, sex }) => {
                         const PictureComponent = (
-                            <img className={classes.childAvatar} alt="mali_wspaniali_child" src={avatar} />
+                            <img
+                                className={classes.childAvatar}
+                                alt="mali_wspaniali_child"
+                                src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                            />
                         );
                         return (
                             <HomePageChildCard
-                                key={userId}
-                                firstname={firstName}
-                                userId={userId}
+                                key={id}
+                                firstName={firstName}
+                                id={id}
                                 PictureComponent={PictureComponent}
                             />
                         );
@@ -55,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
         childAvatar: {
             width: '122px',
             height: '126px',
-            objectFit: 'cover',
+            objectFit: 'contain',
             borderRadius: '4px 4px 0px 0px',
 
             [theme.breakpoints.down('sm')]: {

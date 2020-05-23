@@ -27,16 +27,12 @@ export const LoginPage = () => {
         handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
     };
 
-    onAuthStateChanged((user: User | null) => {
+    onAuthStateChanged(async (user: User | null) => {
         if (user) {
-            getUserRole(user).then(role => {
-                if (role === 'parent') {
-                    history.push('/parent');
-                }
-                if (role === 'admin') {
-                    history.push('/admin');
-                }
-            });
+            const role = await getUserRole(user);
+            if (role) {
+                history.push(`/${role}`);
+            }
         }
     });
 

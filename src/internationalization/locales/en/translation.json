@@ -13,7 +13,8 @@
         "forgot-password": "Forgot password?"
     },
     "login-wrapper": {
-        "welcome-text": "Welcome to Mali Wspaniali's world!"
+        "welcome-text": "Welcome to Mali Wspaniali's world!",
+        "subheading": "Join the community of conscious parents"
     },
     "registration-page": {
         "already-have-account": "Already have an account?",
@@ -70,7 +71,7 @@
     },
     "newsletter": {
         "header": "Newsletter",
-        "sending-error": "An error ocurred during sending the message.",
+        "sending-error": "An error occurred during sending the message.",
         "sending-success": "The newsletter was sent.",
         "type": "Type",
         "topic": "Topic",
