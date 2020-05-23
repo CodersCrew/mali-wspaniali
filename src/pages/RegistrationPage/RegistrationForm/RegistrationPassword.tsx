@@ -1,5 +1,10 @@
 import React from 'react';
-import { TextField, Typography, InputAdornment, Button } from '@material-ui/core/';
+import {
+    TextField,
+    Typography,
+    InputAdornment,
+    Button,
+} from '@material-ui/core/';
 import { Visibility } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { RegistrationPasswordProps } from './types';
@@ -20,7 +25,9 @@ export const RegistrationPassword = ({
 
     return (
         <>
-            <Typography>{t('registration-page.create-password-text')}</Typography>
+            <Typography>
+                {t('registration-page.create-password-text')}
+            </Typography>
             <TextField
                 required
                 onChange={handleChange}
@@ -63,10 +70,19 @@ export const RegistrationPassword = ({
                 className={classFormItem}
             />
             <div className={classButton}>
-                <Button disabled={activeStep === 0} onClick={handleBack} className={classPrevBtn}>
+                <Button
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classPrevBtn}
+                >
                     {t('back')}
                 </Button>
-                <Button type="submit" variant="contained" className={classNextBtn} color="secondary">
+                <Button
+                    type="submit"
+                    variant="contained"
+                    className={classNextBtn}
+                    color="secondary"
+                >
                     {t('registration-page.create-password')}
                 </Button>
             </div>

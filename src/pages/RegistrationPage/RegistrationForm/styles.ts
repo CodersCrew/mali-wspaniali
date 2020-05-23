@@ -107,5 +107,5 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginTop: '50px',
             boxShadow: theme.shadows[5],
         },
-    }),
+    })
 );

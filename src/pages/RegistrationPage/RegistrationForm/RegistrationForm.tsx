@@ -57,7 +57,10 @@ export const RegistrationForm = () => {
                         email={email}
                         form={form}
                         classForm={classes.formItem}
-                        classButton={clsx(classes.buttonWrapper, activeStep === 0 && 'emailContent')}
+                        classButton={clsx(
+                            classes.buttonWrapper,
+                            activeStep === 0 && 'emailContent'
+                        )}
                         classNextBtn={classes.nextButton}
                     />
                 );
@@ -93,7 +96,10 @@ export const RegistrationForm = () => {
                 return (
                     <RegistrationFeedback
                         classLink={classes.goToHomepageLink}
-                        classHeader={clsx(classes.loginHeader, activeStep === 3 && 'confirmation')}
+                        classHeader={clsx(
+                            classes.loginHeader,
+                            activeStep === 3 && 'confirmation'
+                        )}
                         classWrapper={classes.confirmWrapper}
                     />
                 );
@@ -102,8 +108,10 @@ export const RegistrationForm = () => {
         }
     };
 
-    const handleNext = () => setActiveStep(prevActiveStep => prevActiveStep + 1);
-    const handleBack = () => setActiveStep(prevActiveStep => prevActiveStep - 1);
+    const handleNext = () =>
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const handleBack = () =>
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -123,23 +131,38 @@ export const RegistrationForm = () => {
                     // history.push('/login');
                     handleNext();
                 })
-                .catch(err => {
-                    openAlertDialog({ type: 'error', description: err.message });
+                .catch((err) => {
+                    openAlertDialog({
+                        type: 'error',
+                        description: err.message,
+                    });
                 });
         }
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const { id, value } = event.target;
-        setForm(prevForm => ({ ...prevForm, [id]: value }));
+        setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
 
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.container}>
-                <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                    {activeStep !== 3 && <div className={classes.loginHeader}>{t('registration-page.register')}</div>}
-                    <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
+                <form
+                    className={classes.form}
+                    autoComplete="off"
+                    onSubmit={handleSubmit}
+                >
+                    {activeStep !== 3 && (
+                        <div className={classes.loginHeader}>
+                            {t('registration-page.register')}
+                        </div>
+                    )}
+                    <Stepper
+                        activeStep={activeStep}
+                        orientation="vertical"
+                        className={classes.stepper}
+                    >
                         {steps.map((step, idx) => (
                             <Step key={step} style={{ border: 'none' }}>
                                 <StepLabel>{step}</StepLabel>
