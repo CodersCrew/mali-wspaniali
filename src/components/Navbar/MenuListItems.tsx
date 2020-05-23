@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, MenuList, Paper, makeStyles } from '@material-ui/core/';
+import { Avatar, MenuList, Paper, makeStyles, Theme, createStyles } from '@material-ui/core/';
 import { FormatListBulleted, QuestionAnswer, Build } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../firebase/types';
@@ -24,7 +24,7 @@ export const MenuListItems = (props: MenuListItemsProps) => {
 
     return (
         <Paper className={classes.menuList}>
-            <MenuList>
+            <MenuList dense={true}>
                 {childrenData.map(child => {
                     const { firstName, id, sex } = child;
                     const iconComponent = (
@@ -47,18 +47,24 @@ export const MenuListItems = (props: MenuListItemsProps) => {
     );
 };
 
-const useStyles = makeStyles({
-    menuList: {
-        position: 'absolute',
-        zIndex: 10,
-        right: '40px',
-        marginTop: '10px',
-    },
-    listItemAvatar: {
-        width: '24px',
-        height: '24px',
-        '&> img': {
-            objectFit: 'contain',
+const useStyles = makeStyles((theme: Theme) => 
+    createStyles({
+        menuList: {
+            position: 'absolute',
+            zIndex: 10,
+            right: '40px',
+            marginTop: '10px',
+
+            [theme.breakpoints.down('sm')]: {
+                right: '10px',
+            },
         },
-    },
-});
+        listItemAvatar: {
+            width: '24px',
+            height: '24px',
+            '&> img': {
+                objectFit: 'contain',
+            },
+        },
+    }),
+);

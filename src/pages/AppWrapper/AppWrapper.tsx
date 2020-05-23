@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { makeStyles, createMuiTheme, ThemeProvider, createStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import { Sidebar } from '../../components/Sidebar';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
 
 export const AppWrapper: FC = ({ children }) => {
@@ -14,7 +15,10 @@ export const AppWrapper: FC = ({ children }) => {
         <ThemeProvider theme={theme}>
             <div className={classes.background}>
                 <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>{children}</div>
+                <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
+                    <Navbar />
+                    {children}
+                </div>
             </div>
         </ThemeProvider>
     );
@@ -38,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 backgroundColor,
+                padding: 0
             },
         },
         container: {
@@ -54,8 +59,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 transition: 'all 0.5s',
             },
             [theme.breakpoints.down('sm')]: {
-                marginLeft: 'auto',
-                marginRight: 'auto',
+                marginLeft: 0,
+                marginRight: 0,
             },
         },
     }),

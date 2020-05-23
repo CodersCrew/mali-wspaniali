@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { Avatar, IconButton, makeStyles, Button } from '@material-ui/core/';
+import { Avatar, IconButton, makeStyles, Button, Theme, createStyles } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
 import { User } from '../../firebase/firebase';
-import { secondaryColor } from '../../colors';
+import { secondaryColor, mainColor, white, textColor } from '../../colors';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { getChildrenByUserId } from '../../queries/childQueries';
 import { Child } from '../../firebase/types';
 import { MenuListItems } from './MenuListItems';
 import { useAuthorization } from '../../hooks/useAuthorization';
+import Logo from '../../assets/MALWSP_logo_nav.png';
+
+const isMobile = window.screen.width < 600;
 
 export const Navbar = () => {
     const classes = useStyles();
@@ -32,6 +35,7 @@ export const Navbar = () => {
     return (
         <div>
             <div className={classes.menuContainer}>
+                { isMobile && <img src={Logo} className={classes.logo}/> }
                 <IconButton color="inherit">
                     <Notifications className={classes.notificationsIcon} />
                 </IconButton>
@@ -46,25 +50,62 @@ export const Navbar = () => {
     );
 };
 
-const useStyles = makeStyles({
-    avatar: {
-        width: '40px',
-        height: '40px',
-        marginRight: '50px',
-        marginLeft: '20px',
-        backgroundColor: secondaryColor,
-    },
-    avatarButton: {
-        color: 'white',
-    },
-    notificationsIcon: {
-        width: '19px',
-        height: '19px',
-        color: secondaryColor,
-    },
-    menuContainer: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        marginTop: '30px',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        avatar: {
+            width: '40px',
+            height: '40px',
+            marginRight: '50px',
+            marginLeft: '20px',
+            backgroundColor: secondaryColor,
+
+            [theme.breakpoints.down('sm')]: {
+                backgroundColor: white,
+                marginRight: '10px',
+                marginLeft: '10px'
+            },
+        },
+        avatarButton: {
+            color: 'white',
+
+            [theme.breakpoints.down('sm')]: {
+                color: textColor,
+                fontSize: '14px',
+                fontWeight: 'bold',
+            },
+        },
+        notificationsIcon: {
+            width: '19px',
+            height: '19px',
+            color: secondaryColor,
+
+            [theme.breakpoints.down('sm')]: {
+                color: white,
+                marginLeft: 'auto'
+            },
+        },
+        menuContainer: {
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginTop: '30px',
+            zIndex: 10,
+            borderRadius: '8px',
+
+            [theme.breakpoints.down('sm')]: {
+                backgroundColor: mainColor,
+                width: '100vw',
+                height: '60px',
+                marginTop: 0,
+                alignItems: 'center',
+                position: 'sticky',
+                top: 0,
+            },
+        },
+        logo: {
+            width: '54px',
+            height: '44px',
+            marginRight: 'auto',
+            marginLeft: '10px'
+        }
+    }),
+);
