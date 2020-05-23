@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import { Avatar, IconButton, makeStyles, Button } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
+import { User } from '../../firebase/firebase';
 import { secondaryColor } from '../../colors';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { getChildrenByUserId } from '../../queries/childQueries';
-import { getCurrentUser } from '../../queries/userQueries';
 import { Child } from '../../firebase/types';
 import { MenuListItems } from './MenuListItems';
+import { useAuthorization } from '../../hooks/useAuthorization';
 
 export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
     const [isMenuOpen, setMenuOpen] = useState(false);
-
-    const currentUser = getCurrentUser();
-    const children = useSubscribed<Child[]>((callback: OnSnapshotCallback<Child[]>) => {
-        if (currentUser) {
-            getChildrenByUserId(currentUser.uid, callback);
-        }
-    }, []) as Child[];
+    const currentUser = useAuthorization(true);
+    const children = useSubscribed<Child[], User | null>(
+        (callback: OnSnapshotCallback<Child[]>) => {
+            if (currentUser) {
+                getChildrenByUserId(currentUser.uid, callback);
+            }
+        },
+        [],
+        [currentUser],
+    ) as Child[];
 
     const handleAvatarClick = () => {
         setMenuOpen(prevOpen => !prevOpen);

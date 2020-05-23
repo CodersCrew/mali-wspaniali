@@ -29,6 +29,5 @@ export const blogCategoryColors = {
     lightOrange: '#fed448',
     blue: '#4ca9df',
 };
-export const darkFont = '#1d1d1b';
 export const white = '#ffffff';
 export const darkGrey = '#e9e9e9';

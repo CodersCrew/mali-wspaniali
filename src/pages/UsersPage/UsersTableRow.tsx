@@ -6,18 +6,17 @@ import { Document, Agreement } from '../../firebase/types';
 export const UsersTableRow = ({ user }: { user: Document }) => {
     const { t } = useTranslation();
 
-    // eslint-disable-next-line consistent-return
     const getAgreements = () => {
         if (user.agreements) {
-            user.agreements.map((agreement: Agreement) => (
+            return user.agreements.map((agreement: Agreement) => (
                 <TableCell key={`${user.userId}-${agreement.agreementId}`}>
                     {agreement.agreementId}
                     {agreement.isAgreed}
                 </TableCell>
             ));
-        } else {
-            return <TableCell>{t('no-results')}</TableCell>;
         }
+
+        return <TableCell>{t('no-results')}</TableCell>;
     };
 
     return (

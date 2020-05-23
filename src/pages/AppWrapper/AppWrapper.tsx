@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { makeStyles, createMuiTheme, ThemeProvider, createStyles, Theme } from '@material-ui/core';
+import clsx from 'clsx';
 import { Sidebar } from '../../components/Sidebar';
 import { mainColor, backgroundColor } from '../../colors';
 
@@ -13,7 +14,7 @@ export const AppWrapper: FC = ({ children }) => {
         <ThemeProvider theme={theme}>
             <div className={classes.background}>
                 <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                <div className={classes.container}>{children}</div>
+                <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>{children}</div>
             </div>
         </ThemeProvider>
     );
@@ -41,10 +42,21 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         container: {
             backgroundColor,
+            width: 'calc(100% - 107px)',
             minHeight: 'calc(100vh - 20px)',
             height: '100%',
+            marginLeft: '107px',
             borderRadius: '10px',
-            width: '100%',
+            transition: 'all 0.4s',
+            '&.opened': {
+                marginLeft: '230px',
+                width: 'calc(100% - 230px)',
+                transition: 'all 0.5s',
+            },
+            [theme.breakpoints.down('sm')]: {
+                marginLeft: 'auto',
+                marginRight: 'auto',
+            },
         },
     }),
 );

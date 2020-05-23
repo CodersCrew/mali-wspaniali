@@ -13,7 +13,8 @@
         "forgot-password": "Zapomniałeś hasła?"
     },
     "login-wrapper": {
-        "welcome-text": "Witaj w świecie Małych Wspaniałych!"
+        "welcome-text": "Witaj w świecie Małych Wspaniałych!",
+        "subheading": "Dołącz do społeczności świadomych rodziców"
     },
     "registration-page": {
         "already-have-account": "Masz już konto?",
@@ -126,7 +127,7 @@
         "other": "Inne"
     },
     "home-page-content": {
-        "greeting": "Dzien Dobry!",
+        "greeting": "Dzień Dobry!",
         "check-children-activity": "Sprawdź aktywność swoich dzieci w programie",
         "mali-wspaniali": "Mali Wspaniali",
         "foundation-header": "Tutaj Nagłówek Fundacji",

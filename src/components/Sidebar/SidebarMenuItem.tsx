@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
 import clsx from 'clsx';
-import { backgroundColor, secondaryColor } from '../../colors';
+import { backgroundColor, secondaryColor, white } from '../../colors';
 
 type SidebarMenuItem = {
     name: string;
@@ -50,7 +50,7 @@ const useStyles = makeStyles({
 
             '& a': {
                 textDecoration: 'none',
-                color: '#FFFFFF',
+                color: white,
             },
 
             '&:hover': {
@@ -88,7 +88,7 @@ const useStyles = makeStyles({
     menuItemIcon: {
         cursor: 'pointer',
         display: 'flex',
-        color: '#FFFFFF',
+        color: white,
         marginRight: 12,
 
         '&.closed': {

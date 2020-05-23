@@ -1,5 +1,7 @@
-export type Document = firebase.firestore.DocumentData;
-export type Snapshot = firebase.firestore.DocumentSnapshot;
+import { firestore } from 'firebase';
+
+export type Document = firestore.DocumentData;
+export type Snapshot = firestore.DocumentSnapshot;
 
 export interface Article {
     id: string;
@@ -54,7 +56,7 @@ export interface Child {
     city: string;
     kindergartenNo: string;
     groupNo: string;
-    avatar: string;
+    sex: string;
     results: Result[];
     agreements: Agreement[];
 }
