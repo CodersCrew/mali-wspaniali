@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import clsx from 'clsx';
-import PLFlag from '../assets/pl.png';
-import ENFlag from '../assets/en.png';
+import PlFlag from '../assets/pl.png';
+import EnFlag from '../assets/en.png';
 import { backgroundColor, secondaryColor } from '../colors';
 
 interface Props {
@@ -19,20 +19,21 @@ export const LanguageSelector: React.FC<Props> = ({ isSidebarOpen }) => {
     const changeLanguage = (lng: string) => {
         return i18n.changeLanguage(lng);
     };
-    const languageImage = (flag: string, language: string, alt: string) => {
+    const languageImage = (flag: string, language: string) => {
         return (
             <div className={classes.box} onClick={() => changeLanguage(language)}>
-                <img className={clsx(classes.img, isSidebarOpen ? 'opened' : null)}  src={flag} alt={alt} />
-                {isSidebarOpen && <span className={clsx(classes.name, isSidebarOpen ? 'opened' : null)}>{t(`languages.${language}`)}</span>}
+                <img className={clsx(classes.img, isSidebarOpen ? 'opened' : null)} src={flag} alt={language} />
+                {isSidebarOpen && (
+                    <span className={clsx(classes.name, isSidebarOpen ? 'opened' : null)}>
+                        {t(`languages.${language}`)}
+                    </span>
+                )}
             </div>
         );
     };
     return (
         <Container className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
-            {localStorageLanguage === 'pl' ?
-                languageImage(ENFlag, 'en', 'pl') :
-                languageImage(PLFlag, 'pl', 'en')
-            }
+            {localStorageLanguage === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}
         </Container>
     );
 };
@@ -62,7 +63,7 @@ const useStyles = makeStyles({
                 color: secondaryColor,
                 transition: 'all 0.2s ease-in-out',
             },
-        }
+        },
     },
     box: {
         display: 'flex',
@@ -70,7 +71,6 @@ const useStyles = makeStyles({
     name: {
         '&.opened': {
             marginLeft: 5,
-        }
+        },
     },
-
 });
