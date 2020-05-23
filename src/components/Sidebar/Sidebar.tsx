@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme: Theme) =>
             background: mainColor,
 
             '&.opened': {
-                minWidth: '230px',
-                width: '230px',
+                minWidth: '240px',
+                width: '240px',
                 transition: 'all 0.5s',
             },
 

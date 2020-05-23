@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '10px',
             transition: 'all 0.4s',
             '&.opened': {
-                marginLeft: '230px',
-                width: 'calc(100% - 230px)',
+                marginLeft: '240px',
+                width: 'calc(100% - 240px)',
                 transition: 'all 0.5s',
             },
             [theme.breakpoints.down('sm')]: {

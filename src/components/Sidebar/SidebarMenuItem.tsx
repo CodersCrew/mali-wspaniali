@@ -45,7 +45,7 @@ const useStyles = makeStyles({
         '&.opened': {
             justifyContent: 'flex-start',
             padding: '8px 11px 8px 10px',
-            width: '200px',
+            width: '210px',
             borderRadius: '4px',
 
             '& a': {
