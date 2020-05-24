@@ -6,7 +6,6 @@ import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
-import { Navbar } from '../../components/Navbar/Navbar';
 import { getArticles } from '../../queries/articleQueries';
 import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 import { ArticleCategories } from './types';
@@ -75,7 +74,6 @@ export const BlogMainPage = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Navbar />
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
