@@ -9,7 +9,7 @@ type SidebarMenuItem = {
     link: string;
     icon: ReactElement;
     isSidebarOpen: boolean;
-}; 
+};
 const getActiveClass = (pathUrl: string, link: string) => {
     if (pathUrl === link) {
         return 'active';
@@ -124,5 +124,5 @@ const useStyles = makeStyles({
     link: {
         textDecoration: 'none',
         color: white,
-    }
+    },
 });
