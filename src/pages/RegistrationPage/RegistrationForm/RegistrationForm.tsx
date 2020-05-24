@@ -9,6 +9,7 @@ import { createUser } from '../../../queries/userQueries';
 import { passwordStrengthTest } from '../passwordStrengthTest';
 import { useStyles } from './styles';
 import { theme } from '../../../theme';
+import clsx from 'clsx';
 import { RegistrationEmail } from './RegistrationEmail';
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationPassword } from './RegistrationPassword';
@@ -41,15 +42,12 @@ export const RegistrationForm = () => {
                 return (
                     <RegistrationEmail
                         handleChange={handleChange}
-                        handleBack={handleBack}
                         handleNext={handleNext}
-                        activeStep={activeStep}
                         email={email}
                         form={form}
-                        classForm={classes.nextButton}
-                        classButton={classes.buttonWrapper}
+                        classForm={classes.formItem}
+                        classButton={clsx(classes.buttonWrapper, activeStep === 0 && 'emailContent')}
                         classNextBtn={classes.nextButton}
-                        classPrevBtn={classes.prevButton}
                     />
                 );
             case 1:
@@ -72,7 +70,7 @@ export const RegistrationForm = () => {
                         activeStep={activeStep}
                         password={password}
                         passwordConfirm={passwordConfirm}
-                        classForm={classes.nextButton}
+                        classForm={classes.formItem}
                         classButton={classes.buttonWrapper}
                         classNextBtn={classes.nextButton}
                         classPrevBtn={classes.prevButton}
@@ -83,7 +81,7 @@ export const RegistrationForm = () => {
                 return (
                     <RegistrationFeedback
                         classLink={classes.goToHomepageLink}
-                        classHeader={classes.loginHeader}
+                        classHeader={clsx(classes.loginHeader, activeStep === 3 && 'confirmation')}
                         classWrapper={classes.confirmWrapper}
                     />
                 );
@@ -127,10 +125,10 @@ export const RegistrationForm = () => {
         <ThemeProvider theme={theme}>
             <div className={classes.container}>
                 <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                    <div className={classes.loginHeader}>{t('registration-page.register')}</div>
-                    <Stepper activeStep={activeStep} orientation="vertical">
+                    {activeStep !== 3 && <div className={classes.loginHeader}>{t('registration-page.register')}</div>}
+                    <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
                         {steps.map((step, idx) => (
-                            <Step key={step}>
+                            <Step key={step} style={{ border: 'none' }}>
                                 <StepLabel>{step}</StepLabel>
                                 <StepContent>
                                     <>{getStepContent(idx)}</>

@@ -8,15 +8,12 @@ export type RegisterForm = {
 
 export interface RegistrationEmailProps {
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    handleBack(): void;
     handleNext(): void;
-    activeStep: number;
     email: string;
     form: RegisterForm;
     classForm: string;
     classButton: string;
     classNextBtn: string;
-    classPrevBtn: string;
 }
 
 export interface RegistrationAgreementProps {

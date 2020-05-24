@@ -81,6 +81,10 @@ const useStyles = makeStyles({
         fontSize: '21px',
         lineHeight: '26px',
         color: backgroundColor,
+
+        '@media (max-width:767px)': {
+            display: 'none',
+        },
     },
     logo: {
         '@media (max-width:767px)': {
