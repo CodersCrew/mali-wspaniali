@@ -17,7 +17,7 @@ export const AppWrapper: FC = ({ children }) => {
                 <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
                 <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
                     <Navbar />
-                    {children}
+                    <div className={classes.content}>{children}</div>
                 </div>
             </div>
         </ThemeProvider>
@@ -59,9 +59,16 @@ const useStyles = makeStyles((theme: Theme) =>
                 transition: 'all 0.5s',
             },
             [theme.breakpoints.down('sm')]: {
-                marginLeft: 0,
-                marginRight: 0,
+                margin: 0,
+                width: '100%'
             },
         },
+        content: {
+            [theme.breakpoints.down('sm')]: {
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                padding: '10px 10px 10px 10px',
+            },
+        }
     }),
 );

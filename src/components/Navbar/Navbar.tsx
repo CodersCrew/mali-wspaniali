@@ -11,8 +11,6 @@ import { MenuListItems } from './MenuListItems';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import Logo from '../../assets/MALWSP_logo_nav.png';
 
-const isMobile = window.screen.width < 600;
-
 export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
@@ -35,7 +33,7 @@ export const Navbar = () => {
     return (
         <div>
             <div className={classes.menuContainer}>
-                { isMobile && <img src={Logo} className={classes.logo}/> }
+                <img src={Logo} className={classes.logo} />
                 <IconButton color="inherit">
                     <Notifications className={classes.notificationsIcon} />
                 </IconButton>
@@ -89,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'flex-end',
             marginTop: '30px',
             zIndex: 10,
-            borderRadius: '8px',
+            borderRadius: '0 0 8px 8px',
 
             [theme.breakpoints.down('sm')]: {
                 backgroundColor: mainColor,
@@ -97,15 +95,20 @@ const useStyles = makeStyles((theme: Theme) =>
                 height: '60px',
                 marginTop: 0,
                 alignItems: 'center',
-                position: 'sticky',
+                position: 'fixed',
                 top: 0,
             },
         },
         logo: {
-            width: '54px',
-            height: '44px',
-            marginRight: 'auto',
-            marginLeft: '10px'
+            display: 'none',
+
+            [theme.breakpoints.down('sm')]: {
+                display: 'block',
+                width: '54px',
+                height: '44px',
+                marginRight: 'auto',
+                marginLeft: '10px'
+            },
         }
     }),
 );

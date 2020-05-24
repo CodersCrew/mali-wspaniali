@@ -47,7 +47,7 @@ export const MenuListItems = (props: MenuListItemsProps) => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         menuList: {
             position: 'absolute',
@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 right: '10px',
+                top: '45px'
             },
         },
         listItemAvatar: {
