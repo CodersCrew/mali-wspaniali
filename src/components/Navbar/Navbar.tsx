@@ -33,7 +33,7 @@ export const Navbar = () => {
     return (
         <div>
             <div className={classes.menuContainer}>
-                <img src={Logo} className={classes.logo} />
+                <img src={Logo} className={classes.logo} alt='Logo Mali Wspaniali'/>
                 <IconButton color="inherit">
                     <Notifications className={classes.notificationsIcon} />
                 </IconButton>
