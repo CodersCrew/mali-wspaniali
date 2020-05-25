@@ -2,6 +2,7 @@ import React from 'react';
 import { TextField, Button } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { RegistrationEmailProps } from './types';
+import { emailTest } from '../emailTest';
 
 export const RegistrationEmail = ({
     handleChange,
@@ -34,7 +35,7 @@ export const RegistrationEmail = ({
                     onClick={handleNext}
                     className={classNextBtn}
                     color="secondary"
-                    disabled={!form.email}
+                    disabled={!emailTest(email)}
                 >
                     {t('next')}
                 </Button>
