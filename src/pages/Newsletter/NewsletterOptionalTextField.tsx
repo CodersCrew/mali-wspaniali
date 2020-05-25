@@ -3,26 +3,41 @@ import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/
 import { parentsMockData, preschoolsMockData } from './mockData';
 
 export const NewsletterOptionalTextField: React.FC<{
-    classes: Record<'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem', string>;
+    classes: Record<
+        | 'container'
+        | 'textfield'
+        | 'heading'
+        | 'underlineFocus'
+        | 'selectItem'
+        | 'inputChipLabel'
+        | 'asterisk'
+        | 'selectMenuItem'
+        | 'selectMenuCheckbox'
+        | 'selectMenuItemText',
+        string
+    >;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    filterRecipients: (filteredRecipients: string[]) => void;
+    selectRecipients: (filteredRecipients: string[]) => void;
     recipients: string[];
     partRecipients: {
         primary: string;
         secondary: string;
     };
-}> = ({ classes, handleChange, filterRecipients, recipients, partRecipients }) => {
-    const handleDelete = (value: any) => {
-        console.log('delete item', value);
+}> = ({ classes, handleChange, selectRecipients, recipients, partRecipients }) => {
+    const handleDelete = (value: string) => {
         const filteredRecipients = recipients.filter(element => element !== value);
-        filterRecipients(filteredRecipients);
+        selectRecipients(filteredRecipients);
     };
 
     const setMenuItems = (array: string[]) => {
         return array.map(item => (
-            <MenuItem key={item} value={item}>
-                <Checkbox checked={recipients.indexOf(item) > -1} />
-                <ListItemText primary={item} />
+            <MenuItem key={item} value={item} className={classes.selectMenuItem}>
+                <Checkbox
+                    size={'small'}
+                    checked={recipients.indexOf(item) > -1}
+                    className={classes.selectMenuCheckbox}
+                />
+                <ListItemText classes={{ primary: classes.selectMenuItemText }} primary={item} />
             </MenuItem>
         ));
     };
@@ -50,12 +65,16 @@ export const NewsletterOptionalTextField: React.FC<{
                     },
                 },
                 renderValue: value => {
-                    const stringValue = value as [];
-                    return stringValue.map(value => (
+                    const stringValues = value as string[];
+                    return stringValues.map(stringValue => (
                         <Chip
-                            key={value}
-                            label={value as string}
-                            onDelete={() => handleDelete(value)}
+                            classes={{
+                                label: classes.inputChipLabel,
+                            }}
+                            size={'small'}
+                            key={stringValue}
+                            label={stringValue as string}
+                            onDelete={() => handleDelete(stringValue)}
                             onMouseDown={event => {
                                 event.stopPropagation();
                             }}
@@ -68,6 +87,11 @@ export const NewsletterOptionalTextField: React.FC<{
                     focused: classes.underlineFocus,
                 },
             }}
+            InputLabelProps={{
+                classes: {
+                    asterisk: classes.asterisk,
+                },
+            }}
         >
             {partRecipients.primary === 'preschools' || partRecipients.secondary === 'preschool'
                 ? setMenuItems(preschoolsMockData)
@@ -75,5 +99,3 @@ export const NewsletterOptionalTextField: React.FC<{
         </TextField>
     );
 };
-
-//TODO ADD PARENTS LIST MENU ITEMS

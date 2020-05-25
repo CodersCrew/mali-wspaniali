@@ -72,6 +72,8 @@
     "newsletter": {
         "header": "Nowa wiadomość",
         "subHeader": "Aby wysłać newsletter uzupełnij wszystkie wymagane pola.",
+        "recipient-heading": "Do kogo chcesz wysłać newsletter?",
+        "content-heading": "Treść newslettera",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success": "Newsletter został wysłany.",
         "type": "Typ",

@@ -2,8 +2,11 @@ import React from 'react';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
 
 export const NewsletterPrimaryTextField: React.FC<{
-  classes: Record<'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem', string>;
-  partRecipients: {
+    classes: Record<
+        'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem' | 'inputChipLabel' | 'asterisk',
+        string
+    >;
+    partRecipients: {
         primary: string;
         secondary: string;
     };
@@ -24,16 +27,25 @@ export const NewsletterPrimaryTextField: React.FC<{
                     },
                 },
                 renderValue: value => {
-                    const label = value === 'parent' ? 'Rodzice' : 'Przedszkola';
+                    const chipLabel = value === 'parent' ? 'Rodzice' : 'Przedszkola';
                     return (
                         <Chip
-                            label={label}
+                            classes={{
+                                label: classes.inputChipLabel,
+                            }}
+                            size={'small'}
+                            label={chipLabel}
                             onDelete={() => handleDelete('primary', value as string)}
                             onMouseDown={event => {
                                 event.stopPropagation();
                             }}
                         />
                     );
+                },
+            }}
+            InputLabelProps={{
+                classes: {
+                    asterisk: classes.asterisk,
                 },
             }}
             InputProps={{

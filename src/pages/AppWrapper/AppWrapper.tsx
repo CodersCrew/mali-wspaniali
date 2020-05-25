@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 backgroundColor,
-                padding: 0
+                padding: 0,
             },
         },
         container: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             [theme.breakpoints.down('sm')]: {
                 margin: 0,
-                width: '100%'
+                width: '100%',
             },
         },
         content: {
@@ -69,6 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginRight: 'auto',
                 padding: '10px 10px 10px 10px',
             },
-        }
+        },
     }),
 );

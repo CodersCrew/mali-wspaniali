@@ -1,14 +1,17 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
-import { Typography, Button, makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
+import { Typography, Button, makeStyles, createStyles, ThemeProvider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-//import { useAuthorization } from '../../hooks/useAuthorization';
+import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
-import { Navbar } from '../../components/Navbar/Navbar';
 import { NewsletterSidebar } from './NewsletterSidebar';
 import { SidebarElementState } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
+import { openDialog } from '../../utils/openDialog';
+import { NewsletterSentModal } from './NewsletterSentModal';
+import { theme } from '../../theme';
+import { secondaryColor, white } from '../../colors';
 
 const initialState = {
     type: '',
@@ -17,23 +20,34 @@ const initialState = {
 };
 
 export const NewsletterPage = () => {
-    //useAuthorization(true, '/', ['admin']);
+    useAuthorization(true, '/', ['admin']);
     const classes = useStyles();
     const { t } = useTranslation();
     const [fields, setFields] = useState(initialState);
     const [message, setMessage] = useState('');
     const { type, topic, recipients } = fields;
-    const [sidebarState, setSidebarState] = useState([SidebarElementState.Ready, SidebarElementState.Inactive]);
+    const [sidebarState, setSidebarState] = useState({
+        topElement: SidebarElementState.Ready,
+        bottomElement: SidebarElementState.Inactive,
+    });
 
     useEffect(() => {
-        console.log(fields.recipients.length);
-        if (fields.recipients.length >= 1) {
-            setSidebarState([SidebarElementState.Done, SidebarElementState.Ready]);
+        if (fields.recipients.length > 0) {
+            setSidebarState({ topElement: SidebarElementState.Done, bottomElement: SidebarElementState.Ready });
         }
-        if (fields.recipients.length === 0) {
-            setSidebarState([SidebarElementState.Ready, SidebarElementState.Inactive]);
+        if (fields.recipients.length === 0 && !fields.type && !fields.topic && !message) {
+            setSidebarState({ topElement: SidebarElementState.Ready, bottomElement: SidebarElementState.Inactive });
         }
-    }, [fields]);
+        if (fields.recipients.length === 0 && (fields.type || fields.topic || message)) {
+            setSidebarState(prevSidebarState => ({ ...prevSidebarState, topElement: SidebarElementState.Error }));
+        }
+        if ((!fields.type && (fields.topic || message)) || ((!fields.type || !fields.topic) && message)) {
+            setSidebarState(prevSidebarState => ({
+                ...prevSidebarState,
+                bottomElement: SidebarElementState.Error,
+            }));
+        }
+    }, [fields, message]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
@@ -43,7 +57,14 @@ export const NewsletterPage = () => {
         }));
     };
 
-    const filterRecipients = (filteredRecipients: string[]): void => {
+    const handleTypeDelete = (): void => {
+        setFields(prevFields => ({
+            ...prevFields,
+            type: '',
+        }));
+    };
+
+    const selectRecipients = (filteredRecipients: string[]): void => {
         setFields(prevFields => ({
             ...prevFields,
             recipients: filteredRecipients,
@@ -51,20 +72,6 @@ export const NewsletterPage = () => {
     };
 
     const handleSubmit = async () => {
-        if (!type || !topic || !recipients) {
-            return openAlertDialog({
-                type: 'error',
-                description: t('newsletter.fill-required-fields'),
-            });
-        }
-
-        if (!message) {
-            return openAlertDialog({
-                type: 'error',
-                description: t('newsletter.empty-message'),
-            });
-        }
-
         const response = await createNewsletter({ type, topic, recipients, message });
         if (response.error) {
             return openAlertDialog({
@@ -72,65 +79,54 @@ export const NewsletterPage = () => {
                 description: t('newsletter.sending-error'),
             });
         }
-        return openAlertDialog({
-            type: 'success',
-            description: t('newsletter.sending-success'),
-        });
+        return openDialog(NewsletterSentModal, null);
     };
 
     return (
-        <Grid className={classes.container}>
-            <Navbar />
-            <Grid item xs={12}>
-                <Typography variant="h1" gutterBottom className={classes.header}>
+        <ThemeProvider theme={theme}>
+            <div className={classes.container}>
+                <Typography variant="h1" className={classes.header}>
                     {t('newsletter.header')}
                 </Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <Typography variant="h2" gutterBottom className={classes.subHeader}>
+                <Typography variant="h2" className={classes.subHeader}>
                     {t('newsletter.subHeader')}
                 </Typography>
-            </Grid>
-            <Grid container>
-                <Grid item xs={2}>
+                <div className={classes.formContainer}>
                     <NewsletterSidebar sidebarState={sidebarState} />
-                </Grid>
-                <Grid item xs={8}>
-                    <NewsletterRecipent
-                        handleChange={handleChange}
-                        recipients={recipients}
-                        filterRecipients={filterRecipients}
-                    />
-                </Grid>
-            </Grid>
-            <Grid container>
-                <Grid item xs={2} />
-                <Grid item xs={8}>
-                    <NewsletterContent
-                        handleChange={handleChange}
-                        fields={fields}
-                        message={message}
-                        setMessage={setMessage}
-                    />
-                </Grid>
-            </Grid>
-            <Grid container>
-                <Grid item xs={2} />
-
-                <Grid item xs={8} className={classes.formButtonWrapper}>
-                    <Button className={classes.formButton} onClick={handleSubmit}>
+                    <div className={classes.inputContainer}>
+                        <NewsletterRecipent
+                            handleChange={handleChange}
+                            recipients={recipients}
+                            selectRecipients={selectRecipients}
+                        />
+                        <NewsletterContent
+                            handleTypeDelete={handleTypeDelete}
+                            handleChange={handleChange}
+                            fields={fields}
+                            message={message}
+                            setMessage={setMessage}
+                        />
+                    </div>
+                </div>
+                <div className={classes.formButtonWrapper}>
+                    <Button
+                        disabled={fields.recipients.length === 0 || !fields.type || !fields.topic || !message}
+                        className={classes.formButton}
+                        onClick={handleSubmit}
+                        classes={{ disabled: classes.formButtonDisabled }}
+                    >
                         {t('newsletter.send')}
                     </Button>
-                </Grid>
-            </Grid>
-        </Grid>
+                </div>
+            </div>
+        </ThemeProvider>
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
-            padding: '0 0 54px 60px',
+            padding: '0 150px 54px 60px',
             fontFamily: 'Montserrat, sans-serif',
             [theme.breakpoints.down('sm')]: {
                 padding: '0 10px',
@@ -156,21 +152,32 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight: '21px',
             fontWeight: 500,
         },
+        formContainer: {
+            display: 'flex',
+            width: '100%',
+        },
+        inputContainer: {
+            width: '100%',
+        },
         formButtonWrapper: {
             display: 'flex',
             justifyContent: 'flex-end',
         },
         formButton: {
-            backgroundColor: '#ff7149',
+            backgroundColor: secondaryColor,
             fontSize: 14,
-            color: '#ffffff',
+            color: white,
             fontWeight: 'bold',
             padding: '8px 22px',
             lineHeight: 1.2,
             boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.6)',
-            '&:hover':   {
-              color: '#ff7149',
-            }
+            '&:hover': {
+                color: secondaryColor,
+            },
+        },
+        formButtonDisabled: {
+            backgroundColor: 'rgba(0, 0, 0, 0.23)',
+            color: 'rgba(0, 0, 0, 0.26)',
         },
     }),
 );

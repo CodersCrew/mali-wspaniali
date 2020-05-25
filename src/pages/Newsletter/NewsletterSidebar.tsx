@@ -1,19 +1,20 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { mainColor } from '../../colors';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { mainColor, white, newsletterColors } from '../../colors';
 import { SidebarElementState } from './types';
 
-export const NewsletterSidebar: React.FC<{ sidebarState: string[] }> = ({
+export const NewsletterSidebar: React.FC<{ sidebarState: { topElement: string; bottomElement: string } }> = ({
     sidebarState,
 }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const setElement = (number: number) => {
-        switch (number === 1 ? sidebarState[0] : sidebarState[1]) {
+    const setElement = (name: string) => {
+        const number = name === 'top' ? 1 : 2;
+        switch (number === 1 ? sidebarState.topElement : sidebarState.bottomElement) {
             case SidebarElementState.Inactive:
                 return (
                     <>
@@ -60,14 +61,14 @@ export const NewsletterSidebar: React.FC<{ sidebarState: string[] }> = ({
 
     return (
         <div className={classes.container}>
-            {setElement(1)}
+            {setElement('top')}
             <div className={classes.verticalLine}></div>
-            {setElement(2)}
+            {setElement('bottom')}
         </div>
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             display: 'flex',
@@ -83,9 +84,9 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: 12,
             backgroundColor: mainColor,
             marginBottom: 16,
-            color: '#fff',
+            color: white,
             '&.inactive': {
-                backgroundColor: '#9e9e9e',
+                backgroundColor: newsletterColors.disabledColor,
             },
         },
         number: {
@@ -97,20 +98,20 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: 16,
         },
         iconError: {
-            color: '#f44336',
+            color: newsletterColors.errorIconColor,
             marginBottom: 16,
         },
         verticalLine: {
             width: 1,
             height: 120,
-            backgroundColor: '#9e9e9e',
+            backgroundColor: newsletterColors.disabledColor,
             marginBottom: 15,
         },
         text: {
             fontSize: 12,
             marginBottom: 15,
             '&.inactive': {
-                color: '#9e9e9e',
+                color: newsletterColors.disabledColor,
             },
         },
     }),

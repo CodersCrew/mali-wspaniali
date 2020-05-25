@@ -70,14 +70,11 @@
         "no-children-has-been-found": "No children has been found"
     },
     "newsletter": {
-<<<<<<< HEAD
         "header": "New Message",
         "subHeader": "Fill all fields to send message",
+        "recipient-heading": "Newsletter recipients",
+        "content-heading": "Newsletter content",
         "sending-error": "An error ocurred during sending the message.",
-=======
-        "header": "Newsletter",
-        "sending-error": "An error occurred during sending the message.",
->>>>>>> b4ccd262047f5bafc3badc5834d808364cfda5de
         "sending-success": "The newsletter was sent.",
         "type": "Type",
         "topic": "Topic",

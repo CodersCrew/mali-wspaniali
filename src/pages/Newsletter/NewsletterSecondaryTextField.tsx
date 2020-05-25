@@ -18,7 +18,17 @@ type ValuesArrayTypes = {
 };
 
 export const NewsletterSecondaryTextField: React.FC<{
-    classes: Record<'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem', string>;
+    classes: Record<
+        | 'container'
+        | 'textfield'
+        | 'heading'
+        | 'underlineFocus'
+        | 'underlineDisabled'
+        | 'selectItem'
+        | 'inputChipLabel'
+        | 'asterisk',
+        string
+    >;
     partRecipients: {
         primary: string;
         secondary: string;
@@ -44,7 +54,7 @@ export const NewsletterSecondaryTextField: React.FC<{
             className={classes.textfield}
             select
             required
-            disabled={partRecipients.primary ? false : true}
+            disabled={!partRecipients.primary}
             onChange={handlePartRecipientChange}
             SelectProps={{
                 value: partRecipients.secondary,
@@ -70,12 +80,15 @@ export const NewsletterSecondaryTextField: React.FC<{
                                 return undefined;
                             });
                             if (secondaryPreschoolRecipient) return secondaryPreschoolRecipient.label;
-                        } else {
-                            return null;
                         }
+                        return null;
                     };
                     return (
                         <Chip
+                            classes={{
+                                label: classes.inputChipLabel,
+                            }}
+                            size={'small'}
                             label={getLabel()}
                             onDelete={() => handleDelete('secondary', value as string)}
                             onMouseDown={event => {
@@ -88,6 +101,12 @@ export const NewsletterSecondaryTextField: React.FC<{
             InputProps={{
                 classes: {
                     focused: classes.underlineFocus,
+                    underline: classes.underlineDisabled,
+                },
+            }}
+            InputLabelProps={{
+                classes: {
+                    asterisk: classes.asterisk,
                 },
             }}
             name="secondary"

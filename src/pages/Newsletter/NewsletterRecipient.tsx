@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import { mainColor } from '../../colors';
+import { makeStyles, createStyles } from '@material-ui/core';
+import { mainColor, white, newsletterColors, textColor } from '../../colors';
 import { NewsletterPrimaryTextField } from './NewsletterPrimaryTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSecondaryTextField } from './NewsletterSecondaryTextField';
@@ -10,25 +10,23 @@ import { parentsMockData, preschoolsMockData } from './mockData';
 export const NewsletterRecipent: React.FC<{
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     recipients: string[];
-    filterRecipients: (filteredRecipients: string[]) => void;
-}> = ({ handleChange, recipients, filterRecipients }) => {
+    selectRecipients: (filteredRecipients: string[]) => void;
+}> = ({ handleChange, recipients, selectRecipients }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [partRecipients, setPartRecipients] = useState({ primary: '', secondary: '' });
 
     useEffect(() => {
         if (partRecipients.secondary === '') {
-            console.log('reset recipieits');
-            filterRecipients([]);
+            selectRecipients([]);
         }
         if (partRecipients.primary === 'parent' && partRecipients.secondary === 'all') {
-            console.log('select all parents');
-            filterRecipients(parentsMockData);
+            selectRecipients(parentsMockData);
         }
         if (partRecipients.primary === 'preschools' && partRecipients.secondary === 'all') {
-            console.log('select all preschools');
-            filterRecipients(preschoolsMockData);
+            selectRecipients(preschoolsMockData);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [partRecipients]);
 
     const handlePartRecipientChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +65,7 @@ export const NewsletterRecipent: React.FC<{
             {partRecipients.secondary === 'single' || partRecipients.secondary === 'preschool' ? (
                 <NewsletterOptionalTextField
                     classes={classes}
-                    filterRecipients={filterRecipients}
+                    selectRecipients={selectRecipients}
                     partRecipients={partRecipients}
                     recipients={recipients}
                     handleChange={handleChange}
@@ -77,19 +75,19 @@ export const NewsletterRecipent: React.FC<{
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             borderRadius: 4,
             boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
-            backgroundColor: '#ffffff',
+            backgroundColor: white,
             minHeight: 169,
             position: 'relative',
             marginBottom: 35,
         },
         heading: {
             backgroundColor: mainColor,
-            color: '#ffffff',
+            color: white,
             fontSize: 18,
             fontWeight: 500,
             margin: '0 10px',
@@ -107,10 +105,9 @@ const useStyles = makeStyles((theme: Theme) =>
             '& label': {
                 fontSize: 15,
                 lineHeight: 1.2,
-                color: '#1d1d1b',
+                color: textColor,
                 opacity: 0.42,
                 '&.Mui-focused': {
-                    color: '#008aad',
                     opacity: 1,
                     fontSize: 12,
                 },
@@ -121,12 +118,35 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         underlineFocus: {
             '&:after': {
-                borderBottom: '2px solid #008aad',
+                borderBottom: `2px solid ${mainColor}`,
+            },
+        },
+        underlineDisabled: {
+            '&.Mui-disabled:before': {
+                opacity: 0.5,
+                borderBottom: `2px solid ${newsletterColors.disabledColor}`,
             },
         },
         selectItem: {
             fontSize: 12,
-            color: '1d1d1b',
+            color: textColor,
+        },
+        inputChipLabel: {
+            fontSize: 15,
+            color: textColor,
+        },
+        asterisk: {
+            display: 'none',
+        },
+        selectMenuItem: {
+            padding: 0,
+        },
+        selectMenuCheckbox: {
+            padding: '6px 8px',
+        },
+        selectMenuItemText: {
+            fontSize: 12,
+            color: textColor,
         },
     }),
 );

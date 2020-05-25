@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, Dialog, DialogContent, DialogActions, Button } from '@material-ui/core';
+import { makeStyles, createStyles, Dialog, DialogContent, DialogActions, Button } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
@@ -28,7 +28,7 @@ export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         modalIcon: {
             color: '#008aad',
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: '#2196f3',
         },
         modalButtonWrapper: {
-          paddingRight: 17,
-        }
+            paddingRight: 17,
+        },
     }),
 );

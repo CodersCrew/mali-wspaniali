@@ -26,7 +26,7 @@ export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
             <SidebarTopItem toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
             <div className={classes.sidebarItemsContainer}>
                 <SidebarMenuList isSidebarOpen={isSidebarOpen} />
-                <LanguageSelector isSidebarOpen={isSidebarOpen}/>
+                <LanguageSelector isSidebarOpen={isSidebarOpen} />
                 <SidebarLogoutItem handleLogoutClick={handleLogoutClick} isSidebarOpen={isSidebarOpen} />
             </div>
         </div>

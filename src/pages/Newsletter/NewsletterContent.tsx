@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     makeStyles,
-    Theme,
     createStyles,
     TextField,
     Chip,
@@ -11,16 +10,15 @@ import {
     ListItemText,
     IconButton,
 } from '@material-ui/core';
-import { mainColor } from '../../colors';
-import { WorkSpace } from './Workspace';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { mainColor, newsletterColors, textColor, white } from '../../colors';
+import { WorkSpace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
 
-// TODO: removing selection in type
-
 const newsletterTypesArray = ['Wyniki pomiarów', 'Zgody', 'Wydarzenia', 'Ważne', 'Inne'];
 export const NewsletterContent: React.FC<{
+    handleTypeDelete: () => void;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     fields: {
         type: string;
@@ -29,23 +27,50 @@ export const NewsletterContent: React.FC<{
     };
     message: string;
     setMessage: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ handleChange, fields, message, setMessage }) => {
+}> = ({ handleTypeDelete, handleChange, fields, message, setMessage }) => {
+    const [disabled, setDisabled] = useState(true);
+
+    useEffect(() => {
+        if (fields.recipients.length > 0) {
+            setDisabled(false);
+        } else if (fields.recipients.length === 0 && fields.type && fields.topic && message) {
+            setDisabled(false);
+        } else if (fields.recipients.length === 0 && !fields.type && !fields.topic && !message) {
+            setDisabled(true);
+        }
+    }, [fields, message]);
+
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const setMenuItems = (array: string[]) => {
-        return array.map(item => (
-            <MenuItem key={item} value={item}>
-                <Checkbox checked={fields.type === item} />
-                <ListItemText primary={item} />
-            </MenuItem>
-        ));
+    const setItemColors = (value: string) => {
+        switch (value) {
+            case 'Wyniki pomiarów':
+                return newsletterColors.typeColors.yellow;
+            case 'Zgody':
+                return newsletterColors.typeColors.blue;
+            case 'Wydarzenia':
+                return newsletterColors.typeColors.red;
+            case 'Ważne':
+                return newsletterColors.typeColors.green;
+            case 'Inne':
+                return newsletterColors.typeColors.purple;
+            default:
+                return newsletterColors.typeColors.blue;
+        }
     };
 
-    // TODO
-
-    const handleDelete = (value: string) => {
-        console.log('remove', value);
+    const setMenuItems = (array: string[]) => {
+        return array.map(item => {
+            const itemColor = setItemColors(item);
+            return (
+                <MenuItem key={item} value={item} className={classes.selectMenuItem}>
+                    <Checkbox size={'small'} checked={fields.type === item} className={classes.selectMenuCheckbox} />
+                    <div className={classes.square} style={{ backgroundColor: itemColor }}></div>
+                    <ListItemText classes={{ primary: classes.selectMenuItemText }} primary={item} />
+                </MenuItem>
+            );
+        });
     };
 
     const handleModalOpen = () => {
@@ -53,14 +78,17 @@ export const NewsletterContent: React.FC<{
     };
 
     return (
-        <div className={classes.container}>
-            <div className={classes.heading}>
+        <div className={disabled ? `${classes.container} ${classes.containerDisabled}` : classes.container}>
+            <div className={disabled ? `${classes.heading} ${classes.headingDisabled}` : classes.heading}>
                 {t('newsletter.content-heading')}
                 <IconButton onClick={handleModalOpen} size={'small'} color={'inherit'} className={classes.helpButton}>
-                    <HelpOutlineIcon className={classes.helpIcon} />
+                    <HelpOutlineIcon
+                        className={disabled ? `${classes.helpIcon} ${classes.helpIconDisabled}` : classes.helpIcon}
+                    />
                 </IconButton>
             </div>
             <TextField
+                disabled={disabled}
                 className={classes.textfield}
                 required
                 onChange={handleChange}
@@ -79,10 +107,21 @@ export const NewsletterContent: React.FC<{
                         },
                     },
                     renderValue: value => {
+                        const itemBackgroundColor = setItemColors(value as string);
                         return (
                             <Chip
+                                style={{ backgroundColor: itemBackgroundColor }}
+                                classes={{
+                                    label:
+                                        (value as string) === 'Wyniki pomiarów'
+                                            ? classes.inputChipBlackLabel
+                                            : classes.inputChipWhiteLabel,
+                                    deleteIcon:
+                                        (value as string) === 'Wyniki pomiarów' ? undefined : classes.chipWhiteIcon,
+                                }}
+                                size={'small'}
                                 label={value as string}
-                                onDelete={() => handleDelete(value as string)}
+                                onDelete={handleTypeDelete}
                                 onMouseDown={event => {
                                     event.stopPropagation();
                                 }}
@@ -93,12 +132,19 @@ export const NewsletterContent: React.FC<{
                 InputProps={{
                     classes: {
                         focused: classes.underlineFocus,
+                        underline: classes.underlineDisabled,
+                    },
+                }}
+                InputLabelProps={{
+                    classes: {
+                        asterisk: classes.asterisk,
                     },
                 }}
             >
                 {setMenuItems(newsletterTypesArray)}
             </TextField>
             <TextField
+                disabled={disabled}
                 name="topic"
                 label="Wpisz temat"
                 required
@@ -108,6 +154,12 @@ export const NewsletterContent: React.FC<{
                 InputProps={{
                     classes: {
                         focused: classes.underlineFocus,
+                        underline: classes.underlineDisabled,
+                    },
+                }}
+                InputLabelProps={{
+                    classes: {
+                        asterisk: classes.asterisk,
                     },
                 }}
             />
@@ -116,19 +168,23 @@ export const NewsletterContent: React.FC<{
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             borderRadius: 4,
             boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
-            backgroundColor: '#ffffff',
+            backgroundColor: white,
             minHeight: 169,
             position: 'relative',
             marginBottom: 25,
+            paddingBottom: 30,
+        },
+        containerDisabled: {
+            opacity: 0.5,
         },
         heading: {
             backgroundColor: mainColor,
-            color: '#ffffff',
+            color: white,
             fontSize: 18,
             fontWeight: 500,
             margin: '0 10px',
@@ -142,6 +198,9 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             lineHeight: '22px',
         },
+        headingDisabled: {
+            backgroundColor: newsletterColors.disabledColor,
+        },
         textfield: {
             maxWidth: 'calc(100% - 60px)',
             left: 30,
@@ -149,26 +208,29 @@ const useStyles = makeStyles((theme: Theme) =>
             '& label': {
                 fontSize: 15,
                 lineHeight: 1.2,
-                color: '#1d1d1b',
+                color: textColor,
                 opacity: 0.42,
                 '&.Mui-focused': {
-                    color: '#008aad',
+                    color: mainColor,
                     opacity: 1,
                     fontSize: 12,
                 },
             },
-            '& .MuiFormLabel-asterisk': {
-                display: 'none',
-            },
         },
         underlineFocus: {
             '&:after': {
-                borderBottom: '2px solid #008aad',
+                borderBottom: `2px solid ${mainColor}`,
+            },
+        },
+        underlineDisabled: {
+            '&.Mui-disabled:before': {
+                opacity: 0.5,
+                borderBottom: `2px solid ${newsletterColors.disabledColor}`,
             },
         },
         selectItem: {
             fontSize: 12,
-            color: '1d1d1b',
+            color: textColor,
         },
         helpIcon: {
             '&.MuiSvgIcon-root': {
@@ -176,8 +238,40 @@ const useStyles = makeStyles((theme: Theme) =>
                 height: 21,
             },
         },
+        helpIconDisabled: {
+            opacity: 0.5,
+            color: textColor,
+        },
         helpButton: {
             padding: 0,
+        },
+        inputChipWhiteLabel: {
+            fontSize: 15,
+            color: white,
+        },
+        inputChipBlackLabel: {
+            fontSize: 15,
+        },
+        square: {
+            width: 15,
+            height: 15,
+            margin: '0 4px 0 8px',
+        },
+        selectMenuItem: {
+            padding: 0,
+        },
+        chipWhiteIcon: {
+            color: white,
+        },
+        selectMenuCheckbox: {
+            padding: '6px 8px',
+        },
+        selectMenuItemText: {
+            fontSize: 12,
+            color: textColor,
+        },
+        asterisk: {
+            display: 'none',
         },
     }),
 );

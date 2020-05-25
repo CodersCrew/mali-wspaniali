@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 right: '10px',
-                top: '45px'
+                top: '45px',
             },
         },
         listItemAvatar: {

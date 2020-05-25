@@ -31,3 +31,9 @@ export const blogCategoryColors = {
 };
 export const white = '#ffffff';
 export const darkGrey = '#e9e9e9';
+
+export const newsletterColors = {
+    typeColors: { yellow: '#f1dc1c', blue: '#3da8de', red: '#ff5829', green: '#00627a', purple: '#a52ba8' },
+    disabledColor: '#9e9e9e',
+    errorIconColor: '#f44336',
+};
