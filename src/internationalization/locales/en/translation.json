@@ -74,6 +74,10 @@
         "subHeader": "Fill all fields to send message",
         "recipient-heading": "Newsletter recipients",
         "content-heading": "Newsletter content",
+        "type-input-label": "Select type",
+        "topic-input-label": "Select topic",
+        "select-parents-label": "To sent message to single parent, select him from the list",
+        "select-preschools-label": "Select preschool from list",
         "sending-error": "An error ocurred during sending the message.",
         "sending-success": "The newsletter was sent.",
         "type": "Type",
@@ -83,6 +87,13 @@
         "placeholder": "Write your message here",
         "fill-required-fields": "Please fill the required fields.",
         "empty-message": "The message cannot be empty.",
+        "newsletter-types": {
+            "results": "Results",
+            "agreements": "Agreements",
+            "events": "Events",
+            "important": "Important",
+            "other": "Other"
+        },
         "sidebar": {
             "fill": "Fill",
             "newsletter-content": "Newsletter content",

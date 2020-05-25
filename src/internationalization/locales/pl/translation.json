@@ -74,6 +74,10 @@
         "subHeader": "Aby wysłać newsletter uzupełnij wszystkie wymagane pola.",
         "recipient-heading": "Do kogo chcesz wysłać newsletter?",
         "content-heading": "Treść newslettera",
+        "type-input-label": "Wybierz rodzaj",
+        "topic-input-label": "Wpisz temat",
+        "select-parents-label": "Aby wysłać wiadomość do konkretnego rodzica, wpisz dane dziecka, lub wybierz je z listy",
+        "select-preschools-label": "Wybierz przedszkole z listy",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success": "Newsletter został wysłany.",
         "type": "Typ",
@@ -83,6 +87,13 @@
         "placeholder": "Tu wpisz swoją wiadomość",
         "fill-required-fields": "Proszę uzupełnić wymagane pola.",
         "empty-message": "Wiadomość nie może być pusta.",
+        "newsletter-types": {
+            "results": "Wyniki pomiarów",
+            "agreements": "Zgody",
+            "events": "Wydarzenia",
+            "important": "Ważne",
+            "other": "Inne"
+        },
         "sidebar": {
             "fill": "Uzupełnij",
             "newsletter-content": "Treść Newslettera",

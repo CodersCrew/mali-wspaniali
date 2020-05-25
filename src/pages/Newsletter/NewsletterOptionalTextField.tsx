@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
 import { parentsMockData, preschoolsMockData } from './mockData';
 
@@ -24,6 +25,8 @@ export const NewsletterOptionalTextField: React.FC<{
         secondary: string;
     };
 }> = ({ classes, handleChange, selectRecipients, recipients, partRecipients }) => {
+    const { t } = useTranslation();
+
     const handleDelete = (value: string) => {
         const filteredRecipients = recipients.filter(element => element !== value);
         selectRecipients(filteredRecipients);
@@ -50,8 +53,8 @@ export const NewsletterOptionalTextField: React.FC<{
             name="recipients"
             label={
                 partRecipients.primary === 'parent' && partRecipients.secondary === 'single'
-                    ? 'Aby wysłać wiadomość do konkretnego rodzica, wpisz dane dziecka, lub wybierz je z listy'
-                    : 'Wybierz przedszkole z listy'
+                    ? t('newsletter.select-parents-label')
+                    : t('newsletter.select-preschools-label')
             }
             fullWidth
             SelectProps={{

@@ -16,7 +16,6 @@ import { WorkSpace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
 
-const newsletterTypesArray = ['Wyniki pomiarów', 'Zgody', 'Wydarzenia', 'Ważne', 'Inne'];
 export const NewsletterContent: React.FC<{
     handleTypeDelete: () => void;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -39,21 +38,26 @@ export const NewsletterContent: React.FC<{
             setDisabled(true);
         }
     }, [fields, message]);
-
-    const classes = useStyles();
     const { t } = useTranslation();
-
+    const classes = useStyles();
+    const newsletterTypesArray = [
+        t('newsletter.newsletter-types.results'),
+        t('newsletter.newsletter-types.agreements'),
+        t('newsletter.newsletter-types.events'),
+        t('newsletter.newsletter-types.important'),
+        t('newsletter.newsletter-types.other'),
+    ];
     const setItemColors = (value: string) => {
         switch (value) {
-            case 'Wyniki pomiarów':
+            case t('newsletter.newsletter-types.results'):
                 return newsletterColors.typeColors.yellow;
-            case 'Zgody':
+            case t('newsletter.newsletter-types.agreements'):
                 return newsletterColors.typeColors.blue;
-            case 'Wydarzenia':
+            case t('newsletter.newsletter-types.events'):
                 return newsletterColors.typeColors.red;
-            case 'Ważne':
+            case t('newsletter.newsletter-types.important'):
                 return newsletterColors.typeColors.green;
-            case 'Inne':
+            case t('newsletter.newsletter-types.other'):
                 return newsletterColors.typeColors.purple;
             default:
                 return newsletterColors.typeColors.blue;
@@ -93,7 +97,7 @@ export const NewsletterContent: React.FC<{
                 required
                 onChange={handleChange}
                 name="type"
-                label={'Wybierz rodzaj'}
+                label={t('newsletter.type-input-label')}
                 // TODO: CHANGE LABEL WHEN FOCUSED
                 fullWidth
                 select
@@ -113,11 +117,13 @@ export const NewsletterContent: React.FC<{
                                 style={{ backgroundColor: itemBackgroundColor }}
                                 classes={{
                                     label:
-                                        (value as string) === 'Wyniki pomiarów'
+                                        (value as string) === t('newsletter.newsletter-types.results')
                                             ? classes.inputChipBlackLabel
                                             : classes.inputChipWhiteLabel,
                                     deleteIcon:
-                                        (value as string) === 'Wyniki pomiarów' ? undefined : classes.chipWhiteIcon,
+                                        (value as string) === t('newsletter.newsletter-types.results')
+                                            ? undefined
+                                            : classes.chipWhiteIcon,
                                 }}
                                 size={'small'}
                                 label={value as string}
@@ -146,7 +152,7 @@ export const NewsletterContent: React.FC<{
             <TextField
                 disabled={disabled}
                 name="topic"
-                label="Wpisz temat"
+                label={t('newsletter.topic-input-label')}
                 required
                 onChange={handleChange}
                 className={classes.textfield}
