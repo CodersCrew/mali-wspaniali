@@ -29,7 +29,7 @@ export const ParentHomePage = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            padding: '0 0 54px 60px',
+            padding: '0 0 54px 0',
             fontFamily: 'Montserrat, sans-serif',
 
             [theme.breakpoints.down('md')]: {
