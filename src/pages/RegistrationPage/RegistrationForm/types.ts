@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import { AdminAgreement } from '../../../firebase/types';
 
 export type RegisterForm = {
     email: string;
@@ -23,6 +24,7 @@ export interface RegistrationAgreementProps {
     classButton: string;
     classNextBtn: string;
     classPrevBtn: string;
+    agreements: AdminAgreement[];
 }
 
 export type RegistrationPasswordProps = {

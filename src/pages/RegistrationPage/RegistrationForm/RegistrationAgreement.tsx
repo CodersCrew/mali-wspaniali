@@ -10,15 +10,17 @@ export const RegistrationAgreement = ({
     classButton,
     classNextBtn,
     classPrevBtn,
+    agreements,
 }: RegistrationAgreementProps) => {
     const { t } = useTranslation();
 
     return (
         <>
-            <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et dicta at saepe facilis rerum maxime
-                odio architecto sequi totam.
-            </p>
+            <div>
+                {agreements.map(agreement => (
+                    <p key={agreement.agreementId}>{agreement.content}</p>
+                ))}
+            </div>
             <div className={classButton}>
                 <Button disabled={activeStep === 0} onClick={handleBack} className={classPrevBtn}>
                     {t('back')}

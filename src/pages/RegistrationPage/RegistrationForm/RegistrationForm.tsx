@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent } from '@material-ui/core/';
 // import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,8 @@ import { RegistrationEmail } from './RegistrationEmail';
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationPassword } from './RegistrationPassword';
 import { RegistrationFeedback } from './RegistrationFeedback';
+import { getAgreements } from '../../../queries/agreementQueries';
+import { AdminAgreement } from '../../../firebase/types';
 
 const initialState = {
     email: '',
@@ -24,10 +26,19 @@ const initialState = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
+    const [agreements, setAgreements] = useState<AdminAgreement[]>([]);
     const { email, password, passwordConfirm } = form;
     const classes = useStyles();
     // const history = useHistory();
     const { t } = useTranslation();
+
+    useEffect(() => {
+        const fetchAgreements = async () => {
+            const res = await getAgreements();
+            setAgreements(res.agreement);
+        };
+        fetchAgreements();
+    }, []);
 
     const steps = [
         `${t('e-mail')}`,
@@ -59,6 +70,7 @@ export const RegistrationForm = () => {
                         classButton={classes.buttonWrapper}
                         classNextBtn={classes.nextButton}
                         classPrevBtn={classes.prevButton}
+                        agreements={agreements}
                     />
                 );
             case 2:
