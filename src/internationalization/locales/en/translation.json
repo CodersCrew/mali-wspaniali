@@ -13,7 +13,8 @@
         "forgot-password": "Forgot password?"
     },
     "login-wrapper": {
-        "welcome-text": "Welcome to Mali Wspaniali's world!"
+        "welcome-text": "Welcome to Mali Wspaniali's world!",
+        "subheading": "Join the community of conscious parents"
     },
     "registration-page": {
         "already-have-account": "Already have an account?",
@@ -69,9 +70,14 @@
         "no-children-has-been-found": "No children has been found"
     },
     "newsletter": {
+<<<<<<< HEAD
         "header": "New Message",
         "subHeader": "Fill all fields to send message",
         "sending-error": "An error ocurred during sending the message.",
+=======
+        "header": "Newsletter",
+        "sending-error": "An error occurred during sending the message.",
+>>>>>>> b4ccd262047f5bafc3badc5834d808364cfda5de
         "sending-success": "The newsletter was sent.",
         "type": "Type",
         "topic": "Topic",
@@ -99,6 +105,10 @@
     "database-backup": {
         "get-backup-json": "Get database as JSON"
     },
+    "database-upload": {
+        "choose-file": "Choose File",
+        "upload-file": "Upload File"
+    },
     "sidebar": {
         "home": "Home",
         "settings": "Settings",
@@ -111,5 +121,32 @@
         "messages": "Messages",
         "settings": "Settings",
         "logout": "Log out"
+    },
+    "home-page-content": {
+        "greeting": "Good Afternoon!",
+        "check-children-activity": "Check out the children activity in the programme",
+        "mali-wspaniali": "Mali Wspaniali",
+        "foundation-header": "Foundation Header here",
+        "foundation-content": "Here will be a brief introduction from the Foundation. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
+        "recent-news": "Recent News",
+        "read-more": "Read more",
+        "read-less": "Less"
+    },
+    "blog-article-card": {
+        "read-more": "Read more"
+    },
+    "blog-main-page": {
+        "header": "Here you will find out, how to take care of your child's development"
+    },
+    "blog-pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "blog-categories": {
+        "all": "All",
+        "food": "Food",
+        "physical-activity": "Physical activity",
+        "emotions": "Emotions",
+        "other": "Other"
     }
 }

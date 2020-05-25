@@ -3,13 +3,13 @@ import { Link, useHistory } from 'react-router-dom';
 import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
 import { PowerSettingsNew } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
-import { firebase } from '../../firebase/firebase';
+import { handleSignOut } from '../../queries/authQueries';
 
 type menuListItemProps = {
-    link: string,
-    text: string,
-    iconComponent: ReactElement
-}
+    link: string;
+    text: string;
+    iconComponent: ReactElement;
+};
 
 export const MenuListItem = ({ link, text, iconComponent }: menuListItemProps) => {
     const classes = useStyles();
@@ -18,9 +18,7 @@ export const MenuListItem = ({ link, text, iconComponent }: menuListItemProps) =
         <MenuItem key={text} component="div">
             <Link to={link} className={classes.menuLink}>
                 <ListItem className={classes.listItem}>
-                    <ListItemIcon >
-                        {iconComponent}
-                    </ListItemIcon>
+                    <ListItemIcon>{iconComponent}</ListItemIcon>
                     <ListItemText className={classes.listItemText}>{text}</ListItemText>
                 </ListItem>
             </Link>
@@ -34,12 +32,12 @@ export const MenuLogoutItem = () => {
     const history = useHistory();
 
     const handleLogoutClick = () => {
-        firebase.auth.handleSignOut();
+        handleSignOut();
         history.push('/login');
     };
 
     return (
-        <MenuItem key='Logout' onClick={handleLogoutClick} component="div">
+        <MenuItem key="Logout" onClick={handleLogoutClick} component="div">
             <ListItem className={classes.listItem}>
                 <ListItemIcon className={classes.listItemIcon}>
                     <PowerSettingsNew />
@@ -53,15 +51,17 @@ export const MenuLogoutItem = () => {
 const useStyles = makeStyles({
     menuLink: {
         textDecoration: 'none',
-        color: 'inherit'
+        color: 'inherit',
     },
     listItem: {
-        padding: '0px'
+        padding: '0px',
     },
     listItemIcon: {
-        fontSize: '14px'
+        fontSize: '14px',
     },
     listItemText: {
-        fontSize: '14px'
-    }
+        fontSize: '14px',
+        fontWeight: 600,
+        textTransform: 'uppercase'
+    },
 });

@@ -2,25 +2,11 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { User, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
-import { mainColor, backgroundColor, secondaryColor } from '../../colors';
-
-const theme = createMuiTheme({
-    typography: {
-        fontFamily: 'Montserrat',
-    },
-    palette: {
-        primary: {
-            main: mainColor,
-        },
-        secondary: {
-            main: secondaryColor,
-        }
-    }
-},
-);
+import { backgroundColor, secondaryColor } from '../../colors';
+import { theme } from '../../theme';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -41,16 +27,12 @@ export const LoginPage = () => {
         handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
     };
 
-    onAuthStateChanged((user: User | null) => {
+    onAuthStateChanged(async (user: User | null) => {
         if (user) {
-            getUserRole(user).then(role => {
-                if (role === 'parent') {
-                    history.push('/parent');
-                }
-                if (role === 'admin') {
-                    history.push('/admin');
-                }
-            });
+            const role = await getUserRole(user);
+            if (role) {
+                history.push(`/${role}`);
+            }
         }
     });
 
@@ -58,9 +40,7 @@ export const LoginPage = () => {
         <ThemeProvider theme={theme}>
             <div className={classes.container}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                    <div className={classes.loginHeader}>
-                        {t('login-page.login-header')}
-                    </div>
+                    <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
                     <TextField
                         required
                         onChange={event => setEmail(event.target.value)}
@@ -85,7 +65,9 @@ export const LoginPage = () => {
                         className={classes.formItem}
                     />
                     <div className={classes.submitWrapper}>
-                        <Link className={classes.forgotPasswordLink} to="/">{t('login-page.forgot-password')}</Link>
+                        <Link className={classes.forgotPasswordLink} to="/">
+                            {t('login-page.forgot-password')}
+                        </Link>
                         <Button
                             type="submit"
                             variant="contained"
@@ -164,5 +146,5 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         color: secondaryColor,
         textDecoration: 'none',
-    }
+    },
 });

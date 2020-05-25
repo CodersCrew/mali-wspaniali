@@ -1,13 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import clsx from 'clsx';
 import { SidebarMenuList } from './SidebarMenuList';
 import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { handleSignOut } from '../../queries/authQueries';
-import { mainColor } from '../../colors';
+import { mainColor, white } from '../../colors';
 import { SidebarPropTypes } from './types';
-import clsx from 'clsx';
+import { LanguageSelector } from '../LanguageSelector';
 
 export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
     const classes = useStyles();
@@ -25,6 +26,7 @@ export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
             <SidebarTopItem toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
             <div className={classes.sidebarItemsContainer}>
                 <SidebarMenuList isSidebarOpen={isSidebarOpen} />
+                <LanguageSelector isSidebarOpen={isSidebarOpen}/>
                 <SidebarLogoutItem handleLogoutClick={handleLogoutClick} isSidebarOpen={isSidebarOpen} />
             </div>
         </div>
@@ -35,18 +37,18 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         sidebarContainer: {
             padding: '30px 20px 53px 10px',
-            color: '#fff',
+            color: white,
             zIndex: 9,
-            position: 'relative',
-            height: 'calc(100vh-20px)',
+            position: 'fixed',
+            height: '100vh',
             minWidth: '104px',
             width: '104px',
             transition: 'all 0.4s',
             background: mainColor,
 
             '&.opened': {
-                minWidth: '230px',
-                width: '230px',
+                minWidth: '240px',
+                width: '240px',
                 transition: 'all 0.5s',
             },
 

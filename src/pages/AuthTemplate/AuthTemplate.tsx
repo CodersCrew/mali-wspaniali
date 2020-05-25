@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
+import { AuthTemplateType } from './types';
 
-export const LoginPageWrapper: React.FC = ({ children }) => {
+export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, type }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -13,6 +14,7 @@ export const LoginPageWrapper: React.FC = ({ children }) => {
             <div className={classes.logoContainer}>
                 <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
                 <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
+                {type === 'register' && <p className={classes.subheading}>{t('login-wrapper.subheading')}</p>}
             </div>
             <div className={classes.formContainer}>{children}</div>
         </div>
@@ -29,7 +31,7 @@ const useStyles = makeStyles({
 
         '@media (max-width:767px)': {
             flexDirection: 'column',
-            padding: 0
+            padding: 0,
         },
     },
     logoContainer: {
@@ -41,7 +43,7 @@ const useStyles = makeStyles({
 
         '@media (max-width:767px)': {
             flex: '0',
-            marginTop: '15px'
+            marginTop: '15px',
         },
     },
     formContainer: {
@@ -67,7 +69,6 @@ const useStyles = makeStyles({
         lineHeight: '44px',
         textAlign: 'center',
         textTransform: 'uppercase',
-
         '@media (max-width:767px)': {
             margin: '15px 0 30px 0',
             width: '280px',
@@ -75,9 +76,15 @@ const useStyles = makeStyles({
             lineHeight: '26px',
         },
     },
+    subheading: {
+        marginTop: '20px',
+        fontSize: '21px',
+        lineHeight: '26px',
+        color: backgroundColor,
+    },
     logo: {
         '@media (max-width:767px)': {
             maxWidth: '200px',
         },
-    }
+    },
 });

@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getAgreements } from '../../queries/agreementQueries';
-import { load } from '../../utils/load';
-import { AdminAgreement } from '../../firebase/types';
-import { useAuthorization } from '../../hooks/useAuthorization';
 import {
     Modal,
     Button,
@@ -18,6 +14,10 @@ import {
     ListSubheader,
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { getAgreements } from '../../queries/agreementQueries';
+import { load } from '../../utils/load';
+import { AdminAgreement } from '../../firebase/types';
+import { useAuthorization } from '../../hooks/useAuthorization';
 
 export const AdminAgreementsPage = () => {
     useAuthorization(true, '/', ['admin']);

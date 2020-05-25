@@ -1,6 +1,10 @@
-export type Document = firebase.firestore.DocumentData;
+import { firestore } from 'firebase';
+
+export type Document = firestore.DocumentData;
+export type Snapshot = firestore.DocumentSnapshot;
 
 export interface Article {
+    id: string;
     header: string;
     pictureUrl: string;
     title: string;
@@ -52,7 +56,7 @@ export interface Child {
     city: string;
     kindergartenNo: string;
     groupNo: string;
-    avatar: string;
+    sex: string;
     results: Result[];
     agreements: Agreement[];
 }
@@ -63,3 +67,10 @@ export type User = {
     role: string;
     agreements: Agreement[];
 };
+
+export interface PaginatedArticleList {
+    articleList: Article[];
+    firstSnap: Snapshot;
+    lastSnap: Snapshot;
+    isMore: boolean;
+}

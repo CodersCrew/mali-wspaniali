@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
-import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { makeStyles, createMuiTheme, ThemeProvider, createStyles, Theme } from '@material-ui/core';
+import clsx from 'clsx';
 import { Sidebar } from '../../components/Sidebar';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
 
 export const AppWrapper: FC = ({ children }) => {
@@ -13,7 +15,10 @@ export const AppWrapper: FC = ({ children }) => {
         <ThemeProvider theme={theme}>
             <div className={classes.background}>
                 <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                <div className={classes.container}>{children}</div>
+                <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
+                    <Navbar />
+                    <div className={classes.content}>{children}</div>
+                </div>
             </div>
         </ThemeProvider>
     );
@@ -25,19 +30,45 @@ const theme = createMuiTheme({
     },
 });
 
-const useStyles = makeStyles({
-    background: {
-        display: 'flex',
-        backgroundColor: mainColor,
-        minHeight: '100vh',
-        height: '100%',
-        padding: '10px 10px 10px 10px',
-    },
-    container: {
-        backgroundColor,
-        minHeight: 'calc(100vh - 20px)',
-        height: '100%',
-        borderRadius: '10px',
-        width: '100%',
-    },
-});
+// eslint-disable-next-line no-shadow
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        background: {
+            display: 'flex',
+            backgroundColor: mainColor,
+            minHeight: '100vh',
+            height: '100%',
+            padding: '10px 10px 10px 10px',
+
+            [theme.breakpoints.down('sm')]: {
+                backgroundColor,
+                padding: 0
+            },
+        },
+        container: {
+            backgroundColor,
+            width: 'calc(100% - 107px)',
+            minHeight: 'calc(100vh - 20px)',
+            height: '100%',
+            marginLeft: '107px',
+            borderRadius: '10px',
+            transition: 'all 0.4s',
+            '&.opened': {
+                marginLeft: '240px',
+                width: 'calc(100% - 240px)',
+                transition: 'all 0.5s',
+            },
+            [theme.breakpoints.down('sm')]: {
+                margin: 0,
+                width: '100%'
+            },
+        },
+        content: {
+            [theme.breakpoints.down('sm')]: {
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                padding: '10px 10px 10px 10px',
+            },
+        }
+    }),
+);

@@ -1,10 +1,10 @@
 export const throttle = (callback: () => void, limit: number) => {
     let tick = false;
-    return function() {
+    return () => {
         if (!tick) {
             callback();
             tick = true;
-            setTimeout(function() {
+            setTimeout(() => {
                 tick = false;
             }, limit);
         }

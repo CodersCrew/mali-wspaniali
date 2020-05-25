@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-    makeStyles,
-    Theme,
-    createStyles,
-    Grid,
-    Button,
-    withStyles,
-    Box,
-    Typography,
-    CardMedia,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Button, withStyles, Box, Typography, CardMedia } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
@@ -28,7 +18,7 @@ export const ArticleContent = ({ content }: { content: Content }) => {
                         {content.category.map(cat => {
                             changeColorButton(cat);
                             return (
-                                <Grid item xs={3}>
+                                <Grid key={cat} item xs={3}>
                                     <ColorButton
                                         className={classes.contentCategoryButton}
                                         href={`#${cat.toUpperCase()}`}
@@ -68,7 +58,7 @@ export const ArticleContent = ({ content }: { content: Content }) => {
     );
 };
 
-let ColorButton = withStyles((theme: Theme) => ({
+let ColorButton = withStyles(() => ({
     root: {
         backgroundColor: SingleArticleColors.categories.emotions,
         '&:hover': {
@@ -80,7 +70,7 @@ let ColorButton = withStyles((theme: Theme) => ({
 const changeColorButton = (category: string) => {
     switch (category) {
         case 'food':
-            ColorButton = withStyles((theme: Theme) => ({
+            ColorButton = withStyles(() => ({
                 root: {
                     backgroundColor: SingleArticleColors.categories.food,
                     '&:hover': {
@@ -91,7 +81,7 @@ const changeColorButton = (category: string) => {
             break;
 
         case 'activity':
-            ColorButton = withStyles((theme: Theme) => ({
+            ColorButton = withStyles(() => ({
                 root: {
                     backgroundColor: SingleArticleColors.categories.activity,
                     '&:hover': {
@@ -102,7 +92,7 @@ const changeColorButton = (category: string) => {
             break;
 
         case 'other':
-            ColorButton = withStyles((theme: Theme) => ({
+            ColorButton = withStyles(() => ({
                 root: {
                     backgroundColor: SingleArticleColors.categories.other,
                     '&:hover': {
@@ -113,7 +103,7 @@ const changeColorButton = (category: string) => {
             break;
 
         default:
-            ColorButton = withStyles((theme: Theme) => ({
+            ColorButton = withStyles(() => ({
                 root: {
                     backgroundColor: SingleArticleColors.categories.emotions,
                     '&:hover': {
@@ -125,7 +115,7 @@ const changeColorButton = (category: string) => {
     }
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         contentGrid: {
             backgroundColor: SingleArticleColors.contentBackground,
@@ -138,7 +128,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: SingleArticleColors.contentBackground,
             letterSpacing: letterSpace,
             fontSize: '10px',
-            lineHeight: lineHeight,
+            lineHeight,
         },
         contentCategoryTextBox: {
             fontWeight: 500,
@@ -157,7 +147,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: '20px',
             fontWeight: 'bolder',
             letterSpacing: letterSpace,
-            lineHeight: lineHeight,
+            lineHeight,
         },
         contentPhoto: {
             paddingBottom: '2vw',

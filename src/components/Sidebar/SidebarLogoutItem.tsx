@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 import { PowerSettingsNew } from '@material-ui/icons';
-import { mainColor, backgroundColor } from '../../colors';
-import { SidebarLogoutPropTypes } from './types';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { mainColor, backgroundColor } from '../../colors';
+import { SidebarLogoutPropTypes } from './types';
 
 export const SidebarLogoutItem = ({ handleLogoutClick, isSidebarOpen }: SidebarLogoutPropTypes) => {
     const classes = useStyles();

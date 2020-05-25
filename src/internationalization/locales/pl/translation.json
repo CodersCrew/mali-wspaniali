@@ -13,7 +13,8 @@
         "forgot-password": "Zapomniałeś hasła?"
     },
     "login-wrapper": {
-        "welcome-text": "Witaj w świecie Małych Wspaniałych!"
+        "welcome-text": "Witaj w świecie Małych Wspaniałych!",
+        "subheading": "Dołącz do społeczności świadomych rodziców"
     },
     "registration-page": {
         "already-have-account": "Masz już konto?",
@@ -99,6 +100,10 @@
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
     },
+    "database-upload": {
+        "choose-file": "Wybierz plik",
+        "upload-file": "Dodaj plik"
+    },
     "sidebar": {
         "home": "Strona Główna",
         "settings": "Ustawienia",
@@ -111,5 +116,32 @@
         "messages": "Wiadomości",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
+    },
+    "blog-article-card": {
+        "read-more": "Czytaj dalej"
+    },
+    "blog-main-page": {
+        "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
+    },
+    "blog-pagination": {
+        "previous": "Poprzednia",
+        "next": "Następna"
+    },
+    "blog-categories": {
+        "all": "Wszystkie",
+        "food": "Żywienie",
+        "physical-activity": "Aktywność fizyczna",
+        "emotions": "Emocje",
+        "other": "Inne"
+    },
+    "home-page-content": {
+        "greeting": "Dzień Dobry!",
+        "check-children-activity": "Sprawdź aktywność swoich dzieci w programie",
+        "mali-wspaniali": "Mali Wspaniali",
+        "foundation-header": "Tutaj Nagłówek Fundacji",
+        "foundation-content": "Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
+        "recent-news": "Najnowsze ARTYKUŁY",
+        "read-more": "Czytaj więcej",
+        "read-less": "Zwiń"
     }
 }
