@@ -167,7 +167,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: '8px 22px',
             lineHeight: 1.2,
             boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.6)',
-            '&:hover': {
+            '&:hover':   {
               color: '#ff7149',
             }
         },

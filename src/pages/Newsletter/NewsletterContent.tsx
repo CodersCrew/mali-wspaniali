@@ -17,6 +17,8 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
 
+// TODO: removing selection in type
+
 const newsletterTypesArray = ['Wyniki pomiarów', 'Zgody', 'Wydarzenia', 'Ważne', 'Inne'];
 export const NewsletterContent: React.FC<{
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -39,6 +41,8 @@ export const NewsletterContent: React.FC<{
             </MenuItem>
         ));
     };
+
+    // TODO
 
     const handleDelete = (value: string) => {
         console.log('remove', value);
@@ -95,7 +99,7 @@ export const NewsletterContent: React.FC<{
                 {setMenuItems(newsletterTypesArray)}
             </TextField>
             <TextField
-                name="title"
+                name="topic"
                 label="Wpisz temat"
                 required
                 onChange={handleChange}
