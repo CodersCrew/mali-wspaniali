@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Stepper, Step, StepLabel, StepContent } from '@material-ui/core/';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -26,7 +26,7 @@ export const RegistrationForm = () => {
     const [activeStep, setActiveStep] = useState(0);
     const { email, password, passwordConfirm } = form;
     const classes = useStyles();
-    const history = useHistory();
+    // const history = useHistory();
     const { t } = useTranslation();
 
     const steps = [
@@ -108,7 +108,8 @@ export const RegistrationForm = () => {
         } else {
             load(createUser({ email, password }))
                 .then(() => {
-                    history.push('/login');
+                    // history.push('/login');
+                    handleNext();
                 })
                 .catch(err => {
                     openAlertDialog({ type: 'error', description: err.message });

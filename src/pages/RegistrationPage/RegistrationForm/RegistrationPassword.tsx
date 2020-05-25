@@ -66,7 +66,7 @@ export const RegistrationPassword = ({
                 <Button disabled={activeStep === 0} onClick={handleBack} className={classPrevBtn}>
                     {t('back')}
                 </Button>
-                <Button variant="contained" onClick={handleNext} className={classNextBtn} color="secondary">
+                <Button type="submit" variant="contained" className={classNextBtn} color="secondary">
                     {t('registration-page.create-password')}
                 </Button>
             </div>
