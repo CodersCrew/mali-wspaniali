@@ -19,3 +19,14 @@ export enum SidebarElementState {
     Done = 'DONE',
     FileError = 'FILEERROR',
 }
+
+export enum PrimaryInputValues {
+    parents = 'PARENTS',
+    preschools = 'PRESCHOOLS',
+}
+
+export enum SecondaryInputValues {
+    all = 'ALL',
+    preschool = 'PRESCHOOL',
+    single = 'SINGLE',
+}

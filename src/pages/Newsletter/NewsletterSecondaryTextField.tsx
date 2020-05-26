@@ -1,16 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
-
-const parentsRecipients = [
-    { value: 'all', label: 'wszyscy rodzice' },
-    { value: 'preschool', label: 'z wybranego przedszkola' },
-    { value: 'single', label: 'wiadomość indywidualna' },
-];
-
-const preschoolsRecipients = [
-    { value: 'all', label: 'wszystkie przedszkola' },
-    { value: 'single', label: 'do wybranego przedszkola' },
-];
+import { PrimaryInputValues, SecondaryInputValues } from './types';
 
 type ValuesArrayTypes = {
     value: string;
@@ -36,6 +27,28 @@ export const NewsletterSecondaryTextField: React.FC<{
     handleDelete: (name: string, value: string) => void;
     handlePartRecipientChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }> = ({ classes, partRecipients, handleDelete, handlePartRecipientChange }) => {
+    const { t } = useTranslation();
+
+    const parentsRecipients = [
+        { value: SecondaryInputValues.all, label: t('newsletter.recipients-secondary-value-labels.all-parents') },
+        {
+            value: SecondaryInputValues.preschool,
+            label: t('newsletter.recipients-secondary-value-labels.from-single-preschool'),
+        },
+        {
+            value: SecondaryInputValues.single,
+            label: t('newsletter.recipients-secondary-value-labels.individual-message'),
+        },
+    ];
+
+    const preschoolsRecipients = [
+        { value: SecondaryInputValues.all, label: t('newsletter.recipients-secondary-value-labels.all-preschools') },
+        {
+            value: SecondaryInputValues.single,
+            label: t('newsletter.recipients-secondary-value-labels.single-preschool'),
+        },
+    ];
+
     const createMenuItems = (array: ValuesArrayTypes[]) => {
         return array.map((item: ValuesArrayTypes) => (
             <MenuItem
@@ -49,6 +62,7 @@ export const NewsletterSecondaryTextField: React.FC<{
             </MenuItem>
         ));
     };
+
     return (
         <TextField
             className={classes.textfield}
@@ -67,14 +81,14 @@ export const NewsletterSecondaryTextField: React.FC<{
                 },
                 renderValue: value => {
                     const getLabel = () => {
-                        if (partRecipients.primary === 'parent') {
+                        if (partRecipients.primary === PrimaryInputValues.parents) {
                             const secondaryParentRecipient = parentsRecipients.find(element => {
                                 if (element.value === (value as string)) return element;
                                 return undefined;
                             });
                             if (secondaryParentRecipient) return secondaryParentRecipient.label;
                         }
-                        if (partRecipients.primary === 'preschools') {
+                        if (partRecipients.primary === PrimaryInputValues.preschools) {
                             const secondaryPreschoolRecipient = preschoolsRecipients.find(element => {
                                 if (element.value === (value as string)) return element;
                                 return undefined;
@@ -110,10 +124,10 @@ export const NewsletterSecondaryTextField: React.FC<{
                 },
             }}
             name="secondary"
-            label={'Sprecyzuj adresata'}
+            label={t('newsletter.recipients-secondary-label')}
             fullWidth
         >
-            {partRecipients.primary === 'parent'
+            {partRecipients.primary === PrimaryInputValues.parents
                 ? createMenuItems(parentsRecipients)
                 : createMenuItems(preschoolsRecipients)}
         </TextField>

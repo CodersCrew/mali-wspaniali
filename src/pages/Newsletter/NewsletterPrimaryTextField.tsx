@@ -1,5 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
+import { PrimaryInputValues } from './types';
 
 export const NewsletterPrimaryTextField: React.FC<{
     classes: Record<
@@ -13,6 +15,8 @@ export const NewsletterPrimaryTextField: React.FC<{
     handleDelete: (name: string, value: string) => void;
     handlePartRecipientChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }> = ({ classes, partRecipients, handleDelete, handlePartRecipientChange }) => {
+    const { t } = useTranslation();
+
     return (
         <TextField
             className={classes.textfield}
@@ -27,7 +31,8 @@ export const NewsletterPrimaryTextField: React.FC<{
                     },
                 },
                 renderValue: value => {
-                    const chipLabel = value === 'parent' ? 'Rodzice' : 'Przedszkola';
+                    const chipLabel =
+                        value === PrimaryInputValues.parents ? t('newsletter.parents') : t('newsletter.preschools');
                     return (
                         <Chip
                             classes={{
@@ -56,7 +61,7 @@ export const NewsletterPrimaryTextField: React.FC<{
             required
             onChange={handlePartRecipientChange}
             name="primary"
-            label={'Wybierz adresata z listy'}
+            label={t('newsletter.recipients-primary-label')}
             // TODO: CHANGE LABEL WHEN FOCUSED
 
             fullWidth
@@ -65,17 +70,17 @@ export const NewsletterPrimaryTextField: React.FC<{
                 classes={{
                     root: classes.selectItem,
                 }}
-                value="parent"
+                value={PrimaryInputValues.parents}
             >
-                rodzice
+                {t('newsletter.parents')}
             </MenuItem>
             <MenuItem
                 classes={{
                     root: classes.selectItem,
                 }}
-                value="preschools"
+                value={PrimaryInputValues.preschools}
             >
-                przedszkola
+                {t('newsletter.preschools')}
             </MenuItem>
         </TextField>
     );

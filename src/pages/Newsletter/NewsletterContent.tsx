@@ -38,8 +38,10 @@ export const NewsletterContent: React.FC<{
             setDisabled(true);
         }
     }, [fields, message]);
+
     const { t } = useTranslation();
     const classes = useStyles();
+
     const newsletterTypesArray = [
         t('newsletter.newsletter-types.results'),
         t('newsletter.newsletter-types.agreements'),
@@ -47,6 +49,7 @@ export const NewsletterContent: React.FC<{
         t('newsletter.newsletter-types.important'),
         t('newsletter.newsletter-types.other'),
     ];
+
     const setItemColors = (value: string) => {
         switch (value) {
             case t('newsletter.newsletter-types.results'):

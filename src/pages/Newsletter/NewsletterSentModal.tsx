@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     makeStyles,
     createStyles,
@@ -16,6 +17,7 @@ import { mainColor, secondaryColor, white, textColor } from '../../colors';
 
 export const NewsletterSentModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <ThemeProvider theme={theme}>
@@ -23,18 +25,18 @@ export const NewsletterSentModal: React.FC<{ onClose: () => void }> = ({ onClose
                 <DialogContent className={classes.sentModal}>
                     <CheckCircleIcon className={classes.sentModalIcon} />
                     <DialogTitle disableTypography className={classes.sentModalTitle}>
-                        Gotowe
+                        {t('newsletter.sending-success-modal.title')}
                     </DialogTitle>
                     <DialogContentText className={classes.sentModalText}>
-                        Twoja wiadomosc zostala wyslana do adresatow.
+                        {t('newsletter.sending-success-modal.content')}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions className={classes.sentModalButtonWrapper}>
                     <Button className={classes.sentModalBackButton} onClick={onClose} autoFocus>
-                        Wróc do strony głównej
+                        {t('newsletter.sending-success-modal.back-button')}
                     </Button>
                     <Button className={classes.sentModalNextMessageButton} onClick={onClose} autoFocus>
-                        Wyślij następną wiadomość
+                        {t('newsletter.sending-success-modal.next-msg-button')}
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -80,6 +82,7 @@ const useStyles = makeStyles(() =>
             },
         },
         sentModalBackButton: {
+            maxWidth: 264,
             width: '100%',
             backgroundColor: secondaryColor,
             color: white,
@@ -88,8 +91,12 @@ const useStyles = makeStyles(() =>
             lineHeight: 1.2,
             marginBottom: 16,
             fontSize: 14,
+            '&:hover': {
+                color: secondaryColor,
+            },
         },
         sentModalNextMessageButton: {
+            maxWidth: 264,
             width: '100%',
             backgroundColor: white,
             color: secondaryColor,

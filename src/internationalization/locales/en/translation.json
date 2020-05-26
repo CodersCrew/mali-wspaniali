@@ -76,10 +76,33 @@
         "content-heading": "Newsletter content",
         "type-input-label": "Select type",
         "topic-input-label": "Select topic",
-        "select-parents-label": "To sent message to single parent, select him from the list",
-        "select-preschools-label": "Select preschool from list",
+        "parents-label": "To sent message to single parent, select him from the list",
+        "preschools-label": "Select preschool from list",
+        "recipients-primary-label": "Select recipient from list",
+        "recipients-secondary-label": "Specify recipient",
+        "recipients-secondary-value-labels": {
+            "all-parents": "all parents",
+            "from-single-preschool": "from selected preschool",
+            "individual-message": "individual message",
+            "all-preschools": "all preschools",
+            "single-preschool": "single preschool"
+        },
         "sending-error": "An error ocurred during sending the message.",
-        "sending-success": "The newsletter was sent.",
+        "sending-success-modal": {
+            "title": "Done",
+            "content": "Your message has been sent.",
+            "back-button": "Return to home page",
+            "next-msg-button": "Send next message"
+        },
+        "help-modal": {
+            "type": "Newsletter type",
+            "type-text": "Select the type which is most apropriate to topic of your message. Newsletter will be saved to that category, so you can find it easier in newsletter archives.",
+            "attachment": "Attachments",
+            "attachment-text": "To properly add attachment, it has to be in .pdf, .xlsx...",
+            "button": "Got it"
+        },
+        "parents": "Parents",
+        "preschools": "Preschools",
         "type": "Type",
         "topic": "Topic",
         "recipients": "Recipients",

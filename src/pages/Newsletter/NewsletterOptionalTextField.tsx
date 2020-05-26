@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
 import { parentsMockData, preschoolsMockData } from './mockData';
+import { PrimaryInputValues, SecondaryInputValues } from './types';
 
 export const NewsletterOptionalTextField: React.FC<{
     classes: Record<
@@ -52,9 +53,10 @@ export const NewsletterOptionalTextField: React.FC<{
             onChange={handleChange}
             name="recipients"
             label={
-                partRecipients.primary === 'parent' && partRecipients.secondary === 'single'
-                    ? t('newsletter.select-parents-label')
-                    : t('newsletter.select-preschools-label')
+                partRecipients.primary === PrimaryInputValues.parents &&
+                partRecipients.secondary === SecondaryInputValues.single
+                    ? t('newsletter.parents-label')
+                    : t('newsletter.preschools-label')
             }
             fullWidth
             SelectProps={{
@@ -96,7 +98,8 @@ export const NewsletterOptionalTextField: React.FC<{
                 },
             }}
         >
-            {partRecipients.primary === 'preschools' || partRecipients.secondary === 'preschool'
+            {partRecipients.primary === PrimaryInputValues.preschools ||
+            partRecipients.secondary === SecondaryInputValues.preschool
                 ? setMenuItems(preschoolsMockData)
                 : setMenuItems(parentsMockData)}
         </TextField>

@@ -1,27 +1,24 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Dialog, DialogContent, DialogActions, Button } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <Dialog open onClose={onClose}>
             <DialogContent className={classes.modalContent}>
                 <HelpOutlineIcon className={classes.modalIcon} />
-                <span className={classes.modalTextBold}>Rodzaj Newslettera</span>
-                <p className={classes.modalText}>
-                    Wybierz rodzaj odpowiadający tematowi Twojej wiadomości. Newsletter zostanie przypisany do danej
-                    kategorii, dzięki czemu łatwiej go odnajdziesz w Archiwum newsletterów.{' '}
-                </p>
-                <span className={classes.modalTextBold}>Załączniki</span>
-                <p className={classes.modalText}>
-                    Aby prawidłowo dodać załącznik, musi on być zapisany w formacie: .pdf, .xlsx, .doc, .txt, blabla
-                </p>
+                <span className={classes.modalTextBold}>{t('newsletter.help-modal.type')}</span>
+                <p className={classes.modalText}>{t('newsletter.help-modal.type-text')}</p>
+                <span className={classes.modalTextBold}>{t('newsletter.help-modal.attachment')}</span>
+                <p className={classes.modalText}>{t('newsletter.help-modal.attachment-text')} </p>
             </DialogContent>
             <DialogActions className={classes.modalButtonWrapper}>
                 <Button className={classes.modalButton} onClick={onClose} autoFocus>
-                    Rozumiem
+                    {t('newsletter.help-modal.button')}
                 </Button>
             </DialogActions>
         </Dialog>

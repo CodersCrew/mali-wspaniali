@@ -6,6 +6,7 @@ import { NewsletterPrimaryTextField } from './NewsletterPrimaryTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSecondaryTextField } from './NewsletterSecondaryTextField';
 import { parentsMockData, preschoolsMockData } from './mockData';
+import { PrimaryInputValues, SecondaryInputValues } from './types';
 
 export const NewsletterRecipent: React.FC<{
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -20,10 +21,16 @@ export const NewsletterRecipent: React.FC<{
         if (partRecipients.secondary === '') {
             selectRecipients([]);
         }
-        if (partRecipients.primary === 'parent' && partRecipients.secondary === 'all') {
+        if (
+            partRecipients.primary === PrimaryInputValues.parents &&
+            partRecipients.secondary === SecondaryInputValues.all
+        ) {
             selectRecipients(parentsMockData);
         }
-        if (partRecipients.primary === 'preschools' && partRecipients.secondary === 'all') {
+        if (
+            partRecipients.primary === PrimaryInputValues.preschools &&
+            partRecipients.secondary === SecondaryInputValues.all
+        ) {
             selectRecipients(preschoolsMockData);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +69,8 @@ export const NewsletterRecipent: React.FC<{
                 handleDelete={handleDelete}
                 handlePartRecipientChange={handlePartRecipientChange}
             />
-            {partRecipients.secondary === 'single' || partRecipients.secondary === 'preschool' ? (
+            {partRecipients.secondary === SecondaryInputValues.single ||
+            partRecipients.secondary === SecondaryInputValues.preschool ? (
                 <NewsletterOptionalTextField
                     classes={classes}
                     selectRecipients={selectRecipients}
