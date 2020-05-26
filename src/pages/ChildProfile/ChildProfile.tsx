@@ -10,6 +10,7 @@ import { useAuthorization } from '../../hooks/useAuthorization';
 import { ChildProfileResults } from './ChildProfileResults';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
+import { secondaryColor, white } from '../../colors';
 
 const TABS = {
     results: 'results',
@@ -46,7 +47,15 @@ export const ChildProfile = () => {
                 </Typography>
             </Grid>
             <Typography className={classes.description}>{t('child-profile.description')}</Typography>
-            <Tabs value={activeTab} onChange={(event, value) => setActiveTab(value)} className={classes.tabs}>
+            <Tabs
+                value={activeTab}
+                onChange={(event, value) => setActiveTab(value)}
+                className={classes.tabs}
+                classes={{
+                    root: classes.tabsRoot,
+                    indicator: classes.tabsIndicator,
+                }}
+            >
                 <Tab label={t('child-profile.results-list')} value={TABS.results} />
                 <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
                 <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
@@ -81,5 +90,34 @@ const useStyles = makeStyles({
     },
     tabs: {
         marginTop: '40px',
+    },
+    tabsRoot: {
+        '& button': {
+            border: `1px solid ${secondaryColor}`,
+            color: secondaryColor,
+            textTransform: 'unset',
+            fontWeight: 700,
+            borderRadius: '10px 10px 0 0',
+            height: '34px',
+            minHeight: 'unset',
+            paddingTop: '4px',
+            opacity: 1,
+
+            '& .MuiTouchRipple-root': {
+                display: 'none',
+            },
+
+            '&:not(:last-child)': {
+                borderRight: 0,
+            },
+        },
+
+        '& .Mui-selected': {
+            color: white,
+            backgroundColor: secondaryColor,
+        },
+    },
+    tabsIndicator: {
+        display: 'none',
     },
 });
