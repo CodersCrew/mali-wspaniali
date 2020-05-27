@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
-import { makeStyles, createMuiTheme, ThemeProvider, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, ThemeProvider, createStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import { Sidebar } from '../../components/Sidebar';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
+import { theme } from '../../theme';
 
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
@@ -24,12 +25,6 @@ export const AppWrapper: FC = ({ children }) => {
     );
 };
 
-const theme = createMuiTheme({
-    typography: {
-        fontFamily: ['"Montserrat"'].join(','),
-    },
-});
-
 // eslint-disable-next-line no-shadow
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -42,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 backgroundColor,
-                padding: 0
+                padding: 0,
             },
         },
         container: {
@@ -60,15 +55,16 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             [theme.breakpoints.down('sm')]: {
                 margin: 0,
-                width: '100%'
+                width: '100%',
             },
         },
         content: {
+            padding: '10px 60px',
             [theme.breakpoints.down('sm')]: {
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 padding: '10px 10px 10px 10px',
             },
-        }
+        },
     }),
 );
