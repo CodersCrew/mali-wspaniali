@@ -41,13 +41,13 @@ const useStyles = makeStyles(() =>
             '&:first-child': {
                 paddingTop: 29,
             },
+            fontFamily: 'Montserrat',
         },
         modalTextBold: {
             display: 'block',
             fontSize: 15,
             fontWeight: 'bold',
             color: textColor,
-            fontFamily: 'Montserrat',
             lineHeight: 1,
             marginBottom: 15,
         },
@@ -56,7 +56,6 @@ const useStyles = makeStyles(() =>
             fontSize: 15,
             lineHeight: 1.2,
             color: textColor,
-            fontFamily: 'Montserrat',
             '&:first-of-type': {
                 marginBottom: 30,
             },

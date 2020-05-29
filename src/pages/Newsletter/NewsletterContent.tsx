@@ -32,9 +32,9 @@ export const NewsletterContent: React.FC<{
     useEffect(() => {
         if (fields.recipients.length > 0) {
             setDisabled(false);
-        } else if (fields.recipients.length === 0 && fields.type && fields.topic && message) {
+        } else if (fields.type && fields.topic && message) {
             setDisabled(false);
-        } else if (fields.recipients.length === 0 && !fields.type && !fields.topic && !message) {
+        } else if (!fields.type && !fields.topic && !message) {
             setDisabled(true);
         }
     }, [fields, message]);
@@ -43,38 +43,24 @@ export const NewsletterContent: React.FC<{
     const classes = useStyles();
 
     const newsletterTypesArray = [
-        t('newsletter.newsletter-types.results'),
-        t('newsletter.newsletter-types.agreements'),
-        t('newsletter.newsletter-types.events'),
-        t('newsletter.newsletter-types.important'),
-        t('newsletter.newsletter-types.other'),
+        { name: t('newsletter.newsletter-types.results'), color: newsletterColors.typeColors.yellow },
+        { name: t('newsletter.newsletter-types.agreements'), color: newsletterColors.typeColors.blue },
+        { name: t('newsletter.newsletter-types.events'), color: newsletterColors.typeColors.red },
+        { name: t('newsletter.newsletter-types.important'), color: newsletterColors.typeColors.green },
+        { name: t('newsletter.newsletter-types.other'), color: newsletterColors.typeColors.purple },
     ];
 
-    const setItemColors = (value: string) => {
-        switch (value) {
-            case t('newsletter.newsletter-types.results'):
-                return newsletterColors.typeColors.yellow;
-            case t('newsletter.newsletter-types.agreements'):
-                return newsletterColors.typeColors.blue;
-            case t('newsletter.newsletter-types.events'):
-                return newsletterColors.typeColors.red;
-            case t('newsletter.newsletter-types.important'):
-                return newsletterColors.typeColors.green;
-            case t('newsletter.newsletter-types.other'):
-                return newsletterColors.typeColors.purple;
-            default:
-                return newsletterColors.typeColors.blue;
-        }
-    };
-
-    const setMenuItems = (array: string[]) => {
+    const setMenuItems = (array: { name: string; color: string }[]) => {
         return array.map(item => {
-            const itemColor = setItemColors(item);
             return (
-                <MenuItem key={item} value={item} className={classes.selectMenuItem}>
-                    <Checkbox size={'small'} checked={fields.type === item} className={classes.selectMenuCheckbox} />
-                    <div className={classes.square} style={{ backgroundColor: itemColor }}></div>
-                    <ListItemText classes={{ primary: classes.selectMenuItemText }} primary={item} />
+                <MenuItem key={item.name} value={item.name} className={classes.selectMenuItem}>
+                    <Checkbox
+                        size={'small'}
+                        checked={fields.type === item.name}
+                        className={classes.selectMenuCheckbox}
+                    />
+                    <div className={classes.square} style={{ backgroundColor: item.color }}></div>
+                    <ListItemText classes={{ primary: classes.selectMenuItemText }} primary={item.name} />
                 </MenuItem>
             );
         });
@@ -114,7 +100,8 @@ export const NewsletterContent: React.FC<{
                         },
                     },
                     renderValue: value => {
-                        const itemBackgroundColor = setItemColors(value as string);
+                        const item = newsletterTypesArray.find(element => element.name === value);
+                        const itemBackgroundColor = item ? item.color :newsletterColors.typeColors.blue;
                         return (
                             <Chip
                                 style={{ backgroundColor: itemBackgroundColor }}
