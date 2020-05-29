@@ -6,15 +6,24 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { mainColor, white, newsletterColors } from '../../colors';
 import { ProgressBarStates } from './types';
 
-export const NewsletterProgressBar: React.FC<{ progressBarState: { topElement: string; bottomElement: string } }> = ({
+export const NewsletterProgressBar: React.FC<{ progressBarState: { firstStep: string; secondStep: string } }> = ({
     progressBarState,
 }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
+    enum ProgressBarNames {
+        firstStep = 'FIRSTSTEP',
+        secondStep = 'SECONDSTEP',
+    }
+    enum ProgressBarContent {
+        one = '1',
+        two = '2',
+    }
+
     const setElement = (name: string) => {
-        const number = name === 'top' ? 1 : 2;
-        switch (number === 1 ? progressBarState.topElement : progressBarState.bottomElement) {
+        const number = name === ProgressBarNames.firstStep ? ProgressBarContent.one : ProgressBarContent.two;
+        switch (name === ProgressBarNames.firstStep ? progressBarState.firstStep : progressBarState.secondStep) {
             case ProgressBarStates.Inactive:
                 return (
                     <>
@@ -22,7 +31,9 @@ export const NewsletterProgressBar: React.FC<{ progressBarState: { topElement: s
                             <span className={classes.number}>{number}</span>
                         </div>
                         <span className={classes.text}>
-                            {number === 1 ? t('newsletter.sidebar.fill') : t('newsletter.sidebar.newsletter-content')}
+                            {number === ProgressBarContent.one
+                                ? t('newsletter.sidebar.fill')
+                                : t('newsletter.sidebar.newsletter-content')}
                         </span>
                     </>
                 );
@@ -61,9 +72,9 @@ export const NewsletterProgressBar: React.FC<{ progressBarState: { topElement: s
 
     return (
         <div className={classes.container}>
-            {setElement('top')}
+            {setElement(ProgressBarNames.firstStep)}
             <div className={classes.verticalLine}></div>
-            {setElement('bottom')}
+            {setElement(ProgressBarNames.secondStep)}
         </div>
     );
 };

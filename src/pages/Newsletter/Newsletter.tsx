@@ -27,24 +27,24 @@ export const NewsletterPage = () => {
     const [message, setMessage] = useState('');
     const { type, topic, recipients } = fields;
     const [progressBarState, setSidebarState] = useState({
-        topElement: ProgressBarStates.Ready,
-        bottomElement: ProgressBarStates.Inactive,
+        firstStep: ProgressBarStates.Ready,
+        secondStep: ProgressBarStates.Inactive,
     });
 
     useEffect(() => {
         if (fields.recipients.length > 0) {
-            setSidebarState({ topElement: ProgressBarStates.Done, bottomElement: ProgressBarStates.Ready });
+            setSidebarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Ready });
         }
         if (fields.recipients.length === 0 && !fields.type && !fields.topic && !message) {
-            setSidebarState({ topElement: ProgressBarStates.Ready, bottomElement: ProgressBarStates.Inactive });
+            setSidebarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
         }
         if (fields.recipients.length === 0 && (fields.type || fields.topic || message)) {
-            setSidebarState(prevSidebarState => ({ ...prevSidebarState, topElement: ProgressBarStates.Error }));
+            setSidebarState(prevSidebarState => ({ ...prevSidebarState, firstStep: ProgressBarStates.Error }));
         }
         if ((!fields.type && (fields.topic || message)) || ((!fields.type || !fields.topic) && message)) {
             setSidebarState(prevSidebarState => ({
                 ...prevSidebarState,
-                bottomElement: ProgressBarStates.Error,
+                secondStep: ProgressBarStates.Error,
             }));
         }
     }, [fields, message]);
