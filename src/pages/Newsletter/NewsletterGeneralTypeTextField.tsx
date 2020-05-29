@@ -13,8 +13,8 @@ export const NewsletterGeneralTypeTextField: React.FC<{
         specificType: string;
     };
     handleDelete: (name: string, value: string) => void;
-    handlePartRecipientChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ classes, recipientType, handleDelete, handlePartRecipientChange }) => {
+    handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange }) => {
     const { t } = useTranslation();
 
     return (
@@ -59,7 +59,7 @@ export const NewsletterGeneralTypeTextField: React.FC<{
                 },
             }}
             required
-            onChange={handlePartRecipientChange}
+            onChange={handleRecipientTypeChange}
             name="generalType"
             label={t('newsletter.general-recipient-label')}
             // TODO: CHANGE LABEL WHEN FOCUSED

@@ -45,7 +45,7 @@ export const NewsletterRecipent: React.FC<{
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [recipientType]);
 
-    const handlePartRecipientChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleRecipientTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setRecipientType(prevFields => ({
             ...prevFields,
@@ -70,13 +70,13 @@ export const NewsletterRecipent: React.FC<{
                 classes={classes}
                 recipientType={recipientType}
                 handleDelete={handleDelete}
-                handlePartRecipientChange={handlePartRecipientChange}
+                handleRecipientTypeChange={handleRecipientTypeChange}
             />
             <NewsletterSpecificTypeTextField
                 classes={classes}
                 recipientType={recipientType}
                 handleDelete={handleDelete}
-                handlePartRecipientChange={handlePartRecipientChange}
+                handleRecipientTypeChange={handleRecipientTypeChange}
             />
             {recipientType.specificType === SpecificRecipientInputValues.single ||
             recipientType.specificType === SpecificRecipientInputValues.kindergarten ? (
