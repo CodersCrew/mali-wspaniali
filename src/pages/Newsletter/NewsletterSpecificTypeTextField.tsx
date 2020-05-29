@@ -32,26 +32,26 @@ export const NewsletterSpecificTypeTextField: React.FC<{
     const parentsRecipients = [
         {
             value: SpecificRecipientInputValues.all,
-            label: t('newsletter.recipients-secondary-value-labels.all-parents'),
+            label: t('newsletter.specific-recipient-value-labels.all-parents'),
         },
         {
             value: SpecificRecipientInputValues.kindergarten,
-            label: t('newsletter.recipients-secondary-value-labels.from-single-kindergarten'),
+            label: t('newsletter.specific-recipient-value-labels.from-single-kindergarten'),
         },
         {
             value: SpecificRecipientInputValues.single,
-            label: t('newsletter.recipients-secondary-value-labels.individual-message'),
+            label: t('newsletter.specific-recipient-value-labels.individual-message'),
         },
     ];
 
     const kindergartensRecipients = [
         {
             value: SpecificRecipientInputValues.all,
-            label: t('newsletter.recipients-secondary-value-labels.all-kindergartens'),
+            label: t('newsletter.specific-recipient-value-labels.all-kindergartens'),
         },
         {
             value: SpecificRecipientInputValues.single,
-            label: t('newsletter.recipients-secondary-value-labels.single-kindergarten'),
+            label: t('newsletter.specific-recipient-value-labels.single-kindergarten'),
         },
     ];
 
@@ -127,8 +127,8 @@ export const NewsletterSpecificTypeTextField: React.FC<{
                     asterisk: classes.asterisk,
                 },
             }}
-            name="specificTypeInput"
-            label={t('newsletter.recipients-secondary-label')}
+            name="specificType"
+            label={t('newsletter.specific-recipient-label')}
             fullWidth
         >
             {recipientType.generalType === GeneralRecipientInputValues.parents

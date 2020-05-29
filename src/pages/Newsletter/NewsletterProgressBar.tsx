@@ -4,18 +4,18 @@ import { useTranslation } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { mainColor, white, newsletterColors } from '../../colors';
-import { SidebarElementState } from './types';
+import { ProgressBarStates } from './types';
 
-export const NewsletterSidebar: React.FC<{ sidebarState: { topElement: string; bottomElement: string } }> = ({
-    sidebarState,
+export const NewsletterProgressBar: React.FC<{ progressBarState: { topElement: string; bottomElement: string } }> = ({
+    progressBarState,
 }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     const setElement = (name: string) => {
         const number = name === 'top' ? 1 : 2;
-        switch (number === 1 ? sidebarState.topElement : sidebarState.bottomElement) {
-            case SidebarElementState.Inactive:
+        switch (number === 1 ? progressBarState.topElement : progressBarState.bottomElement) {
+            case ProgressBarStates.Inactive:
                 return (
                     <>
                         <div className={`${classes.numberWrapper} inactive`}>
@@ -26,21 +26,21 @@ export const NewsletterSidebar: React.FC<{ sidebarState: { topElement: string; b
                         </span>
                     </>
                 );
-            case SidebarElementState.Done:
+            case ProgressBarStates.Done:
                 return (
                     <>
                         <CheckCircleIcon className={classes.iconReady} />
                         <span className={`${classes.text} inactive`}>{t('newsletter.sidebar.done')}</span>
                     </>
                 );
-            case SidebarElementState.Error:
+            case ProgressBarStates.Error:
                 return (
                     <>
                         <WarningIcon className={classes.iconError} />
                         <span className={classes.text}>{t('newsletter.sidebar.error')}</span>
                     </>
                 );
-            case SidebarElementState.FileError:
+            case ProgressBarStates.FileError:
                 return (
                     <>
                         <WarningIcon className={classes.iconError} />

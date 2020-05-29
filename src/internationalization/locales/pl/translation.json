@@ -78,9 +78,9 @@
         "topic-input-label": "Wpisz temat",
         "parents-label": "Aby wysłać wiadomość do konkretnego rodzica, wpisz dane dziecka, lub wybierz je z listy",
         "kindergartens-label": "Wybierz przedszkole z listy",
-        "recipients-primary-label": "Wybierz adresata z listy",
-        "recipients-secondary-label": "Sprecyzuj adresata",
-        "recipients-secondary-value-labels": {
+        "general-recipient-label": "Wybierz adresata z listy",
+        "specific-recipient-label": "Sprecyzuj adresata",
+        "specific-recipient-value-labels": {
             "all-parents": "wszyscy rodzice",
             "from-single-kindergarten": "z wybranego przedszkola",
             "individual-message": "wiadomość indywidualna",

@@ -60,8 +60,8 @@ export const NewsletterGeneralTypeTextField: React.FC<{
             }}
             required
             onChange={handlePartRecipientChange}
-            name="generalTypeInput"
-            label={t('newsletter.recipients-generalType-label')}
+            name="generalType"
+            label={t('newsletter.general-recipient-label')}
             // TODO: CHANGE LABEL WHEN FOCUSED
 
             fullWidth

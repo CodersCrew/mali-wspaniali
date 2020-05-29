@@ -12,7 +12,7 @@ export type WorkspaceProps = {
     setMessage: (value: string | ((prevState: string) => string)) => void;
 };
 
-export enum SidebarElementState {
+export enum ProgressBarStates {
     Inactive = 'INACTIVE',
     Ready = 'READY',
     Error = 'ERROR',

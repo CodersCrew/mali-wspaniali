@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
-import { NewsletterSidebar } from './NewsletterSidebar';
-import { SidebarElementState } from './types';
+import { NewsletterProgressBar } from './NewsletterProgressBar';
+import { ProgressBarStates } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
@@ -26,25 +26,25 @@ export const NewsletterPage = () => {
     const [fields, setFields] = useState(initialState);
     const [message, setMessage] = useState('');
     const { type, topic, recipients } = fields;
-    const [sidebarState, setSidebarState] = useState({
-        topElement: SidebarElementState.Ready,
-        bottomElement: SidebarElementState.Inactive,
+    const [progressBarState, setSidebarState] = useState({
+        topElement: ProgressBarStates.Ready,
+        bottomElement: ProgressBarStates.Inactive,
     });
 
     useEffect(() => {
         if (fields.recipients.length > 0) {
-            setSidebarState({ topElement: SidebarElementState.Done, bottomElement: SidebarElementState.Ready });
+            setSidebarState({ topElement: ProgressBarStates.Done, bottomElement: ProgressBarStates.Ready });
         }
         if (fields.recipients.length === 0 && !fields.type && !fields.topic && !message) {
-            setSidebarState({ topElement: SidebarElementState.Ready, bottomElement: SidebarElementState.Inactive });
+            setSidebarState({ topElement: ProgressBarStates.Ready, bottomElement: ProgressBarStates.Inactive });
         }
         if (fields.recipients.length === 0 && (fields.type || fields.topic || message)) {
-            setSidebarState(prevSidebarState => ({ ...prevSidebarState, topElement: SidebarElementState.Error }));
+            setSidebarState(prevSidebarState => ({ ...prevSidebarState, topElement: ProgressBarStates.Error }));
         }
         if ((!fields.type && (fields.topic || message)) || ((!fields.type || !fields.topic) && message)) {
             setSidebarState(prevSidebarState => ({
                 ...prevSidebarState,
-                bottomElement: SidebarElementState.Error,
+                bottomElement: ProgressBarStates.Error,
             }));
         }
     }, [fields, message]);
@@ -92,7 +92,7 @@ export const NewsletterPage = () => {
                     {t('newsletter.subHeader')}
                 </Typography>
                 <div className={classes.formContainer}>
-                    <NewsletterSidebar sidebarState={sidebarState} />
+                    <NewsletterProgressBar progressBarState={progressBarState} />
                     <div className={classes.inputContainer}>
                         <NewsletterRecipent
                             handleChange={handleChange}
@@ -127,7 +127,6 @@ const useStyles = makeStyles(() =>
     createStyles({
         container: {
             padding: '0 150px 54px 60px',
-            fontFamily: 'Montserrat, sans-serif',
             [theme.breakpoints.down('sm')]: {
                 padding: '0 10px',
             },

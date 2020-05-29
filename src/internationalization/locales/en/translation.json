@@ -78,9 +78,9 @@
         "topic-input-label": "Select topic",
         "parents-label": "To sent message to single parent, select him from the list",
         "kindergartens-label": "Select kindergarten from list",
-        "recipients-primary-label": "Select recipient from list",
-        "recipients-secondary-label": "Specify recipient",
-        "recipients-secondary-value-labels": {
+        "general-recipient-label": "Select recipient from list",
+        "specific-recipient-label": "Specify recipient",
+        "specific-recipient-value-labels": {
             "all-parents": "all parents",
             "from-single-kindergarten": "from selected kindergarten",
             "individual-message": "individual message",
