@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Dialog, DialogContent, DialogActions, Button } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { mainColor, textColor, newsletterColors } from '../../colors';
 
 export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const classes = useStyles();
@@ -28,7 +29,7 @@ export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 const useStyles = makeStyles(() =>
     createStyles({
         modalIcon: {
-            color: '#008aad',
+            color: mainColor,
             width: 24,
             height: 24,
             position: 'absolute',
@@ -45,7 +46,7 @@ const useStyles = makeStyles(() =>
             display: 'block',
             fontSize: 15,
             fontWeight: 'bold',
-            color: '#1d1d1d',
+            color: textColor,
             fontFamily: 'Montserrat',
             lineHeight: 1,
             marginBottom: 15,
@@ -54,7 +55,7 @@ const useStyles = makeStyles(() =>
             marginTop: 0,
             fontSize: 15,
             lineHeight: 1.2,
-            color: '#1d1d1b',
+            color: textColor,
             fontFamily: 'Montserrat',
             '&:first-of-type': {
                 marginBottom: 30,
@@ -67,7 +68,7 @@ const useStyles = makeStyles(() =>
             fontFamily: 'Montserrat',
             fontSize: 14,
             fontWeight: 'bold',
-            color: '#2196f3',
+            color: newsletterColors.helpModalButtonColor,
         },
         modalButtonWrapper: {
             paddingRight: 17,
