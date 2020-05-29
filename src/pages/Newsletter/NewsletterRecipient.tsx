@@ -2,11 +2,11 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import { mainColor, white, newsletterColors, textColor } from '../../colors';
-import { NewsletterPrimaryTextField } from './NewsletterPrimaryTextField';
+import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
-import { NewsletterSecondaryTextField } from './NewsletterSecondaryTextField';
+import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
 import { parentsMockData, preschoolsMockData } from './mockData';
-import { PrimaryInputValues, SecondaryInputValues } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
 
 export const NewsletterRecipent: React.FC<{
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -15,39 +15,39 @@ export const NewsletterRecipent: React.FC<{
 }> = ({ handleChange, recipients, selectRecipients }) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [partRecipients, setPartRecipients] = useState({ primary: '', secondary: '' });
+    const [recipientType, setRecipientType] = useState({ generalType: '', specificType: '' });
 
     useEffect(() => {
-        if (partRecipients.secondary === '') {
+        if (recipientType.specificType === '') {
             selectRecipients([]);
         }
         if (
-            partRecipients.primary === PrimaryInputValues.parents &&
-            partRecipients.secondary === SecondaryInputValues.all
+            recipientType.generalType === GeneralRecipientInputValues.parents &&
+            recipientType.specificType === SpecificRecipientInputValues.all
         ) {
             selectRecipients(parentsMockData);
         }
         if (
-            partRecipients.primary === PrimaryInputValues.kindergartens &&
-            partRecipients.secondary === SecondaryInputValues.all
+            recipientType.generalType === GeneralRecipientInputValues.kindergartens &&
+            recipientType.specificType === SpecificRecipientInputValues.all
         ) {
             selectRecipients(preschoolsMockData);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [partRecipients]);
+    }, [recipientType]);
 
     const handlePartRecipientChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setPartRecipients(prevFields => ({
+        setRecipientType(prevFields => ({
             ...prevFields,
             [name]: value,
         }));
     };
     const handleDelete = (name: string) => {
-        if (name === 'primary') {
-            setPartRecipients({ primary: '', secondary: '' });
+        if (name === 'generalTypeInput') {
+            setRecipientType({ generalType: '', specificType: '' });
         } else {
-            setPartRecipients(prevFields => ({
+            setRecipientType(prevFields => ({
                 ...prevFields,
                 [name]: '',
             }));
@@ -57,24 +57,24 @@ export const NewsletterRecipent: React.FC<{
     return (
         <div className={classes.container}>
             <div className={classes.heading}>{t('newsletter.recipient-heading')}</div>
-            <NewsletterPrimaryTextField
+            <NewsletterGeneralTypeTextField
                 classes={classes}
-                partRecipients={partRecipients}
+                recipientType={recipientType}
                 handleDelete={handleDelete}
                 handlePartRecipientChange={handlePartRecipientChange}
             />
-            <NewsletterSecondaryTextField
+            <NewsletterSpecificTypeTextField
                 classes={classes}
-                partRecipients={partRecipients}
+                recipientType={recipientType}
                 handleDelete={handleDelete}
                 handlePartRecipientChange={handlePartRecipientChange}
             />
-            {partRecipients.secondary === SecondaryInputValues.single ||
-            partRecipients.secondary === SecondaryInputValues.kindergarten ? (
+            {recipientType.specificType === SpecificRecipientInputValues.single ||
+            recipientType.specificType === SpecificRecipientInputValues.kindergarten ? (
                 <NewsletterOptionalTextField
                     classes={classes}
                     selectRecipients={selectRecipients}
-                    partRecipients={partRecipients}
+                    recipientType={recipientType}
                     recipients={recipients}
                     handleChange={handleChange}
                 />

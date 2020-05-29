@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
 import { parentsMockData, preschoolsMockData } from './mockData';
-import { PrimaryInputValues, SecondaryInputValues } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
 
 export const NewsletterOptionalTextField: React.FC<{
     classes: Record<
@@ -21,11 +21,11 @@ export const NewsletterOptionalTextField: React.FC<{
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     selectRecipients: (filteredRecipients: string[]) => void;
     recipients: string[];
-    partRecipients: {
-        primary: string;
-        secondary: string;
+    recipientType: {
+        generalType: string;
+        specificType: string;
     };
-}> = ({ classes, handleChange, selectRecipients, recipients, partRecipients }) => {
+}> = ({ classes, handleChange, selectRecipients, recipients, recipientType }) => {
     const { t } = useTranslation();
 
     const handleDelete = (value: string) => {
@@ -53,8 +53,8 @@ export const NewsletterOptionalTextField: React.FC<{
             onChange={handleChange}
             name="recipients"
             label={
-                partRecipients.primary === PrimaryInputValues.parents &&
-                partRecipients.secondary === SecondaryInputValues.single
+                recipientType.generalType === GeneralRecipientInputValues.parents &&
+                recipientType.specificType === SpecificRecipientInputValues.single
                     ? t('newsletter.parents-label')
                     : t('newsletter.kindergartens-label')
             }
@@ -98,8 +98,8 @@ export const NewsletterOptionalTextField: React.FC<{
                 },
             }}
         >
-            {partRecipients.primary === PrimaryInputValues.kindergartens ||
-            partRecipients.secondary === SecondaryInputValues.kindergarten
+            {recipientType.generalType === GeneralRecipientInputValues.kindergartens ||
+            recipientType.specificType === SpecificRecipientInputValues.kindergarten
                 ? setMenuItems(preschoolsMockData)
                 : setMenuItems(parentsMockData)}
         </TextField>

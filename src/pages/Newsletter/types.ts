@@ -20,12 +20,12 @@ export enum SidebarElementState {
     FileError = 'FILEERROR',
 }
 
-export enum PrimaryInputValues {
+export enum GeneralRecipientInputValues {
     parents = 'PARENTS',
     kindergartens = 'KINDERGARTENS',
 }
 
-export enum SecondaryInputValues {
+export enum SpecificRecipientInputValues {
     all = 'ALL',
     kindergarten = 'KINDERGARTEN',
     single = 'SINGLE',

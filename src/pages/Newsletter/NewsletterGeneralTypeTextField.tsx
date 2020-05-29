@@ -1,20 +1,20 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
-import { PrimaryInputValues } from './types';
+import { GeneralRecipientInputValues } from './types';
 
-export const NewsletterPrimaryTextField: React.FC<{
+export const NewsletterGeneralTypeTextField: React.FC<{
     classes: Record<
         'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem' | 'inputChipLabel' | 'asterisk',
         string
     >;
-    partRecipients: {
-        primary: string;
-        secondary: string;
+    recipientType: {
+        generalType: string;
+        specificType: string;
     };
     handleDelete: (name: string, value: string) => void;
     handlePartRecipientChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ classes, partRecipients, handleDelete, handlePartRecipientChange }) => {
+}> = ({ classes, recipientType, handleDelete, handlePartRecipientChange }) => {
     const { t } = useTranslation();
 
     return (
@@ -22,7 +22,7 @@ export const NewsletterPrimaryTextField: React.FC<{
             className={classes.textfield}
             select
             SelectProps={{
-                value: partRecipients.primary,
+                value: recipientType.generalType,
                 MenuProps: {
                     getContentAnchorEl: null,
                     anchorOrigin: {
@@ -32,7 +32,7 @@ export const NewsletterPrimaryTextField: React.FC<{
                 },
                 renderValue: value => {
                     const chipLabel =
-                        value === PrimaryInputValues.parents ? t('newsletter.parents') : t('newsletter.kindergartens');
+                        value === GeneralRecipientInputValues.parents ? t('newsletter.parents') : t('newsletter.kindergartens');
                     return (
                         <Chip
                             classes={{
@@ -40,7 +40,7 @@ export const NewsletterPrimaryTextField: React.FC<{
                             }}
                             size={'small'}
                             label={chipLabel}
-                            onDelete={() => handleDelete('primary', value as string)}
+                            onDelete={() => handleDelete('generalTypeInput', value as string)}
                             onMouseDown={event => {
                                 event.stopPropagation();
                             }}
@@ -60,8 +60,8 @@ export const NewsletterPrimaryTextField: React.FC<{
             }}
             required
             onChange={handlePartRecipientChange}
-            name="primary"
-            label={t('newsletter.recipients-primary-label')}
+            name="generalTypeInput"
+            label={t('newsletter.recipients-generalType-label')}
             // TODO: CHANGE LABEL WHEN FOCUSED
 
             fullWidth
@@ -70,7 +70,7 @@ export const NewsletterPrimaryTextField: React.FC<{
                 classes={{
                     root: classes.selectItem,
                 }}
-                value={PrimaryInputValues.parents}
+                value={GeneralRecipientInputValues.parents}
             >
                 {t('newsletter.parents')}
             </MenuItem>
@@ -78,7 +78,7 @@ export const NewsletterPrimaryTextField: React.FC<{
                 classes={{
                     root: classes.selectItem,
                 }}
-                value={PrimaryInputValues.kindergartens}
+                value={GeneralRecipientInputValues.kindergartens}
             >
                 {t('newsletter.kindergartens')}
             </MenuItem>

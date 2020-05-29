@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
-import { PrimaryInputValues, SecondaryInputValues } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
 
 type ValuesArrayTypes = {
     value: string;
     label: string;
 };
 
-export const NewsletterSecondaryTextField: React.FC<{
+export const NewsletterSpecificTypeTextField: React.FC<{
     classes: Record<
         | 'container'
         | 'textfield'
@@ -20,31 +20,37 @@ export const NewsletterSecondaryTextField: React.FC<{
         | 'asterisk',
         string
     >;
-    partRecipients: {
-        primary: string;
-        secondary: string;
+    recipientType: {
+        generalType: string;
+        specificType: string;
     };
     handleDelete: (name: string, value: string) => void;
     handlePartRecipientChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ classes, partRecipients, handleDelete, handlePartRecipientChange }) => {
+}> = ({ classes, recipientType, handleDelete, handlePartRecipientChange }) => {
     const { t } = useTranslation();
 
     const parentsRecipients = [
-        { value: SecondaryInputValues.all, label: t('newsletter.recipients-secondary-value-labels.all-parents') },
         {
-            value: SecondaryInputValues.kindergarten,
+            value: SpecificRecipientInputValues.all,
+            label: t('newsletter.recipients-secondary-value-labels.all-parents'),
+        },
+        {
+            value: SpecificRecipientInputValues.kindergarten,
             label: t('newsletter.recipients-secondary-value-labels.from-single-kindergarten'),
         },
         {
-            value: SecondaryInputValues.single,
+            value: SpecificRecipientInputValues.single,
             label: t('newsletter.recipients-secondary-value-labels.individual-message'),
         },
     ];
 
     const kindergartensRecipients = [
-        { value: SecondaryInputValues.all, label: t('newsletter.recipients-secondary-value-labels.all-kindergartens') },
         {
-            value: SecondaryInputValues.single,
+            value: SpecificRecipientInputValues.all,
+            label: t('newsletter.recipients-secondary-value-labels.all-kindergartens'),
+        },
+        {
+            value: SpecificRecipientInputValues.single,
             label: t('newsletter.recipients-secondary-value-labels.single-kindergarten'),
         },
     ];
@@ -68,10 +74,10 @@ export const NewsletterSecondaryTextField: React.FC<{
             className={classes.textfield}
             select
             required
-            disabled={!partRecipients.primary}
+            disabled={!recipientType.generalType}
             onChange={handlePartRecipientChange}
             SelectProps={{
-                value: partRecipients.secondary,
+                value: recipientType.specificType,
                 MenuProps: {
                     getContentAnchorEl: null,
                     anchorOrigin: {
@@ -81,19 +87,17 @@ export const NewsletterSecondaryTextField: React.FC<{
                 },
                 renderValue: value => {
                     const getLabel = () => {
-                        if (partRecipients.primary === PrimaryInputValues.parents) {
-                            const secondaryParentRecipient = parentsRecipients.find(element => {
-                                if (element.value === (value as string)) return element;
-                                return undefined;
-                            });
-                            if (secondaryParentRecipient) return secondaryParentRecipient.label;
+                        if (recipientType.generalType === GeneralRecipientInputValues.parents) {
+                            const specificTypeParentRecipient = parentsRecipients.find(
+                                element => element.value === (value as string),
+                            );
+                            if (specificTypeParentRecipient) return specificTypeParentRecipient.label;
                         }
-                        if (partRecipients.primary === PrimaryInputValues.kindergartens) {
-                            const secondarykindergartenRecipient = kindergartensRecipients.find(element => {
-                                if (element.value === (value as string)) return element;
-                                return undefined;
-                            });
-                            if (secondarykindergartenRecipient) return secondarykindergartenRecipient.label;
+                        if (recipientType.generalType === GeneralRecipientInputValues.kindergartens) {
+                            const specificTypekindergartenRecipient = kindergartensRecipients.find(
+                                element => element.value === (value as string),
+                            );
+                            if (specificTypekindergartenRecipient) return specificTypekindergartenRecipient.label;
                         }
                         return null;
                     };
@@ -104,7 +108,7 @@ export const NewsletterSecondaryTextField: React.FC<{
                             }}
                             size={'small'}
                             label={getLabel()}
-                            onDelete={() => handleDelete('secondary', value as string)}
+                            onDelete={() => handleDelete('specificTypeInput', value as string)}
                             onMouseDown={event => {
                                 event.stopPropagation();
                             }}
@@ -123,11 +127,11 @@ export const NewsletterSecondaryTextField: React.FC<{
                     asterisk: classes.asterisk,
                 },
             }}
-            name="secondary"
+            name="specificTypeInput"
             label={t('newsletter.recipients-secondary-label')}
             fullWidth
         >
-            {partRecipients.primary === PrimaryInputValues.parents
+            {recipientType.generalType === GeneralRecipientInputValues.parents
                 ? createMenuItems(parentsRecipients)
                 : createMenuItems(kindergartensRecipients)}
         </TextField>
