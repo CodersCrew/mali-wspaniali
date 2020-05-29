@@ -56,7 +56,7 @@ export const NewsletterOptionalTextField: React.FC<{
                 partRecipients.primary === PrimaryInputValues.parents &&
                 partRecipients.secondary === SecondaryInputValues.single
                     ? t('newsletter.parents-label')
-                    : t('newsletter.preschools-label')
+                    : t('newsletter.kindergartens-label')
             }
             fullWidth
             SelectProps={{
@@ -98,8 +98,8 @@ export const NewsletterOptionalTextField: React.FC<{
                 },
             }}
         >
-            {partRecipients.primary === PrimaryInputValues.preschools ||
-            partRecipients.secondary === SecondaryInputValues.preschool
+            {partRecipients.primary === PrimaryInputValues.kindergartens ||
+            partRecipients.secondary === SecondaryInputValues.kindergarten
                 ? setMenuItems(preschoolsMockData)
                 : setMenuItems(parentsMockData)}
         </TextField>

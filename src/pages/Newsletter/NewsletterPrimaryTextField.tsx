@@ -32,7 +32,7 @@ export const NewsletterPrimaryTextField: React.FC<{
                 },
                 renderValue: value => {
                     const chipLabel =
-                        value === PrimaryInputValues.parents ? t('newsletter.parents') : t('newsletter.preschools');
+                        value === PrimaryInputValues.parents ? t('newsletter.parents') : t('newsletter.kindergartens');
                     return (
                         <Chip
                             classes={{
@@ -78,9 +78,9 @@ export const NewsletterPrimaryTextField: React.FC<{
                 classes={{
                     root: classes.selectItem,
                 }}
-                value={PrimaryInputValues.preschools}
+                value={PrimaryInputValues.kindergartens}
             >
-                {t('newsletter.preschools')}
+                {t('newsletter.kindergartens')}
             </MenuItem>
         </TextField>
     );

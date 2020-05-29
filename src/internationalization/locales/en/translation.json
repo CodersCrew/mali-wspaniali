@@ -77,15 +77,15 @@
         "type-input-label": "Select type",
         "topic-input-label": "Select topic",
         "parents-label": "To sent message to single parent, select him from the list",
-        "preschools-label": "Select preschool from list",
+        "kindergartens-label": "Select kindergarten from list",
         "recipients-primary-label": "Select recipient from list",
         "recipients-secondary-label": "Specify recipient",
         "recipients-secondary-value-labels": {
             "all-parents": "all parents",
-            "from-single-preschool": "from selected preschool",
+            "from-single-kindergarten": "from selected kindergarten",
             "individual-message": "individual message",
-            "all-preschools": "all preschools",
-            "single-preschool": "single preschool"
+            "all-kindergartens": "all kindergartens",
+            "single-kindergarten": "single kindergarten"
         },
         "sending-error": "An error ocurred during sending the message.",
         "sending-success-modal": {
@@ -102,7 +102,7 @@
             "button": "Got it"
         },
         "parents": "Parents",
-        "preschools": "Preschools",
+        "kindergartens": "Kindergartens",
         "type": "Type",
         "topic": "Topic",
         "recipients": "Recipients",

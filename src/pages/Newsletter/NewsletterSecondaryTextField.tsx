@@ -32,8 +32,8 @@ export const NewsletterSecondaryTextField: React.FC<{
     const parentsRecipients = [
         { value: SecondaryInputValues.all, label: t('newsletter.recipients-secondary-value-labels.all-parents') },
         {
-            value: SecondaryInputValues.preschool,
-            label: t('newsletter.recipients-secondary-value-labels.from-single-preschool'),
+            value: SecondaryInputValues.kindergarten,
+            label: t('newsletter.recipients-secondary-value-labels.from-single-kindergarten'),
         },
         {
             value: SecondaryInputValues.single,
@@ -41,11 +41,11 @@ export const NewsletterSecondaryTextField: React.FC<{
         },
     ];
 
-    const preschoolsRecipients = [
-        { value: SecondaryInputValues.all, label: t('newsletter.recipients-secondary-value-labels.all-preschools') },
+    const kindergartensRecipients = [
+        { value: SecondaryInputValues.all, label: t('newsletter.recipients-secondary-value-labels.all-kindergartens') },
         {
             value: SecondaryInputValues.single,
-            label: t('newsletter.recipients-secondary-value-labels.single-preschool'),
+            label: t('newsletter.recipients-secondary-value-labels.single-kindergarten'),
         },
     ];
 
@@ -88,12 +88,12 @@ export const NewsletterSecondaryTextField: React.FC<{
                             });
                             if (secondaryParentRecipient) return secondaryParentRecipient.label;
                         }
-                        if (partRecipients.primary === PrimaryInputValues.preschools) {
-                            const secondaryPreschoolRecipient = preschoolsRecipients.find(element => {
+                        if (partRecipients.primary === PrimaryInputValues.kindergartens) {
+                            const secondarykindergartenRecipient = kindergartensRecipients.find(element => {
                                 if (element.value === (value as string)) return element;
                                 return undefined;
                             });
-                            if (secondaryPreschoolRecipient) return secondaryPreschoolRecipient.label;
+                            if (secondarykindergartenRecipient) return secondarykindergartenRecipient.label;
                         }
                         return null;
                     };
@@ -129,7 +129,7 @@ export const NewsletterSecondaryTextField: React.FC<{
         >
             {partRecipients.primary === PrimaryInputValues.parents
                 ? createMenuItems(parentsRecipients)
-                : createMenuItems(preschoolsRecipients)}
+                : createMenuItems(kindergartensRecipients)}
         </TextField>
     );
 };

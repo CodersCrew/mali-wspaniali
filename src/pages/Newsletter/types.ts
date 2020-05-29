@@ -22,11 +22,11 @@ export enum SidebarElementState {
 
 export enum PrimaryInputValues {
     parents = 'PARENTS',
-    preschools = 'PRESCHOOLS',
+    kindergartens = 'KINDERGARTENS',
 }
 
 export enum SecondaryInputValues {
     all = 'ALL',
-    preschool = 'PRESCHOOL',
+    kindergarten = 'KINDERGARTEN',
     single = 'SINGLE',
 }

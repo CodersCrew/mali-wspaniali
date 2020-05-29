@@ -28,7 +28,7 @@ export const NewsletterRecipent: React.FC<{
             selectRecipients(parentsMockData);
         }
         if (
-            partRecipients.primary === PrimaryInputValues.preschools &&
+            partRecipients.primary === PrimaryInputValues.kindergartens &&
             partRecipients.secondary === SecondaryInputValues.all
         ) {
             selectRecipients(preschoolsMockData);
@@ -70,7 +70,7 @@ export const NewsletterRecipent: React.FC<{
                 handlePartRecipientChange={handlePartRecipientChange}
             />
             {partRecipients.secondary === SecondaryInputValues.single ||
-            partRecipients.secondary === SecondaryInputValues.preschool ? (
+            partRecipients.secondary === SecondaryInputValues.kindergarten ? (
                 <NewsletterOptionalTextField
                     classes={classes}
                     selectRecipients={selectRecipients}
