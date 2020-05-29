@@ -108,7 +108,7 @@ export const NewsletterSpecificTypeTextField: React.FC<{
                             }}
                             size={'small'}
                             label={getLabel()}
-                            onDelete={() => handleDelete('specificTypeInput', value as string)}
+                            onDelete={() => handleDelete('specificType', value as string)}
                             onMouseDown={event => {
                                 event.stopPropagation();
                             }}

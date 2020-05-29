@@ -15,10 +15,23 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { theme } from '../../theme';
 import { mainColor, secondaryColor, white, textColor } from '../../colors';
 
-export const NewsletterSentModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+export const NewsletterSentModal: React.FC<{
+    onClose: () => void;
+    goToAdminPage: () => void;
+    resetState: () => void;
+}> = ({ onClose, goToAdminPage, resetState }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
+    const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (event.currentTarget.id === 'homePageButton') {
+            goToAdminPage();
+            onClose();
+        } else {
+            resetState();
+            onClose();
+        }
+    };
     return (
         <ThemeProvider theme={theme}>
             <Dialog open onClose={onClose}>
@@ -32,10 +45,20 @@ export const NewsletterSentModal: React.FC<{ onClose: () => void }> = ({ onClose
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions className={classes.sentModalButtonWrapper}>
-                    <Button className={classes.sentModalBackButton} onClick={onClose} autoFocus>
+                    <Button
+                        id="homePageButton"
+                        className={classes.sentModalBackButton}
+                        onClick={handleButtonClick}
+                        autoFocus
+                    >
                         {t('newsletter.sending-success-modal.back-button')}
                     </Button>
-                    <Button className={classes.sentModalNextMessageButton} onClick={onClose} autoFocus>
+                    <Button
+                        id="nextMessageButton"
+                        className={classes.sentModalNextMessageButton}
+                        onClick={handleButtonClick}
+                        autoFocus
+                    >
                         {t('newsletter.sending-success-modal.next-msg-button')}
                     </Button>
                 </DialogActions>

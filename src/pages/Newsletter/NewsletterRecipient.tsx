@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import { mainColor, white, newsletterColors, textColor } from '../../colors';
@@ -9,13 +9,22 @@ import { parentsMockData, preschoolsMockData } from './mockData';
 import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
 
 export const NewsletterRecipent: React.FC<{
+    recipientType: {
+        generalType: string;
+        specificType: string;
+    };
+    setRecipientType: React.Dispatch<
+        React.SetStateAction<{
+            generalType: string;
+            specificType: string;
+        }>
+    >;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     recipients: string[];
     selectRecipients: (filteredRecipients: string[]) => void;
-}> = ({ handleChange, recipients, selectRecipients }) => {
+}> = ({ recipientType, setRecipientType, handleChange, recipients, selectRecipients }) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [recipientType, setRecipientType] = useState({ generalType: '', specificType: '' });
 
     useEffect(() => {
         if (recipientType.specificType === '') {

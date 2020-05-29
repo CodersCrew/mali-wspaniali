@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Typography, Button, makeStyles, createStyles, ThemeProvider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useAuthorization } from '../../hooks/useAuthorization';
@@ -23,29 +24,34 @@ export const NewsletterPage = () => {
     useAuthorization(true, '/', ['admin']);
     const classes = useStyles();
     const { t } = useTranslation();
+    const history = useHistory();
     const [fields, setFields] = useState(initialState);
     const [message, setMessage] = useState('');
     const { type, topic, recipients } = fields;
-    const [progressBarState, setSidebarState] = useState({
+    const [progressBarState, setProgressBarState] = useState({
         firstStep: ProgressBarStates.Ready,
         secondStep: ProgressBarStates.Inactive,
     });
+    const [recipientType, setRecipientType] = useState({ generalType: '', specificType: '' });
 
     useEffect(() => {
         if (fields.recipients.length > 0) {
-            setSidebarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Ready });
+            setProgressBarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Ready });
         }
         if (fields.recipients.length === 0 && !fields.type && !fields.topic && !message) {
-            setSidebarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
+            setProgressBarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
         }
         if (fields.recipients.length === 0 && (fields.type || fields.topic || message)) {
-            setSidebarState(prevSidebarState => ({ ...prevSidebarState, firstStep: ProgressBarStates.Error }));
+            setProgressBarState(prevSidebarState => ({ ...prevSidebarState, firstStep: ProgressBarStates.Error }));
         }
         if ((!fields.type && (fields.topic || message)) || ((!fields.type || !fields.topic) && message)) {
-            setSidebarState(prevSidebarState => ({
+            setProgressBarState(prevSidebarState => ({
                 ...prevSidebarState,
                 secondStep: ProgressBarStates.Error,
             }));
+        }
+        if (fields.recipients.length === 0 && !fields.type && !fields.topic && message === '<p><br></p>') {
+            setProgressBarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
         }
     }, [fields, message]);
 
@@ -71,6 +77,23 @@ export const NewsletterPage = () => {
         }));
     };
 
+    const goToAdminPage = () => {
+        history.push('/admin');
+    };
+
+    const resetState = () => {
+        setFields(initialState);
+        setMessage('');
+        setProgressBarState({
+            firstStep: ProgressBarStates.Ready,
+            secondStep: ProgressBarStates.Inactive,
+        });
+        setRecipientType({
+            generalType: '',
+            specificType: '',
+        });
+    };
+
     const handleSubmit = async () => {
         const response = await createNewsletter({ type, topic, recipients, message });
         if (response.error) {
@@ -79,7 +102,8 @@ export const NewsletterPage = () => {
                 description: t('newsletter.sending-error'),
             });
         }
-        return openDialog(NewsletterSentModal, null);
+        console.log(type, topic);
+        return openDialog(NewsletterSentModal, { goToAdminPage, resetState });
     };
 
     return (
@@ -95,6 +119,8 @@ export const NewsletterPage = () => {
                     <NewsletterProgressBar progressBarState={progressBarState} />
                     <div className={classes.inputContainer}>
                         <NewsletterRecipent
+                            recipientType={recipientType}
+                            setRecipientType={setRecipientType}
                             handleChange={handleChange}
                             recipients={recipients}
                             selectRecipients={selectRecipients}

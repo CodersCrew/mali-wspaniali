@@ -141,6 +141,7 @@ export const NewsletterContent: React.FC<{
             </TextField>
             <TextField
                 disabled={disabled}
+                value={fields.topic}
                 name="topic"
                 label={t('newsletter.topic-input-label')}
                 required
