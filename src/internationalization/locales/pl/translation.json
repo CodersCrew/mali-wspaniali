@@ -53,7 +53,11 @@
         "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",
         "results-list": "Lista wyników",
         "tests-information": "Informacje o testach",
-        "your-agreements": "Twoje zgody"
+        "your-agreements": "Twoje zgody",
+        "kindergartener-test": "Test przedszkolaka",
+        "last-update-date": "Data ostatniej zmiany",
+        "details": "Szczegóły",
+        "collapse-details": "Zwiń szczegóły"
     },
     "parent-profile": {
         "parent": "Rodzic",

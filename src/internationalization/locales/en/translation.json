@@ -49,7 +49,11 @@
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
         "results-list": "Results list",
         "tests-information": "Tests information",
-        "your-agreements": "Your agreements"
+        "your-agreements": "Your agreements",
+        "kindergartener-test": "Kindergartener test",
+        "last-update-date": "Last update",
+        "details": "Details",
+        "collapse-details": "Collapse details"
     },
     "parent-profile": {
         "parent": "Parent",

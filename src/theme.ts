@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { mainColor, secondaryColor } from './colors';
+import { mainColor, secondaryColor, white } from './colors';
 
 export const theme = createMuiTheme({
     typography: {
@@ -11,6 +11,7 @@ export const theme = createMuiTheme({
         },
         secondary: {
             main: secondaryColor,
+            contrastText: white,
         },
     },
 });
