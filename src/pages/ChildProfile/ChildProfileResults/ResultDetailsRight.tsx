@@ -5,10 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { resultKey, TESTS } from './constants';
 import { ResultDetailsProps } from './types';
 import { SingleTestResult } from './SingleTestResult';
+import { NoResultsBlock } from './NoResultsBlock';
 
 export const ResultDetailsRight = ({ result, previousResult }: ResultDetailsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const testsWithNoResult = TESTS.filter(test => !result[test.pointsKey as resultKey]);
 
     return (
         <div className={classes.wrapper}>
@@ -32,6 +34,11 @@ export const ResultDetailsRight = ({ result, previousResult }: ResultDetailsProp
                     />
                 ))}
             </div>
+            <div>
+                {testsWithNoResult.map(test => (
+                    <NoResultsBlock key={test.translationKey} translationKey={test.translationKey} />
+                ))}
+            </div>
         </div>
     );
 };
@@ -45,6 +52,5 @@ const useStyles = makeStyles({
         width: '100%',
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        height: '100%',
     },
 });
