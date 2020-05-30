@@ -108,8 +108,6 @@ const useStyles = makeStyles({
         marginLeft: '3%',
         width: '60%',
         zIndex: 1,
-        position: 'relative',
-        bottom: '20px',
     },
     gridContainer: {
         maxWidth: '92%',

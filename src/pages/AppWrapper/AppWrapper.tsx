@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: mainColor,
             minHeight: '100vh',
             height: '100%',
-            padding: '10px 10px 10px 10px',
+            padding: '10px',
 
             [theme.breakpoints.down('sm')]: {
                 backgroundColor,
@@ -59,11 +59,13 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         content: {
+            marginTop: '-40px',
             padding: '10px 60px',
             [theme.breakpoints.down('sm')]: {
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                padding: '10px 10px 10px 10px',
+                marginTop: '80px',
+                padding: '10px',
             },
         },
     }),
