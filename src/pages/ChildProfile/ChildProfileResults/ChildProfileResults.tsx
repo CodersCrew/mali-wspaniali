@@ -11,6 +11,7 @@ import { ResultSummary } from './ResultSummary';
 import { getGroupedResults } from './utils';
 import { gray } from '../../../colors';
 import { ResultDetails } from './ResultDetails';
+import { ResultComparison } from './ResultComparison';
 
 export const ChildProfileResults = () => {
     useAuthorization(true);
@@ -77,6 +78,10 @@ export const ChildProfileResults = () => {
                                     previousResult={sortedResults[index - 1]}
                                 />
                             ))}
+                            <ResultComparison
+                                firstResultPoints={sortedResults[0].sumOfPoints}
+                                lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
+                            />
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                 );

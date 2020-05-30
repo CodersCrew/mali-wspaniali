@@ -57,3 +57,10 @@ export const getResultColorAndLabel = (value: number, maxValue: number) => {
 
     return testResults.high;
 };
+
+export const getDifferenceLabel = (firstValue: number, lastValue: number) => {
+    if (firstValue > lastValue) return 'worse';
+    if (lastValue > firstValue) return 'better';
+
+    return 'same';
+};
