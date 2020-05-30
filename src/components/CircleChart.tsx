@@ -28,12 +28,7 @@ export const CircleChart = ({
     };
     const data = [
         currentDataEntry,
-        regressValue
-            ? {
-                  value: Math.min(regressValue, maxValue - value),
-                  color: secondaryColor,
-              }
-            : undefined,
+        regressValue && { value: Math.min(regressValue, maxValue - value), color: secondaryColor },
     ].filter(Boolean);
 
     return (
