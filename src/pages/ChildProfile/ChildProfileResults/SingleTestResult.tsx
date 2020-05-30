@@ -62,6 +62,7 @@ const useStyles = makeStyles({
     },
     chartWrapper: {
         width: '50%',
+        position: 'relative',
     },
     testName: {
         fontFamily: 'Montserrat',

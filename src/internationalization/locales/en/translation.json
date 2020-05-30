@@ -72,6 +72,13 @@
             "speed": "Speed",
             "agility": "Agility"
         },
+        "tests-in-block": {
+            "strength": "Strength test",
+            "power": "Power test",
+            "speed": "Speed test",
+            "agility": "Agility test"
+        },
+        "no-result-block-text": "did not take place or the child was unable to participate in the test that day.",
         "scale": "Scale",
         "received-points": "Received points",
         "pts": "pts",

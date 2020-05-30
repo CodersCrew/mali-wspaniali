@@ -76,6 +76,13 @@
             "speed": "Szybkość",
             "agility": "Zwinność"
         },
+        "tests-in-block": {
+            "strength": "Próba siły",
+            "power": "Próba mocy",
+            "speed": "Próba szybkości",
+            "agility": "Próba zwinności"
+        },
+        "no-result-block-text": "nie odbyła się lub dziecko nie było w stanie uczestniczyć tego dnia w teście.",
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
