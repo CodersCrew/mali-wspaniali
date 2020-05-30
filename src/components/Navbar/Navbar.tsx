@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Avatar, IconButton, makeStyles, Button, Theme, createStyles } from '@material-ui/core/';
+import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, ClickAwayListener } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
 import { User } from '../../firebase/firebase';
 import { secondaryColor, mainColor, white, textColor } from '../../colors';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { getChildrenByUserId } from '../../queries/childQueries';
-import { Child } from '../../firebase/types';
+import { getUserNotifications } from '../../queries/notificationQueries'
+import { Child, Notification } from '../../firebase/types';
 import { MenuListItems } from './MenuListItems';
+import { NotificationsPanel } from './NotificationsPanel'
 import { useAuthorization } from '../../hooks/useAuthorization';
 import Logo from '../../assets/MALWSP_logo_nav.png';
 
@@ -15,6 +17,7 @@ export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
     const [isMenuOpen, setMenuOpen] = useState(false);
+    const [isNotificationsPanelOpen, setNotificationsPanelOpen] = useState(false);
     const currentUser = useAuthorization(true);
     const children = useSubscribed<Child[], User | null>(
         (callback: OnSnapshotCallback<Child[]>) => {
@@ -25,24 +28,44 @@ export const Navbar = () => {
         [],
         [currentUser],
     ) as Child[];
+    const notifications = useSubscribed<Notification[], User | null>(
+        (callback: OnSnapshotCallback<Notification[]>) => {
+            if (currentUser) {
+                getUserNotifications(currentUser.uid, callback);
+            }
+        },
+        [],
+        [currentUser],
+    ) as Notification[];
 
     const handleAvatarClick = () => {
         setMenuOpen(prevOpen => !prevOpen);
     };
 
+    const handleNotificationsIconClick = () => {
+        setNotificationsPanelOpen(isOpen => !isOpen)
+    };
+
+    const handleClickAway = () => {
+        setNotificationsPanelOpen(false)
+    }
+
     return (
         <div>
             <div className={classes.menuContainer}>
                 <img src={Logo} className={classes.logo} alt='Logo Mali Wspaniali'/>
-                <IconButton color="inherit">
-                    <Notifications className={classes.notificationsIcon} />
-                </IconButton>
+                <ClickAwayListener onClickAway={handleClickAway}>
+                    <IconButton color="inherit" onClick={handleNotificationsIconClick}>
+                        <Notifications className={classes.notificationsIcon} />
+                    </IconButton>
+                </ClickAwayListener>
                 <Avatar className={classes.avatar}>
                     <Button className={classes.avatarButton} onClick={handleAvatarClick}>
                         {avatarContent}
                     </Button>
                 </Avatar>
             </div>
+            {isNotificationsPanelOpen && <NotificationsPanel notifications={notifications}/>}
             {isMenuOpen && <MenuListItems childrenData={children} />}
         </div>
     );

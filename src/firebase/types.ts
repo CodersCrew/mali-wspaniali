@@ -74,3 +74,8 @@ export interface PaginatedArticleList {
     lastSnap: Snapshot;
     isMore: boolean;
 }
+
+export type Notification = {
+    text: string;
+    date: Date;
+}

@@ -139,5 +139,14 @@
         "physical-activity": "Physical activity",
         "emotions": "Emotions",
         "other": "Other"
+    },
+    "notification-panel": {
+        "read-more": "Read more"
+    },
+    "notifications-page": {
+        "header": "Notifications",
+        "description": "Check all notifications on your account",
+        "content": "Notification content",
+        "date": "Date"
     }
 }

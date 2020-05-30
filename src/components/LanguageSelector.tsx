@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import moment from 'moment'
 import clsx from 'clsx';
 import PlFlag from '../assets/pl.png';
 import EnFlag from '../assets/en.png';
@@ -17,6 +18,7 @@ export const LanguageSelector: React.FC<Props> = ({ isSidebarOpen }) => {
     const localStorageLanguage = localStorage.getItem('i18nextLng');
 
     const changeLanguage = (lng: string) => {
+        moment.locale(lng);
         return i18n.changeLanguage(lng);
     };
     const languageImage = (flag: string, language: string) => {
