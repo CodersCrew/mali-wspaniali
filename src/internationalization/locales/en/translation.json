@@ -76,7 +76,17 @@
         "received-points": "Received points",
         "pts": "pts",
         "final-test-title": "Results of particular tests with comparison of results from the initial test",
-        "initial-test-title": "Results of particular tests"
+        "initial-test-title": "Results of particular tests",
+        "difference": {
+            "better": "Get better",
+            "worse": "Get worse",
+            "same": "Is the same"
+        },
+        "summary-info": "Summary information",
+        "test-result": "Test result",
+        "comparison-label": "By comparing both tests, your child's fitness level",
+        "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
+        "comparison-button": "What can I do?"
     },
     "parent-profile": {
         "parent": "Parent",
