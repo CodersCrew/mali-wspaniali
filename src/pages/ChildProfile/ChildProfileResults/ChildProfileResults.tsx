@@ -10,6 +10,7 @@ import { fetchChildResults } from '../../../queries/childQueries';
 import { ResultSummary } from './ResultSummary';
 import { getGroupedResults } from './utils';
 import { gray } from '../../../colors';
+import { ResultDetails } from './ResultDetails';
 
 export const ChildProfileResults = () => {
     useAuthorization(true);
@@ -65,7 +66,13 @@ export const ChildProfileResults = () => {
                                 isExpanded={isExpanded}
                             />
                         </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>TODO</ExpansionPanelDetails>
+                        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+                            {groupedResults[key]
+                                .sort((resultA, resultB) => +resultA.dateOfTest - +resultB.dateOfTest)
+                                .map(result => (
+                                    <ResultDetails result={result} key={String(result.dateOfTest)} />
+                                ))}
+                        </ExpansionPanelDetails>
                     </ExpansionPanel>
                 );
             })}
@@ -80,5 +87,8 @@ const useStyles = makeStyles({
     expansionPanelSummaryExpanded: {
         cursor: 'default',
         borderBottom: `1px solid ${gray}`,
+    },
+    expansionPanelDetails: {
+        flexDirection: 'column',
     },
 });

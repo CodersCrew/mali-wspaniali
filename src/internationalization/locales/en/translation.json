@@ -53,7 +53,14 @@
         "kindergartener-test": "Kindergartener test",
         "last-update-date": "Last update",
         "details": "Details",
-        "collapse-details": "Collapse details"
+        "collapse-details": "Collapse details",
+        "info-about-test":  "Information about test",
+        "carries-out-on": "carries out on",
+        "age-group": "On the day of test, the child was assigned to the age group",
+        "fitness-level": "Fitness level",
+        "advice": "Advice",
+        "initial-test": "Initial test",
+        "final-test": "Final test"
     },
     "parent-profile": {
         "parent": "Parent",
@@ -143,5 +150,7 @@
         "physical-activity": "Physical activity",
         "emotions": "Emotions",
         "other": "Other"
-    }
+    },
+    "years_0": "year",
+    "years_1": "years"
 }

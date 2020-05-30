@@ -57,7 +57,14 @@
         "kindergartener-test": "Test przedszkolaka",
         "last-update-date": "Data ostatniej zmiany",
         "details": "Szczegóły",
-        "collapse-details": "Zwiń szczegóły"
+        "collapse-details": "Zwiń szczegóły",
+        "info-about-test":  "Informacje o pomiarze",
+        "carries-out-on": "przeprowadzony dnia",
+        "age-group": "W dniu pomiaru, dziecko przypisane zostało do grupy wiekowej",
+        "fitness-level": "Poziom sprawności",
+        "advice": "Porada",
+        "initial-test": "Pomiar początkowy",
+        "final-test": "Pomiar końcowy"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -143,5 +150,8 @@
         "recent-news": "Najnowsze ARTYKUŁY",
         "read-more": "Czytaj więcej",
         "read-less": "Zwiń"
-    }
+    },
+    "years_0": "rok",
+    "years_1": "lata",
+    "years_2": "lat"
 }
