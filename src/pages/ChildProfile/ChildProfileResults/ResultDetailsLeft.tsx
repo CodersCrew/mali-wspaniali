@@ -7,11 +7,12 @@ import { CircleChart } from '../../../components/CircleChart';
 import { getResultColorAndLabel } from './utils';
 import { gray } from '../../../colors';
 import { ResultDetailsProps } from './types';
+import { MAX_OVERALL_POINTS } from './constants';
 
 export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { color, lightColor, translationKey } = getResultColorAndLabel(result.sumOfPoints);
+    const { color, lightColor, translationKey } = getResultColorAndLabel(result.sumOfPoints, MAX_OVERALL_POINTS);
 
     return (
         <Card className={classes.card}>
@@ -39,7 +40,7 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
                         mainColor={color}
                         secondaryColor={lightColor}
                         value={result.sumOfPoints}
-                        maxValue={240}
+                        maxValue={MAX_OVERALL_POINTS}
                         label={String(result.sumOfPoints)}
                         labelSuffix="pkt"
                         previousValue={previousResult && previousResult.sumOfPoints}
@@ -58,7 +59,7 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
 
 const useStyles = makeStyles({
     card: {
-        width: '20%',
+        width: '25%',
         display: 'flex',
         padding: '16px',
         flexDirection: 'column',

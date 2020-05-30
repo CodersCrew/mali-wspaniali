@@ -1,6 +1,16 @@
+export type resultKey =
+    | 'strengthPoints'
+    | 'strengthCentimeters'
+    | 'powerPoints'
+    | 'powerCentimeters'
+    | 'speedPoints'
+    | 'speedSeconds'
+    | 'agilityPoints'
+    | 'agilitySeconds';
+
 export const TESTS = [
     {
-        key: 'strength',
+        translationKey: 'strength',
         unitOfMeasure: 'cm',
         scaleFrom: 0,
         scaleTo: 80,
@@ -8,7 +18,7 @@ export const TESTS = [
         unitOfMeasureKey: 'strengthCentimeters',
     },
     {
-        key: 'power',
+        translationKey: 'power',
         unitOfMeasure: 'cm',
         scaleFrom: 0,
         scaleTo: 80,
@@ -16,19 +26,22 @@ export const TESTS = [
         unitOfMeasureKey: 'powerCentimeters',
     },
     {
-        key: 'speed',
+        translationKey: 'speed',
         unitOfMeasure: 's',
         scaleFrom: 80,
         scaleTo: 0,
         pointsKey: 'speedPoints',
-        unitOfMeasureKey: 'speedCentimeters',
+        unitOfMeasureKey: 'speedSeconds',
     },
     {
-        key: 'agility',
+        translationKey: 'agility',
         unitOfMeasure: 's',
         scaleFrom: 80,
         scaleTo: 0,
         pointsKey: 'agilityPoints',
-        unitOfMeasureKey: 'agilityCentimeters',
+        unitOfMeasureKey: 'agilitySeconds',
     },
 ];
+
+export const MAX_POINTS_FOR_TEST = 60;
+export const MAX_OVERALL_POINTS = MAX_POINTS_FOR_TEST * TESTS.length;

@@ -69,7 +69,18 @@
             "low": "TBD",
             "medium": "Dobrze ci idzie, ale zawsze może być lepiej",
             "high": "Bardzo dobrze!"
-        }
+        },
+        "tests": {
+            "strength": "Siła",
+            "power": "Moc",
+            "speed": "Szybkość",
+            "agility": "Zwinność"
+        },
+        "scale": "Skala",
+        "received-points": "Otrzymane punkty",
+        "pts": "pkt",
+        "final-test-title": "Wyniki poszczególnych prób wraz z porównaniem wyników z pomiaru początkowego",
+        "initial-test-title": "Wyniki poszczególnych prób"
     },
     "parent-profile": {
         "parent": "Rodzic",

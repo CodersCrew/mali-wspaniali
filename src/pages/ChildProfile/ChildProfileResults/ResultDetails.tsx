@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { ResultDetailsLeft } from './ResultDetailsLeft';
 import { gray } from '../../../colors';
 import { ResultDetailsProps } from './types';
+import { ResultDetailsRight } from './ResultDetailsRight';
 
 export const ResultDetails = ({ result, previousResult }: ResultDetailsProps) => {
     const classes = useStyles();
@@ -10,6 +11,7 @@ export const ResultDetails = ({ result, previousResult }: ResultDetailsProps) =>
     return (
         <div className={classes.wrapper}>
             <ResultDetailsLeft result={result} previousResult={previousResult} />
+            <ResultDetailsRight result={result} previousResult={previousResult} />
         </div>
     );
 };

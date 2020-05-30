@@ -21,7 +21,7 @@ export const CircleChart = ({
     label,
     labelSuffix,
 }: CircleChartProps) => {
-    const regressValue = previousValue && previousValue > value && previousValue - value;
+    const regressValue = previousValue && previousValue > value && value < maxValue && previousValue - value;
     const currentDataEntry = {
         color: mainColor,
         value,
@@ -30,7 +30,7 @@ export const CircleChart = ({
         currentDataEntry,
         regressValue
             ? {
-                  value: regressValue,
+                  value: Math.min(regressValue, maxValue - value),
                   color: secondaryColor,
               }
             : undefined,

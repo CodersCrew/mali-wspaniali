@@ -65,7 +65,18 @@
             "low": "TBD",
             "medium": "You are doing well but it can always be better",
             "high": "Very good!"
-        }
+        },
+        "tests": {
+            "strength": "Strength",
+            "power": "Power",
+            "speed": "Speed",
+            "agility": "Agility"
+        },
+        "scale": "Scale",
+        "received-points": "Received points",
+        "pts": "pts",
+        "final-test-title": "Results of particular tests with comparison of results from the initial test",
+        "initial-test-title": "Results of particular tests"
     },
     "parent-profile": {
         "parent": "Parent",

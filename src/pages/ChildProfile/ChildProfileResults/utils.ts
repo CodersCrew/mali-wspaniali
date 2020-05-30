@@ -50,9 +50,10 @@ const testResults = {
     },
 };
 
-export const getResultColorAndLabel = (value: number) => {
-    if (value < 160) return testResults.low;
-    if (value < 200) return testResults.medium;
+export const getResultColorAndLabel = (value: number, maxValue: number) => {
+    const percentageValue = (value / maxValue) * 100;
+    if (percentageValue < 67) return testResults.low;
+    if (percentageValue < 83) return testResults.medium;
 
     return testResults.high;
 };
