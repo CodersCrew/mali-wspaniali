@@ -33,3 +33,11 @@ export const blogCategoryColors = {
 };
 export const white = '#ffffff';
 export const darkGrey = '#e9e9e9';
+export const resultColors = {
+    green: '#70bf73',
+    yellow: '#ffc107',
+    red: '#f44336',
+    lightGreen: '#C8E6C9',
+    lightYellow: '#FFE79E',
+    lightRed: '#FFCDD2',
+};

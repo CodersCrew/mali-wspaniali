@@ -64,7 +64,12 @@
         "fitness-level": "Poziom sprawności",
         "advice": "Porada",
         "initial-test": "Pomiar początkowy",
-        "final-test": "Pomiar końcowy"
+        "final-test": "Pomiar końcowy",
+        "result-description": {
+            "low": "TBD",
+            "medium": "Dobrze ci idzie, ale zawsze może być lepiej",
+            "high": "Bardzo dobrze!"
+        }
     },
     "parent-profile": {
         "parent": "Rodzic",

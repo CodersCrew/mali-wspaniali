@@ -27,4 +27,13 @@ export const theme = createMuiTheme({
             contrastText: white,
         },
     },
+    overrides: {
+        MuiExpansionPanel: {
+            root: {
+                '&:last-child': {
+                    marginTop: 0,
+                },
+            },
+        },
+    },
 });

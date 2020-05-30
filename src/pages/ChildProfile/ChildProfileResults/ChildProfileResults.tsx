@@ -50,9 +50,12 @@ export const ChildProfileResults = () => {
         <>
             {Object.keys(groupedResults).map(key => {
                 const isExpanded = expandedGroups.includes(key);
+                const sortedResults = groupedResults[key].sort(
+                    (resultA, resultB) => +resultA.dateOfTest - +resultB.dateOfTest,
+                );
 
                 return (
-                    <ExpansionPanel key={key} expanded={isExpanded}>
+                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel}>
                         <ExpansionPanelSummary
                             onClick={() => handleClickSummary(key)}
                             className={clsx(
@@ -67,11 +70,13 @@ export const ChildProfileResults = () => {
                             />
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-                            {groupedResults[key]
-                                .sort((resultA, resultB) => +resultA.dateOfTest - +resultB.dateOfTest)
-                                .map(result => (
-                                    <ResultDetails result={result} key={String(result.dateOfTest)} />
-                                ))}
+                            {sortedResults.map((result, index) => (
+                                <ResultDetails
+                                    result={result}
+                                    key={String(result.dateOfTest)}
+                                    previousResult={sortedResults[index - 1]}
+                                />
+                            ))}
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                 );
@@ -81,6 +86,9 @@ export const ChildProfileResults = () => {
 };
 
 const useStyles = makeStyles({
+    expansionPanel: {
+        marginTop: 0,
+    },
     expansionPanelSummary: {
         padding: 0,
     },

@@ -60,7 +60,12 @@
         "fitness-level": "Fitness level",
         "advice": "Advice",
         "initial-test": "Initial test",
-        "final-test": "Final test"
+        "final-test": "Final test",
+        "result-description": {
+            "low": "TBD",
+            "medium": "You are doing well but it can always be better",
+            "high": "Very good!"
+        }
     },
     "parent-profile": {
         "parent": "Parent",
