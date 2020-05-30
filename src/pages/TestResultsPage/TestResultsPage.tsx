@@ -6,13 +6,14 @@ import { Child } from '../../firebase/types';
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { NoResults } from './NoResults';
 import { Pagination, PaginationDirections } from './Pagination';
+import { DocumentData } from '../../firebase/firebase';
 
 export const TestResultsPage = () => {
     const [childrenList, setChildrenList] = useState<Child[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage] = useState(10);
-    const [lastVisible, setLastVisible] = useState();
-    const [firstVisible, setFirstVisible] = useState();
+    const [lastVisible, setLastVisible] = useState<DocumentData | null>(null);
+    const [firstVisible, setFirstVisible] = useState<DocumentData | null>(null);
     const [isLoading, setLoading] = useState(true);
     const { t } = useTranslation();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
