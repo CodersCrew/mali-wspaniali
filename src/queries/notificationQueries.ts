@@ -9,3 +9,7 @@ export const getUserNotifications = async (userId: string, notificationLimit: nu
 export const getNotificationData = async (onSnapshotCallback: OnSnapshotCallback<NotificationPaginatedList>, userId: string, limit: number, startAfter?: Snapshot, endBefore?: Snapshot) => {
     return await firebase.notification.getNotificationData(onSnapshotCallback, userId, limit, startAfter, endBefore)
 }
+
+export const setNotificationReadValue = (userId: string, notificationId: string, value: boolean) => {
+    return firebase.notification.setNotificationReadValue(userId, notificationId, value)
+}

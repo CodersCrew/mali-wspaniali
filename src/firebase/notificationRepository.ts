@@ -34,6 +34,8 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
             snapshot.forEach(snap => {
                 snapshots.push(snap);
                 const docData = snap.data() as Notification;
+                docData.id = snap.ref.id;
+                console.log(docData)
                 notifications.push(docData);
             });
             if (notifications.length < 7) {
@@ -46,11 +48,14 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
                 lastIndex = 6;
             }
             onSnapshotCallback({
-                notifications,
+                notifications: notifications.slice(firstIndex, lastIndex + 1),
                 firstSnap: snapshots[firstIndex],
                 lastSnap: snapshots[lastIndex],
                 isMore,
             });
         });
     },
+    setNotificationReadValue: (userId: string, notificationId: string, value: boolean) => {
+        return db.collection('user').doc(userId).collection('notifications').doc(notificationId).update({ "isRead": value})
+    }
 })

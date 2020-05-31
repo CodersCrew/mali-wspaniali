@@ -12,7 +12,7 @@ export const NotificationPageHeader = () => {
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('notifications-page.header')}
             </Typography>
-            <Typography variant="h6" gutterBottom className={classes.description}>
+            <Typography variant="h6" gutterBottom>
                 {t('notifications-page.description')}
             </Typography>
         </ThemeProvider>
@@ -28,7 +28,4 @@ const useStyles = makeStyles((theme: Theme) =>
             zIndex: 1,
             position: 'relative',
         },
-        description: {
-
-        }
     }))

@@ -2,14 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { NotificationPageHeader } from './NotificationPageHeader'
 import { NotificationPageList } from './NotificationPageList'
 import { Notification, Snapshot, NotificationPaginatedList } from '../../firebase/types';
-// import { User } from 'firebase';
 import { Container } from '@material-ui/core'
-// import { useSubscribed } from '../../hooks/useSubscribed';
-// import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { getNotificationData } from '../../queries/notificationQueries'
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { Pagination } from '../BlogMainPage/Pagination';
-// import { useTranslation } from 'react-i18next';
 
 export const NotificationsPage = () => {
     const [notificationData, setNotificationData] = useState<Notification[]>();

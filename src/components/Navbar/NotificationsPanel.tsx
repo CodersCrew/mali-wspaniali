@@ -6,7 +6,7 @@ import { Notification } from '../../firebase/types'
 import { useTranslation } from 'react-i18next';
 
 export type NotificationListProps = {
-    notifications: Notification[];
+    notifications: Notification[] | undefined;
 }
 
 export const NotificationsPanel = (props: NotificationListProps) => {
@@ -17,10 +17,10 @@ export const NotificationsPanel = (props: NotificationListProps) => {
     return (
         <Paper className={classes.notificationsPanel}>
             <MenuList dense={true}>
-                {notifications.map((notification) => {
-                    const { text, date } = notification
+                {notifications && notifications.map((notification) => {
+                    const { text, date, isRead, id } = notification
                     return (
-                        <NotificationItem key={text} text={text} date={date}/>
+                        <NotificationItem key={id} id={id} text={text} date={date} isRead={isRead}/>
                     )
                 })}
             </MenuList>

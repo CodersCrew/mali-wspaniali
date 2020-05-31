@@ -24,9 +24,9 @@ export const NotificationPageList = (props: NotificationListProps) => {
           </TableHead>
           <TableBody>
             {notifications && notifications.map((notification) => {
-                const { text, date } = notification;
+                const { id, text, date, isRead } = notification;
                 return (
-                    <NotificationPageListItem key={text} text={text} date={date}/>
+                    <NotificationPageListItem id={id} text={text} date={date} isRead={isRead}/>
                 )
             })}
           </TableBody>
@@ -55,6 +55,7 @@ const useStyles = makeStyles({
     date: {
         color: 'white',
         textTransform: 'uppercase',
-        fontWeight: 700
+        fontWeight: 700,
+        width: '275px'
     }
   });

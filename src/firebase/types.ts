@@ -78,6 +78,8 @@ export interface PaginatedArticleList {
 export type Notification = {
     text: string;
     date: Timestamp;
+    isRead: boolean;
+    id: string;
 }
 
 export type Timestamp = {
