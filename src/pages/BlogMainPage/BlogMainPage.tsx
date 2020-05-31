@@ -10,6 +10,9 @@ import { getArticles } from '../../queries/articleQueries';
 import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 import { ArticleCategories } from './types';
 import { white } from '../../colors';
+import { DropDownMenu } from './DropDownMenu';
+
+const isMobile = window.screen.width <= 660;
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -77,7 +80,12 @@ export const BlogMainPage = () => {
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
-            <CategoryTabs setCategory={setCurrentCategory} />
+            
+            {isMobile ? (
+                <DropDownMenu/>
+            ) : ( <CategoryTabs setCategory={ setCurrentCategory } />
+            )}
+            
             <div className={classes.gridBackground}>
                 {blogArticles && (
                     <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>

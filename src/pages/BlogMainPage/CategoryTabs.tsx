@@ -3,7 +3,8 @@ import { Tabs, withStyles } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 
-type CategoryTabProps = {
+
+export type CategoryTabProps = {
     setCategory: Dispatch<SetStateAction<string>>;
 };
 
@@ -15,13 +16,11 @@ export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
         setCategory(categoriesList[newValue].key);
     };
 
-    return (
-        <StyledTabs value={currentTabIndex} onChange={handleChange}>
-            {categoriesList.map(category => {
-                return <StyledTab key={category.name} label={category.name} color={category.color} />;
-            })}
-        </StyledTabs>
-    );
+    return <StyledTabs value={ currentTabIndex } onChange={ handleChange }>
+        { categoriesList.map(category => {
+            return <StyledTab key={ category.name } label={ category.name } color={ category.color } />;
+        }) }
+    </StyledTabs>;
 };
 
 type StyledTabsProps = {
