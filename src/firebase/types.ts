@@ -77,5 +77,18 @@ export interface PaginatedArticleList {
 
 export type Notification = {
     text: string;
-    date: Date;
+    date: Timestamp;
+}
+
+export type Timestamp = {
+    seconds: number;
+    nanoseconds: number;
+    toDate: () => [];
+}
+
+export type NotificationPaginatedList = {
+    notifications: Notification[];
+    firstSnap: Snapshot;
+    lastSnap: Snapshot;
+    isMore: boolean;
 }

@@ -2,22 +2,16 @@ import React from 'react';
 import moment from 'moment';
 import { Notifications, Close } from '@material-ui/icons/';
 import { ListItem, Typography, createStyles, makeStyles, Theme } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next'
+import { Timestamp } from '../../firebase/types';
 
 type notificationListProps = {
     text: string;
-    date: Date;
+    date: Timestamp;
 }
 
 export const NotificationItem = ({ text, date }: notificationListProps) => {
     const classes = useStyles();
-    const { i18n } = useTranslation();
 
-    const convertDateToLocale = (date: Date): String => {
-        moment().locale(i18n.language)
-
-        return moment(date).calendar().toString()
-    } 
     return (
         <ListItem className={classes.notificationItem}>
             <Notifications className={classes.notificationIcon}/>
@@ -26,7 +20,7 @@ export const NotificationItem = ({ text, date }: notificationListProps) => {
                     {text}
                 </Typography>
                 <Typography className={classes.notificationCaption} gutterBottom variant="caption">
-                    {convertDateToLocale(date)}
+                    {moment(date.toDate()).calendar()}
                 </Typography>
             </div>
             <Close className={classes.notificationIcon}/>

@@ -1,15 +1,56 @@
-import firebaseApp from 'firebase/app';
-import { Notification } from './types';
+import firebaseApp, { firestore } from 'firebase/app';
+import { Notification, Snapshot, NotificationPaginatedList } from './types';
 import { OnSnapshotCallback } from './userRepository';
 
 export const notificationRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getUserNotifications: (userId: string, onSnapshotCallback: OnSnapshotCallback<Notification[]>) => {
-        return db.collection('user').doc(userId).collection('notifications').onSnapshot(snapshot => {
+    getUserNotifications: (userId: string, notificationLimit: number , onSnapshotCallback: OnSnapshotCallback<Notification[]>) => {
+        return db.collection('user').doc(userId).collection('notifications').limit(notificationLimit).orderBy('date', 'desc').onSnapshot(snapshot => {
             const notification = snapshot.docs.map(doc => {
                 const notificationData = doc.data() as Notification
                 return notificationData;
             })
             return onSnapshotCallback(notification)
         })
-    }
+    },
+    getNotificationData: (
+        onSnapshotCallback: OnSnapshotCallback<NotificationPaginatedList>,
+        userId: string,
+        limit: number,
+        startAfter?: Snapshot,
+        endBefore?: Snapshot,
+    ) => {
+        let query = db.collection('user').doc(userId).collection('notifications').limit(limit).orderBy('date', 'desc') as firestore.Query;
+        if (startAfter) {
+            query = query.startAfter(startAfter).limit(limit);
+        }
+        if (endBefore) {
+            query = query.endBefore(endBefore).limitToLast(limit);
+        }
+        query.onSnapshot(snapshot => {
+            const notifications = [] as Notification[];
+            const snapshots: Snapshot[] = [];
+            let isMore = true;
+
+            snapshot.forEach(snap => {
+                snapshots.push(snap);
+                const docData = snap.data() as Notification;
+                notifications.push(docData);
+            });
+            if (notifications.length < 7) {
+                isMore = false;
+            }
+            let firstIndex = 0;
+            let lastIndex = 5;
+            if (endBefore && notifications.length > 6) {
+                firstIndex = 1;
+                lastIndex = 6;
+            }
+            onSnapshotCallback({
+                notifications,
+                firstSnap: snapshots[firstIndex],
+                lastSnap: snapshots[lastIndex],
+                isMore,
+            });
+        });
+    },
 })

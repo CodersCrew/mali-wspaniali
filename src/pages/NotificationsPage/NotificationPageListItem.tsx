@@ -2,10 +2,11 @@ import React from 'react'
 import { TableRow, TableCell, makeStyles } from '@material-ui/core'
 import { Notifications } from '@material-ui/icons/';
 import moment from 'moment'
+import { Timestamp } from '../../firebase/types';
 
 export type notificationListProps = {
     text: string;
-    date: Date;
+    date: Timestamp;
 }
 
 export const NotificationPageListItem = ({ text, date }: notificationListProps) => {
@@ -17,7 +18,7 @@ export const NotificationPageListItem = ({ text, date }: notificationListProps) 
                 <Notifications className={classes.icon}/>
                 {text}
             </TableCell>
-            <TableCell>{moment(date).calendar()}</TableCell>
+            <TableCell>{moment(date.toDate()).calendar()}</TableCell>
       </TableRow>
     )
 }

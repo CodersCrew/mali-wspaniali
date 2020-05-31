@@ -5,7 +5,7 @@ import { NotificationPageListItem } from './NotificationPageListItem'
 import { Notification } from '../../firebase/types';
 
 export type NotificationListProps = {
-    notifications: Notification[];
+    notifications: Notification[] | undefined;
 }
 
 export const NotificationPageList = (props: NotificationListProps) => {
@@ -14,7 +14,7 @@ export const NotificationPageList = (props: NotificationListProps) => {
     const { notifications } = props;
 
     return(
-        <TableContainer className={classes.list} component={Paper}>
+      <TableContainer className={classes.list} component={Paper}>
         <Table className={classes.table} aria-label="Notification table">
           <TableHead>
             <TableRow className={classes.heading}>
@@ -23,7 +23,7 @@ export const NotificationPageList = (props: NotificationListProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {notifications.map((notification) => {
+            {notifications && notifications.map((notification) => {
                 const { text, date } = notification;
                 return (
                     <NotificationPageListItem key={text} text={text} date={date}/>

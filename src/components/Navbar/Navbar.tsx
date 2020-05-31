@@ -31,7 +31,7 @@ export const Navbar = () => {
     const notifications = useSubscribed<Notification[], User | null>(
         (callback: OnSnapshotCallback<Notification[]>) => {
             if (currentUser) {
-                getUserNotifications(currentUser.uid, callback);
+                getUserNotifications(currentUser.uid, 5 , callback);
             }
         },
         [],

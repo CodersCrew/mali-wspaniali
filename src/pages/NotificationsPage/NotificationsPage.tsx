@@ -1,47 +1,84 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { NotificationPageHeader } from './NotificationPageHeader'
 import { NotificationPageList } from './NotificationPageList'
-import { Notification } from '../../firebase/types';
-import { User } from 'firebase';
+import { Notification, Snapshot, NotificationPaginatedList } from '../../firebase/types';
+// import { User } from 'firebase';
 import { Container } from '@material-ui/core'
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { getUserNotifications } from '../../queries/notificationQueries'
+// import { useSubscribed } from '../../hooks/useSubscribed';
+// import { OnSnapshotCallback } from '../../firebase/userRepository';
+import { getNotificationData } from '../../queries/notificationQueries'
 import { useAuthorization } from '../../hooks/useAuthorization';
+import { Pagination } from '../BlogMainPage/Pagination';
 // import { useTranslation } from 'react-i18next';
 
 export const NotificationsPage = () => {
-    // const classes = useStyles();
-    // const { t } = useTranslation();
+    const [notificationData, setNotificationData] = useState<Notification[]>();
+    const [notificationPaginatedList, setNotificationPaginatedList] = useState<NotificationPaginatedList>()
+    const [isLastPage, setIsLastPage] = useState(false);
+    const [isFirstPage, setIsFirstPage] = useState(true);
     const currentUser = useAuthorization(true);
-    const notifications = useSubscribed<Notification[], User | null>(
-        (callback: OnSnapshotCallback<Notification[]>) => {
-            if (currentUser) {
-                getUserNotifications(currentUser.uid, callback);
+
+    useEffect(() => {
+        if(currentUser) {
+            addNotificationsToState(currentUser.uid, 7)
+        }
+    }, [currentUser])
+
+    const addNotificationsToState = (userId: string, limit: number, startAfter?: Snapshot, endBefore?: Snapshot) => {
+        getNotificationData(
+            notificationsFromSnapshot => {
+                setNotificationData(notificationsFromSnapshot.notifications);
+                setNotificationPaginatedList(notificationsFromSnapshot)
+                setupPagination(notificationsFromSnapshot, startAfter, endBefore);
+            },
+            userId,
+            limit,
+            startAfter,
+            endBefore,
+        );
+    };
+
+    const setupPagination = (
+        notificationsFromSnapshot: NotificationPaginatedList,
+        startAfter?: Snapshot,
+        endBefore?: Snapshot,
+    ) => {
+        if (!startAfter && !endBefore) {
+            setIsFirstPage(true);
+            setIsLastPage(false);
+            if (!notificationsFromSnapshot.isMore) {
+                setIsLastPage(true);
             }
-        },
-        [],
-        [currentUser],
-    ) as Notification[];
+        } else {
+            if (startAfter) {
+                setIsFirstPage(false);
+            }
+            if (endBefore) {
+                setIsLastPage(false);
+            }
+            if (!notificationsFromSnapshot.isMore && startAfter) {
+                setIsLastPage(true);
+            }
+            if (!notificationsFromSnapshot.isMore && endBefore) {
+                setIsFirstPage(true);
+            }
+        }
+    };
+
+    const paginationQuery = (paginationDirection: string) => {
+        if (!notificationPaginatedList) return;
+        const startAfter = paginationDirection === 'next' ? notificationPaginatedList.lastSnap : undefined;
+        const endBefore = paginationDirection === 'prev' ? notificationPaginatedList.firstSnap : undefined;
+        if(currentUser) {
+            addNotificationsToState(currentUser.uid, 7, startAfter, endBefore);
+        }
+    };
     
     return (
         <Container maxWidth="xl">
             <NotificationPageHeader/>
-            <NotificationPageList notifications={notifications}/>
+            <NotificationPageList notifications={notificationData}/>
+            <Pagination isFirst={isFirstPage} isLast={isLastPage} handleChange={paginationQuery}></Pagination>
         </Container>
     )
 }
-
-// const useStyles = makeStyles((theme: Theme) => 
-//     createStyles({
-//         heading: {
-//             fontWeight: 'bold',
-//             fontSize: '34px',
-//             marginBottom: '4%',
-//             marginLeft: '3%',
-//             width: '60%',
-//             zIndex: 1,
-//             position: 'relative',
-//             bottom: '20px',
-//         }
-//     }))
