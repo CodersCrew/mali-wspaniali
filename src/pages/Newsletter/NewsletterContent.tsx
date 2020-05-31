@@ -9,6 +9,7 @@ import {
     Checkbox,
     ListItemText,
     IconButton,
+    Typography,
 } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { mainColor, newsletterColors, textColor, white } from '../../colors';
@@ -72,14 +73,14 @@ export const NewsletterContent: React.FC<{
 
     return (
         <div className={disabled ? `${classes.container} ${classes.containerDisabled}` : classes.container}>
-            <div className={disabled ? `${classes.heading} ${classes.headingDisabled}` : classes.heading}>
+            <Typography className={disabled ? `${classes.heading} ${classes.headingDisabled}` : classes.heading}>
                 {t('newsletter.content-heading')}
                 <IconButton onClick={handleModalOpen} size={'small'} color={'inherit'} className={classes.helpButton}>
                     <HelpOutlineIcon
                         className={disabled ? `${classes.helpIcon} ${classes.helpIconDisabled}` : classes.helpIcon}
                     />
                 </IconButton>
-            </div>
+            </Typography>
             <TextField
                 disabled={disabled}
                 className={classes.textfield}

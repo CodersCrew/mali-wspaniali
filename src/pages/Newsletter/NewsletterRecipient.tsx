@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles } from '@material-ui/core';
+import { makeStyles, createStyles, Typography } from '@material-ui/core';
 import { mainColor, white, newsletterColors, textColor } from '../../colors';
 import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
@@ -81,7 +81,7 @@ export const NewsletterRecipent: React.FC<{
     };
     return (
         <div className={classes.container}>
-            <div className={classes.heading}>{t('newsletter.recipient-heading')}</div>
+            <Typography className={classes.heading}>{t('newsletter.recipient-heading')}</Typography>
             <NewsletterGeneralTypeTextField
                 classes={classes}
                 recipientType={recipientType}

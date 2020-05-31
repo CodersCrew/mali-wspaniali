@@ -162,7 +162,7 @@ export const NewsletterPage = () => {
 const useStyles = makeStyles(() =>
     createStyles({
         container: {
-            padding: '0 150px 54px 60px',
+            padding: '0 90px 54px 0',
             [theme.breakpoints.down('sm')]: {
                 padding: '0 10px',
             },
@@ -171,7 +171,6 @@ const useStyles = makeStyles(() =>
             fontSize: 36,
             marginBottom: 20,
             textTransform: 'uppercase',
-            marginTop: -30,
             lineHeight: '44px',
             fontWeight: 'bold',
 
