@@ -42,7 +42,7 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
                         value={result.sumOfPoints}
                         maxValue={MAX_OVERALL_POINTS}
                         label={String(result.sumOfPoints)}
-                        labelSuffix="pkt"
+                        labelSuffix={t('child-profile.pts')}
                         previousValue={previousResult && previousResult.sumOfPoints}
                     />
                 </div>
