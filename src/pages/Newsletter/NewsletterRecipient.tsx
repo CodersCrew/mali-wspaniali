@@ -5,7 +5,7 @@ import { mainColor, white, newsletterColors, textColor } from '../../colors';
 import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, InputsStateType } from './types';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { getParents } from '../../queries/userQueries';
 import { Parent } from '../ParentProfile/types';
@@ -27,7 +27,9 @@ export const NewsletterRecipent: React.FC<{
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     recipients: string[];
     selectRecipients: (filteredRecipients: string[]) => void;
-}> = ({ recipientType, setRecipientType, handleChange, recipients, selectRecipients }) => {
+    inputsState: InputsStateType;
+    setInputsState: React.Dispatch<React.SetStateAction<InputsStateType>>;
+}> = ({ recipientType, setRecipientType, handleChange, recipients, selectRecipients, inputsState, setInputsState }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -85,6 +87,8 @@ export const NewsletterRecipent: React.FC<{
                 recipientType={recipientType}
                 handleDelete={handleDelete}
                 handleRecipientTypeChange={handleRecipientTypeChange}
+                inputsState={inputsState}
+                setInputsState={setInputsState}
             />
             <NewsletterSpecificTypeTextField
                 classes={classes}

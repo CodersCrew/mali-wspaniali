@@ -33,14 +33,14 @@ export const NewsletterPage = () => {
         secondStep: ProgressBarStates.Inactive,
     });
     const [recipientType, setRecipientType] = useState({ generalType: '', specificType: '' });
-/*     const [inputsStates, setInputStates] = useState({
-        generaltype: InputStates.Empty,
+     const [inputsState, setInputsState] = useState({
+        generalType: InputStates.Empty,
         specificType: InputStates.Empty,
         optional: InputStates.Empty,
         type: InputStates.Empty,
         topic: InputStates.Empty,
         message: InputStates.Empty,
-    }); */
+    });
 
     useEffect(() => {
         if (fields.recipients.length > 0) {
@@ -132,6 +132,8 @@ export const NewsletterPage = () => {
                             handleChange={handleChange}
                             recipients={recipients}
                             selectRecipients={selectRecipients}
+                            inputsState={inputsState}
+                            setInputsState={setInputsState}
                         />
                         <NewsletterContent
                             handleTypeDelete={handleTypeDelete}

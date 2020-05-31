@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
-import { GeneralRecipientInputValues } from './types';
+import { GeneralRecipientInputValues, InputsStateType, InputStates } from './types';
 
 export const NewsletterGeneralTypeTextField: React.FC<{
     classes: Record<
@@ -14,7 +14,9 @@ export const NewsletterGeneralTypeTextField: React.FC<{
     };
     handleDelete: (name: string, value: string) => void;
     handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange }) => {
+    inputsState: InputsStateType;
+    setInputsState: React.Dispatch<React.SetStateAction<InputsStateType>>;
+}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange, inputsState, setInputsState }) => {
     const { t } = useTranslation();
 
     return (
@@ -61,10 +63,12 @@ export const NewsletterGeneralTypeTextField: React.FC<{
             required
             onChange={handleRecipientTypeChange}
             name="generalType"
-            label={t('newsletter.general-recipient-label')}
+            label= {inputsState.generalType === InputStates.Filled ? t('newsletter.general-recipient-label-filled') : t('newsletter.general-recipient-label')}
             // TODO: CHANGE LABEL WHEN FOCUSED
 
             fullWidth
+            error={inputsState.generalType === InputStates.Error}
+            helperText={inputsState.generalType === InputStates.Error ? t('newsletter.general-recipient-helper-text') : null }
         >
             <MenuItem
                 classes={{

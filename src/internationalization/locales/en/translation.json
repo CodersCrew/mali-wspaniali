@@ -79,6 +79,7 @@
         "parents-label": "To sent message to single parent, select him from the list",
         "kindergartens-label": "Select kindergarten from list",
         "general-recipient-label": "Select recipient from list",
+        "general-recipient-label-filled": "Select recipient",
         "specific-recipient-label": "Specify recipient",
         "specific-recipient-value-labels": {
             "all-parents": "all parents",

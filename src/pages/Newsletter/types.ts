@@ -12,6 +12,15 @@ export type WorkspaceProps = {
     setMessage: (value: string | ((prevState: string) => string)) => void;
 };
 
+export type InputsStateType = {
+  generalType: InputStates;
+  specificType: InputStates;
+  optional: InputStates;
+  type: InputStates;
+  topic: InputStates;
+  message: InputStates;
+}
+
 export enum ProgressBarStates {
     Inactive = 'INACTIVE',
     Ready = 'READY',
