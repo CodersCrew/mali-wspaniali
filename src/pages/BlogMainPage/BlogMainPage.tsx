@@ -82,7 +82,7 @@ export const BlogMainPage = () => {
                 {blogArticles && (
                     <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                         {blogArticles.articleList.map(article => (
-                            <Grid key={article.id} item xs={4} zeroMinWidth>
+                            <Grid className={classes.grid} key={article.id} item xs={4} zeroMinWidth>
                                 <BlogArticleCard
                                     title={article.title}
                                     image={article.pictureUrl}
@@ -108,13 +108,32 @@ const useStyles = makeStyles({
         marginLeft: '3%',
         width: '60%',
         zIndex: 1,
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '15px',
+            fontWeight: 'normal',
+            textAlign: 'center',
+            marginLeft: '20%',
+        },
     },
     gridContainer: {
         maxWidth: '92%',
         margin: '0 4%',
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 150,
+            display: 'flex',
+            flexDirection: 'column',
+            lineHeight: '18px',
+        },
     },
     gridBackground: {
         backgroundColor: white,
         borderRadius: '20px',
+    },
+    grid: {
+        [theme.breakpoints.down('sm')]: {
+            minWidth: 'fit-content'
+        },
     },
 });
