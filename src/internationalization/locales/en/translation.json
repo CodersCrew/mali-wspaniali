@@ -49,7 +49,13 @@
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
         "results-list": "Results list",
         "tests-information": "Tests information",
-        "your-agreements": "Your agreements"
+        "your-agreements": "Your agreements",
+        "participation-label": "Permission to participate in the Mali Wspaniali program",
+        "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
+        "marketing-label": "Permission to receive marketing information on provided e-mail address",
+        "marketing-description": "Optional agreement that allows us to send you emails with current informations about the Mali Wspaniali program.",
+        "image-label": "Permission to use the image",
+        "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)"
     },
     "parent-profile": {
         "parent": "Parent",

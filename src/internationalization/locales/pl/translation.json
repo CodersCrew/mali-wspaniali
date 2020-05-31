@@ -53,7 +53,13 @@
         "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",
         "results-list": "Lista wyników",
         "tests-information": "Informacje o testach",
-        "your-agreements": "Twoje zgody"
+        "your-agreements": "Twoje zgody",
+        "participation-label": "Zgoda na udział w programie Mali Wspaniali.",
+        "participation-description": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe.",
+        "marketing-label": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+        "marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+        "image-label": "Zgoda na rozpowszechnianie wizerunku.",
+        "image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji."
     },
     "parent-profile": {
         "parent": "Rodzic",
