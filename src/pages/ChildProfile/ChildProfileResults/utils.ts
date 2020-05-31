@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from '../../../localizedMoment';
 import { Result } from '../../../firebase/types';
 import { resultColors } from '../../../colors';
 
