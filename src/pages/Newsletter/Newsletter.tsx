@@ -6,7 +6,7 @@ import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { NewsletterProgressBar } from './NewsletterProgressBar';
-import { ProgressBarStates } from './types';
+import { ProgressBarStates, InputStates } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
@@ -33,6 +33,14 @@ export const NewsletterPage = () => {
         secondStep: ProgressBarStates.Inactive,
     });
     const [recipientType, setRecipientType] = useState({ generalType: '', specificType: '' });
+/*     const [inputsStates, setInputStates] = useState({
+        generaltype: InputStates.Empty,
+        specificType: InputStates.Empty,
+        optional: InputStates.Empty,
+        type: InputStates.Empty,
+        topic: InputStates.Empty,
+        message: InputStates.Empty,
+    }); */
 
     useEffect(() => {
         if (fields.recipients.length > 0) {

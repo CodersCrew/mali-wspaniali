@@ -5,8 +5,13 @@ import { mainColor, white, newsletterColors, textColor } from '../../colors';
 import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
-import { parentsMockData, preschoolsMockData } from './mockData';
 import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
+import { useSubscribed } from '../../hooks/useSubscribed';
+import { getParents } from '../../queries/userQueries';
+import { Parent } from '../ParentProfile/types';
+import { OnSnapshotCallback } from '../../firebase/userRepository';
+import { Kindergarten } from '../../firebase/types';
+import { getKindergartens } from '../../queries/kindergartenQueries';
 
 export const NewsletterRecipent: React.FC<{
     recipientType: {
@@ -26,6 +31,13 @@ export const NewsletterRecipent: React.FC<{
     const classes = useStyles();
     const { t } = useTranslation();
 
+    // Stop it from fetching every render
+    const parents = useSubscribed<Parent[] | null>((callback: OnSnapshotCallback<Parent[]>) => {
+        getParents(callback);
+    }) as string[];
+    const kindergartens = useSubscribed<Kindergarten[] | null>((callback: OnSnapshotCallback<Kindergarten[]>) => {
+        getKindergartens(callback);
+    }) as Kindergarten[];
     useEffect(() => {
         if (recipientType.specificType === '') {
             selectRecipients([]);
@@ -34,13 +46,16 @@ export const NewsletterRecipent: React.FC<{
             recipientType.generalType === GeneralRecipientInputValues.parents &&
             recipientType.specificType === SpecificRecipientInputValues.all
         ) {
-            selectRecipients(parentsMockData);
+            selectRecipients(parents);
         }
         if (
             recipientType.generalType === GeneralRecipientInputValues.kindergartens &&
             recipientType.specificType === SpecificRecipientInputValues.all
         ) {
-            selectRecipients(preschoolsMockData);
+            if (kindergartens) {
+                const kindergartensId = kindergartens.map((kindergarten: Kindergarten) => kindergarten.id);
+                selectRecipients(kindergartensId);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [recipientType]);
@@ -62,7 +77,6 @@ export const NewsletterRecipent: React.FC<{
             }));
         }
     };
-
     return (
         <div className={classes.container}>
             <div className={classes.heading}>{t('newsletter.recipient-heading')}</div>
@@ -86,6 +100,8 @@ export const NewsletterRecipent: React.FC<{
                     recipientType={recipientType}
                     recipients={recipients}
                     handleChange={handleChange}
+                    parents={parents}
+                    kindergartens={kindergartens}
                 />
             ) : null}
         </div>

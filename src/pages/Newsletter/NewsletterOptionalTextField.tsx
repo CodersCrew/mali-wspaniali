@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
-import { parentsMockData, preschoolsMockData } from './mockData';
 import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
+import { Kindergarten } from '../../firebase/types';
 
 export const NewsletterOptionalTextField: React.FC<{
     classes: Record<
@@ -25,7 +25,9 @@ export const NewsletterOptionalTextField: React.FC<{
         generalType: string;
         specificType: string;
     };
-}> = ({ classes, handleChange, selectRecipients, recipients, recipientType }) => {
+    parents: string[],
+    kindergartens: Kindergarten[]
+}> = ({ classes, handleChange, selectRecipients, recipients, recipientType, parents, kindergartens }) => {
     const { t } = useTranslation();
 
     const handleDelete = (value: string) => {
@@ -100,8 +102,8 @@ export const NewsletterOptionalTextField: React.FC<{
         >
             {recipientType.generalType === GeneralRecipientInputValues.kindergartens ||
             recipientType.specificType === SpecificRecipientInputValues.kindergarten
-                ? setMenuItems(preschoolsMockData)
-                : setMenuItems(parentsMockData)}
+                ? setMenuItems(kindergartens.map((kindergarten)=> `${kindergarten.city}, ${t('newsletter.kindergarten-number')} ${kindergarten.number}`))
+                : setMenuItems(parents)}
         </TextField>
     );
 };

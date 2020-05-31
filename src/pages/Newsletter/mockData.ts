@@ -1,2 +1,0 @@
-export const preschoolsMockData = ['Przedszkole 1', 'Przedszkole 2', 'Przedszkole 3', 'Przedszkole 4', 'Przedszkole 5'];
-export const parentsMockData = ['Parent 1', 'Parent 2', 'Parent 3', 'Parent 4', 'Parent 5'];

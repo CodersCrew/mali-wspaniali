@@ -87,6 +87,7 @@
             "all-kindergartens": "wszystkie przedszkola",
             "single-kindergarten": "do wybranego przedszkola"
         },
+        "kindergarten-number" : "przedszkole nr",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success-modal": {
             "title": "Gotowe",

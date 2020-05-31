@@ -87,6 +87,7 @@
             "all-kindergartens": "all kindergartens",
             "single-kindergarten": "single kindergarten"
         },
+        "kindergarten-number" : "kindergarten no.",
         "sending-error": "An error ocurred during sending the message.",
         "sending-success-modal": {
             "title": "Done",
@@ -98,7 +99,7 @@
             "type": "Newsletter type",
             "type-text": "Select the type which is most apropriate to topic of your message. Newsletter will be saved to that category, so you can find it easier in newsletter archives.",
             "attachment": "Attachments",
-            "attachment-text": "To properly add attachment, it has to be in .pdf, .xlsx...",
+            "attachment-text": "To properly add attachment, it has to be in .pdf.",
             "button": "Got it"
         },
         "parents": "Parents",

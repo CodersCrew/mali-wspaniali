@@ -30,3 +30,9 @@ export enum SpecificRecipientInputValues {
     kindergarten = 'KINDERGARTEN',
     single = 'SINGLE',
 }
+
+export enum InputStates {
+  Empty = 'EMPTY',
+  Filled = 'FILLED',
+  Error = 'ERROR',
+}
