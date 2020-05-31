@@ -12,11 +12,10 @@ export const NewsletterGeneralTypeTextField: React.FC<{
         generalType: string;
         specificType: string;
     };
-    handleDelete: (name: string, value: string) => void;
+    handleDelete: (name: string) => void;
     handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     inputsState: InputsStateType;
-    setInputsState: React.Dispatch<React.SetStateAction<InputsStateType>>;
-}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange, inputsState, setInputsState }) => {
+}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange, inputsState }) => {
     const { t } = useTranslation();
 
     return (
@@ -34,7 +33,9 @@ export const NewsletterGeneralTypeTextField: React.FC<{
                 },
                 renderValue: value => {
                     const chipLabel =
-                        value === GeneralRecipientInputValues.parents ? t('newsletter.parents') : t('newsletter.kindergartens');
+                        value === GeneralRecipientInputValues.parents
+                            ? t('newsletter.parents')
+                            : t('newsletter.kindergartens');
                     return (
                         <Chip
                             classes={{
@@ -42,7 +43,7 @@ export const NewsletterGeneralTypeTextField: React.FC<{
                             }}
                             size={'small'}
                             label={chipLabel}
-                            onDelete={() => handleDelete('generalTypeInput', value as string)}
+                            onDelete={() => handleDelete('generalType')}
                             onMouseDown={event => {
                                 event.stopPropagation();
                             }}
@@ -63,12 +64,16 @@ export const NewsletterGeneralTypeTextField: React.FC<{
             required
             onChange={handleRecipientTypeChange}
             name="generalType"
-            label= {inputsState.generalType === InputStates.Filled ? t('newsletter.general-recipient-label-filled') : t('newsletter.general-recipient-label')}
-            // TODO: CHANGE LABEL WHEN FOCUSED
-
+            label={
+                recipientType.generalType
+                    ? t('newsletter.general-recipient-label-filled')
+                    : t('newsletter.general-recipient-label')
+            }
             fullWidth
             error={inputsState.generalType === InputStates.Error}
-            helperText={inputsState.generalType === InputStates.Error ? t('newsletter.general-recipient-helper-text') : null }
+            helperText={
+                inputsState.generalType === InputStates.Error ? t('newsletter.general-recipient-helper-text') : null
+            }
         >
             <MenuItem
                 classes={{

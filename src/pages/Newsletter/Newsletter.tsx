@@ -33,13 +33,13 @@ export const NewsletterPage = () => {
         secondStep: ProgressBarStates.Inactive,
     });
     const [recipientType, setRecipientType] = useState({ generalType: '', specificType: '' });
-     const [inputsState, setInputsState] = useState({
-        generalType: InputStates.Empty,
-        specificType: InputStates.Empty,
-        optional: InputStates.Empty,
-        type: InputStates.Empty,
-        topic: InputStates.Empty,
-        message: InputStates.Empty,
+    const [inputsState, setInputsState] = useState({
+        generalType: InputStates.Normal,
+        specificType: InputStates.Normal,
+        recipients: InputStates.Normal,
+        type: InputStates.Normal,
+        topic: InputStates.Normal,
+        message: InputStates.Normal,
     });
 
     useEffect(() => {
@@ -69,6 +69,16 @@ export const NewsletterPage = () => {
             ...prevFields,
             [name]: value,
         }));
+        setInputsState(prevFields => ({
+            ...prevFields,
+            [name]: InputStates.Normal,
+        }));
+        if(!value) {
+          setInputsState(prevFields => ({
+            ...prevFields,
+            [name]: InputStates.Error
+          }))
+        }
     };
 
     const handleTypeDelete = (): void => {
@@ -76,6 +86,10 @@ export const NewsletterPage = () => {
             ...prevFields,
             type: '',
         }));
+        setInputsState(prevFields => ({
+          ...prevFields,
+          type: InputStates.Error
+        }))
     };
 
     const selectRecipients = (filteredRecipients: string[]): void => {
@@ -110,7 +124,6 @@ export const NewsletterPage = () => {
                 description: t('newsletter.sending-error'),
             });
         }
-        console.log(type, topic);
         return openDialog(NewsletterSentModal, { goToAdminPage, resetState });
     };
 
@@ -141,6 +154,7 @@ export const NewsletterPage = () => {
                             fields={fields}
                             message={message}
                             setMessage={setMessage}
+                            inputsState={inputsState}
                         />
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, InputsStateType, InputStates } from './types';
 
 type ValuesArrayTypes = {
     value: string;
@@ -24,9 +24,10 @@ export const NewsletterSpecificTypeTextField: React.FC<{
         generalType: string;
         specificType: string;
     };
-    handleDelete: (name: string, value: string) => void;
+    handleDelete: (name: string) => void;
     handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange }) => {
+    inputsState: InputsStateType;
+}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange, inputsState }) => {
     const { t } = useTranslation();
 
     const parentsRecipients = [
@@ -108,7 +109,7 @@ export const NewsletterSpecificTypeTextField: React.FC<{
                             }}
                             size={'small'}
                             label={getLabel()}
-                            onDelete={() => handleDelete('specificType', value as string)}
+                            onDelete={() => handleDelete('specificType')}
                             onMouseDown={event => {
                                 event.stopPropagation();
                             }}
@@ -129,6 +130,8 @@ export const NewsletterSpecificTypeTextField: React.FC<{
             }}
             name="specificType"
             label={t('newsletter.specific-recipient-label')}
+            error = {inputsState.specificType === InputStates.Error}
+            helperText={inputsState.specificType === InputStates.Error ? t('newsletter.specific-recipient-helper-text') : null }
             fullWidth
         >
             {recipientType.generalType === GeneralRecipientInputValues.parents

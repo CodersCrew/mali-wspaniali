@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, InputsStateType, InputStates } from './types';
 import { Kindergarten } from '../../firebase/types';
 
 export const NewsletterOptionalTextField: React.FC<{
@@ -25,16 +25,55 @@ export const NewsletterOptionalTextField: React.FC<{
         generalType: string;
         specificType: string;
     };
-    parents: string[],
-    kindergartens: Kindergarten[]
-}> = ({ classes, handleChange, selectRecipients, recipients, recipientType, parents, kindergartens }) => {
+    parents: string[];
+    kindergartens: Kindergarten[];
+    inputsState: InputsStateType;
+    setInputsState: React.Dispatch<React.SetStateAction<InputsStateType>>;
+}> = ({
+    classes,
+    handleChange,
+    selectRecipients,
+    recipients,
+    recipientType,
+    parents,
+    kindergartens,
+    inputsState,
+    setInputsState,
+}) => {
     const { t } = useTranslation();
 
     const handleDelete = (value: string) => {
         const filteredRecipients = recipients.filter(element => element !== value);
         selectRecipients(filteredRecipients);
+        if (filteredRecipients.length === 0) {
+            setInputsState(prevFields => ({
+                ...prevFields,
+                recipients: InputStates.Error,
+            }));
+        }
     };
 
+    const setLabel = () => {
+        switch (true) {
+            case recipientType.generalType === GeneralRecipientInputValues.parents &&
+                recipientType.specificType === SpecificRecipientInputValues.kindergarten:
+                if (recipients.length > 0) {
+                    return t('newsletter.recipient-select-kindergarten-label-filled');
+                }
+                return t('newsletter.recipient-select-kindergarten-label');
+            case recipientType.generalType === GeneralRecipientInputValues.parents &&
+                recipientType.specificType === SpecificRecipientInputValues.single:
+                if (recipients.length > 0) {
+                    return t('newsletter.recipient-single-parent-label-filled');
+                }
+                return t('newsletter.recipient-single-parent-label');
+            default:
+                if (recipients.length > 0) {
+                    return t('newsletter.recipient-single-kindergarten-label-filled');
+                }
+                return t('newsletter.recipient-single-kindergarten-label');
+        }
+    };
     const setMenuItems = (array: string[]) => {
         return array.map(item => (
             <MenuItem key={item} value={item} className={classes.selectMenuItem}>
@@ -54,12 +93,7 @@ export const NewsletterOptionalTextField: React.FC<{
             required
             onChange={handleChange}
             name="recipients"
-            label={
-                recipientType.generalType === GeneralRecipientInputValues.parents &&
-                recipientType.specificType === SpecificRecipientInputValues.single
-                    ? t('newsletter.parents-label')
-                    : t('newsletter.kindergartens-label')
-            }
+            label={setLabel()}
             fullWidth
             SelectProps={{
                 value: recipients,
@@ -99,10 +133,19 @@ export const NewsletterOptionalTextField: React.FC<{
                     asterisk: classes.asterisk,
                 },
             }}
+            helperText={
+                inputsState.recipients === InputStates.Error ? t('newsletter.recipient-helper-text') : null
+            }
+            error={inputsState.recipients === InputStates.Error}
         >
             {recipientType.generalType === GeneralRecipientInputValues.kindergartens ||
             recipientType.specificType === SpecificRecipientInputValues.kindergarten
-                ? setMenuItems(kindergartens.map((kindergarten)=> `${kindergarten.city}, ${t('newsletter.kindergarten-number')} ${kindergarten.number}`))
+                ? setMenuItems(
+                      kindergartens.map(
+                          kindergarten =>
+                              `${kindergarten.city}, ${t('newsletter.kindergarten-number')} ${kindergarten.number}`,
+                      ),
+                  )
                 : setMenuItems(parents)}
         </TextField>
     );

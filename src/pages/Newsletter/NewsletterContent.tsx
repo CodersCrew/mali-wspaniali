@@ -16,6 +16,7 @@ import { mainColor, newsletterColors, textColor, white } from '../../colors';
 import { WorkSpace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
+import { InputStates, InputsStateType } from './types';
 
 export const NewsletterContent: React.FC<{
     handleTypeDelete: () => void;
@@ -27,7 +28,8 @@ export const NewsletterContent: React.FC<{
     };
     message: string;
     setMessage: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ handleTypeDelete, handleChange, fields, message, setMessage }) => {
+    inputsState: InputsStateType;
+}> = ({ handleTypeDelete, handleChange, fields, message, setMessage, inputsState }) => {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
@@ -87,8 +89,7 @@ export const NewsletterContent: React.FC<{
                 required
                 onChange={handleChange}
                 name="type"
-                label={t('newsletter.type-input-label')}
-                // TODO: CHANGE LABEL WHEN FOCUSED
+                label={fields.type ? t('newsletter.type-input-label-filled') : t('newsletter.type-input-label')}
                 fullWidth
                 select
                 SelectProps={{
@@ -102,7 +103,7 @@ export const NewsletterContent: React.FC<{
                     },
                     renderValue: value => {
                         const item = newsletterTypesArray.find(element => element.name === value);
-                        const itemBackgroundColor = item ? item.color :newsletterColors.typeColors.blue;
+                        const itemBackgroundColor = item ? item.color : newsletterColors.typeColors.blue;
                         return (
                             <Chip
                                 style={{ backgroundColor: itemBackgroundColor }}
@@ -137,6 +138,8 @@ export const NewsletterContent: React.FC<{
                         asterisk: classes.asterisk,
                     },
                 }}
+                error={inputsState.type === InputStates.Error}
+                helperText={inputsState.type === InputStates.Error ? t('newsletter.type-helper-text') : null}
             >
                 {setMenuItems(newsletterTypesArray)}
             </TextField>
@@ -144,7 +147,7 @@ export const NewsletterContent: React.FC<{
                 disabled={disabled}
                 value={fields.topic}
                 name="topic"
-                label={t('newsletter.topic-input-label')}
+                label={fields.topic ? t('newsletter.topic-input-label-filled') : t('newsletter.topic-input-label')}
                 required
                 onChange={handleChange}
                 className={classes.textfield}
@@ -160,6 +163,8 @@ export const NewsletterContent: React.FC<{
                         asterisk: classes.asterisk,
                     },
                 }}
+                error={inputsState.topic === InputStates.Error}
+                helperText={inputsState.topic === InputStates.Error ? t('newsletter.topic-helper-text') : null}
             />
             <WorkSpace message={message} setMessage={setMessage} />
         </div>
@@ -209,10 +214,12 @@ const useStyles = makeStyles(() =>
                 color: textColor,
                 opacity: 0.42,
                 '&.Mui-focused': {
-                    color: mainColor,
                     opacity: 1,
                     fontSize: 12,
                 },
+                '&.Mui-error': {
+                  color: '#f44336'
+                }
             },
         },
         underlineFocus: {

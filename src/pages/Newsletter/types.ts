@@ -15,7 +15,7 @@ export type WorkspaceProps = {
 export type InputsStateType = {
   generalType: InputStates;
   specificType: InputStates;
-  optional: InputStates;
+  recipients: InputStates;
   type: InputStates;
   topic: InputStates;
   message: InputStates;
@@ -41,7 +41,6 @@ export enum SpecificRecipientInputValues {
 }
 
 export enum InputStates {
-  Empty = 'EMPTY',
-  Filled = 'FILLED',
+  Normal = 'NORMAL',
   Error = 'ERROR',
 }

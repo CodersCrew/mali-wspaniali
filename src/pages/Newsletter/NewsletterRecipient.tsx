@@ -5,7 +5,7 @@ import { mainColor, white, newsletterColors, textColor } from '../../colors';
 import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, InputsStateType } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, InputsStateType, InputStates } from './types';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { getParents } from '../../queries/userQueries';
 import { Parent } from '../ParentProfile/types';
@@ -33,7 +33,6 @@ export const NewsletterRecipent: React.FC<{
     const classes = useStyles();
     const { t } = useTranslation();
 
-    // Stop it from fetching every render
     const parents = useSubscribed<Parent[] | null>((callback: OnSnapshotCallback<Parent[]>) => {
         getParents(callback);
     }) as string[];
@@ -68,9 +67,17 @@ export const NewsletterRecipent: React.FC<{
             ...prevFields,
             [name]: value,
         }));
+        setInputsState(prevFields => ({
+            ...prevFields,
+            [name]: InputStates.Normal,
+        }));
     };
     const handleDelete = (name: string) => {
-        if (name === 'generalTypeInput') {
+        setInputsState(prevFields => ({
+            ...prevFields,
+            [name]: InputStates.Error,
+        }));
+        if (name === 'generalType') {
             setRecipientType({ generalType: '', specificType: '' });
         } else {
             setRecipientType(prevFields => ({
@@ -88,13 +95,13 @@ export const NewsletterRecipent: React.FC<{
                 handleDelete={handleDelete}
                 handleRecipientTypeChange={handleRecipientTypeChange}
                 inputsState={inputsState}
-                setInputsState={setInputsState}
             />
             <NewsletterSpecificTypeTextField
                 classes={classes}
                 recipientType={recipientType}
                 handleDelete={handleDelete}
                 handleRecipientTypeChange={handleRecipientTypeChange}
+                inputsState={inputsState}
             />
             {recipientType.specificType === SpecificRecipientInputValues.single ||
             recipientType.specificType === SpecificRecipientInputValues.kindergarten ? (
@@ -106,6 +113,8 @@ export const NewsletterRecipent: React.FC<{
                     handleChange={handleChange}
                     parents={parents}
                     kindergartens={kindergartens}
+                    inputsState={inputsState}
+                    setInputsState={setInputsState}
                 />
             ) : null}
         </div>
