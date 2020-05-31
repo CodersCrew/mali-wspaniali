@@ -48,8 +48,12 @@
         "no-results": "Brak wyników"
     },
     "child-profile": {
-        "child-profile": "Profil dziecka",
-        "no-child": "Przepraszamy, nie ma dziecka o tym ID"
+        "no-child": "Przepraszamy, nie ma dziecka o tym ID",
+        "kindergarten-no": "Przedszkole nr",
+        "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",
+        "results-list": "Lista wyników",
+        "tests-information": "Informacje o testach",
+        "your-agreements": "Twoje zgody"
     },
     "parent-profile": {
         "parent": "Rodzic",

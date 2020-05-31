@@ -1,5 +1,5 @@
-import * as onCreateFuntions from './onCreate';
+import * as authOnCreateFunctions from './onCreate';
 
-export const cloudFunctions = {
-  onCreateFuntions,
+export const authCloudFunctions = {
+    authOnCreateFunctions,
 };

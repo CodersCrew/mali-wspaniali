@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Grid } from '@material-ui/core';
+import { makeStyles, Grid, Typography, Tab, Tabs } from '@material-ui/core';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { fetchChild } from '../../queries/childQueries';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { Child } from '../../firebase/types';
 import { useAuthorization } from '../../hooks/useAuthorization';
+import { ChildProfileResults } from './ChildProfileResults';
+import { ChildProfileAboutTests } from './ChildProfileAboutTests';
+import { ChildProfileAgreements } from './ChildProfileAgreements';
+import { secondaryColor, white } from '../../colors';
+
+const TABS = {
+    results: 'results',
+    aboutTests: 'aboutTests',
+    agreements: 'agreements',
+};
 
 export const ChildProfile = () => {
     useAuthorization(true);
     const { t } = useTranslation();
     const { childId } = useParams<{ childId: string }>();
+    const [activeTab, setActiveTab] = useState(TABS.results);
 
     const child = useSubscribed<Child | null, string>(
         (callback: OnSnapshotCallback<Child>) => fetchChild(childId, callback),
@@ -21,26 +32,92 @@ export const ChildProfile = () => {
 
     const classes = useStyles();
 
-    return child ? (
-        <Grid container className={classes.paper}>
-            <div>{t('child-profile.child-profile')}</div>
-            <p>{child.firstName}</p>
-            <p>{child.lastName}</p>
-        </Grid>
-    ) : (
-        <Grid container className={classes.paper}>
-            {t('child-profile.no-child')}
-        </Grid>
+    if (!child) {
+        return <Grid container>{t('child-profile.no-child')}</Grid>;
+    }
+
+    return (
+        <>
+            <Grid container className={classes.header}>
+                <Typography className={classes.name}>
+                    {child.firstName} {child.lastName}
+                </Typography>
+                <Typography className={classes.kindergarten}>
+                    {t('child-profile.kindergarten-no')} {child.kindergartenNo}
+                </Typography>
+            </Grid>
+            <Typography className={classes.description}>{t('child-profile.description')}</Typography>
+            <Tabs
+                value={activeTab}
+                onChange={(event, value) => setActiveTab(value)}
+                className={classes.tabs}
+                classes={{
+                    root: classes.tabsRoot,
+                    indicator: classes.tabsIndicator,
+                }}
+            >
+                <Tab label={t('child-profile.results-list')} value={TABS.results} />
+                <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
+                <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
+            </Tabs>
+            {activeTab === TABS.results && <ChildProfileResults />}
+            {activeTab === TABS.aboutTests && <ChildProfileAboutTests />}
+            {activeTab === TABS.agreements && <ChildProfileAgreements />}
+        </>
     );
 };
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
+const useStyles = makeStyles({
+    header: {
+        display: 'flex',
+        alignItems: 'center',
     },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: 'black',
+    name: {
+        fontSize: '36px',
+        textTransform: 'uppercase',
+        fontWeight: 700,
+        marginRight: '60px',
     },
-}));
+    kindergarten: {
+        fontSize: '21px',
+        fontWeight: 700,
+    },
+    description: {
+        fontSize: '21px',
+        maxWidth: '1070px',
+        fontWeight: 500,
+        marginTop: '10px',
+    },
+    tabs: {
+        marginTop: '40px',
+    },
+    tabsRoot: {
+        '& button': {
+            border: `1px solid ${secondaryColor}`,
+            color: secondaryColor,
+            textTransform: 'unset',
+            fontWeight: 700,
+            borderRadius: '10px 10px 0 0',
+            height: '34px',
+            minHeight: 'unset',
+            paddingTop: '4px',
+            opacity: 1,
+
+            '& .MuiTouchRipple-root': {
+                display: 'none',
+            },
+
+            '&:not(:last-child)': {
+                borderRight: 0,
+            },
+        },
+
+        '& .Mui-selected': {
+            color: white,
+            backgroundColor: secondaryColor,
+        },
+    },
+    tabsIndicator: {
+        display: 'none',
+    },
+});
