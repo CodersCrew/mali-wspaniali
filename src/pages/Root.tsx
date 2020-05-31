@@ -16,7 +16,7 @@ import { SingleBlogArticle } from './SingleBlogArticle';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { IdleTimer } from '../components/IdleTimer/IdleTimer';
 import { BlogMainPage } from './BlogMainPage';
-import { NotificationsPage } from './NotificationsPage'
+import { NotificationsPage } from './NotificationsPage';
 
 export const Root = () => {
     return (

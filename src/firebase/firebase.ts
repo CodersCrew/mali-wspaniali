@@ -10,7 +10,7 @@ import { userRepository } from './userRepository';
 import { adminAgreementRepository } from './adminAgreementRepository';
 import { newsletterRepository } from './newsletterRepository';
 import { articleRepository } from './articleRepository';
-import { notificationRepository } from './notificationRepository'
+import { notificationRepository } from './notificationRepository';
 
 firebaseApp.initializeApp(config);
 

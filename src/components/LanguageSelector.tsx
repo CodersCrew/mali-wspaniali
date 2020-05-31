@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import moment from 'moment'
+import moment from 'moment';
 import clsx from 'clsx';
 import PlFlag from '../assets/pl.png';
 import EnFlag from '../assets/en.png';

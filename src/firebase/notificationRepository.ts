@@ -6,11 +6,11 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
     getUserNotifications: (userId: string, notificationLimit: number , onSnapshotCallback: OnSnapshotCallback<Notification[]>) => {
         return db.collection('user').doc(userId).collection('notifications').limit(notificationLimit).orderBy('date', 'desc').onSnapshot(snapshot => {
             const notification = snapshot.docs.map(doc => {
-                const notificationData = doc.data() as Notification
+                const notificationData = doc.data() as Notification;
                 return notificationData;
-            })
-            return onSnapshotCallback(notification)
-        })
+            });
+            return onSnapshotCallback(notification);
+        });
     },
     getNotificationData: (
         onSnapshotCallback: OnSnapshotCallback<NotificationPaginatedList>,
@@ -35,7 +35,6 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
                 snapshots.push(snap);
                 const docData = snap.data() as Notification;
                 docData.id = snap.ref.id;
-                console.log(docData)
                 notifications.push(docData);
             });
             if (notifications.length < 7) {
@@ -56,6 +55,6 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
         });
     },
     setNotificationReadValue: (userId: string, notificationId: string, value: boolean) => {
-        return db.collection('user').doc(userId).collection('notifications').doc(notificationId).update({ "isRead": value})
+        return db.collection('user').doc(userId).collection('notifications').doc(notificationId).update({ 'isRead': value});
     }
-})
+});
