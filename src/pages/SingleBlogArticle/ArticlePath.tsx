@@ -59,6 +59,10 @@ const useStyles = makeStyles(() =>
             lineHeight,
             fontSize: '12px',
             padding: '1px 5px 0px 10px',
+
+            '@media (max-width:767px)': {
+                width: '100vw',
+            },
         },
         pathArrowContainer: {
             marginTop: '10px',
