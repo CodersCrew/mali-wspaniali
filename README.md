@@ -21,3 +21,13 @@ https://mali-wspaniali.now.sh/
 ## Production environment
 
 https://mal-wsp-dev.firebaseapp.com/
+
+## Test login data
+**Parent:**   
+test@test.pl   
+testtest   
+
+**Admin:**   
+admin@admin.com   
+adminadmin   
+
