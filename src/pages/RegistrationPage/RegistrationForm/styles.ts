@@ -1,5 +1,5 @@
-import { backgroundColor, secondaryColor } from '../../../colors';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/';
+import { backgroundColor, secondaryColor, textColor, white } from '../../../colors';
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,13 +36,13 @@ export const useStyles = makeStyles((theme: Theme) =>
                 marginTop: 15,
             },
         },
-        loginHeader: {
+        registrationHeader: {
             textAlign: 'center',
-            fontFamily: 'Montserrat',
             fontSize: '21px',
             fontWeight: 'bold',
             marginBottom: '25px',
             textTransform: 'uppercase',
+            color: textColor,
 
             '@media (max-width:767px)': {
                 marginTop: '40px',
@@ -99,7 +99,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             lineHeight: '17px',
             textAlign: 'center',
             textTransform: 'uppercase',
-            color: '#fff',
+            color: white,
             background: secondaryColor,
             textDecoration: 'none',
             borderRadius: '4px',

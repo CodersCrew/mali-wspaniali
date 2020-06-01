@@ -8,7 +8,6 @@ export const RegistrationEmail = ({
     handleChange,
     handleNext,
     email,
-    form,
     classForm,
     classButton,
     classNextBtn,

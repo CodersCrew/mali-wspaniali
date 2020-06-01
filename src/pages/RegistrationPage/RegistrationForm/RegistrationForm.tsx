@@ -1,6 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { Stepper, Step, StepLabel, StepContent } from '@material-ui/core/';
-// import { useHistory } from 'react-router-dom';
+import {
+    Stepper,
+    Step,
+    StepLabel,
+    StepContent,
+    Typography,
+} from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -29,7 +34,6 @@ export const RegistrationForm = () => {
     const [agreements, setAgreements] = useState<AdminAgreement[]>([]);
     const { email, password, passwordConfirm } = form;
     const classes = useStyles();
-    // const history = useHistory();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -41,10 +45,10 @@ export const RegistrationForm = () => {
     }, []);
 
     const steps = [
-        `${t('e-mail')}`,
-        `${t('registration-page.agreements-and-regulations')}`,
-        `${t('registration-page.create-password')}`,
-        `${t('registration-page.confirmation')}`,
+        t('e-mail'),
+        t('registration-page.agreements-and-regulations'),
+        t('registration-page.create-password'),
+        t('registration-page.confirmation'),
     ];
 
     const getStepContent = (step: number) => {
@@ -104,7 +108,7 @@ export const RegistrationForm = () => {
                     />
                 );
             default:
-                return 'Unknown step';
+                return null;
         }
     };
 
@@ -128,7 +132,6 @@ export const RegistrationForm = () => {
         } else {
             load(createUser({ email, password }))
                 .then(() => {
-                    // history.push('/login');
                     handleNext();
                 })
                 .catch((err) => {
@@ -166,9 +169,7 @@ export const RegistrationForm = () => {
                         {steps.map((step, idx) => (
                             <Step key={step} style={{ border: 'none' }}>
                                 <StepLabel>{step}</StepLabel>
-                                <StepContent>
-                                    <>{getStepContent(idx)}</>
-                                </StepContent>
+                                <StepContent>{getStepContent(idx)}</StepContent>
                             </Step>
                         ))}
                     </Stepper>
