@@ -29,10 +29,10 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
     ) as Child[];
 
     const menuItems = [
-        { name: t('sidebar.home'), link: '/parent', icon: <Home /> },
-        { name: t('sidebar.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
-        { name: t('sidebar.notifications'), link: '/', icon: <Notifications /> },
-        { name: t('sidebar.settings'), link: '/', icon: <BuildSharp /> },
+        { name: t('menu.home'), link: '/parent', icon: <Home /> },
+        { name: t('menu.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
+        { name: t('menu.notifications'), link: '/', icon: <Notifications /> },
+        { name: t('menu.settings'), link: '/', icon: <BuildSharp /> },
     ];
 
     const renderMenuItems = () => {

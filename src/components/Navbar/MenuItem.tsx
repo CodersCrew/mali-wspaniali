@@ -42,7 +42,7 @@ export const MenuLogoutItem = () => {
                 <ListItemIcon className={classes.listItemIcon}>
                     <PowerSettingsNew />
                 </ListItemIcon>
-                <ListItemText className={classes.listItemText}>{t('navbar.logout')}</ListItemText>
+                <ListItemText className={classes.listItemText}>{t('menu.logout')}</ListItemText>
             </ListItem>
         </MenuItem>
     );

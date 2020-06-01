@@ -17,17 +17,17 @@ export const MenuListItems = ({ userRole, childrenData }: MenuListItemsProps) =>
     const { t } = useTranslation();
 
     const parentStaticMenuItems = [
-        { name: t('navbar.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
-        { name: t('navbar.settings'), link: '/parent/settings', icon: <Build /> },
+        { name: t('menu.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
+        { name: t('menu.settings'), link: '/parent/settings', icon: <Build /> },
     ];
 
     const adminStaticMenuItems = [
-        { name: t('navbar.results'), link: '/admin/tests', icon: <Assessment /> },
-        { name: t('navbar.agreements'), link: '/admin/agreements', icon: <AssignmentTurnedIn /> },
-        { name: t('navbar.newsletter'), link: '/admin/newsletter', icon: <Message /> },
-        { name: t('navbar.newsletter-archive'), link: '/admin/newsletter', icon: <Archive /> },
-        { name: t('navbar.blog'), link: '/admin/blog', icon: <FormatListBulleted /> },
-        { name: t('navbar.settings'), link: '/admin/settings', icon: <Build /> },
+        { name: t('menu.results'), link: '/admin/tests', icon: <Assessment /> },
+        { name: t('menu.agreements'), link: '/admin/agreements', icon: <AssignmentTurnedIn /> },
+        { name: t('menu.newsletter'), link: '/admin/newsletter', icon: <Message /> },
+        { name: t('menu.newsletter-archive'), link: '/admin/newsletter', icon: <Archive /> },
+        { name: t('menu.blog'), link: '/admin/blog', icon: <FormatListBulleted /> },
+        { name: t('menu.settings'), link: '/admin/settings', icon: <Build /> },
     ];
 
     const staticMenuItems = userRole === 'parent' ? parentStaticMenuItems : adminStaticMenuItems;

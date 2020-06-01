@@ -11,7 +11,7 @@ export const SidebarLogoutItem = ({ handleLogoutClick, isSidebarOpen }: SidebarL
     const { t } = useTranslation();
 
     const logoutBtnStyle = clsx(classes.logoutBtn, isSidebarOpen ? 'opened' : null);
-    const logoutBtnContent = isSidebarOpen ? t('sidebar.logout') : <PowerSettingsNew />;
+    const logoutBtnContent = isSidebarOpen ? t('menu.logout') : <PowerSettingsNew />;
 
     return (
         <div className={classes.logoutBtnContainer}>
