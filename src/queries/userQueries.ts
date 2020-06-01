@@ -35,3 +35,7 @@ export const getCurrentUserIdToken = async () => {
     }
     return idToken;
 };
+
+export const getParents = (onSnapshotCallback: OnSnapshotCallback<Parent[]>) => {
+    firebase.user.getParents(onSnapshotCallback);
+};

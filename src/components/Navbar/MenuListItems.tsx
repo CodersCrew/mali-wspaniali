@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, MenuList, Paper, makeStyles, Theme, createStyles } from '@material-ui/core/';
-import { FormatListBulleted, QuestionAnswer, Build } from '@material-ui/icons/';
+import { FormatListBulleted, Build } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../firebase/types';
 import { MenuListItem, MenuLogoutItem } from './MenuItem';
@@ -18,7 +18,6 @@ export const MenuListItems = (props: MenuListItemsProps) => {
 
     const staticMenuItems = [
         { name: t('navbar.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
-        { name: t('navbar.messages'), link: '/', icon: <QuestionAnswer /> },
         { name: t('navbar.settings'), link: '/', icon: <Build /> },
     ];
 
