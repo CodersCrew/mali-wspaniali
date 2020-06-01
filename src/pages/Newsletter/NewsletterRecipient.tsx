@@ -5,7 +5,7 @@ import { mainColor, white, newsletterColors, textColor } from '../../colors';
 import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, InputsStateType, InputStates } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType, FieldsType } from './types';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { getParents } from '../../queries/userQueries';
 import { Parent } from '../ParentProfile/types';
@@ -14,22 +14,16 @@ import { Kindergarten } from '../../firebase/types';
 import { getKindergartens } from '../../queries/kindergartenQueries';
 
 export const NewsletterRecipent: React.FC<{
-    recipientType: {
-        generalType: string;
-        specificType: string;
+    generalType: SingleFieldType;
+    specificType: SingleFieldType;
+    recipients: {
+        value: string[];
+        error: boolean;
     };
-    setRecipientType: React.Dispatch<
-        React.SetStateAction<{
-            generalType: string;
-            specificType: string;
-        }>
-    >;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    recipients: string[];
     selectRecipients: (filteredRecipients: string[]) => void;
-    inputsState: InputsStateType;
-    setInputsState: React.Dispatch<React.SetStateAction<InputsStateType>>;
-}> = ({ recipientType, setRecipientType, handleChange, recipients, selectRecipients, inputsState, setInputsState }) => {
+    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
+}> = ({ generalType, specificType, recipients, handleChange, selectRecipients, setFields }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -40,18 +34,18 @@ export const NewsletterRecipent: React.FC<{
         getKindergartens(callback);
     }) as Kindergarten[];
     useEffect(() => {
-        if (recipientType.specificType === '') {
+        if (specificType.value === '') {
             selectRecipients([]);
         }
         if (
-            recipientType.generalType === GeneralRecipientInputValues.parents &&
-            recipientType.specificType === SpecificRecipientInputValues.all
+            generalType.value === GeneralRecipientInputValues.parents &&
+            specificType.value === SpecificRecipientInputValues.all
         ) {
             selectRecipients(parents);
         }
         if (
-            recipientType.generalType === GeneralRecipientInputValues.kindergartens &&
-            recipientType.specificType === SpecificRecipientInputValues.all
+            generalType.value === GeneralRecipientInputValues.kindergartens &&
+            specificType.value === SpecificRecipientInputValues.all
         ) {
             if (kindergartens) {
                 const kindergartensId = kindergartens.map((kindergarten: Kindergarten) => kindergarten.id);
@@ -59,30 +53,28 @@ export const NewsletterRecipent: React.FC<{
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [recipientType]);
+    }, [generalType, specificType]);
 
-    const handleRecipientTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setRecipientType(prevFields => ({
-            ...prevFields,
-            [name]: value,
-        }));
-        setInputsState(prevFields => ({
-            ...prevFields,
-            [name]: InputStates.Normal,
-        }));
-    };
     const handleDelete = (name: string) => {
-        setInputsState(prevFields => ({
-            ...prevFields,
-            [name]: InputStates.Error,
-        }));
         if (name === 'generalType') {
-            setRecipientType({ generalType: '', specificType: '' });
-        } else {
-            setRecipientType(prevFields => ({
+            setFields(prevFields => ({
                 ...prevFields,
-                [name]: '',
+                generalType: {
+                    error: true,
+                    value: '',
+                },
+                specificType: {
+                    ...specificType,
+                    value: '',
+                },
+            }));
+        } else {
+            setFields(prevFields => ({
+                ...prevFields,
+                [name]: {
+                    error: true,
+                    value: '',
+                },
             }));
         }
     };
@@ -91,29 +83,29 @@ export const NewsletterRecipent: React.FC<{
             <Typography className={classes.heading}>{t('newsletter.recipient-heading')}</Typography>
             <NewsletterGeneralTypeTextField
                 classes={classes}
-                recipientType={recipientType}
+                generalType={generalType}
                 handleDelete={handleDelete}
-                handleRecipientTypeChange={handleRecipientTypeChange}
-                inputsState={inputsState}
+                handleRecipientTypeChange={handleChange}
             />
             <NewsletterSpecificTypeTextField
                 classes={classes}
-                recipientType={recipientType}
+                generalType={generalType}
+                specificType={specificType}
                 handleDelete={handleDelete}
-                handleRecipientTypeChange={handleRecipientTypeChange}
-                inputsState={inputsState}
+                handleRecipientTypeChange={handleChange}
             />
-            {recipientType.specificType === SpecificRecipientInputValues.single ||
-            recipientType.specificType === SpecificRecipientInputValues.kindergarten ? (
+            {specificType.value === SpecificRecipientInputValues.single ||
+            specificType.value === SpecificRecipientInputValues.kindergarten ? (
                 <NewsletterOptionalTextField
                     classes={classes}
                     selectRecipients={selectRecipients}
-                    recipientType={recipientType}
+                    generalType={generalType}
+                    specificType={specificType}
                     recipients={recipients}
                     handleChange={handleChange}
                     parents={parents}
                     kindergartens={kindergartens}
-                    inputsState={inputsState}
+                    setFields={setFields}
                 />
             ) : null}
         </div>

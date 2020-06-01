@@ -6,7 +6,7 @@ import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { NewsletterProgressBar } from './NewsletterProgressBar';
-import { ProgressBarStates, InputStates } from './types';
+import { ProgressBarStates } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
@@ -15,9 +15,30 @@ import { theme } from '../../theme';
 import { secondaryColor, white } from '../../colors';
 
 const initialState = {
-    type: '',
-    topic: '',
-    recipients: [] as string[],
+    type: {
+        value: '',
+        error: false,
+    },
+    topic: {
+        value: '',
+        error: false,
+    },
+    generalType: {
+        value: '',
+        error: false,
+    },
+    specificType: {
+        value: '',
+        error: false,
+    },
+    recipients: {
+        value: [] as string[],
+        error: false,
+    },
+    message: {
+        value: '',
+        error: false,
+    },
 };
 
 export const NewsletterPage = () => {
@@ -26,83 +47,83 @@ export const NewsletterPage = () => {
     const { t } = useTranslation();
     const history = useHistory();
     const [fields, setFields] = useState(initialState);
-    const [message, setMessage] = useState('');
-    const { type, topic, recipients } = fields;
+    const { type, topic, recipients, generalType, specificType, message } = fields;
     const [progressBarState, setProgressBarState] = useState({
         firstStep: ProgressBarStates.Ready,
         secondStep: ProgressBarStates.Inactive,
     });
-    const [recipientType, setRecipientType] = useState({ generalType: '', specificType: '' });
-    const [inputsState, setInputsState] = useState({
-        generalType: InputStates.Normal,
-        specificType: InputStates.Normal,
-        recipients: InputStates.Normal,
-        type: InputStates.Normal,
-        topic: InputStates.Normal,
-        message: InputStates.Normal,
-    });
 
     useEffect(() => {
-        if (fields.recipients.length > 0) {
+        if (recipients.value.length > 0) {
             setProgressBarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Ready });
         }
-        if (fields.recipients.length === 0 && !fields.type && !fields.topic && !message) {
+        if (recipients.value.length === 0 && !type.value && !topic.value && !message.value) {
             setProgressBarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
         }
-        if (fields.recipients.length === 0 && (fields.type || fields.topic || message)) {
+        if (recipients.value.length === 0 && (type.value || topic.value || message.value)) {
             setProgressBarState(prevSidebarState => ({ ...prevSidebarState, firstStep: ProgressBarStates.Error }));
         }
-        if ((!fields.type && (fields.topic || message)) || ((!fields.type || !fields.topic) && message)) {
+        if ((!type && (topic || message.value)) || ((!type.value || !topic.value) && message.value)) {
             setProgressBarState(prevSidebarState => ({
                 ...prevSidebarState,
                 secondStep: ProgressBarStates.Error,
             }));
         }
-        if (fields.recipients.length === 0 && !fields.type && !fields.topic && message === '<p><br></p>') {
+        if (recipients.value.length === 0 && !type.value && !topic.value && message.value === '<p><br></p>') {
             setProgressBarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
         }
-    }, [fields, message]);
+        if (
+            recipients.value.length > 0 &&
+            type.value &&
+            topic.value &&
+            message.value &&
+            message.value !== '<p><br></p>'
+        ) {
+            setProgressBarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Done });
+        }
+    }, [recipients, type, topic, message]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        console.log('handleChange');
         const { name, value } = event.target;
         setFields(prevFields => ({
             ...prevFields,
-            [name]: value,
+            [name]: {
+                value: value,
+                error: false,
+            },
         }));
-        setInputsState(prevFields => ({
-            ...prevFields,
-            [name]: InputStates.Normal,
-        }));
-        if(!value) {
-          setInputsState(prevFields => ({
-            ...prevFields,
-            [name]: InputStates.Error
-          }))
+        if (!value) {
+            setFields(prevFields => ({
+                ...prevFields,
+                [name]: {
+                    value: value,
+                    error: true,
+                },
+            }));
         }
     };
 
     const handleTypeDelete = (): void => {
+        console.log('handleTypeDelete');
         setFields(prevFields => ({
             ...prevFields,
-            type: '',
+            type: {
+                value: '',
+                error: true,
+            },
         }));
-        setInputsState(prevFields => ({
-          ...prevFields,
-          type: InputStates.Error
-        }))
     };
 
     const selectRecipients = (filteredRecipients: string[]): void => {
+        console.log('selectRecipients');
         setFields(prevFields => ({
             ...prevFields,
-            recipients: filteredRecipients,
+            recipients: {
+                value: filteredRecipients,
+                error: false,
+            },
         }));
-        if (filteredRecipients.length === 0) {
-          setInputsState(prevFields => ({
-              ...prevFields,
-              recipients: InputStates.Error,
-          }));
-      }
     };
 
     const goToAdminPage = () => {
@@ -111,19 +132,19 @@ export const NewsletterPage = () => {
 
     const resetState = () => {
         setFields(initialState);
-        setMessage('');
         setProgressBarState({
             firstStep: ProgressBarStates.Ready,
             secondStep: ProgressBarStates.Inactive,
         });
-        setRecipientType({
-            generalType: '',
-            specificType: '',
-        });
     };
 
     const handleSubmit = async () => {
-        const response = await createNewsletter({ type, topic, recipients, message });
+        const response = await createNewsletter({
+            type: type.value,
+            topic: topic.value,
+            recipients: recipients.value,
+            message: message.value,
+        });
         if (response.error) {
             return openAlertDialog({
                 type: 'error',
@@ -146,27 +167,33 @@ export const NewsletterPage = () => {
                     <NewsletterProgressBar progressBarState={progressBarState} />
                     <div className={classes.inputContainer}>
                         <NewsletterRecipent
-                            recipientType={recipientType}
-                            setRecipientType={setRecipientType}
-                            handleChange={handleChange}
+                            generalType={generalType}
+                            specificType={specificType}
                             recipients={recipients}
+                            handleChange={handleChange}
                             selectRecipients={selectRecipients}
-                            inputsState={inputsState}
-                            setInputsState={setInputsState}
+                            setFields={setFields}
                         />
                         <NewsletterContent
                             handleTypeDelete={handleTypeDelete}
                             handleChange={handleChange}
-                            fields={fields}
+                            type={type}
+                            topic={topic}
+                            recipients={recipients}
                             message={message}
-                            setMessage={setMessage}
-                            inputsState={inputsState}
+                            setFields={setFields}
                         />
                     </div>
                 </div>
                 <div className={classes.formButtonWrapper}>
                     <Button
-                        disabled={fields.recipients.length === 0 || !fields.type || !fields.topic || !message}
+                        disabled={
+                            recipients.value.length === 0 ||
+                            !type.value ||
+                            !topic.value ||
+                            !message.value ||
+                            message.value === '<p><br></p>'
+                        }
                         className={classes.formButton}
                         onClick={handleSubmit}
                         classes={{ disabled: classes.formButtonDisabled }}

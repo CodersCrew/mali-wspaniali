@@ -16,31 +16,31 @@ import { mainColor, newsletterColors, textColor, white } from '../../colors';
 import { WorkSpace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
-import { InputStates, InputsStateType } from './types';
+import { SingleFieldType, FieldsType } from './types';
 
 export const NewsletterContent: React.FC<{
     handleTypeDelete: () => void;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    fields: {
-        type: string;
-        topic: string;
-        recipients: string[];
+    type: SingleFieldType;
+    topic: SingleFieldType;
+    recipients: {
+        value: string[];
+        error: boolean;
     };
-    message: string;
-    setMessage: React.Dispatch<React.SetStateAction<string>>;
-    inputsState: InputsStateType;
-}> = ({ handleTypeDelete, handleChange, fields, message, setMessage, inputsState }) => {
+    message: SingleFieldType;
+    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
+}> = ({ handleTypeDelete, handleChange, type, topic, recipients, message, setFields }) => {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
-        if (fields.recipients.length > 0) {
+        if (recipients.value.length > 0) {
             setDisabled(false);
-        } else if (fields.type && fields.topic && message) {
+        } else if (type.value && topic.value && message.value) {
             setDisabled(false);
-        } else if (!fields.type && !fields.topic && !message) {
+        } else if (!type.value && !topic.value && !message.value) {
             setDisabled(true);
         }
-    }, [fields, message]);
+    }, [recipients, type, topic, message]);
 
     const { t } = useTranslation();
     const classes = useStyles();
@@ -59,7 +59,7 @@ export const NewsletterContent: React.FC<{
                 <MenuItem key={item.name} value={item.name} className={classes.selectMenuItem}>
                     <Checkbox
                         size={'small'}
-                        checked={fields.type === item.name}
+                        checked={type.value === item.name}
                         className={classes.selectMenuCheckbox}
                     />
                     <div className={classes.square} style={{ backgroundColor: item.color }}></div>
@@ -89,11 +89,11 @@ export const NewsletterContent: React.FC<{
                 required
                 onChange={handleChange}
                 name="type"
-                label={fields.type ? t('newsletter.type-input-label-filled') : t('newsletter.type-input-label')}
+                label={type.value ? t('newsletter.type-input-label-filled') : t('newsletter.type-input-label')}
                 fullWidth
                 select
                 SelectProps={{
-                    value: fields.type,
+                    value: type.value,
                     MenuProps: {
                         getContentAnchorEl: null,
                         anchorOrigin: {
@@ -138,16 +138,16 @@ export const NewsletterContent: React.FC<{
                         asterisk: classes.asterisk,
                     },
                 }}
-                error={inputsState.type === InputStates.Error}
-                helperText={inputsState.type === InputStates.Error ? t('newsletter.type-helper-text') : null}
+                error={type.error}
+                helperText={type.error ? t('newsletter.type-helper-text') : null}
             >
                 {setMenuItems(newsletterTypesArray)}
             </TextField>
             <TextField
                 disabled={disabled}
-                value={fields.topic}
+                value={topic.value}
                 name="topic"
-                label={fields.topic ? t('newsletter.topic-input-label-filled') : t('newsletter.topic-input-label')}
+                label={topic.value ? t('newsletter.topic-input-label-filled') : t('newsletter.topic-input-label')}
                 required
                 onChange={handleChange}
                 className={classes.textfield}
@@ -163,10 +163,10 @@ export const NewsletterContent: React.FC<{
                         asterisk: classes.asterisk,
                     },
                 }}
-                error={inputsState.topic === InputStates.Error}
-                helperText={inputsState.topic === InputStates.Error ? t('newsletter.topic-helper-text') : null}
+                error={topic.error}
+                helperText={topic.error ? t('newsletter.topic-helper-text') : null}
             />
-            <WorkSpace message={message} setMessage={setMessage} />
+            <WorkSpace message={message.value} setFields={setFields} />
         </div>
     );
 };
@@ -218,8 +218,8 @@ const useStyles = makeStyles(() =>
                     fontSize: 12,
                 },
                 '&.Mui-error': {
-                  color: '#f44336'
-                }
+                    color: '#f44336',
+                },
             },
         },
         underlineFocus: {

@@ -1,21 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
-import { GeneralRecipientInputValues, InputsStateType, InputStates } from './types';
+import { GeneralRecipientInputValues, SingleFieldType } from './types';
 
 export const NewsletterGeneralTypeTextField: React.FC<{
     classes: Record<
         'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem' | 'inputChipLabel' | 'asterisk',
         string
     >;
-    recipientType: {
-        generalType: string;
-        specificType: string;
-    };
+    generalType: SingleFieldType;
     handleDelete: (name: string) => void;
     handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    inputsState: InputsStateType;
-}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange, inputsState }) => {
+}> = ({ classes, generalType, handleDelete, handleRecipientTypeChange }) => {
     const { t } = useTranslation();
 
     return (
@@ -23,7 +19,7 @@ export const NewsletterGeneralTypeTextField: React.FC<{
             className={classes.textfield}
             select
             SelectProps={{
-                value: recipientType.generalType,
+                value: generalType.value,
                 MenuProps: {
                     getContentAnchorEl: null,
                     anchorOrigin: {
@@ -65,15 +61,13 @@ export const NewsletterGeneralTypeTextField: React.FC<{
             onChange={handleRecipientTypeChange}
             name="generalType"
             label={
-                recipientType.generalType
+                generalType.value
                     ? t('newsletter.general-recipient-label-filled')
                     : t('newsletter.general-recipient-label')
             }
             fullWidth
-            error={inputsState.generalType === InputStates.Error}
-            helperText={
-                inputsState.generalType === InputStates.Error ? t('newsletter.general-recipient-helper-text') : null
-            }
+            error={generalType.error}
+            helperText={generalType.error ? t('newsletter.general-recipient-helper-text') : null}
         >
             <MenuItem
                 classes={{

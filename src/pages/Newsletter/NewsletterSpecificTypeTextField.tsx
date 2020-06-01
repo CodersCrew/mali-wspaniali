@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, InputsStateType, InputStates } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType } from './types';
 
 type ValuesArrayTypes = {
     value: string;
@@ -20,14 +20,11 @@ export const NewsletterSpecificTypeTextField: React.FC<{
         | 'asterisk',
         string
     >;
-    recipientType: {
-        generalType: string;
-        specificType: string;
-    };
+    generalType: SingleFieldType;
+    specificType: SingleFieldType;
     handleDelete: (name: string) => void;
     handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    inputsState: InputsStateType;
-}> = ({ classes, recipientType, handleDelete, handleRecipientTypeChange, inputsState }) => {
+}> = ({ classes, generalType, specificType, handleDelete, handleRecipientTypeChange }) => {
     const { t } = useTranslation();
 
     const parentsRecipients = [
@@ -75,10 +72,10 @@ export const NewsletterSpecificTypeTextField: React.FC<{
             className={classes.textfield}
             select
             required
-            disabled={!recipientType.generalType}
+            disabled={!generalType.value}
             onChange={handleRecipientTypeChange}
             SelectProps={{
-                value: recipientType.specificType,
+                value: specificType.value,
                 MenuProps: {
                     getContentAnchorEl: null,
                     anchorOrigin: {
@@ -88,13 +85,13 @@ export const NewsletterSpecificTypeTextField: React.FC<{
                 },
                 renderValue: value => {
                     const getLabel = () => {
-                        if (recipientType.generalType === GeneralRecipientInputValues.parents) {
+                        if (generalType.value === GeneralRecipientInputValues.parents) {
                             const specificTypeParentRecipient = parentsRecipients.find(
                                 element => element.value === (value as string),
                             );
                             if (specificTypeParentRecipient) return specificTypeParentRecipient.label;
                         }
-                        if (recipientType.generalType === GeneralRecipientInputValues.kindergartens) {
+                        if (generalType.value === GeneralRecipientInputValues.kindergartens) {
                             const specificTypekindergartenRecipient = kindergartensRecipients.find(
                                 element => element.value === (value as string),
                             );
@@ -130,11 +127,11 @@ export const NewsletterSpecificTypeTextField: React.FC<{
             }}
             name="specificType"
             label={t('newsletter.specific-recipient-label')}
-            error = {inputsState.specificType === InputStates.Error}
-            helperText={inputsState.specificType === InputStates.Error ? t('newsletter.specific-recipient-helper-text') : null }
+            error={specificType.error}
+            helperText={specificType.error ? t('newsletter.specific-recipient-helper-text') : null}
             fullWidth
         >
-            {recipientType.generalType === GeneralRecipientInputValues.parents
+            {generalType.value === GeneralRecipientInputValues.parents
                 ? createMenuItems(parentsRecipients)
                 : createMenuItems(kindergartensRecipients)}
         </TextField>

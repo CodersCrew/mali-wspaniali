@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, InputsStateType, InputStates } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType, FieldsType } from './types';
 import { Kindergarten } from '../../firebase/types';
 
 export const NewsletterOptionalTextField: React.FC<{
@@ -18,49 +18,60 @@ export const NewsletterOptionalTextField: React.FC<{
         | 'selectMenuItemText',
         string
     >;
+    generalType: SingleFieldType;
+    specificType: SingleFieldType;
+    recipients: {
+        value: string[];
+        error: boolean;
+    };
+    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     selectRecipients: (filteredRecipients: string[]) => void;
-    recipients: string[];
-    recipientType: {
-        generalType: string;
-        specificType: string;
-    };
     parents: string[];
     kindergartens: Kindergarten[];
-    inputsState: InputsStateType;
 }> = ({
     classes,
+    generalType,
+    specificType,
+    recipients,
     handleChange,
     selectRecipients,
-    recipients,
-    recipientType,
     parents,
     kindergartens,
-    inputsState,
+    setFields,
 }) => {
     const { t } = useTranslation();
 
     const handleDelete = (value: string) => {
-        const filteredRecipients = recipients.filter(element => element !== value);
+        const filteredRecipients = recipients.value.filter(element => element !== value);
         selectRecipients(filteredRecipients);
+        if (filteredRecipients.length === 0) {
+            setFields(prevFields => ({
+                ...prevFields,
+                recipients: {
+                    value: filteredRecipients,
+                    error: true,
+                },
+            }));
+        }
     };
 
     const setLabel = () => {
         switch (true) {
-            case recipientType.generalType === GeneralRecipientInputValues.parents &&
-                recipientType.specificType === SpecificRecipientInputValues.kindergarten:
-                if (recipients.length > 0) {
+            case generalType.value === GeneralRecipientInputValues.parents &&
+                specificType.value === SpecificRecipientInputValues.kindergarten:
+                if (recipients.value.length > 0) {
                     return t('newsletter.recipient-select-kindergarten-label-filled');
                 }
                 return t('newsletter.recipient-select-kindergarten-label');
-            case recipientType.generalType === GeneralRecipientInputValues.parents &&
-                recipientType.specificType === SpecificRecipientInputValues.single:
-                if (recipients.length > 0) {
+            case generalType.value === GeneralRecipientInputValues.parents &&
+                specificType.value === SpecificRecipientInputValues.single:
+                if (recipients.value.length > 0) {
                     return t('newsletter.recipient-single-parent-label-filled');
                 }
                 return t('newsletter.recipient-single-parent-label');
             default:
-                if (recipients.length > 0) {
+                if (recipients.value.length > 0) {
                     return t('newsletter.recipient-single-kindergarten-label-filled');
                 }
                 return t('newsletter.recipient-single-kindergarten-label');
@@ -71,7 +82,7 @@ export const NewsletterOptionalTextField: React.FC<{
             <MenuItem key={item} value={item} className={classes.selectMenuItem}>
                 <Checkbox
                     size={'small'}
-                    checked={recipients.indexOf(item) > -1}
+                    checked={recipients.value.indexOf(item) > -1}
                     className={classes.selectMenuCheckbox}
                 />
                 <ListItemText classes={{ primary: classes.selectMenuItemText }} primary={item} />
@@ -88,7 +99,7 @@ export const NewsletterOptionalTextField: React.FC<{
             label={setLabel()}
             fullWidth
             SelectProps={{
-                value: recipients,
+                value: recipients.value,
                 multiple: true,
                 MenuProps: {
                     getContentAnchorEl: null,
@@ -125,13 +136,11 @@ export const NewsletterOptionalTextField: React.FC<{
                     asterisk: classes.asterisk,
                 },
             }}
-            helperText={
-                inputsState.recipients === InputStates.Error ? t('newsletter.recipient-helper-text') : null
-            }
-            error={inputsState.recipients === InputStates.Error}
+            helperText={recipients.error ? t('newsletter.recipient-helper-text') : null}
+            error={recipients.error}
         >
-            {recipientType.generalType === GeneralRecipientInputValues.kindergartens ||
-            recipientType.specificType === SpecificRecipientInputValues.kindergarten
+            {generalType.value === GeneralRecipientInputValues.kindergartens ||
+            specificType.value === SpecificRecipientInputValues.kindergarten
                 ? setMenuItems(
                       kindergartens.map(
                           kindergarten =>

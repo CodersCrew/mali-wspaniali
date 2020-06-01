@@ -6,9 +6,9 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { mainColor, white, newsletterColors } from '../../colors';
 import { ProgressBarStates } from './types';
 
-export const NewsletterProgressBar: React.FC<{ progressBarState: { firstStep: string; secondStep: string } }> = ({
-    progressBarState,
-}) => {
+export const NewsletterProgressBar: React.FC<{
+    progressBarState: { firstStep: ProgressBarStates; secondStep: ProgressBarStates };
+}> = ({ progressBarState }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 

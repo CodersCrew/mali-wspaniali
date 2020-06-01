@@ -11,7 +11,13 @@ export const WorkSpace = (props: WorkspaceProps) => {
     const classes = useStyles();
 
     const handleChange = (value: Message) => {
-        props.setMessage(value);
+        props.setFields(prevFields => ({
+            ...prevFields,
+            message: {
+                ...prevFields.message,
+                value: value,
+            },
+        }));
     };
 
     return (

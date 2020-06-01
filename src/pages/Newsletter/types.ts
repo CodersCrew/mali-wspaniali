@@ -7,19 +7,27 @@ export type Newsletter = {
     message: Message;
 };
 
-export type WorkspaceProps = {
-    message: string;
-    setMessage: (value: string | ((prevState: string) => string)) => void;
+export type SingleFieldType = {
+    value: string;
+    error: boolean;
 };
 
-export type InputsStateType = {
-  generalType: InputStates;
-  specificType: InputStates;
-  recipients: InputStates;
-  type: InputStates;
-  topic: InputStates;
-  message: InputStates;
-}
+export type FieldsType = {
+    type: SingleFieldType;
+    topic: SingleFieldType;
+    generalType: SingleFieldType;
+    specificType: SingleFieldType;
+    recipients: {
+        value: string[];
+        error: boolean;
+    };
+    message: SingleFieldType;
+};
+
+export type WorkspaceProps = {
+    message: string;
+    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
+};
 
 export enum ProgressBarStates {
     Inactive = 'INACTIVE',
@@ -38,9 +46,4 @@ export enum SpecificRecipientInputValues {
     all = 'ALL',
     kindergarten = 'KINDERGARTEN',
     single = 'SINGLE',
-}
-
-export enum InputStates {
-  Normal = 'NORMAL',
-  Error = 'ERROR',
 }
