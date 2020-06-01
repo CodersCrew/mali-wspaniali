@@ -84,7 +84,6 @@ export const NewsletterPage = () => {
     }, [recipients, type, topic, message]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        console.log('handleChange');
         const { name, value } = event.target;
         setFields(prevFields => ({
             ...prevFields,
@@ -105,7 +104,6 @@ export const NewsletterPage = () => {
     };
 
     const handleTypeDelete = (): void => {
-        console.log('handleTypeDelete');
         setFields(prevFields => ({
             ...prevFields,
             type: {
@@ -116,7 +114,6 @@ export const NewsletterPage = () => {
     };
 
     const selectRecipients = (filteredRecipients: string[]): void => {
-        console.log('selectRecipients');
         setFields(prevFields => ({
             ...prevFields,
             recipients: {
