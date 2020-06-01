@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, MenuList, Paper, makeStyles, Theme, createStyles } from '@material-ui/core/';
-import { FormatListBulleted, Build } from '@material-ui/icons/';
+import { FormatListBulleted, Build, Assessment, AssignmentTurnedIn, Message, Archive } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../firebase/types';
 import { MenuListItem, MenuLogoutItem } from './MenuItem';
@@ -9,33 +9,47 @@ import GirlAvatar from '../../assets/girl.png';
 
 export type MenuListItemsProps = {
     childrenData: Child[];
+    userRole: string;
 };
 
-export const MenuListItems = (props: MenuListItemsProps) => {
+export const MenuListItems = ({ userRole, childrenData }: MenuListItemsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { childrenData } = props;
 
-    const staticMenuItems = [
+    const parentStaticMenuItems = [
         { name: t('navbar.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
-        { name: t('navbar.settings'), link: '/', icon: <Build /> },
+        { name: t('navbar.settings'), link: '/parent/settings', icon: <Build /> },
     ];
+
+    const adminStaticMenuItems = [
+        { name: t('navbar.results'), link: '/admin/tests', icon: <Assessment /> },
+        { name: t('navbar.agreements'), link: '/admin/agreements', icon: <AssignmentTurnedIn /> },
+        { name: t('navbar.newsletter'), link: '/admin/newsletter', icon: <Message /> },
+        { name: t('navbar.newsletter-archive'), link: '/admin/newsletter', icon: <Archive /> },
+        { name: t('navbar.blog'), link: '/admin/blog', icon: <FormatListBulleted /> },
+        { name: t('navbar.settings'), link: '/admin/settings', icon: <Build /> },
+    ];
+
+    const staticMenuItems = userRole === 'parent' ? parentStaticMenuItems : adminStaticMenuItems;
 
     return (
         <Paper className={classes.menuList}>
             <MenuList dense={true}>
-                {childrenData.map(child => {
-                    const { firstName, id, sex } = child;
-                    const iconComponent = (
-                        <Avatar
-                            className={classes.listItemAvatar}
-                            src={sex === 'male' ? BoyAvatar : GirlAvatar}
-                            variant="square"
-                        />
-                    );
-                    const link = `parent/child/${id}`;
-                    return <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />;
-                })}
+                {userRole === 'parent' &&
+                    childrenData.map(child => {
+                        const { firstName, id, sex } = child;
+                        const iconComponent = (
+                            <Avatar
+                                className={classes.listItemAvatar}
+                                src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                                variant="square"
+                            />
+                        );
+                        const link = `parent/child/${id}`;
+                        return (
+                            <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />
+                        );
+                    })}
                 {staticMenuItems.map(staticItem => {
                     const { name, link, icon } = staticItem;
                     return <MenuListItem key={name} link={link} text={name} iconComponent={icon} />;

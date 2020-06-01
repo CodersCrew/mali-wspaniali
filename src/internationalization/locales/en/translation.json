@@ -205,8 +205,12 @@
     },
     "navbar": {
         "news": "News",
-        "messages": "Messages",
         "settings": "Settings",
+        "results": "Results",
+        "agreements": "Agreements",
+        "newsletter": "Newsletter",
+        "newsletter-archive": "Newsletter archive",
+        "blog": "Blog",
         "logout": "Log out"
     },
     "home-page-content": {

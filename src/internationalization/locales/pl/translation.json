@@ -205,8 +205,12 @@
     },
     "navbar": {
         "news": "Aktualności",
-        "messages": "Wiadomości",
         "settings": "Ustawienia",
+        "results": "Wyniki",
+        "agreements": "Zgody",
+        "newsletter": "Newsletter",
+        "newsletter-archive": "Archiwum",
+        "blog": "Blog",
         "logout": "Wyloguj"
     },
     "blog-article-card": {

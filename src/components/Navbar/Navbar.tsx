@@ -6,6 +6,7 @@ import { secondaryColor, mainColor, white, textColor } from '../../colors';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { getChildrenByUserId } from '../../queries/childQueries';
+import { onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { Child } from '../../firebase/types';
 import { MenuListItems } from './MenuListItems';
 import { useAuthorization } from '../../hooks/useAuthorization';
@@ -15,7 +16,9 @@ export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
     const [isMenuOpen, setMenuOpen] = useState(false);
+    const [userRole, setUserRole] = useState('');
     const currentUser = useAuthorization(true);
+
     const children = useSubscribed<Child[], User | null>(
         (callback: OnSnapshotCallback<Child[]>) => {
             if (currentUser) {
@@ -25,6 +28,15 @@ export const Navbar = () => {
         [],
         [currentUser],
     ) as Child[];
+
+    onAuthStateChanged(async (user: User | null) => {
+        if (user) {
+            const role = await getUserRole(user);
+            if (role) {
+                setUserRole(role);
+            }
+        }
+    });
 
     const handleAvatarClick = () => {
         setMenuOpen(prevOpen => !prevOpen);
@@ -43,7 +55,7 @@ export const Navbar = () => {
                     </Button>
                 </Avatar>
             </div>
-            {isMenuOpen && <MenuListItems childrenData={children} />}
+            {isMenuOpen && <MenuListItems childrenData={children} userRole={userRole} />}
         </div>
     );
 };
