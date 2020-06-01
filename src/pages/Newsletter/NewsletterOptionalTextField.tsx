@@ -28,7 +28,6 @@ export const NewsletterOptionalTextField: React.FC<{
     parents: string[];
     kindergartens: Kindergarten[];
     inputsState: InputsStateType;
-    setInputsState: React.Dispatch<React.SetStateAction<InputsStateType>>;
 }> = ({
     classes,
     handleChange,
@@ -38,19 +37,12 @@ export const NewsletterOptionalTextField: React.FC<{
     parents,
     kindergartens,
     inputsState,
-    setInputsState,
 }) => {
     const { t } = useTranslation();
 
     const handleDelete = (value: string) => {
         const filteredRecipients = recipients.filter(element => element !== value);
         selectRecipients(filteredRecipients);
-        if (filteredRecipients.length === 0) {
-            setInputsState(prevFields => ({
-                ...prevFields,
-                recipients: InputStates.Error,
-            }));
-        }
     };
 
     const setLabel = () => {

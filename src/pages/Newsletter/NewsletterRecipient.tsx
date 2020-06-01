@@ -114,7 +114,6 @@ export const NewsletterRecipent: React.FC<{
                     parents={parents}
                     kindergartens={kindergartens}
                     inputsState={inputsState}
-                    setInputsState={setInputsState}
                 />
             ) : null}
         </div>

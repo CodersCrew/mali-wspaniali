@@ -97,6 +97,12 @@ export const NewsletterPage = () => {
             ...prevFields,
             recipients: filteredRecipients,
         }));
+        if (filteredRecipients.length === 0) {
+          setInputsState(prevFields => ({
+              ...prevFields,
+              recipients: InputStates.Error,
+          }));
+      }
     };
 
     const goToAdminPage = () => {
