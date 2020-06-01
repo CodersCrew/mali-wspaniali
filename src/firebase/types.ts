@@ -94,3 +94,8 @@ export type NotificationPaginatedList = {
     lastSnap: Snapshot;
     isMore: boolean;
 };
+export interface Kindergarten {
+    city: string;
+    number: string;
+    id: string;
+}

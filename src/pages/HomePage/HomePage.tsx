@@ -40,11 +40,11 @@ const useStyles = makeStyles((theme: Theme) =>
         header: {
             fontSize: 36,
             marginBottom: 20,
+            marginTop: 0,
             textTransform: 'uppercase',
             lineHeight: '44px',
 
             [theme.breakpoints.down('sm')]: {
-                marginTop: 25,
                 fontSize: 21,
                 lineHeight: '26px',
             },

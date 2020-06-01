@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 backgroundColor: white,
                 marginRight: '10px',
-                marginLeft: '10px'
+                marginLeft: '10px',
             },
         },
         avatarButton: {
@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 color: white,
-                marginLeft: 'auto'
+                marginLeft: 'auto',
             },
         },
         badgeColor: {
@@ -141,8 +141,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: '54px',
                 height: '44px',
                 marginRight: 'auto',
-                marginLeft: '10px'
+                marginLeft: '10px',
             },
-        }
+        },
     }),
 );

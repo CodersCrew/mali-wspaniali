@@ -74,16 +74,68 @@
         "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
     },
     "newsletter": {
-        "header": "Newsletter",
+        "header": "Nowa wiadomość",
+        "subHeader": "Aby wysłać newsletter uzupełnij wszystkie wymagane pola.",
+        "recipient-heading": "Do kogo chcesz wysłać newsletter?",
+        "content-heading": "Treść newslettera",
+        "general-recipient-label": "Wybierz adresata z listy",
+        "general-recipient-label-filled": "Wybierz adresata",
+        "general-recipient-helper-text": "Nie wybrano adresata. Ten krok jest konieczny by przejść do pola specyzuj adresata.",
+        "specific-recipient-label": "Sprecyzuj adresata",
+        "specific-recipient-value-labels": {
+            "all-parents": "wszyscy rodzice",
+            "from-single-kindergarten": "z wybranego przedszkola",
+            "individual-message": "wiadomość indywidualna",
+            "all-kindergartens": "wszystkie przedszkola",
+            "single-kindergarten": "do wybranego przedszkola"
+        },
+        "specific-recipient-helper-text": "Nie sprecyzowano adresata. Wypełnij pole, by wysłać wiadomość do prawidłowego odbiorcy.",
+        "recipient-single-parent-label": "Aby wysłać wiadomość do konkretnego rodzica, wpisz dane dziecka, lub wybierz je z listy",
+        "recipient-single-parent-label-filled": "Wiadomość wyślesz do rodziców dzieci:",
+        "recipient-single-kindergarten-label": "Wybierz przedszkole z listy",
+        "recipient-single-kindergarten-label-filled": "Wiadomość wyślesz do przedszkola:",
+        "recipient-select-kindergarten-label": "Wybierz przedszkole z listy",
+        "recipient-select-kindergarten-label-filled": "Wiadomość wyślesz do rodziców z przedszkola:",
+        "recipient-helper-text": "Te pole nie może być puste. Określ odbiorców. Jeśli chcesz wysłać wiadomość do wszystkich, zmień krok poprzedni.",
+        "type-input-label": "Wybierz rodzaj",
+        "type-input-label-filled": "Rodzaj",
+        "type-helper-text": "Nie wybrano rodzaju wiadomości. Wybierz z rodzaj z listy rozwijanej.",
+        "topic-input-label": "Wpisz temat",
+        "topic-input-label-filled": "Temat",
+        "topic-helper-text": "Wpisz temat wiadomości byś mógł ją wysłać",
+        "kindergarten-number" : "przedszkole nr",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
-        "sending-success": "Newsletter został wysłany.",
-        "type": "Typ",
-        "topic": "Temat",
-        "recipients": "Odbiorcy",
+        "sending-success-modal": {
+            "title": "Gotowe",
+            "content": "Twoja wiadomość została wysłana do adresatów.",
+            "back-button": "Wróc do strony głównej",
+            "next-msg-button": "Wyślij następną wiadomość"
+        },
+        "help-modal": {
+            "type": "Rodzaj newslettera",
+            "type-text": "Wybierz rodzaj odpowiadający tematowi Twojej wiadomości. Newsletter zostanie przypisany do danej kategorii, dzięki czemu łatwiej go odnajdziesz w Archiwum newsletterów.",
+            "attachment": "Załączniki",
+            "attachment-text": "Aby prawidłowo dodać załącznik, musi on być zapisany w formacie:.pdf.",
+            "button": "Rozumiem"
+        },
+        "parents": "Rodzice",
+        "kindergartens": "Przedszkola",
         "send": "Wyślij",
         "placeholder": "Tu wpisz swoją wiadomość",
-        "fill-required-fields": "Proszę uzupełnić wymagane pola.",
-        "empty-message": "Wiadomość nie może być pusta."
+        "newsletter-types": {
+            "results": "Wyniki pomiarów",
+            "agreements": "Zgody",
+            "events": "Wydarzenia",
+            "important": "Ważne",
+            "other": "Inne"
+        },
+        "sidebar": {
+            "fill": "Uzupełnij",
+            "newsletter-content": "Treść Newslettera",
+            "done": "Gotowe",
+            "error": "Uzupełnij dane",
+            "file-error": "Nieprawidłowy format pliku"
+        }
     },
     "single-article": {
         "blog": "blog",
