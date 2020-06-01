@@ -82,7 +82,7 @@ export const BlogMainPage = () => {
             </Typography>
             
             {isMobile ? (
-                <DropDownMenu/>
+                <DropDownMenu setCategory={ setCurrentCategory }/>
             ) : ( <CategoryTabs setCategory={ setCurrentCategory } />
             )}
             
