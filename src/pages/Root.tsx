@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import moment from 'moment';
 import { LoginPage } from './LoginPage';
 import { RegistrationForm } from './RegistrationPage';
 import { TestResultsPage } from './TestResultsPage';
@@ -17,8 +19,6 @@ import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { IdleTimer } from '../components/IdleTimer/IdleTimer';
 import { BlogMainPage } from './BlogMainPage';
 import { NotificationsPage } from './NotificationsPage';
-import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 
 export const Root = () => {
     const { i18n } = useTranslation();
