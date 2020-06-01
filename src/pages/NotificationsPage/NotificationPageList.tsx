@@ -3,6 +3,7 @@ import { TableContainer, Table, TableHead, TableRow, TableCell, Paper, makeStyle
 import { useTranslation } from 'react-i18next';
 import { NotificationPageListItem } from './NotificationPageListItem'
 import { Notification } from '../../firebase/types';
+import { white, mainColor } from '../../colors';
 
 export type NotificationListProps = {
     notifications: Notification[] | undefined;
@@ -44,16 +45,16 @@ const useStyles = makeStyles({
         marginTop: '100px',
     },
     heading: {
-        backgroundColor: '#008aad',
+        backgroundColor: mainColor,
     },
     content: {
         paddingLeft: '100px',
-        color: 'white',
+        color: white,
         textTransform: 'uppercase',
         fontWeight: 700
     },
     date: {
-        color: 'white',
+        color: white,
         textTransform: 'uppercase',
         fontWeight: 700,
         width: '275px'

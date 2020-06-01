@@ -1,12 +1,12 @@
 import React from 'react'
 import { TableRow, TableCell, makeStyles } from '@material-ui/core'
 import { Notifications } from '@material-ui/icons/';
-import moment from 'moment'
+import moment from '../../localizedMoment';
 import clsx from 'clsx';
 import { Timestamp } from '../../firebase/types';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { setNotificationReadValue } from '../../queries/notificationQueries'
-import { secondaryColor } from '../../colors';
+import { secondaryColor, notificationReadColor, darkGrey } from '../../colors';
 
 export type notificationListProps = {
     text: string;
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
         width: '85px',
         color: secondaryColor,
         '&.read': {
-            color: '#c4c4c4',
+            color: notificationReadColor,
         }
     },
     background: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
             cursor: 'pointer'
         },
         '&.read': {
-            backgroundColor: '#e9e9e9',
+            backgroundColor: darkGrey,
             transition: 'backgroundColor .3s'
         }
     }

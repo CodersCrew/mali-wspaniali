@@ -1,9 +1,10 @@
 import React from 'react'
-import { NotificationItem } from './NotificationItem'
+import { useTranslation } from 'react-i18next';
 import { MenuList, Paper, createStyles, makeStyles, Theme } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
+import { NotificationItem } from './NotificationItem'
+import { white, secondaryColor } from '../../colors';
 import { Notification } from '../../firebase/types'
-import { useTranslation } from 'react-i18next';
 
 export type NotificationListProps = {
     notifications: Notification[] | undefined;
@@ -39,15 +40,24 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '350px',
             borderRadius: '5px',
             boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.25)',
-            backgroundColor: '#ffffff',
+            backgroundColor: white,
+            [theme.breakpoints.down('sm')]: {
+                position: 'fixed',
+                width: '100%',
+                top: '60px',
+                right: 0,
+            },
         },
         notificationLink: {
             width: '125px',
             height: '40px',
             fontSize: '14px',
-            color: '#ff7149',
+            color: secondaryColor,
             float: 'right',
             textDecoration: 'none',
             padding: '7px',
-        }
+            [theme.breakpoints.down('sm')]: {
+                display: 'none',
+            },
+        },
     }))

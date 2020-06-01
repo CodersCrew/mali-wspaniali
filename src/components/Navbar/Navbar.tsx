@@ -34,7 +34,7 @@ export const Navbar = () => {
         if(currentUser) {
             addNotificationsToState(currentUser.uid, 5)
         }
-    }, [currentUser])
+    })
 
     const addNotificationsToState = (userId: string, limit: number,) => {
         getNotificationData(
@@ -54,16 +54,12 @@ export const Navbar = () => {
         setNotificationsPanelOpen(isOpen => !isOpen)
     };
 
-    const filterUnreadNotifications = () => {
-        return notificationData ? notificationData.filter(el => el.isRead == false).length : null
-    }
-
     return (
         <div>
             <div className={classes.menuContainer}>
                 <img src={Logo} className={classes.logo} alt='Logo Mali Wspaniali'/>
                 <IconButton color="inherit" onClick={handleNotificationsIconClick}>
-                    <Badge badgeContent={filterUnreadNotifications} color="primary">
+                    <Badge badgeContent={notificationData && notificationData.filter(el => !el.isRead).length} classes={{ badge: classes.badgeColor }}>
                         <Notifications className={classes.notificationsIcon} />
                     </Badge>
                 </IconButton>
@@ -111,6 +107,13 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 color: white,
                 marginLeft: 'auto'
+            },
+        },
+        badgeColor: {
+            backgroundColor: mainColor,
+            color: white,
+            [theme.breakpoints.down('sm')]: {
+                backgroundColor: secondaryColor
             },
         },
         menuContainer: {

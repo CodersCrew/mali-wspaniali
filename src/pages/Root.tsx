@@ -17,8 +17,13 @@ import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { IdleTimer } from '../components/IdleTimer/IdleTimer';
 import { BlogMainPage } from './BlogMainPage';
 import { NotificationsPage } from './NotificationsPage';
+import { useTranslation } from 'react-i18next';
+import moment from 'moment';
 
 export const Root = () => {
+    const { i18n } = useTranslation();
+    moment.updateLocale(i18n.language, {});
+
     return (
         <>
             <CssBaseline />

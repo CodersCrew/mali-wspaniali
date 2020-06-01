@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { Container } from '@material-ui/core'
 import { NotificationPageHeader } from './NotificationPageHeader'
 import { NotificationPageList } from './NotificationPageList'
 import { Notification, Snapshot, NotificationPaginatedList } from '../../firebase/types';
-import { Container } from '@material-ui/core'
 import { getNotificationData } from '../../queries/notificationQueries'
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { Pagination } from '../BlogMainPage/Pagination';
@@ -18,7 +18,7 @@ export const NotificationsPage = () => {
         if(currentUser) {
             addNotificationsToState(currentUser.uid, 7)
         }
-    }, [currentUser])
+    })
 
     const addNotificationsToState = (userId: string, limit: number, startAfter?: Snapshot, endBefore?: Snapshot) => {
         getNotificationData(

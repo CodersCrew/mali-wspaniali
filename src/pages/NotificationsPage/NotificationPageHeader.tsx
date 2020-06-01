@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, makeStyles, createStyles, Theme, ThemeProvider } from '@material-ui/core'
+import { Typography, makeStyles, createStyles, ThemeProvider } from '@material-ui/core'
 import { useTranslation } from 'react-i18next';
 import { theme } from '../../theme';
 
@@ -19,7 +19,7 @@ export const NotificationPageHeader = () => {
     )
 }
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles(() => 
     createStyles({
         heading: {
             fontWeight: 'bold',

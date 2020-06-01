@@ -1,12 +1,12 @@
 import React from 'react';
-import moment from 'moment';
-import { Notifications } from '@material-ui/icons/';
-import { ListItem, Typography, createStyles, makeStyles, Theme, MenuItem } from '@material-ui/core/';
-import { Timestamp } from '../../firebase/types';
 import clsx from 'clsx';
-import { secondaryColor } from '../../colors';
+import { Notifications } from '@material-ui/icons/';
+import { ListItem, Typography, createStyles, makeStyles, MenuItem } from '@material-ui/core/';
+import { Timestamp } from '../../firebase/types';
+import moment from '../../localizedMoment';
 import { useAuthorization } from '../../hooks/useAuthorization';
-import { setNotificationReadValue } from '../../queries/notificationQueries'
+import { setNotificationReadValue } from '../../queries/notificationQueries';
+import { darkGrey, textColor, notificationReadColor, notificationCaptionColor, secondaryColor } from '../../colors';
 
 type notificationListProps = {
     text: string;
@@ -42,36 +42,36 @@ export const NotificationItem = ({ text, date, isRead, id }: notificationListPro
     )
 }
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles(() => 
     createStyles({
         item: {
             padding: 0,
         },
         notificationItem: {
-            borderBottom: '1px solid #c4c4c4',
+            borderBottom: '1px solid notificationReadColor',
             '&.read': {
-                backgroundColor: '#e9e9e9',
+                backgroundColor: darkGrey,
                 transition: 'backgroundColor .3s'
             }
         },
         notificationTitle: {
             height: '55px',
             fontSize: '15px',
-            color: '#000000',
+            color: textColor,
             marginBottom: '10px',
         },
         notificationCaption: {
             width: '39px',
             height: '7px',
             fontSize: '12px',
-            color: '#acacac',
+            color: notificationCaptionColor,
         },
         notificationIcon: {
             alignSelf: 'start',
             marginRight: '20px',
             color: secondaryColor,
             '&.read': {
-                color: '#c4c4c4',
+                color: notificationReadColor,
             }
         },
         notificationText: {

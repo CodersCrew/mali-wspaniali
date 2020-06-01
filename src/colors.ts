@@ -31,3 +31,5 @@ export const blogCategoryColors = {
 };
 export const white = '#ffffff';
 export const darkGrey = '#e9e9e9';
+export const notificationReadColor = '#c4c4c4';
+export const notificationCaptionColor = '#acacac';
