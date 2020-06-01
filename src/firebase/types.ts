@@ -80,17 +80,17 @@ export type Notification = {
     date: Timestamp;
     isRead: boolean;
     id: string;
-}
+};
 
 export type Timestamp = {
     seconds: number;
     nanoseconds: number;
     toDate: () => [];
-}
+};
 
 export type NotificationPaginatedList = {
     notifications: Notification[];
     firstSnap: Snapshot;
     lastSnap: Snapshot;
     isMore: boolean;
-}
+};

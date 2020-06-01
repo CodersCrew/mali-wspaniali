@@ -3,14 +3,24 @@ import { Notification, Snapshot, NotificationPaginatedList } from './types';
 import { OnSnapshotCallback } from './userRepository';
 
 export const notificationRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getUserNotifications: (userId: string, notificationLimit: number , onSnapshotCallback: OnSnapshotCallback<Notification[]>) => {
-        return db.collection('user').doc(userId).collection('notifications').limit(notificationLimit).orderBy('date', 'desc').onSnapshot(snapshot => {
-            const notification = snapshot.docs.map(doc => {
-                const notificationData = doc.data() as Notification;
-                return notificationData;
+    getUserNotifications: (
+        userId: string,
+        notificationLimit: number,
+        onSnapshotCallback: OnSnapshotCallback<Notification[]>,
+    ) => {
+        return db
+            .collection('user')
+            .doc(userId)
+            .collection('notifications')
+            .limit(notificationLimit)
+            .orderBy('date', 'desc')
+            .onSnapshot(snapshot => {
+                const notification = snapshot.docs.map(doc => {
+                    const notificationData = doc.data() as Notification;
+                    return notificationData;
+                });
+                return onSnapshotCallback(notification);
             });
-            return onSnapshotCallback(notification);
-        });
     },
     getNotificationData: (
         onSnapshotCallback: OnSnapshotCallback<NotificationPaginatedList>,
@@ -19,7 +29,12 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
         startAfter?: Snapshot,
         endBefore?: Snapshot,
     ) => {
-        let query = db.collection('user').doc(userId).collection('notifications').limit(limit).orderBy('date', 'desc') as firestore.Query;
+        let query = db
+            .collection('user')
+            .doc(userId)
+            .collection('notifications')
+            .limit(limit)
+            .orderBy('date', 'desc') as firestore.Query;
         if (startAfter) {
             query = query.startAfter(startAfter).limit(limit);
         }
@@ -55,6 +70,11 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
         });
     },
     setNotificationReadValue: (userId: string, notificationId: string, value: boolean) => {
-        return db.collection('user').doc(userId).collection('notifications').doc(notificationId).update({ 'isRead': value});
-    }
+        return db
+            .collection('user')
+            .doc(userId)
+            .collection('notifications')
+            .doc(notificationId)
+            .update({ isRead: value });
+    },
 });
