@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Avatar, MenuList } from '@material-ui/core/';
-import { Home, FormatListBulleted, Notifications, BuildSharp } from '@material-ui/icons/';
+import { Home, Notifications, FormatListBulleted, BuildSharp, Assessment, AssignmentTurnedIn, Message, Archive } from '@material-ui/icons/';
+
 import { useTranslation } from 'react-i18next';
 import { User } from '../../firebase/firebase';
 import { Child } from '../../firebase/types';
@@ -8,6 +9,7 @@ import { SidebarMenuItem } from './SidebarMenuItem';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { getChildrenByUserId } from '../../queries/childQueries';
+import { onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { cardBackgroundColor } from '../../colors';
 import { SidebarMenuListPropTypes } from './types';
 import BoyAvatar from '../../assets/boy.png';
@@ -18,6 +20,17 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
     const { t } = useTranslation();
     const classes = useStyles();
     const currentUser = useAuthorization(true);
+    const [userRole, setUserRole] = useState('');
+
+    onAuthStateChanged(async (user: User | null) => {
+        if (user) {
+            const role = await getUserRole(user);
+            if (role) {
+                setUserRole(role);
+            }
+        }
+    });
+
     const children = useSubscribed<Child[], User | null>(
         (callback: OnSnapshotCallback<Child[]>) => {
             if (currentUser) {
@@ -28,12 +41,24 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
         [currentUser],
     ) as Child[];
 
-    const menuItems = [
+    const parentMenuItems = [
         { name: t('menu.home'), link: '/parent', icon: <Home /> },
         { name: t('menu.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
         { name: t('menu.notifications'), link: '/', icon: <Notifications /> },
         { name: t('menu.settings'), link: '/', icon: <BuildSharp /> },
     ];
+
+    const adminMenuItems = [
+        { name: t('menu.home'), link: '/parent', icon: <Home /> },
+        { name: t('menu.results'), link: '/admin/tests', icon: <Assessment /> },
+        { name: t('menu.agreements'), link: '/admin/agreements', icon: <AssignmentTurnedIn /> },
+        { name: t('menu.newsletter'), link: '/admin/newsletter', icon: <Message /> },
+        { name: t('menu.newsletter-archive'), link: '/admin/newsletter/archive', icon: <Archive /> },
+        { name: t('menu.blog'), link: '/admin/blog', icon: <FormatListBulleted /> },
+        { name: t('menu.settings'), link: '/admin/settings', icon: <BuildSharp /> },
+    ];
+
+    const menuItems = userRole === 'parent' ? parentMenuItems : adminMenuItems;
 
     const renderMenuItems = () => {
         if (children) {
