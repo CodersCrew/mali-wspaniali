@@ -92,6 +92,7 @@ const useStyles = makeStyles({
         marginTop: '40px',
     },
     tabsRoot: {
+        minHeight: '34px',
         '& button': {
             border: `1px solid ${secondaryColor}`,
             color: secondaryColor,

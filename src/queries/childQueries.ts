@@ -1,5 +1,5 @@
 import { firebase } from '../firebase/firebase';
-import { Document, Child } from '../firebase/types';
+import { Document, Child, Result } from '../firebase/types';
 import { OnSnapshotCallback } from '../firebase/userRepository';
 
 export const getChildrenData = async (rowsPerPage: number, last: Document | null, first: Document | null) => {
@@ -13,6 +13,10 @@ export const getChildrenData = async (rowsPerPage: number, last: Document | null
 
 export const fetchChild = (childId: string, onSnapshotCallback: OnSnapshotCallback<Child>) => {
     firebase.child.getChildDocById(childId, onSnapshotCallback);
+};
+
+export const fetchChildResults = (childId: string, onSnapshotCallback: OnSnapshotCallback<Result[]>) => {
+    firebase.child.getChildResults(childId, onSnapshotCallback);
 };
 
 export const getChildrenByUserId = (id: string, onSnapshotCallback: OnSnapshotCallback<Child[]>) => {
