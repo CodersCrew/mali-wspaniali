@@ -80,6 +80,10 @@ const useStyles = makeStyles(() =>
     createStyles({
         rootGrid: {
             padding: '3.57vw 12.14vw 2.85vw 6.07vw',
+
+            '@media (max-width:767px)': {
+                padding: 0,
+            },
         },
     }),
 );
