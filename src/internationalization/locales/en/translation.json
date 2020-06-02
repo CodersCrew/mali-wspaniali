@@ -24,6 +24,15 @@
         "register": "Register",
         "password-not-strong": "Password not strong enough"
     },
+    "forgot-password-page": {
+        "forgot-password": "Nie pamietasz hasła?",
+        "its-ok": "Nic się nie stało. Wpisz swój adres email.",
+        "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
+        "insert-email": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
+        "new-password": "Stwórz nowe hasło",
+        "problem": "Masz problem? Skontaktuj się z fundacją by go rozwiązać",
+        "email-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali"
+    },
     "users-page": {
         "agreements": "Agreements",
         "users-list": "Users List"
@@ -54,7 +63,7 @@
         "last-update-date": "Last update",
         "details": "Details",
         "collapse-details": "Collapse details",
-        "info-about-test":  "Information about test",
+        "info-about-test": "Information about test",
         "carries-out-on": "carries out on",
         "age-group": "On the day of test, the child was assigned to the age group",
         "fitness-level": "Fitness level",

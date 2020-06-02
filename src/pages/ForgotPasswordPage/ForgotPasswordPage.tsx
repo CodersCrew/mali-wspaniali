@@ -1,40 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { TextField, Button, makeStyles } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import { theme } from '../../theme';
-import { backgroundColor, secondaryColor } from '../../colors';
 
+import { theme } from '../../theme';
+import { backgroundColor, secondaryColor, gray } from '../../colors';
+import DefaultImage from '../../assets/forgotPassword/forgot-password-default.png';
+import ErrorImage from '../../assets/forgotPassword/forgot-password-error.png';
+import SuccessImage from '../../assets/forgotPassword/forgot-password-success.png';
+
+
+enum ImageState {
+  default = "DEFAULT",
+  error = "ERROR",
+  success = "SUCCESS"
+}
 
 export const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
+  const [imageState, setImageState] = useState<ImageState>(ImageState.default);
+
+  console.log(imageState)
+
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+
+    setImageState(ImageState.success)
+    setEmail(event.target.value)
+  }
+
+  const imageSrc = (imageState: ImageState) => {
+    let source: string;
+    switch (imageState) {
+      case ImageState.error:
+        source = ErrorImage
+        break;
+      case ImageState.success:
+        source = SuccessImage
+        break;
+      default:
+        source = DefaultImage
+    }
+    return source
+  }
+
   const classes = useStyles();
   const { t } = useTranslation();
-
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.container}>
         <div className={classes.layout}>
-          <div>obrazek</div>
+          <div className={classes.imageWrapper}>
+            <img className={classes.image} src={imageSrc(imageState)} alt="małgosia czy jak jej tam" />
+          </div>
           <div className={classes.title}>
-            Nie pamietasz hasla?
+            {t('forgot-password-page.forgot-password')}
           </div>
           <div className={classes.subtitle}>
-            Nic sie nie stalo. <br />
-            Wpisz swoj adres e-mail. <br />
-            Otwrsymasz na maila link by <br />
-            wygenerowac nowe hasło
-            </div>
+            {t('forgot-password-page.its-ok')}
+          </div>
+          <div className={`${classes.subtitle} ${classes.subtitleThin}`}>
+            {t('forgot-password-page.receive-link')}
+          </div>
           <TextField
             required
             value={email}
             id="email"
             label={t('e-mail')}
             variant="outlined"
-            onChange={e => setEmail(e.target.value)}
+            className={classes.textField}
+            helperText={t('login-page.e-mail-helper-text')}
+            onChange={handleInputChange}
           />
           <div className={classes.buttonWrapper}>
             <Button
@@ -42,9 +80,10 @@ export const ForgotPasswordPage = () => {
               variant="contained"
               disabled={!email}
               color="secondary"
-              className={classes.button}>
-              Stwórz nowe hasło
-          </Button>
+              className={classes.button}
+            >
+              {t('forgot-password-page.new-password')}
+            </Button>
           </div>
 
         </div>
@@ -66,7 +105,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '80%',
+    width: '70%',
     minHeight: '90vh',
 
     '@media (max-width:767px)': {
@@ -97,18 +136,39 @@ const useStyles = makeStyles({
     lineHeight: 'normal',
     letterSpacing: 'normal',
     color: '#1d1d1b',
-    marginBottom: '30px'
+  },
+  subtitleThin: {
+    width: '300px',
+    marginBottom: '20px'
   },
   buttonWrapper: {
     display: 'flex',
     width: '100%',
     justifyContent: 'flex-end'
-  }, button: {
+  },
+  button: {
     color: backgroundColor,
     fontWeight: 'bold',
+    marginTop: '20px',
 
     '&disbled': {
       color: secondaryColor,
     }
   },
+  textField: {
+    width: '100%'
+  },
+  imageWrapper: {
+    height: '224px',
+    width: '224px',
+    borderRadius: "50%",
+    backgroundColor: gray,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '20px'
+  },
+  image: {
+    width: '214px',
+  }
 })
