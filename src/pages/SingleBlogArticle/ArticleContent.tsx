@@ -169,6 +169,10 @@ const useStyles = makeStyles(() =>
             borderWidth: '2px',
             maxHeight: '40vw',
             maxWidth: '70vw',
+
+            '@media (max-width:767px)': {
+                maxWidth: '100vw',
+            },
         },
         contentHTML: {
             paddingLeft: '2vw',
