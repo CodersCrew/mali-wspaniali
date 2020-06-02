@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { TextField, Button, makeStyles } from '@material-ui/core'
+import { TextField, Button, makeStyles, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 
 
@@ -55,15 +55,15 @@ export const ForgotPasswordPage = () => {
           <div className={classes.imageWrapper}>
             <img className={classes.image} src={imageSrc(imageState)} alt="małgosia czy jak jej tam" />
           </div>
-          <div className={classes.title}>
+          <Typography variant="h3" className={classes.title}>
             {t('forgot-password-page.forgot-password')}
-          </div>
-          <div className={classes.subtitle}>
+          </Typography>
+          <Typography variant="body1">
             {t('forgot-password-page.its-ok')}
-          </div>
-          <div className={`${classes.subtitle} ${classes.subtitleThin}`}>
+          </Typography>
+          <Typography variant="body1" className={classes.subtitle}>
             {t('forgot-password-page.receive-link')}
-          </div>
+          </Typography>
           <TextField
             required
             value={email}
@@ -115,10 +115,6 @@ const useStyles = makeStyles({
     },
   },
   title: {
-    textAlign: 'center',
-    fontFamily: 'Montserrat',
-    fontSize: '21px',
-    fontWeight: 'bold',
     marginBottom: '25px',
     textTransform: 'uppercase',
 
@@ -127,18 +123,8 @@ const useStyles = makeStyles({
     },
   },
   subtitle: {
-    fontFamily: 'Montserrat',
     textAlign: 'center',
-    fontSize: '16px',
-    fontWeight: 'normal',
-    fontStretch: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 'normal',
-    letterSpacing: 'normal',
-    color: '#1d1d1b',
-  },
-  subtitleThin: {
-    width: '300px',
+    width: '320px',
     marginBottom: '20px'
   },
   buttonWrapper: {

@@ -5,7 +5,7 @@ import { CssBaseline } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { LoginPage } from './LoginPage';
 import { RegistrationForm } from './RegistrationPage';
-import { ForgotPasswordPage } from './ForgotPasswordPage'
+import { ForgotPasswordPage } from './ForgotPasswordPage';
 import { TestResultsPage } from './TestResultsPage';
 import { ChildrenListPage } from './ChildrenListPage';
 import { ChildProfile } from './ChildProfile';
