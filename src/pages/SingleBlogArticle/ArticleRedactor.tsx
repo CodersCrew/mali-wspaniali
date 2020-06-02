@@ -44,15 +44,29 @@ const useStyles = makeStyles(() =>
         contentRedactorAvatar: {
             minWidth: '9vw',
             minHeight: '9vw',
+
+            '@media (max-width:767px)': {
+                width: '66px',
+                height: '66px',
+                marginRight: '25px',
+            },
         },
         contentRedactorNameContainer: {
             paddingTop: '4.5vw',
+
+            '@media (max-width:767px)': {
+                paddingTop: '9vw',
+            },
         },
         contentRedactorName: {
             fontSize: '15px',
             fontWeight: 'bold',
             letterSpacing: letterSpace,
             lineHeight,
+
+            '@media (max-width:767px)': {
+                width: '100vw',
+            },
         },
         contentRedactorProf: {
             fontSize: '14px',
@@ -64,9 +78,18 @@ const useStyles = makeStyles(() =>
         },
         contentRedactorDescriptionBox: {
             fontWeight: 500,
+
+            '@media (max-width:767px)': {
+                marginTop: '25px',
+                marginLeft: '-80px',
+            },
         },
         contentRedactorDescription: {
             fontSize: '18px',
+
+            '@media (max-width:767px)': {
+                fontSize: '13px',
+            },
         },
     }),
 );
