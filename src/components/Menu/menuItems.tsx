@@ -13,7 +13,7 @@ import { TFunction } from 'i18next';
 
 export const getAdminMenuItems = (t: TFunction) => {
     const adminMenuItems = [
-        { name: t('menu.home'), link: '/parent', icon: <Home /> },
+        { name: t('menu.home'), link: '/admin', icon: <Home /> },
         { name: t('menu.results'), link: '/admin/tests', icon: <Assessment /> },
         { name: t('menu.agreements'), link: '/admin/agreements', icon: <AssignmentTurnedIn /> },
         { name: t('menu.newsletter'), link: '/admin/newsletter', icon: <Message /> },
@@ -28,8 +28,8 @@ export const getParentMenuItems = (t: TFunction) => {
     const parentMenuItems = [
         { name: t('menu.home'), link: '/parent', icon: <Home /> },
         { name: t('menu.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
-        { name: t('menu.notifications'), link: '/', icon: <Notifications /> },
-        { name: t('menu.settings'), link: '/', icon: <BuildSharp /> },
+        { name: t('menu.notifications'), link: 'parent/notifications', icon: <Notifications /> },
+        { name: t('menu.settings'), link: 'parent/settings', icon: <BuildSharp /> },
     ];
     return parentMenuItems;
 };

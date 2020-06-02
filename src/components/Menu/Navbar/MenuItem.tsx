@@ -9,13 +9,14 @@ type menuListItemProps = {
     link: string;
     text: string;
     iconComponent: ReactElement;
+    handleClose: () => void;
 };
 
-export const MenuListItem = ({ link, text, iconComponent }: menuListItemProps) => {
+export const MenuListItem = ({ link, text, iconComponent, handleClose }: menuListItemProps) => {
     const classes = useStyles();
 
     return (
-        <MenuItem key={text} component="div">
+        <MenuItem key={text} component="div" onClick={handleClose}>
             <Link to={link} className={classes.menuLink}>
                 <ListItem className={classes.listItem}>
                     <ListItemIcon>{iconComponent}</ListItemIcon>

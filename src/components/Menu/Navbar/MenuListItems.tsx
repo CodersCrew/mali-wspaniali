@@ -40,12 +40,13 @@ export const MenuListItems = ({ userRole, childrenData, handleClose }: MenuListI
                                     link={link}
                                     text={firstName}
                                     iconComponent={iconComponent}
+                                    handleClose={handleClose}
                                 />
                             );
                         })}
                     {staticMenuItems.slice(1).map(staticItem => {
                         const { name, link, icon } = staticItem;
-                        return <MenuListItem key={name} link={link} text={name} iconComponent={icon} />;
+                        return <MenuListItem key={name} link={link} text={name} iconComponent={icon} handleClose={handleClose} />;
                     })}
                     <MenuLogoutItem />
                 </MenuList>

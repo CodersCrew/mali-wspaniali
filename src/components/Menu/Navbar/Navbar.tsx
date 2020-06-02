@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Avatar, IconButton, makeStyles, Button, Theme, createStyles } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
+import { Link } from 'react-router-dom';
 import { User } from '../../../firebase/firebase';
 import { secondaryColor, mainColor, white, textColor } from '../../../colors';
 import { useSubscribed } from '../../../hooks/useSubscribed';
@@ -49,21 +50,20 @@ export const Navbar = () => {
     return (
         <div>
             <div className={classes.menuContainer}>
-                <img src={Logo} className={classes.logo} alt="Logo Mali Wspaniali" />
+                <Link to={`/${userRole}`} className={classes.homeLink}>
+                    <img src={Logo} className={classes.logo} alt="Logo Mali Wspaniali" />
+                </Link>
                 <IconButton color="inherit">
                     <Notifications className={classes.notificationsIcon} />
                 </IconButton>
-                
-                    <Avatar className={classes.avatar}>
-                        <Button className={classes.avatarButton} onClick={handleAvatarClick}>
-                            {avatarContent}
-                        </Button>
-                    </Avatar>
+                <Avatar className={classes.avatar}>
+                    <Button className={classes.avatarButton} onClick={handleAvatarClick}>
+                        {avatarContent}
+                    </Button>
+                </Avatar>
             </div>
-           
+
             {isMenuOpen && <MenuListItems childrenData={children} userRole={userRole} handleClose={handleClose} />}
-           
-            
         </div>
     );
 };
@@ -126,6 +126,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: 'block',
                 width: '54px',
                 height: '44px',
+            },
+        },
+        homeLink: {
+            [theme.breakpoints.down('sm')]: {
                 marginRight: 'auto',
                 marginLeft: '10px',
             },
