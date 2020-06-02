@@ -25,8 +25,12 @@ export const ForgotPasswordPage = () => {
   console.log(imageState)
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const value = event.target.value;
 
-    setImageState(ImageState.success)
+    value === ""
+      ? setImageState(ImageState.default)
+      : setImageState(ImageState.success)
+
     setEmail(event.target.value)
   }
 
