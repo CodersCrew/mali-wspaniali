@@ -19,7 +19,7 @@ export const ArticleVideo = ({ video }: { video: Video }) => {
                 <Grid className={classes.contentTags} item xs={12}>
                     <Grid container direction="row">
                         <Grid item xs={8}>
-                            <Grid container direction="row">
+                            <Grid container direction="row" spacing={10}>
                                 {video.tags.map(tag => {
                                     return (
                                         <Grid key={tag} item xs={3}>
@@ -61,6 +61,12 @@ const useStyles = makeStyles(() =>
         },
         contentTags: {
             paddingTop: '4vw',
+
+            '@media (max-width:767px)': {
+                paddingTop: '25px',
+                paddingBottom: '40px',
+                paddingLeft: '10px',
+            },
         },
         contentTagsButton: {
             backgroundColor: SingleArticleColors.tagButton,
@@ -69,6 +75,15 @@ const useStyles = makeStyles(() =>
             fontFamily: 'Roboto',
             fontSize: '12px',
             fontWeight: 'bold',
+
+
+            '@media (max-width:767px)': {
+                width: '6vw',
+                fontSize: '8px',
+                textTransform: 'lowercase',
+                padding: 0,
+                color: '#656269',
+            },
         },
     }),
 );
