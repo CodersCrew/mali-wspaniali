@@ -41,7 +41,7 @@ export const ArticleContent = ({ content }: { content: Content }) => {
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHeader} item xs={12}>
-                    <Typography className={classes.contentHeaderText}>{`${content.header.toUpperCase()}`}</Typography>
+                    <Typography className={classes.contentHeaderText}>{`${content.header}`}</Typography>
                 </Grid>
             </Grid>
             <Grid container direction="row">
@@ -142,12 +142,22 @@ const useStyles = makeStyles(() =>
         contentHeader: {
             paddingTop: '4vw',
             paddingBottom: '2.14vw',
+
+            '@media (max-width:767px)': {
+                paddingTop: '30px',
+                paddingBottom: '25px',
+            },
         },
         contentHeaderText: {
             fontSize: '20px',
             fontWeight: 'bolder',
             letterSpacing: letterSpace,
             lineHeight,
+            textTransform: 'uppercase',
+
+            '@media (max-width:767px)': {
+                textTransform: 'initial',
+            },
         },
         contentPhoto: {
             paddingBottom: '2vw',
