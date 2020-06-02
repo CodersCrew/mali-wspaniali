@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, MenuList, Paper, makeStyles, Theme, createStyles } from '@material-ui/core/';
+import { Avatar, MenuList, Paper, makeStyles, Theme, createStyles, ClickAwayListener } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../../firebase/types';
 import { MenuListItem, MenuLogoutItem } from './MenuItem';
@@ -10,39 +10,47 @@ import { getAdminMenuItems, getParentMenuItems } from '../menuItems';
 export type MenuListItemsProps = {
     childrenData: Child[];
     userRole: string;
+    handleClose: () => void;
 };
 
-export const MenuListItems = ({ userRole, childrenData }: MenuListItemsProps) => {
+export const MenuListItems = ({ userRole, childrenData, handleClose }: MenuListItemsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     const staticMenuItems = userRole === 'parent' ? getParentMenuItems(t) : getAdminMenuItems(t);
 
     return (
-        <Paper className={classes.menuList}>
-            <MenuList dense={true}>
-                {userRole === 'parent' &&
-                    childrenData.map(child => {
-                        const { firstName, id, sex } = child;
-                        const iconComponent = (
-                            <Avatar
-                                className={classes.listItemAvatar}
-                                src={sex === 'male' ? BoyAvatar : GirlAvatar}
-                                variant="square"
-                            />
-                        );
-                        const link = `/parent/child/${id}`;
-                        return (
-                            <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />
-                        );
+        <ClickAwayListener onClickAway={handleClose}>
+            <Paper className={classes.menuList}>
+                <MenuList dense={true}>
+                    {userRole === 'parent' &&
+                        childrenData.map(child => {
+                            const { firstName, id, sex } = child;
+                            const iconComponent = (
+                                <Avatar
+                                    className={classes.listItemAvatar}
+                                    src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                                    variant="square"
+                                />
+                            );
+                            const link = `/parent/child/${id}`;
+                            return (
+                                <MenuListItem
+                                    key={firstName}
+                                    link={link}
+                                    text={firstName}
+                                    iconComponent={iconComponent}
+                                />
+                            );
+                        })}
+                    {staticMenuItems.slice(1).map(staticItem => {
+                        const { name, link, icon } = staticItem;
+                        return <MenuListItem key={name} link={link} text={name} iconComponent={icon} />;
                     })}
-                {staticMenuItems.slice(1).map(staticItem => {
-                    const { name, link, icon } = staticItem;
-                    return <MenuListItem key={name} link={link} text={name} iconComponent={icon} />;
-                })}
-                <MenuLogoutItem />
-            </MenuList>
-        </Paper>
+                    <MenuLogoutItem />
+                </MenuList>
+            </Paper>
+        </ClickAwayListener>
     );
 };
 

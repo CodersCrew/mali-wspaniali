@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, ClickAwayListener } from '@material-ui/core/';
+import { Avatar, IconButton, makeStyles, Button, Theme, createStyles } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
 import { User } from '../../../firebase/firebase';
 import { secondaryColor, mainColor, white, textColor } from '../../../colors';
@@ -53,15 +53,17 @@ export const Navbar = () => {
                 <IconButton color="inherit">
                     <Notifications className={classes.notificationsIcon} />
                 </IconButton>
-                <ClickAwayListener onClickAway={handleClose}>
+                
                     <Avatar className={classes.avatar}>
                         <Button className={classes.avatarButton} onClick={handleAvatarClick}>
                             {avatarContent}
                         </Button>
                     </Avatar>
-                </ClickAwayListener>
             </div>
-            {isMenuOpen && <MenuListItems childrenData={children} userRole={userRole} />}
+           
+            {isMenuOpen && <MenuListItems childrenData={children} userRole={userRole} handleClose={handleClose} />}
+           
+            
         </div>
     );
 };
