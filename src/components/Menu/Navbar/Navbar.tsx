@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Avatar, IconButton, makeStyles, Button, Theme, createStyles } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
-import { User } from '../../firebase/firebase';
-import { secondaryColor, mainColor, white, textColor } from '../../colors';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { getChildrenByUserId } from '../../queries/childQueries';
-import { onAuthStateChanged, getUserRole } from '../../queries/authQueries';
-import { Child } from '../../firebase/types';
+import { User } from '../../../firebase/firebase';
+import { secondaryColor, mainColor, white, textColor } from '../../../colors';
+import { useSubscribed } from '../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
+import { getChildrenByUserId } from '../../../queries/childQueries';
+import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
+import { Child } from '../../../firebase/types';
 import { MenuListItems } from './MenuListItems';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import Logo from '../../assets/MALWSP_logo_nav.png';
+import { useAuthorization } from '../../../hooks/useAuthorization';
+import Logo from '../../../assets/MALWSP_logo_nav.png';
 
 export const Navbar = () => {
     const classes = useStyles();

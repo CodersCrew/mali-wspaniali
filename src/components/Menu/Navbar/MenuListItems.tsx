@@ -1,11 +1,11 @@
 import React from 'react';
 import { Avatar, MenuList, Paper, makeStyles, Theme, createStyles } from '@material-ui/core/';
-// import { useTranslation } from 'react-i18next';
-import { Child } from '../../firebase/types';
+import { useTranslation } from 'react-i18next';
+import { Child } from '../../../firebase/types';
 import { MenuListItem, MenuLogoutItem } from './MenuItem';
-import BoyAvatar from '../../assets/boy.png';
-import GirlAvatar from '../../assets/girl.png';
-import { parentStaticMenuItems, adminStaticMenuItems } from './menuItems';
+import BoyAvatar from '../../../assets/boy.png';
+import GirlAvatar from '../../../assets/girl.png';
+import { getAdminMenuItems, getParentMenuItems } from '../menuItems';
 
 export type MenuListItemsProps = {
     childrenData: Child[];
@@ -14,23 +14,9 @@ export type MenuListItemsProps = {
 
 export const MenuListItems = ({ userRole, childrenData }: MenuListItemsProps) => {
     const classes = useStyles();
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
 
-    // const parentStaticMenuItems = [
-    //     { name: t('menu.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
-    //     { name: t('menu.settings'), link: '/parent/settings', icon: <Build /> },
-    // ];
-
-    // const adminStaticMenuItems = [
-    //     { name: t('menu.results'), link: '/admin/tests', icon: <Assessment /> },
-    //     { name: t('menu.agreements'), link: '/admin/agreements', icon: <AssignmentTurnedIn /> },
-    //     { name: t('menu.newsletter'), link: '/admin/newsletter', icon: <Message /> },
-    //     { name: t('menu.newsletter-archive'), link: '/admin/newsletter', icon: <Archive /> },
-    //     { name: t('menu.blog'), link: '/admin/blog', icon: <FormatListBulleted /> },
-    //     { name: t('menu.settings'), link: '/admin/settings', icon: <Build /> },
-    // ];
-
-    const staticMenuItems = userRole === 'parent' ? [...parentStaticMenuItems] : [...adminStaticMenuItems];
+    const staticMenuItems = userRole === 'parent' ? getParentMenuItems(t) : getAdminMenuItems(t);
 
     return (
         <Paper className={classes.menuList}>

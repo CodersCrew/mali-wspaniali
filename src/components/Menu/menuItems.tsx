@@ -1,0 +1,35 @@
+import React from 'react';
+import {
+    Home,
+    Notifications,
+    FormatListBulleted,
+    BuildSharp,
+    Assessment,
+    AssignmentTurnedIn,
+    Message,
+    Archive,
+} from '@material-ui/icons/';
+import { TFunction } from 'i18next';
+
+export const getAdminMenuItems = (t: TFunction) => {
+    const adminMenuItems = [
+        { name: t('menu.home'), link: '/parent', icon: <Home /> },
+        { name: t('menu.results'), link: '/admin/tests', icon: <Assessment /> },
+        { name: t('menu.agreements'), link: '/admin/agreements', icon: <AssignmentTurnedIn /> },
+        { name: t('menu.newsletter'), link: '/admin/newsletter', icon: <Message /> },
+        { name: t('menu.newsletter-archive'), link: '/admin/newsletter', icon: <Archive /> },
+        { name: t('menu.blog'), link: '/admin/blog', icon: <FormatListBulleted /> },
+        { name: t('menu.settings'), link: '/admin/settings', icon: <BuildSharp /> },
+    ];
+    return adminMenuItems;
+};
+
+export const getParentMenuItems = (t: TFunction) => {
+    const parentMenuItems = [
+        { name: t('menu.home'), link: '/parent', icon: <Home /> },
+        { name: t('menu.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
+        { name: t('menu.notifications'), link: '/', icon: <Notifications /> },
+        { name: t('menu.settings'), link: '/', icon: <BuildSharp /> },
+    ];
+    return parentMenuItems;
+};
