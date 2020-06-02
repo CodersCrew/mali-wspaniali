@@ -53,7 +53,51 @@
         "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",
         "results-list": "Lista wyników",
         "tests-information": "Informacje o testach",
-        "your-agreements": "Twoje zgody"
+        "your-agreements": "Twoje zgody",
+        "kindergartener-test": "Test przedszkolaka",
+        "last-update-date": "Data ostatniej zmiany",
+        "details": "Szczegóły",
+        "collapse-details": "Zwiń szczegóły",
+        "info-about-test":  "Informacje o pomiarze",
+        "carries-out-on": "przeprowadzony dnia",
+        "age-group": "W dniu pomiaru, dziecko przypisane zostało do grupy wiekowej",
+        "fitness-level": "Poziom sprawności",
+        "advice": "Porada",
+        "initial-test": "Pomiar początkowy",
+        "final-test": "Pomiar końcowy",
+        "result-description": {
+            "low": "TBD",
+            "medium": "Dobrze ci idzie, ale zawsze może być lepiej",
+            "high": "Bardzo dobrze!"
+        },
+        "tests": {
+            "strength": "Siła",
+            "power": "Moc",
+            "speed": "Szybkość",
+            "agility": "Zwinność"
+        },
+        "tests-in-block": {
+            "strength": "Próba siły",
+            "power": "Próba mocy",
+            "speed": "Próba szybkości",
+            "agility": "Próba zwinności"
+        },
+        "no-result-block-text": "nie odbyła się lub dziecko nie było w stanie uczestniczyć tego dnia w teście.",
+        "scale": "Skala",
+        "received-points": "Otrzymane punkty",
+        "pts": "pkt",
+        "final-test-title": "Wyniki poszczególnych prób wraz z porównaniem wyników z pomiaru początkowego",
+        "initial-test-title": "Wyniki poszczególnych prób",
+        "difference": {
+            "better": "Poprawił się",
+            "worse": "Pogorszył się",
+            "same": "Nie zmienił się"
+        },
+        "summary-info": "Informacje podsumowujące",
+        "test-result": "Wynik testu",
+        "comparison-label": "Porównując oba pomiary, poziom sprawności Twojego dziecka",
+        "comparison-right-title": "Zobacz, w jakiej formie jest Twoje dziecko. Wykres przedstawia jak zmieniały się wyniki dziecka na przestrzeni 2 pomiarów",
+        "comparison-button": "Co mogę zrobić?"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -200,5 +244,8 @@
         "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
         "content": "Treść Powiadomienia",
         "date": "Data"
-    }
+    },
+    "years_0": "rok",
+    "years_1": "lata",
+    "years_2": "lat"
 }

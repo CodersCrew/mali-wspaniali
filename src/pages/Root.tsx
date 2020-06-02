@@ -1,8 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import { LoginPage } from './LoginPage';
 import { RegistrationForm } from './RegistrationPage';
 import { TestResultsPage } from './TestResultsPage';

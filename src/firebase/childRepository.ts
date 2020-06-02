@@ -1,6 +1,6 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/firestore';
-import { Document, Child } from './types';
+import { Document, Child, Result } from './types';
 import { OnSnapshotCallback } from './userRepository';
 import { logQuery } from '../utils/logQuery';
 
@@ -20,6 +20,26 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                 const childData = snapshot.data() as Child;
                 if (childData) {
                     onSnapshotCallback(childData);
+                }
+            });
+    },
+    getChildResults: async (childId: string, onSnapshotCallback: OnSnapshotCallback<Result[]>) => {
+        db.collection('child')
+            .doc(childId)
+            .collection('results')
+            .onSnapshot(snapshot => {
+                logQuery(snapshot);
+                const results = snapshot.docs.map(snap => {
+                    const data = snap.data();
+
+                    return {
+                        ...data,
+                        dateOfTest: data.dateOfTest.toDate(),
+                        updatedAt: data.updatedAt.toDate(),
+                    } as Result;
+                });
+                if (results) {
+                    onSnapshotCallback(results);
                 }
             });
     },
