@@ -28,10 +28,12 @@
         "forgot-password": "Nie pamietasz hasła?",
         "its-ok": "Nic się nie stało. Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
-        "insert-email": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
+        "insert-email": "Wpisz adres e-mail podany fundacji",
         "new-password": "Stwórz nowe hasło",
-        "problem": "Masz problem? Skontaktuj się z fundacją by go rozwiązać",
-        "email-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali"
+        "problem": "Masz problem?",
+        "contact": "Skontaktuj się z fundacją by go rozwiązać",
+        "email-helper-text": "Wpisz adres e-mail podany fundacji",
+        "back-to-login": "Wróć do logowania"
     },
     "users-page": {
         "agreements": "Zgody",

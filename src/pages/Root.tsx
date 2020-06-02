@@ -43,7 +43,7 @@ export const Root = () => {
                             </AuthTemplate>
                         </Route>
                         <Route path={['/forgot-password']}>
-                            <AuthTemplate type="register">
+                            <AuthTemplate type="login">
                                 <Route path="/forgot-password" component={ForgotPasswordPage} />
                             </AuthTemplate>
                         </Route>

@@ -25,13 +25,15 @@
         "password-not-strong": "Password not strong enough"
     },
     "forgot-password-page": {
-        "forgot-password": "Nie pamietasz hasła?",
-        "its-ok": "Nic się nie stało. Wpisz swój adres email.",
-        "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
-        "insert-email": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
-        "new-password": "Stwórz nowe hasło",
-        "problem": "Masz problem? Skontaktuj się z fundacją by go rozwiązać",
-        "email-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali"
+        "forgot-password": "Forgot password?",
+        "its-ok": "Don't worry. Type in your email address.",
+        "receive-link": "You will receive a link to create a new password.",
+        "insert-email": "Type in e-mail address provided to the foundation",
+        "new-password": "Create new password",
+        "problem": "Stumbled upon a problem?",
+        "contact": "Please contact the foundation to resolve it",
+        "email-helper-text": "Type in e-mail address provided to the foundation",
+        "back-to-login": "Back to login"
     },
     "users-page": {
         "agreements": "Agreements",
