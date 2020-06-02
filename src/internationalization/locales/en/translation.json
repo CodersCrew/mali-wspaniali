@@ -44,8 +44,56 @@
         "en": "English"
     },
     "child-profile": {
-        "child-profile": "A Child's Profile",
-        "no-child": "Sorry, there is no child with this id"
+        "no-child": "Sorry, there is no child with this id",
+        "kindergarten-no": "Kindergarten no.",
+        "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
+        "results-list": "Results list",
+        "tests-information": "Tests information",
+        "your-agreements": "Your agreements",
+        "kindergartener-test": "Kindergartener test",
+        "last-update-date": "Last update",
+        "details": "Details",
+        "collapse-details": "Collapse details",
+        "info-about-test":  "Information about test",
+        "carries-out-on": "carries out on",
+        "age-group": "On the day of test, the child was assigned to the age group",
+        "fitness-level": "Fitness level",
+        "advice": "Advice",
+        "initial-test": "Initial test",
+        "final-test": "Final test",
+        "result-description": {
+            "low": "TBD",
+            "medium": "You are doing well but it can always be better",
+            "high": "Very good!"
+        },
+        "tests": {
+            "strength": "Strength",
+            "power": "Power",
+            "speed": "Speed",
+            "agility": "Agility"
+        },
+        "tests-in-block": {
+            "strength": "Strength test",
+            "power": "Power test",
+            "speed": "Speed test",
+            "agility": "Agility test"
+        },
+        "no-result-block-text": "did not take place or the child was unable to participate in the test that day.",
+        "scale": "Scale",
+        "received-points": "Received points",
+        "pts": "pts",
+        "final-test-title": "Results of particular tests with comparison of results from the initial test",
+        "initial-test-title": "Results of particular tests",
+        "difference": {
+            "better": "Get better",
+            "worse": "Get worse",
+            "same": "Is the same"
+        },
+        "summary-info": "Summary information",
+        "test-result": "Test result",
+        "comparison-label": "By comparing both tests, your child's fitness level",
+        "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
+        "comparison-button": "What can I do?"
     },
     "parent-profile": {
         "parent": "Parent",
@@ -70,16 +118,68 @@
         "no-children-has-been-found": "No children has been found"
     },
     "newsletter": {
-        "header": "Newsletter",
-        "sending-error": "An error occurred during sending the message.",
-        "sending-success": "The newsletter was sent.",
-        "type": "Type",
-        "topic": "Topic",
-        "recipients": "Recipients",
+        "header": "New Message",
+        "subHeader": "Fill all fields to send message",
+        "recipient-heading": "Newsletter recipients",
+        "content-heading": "Newsletter content",
+        "general-recipient-label": "Select recipient from list",
+        "general-recipient-label-filled": "Select recipient",
+        "general-recipient-helper-text": "Recipient not selected. This step is necessary to specify recipient.",
+        "specific-recipient-label": "Specify recipient",
+        "specific-recipient-value-labels": {
+            "all-parents": "all parents",
+            "from-single-kindergarten": "from selected kindergarten",
+            "individual-message": "individual message",
+            "all-kindergartens": "all kindergartens",
+            "single-kindergarten": "single kindergarten"
+        },
+        "specific-recipient-helper-text": "Recipient not specified. Fill this field to send message to proper recipient.",
+        "recipient-single-parent-label": "To sent message to single parent, select him from the list",
+        "recipient-single-parent-label-filled": "Message will be sent to these children parents:",
+        "recipient-single-kindergarten-label": "Select kindergarten from list",
+        "recipient-single-kindergarten-label-filled": "Message will be sent to these kindergartens:",
+        "recipient-select-kindergarten-label": "Select kindergarten from list",
+        "recipient-select-kindergarten-label-filled": "Message will be sent to parents from these kindergartens:",
+        "recipient-helper-text": "This field can't be empty. Specify recipients. If you wish to send message to all recipients change previous selection.",
+        "type-input-label": "Select type",
+        "type-input-label-filled": "Type",
+        "type-helper-text": "Type of message not selected. Select type from dropdown.",
+        "topic-input-label": "Select topic",
+        "topic-input-label-filled": "Topic",
+        "topic-helper-text": "Type message topic so You can send it",
+        "kindergarten-number": "kindergarten no.",
+        "sending-error": "An error ocurred during sending the message.",
+        "sending-success-modal": {
+            "title": "Done",
+            "content": "Your message has been sent.",
+            "back-button": "Return to home page",
+            "next-msg-button": "Send next message"
+        },
+        "help-modal": {
+            "type": "Newsletter type",
+            "type-text": "Select the type which is most apropriate to topic of your message. Newsletter will be saved to that category, so you can find it easier in newsletter archives.",
+            "attachment": "Attachments",
+            "attachment-text": "To properly add attachment, it has to be in .pdf.",
+            "button": "Got it"
+        },
+        "parents": "Parents",
+        "kindergartens": "Kindergartens",
         "send": "Send",
         "placeholder": "Write your message here",
-        "fill-required-fields": "Please fill the required fields.",
-        "empty-message": "The message cannot be empty."
+        "newsletter-types": {
+            "results": "Results",
+            "agreements": "Agreements",
+            "events": "Events",
+            "important": "Important",
+            "other": "Other"
+        },
+        "sidebar": {
+            "fill": "Fill",
+            "newsletter-content": "Newsletter content",
+            "done": "Done",
+            "error": "Fill required",
+            "file-error": "File error"
+        }
     },
     "single-article": {
         "blog": "blog",
@@ -135,5 +235,7 @@
         "physical-activity": "Physical activity",
         "emotions": "Emotions",
         "other": "Other"
-    }
+    },
+    "years_0": "year",
+    "years_1": "years"
 }

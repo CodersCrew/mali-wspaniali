@@ -8,6 +8,7 @@ import { SidebarTopItem } from './SidebarTopItem';
 import { handleSignOut } from '../../queries/authQueries';
 import { mainColor, white } from '../../colors';
 import { SidebarPropTypes } from './types';
+import { LanguageSelector } from '../LanguageSelector';
 
 export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
     const classes = useStyles();
@@ -25,6 +26,7 @@ export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
             <SidebarTopItem toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
             <div className={classes.sidebarItemsContainer}>
                 <SidebarMenuList isSidebarOpen={isSidebarOpen} />
+                <LanguageSelector isSidebarOpen={isSidebarOpen} />
                 <SidebarLogoutItem handleLogoutClick={handleLogoutClick} isSidebarOpen={isSidebarOpen} />
             </div>
         </div>
@@ -45,8 +47,8 @@ const useStyles = makeStyles((theme: Theme) =>
             background: mainColor,
 
             '&.opened': {
-                minWidth: '230px',
-                width: '230px',
+                minWidth: '240px',
+                width: '240px',
                 transition: 'all 0.5s',
             },
 

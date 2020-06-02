@@ -3,6 +3,7 @@ import { firebase } from '../firebase/firebase';
 import { RegistrationUser } from '../pages/RegistrationPage/types';
 import { OnSnapshotCallback } from '../firebase/userRepository';
 import { Parent } from '../pages/ParentProfile/types';
+import { Document } from '../firebase/types';
 
 export const createUser = async (user: RegistrationUser): Promise<User | null> => {
     const userData = await firebase.auth.handleCreateUserWithEmailAndPassword(user.email, user.password);
@@ -33,4 +34,8 @@ export const getCurrentUserIdToken = async () => {
         idToken = await currentUser.getIdToken();
     }
     return idToken;
+};
+
+export const getParents = (onSnapshotCallback: OnSnapshotCallback<Parent[]>) => {
+    firebase.user.getParents(onSnapshotCallback);
 };

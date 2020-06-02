@@ -1,6 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { LoginPage } from './LoginPage';
 import { RegistrationForm } from './RegistrationPage';
 import { ForgotPasswordPage } from './ForgotPasswordPage'
@@ -19,6 +21,9 @@ import { IdleTimer } from '../components/IdleTimer/IdleTimer';
 import { BlogMainPage } from './BlogMainPage';
 
 export const Root = () => {
+    const { i18n } = useTranslation();
+    moment.updateLocale(i18n.language, {});
+
     return (
         <>
             <CssBaseline />

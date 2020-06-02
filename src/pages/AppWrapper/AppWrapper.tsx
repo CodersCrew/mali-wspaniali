@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react';
-import { makeStyles, createMuiTheme, ThemeProvider, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, ThemeProvider, createStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import { Sidebar } from '../../components/Sidebar';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
+import { theme } from '../../theme';
 
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
@@ -14,17 +16,14 @@ export const AppWrapper: FC = ({ children }) => {
         <ThemeProvider theme={theme}>
             <div className={classes.background}>
                 <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>{children}</div>
+                <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
+                    <Navbar />
+                    <div className={classes.content}>{children}</div>
+                </div>
             </div>
         </ThemeProvider>
     );
 };
-
-const theme = createMuiTheme({
-    typography: {
-        fontFamily: ['"Montserrat"'].join(','),
-    },
-});
 
 // eslint-disable-next-line no-shadow
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,10 +33,11 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: mainColor,
             minHeight: '100vh',
             height: '100%',
-            padding: '10px 10px 10px 10px',
+            padding: '10px',
 
             [theme.breakpoints.down('sm')]: {
                 backgroundColor,
+                padding: 0,
             },
         },
         container: {
@@ -49,13 +49,23 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '10px',
             transition: 'all 0.4s',
             '&.opened': {
-                marginLeft: '230px',
-                width: 'calc(100% - 230px)',
+                marginLeft: '240px',
+                width: 'calc(100% - 240px)',
                 transition: 'all 0.5s',
             },
             [theme.breakpoints.down('sm')]: {
+                margin: 0,
+                width: '100%',
+            },
+        },
+        content: {
+            marginTop: '-40px',
+            padding: '10px 60px',
+            [theme.breakpoints.down('sm')]: {
                 marginLeft: 'auto',
                 marginRight: 'auto',
+                marginTop: '80px',
+                padding: '10px',
             },
         },
     }),

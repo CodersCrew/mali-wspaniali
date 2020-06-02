@@ -1,8 +1,11 @@
 export const mainColor = '#008AAD';
 export const backgroundColor = '#F1F2F4';
 export const textColor = '#1d1d1b';
+export const lightTextColor = '#505050';
 export const cardBackgroundColor = '#FFFFFF';
 export const secondaryColor = '#FF7149';
+export const gray = '#c4c4c4';
+export const darkGray = '#616161';
 export const SingleArticleColors = {
     title: '#656269',
     arrow: secondaryColor,
@@ -31,3 +34,18 @@ export const blogCategoryColors = {
 };
 export const white = '#ffffff';
 export const darkGrey = '#e9e9e9';
+export const resultColors = {
+    green: '#70bf73',
+    yellow: '#ffc107',
+    red: '#f44336',
+    lightGreen: '#C8E6C9',
+    lightYellow: '#FFE79E',
+    lightRed: '#FFCDD2',
+};
+
+export const newsletterColors = {
+    typeColors: { yellow: '#f1dc1c', blue: '#3da8de', red: '#ff5829', green: '#00627a', purple: '#a52ba8' },
+    disabledColor: '#9e9e9e',
+    errorIconColor: '#f44336',
+    helpModalButtonColor: '#2196f3',
+};

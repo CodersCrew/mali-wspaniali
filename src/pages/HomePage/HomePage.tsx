@@ -3,7 +3,6 @@ import { makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
-import { Navbar } from '../../components/Navbar/Navbar';
 import { mainColor } from '../../colors';
 
 export const ParentHomePage = () => {
@@ -12,7 +11,6 @@ export const ParentHomePage = () => {
 
     return (
         <Grid className={classes.container}>
-            <Navbar />
             <Grid item xs={12}>
                 <h1 className={classes.header}>{t('home-page-content.greeting')}</h1>
             </Grid>
@@ -31,7 +29,7 @@ export const ParentHomePage = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            padding: '0 0 54px 60px',
+            padding: '0 0 54px 0',
             fontFamily: 'Montserrat, sans-serif',
 
             [theme.breakpoints.down('md')]: {
@@ -42,11 +40,11 @@ const useStyles = makeStyles((theme: Theme) =>
         header: {
             fontSize: 36,
             marginBottom: 20,
+            marginTop: 0,
             textTransform: 'uppercase',
             lineHeight: '44px',
 
             [theme.breakpoints.down('sm')]: {
-                marginTop: 25,
                 fontSize: 21,
                 lineHeight: '26px',
             },

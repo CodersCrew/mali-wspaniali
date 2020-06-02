@@ -109,4 +109,17 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
             getQuery(resolve, reject);
         });
     },
+    getParents: (onSnapshotCallback: OnSnapshotCallback<Parent[]>) => {
+        return firestore
+            .collection('user')
+            .where('role', '==', 'parent')
+            .onSnapshot(snapshot => {
+                logQuery(snapshot);
+                const parents: Parent[] = [];
+                snapshot.forEach(document => {
+                    parents.push(document.data().email as Parent);
+                });
+                return onSnapshotCallback(parents);
+            });
+    },
 });

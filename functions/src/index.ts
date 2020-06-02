@@ -1,7 +1,11 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { cloudFunctions } from './auth';
+import { authCloudFunctions } from './auth';
+import { newsletterCloudFunctions } from './newsletter';
 
 admin.initializeApp(functions.config().firebase);
 
-export default cloudFunctions;
+export default {
+    ...authCloudFunctions,
+    ...newsletterCloudFunctions,
+};
