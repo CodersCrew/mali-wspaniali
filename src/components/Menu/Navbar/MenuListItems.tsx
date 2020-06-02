@@ -31,7 +31,7 @@ export const MenuListItems = ({ userRole, childrenData }: MenuListItemsProps) =>
                                 variant="square"
                             />
                         );
-                        const link = `parent/child/${id}`;
+                        const link = `/parent/child/${id}`;
                         return (
                             <MenuListItem key={firstName} link={link} text={firstName} iconComponent={iconComponent} />
                         );
