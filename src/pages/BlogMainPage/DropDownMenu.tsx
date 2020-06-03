@@ -4,12 +4,12 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import { makeStyles, createStyles, Theme, withStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import { Tabs } from '@material-ui/core';
 import { categoriesList } from './BlogCategories';
-import { StyledTab } from './StyledTab';
+import { MenuStyledTab } from './MenuStyledTab';
 import { CategoryTabProps } from './CategoryTabs';
 
 export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
@@ -68,16 +68,16 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
                     {({ TransitionProps, placement }) => (
                         <Grow
                             {...TransitionProps}
-                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                            style={{ transformOrigin: placement === 'bottom' ? 'bottom' : 'bottom' }}
                         >
                             <Paper>
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList autoFocusItem={ open } id="menu-list-grow" onKeyDown={ handleListKeyDown }>
                                         <MenuStyledTabs value={ currentTabIndex } onChange={ handleChange }>
                                             { categoriesList.map(category => {
-                                                return <MenuItem key={ category.name } ><StyledTab  label={ category.name } color={ category.color } /></MenuItem>;
+                                                return <MenuStyledTab key={category.key}  label={ category.name } color={ category.color } />;
                                             }) }
-                                        </MenuStyledTabs>;
+                                        </MenuStyledTabs>
                                     </MenuList>
                                 </ClickAwayListener>
                             </Paper>
@@ -96,26 +96,31 @@ type MenuStyledTabsProps = {
 
 const MenuStyledTabs = withStyles({
     flexContainer: {
-        flexDirection: 'column',
-        marginLeft: '3%',
+        margin: '3%',
+        alignItems: 'flex-start',
+        maxWidth: '463px',
+        flexWrap: 'wrap',
     },
     indicator: {
         display: 'none',
     },
 })((props: MenuStyledTabsProps) => <Tabs {...props} />);
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             display: 'flex',
-        },
-        paper: {
-            marginRight: theme.spacing(2),
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            transform: 'translate3d(0px, 35px, 0px)!important',
+            zIndex: 20,
+            position: 'relative',
         },
         container: {
             position: 'relative',
-            transform: 'translate3d(-5px, 36px, 0px)',
-            willChange: 'transform'
+            willChange: 'transform',
+            alignItems: 'flex-start',
+            transform: 'translate3d(0px, 35px, 0px)!important',            
         }
     }),
 );
