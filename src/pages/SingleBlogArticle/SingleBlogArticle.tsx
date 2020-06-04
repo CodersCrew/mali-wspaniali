@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 backgroundColor: SingleArticleColors.contentBackground,
                 width: '100%',
+                marginBottom: '20px',
             },
         }
     }),
