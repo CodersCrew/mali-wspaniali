@@ -22,7 +22,15 @@
         "register-success": "Account created. Please login.",
         "password-confirm": "Repeat password",
         "register": "Register",
-        "password-not-strong": "Password not strong enough"
+        "password-not-strong": "Password not strong enough",
+        "agreements-and-regulations": "Agreements and regulations",
+        "create-password": "Create password",
+        "confirmation": "Confirmation",
+        "create-password-text": "Create a password to Mali Wspaniali platform that will serve you for future logins.",
+        "go-to-homepage": "Go to homepage",
+        "enter-code": "Enter code",
+        "enter-code-text": "Please enter the code provided by Mali Wspaniali foundation. Thanks to this code, your data will be secure.",
+        "no-code": "Don't have a code?"
     },
     "forgot-password-page": {
         "forgot-password": "Forgot password",

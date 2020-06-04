@@ -22,7 +22,15 @@
         "register-success": "Konto zostało utworzone. Możesz się zalogować.",
         "password-confirm": "Powtórz hasło",
         "register": "Zarejestruj się",
-        "password-not-strong": "Hasło za słabe"
+        "password-not-strong": "Hasło za słabe",
+        "agreements-and-regulations": "Zgody i regulaminy",
+        "create-password": "Stwórz hasło",
+        "confirmation": "Potwierdzenie",
+        "create-password-text": "Stwórz hasło do platformy Mali Wspaniali, które będzie ci służyło podczas następnych logowań.",
+        "go-to-homepage": "Przejdź do strony głównej",
+        "enter-code": "Wpisz kod",
+        "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu, twoje dane będą bezpieczniejsze.",
+        "no-code": "Nie masz kodu?"
     },
     "forgot-password-page": {
         "forgot-password": "Nie pamietasz hasła",

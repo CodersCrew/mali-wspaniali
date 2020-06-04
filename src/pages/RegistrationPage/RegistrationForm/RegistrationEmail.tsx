@@ -7,10 +7,12 @@ import { emailTest } from '../emailTest';
 export const RegistrationEmail = ({
     handleChange,
     handleNext,
+    handleBack,
     email,
     classForm,
     classButton,
     classNextBtn,
+    classPrevBtn,
 }: RegistrationEmailProps) => {
     const { t } = useTranslation();
 
@@ -29,6 +31,9 @@ export const RegistrationEmail = ({
                 helperText={t('login-page.e-mail-helper-text')}
             />
             <div className={classButton}>
+                <Button onClick={handleBack} className={classPrevBtn}>
+                    {t('back')}
+                </Button>
                 <Button
                     variant="contained"
                     onClick={handleNext}

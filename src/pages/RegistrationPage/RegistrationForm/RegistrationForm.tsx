@@ -19,10 +19,13 @@ import { RegistrationEmail } from './RegistrationEmail';
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationPassword } from './RegistrationPassword';
 import { RegistrationFeedback } from './RegistrationFeedback';
+import { RegistrationCode } from './RegistrationCode';
 import { getAgreements } from '../../../queries/agreementQueries';
 import { AdminAgreement } from '../../../firebase/types';
+import { RegisterForm } from './types';
 
-const initialState = {
+const initialState: RegisterForm = {
+    code: '',
     email: '',
     password: '',
     passwordConfirm: '',
@@ -32,7 +35,7 @@ export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
     const [agreements, setAgreements] = useState<AdminAgreement[]>([]);
-    const { email, password, passwordConfirm } = form;
+    const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -45,6 +48,7 @@ export const RegistrationForm = () => {
     }, []);
 
     const steps = [
+        t('registration-page.enter-code'),
         t('e-mail'),
         t('registration-page.agreements-and-regulations'),
         t('registration-page.create-password'),
@@ -55,9 +59,22 @@ export const RegistrationForm = () => {
         switch (step) {
             case 0:
                 return (
+                    <RegistrationCode
+                        handleChange={handleChange}
+                        handleNext={handleNext}
+                        code={code}
+                        classForm={classes.formItem}
+                        classButton={clsx(classes.buttonWrapper, activeStep === 0 && 'emailContent')}
+                        classNextBtn={classes.nextButton}
+                        classPrevBtn={classes.prevButton}
+                    />
+                );
+            case 1:
+                return (
                     <RegistrationEmail
                         handleChange={handleChange}
                         handleNext={handleNext}
+                        handleBack={handleBack}
                         email={email}
                         form={form}
                         classForm={classes.formItem}
@@ -66,9 +83,10 @@ export const RegistrationForm = () => {
                             activeStep === 0 && 'emailContent'
                         )}
                         classNextBtn={classes.nextButton}
+                        classPrevBtn={classes.prevButton}
                     />
                 );
-            case 1:
+            case 2:
                 return (
                     <RegistrationAgreement
                         handleBack={handleBack}
@@ -80,7 +98,7 @@ export const RegistrationForm = () => {
                         agreements={agreements}
                     />
                 );
-            case 2:
+            case 3:
                 return (
                     <RegistrationPassword
                         handleChange={handleChange}
@@ -95,7 +113,7 @@ export const RegistrationForm = () => {
                         classFormItem={classes.formItem}
                     />
                 );
-            case 3:
+            case 4:
                 return (
                     <RegistrationFeedback
                         classLink={classes.goToHomepageLink}
