@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Grid, Button, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Button, Typography, Theme } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 import { Path } from './types';
@@ -42,7 +42,7 @@ export const ArticlePath = ({ path }: { path: Path }) => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         pathText: {
             fontWeight: 'bold',
@@ -60,7 +60,7 @@ const useStyles = makeStyles(() =>
             fontSize: '12px',
             padding: '1px 5px 0px 10px',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 width: '100vw',
             },
         },

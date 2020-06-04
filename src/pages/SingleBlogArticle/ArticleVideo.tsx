@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, CardMedia, Button, createStyles, makeStyles } from '@material-ui/core';
+import { Grid, CardMedia, Button, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import { Video } from './types';
 
@@ -36,7 +36,7 @@ export const ArticleVideo = ({ video }: { video: Video }) => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentVideoGrid: {
             paddingTop: '2vw',
@@ -62,7 +62,7 @@ const useStyles = makeStyles(() =>
         contentTags: {
             paddingTop: '4vw',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 paddingTop: '25px',
                 paddingBottom: '40px',
                 paddingLeft: '10px',
@@ -77,7 +77,7 @@ const useStyles = makeStyles(() =>
             fontWeight: 'bold',
 
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 width: '6vw',
                 fontSize: '8px',
                 textTransform: 'lowercase',

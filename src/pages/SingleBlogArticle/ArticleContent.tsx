@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Button, withStyles, Box, Typography, CardMedia } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Button, withStyles, Box, Typography, CardMedia, Theme } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
@@ -115,7 +115,7 @@ const changeColorButton = (category: string) => {
     }
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentGrid: {
             backgroundColor: SingleArticleColors.contentBackground,
@@ -143,7 +143,7 @@ const useStyles = makeStyles(() =>
             paddingTop: '4vw',
             paddingBottom: '2.14vw',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 paddingTop: '30px',
                 paddingBottom: '25px',
             },
@@ -155,7 +155,7 @@ const useStyles = makeStyles(() =>
             lineHeight,
             textTransform: 'uppercase',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 textTransform: 'initial',
             },
         },
@@ -170,7 +170,7 @@ const useStyles = makeStyles(() =>
             maxHeight: '40vw',
             maxWidth: '70vw',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 maxWidth: '100vw',
             },
         },

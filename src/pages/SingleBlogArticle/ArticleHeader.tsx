@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/core';
 import { mainColor, textColor } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 
@@ -13,12 +13,13 @@ export const ArticleHeader = ({ title }: { title: string }) => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         headerLongTitle: {
             paddingTop: '3vw',
             paddingBottom: '5vw',
-            '@media (max-width:767px)': {
+
+            [theme.breakpoints.down('sm')]: {
                 margin: '20px 40px 50px 15px',
             },
         },
@@ -30,7 +31,7 @@ const useStyles = makeStyles(() =>
             letterSpacing: letterSpace,
             lineHeight,
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 fontSize: '21px',
                 color: textColor,
                 textTransform: 'initial',
