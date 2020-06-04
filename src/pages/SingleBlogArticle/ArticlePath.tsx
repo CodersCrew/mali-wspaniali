@@ -10,7 +10,7 @@ export const ArticlePath = ({ path }: { path: Path }) => {
     const { t } = useTranslation();
 
     return (
-        <Grid item xs={8}>
+        <Grid item xs={8} className={classes.pathContainer}>
             <Grid container direction="row">
                 <Button href="#BLOG" disableElevation disableFocusRipple disableRipple disableTouchRipple>
                     <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
@@ -44,6 +44,11 @@ export const ArticlePath = ({ path }: { path: Path }) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        pathContainer: {
+            [theme.breakpoints.down('sm')]: {
+                display: 'none',
+            }
+        },
         pathText: {
             fontWeight: 'bold',
             letterSpacing: letterSpace,
@@ -59,10 +64,6 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight,
             fontSize: '12px',
             padding: '1px 5px 0px 10px',
-
-            [theme.breakpoints.down('sm')]: {
-                width: '100vw',
-            },
         },
         pathArrowContainer: {
             marginTop: '10px',
