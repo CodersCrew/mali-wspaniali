@@ -3,7 +3,7 @@ import { makeStyles, Avatar, MenuList } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { User } from '../../../firebase/firebase';
 import { Child } from '../../../firebase/types';
-import { getAdminMenuItems, getParentMenuItems } from '../menuItems';
+import { getMenuItems } from '../menuItems';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { useSubscribed } from '../../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
@@ -40,7 +40,7 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
         [currentUser],
     ) as Child[];
 
-    const menuItems = userRole === 'parent' ? getParentMenuItems(t) : getAdminMenuItems(t);
+    const menuItems = getMenuItems(t, userRole);
 
     const renderMenuItems = () => {
         if (children) {

@@ -5,7 +5,7 @@ import { Child } from '../../../firebase/types';
 import { MenuListItem, MenuLogoutItem } from './MenuItem';
 import BoyAvatar from '../../../assets/boy.png';
 import GirlAvatar from '../../../assets/girl.png';
-import { getAdminMenuItems, getParentMenuItems } from '../menuItems';
+import { getMenuItems } from '../menuItems';
 
 export type MenuListItemsProps = {
     childrenData: Child[];
@@ -17,7 +17,7 @@ export const MenuListItems = ({ userRole, childrenData, handleClose }: MenuListI
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const staticMenuItems = userRole === 'parent' ? getParentMenuItems(t) : getAdminMenuItems(t);
+    const staticMenuItems = getMenuItems(t, userRole);
 
     return (
         <ClickAwayListener onClickAway={handleClose}>
