@@ -78,10 +78,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
             [theme.breakpoints.down('sm')]: {
-                width: '6vw',
                 fontSize: '8px',
+                width: '15vw',
+                height: '3vh',
                 textTransform: 'lowercase',
-                padding: 0,
                 color: SingleArticleColors.title,
             },
         },
