@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingBottom: '5vw',
 
             [theme.breakpoints.down('sm')]: {
-                margin: '20px 40px 50px 15px',
+                margin: '-10px 40px 20px 15px',
             },
         },
         headerLongTitleText: {
