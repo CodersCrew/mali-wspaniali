@@ -12,7 +12,6 @@ import { RegistrationPasswordProps } from './types';
 export const RegistrationPassword = ({
     handleChange,
     handleBack,
-    handleNext,
     activeStep,
     password,
     passwordConfirm,

@@ -85,7 +85,6 @@ export const RegistrationForm = () => {
                     <RegistrationPassword
                         handleChange={handleChange}
                         handleBack={handleBack}
-                        handleNext={handleNext}
                         activeStep={activeStep}
                         password={password}
                         passwordConfirm={passwordConfirm}

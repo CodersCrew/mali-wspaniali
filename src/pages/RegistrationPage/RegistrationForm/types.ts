@@ -30,7 +30,6 @@ export interface RegistrationAgreementProps {
 export type RegistrationPasswordProps = {
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     handleBack(): void;
-    handleNext(): void;
     activeStep: number;
     password: string;
     passwordConfirm: string;
