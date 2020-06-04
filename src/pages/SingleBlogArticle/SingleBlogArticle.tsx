@@ -12,6 +12,7 @@ import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { Video, Path, Content } from './types';
+import { SingleArticleColors } from '../../colors';
 
 export const SingleBlogArticle = () => {
     useAuthorization(true);
@@ -59,16 +60,18 @@ export const SingleBlogArticle = () => {
                 <Grid container direction="row">
                     <ArticleHeader title={article.title} />
                 </Grid>
-                <Grid container direction="row">
-                    <ArticleContent content={content} />
-                </Grid>
-                <Grid container direction="row">
-                    <ArticleVideo video={video} />
-                </Grid>
-                <Grid container direction="row">
-                    <ArticleRedactor redactor={article.redactor} />
-                </Grid>
-                {similarArticles && <Grid />}
+                <div className={classes.articleContentContainer}>
+                    <Grid container direction="row">
+                        <ArticleContent content={content} />
+                    </Grid>
+                    <Grid container direction="row">
+                        <ArticleVideo video={video} />
+                    </Grid>
+                    <Grid container direction="row">
+                        <ArticleRedactor redactor={article.redactor} />
+                    </Grid>
+                    {similarArticles && <Grid />}
+                </div>
             </Grid>
         );
     }
@@ -85,5 +88,11 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: 0,
             },
         },
+        articleContentContainer: {
+            [theme.breakpoints.down('sm')]: {
+                backgroundColor: SingleArticleColors.contentBackground,
+                width: '100%',
+            },
+        }
     }),
 );
