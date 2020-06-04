@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: '66px',
                 height: '66px',
                 marginRight: '25px',
+                marginLeft: '10px',
             },
         },
         contentRedactorNameContainer: {
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 paddingTop: '9vw',
+                marginLeft: '15px'
             },
         },
         contentRedactorName: {
@@ -80,8 +82,9 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 500,
 
             [theme.breakpoints.down('sm')]: {
-                marginTop: '25px',
+                marginTop: '35px',
                 marginLeft: '-80px',
+                marginBottom: '30px',
             },
         },
         contentRedactorDescription: {
