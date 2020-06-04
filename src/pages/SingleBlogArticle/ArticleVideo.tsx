@@ -82,7 +82,7 @@ const useStyles = makeStyles(() =>
                 fontSize: '8px',
                 textTransform: 'lowercase',
                 padding: 0,
-                color: '#656269',
+                color: SingleArticleColors.title,
             },
         },
     }),
