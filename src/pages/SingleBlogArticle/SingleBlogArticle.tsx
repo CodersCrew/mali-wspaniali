@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 padding: 0,
+                overflow: 'hidden',
             },
         },
         articleContentContainer: {
