@@ -3,15 +3,20 @@ import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { User, UserCredential } from '../../firebase/firebase';
+import { User, UserCredential, AuthError } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { backgroundColor, secondaryColor } from '../../colors';
 import { theme } from '../../theme';
 
+const initialError: AuthError = {
+    code: '',
+    message: '',
+};
+
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loginError, setLoginError] = useState('');
+    const [loginError, setLoginError] = useState(initialError);
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();
@@ -20,7 +25,13 @@ export const LoginPage = () => {
         if (user) history.push('/');
     };
 
-    const handleSubmitError = (error: Error) => setLoginError(error.message);
+    const handleSubmitError = (error: AuthError) => {
+        const { code, message } = error;
+        setLoginError({
+            code,
+            message,
+        });
+    };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -36,6 +47,8 @@ export const LoginPage = () => {
         }
     });
 
+    const { code } = loginError;
+
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.container}>
@@ -48,8 +61,12 @@ export const LoginPage = () => {
                         id="email"
                         label={t('e-mail')}
                         variant="outlined"
-                        error={loginError !== ''}
-                        helperText={loginError ? t('login-page.login-error') : t('login-page.e-mail-helper-text')}
+                        error={code === 'auth/user-not-found'}
+                        helperText={
+                            code === 'auth/user-not-found'
+                                ? t('login-page.login-notfound')
+                                : t('login-page.e-mail-helper-text')
+                        }
                         className={classes.formItem}
                     />
                     <TextField
@@ -60,8 +77,8 @@ export const LoginPage = () => {
                         label={t('password')}
                         type="password"
                         variant="outlined"
-                        error={loginError !== ''}
-                        helperText={loginError ? t('login-page.login-error') : ''}
+                        error={code === 'auth/wrong-password'}
+                        helperText={code === 'auth/wrong-password' ? t('login-page.login-wrong-password') : ''}
                         className={classes.formItem}
                     />
                     <div className={classes.submitWrapper}>

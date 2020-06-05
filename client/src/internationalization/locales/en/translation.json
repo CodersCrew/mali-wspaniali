@@ -10,7 +10,9 @@
         "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
         "login-header": "Log in",
         "e-mail-helper-text": "Type in e-mail address provided to Mali Wspaniali's foundation",
-        "forgot-password": "Forgot password?"
+        "forgot-password": "Forgot password?",
+        "login-notfound": "We cannot find your account in the system",
+        "login-wrong-password": "Entered password is incorrect"
     },
     "login-wrapper": {
         "welcome-text": "Welcome to Mali Wspaniali's world!",
