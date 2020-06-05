@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextField, Button, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { RegistrationCodeProps } from './types';
 import { openAlertDialog } from '../../../components/AlertDialog';
+import { getInvitationCodes } from '../../../queries/invitationCodeQueries';
+import { InvitationCode } from '../../../firebase/types';
+import { codeTest } from '../codeTest';
 
 export const RegistrationCode = ({
     handleChange,
@@ -13,7 +16,24 @@ export const RegistrationCode = ({
     classPrevBtn,
     classNextBtn,
 }: RegistrationCodeProps) => {
+    const [codeError, setCodeError] = useState(false);
+
     const { t } = useTranslation();
+    const codes = useRef<InvitationCode[]>([]);
+
+    useEffect(() => {
+        const fetchCodes = async () => {
+            const res = await getInvitationCodes();
+            codes.current = res.invitationCode;
+        };
+        fetchCodes();
+    }, []);
+
+    const handleCodeError = () => {
+        if (!codeTest(code, codes.current)) {
+            setCodeError(true);
+        }
+    };
 
     const handleClick = () => {
         openAlertDialog({
@@ -36,12 +56,21 @@ export const RegistrationCode = ({
                 variant="outlined"
                 inputProps={{ 'data-testid': 'code' }}
                 className={classForm}
+                error={codeError && !codeTest(code, codes.current)}
+                helperText={codeError && t('registration-page.invalid-code')}
+                onBlur={handleCodeError}
             />
             <div className={classButton}>
                 <Button className={classPrevBtn} onClick={handleClick}>
                     {t('registration-page.no-code')}
                 </Button>
-                <Button variant="contained" onClick={handleNext} className={classNextBtn} color="secondary">
+                <Button
+                    variant="contained"
+                    onClick={handleNext}
+                    className={classNextBtn}
+                    color="secondary"
+                    disabled={!codeTest(code, codes.current)}
+                >
                     {t('next')}
                 </Button>
             </div>

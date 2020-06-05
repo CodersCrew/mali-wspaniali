@@ -33,6 +33,12 @@ export interface Agreement {
     title: string;
 }
 
+export interface InvitationCode {
+    invitationCodeId: string;
+    code: string;
+    used: boolean;
+}
+
 export interface Child {
     id: string;
     firstName: string;

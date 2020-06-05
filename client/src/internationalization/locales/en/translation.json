@@ -31,7 +31,8 @@
         "enter-code": "Enter code",
         "enter-code-text": "Please enter the code provided by Mali Wspaniali foundation. Thanks to this code, your data will be secure.",
         "no-code": "Don't have a code?",
-        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to biuro@mali-wspaniali.pl"
+        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to biuro@mali-wspaniali.pl",
+        "invalid-code": "Code is invalid, please try again."
     },
     "forgot-password-page": {
         "forgot-password": "Forgot password",

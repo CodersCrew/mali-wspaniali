@@ -11,6 +11,7 @@ import { agreementRepository } from './agreementRepository';
 import { newsletterRepository } from './newsletterRepository';
 import { notificationRepository } from './notificationRepository';
 import { kindergartenRepository } from './kindergartenRepository';
+import { invitationCodeRepository } from './invitationCodeRepository';
 
 firebaseApp.initializeApp(config);
 
@@ -30,6 +31,7 @@ export const firebase = {
     newsletter: newsletterRepository(firestore),
     notification: notificationRepository(firestore),
     kindergarten: kindergartenRepository(firestore),
+    invitationCode: invitationCodeRepository(firestore),
 };
 
 export type User = firebaseApp.User;
