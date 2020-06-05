@@ -93,7 +93,6 @@ export const RegistrationForm = () => {
                     <RegistrationAgreement
                         handleBack={handleBack}
                         handleNext={handleNext}
-                        activeStep={activeStep}
                         classButton={classes.buttonWrapper}
                         classNextBtn={classes.nextButton}
                         classPrevBtn={classes.prevButton}

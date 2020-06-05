@@ -40,7 +40,6 @@ export interface RegistrationEmailProps {
 export interface RegistrationAgreementProps {
     handleBack(): void;
     handleNext(): void;
-    activeStep: number;
     classButton: string;
     classNextBtn: string;
     classPrevBtn: string;

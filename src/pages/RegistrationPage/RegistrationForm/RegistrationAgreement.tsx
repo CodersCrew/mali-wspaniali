@@ -6,7 +6,6 @@ import { RegistrationAgreementProps } from './types';
 export const RegistrationAgreement = ({
     handleBack,
     handleNext,
-    activeStep,
     classButton,
     classNextBtn,
     classPrevBtn,
