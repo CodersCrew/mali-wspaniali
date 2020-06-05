@@ -16,9 +16,9 @@ export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
         setCategory(categoriesList[newValue].key);
     };
 
-    return <StyledTabs value={ currentTabIndex } onChange={ handleChange }>
+    return <StyledTabs  value={ currentTabIndex } onChange={ handleChange }>
         { categoriesList.map(category => {
-            return <StyledTab key={ category.name } label={ category.name } color={ category.color } />;
+            return <StyledTab  key={ category.name } label={ category.name } color={ category.color } />;
         }) }
     </StyledTabs>;
 };

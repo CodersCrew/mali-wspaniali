@@ -134,6 +134,7 @@
         "next": "Next"
     },
     "blog-categories": {
+        "header": "ALL CATEGORIES",
         "all": "All",
         "food": "Food",
         "physical-activity": "Physical activity",

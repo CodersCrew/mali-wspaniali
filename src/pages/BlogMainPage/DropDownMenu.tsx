@@ -4,13 +4,14 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
-// import MenuItem from '@material-ui/core/MenuItem';
+import { useTranslation } from 'react-i18next';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import { Tabs } from '@material-ui/core';
 import { categoriesList } from './BlogCategories';
 import { MenuStyledTab } from './MenuStyledTab';
 import { CategoryTabProps } from './CategoryTabs';
+// eslint-disable-next-line import/extensions
 
 export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
     const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
@@ -18,6 +19,7 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const anchorRef = useRef<HTMLButtonElement>(null);
+    const { t } = useTranslation();
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -55,16 +57,17 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
 
     return (
         <div className={classes.root}>
-            <div>
+            <div  >
                 <Button
                     ref={anchorRef}
                     aria-controls={open ? 'menu-list-grow' : undefined}
                     aria-haspopup="true"
-                    onClick={handleToggle}
+                    onClick={ handleToggle }
+                    className={classes.button}
                 >
-          All categories
+                    { t('blog-categories.header') }
                 </Button>
-                <Popper className={classes.container} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                <Popper  className={classes.container} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                     {({ TransitionProps, placement }) => (
                         <Grow
                             {...TransitionProps}
@@ -98,7 +101,7 @@ const MenuStyledTabs = withStyles({
     flexContainer: {
         margin: '3%',
         alignItems: 'flex-start',
-        maxWidth: '463px',
+        maxWidth: '232.8px',
         flexWrap: 'wrap',
     },
     indicator: {
@@ -110,17 +113,22 @@ const useStyles = makeStyles(() =>
     createStyles({
         root: {
             display: 'flex',
-            justifyContent: 'center',
             alignItems: 'flex-start',
             transform: 'translate3d(0px, 35px, 0px)!important',
             zIndex: 20,
             position: 'relative',
         },
+        button: {
+            fontWeight: 'bold',
+            marginLeft:'52px'
+        },
         container: {
-            position: 'relative',
+            marginLeft: '52px',
+            position: 'absolute',
+            left:'52px',
             willChange: 'transform',
             alignItems: 'flex-start',
-            transform: 'translate3d(0px, 35px, 0px)!important',            
+            transform: 'translate3d(0px, 35px, 0px)!important',
         }
     }),
 );

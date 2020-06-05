@@ -11,8 +11,7 @@ import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 import { ArticleCategories } from './types';
 import { white } from '../../colors';
 import { DropDownMenu } from './DropDownMenu';
-
-const isMobile = window.screen.width <= 660;
+import useComponent from './hook';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -21,6 +20,7 @@ export const BlogMainPage = () => {
     const [blogArticles, setBlogArticles] = useState<PaginatedArticleList | null>(null);
     const [isLastPage, setIsLastPage] = useState(false);
     const [isFirstPage, setIsFirstPage] = useState(true);
+    const screenWidth = useComponent();
 
     useEffect(() => {
         addArticlesToState(currentCategory);
@@ -80,12 +80,12 @@ export const BlogMainPage = () => {
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
-            
-            {isMobile ? (
+
+            {(screenWidth <= 992) ? (
                 <DropDownMenu setCategory={ setCurrentCategory }/>
             ) : ( <CategoryTabs setCategory={ setCurrentCategory } />
             )}
-            
+
             <div className={classes.gridBackground}>
                 {blogArticles && (
                     <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>

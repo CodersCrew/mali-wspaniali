@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab, withStyles, WithStyles, createStyles } from '@material-ui/core';
-// import { white, blogCategoryColors } from '../../colors';
+import { blogCategoryColors } from '../../colors';
 
 type Styles = {
     color: string;
@@ -23,11 +23,11 @@ const styles = createStyles({
         minHeight: '0',
         height: '35px',
         border: styledBy('color', {
-            orange: 'solid #f5a56e',
-            yellow: 'solid  #f5a56e',
-            purple: 'solid  #f5a56e',
-            lightOrange: 'solid #f5a56e',
-            blue: 'solid #f5a56e',
+            orange: `solid 1px ${blogCategoryColors.orange}`,
+            yellow: `solid 1px ${blogCategoryColors.yellow}`,
+            purple: `solid 1px ${blogCategoryColors.purple}`,
+            lightOrange: `solid 1px ${blogCategoryColors.lightOrange}`,
+            blue: `solid 1px ${blogCategoryColors.blue}`,
         }),
         borderRadius: '4px',
         opacity: '1',
