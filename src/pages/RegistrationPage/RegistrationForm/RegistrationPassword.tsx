@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Typography,
     InputAdornment,
@@ -10,7 +10,21 @@ import {
 } from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { RegistrationPasswordProps } from './types';
+import { RegistrationPasswordProps, PasswordValidation } from './types';
+import { PasswordStrengthChips } from './PasswordStrengthChips';
+import {
+    passwordLengthTest,
+    passwordSpecialTest,
+    passwordDigitTest,
+    passwordCapitalTest,
+} from '../passwordStrengthTest';
+
+const initialPasswordValidation: PasswordValidation = {
+    length: false,
+    capital: false,
+    digit: false,
+    special: false,
+};
 
 export const RegistrationPassword = ({
     handleChange,
@@ -24,7 +38,20 @@ export const RegistrationPassword = ({
     classFormItem,
 }: RegistrationPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [passwordValidation, setPasswordValidation] = useState(
+        initialPasswordValidation
+    );
+
     const { t } = useTranslation();
+
+    useEffect(() => {
+        setPasswordValidation({
+            length: passwordLengthTest(password),
+            capital: passwordCapitalTest(password),
+            digit: passwordDigitTest(password),
+            special: passwordSpecialTest(password),
+        });
+    }, [password]);
 
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
@@ -58,6 +85,9 @@ export const RegistrationPassword = ({
                     }
                     labelWidth={70}
                     data-testid="password"
+                />
+                <PasswordStrengthChips
+                    passwordValidation={passwordValidation}
                 />
             </FormControl>
             <FormControl variant="outlined" className={classFormItem}>

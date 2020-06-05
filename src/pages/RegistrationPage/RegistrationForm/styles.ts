@@ -1,5 +1,11 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/';
-import { backgroundColor, secondaryColor, textColor, white } from '../../../colors';
+import {
+    backgroundColor,
+    secondaryColor,
+    mainColor,
+    textColor,
+    white,
+} from '../../../colors';
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -113,6 +119,20 @@ export const useStyles = makeStyles((theme: Theme) =>
             padding: '4px 10px',
             marginTop: '50px',
             boxShadow: theme.shadows[5],
+        },
+        chipsContainer: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2,1fr)',
+            justifyItems: 'start',
+            marginTop: '10px',
+        },
+        chip: {
+            margin: '5px 0',
+            border: 0,
+
+            '&.checked': {
+                color: mainColor,
+            },
         },
     })
 );

@@ -8,6 +8,13 @@ export type RegisterForm = {
     passwordConfirm: string;
 };
 
+export type PasswordValidation = {
+    length: boolean;
+    capital: boolean;
+    digit: boolean;
+    special: boolean;
+};
+
 export interface RegistrationCodeProps {
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     handleNext(): void;

@@ -32,7 +32,11 @@
         "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu, twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
         "no-code-desc": "Takie sytuacje też się zdarzają, nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie by pracownicy mogli wygenerować dla ciebie nowy kod. Napisz maila na adres biuro@mali-wspaniali.pl",
-        "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go jeszcze raz."
+        "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go jeszcze raz.",
+        "password-length": "8 znaków",
+        "password-capital": "Duża litera",
+        "password-digit": "Cyfra",
+        "password-special": "Znak specjalny"
     },
     "forgot-password-page": {
         "forgot-password": "Nie pamietasz hasła",
