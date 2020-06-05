@@ -32,6 +32,8 @@ export const RegistrationCode = ({
     const handleCodeError = () => {
         if (!codeTest(code, codes.current)) {
             setCodeError(true);
+        } else {
+            setCodeError(false);
         }
     };
 

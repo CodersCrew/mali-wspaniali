@@ -35,7 +35,7 @@ const initialState: RegisterForm = {
 
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(3);
     const [agreements, setAgreements] = useState<AdminAgreement[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
@@ -175,7 +175,7 @@ export const RegistrationForm = () => {
                     autoComplete="off"
                     onSubmit={handleSubmit}
                 >
-                    {activeStep !== 3 && (
+                    {activeStep !== 4 && (
                         <Container className={classes.headerContainer}>
                             <Typography variant="h4">
                                 <div className={classes.registrationHeader}>
