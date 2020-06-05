@@ -5,6 +5,7 @@ import {
     StepLabel,
     StepContent,
     Typography,
+    Container,
 } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -20,6 +21,7 @@ import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationPassword } from './RegistrationPassword';
 import { RegistrationFeedback } from './RegistrationFeedback';
 import { RegistrationCode } from './RegistrationCode';
+import { LanguageSelector } from './LanguageSelector';
 import { getAgreements } from '../../../queries/agreementQueries';
 import { AdminAgreement } from '../../../firebase/types';
 import { RegisterForm } from './types';
@@ -64,7 +66,7 @@ export const RegistrationForm = () => {
                         handleNext={handleNext}
                         code={code}
                         classForm={classes.formItem}
-                        classButton={clsx(classes.buttonWrapper, activeStep === 0 && 'emailContent')}
+                        classButton={classes.buttonWrapper}
                         classNextBtn={classes.nextButton}
                         classPrevBtn={classes.prevButton}
                     />
@@ -174,9 +176,14 @@ export const RegistrationForm = () => {
                     onSubmit={handleSubmit}
                 >
                     {activeStep !== 3 && (
-                        <div className={classes.loginHeader}>
-                            {t('registration-page.register')}
-                        </div>
+                        <Container className={classes.headerContainer}>
+                            <Typography variant="h4">
+                                <div className={classes.registrationHeader}>
+                                    {t('registration-page.register')}
+                                </div>
+                            </Typography>
+                            <LanguageSelector />
+                        </Container>
                     )}
                     <Stepper
                         activeStep={activeStep}

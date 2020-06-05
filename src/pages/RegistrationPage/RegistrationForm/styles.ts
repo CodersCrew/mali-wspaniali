@@ -23,6 +23,17 @@ export const useStyles = makeStyles((theme: Theme) =>
                 margin: '0 15px',
             },
         },
+        headerContainer: {
+            display: 'flex',
+            marginBottom: '25px',
+            justifyContent: 'center',
+            alignItems: 'center',
+
+            '@media (max-width:767px)': {
+                marginTop: '40px',
+                marginBottom: '5px',
+            },
+        },
         formItem: {
             margin: '10px 0',
             width: '100%',
@@ -40,14 +51,10 @@ export const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
             fontSize: '21px',
             fontWeight: 'bold',
-            marginBottom: '25px',
             textTransform: 'uppercase',
             color: textColor,
 
             '@media (max-width:767px)': {
-                marginTop: '40px',
-                marginBottom: '5px',
-
                 '&.confirmation': {
                     marginTop: 0,
                 },
