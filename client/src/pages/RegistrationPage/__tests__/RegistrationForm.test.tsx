@@ -7,7 +7,8 @@ import * as userQueries from '../../../queries/userQueries';
 describe('Registration Form', () => {
     // let alertDialogSpy: jasmine.Spy;
     let registerForm: RenderResult;
-    let emailInput: HTMLElement;
+    // let emailInput: HTMLElement;
+    let codeInput: HTMLElement;
     // let passwordInput: HTMLElement;
     // let confirmPasswordInput: HTMLElement;
     let button: HTMLElement;
@@ -18,21 +19,31 @@ describe('Registration Form', () => {
         // alertDialogSpy = spyOn(Dialog, 'openAlertDialog').and.returnValue(null);
 
         registerForm = await render(<RegistrationForm />);
-        button = await registerForm.findByRole('button');
-        emailInput = await registerForm.findByTestId('email');
+        button = await registerForm.findByTestId('code-next');
+        codeInput = await registerForm.findByTestId('code');
         // passwordInput = await registerForm.findByTestId('password');
         // confirmPasswordInput = await registerForm.findByTestId('confirmPassword');
     });
 
-    describe('when email is not valid', () => {
+    describe('when code is not valid', () => {
         beforeEach(() => {
-            fireEvent.change(emailInput, { target: { value: 'notvalid' } });
+            fireEvent.change(codeInput, { target: { value: '123456' } });
         });
 
         it('disables the next button', () => {
             expect(button).toHaveAttribute('disabled');
         });
     });
+
+    // describe('when email is not valid', () => {
+    //     beforeEach(() => {
+    //         fireEvent.change(emailInput, { target: { value: 'notvalid' } });
+    //     });
+
+    //     it('disables the next button', () => {
+    //         expect(button).toHaveAttribute('disabled');
+    //     });
+    // });
 
     // describe('when password is not strong enough', () => {
     //     beforeEach(() => {

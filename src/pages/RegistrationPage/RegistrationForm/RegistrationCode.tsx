@@ -72,6 +72,7 @@ export const RegistrationCode = ({
                     className={classNextBtn}
                     color="secondary"
                     disabled={!codeTest(code, codes.current)}
+                    data-testid="code-next"
                 >
                     {t('next')}
                 </Button>

@@ -35,7 +35,7 @@ const initialState: RegisterForm = {
 
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
-    const [activeStep, setActiveStep] = useState(3);
+    const [activeStep, setActiveStep] = useState(0);
     const [agreements, setAgreements] = useState<AdminAgreement[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
