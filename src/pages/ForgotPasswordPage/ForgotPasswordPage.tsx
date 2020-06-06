@@ -44,18 +44,9 @@ export const ForgotPasswordPage = () => {
   }
 
   const getImageSource = (imageState: ImageState) => {
-    let source: string;
-    switch (imageState) {
-      case ImageState.error:
-        source = ErrorImage
-        break;
-      case ImageState.success:
-        source = SuccessImage
-        break;
-      default:
-        source = DefaultImage
-    }
-    return source
+    if (imageState === ImageState.error) return ErrorImage;
+    if (imageState === ImageState.success) return SuccessImage;
+    return DefaultImage;
   }
 
   const renderPostSentJSX = () => (
@@ -69,10 +60,8 @@ export const ForgotPasswordPage = () => {
       <Button
         type="button"
         variant="contained"
-        disabled={!isValidEmail(email)}
         color="secondary"
         className={classes.loginLinkWrapper}
-        onClick={handleCreateNewPassword}
       >
         <Link to="/login" className={classes.loginLink}>
           {t('forgot-password-page.back-to-login')}
