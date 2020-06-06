@@ -19,8 +19,8 @@ export const UsersPage = () => {
     const [usersList, setUsersList] = useState<Document[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage] = useState(10);
-    const [lastVisible, setLastVisible] = useState();
-    const [firstVisible, setFirstVisible] = useState();
+    const [lastVisible, setLastVisible] = useState<Document | null>(null);
+    const [firstVisible, setFirstVisible] = useState<Document | null>(null);
     const [listeners, setListeners] = useState<(() => void)[]>([]);
     const { t } = useTranslation();
 

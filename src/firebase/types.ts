@@ -28,10 +28,20 @@ export interface Redactor {
 }
 
 export interface Result {
-    title: string;
-    description: string;
-    date: Date;
-    points: number;
+    dateOfTest: Date;
+    ageOfChild: number;
+    testPeriod: 'begin' | 'end';
+    schoolYear: string;
+    strengthCentimeters: number;
+    strengthPoints: number;
+    powerCentimeters: number;
+    powerPoints: number;
+    speedSeconds: number;
+    speedPoints: number;
+    agilitySeconds: number;
+    agilityPoints: number;
+    sumOfPoints: number;
+    updatedAt: Date;
 }
 
 export interface Agreement {
@@ -73,4 +83,10 @@ export interface PaginatedArticleList {
     firstSnap: Snapshot;
     lastSnap: Snapshot;
     isMore: boolean;
+}
+
+export interface Kindergarten {
+    city: string;
+    number: string;
+    id: string;
 }

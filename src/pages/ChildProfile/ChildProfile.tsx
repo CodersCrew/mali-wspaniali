@@ -93,6 +93,7 @@ const useStyles = makeStyles({
         minHeight: 'unset',
     },
     tabsRoot: {
+        minHeight: '34px',
         '& button': {
             border: `1px solid ${secondaryColor}`,
             color: secondaryColor,
