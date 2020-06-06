@@ -25,7 +25,7 @@
         "password-not-strong": "Hasło za słabe"
     },
     "forgot-password-page": {
-        "forgot-password": "Nie pamietasz hasła?",
+        "forgot-password": "Nie pamietasz hasła",
         "its-ok": "Nic się nie stało. Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
@@ -33,7 +33,9 @@
         "problem": "Masz problem?",
         "contact": "Skontaktuj się z fundacją by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail podany fundacji",
-        "back-to-login": "Wróć do logowania"
+        "back-to-login": "Wróć do logowania",
+        "email-sent": "Na twój adres email wysłaliśmy maila.",
+        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło."
     },
     "users-page": {
         "agreements": "Zgody",

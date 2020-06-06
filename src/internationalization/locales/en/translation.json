@@ -25,7 +25,7 @@
         "password-not-strong": "Password not strong enough"
     },
     "forgot-password-page": {
-        "forgot-password": "Forgot password?",
+        "forgot-password": "Forgot password",
         "its-ok": "Don't worry. Type in your email address.",
         "receive-link": "You will receive a link to create a new password.",
         "insert-email": "Type in e-mail address provided to the foundation",
@@ -33,7 +33,9 @@
         "problem": "Stumbled upon a problem?",
         "contact": "Please contact the foundation to resolve it",
         "email-helper-text": "Type in e-mail address provided to the foundation",
-        "back-to-login": "Back to login"
+        "back-to-login": "Back to login",
+        "email-sent": "We have sent you an email.",
+        "when-received": "Once you receive it, click a link to create a new password."
     },
     "users-page": {
         "agreements": "Agreements",

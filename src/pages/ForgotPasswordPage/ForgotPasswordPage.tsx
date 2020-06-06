@@ -1,12 +1,15 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom'
 
 import { TextField, Button, makeStyles, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 
-
 import { theme } from '../../theme';
 import { backgroundColor, secondaryColor } from '../../colors';
+import { handlePasswordReset } from '../../queries/authQueries';
+import { isValidEmail } from './isValidEmail';
+
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
@@ -21,17 +24,24 @@ enum ImageState {
 export const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
   const [imageState, setImageState] = useState<ImageState>(ImageState.default);
-
-  console.log(imageState)
+  const [resetEmailSent, setResetEmailSent] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
 
-    value === ""
-      ? setImageState(ImageState.default)
-      : setImageState(ImageState.success)
+    isValidEmail(value)
+      ? setImageState(ImageState.success)
+      : setImageState(ImageState.error)
 
+    if (value === "") setImageState(ImageState.default)
     setEmail(event.target.value)
+  }
+
+  const handleCreateNewPassword = () => {
+    setImageState(ImageState.success)
+    handlePasswordReset(email)
+      .then(res => setResetEmailSent(true))
+      .catch(error => setResetEmailSent(true))
   }
 
   const imageSrc = (imageState: ImageState) => {
@@ -52,6 +62,70 @@ export const ForgotPasswordPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const preSubmitJSX = (
+    <>
+      <Typography variant="body1" className={classes.subtitle}>
+        {t('forgot-password-page.email-sent')}
+      </Typography>
+      <Typography variant="body1" className={classes.subtitle}>
+        {t('forgot-password-page.when-received')}
+      </Typography>
+      <Button
+        type="button"
+        variant="contained"
+        disabled={!isValidEmail(email)}
+        color="secondary"
+        className={classes.loginLinkWrapper}
+        onClick={handleCreateNewPassword}
+      >
+        <Link to="/login" className={classes.loginLink}>
+          {t('forgot-password-page.back-to-login')}
+        </Link>
+      </Button>
+    </>
+  )
+
+  const postSubmitJSX = (
+    <>
+      <Typography variant="body1" className={classes.subtitle}>
+        {t('forgot-password-page.its-ok')}
+      </Typography>
+      <Typography variant="body1" className={`${classes.subtitle} ${classes.subtitleThin}`}>
+        {t('forgot-password-page.receive-link')}
+      </Typography>
+      <TextField
+        required
+        value={email}
+        id="email"
+        label={t('e-mail')}
+        variant="outlined"
+        className={classes.textField}
+        helperText={t('forgot-password-page.email-helper-text')}
+        onChange={handleInputChange}
+      />
+      <div className={classes.buttonWrapper}>
+        <Button
+          type="button"
+          variant="contained"
+          disabled={!isValidEmail(email)}
+          color="secondary"
+          className={classes.button}
+          onClick={handleCreateNewPassword}
+        >
+          {t('forgot-password-page.new-password')}
+        </Button>
+      </div>
+      <div className={classes.underlined}>
+        <Typography variant="caption">
+          {t('forgot-password-page.problem')}
+        </Typography>
+        <Typography variant="caption">
+          {t('forgot-password-page.contact')}
+        </Typography>
+      </div>
+    </>
+  )
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.container}>
@@ -60,41 +134,11 @@ export const ForgotPasswordPage = () => {
           <Typography variant="h3" className={classes.title}>
             {t('forgot-password-page.forgot-password')}
           </Typography>
-          <Typography variant="body1" className={classes.subtitle}>
-            {t('forgot-password-page.its-ok')}
-          </Typography>
-          <Typography variant="body1" className={`${classes.subtitle} ${classes.subtitleThin}`}>
-            {t('forgot-password-page.receive-link')}
-          </Typography>
-          <TextField
-            required
-            value={email}
-            id="email"
-            label={t('e-mail')}
-            variant="outlined"
-            className={classes.textField}
-            helperText={t('forgot-password-page.email-helper-text')}
-            onChange={handleInputChange}
-          />
-          <div className={classes.buttonWrapper}>
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={!email}
-              color="secondary"
-              className={classes.button}
-            >
-              {t('forgot-password-page.new-password')}
-            </Button>
-          </div>
-          <div className={classes.underlined}>
-            <Typography variant="caption">
-              {t('forgot-password-page.problem')}
-            </Typography>
-            <Typography variant="caption">
-              {t('forgot-password-page.contact')}
-            </Typography>
-          </div>
+          {
+            resetEmailSent
+              ? preSubmitJSX
+              : postSubmitJSX
+          }
         </div>
       </div>
     </ThemeProvider>
@@ -166,6 +210,16 @@ const useStyles = makeStyles({
       width: '100px',
       marginTop: '40px'
     }
+  },
+  loginLinkWrapper: {
+    marginBottom: '20px',
+    marginTop: '40px',
+  },
+  loginLink: {
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    color: 'white',
+    textDecoration: 'none',
   },
   underlined: {
     textAlign: 'center',
