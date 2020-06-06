@@ -13,6 +13,8 @@ import { isValidEmail } from './isValidEmail';
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
+import PlFlag from '../../assets/pl.png';
+import EnFlag from '../../assets/en.png';
 
 
 enum ImageState {
@@ -22,9 +24,16 @@ enum ImageState {
 }
 
 export const ForgotPasswordPage = () => {
+  const localStorageLanguage = localStorage.getItem('i18nextLng');
+  const classes = useStyles();
+  const { i18n, t } = useTranslation();
   const [email, setEmail] = useState('');
   const [imageState, setImageState] = useState<ImageState>(ImageState.default);
   const [resetEmailSent, setResetEmailSent] = useState(false)
+
+  const changeLanguage = (lng: string) => {
+    return i18n.changeLanguage(lng);
+  };
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
@@ -59,10 +68,15 @@ export const ForgotPasswordPage = () => {
     return source
   }
 
-  const classes = useStyles();
-  const { t } = useTranslation();
+  const languageImage = (flag: string, language: string) => {
+    return (
+      <div className={classes.languageIcon} onClick={() => changeLanguage(language)}>
+        <img src={flag} alt={language} />
+      </div>
+    );
+  };
 
-  const preSubmitJSX = (
+  const preSentJSX = (
     <>
       <Typography variant="body1" className={classes.subtitle}>
         {t('forgot-password-page.email-sent')}
@@ -85,7 +99,7 @@ export const ForgotPasswordPage = () => {
     </>
   )
 
-  const postSubmitJSX = (
+  const postSentJSX = (
     <>
       <Typography variant="body1" className={classes.subtitle}>
         {t('forgot-password-page.its-ok')}
@@ -115,7 +129,7 @@ export const ForgotPasswordPage = () => {
           {t('forgot-password-page.new-password')}
         </Button>
       </div>
-      <div className={classes.underlined}>
+      <div className={classes.underlinedText}>
         <Typography variant="caption">
           {t('forgot-password-page.problem')}
         </Typography>
@@ -131,13 +145,16 @@ export const ForgotPasswordPage = () => {
       <div className={classes.container}>
         <div className={classes.layout}>
           <img className={classes.image} src={imageSrc(imageState)} alt="małgosia czy jak jej tam" />
-          <Typography variant="h3" className={classes.title}>
-            {t('forgot-password-page.forgot-password')}
-          </Typography>
+          <div className={classes.titleWrapper}>
+            <Typography variant="h3" className={classes.title}>
+              {t('forgot-password-page.forgot-password')}
+            </Typography>
+            {localStorageLanguage === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}
+          </div>
           {
             resetEmailSent
-              ? preSubmitJSX
-              : postSubmitJSX
+              ? preSentJSX
+              : postSentJSX
           }
         </div>
       </div>
@@ -166,6 +183,14 @@ const useStyles = makeStyles({
       maxWidth: '480px',
       margin: '0 15px',
     },
+  },
+  titleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  languageIcon: {
+    marginLeft: '20px'
   },
   title: {
     textAlign: 'center',
@@ -221,7 +246,7 @@ const useStyles = makeStyles({
     color: 'white',
     textDecoration: 'none',
   },
-  underlined: {
+  underlinedText: {
     textAlign: 'center',
     position: 'relative',
     marginBottom: '20px',
