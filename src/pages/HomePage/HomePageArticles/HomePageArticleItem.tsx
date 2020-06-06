@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom';
 import { cardBackgroundColor, secondaryColor, textColor } from '../../../colors';
 import { ArticlePropTypes } from './types';
 
+const smHeight = window.screen.height <= 840 && window.screen.width > 1024;
+const mdHeight = window.screen.height < 905 && window.screen.width > 1024;
+
+const articleCardHeight = smHeight ? '320px' : mdHeight ? '330px' : '360px';
+const articleFontSize = mdHeight ? 13 : 14;
+
 export const HomePageArticleItem = ({ articleId, title, description, ArticlePictureComponent }: ArticlePropTypes) => {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -37,8 +43,8 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: 25,
             minWidth: '306px',
             maxWidth: '306px',
-            minHeight: '360px',
-            maxHeight: '360px',
+            minHeight: articleCardHeight,
+            maxHeight: articleCardHeight,
             color: textColor,
             position: 'relative',
 
@@ -70,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: 4,
             marginBottom: 10,
             color: textColor,
-            fontSize: 14,
+            fontSize: articleFontSize,
             wordBreak: 'break-word',
         },
         articleDescription: {
@@ -78,6 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight: '18px',
             marginTop: 0,
             maxHeight: 60,
+            fontSize: articleFontSize,
 
             [theme.breakpoints.down('sm')]: {
                 maxHeight: 40,

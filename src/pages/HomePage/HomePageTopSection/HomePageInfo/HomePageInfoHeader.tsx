@@ -3,6 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import InfoImage from '../../../../assets/MALWSP_info.png';
 
+const smHeight = window.screen.height <= 840 && window.screen.width > 1024;
+
 export const HomePageInfoHeader = () => {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         headerImage: {
             marginRight: 15,
+            height: smHeight ? 110 : 'auto',
 
             [theme.breakpoints.down('md')]: {
                 maxHeight: 80,

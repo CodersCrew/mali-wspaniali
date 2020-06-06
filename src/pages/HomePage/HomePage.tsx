@@ -5,6 +5,9 @@ import { HomePageChildren } from './HomePageTopSection/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
 import { mainColor } from '../../colors';
 
+const smHeight = window.screen.height <= 840 && window.screen.width > 1024;
+const mdHeight = window.screen.height < 905 && window.screen.width > 1024;
+
 export const ParentHomePage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -29,7 +32,7 @@ export const ParentHomePage = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            padding: '0 0 54px 0',
+            padding: mdHeight ? '0 0 20px 0' : '0 0 54px 0',
             fontFamily: 'Montserrat, sans-serif',
 
             [theme.breakpoints.down('md')]: {
@@ -38,8 +41,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         header: {
-            fontSize: 36,
-            marginBottom: 20,
+            fontSize: smHeight ? 30 : mdHeight ? 33 : 36,
+            marginBottom: smHeight ? 10 : mdHeight ? 15 : 20,
             marginTop: 0,
             textTransform: 'uppercase',
             lineHeight: '44px',
@@ -50,9 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         description: {
-            margin: '20px 0 40px 0',
-            fontSize: 21,
-            lineHeight: '26px',
+            margin: mdHeight ? '15px 0 30px 0' : '20px 0 40px 0',
+            fontSize: smHeight ? 18 : 21,
+            lineHeight: smHeight ? '20px' : '26px',
             fontWeight: 500,
 
             [theme.breakpoints.down('sm')]: {

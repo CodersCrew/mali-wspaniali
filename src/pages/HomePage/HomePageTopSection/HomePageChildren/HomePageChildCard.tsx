@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import { ChildPropTypes } from './types';
 import { cardBackgroundColor } from '../../../../colors';
 
+const smHeight = window.screen.height <= 840 && window.screen.width > 1024;
+const mdHeight = window.screen.height < 905 && window.screen.width > 1024;
+
+const cardHeight = smHeight ? '133px' : mdHeight ? '155px' : '163px';
+
 export const HomePageChildCard: FC<ChildPropTypes> = ({ id, firstName, PictureComponent }) => {
     const classes = useStyles();
 
@@ -33,8 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '4px',
             fontWeight: 'bold',
             maxWidth: '121px',
-            maxHeight: '163px',
-            height: '163px',
+            maxHeight: cardHeight,
+            height: cardHeight,
 
             [theme.breakpoints.down('sm')]: {
                 marginRight: 0,

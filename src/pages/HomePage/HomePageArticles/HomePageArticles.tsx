@@ -10,6 +10,8 @@ import { getArticlesListData } from '../../../queries/articleQueries';
 import { ArticleCarousel } from './HomePageArticleCarousel';
 
 const isMobile = window.screen.width < 1024;
+const smHeight = window.screen.height <= 840 && window.screen.width > 1024;
+const mdHeight = window.screen.height < 905 && window.screen.width > 1024;
 
 export const HomePageArticles = () => {
     const classes = useStyles();
@@ -58,9 +60,9 @@ const useStyles = makeStyles((theme: Theme) =>
         articleHeader: {
             textTransform: 'uppercase',
             fontWeight: 'bold',
-            fontSize: 21,
+            fontSize: smHeight ? 18 : 21,
             color: textColor,
-            margin: '20px 0 20px 0',
+            margin: smHeight ? '10px 0 10px 0' : '20px 0 20px 0',
 
             [theme.breakpoints.down('sm')]: {
                 fontSize: 15,
@@ -87,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'relative',
             width: '100%',
             top: '-26px',
-            maxHeight: '185px',
+            maxHeight: smHeight ? '155px' : mdHeight ? '175px' : '185px',
             maxWidth: '276px',
 
             [theme.breakpoints.down('sm')]: {

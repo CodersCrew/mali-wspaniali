@@ -11,6 +11,11 @@ import { useAuthorization } from '../../../../hooks/useAuthorization';
 import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
 
+const smHeight = window.screen.height <= 840 && window.screen.width > 1024;
+const mdHeight = window.screen.height < 905 && window.screen.width > 1024;
+
+const avatarHeight = smHeight ? '100px' : mdHeight ? '113px' : '126px';
+
 export const HomePageChildren = () => {
     const currentUser = useAuthorization(true);
     const classes = useStyles();
@@ -59,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         childAvatar: {
             width: '122px',
-            height: '126px',
+            height: avatarHeight,
             objectFit: 'contain',
             borderRadius: '4px 4px 0px 0px',
 
@@ -72,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         infoContainer: {
             display: 'flex',
-            marginBottom: 40,
+            marginBottom: smHeight ? 30 : 40,
             padding: '0 50px 0 0',
 
             [theme.breakpoints.down('md')]: {

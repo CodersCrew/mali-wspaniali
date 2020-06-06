@@ -5,6 +5,16 @@ import { HomePageInfoHeader } from './HomePageInfoHeader';
 import { HomePageInfoContent } from './HomePageInfoContent';
 import { HomePageInfoPropTypes } from './types';
 
+const smHeight = window.screen.height <= 840 && window.screen.width > 1024;
+const mdHeight = window.screen.height < 905 && window.screen.width > 1024;
+
+const infoContainerHeight = smHeight ? '133px' : mdHeight ? '155px' : '200px';
+const infoContainerPadding = smHeight
+    ? '12px 10px 11px 11px'
+    : mdHeight
+    ? '15px 14px 15px 15px'
+    : '20px 14px 15px 15px';
+
 export const HomePageInfo = ({ toggleInfoComponent }: HomePageInfoPropTypes) => {
     const [isReadMoreBtnClicked, setIsReadMoreBtnClicked] = useState(false);
     const classes = useStyles();
@@ -30,14 +40,14 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: '4px',
             background: cardBackgroundColor,
-            padding: '20px 14px 15px 15px',
+            padding: infoContainerPadding,
             position: 'relative',
-            maxHeight: '163px',
+            maxHeight: smHeight ? '133px' : mdHeight ? '155px' : '163px',
 
             [theme.breakpoints.down('md')]: {
                 margin: '30px 30px 0 30px',
                 padding: '10px 10px 8px 10px',
-                maxHeight: '200px',
+                maxHeight: infoContainerHeight,
                 flexDirection: 'column',
                 textAlign: 'left',
                 overflowY: 'hidden',
@@ -53,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         smallInfoContainer: {
-            maxHeight: '200px',
+            maxHeight: infoContainerHeight,
         },
     }),
 );
