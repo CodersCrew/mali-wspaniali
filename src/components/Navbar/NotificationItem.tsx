@@ -8,14 +8,14 @@ import { useAuthorization } from '../../hooks/useAuthorization';
 import { setNotificationReadValue } from '../../queries/notificationQueries';
 import { darkGrey, textColor, notificationReadColor, notificationCaptionColor, secondaryColor } from '../../colors';
 
-type notificationListProps = {
+type notificationItemProps = {
     text: string;
     date: Timestamp;
     isRead: boolean;
     id: string;
 }
 
-export const NotificationItem = ({ text, date, isRead, id }: notificationListProps) => {
+export const NotificationItem = ({ text, date, isRead, id }: notificationItemProps) => {
     const classes = useStyles();
     const currentUser = useAuthorization(true);
 

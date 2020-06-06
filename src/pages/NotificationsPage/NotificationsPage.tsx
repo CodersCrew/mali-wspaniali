@@ -16,7 +16,7 @@ export const NotificationsPage = () => {
 
     useEffect(() => {
         if(currentUser) {
-            addNotificationsToState(currentUser.uid, 7)
+            addNotificationsToState(currentUser.uid, 9)
         }
     })
 
@@ -66,7 +66,7 @@ export const NotificationsPage = () => {
         const startAfter = paginationDirection === 'next' ? notificationPaginatedList.lastSnap : undefined;
         const endBefore = paginationDirection === 'prev' ? notificationPaginatedList.firstSnap : undefined;
         if(currentUser) {
-            addNotificationsToState(currentUser.uid, 7, startAfter, endBefore);
+            addNotificationsToState(currentUser.uid, 9, startAfter, endBefore);
         }
     };
     

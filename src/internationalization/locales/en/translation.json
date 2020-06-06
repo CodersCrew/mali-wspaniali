@@ -236,6 +236,15 @@
         "emotions": "Emotions",
         "other": "Other"
     },
+    "notification-panel": {
+        "read-more": "Read more"
+    },
+    "notifications-page": {
+        "header": "Notifications",
+        "description": "Check all notifications on your account",
+        "content": "Notification content",
+        "date": "Date"
+    },
     "years_0": "year",
     "years_1": "years"
 }

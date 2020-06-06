@@ -8,14 +8,14 @@ import { useAuthorization } from '../../hooks/useAuthorization';
 import { setNotificationReadValue } from '../../queries/notificationQueries'
 import { secondaryColor, notificationReadColor, darkGrey } from '../../colors';
 
-export type notificationListProps = {
+export type notificationItemProps = {
     text: string;
     date: Timestamp;
     id: string;
     isRead: boolean;
 }
 
-export const NotificationPageListItem = ({ text, date, id, isRead }: notificationListProps) => {
+export const NotificationPageListItem = ({ text, date, id, isRead }: notificationItemProps) => {
     const classes = useStyles();
     const currentUser = useAuthorization(true);
 
@@ -27,7 +27,7 @@ export const NotificationPageListItem = ({ text, date, id, isRead }: notificatio
 
     return(
         <TableRow key={id} onClick={setNotificationValue} className={clsx(classes.background, isRead ? 'read' : null)}>
-            <TableCell className={classes.text} component="th" scope="row">
+            <TableCell key={id} className={classes.text} component="th" scope="row">
                 <Notifications className={clsx(classes.icon, isRead ? 'read' : null)}/>
                 {text}
             </TableCell>

@@ -52,14 +52,14 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
                 docData.id = snap.ref.id;
                 notifications.push(docData);
             });
-            if (notifications.length < 7) {
+            if (notifications.length < 9) {
                 isMore = false;
             }
             let firstIndex = 0;
             let lastIndex = 5;
-            if (endBefore && notifications.length > 6) {
+            if (endBefore && notifications.length > 8) {
                 firstIndex = 1;
-                lastIndex = 6;
+                lastIndex = 8;
             }
             onSnapshotCallback({
                 notifications: notifications.slice(firstIndex, lastIndex + 1),
