@@ -60,7 +60,7 @@ export const ForgotPasswordPage = () => {
     return source
   }
 
-  const preSentJSX = (
+  const postSentJSX = (
     <>
       <Typography variant="body1" className={classes.subtitle}>
         {t('forgot-password-page.email-sent')}
@@ -83,7 +83,7 @@ export const ForgotPasswordPage = () => {
     </>
   )
 
-  const postSentJSX = (
+  const preSentJSX = (
     <>
       <Typography variant="body1" className={classes.subtitle}>
         {t('forgot-password-page.its-ok')}
@@ -134,8 +134,8 @@ export const ForgotPasswordPage = () => {
           </Typography>
           {
             resetEmailSent
-              ? preSentJSX
-              : postSentJSX
+              ? postSentJSX
+              : preSentJSX
           }
         </div>
       </div>
