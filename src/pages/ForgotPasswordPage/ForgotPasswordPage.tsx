@@ -25,7 +25,7 @@ export const ForgotPasswordPage = () => {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [imageState, setImageState] = useState<ImageState>(ImageState.default);
-  const [resetEmailSent, setResetEmailSent] = useState(false)
+  const [isResetEmailSent, setIsResetEmailSent] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
@@ -39,8 +39,8 @@ export const ForgotPasswordPage = () => {
   const handleCreateNewPassword = () => {
     setImageState(ImageState.success)
     handlePasswordReset(email)
-      .then(res => setResetEmailSent(true))
-      .catch(error => setResetEmailSent(true))
+      .then(res => setIsResetEmailSent(true))
+      .catch(error => setIsResetEmailSent(true))
   }
 
   const getImageSource = (imageState: ImageState) => {
@@ -131,7 +131,7 @@ export const ForgotPasswordPage = () => {
             {t('forgot-password-page.forgot-password')}
           </Typography>
           {
-            resetEmailSent
+            isResetEmailSent
               ? renderPostSentJSX()
               : renderPreSentJSX()
           }
