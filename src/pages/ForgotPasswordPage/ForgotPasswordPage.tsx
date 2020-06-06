@@ -29,13 +29,11 @@ export const ForgotPasswordPage = () => {
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
+    const validEmail = isValidEmail(value);
 
-    isValidEmail(value)
-      ? setImageState(ImageState.success)
-      : setImageState(ImageState.error)
-
-    if (value === "") setImageState(ImageState.default)
-    setEmail(event.target.value)
+    setImageState(ImageState[validEmail ? 'success' : 'error']);
+    if (value === "") setImageState(ImageState.default);
+    setEmail(event.target.value);
   }
 
   const handleCreateNewPassword = () => {
@@ -45,7 +43,7 @@ export const ForgotPasswordPage = () => {
       .catch(error => setResetEmailSent(true))
   }
 
-  const imageSrc = (imageState: ImageState) => {
+  const getImageSource = (imageState: ImageState) => {
     let source: string;
     switch (imageState) {
       case ImageState.error:
@@ -60,7 +58,7 @@ export const ForgotPasswordPage = () => {
     return source
   }
 
-  const postSentJSX = (
+  const renderPostSentJSX = () => (
     <>
       <Typography variant="body1" className={classes.subtitle}>
         {t('forgot-password-page.email-sent')}
@@ -83,7 +81,7 @@ export const ForgotPasswordPage = () => {
     </>
   )
 
-  const preSentJSX = (
+  const renderPreSentJSX = () => (
     <>
       <Typography variant="body1" className={classes.subtitle}>
         {t('forgot-password-page.its-ok')}
@@ -128,14 +126,14 @@ export const ForgotPasswordPage = () => {
     <ThemeProvider theme={theme}>
       <div className={classes.container}>
         <div className={classes.layout}>
-          <img className={classes.image} src={imageSrc(imageState)} alt="małgosia czy jak jej tam" />
+          <img className={classes.image} src={getImageSource(imageState)} alt="małgosia czy jak jej tam" />
           <Typography variant="h3" className={classes.title}>
             {t('forgot-password-page.forgot-password')}
           </Typography>
           {
             resetEmailSent
-              ? postSentJSX
-              : preSentJSX
+              ? renderPostSentJSX()
+              : renderPreSentJSX()
           }
         </div>
       </div>
