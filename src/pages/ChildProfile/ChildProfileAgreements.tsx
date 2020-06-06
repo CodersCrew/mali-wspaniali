@@ -47,28 +47,33 @@ export const ChildProfileAgreements = () => {
 
     return (
         <Card className={classes.card}>
-            <Typography className={classes.heading}>Poniżej możesz sprawdzić i edytować podpisane zgody.</Typography>
-            <List>
-                {agreements.map(item => (
-                    <ListItem alignItems="flex-start" key={item.name}>
-                        <ListItemIcon className={classes.listItemIcon}>
-                            <Checkbox
-                                edge="start"
-                                checked={item.checked}
-                                onChange={handleChange}
-                                name={item.name}
-                                disableRipple={item.disabled}
-                                tabIndex={-1}
+            <div>
+                <Typography className={classes.heading}>
+                    Poniżej możesz sprawdzić i edytować podpisane zgody.
+                </Typography>
+                <List>
+                    {agreements.map(item => (
+                        <ListItem alignItems="flex-start" key={item.name}>
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <Checkbox
+                                    edge="start"
+                                    checked={item.checked}
+                                    onChange={handleChange}
+                                    name={item.name}
+                                    disableRipple={item.disabled}
+                                    tabIndex={-1}
+                                />
+                            </ListItemIcon>
+                            <ListItemText
+                                className={classes.listItemText}
+                                primary={item.label}
+                                secondary={item.description}
                             />
-                        </ListItemIcon>
-                        <ListItemText
-                            className={classes.listItemText}
-                            primary={item.label}
-                            secondary={item.description}
-                        />
-                    </ListItem>
-                ))}
-            </List>
+                        </ListItem>
+                    ))}
+                </List>
+            </div>
+            <img className={classes.image} src="https://via.placeholder.com/316x200" alt="placeholder" />
         </Card>
     );
 };
@@ -76,6 +81,7 @@ export const ChildProfileAgreements = () => {
 const useStyles = makeStyles({
     card: {
         padding: 40,
+        display: 'flex',
     },
     heading: {
         fontSize: 21,
@@ -100,5 +106,11 @@ const useStyles = makeStyles({
             fontSize: 12,
             color: '#505050',
         },
+    },
+    image: {
+        width: 316,
+        height: 200,
+        marginLeft: 'auto',
+        alignSelf: 'flex-end',
     },
 });
