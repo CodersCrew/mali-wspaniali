@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Avatar, Typography, Box } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
 import { lineHeight, letterSpace } from '../../fontStyle';
 import { Redactor } from '../../firebase/types';
 
@@ -36,7 +36,7 @@ export const ArticleRedactor = ({ redactor }: { redactor: Redactor }) => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentRedactorAvatarContainer: {
             paddingTop: '4.2vw',
@@ -44,15 +44,31 @@ const useStyles = makeStyles(() =>
         contentRedactorAvatar: {
             minWidth: '9vw',
             minHeight: '9vw',
+
+            [theme.breakpoints.down('sm')]: {
+                width: '66px',
+                height: '66px',
+                marginRight: '25px',
+                marginLeft: '10px',
+            },
         },
         contentRedactorNameContainer: {
             paddingTop: '4.5vw',
+
+            [theme.breakpoints.down('sm')]: {
+                paddingTop: '9vw',
+                marginLeft: '15px'
+            },
         },
         contentRedactorName: {
             fontSize: '15px',
             fontWeight: 'bold',
             letterSpacing: letterSpace,
             lineHeight,
+
+            [theme.breakpoints.down('sm')]: {
+                width: '100vw',
+            },
         },
         contentRedactorProf: {
             fontSize: '14px',
@@ -64,9 +80,19 @@ const useStyles = makeStyles(() =>
         },
         contentRedactorDescriptionBox: {
             fontWeight: 500,
+
+            [theme.breakpoints.down('sm')]: {
+                marginTop: '35px',
+                marginLeft: '-80px',
+                marginBottom: '30px',
+            },
         },
         contentRedactorDescription: {
             fontSize: '18px',
+
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '13px',
+            },
         },
     }),
 );
