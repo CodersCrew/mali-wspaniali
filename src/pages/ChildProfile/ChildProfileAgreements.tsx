@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,69 +8,73 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
-
-const DISABLED_FIELDS = ['participation'];
+import { useSubscribed } from '../../hooks/useSubscribed';
+import { Agreement, UserAgreement } from '../../firebase/types';
+import { OnSnapshotCallback } from '../../firebase/userRepository';
+import { getAgreements } from '../../queries/agreementQueries';
+import { getUserAgreements, toggleUserAgreement } from '../../queries/userQueries';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { User } from '../../firebase/firebase';
 
 export const ChildProfileAgreements = () => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [agreements, setAgreements] = useState([
-        {
-            name: 'participation',
-            checked: true,
-            disabled: true,
-            label: t('child-profile.participation-label'),
-            description: t('child-profile.participation-description'),
-        },
-        {
-            name: 'marketing',
-            checked: false,
-            disabled: false,
-            label: t('child-profile.marketing-label'),
-            description: t('child-profile.marketing-description'),
-        },
-        {
-            name: 'image',
-            checked: true,
-            disabled: false,
-            label: t('child-profile.image-label'),
-            description: t('child-profile.image-description'),
-        },
-    ]);
+    const currentUser = useAuthorization(true);
 
-    const handleChange: CheckboxProps['onChange'] = ({ target: { name, checked } }) => {
-        const newAgreements = agreements.map(item =>
-            item.name === name && !DISABLED_FIELDS.includes(name) ? { ...item, checked } : item,
-        );
-        setAgreements(newAgreements);
+    const agreements = useSubscribed<Agreement[] | null, string>(
+        (callback: OnSnapshotCallback<Agreement[]>) => getAgreements(callback),
+        [],
+    ) as Agreement[];
+
+    const userAgreements = useSubscribed<UserAgreement[], User | null>(
+        (callback: OnSnapshotCallback<UserAgreement[]>) => {
+            if (currentUser) {
+                getUserAgreements(currentUser.uid, callback);
+            }
+        },
+        [],
+        [currentUser],
+    ) as UserAgreement[];
+
+    const handleChange: CheckboxProps['onChange'] = ({ target: { checked, name } }) => {
+        if (currentUser) {
+            toggleUserAgreement(currentUser.uid, name, checked);
+        }
     };
 
     return (
         <Card className={classes.card}>
             <div>
-                <Typography className={classes.heading}>
-                    Poniżej możesz sprawdzić i edytować podpisane zgody.
-                </Typography>
+                <Typography className={classes.heading}>{t('child-profile.agreements-title')}</Typography>
                 <List>
-                    {agreements.map(item => (
-                        <ListItem alignItems="flex-start" key={item.name}>
-                            <ListItemIcon className={classes.listItemIcon}>
-                                <Checkbox
-                                    edge="start"
-                                    checked={item.checked}
-                                    onChange={handleChange}
-                                    name={item.name}
-                                    disableRipple={item.disabled}
-                                    tabIndex={-1}
+                    {agreements.map(item => {
+                        const userAgreement = userAgreements.find(agreement => agreement.agreementId === item.id);
+                        const isDisabled = item.required && userAgreement && userAgreement.checked;
+
+                        return (
+                            <ListItem alignItems="flex-start" key={item.id}>
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <Checkbox
+                                        edge="start"
+                                        checked={Boolean(userAgreement && userAgreement.checked)}
+                                        onChange={(event, checked) => {
+                                            if (!isDisabled) {
+                                                handleChange(event, checked);
+                                            }
+                                        }}
+                                        name={userAgreement && userAgreement.id}
+                                        disableRipple={isDisabled}
+                                        tabIndex={-1}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText
+                                    className={classes.listItemText}
+                                    primary={item.title}
+                                    secondary={item.content}
                                 />
-                            </ListItemIcon>
-                            <ListItemText
-                                className={classes.listItemText}
-                                primary={item.label}
-                                secondary={item.description}
-                            />
-                        </ListItem>
-                    ))}
+                            </ListItem>
+                        );
+                    })}
                 </List>
             </div>
             <img className={classes.image} src="https://via.placeholder.com/316x200" alt="placeholder" />

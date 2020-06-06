@@ -99,7 +99,8 @@
         "test-result": "Test result",
         "comparison-label": "By comparing both tests, your child's fitness level",
         "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
-        "comparison-button": "What can I do?"
+        "comparison-button": "What can I do?",
+        "agreements-title":  "Below you can check and edit the signed agreements."
     },
     "parent-profile": {
         "parent": "Parent",

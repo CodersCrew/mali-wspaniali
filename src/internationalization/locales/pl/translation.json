@@ -103,7 +103,8 @@
         "test-result": "Wynik testu",
         "comparison-label": "Porównując oba pomiary, poziom sprawności Twojego dziecka",
         "comparison-right-title": "Zobacz, w jakiej formie jest Twoje dziecko. Wykres przedstawia jak zmieniały się wyniki dziecka na przestrzeni 2 pomiarów",
-        "comparison-button": "Co mogę zrobić?"
+        "comparison-button": "Co mogę zrobić?",
+        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody."
     },
     "parent-profile": {
         "parent": "Rodzic",
