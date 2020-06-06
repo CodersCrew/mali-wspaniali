@@ -1,14 +1,6 @@
 import { firebase } from '../firebase/firebase';
-import { Notification, Snapshot, NotificationPaginatedList } from '../firebase/types';
+import { Snapshot, NotificationPaginatedList } from '../firebase/types';
 import { OnSnapshotCallback } from '../firebase/userRepository';
-
-export const getUserNotifications = (
-    userId: string,
-    notificationLimit: number,
-    onSnapshotCallback: OnSnapshotCallback<Notification[]>,
-) => {
-    return firebase.notification.getUserNotifications(userId, notificationLimit, onSnapshotCallback);
-};
 
 export const getNotificationData = (
     onSnapshotCallback: OnSnapshotCallback<NotificationPaginatedList>,

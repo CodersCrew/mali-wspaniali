@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container } from '@material-ui/core'
 import { NotificationPageHeader } from './NotificationPageHeader'
 import { NotificationPageList } from './NotificationPageList'
-import { Notification, Snapshot, NotificationPaginatedList } from '../../firebase/types';
+import { Snapshot, NotificationPaginatedList } from '../../firebase/types';
+import { User } from '../../firebase/firebase';
 import { getNotificationData } from '../../queries/notificationQueries'
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { Pagination } from '../BlogMainPage/Pagination';
+import { useSubscribed } from '../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../firebase/userRepository';
 
 export const NotificationsPage = () => {
-    const [notificationData, setNotificationData] = useState<Notification[]>();
-    const [notificationPaginatedList, setNotificationPaginatedList] = useState<NotificationPaginatedList>()
+    // const [notificationData, setNotificationData] = useState<Notification[]>();
+    // const [notificationPaginatedList, setNotificationPaginatedList] = useState<NotificationPaginatedList>()
     const [isLastPage, setIsLastPage] = useState(false);
     const [isFirstPage, setIsFirstPage] = useState(true);
     const currentUser = useAuthorization(true);
-
-    useEffect(() => {
+    let notificationResponse = useSubscribed<NotificationPaginatedList, User | null>((callback: OnSnapshotCallback<NotificationPaginatedList>) => {
         if(currentUser) {
-            addNotificationsToState(currentUser.uid, 9)
+            getNotificationData(callback, currentUser.uid, 9)
         }
-    })
+    }, [], [currentUser],
+    ) as NotificationPaginatedList
 
     const addNotificationsToState = (userId: string, limit: number, startAfter?: Snapshot, endBefore?: Snapshot) => {
         getNotificationData(
             notificationsFromSnapshot => {
-                setNotificationData(notificationsFromSnapshot.notifications);
-                setNotificationPaginatedList(notificationsFromSnapshot)
                 setupPagination(notificationsFromSnapshot, startAfter, endBefore);
             },
             userId,
@@ -62,9 +63,9 @@ export const NotificationsPage = () => {
     };
 
     const paginationQuery = (paginationDirection: string) => {
-        if (!notificationPaginatedList) return;
-        const startAfter = paginationDirection === 'next' ? notificationPaginatedList.lastSnap : undefined;
-        const endBefore = paginationDirection === 'prev' ? notificationPaginatedList.firstSnap : undefined;
+        if (!notificationResponse) return;
+        const startAfter = paginationDirection === 'next' ? notificationResponse.lastSnap : undefined;
+        const endBefore = paginationDirection === 'prev' ? notificationResponse.firstSnap : undefined;
         if(currentUser) {
             addNotificationsToState(currentUser.uid, 9, startAfter, endBefore);
         }
@@ -73,7 +74,7 @@ export const NotificationsPage = () => {
     return (
         <Container maxWidth="xl">
             <NotificationPageHeader/>
-            <NotificationPageList notifications={notificationData}/>
+            <NotificationPageList notifications={notificationResponse.notifications}/>
             <Pagination isFirst={isFirstPage} isLast={isLastPage} handleChange={paginationQuery}></Pagination>
         </Container>
     )

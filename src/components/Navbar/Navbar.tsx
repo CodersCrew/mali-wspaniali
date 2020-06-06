@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, Badge } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
 import { User } from '../../firebase/firebase';
@@ -7,7 +7,7 @@ import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { getChildrenByUserId } from '../../queries/childQueries';
 import { getNotificationData } from '../../queries/notificationQueries'
-import { Child, Notification } from '../../firebase/types';
+import { Child, NotificationPaginatedList } from '../../firebase/types';
 import { MenuListItems } from './MenuListItems';
 import { NotificationsPanel } from './NotificationsPanel'
 import { useAuthorization } from '../../hooks/useAuthorization';
@@ -17,7 +17,6 @@ export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
     const [isMenuOpen, setMenuOpen] = useState(false);
-    const [notificationData, setNotificationData] = useState<Notification[]>();
     const [isNotificationsPanelOpen, setNotificationsPanelOpen] = useState(false);
     const currentUser = useAuthorization(true);
     const children = useSubscribed<Child[], User | null>(
@@ -29,22 +28,12 @@ export const Navbar = () => {
         [],
         [currentUser],
     ) as Child[];
-
-    useEffect(() => {
+    const notificationResponse = useSubscribed<NotificationPaginatedList, User | null>((callback: OnSnapshotCallback<NotificationPaginatedList>) => {
         if(currentUser) {
-            addNotificationsToState(currentUser.uid, 5)
+            getNotificationData(callback, currentUser.uid, 5)
         }
-    })
-
-    const addNotificationsToState = (userId: string, limit: number,) => {
-        getNotificationData(
-            notificationsFromSnapshot => {
-                setNotificationData(notificationsFromSnapshot.notifications);
-            },
-            userId,
-            limit,
-        );
-    };
+    }, [], [currentUser],
+    ) as NotificationPaginatedList
 
     const handleAvatarClick = () => {
         setMenuOpen(prevOpen => !prevOpen);
@@ -59,7 +48,7 @@ export const Navbar = () => {
             <div className={classes.menuContainer}>
                 <img src={Logo} className={classes.logo} alt='Logo Mali Wspaniali'/>
                 <IconButton color="inherit" onClick={handleNotificationsIconClick}>
-                    <Badge badgeContent={notificationData && notificationData.filter(el => !el.isRead).length} classes={{ badge: classes.badgeColor }}>
+                    <Badge badgeContent={notificationResponse.notifications && notificationResponse.notifications.filter(el => !el.isRead).length} classes={{ badge: classes.badgeColor }}>
                         <Notifications className={classes.notificationsIcon} />
                     </Badge>
                 </IconButton>
@@ -69,7 +58,7 @@ export const Navbar = () => {
                     </Button>
                 </Avatar>
             </div>
-            {isNotificationsPanelOpen && <NotificationsPanel notifications={notificationData}/>}
+            {isNotificationsPanelOpen && <NotificationsPanel notifications={notificationResponse.notifications}/>}
             {isMenuOpen && <MenuListItems childrenData={children} />}
         </div>
     );

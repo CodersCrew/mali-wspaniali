@@ -3,25 +3,6 @@ import { Notification, Snapshot, NotificationPaginatedList } from './types';
 import { OnSnapshotCallback } from './userRepository';
 
 export const notificationRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getUserNotifications: (
-        userId: string,
-        notificationLimit: number,
-        onSnapshotCallback: OnSnapshotCallback<Notification[]>,
-    ) => {
-        return db
-            .collection('user')
-            .doc(userId)
-            .collection('notifications')
-            .limit(notificationLimit)
-            .orderBy('date', 'desc')
-            .onSnapshot(snapshot => {
-                const notification = snapshot.docs.map(doc => {
-                    const notificationData = doc.data() as Notification;
-                    return notificationData;
-                });
-                return onSnapshotCallback(notification);
-            });
-    },
     getNotificationData: (
         onSnapshotCallback: OnSnapshotCallback<NotificationPaginatedList>,
         userId: string,
@@ -56,12 +37,12 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
                 isMore = false;
             }
             let firstIndex = 0;
-            let lastIndex = 5;
+            let lastIndex = 8;
             if (endBefore && notifications.length > 8) {
                 firstIndex = 1;
                 lastIndex = 8;
             }
-            onSnapshotCallback({
+            return onSnapshotCallback({
                 notifications: notifications.slice(firstIndex, lastIndex + 1),
                 firstSnap: snapshots[firstIndex],
                 lastSnap: snapshots[lastIndex],
