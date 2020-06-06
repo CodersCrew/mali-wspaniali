@@ -179,7 +179,7 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('sm')]: {
       minHeight: 'auto',
-      width: '100%',
+      width: '90%',
       maxWidth: '480px',
       margin: '0 15px',
     },
@@ -226,7 +226,7 @@ const useStyles = makeStyles({
     }
   },
   textField: {
-    width: '100%'
+    width: '100%',
   },
   image: {
     borderRadius: '50%',
