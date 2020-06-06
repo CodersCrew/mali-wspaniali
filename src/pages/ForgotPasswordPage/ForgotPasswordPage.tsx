@@ -6,7 +6,7 @@ import { TextField, Button, makeStyles, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import { theme } from '../../theme';
-import { backgroundColor, secondaryColor } from '../../colors';
+import { backgroundColor, secondaryColor, white } from '../../colors';
 import { handlePasswordReset } from '../../queries/authQueries';
 import { isValidEmail } from './isValidEmail';
 
@@ -216,7 +216,7 @@ const useStyles = makeStyles({
   loginLink: {
     fontStyle: 'normal',
     fontWeight: 'bold',
-    color: 'white',
+    color: white,
     textDecoration: 'none',
   },
   underlinedText: {
