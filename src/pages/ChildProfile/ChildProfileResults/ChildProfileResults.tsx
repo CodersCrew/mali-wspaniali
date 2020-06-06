@@ -12,8 +12,9 @@ import { getGroupedResults } from './utils';
 import { gray } from '../../../colors';
 import { ResultDetails } from './ResultDetails';
 import { ResultComparison } from './ResultComparison';
+import { EmptyResult } from './EmptyResults';
 
-export const ChildProfileResults = () => {
+export const ChildProfileResults = ({ goToAboutTestTab }: { goToAboutTestTab(): void }) => {
     useAuthorization(true);
     const classes = useStyles();
     const { childId } = useParams<{ childId: string }>();
@@ -49,43 +50,55 @@ export const ChildProfileResults = () => {
 
     return (
         <>
-            {Object.keys(groupedResults).map(key => {
-                const isExpanded = expandedGroups.includes(key);
-                const sortedResults = groupedResults[key].sort(
-                    (resultA, resultB) => +resultA.dateOfTest - +resultB.dateOfTest,
-                );
+            {Object.keys(groupedResults)
+                .sort((a, b) => Number(b) - Number(a))
+                .map((key, index) => {
+                    const isExpanded = expandedGroups.includes(key);
+                    const sortedResults = groupedResults[key].sort(
+                        (resultA: Result, resultB: Result) => +resultA.dateOfTest - +resultB.dateOfTest,
+                    ) as Result[];
 
-                return (
-                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel}>
-                        <ExpansionPanelSummary
-                            onClick={() => handleClickSummary(key)}
-                            className={clsx(
-                                classes.expansionPanelSummary,
-                                isExpanded && classes.expansionPanelSummaryExpanded,
-                            )}
-                        >
-                            <ResultSummary
-                                resultGroup={groupedResults[key]}
-                                handleClickDetailsButton={handleClickDetailsButton}
-                                isExpanded={isExpanded}
-                            />
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-                            {sortedResults.map((result, index) => (
-                                <ResultDetails
-                                    result={result}
-                                    key={String(result.dateOfTest)}
-                                    previousResult={sortedResults[index - 1]}
+                    return (
+                        <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel}>
+                            <ExpansionPanelSummary
+                                onClick={() => handleClickSummary(key)}
+                                className={clsx(
+                                    classes.expansionPanelSummary,
+                                    isExpanded && classes.expansionPanelSummaryExpanded,
+                                )}
+                            >
+                                <ResultSummary
+                                    resultGroup={groupedResults[key]}
+                                    schoolYearStart={Number(key)}
+                                    handleClickDetailsButton={handleClickDetailsButton}
+                                    isExpanded={isExpanded}
                                 />
-                            ))}
-                            <ResultComparison
-                                firstResultPoints={sortedResults[0].sumOfPoints}
-                                lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
-                            />
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                );
-            })}
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+                                {sortedResults.length > 0 &&
+                                    sortedResults.map((result, idx) => (
+                                        <ResultDetails
+                                            result={result}
+                                            key={String(result.dateOfTest)}
+                                            previousResult={sortedResults[idx - 1]}
+                                        />
+                                    ))}
+                                {sortedResults.length >= 2 && (
+                                    <ResultComparison
+                                        firstResultPoints={sortedResults[0].sumOfPoints}
+                                        lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
+                                    />
+                                )}
+                                {sortedResults.length === 0 && (
+                                    <EmptyResult
+                                        isLast={index === Object.keys(groupedResults).length - 1}
+                                        goToAboutTestTab={goToAboutTestTab}
+                                    />
+                                )}
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                    );
+                })}
         </>
     );
 };

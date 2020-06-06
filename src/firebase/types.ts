@@ -28,10 +28,10 @@ export interface Redactor {
 }
 
 export interface Result {
+    schoolYearStart: number;
     dateOfTest: Date;
     ageOfChild: number;
     testPeriod: 'begin' | 'end';
-    schoolYear: string;
     strengthCentimeters: number;
     strengthPoints: number;
     powerCentimeters: number;
