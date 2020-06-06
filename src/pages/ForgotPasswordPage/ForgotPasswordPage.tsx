@@ -13,9 +13,6 @@ import { isValidEmail } from './isValidEmail';
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
-import PlFlag from '../../assets/pl.png';
-import EnFlag from '../../assets/en.png';
-
 
 enum ImageState {
   default = "DEFAULT",
@@ -24,16 +21,11 @@ enum ImageState {
 }
 
 export const ForgotPasswordPage = () => {
-  const localStorageLanguage = localStorage.getItem('i18nextLng');
   const classes = useStyles();
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [imageState, setImageState] = useState<ImageState>(ImageState.default);
   const [resetEmailSent, setResetEmailSent] = useState(false)
-
-  const changeLanguage = (lng: string) => {
-    return i18n.changeLanguage(lng);
-  };
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
@@ -67,14 +59,6 @@ export const ForgotPasswordPage = () => {
     }
     return source
   }
-
-  const languageImage = (flag: string, language: string) => {
-    return (
-      <div className={classes.languageIcon} onClick={() => changeLanguage(language)}>
-        <img src={flag} alt={language} />
-      </div>
-    );
-  };
 
   const preSentJSX = (
     <>
@@ -145,12 +129,9 @@ export const ForgotPasswordPage = () => {
       <div className={classes.container}>
         <div className={classes.layout}>
           <img className={classes.image} src={imageSrc(imageState)} alt="małgosia czy jak jej tam" />
-          <div className={classes.titleWrapper}>
-            <Typography variant="h3" className={classes.title}>
-              {t('forgot-password-page.forgot-password')}
-            </Typography>
-            {localStorageLanguage === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}
-          </div>
+          <Typography variant="h3" className={classes.title}>
+            {t('forgot-password-page.forgot-password')}
+          </Typography>
           {
             resetEmailSent
               ? preSentJSX
@@ -183,14 +164,6 @@ const useStyles = makeStyles({
       maxWidth: '480px',
       margin: '0 15px',
     },
-  },
-  titleWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  languageIcon: {
-    marginLeft: '20px'
   },
   title: {
     textAlign: 'center',
