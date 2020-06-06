@@ -6,10 +6,29 @@ interface GroupedResults {
     [schoolYear: string]: Result[];
 }
 
+const getPotentialResults = (yearOfBirth: number) => {
+    const currentYear = new Date().getFullYear();
+    const startYear = yearOfBirth + 3;
+    const endYear = Math.min(startYear + 4, currentYear) + 1;
+    const numberOfResults = endYear - startYear;
+    const array = Array.from({ length: numberOfResults }, (item, index) => startYear + index);
+
+    return array.reduce(
+        (result, item) => {
+            return {
+                ...result,
+                [item]: [],
+            };
+        },
+        {} as GroupedResults,
+    );
+};
+
 export const getGroupedResults = (results: Result[]) => {
-    return results.reduce(
+    const potentialResults = getPotentialResults(2005);
+    const realResults = results.reduce(
         (accumulator, currentResult) => {
-            const currentSchoolYearResults = accumulator[currentResult.schoolYear];
+            const currentSchoolYearResults = accumulator[currentResult.schoolYearStart];
 
             if (currentSchoolYearResults) {
                 currentSchoolYearResults.push(currentResult);
@@ -19,17 +38,22 @@ export const getGroupedResults = (results: Result[]) => {
 
             return {
                 ...accumulator,
-                [currentResult.schoolYear]: [currentResult],
+                [currentResult.schoolYearStart]: [currentResult],
             };
         },
         {} as GroupedResults,
     );
+
+    return {
+        ...potentialResults,
+        ...realResults,
+    };
 };
 
 export const getMaxDate = (dates: Date[]) => {
     const momentDates = dates.map(date => moment(date));
 
-    return moment.max(momentDates);
+    return dates.length > 0 ? moment.max(momentDates) : null;
 };
 
 const testResults = {
@@ -64,3 +88,5 @@ export const getDifferenceLabel = (firstValue: number, lastValue: number) => {
 
     return 'same';
 };
+
+export const getSchoolYearLabel = (schoolYearStart: number) => `${schoolYearStart}/${schoolYearStart + 1}`;

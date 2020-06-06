@@ -9,6 +9,10 @@ export const theme = createMuiTheme({
             fontWeight: 700,
             lineHeight: '40px',
         },
+        h4: {
+            fontSize: '21px',
+            lineHeight: '40px',
+        },
         subtitle1: {
             fontSize: '12px',
             color: 'rgba(0, 0, 0, 0.54)',

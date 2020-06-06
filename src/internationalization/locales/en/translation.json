@@ -106,7 +106,15 @@
         "test-result": "Test result",
         "comparison-label": "By comparing both tests, your child's fitness level",
         "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
-        "comparison-button": "What can I do?"
+        "comparison-button": "What can I do?",
+        "no-results-title": "No results",
+        "no-results-text": "The results have not yet been entered because the initial test has not yet taken place, or the results are under development.",
+        "no-results-text-last": "The results have not yet been added for one of three reasons:",
+        "no-results-list-1": "The initial test has not yet taken place or the results are under development.",
+        "no-results-list-2": "Your child was absent on the day of the initial test or was unable to take part in the tes due to random reasons.",
+        "no-results-list-3": "Your child joined the Mali Wspaniali program after the first test. The next fitness test will take place in the spring.",
+        "no-results-bottom": "To find out what the fitness test looks like, visit the",
+        "no-results-link": "Test Information tab"
     },
     "parent-profile": {
         "parent": "Parent",
