@@ -44,6 +44,17 @@ export interface RegistrationAgreementProps {
     classNextBtn: string;
     classPrevBtn: string;
     agreements: AdminAgreement[];
+    agreementMoreBtn: string;
+    agreementContainer: string;
+    agreementCheckboxHeader: string;
+    agreementCheckboxWrapper: string;
+    agreementText: string;
+    agreementLink: string;
+    agreementHeader: string;
+    agreementModal: string;
+    agreementPanel: string;
+    agreementCheckbox: string;
+    checkboxContent: string;
 }
 
 export type RegistrationPasswordProps = {
@@ -64,3 +75,10 @@ export type RegistrationFeedbackProps = {
     classHeader: string;
     classWrapper: string;
 };
+
+export interface AgreementModalProps {
+    open: boolean;
+    agreementModal: string;
+    toggleModal(): void;
+    agreementHeader: string;
+}

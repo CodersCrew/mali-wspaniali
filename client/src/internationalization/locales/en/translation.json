@@ -35,10 +35,10 @@
         "no-code": "Don't have a code?",
         "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to biuro@mali-wspaniali.pl",
         "invalid-code": "Code is invalid, please try again.",
-        "password-length": "8 chars",
-        "password-capital": "Capital letter",
-        "password-digit": "Digit",
-        "password-special": "Special char"
+        "length": "8 chars",
+        "capital": "Capital letter",
+        "digit": "Digit",
+        "special": "Special char"
     },
     "forgot-password-page": {
         "forgot-password": "Forgot password",

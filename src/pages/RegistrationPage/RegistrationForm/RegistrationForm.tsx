@@ -96,6 +96,21 @@ export const RegistrationForm = () => {
                         classButton={classes.buttonWrapper}
                         classNextBtn={classes.nextButton}
                         classPrevBtn={classes.prevButton}
+                        agreementContainer={classes.agreementContainer}
+                        agreementHeader={classes.agreementHeader}
+                        agreementMoreBtn={classes.agreementMoreBtn}
+                        agreementCheckboxHeader={
+                            classes.agreementCheckboxHeader
+                        }
+                        agreementCheckboxWrapper={
+                            classes.agreementCheckboxWrapper
+                        }
+                        agreementText={classes.agreementText}
+                        agreementLink={classes.agreementLink}
+                        agreementModal={classes.agreementModal}
+                        agreementPanel={classes.agreementPanel}
+                        agreementCheckbox={classes.agreementCheckbox}
+                        checkboxContent={classes.checkboxContent}
                         agreements={agreements}
                     />
                 );
@@ -168,7 +183,12 @@ export const RegistrationForm = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className={classes.container}>
+            <div
+                className={clsx(
+                    classes.container,
+                    activeStep === 2 && 'agreements'
+                )}
+            >
                 <form
                     className={classes.form}
                     autoComplete="off"

@@ -7,46 +7,24 @@ import clsx from 'clsx';
 import { useStyles } from './styles';
 import { PasswordValidation } from './types';
 
+const T_PREFIX = 'registration-page';
+
 export const PasswordStrengthChips: React.FC<{ passwordValidation: PasswordValidation }> = ({ passwordValidation }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const { length, capital, digit, special } = passwordValidation;
-
     return (
         <div className={classes.chipsContainer}>
-            <Chip
-                size="small"
-                variant="outlined"
-                icon={length ? <CheckCircleIcon /> : <CheckIcon />}
-                label={t('registration-page.password-length')}
-                className={clsx(classes.chip, length && 'checked')}
-                color={length ? 'primary' : 'default'}
-            />
-            <Chip
-                size="small"
-                variant="outlined"
-                icon={capital ? <CheckCircleIcon /> : <CheckIcon />}
-                label={t('registration-page.password-capital')}
-                className={clsx(classes.chip, capital && 'checked')}
-                color={capital ? 'primary' : 'default'}
-            />
-            <Chip
-                size="small"
-                variant="outlined"
-                icon={digit ? <CheckCircleIcon /> : <CheckIcon />}
-                label={t('registration-page.password-digit')}
-                className={clsx(classes.chip, digit && 'checked')}
-                color={digit ? 'primary' : 'default'}
-            />
-            <Chip
-                size="small"
-                variant="outlined"
-                icon={special ? <CheckCircleIcon /> : <CheckIcon />}
-                label={t('registration-page.password-special')}
-                className={clsx(classes.chip, special && 'checked')}
-                color={special ? 'primary' : 'default'}
-            />
+            {Object.entries(passwordValidation).map(([key, value]) => (
+                <Chip
+                    size="small"
+                    variant="outlined"
+                    icon={value ? <CheckCircleIcon /> : <CheckIcon />}
+                    label={t(`${T_PREFIX}.${key}`)}
+                    className={clsx(classes.chip, value && 'checked')}
+                    color={value ? 'primary' : 'default'}
+                />
+            ))}
         </div>
     );
 };

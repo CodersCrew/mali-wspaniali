@@ -14,6 +14,10 @@ export const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%',
+
+            '&.agreements': {
+                padding: '36px 0 40px 0',
+            },
         },
         form: {
             display: 'flex',
@@ -133,6 +137,64 @@ export const useStyles = makeStyles((theme: Theme) =>
             '&.checked': {
                 color: mainColor,
             },
+        },
+        agreementContainer: {
+            marginLeft: 12,
+            paddingRight: 15,
+            display: 'flex',
+            flexDirection: 'column',
+            maxHeight: 600,
+            overflowY: 'scroll',
+        },
+        agreementHeader: {
+            fontSize: 21,
+            fontWeight: 'normal',
+            margin: '12px 0 0 0',
+        },
+        agreementMoreBtn: {
+            color: mainColor,
+            justifyContent: 'flex-start',
+            fontSize: 16,
+            paddingLeft: 0,
+        },
+        agreementCheckboxHeader: {
+            margin: '10px 0 12px 0',
+            fontSize: 21,
+            fontWeight: 500,
+        },
+        agreementCheckboxWrapper: {
+            marginTop: 17,
+            display: 'flex',
+            flexDirection: 'column',
+
+            '&.lastAgreement': {
+                margin: 0,
+                borderBottom: '1px solid #C4C4C4',
+            },
+        },
+        agreementText: {
+            margin: '0 0 7px 0',
+        },
+        agreementLink: {
+            color: mainColor,
+        },
+        agreementModal: {
+            position: 'absolute',
+            width: 400,
+            backgroundColor: theme.palette.background.paper,
+            border: '2px solid #000',
+            boxShadow: theme.shadows[5],
+            padding: theme.spacing(2, 4, 3),
+        },
+        agreementPanel: {
+            margin: '0 0 10px 34px',
+        },
+        agreementCheckbox: {
+            paddingTop: 0,
+        },
+        checkboxContent: {
+            display: 'flex',
+            alignItems: 'end',
         },
     })
 );
