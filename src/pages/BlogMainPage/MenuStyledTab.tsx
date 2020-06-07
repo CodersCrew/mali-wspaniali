@@ -21,7 +21,7 @@ const styledBy = (property: string, colorsMap: ColorsMap) => (props: Styles) => 
 const styles = createStyles({
     root: {
         minHeight: '0',
-        height: '35px',
+        height: '45px',
         border: styledBy('color', {
             orange: `solid 1px ${blogCategoryColors.orange}`,
             yellow: `solid 1px ${blogCategoryColors.yellow}`,
@@ -32,7 +32,13 @@ const styles = createStyles({
         borderRadius: '4px',
         opacity: '1',
         whiteSpace: 'nowrap',
-        color: 'black',
+        color: styledBy('color', {
+            orange: blogCategoryColors.orange,
+            yellow: blogCategoryColors.yellow,
+            purple: blogCategoryColors.purple,
+            lightOrange: blogCategoryColors.lightOrange,
+            blue: blogCategoryColors.blue,
+        }),
         textTransform: 'none',
         flexShrink: 2,
         fontWeight: 600,

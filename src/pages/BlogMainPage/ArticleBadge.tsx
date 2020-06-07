@@ -43,7 +43,7 @@ const styledBy = (property: string, colorsMap: ColorsMap) => (props: Styles) => 
 
 const styles = createStyles({
     root: {
-        zIndex: 10,
+        zIndex: 1,
         position: 'relative',
         bottom: '25%',
         float: 'right',

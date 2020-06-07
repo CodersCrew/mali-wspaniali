@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import { Tabs } from '@material-ui/core';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { categoriesList } from './BlogCategories';
 import { MenuStyledTab } from './MenuStyledTab';
 import { CategoryTabProps } from './CategoryTabs';
@@ -57,37 +59,36 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
 
     return (
         <div className={classes.root}>
-            <div  >
-                <Button
-                    ref={anchorRef}
-                    aria-controls={open ? 'menu-list-grow' : undefined}
-                    aria-haspopup="true"
-                    onClick={ handleToggle }
-                    className={classes.button}
-                >
-                    { t('blog-categories.header') }
-                </Button>
-                <Popper  className={classes.container} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                    {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            style={{ transformOrigin: placement === 'bottom' ? 'bottom' : 'bottom' }}
-                        >
-                            <Paper>
-                                <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList autoFocusItem={ open } id="menu-list-grow" onKeyDown={ handleListKeyDown }>
-                                        <MenuStyledTabs value={ currentTabIndex } onChange={ handleChange }>
-                                            { categoriesList.map(category => {
-                                                return <MenuStyledTab key={category.key}  label={ category.name } color={ category.color } />;
-                                            }) }
-                                        </MenuStyledTabs>
-                                    </MenuList>
-                                </ClickAwayListener>
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
-            </div>
+            <Button
+                ref={anchorRef}
+                aria-controls={open ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={ handleToggle }
+                className={classes.button}
+            >
+                { t('blog-categories.header') }
+                { !open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon /> }
+            </Button>
+            <Popper  className={classes.container} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                    <Grow
+                        {...TransitionProps}
+                        style={{ transformOrigin: placement === 'bottom' ? 'bottom' : 'bottom' }}
+                    >
+                        <Paper>
+                            <ClickAwayListener onClickAway={handleClose}>
+                                <MenuList autoFocusItem={ open } id="menu-list-grow" onKeyDown={ handleListKeyDown }>
+                                    <MenuStyledTabs value={ currentTabIndex } onChange={ handleChange }>
+                                        { categoriesList.map(category => {
+                                            return <MenuStyledTab key={category.key}  label={ category.name } color={ category.color } />;
+                                        }) }
+                                    </MenuStyledTabs>
+                                </MenuList>
+                            </ClickAwayListener>
+                        </Paper>
+                    </Grow>
+                )}
+            </Popper>
         </div>
     );
 };
@@ -101,7 +102,6 @@ const MenuStyledTabs = withStyles({
     flexContainer: {
         margin: '3%',
         alignItems: 'flex-start',
-        maxWidth: '232.8px',
         flexWrap: 'wrap',
     },
     indicator: {
@@ -115,18 +115,19 @@ const useStyles = makeStyles(() =>
             display: 'flex',
             alignItems: 'flex-start',
             transform: 'translate3d(0px, 35px, 0px)!important',
-            zIndex: 1,
+            zIndex: 9,
             position: 'relative',
         },
         button: {
             fontWeight: 'bold',
-            marginLeft:'52px'
+            marginLeft: '52px',
+            marginRight: '52px',
+            width: '100vw',
+            justifyContent:'space-between'
         },
         container: {
             marginLeft: '52px',
-            position: 'absolute',
-            left:'52px',
-            willChange: 'transform',
+            marginRight: '52px',
             alignItems: 'flex-start',
             transform: 'translate3d(0px, 35px, 0px)!important',
         }
