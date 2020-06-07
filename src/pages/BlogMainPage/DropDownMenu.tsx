@@ -115,7 +115,7 @@ const useStyles = makeStyles(() =>
             display: 'flex',
             alignItems: 'flex-start',
             transform: 'translate3d(0px, 35px, 0px)!important',
-            zIndex: 20,
+            zIndex: 1,
             position: 'relative',
         },
         button: {

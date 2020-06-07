@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tab, withStyles, WithStyles, createStyles } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { white, blogCategoryColors } from '../../colors';
+import { theme } from '../../theme';
 
 type Styles = {
     color: string;
@@ -36,6 +38,12 @@ const styles = createStyles({
         textTransform: 'none',
         flexShrink: 2,
         fontWeight: 600,
+
+        [theme.breakpoints.down('md')]: {
+            minHeight: '45px',
+            height: '445px',
+        },
+        
     },
     wrapper: {
         margin: '0 10px',
@@ -45,4 +53,4 @@ const styles = createStyles({
     },
 });
 
-export const StyledTab = withStyles(styles)((props: TabStyles) => <Tab disableRipple {...props} />);
+export const StyledTab = withStyles(styles)((props: TabStyles) => <ThemeProvider theme={ theme }><Tab disableRipple {...props} /></ThemeProvider> );

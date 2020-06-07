@@ -9,7 +9,7 @@ import { Pagination } from './Pagination';
 import { getArticles } from '../../queries/articleQueries';
 import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 import { ArticleCategories } from './types';
-import { white } from '../../colors';
+import { white, mainColor } from '../../colors';
 import { DropDownMenu } from './DropDownMenu';
 import useComponent from './hook';
 
@@ -76,12 +76,12 @@ export const BlogMainPage = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={ theme }>
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
 
-            {(screenWidth <= 992) ? (
+            {(screenWidth <= 768) ? (
                 <DropDownMenu setCategory={ setCurrentCategory }/>
             ) : ( <CategoryTabs setCategory={ setCurrentCategory } />
             )}
@@ -109,6 +109,13 @@ export const BlogMainPage = () => {
 };
 
 const useStyles = makeStyles({
+    blog: {
+        backgroundColor: mainColor,
+        borderRadius: '0 0 8px 8px',
+        fontWeight:'bold',
+        padding: '10px',
+        color: white
+    },
     heading: {
         fontWeight: 'bold',
         fontSize: '34px',

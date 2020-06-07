@@ -43,7 +43,7 @@ export const Navbar = () => {
                     </Button>
                 </Avatar>
             </div>
-            {isMenuOpen && <MenuListItems childrenData={children} />}
+            { isMenuOpen && <MenuListItems childrenData={ children } /> }
         </div>
     );
 };
@@ -97,6 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 alignItems: 'center',
                 position: 'fixed',
                 top: 0,
+                borderRadius: '0 0 0 0',
             },
         },
         logo: {
@@ -109,6 +110,6 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginRight: 'auto',
                 marginLeft: '10px'
             },
-        }
+        },
     }),
 );
