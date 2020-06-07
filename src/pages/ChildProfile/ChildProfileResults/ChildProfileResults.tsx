@@ -41,11 +41,6 @@ export const ChildProfileResults = ({ goToAboutTestTab }: { goToAboutTestTab(): 
         setExpandedGroups([...expandedGroups, key]);
     };
 
-    if (!results || !results.length) {
-        // TODO
-        return <>NO DATA</>;
-    }
-
     const groupedResults = getGroupedResults(results);
 
     return (
@@ -87,6 +82,7 @@ export const ChildProfileResults = ({ goToAboutTestTab }: { goToAboutTestTab(): 
                                     <ResultComparison
                                         firstResultPoints={sortedResults[0].sumOfPoints}
                                         lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
+                                        childAge={sortedResults[sortedResults.length - 1].ageOfChild}
                                     />
                                 )}
                                 {sortedResults.length === 0 && (

@@ -79,9 +79,10 @@
         "initial-test": "Pomiar początkowy",
         "final-test": "Pomiar końcowy",
         "result-description": {
-            "low": "TBD",
+            "bad": "TBD",
             "medium": "Dobrze ci idzie, ale zawsze może być lepiej",
-            "high": "Bardzo dobrze!"
+            "good": "Dobrze!",
+            "very-good": "Bardzo dobrze!"
         },
         "tests": {
             "strength": "Siła",
@@ -102,9 +103,9 @@
         "final-test-title": "Wyniki poszczególnych prób wraz z porównaniem wyników z pomiaru początkowego",
         "initial-test-title": "Wyniki poszczególnych prób",
         "difference": {
-            "better": "Poprawił się",
-            "worse": "Pogorszył się",
-            "same": "Nie zmienił się"
+            "progress": "Poprawił się",
+            "regress": "Pogorszył się",
+            "constant": "Nie zmienił się"
         },
         "summary-info": "Informacje podsumowujące",
         "test-result": "Wynik testu",
@@ -258,5 +259,6 @@
     },
     "years_0": "rok",
     "years_1": "lata",
-    "years_2": "lat"
+    "years_2": "lat",
+    "close": "Zamknij"
 }
