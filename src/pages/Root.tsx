@@ -5,6 +5,7 @@ import { CssBaseline } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { LoginPage } from './LoginPage';
 import { RegistrationForm } from './RegistrationPage';
+import { ForgotPasswordPage } from './ForgotPasswordPage';
 import { TestResultsPage } from './TestResultsPage';
 import { ChildrenListPage } from './ChildrenListPage';
 import { ChildProfile } from './ChildProfile';
@@ -39,6 +40,11 @@ export const Root = () => {
                         <Route path={['/register']}>
                             <AuthTemplate type="register">
                                 <Route path="/register" component={RegistrationForm} />
+                            </AuthTemplate>
+                        </Route>
+                        <Route path={['/forgot-password']}>
+                            <AuthTemplate type="login">
+                                <Route path="/forgot-password" component={ForgotPasswordPage} />
                             </AuthTemplate>
                         </Route>
                         <Route path={['/admin', '/parent']}>

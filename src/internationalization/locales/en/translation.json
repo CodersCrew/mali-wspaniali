@@ -24,6 +24,19 @@
         "register": "Register",
         "password-not-strong": "Password not strong enough"
     },
+    "forgot-password-page": {
+        "forgot-password": "Forgot password",
+        "its-ok": "Don't worry. Type in your email address.",
+        "receive-link": "You will receive a link to create a new password.",
+        "insert-email": "Type in e-mail address provided to the foundation",
+        "new-password": "Create new password",
+        "problem": "Stumbled upon a problem?",
+        "contact": "Please contact the foundation to resolve it",
+        "email-helper-text": "Type in e-mail address provided to the foundation",
+        "back-to-login": "Back to login",
+        "email-sent": "We have sent you an email.",
+        "when-received": "Once you receive it, click a link to create a new password."
+    },
     "users-page": {
         "agreements": "Agreements",
         "users-list": "Users List"
@@ -54,7 +67,7 @@
         "last-update-date": "Last update",
         "details": "Details",
         "collapse-details": "Collapse details",
-        "info-about-test":  "Information about test",
+        "info-about-test": "Information about test",
         "carries-out-on": "carries out on",
         "age-group": "On the day of test, the child was assigned to the age group",
         "fitness-level": "Fitness level",

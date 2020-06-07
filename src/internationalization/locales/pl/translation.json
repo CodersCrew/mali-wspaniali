@@ -24,6 +24,19 @@
         "register": "Zarejestruj się",
         "password-not-strong": "Hasło za słabe"
     },
+    "forgot-password-page": {
+        "forgot-password": "Nie pamietasz hasła",
+        "its-ok": "Nic się nie stało. Wpisz swój adres email.",
+        "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
+        "insert-email": "Wpisz adres e-mail podany fundacji",
+        "new-password": "Stwórz nowe hasło",
+        "problem": "Masz problem?",
+        "contact": "Skontaktuj się z fundacją by go rozwiązać",
+        "email-helper-text": "Wpisz adres e-mail podany fundacji",
+        "back-to-login": "Wróć do logowania",
+        "email-sent": "Na twój adres email wysłaliśmy maila.",
+        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło."
+    },
     "users-page": {
         "agreements": "Zgody",
         "users-list": "Lista użytkowników"
@@ -58,7 +71,7 @@
         "last-update-date": "Data ostatniej zmiany",
         "details": "Szczegóły",
         "collapse-details": "Zwiń szczegóły",
-        "info-about-test":  "Informacje o pomiarze",
+        "info-about-test": "Informacje o pomiarze",
         "carries-out-on": "przeprowadzony dnia",
         "age-group": "W dniu pomiaru, dziecko przypisane zostało do grupy wiekowej",
         "fitness-level": "Poziom sprawności",
@@ -147,7 +160,7 @@
         "topic-input-label": "Wpisz temat",
         "topic-input-label-filled": "Temat",
         "topic-helper-text": "Wpisz temat wiadomości byś mógł ją wysłać",
-        "kindergarten-number" : "przedszkole nr",
+        "kindergarten-number": "przedszkole nr",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success-modal": {
             "title": "Gotowe",
