@@ -85,6 +85,25 @@ export interface PaginatedArticleList {
     isMore: boolean;
 }
 
+export type Notification = {
+    text: string;
+    date: Timestamp;
+    isRead: boolean;
+    id: string;
+};
+
+export type Timestamp = {
+    seconds: number;
+    nanoseconds: number;
+    toDate: () => Date;
+};
+
+export type NotificationPaginatedList = {
+    notifications: Notification[];
+    firstSnap: Snapshot;
+    lastSnap: Snapshot;
+    isMore: boolean;
+};
 export interface Kindergarten {
     city: string;
     number: string;

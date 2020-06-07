@@ -255,6 +255,15 @@
         "read-more": "Czytaj więcej",
         "read-less": "Zwiń"
     },
+    "notification-panel": {
+        "read-more": "Sprawdź więcej"
+    },
+    "notifications-page": {
+        "header": "Powiadomienia",
+        "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
+        "content": "Treść Powiadomienia",
+        "date": "Data"
+    },
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat"
