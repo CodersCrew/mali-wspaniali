@@ -18,6 +18,7 @@ import { getAgreements } from '../../queries/agreementQueries';
 import { getUserAgreements, toggleUserAgreement } from '../../queries/userQueries';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { User } from '../../firebase/firebase';
+import { lightTextColor, textColor } from '../../colors';
 
 export const ChildProfileAgreements = () => {
     const classes = useStyles();
@@ -94,7 +95,7 @@ const useStyles = makeStyles({
         fontSize: 21,
         fontWeight: 500,
         lineHeight: 1.4,
-        color: '#1d1d1b',
+        color: textColor,
     },
     listItemIcon: {
         position: 'relative',
@@ -107,11 +108,11 @@ const useStyles = makeStyles({
             marginBottom: 10,
             fontSize: 15,
             lineHeight: '24px',
-            color: '#1d1d1b',
+            color: textColor,
         },
         '& .MuiListItemText-secondary': {
             fontSize: 12,
-            color: '#505050',
+            color: lightTextColor,
         },
     },
     image: {
