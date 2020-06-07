@@ -63,6 +63,12 @@
         "results-list": "Results list",
         "tests-information": "Tests information",
         "your-agreements": "Your agreements",
+        "participation-label": "Permission to participate in the Mali Wspaniali program",
+        "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
+        "marketing-label": "Permission to receive marketing information on provided e-mail address",
+        "marketing-description": "Optional agreement that allows us to send you emails with current informations about the Mali Wspaniali program.",
+        "image-label": "Permission to use the image",
+        "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
         "kindergartener-test": "Kindergartener test",
         "last-update-date": "Last update",
         "details": "Details",
@@ -106,7 +112,8 @@
         "test-result": "Test result",
         "comparison-label": "By comparing both tests, your child's fitness level",
         "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
-        "comparison-button": "What can I do?"
+        "comparison-button": "What can I do?",
+        "agreements-title":  "Below you can check and edit the signed agreements."
     },
     "parent-profile": {
         "parent": "Parent",

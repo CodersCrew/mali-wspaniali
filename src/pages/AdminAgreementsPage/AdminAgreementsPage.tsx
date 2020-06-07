@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -15,9 +15,10 @@ import {
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { getAgreements } from '../../queries/agreementQueries';
-import { load } from '../../utils/load';
-import { AdminAgreement } from '../../firebase/types';
+import { Agreement } from '../../firebase/types';
 import { useAuthorization } from '../../hooks/useAuthorization';
+import { useSubscribed } from '../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../firebase/userRepository';
 
 export const AdminAgreementsPage = () => {
     useAuthorization(true, '/', ['admin']);
@@ -35,8 +36,6 @@ export const AdminAgreementsPage = () => {
     );
     const classes = useStyles();
     const { t } = useTranslation();
-    const [agreementsList, setAgreementsList] = useState<AdminAgreement[]>();
-    const [listeners, setListeners] = useState<(() => void)[]>([]);
     const [checked, setChecked] = useState<string[]>([]);
     const [isModalOpen, setOpenModal] = useState(false);
 
@@ -48,22 +47,10 @@ export const AdminAgreementsPage = () => {
         setOpenModal(false);
     };
 
-    const detachListeners = () => {
-        listeners.forEach(listener => () => listener());
-    };
-
-    const waitForAgreementsData = async () => {
-        const { agreement, unsubscribe } = await getAgreements();
-        if (unsubscribe) {
-            setAgreementsList(agreement);
-            setListeners([...listeners, unsubscribe]);
-        }
-    };
-
-    useEffect(() => {
-        load(waitForAgreementsData());
-        return () => detachListeners(); // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const agreements = useSubscribed<Agreement[] | null, string>(
+        (callback: OnSnapshotCallback<Agreement[]>) => getAgreements(callback),
+        [],
+    ) as Agreement[];
 
     const handleToggle = (id: string) => () => {
         if (checked.includes(id)) setChecked(checked.filter(checkedId => checkedId !== id));
@@ -73,7 +60,7 @@ export const AdminAgreementsPage = () => {
     return (
         <>
             <Link to="/">{t('go-to-home-page')}</Link>
-            {agreementsList ? (
+            {agreements ? (
                 <>
                     <Container>
                         <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
@@ -81,20 +68,20 @@ export const AdminAgreementsPage = () => {
                             <List
                                 subheader={<ListSubheader>{t('admin-agreements-page.agreements-all')}</ListSubheader>}
                             >
-                                {agreementsList.map(agreement => {
-                                    const labelId = `checkbox-list-label-${agreement.agreementId}`;
+                                {agreements.map(agreement => {
+                                    const labelId = `checkbox-list-label-${agreement.id}`;
                                     return (
                                         <>
                                             <ListItem
-                                                key={agreement.agreementId}
+                                                key={agreement.id}
                                                 dense
                                                 button
-                                                onClick={handleToggle(agreement.agreementId)}
+                                                onClick={handleToggle(agreement.id)}
                                             >
                                                 <ListItemIcon>
                                                     <Checkbox
                                                         edge="start"
-                                                        checked={checked.includes(agreement.agreementId)}
+                                                        checked={checked.includes(agreement.id)}
                                                         tabIndex={-1}
                                                         disableRipple
                                                         inputProps={{ 'aria-labelledby': labelId }}
@@ -129,16 +116,10 @@ export const AdminAgreementsPage = () => {
                         >
                             <div className={classes.paper}>
                                 <Typography variant="h3">
-                                    {
-                                        (agreementsList.find(agreement => agreement.agreementId === checked[0]) || {})
-                                            .title
-                                    }
+                                    {(agreements.find(agreement => agreement.id === checked[0]) || {}).title}
                                 </Typography>
                                 <Typography variant="body1">
-                                    {
-                                        (agreementsList.find(agreement => agreement.agreementId === checked[0]) || {})
-                                            .content
-                                    }
+                                    {(agreements.find(agreement => agreement.id === checked[0]) || {}).content}
                                 </Typography>
                             </div>
                         </Modal>
