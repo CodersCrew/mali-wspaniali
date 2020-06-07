@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { secondaryColor } from '../../../colors';
+import { secondaryColor, textColor } from '../../../colors';
 
 interface Props {
     goToAboutTestTab: () => void;
@@ -72,10 +72,10 @@ const useStyles = makeStyles({
     },
     title: {
         fontWeight: 'normal',
-        color: '#1d1d1d',
+        color: textColor,
     },
     content: {
-        color: '#1d1d1d',
+        color: textColor,
     },
     image: {
         marginTop: '40px',
