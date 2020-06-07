@@ -18,6 +18,7 @@ export const NotificationsPage = () => {
         if(currentUser) {
             addNotificationsToState(currentUser.uid, 9)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUser])
 
     const addNotificationsToState = (userId: string, limit: number, startAfter?: Snapshot, endBefore?: Snapshot) => {

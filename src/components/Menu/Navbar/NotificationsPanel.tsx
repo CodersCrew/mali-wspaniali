@@ -2,9 +2,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { MenuList, Paper, createStyles, makeStyles, Theme } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
-import { NotificationItem } from './NotificationItem'
-import { white, secondaryColor } from '../../colors';
-import { Notification } from '../../firebase/types'
+import { NotificationItem } from '../Navbar/NotificationItem'
+import { white, secondaryColor } from '../../../colors';
+import { Notification } from '../../../firebase/types'
 
 export type NotificationListProps = {
     notifications: Notification[] | undefined;

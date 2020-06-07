@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Avatar, MenuList } from '@material-ui/core/';
-import { Home, FormatListBulleted, Notifications, BuildSharp } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
-import { User } from '../../firebase/firebase';
-import { Child } from '../../firebase/types';
+import { User } from '../../../firebase/firebase';
+import { Child } from '../../../firebase/types';
+import { getMenuItems } from '../menuItems';
 import { SidebarMenuItem } from './SidebarMenuItem';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { getChildrenByUserId } from '../../queries/childQueries';
-import { cardBackgroundColor } from '../../colors';
+import { useSubscribed } from '../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
+import { getChildrenByUserId } from '../../../queries/childQueries';
+import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
+import { cardBackgroundColor } from '../../../colors';
 import { SidebarMenuListPropTypes } from './types';
-import BoyAvatar from '../../assets/boy.png';
-import GirlAvatar from '../../assets/girl.png';
-import { useAuthorization } from '../../hooks/useAuthorization';
+import BoyAvatar from '../../../assets/boy.png';
+import GirlAvatar from '../../../assets/girl.png';
+import { useAuthorization } from '../../../hooks/useAuthorization';
 
 export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const currentUser = useAuthorization(true);
+    const [userRole, setUserRole] = useState('');
+
+    onAuthStateChanged(async (user: User | null) => {
+        if (user) {
+            const role = await getUserRole(user);
+            if (role) {
+                setUserRole(role);
+            }
+        }
+    });
+
     const children = useSubscribed<Child[], User | null>(
         (callback: OnSnapshotCallback<Child[]>) => {
             if (currentUser) {
@@ -28,12 +40,7 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
         [currentUser],
     ) as Child[];
 
-    const menuItems = [
-        { name: t('sidebar.home'), link: '/parent', icon: <Home /> },
-        { name: t('sidebar.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
-        { name: t('sidebar.notifications'), link: '/parent/notifications', icon: <Notifications /> },
-        { name: t('sidebar.settings'), link: '/', icon: <BuildSharp /> },
-    ];
+    const menuItems = getMenuItems(t, userRole);
 
     const renderMenuItems = () => {
         if (children) {

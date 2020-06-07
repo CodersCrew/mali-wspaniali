@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, Badge } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
-import { User } from '../../firebase/firebase';
-import { secondaryColor, mainColor, white, textColor } from '../../colors';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { getChildrenByUserId } from '../../queries/childQueries';
-import { getNotificationData } from '../../queries/notificationQueries'
-import { Child, NotificationPaginatedList } from '../../firebase/types';
+import { User } from '../../../firebase/firebase';
+import { secondaryColor, mainColor, white, textColor } from '../../../colors';
+import { useSubscribed } from '../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
+import { getChildrenByUserId } from '../../../queries/childQueries';
+import { getNotificationData } from '../../../queries/notificationQueries'
+import { Child, NotificationPaginatedList } from '../../../firebase/types';
 import { MenuListItems } from './MenuListItems';
 import { NotificationsPanel } from './NotificationsPanel'
-import { useAuthorization } from '../../hooks/useAuthorization';
-import Logo from '../../assets/MALWSP_logo_nav.png';
+import { useAuthorization } from '../../../hooks/useAuthorization';
+import { Link } from 'react-router-dom';
+import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
+import Logo from '../../../assets/MALWSP_logo_nav.png';
 
 export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isNotificationsPanelOpen, setNotificationsPanelOpen] = useState(false);
+    const [userRole, setUserRole] = useState('');
     const currentUser = useAuthorization(true);
+
     const children = useSubscribed<Child[], User | null>(
         (callback: OnSnapshotCallback<Child[]>) => {
             if (currentUser) {
@@ -35,6 +39,15 @@ export const Navbar = () => {
     }, [], [currentUser],
     ) as NotificationPaginatedList
 
+    onAuthStateChanged(async (user: User | null) => {
+        if (user) {
+            const role = await getUserRole(user);
+            if (role) {
+                setUserRole(role);
+            }
+        }
+    });
+
     const handleAvatarClick = () => {
         setMenuOpen(prevOpen => !prevOpen);
     };
@@ -43,10 +56,16 @@ export const Navbar = () => {
         setNotificationsPanelOpen(isOpen => !isOpen)
     };
 
+    const handleClose = () => {
+        setMenuOpen(false);
+    };
+
     return (
         <div>
             <div className={classes.menuContainer}>
-                <img src={Logo} className={classes.logo} alt='Logo Mali Wspaniali'/>
+                <Link to={`/${userRole}`} className={classes.homeLink}>
+                    <img src={Logo} className={classes.logo} alt="Logo Mali Wspaniali" />
+                </Link>
                 <IconButton color="inherit" onClick={handleNotificationsIconClick}>
                     <Badge badgeContent={notificationResponse.notifications && notificationResponse.notifications.filter(el => !el.isRead).length} classes={{ badge: classes.badgeColor }}>
                         <Notifications className={classes.notificationsIcon} />
@@ -59,7 +78,7 @@ export const Navbar = () => {
                 </Avatar>
             </div>
             {isNotificationsPanelOpen && <NotificationsPanel notifications={notificationResponse.notifications}/>}
-            {isMenuOpen && <MenuListItems childrenData={children} />}
+            {isMenuOpen && <MenuListItems childrenData={children} userRole={userRole} handleClose={handleClose} />}
         </div>
     );
 };
@@ -129,6 +148,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: 'block',
                 width: '54px',
                 height: '44px',
+            },
+        },
+        homeLink: {
+            [theme.breakpoints.down('sm')]: {
                 marginRight: 'auto',
                 marginLeft: '10px',
             },

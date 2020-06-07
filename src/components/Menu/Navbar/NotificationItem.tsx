@@ -2,11 +2,11 @@ import React from 'react';
 import clsx from 'clsx';
 import { Notifications } from '@material-ui/icons/';
 import { ListItem, Typography, createStyles, makeStyles, MenuItem } from '@material-ui/core/';
-import { Timestamp } from '../../firebase/types';
-import moment from '../../localizedMoment';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import { setNotificationReadValue } from '../../queries/notificationQueries';
-import { darkGrey, textColor, notificationReadColor, notificationCaptionColor, secondaryColor } from '../../colors';
+import { Timestamp } from '../../../firebase/types';
+import moment from '../../../localizedMoment';
+import { useAuthorization } from '../../../hooks/useAuthorization';
+import { setNotificationReadValue } from '../../../queries/notificationQueries';
+import { darkGrey, textColor, notificationReadColor, notificationCaptionColor, secondaryColor } from '../../../colors';
 
 type notificationItemProps = {
     text: string;

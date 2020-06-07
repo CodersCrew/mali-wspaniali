@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, CardMedia, Button, createStyles, makeStyles } from '@material-ui/core';
+import { Grid, CardMedia, Button, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import { Video } from './types';
 
@@ -19,7 +19,7 @@ export const ArticleVideo = ({ video }: { video: Video }) => {
                 <Grid className={classes.contentTags} item xs={12}>
                     <Grid container direction="row">
                         <Grid item xs={8}>
-                            <Grid container direction="row">
+                            <Grid container direction="row" spacing={10}>
                                 {video.tags.map(tag => {
                                     return (
                                         <Grid key={tag} item xs={3}>
@@ -36,7 +36,7 @@ export const ArticleVideo = ({ video }: { video: Video }) => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentVideoGrid: {
             paddingTop: '2vw',
@@ -61,6 +61,12 @@ const useStyles = makeStyles(() =>
         },
         contentTags: {
             paddingTop: '4vw',
+
+            [theme.breakpoints.down('sm')]: {
+                paddingTop: '25px',
+                paddingBottom: '40px',
+                paddingLeft: '10px',
+            },
         },
         contentTagsButton: {
             backgroundColor: SingleArticleColors.tagButton,
@@ -69,6 +75,15 @@ const useStyles = makeStyles(() =>
             fontFamily: 'Roboto',
             fontSize: '12px',
             fontWeight: 'bold',
+
+
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '8px',
+                width: '15vw',
+                height: '3vh',
+                textTransform: 'lowercase',
+                color: SingleArticleColors.title,
+            },
         },
     }),
 );
