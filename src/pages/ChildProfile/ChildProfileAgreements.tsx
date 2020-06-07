@@ -1,13 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
+import {
+    Card,
+    Typography,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemIcon,
+    Checkbox,
+    CheckboxProps,
+} from '@material-ui/core';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { Agreement, UserAgreement } from '../../firebase/types';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
