@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import { makeStyles, ThemeProvider, createStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
-import { Sidebar } from '../../components/Sidebar';
-import { Navbar } from '../../components/Navbar/Navbar';
+import { Sidebar } from '../../components/Menu/Sidebar';
+import { Navbar } from '../../components/Menu/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
 import { theme } from '../../theme';
 

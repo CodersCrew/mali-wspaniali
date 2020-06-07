@@ -209,17 +209,16 @@
         "choose-file": "Choose File",
         "upload-file": "Upload File"
     },
-    "sidebar": {
+    "menu": {
         "home": "Home",
         "settings": "Settings",
         "news": "News",
         "notifications": "Notifications",
-        "logout": "Log out"
-    },
-    "navbar": {
-        "news": "News",
-        "messages": "Messages",
-        "settings": "Settings",
+        "results": "Results",
+        "agreements": "Agreements",
+        "newsletter": "Newsletter",
+        "newsletter-archive": "Archive",
+        "blog": "Blog",
         "logout": "Log out"
     },
     "home-page-content": {
