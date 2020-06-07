@@ -3,6 +3,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
+import { panelTextColor } from '../../../colors';
 
 export const PanelSummary: FC = ({ children }) => {
     const classes = useStyles();
@@ -21,6 +22,6 @@ const useStyles = makeStyles(theme => ({
     title: {
         fontSize: 15,
         lineHeight: '21px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
 }));

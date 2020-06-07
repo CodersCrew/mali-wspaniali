@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Panel } from '../Panel';
+import { panelTextColor, lightTextColor } from '../../../../colors';
 
 const T_PREFIX = 'child-profile.tests-informations.conditions';
 
@@ -68,13 +69,13 @@ const useStyles = makeStyles(theme => ({
         fontSize: 21,
         fontWeight: 500,
         lineHeight: '29.4px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
     text: {
         marginTop: theme.spacing(2),
         fontSize: 15,
         lineHeight: '21px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
     tests: {
         display: 'grid',
@@ -94,14 +95,14 @@ const useStyles = makeStyles(theme => ({
         fontSize: 15,
         fontWeight: 'bold',
         lineHeight: '18px',
-        color: '#1d1d1d',
+        color: panelTextColor,
         textTransform: 'uppercase',
     },
     testText: {
         marginTop: theme.spacing(1.25),
         fontSize: 12,
         lineHeight: '14.4px',
-        color: '#505050',
+        color: lightTextColor,
     },
     testImage: {
         width: 80,

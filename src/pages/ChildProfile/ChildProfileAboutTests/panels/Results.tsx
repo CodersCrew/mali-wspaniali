@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Panel } from '../Panel';
 import { CircleChart } from '../../../../components/CircleChart';
+import { panelTextColor, white, resultColors } from '../../../../colors';
 
 const T_PREFIX = 'child-profile.tests-informations.results';
 
@@ -14,27 +15,27 @@ export const Results = () => {
 
     const scores = [
         {
-            label: 'do 25%',
+            label: `${t(`${T_PREFIX}.to`)} 25%`,
             value: 25,
-            color: '#f44336',
+            color: resultColors.red,
             description: t(`${T_PREFIX}.score25`),
         },
         {
-            label: 'do 50%',
+            label: `${t(`${T_PREFIX}.to`)} 50%`,
             value: 50,
-            color: '#ffc107',
+            color: resultColors.yellow,
             description: t(`${T_PREFIX}.score50`),
         },
         {
-            label: 'do 75%',
+            label: `${t(`${T_PREFIX}.to`)} 75%`,
             value: 75,
-            color: '#70bf73',
+            color: resultColors.green,
             description: t(`${T_PREFIX}.score75`),
         },
         {
-            label: 'do 100%',
+            label: `${t(`${T_PREFIX}.to`)} 100%`,
             value: 100,
-            color: '#70bf73',
+            color: resultColors.green,
             description: t(`${T_PREFIX}.score100`),
         },
     ];
@@ -63,13 +64,13 @@ const useStyles = makeStyles(theme => ({
         fontSize: 21,
         fontWeight: 500,
         lineHeight: '29.4px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
     text: {
         marginTop: theme.spacing(2),
         fontSize: 15,
         lineHeight: '21px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
     image: {
         marginLeft: theme.spacing(6),
@@ -100,7 +101,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '96px',
         fontSize: 14,
         fontWeight: 'bold',
-        color: '#ffffff',
+        color: white,
         textTransform: 'uppercase',
         textAlign: 'center',
     },

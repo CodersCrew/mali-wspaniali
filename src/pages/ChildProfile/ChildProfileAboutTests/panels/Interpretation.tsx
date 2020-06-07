@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Panel } from '../Panel';
+import { panelTextColor } from '../../../../colors';
 
 const T_PREFIX = 'child-profile.tests-informations.interpretation';
 
@@ -26,12 +27,12 @@ const useStyles = makeStyles(theme => ({
         fontSize: 21,
         fontWeight: 500,
         lineHeight: '29.4px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
     text: {
         marginTop: theme.spacing(2),
         fontSize: 15,
         lineHeight: '21px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
 }));

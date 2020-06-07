@@ -126,6 +126,7 @@
                 "test4-scale": "Skala: 0 s - 80 s"
             },
             "results": {
+                "to": "do",
                 "panelTitle": "Jak obliczamy wyniki testu",
                 "score25": "Coś jest nie tak, postaraj się bardziej",
                 "score50": "Dobrze Ci idzie, ale zawsze może być lepiej!",

@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Panel } from '../Panel';
+import { panelTextColor, mainColor } from '../../../../colors';
 
 const T_PREFIX = 'child-profile.tests-informations.about';
 
@@ -34,13 +35,13 @@ const useStyles = makeStyles(theme => ({
         fontSize: 21,
         fontWeight: 500,
         lineHeight: '29.4px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
     text: {
         marginTop: theme.spacing(2),
         fontSize: 15,
         lineHeight: '21px',
-        color: '#1d1d1d',
+        color: panelTextColor,
     },
     image: {
         marginLeft: theme.spacing(6),
@@ -53,6 +54,6 @@ const useStyles = makeStyles(theme => ({
     },
     strong: {
         fontWeight: 'bold',
-        color: '#008aad',
+        color: mainColor,
     },
 }));
