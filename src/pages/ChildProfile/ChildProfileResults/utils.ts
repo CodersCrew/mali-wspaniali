@@ -26,23 +26,25 @@ const getPotentialResults = (yearOfBirth: number) => {
 
 export const getGroupedResults = (results: Result[]) => {
     const potentialResults = getPotentialResults(2005);
-    const realResults = results.reduce(
-        (accumulator, currentResult) => {
-            const currentSchoolYearResults = accumulator[currentResult.schoolYearStart];
+    const realResults =
+        results &&
+        results.reduce(
+            (accumulator, currentResult) => {
+                const currentSchoolYearResults = accumulator[currentResult.schoolYearStart];
 
-            if (currentSchoolYearResults) {
-                currentSchoolYearResults.push(currentResult);
+                if (currentSchoolYearResults) {
+                    currentSchoolYearResults.push(currentResult);
 
-                return accumulator;
-            }
+                    return accumulator;
+                }
 
-            return {
-                ...accumulator,
-                [currentResult.schoolYearStart]: [currentResult],
-            };
-        },
-        {} as GroupedResults,
-    );
+                return {
+                    ...accumulator,
+                    [currentResult.schoolYearStart]: [currentResult],
+                };
+            },
+            {} as GroupedResults,
+        );
 
     return {
         ...potentialResults,
@@ -57,36 +59,42 @@ export const getMaxDate = (dates: Date[]) => {
 };
 
 const testResults = {
-    low: {
+    bad: {
         color: resultColors.red,
         lightColor: resultColors.lightRed,
-        translationKey: 'low',
+        key: 'bad',
     },
     medium: {
         color: resultColors.yellow,
         lightColor: resultColors.lightYellow,
-        translationKey: 'medium',
+        key: 'medium',
     },
-    high: {
+    good: {
         color: resultColors.green,
         lightColor: resultColors.lightGreen,
-        translationKey: 'high',
+        key: 'good',
+    },
+    veryGood: {
+        color: resultColors.green,
+        lightColor: resultColors.lightGreen,
+        key: 'very-good',
     },
 };
 
 export const getResultColorAndLabel = (value: number, maxValue: number) => {
     const percentageValue = (value / maxValue) * 100;
-    if (percentageValue < 67) return testResults.low;
+    if (percentageValue < 67) return testResults.bad;
     if (percentageValue < 83) return testResults.medium;
+    if (percentageValue < 100) return testResults.good;
 
-    return testResults.high;
+    return testResults.veryGood;
 };
 
-export const getDifferenceLabel = (firstValue: number, lastValue: number) => {
-    if (firstValue > lastValue) return 'worse';
-    if (lastValue > firstValue) return 'better';
+export const getDifferenceKey = (firstValue: number, lastValue: number) => {
+    if (firstValue > lastValue) return 'regress';
+    if (lastValue > firstValue) return 'progress';
 
-    return 'same';
+    return 'constant';
 };
 
 export const getSchoolYearLabel = (schoolYearStart: number) => `${schoolYearStart}/${schoolYearStart + 1}`;

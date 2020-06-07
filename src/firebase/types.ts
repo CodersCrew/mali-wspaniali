@@ -90,3 +90,7 @@ export interface Kindergarten {
     number: string;
     id: string;
 }
+
+export interface Advice {
+    content: string;
+}

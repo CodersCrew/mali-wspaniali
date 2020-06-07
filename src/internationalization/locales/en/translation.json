@@ -62,9 +62,10 @@
         "initial-test": "Initial test",
         "final-test": "Final test",
         "result-description": {
-            "low": "TBD",
+            "bad": "TBD",
             "medium": "You are doing well but it can always be better",
-            "high": "Very good!"
+            "good": "Good!",
+            "very-good": "Very good!"
         },
         "tests": {
             "strength": "Strength",
@@ -85,9 +86,9 @@
         "final-test-title": "Results of particular tests with comparison of results from the initial test",
         "initial-test-title": "Results of particular tests",
         "difference": {
-            "better": "Get better",
-            "worse": "Get worse",
-            "same": "Is the same"
+            "progress": "Get better",
+            "regress": "Get worse",
+            "constant": "Is the same"
         },
         "summary-info": "Summary information",
         "test-result": "Test result",
@@ -245,5 +246,6 @@
         "other": "Other"
     },
     "years_0": "year",
-    "years_1": "years"
+    "years_1": "years",
+    "close": "Close"
 }
