@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Grid, Button, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Button, Typography, Theme } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 import { Path } from './types';
@@ -10,7 +10,7 @@ export const ArticlePath = ({ path }: { path: Path }) => {
     const { t } = useTranslation();
 
     return (
-        <Grid item xs={8}>
+        <Grid item xs={8} className={classes.pathContainer}>
             <Grid container direction="row">
                 <Button href="#BLOG" disableElevation disableFocusRipple disableRipple disableTouchRipple>
                     <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
@@ -42,8 +42,13 @@ export const ArticlePath = ({ path }: { path: Path }) => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        pathContainer: {
+            [theme.breakpoints.down('sm')]: {
+                display: 'none',
+            }
+        },
         pathText: {
             fontWeight: 'bold',
             letterSpacing: letterSpace,

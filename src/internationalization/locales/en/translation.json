@@ -24,6 +24,19 @@
         "register": "Register",
         "password-not-strong": "Password not strong enough"
     },
+    "forgot-password-page": {
+        "forgot-password": "Forgot password",
+        "its-ok": "Don't worry. Type in your email address.",
+        "receive-link": "You will receive a link to create a new password.",
+        "insert-email": "Type in e-mail address provided to the foundation",
+        "new-password": "Create new password",
+        "problem": "Stumbled upon a problem?",
+        "contact": "Please contact the foundation to resolve it",
+        "email-helper-text": "Type in e-mail address provided to the foundation",
+        "back-to-login": "Back to login",
+        "email-sent": "We have sent you an email.",
+        "when-received": "Once you receive it, click a link to create a new password."
+    },
     "users-page": {
         "agreements": "Agreements",
         "users-list": "Users List"
@@ -50,6 +63,12 @@
         "results-list": "Results list",
         "tests-information": "Tests information",
         "your-agreements": "Your agreements",
+        "participation-label": "Permission to participate in the Mali Wspaniali program",
+        "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
+        "marketing-label": "Permission to receive marketing information on provided e-mail address",
+        "marketing-description": "Optional agreement that allows us to send you emails with current informations about the Mali Wspaniali program.",
+        "image-label": "Permission to use the image",
+        "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
         "kindergartener-test": "Kindergartener test",
         "last-update-date": "Last update",
         "details": "Details",
@@ -105,7 +124,7 @@
             },
             "conditions": {
                 "panelTitle": "panelTitle (placeholder)",
-                "title": "ttitle (placeholder)",
+                "title": "title (placeholder)",
                 "text1": "text1 (placeholder)",
                 "text2": "text2 (placeholder)",
                 "test1-name": "test1-name (placeholder)",
@@ -140,7 +159,8 @@
                 "text3": "text3 (placeholder)",
                 "text4": "text4 (placeholder)"
             }
-        }
+        },
+        "agreements-title": "Below you can check and edit the signed agreements."
     },
     "parent-profile": {
         "parent": "Parent",
@@ -243,17 +263,16 @@
         "choose-file": "Choose File",
         "upload-file": "Upload File"
     },
-    "sidebar": {
+    "menu": {
         "home": "Home",
         "settings": "Settings",
         "news": "News",
         "notifications": "Notifications",
-        "logout": "Log out"
-    },
-    "navbar": {
-        "news": "News",
-        "messages": "Messages",
-        "settings": "Settings",
+        "results": "Results",
+        "agreements": "Agreements",
+        "newsletter": "Newsletter",
+        "newsletter-archive": "Archive",
+        "blog": "Blog",
         "logout": "Log out"
     },
     "home-page-content": {

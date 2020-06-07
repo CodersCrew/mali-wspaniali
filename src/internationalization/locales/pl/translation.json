@@ -24,6 +24,19 @@
         "register": "Zarejestruj się",
         "password-not-strong": "Hasło za słabe"
     },
+    "forgot-password-page": {
+        "forgot-password": "Nie pamietasz hasła",
+        "its-ok": "Nic się nie stało. Wpisz swój adres email.",
+        "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
+        "insert-email": "Wpisz adres e-mail podany fundacji",
+        "new-password": "Stwórz nowe hasło",
+        "problem": "Masz problem?",
+        "contact": "Skontaktuj się z fundacją by go rozwiązać",
+        "email-helper-text": "Wpisz adres e-mail podany fundacji",
+        "back-to-login": "Wróć do logowania",
+        "email-sent": "Na twój adres email wysłaliśmy maila.",
+        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło."
+    },
     "users-page": {
         "agreements": "Zgody",
         "users-list": "Lista użytkowników"
@@ -54,6 +67,12 @@
         "results-list": "Lista wyników",
         "tests-information": "Informacje o testach",
         "your-agreements": "Twoje zgody",
+        "participation-label": "Zgoda na udział w programie Mali Wspaniali.",
+        "participation-description": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe.",
+        "marketing-label": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+        "marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+        "image-label": "Zgoda na rozpowszechnianie wizerunku.",
+        "image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji.",
         "kindergartener-test": "Test przedszkolaka",
         "last-update-date": "Data ostatniej zmiany",
         "details": "Szczegóły",
@@ -144,7 +163,8 @@
                 "text3": "Optymalne wyniki dziecka, a co za tym idzie zdrowy i harmonijny rozwój ruchowy, pozwala dziecku osiągać stopniowo własną niezależność i bezpieczeństwo, a co za tym idzie pewność siebie. To również może mieć wpływ na akceptację społeczną.",
                 "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
             }
-        }
+        },
+        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody."
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -243,17 +263,16 @@
         "choose-file": "Wybierz plik",
         "upload-file": "Dodaj plik"
     },
-    "sidebar": {
+    "menu": {
         "home": "Strona Główna",
         "settings": "Ustawienia",
         "news": "Aktualności",
         "notifications": "Powiadomienia",
-        "logout": "Wyloguj"
-    },
-    "navbar": {
-        "news": "Aktualności",
-        "messages": "Wiadomości",
-        "settings": "Ustawienia",
+        "results": "Wyniki",
+        "agreements": "Zgody",
+        "newsletter": "Newsletter",
+        "newsletter-archive": "Archiwum",
+        "blog": "Blog",
         "logout": "Wyloguj"
     },
     "blog-article-card": {
