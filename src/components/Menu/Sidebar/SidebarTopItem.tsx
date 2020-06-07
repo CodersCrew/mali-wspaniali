@@ -6,23 +6,19 @@ import clsx from 'clsx';
 import { mainColor } from '../../../colors';
 import { SidebarPropTypes } from './types';
 import SidebarLogo from '../../../assets/MALWSP_logo_nav.png';
-import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
-import { User } from '../../../firebase/firebase';
+import { getUserRole } from '../../../queries/authQueries';
+import { useAuthorization } from '../../../hooks/useAuthorization';
 
 export const SidebarTopItem = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
     const classes = useStyles();
+    const currentUser = useAuthorization(true);
     const [userRole, setUserRole] = useState('');
 
     const switcherIconStyle = clsx(classes.switcherIcon, isSidebarOpen ? 'opened' : null);
 
-    onAuthStateChanged(async (user: User | null) => {
-        if (user) {
-            const role = await getUserRole(user);
-            if (role) {
-                setUserRole(role);
-            }
-        }
-    });
+    if (currentUser) {
+        getUserRole(currentUser).then(role => setUserRole(role));
+    }
 
     return (
         <div className={classes.sidebarLogoWrapper}>
