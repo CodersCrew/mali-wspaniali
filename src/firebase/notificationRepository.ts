@@ -39,7 +39,7 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
             let firstIndex = 0;
             let lastIndex = 8;
             if (endBefore && notifications.length > 8) {
-                firstIndex = 1;
+                firstIndex = 0;
                 lastIndex = 8;
             }
             return onSnapshotCallback({

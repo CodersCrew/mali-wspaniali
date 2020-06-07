@@ -27,7 +27,7 @@ export const NotificationPageList = (props: NotificationListProps) => {
             {notifications && notifications.map((notification) => {
                 const { id, text, date, isRead } = notification;
                 return (
-                    <NotificationPageListItem id={id} text={text} date={date} isRead={isRead}/>
+                    <NotificationPageListItem key={id} id={id} text={text} date={date} isRead={isRead}/>
                 )
             })}
           </TableBody>
