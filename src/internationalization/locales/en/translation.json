@@ -113,7 +113,54 @@
         "comparison-label": "By comparing both tests, your child's fitness level",
         "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
         "comparison-button": "What can I do?",
-        "agreements-title":  "Below you can check and edit the signed agreements."
+        "tests-informations": {
+            "about": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2-1": "text2-1 (placeholder)",
+                "text2-test-names": "text2-test-names (placeholder)",
+                "text2-2": "text2-2 (placeholder)"
+            },
+            "conditions": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)",
+                "test1-name": "test1-name (placeholder)",
+                "test1-description": "test1-description (placeholder)",
+                "test1-scale": "test1-scale (placeholder)",
+                "test2-name": "test2-name (placeholder)",
+                "test2-description": "test2-description (placeholder)",
+                "test2-scale": "test2-scale (placeholder)",
+                "test3-name": "test3-name (placeholder)",
+                "test3-description": "test3-description (placeholder)",
+                "test3-scale": "test3-scale (placeholder)",
+                "test4-name": "test4-name (placeholder)",
+                "test4-description": "test4-description (placeholder)",
+                "test4-scale": "test4-scale (placeholder)"
+            },
+            "results": {
+                "to": "to",
+                "panelTitle": "panelTitle (placeholder)",
+                "score25": "score25 (placeholder)",
+                "score50": "score50 (placeholder)",
+                "score75": "score75 (placeholder)",
+                "score100": "score100 (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)"
+            },
+            "interpretation": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)",
+                "text3": "text3 (placeholder)",
+                "text4": "text4 (placeholder)"
+            }
+        },
+        "agreements-title": "Below you can check and edit the signed agreements."
     },
     "parent-profile": {
         "parent": "Parent",
