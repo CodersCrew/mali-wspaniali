@@ -24,7 +24,7 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
     const { t } = useTranslation();
 
     const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
+        setOpen(prevOpen => !prevOpen);
     };
 
     const handleClose = (event: React.MouseEvent<EventTarget>) => {
@@ -51,7 +51,7 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
     const prevOpen = React.useRef(open);
     useEffect(() => {
         if (prevOpen.current === true && open === false) {
-      anchorRef.current!.focus();
+            anchorRef.current!.focus();
         }
 
         prevOpen.current = open;
@@ -63,13 +63,20 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
                 ref={anchorRef}
                 aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
-                onClick={ handleToggle }
+                onClick={handleToggle}
                 className={classes.button}
             >
-                { t('blog-categories.header') }
-                { !open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon /> }
+                {t('blog-categories.header')}
+                {!open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
             </Button>
-            <Popper  className={classes.container} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+            <Popper
+                className={classes.container}
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                transition
+                disablePortal
+            >
                 {({ TransitionProps, placement }) => (
                     <Grow
                         {...TransitionProps}
@@ -77,11 +84,17 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
                     >
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList autoFocusItem={ open } id="menu-list-grow" onKeyDown={ handleListKeyDown }>
-                                    <MenuStyledTabs value={ currentTabIndex } onChange={ handleChange }>
-                                        { categoriesList.map(category => {
-                                            return <MenuStyledTab key={category.key}  label={ category.name } color={ category.color } />;
-                                        }) }
+                                <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                    <MenuStyledTabs value={currentTabIndex} onChange={handleChange}>
+                                        {categoriesList.map(category => {
+                                            return (
+                                                <MenuStyledTab
+                                                    key={category.key}
+                                                    label={category.name}
+                                                    color={category.color}
+                                                />
+                                            );
+                                        })}
                                     </MenuStyledTabs>
                                 </MenuList>
                             </ClickAwayListener>
@@ -123,13 +136,13 @@ const useStyles = makeStyles(() =>
             marginLeft: '52px',
             marginRight: '52px',
             width: '100vw',
-            justifyContent:'space-between'
+            justifyContent: 'space-between',
         },
         container: {
             marginLeft: '52px',
             marginRight: '52px',
             alignItems: 'flex-start',
             transform: 'translate3d(0px, 35px, 0px)!important',
-        }
+        },
     }),
 );

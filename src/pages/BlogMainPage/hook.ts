@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 function useComponent() {
     const [width, setWidth] = useState(window.innerWidth);
-  
+
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
         window.addEventListener('resize', handleResize);
@@ -10,7 +10,7 @@ function useComponent() {
             window.removeEventListener('resize', handleResize);
         };
     });
-  
+
     return width;
 }
 

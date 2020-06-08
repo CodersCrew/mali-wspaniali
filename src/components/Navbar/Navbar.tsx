@@ -33,7 +33,7 @@ export const Navbar = () => {
     return (
         <div>
             <div className={classes.menuContainer}>
-                <img src={Logo} className={classes.logo} alt='Logo Mali Wspaniali'/>
+                <img src={Logo} className={classes.logo} alt="Logo Mali Wspaniali" />
                 <IconButton color="inherit">
                     <Notifications className={classes.notificationsIcon} />
                 </IconButton>
@@ -43,7 +43,7 @@ export const Navbar = () => {
                     </Button>
                 </Avatar>
             </div>
-            { isMenuOpen && <MenuListItems childrenData={ children } /> }
+            {isMenuOpen && <MenuListItems childrenData={children} />}
         </div>
     );
 };
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 backgroundColor: white,
                 marginRight: '10px',
-                marginLeft: '10px'
+                marginLeft: '10px',
             },
         },
         avatarButton: {
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 color: white,
-                marginLeft: 'auto'
+                marginLeft: 'auto',
             },
         },
         menuContainer: {
@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: '54px',
                 height: '44px',
                 marginRight: 'auto',
-                marginLeft: '10px'
+                marginLeft: '10px',
             },
         },
     }),

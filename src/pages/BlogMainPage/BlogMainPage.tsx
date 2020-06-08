@@ -76,15 +76,16 @@ export const BlogMainPage = () => {
     };
 
     return (
-        <ThemeProvider theme={ theme }>
+        <ThemeProvider theme={theme}>
             <div className={classes.blog}>BLOG</div>
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
 
-            { (screenWidth <= 768) ? (
-                <DropDownMenu setCategory={ setCurrentCategory }/>
-            ) : ( <CategoryTabs setCategory={ setCurrentCategory } />
+            {screenWidth <= 768 ? (
+                <DropDownMenu setCategory={setCurrentCategory} />
+            ) : (
+                <CategoryTabs setCategory={setCurrentCategory} />
             )}
 
             <div className={classes.gridBackground}>
@@ -113,14 +114,14 @@ const useStyles = makeStyles({
     blog: {
         backgroundColor: mainColor,
         borderRadius: '0 0 8px 8px',
-        fontWeight:'bold',
+        fontWeight: 'bold',
         padding: '10px',
         color: white,
         fontSize: '21px',
         top: '50px',
         left: 0,
         width: '100vw',
-        position: 'absolute'
+        position: 'absolute',
     },
     heading: {
         marginTop: '20px',
@@ -155,7 +156,7 @@ const useStyles = makeStyles({
     },
     grid: {
         [theme.breakpoints.down('sm')]: {
-            minWidth: 'fit-content'
+            minWidth: 'fit-content',
         },
     },
 });

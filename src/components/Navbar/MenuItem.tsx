@@ -62,6 +62,6 @@ const useStyles = makeStyles({
     listItemText: {
         fontSize: '14px',
         fontWeight: 600,
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
     },
 });

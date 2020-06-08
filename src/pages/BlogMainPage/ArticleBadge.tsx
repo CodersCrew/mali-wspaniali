@@ -12,7 +12,7 @@ type ArticleBadgeProps = {
 export const ArticleBadge = ({ articleCategory }: ArticleBadgeProps) => {
     const { color, name } = categories[articleCategory];
 
-    return <StyledBadge color={ color }>{ name }</StyledBadge>;
+    return <StyledBadge color={color}>{name}</StyledBadge>;
 };
 
 type BadgeProps = {
@@ -22,7 +22,7 @@ type BadgeProps = {
 };
 
 const Badge = ({ children, classes }: BadgeProps) => {
-    return <div className={ classes.root }>{ children }</div>;
+    return <div className={classes.root}>{children}</div>;
 };
 
 type Styles = {

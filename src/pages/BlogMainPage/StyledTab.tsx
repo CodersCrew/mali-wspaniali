@@ -45,4 +45,4 @@ const styles = createStyles({
     },
 });
 
-export const StyledTab = withStyles(styles)((props: TabStyles) =><Tab disableRipple {...props} /> );
+export const StyledTab = withStyles(styles)((props: TabStyles) => <Tab disableRipple {...props} />);

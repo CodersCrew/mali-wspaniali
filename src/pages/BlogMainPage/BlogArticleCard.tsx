@@ -6,14 +6,13 @@ import { darkGrey, white } from '../../colors';
 import { BlogArticleCardProps } from './types';
 import { ArticleBadge } from './ArticleBadge';
 
-
 export const BlogArticleCard = ({ image, title, description, link, category }: BlogArticleCardProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <Card className={classes.card} elevation={0}>
-            <CardMedia component="img" alt={ title } image={ image } title={ title } className={ classes.cardImage } />
+            <CardMedia component="img" alt={title} image={image} title={title} className={classes.cardImage} />
             <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" className={classes.articleTitle}>

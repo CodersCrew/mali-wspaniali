@@ -44,7 +44,7 @@ const styles = createStyles({
         fontWeight: 600,
         marginRight: '20px',
         marginBottom: '20px',
-        minWidth: 'fit-content'
+        minWidth: 'fit-content',
     },
     wrapper: {
         margin: '0 10px',
