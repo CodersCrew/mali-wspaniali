@@ -43,4 +43,13 @@ export const invitationCodeRepository = (db: firebaseApp.firestore.Firestore) =>
             getQuery(resolve, reject);
         });
     },
+
+    getCodeDocByUserInput: async (inputCode: string) => {
+        const snapshot = await db
+            .collection('invitation-code')
+            .where('code', '==', inputCode)
+            .get();
+
+        return snapshot.docs.map(doc => doc.data());
+    },
 });

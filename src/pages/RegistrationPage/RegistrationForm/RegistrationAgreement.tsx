@@ -8,10 +8,10 @@ import {
     Typography,
 } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { RegistrationAgreementProps } from './types';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { AgreementModal } from './AgreementModal';
 import clsx from 'clsx';
+import { RegistrationAgreementProps } from './types';
+import { AgreementModal } from './AgreementModal';
 
 const T_PREFIX = 'registration-page.agreements';
 
@@ -77,10 +77,7 @@ export const RegistrationAgreement = ({
                                     'aria-label': 'checkbox with default color',
                                 }}
                             />
-                            <p
-                                className={agreementText}
-                                key={agreement.agreementId}
-                            >
+                            <p className={agreementText} key={agreement.id}>
                                 {agreement.title}
                             </p>
                         </div>

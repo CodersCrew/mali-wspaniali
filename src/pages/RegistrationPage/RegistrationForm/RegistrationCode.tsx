@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { TextField, Button, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { RegistrationCodeProps } from './types';
 import { openAlertDialog } from '../../../components/AlertDialog';
-import { getInvitationCodes } from '../../../queries/invitationCodeQueries';
+import { getCodeByUserInput } from '../../../queries/invitationCodeQueries';
 import { InvitationCode } from '../../../firebase/types';
 import { codeTest } from '../codeTest';
 
@@ -19,23 +19,6 @@ export const RegistrationCode = ({
     const [codeError, setCodeError] = useState(false);
 
     const { t } = useTranslation();
-    const codes = useRef<InvitationCode[]>([]);
-
-    useEffect(() => {
-        const fetchCodes = async () => {
-            const res = await getInvitationCodes();
-            codes.current = res.invitationCode;
-        };
-        fetchCodes();
-    }, []);
-
-    const handleCodeError = () => {
-        if (!codeTest(code, codes.current)) {
-            setCodeError(true);
-        } else {
-            setCodeError(false);
-        }
-    };
 
     const handleClick = () => {
         openAlertDialog({
@@ -43,6 +26,17 @@ export const RegistrationCode = ({
             title: t('registration-page.no-code'),
             description: t('registration-page.no-code-desc'),
         });
+    };
+
+    const handleCodeCheck = async () => {
+        const data = (await getCodeByUserInput(code)) as InvitationCode[];
+        if (data.length === 0) {
+            setCodeError(true);
+            return;
+        }
+        const test = codeTest(code, data);
+        setCodeError(!test);
+        if (test) handleNext();
     };
 
     return (
@@ -58,9 +52,8 @@ export const RegistrationCode = ({
                 variant="outlined"
                 inputProps={{ 'data-testid': 'code' }}
                 className={classForm}
-                error={codeError && !codeTest(code, codes.current)}
+                error={codeError}
                 helperText={codeError && t('registration-page.invalid-code')}
-                onBlur={handleCodeError}
             />
             <div className={classButton}>
                 <Button className={classPrevBtn} onClick={handleClick}>
@@ -68,10 +61,10 @@ export const RegistrationCode = ({
                 </Button>
                 <Button
                     variant="contained"
-                    onClick={handleNext}
+                    onClick={handleCodeCheck}
                     className={classNextBtn}
                     color="secondary"
-                    disabled={!codeTest(code, codes.current)}
+                    disabled={code.length < 9}
                     data-testid="code-next"
                 >
                     {t('next')}

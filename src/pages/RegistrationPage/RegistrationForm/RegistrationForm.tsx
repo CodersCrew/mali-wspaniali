@@ -23,8 +23,10 @@ import { RegistrationFeedback } from './RegistrationFeedback';
 import { RegistrationCode } from './RegistrationCode';
 import { LanguageSelector } from './LanguageSelector';
 import { getAgreements } from '../../../queries/agreementQueries';
-import { AdminAgreement } from '../../../firebase/types';
+import { Agreement } from '../../../firebase/types';
 import { RegisterForm } from './types';
+import { useSubscribed } from '../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
 
 const initialState: RegisterForm = {
     code: '',
@@ -36,18 +38,14 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
-    const [agreements, setAgreements] = useState<AdminAgreement[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
 
-    useEffect(() => {
-        const fetchAgreements = async () => {
-            const res = await getAgreements();
-            setAgreements(res.agreement);
-        };
-        fetchAgreements();
-    }, []);
+    const agreements = useSubscribed<Agreement[] | null, string>(
+        (callback: OnSnapshotCallback<Agreement[]>) => getAgreements(callback),
+        []
+    ) as Agreement[];
 
     const steps = [
         t('registration-page.enter-code'),

@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { AdminAgreement } from '../../../firebase/types';
+import { Agreement } from '../../../firebase/types';
 
 export type RegisterForm = {
     code: string;
@@ -43,7 +43,7 @@ export interface RegistrationAgreementProps {
     classButton: string;
     classNextBtn: string;
     classPrevBtn: string;
-    agreements: AdminAgreement[];
+    agreements: Agreement[];
     agreementMoreBtn: string;
     agreementContainer: string;
     agreementCheckboxHeader: string;
