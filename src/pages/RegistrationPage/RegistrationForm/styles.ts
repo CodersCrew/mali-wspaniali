@@ -27,7 +27,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             width: '80%',
             minHeight: '90vh',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 minHeight: 'auto',
                 width: '100%',
                 margin: '0 15px',
@@ -39,7 +39,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             alignItems: 'center',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 marginTop: '40px',
                 marginBottom: '5px',
             },
@@ -48,12 +48,12 @@ export const useStyles = makeStyles((theme: Theme) =>
             margin: '10px 0',
             width: '100%',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 margin: '10px 0',
             },
         },
         stepper: {
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 marginTop: 15,
             },
         },
@@ -64,7 +64,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             textTransform: 'uppercase',
             color: textColor,
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 '&.confirmation': {
                     marginTop: 0,
                 },
@@ -82,7 +82,7 @@ export const useStyles = makeStyles((theme: Theme) =>
                 justifyContent: 'flex-end',
             },
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 margin: '10px 0 20px 0',
             },
         },
@@ -97,8 +97,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         nextButton: {
             color: backgroundColor,
             fontWeight: 'bold',
+            textTransform: 'uppercase',
 
-            '@media (max-width:767px)': {
+            [theme.breakpoints.down('sm')]: {
                 '& span': {
                     maxHeight: 17,
                 },
@@ -107,9 +108,10 @@ export const useStyles = makeStyles((theme: Theme) =>
         prevButton: {
             color: secondaryColor,
             fontWeight: 'bold',
+            textTransform: 'uppercase',
         },
         goToHomepageLink: {
-            fontFamily: 'Montserrat',
+            fontFamily: theme.typography.fontFamily,
             fontStyle: 'normal',
             fontWeight: 'bold',
             fontSize: '14px',
@@ -180,6 +182,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         agreementModal: {
             position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%,-50%)',
             width: 400,
             backgroundColor: theme.palette.background.paper,
             border: '2px solid #000',

@@ -36,14 +36,14 @@ export const RegistrationAgreement = ({
 }: RegistrationAgreementProps) => {
     const { t } = useTranslation();
     const [isMoreContent, setIsMoreContent] = useState(false);
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const expansionText = isMoreContent
         ? t(`${T_PREFIX}.show-less`)
         : t(`${T_PREFIX}.show-more`);
 
     const handleMoreContent = () => setIsMoreContent(!isMoreContent);
-    const toggleModal = () => setOpen(!open);
+    const toggleModal = () => setIsOpen(!isOpen);
 
     return (
         <>
@@ -77,11 +77,9 @@ export const RegistrationAgreement = ({
                                     'aria-label': 'checkbox with default color',
                                 }}
                             />
-                            <p className={agreementText} key={agreement.id}>
-                                {agreement.title}
-                            </p>
+                            <p className={agreementText}>{agreement.title}</p>
                         </div>
-                        {i !== 0 && (
+                        {idx !== 0 && (
                             <ExpansionPanel
                                 className={agreementPanel}
                                 onClick={handleMoreContent}
@@ -139,7 +137,7 @@ export const RegistrationAgreement = ({
                 </Button>
             </div>
             <AgreementModal
-                open={open}
+                open={isOpen}
                 toggleModal={toggleModal}
                 agreementModal={agreementModal}
                 agreementHeader={agreementHeader}
