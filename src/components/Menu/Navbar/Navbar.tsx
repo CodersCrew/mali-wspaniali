@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
-import { Avatar, IconButton, makeStyles, Button, Theme, createStyles } from '@material-ui/core/';
+import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, Badge } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
-import { User } from '../../firebase/firebase';
-import { secondaryColor, mainColor, white, textColor } from '../../colors';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { getChildrenByUserId } from '../../queries/childQueries';
-import { Child } from '../../firebase/types';
+import { User } from '../../../firebase/firebase';
+import { secondaryColor, mainColor, white, textColor } from '../../../colors';
+import { useSubscribed } from '../../../hooks/useSubscribed';
+import { OnSnapshotCallback } from '../../../firebase/userRepository';
+import { getChildrenByUserId } from '../../../queries/childQueries';
+import { getNotificationData } from '../../../queries/notificationQueries'
+import { Child, NotificationPaginatedList } from '../../../firebase/types';
 import { MenuListItems } from './MenuListItems';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import Logo from '../../assets/MALWSP_logo_nav.png';
+import { NotificationsPanel } from './NotificationsPanel'
+import { useAuthorization } from '../../../hooks/useAuthorization';
+import { Link } from 'react-router-dom';
+import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
+import Logo from '../../../assets/MALWSP_logo_nav.png';
 
 export const Navbar = () => {
     const classes = useStyles();
     const [avatarContent] = useState('P');
     const [isMenuOpen, setMenuOpen] = useState(false);
+    const [isNotificationsPanelOpen, setNotificationsPanelOpen] = useState(false);
+    const [userRole, setUserRole] = useState('');
     const currentUser = useAuthorization(true);
+
     const children = useSubscribed<Child[], User | null>(
         (callback: OnSnapshotCallback<Child[]>) => {
             if (currentUser) {
@@ -25,17 +32,44 @@ export const Navbar = () => {
         [],
         [currentUser],
     ) as Child[];
+    const notificationResponse = useSubscribed<NotificationPaginatedList, User | null>((callback: OnSnapshotCallback<NotificationPaginatedList>) => {
+        if(currentUser) {
+            getNotificationData(callback, currentUser.uid, 5)
+        }
+    }, [], [currentUser],
+    ) as NotificationPaginatedList
+
+    onAuthStateChanged(async (user: User | null) => {
+        if (user) {
+            const role = await getUserRole(user);
+            if (role) {
+                setUserRole(role);
+            }
+        }
+    });
 
     const handleAvatarClick = () => {
         setMenuOpen(prevOpen => !prevOpen);
     };
 
+    const handleNotificationsIconClick = () => {
+        setNotificationsPanelOpen(isOpen => !isOpen)
+    };
+
+    const handleClose = () => {
+        setMenuOpen(false);
+    };
+
     return (
         <div>
             <div className={classes.menuContainer}>
-                <img src={Logo} className={classes.logo} alt="Logo Mali Wspaniali" />
-                <IconButton color="inherit">
-                    <Notifications className={classes.notificationsIcon} />
+                <Link to={`/${userRole}`} className={classes.homeLink}>
+                    <img src={Logo} className={classes.logo} alt="Logo Mali Wspaniali" />
+                </Link>
+                <IconButton color="inherit" onClick={handleNotificationsIconClick}>
+                    <Badge badgeContent={notificationResponse.notifications && notificationResponse.notifications.filter(el => !el.isRead).length} classes={{ badge: classes.badgeColor }}>
+                        <Notifications className={classes.notificationsIcon} />
+                    </Badge>
                 </IconButton>
                 <Avatar className={classes.avatar}>
                     <Button className={classes.avatarButton} onClick={handleAvatarClick}>
@@ -43,7 +77,8 @@ export const Navbar = () => {
                     </Button>
                 </Avatar>
             </div>
-            {isMenuOpen && <MenuListItems childrenData={children} />}
+            {isNotificationsPanelOpen && <NotificationsPanel notifications={notificationResponse.notifications}/>}
+            {isMenuOpen && <MenuListItems childrenData={children} userRole={userRole} handleClose={handleClose} />}
         </div>
     );
 };
@@ -82,6 +117,13 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginLeft: 'auto',
             },
         },
+        badgeColor: {
+            backgroundColor: mainColor,
+            color: white,
+            [theme.breakpoints.down('sm')]: {
+                backgroundColor: secondaryColor
+            },
+        },
         menuContainer: {
             display: 'flex',
             justifyContent: 'flex-end',
@@ -106,6 +148,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: 'block',
                 width: '54px',
                 height: '44px',
+            },
+        },
+        homeLink: {
+            [theme.breakpoints.down('sm')]: {
                 marginRight: 'auto',
                 marginLeft: '10px',
             },

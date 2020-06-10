@@ -65,7 +65,7 @@ export const LoginPage = () => {
                         className={classes.formItem}
                     />
                     <div className={classes.submitWrapper}>
-                        <Link className={classes.forgotPasswordLink} to="/">
+                        <Link className={classes.forgotPasswordLink} to="/forgot-password">
                             {t('login-page.forgot-password')}
                         </Link>
                         <Button

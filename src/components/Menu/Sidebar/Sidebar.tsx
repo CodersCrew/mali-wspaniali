@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import { SidebarMenuList } from './SidebarMenuList';
 import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
-import { handleSignOut } from '../../queries/authQueries';
-import { mainColor, white } from '../../colors';
+import { handleSignOut } from '../../../queries/authQueries';
+import { mainColor, white } from '../../../colors';
 import { SidebarPropTypes } from './types';
-import { LanguageSelector } from '../LanguageSelector';
+import { LanguageSelector } from '../../LanguageSelector';
 
 export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
     const classes = useStyles();

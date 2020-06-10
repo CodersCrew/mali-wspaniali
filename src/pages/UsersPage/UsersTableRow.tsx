@@ -1,17 +1,17 @@
 import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { Document, Agreement } from '../../firebase/types';
+import { Document, UserAgreement } from '../../firebase/types';
 
 export const UsersTableRow = ({ user }: { user: Document }) => {
     const { t } = useTranslation();
 
     const getAgreements = () => {
         if (user.agreements) {
-            return user.agreements.map((agreement: Agreement) => (
+            return user.agreements.map((agreement: UserAgreement) => (
                 <TableCell key={`${user.userId}-${agreement.agreementId}`}>
                     {agreement.agreementId}
-                    {agreement.isAgreed}
+                    {agreement.checked}
                 </TableCell>
             ));
         }

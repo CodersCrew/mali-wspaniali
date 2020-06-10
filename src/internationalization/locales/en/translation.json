@@ -24,6 +24,19 @@
         "register": "Register",
         "password-not-strong": "Password not strong enough"
     },
+    "forgot-password-page": {
+        "forgot-password": "Forgot password",
+        "its-ok": "Don't worry. Type in your email address.",
+        "receive-link": "You will receive a link to create a new password.",
+        "insert-email": "Type in e-mail address provided to the foundation",
+        "new-password": "Create new password",
+        "problem": "Stumbled upon a problem?",
+        "contact": "Please contact the foundation to resolve it",
+        "email-helper-text": "Type in e-mail address provided to the foundation",
+        "back-to-login": "Back to login",
+        "email-sent": "We have sent you an email.",
+        "when-received": "Once you receive it, click a link to create a new password."
+    },
     "users-page": {
         "agreements": "Agreements",
         "users-list": "Users List"
@@ -50,11 +63,17 @@
         "results-list": "Results list",
         "tests-information": "Tests information",
         "your-agreements": "Your agreements",
+        "participation-label": "Permission to participate in the Mali Wspaniali program",
+        "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
+        "marketing-label": "Permission to receive marketing information on provided e-mail address",
+        "marketing-description": "Optional agreement that allows us to send you emails with current informations about the Mali Wspaniali program.",
+        "image-label": "Permission to use the image",
+        "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
         "kindergartener-test": "Kindergartener test",
         "last-update-date": "Last update",
         "details": "Details",
         "collapse-details": "Collapse details",
-        "info-about-test":  "Information about test",
+        "info-about-test": "Information about test",
         "carries-out-on": "carries out on",
         "age-group": "On the day of test, the child was assigned to the age group",
         "fitness-level": "Fitness level",
@@ -93,7 +112,55 @@
         "test-result": "Test result",
         "comparison-label": "By comparing both tests, your child's fitness level",
         "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
-        "comparison-button": "What can I do?"
+        "comparison-button": "What can I do?",
+        "tests-informations": {
+            "about": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2-1": "text2-1 (placeholder)",
+                "text2-test-names": "text2-test-names (placeholder)",
+                "text2-2": "text2-2 (placeholder)"
+            },
+            "conditions": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)",
+                "test1-name": "test1-name (placeholder)",
+                "test1-description": "test1-description (placeholder)",
+                "test1-scale": "test1-scale (placeholder)",
+                "test2-name": "test2-name (placeholder)",
+                "test2-description": "test2-description (placeholder)",
+                "test2-scale": "test2-scale (placeholder)",
+                "test3-name": "test3-name (placeholder)",
+                "test3-description": "test3-description (placeholder)",
+                "test3-scale": "test3-scale (placeholder)",
+                "test4-name": "test4-name (placeholder)",
+                "test4-description": "test4-description (placeholder)",
+                "test4-scale": "test4-scale (placeholder)"
+            },
+            "results": {
+                "to": "to",
+                "panelTitle": "panelTitle (placeholder)",
+                "score25": "score25 (placeholder)",
+                "score50": "score50 (placeholder)",
+                "score75": "score75 (placeholder)",
+                "score100": "score100 (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)"
+            },
+            "interpretation": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)",
+                "text3": "text3 (placeholder)",
+                "text4": "text4 (placeholder)"
+            }
+        },
+        "agreements-title": "Below you can check and edit the signed agreements."
     },
     "parent-profile": {
         "parent": "Parent",
@@ -196,17 +263,16 @@
         "choose-file": "Choose File",
         "upload-file": "Upload File"
     },
-    "sidebar": {
+    "menu": {
         "home": "Home",
         "settings": "Settings",
         "news": "News",
         "notifications": "Notifications",
-        "logout": "Log out"
-    },
-    "navbar": {
-        "news": "News",
-        "messages": "Messages",
-        "settings": "Settings",
+        "results": "Results",
+        "agreements": "Agreements",
+        "newsletter": "Newsletter",
+        "newsletter-archive": "Archive",
+        "blog": "Blog",
         "logout": "Log out"
     },
     "home-page-content": {
@@ -235,6 +301,15 @@
         "physical-activity": "Physical activity",
         "emotions": "Emotions",
         "other": "Other"
+    },
+    "notification-panel": {
+        "read-more": "Read more"
+    },
+    "notifications-page": {
+        "header": "Notifications",
+        "description": "Check all notifications on your account",
+        "content": "Notification content",
+        "date": "Date"
     },
     "years_0": "year",
     "years_1": "years"

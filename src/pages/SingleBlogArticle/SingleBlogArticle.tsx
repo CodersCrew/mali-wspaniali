@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { makeStyles, createStyles, Grid } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
@@ -12,6 +12,7 @@ import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { Video, Path, Content } from './types';
+import { SingleArticleColors } from '../../colors';
 
 export const SingleBlogArticle = () => {
     useAuthorization(true);
@@ -59,16 +60,18 @@ export const SingleBlogArticle = () => {
                 <Grid container direction="row">
                     <ArticleHeader title={article.title} />
                 </Grid>
-                <Grid container direction="row">
-                    <ArticleContent content={content} />
-                </Grid>
-                <Grid container direction="row">
-                    <ArticleVideo video={video} />
-                </Grid>
-                <Grid container direction="row">
-                    <ArticleRedactor redactor={article.redactor} />
-                </Grid>
-                {similarArticles && <Grid />}
+                <div className={classes.articleContentContainer}>
+                    <Grid container direction="row">
+                        <ArticleContent content={content} />
+                    </Grid>
+                    <Grid container direction="row">
+                        <ArticleVideo video={video} />
+                    </Grid>
+                    <Grid container direction="row">
+                        <ArticleRedactor redactor={article.redactor} />
+                    </Grid>
+                    {similarArticles && <Grid />}
+                </div>
             </Grid>
         );
     }
@@ -76,10 +79,22 @@ export const SingleBlogArticle = () => {
     return <div />;
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         rootGrid: {
             padding: '3.57vw 12.14vw 2.85vw 6.07vw',
+
+            [theme.breakpoints.down('sm')]: {
+                padding: 0,
+                overflow: 'hidden',
+            },
         },
+        articleContentContainer: {
+            [theme.breakpoints.down('sm')]: {
+                backgroundColor: SingleArticleColors.contentBackground,
+                width: '100%',
+                marginBottom: '20px',
+            },
+        }
     }),
 );

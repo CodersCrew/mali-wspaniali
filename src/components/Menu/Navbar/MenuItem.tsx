@@ -3,19 +3,20 @@ import { Link, useHistory } from 'react-router-dom';
 import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@material-ui/core/';
 import { PowerSettingsNew } from '@material-ui/icons/';
 import { useTranslation } from 'react-i18next';
-import { handleSignOut } from '../../queries/authQueries';
+import { handleSignOut } from '../../../queries/authQueries';
 
 type menuListItemProps = {
     link: string;
     text: string;
     iconComponent: ReactElement;
+    handleClose: () => void;
 };
 
-export const MenuListItem = ({ link, text, iconComponent }: menuListItemProps) => {
+export const MenuListItem = ({ link, text, iconComponent, handleClose }: menuListItemProps) => {
     const classes = useStyles();
 
     return (
-        <MenuItem key={text} component="div">
+        <MenuItem key={text} component="div" onClick={handleClose}>
             <Link to={link} className={classes.menuLink}>
                 <ListItem className={classes.listItem}>
                     <ListItemIcon>{iconComponent}</ListItemIcon>
@@ -42,7 +43,7 @@ export const MenuLogoutItem = () => {
                 <ListItemIcon className={classes.listItemIcon}>
                     <PowerSettingsNew />
                 </ListItemIcon>
-                <ListItemText className={classes.listItemText}>{t('navbar.logout')}</ListItemText>
+                <ListItemText className={classes.listItemText}>{t('menu.logout')}</ListItemText>
             </ListItem>
         </MenuItem>
     );

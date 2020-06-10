@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FastForward } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
-import { mainColor } from '../../colors';
+import { mainColor } from '../../../colors';
 import { SidebarPropTypes } from './types';
-import SidebarLogo from '../../assets/MALWSP_logo_nav.png';
+import SidebarLogo from '../../../assets/MALWSP_logo_nav.png';
+import { getUserRole } from '../../../queries/authQueries';
+import { useAuthorization } from '../../../hooks/useAuthorization';
 
 export const SidebarTopItem = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
     const classes = useStyles();
+    const currentUser = useAuthorization(true);
+    const [userRole, setUserRole] = useState('');
 
     const switcherIconStyle = clsx(classes.switcherIcon, isSidebarOpen ? 'opened' : null);
 
+    if (currentUser) {
+        getUserRole(currentUser).then(role => setUserRole(role));
+    }
+
     return (
         <div className={classes.sidebarLogoWrapper}>
-            <img src={SidebarLogo} alt="mali_wspaniali" />
+            <Link to={`/${userRole}`}>
+                <img src={SidebarLogo} alt="mali_wspaniali" />
+            </Link>
             <button onClick={toggleSidebar} className={classes.sidebarSwitcher}>
                 <FastForward className={switcherIconStyle} />
             </button>

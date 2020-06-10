@@ -26,3 +26,5 @@ export const getUserRole = async (user: User): Promise<string> => {
 };
 
 export const handleSignOut = () => firebase.auth.handleSignOut();
+
+export const handlePasswordReset = (email: string) => firebase.auth.handlePasswordReset(email);

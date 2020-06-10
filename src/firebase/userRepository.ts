@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import { Parent } from '../pages/ParentProfile/types';
 import { logQuery } from '../utils/logQuery';
-import { Document, User } from './types';
+import { UserAgreement, Document, User } from './types';
 
 type dataPromiseTypes = {
     users: User[];
@@ -121,5 +121,32 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
                 });
                 return onSnapshotCallback(parents);
             });
+    },
+    getUserAgreements(userId: string, callback: OnSnapshotCallback<UserAgreement[]>) {
+        firestore
+            .collection('user')
+            .doc(userId)
+            .collection('agreements')
+            .onSnapshot(snapshot => {
+                const results = snapshot.docs.map(snap => {
+                    const data = snap.data();
+
+                    return {
+                        ...data,
+                        id: snap.id,
+                    } as UserAgreement;
+                });
+                if (results) {
+                    callback(results);
+                }
+            });
+    },
+    toggleAgreement: (userId: string, userAgreementId: string, value: boolean) => {
+        firestore
+            .collection('user')
+            .doc(userId)
+            .collection('agreements')
+            .doc(userAgreementId)
+            .update({ checked: value });
     },
 });
