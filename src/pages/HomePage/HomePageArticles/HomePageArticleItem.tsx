@@ -11,11 +11,13 @@ export const HomePageArticleItem = ({ articleId, title, description, ArticlePict
 
     return (
         <Grid className={classes.articleCard}>
-            {ArticlePictureComponent}
+            <Link to={`/parent/article/${articleId}`}>
+                {ArticlePictureComponent}
+            </Link>
             <div className={classes.articleInfo}>
                 <h2 className={classes.articleTitle}>{title}</h2>
                 <p className={classes.articleDescription}>{description}</p>
-                <Link className={classes.articleLink} to={`/article/${articleId}`}>
+                <Link className={classes.articleLink} to={`/parent/article/${articleId}`}>
                     <Button variant="contained" className={classes.articleButton} startIcon={<Icon>send</Icon>}>
                         {t('home-page-content.read-more')}
                     </Button>
