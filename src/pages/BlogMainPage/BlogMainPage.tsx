@@ -77,7 +77,7 @@ export const BlogMainPage = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className={classes.blog}>BLOG</div>
+            { screenWidth <= 768 ? (<div className={ classes.blog }>BLOG</div>): ''}
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
