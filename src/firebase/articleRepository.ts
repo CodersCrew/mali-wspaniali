@@ -90,6 +90,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
                 const articleList = [] as Article[];
                 snapshot.forEach(snap => {
                     const docData = snap.data() as Article;
+                    docData.id = snap.id;
                     articleList.push(docData);
                 });
                 if (articleList) {
