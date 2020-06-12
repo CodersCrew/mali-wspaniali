@@ -3,6 +3,7 @@ import 'firebase/firestore';
 import { Document, Child, Result } from './types';
 import { OnSnapshotCallback } from './userRepository';
 import { logQuery } from '../utils/logQuery';
+import { incrementLoaderRequests, decrementLoaderRequests, load } from '../utils/load';
 
 type dataPromiseTypes = {
     documents: Child[];
@@ -13,9 +14,11 @@ type dataPromiseTypes = {
 
 export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
     getChildDocById: (childId: string, onSnapshotCallback: OnSnapshotCallback<Child>) => {
+        incrementLoaderRequests();
         db.collection('child')
             .doc(childId)
             .onSnapshot(snapshot => {
+                decrementLoaderRequests();
                 logQuery(snapshot);
                 const childData = snapshot.data() as Child;
                 if (childData) {
@@ -24,10 +27,12 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
             });
     },
     getChildResults: async (childId: string, onSnapshotCallback: OnSnapshotCallback<Result[]>) => {
+        incrementLoaderRequests();
         db.collection('child')
             .doc(childId)
             .collection('results')
-            .onSnapshot(snapshot => {
+            .onSnapshot(snapshot => {             
+                decrementLoaderRequests();
                 logQuery(snapshot);
                 const results = snapshot.docs.map(snap => {
                     const data = snap.data();
@@ -44,16 +49,18 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
             });
     },
     getChildrenByUserId: (id: string, onSnapshotCallback: OnSnapshotCallback<Child[]>) => {
+        incrementLoaderRequests();
         return db
             .collection('child')
             .where('userId', '==', id)
             .onSnapshot(snapshot => {
+                decrementLoaderRequests();
                 const children = snapshot.docs.map(doc => {
                     const child = doc.data() as Child;
                     child.id = doc.id;
                     return child;
                 });
-                return onSnapshotCallback(children);
+                onSnapshotCallback(children);
             });
     },
     getChildrenData: (
@@ -121,8 +128,10 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                 );
                 return unsubscribe;
             }
+            // incrementLoaderRequests();
             const unsubscribe = childRefWithLimit.onSnapshot(
                 snapshot => {
+                    // decrementLoaderRequests();
                     logQuery(snapshot);
                     handleData(snapshot);
                     resolve({
@@ -138,8 +147,9 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
             );
             return unsubscribe;
         };
-        return new Promise<dataPromiseTypes>((resolve, reject) => {
+        const getChildrenData = new Promise<dataPromiseTypes>((resolve, reject) => {
             getQuery(resolve, reject);
         });
+        return load(getChildrenData);
     },
 });

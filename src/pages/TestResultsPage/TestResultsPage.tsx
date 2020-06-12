@@ -7,6 +7,7 @@ import { TestResultsTableRow } from './TestResultsTableRow';
 import { NoResults } from './NoResults';
 import { Pagination, PaginationDirections } from './Pagination';
 import { DocumentData } from '../../firebase/firebase';
+import { load } from '../../utils/load';
 
 export const TestResultsPage = () => {
     const [childrenList, setChildrenList] = useState<Child[]>([]);
@@ -14,7 +15,7 @@ export const TestResultsPage = () => {
     const [rowsPerPage] = useState(10);
     const [lastVisible, setLastVisible] = useState<DocumentData | null>(null);
     const [firstVisible, setFirstVisible] = useState<DocumentData | null>(null);
-    const [isLoading, setLoading] = useState(true);
+    // const [isLoading, setLoading] = useState(true);
     const { t } = useTranslation();
     const [listeners, setListeners] = useState<(() => void)[]>([]);
 
@@ -31,19 +32,19 @@ export const TestResultsPage = () => {
             setLastVisible(newLastVisible);
             setFirstVisible(newFirstVisible);
             setChildrenList(documents);
-            setLoading(false);
+            // setLoading(false);
             setListeners([...listeners, unsubscribe]);
         }
     };
 
     useEffect(() => {
-        waitForData();
+        load(waitForData());
         return () => detachListeners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const pageChangeHandler = async (direction: string) => {
-        setLoading(true);
+        // setLoading(true);
         const { documents, unsubscribe, newLastVisible, newFirstVisible } =
             direction === PaginationDirections.next
                 ? await getChildrenData(rowsPerPage, lastVisible, null)
@@ -55,12 +56,12 @@ export const TestResultsPage = () => {
             setFirstVisible(newFirstVisible);
             setChildrenList(documents);
             setListeners([...listeners, unsubscribe]);
-            setLoading(false);
+            // setLoading(false);
             setPage(newPageNumber);
         }
     };
 
-    if (isLoading) return <h2>loading</h2>;
+    // if (isLoading) return <h2>loading</h2>;
     if (childrenList.length === 0) return <NoResults />;
 
     return (

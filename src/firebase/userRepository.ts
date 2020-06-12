@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import { Parent } from '../pages/ParentProfile/types';
 import { logQuery } from '../utils/logQuery';
 import { UserAgreement, Document, User } from './types';
+import { incrementLoaderRequests, decrementLoaderRequests, load } from '../utils/load';
 
 type dataPromiseTypes = {
     users: User[];
@@ -14,10 +15,12 @@ export type OnSnapshotCallback<T extends firebase.firestore.DocumentData> = (dat
 
 export const userRepository = (firestore: firebase.firestore.Firestore) => ({
     getUserById: (id: string, onSnapshotCallback: OnSnapshotCallback<Parent>) => {
+        incrementLoaderRequests();
         return firestore
             .collection('user')
             .doc(id)
             .onSnapshot(snapshot => {
+                decrementLoaderRequests();
                 logQuery(snapshot);
                 const parentData = snapshot.data() as Parent;
                 if (parentData) {
@@ -105,29 +108,34 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
             );
             return unsubscribe;
         };
-        return new Promise<dataPromiseTypes>((resolve, reject) => {
+        const getUsersData = new Promise<dataPromiseTypes>((resolve, reject) => {
             getQuery(resolve, reject);
         });
+        return load(getUsersData);
     },
     getParents: (onSnapshotCallback: OnSnapshotCallback<Parent[]>) => {
+        incrementLoaderRequests();
         return firestore
             .collection('user')
             .where('role', '==', 'parent')
             .onSnapshot(snapshot => {
+                decrementLoaderRequests();
                 logQuery(snapshot);
                 const parents: Parent[] = [];
                 snapshot.forEach(document => {
                     parents.push(document.data().email as Parent);
                 });
-                return onSnapshotCallback(parents);
+                onSnapshotCallback(parents);
             });
     },
     getUserAgreements(userId: string, callback: OnSnapshotCallback<UserAgreement[]>) {
+        incrementLoaderRequests();
         firestore
             .collection('user')
             .doc(userId)
             .collection('agreements')
             .onSnapshot(snapshot => {
+                decrementLoaderRequests();
                 const results = snapshot.docs.map(snap => {
                     const data = snap.data();
 

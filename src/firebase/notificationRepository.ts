@@ -1,6 +1,7 @@
 import firebaseApp, { firestore } from 'firebase/app';
 import { Notification, Snapshot, NotificationPaginatedList } from './types';
 import { OnSnapshotCallback } from './userRepository';
+import { incrementLoaderRequests, decrementLoaderRequests } from '../utils/load';
 
 export const notificationRepository = (db: firebaseApp.firestore.Firestore) => ({
     getNotificationData: (
@@ -22,7 +23,9 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
         if (endBefore) {
             query = query.endBefore(endBefore).limitToLast(limit);
         }
+        incrementLoaderRequests();
         query.onSnapshot(snapshot => {
+            decrementLoaderRequests();
             const notifications = [] as Notification[];
             const snapshots: Snapshot[] = [];
             let isMore = true;

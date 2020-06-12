@@ -2,13 +2,16 @@ import firebaseApp, { firestore } from 'firebase/app';
 import { Article, PaginatedArticleList, Snapshot } from './types';
 import { logQuery } from '../utils/logQuery';
 import { OnSnapshotCallback } from './userRepository';
+import { incrementLoaderRequests, decrementLoaderRequests } from '../utils/load';
 
 export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
     getArticleDocById: (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
+        incrementLoaderRequests();
         return db
             .collection('article')
             .doc(articleId)
             .onSnapshot(snapshot => {
+                decrementLoaderRequests();
                 logQuery(snapshot);
                 const article = snapshot.data() as Article;
                 if (article) {
@@ -22,11 +25,13 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
         tags: string[],
         onSnapshotCallback: OnSnapshotCallback<Article[]>,
     ) => {
+        incrementLoaderRequests();
         return db
             .collection('article')
             .where('category', 'array-contains', article.category[0])
             .limit(3)
             .onSnapshot(snapshot => {
+                decrementLoaderRequests();
                 const articleList = [] as Article[];
                 snapshot.forEach(snap => {
                     const docData = snap.data() as Article;
@@ -43,6 +48,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
         startAfter?: Snapshot,
         endBefore?: Snapshot,
     ) => {
+        incrementLoaderRequests();
         let query = db.collection('article').orderBy('date') as firestore.Query;
         if (category) {
             query = query.where('category', 'array-contains', category);
@@ -54,6 +60,7 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
             query = query.endBefore(endBefore).limitToLast(7);
         }
         query.onSnapshot(snapshot => {
+            decrementLoaderRequests();
             const articleList = [] as Article[];
             const snapshots: Snapshot[] = [];
             let isMore = true;
@@ -82,11 +89,13 @@ export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
         });
     },
     getArticlesListData: (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
+        incrementLoaderRequests();
         return db
             .collection('article')
             .limit(5)
             .orderBy('date', 'desc')
             .onSnapshot(snapshot => {
+                decrementLoaderRequests();
                 const articleList = [] as Article[];
                 snapshot.forEach(snap => {
                     const docData = snap.data() as Article;
