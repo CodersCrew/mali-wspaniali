@@ -13,7 +13,6 @@ import { Document } from '../../firebase/types';
 import { UsersTableRow } from './UsersTableRow';
 import { UserPagePagination, PaginationDirections } from './UserPagePagination';
 import { NoResults } from './NoResults';
-import { load } from '../../utils/load';
 
 export const UsersPage = () => {
     const [usersList, setUsersList] = useState<Document[]>([]);
@@ -39,7 +38,7 @@ export const UsersPage = () => {
     };
 
     useEffect(() => {
-        load(waitForUsers());
+        waitForUsers();
         return () => detachListeners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

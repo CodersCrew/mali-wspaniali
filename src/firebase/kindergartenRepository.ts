@@ -15,7 +15,7 @@ export const kindergartenRepository = (firestore: firebase.firestore.Firestore) 
                 kindergartens.push(document.data() as Kindergarten);
                 kindergartens[kindergartens.length - 1].id = document.id;
             });
-            onSnapshotCallback(kindergartens);
+            return onSnapshotCallback(kindergartens);
         });
     },
 });

@@ -125,7 +125,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
                 snapshot.forEach(document => {
                     parents.push(document.data().email as Parent);
                 });
-                onSnapshotCallback(parents);
+                return onSnapshotCallback(parents);
             });
     },
     getUserAgreements(userId: string, callback: OnSnapshotCallback<UserAgreement[]>) {

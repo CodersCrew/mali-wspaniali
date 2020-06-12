@@ -31,7 +31,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
         db.collection('child')
             .doc(childId)
             .collection('results')
-            .onSnapshot(snapshot => {             
+            .onSnapshot(snapshot => {
                 decrementLoaderRequests();
                 logQuery(snapshot);
                 const results = snapshot.docs.map(snap => {
@@ -60,7 +60,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                     child.id = doc.id;
                     return child;
                 });
-                onSnapshotCallback(children);
+                return onSnapshotCallback(children);
             });
     },
     getChildrenData: (

@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Loader } from '../components/Loader';
 
 const loaderState = {
-    requestsCount: 0
+    requestsCount: 0,
 };
 
 const loaderElement = document.createElement('div');
@@ -27,11 +27,10 @@ export function decrementLoaderRequests() {
     if (loaderState.requestsCount > 0) {
         loaderState.requestsCount -= 1;
         if (loaderState.requestsCount === 0) hideLoader();
-    };
+    }
 }
 
 export function load<T>(promise: Promise<T>): Promise<T> {
-
     incrementLoaderRequests();
 
     promise

@@ -3,7 +3,6 @@ import { TextField, Button, makeStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { openAlertDialog } from '../../components/AlertDialog';
-import { load } from '../../utils/load';
 import { createUser } from '../../queries/userQueries';
 import { passwordStrengthTest } from './passwordStrengthTest';
 
@@ -34,7 +33,7 @@ export const RegistrationForm = () => {
             });
         } else {
             const user = { email, password };
-            load(createUser(user))
+            createUser(user)
                 .then(() => {
                     history.push('/login');
                 })
