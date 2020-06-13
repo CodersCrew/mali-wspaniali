@@ -36,6 +36,13 @@ const useStyles = makeStyles((theme: Theme) =>
             maxHeight: '163px',
             height: '163px',
 
+            '&:hover': {
+                cursor: 'pointer',
+                opacity: 0.8,
+                boxShadow: '0 0 2px 0px #fff',
+                transition: 'all 0.3s ease-in-out',
+            },
+
             [theme.breakpoints.down('sm')]: {
                 marginRight: 0,
                 width: '90px',

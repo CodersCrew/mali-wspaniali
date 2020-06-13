@@ -44,13 +44,14 @@ export interface Result {
     updatedAt: Date;
 }
 
-export interface Agreement {
+export interface UserAgreement {
+    id: string;
     agreementId: string;
-    isAgreed: boolean;
+    checked: boolean;
 }
 
-export interface AdminAgreement {
-    agreementId: string;
+export interface Agreement {
+    id: string;
     content: string;
     required: boolean;
     title: string;
@@ -68,14 +69,13 @@ export interface Child {
     groupNo: string;
     sex: string;
     results: Result[];
-    agreements: Agreement[];
 }
 
 export type User = {
     id: string;
     email: string;
     role: string;
-    agreements: Agreement[];
+    agreements: UserAgreement[];
 };
 
 export interface PaginatedArticleList {
@@ -85,6 +85,25 @@ export interface PaginatedArticleList {
     isMore: boolean;
 }
 
+export type Notification = {
+    text: string;
+    date: Timestamp;
+    isRead: boolean;
+    id: string;
+};
+
+export type Timestamp = {
+    seconds: number;
+    nanoseconds: number;
+    toDate: () => Date;
+};
+
+export type NotificationPaginatedList = {
+    notifications: Notification[];
+    firstSnap: Snapshot;
+    lastSnap: Snapshot;
+    isMore: boolean;
+};
 export interface Kindergarten {
     city: string;
     number: string;

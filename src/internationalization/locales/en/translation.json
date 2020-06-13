@@ -63,6 +63,12 @@
         "results-list": "Results list",
         "tests-information": "Tests information",
         "your-agreements": "Your agreements",
+        "participation-label": "Permission to participate in the Mali Wspaniali program",
+        "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
+        "marketing-label": "Permission to receive marketing information on provided e-mail address",
+        "marketing-description": "Optional agreement that allows us to send you emails with current informations about the Mali Wspaniali program.",
+        "image-label": "Permission to use the image",
+        "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
         "kindergartener-test": "Kindergartener test",
         "last-update-date": "Last update",
         "details": "Details",
@@ -115,7 +121,55 @@
         "no-results-list-2": "Your child was absent on the day of the initial test or was unable to take part in the tes due to random reasons.",
         "no-results-list-3": "Your child joined the Mali Wspaniali program after the first test. The next fitness test will take place in the spring.",
         "no-results-bottom": "To find out what the fitness test looks like, visit the",
-        "no-results-link": "Test Information tab"
+        "no-results-link": "Test Information tab",
+        "tests-informations": {
+            "about": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2-1": "text2-1 (placeholder)",
+                "text2-test-names": "text2-test-names (placeholder)",
+                "text2-2": "text2-2 (placeholder)"
+            },
+            "conditions": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)",
+                "test1-name": "test1-name (placeholder)",
+                "test1-description": "test1-description (placeholder)",
+                "test1-scale": "test1-scale (placeholder)",
+                "test2-name": "test2-name (placeholder)",
+                "test2-description": "test2-description (placeholder)",
+                "test2-scale": "test2-scale (placeholder)",
+                "test3-name": "test3-name (placeholder)",
+                "test3-description": "test3-description (placeholder)",
+                "test3-scale": "test3-scale (placeholder)",
+                "test4-name": "test4-name (placeholder)",
+                "test4-description": "test4-description (placeholder)",
+                "test4-scale": "test4-scale (placeholder)"
+            },
+            "results": {
+                "to": "to",
+                "panelTitle": "panelTitle (placeholder)",
+                "score25": "score25 (placeholder)",
+                "score50": "score50 (placeholder)",
+                "score75": "score75 (placeholder)",
+                "score100": "score100 (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)"
+            },
+            "interpretation": {
+                "panelTitle": "panelTitle (placeholder)",
+                "title": "title (placeholder)",
+                "text1": "text1 (placeholder)",
+                "text2": "text2 (placeholder)",
+                "text3": "text3 (placeholder)",
+                "text4": "text4 (placeholder)"
+            }
+        },
+        "agreements-title": "Below you can check and edit the signed agreements."
     },
     "parent-profile": {
         "parent": "Parent",
@@ -256,6 +310,15 @@
         "physical-activity": "Physical activity",
         "emotions": "Emotions",
         "other": "Other"
+    },
+    "notification-panel": {
+        "read-more": "Read more"
+    },
+    "notifications-page": {
+        "header": "Notifications",
+        "description": "Check all notifications on your account",
+        "content": "Notification content",
+        "date": "Date"
     },
     "years_0": "year",
     "years_1": "years",

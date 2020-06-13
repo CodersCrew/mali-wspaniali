@@ -7,9 +7,10 @@ import config from './config';
 import { authRepository } from './authRepository';
 import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
-import { adminAgreementRepository } from './adminAgreementRepository';
+import { agreementRepository } from './agreementRepository';
 import { newsletterRepository } from './newsletterRepository';
 import { articleRepository } from './articleRepository';
+import { notificationRepository } from './notificationRepository';
 import { kindergartenRepository } from './kindergartenRepository';
 import { adviceRepository } from './adviceRepository';
 
@@ -27,9 +28,10 @@ export const firebase = {
     auth: authRepository(auth),
     child: childRepository(firestore),
     user: userRepository(firestore),
-    agreement: adminAgreementRepository(firestore),
+    agreement: agreementRepository(firestore),
     newsletter: newsletterRepository(firestore),
     article: articleRepository(firestore),
+    notification: notificationRepository(firestore),
     kindergarten: kindergartenRepository(firestore),
     advice: adviceRepository(firestore),
 };

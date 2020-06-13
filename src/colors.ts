@@ -6,6 +6,7 @@ export const cardBackgroundColor = '#FFFFFF';
 export const secondaryColor = '#FF7149';
 export const gray = '#c4c4c4';
 export const darkGray = '#616161';
+export const panelTextColor = '#1d1d1d';
 export const SingleArticleColors = {
     title: '#656269',
     arrow: secondaryColor,
@@ -34,6 +35,8 @@ export const blogCategoryColors = {
 };
 export const white = '#ffffff';
 export const darkGrey = '#e9e9e9';
+export const notificationReadColor = '#c4c4c4';
+export const notificationCaptionColor = '#acacac';
 export const resultColors = {
     green: '#70bf73',
     yellow: '#ffc107',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Grid, Typography, Tab, Tabs } from '@material-ui/core';
 import { useSubscribed } from '../../hooks/useSubscribed';
@@ -90,6 +90,7 @@ const useStyles = makeStyles({
     },
     tabs: {
         marginTop: '40px',
+        minHeight: 'unset',
     },
     tabsRoot: {
         minHeight: '34px',
