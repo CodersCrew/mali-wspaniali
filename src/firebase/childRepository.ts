@@ -128,10 +128,8 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                 );
                 return unsubscribe;
             }
-            // incrementLoaderRequests();
             const unsubscribe = childRefWithLimit.onSnapshot(
                 snapshot => {
-                    // decrementLoaderRequests();
                     logQuery(snapshot);
                     handleData(snapshot);
                     resolve({
