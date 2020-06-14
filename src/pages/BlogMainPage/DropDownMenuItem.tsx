@@ -54,4 +54,4 @@ const styles = createStyles({
     },
 });
 
-export const MenuStyledTab = withStyles(styles)((props: TabStyles) => <Tab disableRipple {...props} />);
+export const DropDownMenuItem = withStyles(styles)((props: TabStyles) => <Tab disableRipple {...props} />);

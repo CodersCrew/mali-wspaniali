@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 alignItems: 'center',
                 position: 'fixed',
                 top: 0,
-                borderRadius: '0 0 0 0',
+                borderRadius: '0',
             },
         },
         logo: {

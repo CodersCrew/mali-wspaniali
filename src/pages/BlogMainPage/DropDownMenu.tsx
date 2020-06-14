@@ -1,22 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
 import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import { useTranslation } from 'react-i18next';
-import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import { Tabs } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { categoriesList } from './BlogCategories';
-import { MenuStyledTab } from './MenuStyledTab';
-import { CategoryTabProps } from './CategoryTabs';
+import { DropDownMenuItem } from './DropDownMenuItem';
 // eslint-disable-next-line import/extensions
 
-export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
-    const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
+type Props = {
+    setCategory: Dispatch<SetStateAction<string>>;
+};
+
+export const DropDownMenu = ({ setCategory }: Props) => {
+    const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -25,13 +26,6 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
 
     const handleToggle = () => {
         setOpen(prevOpen => !prevOpen);
-    };
-
-    const handleClose = (event: React.MouseEvent<EventTarget>) => {
-        if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
-            return;
-        }
-        setOpen(false);
     };
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -48,56 +42,40 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
     }
 
     // return focus to the button when we transitioned from !open -> open
-    const prevOpen = React.useRef(open);
+    const prevOpen = React.useRef(null);
     useEffect(() => {
-        if (prevOpen.current === true && open === false) {
-            anchorRef.current!.focus();
+        if (anchorRef.current && prevOpen.current && open === false) {
+            anchorRef.current.focus();
         }
-
-        prevOpen.current = open;
     }, [open]);
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} onKeyDown={handleListKeyDown}>
             <Button
                 ref={anchorRef}
-                aria-controls={open ? 'menu-list-grow' : undefined}
+                aria-controls={open ? 'menu-list-grow' : ''}
                 aria-haspopup="true"
                 onClick={handleToggle}
                 className={classes.button}
             >
                 {t('blog-categories.header')}
-                {!open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </Button>
-            <Popper
-                className={classes.container}
-                open={open}
-                anchorEl={anchorRef.current}
-                role={undefined}
-                transition
-                disablePortal
-            >
-                {({ TransitionProps, placement }) => (
-                    <Grow
-                        {...TransitionProps}
-                        style={{ transformOrigin: placement === 'bottom' ? 'bottom' : 'bottom' }}
-                    >
+            <Popper className={classes.container} open={open} transition disablePortal>
+                {({ TransitionProps }) => (
+                    <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
                         <Paper>
-                            <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                    <MenuStyledTabs value={currentTabIndex} onChange={handleChange}>
-                                        {categoriesList.map(category => {
-                                            return (
-                                                <MenuStyledTab
-                                                    key={category.key}
-                                                    label={category.name}
-                                                    color={category.color}
-                                                />
-                                            );
-                                        })}
-                                    </MenuStyledTabs>
-                                </MenuList>
-                            </ClickAwayListener>
+                            <MenuStyledTabs value={currentTabIndex} onChange={handleChange}>
+                                {categoriesList.map(category => {
+                                    return (
+                                        <DropDownMenuItem
+                                            key={category.key}
+                                            label={category.name}
+                                            color={category.color}
+                                        />
+                                    );
+                                })}
+                            </MenuStyledTabs>
                         </Paper>
                     </Grow>
                 )}
@@ -105,22 +83,6 @@ export const DropDownMenu = ({ setCategory }: CategoryTabProps) => {
         </div>
     );
 };
-
-type MenuStyledTabsProps = {
-    value: number;
-    onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
-};
-
-const MenuStyledTabs = withStyles({
-    flexContainer: {
-        margin: '3%',
-        alignItems: 'flex-start',
-        flexWrap: 'wrap',
-    },
-    indicator: {
-        display: 'none',
-    },
-})((props: MenuStyledTabsProps) => <Tabs {...props} />);
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -146,3 +108,16 @@ const useStyles = makeStyles(() =>
         },
     }),
 );
+
+const styles = createStyles({
+    flexContainer: {
+        margin: '3%',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+    },
+    indicator: {
+        display: 'none',
+    },
+});
+
+const MenuStyledTabs = withStyles(styles)(Tabs);

@@ -117,6 +117,7 @@
         "read-more": "Czytaj dalej"
     },
     "blog-main-page": {
+        "headerBar": "blog",
         "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
     },
     "blog-pagination": {
@@ -124,7 +125,7 @@
         "next": "Następna"
     },
     "blog-categories": {
-        "header": "WSZYSTKIE KATEGORIE",
+        "header": "Wshystkie kategorie ",
         "all": "Wszystkie",
         "food": "Żywienie",
         "physical-activity": "Aktywność fizyczna",

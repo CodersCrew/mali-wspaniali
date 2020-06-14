@@ -127,6 +127,7 @@
         "read-more": "Read more"
     },
     "blog-main-page": {
+        "headerBar": "blog",
         "header": "Here you will find out, how to take care of your child's development"
     },
     "blog-pagination": {
@@ -134,7 +135,7 @@
         "next": "Next"
     },
     "blog-categories": {
-        "header": "ALL CATEGORIES",
+        "header": "All categories",
         "all": "All",
         "food": "Food",
         "physical-activity": "Physical activity",

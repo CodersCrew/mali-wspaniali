@@ -77,7 +77,7 @@ export const BlogMainPage = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            { screenWidth <= 768 ? (<div className={ classes.blog }>BLOG</div>): ''}
+            {screenWidth <= 768 ? <div className={classes.headerBar}>{t('blog-main-page.headerBar')}</div> : ''}
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
@@ -111,7 +111,7 @@ export const BlogMainPage = () => {
 };
 
 const useStyles = makeStyles({
-    blog: {
+    headerBar: {
         backgroundColor: mainColor,
         borderRadius: '0 0 8px 8px',
         fontWeight: 'bold',
@@ -122,6 +122,7 @@ const useStyles = makeStyles({
         left: 0,
         width: '100vw',
         position: 'absolute',
+        textTransform: 'uppercase',
     },
     heading: {
         marginTop: '20px',
@@ -137,6 +138,7 @@ const useStyles = makeStyles({
             fontWeight: 'normal',
             textAlign: 'center',
             marginLeft: '20%',
+            textTransform: 'uppercase',
         },
     },
     gridContainer: {

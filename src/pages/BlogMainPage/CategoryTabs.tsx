@@ -1,14 +1,14 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { Tabs, withStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Tabs, withStyles, createStyles } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 
-export type CategoryTabProps = {
-    setCategory: Dispatch<SetStateAction<string>>;
+type Props = {
+    setCategory: (value: string) => void;
 };
 
-export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
-    const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
+export const CategoryTabs = ({ setCategory }: Props) => {
+    const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setCurrentTabIndex(newValue);
@@ -24,12 +24,7 @@ export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
     );
 };
 
-type StyledTabsProps = {
-    value: number;
-    onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
-};
-
-const StyledTabs = withStyles({
+const styles = createStyles({
     flexContainer: {
         alignItems: 'flex-end',
         marginLeft: '3%',
@@ -37,4 +32,6 @@ const StyledTabs = withStyles({
     indicator: {
         display: 'none',
     },
-})((props: StyledTabsProps) => <Tabs {...props} />);
+});
+
+const StyledTabs = withStyles(styles)(Tabs);
