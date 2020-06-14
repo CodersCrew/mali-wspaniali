@@ -4,12 +4,13 @@ import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Tabs } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { categoriesList } from './BlogCategories';
 import { DropDownMenuItem } from './DropDownMenuItem';
+import { theme } from '../../theme';
 // eslint-disable-next-line import/extensions
 
 type Props = {
@@ -50,37 +51,39 @@ export const DropDownMenu = ({ setCategory }: Props) => {
     }, [open]);
 
     return (
-        <div className={classes.root} onKeyDown={handleListKeyDown}>
-            <Button
-                ref={anchorRef}
-                aria-controls={open ? 'menu-list-grow' : ''}
-                aria-haspopup="true"
-                onClick={handleToggle}
-                className={classes.button}
-            >
-                {t('blog-categories.header')}
-                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </Button>
-            <Popper className={classes.container} open={open} transition disablePortal>
-                {({ TransitionProps }) => (
-                    <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
-                        <Paper>
-                            <MenuStyledTabs value={currentTabIndex} onChange={handleChange}>
-                                {categoriesList.map(category => {
-                                    return (
-                                        <DropDownMenuItem
-                                            key={category.key}
-                                            label={category.name}
-                                            color={category.color}
-                                        />
-                                    );
-                                })}
-                            </MenuStyledTabs>
-                        </Paper>
-                    </Grow>
-                )}
-            </Popper>
-        </div>
+        <ThemeProvider theme={theme}>
+            <div className={classes.root} onKeyDown={handleListKeyDown}>
+                <Button
+                    ref={anchorRef}
+                    aria-controls={open ? 'menu-list-grow' : ''}
+                    aria-haspopup="true"
+                    onClick={handleToggle}
+                    className={classes.button}
+                >
+                    {t('blog-categories.header')}
+                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                </Button>
+                <Popper className={classes.container} open={open} transition disablePortal>
+                    {({ TransitionProps }) => (
+                        <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
+                            <Paper>
+                                <MenuStyledTabs value={currentTabIndex} onChange={handleChange}>
+                                    {categoriesList.map(category => {
+                                        return (
+                                            <DropDownMenuItem
+                                                key={category.key}
+                                                label={category.name}
+                                                color={category.color}
+                                            />
+                                        );
+                                    })}
+                                </MenuStyledTabs>
+                            </Paper>
+                        </Grow>
+                    )}
+                </Popper>
+            </div>
+        </ThemeProvider>
     );
 };
 
@@ -92,7 +95,12 @@ const useStyles = makeStyles(() =>
             transform: 'translate3d(0px, 35px, 0px)!important',
             zIndex: 9,
             position: 'relative',
+
+            [theme.breakpoints.up('md')]: {
+                display: 'none'
+            },
         },
+
         button: {
             fontWeight: 'bold',
             marginLeft: '52px',

@@ -69,49 +69,49 @@ let ColorButton = withStyles(() => ({
 
 const changeColorButton = (category: string) => {
     switch (category) {
-        case 'food':
-            ColorButton = withStyles(() => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.food,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.food,
-                    },
+    case 'food':
+        ColorButton = withStyles(() => ({
+            root: {
+                backgroundColor: SingleArticleColors.categories.food,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.food,
                 },
-            }))(Button);
-            break;
+            },
+        }))(Button);
+        break;
 
-        case 'activity':
-            ColorButton = withStyles(() => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.activity,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.activity,
-                    },
+    case 'activity':
+        ColorButton = withStyles(() => ({
+            root: {
+                backgroundColor: SingleArticleColors.categories.activity,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.activity,
                 },
-            }))(Button);
-            break;
+            },
+        }))(Button);
+        break;
 
-        case 'other':
-            ColorButton = withStyles(() => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.other,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.other,
-                    },
+    case 'other':
+        ColorButton = withStyles(() => ({
+            root: {
+                backgroundColor: SingleArticleColors.categories.other,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.other,
                 },
-            }))(Button);
-            break;
+            },
+        }))(Button);
+        break;
 
-        default:
-            ColorButton = withStyles(() => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.emotions,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.emotions,
-                    },
+    default:
+        ColorButton = withStyles(() => ({
+            root: {
+                backgroundColor: SingleArticleColors.categories.emotions,
+                '&:hover': {
+                    backgroundColor: SingleArticleColors.categoriesHover.emotions,
                 },
-            }))(Button);
-            break;
+            },
+        }))(Button);
+        break;
     }
 };
 

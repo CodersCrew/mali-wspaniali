@@ -11,7 +11,6 @@ import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 import { ArticleCategories } from './types';
 import { white, mainColor } from '../../colors';
 import { DropDownMenu } from './DropDownMenu';
-import useComponent from './hook';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -20,7 +19,6 @@ export const BlogMainPage = () => {
     const [blogArticles, setBlogArticles] = useState<PaginatedArticleList | null>(null);
     const [isLastPage, setIsLastPage] = useState(false);
     const [isFirstPage, setIsFirstPage] = useState(true);
-    const screenWidth = useComponent();
 
     useEffect(() => {
         addArticlesToState(currentCategory);
@@ -77,16 +75,14 @@ export const BlogMainPage = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            {screenWidth <= 768 ? <div className={classes.headerBar}>{t('blog-main-page.headerBar')}</div> : ''}
+            <div className={classes.headerBar}>{t('blog-main-page.headerBar')}</div>
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
 
-            {screenWidth <= 768 ? (
-                <DropDownMenu setCategory={setCurrentCategory} />
-            ) : (
-                <CategoryTabs setCategory={setCurrentCategory} />
-            )}
+            <DropDownMenu setCategory={setCurrentCategory} />
+
+            <CategoryTabs setCategory={setCurrentCategory} />
 
             <div className={classes.gridBackground}>
                 {blogArticles && (
@@ -123,6 +119,10 @@ const useStyles = makeStyles({
         width: '100vw',
         position: 'absolute',
         textTransform: 'uppercase',
+
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
+        },
     },
     heading: {
         marginTop: '20px',
