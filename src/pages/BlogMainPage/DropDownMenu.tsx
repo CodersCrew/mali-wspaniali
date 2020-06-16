@@ -1,11 +1,8 @@
-import React, { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
-import Button from '@material-ui/core/Button';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
+import React, { useState, useRef, useEffect } from 'react';
+import {Button, Tabs, Grow, Paper, Popper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, withStyles, ThemeProvider } from '@material-ui/core/styles';
-import { Tabs } from '@material-ui/core';
+
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { categoriesList } from './BlogCategories';
@@ -14,7 +11,7 @@ import { theme } from '../../theme';
 // eslint-disable-next-line import/extensions
 
 type Props = {
-    setCategory: Dispatch<SetStateAction<string>>;
+    setCategory: (value:string) => void;
 };
 
 export const DropDownMenu = ({ setCategory }: Props) => {
