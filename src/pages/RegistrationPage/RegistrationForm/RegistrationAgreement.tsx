@@ -100,7 +100,7 @@ export const RegistrationAgreement = ({
                         )}
                     </div>
                 ))}
-                <div className={checkboxContent} style={{ marginTop: 20 }}>
+                <div className={checkboxContent}>
                     <Checkbox
                         className={agreementCheckbox}
                         color="default"
@@ -108,8 +108,8 @@ export const RegistrationAgreement = ({
                             'aria-label': 'checkbox with default color',
                         }}
                     />
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <p style={{ margin: 0 }}>
+                    <div>
+                        <p>
                             {t(`${T_PREFIX}.statement`)}{' '}
                             <span className={agreementLink}>
                                 {t(`${T_PREFIX}.privacy-policy`)}{' '}

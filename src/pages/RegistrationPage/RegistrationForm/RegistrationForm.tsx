@@ -37,7 +37,7 @@ const initialState: RegisterForm = {
 
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(2);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();

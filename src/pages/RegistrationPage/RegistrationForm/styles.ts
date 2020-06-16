@@ -200,6 +200,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         checkboxContent: {
             display: 'flex',
             alignItems: 'end',
+            marginTop: '20px',
         },
     })
 );
