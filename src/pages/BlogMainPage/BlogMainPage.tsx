@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, makeStyles, Grid } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, Grid, ThemeProvider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
@@ -11,6 +10,7 @@ import { PaginatedArticleList, Snapshot } from '../../firebase/types';
 import { ArticleCategories } from './types';
 import { white, mainColor } from '../../colors';
 import { DropDownMenu } from './DropDownMenu';
+import { BlogMainHeader } from '../../components/BlogMainHeader';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -76,9 +76,7 @@ export const BlogMainPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.headerBar}>{t('blog-main-page.headerBar')}</div>
-            <Typography variant="h4" gutterBottom className={classes.heading}>
-                {t('blog-main-page.header')}
-            </Typography>
+            <BlogMainHeader />
 
             <DropDownMenu setCategory={setCurrentCategory} />
 
@@ -124,23 +122,7 @@ const useStyles = makeStyles({
             display: 'none'
         },
     },
-    heading: {
-        marginTop: '20px',
-        fontWeight: 'bold',
-        fontSize: '34px',
-        marginBottom: '4%',
-        marginLeft: '3%',
-        width: '60%',
-        zIndex: 10,
 
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '15px',
-            fontWeight: 'normal',
-            textAlign: 'center',
-            marginLeft: '20%',
-            textTransform: 'uppercase',
-        },
-    },
     gridContainer: {
         maxWidth: '92%',
         margin: '0 4%',

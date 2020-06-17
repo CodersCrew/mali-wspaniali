@@ -41,4 +41,4 @@ const styles = createStyles({
     },
 });
 
-const StyledTabs = withStyles(styles)(Tabs);
+const StyledTabs = withStyles(styles)(Tabs); 

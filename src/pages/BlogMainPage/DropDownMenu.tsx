@@ -8,7 +8,6 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { categoriesList } from './BlogCategories';
 import { DropDownMenuItem } from './DropDownMenuItem';
 import { theme } from '../../theme';
-// eslint-disable-next-line import/extensions
 
 type Props = {
     setCategory: (value:string) => void;
