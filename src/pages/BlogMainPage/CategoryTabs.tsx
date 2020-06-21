@@ -31,6 +31,10 @@ const StyledTabs = withStyles(createStyles({
     flexContainer: {
         alignItems: 'flex-end',
         marginLeft: '3%',
+
+        [theme.breakpoints.down('md')]: {
+            display: 'none'
+        },
     },
     indicator: {
         display: 'none',

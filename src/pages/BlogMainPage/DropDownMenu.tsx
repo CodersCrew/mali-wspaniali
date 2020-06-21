@@ -17,49 +17,49 @@ export const DropDownMenu = ({ setCategory }: Props) => {
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
     const classes = useStyles();
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const anchorRef = useRef<HTMLButtonElement>(null);
     const { t } = useTranslation();
 
     const handleToggle = () => {
-        setOpen(prevOpen => !prevOpen);
+        setIsOpen(prevOpen => !prevOpen);
     };
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setCurrentTabIndex(newValue);
         setCategory(categoriesList[newValue].key);
-        setOpen(false);
+        setIsOpen(false);
     };
 
     function handleListKeyDown(event: React.KeyboardEvent) {
         if (event.key === 'Tab') {
             event.preventDefault();
-            setOpen(false);
+            setIsOpen(false);
         }
     }
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(null);
     useEffect(() => {
-        if (anchorRef.current && prevOpen.current && open === false) {
+        if (anchorRef.current && prevOpen.current && isOpen === false) {
             anchorRef.current.focus();
         }
-    }, [open]);
+    }, [isOpen]);
 
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root} onKeyDown={handleListKeyDown}>
                 <Button
                     ref={anchorRef}
-                    aria-controls={open ? 'menu-list-grow' : ''}
+                    aria-controls={isOpen ? 'menu-list-grow' : ''}
                     aria-haspopup="true"
                     onClick={handleToggle}
                     className={classes.button}
                 >
-                    {t('blog-categories.header')}
-                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    {t('blog-categories.allCategories')}
+                    {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </Button>
-                <Popper className={classes.container} open={open} transition disablePortal>
+                <Popper className={classes.container} open={isOpen} transition disablePortal>
                     {({ TransitionProps }) => (
                         <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
                             <Paper>
@@ -88,7 +88,7 @@ const useStyles = makeStyles(() =>
         root: {
             display: 'flex',
             alignItems: 'flex-start',
-            transform: 'translate3d(0px, 35px, 0px)!important',
+            transform: 'translate3d(0px, 35px, 0px)',
             zIndex: 9,
             position: 'relative',
 
@@ -108,7 +108,7 @@ const useStyles = makeStyles(() =>
             marginLeft: '52px',
             marginRight: '52px',
             alignItems: 'flex-start',
-            transform: 'translate3d(0px, 35px, 0px)!important',
+            transform: 'translate3d(0px, 35px, 0px)',
         },
     }),
 );
