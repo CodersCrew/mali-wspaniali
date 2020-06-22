@@ -15,10 +15,10 @@ export const ArticleContent = ({ content }: { content: Content }) => {
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {content.category.map((cat, index) => {
+                        {content.category.map((cat) => {
                             const ColorButton = createColorButton(cat);
                             return (
-                                <Grid key={index} item xs={3}>
+                                <Grid key={cat} item xs={3}>
                                     <ColorButton
                                         className={classes.contentCategoryButton}
                                         href={`#${cat.toUpperCase()}`}
