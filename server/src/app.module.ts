@@ -4,13 +4,14 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
+import { isProduction } from './utils/is_production';
 
 @Module({
   imports: [
     ArticlesModule,
     GraphQLModule.forRoot({
-      debug: true,
-      playground: true,
+      debug: !isProduction(),
+      playground: !isProduction(),
       autoSchemaFile: 'schema.gql',
     }),
   ],
