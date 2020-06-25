@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 export const ArticleCarousel: FC = ({ children }) => {
     const classes = useStyles();
-
+    // test
     const settings = {
         infinite: false,
         speed: 500,
