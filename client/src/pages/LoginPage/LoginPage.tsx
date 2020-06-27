@@ -1,12 +1,12 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, Button, makeStyles } from '@material-ui/core/';
+import { TextField, Button, makeStyles, createStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ThemeProvider } from '@material-ui/core/styles';
 import { User, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { backgroundColor, secondaryColor } from '../../colors';
-import { theme } from '../../theme';
+import { ThemeProvider } from '../../theme/ThemeProvider';
+import { Theme } from '../../theme/types';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -37,7 +37,7 @@ export const LoginPage = () => {
     });
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
             <div className={classes.container}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
                     <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
@@ -84,67 +84,69 @@ export const LoginPage = () => {
     );
 };
 
-const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-    },
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '80%',
-        minHeight: '90vh',
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+        },
+        form: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '80%',
+            minHeight: '90vh',
 
-        '@media (max-width:767px)': {
-            minHeight: 'auto',
+            [theme.breakpoints.down('sm')]: {
+                minHeight: 'auto',
+                width: '100%',
+                margin: '0 15px',
+            },
+        },
+        formItem: {
+            margin: '20px',
             width: '100%',
-            margin: '0 15px',
         },
-    },
-    formItem: {
-        margin: '20px',
-        width: '100%',
-    },
-    loginHeader: {
-        textAlign: 'center',
-        fontFamily: 'Montserrat',
-        fontSize: '21px',
-        fontWeight: 'bold',
-        marginBottom: '25px',
-        textTransform: 'uppercase',
+        loginHeader: {
+            textAlign: 'center',
+            fontFamily: 'Montserrat',
+            fontSize: '21px',
+            fontWeight: 'bold',
+            marginBottom: '25px',
+            textTransform: 'uppercase',
 
-        '@media (max-width:767px)': {
-            marginTop: '40px',
+            [theme.breakpoints.down('sm')]: {
+                marginTop: '40px',
+            },
         },
-    },
-    submitWrapper: {
-        marginTop: '20px',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        submitWrapper: {
+            marginTop: '20px',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
 
-        '@media (max-width:767px)': {
-            margin: '0 0 20px 0',
+            [theme.breakpoints.down('sm')]: {
+                margin: '0 0 20px 0',
+            },
         },
-    },
-    loginButton: {
-        color: backgroundColor,
-        fontWeight: 'bold',
-    },
-    forgotPasswordLink: {
-        fontFamily: 'Montserrat',
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: '14px',
-        lineHeight: '17px',
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        color: secondaryColor,
-        textDecoration: 'none',
-    },
-});
+        loginButton: {
+            color: backgroundColor,
+            fontWeight: 'bold',
+        },
+        forgotPasswordLink: {
+            fontFamily: 'Montserrat',
+            fontStyle: 'normal',
+            fontWeight: 'bold',
+            fontSize: '14px',
+            lineHeight: '17px',
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            color: secondaryColor,
+            textDecoration: 'none',
+        },
+    }),
+);

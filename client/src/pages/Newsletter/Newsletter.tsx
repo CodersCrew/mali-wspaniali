@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Typography, Button, makeStyles, createStyles, ThemeProvider } from '@material-ui/core';
+import { Typography, Button, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
@@ -11,8 +11,9 @@ import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
-import { theme } from '../../theme';
 import { secondaryColor, white } from '../../colors';
+import { ThemeProvider } from '../../theme/ThemeProvider';
+import { Theme } from '../../theme/types';
 
 const initialState = {
     type: {
@@ -152,7 +153,7 @@ export const NewsletterPage = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
             <div className={classes.container}>
                 <Typography variant="h1" className={classes.header}>
                     {t('newsletter.header')}
@@ -203,7 +204,7 @@ export const NewsletterPage = () => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             padding: '0 90px 54px 0',

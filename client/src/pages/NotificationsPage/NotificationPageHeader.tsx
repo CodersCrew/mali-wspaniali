@@ -1,25 +1,25 @@
 import React from 'react'
-import { Typography, makeStyles, createStyles, ThemeProvider } from '@material-ui/core'
+import { Typography, makeStyles, createStyles } from '@material-ui/core'
 import { useTranslation } from 'react-i18next';
-import { theme } from '../../theme';
+import { ThemeProvider } from '../../theme/ThemeProvider';
 
 export const NotificationPageHeader = () => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('notifications-page.header')}
             </Typography>
             <Typography variant="h6" gutterBottom>
                 {t('notifications-page.description')}
             </Typography>
-        </ThemeProvider>
+        </ThemeProvider >
     )
 }
 
-const useStyles = makeStyles(() => 
+const useStyles = makeStyles(() =>
     createStyles({
         heading: {
             fontWeight: 'bold',

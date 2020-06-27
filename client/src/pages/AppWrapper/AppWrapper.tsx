@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
-import { makeStyles, ThemeProvider, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import { Sidebar } from '../../components/Menu/Sidebar';
 import { Navbar } from '../../components/Menu/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
-import { theme } from '../../theme';
+import { ThemeProvider } from '../../theme/ThemeProvider';
+import { Theme } from '../../theme/types';
 
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
@@ -13,7 +14,7 @@ export const AppWrapper: FC = ({ children }) => {
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
             <div className={classes.background}>
                 <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
                 <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>

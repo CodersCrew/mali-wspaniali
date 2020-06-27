@@ -9,11 +9,10 @@ import {
     Button,
     DialogTitle,
     DialogContentText,
-    ThemeProvider,
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { theme } from '../../theme';
 import { mainColor, secondaryColor, white, textColor } from '../../colors';
+import { ThemeProvider } from '../../theme/ThemeProvider';
 
 export const NewsletterSentModal: React.FC<{
     onClose: () => void;
@@ -33,7 +32,7 @@ export const NewsletterSentModal: React.FC<{
         }
     };
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
             <Dialog open onClose={onClose}>
                 <DialogContent className={classes.sentModal}>
                     <CheckCircleIcon className={classes.sentModalIcon} />
