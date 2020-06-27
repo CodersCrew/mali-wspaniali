@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
-import { isProduction } from './utils/is_production';
+import { isProduction } from './shared/utils/is_production';
 
 @Module({
   imports: [
