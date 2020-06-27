@@ -11,6 +11,7 @@ import { ChildProfileResults } from './ChildProfileResults';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
 import { secondaryColor, white } from '../../colors';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
 
 const TABS = {
     results: 'results',
@@ -39,9 +40,9 @@ export const ChildProfile = () => {
     return (
         <>
             <Grid container className={classes.header}>
-                <Typography className={classes.name}>
+                <PageTitle>
                     {child.firstName} {child.lastName}
-                </Typography>
+                </PageTitle>
                 <Typography className={classes.kindergarten}>
                     {t('child-profile.kindergarten-no')} {child.kindergartenNo}
                 </Typography>
@@ -72,15 +73,10 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
     },
-    name: {
-        fontSize: '36px',
-        textTransform: 'uppercase',
-        fontWeight: 700,
-        marginRight: '60px',
-    },
     kindergarten: {
         fontSize: '21px',
         fontWeight: 700,
+        marginLeft: '60px',
     },
     description: {
         fontSize: '21px',
