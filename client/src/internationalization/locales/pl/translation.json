@@ -354,6 +354,46 @@
         "content": "Treść Powiadomienia",
         "date": "Data"
     },
+    "settings-page": {
+        "header": "USTAWIENIA",
+        "description": "Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
+        "password-change": "ZMIANA HASŁA",
+        "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
+        "legal-data": "INFORMACJE PRAWNE",
+        "legal-data-comment": "Zapoznaj się z regulaminem",
+        "consents": "ZGODY PODPISANE W PROGRAMIE",
+        "consents-comment": "Przejrzyj i zmień wydane zgody",
+        "old-password": "Aktualne hasło",
+        "new-password": "Nowe hasło",
+        "confirm-new-password": "Powtórz hasło",
+        "change-password": "Zmień hasło",
+        "valid-password": {
+            "min-length": "8 znaków",
+            "uppercase-letter": "Duża litera",
+            "number": "Cyfra",
+            "symbol": "Znak specjalny"
+        },
+        "parent": {
+            "header": "USTAWIENIA",
+            "description": "Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
+            "password-change": "ZMIANA HASŁA",
+            "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
+            "legal-data": "INFORMACJE PRAWNE",
+            "legal-data-comment": "Zapoznaj się z regulaminem",
+            "consents": "ZGODY PODPISANE W PROGRAMIE",
+            "consents-comment": "Przejrzyj i zmień wydane zgody"
+        },
+        "admin": {
+            "header": ".USTAWIENIA",
+            "description": ".Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
+            "password-change": ".ZMIANA HASŁA",
+            "password-change-comment": ".Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
+            "legal-data": ".INFORMACJE PRAWNE",
+            "legal-data-comment": ".Zapoznaj się z regulaminem",
+            "consents": ".ZGODY PODPISANE W PROGRAMIE",
+            "consents-comment": ".Przejrzyj i zmień wydane zgody"
+        }
+    },
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",

@@ -20,6 +20,7 @@ import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { IdleTimer } from '../components/IdleTimer/IdleTimer';
 import { BlogMainPage } from './BlogMainPage';
 import { NotificationsPage } from './NotificationsPage';
+import { ParentSettingsPage, AdminSettingsPage } from './SettingsPage';
 import { ThemeProvider } from '../theme/ThemeProvider';
 
 export const Root = () => {
@@ -48,17 +49,20 @@ export const Root = () => {
                         <Route path={['/admin', '/parent']}>
                             <AppWrapper>
                                 <Route exact path="/parent" component={ParentHomePage} />
-                                <Route path="/admin/tests" component={TestResultsPage} />
-                                <Route path="/admin/users" component={UsersPage} />
                                 <Route path="/parent/child/:childId" component={ChildProfile} />
-                                <Route exact path="/admin" />
-                                <Route path="/admin/parent/:id" component={ParentProfile} />
-                                <Route path="/admin/agreements" component={AdminAgreementsPage} />
                                 <Route path="/parent/children" component={ChildrenListPage} />
                                 <Route path="/admin/newsletter" component={NewsletterPage} />
                                 <Route path="/parent/blog/:category/:page" exact component={BlogMainPage} />
                                 <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
                                 <Route path="/parent/notifications" component={NotificationsPage} />
+                                <Route path="/parent/settings" component={ParentSettingsPage} />
+                                <Route exact path="/admin" />
+                                <Route path="/admin/tests" component={TestResultsPage} />
+                                <Route path="/admin/users" component={UsersPage} />
+                                <Route path="/admin/parent/:id" component={ParentProfile} />
+                                <Route path="/admin/agreements" component={AdminAgreementsPage} />
+                                <Route path="/admin/newsletter" component={NewsletterPage} />
+                                <Route path="/admin/settings" component={AdminSettingsPage} />
                             </AppWrapper>
                         </Route>
                     </IdleTimer>
