@@ -10,8 +10,8 @@ export class ArticlesResolver {
   constructor(private readonly articleService: ArticleService) {}
 
   @Query(() => [CreateArticleDTO])
-  articles(): Promise<Article[]> {
-    return this.articleService.findAll();
+  articles(@Args('page') page: number): Promise<Article[]> {
+    return this.articleService.findAll(page);
   }
 
   @Query(() => CreateArticleDTO)

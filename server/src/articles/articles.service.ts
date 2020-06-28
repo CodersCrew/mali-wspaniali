@@ -11,8 +11,8 @@ export class ArticleService {
     return this.articlesRepository.create(createArticleDTO);
   }
 
-  async findAll(): Promise<Article[]> {
-    return this.articlesRepository.all();
+  async findAll(page: number): Promise<Article[]> {
+    return this.articlesRepository.all(page);
   }
 
   async find(articleId: string): Promise<Article> {

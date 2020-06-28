@@ -16,8 +16,12 @@ export class ArticlesRepository {
     return await createdArticle.save();
   }
 
-  async all(): Promise<Article[]> {
-    return await this.articleModel.find().exec();
+  async all(page: number): Promise<Article[]> {
+    return await this.articleModel
+      .find()
+      .skip(page * 10)
+      .limit(10)
+      .exec();
   }
 
   async get(id: string): Promise<Article> {
