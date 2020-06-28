@@ -16,11 +16,15 @@ export class ArticlesRepository {
     return await createdArticle.save();
   }
 
-  async all(page: number): Promise<Article[]> {
+  async all(page: number, category?: string): Promise<Article[]> {
+    const query: { [index: string]: unknown } = {};
+
+    if (category) query.category = category;
+
     return await this.articleModel
-      .find()
-      .skip(page * 10)
-      .limit(10)
+      .find(query)
+      .skip(page * 6)
+      .limit(7)
       .exec();
   }
 
