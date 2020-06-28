@@ -1,23 +1,22 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { Tabs, withStyles } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 
 type CategoryTabProps = {
-    setCategory: Dispatch<SetStateAction<string>>;
+    onClick: (value: string) => void;
+    active: string;
+    values: typeof categoriesList;
 };
 
-export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
-    const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
-
+export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setCurrentTabIndex(newValue);
-        setCategory(categoriesList[newValue].key);
+        onClick(categoriesList[newValue].key);
     };
 
     return (
-        <StyledTabs value={currentTabIndex} onChange={handleChange}>
-            {categoriesList.map(category => {
+        <StyledTabs value={values.findIndex(tab => tab.key === active)} onChange={handleChange}>
+            {values.map(category => {
                 return <StyledTab key={category.name} label={category.name} color={category.color} />;
             })}
         </StyledTabs>

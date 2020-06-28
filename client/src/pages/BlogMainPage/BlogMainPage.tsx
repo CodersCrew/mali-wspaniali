@@ -46,7 +46,11 @@ export const BlogMainPage = () => {
             <Typography variant="h4" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
-            <CategoryTabs setCategory={setCurrentCategory} />
+            <CategoryTabs
+                values={categoriesList}
+                active={params.category}
+                onClick={value => history.push(`/parent/blog/category/${value}/0`)}
+            />
             <div className={classes.gridBackground}>
                 {blogArticles && (
                     <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
