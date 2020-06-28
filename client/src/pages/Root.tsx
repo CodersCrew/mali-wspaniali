@@ -50,7 +50,6 @@ export const Root = () => {
                             <AppWrapper>
                                 <Route exact path="/parent" component={ParentHomePage} />
                                 <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
-                                <Route path="/admin/agreements" component={AdminAgreementsPage} />
                                 <Route path="/parent/blog" component={BlogMainPage} />
                                 <Route path="/parent/blog/:category/:page" exact component={BlogMainPage} />
                                 <Route path="/parent/child/:childId" component={ChildProfile} />
