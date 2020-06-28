@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, makeStyles, Grid } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { useParams, useHistory } from 'react-router-dom';
+
 import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
@@ -14,12 +16,11 @@ import { white } from '../../colors';
 export const BlogMainPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [currentCategory, setCurrentCategory] = useState<string>('all');
-    const [blogArticles, setBlogArticles] = useState<PaginatedArticleList | null>(null);
-    const [isLastPage, setIsLastPage] = useState(false);
-    const [isFirstPage, setIsFirstPage] = useState(true);
+    const params = useParams<{ category: string; page: string }>();
+    const history = useHistory();
+    let currentPage = parseInt(params.page);
 
-
+    if (Number.isNaN(currentPage)) currentPage = 0;
 
     useEffect(() => {
         let articles;
@@ -35,10 +36,11 @@ export const BlogMainPage = () => {
     }, [params.category, currentPage]);
 
     const paginationQuery = (paginationDirection: string) => {
-        if (!blogArticles) return;
-        const startAfter = paginationDirection === 'next' ? blogArticles.lastSnap : undefined;
-        const endBefore = paginationDirection === 'prev' ? blogArticles.firstSnap : undefined;
-        addArticlesToState(currentCategory, startAfter, endBefore);
+        if (paginationDirection === 'next') {
+            history.push(`/parent/blog/category/${params.category}/${currentPage + 1}`);
+        } else {
+            if (currentPage >= 0) history.push(`/parent/blog/category/${params.category}/${currentPage - 1}`);
+        }
     };
 
     return (
