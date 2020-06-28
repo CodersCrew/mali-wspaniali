@@ -354,6 +354,46 @@
         "content": "Notification content",
         "date": "Date"
     },
+    "settings-page": {
+        "header": "SETTINGS",
+        "description": "No idea how to describe this site...",
+        "password-change": "CHANGE PASSWORD",
+        "password-change-comment": "For your personal safety change the password regularly",
+        "legal-data": "LEGAL DATA",
+        "legal-data-comment": "Read the regulations",
+        "consents": "CONSENTS GIVEN IN THE PROGRAM",
+        "consents-comment": "Read or change the consents given in the program",
+        "old-password": "Old password",
+        "new-password": "New password",
+        "confirm-new-password": "Repeat password",
+        "change-password": "Change password",
+        "valid-password": {
+            "min-length": "8 characters",
+            "uppercase-letter": "Uppercase letter",
+            "number": "Number",
+            "symbol": "Symbol"
+        },
+        "parent": {
+            "header": "SETTINGS",
+            "description": "No idea how to describe this site...",
+            "password-change": "CHANGE PASSWORD",
+            "password-change-comment": "For your personal safety change the password regularly",
+            "legal-data": "LEGAL DATA",
+            "legal-data-comment": "Read the regulations",
+            "consents": "CONSENTS GIVEN IN THE PROGRAM",
+            "consents-comment": "Read or change the consents given in the program"
+        },
+        "admin": {
+            "header": ".SETTINGS",
+            "description": ".No idea how to describe this site...",
+            "password-change": ".CHANGE PASSWORD",
+            "password-change-comment": ".For your personal safety change the password regularly",
+            "legal-data": ".LEGAL DATA",
+            "legal-data-comment": ".Read the regulations",
+            "consents": ".CONSENTS GIVEN IN THE PROGRAM",
+            "consents-comment": ".Read or change the consents given in the program"
+        }
+    },
     "years_0": "year",
     "years_1": "years",
     "close": "Close"
