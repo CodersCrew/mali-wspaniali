@@ -12,7 +12,6 @@ import {
 import { TFunction } from 'i18next';
 
 export const getMenuItems = (t: TFunction, userRole: string) => {
-
     const adminMenuItems = [
         { name: t('menu.home'), link: '/admin', icon: <Home /> },
         { name: t('menu.results'), link: '/admin/tests', icon: <Assessment /> },
@@ -26,11 +25,11 @@ export const getMenuItems = (t: TFunction, userRole: string) => {
     const parentMenuItems = [
         { name: t('menu.home'), link: '/parent', icon: <Home /> },
         { name: t('menu.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
-        { name: t('menu.notifications'), link: 'parent/notifications', icon: <Notifications /> },
-        { name: t('menu.settings'), link: 'parent/settings', icon: <BuildSharp /> },
+        { name: t('menu.notifications'), link: '/parent/notifications', icon: <Notifications /> },
+        { name: t('menu.settings'), link: '/parent/settings', icon: <BuildSharp /> },
     ];
 
     const menuItems = userRole === 'parent' ? parentMenuItems : adminMenuItems;
-    
+
     return menuItems;
 };
