@@ -19,51 +19,20 @@ export const BlogMainPage = () => {
     const [isLastPage, setIsLastPage] = useState(false);
     const [isFirstPage, setIsFirstPage] = useState(true);
 
+
+
     useEffect(() => {
-        addArticlesToState(currentCategory);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentCategory]);
-
-    const addArticlesToState = (categoryKey: string | undefined, startAfter?: Snapshot, endBefore?: Snapshot) => {
-        const category = categoryKey === 'all' ? undefined : categoryKey;
-
-        getArticles(
-            blogArticlesFromSnapshot => {
-                setBlogArticles(blogArticlesFromSnapshot);
-                setupPagination(blogArticlesFromSnapshot, startAfter, endBefore);
-            },
-            category,
-            startAfter,
-            endBefore,
-        );
-    };
-
-    const setupPagination = (
-        blogArticlesFromSnapshot: PaginatedArticleList,
-        startAfter?: Snapshot,
-        endBefore?: Snapshot,
-    ) => {
-        if (!startAfter && !endBefore) {
-            setIsFirstPage(true);
-            setIsLastPage(false);
-            if (!blogArticlesFromSnapshot.isMore) {
-                setIsLastPage(true);
-            }
+        let articles;
+        if (params.category === 'all') {
+            articles = getArticles(currentPage);
         } else {
-            if (startAfter) {
-                setIsFirstPage(false);
-            }
-            if (endBefore) {
-                setIsLastPage(false);
-            }
-            if (!blogArticlesFromSnapshot.isMore && startAfter) {
-                setIsLastPage(true);
-            }
-            if (!blogArticlesFromSnapshot.isMore && endBefore) {
-                setIsFirstPage(true);
-            }
+            articles = getArticles(currentPage, params.category);
         }
-    };
+
+        articles.then(({ data }) => {
+            setArticles(data.articles);
+        });
+    }, [params.category, currentPage]);
 
     const paginationQuery = (paginationDirection: string) => {
         if (!blogArticles) return;

@@ -78,13 +78,6 @@ export type User = {
     agreements: UserAgreement[];
 };
 
-export interface PaginatedArticleList {
-    articleList: Article[];
-    firstSnap: Snapshot;
-    lastSnap: Snapshot;
-    isMore: boolean;
-}
-
 export type Notification = {
     text: string;
     date: Timestamp;
