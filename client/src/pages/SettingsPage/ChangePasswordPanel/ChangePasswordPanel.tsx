@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { theme } from '../../../theme';
 import { handleSignInWithEmailAndPassword } from '../../../queries/authQueries';
-import { firebase, UserCredential } from '../../../firebase/firebase';
+import { UserCredential } from '../../../firebase/firebase';
 import { useAuthorization } from '../../../hooks/useAuthorization';
 import {
     validatePasswordLength,
@@ -23,6 +23,7 @@ import {
     validatePasswordSymbol,
     validatePasswordUppercase,
 } from './ValidatePassword';
+import { getCurrentUserEmail } from '../GetCurrentUserEmail';
 
 export const ChangePasswordPanel = () => {
     useAuthorization(true);
@@ -47,14 +48,6 @@ export const ChangePasswordPanel = () => {
         validPasswordSymbol: false,
     });
 
-    const getCurrentUserEmail = () => {
-        const currentUser = firebase.auth.getCurrentUser();
-        let ret;
-        if (currentUser) {
-            ret = currentUser.email;
-        }
-        return ret;
-    };
     const currentUserEmail = getCurrentUserEmail();
 
     const handleClickShowOldPassword = () => {
