@@ -49,20 +49,21 @@ export const Root = () => {
                         <Route path={['/admin', '/parent']}>
                             <AppWrapper>
                                 <Route exact path="/parent" component={ParentHomePage} />
+                                <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
+                                <Route path="/admin/agreements" component={AdminAgreementsPage} />
+                                <Route path="/parent/blog" component={BlogMainPage} />
+                                <Route path="/parent/blog/:category/:page" exact component={BlogMainPage} />
                                 <Route path="/parent/child/:childId" component={ChildProfile} />
                                 <Route path="/parent/children" component={ChildrenListPage} />
-                                <Route path="/admin/newsletter" component={NewsletterPage} />
-                                <Route path="/parent/blog/:category/:page" exact component={BlogMainPage} />
-                                <Route path="/parent/article/:articleId" component={SingleBlogArticle} />
                                 <Route path="/parent/notifications" component={NotificationsPage} />
                                 <Route path="/parent/settings" component={ParentSettingsPage} />
                                 <Route exact path="/admin" />
-                                <Route path="/admin/tests" component={TestResultsPage} />
-                                <Route path="/admin/users" component={UsersPage} />
-                                <Route path="/admin/parent/:id" component={ParentProfile} />
                                 <Route path="/admin/agreements" component={AdminAgreementsPage} />
                                 <Route path="/admin/newsletter" component={NewsletterPage} />
+                                <Route path="/admin/parent/:id" component={ParentProfile} />
                                 <Route path="/admin/settings" component={AdminSettingsPage} />
+                                <Route path="/admin/tests" component={TestResultsPage} />
+                                <Route path="/admin/users" component={UsersPage} />
                             </AppWrapper>
                         </Route>
                     </IdleTimer>
