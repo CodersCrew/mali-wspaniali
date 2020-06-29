@@ -4,7 +4,7 @@ import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { getArticleById } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
-import { BreadcrumbsWithDescription } from './ArticlePath';
+import { BreadcrumbsWithDescription } from './BreadcrumbsWithDescription';
 import { ArticleHeader } from './ArticleHeader';
 import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
