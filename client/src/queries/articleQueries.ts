@@ -9,15 +9,6 @@ export const getArticleById = (articleId: string): Promise<ApolloQueryResult<{ a
     return ArticleRepository.getArticleDocById(articleId);
 };
 
-export const getSimilarArticlesListData = async (
-    article: Article,
-    category: string[],
-    tags: string[],
-    onSnapshotCallback: OnSnapshotCallback<Article[]>,
-) => {
-    firebase.article.getSimilarArticlesListData(article, category, tags, onSnapshotCallback);
-};
-
 export const getArticles = (page: number, category?: string): Promise<ApolloQueryResult<{ articles: Article[] }>> => {
     return ArticleRepository.getArticles(page, category);
 };

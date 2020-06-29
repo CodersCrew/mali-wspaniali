@@ -6,27 +6,6 @@ import { OnSnapshotCallback } from './userRepository';
 import { client } from '../apollo_client';
 
 export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getSimilarArticlesListData: (
-        article: Article,
-        category: string[],
-        tags: string[],
-        onSnapshotCallback: OnSnapshotCallback<Article[]>,
-    ) => {
-        return db
-            .collection('article')
-            .where('category', 'array-contains', article.category[0])
-            .limit(3)
-            .onSnapshot(snapshot => {
-                const articleList = [] as Article[];
-                snapshot.forEach(snap => {
-                    const docData = snap.data() as Article;
-                    if (docData.title !== article.title && !articleList.includes(docData)) articleList.push(docData);
-                });
-                if (articleList) {
-                    onSnapshotCallback(articleList);
-                }
-            });
-    },
     getArticlesListData: (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
         return db
             .collection('article')
