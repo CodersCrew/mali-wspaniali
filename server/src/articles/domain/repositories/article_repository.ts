@@ -22,7 +22,7 @@ export class ArticlesRepository {
     if (category) query.category = category;
 
     return await this.articleModel
-      .find(query)
+      .find(query, {}, { sort: { date: -1 } })
       .skip(page * 6)
       .limit(7)
       .exec();
