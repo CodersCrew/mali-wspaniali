@@ -12,14 +12,20 @@ export const ArticlePath = ({ path }: { path: Path }) => {
     return (
         <Grid item xs={8} className={classes.pathContainer}>
             <Grid container direction="row">
-                <Button href="#BLOG" disableElevation disableFocusRipple disableRipple disableTouchRipple>
+                <Button
+                    href="/parent/blog/category/all/0"
+                    disableElevation
+                    disableFocusRipple
+                    disableRipple
+                    disableTouchRipple
+                >
                     <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
                 </Button>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
                 </div>
                 <Button
-                    href={`#${path.category.toUpperCase()}`}
+                    href={`/parent/blog/category/${path.category}/0`}
                     disableElevation
                     disableFocusRipple
                     disableRipple

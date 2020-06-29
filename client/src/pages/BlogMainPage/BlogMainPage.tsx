@@ -41,7 +41,7 @@ export const BlogMainPage = () => {
         if (paginationDirection === 'next') {
             history.push(`/parent/blog/category/${params.category}/${currentPage + 1}`);
         } else {
-            if (currentPage >= 0) history.push(`/parent/blog/category/${params.category}/${currentPage - 1}`);
+            history.push(`/parent/blog/category/${params.category}/${currentPage - 1}`);
         }
     };
 
@@ -69,7 +69,7 @@ export const BlogMainPage = () => {
                         </Grid>
                     ))}
                 </Grid>
-                <Pagination isFirst={currentPage === 0} isLast={articles.length < 7} handleChange={paginationQuery} />
+                <Pagination isFirst={currentPage <= 0} isLast={articles.length < 7} handleChange={paginationQuery} />
             </div>
         </ThemeProvider>
     );
