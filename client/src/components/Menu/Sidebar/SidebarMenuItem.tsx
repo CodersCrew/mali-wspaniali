@@ -11,9 +11,10 @@ type SidebarMenuItem = {
     isSidebarOpen: boolean;
 };
 const getActiveClass = (pathUrl: string, link: string) => {
-    if (pathUrl === link) {
-        return 'active';
-    }
+    const isParentCategoryBlog = link.includes('/parent/blog/category/') && pathUrl.includes('/parent/blog/category/');
+
+    if (pathUrl === link || isParentCategoryBlog) return 'active';
+
     return null;
 };
 export const SidebarMenuItem = ({ name, link, icon, isSidebarOpen }: SidebarMenuItem) => {
