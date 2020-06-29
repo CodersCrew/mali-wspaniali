@@ -1,49 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageArticleItem } from './HomePageArticleItem';
-import { useSubscribed } from '../../../hooks/useSubscribed';
 import { textColor } from '../../../colors';
-import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { Article } from '../../../firebase/types';
-import { getArticlesListData } from '../../../queries/articleQueries';
+import { getArticles } from '../../../queries/articleQueries';
 import { ArticleCarousel } from './HomePageArticleCarousel';
 
 const isMobile = window.screen.width < 1024;
 
 export const HomePageArticles = () => {
     const classes = useStyles();
+    const [articles, setArticles] = useState<Article[]>([]);
     const { t } = useTranslation();
 
-    const articles = useSubscribed<Article[]>((onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-        getArticlesListData(onSnapshotCallback);
-    }, []) as Article[];
+    useEffect(() => {
+        getArticles(0).then(({ data }) => setArticles(data.articles));
+    }, []);
 
-    // eslint-disable-next-line consistent-return
     const renderArticles = () => {
-        if (articles) {
-            return articles.map(({ id, title, description, pictureUrl }) => {
-                const ArticlePictureComponent = (
-                    <img className={classes.articleImg} alt="mali_wspaniali_article" src={pictureUrl} />
-                );
-                return (
-                    <HomePageArticleItem
-                        key={title}
-                        articleId={id}
-                        title={title}
-                        description={description}
-                        ArticlePictureComponent={ArticlePictureComponent}
-                    />
-                );
-            });
-        }
+        return articles.map(({ id, title, description, pictureUrl }) => {
+            const ArticlePictureComponent = (
+                <img className={classes.articleImg} alt="mali_wspaniali_article" src={pictureUrl} />
+            );
+            return (
+                <HomePageArticleItem
+                    key={title}
+                    articleId={id}
+                    title={title}
+                    description={description}
+                    ArticlePictureComponent={ArticlePictureComponent}
+                />
+            );
+        });
     };
 
     return (
         <>
             <h2 className={classes.articleHeader}>{t('home-page-content.recent-news')}</h2>
             <div className={classes.articlesList}>
-                {!isMobile && articles && articles.length > 4 ? (
+                {!isMobile && articles.length > 4 ? (
                     <ArticleCarousel>{renderArticles()}</ArticleCarousel>
                 ) : (
                     renderArticles()
