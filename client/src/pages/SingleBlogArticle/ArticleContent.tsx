@@ -40,7 +40,7 @@ export const ArticleContent = ({
                                 <Grid key={cat} item xs={3}>
                                     <ColorButton
                                         className={classes.contentCategoryButton}
-                                        href={`#${cat.toUpperCase()}`}
+                                        href={`/parent/blog/category/${cat}/0`}
                                         disableElevation
                                         disableFocusRipple
                                         disableRipple
