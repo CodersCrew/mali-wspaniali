@@ -2,23 +2,10 @@ import firebaseApp from 'firebase/app';
 import { gql, DocumentNode, ApolloQueryResult } from 'apollo-boost';
 
 import { Article } from './types';
-import { logQuery } from '../utils/logQuery';
 import { OnSnapshotCallback } from './userRepository';
 import { client } from '../apollo_client';
 
 export const articleRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getArticleDocById: (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
-        return db
-            .collection('article')
-            .doc(articleId)
-            .onSnapshot(snapshot => {
-                logQuery(snapshot);
-                const article = snapshot.data() as Article;
-                if (article) {
-                    onSnapshotCallback(article);
-                }
-            });
-    },
     getSimilarArticlesListData: (
         article: Article,
         category: string[],
@@ -87,4 +74,32 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
     }
 
     return client.query({ query });
+}
+
+export function getArticleDocById(articleId: string): Promise<ApolloQueryResult<{ article: Article }>> {
+    return client.query({
+        query: gql`
+            {
+                article(articleId: "${articleId}") {
+                    id
+                    title
+                    subtitle
+                    header
+                    category
+                    pictureUrl
+                    readingTime
+                    contentHTML
+                    videoUrl
+                    tags
+                    redactor {
+                        avatarUrl
+                        firstName
+                        lastName
+                        profession
+                        shortDescription
+                    }
+                }
+            }
+        `,
+    });
 }

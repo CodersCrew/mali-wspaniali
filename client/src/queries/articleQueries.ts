@@ -5,8 +5,8 @@ import { Article } from '../firebase/types';
 import { OnSnapshotCallback } from '../firebase/userRepository';
 import * as ArticleRepository from '../firebase/articleRepository';
 
-export const getArticleById = (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
-    firebase.article.getArticleDocById(articleId, onSnapshotCallback);
+export const getArticleById = (articleId: string): Promise<ApolloQueryResult<{ article: Article }>> => {
+    return ArticleRepository.getArticleDocById(articleId);
 };
 
 export const getSimilarArticlesListData = async (

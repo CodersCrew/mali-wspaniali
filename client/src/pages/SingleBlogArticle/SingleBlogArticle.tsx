@@ -1,37 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useAuthorization } from '../../hooks/useAuthorization';
-import { getArticleById, getSimilarArticlesListData } from '../../queries/articleQueries';
+import { getArticleById } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { ArticlePath } from './ArticlePath';
 import { ArticleHeader } from './ArticleHeader';
 import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
-import { useSubscribed } from '../../hooks/useSubscribed';
 import { Video, Path, Content } from './types';
 import { SingleArticleColors } from '../../colors';
 
 export const SingleBlogArticle = () => {
     useAuthorization(true);
     const classes = useStyles();
+    const [article, setArticle] = useState<null | Article>(null);
     const { articleId } = useParams<{ articleId: string }>();
 
-    const article = useSubscribed<Article>((onSnapshotCallback: OnSnapshotCallback<Article>) =>
-        getArticleById(articleId, onSnapshotCallback),
-    ) as Article;
-
-    const similarArticles = useSubscribed<Article[], Article>(
-        (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-            if (article) {
-                getSimilarArticlesListData(article, article.category, article.tags, onSnapshotCallback);
-            }
-        },
-        [],
-        [article],
-    ) as Article[];
+    useEffect(() => {
+        getArticleById(articleId).then(({ data }) => setArticle(data.article));
+    }, [articleId]);
 
     if (article) {
         const path = {
@@ -70,7 +59,6 @@ export const SingleBlogArticle = () => {
                     <Grid container direction="row">
                         <ArticleRedactor redactor={article.redactor} />
                     </Grid>
-                    {similarArticles && <Grid />}
                 </div>
             </Grid>
         );
@@ -95,6 +83,6 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: '100%',
                 marginBottom: '20px',
             },
-        }
+        },
     }),
 );
