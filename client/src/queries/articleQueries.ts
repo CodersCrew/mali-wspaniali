@@ -1,8 +1,9 @@
+import { ApolloQueryResult } from 'apollo-boost';
+
 import { firebase } from '../firebase/firebase';
 import { Article } from '../firebase/types';
 import { OnSnapshotCallback } from '../firebase/userRepository';
 import * as ArticleRepository from '../firebase/articleRepository';
-import { ApolloQueryResult } from 'apollo-boost';
 
 export const getArticleById = (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
     firebase.article.getArticleDocById(articleId, onSnapshotCallback);

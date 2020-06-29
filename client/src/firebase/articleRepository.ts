@@ -69,6 +69,7 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
                 id
                 title
                 category
+                pictureUrl
             }
         }
     `;
@@ -79,6 +80,7 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
                 id
                 title
                 category
+                pictureUrl
             }
         }
     `;

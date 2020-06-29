@@ -29,7 +29,5 @@ export const getMenuItems = (t: TFunction, userRole: string) => {
         { name: t('menu.settings'), link: '/parent/settings', icon: <BuildSharp /> },
     ];
 
-    const menuItems = userRole === 'parent' ? parentMenuItems : adminMenuItems;
-
-    return menuItems;
+    return userRole === 'parent' ? parentMenuItems : adminMenuItems;
 };
