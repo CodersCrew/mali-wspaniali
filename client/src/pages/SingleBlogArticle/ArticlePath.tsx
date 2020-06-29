@@ -1,11 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Button, Typography, Theme } from '@material-ui/core';
+
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
-import { Path } from './types';
 
-export const ArticlePath = ({ path }: { path: Path }) => {
+export const BreadcrumbsWithDescription = ({
+    category,
+    subtitle,
+    readingTime,
+}: {
+    category: string;
+    subtitle: string;
+    readingTime: number;
+}) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -25,23 +33,23 @@ export const ArticlePath = ({ path }: { path: Path }) => {
                     <Typography className={classes.pathArrow} />
                 </div>
                 <Button
-                    href={`/parent/blog/category/${path.category}/0`}
+                    href={`/parent/blog/category/${category}/0`}
                     disableElevation
                     disableFocusRipple
                     disableRipple
                     disableTouchRipple
                 >
                     <Typography className={classes.pathText}>
-                        {t(`single-article.${path.category}`).toUpperCase()}
+                        {t(`single-article.${category}`).toUpperCase()}
                     </Typography>
                 </Button>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
                 </div>
                 <div className={classes.pathTitleContainer}>
-                    <Typography className={classes.pathTitle}>{`${path.subtitle.toUpperCase()}   (${t(
+                    <Typography className={classes.pathTitle}>{`${subtitle.toUpperCase()}   (${t(
                         'single-article.length',
-                    ).toUpperCase()} - ${path.readingTime} MIN)`}</Typography>
+                    ).toUpperCase()} - ${readingTime} MIN)`}</Typography>
                 </div>
             </Grid>
         </Grid>
@@ -53,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
         pathContainer: {
             [theme.breakpoints.down('sm')]: {
                 display: 'none',
-            }
+            },
         },
         pathText: {
             fontWeight: 'bold',

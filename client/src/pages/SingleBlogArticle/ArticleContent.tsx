@@ -1,12 +1,31 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Button, withStyles, Box, Typography, CardMedia, Theme } from '@material-ui/core';
+import {
+    makeStyles,
+    createStyles,
+    Grid,
+    Button,
+    withStyles,
+    Box,
+    Typography,
+    CardMedia,
+    Theme,
+} from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
-import { Content } from './types';
 
-export const ArticleContent = ({ content }: { content: Content }) => {
+export const ArticleContent = ({
+    category,
+    header,
+    pictureUrl,
+    contentHTML,
+}: {
+    category: string[];
+    header: string;
+    pictureUrl: string;
+    contentHTML: string;
+}) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -15,7 +34,7 @@ export const ArticleContent = ({ content }: { content: Content }) => {
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {content.category.map(cat => {
+                        {category.map(cat => {
                             changeColorButton(cat);
                             return (
                                 <Grid key={cat} item xs={3}>
@@ -41,17 +60,17 @@ export const ArticleContent = ({ content }: { content: Content }) => {
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHeader} item xs={12}>
-                    <Typography className={classes.contentHeaderText}>{`${content.header}`}</Typography>
+                    <Typography className={classes.contentHeaderText}>{header}</Typography>
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentPhoto} item xs={12}>
-                    <CardMedia className={classes.contentPhotoMedia} component="img" image={content.pictureUrl} />
+                    <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHTML} item xs={12}>
-                    {parse(content.contentHTML)}
+                    {parse(contentHTML)}
                 </Grid>
             </Grid>
         </Grid>

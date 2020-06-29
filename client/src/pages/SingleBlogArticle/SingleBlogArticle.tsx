@@ -4,12 +4,11 @@ import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { getArticleById } from '../../queries/articleQueries';
 import { Article } from '../../firebase/types';
-import { ArticlePath } from './ArticlePath';
+import { BreadcrumbsWithDescription } from './ArticlePath';
 import { ArticleHeader } from './ArticleHeader';
 import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
-import { Video, Path, Content } from './types';
 import { SingleArticleColors } from '../../colors';
 
 export const SingleBlogArticle = () => {
@@ -23,38 +22,29 @@ export const SingleBlogArticle = () => {
     }, [articleId]);
 
     if (article) {
-        const path = {
-            category: article.category[0],
-            subtitle: article.subtitle,
-            readingTime: article.readingTime,
-        } as Path;
-
-        const content = {
-            category: article.category,
-            header: article.header,
-            pictureUrl: article.pictureUrl,
-            contentHTML: article.contentHTML,
-        } as Content;
-
-        const video = {
-            videoUrl: article.videoUrl,
-            tags: article.tags,
-        } as Video;
-
         return (
             <Grid className={classes.rootGrid} container direction="column">
                 <Grid container direction="row">
-                    <ArticlePath path={path} />
+                    <BreadcrumbsWithDescription
+                        category={article.category[0]}
+                        subtitle={article.subtitle}
+                        readingTime={article.readingTime}
+                    />
                 </Grid>
                 <Grid container direction="row">
                     <ArticleHeader title={article.title} />
                 </Grid>
                 <div className={classes.articleContentContainer}>
                     <Grid container direction="row">
-                        <ArticleContent content={content} />
+                        <ArticleContent
+                            category={article.category}
+                            header={article.header}
+                            pictureUrl={article.pictureUrl}
+                            contentHTML={article.contentHTML}
+                        />
                     </Grid>
                     <Grid container direction="row">
-                        <ArticleVideo video={video} />
+                        <ArticleVideo videoUrl={article.videoUrl} tags={article.tags} />
                     </Grid>
                     <Grid container direction="row">
                         <ArticleRedactor redactor={article.redactor} />
