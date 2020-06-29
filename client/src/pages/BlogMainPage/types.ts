@@ -3,7 +3,7 @@ import { Snapshot } from '../../firebase/types';
 export type Article = {
     pictureUrl: string;
     title: string;
-    category: string[];
+    category: string;
     description: string;
 };
 

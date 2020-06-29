@@ -64,7 +64,7 @@ export const BlogMainPage = () => {
                                 image={article.pictureUrl}
                                 description={article.description}
                                 link={`/parent/article/${article.id}`}
-                                category={article.category[0] as ArticleCategories}
+                                category={article.category as ArticleCategories}
                             />
                         </Grid>
                     ))}

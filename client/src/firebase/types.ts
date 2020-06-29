@@ -11,7 +11,7 @@ export interface Article {
     subtitle: string;
     contentHTML: string;
     tags: string[];
-    category: string[];
+    category: string;
     description: string;
     videoUrl: string;
     readingTime: number;

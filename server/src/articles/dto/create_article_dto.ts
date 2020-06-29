@@ -7,8 +7,8 @@ export class CreateArticleDTO {
   @Field(() => ID)
   id: string;
 
-  @Field(() => [String])
-  readonly category: string[];
+  @Field(() => String)
+  readonly category: string;
 
   @Field()
   readonly contentHTML: string;

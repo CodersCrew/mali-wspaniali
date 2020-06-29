@@ -21,7 +21,7 @@ export const ArticleContent = ({
     pictureUrl,
     contentHTML,
 }: {
-    category: string[];
+    category: string;
     header: string;
     pictureUrl: string;
     contentHTML: string;
@@ -29,32 +29,34 @@ export const ArticleContent = ({
     const classes = useStyles();
     const { t } = useTranslation();
 
+    const renderColorButton = () => {
+        changeColorButton(category);
+        return (
+            <Grid item xs={3}>
+                <ColorButton
+                    className={classes.contentCategoryButton}
+                    href={`/parent/blog/category/${category}/0`}
+                    disableElevation
+                    disableFocusRipple
+                    disableRipple
+                    disableTouchRipple
+                >
+                    <Box className={classes.contentCategoryTextBox}>
+                        <Typography className={classes.contentCategoryText}>
+                            {t(`single-article.${category}`).toUpperCase()}
+                        </Typography>
+                    </Box>
+                </ColorButton>
+            </Grid>
+        );
+    };
+
     return (
         <Grid className={classes.contentGrid} container direction="column">
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {category.map(cat => {
-                            changeColorButton(cat);
-                            return (
-                                <Grid key={cat} item xs={3}>
-                                    <ColorButton
-                                        className={classes.contentCategoryButton}
-                                        href={`/parent/blog/category/${cat}/0`}
-                                        disableElevation
-                                        disableFocusRipple
-                                        disableRipple
-                                        disableTouchRipple
-                                    >
-                                        <Box className={classes.contentCategoryTextBox}>
-                                            <Typography className={classes.contentCategoryText}>
-                                                {t(`single-article.${cat}`).toUpperCase()}
-                                            </Typography>
-                                        </Box>
-                                    </ColorButton>
-                                </Grid>
-                            );
-                        })}
+                        {renderColorButton()}
                     </Grid>
                 </Grid>
             </Grid>
