@@ -12,6 +12,7 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
             articles(page: ${page}, category: "${category}") {
                 id
                 title
+                description
                 category
                 pictureUrl
             }
@@ -23,6 +24,7 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
             articles(page: ${page}) {
                 id
                 title
+                description
                 category
                 pictureUrl
             }
@@ -40,6 +42,7 @@ export function getArticleDocById(articleId: string): Promise<ApolloQueryResult<
                 article(articleId: "${articleId}") {
                     id
                     title
+                    description
                     subtitle
                     header
                     category
