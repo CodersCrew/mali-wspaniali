@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, withStyles } from '@material-ui/core';
+import { Tabs, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 
@@ -10,30 +10,29 @@ type CategoryTabProps = {
 };
 
 export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        onClick(categoriesList[newValue].key);
-    };
+    const classes = useStyles();
 
     return (
-        <StyledTabs value={values.findIndex(tab => tab.key === active)} onChange={handleChange}>
+        <Tabs
+            classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }}
+            value={values.findIndex(tab => tab.key === active)}
+            onChange={(_event, value) => onClick(categoriesList[value].key)}
+        >
             {values.map(category => {
                 return <StyledTab key={category.name} label={category.name} color={category.color} />;
             })}
-        </StyledTabs>
+        </Tabs>
     );
 };
 
-type StyledTabsProps = {
-    value: number;
-    onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
-};
-
-const StyledTabs = withStyles({
-    flexContainer: {
-        alignItems: 'flex-end',
-        marginLeft: '3%',
-    },
-    indicator: {
-        display: 'none',
-    },
-})((props: StyledTabsProps) => <Tabs {...props} />);
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        flexContainer: {
+            alignItems: 'flex-end',
+            marginLeft: '3%',
+        },
+        indicator: {
+            display: 'none',
+        },
+    }),
+);
