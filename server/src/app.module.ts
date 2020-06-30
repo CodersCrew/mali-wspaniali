@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
-import { isProduction } from './utils/is_production';
+import { isProduction } from './shared/utils/is_production';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { isProduction } from './utils/is_production';
       playground: !isProduction(),
       autoSchemaFile: 'schema.gql',
     }),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGO_KEY),
   ],
   controllers: [AppController],
   providers: [AppService],
