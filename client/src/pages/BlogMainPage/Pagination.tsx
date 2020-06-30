@@ -3,29 +3,22 @@ import { makeStyles, createStyles, Button } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { mainColor, white } from '../../colors';
 
-type PaginationProps = {
+interface Props {
     isFirst: boolean;
     isLast: boolean;
     handleChange: (paginationDirection: string) => void;
-};
+}
 
-export const Pagination = ({ isFirst, isLast, handleChange }: PaginationProps) => {
+export const Pagination = ({ isFirst, isLast, handleChange }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const handleNextClick = () => {
-        handleChange('next');
-    };
-    const handlePrevClick = () => {
-        handleChange('prev');
-    };
-
     return (
         <div className={classes.paginationContainer}>
-            <Button variant="outlined" disabled={isFirst} onClick={handlePrevClick}>
+            <Button variant="outlined" disabled={isFirst} onClick={() => handleChange('prev')}>
                 {t('blog-pagination.previous')}
             </Button>
-            <Button variant="contained" disabled={isLast} className={classes.next} onClick={handleNextClick}>
+            <Button variant="contained" disabled={isLast} className={classes.next} onClick={() => handleChange('next')}>
                 {t('blog-pagination.next')}
             </Button>
         </div>
