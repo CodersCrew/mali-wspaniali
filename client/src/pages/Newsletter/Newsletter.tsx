@@ -11,6 +11,7 @@ import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
+import { PageTitle } from '../../components/PageTitle';
 import { theme } from '../../theme';
 import { secondaryColor, white } from '../../colors';
 
@@ -88,7 +89,7 @@ export const NewsletterPage = () => {
         setFields(prevFields => ({
             ...prevFields,
             [name]: {
-                value: value,
+                value,
                 error: false,
             },
         }));
@@ -96,7 +97,7 @@ export const NewsletterPage = () => {
             setFields(prevFields => ({
                 ...prevFields,
                 [name]: {
-                    value: value,
+                    value,
                     error: true,
                 },
             }));
@@ -154,9 +155,7 @@ export const NewsletterPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.container}>
-                <Typography variant="h1" className={classes.header}>
-                    {t('newsletter.header')}
-                </Typography>
+                <PageTitle>{t('newsletter.header')}</PageTitle>
                 <Typography variant="h2" className={classes.subHeader}>
                     {t('newsletter.subHeader')}
                 </Typography>
@@ -209,19 +208,6 @@ const useStyles = makeStyles(() =>
             padding: '0 90px 54px 0',
             [theme.breakpoints.down('sm')]: {
                 padding: '0 10px',
-            },
-        },
-        header: {
-            fontSize: 36,
-            marginBottom: 20,
-            textTransform: 'uppercase',
-            lineHeight: '44px',
-            fontWeight: 'bold',
-
-            [theme.breakpoints.down('sm')]: {
-                marginTop: 25,
-                fontSize: 21,
-                lineHeight: '26px',
             },
         },
         subHeader: {
