@@ -2,7 +2,12 @@ import React from 'react';
 import { Grid, CardMedia, Button, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 
-export const ArticleVideo = ({ videoUrl, tags }: { videoUrl: string; tags: string[] }) => {
+interface Props {
+    videoUrl: string;
+    tags: string[];
+}
+
+export const ArticleVideo = ({ videoUrl, tags }: Props) => {
     const classes = useStyles();
 
     return (

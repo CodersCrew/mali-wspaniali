@@ -3,6 +3,8 @@ import { firestore } from 'firebase';
 export type Document = firestore.DocumentData;
 export type Snapshot = firestore.DocumentSnapshot;
 
+export type ArticleCategory = 'all' | 'food' | 'activity' | 'emotions' | 'other';
+
 export interface Article {
     id: string;
     header: string;
@@ -11,7 +13,7 @@ export interface Article {
     subtitle: string;
     contentHTML: string;
     tags: string[];
-    category: string;
+    category: ArticleCategory;
     description: string;
     videoUrl: string;
     readingTime: number;

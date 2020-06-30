@@ -3,15 +3,15 @@ import { Card, CardMedia, CardContent, Typography, makeStyles, Button } from '@m
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { darkGrey, white } from '../../colors';
-import { ArticleCategories } from './types';
 import { ArticleBadge } from './ArticleBadge';
+import { ArticleCategory } from '../../firebase/types';
 
 interface Props {
     image: string;
     title: string;
     description: string;
     link: string;
-    category: ArticleCategories;
+    category: ArticleCategory;
 }
 
 export const BlogArticleCard = ({ image, title, description, link, category }: Props) => {

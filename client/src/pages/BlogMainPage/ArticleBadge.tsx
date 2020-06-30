@@ -1,11 +1,11 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { categories } from './BlogCategories';
-import { ArticleCategories } from './types';
 import { blogCategoryColors } from '../../colors';
+import { ArticleCategory } from '../../firebase/types';
 
 type Props = {
-    articleCategory: ArticleCategories;
+    articleCategory: ArticleCategory;
 };
 
 export const ArticleBadge = ({ articleCategory }: Props) => {

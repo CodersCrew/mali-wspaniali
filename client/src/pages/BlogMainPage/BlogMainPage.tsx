@@ -8,7 +8,6 @@ import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
-import { ArticleCategories } from './types';
 import { white } from '../../colors';
 import { Article } from '../../firebase/types';
 import { categoriesList } from './BlogCategories';
@@ -26,15 +25,14 @@ export const BlogMainPage = () => {
 
     useEffect(() => {
         let articles;
+
         if (params.category === 'all') {
             articles = getArticles(currentPage);
         } else {
             articles = getArticles(currentPage, params.category);
         }
 
-        articles.then(({ data }) => {
-            setArticles(data.articles);
-        });
+        articles.then(({ data }) => setArticles(data.articles));
     }, [params.category, currentPage]);
 
     const paginationQuery = (paginationDirection: string) => {
@@ -64,7 +62,7 @@ export const BlogMainPage = () => {
                                 image={article.pictureUrl}
                                 description={article.description}
                                 link={`/parent/article/${article.id}`}
-                                category={article.category as ArticleCategories}
+                                category={article.category}
                             />
                         </Grid>
                     ))}

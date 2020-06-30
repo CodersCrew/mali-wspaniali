@@ -5,15 +5,13 @@ import { makeStyles, createStyles, Grid, Button, Typography, Theme } from '@mate
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 
-export const BreadcrumbsWithDescription = ({
-    category,
-    subtitle,
-    readingTime,
-}: {
+interface Props {
     category: string;
     subtitle: string;
     readingTime: number;
-}) => {
+}
+
+export const BreadcrumbsWithDescription = ({ category, subtitle, readingTime }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 

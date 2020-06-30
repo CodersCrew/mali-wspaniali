@@ -3,7 +3,11 @@ import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '
 import { lineHeight, letterSpace } from '../../fontStyle';
 import { Redactor } from '../../firebase/types';
 
-export const ArticleRedactor = ({ redactor }: { redactor: Redactor }) => {
+interface Props {
+    redactor: Redactor;
+}
+
+export const ArticleRedactor = ({ redactor }: Props) => {
     const classes = useStyles();
 
     return (
@@ -57,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 paddingTop: '9vw',
-                marginLeft: '15px'
+                marginLeft: '15px',
             },
         },
         contentRedactorName: {
