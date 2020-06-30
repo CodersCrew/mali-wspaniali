@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { Sidebar } from '../../components/Menu/Sidebar';
 import { Navbar } from '../../components/Menu/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
-import { ThemeProvider } from '../../theme/ThemeProvider';
 import { Theme } from '../../theme/types';
 
 export const AppWrapper: FC = ({ children }) => {
@@ -14,15 +13,13 @@ export const AppWrapper: FC = ({ children }) => {
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
     return (
-        <ThemeProvider>
-            <div className={classes.background}>
-                <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
-                    <Navbar />
-                    <div className={classes.content}>{children}</div>
-                </div>
+        <div className={classes.background}>
+            <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+            <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
+                <Navbar />
+                <div className={classes.content}>{children}</div>
             </div>
-        </ThemeProvider>
+        </div>
     );
 };
 

@@ -12,7 +12,6 @@ import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
 import { secondaryColor, white } from '../../colors';
-import { ThemeProvider } from '../../theme/ThemeProvider';
 import { Theme } from '../../theme/types';
 
 const initialState = {
@@ -153,54 +152,52 @@ export const NewsletterPage = () => {
     };
 
     return (
-        <ThemeProvider>
-            <div className={classes.container}>
-                <Typography variant="h1" className={classes.header}>
-                    {t('newsletter.header')}
-                </Typography>
-                <Typography variant="h2" className={classes.subHeader}>
-                    {t('newsletter.subHeader')}
-                </Typography>
-                <div className={classes.formContainer}>
-                    <NewsletterProgressBar progressBarState={progressBarState} />
-                    <div className={classes.inputContainer}>
-                        <NewsletterRecipent
-                            generalType={generalType}
-                            specificType={specificType}
-                            recipients={recipients}
-                            handleChange={handleChange}
-                            selectRecipients={selectRecipients}
-                            setFields={setFields}
-                        />
-                        <NewsletterContent
-                            handleTypeDelete={handleTypeDelete}
-                            handleChange={handleChange}
-                            type={type}
-                            topic={topic}
-                            recipients={recipients}
-                            message={message}
-                            setFields={setFields}
-                        />
-                    </div>
-                </div>
-                <div className={classes.formButtonWrapper}>
-                    <Button
-                        disabled={
-                            recipients.value.length === 0 ||
-                            !type.value ||
-                            !topic.value ||
-                            !message.value ||
-                            message.value === '<p><br></p>'
-                        }
-                        className={classes.formButton}
-                        onClick={handleSubmit}
-                        classes={{ disabled: classes.formButtonDisabled }}
-                    >
-                        {t('newsletter.send')}
-                    </Button>
+        <div className={classes.container}>
+            <Typography variant="h1" className={classes.header}>
+                {t('newsletter.header')}
+            </Typography>
+            <Typography variant="h2" className={classes.subHeader}>
+                {t('newsletter.subHeader')}
+            </Typography>
+            <div className={classes.formContainer}>
+                <NewsletterProgressBar progressBarState={progressBarState} />
+                <div className={classes.inputContainer}>
+                    <NewsletterRecipent
+                        generalType={generalType}
+                        specificType={specificType}
+                        recipients={recipients}
+                        handleChange={handleChange}
+                        selectRecipients={selectRecipients}
+                        setFields={setFields}
+                    />
+                    <NewsletterContent
+                        handleTypeDelete={handleTypeDelete}
+                        handleChange={handleChange}
+                        type={type}
+                        topic={topic}
+                        recipients={recipients}
+                        message={message}
+                        setFields={setFields}
+                    />
                 </div>
             </div>
-        </ThemeProvider>
+            <div className={classes.formButtonWrapper}>
+                <Button
+                    disabled={
+                        recipients.value.length === 0 ||
+                        !type.value ||
+                        !topic.value ||
+                        !message.value ||
+                        message.value === '<p><br></p>'
+                    }
+                    className={classes.formButton}
+                    onClick={handleSubmit}
+                    classes={{ disabled: classes.formButtonDisabled }}
+                >
+                    {t('newsletter.send')}
+                </Button>
+            </div>
+        </div>
     );
 };
 

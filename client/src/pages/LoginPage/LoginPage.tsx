@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { User, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { backgroundColor, secondaryColor } from '../../colors';
-import { ThemeProvider } from '../../theme/ThemeProvider';
 import { Theme } from '../../theme/types';
 
 export const LoginPage = () => {
@@ -37,50 +36,48 @@ export const LoginPage = () => {
     });
 
     return (
-        <ThemeProvider>
-            <div className={classes.container}>
-                <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                    <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
-                    <TextField
-                        required
-                        onChange={event => setEmail(event.target.value)}
-                        value={email}
-                        id="email"
-                        label={t('e-mail')}
-                        variant="outlined"
-                        error={loginError !== ''}
-                        helperText={loginError ? t('login-page.login-error') : t('login-page.e-mail-helper-text')}
-                        className={classes.formItem}
-                    />
-                    <TextField
-                        required
-                        onChange={event => setPassword(event.target.value)}
-                        value={password}
-                        id="password"
-                        label={t('password')}
-                        type="password"
-                        variant="outlined"
-                        error={loginError !== ''}
-                        helperText={loginError ? t('login-page.login-error') : ''}
-                        className={classes.formItem}
-                    />
-                    <div className={classes.submitWrapper}>
-                        <Link className={classes.forgotPasswordLink} to="/forgot-password">
-                            {t('login-page.forgot-password')}
-                        </Link>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            disabled={!email || !password}
-                            color="secondary"
-                            className={classes.loginButton}
-                        >
-                            {t('login-page.login')}
-                        </Button>
-                    </div>
-                </form>
-            </div>
-        </ThemeProvider>
+        <div className={classes.container}>
+            <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
+                <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
+                <TextField
+                    required
+                    onChange={event => setEmail(event.target.value)}
+                    value={email}
+                    id="email"
+                    label={t('e-mail')}
+                    variant="outlined"
+                    error={loginError !== ''}
+                    helperText={loginError ? t('login-page.login-error') : t('login-page.e-mail-helper-text')}
+                    className={classes.formItem}
+                />
+                <TextField
+                    required
+                    onChange={event => setPassword(event.target.value)}
+                    value={password}
+                    id="password"
+                    label={t('password')}
+                    type="password"
+                    variant="outlined"
+                    error={loginError !== ''}
+                    helperText={loginError ? t('login-page.login-error') : ''}
+                    className={classes.formItem}
+                />
+                <div className={classes.submitWrapper}>
+                    <Link className={classes.forgotPasswordLink} to="/forgot-password">
+                        {t('login-page.forgot-password')}
+                    </Link>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        disabled={!email || !password}
+                        color="secondary"
+                        className={classes.loginButton}
+                    >
+                        {t('login-page.login')}
+                    </Button>
+                </div>
+            </form>
+        </div>
     );
 };
 
@@ -138,11 +135,8 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 'bold',
         },
         forgotPasswordLink: {
-            fontFamily: 'Montserrat',
             fontStyle: 'normal',
             fontWeight: 'bold',
-            fontSize: '14px',
-            lineHeight: '17px',
             textAlign: 'center',
             textTransform: 'uppercase',
             color: secondaryColor,
