@@ -14,7 +14,7 @@ import { ResultDetails } from './ResultDetails';
 import { ResultComparison } from './ResultComparison';
 import { EmptyResult } from './EmptyResults';
 
-export const ChildProfileResults = ({ goToAboutTestTab }: { goToAboutTestTab(): void }) => {
+export const ChildProfileResults = ({ onNoResultClick }: { onNoResultClick(): void }) => {
     useAuthorization(true);
     const classes = useStyles();
     const { childId } = useParams<{ childId: string }>();
@@ -88,7 +88,7 @@ export const ChildProfileResults = ({ goToAboutTestTab }: { goToAboutTestTab(): 
                                 {sortedResults.length === 0 && (
                                     <EmptyResult
                                         isLast={index === Object.keys(groupedResults).length - 1}
-                                        goToAboutTestTab={goToAboutTestTab}
+                                        onNoResultClick={onNoResultClick}
                                     />
                                 )}
                             </ExpansionPanelDetails>

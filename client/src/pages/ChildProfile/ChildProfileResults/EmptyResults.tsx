@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { secondaryColor, textColor } from '../../../colors';
 
 interface Props {
-    goToAboutTestTab: () => void;
+    onNoResultClick: () => void;
     isLast: boolean;
 }
 
-export const EmptyResult = ({ isLast, goToAboutTestTab }: Props) => {
+export const EmptyResult = ({ isLast, onNoResultClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -49,7 +49,7 @@ export const EmptyResult = ({ isLast, goToAboutTestTab }: Props) => {
                     </ol>
                     <Typography variant="h4">
                         {t('child-profile.no-results-bottom')}{' '}
-                        <span className={classes.link} onClick={goToAboutTestTab}>
+                        <span className={classes.link} onClick={onNoResultClick}>
                             {t('child-profile.no-results-link')}
                         </span>
                     </Typography>
