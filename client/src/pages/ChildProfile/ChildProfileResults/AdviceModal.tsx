@@ -1,5 +1,5 @@
 import React from 'react';
-import { DialogContent, DialogTitle, DialogActions, Button, Typography } from '@material-ui/core';
+import { DialogContent, DialogTitle, DialogActions, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -13,7 +13,7 @@ export const AdviceModal = ({ content, closeModal }: Props) => {
     return (
         <>
             <DialogTitle>
-                <Typography variant="h3">{t('child-profile.advice')}</Typography>
+                {t('child-profile.advice')}
             </DialogTitle>
             <DialogContent>{content}</DialogContent>
             <DialogActions>
