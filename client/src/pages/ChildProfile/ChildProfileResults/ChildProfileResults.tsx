@@ -12,7 +12,8 @@ import { getGroupedResults } from './utils';
 import { gray } from '../../../colors';
 import { ResultDetails } from './ResultDetails';
 import { ResultComparison } from './ResultComparison';
-import { EmptyResult } from './EmptyResults';
+import { EmptyResultSimple } from './EmptyResultSimple';
+import { EmptyResultDetailed } from './EmptyResultDetailed';
 
 export const ChildProfileResults = ({ onNoResultClick }: { onNoResultClick(): void }) => {
     useAuthorization(true);
@@ -52,6 +53,7 @@ export const ChildProfileResults = ({ onNoResultClick }: { onNoResultClick(): vo
                     const sortedResults = groupedResults[key].sort(
                         (resultA: Result, resultB: Result) => +resultA.dateOfTest - +resultB.dateOfTest,
                     ) as Result[];
+                    const isLast = index === Object.keys(groupedResults).length - 1;
 
                     return (
                         <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel}>
@@ -85,9 +87,11 @@ export const ChildProfileResults = ({ onNoResultClick }: { onNoResultClick(): vo
                                         childAge={sortedResults[sortedResults.length - 1].ageOfChild}
                                     />
                                 )}
-                                {sortedResults.length === 0 && (
-                                    <EmptyResult
-                                        isLast={index === Object.keys(groupedResults).length - 1}
+                                {sortedResults.length === 0 && !isLast && (
+                                    <EmptyResultSimple />
+                                )}
+                                {sortedResults.length === 0 && isLast && (
+                                    <EmptyResultDetailed
                                         onNoResultClick={onNoResultClick}
                                     />
                                 )}
