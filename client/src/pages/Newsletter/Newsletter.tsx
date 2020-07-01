@@ -210,10 +210,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         header: {
-            fontSize: 36,
             marginBottom: 20,
             textTransform: 'uppercase',
-            lineHeight: '44px',
             fontWeight: 'bold',
 
             [theme.breakpoints.down('sm')]: {
@@ -223,9 +221,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         subHeader: {
-            fontSize: 21,
             marginBottom: 40,
-            lineHeight: '21px',
             fontWeight: 500,
         },
         formContainer: {
