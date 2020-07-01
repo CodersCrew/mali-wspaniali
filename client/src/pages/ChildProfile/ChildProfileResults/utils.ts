@@ -11,13 +11,13 @@ const getPotentialResults = (yearOfBirth: number) => {
     const startYear = yearOfBirth + 3;
     const endYear = Math.min(startYear + 4, currentYear) + 1;
     const numberOfResults = endYear - startYear;
-    const array = Array.from({ length: numberOfResults }, (item, index) => startYear + index);
+    const years = Array.from({ length: numberOfResults }, (item, index) => startYear + index);
 
-    return array.reduce(
-        (result, item) => {
+    return years.reduce(
+        (result, year) => {
             return {
                 ...result,
-                [item]: [],
+                [year]: [],
             };
         },
         {} as GroupedResults,
@@ -26,16 +26,15 @@ const getPotentialResults = (yearOfBirth: number) => {
 
 export const getGroupedResults = (results: Result[]) => {
     const potentialResults = getPotentialResults(2005);
-    const realResults =
-        results &&
-        results.reduce(
+    const realResults = results.reduce(
             (accumulator, currentResult) => {
                 const currentSchoolYearResults = accumulator[currentResult.schoolYearStart];
 
                 if (currentSchoolYearResults) {
-                    currentSchoolYearResults.push(currentResult);
-
-                    return accumulator;
+                    return {
+                        ...accumulator,
+                        [currentResult.schoolYearStart]: [...currentSchoolYearResults, currentResult]
+                    };
                 }
 
                 return {

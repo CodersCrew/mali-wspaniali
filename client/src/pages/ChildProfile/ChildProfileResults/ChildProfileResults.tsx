@@ -23,7 +23,7 @@ export const ChildProfileResults = ({ onNoResultClick }: { onNoResultClick(): vo
 
     const results = useSubscribed<Result[] | null, string>(
         (callback: OnSnapshotCallback<Result[]>) => fetchChildResults(childId, callback),
-        null,
+        [],
         [childId],
     ) as Result[];
 
