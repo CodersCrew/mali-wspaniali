@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
 import { mainColor } from '../../colors';
-import { PageTitle } from '../../components/PageTitle';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
 
 export const ParentHomePage = () => {
     const classes = useStyles();
@@ -13,7 +13,7 @@ export const ParentHomePage = () => {
     return (
         <Grid className={classes.container}>
             <Grid item xs={12}>
-                <PageTitle>{t('home-page-content.greeting')}</PageTitle>
+                <PageTitle text={t('home-page-content.greeting')} />
             </Grid>
             <Grid item xs={12}>
                 <p className={classes.description}>

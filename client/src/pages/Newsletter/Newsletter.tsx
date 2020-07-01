@@ -11,7 +11,7 @@ import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
-import { PageTitle } from '../../components/PageTitle';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { theme } from '../../theme';
 import { secondaryColor, white } from '../../colors';
 
@@ -155,7 +155,7 @@ export const NewsletterPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.container}>
-                <PageTitle>{t('newsletter.header')}</PageTitle>
+                <PageTitle text={t('newsletter.header')} />
                 <Typography variant="h2" className={classes.subHeader}>
                     {t('newsletter.subHeader')}
                 </Typography>

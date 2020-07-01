@@ -1,8 +1,29 @@
 import React from 'react';
-import { useStyles } from './styles';
+import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
 
-export const PageTitle: React.FC = ({ children }) => {
+type PageTitleProps = {
+    text: string;
+};
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        pageTitle: {
+            margin: 0,
+
+            [theme.breakpoints.down('sm')]: {
+                fontSize: 21,
+                lineHeight: '26px',
+            },
+        },
+    }),
+);
+
+export const PageTitle = ({ text }: PageTitleProps) => {
     const classes = useStyles();
 
-    return <h1 className={classes.header}>{children}</h1>;
+    return (
+        <Typography variant="h1" className={classes.pageTitle}>
+            {text}
+        </Typography>
+    );
 };

@@ -40,9 +40,7 @@ export const ChildProfile = () => {
     return (
         <>
             <Grid container className={classes.header}>
-                <PageTitle>
-                    {child.firstName} {child.lastName}
-                </PageTitle>
+                <PageTitle text={`${child.firstName} ${child.lastName}`} />
                 <Typography className={classes.kindergarten}>
                     {t('child-profile.kindergarten-no')} {child.kindergartenNo}
                 </Typography>
