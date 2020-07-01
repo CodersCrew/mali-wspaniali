@@ -61,14 +61,18 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
                     <div className={classes.resultDescription} style={{ color }}>
                         {t(`child-profile.result-description.${key}`)}
                     </div>
-                    <Button variant="contained" color="secondary" onClick={() => setIsModalOpen(true)}>
-                        {t('child-profile.advice')}
-                    </Button>
+                    {advice && advice.content && (
+                        <Button variant="contained" color="secondary" onClick={() => setIsModalOpen(true)}>
+                            {t('child-profile.advice')}
+                        </Button>
+                    )}
                 </div>
             </Card>
-            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <AdviceModal content={advice && advice.content} closeModal={() => setIsModalOpen(false)} />
-            </Dialog>
+            {advice && advice.content && (
+                <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                    <AdviceModal content={advice.content} closeModal={() => setIsModalOpen(false)} />
+                </Dialog>
+            )}
         </>
     );
 };

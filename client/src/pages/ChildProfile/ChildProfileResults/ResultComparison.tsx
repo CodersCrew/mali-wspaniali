@@ -43,9 +43,11 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                         <div className={classes.difference} style={{ color }}>
                             {t(`child-profile.difference.${key}`)}
                         </div>
-                        <Button variant="contained" color="secondary" onClick={() => setIsModalOpen(true)}>
-                            {t('child-profile.comparison-button')}
-                        </Button>
+                        {advice && advice.content && (
+                            <Button variant="contained" color="secondary" onClick={() => setIsModalOpen(true)}>
+                                {t('child-profile.comparison-button')}
+                            </Button>
+                        )}
                     </div>
                 </Card>
                 <div className={classes.rightWrapper}>
@@ -54,9 +56,11 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                     </Typography>
                 </div>
             </div>
-            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <AdviceModal content={advice && advice.content} closeModal={() => setIsModalOpen(false)} />
-            </Dialog>
+            {advice && advice.content && (
+                <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                    <AdviceModal content={advice.content} closeModal={() => setIsModalOpen(false)} />
+                </Dialog>
+            )}
         </>
     );
 };
