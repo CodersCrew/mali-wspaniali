@@ -16,7 +16,9 @@ import { isProduction } from './shared/utils/is_production';
       playground: !isProduction(),
       autoSchemaFile: 'schema.gql',
     }),
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development', '.env.test'],
+    }),
     MongooseModule.forRoot(process.env.MONGO_KEY),
   ],
   controllers: [AppController],
