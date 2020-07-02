@@ -21,7 +21,6 @@ export const NotificationPageHeader = () => {
 const useStyles = makeStyles(() =>
     createStyles({
         heading: {
-            fontWeight: 'bold',
             width: '60%',
             zIndex: 1,
             position: 'relative',

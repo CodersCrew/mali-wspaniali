@@ -69,7 +69,6 @@ const useStyles = makeStyles({
     articleTitle: {
         position: 'relative',
         bottom: '10px',
-        fontWeight: 'bold',
     },
     readMoreButton: {
         color: white,

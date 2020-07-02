@@ -142,7 +142,6 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '20px',
             marginTop: '20px',
             textTransform: 'uppercase',
-            fontWeight: 'bold',
         },
         subtitle: {
             textAlign: 'center',

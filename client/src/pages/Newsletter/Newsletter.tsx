@@ -212,7 +212,6 @@ const useStyles = makeStyles((theme: Theme) =>
         header: {
             marginBottom: 20,
             textTransform: 'uppercase',
-            fontWeight: 'bold',
 
             [theme.breakpoints.down('sm')]: {
                 marginTop: 25,
@@ -222,7 +221,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         subHeader: {
             marginBottom: 40,
-            fontWeight: 500,
         },
         formContainer: {
             display: 'flex',
