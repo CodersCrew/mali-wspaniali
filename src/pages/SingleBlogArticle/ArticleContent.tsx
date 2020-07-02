@@ -15,7 +15,7 @@ export const ArticleContent = ({ content }: { content: Content }) => {
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {content.category.map((cat) => {
+                        {content.category.map(cat => {
                             const ColorButton = createColorButton(cat);
                             return (
                                 <Grid key={cat} item xs={3}>
@@ -59,7 +59,6 @@ export const ArticleContent = ({ content }: { content: Content }) => {
 };
 
 const createColorButton = (category: string) => {
-
     const singleArticleColor = getSingleArticleColor(category);
     const singleArticleColorHover = getSingleArticleColorHover(category);
 
@@ -72,7 +71,6 @@ const createColorButton = (category: string) => {
         },
     }))(Button);
 };
-
 
 const getSingleArticleColor = (category: string) => {
     const { categories }: { categories: { [index: string]: string } } = SingleArticleColors;

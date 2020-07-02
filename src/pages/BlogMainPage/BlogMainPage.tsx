@@ -119,7 +119,7 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
 
         [theme.breakpoints.up('md')]: {
-            display: 'none'
+            display: 'none',
         },
     },
 

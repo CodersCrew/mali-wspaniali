@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {Button, Tabs, Grow, Paper, Popper } from '@material-ui/core';
+import { Button, Tabs, Grow, Paper, Popper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, withStyles, ThemeProvider } from '@material-ui/core/styles';
 
@@ -10,7 +10,7 @@ import { DropDownMenuItem } from './DropDownMenuItem';
 import { theme } from '../../theme';
 
 type Props = {
-    setCategory: (value:string) => void;
+    setCategory: (value: string) => void;
 };
 
 export const DropDownMenu = ({ setCategory }: Props) => {
@@ -18,6 +18,7 @@ export const DropDownMenu = ({ setCategory }: Props) => {
 
     const classes = useStyles();
     const [isOpen, setIsOpen] = useState(false);
+    const [buttonCategoryValue, setbuttonCategoryValue] = useState('');
     const anchorRef = useRef<HTMLButtonElement>(null);
     const { t } = useTranslation();
 
@@ -29,6 +30,7 @@ export const DropDownMenu = ({ setCategory }: Props) => {
         setCurrentTabIndex(newValue);
         setCategory(categoriesList[newValue].key);
         setIsOpen(false);
+        setbuttonCategoryValue(categoriesList[newValue].name);
     };
 
     function handleListKeyDown(event: React.KeyboardEvent) {
@@ -56,7 +58,7 @@ export const DropDownMenu = ({ setCategory }: Props) => {
                     onClick={handleToggle}
                     className={classes.button}
                 >
-                    {t('blog-categories.allCategories')}
+                    {buttonCategoryValue || t('blog-categories.allCategories')}
                     {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </Button>
                 <Popper className={classes.container} open={isOpen} transition disablePortal>
@@ -93,7 +95,7 @@ const useStyles = makeStyles(() =>
             position: 'relative',
 
             [theme.breakpoints.up('md')]: {
-                display: 'none'
+                display: 'none',
             },
         },
 
