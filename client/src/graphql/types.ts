@@ -1,4 +1,4 @@
-export type ArticleCategory = 'all' | 'food' | 'activity' | 'emotions' | 'other';
+export type ArticleCategory = 'food' | 'activity' | 'emotions' | 'other';
 
 export interface Article {
     id: string;

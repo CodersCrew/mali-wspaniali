@@ -7,11 +7,11 @@ import { lineHeight, letterSpace } from '../../fontStyle';
 
 interface Props {
     category: string;
-    subtitle: string;
+    title: string;
     readingTime: number;
 }
 
-export const BreadcrumbsWithDescription = ({ category, subtitle, readingTime }: Props) => {
+export const BreadcrumbsWithDescription = ({ category, title, readingTime }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -45,7 +45,7 @@ export const BreadcrumbsWithDescription = ({ category, subtitle, readingTime }: 
                     <Typography className={classes.pathArrow} />
                 </div>
                 <div className={classes.pathTitleContainer}>
-                    <Typography className={classes.pathTitle}>{`${subtitle.toUpperCase()}   (${t(
+                    <Typography className={classes.pathTitle}>{`${title.toUpperCase()}   (${t(
                         'single-article.length',
                     ).toUpperCase()} - ${readingTime} MIN)`}</Typography>
                 </div>

@@ -27,7 +27,7 @@ export const SingleBlogArticle = () => {
                 <Grid container direction="row">
                     <BreadcrumbsWithDescription
                         category={article.category}
-                        subtitle={article.subtitle}
+                        title={article.title}
                         readingTime={article.readingTime}
                     />
                 </Grid>
