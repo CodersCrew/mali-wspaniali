@@ -35,6 +35,22 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
     return client.query({ query });
 }
 
+export function getLastArticles(count: number): Promise<ApolloQueryResult<{ lastArticles: Article[] }>> {
+    return client.query({
+        query: gql`
+    {
+        lastArticles(count: ${count}) {
+            id
+            title
+            description
+            category
+            pictureUrl
+        }
+    }
+`,
+    });
+}
+
 export function getArticleDocById(articleId: string): Promise<ApolloQueryResult<{ article: Article }>> {
     return client.query({
         query: gql`

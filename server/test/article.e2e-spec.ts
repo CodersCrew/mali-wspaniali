@@ -196,5 +196,28 @@ describe('Article (e2e)', () => {
           expect(articles.length).toEqual(1);
         });
     });
+
+    describe('when need particular amount of articles', () => {
+      it('returns particular articles', async () => {
+        await request(app.getHttpServer())
+          .post('/graphql')
+          .send({
+            operationName: null,
+            variables: {},
+            query: `
+    {
+      lastArticles(count:4){
+        id
+      }
+    }
+    `,
+          })
+          .expect(({ body }) => {
+            const { lastArticles } = body.data;
+
+            expect(lastArticles.length).toEqual(4);
+          });
+      });
+    });
   });
 });

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { HomePageArticleItem } from './HomePageArticleItem';
 import { textColor } from '../../../colors';
 import { Article } from '../../../graphql/types';
-import { getArticles } from '../../../queries/articleQueries';
+import { getLastArticles } from '../../../queries/articleQueries';
 import { ArticleCarousel } from './HomePageArticleCarousel';
 
 const isMobile = window.screen.width < 1024;
@@ -15,7 +15,7 @@ export const HomePageArticles = () => {
     const { t } = useTranslation();
 
     useEffect(() => {
-        getArticles(0).then(({ data }) => setArticles(data.articles));
+        getLastArticles(5).then(({ data }) => setArticles(data.lastArticles));
     }, []);
 
     const renderArticles = () => {

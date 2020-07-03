@@ -16,7 +16,7 @@ export class ArticlesRepository {
     return await createdArticle.save();
   }
 
-  async all(page: number, category?: string): Promise<Article[]> {
+  async getPage(page: number, category?: string): Promise<Article[]> {
     const query: { [index: string]: unknown } = {};
 
     if (category) query.category = category;
@@ -27,6 +27,15 @@ export class ArticlesRepository {
       .find(query, {}, { sort: { date: -1 } })
       .skip((page - 1) * 6)
       .limit(7)
+      .exec();
+  }
+
+  async getLast(count: number) {
+    if (count < 1) return [];
+
+    return await this.articleModel
+      .find({}, {}, { sort: { date: -1 } })
+      .limit(count)
       .exec();
   }
 

@@ -14,7 +14,12 @@ export class ArticlesResolver {
     @Args('page') page: number,
     @Args('category', { nullable: true }) category?: string,
   ): Promise<Article[]> {
-    return this.articleService.findAll(page, category);
+    return this.articleService.findPage(page, category);
+  }
+
+  @Query(() => [CreateArticleDTO])
+  lastArticles(@Args('count') count: number): Promise<Article[]> {
+    return this.articleService.findLast(count);
   }
 
   @Query(() => CreateArticleDTO)
