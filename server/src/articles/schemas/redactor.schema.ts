@@ -6,7 +6,7 @@ export const RedactorSchema = new mongoose.Schema(
     firstName: String,
     lastName: String,
     profession: String,
-    shortDescription: String,
+    biography: String,
   },
   { _id: false },
 );

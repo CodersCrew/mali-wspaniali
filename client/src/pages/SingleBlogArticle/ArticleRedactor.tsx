@@ -29,9 +29,7 @@ export const ArticleRedactor = ({ redactor }: Props) => {
                     </Grid>
                     <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
                         <Box className={classes.contentRedactorDescriptionBox}>
-                            <Typography className={classes.contentRedactorDescription}>
-                                {redactor.shortDescription}
-                            </Typography>
+                            <Typography className={classes.contentRedactorDescription}>{redactor.biography}</Typography>
                         </Box>
                     </Grid>
                 </Grid>

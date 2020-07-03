@@ -21,5 +21,5 @@ export interface Redactor {
     firstName: string;
     lastName: string;
     profession: string;
-    shortDescription: string;
+    biography: string;
 }

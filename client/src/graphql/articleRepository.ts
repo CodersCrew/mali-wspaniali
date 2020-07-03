@@ -56,7 +56,7 @@ export function getArticleDocById(articleId: string): Promise<ApolloQueryResult<
                         firstName
                         lastName
                         profession
-                        shortDescription
+                        biography
                     }
                 }
             }
