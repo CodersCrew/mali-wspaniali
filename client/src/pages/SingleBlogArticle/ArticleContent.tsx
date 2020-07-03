@@ -15,17 +15,14 @@ import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
 
-export const ArticleContent = ({
-    category,
-    header,
-    pictureUrl,
-    contentHTML,
-}: {
+interface Props {
     category: string;
     header: string;
     pictureUrl: string;
     contentHTML: string;
-}) => {
+}
+
+export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
