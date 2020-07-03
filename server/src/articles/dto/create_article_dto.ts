@@ -1,8 +1,6 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { CreateRedactorDTO } from './create_redactor_dto';
 
-import { CreateRedactorDTO } from './create_redactor_dto';
-
 @ObjectType()
 export class CreateArticleDTO {
   @Field(() => ID)
