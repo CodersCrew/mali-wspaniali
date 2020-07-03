@@ -18,20 +18,14 @@ export const BreadcrumbsWithDescription = ({ category, title, readingTime }: Pro
     return (
         <Grid item xs={8} className={classes.pathContainer}>
             <Grid container direction="row">
-                <Button
-                    href="/parent/blog/category/all/0"
-                    disableElevation
-                    disableFocusRipple
-                    disableRipple
-                    disableTouchRipple
-                >
+                <Button href="/parent/blog/all/1" disableElevation disableFocusRipple disableRipple disableTouchRipple>
                     <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
                 </Button>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
                 </div>
                 <Button
-                    href={`/parent/blog/category/${category}/0`}
+                    href={`/parent/blog/${category}/1`}
                     disableElevation
                     disableFocusRipple
                     disableRipple

@@ -21,9 +21,11 @@ export class ArticlesRepository {
 
     if (category) query.category = category;
 
+    if (page < 1) return [];
+
     return await this.articleModel
       .find(query, {}, { sort: { date: -1 } })
-      .skip(page * 6)
+      .skip((page - 1) * 6)
       .limit(7)
       .exec();
   }

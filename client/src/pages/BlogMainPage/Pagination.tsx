@@ -4,21 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { mainColor, white } from '../../colors';
 
 interface Props {
-    isFirst: boolean;
-    isLast: boolean;
+    disabledPrevious: boolean;
+    disabledNext: boolean;
     handleChange: (paginationDirection: string) => void;
 }
 
-export const Pagination = ({ isFirst, isLast, handleChange }: Props) => {
+export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <div className={classes.paginationContainer}>
-            <Button variant="outlined" disabled={isFirst} onClick={() => handleChange('prev')}>
+            <Button variant="outlined" disabled={disabledPrevious} onClick={() => handleChange('prev')}>
                 {t('blog-pagination.previous')}
             </Button>
-            <Button variant="contained" disabled={isLast} className={classes.next} onClick={() => handleChange('next')}>
+            <Button
+                variant="contained"
+                disabled={disabledNext}
+                className={classes.next}
+                onClick={() => handleChange('next')}
+            >
                 {t('blog-pagination.next')}
             </Button>
         </div>

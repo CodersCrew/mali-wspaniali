@@ -32,7 +32,7 @@ export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Pr
             <Grid item xs={3}>
                 <ColorButton
                     className={classes.contentCategoryButton}
-                    href={`/parent/blog/category/${category}/0`}
+                    href={`/parent/blog/${category}/1`}
                     disableElevation
                     disableFocusRipple
                     disableRipple

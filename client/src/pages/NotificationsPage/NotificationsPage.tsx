@@ -70,12 +70,16 @@ export const NotificationsPage = () => {
             addNotificationsToState(currentUser.uid, 9, startAfter, endBefore);
         }
     };
-    
+
     return (
         <Container maxWidth="xl">
-            <NotificationPageHeader/>
-            <NotificationPageList notifications={notificationData}/>
-            <Pagination isFirst={isFirstPage} isLast={isLastPage} handleChange={paginationQuery}></Pagination>
+            <NotificationPageHeader />
+            <NotificationPageList notifications={notificationData} />
+            <Pagination
+                disabledPrevious={isFirstPage}
+                disabledNext={isLastPage}
+                handleChange={paginationQuery}
+            ></Pagination>
         </Container>
-    )
-}
+    );
+};

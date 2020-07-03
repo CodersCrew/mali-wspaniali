@@ -21,7 +21,7 @@ export const BlogMainPage = () => {
     const history = useHistory();
     let currentPage = parseInt(params.page);
 
-    if (Number.isNaN(currentPage)) currentPage = 0;
+    if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 
     useEffect(() => {
         let articles;
@@ -37,9 +37,9 @@ export const BlogMainPage = () => {
 
     const paginationQuery = (paginationDirection: string) => {
         if (paginationDirection === 'next') {
-            history.push(`/parent/blog/category/${params.category}/${currentPage + 1}`);
+            history.push(`/parent/blog/${params.category}/${currentPage + 1}`);
         } else {
-            history.push(`/parent/blog/category/${params.category}/${currentPage - 1}`);
+            history.push(`/parent/blog/${params.category}/${currentPage - 1}`);
         }
     };
 
@@ -51,7 +51,7 @@ export const BlogMainPage = () => {
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
-                onClick={value => history.push(`/parent/blog/category/${value}/0`)}
+                onClick={value => history.push(`/parent/blog/${value}/1`)}
             />
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
@@ -67,7 +67,11 @@ export const BlogMainPage = () => {
                         </Grid>
                     ))}
                 </Grid>
-                <Pagination isFirst={currentPage <= 0} isLast={articles.length < 7} handleChange={paginationQuery} />
+                <Pagination
+                    disabledPrevious={currentPage <= 1}
+                    disabledNext={articles.length < 7}
+                    handleChange={paginationQuery}
+                />
             </div>
         </ThemeProvider>
     );
