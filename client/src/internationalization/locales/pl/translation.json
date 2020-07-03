@@ -1,0 +1,317 @@
+{
+    "home-page": {
+        "go-to-login-page": "Strona logowania",
+        "log-out": "Wyloguj",
+        "go-to-registration-page": "Rejestracja",
+        "go-to-parent-children-page": "Moje dzieci"
+    },
+    "login-page": {
+        "login": "Zaloguj się",
+        "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany",
+        "login-header": "Logowanie",
+        "e-mail-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
+        "forgot-password": "Zapomniałeś hasła?"
+    },
+    "login-wrapper": {
+        "welcome-text": "Witaj w świecie Małych Wspaniałych!",
+        "subheading": "Dołącz do społeczności świadomych rodziców"
+    },
+    "registration-page": {
+        "already-have-account": "Masz już konto?",
+        "password-mismatch": "Podane hasła nie są takie same",
+        "register-success": "Konto zostało utworzone. Możesz się zalogować.",
+        "password-confirm": "Powtórz hasło",
+        "register": "Zarejestruj się",
+        "password-not-strong": "Hasło za słabe"
+    },
+    "forgot-password-page": {
+        "forgot-password": "Nie pamietasz hasła",
+        "its-ok": "Nic się nie stało. Wpisz swój adres email.",
+        "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
+        "insert-email": "Wpisz adres e-mail podany fundacji",
+        "new-password": "Stwórz nowe hasło",
+        "problem": "Masz problem?",
+        "contact": "Skontaktuj się z fundacją by go rozwiązać",
+        "email-helper-text": "Wpisz adres e-mail podany fundacji",
+        "back-to-login": "Wróć do logowania",
+        "email-sent": "Na twój adres email wysłaliśmy maila.",
+        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło."
+    },
+    "users-page": {
+        "agreements": "Zgody",
+        "users-list": "Lista użytkowników"
+    },
+    "admin-agreements-page": {
+        "agreements-list": "Lista zgód",
+        "agreement": "Zgoda",
+        "show": "Pokaż",
+        "agreements-all": "Wszystkie zgody",
+        "req": "* wymagane"
+    },
+    "e-mail": "Adres e-mail",
+    "password": "Hasło",
+    "no-results": "Brak wyników",
+    "go-to-home-page": "Strona główna",
+    "languages": {
+        "pl": "Polski",
+        "en": "Angielski"
+    },
+    "test-results": {
+        "search-result": "Wynik wyszukiwania",
+        "no-results": "Brak wyników"
+    },
+    "child-profile": {
+        "no-child": "Przepraszamy, nie ma dziecka o tym ID",
+        "kindergarten-no": "Przedszkole nr",
+        "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",
+        "results-list": "Lista wyników",
+        "tests-information": "Informacje o testach",
+        "your-agreements": "Twoje zgody",
+        "participation-label": "Zgoda na udział w programie Mali Wspaniali.",
+        "participation-description": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe.",
+        "marketing-label": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+        "marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+        "image-label": "Zgoda na rozpowszechnianie wizerunku.",
+        "image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji.",
+        "kindergartener-test": "Test przedszkolaka",
+        "last-update-date": "Data ostatniej zmiany",
+        "details": "Szczegóły",
+        "collapse-details": "Zwiń szczegóły",
+        "info-about-test": "Informacje o pomiarze",
+        "carries-out-on": "przeprowadzony dnia",
+        "age-group": "W dniu pomiaru, dziecko przypisane zostało do grupy wiekowej",
+        "fitness-level": "Poziom sprawności",
+        "advice": "Porada",
+        "initial-test": "Pomiar początkowy",
+        "final-test": "Pomiar końcowy",
+        "result-description": {
+            "low": "TBD",
+            "medium": "Dobrze ci idzie, ale zawsze może być lepiej",
+            "high": "Bardzo dobrze!"
+        },
+        "tests": {
+            "strength": "Siła",
+            "power": "Moc",
+            "speed": "Szybkość",
+            "agility": "Zwinność"
+        },
+        "tests-in-block": {
+            "strength": "Próba siły",
+            "power": "Próba mocy",
+            "speed": "Próba szybkości",
+            "agility": "Próba zwinności"
+        },
+        "no-result-block-text": "nie odbyła się lub dziecko nie było w stanie uczestniczyć tego dnia w teście.",
+        "scale": "Skala",
+        "received-points": "Otrzymane punkty",
+        "pts": "pkt",
+        "final-test-title": "Wyniki poszczególnych prób wraz z porównaniem wyników z pomiaru początkowego",
+        "initial-test-title": "Wyniki poszczególnych prób",
+        "difference": {
+            "better": "Poprawił się",
+            "worse": "Pogorszył się",
+            "same": "Nie zmienił się"
+        },
+        "summary-info": "Informacje podsumowujące",
+        "test-result": "Wynik testu",
+        "comparison-label": "Porównując oba pomiary, poziom sprawności Twojego dziecka",
+        "comparison-right-title": "Zobacz, w jakiej formie jest Twoje dziecko. Wykres przedstawia jak zmieniały się wyniki dziecka na przestrzeni 2 pomiarów",
+        "comparison-button": "Co mogę zrobić?",
+        "tests-informations": {
+            "about": {
+                "panelTitle": "O Wrocławskim Teście Przedszkolaka – parę słów ogólnie",
+                "title": "Test przedszkolaka jest bardzo przystępnym testem sprawności dla dzieci w wieku między 3 a 7 lat.",
+                "text1": "Służy ocenie rozwoju fizycznego. Jest bardzo prosty do wykonania w warunkach przedszkolnych. Nie wymaga skomplikowanych i specjalistycznych narzędzi pomiarowych, pomieszczeń czy urządzeń.",
+                "text2-1": "Składa się z czterech prób fizycznych, które w swoich wynikach uwzględniają podstawowe, a zarazem najważniejsze zdolności motoryczne:",
+                "text2-test-names": "siłę, szybkość, zwinność i moc.",
+                "text2-2": "Zdolności te wykorzystywane są w sporcie, ale również w czynnościach dnia codziennego w życiu dorosłym takich jak praca: fizyczna, noszenie zakupów, sprzątanie czy chociażby wyjęcie rzeczy z trudno dostępnego miejsca."
+            },
+            "conditions": {
+                "panelTitle": "Warunki i sprzęt potrzebny do wykonania testu",
+                "title": "Test sprawności przedszkolaka wykonywany jest raz w semestrze.",
+                "text1": "Składa się z dwóch prób: próba początkowa (pomiar na przełomie października i listopada) oraz próba końcowa (pomiar na przełomie kwietnia i maja). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
+                "text2": "Do opisanych powyżej prób wystarczy ok 7 metrów wolnej przestrzeni, piłka wagowa 1 kilogramowa, stoper lub miara (w zależności od testu), a do próby szybkościowej potrzebny jest tor do biegu 25 metrów w linii prostej oraz stoper.",
+                "test1-name": "Siła",
+                "test1-description": "Rzut  piłką lekarską zza głowy",
+                "test1-scale": "Skala: 0 cm - 80 cm",
+                "test2-name": "Moc",
+                "test2-description": "Skok w dal obunóż z miejsca",
+                "test2-scale": "Skala: 0 cm - 80 cm",
+                "test3-name": "Szybkość",
+                "test3-description": "Bieg na odległość 20 metrów",
+                "test3-scale": "Skala: 0 s - 80 s",
+                "test4-name": "Zwinność",
+                "test4-description": "Bieg wahadłowy 4x5 m z przenoszeniem klocka",
+                "test4-scale": "Skala: 0 s - 80 s"
+            },
+            "results": {
+                "to": "do",
+                "panelTitle": "Jak obliczamy wyniki testu",
+                "score25": "Coś jest nie tak, postaraj się bardziej",
+                "score50": "Dobrze Ci idzie, ale zawsze może być lepiej!",
+                "score75": "Bardzo dobrze!",
+                "score100": "Świetnie! Tak trzymaj!",
+                "title": "Każdemu wynikowi liczbowemu przeprowadzonej próby, przypisana jest wartość punktowa w zależności od płci i wieku dziecka, na podstawie której określany jest poziom wykonania.",
+                "text1": "W przypadku uzyskania wyniku wszystkich czterech prób, wyprowadzana jest suma, która umożliwia przyporządkowanie do ogólnej grupy sprawnościowej dziecka.",
+                "text2": "Wyniki pobierane są od dzieci, które w czasie prowadzenia zajęć Mali Wspaniali przez Instruktora są obecne w placówce i chętne do ćwiczenia. Brak wyniku danej próby może świadczyć o nieobecności dziecka w danym dniu lub o nieuczestniczeniu w danym ćwiczeniu. W takim przypadku otrzymują Państwo poszczególne wyniki prób, bez możliwości przyporządkowania ogólnej sprawności dziecka."
+            },
+            "interpretation": {
+                "panelTitle": "Co oznaczają wyniki testu i dlaczego są ważne",
+                "title": "Prowadzone badania nie są diagnostyczne, a jedynie poglądowe.",
+                "text1": "Wynik dziecka każdego dnia może być różny. Ma na to wpływ szereg czynników fizycznych, jak i psychologicznych. Dlatego wyników nie należy traktować jako dokładne źródło wiedzy o sprawności dziecka, lecz nawet poglądowa kontrola rozwoju fizycznego jest niezwykle ważna ze względu na zdrowy i prawidłowy przebieg kształtowania się organizmu człowieka i jego przyszłe możliwości.",
+                "text2": "Gdy jest ono właściwie stymulowane oraz może się uczyć przez naśladownictwo i wielokrotne powtarzanie czynności osiąga coraz lepszy stopień wykonywania konkretnych umiejętności sprawdzanych w sposób ogólny jako zdolności motoryczne w Teście przedszkolaka.",
+                "text3": "Optymalne wyniki dziecka, a co za tym idzie zdrowy i harmonijny rozwój ruchowy, pozwala dziecku osiągać stopniowo własną niezależność i bezpieczeństwo, a co za tym idzie pewność siebie. To również może mieć wpływ na akceptację społeczną.",
+                "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
+            }
+        },
+        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody."
+    },
+    "parent-profile": {
+        "parent": "Rodzic",
+        "no-parent": "Nie istnieje rodzic o takim id"
+    },
+    "alert-dialog": {
+        "error": "Błąd",
+        "warning": "Uwaga!",
+        "info": "Info",
+        "success": "Sukces!"
+    },
+    "question-dialog": {
+        "yes": "Tak",
+        "no": "Nie"
+    },
+    "parent-children": {
+        "children": "Dzieci",
+        "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
+    },
+    "newsletter": {
+        "header": "Nowa wiadomość",
+        "subHeader": "Aby wysłać newsletter uzupełnij wszystkie wymagane pola.",
+        "recipient-heading": "Do kogo chcesz wysłać newsletter?",
+        "content-heading": "Treść newslettera",
+        "general-recipient-label": "Wybierz adresata z listy",
+        "general-recipient-label-filled": "Wybierz adresata",
+        "general-recipient-helper-text": "Nie wybrano adresata. Ten krok jest konieczny by przejść do pola specyzuj adresata.",
+        "specific-recipient-label": "Sprecyzuj adresata",
+        "specific-recipient-value-labels": {
+            "all-parents": "wszyscy rodzice",
+            "from-single-kindergarten": "z wybranego przedszkola",
+            "individual-message": "wiadomość indywidualna",
+            "all-kindergartens": "wszystkie przedszkola",
+            "single-kindergarten": "do wybranego przedszkola"
+        },
+        "specific-recipient-helper-text": "Nie sprecyzowano adresata. Wypełnij pole, by wysłać wiadomość do prawidłowego odbiorcy.",
+        "recipient-single-parent-label": "Aby wysłać wiadomość do konkretnego rodzica, wpisz dane dziecka, lub wybierz je z listy",
+        "recipient-single-parent-label-filled": "Wiadomość wyślesz do rodziców dzieci:",
+        "recipient-single-kindergarten-label": "Wybierz przedszkole z listy",
+        "recipient-single-kindergarten-label-filled": "Wiadomość wyślesz do przedszkola:",
+        "recipient-select-kindergarten-label": "Wybierz przedszkole z listy",
+        "recipient-select-kindergarten-label-filled": "Wiadomość wyślesz do rodziców z przedszkola:",
+        "recipient-helper-text": "Te pole nie może być puste. Określ odbiorców. Jeśli chcesz wysłać wiadomość do wszystkich, zmień krok poprzedni.",
+        "type-input-label": "Wybierz rodzaj",
+        "type-input-label-filled": "Rodzaj",
+        "type-helper-text": "Nie wybrano rodzaju wiadomości. Wybierz z rodzaj z listy rozwijanej.",
+        "topic-input-label": "Wpisz temat",
+        "topic-input-label-filled": "Temat",
+        "topic-helper-text": "Wpisz temat wiadomości byś mógł ją wysłać",
+        "kindergarten-number": "przedszkole nr",
+        "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
+        "sending-success-modal": {
+            "title": "Gotowe",
+            "content": "Twoja wiadomość została wysłana do adresatów.",
+            "back-button": "Wróc do strony głównej",
+            "next-msg-button": "Wyślij następną wiadomość"
+        },
+        "help-modal": {
+            "type": "Rodzaj newslettera",
+            "type-text": "Wybierz rodzaj odpowiadający tematowi Twojej wiadomości. Newsletter zostanie przypisany do danej kategorii, dzięki czemu łatwiej go odnajdziesz w Archiwum newsletterów.",
+            "attachment": "Załączniki",
+            "attachment-text": "Aby prawidłowo dodać załącznik, musi on być zapisany w formacie:.pdf.",
+            "button": "Rozumiem"
+        },
+        "parents": "Rodzice",
+        "kindergartens": "Przedszkola",
+        "send": "Wyślij",
+        "placeholder": "Tu wpisz swoją wiadomość",
+        "newsletter-types": {
+            "results": "Wyniki pomiarów",
+            "agreements": "Zgody",
+            "events": "Wydarzenia",
+            "important": "Ważne",
+            "other": "Inne"
+        },
+        "sidebar": {
+            "fill": "Uzupełnij",
+            "newsletter-content": "Treść Newslettera",
+            "done": "Gotowe",
+            "error": "Uzupełnij dane",
+            "file-error": "Nieprawidłowy format pliku"
+        }
+    },
+    "single-article": {
+        "blog": "blog",
+        "length": "długość",
+        "emotions": "emocje",
+        "activity": "aktywność",
+        "food": "żywność",
+        "other": "inne"
+    },
+    "database-backup": {
+        "get-backup-json": "Pobierz kopię bazy jako JSON"
+    },
+    "database-upload": {
+        "choose-file": "Wybierz plik",
+        "upload-file": "Dodaj plik"
+    },
+    "menu": {
+        "home": "Strona Główna",
+        "settings": "Ustawienia",
+        "news": "Aktualności",
+        "notifications": "Powiadomienia",
+        "results": "Wyniki",
+        "agreements": "Zgody",
+        "newsletter": "Newsletter",
+        "newsletter-archive": "Archiwum",
+        "blog": "Blog",
+        "logout": "Wyloguj"
+    },
+    "blog-article-card": {
+        "read-more": "Czytaj dalej"
+    },
+    "blog-main-page": {
+        "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
+    },
+    "blog-pagination": {
+        "previous": "Poprzednia",
+        "next": "Następna"
+    },
+    "blog-categories": {
+        "all": "Wszystkie",
+        "food": "Żywienie",
+        "physical-activity": "Aktywność fizyczna",
+        "emotions": "Emocje",
+        "other": "Inne"
+    },
+    "home-page-content": {
+        "greeting": "Dzień Dobry!",
+        "check-children-activity": "Sprawdź aktywność swoich dzieci w programie",
+        "mali-wspaniali": "Mali Wspaniali",
+        "foundation-header": "Tutaj Nagłówek Fundacji",
+        "foundation-content": "Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
+        "recent-news": "Najnowsze ARTYKUŁY",
+        "read-more": "Czytaj więcej",
+        "read-less": "Zwiń"
+    },
+    "notification-panel": {
+        "read-more": "Sprawdź więcej"
+    },
+    "notifications-page": {
+        "header": "Powiadomienia",
+        "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
+        "content": "Treść Powiadomienia",
+        "date": "Data"
+    },
+    "years_0": "rok",
+    "years_1": "lata",
+    "years_2": "lat"
+}

@@ -1,0 +1,75 @@
+name: client ⚡
+
+on: push
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [12.x]
+    name: Lint, test and prettier
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: npm install
+        run: npm install
+        working-directory: ${{env.working-directory}}
+      - name: npm run lint
+        run: npm run lint
+        working-directory: ${{env.working-directory}}
+      - name: npx prettier
+        run: npx prettier --check src/**/*
+        working-directory: ${{env.working-directory}}
+      - name: npm test
+        run: npm test -- --passWithNoTests
+        working-directory: ${{env.working-directory}}
+    env:
+      CI: true
+      working-directory: ./client
+  build:
+    needs: [lint-and-test]
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ${{env.working-directory}}
+      - name: Build
+        run: npm run build
+        working-directory: ${{env.working-directory}}
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: build
+    env:
+      CI: true
+      working-directory: ./client
