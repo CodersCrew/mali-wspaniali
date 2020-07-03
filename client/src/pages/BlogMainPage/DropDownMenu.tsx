@@ -58,7 +58,7 @@ export const DropDownMenu = ({ setCategory }: Props) => {
                     onClick={handleToggle}
                     className={classes.button}
                 >
-                    {buttonCategoryValue || t('blog-categories.allCategories')}
+                    {buttonCategoryValue || t('blog-categories.all')}
                     {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </Button>
                 <Popper className={classes.container} open={isOpen} transition disablePortal>
