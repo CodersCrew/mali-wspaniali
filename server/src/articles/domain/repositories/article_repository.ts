@@ -33,4 +33,9 @@ export class ArticlesRepository {
   async get(id: string): Promise<Article> {
     return await this.articleModel.findById(id).exec();
   }
+
+  // for e2e purpose only
+  async clearTable(): Promise<void> {
+    await this.articleModel.deleteMany({});
+  }
 }
