@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageArticleItem } from './HomePageArticleItem';
 import { textColor } from '../../../colors';
-import { Article } from '../../../firebase/types';
+import { Article } from '../../../graphql/types';
 import { getArticles } from '../../../queries/articleQueries';
 import { ArticleCarousel } from './HomePageArticleCarousel';
 

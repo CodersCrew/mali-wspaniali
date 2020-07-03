@@ -9,7 +9,7 @@ import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
 import { white } from '../../colors';
-import { Article } from '../../firebase/types';
+import { Article } from '../../graphql/types';
 import { categoriesList } from './BlogCategories';
 import { getArticles } from '../../queries/articleQueries';
 

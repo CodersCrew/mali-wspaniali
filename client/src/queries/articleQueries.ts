@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from 'apollo-boost';
 
-import { Article } from '../firebase/types';
+import { Article } from '../graphql/types';
 import * as ArticleRepository from '../graphql/articleRepository';
 
 export const getArticleById = (articleId: string): Promise<ApolloQueryResult<{ article: Article }>> => {

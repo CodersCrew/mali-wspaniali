@@ -2,7 +2,7 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { categories } from './BlogCategories';
 import { blogCategoryColors } from '../../colors';
-import { ArticleCategory } from '../../firebase/types';
+import { ArticleCategory } from '../../graphql/types';
 
 type Props = {
     articleCategory: ArticleCategory;

@@ -4,7 +4,7 @@ import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { darkGrey, white } from '../../colors';
 import { ArticleBadge } from './ArticleBadge';
-import { ArticleCategory } from '../../firebase/types';
+import { ArticleCategory } from '../../graphql/types';
 
 interface Props {
     image: string;

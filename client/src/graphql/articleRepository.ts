@@ -1,6 +1,6 @@
 import { gql, DocumentNode, ApolloQueryResult } from 'apollo-boost';
 
-import { Article } from '../firebase/types';
+import { Article } from './types';
 import { client } from '../apollo_client';
 
 export function getArticles(page: number, category?: string): Promise<ApolloQueryResult<{ articles: Article[] }>> {

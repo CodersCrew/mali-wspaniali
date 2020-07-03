@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
 import { lineHeight, letterSpace } from '../../fontStyle';
-import { Redactor } from '../../firebase/types';
+import { Redactor } from '../../graphql/types';
 
 interface Props {
     redactor: Redactor;
