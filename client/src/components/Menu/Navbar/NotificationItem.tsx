@@ -13,36 +13,36 @@ type notificationItemProps = {
     date: Timestamp;
     isRead: boolean;
     id: string;
-}
+};
 
 export const NotificationItem = ({ text, date, isRead, id }: notificationItemProps) => {
     const classes = useStyles();
     const currentUser = useAuthorization(true);
 
     const setNotificationValue = () => {
-        if(currentUser) {
+        if (currentUser) {
             setNotificationReadValue(currentUser.uid, id, !isRead);
         }
-    }
+    };
 
     return (
         <MenuItem className={classes.item}>
-                <ListItem className={clsx(classes.notificationItem, isRead ? 'read' : null)}>
-                    <Notifications className={clsx(classes.notificationIcon, isRead ? 'read' : null)}/>
-                    <div onClick={setNotificationValue} className={classes.notificationText}>
-                        <Typography className={classes.notificationTitle} gutterBottom variant="h6">
-                            {text}
-                        </Typography>
-                        <Typography className={classes.notificationCaption} gutterBottom variant="caption">
-                            {moment(date.toDate()).calendar()}
-                        </Typography>
-                    </div>
-                </ListItem>
+            <ListItem className={clsx(classes.notificationItem, isRead ? 'read' : null)}>
+                <Notifications className={clsx(classes.notificationIcon, isRead ? 'read' : null)} />
+                <div onClick={setNotificationValue} className={classes.notificationText}>
+                    <Typography className={classes.notificationTitle} gutterBottom variant="h6">
+                        {text}
+                    </Typography>
+                    <Typography className={classes.notificationCaption} gutterBottom variant="caption">
+                        {moment(date.toDate()).calendar()}
+                    </Typography>
+                </div>
+            </ListItem>
         </MenuItem>
-    )
-}
+    );
+};
 
-const useStyles = makeStyles(() => 
+const useStyles = makeStyles(() =>
     createStyles({
         item: {
             padding: 0,
@@ -51,8 +51,8 @@ const useStyles = makeStyles(() =>
             borderBottom: '1px solid notificationReadColor',
             '&.read': {
                 backgroundColor: darkGrey,
-                transition: 'backgroundColor .3s'
-            }
+                transition: 'backgroundColor .3s',
+            },
         },
         notificationTitle: {
             height: '55px',
@@ -72,11 +72,11 @@ const useStyles = makeStyles(() =>
             color: secondaryColor,
             '&.read': {
                 color: notificationReadColor,
-            }
+            },
         },
         notificationText: {
             width: '230px',
             whiteSpace: 'pre-wrap',
-        }
-    })
-)
+        },
+    }),
+);

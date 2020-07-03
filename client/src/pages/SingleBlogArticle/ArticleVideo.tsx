@@ -76,7 +76,6 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: '12px',
             fontWeight: 'bold',
 
-
             [theme.breakpoints.down('sm')]: {
                 fontSize: '8px',
                 width: '15vw',

@@ -1,5 +1,15 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Button, withStyles, Box, Typography, CardMedia, Theme } from '@material-ui/core';
+import {
+    makeStyles,
+    createStyles,
+    Grid,
+    Button,
+    withStyles,
+    Box,
+    Typography,
+    CardMedia,
+    Theme,
+} from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';

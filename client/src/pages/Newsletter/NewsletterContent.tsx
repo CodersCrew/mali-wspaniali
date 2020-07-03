@@ -101,7 +101,7 @@ export const NewsletterContent: React.FC<{
                             horizontal: 'left',
                         },
                     },
-                    renderValue: value => {
+                    renderValue : value => {
                         const item = newsletterTypesArray.find(element => element.name === value);
                         const itemBackgroundColor = item ? item.color : newsletterColors.typeColors.blue;
                         return (

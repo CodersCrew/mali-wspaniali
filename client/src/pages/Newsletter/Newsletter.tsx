@@ -88,7 +88,7 @@ export const NewsletterPage = () => {
         setFields(prevFields => ({
             ...prevFields,
             [name]: {
-                value: value,
+                value,
                 error: false,
             },
         }));
@@ -96,7 +96,7 @@ export const NewsletterPage = () => {
             setFields(prevFields => ({
                 ...prevFields,
                 [name]: {
-                    value: value,
+                    value,
                     error: true,
                 },
             }));

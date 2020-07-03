@@ -46,7 +46,15 @@ export const MenuListItems = ({ userRole, childrenData, handleClose }: MenuListI
                         })}
                     {staticMenuItems.slice(1).map(staticItem => {
                         const { name, link, icon } = staticItem;
-                        return <MenuListItem key={name} link={link} text={name} iconComponent={icon} handleClose={handleClose} />;
+                        return (
+                            <MenuListItem
+                                key={name}
+                                link={link}
+                                text={name}
+                                iconComponent={icon}
+                                handleClose={handleClose}
+                            />
+                        );
                     })}
                     <MenuLogoutItem />
                 </MenuList>

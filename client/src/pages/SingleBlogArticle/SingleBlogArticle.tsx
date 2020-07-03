@@ -95,6 +95,6 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: '100%',
                 marginBottom: '20px',
             },
-        }
+        },
     }),
 );

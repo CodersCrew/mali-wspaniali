@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 paddingTop: '9vw',
-                marginLeft: '15px'
+                marginLeft: '15px',
             },
         },
         contentRedactorName: {

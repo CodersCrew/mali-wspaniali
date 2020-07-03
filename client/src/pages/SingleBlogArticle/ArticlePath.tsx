@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
         pathContainer: {
             [theme.breakpoints.down('sm')]: {
                 display: 'none',
-            }
+            },
         },
         pathText: {
             fontWeight: 'bold',

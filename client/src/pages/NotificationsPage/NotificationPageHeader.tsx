@@ -1,5 +1,5 @@
-import React from 'react'
-import { Typography, makeStyles, createStyles, ThemeProvider } from '@material-ui/core'
+import React from 'react';
+import { Typography, makeStyles, createStyles, ThemeProvider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { theme } from '../../theme';
 
@@ -16,10 +16,10 @@ export const NotificationPageHeader = () => {
                 {t('notifications-page.description')}
             </Typography>
         </ThemeProvider>
-    )
-}
+    );
+};
 
-const useStyles = makeStyles(() => 
+const useStyles = makeStyles(() =>
     createStyles({
         heading: {
             fontWeight: 'bold',
@@ -28,4 +28,5 @@ const useStyles = makeStyles(() =>
             zIndex: 1,
             position: 'relative',
         },
-    }))
+    }),
+);

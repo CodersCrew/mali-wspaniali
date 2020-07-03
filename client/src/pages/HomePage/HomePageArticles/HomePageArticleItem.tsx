@@ -11,9 +11,7 @@ export const HomePageArticleItem = ({ articleId, title, description, ArticlePict
 
     return (
         <Grid className={classes.articleCard}>
-            <Link to={`/parent/article/${articleId}`}>
-                {ArticlePictureComponent}
-            </Link>
+            <Link to={`/parent/article/${articleId}`}>{ArticlePictureComponent}</Link>
             <div className={classes.articleInfo}>
                 <h2 className={classes.articleTitle}>{title}</h2>
                 <p className={classes.articleDescription}>{description}</p>

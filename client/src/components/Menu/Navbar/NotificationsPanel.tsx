@@ -1,36 +1,37 @@
-import React from 'react'
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuList, Paper, createStyles, makeStyles, Theme } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
-import { NotificationItem } from '../Navbar/NotificationItem'
+import { NotificationItem } from './NotificationItem';
 import { white, secondaryColor } from '../../../colors';
-import { Notification } from '../../../firebase/types'
+import { Notification } from '../../../firebase/types';
 
 export type NotificationListProps = {
     notifications: Notification[] | undefined;
-}
+};
 
 export const NotificationsPanel = (props: NotificationListProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { notifications } = props
+    const { notifications } = props;
 
     return (
         <Paper className={classes.notificationsPanel}>
             <MenuList dense={true}>
-                {notifications && notifications.map((notification) => {
-                    const { text, date, isRead, id } = notification
-                    return (
-                        <NotificationItem key={id} id={id} text={text} date={date} isRead={isRead}/>
-                    )
-                })}
+                {notifications &&
+                    notifications.map(notification => {
+                        const { text, date, isRead, id } = notification;
+                        return <NotificationItem key={id} id={id} text={text} date={date} isRead={isRead} />;
+                    })}
             </MenuList>
-            <Link to={'/parent/notifications'} className={classes.notificationLink}>{t('notification-panel.read-more')}</Link>
+            <Link to={'/parent/notifications'} className={classes.notificationLink}>
+                {t('notification-panel.read-more')}
+            </Link>
         </Paper>
-    )
-}
+    );
+};
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         notificationsPanel: {
             position: 'absolute',
@@ -60,4 +61,5 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: 'none',
             },
         },
-    }))
+    }),
+);
