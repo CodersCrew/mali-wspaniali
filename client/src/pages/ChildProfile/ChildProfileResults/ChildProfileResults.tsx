@@ -15,7 +15,12 @@ import { ResultComparison } from './ResultComparison';
 import { EmptyResultSimple } from './EmptyResultSimple';
 import { EmptyResultDetailed } from './EmptyResultDetailed';
 
-export const ChildProfileResults = ({ onNoResultClick }: { onNoResultClick(): void }) => {
+interface Props {
+    birthYear: number;
+    onNoResultClick(): void
+}
+
+export const ChildProfileResults = ({ onNoResultClick, birthYear }: Props) => {
     useAuthorization(true);
     const classes = useStyles();
     const { childId } = useParams<{ childId: string }>();
@@ -42,7 +47,7 @@ export const ChildProfileResults = ({ onNoResultClick }: { onNoResultClick(): vo
         setExpandedGroups([...expandedGroups, key]);
     };
 
-    const groupedResults = getGroupedResults(results);
+    const groupedResults = getGroupedResults(results, birthYear);
 
     return (
         <>

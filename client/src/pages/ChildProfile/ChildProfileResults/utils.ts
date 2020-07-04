@@ -25,8 +25,8 @@ const getPotentialResults = (yearOfBirth: number) => {
     );
 };
 
-export const getGroupedResults = (results: Result[]) => {
-    const potentialResults = getPotentialResults(2005);
+export const getGroupedResults = (results: Result[], birthYear: number) => {
+    const potentialResults = getPotentialResults(birthYear);
     const realResults = results.reduce(
             (accumulator, currentResult) => {
                 const currentSchoolYearResults = accumulator[currentResult.schoolYearStart];
