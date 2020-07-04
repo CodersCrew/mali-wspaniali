@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 
 import { Redactor } from './redactor.interface';
 
-export interface Article extends Document {
+export interface ArticleDocument extends Document {
   readonly category: string[];
   readonly contentHTML: string;
   readonly date: Date;
