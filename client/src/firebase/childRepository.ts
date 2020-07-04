@@ -29,7 +29,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
             .collection('results')
             .onSnapshot(snapshot => {
                 if (snapshot.empty) {
-                    return
+                    return;
                 }
                 logQuery(snapshot);
                 const results = snapshot.docs.map(snap => {
