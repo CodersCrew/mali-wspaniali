@@ -31,15 +31,15 @@ export class Article extends AggregateRoot {
     super();
   }
 
-  sendNotifications(users: string) {
+  sendNotifications(users: string): void {
     this.apply(new ArticleCreatedEvent(this.id, users));
   }
 
-  getProps() {
+  getProps(): ArticleProps {
     return this.props;
   }
 
-  get id() {
+  get id(): string {
     return this.props._id;
   }
 }

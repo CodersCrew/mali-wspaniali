@@ -2,6 +2,7 @@ import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 
 import { CreateArticleCommand } from '../impl/create_article_command';
 import { ArticlesRepository } from '../../repositories/article_repository';
+import { Article } from '../../models/article_model';
 
 @CommandHandler(CreateArticleCommand)
 export class CreateArticleHandler
@@ -11,7 +12,7 @@ export class CreateArticleHandler
     private readonly publisher: EventPublisher,
   ) {}
 
-  async execute(command: CreateArticleCommand) {
+  async execute(command: CreateArticleCommand): Promise<Article> {
     const { articleProps } = command;
 
     const article = this.publisher.mergeObjectContext(
