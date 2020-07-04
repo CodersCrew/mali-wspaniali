@@ -12,8 +12,9 @@ type SidebarMenuItem = {
 };
 const getActiveClass = (pathUrl: string, link: string) => {
     const isParentCategoryBlog = link.includes('/parent/blog/') && pathUrl.includes('/parent/blog/');
+    const isConcreteArticle = link.includes('/parent/blog/') && pathUrl.includes('/parent/article/');
 
-    if (pathUrl === link || isParentCategoryBlog) return 'active';
+    if (pathUrl === link || isParentCategoryBlog || isConcreteArticle) return 'active';
 
     return null;
 };

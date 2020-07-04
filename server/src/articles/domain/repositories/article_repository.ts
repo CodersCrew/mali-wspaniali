@@ -30,7 +30,7 @@ export class ArticlesRepository {
       .exec();
   }
 
-  async getLast(count: number) {
+  async getLast(count: number): Promise<Article[]> {
     if (count < 1) return [];
 
     return await this.articleModel
