@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import moment from '../../../localizedMoment';
 import { Result } from '../../../firebase/types';
 import { resultColors } from '../../../colors';
@@ -51,7 +52,9 @@ export const getGroupedResults = (results: Result[]) => {
     };
 };
 
-export const getMaxDate = (dates: Date[]) => {
+export type GetMaxDate = (dates: Date[]) => Moment | null
+
+export const getMaxDate: GetMaxDate = dates => {
     const momentDates = dates.map(date => moment(date));
 
     return dates.length > 0 ? moment.max(momentDates) : null;
