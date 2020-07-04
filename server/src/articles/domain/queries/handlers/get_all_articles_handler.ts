@@ -8,6 +8,6 @@ export class GetAllArticlesHandler
   constructor(private readonly repository: ArticlesRepository) {}
 
   async execute(query: GetAllArticlesQuery) {
-    return this.repository.all(query.page);
+    return this.repository.getPage(query.page, query.category);
   }
 }

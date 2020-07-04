@@ -55,7 +55,7 @@ export function getArticleDocById(articleId: string): Promise<ApolloQueryResult<
     return client.query({
         query: gql`
             {
-                article(articleId: "${articleId}") {
+                article(id: "${articleId}") {
                     id
                     title
                     description
