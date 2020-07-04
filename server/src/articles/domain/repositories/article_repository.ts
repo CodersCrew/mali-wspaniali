@@ -18,11 +18,27 @@ export class ArticlesRepository {
     return await createdArticle.save().then(article => new Article(article));
   }
 
-  async all(page: number): Promise<Article[]> {
+  async getPage(page: number, category?: string): Promise<Article[]> {
+    const query: { [index: string]: unknown } = {};
+
+    if (category) query.category = category;
+
+    if (page < 1) return [];
+
     return await this.articleModel
-      .find()
-      .skip(page * 10)
-      .limit(10)
+      .find(query, {}, { sort: { date: -1 } })
+      .skip((page - 1) * 6)
+      .limit(7)
+      .exec()
+      .then(articles => articles.map(article => new Article(article)));
+  }
+
+  async getLast(count: number): Promise<Article[]> {
+    if (count < 1) return [];
+
+    return await this.articleModel
+      .find({}, {}, { sort: { date: -1 } })
+      .limit(count)
       .exec()
       .then(articles => articles.map(article => new Article(article)));
   }

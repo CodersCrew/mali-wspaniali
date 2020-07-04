@@ -1,41 +1,47 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Button, Typography, Theme } from '@material-ui/core';
+
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
-import { Path } from './types';
 
-export const ArticlePath = ({ path }: { path: Path }) => {
+interface Props {
+    category: string;
+    title: string;
+    readingTime: number;
+}
+
+export const BreadcrumbsWithDescription = ({ category, title, readingTime }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <Grid item xs={8} className={classes.pathContainer}>
             <Grid container direction="row">
-                <Button href="#BLOG" disableElevation disableFocusRipple disableRipple disableTouchRipple>
+                <Button href="/parent/blog/all/1" disableElevation disableFocusRipple disableRipple disableTouchRipple>
                     <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
                 </Button>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
                 </div>
                 <Button
-                    href={`#${path.category.toUpperCase()}`}
+                    href={`/parent/blog/${category}/1`}
                     disableElevation
                     disableFocusRipple
                     disableRipple
                     disableTouchRipple
                 >
                     <Typography className={classes.pathText}>
-                        {t(`single-article.${path.category}`).toUpperCase()}
+                        {t(`single-article.${category}`).toUpperCase()}
                     </Typography>
                 </Button>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
                 </div>
                 <div className={classes.pathTitleContainer}>
-                    <Typography className={classes.pathTitle}>{`${path.subtitle.toUpperCase()}   (${t(
+                    <Typography className={classes.pathTitle}>{`${title.toUpperCase()}   (${t(
                         'single-article.length',
-                    ).toUpperCase()} - ${path.readingTime} MIN)`}</Typography>
+                    ).toUpperCase()} - ${readingTime} MIN)`}</Typography>
                 </div>
             </Grid>
         </Grid>
@@ -47,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
         pathContainer: {
             [theme.breakpoints.down('sm')]: {
                 display: 'none',
-            }
+            },
         },
         pathText: {
             fontWeight: 'bold',

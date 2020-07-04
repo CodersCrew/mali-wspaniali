@@ -1,29 +1,16 @@
-import { firebase } from '../firebase/firebase';
-import { Article, PaginatedArticleList, Snapshot } from '../firebase/types';
-import { OnSnapshotCallback } from '../firebase/userRepository';
+import { ApolloQueryResult } from 'apollo-boost';
 
-export const getArticleById = (articleId: string, onSnapshotCallback: OnSnapshotCallback<Article>) => {
-    firebase.article.getArticleDocById(articleId, onSnapshotCallback);
+import { Article } from '../graphql/types';
+import * as ArticleRepository from '../graphql/articleRepository';
+
+export const getArticleById = (articleId: string): Promise<ApolloQueryResult<{ article: Article }>> => {
+    return ArticleRepository.getArticleDocById(articleId);
 };
 
-export const getSimilarArticlesListData = async (
-    article: Article,
-    category: string[],
-    tags: string[],
-    onSnapshotCallback: OnSnapshotCallback<Article[]>,
-) => {
-    firebase.article.getSimilarArticlesListData(article, category, tags, onSnapshotCallback);
+export const getArticles = (page: number, category?: string): Promise<ApolloQueryResult<{ articles: Article[] }>> => {
+    return ArticleRepository.getArticles(page, category);
 };
 
-export const getArticles = (
-    onSnapshotCallback: OnSnapshotCallback<PaginatedArticleList>,
-    category?: string,
-    startAfter?: Snapshot,
-    endBefore?: Snapshot,
-) => {
-    firebase.article.getArticles(onSnapshotCallback, category, startAfter, endBefore);
-};
-
-export const getArticlesListData = async (onSnapshotCallback: OnSnapshotCallback<Article[]>) => {
-    firebase.article.getArticlesListData(onSnapshotCallback);
+export const getLastArticles = (count: number): Promise<ApolloQueryResult<{ lastArticles: Article[] }>> => {
+    return ArticleRepository.getLastArticles(count);
 };

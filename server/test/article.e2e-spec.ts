@@ -37,7 +37,7 @@ describe('Article (e2e)', () => {
     });
   });
 
-  describe('when adding new article', () => {
+  describe('when adding a new article', () => {
     it('adds article', async () => {
       await request(app.getHttpServer())
         .post('/graphql')
@@ -47,7 +47,7 @@ describe('Article (e2e)', () => {
           query: `
           mutation {
             createArticle(article:{
-              category: ["activity"],
+              category: "activity",
               contentHTML: "<div>my_html</div>",
               description: "my description",
               header: "my header",
@@ -74,7 +74,7 @@ describe('Article (e2e)', () => {
           variables: {},
           query: `
           {
-            articles(page:0){
+            articles(page:1){
               id,
               title,
               category,
@@ -101,7 +101,7 @@ describe('Article (e2e)', () => {
 
           expect(newArticle).toEqual(
             jasmine.objectContaining({
-              category: ['activity'],
+              category: 'activity',
               contentHTML: '<div>my_html</div>',
               description: 'my description',
               header: 'my header',
@@ -123,7 +123,7 @@ describe('Article (e2e)', () => {
     beforeEach(async () => {
       await app.get(ArticlesRepository).clearTable();
 
-      Array(11)
+      Array(7)
         .fill(null)
         .forEach(async () => {
           await request(app.getHttpServer())
@@ -134,7 +134,7 @@ describe('Article (e2e)', () => {
               query: `
         mutation {
           createArticle(article:{
-            category: ["activity"],
+            category: "activity",
             contentHTML: "<div>my_html</div>",
             description: "my description",
             header: "my header",
@@ -163,7 +163,7 @@ describe('Article (e2e)', () => {
           variables: {},
           query: `
         {
-          articles(page:0){
+          articles(page:1){
             id
           }
         }
@@ -172,7 +172,7 @@ describe('Article (e2e)', () => {
         .expect(({ body }) => {
           const { articles } = body.data;
 
-          expect(articles.length).toEqual(10);
+          expect(articles.length).toEqual(7);
         });
     });
 
@@ -184,7 +184,7 @@ describe('Article (e2e)', () => {
           variables: {},
           query: `
     {
-      articles(page:1){
+      articles(page:2){
         id
       }
     }
@@ -195,6 +195,29 @@ describe('Article (e2e)', () => {
 
           expect(articles.length).toEqual(1);
         });
+    });
+
+    describe('when need particular amount of articles', () => {
+      it('returns particular articles', async () => {
+        await request(app.getHttpServer())
+          .post('/graphql')
+          .send({
+            operationName: null,
+            variables: {},
+            query: `
+    {
+      lastArticles(count:4){
+        id
+      }
+    }
+    `,
+          })
+          .expect(({ body }) => {
+            const { lastArticles } = body.data;
+
+            expect(lastArticles.length).toEqual(4);
+          });
+      });
     });
   });
 });

@@ -1,57 +1,75 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Button, withStyles, Box, Typography, CardMedia, Theme } from '@material-ui/core';
+import {
+    makeStyles,
+    createStyles,
+    Grid,
+    Button,
+    withStyles,
+    Box,
+    Typography,
+    CardMedia,
+    Theme,
+} from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
-import { Content } from './types';
 
-export const ArticleContent = ({ content }: { content: Content }) => {
+interface Props {
+    category: string;
+    header: string;
+    pictureUrl: string;
+    contentHTML: string;
+}
+
+export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
+
+    const renderColorButton = () => {
+        changeColorButton(category);
+        return (
+            <Grid item xs={3}>
+                <ColorButton
+                    className={classes.contentCategoryButton}
+                    href={`/parent/blog/${category}/1`}
+                    disableElevation
+                    disableFocusRipple
+                    disableRipple
+                    disableTouchRipple
+                >
+                    <Box className={classes.contentCategoryTextBox}>
+                        <Typography className={classes.contentCategoryText}>
+                            {t(`single-article.${category}`).toUpperCase()}
+                        </Typography>
+                    </Box>
+                </ColorButton>
+            </Grid>
+        );
+    };
 
     return (
         <Grid className={classes.contentGrid} container direction="column">
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {content.category.map(cat => {
-                            changeColorButton(cat);
-                            return (
-                                <Grid key={cat} item xs={3}>
-                                    <ColorButton
-                                        className={classes.contentCategoryButton}
-                                        href={`#${cat.toUpperCase()}`}
-                                        disableElevation
-                                        disableFocusRipple
-                                        disableRipple
-                                        disableTouchRipple
-                                    >
-                                        <Box className={classes.contentCategoryTextBox}>
-                                            <Typography className={classes.contentCategoryText}>
-                                                {t(`single-article.${cat}`).toUpperCase()}
-                                            </Typography>
-                                        </Box>
-                                    </ColorButton>
-                                </Grid>
-                            );
-                        })}
+                        {renderColorButton()}
                     </Grid>
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHeader} item xs={12}>
-                    <Typography className={classes.contentHeaderText}>{`${content.header}`}</Typography>
+                    <Typography className={classes.contentHeaderText}>{header}</Typography>
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentPhoto} item xs={12}>
-                    <CardMedia className={classes.contentPhotoMedia} component="img" image={content.pictureUrl} />
+                    <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHTML} item xs={12}>
-                    {parse(content.contentHTML)}
+                    {parse(contentHTML)}
                 </Grid>
             </Grid>
         </Grid>

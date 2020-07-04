@@ -5,5 +5,5 @@ export interface Redactor extends Document {
   readonly firstName: string;
   readonly lastName?: string;
   readonly profession?: string;
-  readonly shortDescription?: string;
+  readonly biography?: string;
 }

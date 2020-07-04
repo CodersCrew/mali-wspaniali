@@ -26,7 +26,7 @@ export const SingleArticleColors = {
         other: '#4191bf',
     },
 };
-export const blogCategoryColors = {
+export const blogCategoryColors: { [index: string]: string } = {
     orange: secondaryColor,
     yellow: '#f5a56e',
     purple: '#c2559b',

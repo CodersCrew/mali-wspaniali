@@ -1,15 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './internationalization/i18n';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { Quill } from 'react-quill';
+
+import './internationalization/i18n';
 import ImageResize from 'quill-image-resize-module-react';
 import { Root } from './pages/Root';
 
 import * as serviceWorker from './serviceWorker';
+import { client } from './apollo_client';
 
 Quill.register('modules/imageResize', ImageResize);
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <Root />
+    </ApolloProvider>,
+    document.getElementById('root'),
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -1,9 +1,13 @@
 import React from 'react';
 import { Grid, CardMedia, Button, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
-import { Video } from './types';
 
-export const ArticleVideo = ({ video }: { video: Video }) => {
+interface Props {
+    videoUrl: string;
+    tags: string[];
+}
+
+export const ArticleVideo = ({ videoUrl, tags }: Props) => {
     const classes = useStyles();
 
     return (
@@ -12,7 +16,7 @@ export const ArticleVideo = ({ video }: { video: Video }) => {
                 <Grid item xs={12}>
                     <Grid container direction="row">
                         <Grid className={classes.contentVideo} item xs={12}>
-                            <CardMedia className={classes.contentVideoPlayer} component="iframe" src={video.videoUrl} />
+                            <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -20,7 +24,7 @@ export const ArticleVideo = ({ video }: { video: Video }) => {
                     <Grid container direction="row">
                         <Grid item xs={8}>
                             <Grid container direction="row" spacing={10}>
-                                {video.tags.map(tag => {
+                                {tags.map(tag => {
                                     return (
                                         <Grid key={tag} item xs={3}>
                                             <Button className={classes.contentTagsButton}>{`#${tag}`}</Button>
@@ -75,7 +79,6 @@ const useStyles = makeStyles((theme: Theme) =>
             fontFamily: 'Roboto',
             fontSize: '12px',
             fontWeight: 'bold',
-
 
             [theme.breakpoints.down('sm')]: {
                 fontSize: '8px',
