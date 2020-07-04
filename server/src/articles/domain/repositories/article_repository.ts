@@ -1,19 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Article } from '../../interfaces/article.interface';
 import { ArticleInput } from '../../inputs/article_input';
+import { Article } from '../models/article_model';
+import { ArticleDocument } from '../../interfaces/article.interface';
 
 @Injectable()
 export class ArticlesRepository {
   constructor(
-    @InjectModel('Article') private readonly articleModel: Model<Article>,
+    @InjectModel('Article')
+    private readonly articleModel: Model<ArticleDocument>,
   ) {}
 
   async create(createArticleDTO: ArticleInput): Promise<Article> {
     const createdArticle = new this.articleModel(createArticleDTO);
 
-    return await createdArticle.save();
+    return await createdArticle.save().then(article => new Article(article));
   }
 
   async getPage(page: number, category?: string): Promise<Article[]> {
@@ -27,7 +29,8 @@ export class ArticlesRepository {
       .find(query, {}, { sort: { date: -1 } })
       .skip((page - 1) * 6)
       .limit(7)
-      .exec();
+      .exec()
+      .then(articles => articles.map(article => new Article(article)));
   }
 
   async getLast(count: number): Promise<Article[]> {
@@ -36,11 +39,15 @@ export class ArticlesRepository {
     return await this.articleModel
       .find({}, {}, { sort: { date: -1 } })
       .limit(count)
-      .exec();
+      .exec()
+      .then(articles => articles.map(article => new Article(article)));
   }
 
   async get(id: string): Promise<Article> {
-    return await this.articleModel.findById(id).exec();
+    return await this.articleModel
+      .findById(id)
+      .exec()
+      .then(article => new Article(article));
   }
 
   // for e2e purpose only
