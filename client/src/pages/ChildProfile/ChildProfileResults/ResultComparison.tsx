@@ -20,8 +20,8 @@ interface Props {
 export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge }: Props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useTranslation();
-    const classes = useStyles();
     const { color } = getResultColorAndLabel(lastResultPoints, MAX_OVERALL_POINTS);
+    const classes = useStyles({ color });
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);
 
     const advice = useSubscribed<Advice>((callback: OnSnapshotCallback<Advice>) =>
@@ -40,7 +40,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                         <Typography className={classes.cardBottomText} variant="body2">
                             {t('child-profile.comparison-label')}
                         </Typography>
-                        <div className={classes.difference} style={{ color }}>
+                        <div className={classes.difference}>
                             {t(`child-profile.difference.${key}`)}
                         </div>
                         {advice && advice.content && (
@@ -97,6 +97,7 @@ const useStyles = makeStyles({
         marginBottom: '20px',
         marginTop: '20px',
         fontWeight: 'bold',
+        color: ({ color }: { color: string }) => color,
     },
     rightWrapper: {
         width: '100%',
