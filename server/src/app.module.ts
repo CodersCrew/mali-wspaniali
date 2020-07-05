@@ -2,15 +2,19 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
 import { isProduction, isTest } from './shared/utils/is_production';
+import { KeyCodesModule } from './key_codes/key_codes.module';
 
 @Module({
   imports: [
     ArticlesModule,
+    KeyCodesModule,
+    ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       debug: !isProduction(),
       playground: !isProduction(),
