@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
-import { isProduction } from './shared/utils/is_production';
+import { isProduction, isTest } from './shared/utils/is_production';
 
 @Module({
   imports: [
@@ -16,10 +16,10 @@ import { isProduction } from './shared/utils/is_production';
       playground: !isProduction(),
       autoSchemaFile: 'schema.gql',
     }),
-    ConfigModule.forRoot({
-      envFilePath: ['.env.development', '.env.test'],
-    }),
-    MongooseModule.forRoot(process.env.MONGO_KEY),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(
+      isTest() ? process.env.MONGO_KEY_TEST : process.env.MONGO_KEY,
+    ),
   ],
   controllers: [AppController],
   providers: [AppService],
