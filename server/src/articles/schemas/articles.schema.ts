@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { RedactorSchema } from './redactor.schema';
 
 export const ArticleSchema = new mongoose.Schema({
-  category: [String],
+  category: String,
   contentHTML: String,
   date: {
     type: Date,

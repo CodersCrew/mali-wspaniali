@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, Grid, ThemeProvider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useParams, useHistory } from 'react-router-dom';
+
 import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
@@ -14,63 +16,32 @@ import { BlogMainHeader } from '../../components/BlogMainHeader';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
+    const [articles, setArticles] = useState<Article[]>([]);
     const { t } = useTranslation();
-    const [currentCategory, setCurrentCategory] = useState<string>('all');
-    const [blogArticles, setBlogArticles] = useState<PaginatedArticleList | null>(null);
-    const [isLastPage, setIsLastPage] = useState(false);
-    const [isFirstPage, setIsFirstPage] = useState(true);
+    const params = useParams<{ category: string; page: string }>();
+    const history = useHistory();
+    let currentPage = parseInt(params.page);
+
+    if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 
     useEffect(() => {
-        addArticlesToState(currentCategory);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentCategory]);
+        let articles;
 
-    const addArticlesToState = (categoryKey: string | undefined, startAfter?: Snapshot, endBefore?: Snapshot) => {
-        const category = categoryKey === 'all' ? undefined : categoryKey;
-
-        getArticles(
-            blogArticlesFromSnapshot => {
-                setBlogArticles(blogArticlesFromSnapshot);
-                setupPagination(blogArticlesFromSnapshot, startAfter, endBefore);
-            },
-            category,
-            startAfter,
-            endBefore,
-        );
-    };
-
-    const setupPagination = (
-        blogArticlesFromSnapshot: PaginatedArticleList,
-        startAfter?: Snapshot,
-        endBefore?: Snapshot,
-    ) => {
-        if (!startAfter && !endBefore) {
-            setIsFirstPage(true);
-            setIsLastPage(false);
-            if (!blogArticlesFromSnapshot.isMore) {
-                setIsLastPage(true);
-            }
+        if (params.category === 'all') {
+            articles = getArticles(currentPage);
         } else {
-            if (startAfter) {
-                setIsFirstPage(false);
-            }
-            if (endBefore) {
-                setIsLastPage(false);
-            }
-            if (!blogArticlesFromSnapshot.isMore && startAfter) {
-                setIsLastPage(true);
-            }
-            if (!blogArticlesFromSnapshot.isMore && endBefore) {
-                setIsFirstPage(true);
-            }
+            articles = getArticles(currentPage, params.category);
         }
-    };
+
+        articles.then(({ data }) => setArticles(data.articles));
+    }, [params.category, currentPage]);
 
     const paginationQuery = (paginationDirection: string) => {
-        if (!blogArticles) return;
-        const startAfter = paginationDirection === 'next' ? blogArticles.lastSnap : undefined;
-        const endBefore = paginationDirection === 'prev' ? blogArticles.firstSnap : undefined;
-        addArticlesToState(currentCategory, startAfter, endBefore);
+        if (paginationDirection === 'next') {
+            history.push(`/parent/blog/${params.category}/${currentPage + 1}`);
+        } else {
+            history.push(`/parent/blog/${params.category}/${currentPage - 1}`);
+        }
     };
 
     return (

@@ -3,10 +3,18 @@ import { Card, CardMedia, CardContent, Typography, makeStyles, Button } from '@m
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { darkGrey, white } from '../../colors';
-import { BlogArticleCardProps } from './types';
 import { ArticleBadge } from './ArticleBadge';
+import { ArticleCategory } from '../../graphql/types';
 
-export const BlogArticleCard = ({ image, title, description, link, category }: BlogArticleCardProps) => {
+interface Props {
+    image: string;
+    title: string;
+    description: string;
+    link: string;
+    category: ArticleCategory;
+}
+
+export const BlogArticleCard = ({ image, title, description, link, category }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 

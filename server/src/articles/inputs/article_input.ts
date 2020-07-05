@@ -4,8 +4,8 @@ import { RedactorInput } from './redactor_input';
 
 @InputType()
 export class ArticleInput {
-  @Field(() => [String])
-  readonly category: string[];
+  @Field(() => String)
+  readonly category: string;
 
   @Field()
   readonly contentHTML: string;
