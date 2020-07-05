@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
+
 import { AppModule } from './../src/app.module';
 import { ArticlesRepository } from '../src/articles/domain/repositories/article_repository';
 
@@ -60,7 +61,7 @@ describe('Article (e2e)', () => {
               subtitle: "my subtitle"
               readingTime: 15    
             }) {
-              title
+              status
             }
           }
           `,
@@ -147,7 +148,7 @@ describe('Article (e2e)', () => {
             subtitle: "my subtitle"
             readingTime: 15    
           }) {
-            title
+            status
           }
         }
         `,

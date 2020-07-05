@@ -8,6 +8,7 @@ import { CreateArticleCommand } from './domain/commands/impl/create_article_comm
 import { GetAllArticlesQuery } from './domain/queries/impl';
 import { GetArticleByIdQuery } from './domain/queries/impl/get_article_by_id_query';
 import { GetLastArticlesQuery } from './domain/queries/impl/get_last_articles_query';
+import { ReturnedStatusDTO } from '../shared/returned_status';
 
 @Resolver()
 export class ArticlesResolver {
@@ -46,14 +47,14 @@ export class ArticlesResolver {
     return article.getProps();
   }
 
-  @Mutation(() => CreateArticleDTO)
+  @Mutation(() => ReturnedStatusDTO)
   async createArticle(
     @Args('article') article: ArticleInput,
-  ): Promise<ArticleProps> {
+  ): Promise<{ status: boolean }> {
     const newArticle: Article = await this.commandBus.execute(
       new CreateArticleCommand(article),
     );
 
-    return newArticle.getProps();
+    return { status: !!newArticle };
   }
 }
