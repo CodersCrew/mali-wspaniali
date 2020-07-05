@@ -4,7 +4,6 @@ import * as request from 'supertest';
 
 import { AppModule } from './../src/app.module';
 import { KeyCodeRepository } from '../src/key_codes/domain/repositories/key_code_repository';
-import { KeyCodesResolver } from '../src/key_codes/key_codes.resolver';
 
 describe('Article (e2e)', () => {
   let app: INestApplication;

@@ -22,14 +22,14 @@ export class KeyCodeRepository {
     return await createdArticle.save();
   }
 
-  async isKeyCode(keyCode: string) {
+  async isKeyCode(keyCode: string): Promise<boolean> {
     return this.keyCodeModel
       .findOne({ keyCode })
       .exec()
       .then(keyCode => !!keyCode);
   }
 
-  async removeOlderThan(days: number) {
+  async removeOlderThan(days: number): Promise<void> {
     this.keyCodeModel
       .deleteMany({
         date: { $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
@@ -37,7 +37,7 @@ export class KeyCodeRepository {
       .exec();
   }
 
-  async removeKeyCode(keyCode: string) {
+  async removeKeyCode(keyCode: string): Promise<void> {
     this.keyCodeModel.deleteOne({ keyCode }).exec();
   }
 

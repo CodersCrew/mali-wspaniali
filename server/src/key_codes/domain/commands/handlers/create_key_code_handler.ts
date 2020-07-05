@@ -1,4 +1,4 @@
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import * as uuid from 'uuid';
 
 import { CreateKeyCodeCommand } from '../impl/create_key_code_command';

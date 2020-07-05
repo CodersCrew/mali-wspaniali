@@ -8,7 +8,7 @@ export class KeyCodeCronService {
   private readonly logger = new Logger(KeyCodeCronService.name);
 
   @Cron('* * * * * 3')
-  async handleCron() {
+  async handleCron(): Promise<void> {
     await this.keyCodeRepository.removeOlderThan(7);
   }
 }

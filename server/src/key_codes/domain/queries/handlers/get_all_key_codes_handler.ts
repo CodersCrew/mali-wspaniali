@@ -9,7 +9,7 @@ export class GetAllKeyCodesHandlerHandler
   implements IQueryHandler<GetAllKeyCodesQuery> {
   constructor(private readonly repository: KeyCodeRepository) {}
 
-  async execute(query: GetAllKeyCodesQuery): Promise<KeyCodeProps[]> {
+  async execute(): Promise<KeyCodeProps[]> {
     return this.repository.getAll();
   }
 }

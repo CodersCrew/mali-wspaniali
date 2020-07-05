@@ -1,8 +1,7 @@
-import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
+import { Resolver, Mutation, Query } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import { KeyCodeRepository } from './domain/repositories/key_code_repository';
-import { ReturnedStatusDTO } from '../shared/returned_status';
 import { KeyCodeProps } from './domain/models/key_code_model';
 import { CreateKeyCodeCommand } from './domain/commands/impl/create_key_code_command';
 import { CreateKeyCodeDTO } from './dto/create_key_code.dto';

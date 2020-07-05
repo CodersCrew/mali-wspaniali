@@ -1,3 +1,1 @@
-export class GetAllKeyCodesQuery {
-  constructor() {}
-}
+export class GetAllKeyCodesQuery {}
