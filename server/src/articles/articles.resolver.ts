@@ -1,5 +1,6 @@
 import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import * as Sentry from '@sentry/minimal';
 
 import { CreateArticleDTO } from './dto/create_article_dto';
 import { ArticleInput } from './inputs/article_input';
@@ -9,7 +10,10 @@ import { GetAllArticlesQuery } from './domain/queries/impl';
 import { GetArticleByIdQuery } from './domain/queries/impl/get_article_by_id_query';
 import { GetLastArticlesQuery } from './domain/queries/impl/get_last_articles_query';
 import { ReturnedStatusDTO } from '../shared/returned_status';
+import { HttpException, HttpStatus, UseInterceptors } from '@nestjs/common';
+import { SentryInterceptor } from '../shared/sentry_interceptor';
 
+@UseInterceptors(SentryInterceptor)
 @Resolver()
 export class ArticlesResolver {
   constructor(
@@ -44,7 +48,11 @@ export class ArticlesResolver {
       new GetArticleByIdQuery(id),
     );
 
-    return article.getProps();
+    if (article.getProps()) {
+      return article.getProps();
+    }
+
+    throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -55,6 +63,13 @@ export class ArticlesResolver {
       new CreateArticleCommand(article),
     );
 
-    return { status: !!newArticle };
+    const articleContent = newArticle.getProps();
+
+    if (articleContent) {
+      Sentry.captureMessage(
+        `[Mali Wspaniali]: Created a new article ${articleContent.title}`,
+      );
+    }
+    return { status: !!articleContent };
   }
 }

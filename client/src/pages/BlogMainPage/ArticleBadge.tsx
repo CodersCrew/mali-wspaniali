@@ -9,7 +9,9 @@ type Props = {
 };
 
 export const ArticleBadge = ({ articleCategory }: Props) => {
-    const { color, name } = categories[articleCategory];
+    const matchedColor = categories[articleCategory] || categories.other;
+
+    const { color, name } = matchedColor;
     const classes = useStyles({ color });
 
     return <span className={classes.badge}>{name}</span>;
