@@ -75,11 +75,7 @@ export const NotificationsPage = () => {
         <Container maxWidth="xl">
             <NotificationPageHeader />
             <NotificationPageList notifications={notificationData} />
-            <Pagination
-                disabledPrevious={isFirstPage}
-                disabledNext={isLastPage}
-                handleChange={paginationQuery}
-            ></Pagination>
+            <Pagination isFirst={isFirstPage} isLast={isLastPage} handleChange={paginationQuery}></Pagination>
         </Container>
     );
 };

@@ -1,13 +1,9 @@
 import React from 'react';
 import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
 import { lineHeight, letterSpace } from '../../fontStyle';
-import { Redactor } from '../../graphql/types';
+import { Redactor } from '../../firebase/types';
 
-interface Props {
-    redactor: Redactor;
-}
-
-export const ArticleRedactor = ({ redactor }: Props) => {
+export const ArticleRedactor = ({ redactor }: { redactor: Redactor }) => {
     const classes = useStyles();
 
     return (
@@ -29,7 +25,9 @@ export const ArticleRedactor = ({ redactor }: Props) => {
                     </Grid>
                     <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
                         <Box className={classes.contentRedactorDescriptionBox}>
-                            <Typography className={classes.contentRedactorDescription}>{redactor.biography}</Typography>
+                            <Typography className={classes.contentRedactorDescription}>
+                                {redactor.shortDescription}
+                            </Typography>
                         </Box>
                     </Grid>
                 </Grid>

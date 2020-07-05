@@ -15,5 +15,5 @@ export class RedactorInput {
   readonly profession: string;
 
   @Field({ nullable: true })
-  readonly biography: string;
+  readonly shortDescription: string;
 }
