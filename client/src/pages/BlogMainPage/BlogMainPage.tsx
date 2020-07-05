@@ -75,7 +75,7 @@ export const BlogMainPage = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className={classes.headerBar}>{t('blog-main-page.headerBar')}</div>
+            <div className={classes.headerBar}>{t('blog-main-page.header-bar')}</div>
             <BlogMainHeader />
 
             <DropDownMenu setCategory={setCurrentCategory} />

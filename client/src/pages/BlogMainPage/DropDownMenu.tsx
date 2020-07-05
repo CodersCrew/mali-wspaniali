@@ -18,7 +18,7 @@ export const DropDownMenu = ({ setCategory }: Props) => {
 
     const classes = useStyles();
     const [isOpen, setIsOpen] = useState(false);
-    const [buttonCategoryValue, setbuttonCategoryValue] = useState('');
+    const [buttonCategoryValue, setButtonCategoryValue] = useState('');
     const anchorRef = useRef<HTMLButtonElement>(null);
     const { t } = useTranslation();
 
@@ -30,7 +30,7 @@ export const DropDownMenu = ({ setCategory }: Props) => {
         setCurrentTabIndex(newValue);
         setCategory(categoriesList[newValue].key);
         setIsOpen(false);
-        setbuttonCategoryValue(categoriesList[newValue].name);
+        setButtonCategoryValue(categoriesList[newValue].name);
     };
 
     function handleListKeyDown(event: React.KeyboardEvent) {
