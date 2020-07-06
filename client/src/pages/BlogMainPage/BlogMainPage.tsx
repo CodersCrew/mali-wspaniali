@@ -9,11 +9,11 @@ import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
 import { white, mainColor } from '../../colors';
-import { Article } from '../../graphql/types';
 import { categoriesList } from './BlogCategories';
 import { getArticles } from '../../queries/articleQueries';
 import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
+import { Article } from '../../graphql/types';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
