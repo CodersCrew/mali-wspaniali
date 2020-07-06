@@ -20,8 +20,8 @@ export interface ArticleProps {
   pictureUrl: UrlProps;
   readingTime: number;
   readonly redactor: Redactor;
-  readonly tags: string[];
   subtitle: TextLengthProps;
+  tags: TagsProps;
   title: TextLengthProps;
   videoUrl?: UrlProps;
 }
@@ -60,6 +60,7 @@ export class Article extends AggregateRoot {
     this.props.readingTime = ReadingTime.create(
       props.readingTime,
     ).getValue().value;
+    this.props.tags = Tags.create(props.tags).getValue().value;
   }
 
   sendNotifications(users: string): void {
