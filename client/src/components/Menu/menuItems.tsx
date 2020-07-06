@@ -24,10 +24,12 @@ export const getMenuItems = (t: TFunction, userRole: string) => {
 
     const parentMenuItems = [
         { name: t('menu.home'), link: '/parent', icon: <Home /> },
-        { name: t('menu.news'), link: '/parent/blog/all/1', icon: <FormatListBulleted /> },
+        { name: t('menu.news'), link: '/parent/blog', icon: <FormatListBulleted /> },
         { name: t('menu.notifications'), link: '/parent/notifications', icon: <Notifications /> },
         { name: t('menu.settings'), link: '/parent/settings', icon: <BuildSharp /> },
     ];
 
-    return userRole === 'parent' ? parentMenuItems : adminMenuItems;
+    const menuItems = userRole === 'parent' ? parentMenuItems : adminMenuItems;
+
+    return menuItems;
 };

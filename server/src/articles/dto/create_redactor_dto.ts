@@ -15,5 +15,5 @@ export class CreateRedactorDTO {
   profession?: string;
 
   @Field({ nullable: true })
-  biography?: string;
+  shortDescription?: string;
 }

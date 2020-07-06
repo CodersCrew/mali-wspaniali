@@ -8,7 +8,7 @@ import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
-import { white, mainColor } from '../../colors';
+import { white } from '../../colors';
 import { Article } from '../../graphql/types';
 import { categoriesList } from './BlogCategories';
 import { getArticles } from '../../queries/articleQueries';
@@ -21,7 +21,7 @@ export const BlogMainPage = () => {
     const { t } = useTranslation();
     const params = useParams<{ category: string; page: string }>();
     const history = useHistory();
-    let currentPage = parseInt(params.page, 10);
+    let currentPage = parseInt(params.page);
 
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 

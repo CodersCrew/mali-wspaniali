@@ -14,25 +14,23 @@ import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
+import { Content } from './types';
 
-interface Props {
-    category: string;
-    header: string;
-    pictureUrl: string;
-    contentHTML: string;
-}
-
-export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Props) => {
+export const ArticleContent = ({ content }: { content: Content }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
+<<<<<<< HEAD
     const ColorButton = createColorButton(category);
 
+=======
+>>>>>>> 565e2b9f4df165392ed8ed3bac416d4637efc04f
     return (
         <Grid className={classes.contentGrid} container direction="column">
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
+<<<<<<< HEAD
                         <Grid item xs={3}>
                             <ColorButton
                                 className={classes.contentCategoryButton}
@@ -49,22 +47,45 @@ export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Pr
                                 </Box>
                             </ColorButton>
                         </Grid>
+=======
+                        {content.category.map(cat => {
+                            const ColorButton = createColorButton(cat);
+                            return (
+                                <Grid key={cat} item xs={3}>
+                                    <ColorButton
+                                        className={classes.contentCategoryButton}
+                                        href={`#${cat.toUpperCase()}`}
+                                        disableElevation
+                                        disableFocusRipple
+                                        disableRipple
+                                        disableTouchRipple
+                                    >
+                                        <Box className={classes.contentCategoryTextBox}>
+                                            <Typography className={classes.contentCategoryText}>
+                                                {t(`single-article.${cat}`).toUpperCase()}
+                                            </Typography>
+                                        </Box>
+                                    </ColorButton>
+                                </Grid>
+                            );
+                        })}
+>>>>>>> 565e2b9f4df165392ed8ed3bac416d4637efc04f
                     </Grid>
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHeader} item xs={12}>
-                    <Typography className={classes.contentHeaderText}>{header}</Typography>
+                    <Typography className={classes.contentHeaderText}>{`${content.header}`}</Typography>
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentPhoto} item xs={12}>
-                    <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
+                    <CardMedia className={classes.contentPhotoMedia} component="img" image={content.pictureUrl} />
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHTML} item xs={12}>
-                    {parse(contentHTML)}
+                    {parse(content.contentHTML)}
                 </Grid>
             </Grid>
         </Grid>
