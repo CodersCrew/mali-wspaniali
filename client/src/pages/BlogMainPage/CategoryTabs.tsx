@@ -1,33 +1,32 @@
-import React, { useState } from 'react';
-import { Tabs, withStyles, createStyles, ThemeProvider } from '@material-ui/core';
+import React from 'react';
+import { Tabs, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 import { theme } from '../../theme';
 
-type Props = {
-    setCategory: (value: string) => void;
+type CategoryTabProps = {
+    onClick: (value: string) => void;
+    active: string;
+    values: typeof categoriesList;
 };
 
-export const CategoryTabs = ({ setCategory }: Props) => {
-    const [currentTabIndex, setCurrentTabIndex] = useState(0);
-
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setCurrentTabIndex(newValue);
-        setCategory(categoriesList[newValue].key);
-    };
+export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
+    const classes = useStyles();
 
     return (
-        <ThemeProvider theme={theme}>
-            <StyledTabs value={currentTabIndex} onChange={handleChange}>
-                {categoriesList.map(category => {
-                    return <StyledTab key={category.name} label={category.name} color={category.color} />;
-                })}
-            </StyledTabs>
-        </ThemeProvider>
+        <Tabs
+            classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }}
+            value={values.findIndex(tab => tab.key === active)}
+            onChange={(_event, value) => onClick(categoriesList[value].key)}
+        >
+            {values.map(category => {
+                return <StyledTab key={category.name} label={category.name} color={category.color} />;
+            })}
+        </Tabs>
     );
 };
 
-const StyledTabs = withStyles(
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         flexContainer: {
             alignItems: 'flex-end',
@@ -41,4 +40,4 @@ const StyledTabs = withStyles(
             display: 'none',
         },
     }),
-)(Tabs);
+);
