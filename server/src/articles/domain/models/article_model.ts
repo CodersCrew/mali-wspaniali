@@ -12,7 +12,7 @@ interface Redactor {
 
 export interface ArticleProps {
   readonly _id: string;
-  readonly category: string;
+  category: CategoryProps;
   readonly contentHTML: string;
   readonly date: Date;
   readonly description: string;
@@ -29,6 +29,8 @@ export interface ArticleProps {
 export class Article extends AggregateRoot {
   constructor(private readonly props: ArticleProps) {
     super();
+
+    this.props.category = Category.create(props.category).getValue().value;
   }
 
   sendNotifications(users: string): void {
