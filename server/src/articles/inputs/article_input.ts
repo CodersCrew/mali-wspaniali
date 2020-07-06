@@ -1,11 +1,12 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
 
 import { RedactorInput } from './redactor_input';
+import { CategoryProps } from '../domain/models/category';
 
 @InputType()
 export class ArticleInput {
   @Field(() => String)
-  readonly category: string;
+  readonly category: CategoryProps;
 
   @Field()
   readonly contentHTML: string;

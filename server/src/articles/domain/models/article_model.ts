@@ -1,6 +1,14 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
 import { ArticleCreatedEvent } from '../events/impl/article_created_event';
+import { Category, CategoryProps } from './category';
+import { ReadingTime } from './reading_time';
+import { UrlProps, Url } from '../../../shared/domain/url';
+import { Tags, TagsProps } from './tags';
+import {
+  TextLength,
+  TextLengthProps,
+} from '../../../shared/domain/text_length';
 
 interface Redactor {
   readonly avatarUrl?: string;
@@ -11,24 +19,56 @@ interface Redactor {
 }
 
 export interface ArticleProps {
-  readonly _id: string;
-  readonly category: string;
+  readonly _id?: string;
+  category: CategoryProps;
   readonly contentHTML: string;
-  readonly date: Date;
-  readonly description: string;
-  readonly header: string;
-  readonly pictureUrl: string;
-  readonly readingTime: number;
+  readonly date?: Date;
+  description: TextLengthProps;
+  header: TextLengthProps;
+  pictureUrl: UrlProps;
+  readingTime: number;
   readonly redactor: Redactor;
-  readonly subtitle: string;
-  readonly tags: string[];
-  readonly title: string;
-  readonly videoUrl?: string;
+  subtitle: TextLengthProps;
+  tags: TagsProps;
+  title: TextLengthProps;
+  videoUrl?: UrlProps;
 }
 
 export class Article extends AggregateRoot {
   constructor(private readonly props: ArticleProps) {
     super();
+
+    this.props.category = Category.create(props.category).getValue().value;
+    this.props.pictureUrl = Url.create(props.pictureUrl).getValue().value;
+    this.props.videoUrl = Url.create(props.videoUrl).getValue().value;
+    this.props.description = TextLength.create(
+      props.description,
+      'description',
+      300,
+      30,
+    ).getValue().value;
+    this.props.header = TextLength.create(
+      props.header,
+      'header',
+      200,
+      20,
+    ).getValue().value;
+    this.props.subtitle = TextLength.create(
+      props.subtitle,
+      'subtitle',
+      100,
+      10,
+    ).getValue().value;
+    this.props.title = TextLength.create(
+      props.title,
+      'title',
+      100,
+      10,
+    ).getValue().value;
+    this.props.readingTime = ReadingTime.create(
+      props.readingTime,
+    ).getValue().value;
+    this.props.tags = Tags.create(props.tags).getValue().value;
   }
 
   sendNotifications(users: string): void {

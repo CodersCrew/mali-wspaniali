@@ -50,14 +50,14 @@ describe('Article (e2e)', () => {
             createArticle(article:{
               category: "activity",
               contentHTML: "<div>my_html</div>",
-              description: "my description",
-              header: "my header",
-              pictureUrl: "my picture",
+              description: "my description lorem ipsum my description lorem ipsum my description lorem ipsum",
+              header: "my header lorem ipsum  lorem ipsum",
+              pictureUrl: "https://www.youtube.com/watch?v=rr0gvSS1OzE",
               redactor: {
                 firstName: "cool redactor"
               },
               tags: ["life-style"],
-              title: "my title",
+              title: "my title lorem ipsum",
               subtitle: "my subtitle"
               readingTime: 15    
             }) {
@@ -104,14 +104,15 @@ describe('Article (e2e)', () => {
             jasmine.objectContaining({
               category: 'activity',
               contentHTML: '<div>my_html</div>',
-              description: 'my description',
-              header: 'my header',
-              pictureUrl: 'my picture',
+              description:
+                'my description lorem ipsum my description lorem ipsum my description lorem ipsum',
+              header: 'my header lorem ipsum  lorem ipsum',
+              pictureUrl: 'https://www.youtube.com/watch?v=rr0gvSS1OzE',
               redactor: {
                 firstName: 'cool redactor',
               },
               tags: ['life-style'],
-              title: 'my title',
+              title: 'my title lorem ipsum',
               subtitle: 'my subtitle',
               readingTime: 15,
             }),
@@ -137,14 +138,14 @@ describe('Article (e2e)', () => {
           createArticle(article:{
             category: "activity",
             contentHTML: "<div>my_html</div>",
-            description: "my description",
-            header: "my header",
-            pictureUrl: "my picture",
+            description: "my description lorem ipsum my description lorem ipsum my description lorem ipsum",
+            header: "my header lorem ipsum  lorem ipsum",
+            pictureUrl: "https://www.youtube.com/watch?v=rr0gvSS1OzE",
             redactor: {
               firstName: "cool redactor"
             },
             tags: ["life-style"],
-            title: "my title",
+            title: "my title lorem ipsum",
             subtitle: "my subtitle"
             readingTime: 15    
           }) {
