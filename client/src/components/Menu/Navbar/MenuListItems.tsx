@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         menuList: {
             position: 'absolute',
-            zIndex: 10,
+            zIndex: 8,
             right: '40px',
             marginTop: '10px',
 

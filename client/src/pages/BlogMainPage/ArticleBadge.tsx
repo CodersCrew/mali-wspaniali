@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
 import { categories } from './BlogCategories';
 import { blogCategoryColors } from '../../colors';
 import { ArticleCategory } from '../../graphql/types';
@@ -17,10 +17,10 @@ export const ArticleBadge = ({ articleCategory }: Props) => {
     return <span className={classes.badge}>{name}</span>;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         badge: {
-            zIndex: 10,
+            zIndex: 3,
             position: 'relative',
             bottom: '25%',
             float: 'right',

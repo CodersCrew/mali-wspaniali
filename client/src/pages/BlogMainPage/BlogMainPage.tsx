@@ -21,20 +21,20 @@ export const BlogMainPage = () => {
     const { t } = useTranslation();
     const params = useParams<{ category: string; page: string }>();
     const history = useHistory();
-    let currentPage = parseInt(params.page);
+    let currentPage = parseInt(params.page, 10);
 
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 
     useEffect(() => {
-        let articles;
+        let articlesToFetch;
 
         if (params.category === 'all') {
-            articles = getArticles(currentPage);
+            articlesToFetch = getArticles(currentPage);
         } else {
-            articles = getArticles(currentPage, params.category);
+            articlesToFetch = getArticles(currentPage, params.category);
         }
 
-        articles.then(({ data }) => setArticles(data.articles));
+        articlesToFetch.then(({ data }) => setArticles(data.articles));
     }, [params.category, currentPage]);
 
     const paginationQuery = (paginationDirection: string) => {
@@ -49,7 +49,11 @@ export const BlogMainPage = () => {
         <ThemeProvider theme={theme}>
             <div className={classes.headerBar}>{t('blog-main-page.header-bar')}</div>
             <BlogMainHeader />
-            <DropDownMenu setCategory={() => {}} />
+            <DropDownMenu
+                values={categoriesList}
+                active={params.category}
+                onClick={value => history.push(`/parent/blog/${value}/1`)}
+            />
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
@@ -58,7 +62,7 @@ export const BlogMainPage = () => {
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                     {articles.slice(0, 6).map((article: Article) => (
-                        <Grid key={article.id} item xs={4} zeroMinWidth>
+                        <Grid className={classes.gridSubContainer} key={article.id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
                                 title={article.title}
                                 image={article.pictureUrl}
@@ -109,13 +113,13 @@ const useStyles = makeStyles({
             lineHeight: '18px',
         },
     },
-    gridBackground: {
-        backgroundColor: white,
-        borderRadius: '20px',
-    },
-    grid: {
+    gridSubContainer: {
         [theme.breakpoints.down('sm')]: {
             minWidth: 'fit-content',
         },
+    },
+    gridBackground: {
+        backgroundColor: white,
+        borderRadius: '20px',
     },
 });

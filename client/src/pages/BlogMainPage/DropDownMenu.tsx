@@ -9,13 +9,13 @@ import { categoriesList } from './BlogCategories';
 import { DropDownMenuItem } from './DropDownMenuItem';
 import { theme } from '../../theme';
 
-type Props = {
-    setCategory: (value: string) => void;
+type DropDownMenuProps = {
+    onClick: (value: string) => void;
+    active: string;
+    values: typeof categoriesList;
 };
 
-export const DropDownMenu = ({ setCategory }: Props) => {
-    const [currentTabIndex, setCurrentTabIndex] = useState(0);
-
+export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => {
     const classes = useStyles();
     const [isOpen, setIsOpen] = useState(false);
     const [buttonCategoryValue, setButtonCategoryValue] = useState('');
@@ -27,8 +27,7 @@ export const DropDownMenu = ({ setCategory }: Props) => {
     };
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setCurrentTabIndex(newValue);
-        setCategory(categoriesList[newValue].key);
+        onClick(categoriesList[newValue].key);
         setIsOpen(false);
         setButtonCategoryValue(categoriesList[newValue].name);
     };
@@ -65,11 +64,14 @@ export const DropDownMenu = ({ setCategory }: Props) => {
                     {({ TransitionProps }) => (
                         <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
                             <Paper>
-                                <MenuStyledTabs value={currentTabIndex} onChange={handleChange}>
-                                    {categoriesList.map(category => {
+                                <MenuStyledTabs
+                                    value={values.findIndex(tab => tab.key === active)}
+                                    onChange={handleChange}
+                                >
+                                    {values.map(category => {
                                         return (
                                             <DropDownMenuItem
-                                                key={category.key}
+                                                key={category.name}
                                                 label={category.name}
                                                 color={category.color}
                                             />
