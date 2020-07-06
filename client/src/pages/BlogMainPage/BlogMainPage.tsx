@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, makeStyles, Grid } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useParams, useHistory } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
-import { white } from '../../colors';
+import { white, mainColor } from '../../colors';
 import { Article } from '../../graphql/types';
 import { categoriesList } from './BlogCategories';
 import { getArticles } from '../../queries/articleQueries';
@@ -22,7 +22,6 @@ export const BlogMainPage = () => {
     const params = useParams<{ category: string; page: string }>();
     const history = useHistory();
     let currentPage = parseInt(params.page);
-    const [currentCategory, setCurrentCategory] = useState<string>('all');
 
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 
@@ -50,7 +49,7 @@ export const BlogMainPage = () => {
         <ThemeProvider theme={theme}>
             <div className={classes.headerBar}>{t('blog-main-page.header-bar')}</div>
             <BlogMainHeader />
-            <DropDownMenu setCategory={setCurrentCategory} />
+            <DropDownMenu setCategory={() => {}} />
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}

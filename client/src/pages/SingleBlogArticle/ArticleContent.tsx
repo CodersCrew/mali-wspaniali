@@ -26,54 +26,29 @@ export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Pr
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const renderColorButton = () => {
-        changeColorButton(category);
-        return (
-            <Grid item xs={3}>
-                <ColorButton
-                    className={classes.contentCategoryButton}
-                    href={`/parent/blog/${category}/1`}
-                    disableElevation
-                    disableFocusRipple
-                    disableRipple
-                    disableTouchRipple
-                >
-                    <Box className={classes.contentCategoryTextBox}>
-                        <Typography className={classes.contentCategoryText}>
-                            {t(`single-article.${category}`).toUpperCase()}
-                        </Typography>
-                    </Box>
-                </ColorButton>
-            </Grid>
-        );
-    };
+    const ColorButton = createColorButton(category);
 
     return (
         <Grid className={classes.contentGrid} container direction="column">
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {content.category.map(cat => {
-                            const ColorButton = createColorButton(cat);
-                            return (
-                                <Grid key={cat} item xs={3}>
-                                    <ColorButton
-                                        className={classes.contentCategoryButton}
-                                        href={`#${cat.toUpperCase()}`}
-                                        disableElevation
-                                        disableFocusRipple
-                                        disableRipple
-                                        disableTouchRipple
-                                    >
-                                        <Box className={classes.contentCategoryTextBox}>
-                                            <Typography className={classes.contentCategoryText}>
-                                                {t(`single-article.${cat}`).toUpperCase()}
-                                            </Typography>
-                                        </Box>
-                                    </ColorButton>
-                                </Grid>
-                            );
-                        })}
+                        <Grid item xs={3}>
+                            <ColorButton
+                                className={classes.contentCategoryButton}
+                                href={`#${category.toUpperCase()}`}
+                                disableElevation
+                                disableFocusRipple
+                                disableRipple
+                                disableTouchRipple
+                            >
+                                <Box className={classes.contentCategoryTextBox}>
+                                    <Typography className={classes.contentCategoryText}>
+                                        {t(`single-article.${category}`).toUpperCase()}
+                                    </Typography>
+                                </Box>
+                            </ColorButton>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>

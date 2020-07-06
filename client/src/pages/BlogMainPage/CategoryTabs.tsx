@@ -2,7 +2,6 @@ import React from 'react';
 import { Tabs, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
-import { theme } from '../../theme';
 
 type CategoryTabProps = {
     onClick: (value: string) => void;
