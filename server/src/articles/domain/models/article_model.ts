@@ -15,15 +15,15 @@ export interface ArticleProps {
   category: CategoryProps;
   readonly contentHTML: string;
   readonly date: Date;
-  readonly pictureUrl: string;
   description: TextLengthProps;
   header: TextLengthProps;
+  pictureUrl: UrlProps;
   readingTime: number;
   readonly redactor: Redactor;
   readonly tags: string[];
-  readonly videoUrl?: string;
   subtitle: TextLengthProps;
   title: TextLengthProps;
+  videoUrl?: UrlProps;
 }
 
 export class Article extends AggregateRoot {
@@ -31,6 +31,8 @@ export class Article extends AggregateRoot {
     super();
 
     this.props.category = Category.create(props.category).getValue().value;
+    this.props.pictureUrl = Url.create(props.pictureUrl).getValue().value;
+    this.props.videoUrl = Url.create(props.videoUrl).getValue().value;
     this.props.description = TextLength.create(
       props.description,
       'description',
