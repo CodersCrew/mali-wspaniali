@@ -16,9 +16,9 @@ export interface ArticleProps {
   readonly contentHTML: string;
   readonly date: Date;
   readonly pictureUrl: string;
-  readonly readingTime: number;
   description: TextLengthProps;
   header: TextLengthProps;
+  readingTime: number;
   readonly redactor: Redactor;
   readonly tags: string[];
   readonly videoUrl?: string;
@@ -54,6 +54,9 @@ export class Article extends AggregateRoot {
       'title',
       100,
       10,
+    ).getValue().value;
+    this.props.readingTime = ReadingTime.create(
+      props.readingTime,
     ).getValue().value;
   }
 
