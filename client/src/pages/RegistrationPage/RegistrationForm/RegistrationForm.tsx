@@ -1,12 +1,5 @@
-import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import {
-    Stepper,
-    Step,
-    StepLabel,
-    StepContent,
-    Typography,
-    Container,
-} from '@material-ui/core/';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { Stepper, Step, StepLabel, StepContent, Typography, Container } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -37,14 +30,14 @@ const initialState: RegisterForm = {
 
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(0);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
 
     const agreements = useSubscribed<Agreement[] | null, string>(
         (callback: OnSnapshotCallback<Agreement[]>) => getAgreements(callback),
-        []
+        [],
     ) as Agreement[];
 
     const steps = [
@@ -78,10 +71,7 @@ export const RegistrationForm = () => {
                         email={email}
                         form={form}
                         classForm={classes.formItem}
-                        classButton={clsx(
-                            classes.buttonWrapper,
-                            activeStep === 0 && 'emailContent'
-                        )}
+                        classButton={clsx(classes.buttonWrapper, activeStep === 0 && 'emailContent')}
                         classNextBtn={classes.nextButton}
                         classPrevBtn={classes.prevButton}
                     />
@@ -97,12 +87,8 @@ export const RegistrationForm = () => {
                         agreementContainer={classes.agreementContainer}
                         agreementHeader={classes.agreementHeader}
                         agreementMoreBtn={classes.agreementMoreBtn}
-                        agreementCheckboxHeader={
-                            classes.agreementCheckboxHeader
-                        }
-                        agreementCheckboxWrapper={
-                            classes.agreementCheckboxWrapper
-                        }
+                        agreementCheckboxHeader={classes.agreementCheckboxHeader}
+                        agreementCheckboxWrapper={classes.agreementCheckboxWrapper}
                         agreementText={classes.agreementText}
                         agreementLink={classes.agreementLink}
                         agreementModal={classes.agreementModal}
@@ -131,10 +117,7 @@ export const RegistrationForm = () => {
                 return (
                     <RegistrationFeedback
                         classLink={classes.goToHomepageLink}
-                        classHeader={clsx(
-                            classes.loginHeader,
-                            activeStep === 3 && 'confirmation'
-                        )}
+                        classHeader={clsx(classes.loginHeader, activeStep === 3 && 'confirmation')}
                         classWrapper={classes.confirmWrapper}
                     />
                 );
@@ -143,10 +126,8 @@ export const RegistrationForm = () => {
         }
     };
 
-    const handleNext = () =>
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    const handleBack = () =>
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    const handleNext = () => setActiveStep(prevActiveStep => prevActiveStep + 1);
+    const handleBack = () => setActiveStep(prevActiveStep => prevActiveStep - 1);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -165,7 +146,7 @@ export const RegistrationForm = () => {
                 .then(() => {
                     handleNext();
                 })
-                .catch((err) => {
+                .catch(err => {
                     openAlertDialog({
                         type: 'error',
                         description: err.message,
@@ -176,37 +157,22 @@ export const RegistrationForm = () => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const { id, value } = event.target;
-        setForm((prevForm) => ({ ...prevForm, [id]: value }));
+        setForm(prevForm => ({ ...prevForm, [id]: value }));
     };
 
     return (
         <ThemeProvider theme={theme}>
-            <div
-                className={clsx(
-                    classes.container,
-                    activeStep === 2 && 'agreements'
-                )}
-            >
-                <form
-                    className={classes.form}
-                    autoComplete="off"
-                    onSubmit={handleSubmit}
-                >
+            <div className={clsx(classes.container, activeStep === 2 && 'agreements')}>
+                <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
                     {activeStep !== 4 && (
                         <Container className={classes.headerContainer}>
                             <Typography variant="h4">
-                                <div className={classes.registrationHeader}>
-                                    {t('registration-page.register')}
-                                </div>
+                                <div className={classes.registrationHeader}>{t('registration-page.register')}</div>
                             </Typography>
                             <LanguageSelector />
                         </Container>
                     )}
-                    <Stepper
-                        activeStep={activeStep}
-                        orientation="vertical"
-                        className={classes.stepper}
-                    >
+                    <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
                         {steps.map((step, idx) => (
                             <Step key={step} style={{ border: 'none' }}>
                                 <StepLabel>{step}</StepLabel>

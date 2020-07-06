@@ -17,6 +17,7 @@ export const PasswordStrengthChips: React.FC<{ passwordValidation: PasswordValid
         <div className={classes.chipsContainer}>
             {Object.entries(passwordValidation).map(([key, value]) => (
                 <Chip
+                    key={key}
                     size="small"
                     variant="outlined"
                     icon={value ? <CheckCircleIcon /> : <CheckIcon />}

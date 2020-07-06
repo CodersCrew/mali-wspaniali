@@ -1,11 +1,5 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/';
-import {
-    backgroundColor,
-    secondaryColor,
-    mainColor,
-    textColor,
-    white,
-} from '../../../colors';
+import { backgroundColor, secondaryColor, mainColor, textColor, white } from '../../../colors';
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -202,5 +196,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'end',
             marginTop: '20px',
         },
-    })
+        loginHeader: {},
+    }),
 );
