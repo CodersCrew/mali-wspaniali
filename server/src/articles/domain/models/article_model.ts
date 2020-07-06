@@ -1,6 +1,14 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
 import { ArticleCreatedEvent } from '../events/impl/article_created_event';
+import { Category, CategoryProps } from './category';
+import { ReadingTime } from './reading_time';
+import { UrlProps, Url } from '../../../shared/domain/url';
+import { Tags, TagsProps } from './tags';
+import {
+  TextLength,
+  TextLengthProps,
+} from '../../../shared/domain/text_length';
 
 interface Redactor {
   readonly avatarUrl?: string;
@@ -11,10 +19,10 @@ interface Redactor {
 }
 
 export interface ArticleProps {
-  readonly _id: string;
+  readonly _id?: string;
   category: CategoryProps;
   readonly contentHTML: string;
-  readonly date: Date;
+  readonly date?: Date;
   description: TextLengthProps;
   header: TextLengthProps;
   pictureUrl: UrlProps;
