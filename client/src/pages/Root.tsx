@@ -20,13 +20,14 @@ import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { IdleTimer } from '../components/IdleTimer/IdleTimer';
 import { BlogMainPage } from './BlogMainPage';
 import { NotificationsPage } from './NotificationsPage';
+import { ThemeProvider } from '../theme/ThemeProvider';
 
 export const Root = () => {
     const { i18n } = useTranslation();
     moment.updateLocale(i18n.language, {});
 
     return (
-        <>
+        <ThemeProvider>
             <CssBaseline />
             <Router>
                 <Switch>
@@ -67,6 +68,6 @@ export const Root = () => {
                     </IdleTimer>
                 </Switch>
             </Router>
-        </>
+        </ThemeProvider>
     );
 };
