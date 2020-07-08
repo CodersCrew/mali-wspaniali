@@ -1,8 +1,8 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import * as uuid from 'uuid';
+import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
+import * as bcrypt from 'bcrypt';
 
 import { CreateUserCommand } from '../impl/create_user_command';
-import { UserProps } from '../../models/user_model';
+import { UserProps, User } from '../../models/user_model';
 import { UserRepository } from '../../repositories/user_repository';
 import { KeyCodeRepository } from '../../../../key_codes/domain/repositories/key_code_repository';
 
@@ -11,21 +11,29 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly keyCodeRepository: KeyCodeRepository,
+    private readonly publisher: EventPublisher,
   ) {}
 
-  async execute(command: CreateUserCommand): Promise<UserProps | null> {
+  async execute(command: CreateUserCommand): Promise<User> {
     const { mail, password, keyCode } = command;
 
     const existedKeyCode = await this.keyCodeRepository.isKeyCode(keyCode);
     const existedMail = await this.userRepository.getByMail(mail);
 
     if (existedKeyCode && !existedMail) {
-      const created = await this.userRepository.create({ mail, password });
-      await this.keyCodeRepository.removeKeyCode(keyCode); // move to event
+      const generatedSalt = await bcrypt.genSalt(10);
+      const hashPasword = await bcrypt.hash(password, generatedSalt);
 
-      return created;
+      const user = this.publisher.mergeObjectContext(
+        await this.userRepository.create({ mail, password: hashPasword }),
+      );
+
+      user.removeKeyCode(keyCode);
+      user.commit();
+
+      return user;
     }
 
-    return null;
+    throw new Error('Wrong KeyCode or email already exists.');
   }
 }
