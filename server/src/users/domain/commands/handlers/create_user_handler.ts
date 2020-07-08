@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import * as uuid from 'uuid';
+import * as bcrypt from 'bcrypt';
 
 import { CreateUserCommand } from '../impl/create_user_command';
 import { UserProps } from '../../models/user_model';
@@ -20,8 +20,8 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     const existedMail = await this.userRepository.getByMail(mail);
 
     if (existedKeyCode && !existedMail) {
-      const created = await this.userRepository.create({ mail, password });
-      await this.keyCodeRepository.removeKeyCode(keyCode); // move to event
+      const generatedSalt = await bcrypt.genSalt(10);
+      const hashPasword = await bcrypt.hash(password, generatedSalt);
 
       return created;
     }
