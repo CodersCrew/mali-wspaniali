@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { UserProps } from '../models/user_model';
+import { UserProps, User } from '../models/user_model';
 import { UserDocument } from '../../schemas/user_schema';
 
 @Injectable()
@@ -23,10 +23,11 @@ export class UserRepository {
   async create(createUserDTO: {
     mail: string;
     password: string;
-  }): Promise<UserProps> {
+  }): Promise<User> {
     const createdUser = new this.userModel(createUserDTO);
+    const rawUser = await createdUser.save();
 
-    return await createdUser.save();
+    return new User(rawUser);
   }
 
   // for e2e purpose only
