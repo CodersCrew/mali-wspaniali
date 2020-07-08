@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
 import * as bcrypt from 'bcrypt';
 
 import { CreateUserCommand } from '../impl/create_user_command';
@@ -11,6 +11,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly keyCodeRepository: KeyCodeRepository,
+    private readonly publisher: EventPublisher,
   ) {}
 
   async execute(command: CreateUserCommand): Promise<User> {
@@ -26,6 +27,10 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       const user = this.publisher.mergeObjectContext(
         await this.userRepository.create({ mail, password: hashPasword }),
       );
+
+      user.removeKeyCode(keyCode);
+      user.commit();
+
       return user;
     }
 
