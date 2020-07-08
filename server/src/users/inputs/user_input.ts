@@ -7,4 +7,7 @@ export class UserInput {
 
   @Field()
   readonly password: string;
+
+  @Field()
+  readonly keyCode: string;
 }

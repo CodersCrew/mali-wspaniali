@@ -32,7 +32,7 @@ export class UserResolver {
     @Args('user') user: UserInput,
   ): Promise<{ status: boolean }> {
     const created: UserProps = await this.commandBus.execute(
-      new CreateUserCommand(user.mail, user.password),
+      new CreateUserCommand(user.mail, user.password, user.keyCode),
     );
 
     return { status: !!created };

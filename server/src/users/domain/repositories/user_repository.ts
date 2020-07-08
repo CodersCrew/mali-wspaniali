@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { UserInput } from '../../inputs/user_input';
 import { UserProps } from '../models/user_model';
 import { UserDocument } from '../../schemas/user_schema';
 
@@ -17,7 +16,14 @@ export class UserRepository {
     return await this.userModel.findById(id).exec();
   }
 
-  async create(createUserDTO: UserInput): Promise<UserProps> {
+  async getByMail(mail: string): Promise<UserProps> {
+    return await this.userModel.findOne({ mail }).exec();
+  }
+
+  async create(createUserDTO: {
+    mail: string;
+    password: string;
+  }): Promise<UserProps> {
     const createdUser = new this.userModel(createUserDTO);
 
     return await createdUser.save();
