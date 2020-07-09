@@ -8,7 +8,7 @@ import { ArticlesRepository } from '../src/articles/domain/repositories/article_
 describe('Article (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -17,10 +17,14 @@ describe('Article (e2e)', () => {
 
     await app.init();
     await app.get(ArticlesRepository).clearTable();
+
+    done();
   });
 
-  afterEach(async () => {
+  afterEach(async done => {
     await app.close();
+
+    done();
   });
 
   describe('when DB is empty', () => {
