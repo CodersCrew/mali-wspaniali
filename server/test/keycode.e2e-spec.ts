@@ -5,10 +5,10 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { KeyCodeRepository } from '../src/key_codes/domain/repositories/key_code_repository';
 
-describe('Article (e2e)', () => {
+describe('KeyCode (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -17,10 +17,14 @@ describe('Article (e2e)', () => {
 
     await app.init();
     await app.get(KeyCodeRepository).clearTable();
+
+    done();
   });
 
-  afterEach(async () => {
+  afterEach(async done => {
     await app.close();
+
+    done();
   });
 
   describe('when DB is empty', () => {

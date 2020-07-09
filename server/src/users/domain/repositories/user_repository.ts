@@ -13,18 +13,20 @@ export class UserRepository {
   ) {}
 
   async get(id: string): Promise<UserProps> {
-    return await this.userModel.findById(id).exec();
+    return await this.userModel.findById(id, { password: 0 }).exec();
   }
 
   async getByMail(mail: string): Promise<UserProps> {
-    return await this.userModel.findOne({ mail }).exec();
+    return await this.userModel.findOne({ mail }, { password: 0 }).exec();
   }
 
   async create(createUserDTO: {
     mail: string;
     password: string;
   }): Promise<User> {
-    const createdUser = new this.userModel(createUserDTO);
+    const user = new User(createUserDTO);
+
+    const createdUser = new this.userModel(user.getProps());
     const rawUser = await createdUser.save();
 
     return new User(rawUser);
