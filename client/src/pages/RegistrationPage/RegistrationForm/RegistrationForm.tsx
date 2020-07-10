@@ -142,7 +142,7 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-mismatch'),
             });
         } else {
-            load(createUser({ email, password }))
+            load(createUser({mail: email, password, keyCode: code}))
                 .then(() => {
                     handleNext();
                 })

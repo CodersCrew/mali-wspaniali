@@ -23,3 +23,17 @@ export interface Redactor {
     profession: string;
     biography: string;
 }
+
+export interface User {
+    email: string;
+}
+
+export interface ReturnedStatus {
+    status: boolean;
+}
+
+export interface UserInput {
+    mail: string;
+    password: string;
+    keyCode: string;
+}
