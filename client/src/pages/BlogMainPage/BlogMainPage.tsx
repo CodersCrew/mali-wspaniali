@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
@@ -14,6 +13,8 @@ import { getArticles } from '../../queries/articleQueries';
 import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
+import { createStyles } from '@material-ui/styles';
+import { theme } from '../../theme/theme';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -83,43 +84,45 @@ export const BlogMainPage = () => {
     );
 };
 
-const useStyles = makeStyles({
-    headerBar: {
-        backgroundColor: mainColor,
-        borderRadius: '0 0 8px 8px',
-        fontWeight: 'bold',
-        padding: '10px',
-        color: white,
-        fontSize: '21px',
-        top: '50px',
-        left: 0,
-        width: '100vw',
-        position: 'absolute',
-        textTransform: 'uppercase',
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        headerBar: {
+            backgroundColor: mainColor,
+            borderRadius: '0 0 8px 8px',
+            fontWeight: 'bold',
+            padding: '10px',
+            color: white,
+            fontSize: '21px',
+            top: '50px',
+            left: 0,
+            width: '100vw',
+            position: 'absolute',
+            textTransform: 'uppercase',
 
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
+            [theme.breakpoints.up('md')]: {
+                display: 'none',
+            },
         },
-    },
 
-    gridContainer: {
-        maxWidth: '92%',
-        margin: '0 4%',
+        gridContainer: {
+            maxWidth: '92%',
+            margin: '0 4%',
 
-        [theme.breakpoints.down('sm')]: {
-            fontSize: 150,
-            display: 'flex',
-            flexDirection: 'column',
-            lineHeight: '18px',
+            [theme.breakpoints.down('sm')]: {
+                fontSize: 150,
+                display: 'flex',
+                flexDirection: 'column',
+                lineHeight: '18px',
+            },
         },
-    },
-    gridSubContainer: {
-        [theme.breakpoints.down('sm')]: {
-            minWidth: 'fit-content',
+        gridSubContainer: {
+            [theme.breakpoints.down('sm')]: {
+                minWidth: 'fit-content',
+            },
         },
-    },
-    gridBackground: {
-        backgroundColor: white,
-        borderRadius: '20px',
-    },
-});
+        gridBackground: {
+            backgroundColor: white,
+            borderRadius: '20px',
+        },
+    }),
+);

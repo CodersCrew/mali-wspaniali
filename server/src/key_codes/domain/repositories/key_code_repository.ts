@@ -18,8 +18,13 @@ export class KeyCodeRepository {
   }
 
   async create(createKeyCodeDTO: KeyCodeInput): Promise<KeyCodeProps> {
-    const createdArticle = new this.keyCodeModel(createKeyCodeDTO);
-    return await createdArticle.save();
+    const createdKeyCode = new this.keyCodeModel(createKeyCodeDTO);
+
+    return await createdKeyCode.save();
+  }
+
+  async createBulk(createKeyCodeDTO: KeyCodeInput[]): Promise<KeyCodeProps[]> {
+    return this.keyCodeModel.insertMany(createKeyCodeDTO);
   }
 
   async isKeyCode(keyCode: string): Promise<boolean> {

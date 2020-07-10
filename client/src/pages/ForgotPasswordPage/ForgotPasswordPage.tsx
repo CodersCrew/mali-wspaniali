@@ -2,10 +2,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { TextField, Button, makeStyles, Typography } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { TextField, Button, makeStyles, Typography, createStyles } from '@material-ui/core';
 
-import { theme } from '../../theme';
 import { backgroundColor, secondaryColor, white } from '../../colors';
 import { handlePasswordReset } from '../../queries/authQueries';
 import { isValidEmail } from './isValidEmail';
@@ -13,6 +11,7 @@ import { isValidEmail } from './isValidEmail';
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
+import { Theme } from '../../theme/types';
 
 enum ImageState {
     default = 'DEFAULT',
@@ -28,7 +27,7 @@ export const ForgotPasswordPage = () => {
     const [isResetEmailSent, setIsResetEmailSent] = useState(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        const { value } = event.target;
+        const value = event.target.value;
         const validEmail = isValidEmail(value);
 
         setImageState(ImageState[validEmail ? 'success' : 'error']);
@@ -39,13 +38,13 @@ export const ForgotPasswordPage = () => {
     const handleCreateNewPassword = () => {
         setImageState(ImageState.success);
         handlePasswordReset(email)
-            .then(() => setIsResetEmailSent(true))
-            .catch(() => setIsResetEmailSent(true));
+            .then(res => setIsResetEmailSent(true))
+            .catch(error => setIsResetEmailSent(true));
     };
 
-    const getImageSource = (_imageState: ImageState) => {
-        if (_imageState === ImageState.error) return ErrorImage;
-        if (_imageState === ImageState.success) return SuccessImage;
+    const getImageSource = (imageState: ImageState) => {
+        if (imageState === ImageState.error) return ErrorImage;
+        if (imageState === ImageState.success) return SuccessImage;
         return DefaultImage;
     };
 
@@ -103,113 +102,113 @@ export const ForgotPasswordPage = () => {
     );
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className={classes.container}>
-                <div className={classes.layout}>
-                    <img className={classes.image} src={getImageSource(imageState)} alt="małgosia czy jak jej tam" />
-                    <Typography variant="h3" className={classes.title}>
-                        {t('forgot-password-page.forgot-password')}
-                    </Typography>
-                    {isResetEmailSent ? renderPostSentJSX() : renderPreSentJSX()}
-                </div>
+        <div className={classes.container}>
+            <div className={classes.layout}>
+                <img className={classes.image} src={getImageSource(imageState)} alt="małgosia czy jak jej tam" />
+                <Typography variant="h3" className={classes.title}>
+                    {t('forgot-password-page.forgot-password')}
+                </Typography>
+                {isResetEmailSent ? renderPostSentJSX() : renderPreSentJSX()}
             </div>
-        </ThemeProvider>
+        </div>
     );
 };
 
-const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100%',
-    },
-    layout: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '70%',
-        minHeight: '90vh',
-
-        [theme.breakpoints.down('sm')]: {
-            minHeight: 'auto',
-            width: '90%',
-            maxWidth: '480px',
-            margin: '0 15px',
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '100%',
         },
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: '20px',
-        marginTop: '20px',
-        textTransform: 'uppercase',
-    },
-    subtitle: {
-        textAlign: 'center',
-    },
-    subtitleThin: {
-        marginBottom: '20px',
-        width: '320px',
-    },
-    buttonWrapper: {
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'flex-end',
-    },
-    button: {
-        color: backgroundColor,
-        fontWeight: 'bold',
-        marginBottom: '20px',
-        marginTop: '20px',
+        layout: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '70%',
+            minHeight: '90vh',
 
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: '44px',
-            marginTop: '30px',
+            [theme.breakpoints.down('sm')]: {
+                minHeight: 'auto',
+                width: '90%',
+                maxWidth: '480px',
+                margin: '0 15px',
+            },
         },
+        title: {
+            textAlign: 'center',
+            marginBottom: '20px',
+            marginTop: '20px',
+            textTransform: 'uppercase',
+        },
+        subtitle: {
+            textAlign: 'center',
+        },
+        subtitleThin: {
+            marginBottom: '20px',
+            width: '320px',
+        },
+        buttonWrapper: {
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'flex-end',
+        },
+        button: {
+            color: backgroundColor,
+            fontWeight: 'bold',
+            marginBottom: '20px',
+            marginTop: '20px',
 
-        '&disbled': {
-            color: secondaryColor,
+            [theme.breakpoints.down('sm')]: {
+                marginBottom: '44px',
+                marginTop: '30px',
+            },
+
+            '&disbled': {
+                color: secondaryColor,
+            },
         },
-    },
-    textField: {
-        width: '100%',
-    },
-    image: {
-        borderRadius: '50%',
-        width: '214px',
-        [theme.breakpoints.down('sm')]: {
-            width: '100px',
+        textField: {
+            width: '100%',
+        },
+        image: {
+            borderRadius: '50%',
+            width: '214px',
+            [theme.breakpoints.down('sm')]: {
+                width: '100px',
+                marginTop: '40px',
+            },
+        },
+        loginLinkWrapper: {
+            marginBottom: '20px',
             marginTop: '40px',
         },
-    },
-    loginLinkWrapper: {
-        marginBottom: '20px',
-        marginTop: '40px',
-    },
-    loginLink: {
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        color: white,
-        textDecoration: 'none',
-    },
-    underlinedText: {
-        textAlign: 'center',
-        position: 'relative',
-        marginBottom: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-
-        '&::after': {
-            position: 'absolute',
-            content: '""',
-            height: '1px',
-            margin: '0 auto',
-            left: '0',
-            bottom: '-2px',
-            right: '0',
-            width: '100%',
-            background: 'black',
+        loginLink: {
+            fontStyle: 'normal',
+            fontWeight: 'bold',
+            color: white,
+            textDecoration: 'none',
         },
-    },
-});
+        underlinedText: {
+            textAlign: 'center',
+            position: 'relative',
+            marginBottom: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+
+            '&::after': {
+                position: 'absolute',
+                content: '""',
+                height: '1px',
+                margin: '0 auto',
+                left: '0',
+                bottom: '-2px',
+                right: '0',
+                width: '100%',
+                background: 'black',
+            },
+        },
+    }),
+);

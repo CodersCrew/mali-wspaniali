@@ -30,7 +30,7 @@ export const NotificationItem = ({ text, date, isRead, id }: notificationItemPro
             <ListItem className={clsx(classes.notificationItem, isRead ? 'read' : null)}>
                 <Notifications className={clsx(classes.notificationIcon, isRead ? 'read' : null)} />
                 <div onClick={setNotificationValue} className={classes.notificationText}>
-                    <Typography className={classes.notificationTitle} gutterBottom variant="h6">
+                    <Typography className={classes.notificationTitle} gutterBottom variant="body1">
                         {text}
                     </Typography>
                     <Typography className={classes.notificationCaption} gutterBottom variant="caption">
@@ -56,14 +56,12 @@ const useStyles = makeStyles(() =>
         },
         notificationTitle: {
             height: '55px',
-            fontSize: '15px',
             color: textColor,
             marginBottom: '10px',
         },
         notificationCaption: {
             width: '39px',
             height: '7px',
-            fontSize: '12px',
             color: notificationCaptionColor,
         },
         notificationIcon: {

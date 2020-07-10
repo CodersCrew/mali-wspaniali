@@ -13,9 +13,10 @@ export class ArticlesRepository {
   ) {}
 
   async create(createArticleDTO: ArticleInput): Promise<Article> {
-    const createdArticle = new this.articleModel(createArticleDTO);
+    const article = Article.recreate(createArticleDTO);
+    const createdArticle = new this.articleModel(article.getProps());
 
-    return await createdArticle.save().then(article => new Article(article));
+    return await createdArticle.save().then(article => Article.create(article));
   }
 
   async getPage(page: number, category?: string): Promise<Article[]> {
@@ -30,7 +31,19 @@ export class ArticlesRepository {
       .skip((page - 1) * 6)
       .limit(7)
       .exec()
-      .then(articles => articles.map(article => new Article(article)));
+      .then(articles => {
+        const validArticles: Article[] = [];
+
+        articles.forEach(article => {
+          try {
+            validArticles.push(Article.recreate(article));
+          } catch (e) {
+            console.log(e);
+          }
+        });
+
+        return validArticles;
+      });
   }
 
   async getLast(count: number): Promise<Article[]> {
@@ -40,14 +53,26 @@ export class ArticlesRepository {
       .find({}, {}, { sort: { date: -1 } })
       .limit(count)
       .exec()
-      .then(articles => articles.map(article => new Article(article)));
+      .then(articles => {
+        const validArticles: Article[] = [];
+
+        articles.forEach(article => {
+          try {
+            validArticles.push(Article.recreate(article));
+          } catch (e) {
+            console.log(e);
+          }
+        });
+
+        return validArticles;
+      });
   }
 
   async get(id: string): Promise<Article> {
     return await this.articleModel
       .findById(id)
       .exec()
-      .then(article => new Article(article));
+      .then(article => Article.recreate(article));
   }
 
   // for e2e purpose only

@@ -21,5 +21,6 @@ import { QueryHandlers } from './domain/queries/handlers';
     ...CommandHandlers,
     ...QueryHandlers,
   ],
+  exports: [KeyCodeRepository],
 })
 export class KeyCodesModule {}

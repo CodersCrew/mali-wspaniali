@@ -23,7 +23,7 @@ export const BlogArticleCard = ({ image, title, description, link, category }: P
             <CardMedia component="img" alt={title} image={image} title={title} className={classes.cardImage} />
             <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h5" className={classes.articleTitle}>
+                <Typography gutterBottom variant="subtitle1" className={classes.articleTitle}>
                     {title}
                 </Typography>
                 <Typography variant="body2">{description}</Typography>
@@ -69,8 +69,6 @@ const useStyles = makeStyles({
     articleTitle: {
         position: 'relative',
         bottom: '10px',
-        fontSize: '15px',
-        fontWeight: 'bold',
     },
     readMoreButton: {
         color: white,

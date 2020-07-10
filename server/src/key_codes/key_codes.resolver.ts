@@ -1,10 +1,11 @@
-import { Resolver, Mutation, Query } from '@nestjs/graphql';
+import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors } from '@nestjs/common';
 
 import { KeyCodeRepository } from './domain/repositories/key_code_repository';
 import { KeyCodeProps } from './domain/models/key_code_model';
 import { CreateKeyCodeCommand } from './domain/commands/impl/create_key_code_command';
+import { CreateBulkKeyCodeCommand } from './domain/commands/impl/create_bulk_key_code_command';
 import { CreateKeyCodeDTO } from './dto/create_key_code.dto';
 import { GetAllKeyCodesQuery } from './domain/queries/impl/get_all_key_codes_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
@@ -33,6 +34,19 @@ export class KeyCodesResolver {
 
     const created: KeyCodeProps = await this.commandBus.execute(
       new CreateKeyCodeCommand(createdBy),
+    );
+
+    return created;
+  }
+
+  @Mutation(() => [CreateKeyCodeDTO])
+  async createKeyCodeBulk(
+    @Args('ammount') ammount: number,
+  ): Promise<KeyCodeProps> {
+    const createdBy = 'Janek25';
+
+    const created: KeyCodeProps = await this.commandBus.execute(
+      new CreateBulkKeyCodeCommand(createdBy, ammount),
     );
 
     return created;

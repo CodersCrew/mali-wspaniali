@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Typography, Button, makeStyles, createStyles, ThemeProvider } from '@material-ui/core';
+import { Typography, Button, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
@@ -11,8 +11,8 @@ import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
-import { theme } from '../../theme';
 import { secondaryColor, white } from '../../colors';
+import { Theme } from '../../theme/types';
 
 const initialState = {
     type: {
@@ -152,58 +152,56 @@ export const NewsletterPage = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className={classes.container}>
-                <Typography variant="h1" className={classes.header}>
-                    {t('newsletter.header')}
-                </Typography>
-                <Typography variant="h2" className={classes.subHeader}>
-                    {t('newsletter.subHeader')}
-                </Typography>
-                <div className={classes.formContainer}>
-                    <NewsletterProgressBar progressBarState={progressBarState} />
-                    <div className={classes.inputContainer}>
-                        <NewsletterRecipent
-                            generalType={generalType}
-                            specificType={specificType}
-                            recipients={recipients}
-                            handleChange={handleChange}
-                            selectRecipients={selectRecipients}
-                            setFields={setFields}
-                        />
-                        <NewsletterContent
-                            handleTypeDelete={handleTypeDelete}
-                            handleChange={handleChange}
-                            type={type}
-                            topic={topic}
-                            recipients={recipients}
-                            message={message}
-                            setFields={setFields}
-                        />
-                    </div>
-                </div>
-                <div className={classes.formButtonWrapper}>
-                    <Button
-                        disabled={
-                            recipients.value.length === 0 ||
-                            !type.value ||
-                            !topic.value ||
-                            !message.value ||
-                            message.value === '<p><br></p>'
-                        }
-                        className={classes.formButton}
-                        onClick={handleSubmit}
-                        classes={{ disabled: classes.formButtonDisabled }}
-                    >
-                        {t('newsletter.send')}
-                    </Button>
+        <div className={classes.container}>
+            <Typography variant="h1" className={classes.header}>
+                {t('newsletter.header')}
+            </Typography>
+            <Typography variant="h2" className={classes.subHeader}>
+                {t('newsletter.subHeader')}
+            </Typography>
+            <div className={classes.formContainer}>
+                <NewsletterProgressBar progressBarState={progressBarState} />
+                <div className={classes.inputContainer}>
+                    <NewsletterRecipent
+                        generalType={generalType}
+                        specificType={specificType}
+                        recipients={recipients}
+                        handleChange={handleChange}
+                        selectRecipients={selectRecipients}
+                        setFields={setFields}
+                    />
+                    <NewsletterContent
+                        handleTypeDelete={handleTypeDelete}
+                        handleChange={handleChange}
+                        type={type}
+                        topic={topic}
+                        recipients={recipients}
+                        message={message}
+                        setFields={setFields}
+                    />
                 </div>
             </div>
-        </ThemeProvider>
+            <div className={classes.formButtonWrapper}>
+                <Button
+                    disabled={
+                        recipients.value.length === 0 ||
+                        !type.value ||
+                        !topic.value ||
+                        !message.value ||
+                        message.value === '<p><br></p>'
+                    }
+                    className={classes.formButton}
+                    onClick={handleSubmit}
+                    classes={{ disabled: classes.formButtonDisabled }}
+                >
+                    {t('newsletter.send')}
+                </Button>
+            </div>
+        </div>
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             padding: '0 90px 54px 0',
@@ -212,11 +210,8 @@ const useStyles = makeStyles(() =>
             },
         },
         header: {
-            fontSize: 36,
             marginBottom: 20,
             textTransform: 'uppercase',
-            lineHeight: '44px',
-            fontWeight: 'bold',
 
             [theme.breakpoints.down('sm')]: {
                 marginTop: 25,
@@ -225,10 +220,7 @@ const useStyles = makeStyles(() =>
             },
         },
         subHeader: {
-            fontSize: 21,
             marginBottom: 40,
-            lineHeight: '21px',
-            fontWeight: 500,
         },
         formContainer: {
             display: 'flex',
