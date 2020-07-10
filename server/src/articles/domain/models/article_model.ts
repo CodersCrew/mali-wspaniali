@@ -74,7 +74,7 @@ export class Article extends AggregateRoot {
   static create(props: ArticleProps): Article {
     const article = new Article(props);
 
-    article.apply(new ArticleCreatedEvent(article.id, 'all'));
+    article.apply(new ArticleCreatedEvent(article.id));
 
     return article;
   }
