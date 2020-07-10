@@ -71,7 +71,7 @@ export class Article extends AggregateRoot {
     this.props.tags = Tags.create(props.tags).getValue().value;
   }
 
-  static create(props: ArticleProps) {
+  static create(props: ArticleProps): Article {
     const article = new Article(props);
 
     article.apply(new ArticleCreatedEvent(article.id, 'all'));
@@ -79,7 +79,7 @@ export class Article extends AggregateRoot {
     return article;
   }
 
-  static recreate(props: ArticleProps) {
+  static recreate(props: ArticleProps): Article {
     return new Article(props);
   }
 

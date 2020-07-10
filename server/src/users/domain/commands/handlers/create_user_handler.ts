@@ -25,10 +25,12 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       const hashPasword = await bcrypt.hash(password, generatedSalt);
 
       const user = this.publisher.mergeObjectContext(
-        await this.userRepository.create({ mail, password: hashPasword }),
+        await this.userRepository.create(
+          { mail, password: hashPasword },
+          keyCode,
+        ),
       );
 
-      user.removeKeyCode(keyCode);
       user.commit();
 
       return user;
