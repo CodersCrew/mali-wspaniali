@@ -1,9 +1,10 @@
 import { Document } from 'mongoose';
 
 import { Redactor } from './redactor.interface';
+import { CategoryProps } from '../domain/models/category';
 
 export interface ArticleDocument extends Document {
-  readonly category: string;
+  readonly category: CategoryProps;
   readonly contentHTML: string;
   readonly date: Date;
   readonly description: string;

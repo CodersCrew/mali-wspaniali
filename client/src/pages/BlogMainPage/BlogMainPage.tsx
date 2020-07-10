@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, makeStyles, Grid } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { theme } from '../../theme';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
@@ -44,8 +42,8 @@ export const BlogMainPage = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <Typography variant="h4" gutterBottom className={classes.heading}>
+        <>
+            <Typography variant="h2" gutterBottom className={classes.heading}>
                 {t('blog-main-page.header')}
             </Typography>
             <CategoryTabs
@@ -73,14 +71,12 @@ export const BlogMainPage = () => {
                     handleChange={paginationQuery}
                 />
             </div>
-        </ThemeProvider>
+        </>
     );
 };
 
 const useStyles = makeStyles({
     heading: {
-        fontWeight: 'bold',
-        fontSize: '34px',
         marginBottom: '4%',
         marginLeft: '3%',
         width: '60%',
