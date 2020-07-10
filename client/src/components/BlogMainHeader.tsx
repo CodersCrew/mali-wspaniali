@@ -2,7 +2,9 @@ import React from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from '../theme';
+import { theme } from '../theme/theme';
+import { createStyles } from '@material-ui/styles';
+import { Theme } from '../theme';
 
 export const BlogMainHeader = () => {
     const classes = useStyles();
@@ -17,22 +19,24 @@ export const BlogMainHeader = () => {
     );
 };
 
-const useStyles = makeStyles({
-    heading: {
-        marginTop: '20px',
-        fontWeight: 'bold',
-        fontSize: '34px',
-        marginBottom: '4%',
-        marginLeft: '3%',
-        width: '60%',
-        zIndex: 10,
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        heading: {
+            marginTop: '20px',
+            fontWeight: 'bold',
+            fontSize: '34px',
+            marginBottom: '4%',
+            marginLeft: '3%',
+            width: '60%',
+            zIndex: 10,
 
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '15px',
-            fontWeight: 'normal',
-            textAlign: 'center',
-            marginLeft: '20%',
-            textTransform: 'uppercase',
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '15px',
+                fontWeight: 'normal',
+                textAlign: 'center',
+                marginLeft: '20%',
+                textTransform: 'uppercase',
+            },
         },
-    },
-});
+    }),
+);

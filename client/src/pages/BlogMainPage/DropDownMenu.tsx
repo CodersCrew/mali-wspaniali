@@ -7,7 +7,8 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { categoriesList } from './BlogCategories';
 import { DropDownMenuItem } from './DropDownMenuItem';
-import { theme } from '../../theme';
+import { theme } from '../../theme/theme';
+import { Theme } from '../../theme';
 
 type DropDownMenuProps = {
     onClick: (value: string) => void;
@@ -87,7 +88,7 @@ export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => 
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',

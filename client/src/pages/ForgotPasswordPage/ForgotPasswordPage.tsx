@@ -27,7 +27,7 @@ export const ForgotPasswordPage = () => {
     const [isResetEmailSent, setIsResetEmailSent] = useState(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        const value = event.target.value;
+        const { value } = event.target;
         const validEmail = isValidEmail(value);
 
         setImageState(ImageState[validEmail ? 'success' : 'error']);
@@ -38,13 +38,13 @@ export const ForgotPasswordPage = () => {
     const handleCreateNewPassword = () => {
         setImageState(ImageState.success);
         handlePasswordReset(email)
-            .then(res => setIsResetEmailSent(true))
-            .catch(error => setIsResetEmailSent(true));
+            .then(() => setIsResetEmailSent(true))
+            .catch(() => setIsResetEmailSent(true));
     };
 
-    const getImageSource = (imageState: ImageState) => {
-        if (imageState === ImageState.error) return ErrorImage;
-        if (imageState === ImageState.success) return SuccessImage;
+    const getImageSource = (_imageState: ImageState) => {
+        if (_imageState === ImageState.error) return ErrorImage;
+        if (_imageState === ImageState.success) return SuccessImage;
         return DefaultImage;
     };
 

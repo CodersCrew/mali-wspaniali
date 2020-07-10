@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
-import { ThemeProvider, Theme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useParams, useHistory } from 'react-router-dom';
 
+import { createStyles } from '@material-ui/styles';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
@@ -13,8 +14,8 @@ import { getArticles } from '../../queries/articleQueries';
 import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
-import { createStyles } from '@material-ui/styles';
 import { theme } from '../../theme/theme';
+import { Theme } from '../../theme';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
