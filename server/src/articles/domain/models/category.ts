@@ -14,7 +14,7 @@ export class Category extends ValueObject<CategoryValue> {
     return this.props.value;
   }
 
-  public static create(category: string) {
+  public static create(category: string): Result<CategoryValue> {
     if (!['food', 'activity', 'emotions', 'other'].includes(category)) {
       return Result.fail<CategoryValue>('Category must be valid.');
     } else {

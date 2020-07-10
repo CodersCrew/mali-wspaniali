@@ -16,7 +16,7 @@ export class Mail extends ValueObject<MailValue> {
     return this.props.value;
   }
 
-  public static create(mail: string) {
+  public static create(mail: string): Result<MailValue> {
     if (!mailRegexp.test(mail)) {
       return Result.fail<MailValue>('Mail must be valid.');
     } else {
