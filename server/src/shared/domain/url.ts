@@ -14,7 +14,7 @@ export class Url extends ValueObject<UrlValue> {
     return this.props.value;
   }
 
-  public static create(url: string) {
+  public static create(url: string): Result<UrlValue> {
     const IsUrlRegExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
     if (url && !IsUrlRegExp.test(url)) {
