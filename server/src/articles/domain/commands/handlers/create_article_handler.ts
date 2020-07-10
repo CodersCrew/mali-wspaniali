@@ -19,7 +19,6 @@ export class CreateArticleHandler
       await this.repository.create(articleProps),
     );
 
-    article.sendNotifications('all');
     article.commit();
 
     return article;

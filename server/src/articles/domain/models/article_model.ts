@@ -35,7 +35,7 @@ export interface ArticleProps {
 }
 
 export class Article extends AggregateRoot {
-  constructor(private readonly props: ArticleProps) {
+  private constructor(private readonly props: ArticleProps) {
     super();
 
     this.props.category = Category.create(props.category).getValue().value;
@@ -71,8 +71,16 @@ export class Article extends AggregateRoot {
     this.props.tags = Tags.create(props.tags).getValue().value;
   }
 
-  sendNotifications(users: string): void {
-    this.apply(new ArticleCreatedEvent(this.id, users));
+  static create(props: ArticleProps) {
+    const article = new Article(props);
+
+    article.apply(new ArticleCreatedEvent(article.id, 'all'));
+
+    return article;
+  }
+
+  static recreate(props: ArticleProps) {
+    return new Article(props);
   }
 
   getProps(): ArticleProps {
