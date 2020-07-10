@@ -1,14 +1,12 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Container } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { ThemeProvider } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { load } from '../../../utils/load';
 import { createUser } from '../../../queries/userQueries';
 import { passwordStrengthTest } from '../passwordStrengthTest';
 import { useStyles } from './styles';
-import { theme } from '../../../theme';
 import { RegistrationEmail } from './RegistrationEmail';
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationPassword } from './RegistrationPassword';
@@ -161,27 +159,25 @@ export const RegistrationForm = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className={clsx(classes.container, activeStep === 2 && 'agreements')}>
-                <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                    {activeStep !== 4 && (
-                        <Container className={classes.headerContainer}>
-                            <Typography variant="h4">
-                                <div className={classes.registrationHeader}>{t('registration-page.register')}</div>
-                            </Typography>
-                            <LanguageSelector />
-                        </Container>
-                    )}
-                    <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
-                        {steps.map((step, idx) => (
-                            <Step key={step} style={{ border: 'none' }}>
-                                <StepLabel>{step}</StepLabel>
-                                <StepContent>{getStepContent(idx)}</StepContent>
-                            </Step>
-                        ))}
-                    </Stepper>
-                </form>
-            </div>
-        </ThemeProvider>
+        <div className={clsx(classes.container, activeStep === 2 && 'agreements')}>
+            <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
+                {activeStep !== 4 && (
+                    <Container className={classes.headerContainer}>
+                        <Typography variant="h4">
+                            <div className={classes.registrationHeader}>{t('registration-page.register')}</div>
+                        </Typography>
+                        <LanguageSelector />
+                    </Container>
+                )}
+                <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
+                    {steps.map((step, idx) => (
+                        <Step key={step} style={{ border: 'none' }}>
+                            <StepLabel>{step}</StepLabel>
+                            <StepContent>{getStepContent(idx)}</StepContent>
+                        </Step>
+                    ))}
+                </Stepper>
+            </form>
+        </div>
     );
 };

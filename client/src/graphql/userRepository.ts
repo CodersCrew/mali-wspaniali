@@ -11,7 +11,7 @@ export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>
                     status
                 }
             }
-    `,
-        variables: {user},
+        `,
+        variables: { user },
     });
 }
