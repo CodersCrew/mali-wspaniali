@@ -13,10 +13,10 @@ export class ArticlesRepository {
   ) {}
 
   async create(createArticleDTO: ArticleInput): Promise<Article> {
-    const article = new Article(createArticleDTO);
+    const article = Article.recreate(createArticleDTO);
     const createdArticle = new this.articleModel(article.getProps());
 
-    return await createdArticle.save().then(article => new Article(article));
+    return await createdArticle.save().then(article => Article.create(article));
   }
 
   async getPage(page: number, category?: string): Promise<Article[]> {
@@ -36,7 +36,7 @@ export class ArticlesRepository {
 
         articles.forEach(article => {
           try {
-            validArticles.push(new Article(article));
+            validArticles.push(Article.recreate(article));
           } catch (e) {
             console.log(e);
           }
@@ -58,7 +58,7 @@ export class ArticlesRepository {
 
         articles.forEach(article => {
           try {
-            validArticles.push(new Article(article));
+            validArticles.push(Article.recreate(article));
           } catch (e) {
             console.log(e);
           }
@@ -72,7 +72,7 @@ export class ArticlesRepository {
     return await this.articleModel
       .findById(id)
       .exec()
-      .then(article => new Article(article));
+      .then(article => Article.recreate(article));
   }
 
   // for e2e purpose only

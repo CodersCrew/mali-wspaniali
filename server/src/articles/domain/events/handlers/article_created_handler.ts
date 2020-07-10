@@ -6,6 +6,6 @@ import { ArticleCreatedEvent } from '../impl/article_created_event';
 export class ArticleCreatedHandler
   implements IEventHandler<ArticleCreatedEvent> {
   handle(): void {
-    // console.log('[event] ArticleCreated');
+    // console.log('[event] ArticleCreated'); - notify all users
   }
 }

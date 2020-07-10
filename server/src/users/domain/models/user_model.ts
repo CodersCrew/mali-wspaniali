@@ -15,16 +15,26 @@ export interface UserBeforeSaveProps {
 }
 
 export class User extends AggregateRoot {
-  constructor(private readonly props: UserProps | UserBeforeSaveProps) {
+  private constructor(private readonly props: UserProps | UserBeforeSaveProps) {
     super();
 
     this.props.mail = Mail.create(props.mail).getValue().value;
   }
 
-  removeKeyCode(keyCode: string): void {
-    if (isUserProps(this.props)) {
-      this.apply(new UserCreatedEvent(this.props._id, keyCode));
+  static create(props: UserProps, keyCode: string): User {
+    const user = new User(props);
+
+    if (isUserProps(user.props)) {
+      user.apply(new UserCreatedEvent(user.props._id, keyCode));
     }
+
+    return user;
+  }
+
+  static recreate(props: UserProps | UserBeforeSaveProps): User {
+    const user = new User(props);
+
+    return user;
   }
 
   getProps(): UserProps | UserBeforeSaveProps {

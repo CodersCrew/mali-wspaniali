@@ -20,16 +20,19 @@ export class UserRepository {
     return await this.userModel.findOne({ mail }, { password: 0 }).exec();
   }
 
-  async create(createUserDTO: {
-    mail: string;
-    password: string;
-  }): Promise<User> {
-    const user = new User(createUserDTO);
+  async create(
+    createUserDTO: {
+      mail: string;
+      password: string;
+    },
+    keyCode: string,
+  ): Promise<User> {
+    const user = User.recreate(createUserDTO);
 
     const createdUser = new this.userModel(user.getProps());
     const rawUser = await createdUser.save();
 
-    return new User(rawUser);
+    return User.create(rawUser, keyCode);
   }
 
   // for e2e purpose only
