@@ -14,7 +14,7 @@ export class ReadingTime extends ValueObject<ReadingTimeValue> {
     return this.props.value;
   }
 
-  public static create(time: number) {
+  public static create(time: number): Result<ReadingTimeValue> {
     if (time < 0) {
       return Result.fail<ReadingTimeValue>('ReadingTime must be valid.');
     } else {

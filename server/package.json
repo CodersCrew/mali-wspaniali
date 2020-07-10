@@ -41,6 +41,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
     "shallow-equal-object": "^1.1.1",
+    "short-unique-id": "^3.0.3",
     "type-graphql": "^1.0.0-rc.2"
   },
   "devDependencies": {
