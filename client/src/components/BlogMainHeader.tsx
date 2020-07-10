@@ -1,10 +1,9 @@
 import React from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from '../theme/theme';
+import { ThemeProvider, Theme } from '@material-ui/core/styles';
 import { createStyles } from '@material-ui/styles';
-import { Theme } from '../theme';
+import { theme } from '../theme/theme';
 
 export const BlogMainHeader = () => {
     const classes = useStyles();

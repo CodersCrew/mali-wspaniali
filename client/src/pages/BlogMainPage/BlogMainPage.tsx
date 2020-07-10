@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useParams, useHistory } from 'react-router-dom';
 
@@ -15,7 +15,6 @@ import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
 import { theme } from '../../theme/theme';
-import { Theme } from '../../theme';
 
 export const BlogMainPage = () => {
     const classes = useStyles();

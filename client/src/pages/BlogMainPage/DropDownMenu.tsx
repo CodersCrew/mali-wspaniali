@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Tabs, Grow, Paper, Popper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, withStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, createStyles, withStyles, ThemeProvider, Theme } from '@material-ui/core/styles';
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { categoriesList } from './BlogCategories';
 import { DropDownMenuItem } from './DropDownMenuItem';
 import { theme } from '../../theme/theme';
-import { Theme } from '../../theme';
 
 type DropDownMenuProps = {
     onClick: (value: string) => void;
