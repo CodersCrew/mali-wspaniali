@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { KeyCodeSchema } from './schemas/key_codes.schema';
 import { KeyCodesResolver } from './key_codes.resolver';
 import { KeyCodeRepository } from './domain/repositories/key_code_repository';
-import { KeyCodeCronService } from './cron_service';
+import { KeyCodesCronService } from './key_codes_cron_service';
 import { CommandHandlers } from './domain/commands/handlers';
 import { QueryHandlers } from './domain/queries/handlers';
 
@@ -17,7 +17,7 @@ import { QueryHandlers } from './domain/queries/handlers';
   providers: [
     KeyCodesResolver,
     KeyCodeRepository,
-    KeyCodeCronService,
+    KeyCodesCronService,
     ...CommandHandlers,
     ...QueryHandlers,
   ],

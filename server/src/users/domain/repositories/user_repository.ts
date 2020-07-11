@@ -13,11 +13,28 @@ export class UserRepository {
   ) {}
 
   async get(id: string): Promise<UserProps> {
-    return await this.userModel.findById(id, { password: 0 }).exec();
+    return await this.userModel
+      .findById(id, { password: 0 })
+      .lean()
+      .exec();
   }
 
   async getByMail(mail: string): Promise<UserProps> {
     return await this.userModel.findOne({ mail }).exec();
+  }
+
+  async forEach(cb: (user: UserDocument) => void) {
+    return await this.userModel
+      .find()
+      .cursor()
+      .eachAsync(user => cb(user));
+  }
+
+  async forEachAdmin(cb: (user: UserDocument) => void) {
+    return await this.userModel
+      .find({ role: 'admin' })
+      .cursor()
+      .eachAsync(user => cb(user));
   }
 
   async create(

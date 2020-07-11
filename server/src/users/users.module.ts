@@ -14,10 +14,12 @@ import { KeyCodesModule } from '../key_codes/key_codes.module';
 import { EventHandlers } from './domain/events/handlers';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { JwtStrategy } from './strategy/jwt_strategy';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
     KeyCodesModule,
+    NotificationsModule,
     CqrsModule,
     ConfigModule.forRoot(),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
@@ -36,5 +38,6 @@ import { JwtStrategy } from './strategy/jwt_strategy';
     ...QueryHandlers,
     ...EventHandlers,
   ],
+  exports: [UserRepository],
 })
 export class UserModule {}
