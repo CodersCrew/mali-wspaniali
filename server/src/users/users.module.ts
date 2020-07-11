@@ -12,6 +12,8 @@ import { UserRepository } from './domain/repositories/user_repository';
 import { UserResolver } from './users.resolver';
 import { KeyCodesModule } from '../key_codes/key_codes.module';
 import { EventHandlers } from './domain/events/handlers';
+import { GqlAuthGuard } from './guards/jwt_guard';
+import { JwtStrategy } from './strategy/jwt_strategy';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { EventHandlers } from './domain/events/handlers';
     }),
   ],
   providers: [
+    JwtStrategy,
+    GqlAuthGuard,
     UserResolver,
     UserRepository,
     ...CommandHandlers,
