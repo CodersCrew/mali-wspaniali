@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 

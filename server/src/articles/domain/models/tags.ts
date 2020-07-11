@@ -14,7 +14,7 @@ export class Tags extends ValueObject<TagsValue> {
     return this.props.value;
   }
 
-  public static create(tags: string[]) {
+  public static create(tags: string[]): Result<TagsValue> {
     if (new Set(tags).size !== tags.length) {
       return Result.fail<TagsValue>('Tags must be valid.');
     } else {
