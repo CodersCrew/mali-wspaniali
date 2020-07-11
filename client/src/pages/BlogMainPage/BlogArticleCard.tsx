@@ -66,6 +66,7 @@ const useStyles = makeStyles({
     },
     readMoreButton: {
         color: white,
+        fontFamily: 'roboto',
         fontSize: '13px',
         whiteSpace: 'nowrap',
         borderRadius: '4px',
