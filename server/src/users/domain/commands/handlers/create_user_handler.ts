@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
 import * as bcrypt from 'bcrypt';
 
 import { CreateUserCommand } from '../impl/create_user_command';
-import { UserProps, User } from '../../models/user_model';
+import { User } from '../../models/user_model';
 import { UserRepository } from '../../repositories/user_repository';
 import { KeyCodeRepository } from '../../../../key_codes/domain/repositories/key_code_repository';
 
