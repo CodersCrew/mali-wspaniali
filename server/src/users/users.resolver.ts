@@ -38,7 +38,7 @@ export class UserResolver {
 
   @Query(() => UserDTO)
   @UseGuards(GqlAuthGuard)
-  async me(@CurrentUser() user): Promise<UserProps> {
+  async me(@CurrentUser() user): Promise<UserDTO> {
     return await this.queryBus.execute(new GetUserQuery(user.userId));
   }
 
