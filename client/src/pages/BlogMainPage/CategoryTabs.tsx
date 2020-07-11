@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Tabs, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 
