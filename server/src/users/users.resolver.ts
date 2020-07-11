@@ -1,6 +1,18 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Mutation,
+  Query,
+  Args,
+  Context,
+  GqlExecutionContext,
+} from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UseInterceptors } from '@nestjs/common';
+import {
+  UseInterceptors,
+  ExecutionContext,
+  UseGuards,
+  Injectable,
+} from '@nestjs/common';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
@@ -10,6 +22,10 @@ import { UserRepository } from './domain/repositories/user_repository';
 import { UserInput } from './inputs/user_input';
 import { CreateUserCommand } from './domain/commands/impl/create_user_command';
 import { ReturnedStatusDTO } from '../shared/returned_status';
+import { LoginInput } from './inputs/login_input';
+import { LoginUserCommand } from './domain/commands/impl/login_user_command';
+import { GqlAuthGuard } from './guards/jwt_guard';
+import { CurrentUser } from './params/current_user_param';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -35,5 +51,19 @@ export class UserResolver {
     );
 
     return { status: !!created };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  async login(
+    @Context() context,
+    @Args('user') user: LoginInput,
+  ): Promise<{ status: boolean }> {
+    const payload = await this.commandBus.execute(
+      new LoginUserCommand(user.mail, user.password),
+    );
+
+    context.res.cookie('Authorization', payload);
+
+    return { status: !!payload };
   }
 }
