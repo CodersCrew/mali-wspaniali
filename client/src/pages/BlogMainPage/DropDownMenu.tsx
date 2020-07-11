@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Tabs, Grow, Paper, Popper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, withStyles, ThemeProvider, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { categoriesList } from './BlogCategories';
 import { DropDownMenuItem } from './DropDownMenuItem';
-import { theme } from '../../theme/theme';
+import { Theme } from '../../theme/types';
 
 type DropDownMenuProps = {
     onClick: (value: string) => void;
@@ -48,46 +48,41 @@ export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => 
     }, [isOpen]);
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className={classes.root} onKeyDown={handleListKeyDown}>
-                <Button
-                    ref={anchorRef}
-                    aria-controls={isOpen ? 'menu-list-grow' : ''}
-                    aria-haspopup="true"
-                    onClick={handleToggle}
-                    className={classes.button}
-                >
-                    {buttonCategoryValue || t('blog-categories.all')}
-                    {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                </Button>
-                <Popper className={classes.container} open={isOpen} transition disablePortal>
-                    {({ TransitionProps }) => (
-                        <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
-                            <Paper>
-                                <MenuStyledTabs
-                                    value={values.findIndex(tab => tab.key === active)}
-                                    onChange={handleChange}
-                                >
-                                    {values.map(category => {
-                                        return (
-                                            <DropDownMenuItem
-                                                key={category.name}
-                                                label={category.name}
-                                                color={category.color}
-                                            />
-                                        );
-                                    })}
-                                </MenuStyledTabs>
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
-            </div>
-        </ThemeProvider>
+        <div className={classes.root} onKeyDown={handleListKeyDown}>
+            <Button
+                ref={anchorRef}
+                aria-controls={isOpen ? 'menu-list-grow' : ''}
+                aria-haspopup="true"
+                onClick={handleToggle}
+                className={classes.button}
+            >
+                {buttonCategoryValue || t('blog-categories.all')}
+                {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </Button>
+            <Popper className={classes.container} open={isOpen} transition disablePortal>
+                {({ TransitionProps }) => (
+                    <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
+                        <Paper>
+                            <MenuStyledTabs value={values.findIndex(tab => tab.key === active)} onChange={handleChange}>
+                                {values.map(category => {
+                                    return (
+                                        <DropDownMenuItem
+                                            key={category.name}
+                                            label={category.name}
+                                            color={category.color}
+                                        />
+                                    );
+                                })}
+                            </MenuStyledTabs>
+                        </Paper>
+                    </Grow>
+                )}
+            </Popper>
+        </div>
     );
 };
 
-const useStyles = makeStyles((_theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
@@ -96,7 +91,7 @@ const useStyles = makeStyles((_theme: Theme) =>
             zIndex: 9,
             position: 'relative',
 
-            [_theme.breakpoints.up('md')]: {
+            [theme.breakpoints.up('md')]: {
                 display: 'none',
             },
         },

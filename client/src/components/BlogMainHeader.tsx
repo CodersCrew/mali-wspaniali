@@ -1,24 +1,21 @@
 import React from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ThemeProvider, Theme } from '@material-ui/core/styles';
 import { createStyles } from '@material-ui/styles';
-import { theme } from '../theme/theme';
+import { Theme } from '../theme/types';
 
 export const BlogMainHeader = () => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
-        <ThemeProvider theme={theme}>
-            <Typography variant="h4" gutterBottom className={classes.heading}>
-                {t('blog-main-page.header')}
-            </Typography>
-        </ThemeProvider>
+        <Typography variant="h4" gutterBottom className={classes.heading}>
+            {t('blog-main-page.header')}
+        </Typography>
     );
 };
 
-const useStyles = makeStyles((_theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         heading: {
             marginTop: '20px',
@@ -29,7 +26,7 @@ const useStyles = makeStyles((_theme: Theme) =>
             width: '60%',
             zIndex: 10,
 
-            [_theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('sm')]: {
                 fontSize: '15px',
                 fontWeight: 'normal',
                 textAlign: 'center',

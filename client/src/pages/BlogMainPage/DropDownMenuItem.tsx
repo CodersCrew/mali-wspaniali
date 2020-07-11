@@ -7,6 +7,17 @@ type DropDownMenuTapProps = {
     label: string;
 };
 
+export const DropDownMenuItem = ({ color, ...props }: DropDownMenuTapProps) => {
+    const classes = useStyles({ color });
+    return (
+        <Tab
+            disableRipple
+            classes={{ root: classes.root, wrapper: classes.wrapper, selected: classes.selected }}
+            {...props}
+        />
+    );
+};
+
 const useStyles = makeStyles(() =>
     createStyles({
         root: {
@@ -32,14 +43,3 @@ const useStyles = makeStyles(() =>
         },
     }),
 );
-
-export const DropDownMenuItem = ({ color, ...props }: DropDownMenuTapProps) => {
-    const classes = useStyles({ color });
-    return (
-        <Tab
-            disableRipple
-            classes={{ root: classes.root, wrapper: classes.wrapper, selected: classes.selected }}
-            {...props}
-        />
-    );
-};

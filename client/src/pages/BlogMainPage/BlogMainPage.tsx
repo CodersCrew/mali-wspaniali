@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
-import { ThemeProvider, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useParams, useHistory } from 'react-router-dom';
 
@@ -14,7 +13,7 @@ import { getArticles } from '../../queries/articleQueries';
 import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
-import { theme } from '../../theme/theme';
+import { Theme } from '../../theme/types';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -47,7 +46,7 @@ export const BlogMainPage = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
+        <>
             <div className={classes.headerBar}>{t('blog-main-page.header-bar')}</div>
             <BlogMainHeader />
             <DropDownMenu
@@ -80,11 +79,11 @@ export const BlogMainPage = () => {
                     handleChange={paginationQuery}
                 />
             </div>
-        </ThemeProvider>
+        </>
     );
 };
 
-const useStyles = makeStyles((_theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         headerBar: {
             backgroundColor: mainColor,
@@ -99,7 +98,7 @@ const useStyles = makeStyles((_theme: Theme) =>
             position: 'absolute',
             textTransform: 'uppercase',
 
-            [_theme.breakpoints.up('md')]: {
+            [theme.breakpoints.up('md')]: {
                 display: 'none',
             },
         },
@@ -108,7 +107,7 @@ const useStyles = makeStyles((_theme: Theme) =>
             maxWidth: '92%',
             margin: '0 4%',
 
-            [_theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('sm')]: {
                 fontSize: 150,
                 display: 'flex',
                 flexDirection: 'column',
@@ -116,7 +115,7 @@ const useStyles = makeStyles((_theme: Theme) =>
             },
         },
         gridSubContainer: {
-            [_theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('sm')]: {
                 minWidth: 'fit-content',
             },
         },
