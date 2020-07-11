@@ -10,4 +10,7 @@ export class UserDTO {
 
   @Field()
   readonly mail: string;
+
+  @Field()
+  readonly role: string;
 }

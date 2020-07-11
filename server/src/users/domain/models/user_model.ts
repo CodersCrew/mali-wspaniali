@@ -7,6 +7,7 @@ export interface UserProps {
   readonly date: Date;
   mail: string;
   readonly password: string;
+  readonly role: string;
 }
 
 export interface UserBeforeSaveProps {
