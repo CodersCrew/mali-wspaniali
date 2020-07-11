@@ -88,7 +88,7 @@ export const NewsletterPage = () => {
         setFields(prevFields => ({
             ...prevFields,
             [name]: {
-                value: value,
+                value,
                 error: false,
             },
         }));
@@ -96,7 +96,7 @@ export const NewsletterPage = () => {
             setFields(prevFields => ({
                 ...prevFields,
                 [name]: {
-                    value: value,
+                    value,
                     error: true,
                 },
             }));
@@ -153,9 +153,6 @@ export const NewsletterPage = () => {
 
     return (
         <div className={classes.container}>
-            <Typography variant="h1" className={classes.header}>
-                {t('newsletter.header')}
-            </Typography>
             <Typography variant="h2" className={classes.subHeader}>
                 {t('newsletter.subHeader')}
             </Typography>

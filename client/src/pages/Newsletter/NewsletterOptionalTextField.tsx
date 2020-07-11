@@ -1,35 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType, FieldsType } from './types';
-import { Kindergarten } from '../../firebase/types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, NewsletterOptionalTextFieldProps } from './types';
 
-export const NewsletterOptionalTextField: React.FC<{
-    classes: Record<
-        | 'container'
-        | 'textfield'
-        | 'heading'
-        | 'underlineFocus'
-        | 'selectItem'
-        | 'inputChipLabel'
-        | 'asterisk'
-        | 'selectMenuItem'
-        | 'selectMenuCheckbox'
-        | 'selectMenuItemText',
-        string
-    >;
-    generalType: SingleFieldType;
-    specificType: SingleFieldType;
-    recipients: {
-        value: string[];
-        error: boolean;
-    };
-    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    selectRecipients: (filteredRecipients: string[]) => void;
-    parents: string[];
-    kindergartens: Kindergarten[];
-}> = ({
+export const NewsletterOptionalTextField = ({
     classes,
     generalType,
     specificType,
@@ -39,7 +13,7 @@ export const NewsletterOptionalTextField: React.FC<{
     parents,
     kindergartens,
     setFields,
-}) => {
+}: NewsletterOptionalTextFieldProps) => {
     const { t } = useTranslation();
 
     const handleDelete = (value: string) => {

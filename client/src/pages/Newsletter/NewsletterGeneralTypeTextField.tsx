@@ -1,90 +1,39 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField, MenuItem, Chip } from '@material-ui/core';
-import { GeneralRecipientInputValues, SingleFieldType } from './types';
+import { MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
+import { GeneralRecipientInputValues, RecipientTypeProps } from './types';
 
-export const NewsletterGeneralTypeTextField: React.FC<{
-    classes: Record<
-        'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem' | 'inputChipLabel' | 'asterisk',
-        string
-    >;
-    generalType: SingleFieldType;
-    handleDelete: (name: string) => void;
-    handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ classes, generalType, handleDelete, handleRecipientTypeChange }) => {
+export const RecipientType = ({ generalType, handleRecipientTypeChange }: RecipientTypeProps) => {
     const { t } = useTranslation();
 
     return (
-        <TextField
-            className={classes.textfield}
-            select
-            SelectProps={{
-                value: generalType.value,
-                MenuProps: {
-                    getContentAnchorEl: null,
+        <FormControl variant="outlined" fullWidth>
+            <InputLabel id="recipient-type-label">{t('newsletter.general-recipient-label')}</InputLabel>
+            <Select
+                labelId="recipient-type-label"
+                id="recipient-type"
+                label={t('newsletter.general-recipient-label')}
+                value={generalType.value || ''}
+                error={generalType.error}
+                onChange={handleRecipientTypeChange}
+                MenuProps={{
                     anchorOrigin: {
                         vertical: 'bottom',
                         horizontal: 'left',
                     },
-                },
-                renderValue: value => {
-                    const chipLabel =
-                        value === GeneralRecipientInputValues.parents
-                            ? t('newsletter.parents')
-                            : t('newsletter.kindergartens');
-                    return (
-                        <Chip
-                            classes={{
-                                label: classes.inputChipLabel,
-                            }}
-                            size={'small'}
-                            label={chipLabel}
-                            onDelete={() => handleDelete('generalType')}
-                            onMouseDown={event => {
-                                event.stopPropagation();
-                            }}
-                        />
-                    );
-                },
-            }}
-            InputLabelProps={{
-                classes: {
-                    asterisk: classes.asterisk,
-                },
-            }}
-            InputProps={{
-                classes: {
-                    focused: classes.underlineFocus,
-                },
-            }}
-            required
-            onChange={handleRecipientTypeChange}
-            name="generalType"
-            label={
-                generalType.value
-                    ? t('newsletter.general-recipient-label-filled')
-                    : t('newsletter.general-recipient-label')
-            }
-            fullWidth
-            error={generalType.error}
-            helperText={generalType.error ? t('newsletter.general-recipient-helper-text') : null}
-        >
-            <MenuItem
-                classes={{
-                    root: classes.selectItem,
+                    transformOrigin: {
+                        vertical: 'top',
+                        horizontal: 'left',
+                    },
+                    getContentAnchorEl: null,
                 }}
-                value={GeneralRecipientInputValues.parents}
             >
-                {t('newsletter.parents')}
-            </MenuItem>
-            <MenuItem
-                classes={{
-                    root: classes.selectItem,
-                }}
-                value={GeneralRecipientInputValues.kindergartens}
-            >
-                {t('newsletter.kindergartens')}
-            </MenuItem>
-        </TextField>
+                {Object.entries(GeneralRecipientInputValues).map(([key, value]) => (
+                    <MenuItem key={key} value={value}>
+                        {t(`newsletter.${key}`)}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
     );
 };

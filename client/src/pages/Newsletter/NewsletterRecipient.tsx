@@ -1,11 +1,11 @@
-import React, { ChangeEvent, useEffect } from 'react';
+import React, { useEffect, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Typography } from '@material-ui/core';
-import { mainColor, white, newsletterColors, textColor } from '../../colors';
-import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
+import { makeStyles, createStyles, Card, CardHeader, Divider, CardContent } from '@material-ui/core';
+import { mainColor, newsletterColors, textColor, white } from '../../colors';
+import { RecipientType } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType, FieldsType } from './types';
+import { GeneralRecipientInputValues, SpecificRecipientInputValues, NewsletterRecipientProps } from './types';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { getParents } from '../../queries/userQueries';
 import { Parent } from '../ParentProfile/types';
@@ -13,26 +13,25 @@ import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { Kindergarten } from '../../firebase/types';
 import { getKindergartens } from '../../queries/kindergartenQueries';
 
-export const NewsletterRecipent: React.FC<{
-    generalType: SingleFieldType;
-    specificType: SingleFieldType;
-    recipients: {
-        value: string[];
-        error: boolean;
-    };
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    selectRecipients: (filteredRecipients: string[]) => void;
-    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
-}> = ({ generalType, specificType, recipients, handleChange, selectRecipients, setFields }) => {
+export const NewsletterRecipent = ({
+    generalType,
+    specificType,
+    recipients,
+    handleChange,
+    selectRecipients,
+    setFields,
+}: NewsletterRecipientProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     const parents = useSubscribed<Parent[] | null>((callback: OnSnapshotCallback<Parent[]>) => {
         getParents(callback);
     }) as string[];
+
     const kindergartens = useSubscribed<Kindergarten[] | null>((callback: OnSnapshotCallback<Kindergarten[]>) => {
         getKindergartens(callback);
     }) as Kindergarten[];
+
     useEffect(() => {
         if (specificType.value === '') {
             selectRecipients([]);
@@ -78,42 +77,44 @@ export const NewsletterRecipent: React.FC<{
             }));
         }
     };
+
+    const temporaryHandleChange = (e: ChangeEvent<{ value: unknown }>) => console.log(e.target.value);
+
     return (
-        <div className={classes.container}>
-            <Typography className={classes.heading}>{t('newsletter.recipient-heading')}</Typography>
-            <NewsletterGeneralTypeTextField
-                classes={classes}
-                generalType={generalType}
-                handleDelete={handleDelete}
-                handleRecipientTypeChange={handleChange}
-            />
-            <NewsletterSpecificTypeTextField
-                classes={classes}
-                generalType={generalType}
-                specificType={specificType}
-                handleDelete={handleDelete}
-                handleRecipientTypeChange={handleChange}
-            />
-            {specificType.value === SpecificRecipientInputValues.single ||
-            specificType.value === SpecificRecipientInputValues.kindergarten ? (
-                <NewsletterOptionalTextField
+        <Card>
+            <CardHeader title={t('newsletter.recipient-heading')} titleTypographyProps={{ variant: 'h4' }} />
+            <Divider />
+            <CardContent>
+                <RecipientType generalType={generalType} handleRecipientTypeChange={temporaryHandleChange} />
+                <NewsletterSpecificTypeTextField
                     classes={classes}
-                    selectRecipients={selectRecipients}
                     generalType={generalType}
                     specificType={specificType}
-                    recipients={recipients}
-                    handleChange={handleChange}
-                    parents={parents}
-                    kindergartens={kindergartens}
-                    setFields={setFields}
+                    handleDelete={handleDelete}
+                    handleRecipientTypeChange={handleChange}
                 />
-            ) : null}
-        </div>
+                {specificType.value === SpecificRecipientInputValues.single ||
+                specificType.value === SpecificRecipientInputValues.kindergarten ? (
+                    <NewsletterOptionalTextField
+                        classes={classes}
+                        selectRecipients={selectRecipients}
+                        generalType={generalType}
+                        specificType={specificType}
+                        recipients={recipients}
+                        handleChange={handleChange}
+                        parents={parents}
+                        kindergartens={kindergartens}
+                        setFields={setFields}
+                    />
+                ) : null}
+            </CardContent>
+        </Card>
     );
 };
 
 const useStyles = makeStyles(() =>
     createStyles({
+        // TODO: remove this
         container: {
             borderRadius: 4,
             boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
@@ -122,6 +123,7 @@ const useStyles = makeStyles(() =>
             position: 'relative',
             marginBottom: 35,
         },
+        // TODO: remove this
         heading: {
             backgroundColor: mainColor,
             color: white,
