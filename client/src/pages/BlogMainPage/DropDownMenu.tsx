@@ -87,7 +87,7 @@ export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => 
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((_theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme: Theme) =>
             zIndex: 9,
             position: 'relative',
 
-            [theme.breakpoints.up('md')]: {
+            [_theme.breakpoints.up('md')]: {
                 display: 'none',
             },
         },

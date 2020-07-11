@@ -84,7 +84,7 @@ export const BlogMainPage = () => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((_theme: Theme) =>
     createStyles({
         headerBar: {
             backgroundColor: mainColor,
@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'absolute',
             textTransform: 'uppercase',
 
-            [theme.breakpoints.up('md')]: {
+            [_theme.breakpoints.up('md')]: {
                 display: 'none',
             },
         },
@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme: Theme) =>
             maxWidth: '92%',
             margin: '0 4%',
 
-            [theme.breakpoints.down('sm')]: {
+            [_theme.breakpoints.down('sm')]: {
                 fontSize: 150,
                 display: 'flex',
                 flexDirection: 'column',
@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         gridSubContainer: {
-            [theme.breakpoints.down('sm')]: {
+            [_theme.breakpoints.down('sm')]: {
                 minWidth: 'fit-content',
             },
         },

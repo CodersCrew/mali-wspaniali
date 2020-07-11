@@ -18,7 +18,7 @@ export const BlogMainHeader = () => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((_theme: Theme) =>
     createStyles({
         heading: {
             marginTop: '20px',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '60%',
             zIndex: 10,
 
-            [theme.breakpoints.down('sm')]: {
+            [_theme.breakpoints.down('sm')]: {
                 fontSize: '15px',
                 fontWeight: 'normal',
                 textAlign: 'center',
