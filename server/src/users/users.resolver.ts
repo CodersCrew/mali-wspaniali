@@ -21,10 +21,9 @@ export class UserResolver {
   ) {}
 
   @Query(() => UserDTO)
-  async user(@Args('id') id: string): Promise<UserProps> {
-    const user: UserProps = await this.queryBus.execute(new GetUserQuery(id));
-
-    return user;
+  @UseGuards(GqlAuthGuard)
+  async me(@CurrentUser() user): Promise<UserProps> {
+    return await this.queryBus.execute(new GetUserQuery(user.userId));
   }
 
   @Mutation(() => ReturnedStatusDTO)
