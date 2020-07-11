@@ -1,18 +1,6 @@
-import {
-  Resolver,
-  Mutation,
-  Query,
-  Args,
-  Context,
-  GqlExecutionContext,
-} from '@nestjs/graphql';
+import { Resolver, Mutation, Query, Args, Context } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {
-  UseInterceptors,
-  ExecutionContext,
-  UseGuards,
-  Injectable,
-} from '@nestjs/common';
+import { UseInterceptors, UseGuards } from '@nestjs/common';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
