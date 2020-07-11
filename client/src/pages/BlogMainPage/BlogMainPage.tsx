@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
-
 import { createStyles } from '@material-ui/styles';
-import { BlogArticleCard } from './BlogArticleCard';
+
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
 import { categoriesList } from './BlogCategories';
@@ -12,6 +11,7 @@ import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
 import { Theme } from '../../theme/types';
+import { BlogArticleCard } from '../../components/BlogArticleCard';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -60,11 +60,13 @@ export const BlogMainPage = () => {
                     {articles.slice(0, 6).map((article: Article) => (
                         <Grid className={classes.gridSubContainer} key={article.id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
+                                header={article.header}
                                 title={article.title}
-                                image={article.pictureUrl}
+                                pictureUrl={article.pictureUrl}
                                 description={article.description}
                                 category={article.category}
                                 link={`/parent/article/${article.id}`}
+                                contentHTML={article.contentHTML}
                             />
                         </Grid>
                     ))}
