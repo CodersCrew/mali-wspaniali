@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import { InputLabelProps, SelectProps } from '@material-ui/core';
 import { Kindergarten } from '../../firebase/types';
 
 export type Message = string;
@@ -59,7 +60,7 @@ export type NewsletterGeneralTypeTextFieldProps = {
     >;
     generalType: SingleFieldType;
     handleDelete: (name: string) => void;
-    handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleRecipientTypeChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 };
 
 // TODO: this probably won't be necessary
@@ -85,7 +86,7 @@ export type NewsletterOptionalTextFieldProps = {
         error: boolean;
     };
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
     selectRecipients: (filteredRecipients: string[]) => void;
     parents: string[];
     kindergartens: Kindergarten[];
@@ -100,12 +101,22 @@ export type NewsletterRecipientProps = {
         value: string[];
         error: boolean;
     };
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
     selectRecipients: (filteredRecipients: string[]) => void;
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
 };
 
 export type RecipientTypeProps = {
     generalType: SingleFieldType;
-    handleRecipientTypeChange: (e: ChangeEvent<{ value: unknown }>) => void;
+    handleRecipientTypeChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 };
+
+export type SingleSelectProps = {
+    data: SingleFieldType;
+    values: {
+        value: string;
+        label: string;
+    }[];
+    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+} & InputLabelProps &
+    SelectProps;

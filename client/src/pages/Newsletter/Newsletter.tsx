@@ -83,23 +83,25 @@ export const NewsletterPage = () => {
         }
     }, [recipients, type, topic, message]);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        const { name, value } = event.target;
-        setFields(prevFields => ({
-            ...prevFields,
-            [name]: {
-                value,
-                error: false,
-            },
-        }));
-        if (!value) {
+    const handleChange = (e: ChangeEvent<{ name?: string | undefined; value: unknown }>): void => {
+        const { name, value } = e.target;
+        if (name) {
             setFields(prevFields => ({
                 ...prevFields,
                 [name]: {
                     value,
-                    error: true,
+                    error: false,
                 },
             }));
+            if (!value) {
+                setFields(prevFields => ({
+                    ...prevFields,
+                    [name]: {
+                        value,
+                        error: true,
+                    },
+                }));
+            }
         }
     };
 
