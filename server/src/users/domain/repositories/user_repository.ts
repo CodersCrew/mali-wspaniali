@@ -17,7 +17,7 @@ export class UserRepository {
   }
 
   async getByMail(mail: string): Promise<UserProps> {
-    return await this.userModel.findOne({ mail }, { password: 0 }).exec();
+    return await this.userModel.findOne({ mail }).exec();
   }
 
   async create(

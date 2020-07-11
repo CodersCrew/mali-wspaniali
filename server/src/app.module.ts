@@ -21,6 +21,7 @@ import { UserModule } from './users/users.module';
       debug: !isProduction(),
       playground: !isProduction(),
       autoSchemaFile: 'schema.gql',
+      context: ({ req, res }) => ({ req, res }),
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
