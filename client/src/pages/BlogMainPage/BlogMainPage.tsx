@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Grid, Typography } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 
 import { createStyles } from '@material-ui/styles';
@@ -17,7 +16,6 @@ import { Theme } from '../../theme/types';
 export const BlogMainPage = () => {
     const classes = useStyles();
     const [articles, setArticles] = useState<Article[]>([]);
-    const { t } = useTranslation();
     const params = useParams<{ category: string; page: string }>();
     const history = useHistory();
     let currentPage = parseInt(params.page, 10);
@@ -46,12 +44,6 @@ export const BlogMainPage = () => {
 
     return (
         <>
-            <div>
-                <Typography variant="h2" gutterBottom className={classes.headerBar}>
-                    {t('blog-main-page.header-bar')}
-                </Typography>
-            </div>
-
             <BlogMainHeader />
             <DropDownMenu
                 values={categoriesList}
@@ -89,22 +81,6 @@ export const BlogMainPage = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        headerBar: {
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: '0 0 8px 8px',
-            padding: '10px',
-            color: theme.palette.primary.contrastText,
-            top: '50px',
-            left: 0,
-            width: '100vw',
-            position: 'absolute',
-            textTransform: 'uppercase',
-
-            [theme.breakpoints.up('md')]: {
-                display: 'none',
-            },
-        },
-
         gridContainer: {
             maxWidth: '92%',
             margin: '0 4%',

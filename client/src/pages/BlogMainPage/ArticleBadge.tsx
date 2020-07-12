@@ -3,6 +3,7 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import { categories } from './BlogCategories';
 import { blogCategoryColors } from '../../colors';
 import { ArticleCategory } from '../../graphql/types';
+import { Theme } from '../../theme';
 
 type Props = {
     articleCategory: ArticleCategory;
@@ -17,7 +18,7 @@ export const ArticleBadge = ({ articleCategory }: Props) => {
     return <span className={classes.badge}>{name}</span>;
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         badge: {
             zIndex: 3,
@@ -29,8 +30,8 @@ const useStyles = makeStyles(() =>
             borderRadius: '4px',
             opacity: '90%',
             color: 'white',
-            fontSize: '14px',
-            fontFamily: 'Montserrat',
+            fontSize: theme.typography.subtitle2.fontSize,
+            fontFamily: theme.typography.fontFamily,
             backgroundColor: ({ color }: { color: string }) => blogCategoryColors[color],
         },
     }),

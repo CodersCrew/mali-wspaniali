@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                marginTop: '80px',
-                padding: '10px',
+                marginTop: '60px',
+                padding: 0,
             },
         },
     }),

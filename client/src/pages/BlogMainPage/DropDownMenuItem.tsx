@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab, createStyles, makeStyles } from '@material-ui/core';
 import { blogCategoryColors } from '../../colors';
+import { Theme } from '../../theme/types';
 
 type DropDownMenuTapProps = {
     color: string;
@@ -9,7 +10,7 @@ type DropDownMenuTapProps = {
 
 export const DropDownMenuItem = ({ color, ...props }: DropDownMenuTapProps) => {
     const classes = useStyles({ color });
-    
+
     return (
         <Tab
             disableRipple
@@ -19,7 +20,7 @@ export const DropDownMenuItem = ({ color, ...props }: DropDownMenuTapProps) => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             minHeight: '0',
@@ -31,7 +32,7 @@ const useStyles = makeStyles(() =>
             color: ({ color }: { color: string }) => blogCategoryColors[color],
             textTransform: 'none',
             flexShrink: 2,
-            fontWeight: 600,
+            fontWeight: theme.typography.button.fontWeight,
             marginRight: '20px',
             marginBottom: '20px',
             minWidth: 'fit-content',

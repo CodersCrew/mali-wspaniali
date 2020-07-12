@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles, Button } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { white } from '../../colors';
 import { Theme } from '../../theme/types';
 
 interface Props {
@@ -41,10 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
         next: {
             backgroundColor: theme.palette.primary.main,
             marginLeft: '2%',
-            color: white,
+            color: theme.palette.primary.contrastText,
         },
         prev: {
-            color: white,
+            color: theme.palette.primary.contrastText,
         },
     }),
 );

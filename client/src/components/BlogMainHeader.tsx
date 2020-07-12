@@ -9,26 +9,55 @@ export const BlogMainHeader = () => {
     const { t } = useTranslation();
 
     return (
-        <Typography variant="h2" gutterBottom className={classes.heading}>
-            {t('blog-main-page.header')}
-        </Typography>
+        <div>
+            <div className={classes.titleContainer}>
+                <span className={classes.title}>{t('blog-main-page.header-bar')}</span>
+            </div>
+            <div className={classes.subtitleContainer}>
+                <Typography variant="h4" gutterBottom className={classes.subtitle}>
+                    {t('blog-main-page.header')}
+                </Typography>
+            </div>
+        </div>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        heading: {
-            marginTop: '20px',
-            marginBottom: '4%',
-            marginLeft: '3%',
-            width: '60vw',
+        title: {
+            color: theme.palette.primary.contrastText,
+            fontSize: theme.typography.h4.fontSize,
+            textTransform: 'uppercase',
+        },
+        titleContainer: {
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: '0 0 8px 8px',
+            padding: '10px',
+
+            [theme.breakpoints.up('md')]: {
+                display: 'none',
+            },
+        },
+        subtitle: {
+            fontSize: theme.typography.h2.fontSize,
             zIndex: 10,
+            width: '60vw',
 
             [theme.breakpoints.down('sm')]: {
                 fontSize: theme.typography.subtitle1.fontSize,
+                fontWeight: theme.typography.subtitle1.fontWeight,
                 textAlign: 'center',
-                marginLeft: '20%',
                 textTransform: 'uppercase',
+            },
+        },
+
+        subtitleContainer: {
+            display: 'flex',
+            marginTop: '20px',
+            zIndex: 10,
+
+            [theme.breakpoints.down('sm')]: {
+                justifyContent: 'center',
             },
         },
     }),
