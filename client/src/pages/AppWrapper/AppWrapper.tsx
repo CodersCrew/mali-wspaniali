@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
-import { makeStyles, ThemeProvider, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import { Sidebar } from '../../components/Menu/Sidebar';
 import { Navbar } from '../../components/Menu/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
-import { theme } from '../../theme';
+import { Theme } from '../../theme/types';
 
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
@@ -13,15 +13,13 @@ export const AppWrapper: FC = ({ children }) => {
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className={classes.background}>
-                <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
-                    <Navbar />
-                    <div className={classes.content}>{children}</div>
-                </div>
+        <div className={classes.background}>
+            <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+            <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
+                <Navbar />
+                <div className={classes.content}>{children}</div>
             </div>
-        </ThemeProvider>
+        </div>
     );
 };
 
@@ -64,8 +62,8 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                marginTop: '80px',
-                padding: '10px',
+                marginTop: '60px',
+                padding: 0,
             },
         },
     }),

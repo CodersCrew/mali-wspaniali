@@ -40,6 +40,7 @@ export const UsersPage = () => {
 
     useEffect(() => {
         load(waitForUsers());
+
         return () => detachListeners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

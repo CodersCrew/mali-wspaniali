@@ -34,6 +34,7 @@ export const ChildProfileResults = () => {
     const handleClickDetailsButton = (key: string) => {
         if (expandedGroups.includes(key)) {
             setExpandedGroups(expandedGroups.filter(groupKey => groupKey !== key));
+
             return;
         }
 

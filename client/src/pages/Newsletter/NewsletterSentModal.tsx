@@ -9,11 +9,10 @@ import {
     Button,
     DialogTitle,
     DialogContentText,
-    ThemeProvider,
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { theme } from '../../theme';
-import { mainColor, secondaryColor, white, textColor } from '../../colors';
+import { secondaryColor, white, textColor } from '../../colors';
+import { Theme } from '../../theme';
 
 export const NewsletterSentModal: React.FC<{
     onClose: () => void;
@@ -32,42 +31,41 @@ export const NewsletterSentModal: React.FC<{
             onClose();
         }
     };
+
     return (
-        <ThemeProvider theme={theme}>
-            <Dialog open onClose={onClose}>
-                <DialogContent className={classes.sentModal}>
-                    <CheckCircleIcon className={classes.sentModalIcon} />
-                    <DialogTitle disableTypography className={classes.sentModalTitle}>
-                        {t('newsletter.sending-success-modal.title')}
-                    </DialogTitle>
-                    <DialogContentText className={classes.sentModalText}>
-                        {t('newsletter.sending-success-modal.content')}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions className={classes.sentModalButtonWrapper}>
-                    <Button
-                        id="homePageButton"
-                        className={classes.sentModalBackButton}
-                        onClick={handleButtonClick}
-                        autoFocus
-                    >
-                        {t('newsletter.sending-success-modal.back-button')}
-                    </Button>
-                    <Button
-                        id="nextMessageButton"
-                        className={classes.sentModalNextMessageButton}
-                        onClick={handleButtonClick}
-                        autoFocus
-                    >
-                        {t('newsletter.sending-success-modal.next-msg-button')}
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </ThemeProvider>
+        <Dialog open onClose={onClose}>
+            <DialogContent className={classes.sentModal}>
+                <CheckCircleIcon className={classes.sentModalIcon} />
+                <DialogTitle disableTypography className={classes.sentModalTitle}>
+                    {t('newsletter.sending-success-modal.title')}
+                </DialogTitle>
+                <DialogContentText className={classes.sentModalText}>
+                    {t('newsletter.sending-success-modal.content')}
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions className={classes.sentModalButtonWrapper}>
+                <Button
+                    id="homePageButton"
+                    className={classes.sentModalBackButton}
+                    onClick={handleButtonClick}
+                    autoFocus
+                >
+                    {t('newsletter.sending-success-modal.back-button')}
+                </Button>
+                <Button
+                    id="nextMessageButton"
+                    className={classes.sentModalNextMessageButton}
+                    onClick={handleButtonClick}
+                    autoFocus
+                >
+                    {t('newsletter.sending-success-modal.next-msg-button')}
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         sentModal: {
             textAlign: 'center',
@@ -84,7 +82,7 @@ const useStyles = makeStyles(() =>
             fontWeight: 500,
         },
         sentModalIcon: {
-            color: mainColor,
+            color: theme.palette.primary.main,
             width: 48,
             height: 48,
             marginBottom: 8,

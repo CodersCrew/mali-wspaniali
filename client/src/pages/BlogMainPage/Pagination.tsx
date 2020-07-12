@@ -1,38 +1,36 @@
 import React from 'react';
 import { makeStyles, createStyles, Button } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { mainColor, white } from '../../colors';
+import { Theme } from '../../theme/types';
 
-type PaginationProps = {
-    isFirst: boolean;
-    isLast: boolean;
+interface Props {
+    disabledPrevious: boolean;
+    disabledNext: boolean;
     handleChange: (paginationDirection: string) => void;
-};
+}
 
-export const Pagination = ({ isFirst, isLast, handleChange }: PaginationProps) => {
+export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const handleNextClick = () => {
-        handleChange('next');
-    };
-    const handlePrevClick = () => {
-        handleChange('prev');
-    };
-
     return (
         <div className={classes.paginationContainer}>
-            <Button variant="outlined" disabled={isFirst} onClick={handlePrevClick}>
+            <Button variant="outlined" disabled={disabledPrevious} onClick={() => handleChange('prev')}>
                 {t('blog-pagination.previous')}
             </Button>
-            <Button variant="contained" disabled={isLast} className={classes.next} onClick={handleNextClick}>
+            <Button
+                variant="contained"
+                disabled={disabledNext}
+                className={classes.next}
+                onClick={() => handleChange('next')}
+            >
                 {t('blog-pagination.next')}
             </Button>
         </div>
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paginationContainer: {
             display: 'flex',
@@ -40,12 +38,12 @@ const useStyles = makeStyles(() =>
             padding: '5%',
         },
         next: {
-            backgroundColor: mainColor,
+            backgroundColor: theme.palette.primary.main,
             marginLeft: '2%',
-            color: white,
+            color: theme.palette.primary.contrastText,
         },
         prev: {
-            color: white,
+            color: theme.palette.primary.contrastText,
         },
     }),
 );

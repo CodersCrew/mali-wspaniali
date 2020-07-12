@@ -1,40 +1,42 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { Tabs, withStyles } from '@material-ui/core';
+import React from 'react';
+import { Tabs, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 
 type CategoryTabProps = {
-    setCategory: Dispatch<SetStateAction<string>>;
+    onClick: (value: string) => void;
+    active: string;
+    values: typeof categoriesList;
 };
 
-export const CategoryTabs = ({ setCategory }: CategoryTabProps) => {
-    const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
-
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setCurrentTabIndex(newValue);
-        setCategory(categoriesList[newValue].key);
-    };
+export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
+    const classes = useStyles();
 
     return (
-        <StyledTabs value={currentTabIndex} onChange={handleChange}>
-            {categoriesList.map(category => {
+        <Tabs
+            classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }}
+            value={values.findIndex(tab => tab.key === active)}
+            onChange={(_event, value) => onClick(categoriesList[value].key)}
+        >
+            {values.map(category => {
                 return <StyledTab key={category.name} label={category.name} color={category.color} />;
             })}
-        </StyledTabs>
+        </Tabs>
     );
 };
 
-type StyledTabsProps = {
-    value: number;
-    onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
-};
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        flexContainer: {
+            alignItems: 'flex-end',
+            marginLeft: '3%',
 
-const StyledTabs = withStyles({
-    flexContainer: {
-        alignItems: 'flex-end',
-        marginLeft: '3%',
-    },
-    indicator: {
-        display: 'none',
-    },
-})((props: StyledTabsProps) => <Tabs {...props} />);
+            [theme.breakpoints.down('md')]: {
+                display: 'none',
+            },
+        },
+        indicator: {
+            display: 'none',
+        },
+    }),
+);

@@ -10,7 +10,9 @@
         "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
         "login-header": "Log in",
         "e-mail-helper-text": "Type in e-mail address provided to Mali Wspaniali's foundation",
-        "forgot-password": "Forgot password?"
+        "forgot-password": "Forgot password?",
+        "login-notfound": "We cannot find your account in the system",
+        "login-wrong-password": "Entered password is incorrect"
     },
     "login-wrapper": {
         "welcome-text": "Welcome to Mali Wspaniali's world!",
@@ -22,7 +24,21 @@
         "register-success": "Account created. Please login.",
         "password-confirm": "Repeat password",
         "register": "Register",
-        "password-not-strong": "Password not strong enough"
+        "password-not-strong": "Password not strong enough",
+        "agreements-and-regulations": "Agreements and regulations",
+        "create-password": "Create password",
+        "confirmation": "Confirmation",
+        "create-password-text": "Create a password to Mali Wspaniali platform that will serve you for future logins.",
+        "go-to-homepage": "Go to homepage",
+        "enter-code": "Enter code",
+        "enter-code-text": "Please enter the code provided by Mali Wspaniali foundation. Thanks to this code, your data will be secure.",
+        "no-code": "Don't have a code?",
+        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to biuro@mali-wspaniali.pl",
+        "invalid-code": "Code is invalid, please try again.",
+        "length": "8 chars",
+        "capital": "Capital letter",
+        "digit": "Digit",
+        "special": "Special char"
     },
     "forgot-password-page": {
         "forgot-password": "Forgot password",
@@ -51,6 +67,9 @@
     "e-mail": "E-Mail Address",
     "password": "Password",
     "no-results": "No Results",
+    "next": "Next",
+    "back": "Back",
+    "close": "Close",
     "go-to-home-page": "Go to home page",
     "languages": {
         "pl": "Polish",
@@ -289,6 +308,7 @@
         "read-more": "Read more"
     },
     "blog-main-page": {
+        "header-bar": "Blog",
         "header": "Here you will find out, how to take care of your child's development"
     },
     "blog-pagination": {

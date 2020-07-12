@@ -51,8 +51,10 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                 const children = snapshot.docs.map(doc => {
                     const child = doc.data() as Child;
                     child.id = doc.id;
+
                     return child;
                 });
+
                 return onSnapshotCallback(children);
             });
     },
@@ -101,6 +103,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                         reject(error);
                     },
                 );
+
                 return unsubscribe;
             }
             if (!previousLastVisible && previousFirstVisible) {
@@ -119,6 +122,7 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                         reject(error);
                     },
                 );
+
                 return unsubscribe;
             }
             const unsubscribe = childRefWithLimit.onSnapshot(
@@ -136,8 +140,10 @@ export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
                     reject(error);
                 },
             );
+
             return unsubscribe;
         };
+
         return new Promise<dataPromiseTypes>((resolve, reject) => {
             getQuery(resolve, reject);
         });

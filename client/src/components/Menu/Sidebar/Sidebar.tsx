@@ -6,7 +6,7 @@ import { SidebarMenuList } from './SidebarMenuList';
 import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
 import { handleSignOut } from '../../../queries/authQueries';
-import { mainColor, white } from '../../../colors';
+import { white } from '../../../colors';
 import { SidebarPropTypes } from './types';
 import { LanguageSelector } from '../../LanguageSelector';
 
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
             minWidth: '104px',
             width: '104px',
             transition: 'all 0.4s',
-            background: mainColor,
+            background: theme.palette.primary.main,
 
             '&.opened': {
                 minWidth: '240px',

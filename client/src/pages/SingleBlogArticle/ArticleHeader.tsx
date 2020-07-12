@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/core';
-import { mainColor, textColor } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
+import { textColor } from '../../colors';
 
 export const ArticleHeader = ({ title }: { title: string }) => {
     const classes = useStyles();
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         headerLongTitleText: {
             fontSize: '34px',
-            color: mainColor,
+            color: theme.palette.primary.main,
             fontWeight: 'bold',
             textTransform: 'uppercase',
             letterSpacing: letterSpace,

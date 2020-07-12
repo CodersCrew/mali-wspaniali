@@ -10,7 +10,9 @@
         "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany",
         "login-header": "Logowanie",
         "e-mail-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
-        "forgot-password": "Zapomniałeś hasła?"
+        "forgot-password": "Zapomniałeś hasła?",
+        "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
+        "login-wrong-password": "Podane hasło jest nieprawidłowe"
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
@@ -22,7 +24,34 @@
         "register-success": "Konto zostało utworzone. Możesz się zalogować.",
         "password-confirm": "Powtórz hasło",
         "register": "Zarejestruj się",
-        "password-not-strong": "Hasło za słabe"
+        "password-not-strong": "Hasło za słabe",
+        "agreements-and-regulations": "Zgody i regulaminy",
+        "create-password": "Stwórz hasło",
+        "confirmation": "Potwierdzenie",
+        "create-password-text": "Stwórz hasło do platformy Mali Wspaniali, które będzie ci służyło podczas następnych logowań.",
+        "go-to-homepage": "Przejdź do strony głównej",
+        "enter-code": "Wpisz kod",
+        "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu, twoje dane będą bezpieczniejsze.",
+        "no-code": "Nie masz kodu?",
+        "no-code-desc": "Takie sytuacje też się zdarzają, nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie by pracownicy mogli wygenerować dla ciebie nowy kod. Napisz maila na adres biuro@mali-wspaniali.pl",
+        "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go jeszcze raz.",
+        "length": "8 znaków",
+        "capital": "Duża litera",
+        "digit": "Cyfra",
+        "special": "Znak specjalny",
+        "agreements": {
+            "main-title": "Prywatność i warunki",
+            "clausule-header": "Klauzula informacyjna dla rodziców/ opiekunów prawnych dzieci biorących udział w programie MaliWspaniali",
+            "clausule": "przekazywana w wykonaniu obowiązków przewidzianych w Rozporządzeniu Parlamentu Europejskiego i Rady(UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływutakich danych oraz uchylenia dyrektywy 95/46/WE (dalej jako RODO).",
+            "show-more": "Zobacz pełną treść",
+            "show-less": "Zwiń",
+            "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
+            "sub-title": "Zgody",
+            "sub-title-description": "Zgoda na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych nie są obowiązkowai nie skutkują one brakiem możliwości brania udziału w zajęciach.",
+            "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
+            "privacy-policy": "Regulaminu, Polityki prywatności.",
+            "required-field": "*pole obowiązkowe do wypełnienia"
+        }
     },
     "forgot-password-page": {
         "forgot-password": "Nie pamietasz hasła",
@@ -51,6 +80,9 @@
     "e-mail": "Adres e-mail",
     "password": "Hasło",
     "no-results": "Brak wyników",
+    "next": "Dalej",
+    "back": "Cofnij",
+    "close": "Zamknij",
     "go-to-home-page": "Strona główna",
     "languages": {
         "pl": "Polski",
@@ -279,6 +311,7 @@
         "read-more": "Czytaj dalej"
     },
     "blog-main-page": {
+        "header-bar": "Blog",
         "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
     },
     "blog-pagination": {
