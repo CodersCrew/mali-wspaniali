@@ -1,3 +1,6 @@
+// TODO: delete this file, it's not being used anymore,
+// left as a reference
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, Chip, MenuItem, Checkbox, ListItemText } from '@material-ui/core';

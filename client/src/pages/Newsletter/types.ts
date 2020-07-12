@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { InputLabelProps, SelectProps } from '@material-ui/core';
 import { Kindergarten } from '../../firebase/types';
+// import { Parent } from '../ParentProfile/types';
 
 export type Message = string;
 
@@ -16,15 +17,17 @@ export type SingleFieldType = {
     error: boolean;
 };
 
+export type MultipleFieldType = {
+    value: string[];
+    error: boolean;
+};
+
 export type FieldsType = {
     type: SingleFieldType;
     topic: SingleFieldType;
     generalType: SingleFieldType;
     specificType: SingleFieldType;
-    recipients: {
-        value: string[];
-        error: boolean;
-    };
+    recipients: MultipleFieldType;
     message: SingleFieldType;
 };
 
@@ -111,12 +114,21 @@ export type RecipientTypeProps = {
     handleRecipientTypeChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 };
 
+export type OptionsValues = {
+    value: string;
+    label: string;
+}[];
+
 export type SingleSelectProps = {
-    data: SingleFieldType;
-    values: {
-        value: string;
-        label: string;
-    }[];
+    stateData: SingleFieldType;
+    optionsValues: OptionsValues;
+    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+} & InputLabelProps &
+    SelectProps;
+
+export type MultipleSelectProps = {
+    stateData: MultipleFieldType;
+    optionsValues: OptionsValues;
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 } & InputLabelProps &
     SelectProps;

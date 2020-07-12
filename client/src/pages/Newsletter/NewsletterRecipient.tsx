@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
-import { mainColor, newsletterColors, textColor, white } from '../../colors';
+import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
 import { SingleSelect } from './SingleSelect';
-import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, NewsletterRecipientProps } from './types';
+import { MultipleSelect } from './MultipleSelect';
+import { NewsletterRecipientProps, OptionsValues } from './types';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { getParents } from '../../queries/userQueries';
 import { Parent } from '../ParentProfile/types';
@@ -12,6 +11,7 @@ import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { Kindergarten } from '../../firebase/types';
 import { getKindergartens } from '../../queries/kindergartenQueries';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
+import { areParentsFromKindergartenSelected, areParentsSelected, areSpecificRecipientsRequired } from './utils';
 
 export const NewsletterRecipent = ({
     generalType,
@@ -21,7 +21,6 @@ export const NewsletterRecipent = ({
     selectRecipients,
     setFields,
 }: NewsletterRecipientProps) => {
-    const classes = useStyles();
     const { t } = useTranslation();
 
     const parents = useSubscribed<Parent[] | null>((callback: OnSnapshotCallback<Parent[]>) => {
@@ -32,29 +31,24 @@ export const NewsletterRecipent = ({
         getKindergartens(callback);
     }) as Kindergarten[];
 
-    useEffect(() => {
-        if (specificType.value === '') {
-            selectRecipients([]);
-        }
-        if (
-            generalType.value === GeneralRecipientInputValues.parents &&
-            specificType.value === SpecificRecipientInputValues.all
-        ) {
-            selectRecipients(parents);
-        }
-        if (
-            generalType.value === GeneralRecipientInputValues.kindergartens &&
-            specificType.value === SpecificRecipientInputValues.all
-        ) {
-            if (kindergartens) {
-                const kindergartensId = kindergartens.map((kindergarten: Kindergarten) => kindergarten.id);
-                selectRecipients(kindergartensId);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [generalType, specificType]);
+    // Temporary solution until parents come with the id
+    const parentsOptionsValues: OptionsValues =
+        parents &&
+        parents.map((parent, idx) => ({
+            value: idx.toString(),
+            label: parent,
+        }));
 
-    const areParentsSelected = generalType.value === GeneralRecipientInputValues.parents;
+    const kindergartenOptionsValues: OptionsValues =
+        kindergartens &&
+        kindergartens.map(kindergarten => {
+            const { city, number, id } = kindergarten;
+
+            return {
+                value: id,
+                label: `Przedszkole nr ${number}, ${city}`,
+            };
+        });
 
     return (
         <Card>
@@ -64,8 +58,8 @@ export const NewsletterRecipent = ({
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <SingleSelect
-                            data={generalType}
-                            values={recipientType}
+                            stateData={generalType}
+                            optionsValues={recipientType}
                             handleChange={handleChange}
                             id="recipient-type"
                             label={t('newsletter.general-recipient-label')}
@@ -74,8 +68,10 @@ export const NewsletterRecipent = ({
                     </Grid>
                     <Grid item xs={12}>
                         <SingleSelect
-                            data={specificType}
-                            values={areParentsSelected ? parentsRecipients : kindergartensRecipients}
+                            stateData={specificType}
+                            optionsValues={
+                                areParentsSelected(generalType) ? parentsRecipients : kindergartensRecipients
+                            }
                             handleChange={handleChange}
                             id="specific-recipient-type"
                             label={t('newsletter.specific-recipient-label')}
@@ -83,100 +79,24 @@ export const NewsletterRecipent = ({
                             name="specificType"
                         />
                     </Grid>
-                    {specificType.value === SpecificRecipientInputValues.single ||
-                    specificType.value === SpecificRecipientInputValues.kindergarten ? (
-                        <NewsletterOptionalTextField
-                            classes={classes}
-                            selectRecipients={selectRecipients}
-                            generalType={generalType}
-                            specificType={specificType}
-                            recipients={recipients}
-                            handleChange={handleChange}
-                            parents={parents}
-                            kindergartens={kindergartens}
-                            setFields={setFields}
-                        />
+                    {areSpecificRecipientsRequired(specificType) ? (
+                        <Grid item xs={12}>
+                            <MultipleSelect
+                                stateData={recipients}
+                                optionsValues={
+                                    areParentsSelected(generalType) && !areParentsFromKindergartenSelected(specificType)
+                                        ? parentsOptionsValues
+                                        : kindergartenOptionsValues
+                                }
+                                handleChange={handleChange}
+                                id="recipients"
+                                label={t('newsletter.specific-recipient-label')}
+                                name="recipients"
+                            />
+                        </Grid>
                     ) : null}
                 </Grid>
             </CardContent>
         </Card>
     );
 };
-
-const useStyles = makeStyles(() =>
-    createStyles({
-        // TODO: remove this
-        container: {
-            borderRadius: 4,
-            boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
-            backgroundColor: white,
-            minHeight: 169,
-            position: 'relative',
-            marginBottom: 35,
-        },
-        // TODO: remove this
-        heading: {
-            backgroundColor: mainColor,
-            color: white,
-            fontSize: 18,
-            fontWeight: 500,
-            margin: '0 10px',
-            padding: '8px 0 8px 16px',
-            boxShadow: '1px 1px 4px 0 rgba(0, 138, 173, 0.25)',
-            borderRadius: 4,
-            position: 'relative',
-            top: -15,
-            lineHeight: '22px',
-        },
-        textfield: {
-            maxWidth: 'calc(100% - 60px)',
-            left: 30,
-            marginBottom: 20,
-            '& label': {
-                fontSize: 15,
-                lineHeight: 1.2,
-                color: textColor,
-                opacity: 0.42,
-                '&.Mui-focused': {
-                    opacity: 1,
-                    fontSize: 12,
-                },
-            },
-            '& .MuiFormLabel-asterisk': {
-                display: 'none',
-            },
-        },
-        underlineFocus: {
-            '&:after': {
-                borderBottom: `2px solid ${mainColor}`,
-            },
-        },
-        underlineDisabled: {
-            '&.Mui-disabled:before': {
-                opacity: 0.5,
-                borderBottom: `2px solid ${newsletterColors.disabledColor}`,
-            },
-        },
-        selectItem: {
-            fontSize: 12,
-            color: textColor,
-        },
-        inputChipLabel: {
-            fontSize: 15,
-            color: textColor,
-        },
-        asterisk: {
-            display: 'none',
-        },
-        selectMenuItem: {
-            padding: 0,
-        },
-        selectMenuCheckbox: {
-            padding: '6px 8px',
-        },
-        selectMenuItemText: {
-            fontSize: 12,
-            color: textColor,
-        },
-    }),
-);
