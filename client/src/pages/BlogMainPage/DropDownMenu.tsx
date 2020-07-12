@@ -1,35 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Tabs, Grow, Paper, Popper } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { categoriesList } from './BlogCategories';
 import { DropDownMenuItem } from './DropDownMenuItem';
 import { Theme } from '../../theme/types';
+import { CategoryItem } from './BlogCategories';
 
 type DropDownMenuProps = {
     onClick: (value: string) => void;
     active: string;
-    values: typeof categoriesList;
+    values: CategoryItem[];
 };
 
 export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => {
     const classes = useStyles();
     const [isOpen, setIsOpen] = useState(false);
-    const [buttonCategoryValue, setButtonCategoryValue] = useState('');
+
     const anchorRef = useRef<HTMLButtonElement>(null);
-    const { t } = useTranslation();
 
     const handleToggle = () => {
         setIsOpen(prevOpen => !prevOpen);
     };
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        onClick(categoriesList[newValue].key);
+        onClick(values[newValue].key);
         setIsOpen(false);
-        setButtonCategoryValue(categoriesList[newValue].name);
     };
 
     function handleListKeyDown(event: React.KeyboardEvent) {
@@ -56,7 +53,7 @@ export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => 
                 onClick={handleToggle}
                 className={classes.button}
             >
-                {buttonCategoryValue || t('blog-categories.all')}
+                {values.find(category => category.key === active)!.name}
                 {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </Button>
             <Popper className={classes.container} open={isOpen} transition disablePortal>

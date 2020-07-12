@@ -23,10 +23,12 @@ export const BlogArticleCard = ({ image, title, description, link, category }: P
             <CardMedia component="img" alt={title} image={image} title={title} className={classes.cardImage} />
             <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="subtitle1" className={classes.articleTitle}>
+                <Typography gutterBottom variant="subtitle1" className={`${classes.articleTitle} ${classes.wrapped}`}>
                     {title}
                 </Typography>
-                <Typography variant="body2">{description}</Typography>
+                <Typography variant="body2" className={classes.wrapped}>
+                    {description}
+                </Typography>
             </CardContent>
             <Button
                 href={link}
@@ -43,6 +45,9 @@ export const BlogArticleCard = ({ image, title, description, link, category }: P
 };
 
 const useStyles = makeStyles({
+    wrapped: {
+        wordWrap: 'break-word',
+    },
     card: {
         position: 'relative',
         width: '100%',

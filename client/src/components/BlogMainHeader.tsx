@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
             zIndex: 10,
 
             [theme.breakpoints.down('sm')]: {
-                display: 'flex',
                 justifyContent: 'center',
             },
         },
