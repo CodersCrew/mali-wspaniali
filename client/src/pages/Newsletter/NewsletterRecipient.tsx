@@ -11,7 +11,12 @@ import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { Kindergarten } from '../../firebase/types';
 import { getKindergartens } from '../../queries/kindergartenQueries';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
-import { areParentsFromKindergartenSelected, areParentsSelected, areSpecificRecipientsRequired } from './utils';
+import {
+    areParentsFromKindergartenSelected,
+    areParentsSelected,
+    areSpecificRecipientsRequired,
+    setLabel,
+} from './utils';
 
 export const NewsletterRecipent = ({
     generalType,
@@ -90,7 +95,7 @@ export const NewsletterRecipent = ({
                                 }
                                 handleChange={handleChange}
                                 id="recipients"
-                                label={t('newsletter.specific-recipient-label')}
+                                label={t(setLabel(generalType, specificType, recipients))}
                                 name="recipients"
                             />
                         </Grid>
