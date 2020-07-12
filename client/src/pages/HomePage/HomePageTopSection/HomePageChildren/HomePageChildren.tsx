@@ -40,7 +40,7 @@ export const HomePageChildren = () => {
                                 src={sex === 'male' ? BoyAvatar : GirlAvatar}
                             />
                         );
-                        
+
                         return (
                             <HomePageChildCard
                                 key={id}

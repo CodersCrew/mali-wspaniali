@@ -23,7 +23,7 @@ export const HomePageArticles = () => {
             const ArticlePictureComponent = (
                 <img className={classes.articleImg} alt="mali_wspaniali_article" src={pictureUrl} />
             );
-            
+
             return (
                 <HomePageArticleItem
                     key={title}

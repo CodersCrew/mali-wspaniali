@@ -32,7 +32,7 @@ export const NewsletterGeneralTypeTextField: React.FC<{
                         value === GeneralRecipientInputValues.parents
                             ? t('newsletter.parents')
                             : t('newsletter.kindergartens');
-                    
+
                     return (
                         <Chip
                             classes={{

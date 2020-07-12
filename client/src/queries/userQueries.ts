@@ -17,7 +17,7 @@ export const getUsersData = async (rowsPerPage: number, last: Document | null, f
         last,
         first,
     );
-    
+
     return { users, unsubscribe, newLastVisible, newFirstVisible };
 };
 
@@ -34,7 +34,7 @@ export const getCurrentUserIdToken = async () => {
     if (currentUser) {
         idToken = await currentUser.getIdToken();
     }
-    
+
     return idToken;
 };
 

@@ -45,7 +45,7 @@ export const ForgotPasswordPage = () => {
     const getImageSource = (_imageState: ImageState) => {
         if (_imageState === ImageState.error) return ErrorImage;
         if (_imageState === ImageState.success) return SuccessImage;
-        
+
         return DefaultImage;
     };
 
