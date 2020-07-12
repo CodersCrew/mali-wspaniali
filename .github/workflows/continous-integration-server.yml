@@ -94,3 +94,4 @@ jobs:
     env:
       MONGO_KEY_TEST: mongodb://mongo:27017/mali_wspaniali
       working-directory: ./server
+      JWT_SECRET: secret

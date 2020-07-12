@@ -10,4 +10,9 @@ export const UserSchema = new mongoose.Schema({
   },
   mail: String,
   password: String,
+  role: {
+    type: String,
+    default: 'user',
+  },
+  children: [mongoose.Schema.Types.ObjectId],
 });

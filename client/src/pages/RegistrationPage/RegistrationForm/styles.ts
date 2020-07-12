@@ -1,0 +1,201 @@
+import { makeStyles, createStyles, Theme } from '@material-ui/core/';
+import { backgroundColor, secondaryColor, mainColor, textColor, white } from '../../../colors';
+
+export const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+
+            '&.agreements': {
+                padding: '36px 0 40px 0',
+            },
+        },
+        form: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '80%',
+            minHeight: '90vh',
+
+            [theme.breakpoints.down('sm')]: {
+                minHeight: 'auto',
+                width: '100%',
+                margin: '0 15px',
+            },
+        },
+        headerContainer: {
+            display: 'flex',
+            marginBottom: '25px',
+            justifyContent: 'center',
+            alignItems: 'center',
+
+            [theme.breakpoints.down('sm')]: {
+                marginTop: '40px',
+                marginBottom: '5px',
+            },
+        },
+        formItem: {
+            margin: '10px 0',
+            width: '100%',
+
+            [theme.breakpoints.down('sm')]: {
+                margin: '10px 0',
+            },
+        },
+        stepper: {
+            [theme.breakpoints.down('sm')]: {
+                marginTop: 15,
+            },
+        },
+        registrationHeader: {
+            textAlign: 'center',
+            fontSize: '21px',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+            color: textColor,
+
+            [theme.breakpoints.down('sm')]: {
+                '&.confirmation': {
+                    marginTop: 0,
+                },
+            },
+        },
+        buttonWrapper: {
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            maxHeight: 33,
+            margin: '20px 0',
+
+            '&.emailContent': {
+                justifyContent: 'flex-end',
+            },
+
+            [theme.breakpoints.down('sm')]: {
+                margin: '10px 0 20px 0',
+            },
+        },
+        confirmWrapper: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            marginTop: '30px',
+        },
+        nextButton: {
+            color: backgroundColor,
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+
+            [theme.breakpoints.down('sm')]: {
+                '& span': {
+                    maxHeight: 17,
+                },
+            },
+        },
+        prevButton: {
+            color: secondaryColor,
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+        },
+        goToHomepageLink: {
+            fontFamily: theme.typography.fontFamily,
+            fontStyle: 'normal',
+            fontWeight: 'bold',
+            fontSize: '14px',
+            lineHeight: '17px',
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            color: white,
+            background: secondaryColor,
+            textDecoration: 'none',
+            borderRadius: '4px',
+            padding: '4px 10px',
+            marginTop: '50px',
+            boxShadow: theme.shadows[5],
+        },
+        chipsContainer: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2,1fr)',
+            justifyItems: 'start',
+            marginTop: '10px',
+        },
+        chip: {
+            margin: '5px 0',
+            border: 0,
+
+            '&.checked': {
+                color: mainColor,
+            },
+        },
+        agreementContainer: {
+            marginLeft: 12,
+            paddingRight: 15,
+            display: 'flex',
+            flexDirection: 'column',
+            maxHeight: 600,
+            overflowY: 'scroll',
+        },
+        agreementHeader: {
+            fontSize: 21,
+            fontWeight: 'normal',
+            margin: '12px 0 0 0',
+        },
+        agreementMoreBtn: {
+            color: mainColor,
+            justifyContent: 'flex-start',
+            fontSize: 16,
+            paddingLeft: 0,
+        },
+        agreementCheckboxHeader: {
+            margin: '10px 0 12px 0',
+            fontSize: 21,
+            fontWeight: 500,
+        },
+        agreementCheckboxWrapper: {
+            marginTop: 17,
+            display: 'flex',
+            flexDirection: 'column',
+
+            '&.lastAgreement': {
+                margin: 0,
+                borderBottom: '1px solid #C4C4C4',
+            },
+        },
+        agreementText: {
+            margin: '0 0 7px 0',
+        },
+        agreementLink: {
+            color: mainColor,
+        },
+        agreementModal: {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%,-50%)',
+            width: 400,
+            backgroundColor: theme.palette.background.paper,
+            border: '2px solid #000',
+            boxShadow: theme.shadows[5],
+            padding: theme.spacing(2, 4, 3),
+        },
+        agreementPanel: {
+            margin: '0 0 10px 34px',
+        },
+        agreementCheckbox: {
+            paddingTop: 0,
+        },
+        checkboxContent: {
+            display: 'flex',
+            alignItems: 'end',
+            marginTop: '20px',
+        },
+        loginHeader: {},
+    }),
+);

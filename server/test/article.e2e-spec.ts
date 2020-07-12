@@ -5,6 +5,8 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { ArticlesRepository } from '../src/articles/domain/repositories/article_repository';
 
+jest.setTimeout(10000);
+
 describe('Article (e2e)', () => {
   let app: INestApplication;
 
@@ -22,6 +24,8 @@ describe('Article (e2e)', () => {
   });
 
   afterEach(async done => {
+    await new Promise(resolve => setTimeout(resolve, 5000));
+
     await app.close();
 
     done();

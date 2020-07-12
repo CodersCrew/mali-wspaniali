@@ -41,12 +41,12 @@ export class KeyCodesResolver {
 
   @Mutation(() => [CreateKeyCodeDTO])
   async createKeyCodeBulk(
-    @Args('ammount') ammount: number,
+    @Args('amount') amount: number,
   ): Promise<KeyCodeProps> {
     const createdBy = 'Janek25';
 
     const created: KeyCodeProps = await this.commandBus.execute(
-      new CreateBulkKeyCodeCommand(createdBy, ammount),
+      new CreateBulkKeyCodeCommand(createdBy, amount),
     );
 
     return created;

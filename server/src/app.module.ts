@@ -10,17 +10,20 @@ import { ArticlesModule } from './articles/articles.module';
 import { isProduction, isTest } from './shared/utils/is_production';
 import { KeyCodesModule } from './key_codes/key_codes.module';
 import { UserModule } from './users/users.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
     ArticlesModule,
     KeyCodesModule,
     UserModule,
+    NotificationsModule,
     ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       debug: !isProduction(),
       playground: !isProduction(),
       autoSchemaFile: 'schema.gql',
+      context: ({ req, res }) => ({ req, res }),
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
