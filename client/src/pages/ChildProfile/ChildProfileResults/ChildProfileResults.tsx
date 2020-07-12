@@ -12,8 +12,15 @@ import { getGroupedResults } from './utils';
 import { gray } from '../../../colors';
 import { ResultDetails } from './ResultDetails';
 import { ResultComparison } from './ResultComparison';
+import { EmptyResultSimple } from './EmptyResultSimple';
+import { EmptyResultDetailed } from './EmptyResultDetailed';
 
-export const ChildProfileResults = () => {
+interface Props {
+    birthYear: number;
+    onNoResultClick(): void
+}
+
+export const ChildProfileResults = ({ onNoResultClick, birthYear }: Props) => {
     useAuthorization(true);
     const classes = useStyles();
     const { childId } = useParams<{ childId: string }>();
@@ -21,7 +28,7 @@ export const ChildProfileResults = () => {
 
     const results = useSubscribed<Result[] | null, string>(
         (callback: OnSnapshotCallback<Result[]>) => fetchChildResults(childId, callback),
-        null,
+        [],
         [childId],
     ) as Result[];
 
@@ -41,52 +48,63 @@ export const ChildProfileResults = () => {
         setExpandedGroups([...expandedGroups, key]);
     };
 
-    if (!results || !results.length) {
-        // TODO
-        return <>NO DATA</>;
-    }
-
-    const groupedResults = getGroupedResults(results);
+    const groupedResults = getGroupedResults(results, birthYear);
 
     return (
         <>
-            {Object.keys(groupedResults).map(key => {
-                const isExpanded = expandedGroups.includes(key);
-                const sortedResults = groupedResults[key].sort(
-                    (resultA, resultB) => +resultA.dateOfTest - +resultB.dateOfTest,
-                );
+            {Object.keys(groupedResults)
+                .sort((a, b) => Number(b) - Number(a))
+                .map((key, index) => {
+                    const isExpanded = expandedGroups.includes(key);
+                    const sortedResults = groupedResults[key].sort(
+                        (resultA: Result, resultB: Result) => +resultA.dateOfTest - +resultB.dateOfTest,
+                    ) as Result[];
+                    const isLast = index === Object.keys(groupedResults).length - 1;
 
-                return (
-                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel}>
-                        <ExpansionPanelSummary
-                            onClick={() => handleClickSummary(key)}
-                            className={clsx(
-                                classes.expansionPanelSummary,
-                                isExpanded && classes.expansionPanelSummaryExpanded,
-                            )}
-                        >
-                            <ResultSummary
-                                resultGroup={groupedResults[key]}
-                                handleClickDetailsButton={handleClickDetailsButton}
-                                isExpanded={isExpanded}
-                            />
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-                            {sortedResults.map((result, index) => (
-                                <ResultDetails
-                                    result={result}
-                                    key={String(result.dateOfTest)}
-                                    previousResult={sortedResults[index - 1]}
+                    return (
+                        <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel}>
+                            <ExpansionPanelSummary
+                                onClick={() => handleClickSummary(key)}
+                                className={clsx(
+                                    classes.expansionPanelSummary,
+                                    isExpanded && classes.expansionPanelSummaryExpanded,
+                                )}
+                            >
+                                <ResultSummary
+                                    resultGroup={groupedResults[key]}
+                                    schoolYearStart={Number(key)}
+                                    handleClickDetailsButton={handleClickDetailsButton}
+                                    isExpanded={isExpanded}
                                 />
-                            ))}
-                            <ResultComparison
-                                firstResultPoints={sortedResults[0].sumOfPoints}
-                                lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
-                            />
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                );
-            })}
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+                                {sortedResults.length > 0 &&
+                                    sortedResults.map((result, idx) => (
+                                        <ResultDetails
+                                            result={result}
+                                            key={String(result.dateOfTest)}
+                                            previousResult={sortedResults[idx - 1]}
+                                        />
+                                    ))}
+                                {sortedResults.length >= 2 && (
+                                    <ResultComparison
+                                        firstResultPoints={sortedResults[0].sumOfPoints}
+                                        lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
+                                        childAge={sortedResults[sortedResults.length - 1].ageOfChild}
+                                    />
+                                )}
+                                {sortedResults.length === 0 && !isLast && (
+                                    <EmptyResultSimple />
+                                )}
+                                {sortedResults.length === 0 && isLast && (
+                                    <EmptyResultDetailed
+                                        onNoResultClick={onNoResultClick}
+                                    />
+                                )}
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                    );
+                })}
         </>
     );
 };

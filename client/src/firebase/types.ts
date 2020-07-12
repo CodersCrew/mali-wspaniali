@@ -4,10 +4,10 @@ export type Document = firestore.DocumentData;
 export type Snapshot = firestore.DocumentSnapshot;
 
 export interface Result {
+    schoolYearStart: number;
     dateOfTest: Date;
     ageOfChild: number;
     testPeriod: 'begin' | 'end';
-    schoolYear: string;
     strengthCentimeters: number;
     strengthPoints: number;
     powerCentimeters: number;
@@ -77,4 +77,8 @@ export interface Kindergarten {
     city: string;
     number: string;
     id: string;
+}
+
+export interface Advice {
+    content: string;
 }

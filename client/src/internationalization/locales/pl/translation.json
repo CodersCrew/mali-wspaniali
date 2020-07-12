@@ -117,9 +117,10 @@
         "initial-test": "Pomiar początkowy",
         "final-test": "Pomiar końcowy",
         "result-description": {
-            "low": "TBD",
+            "bad": "TBD",
             "medium": "Dobrze ci idzie, ale zawsze może być lepiej",
-            "high": "Bardzo dobrze!"
+            "good": "Dobrze!",
+            "very-good": "Bardzo dobrze!"
         },
         "tests": {
             "strength": "Siła",
@@ -140,15 +141,23 @@
         "final-test-title": "Wyniki poszczególnych prób wraz z porównaniem wyników z pomiaru początkowego",
         "initial-test-title": "Wyniki poszczególnych prób",
         "difference": {
-            "better": "Poprawił się",
-            "worse": "Pogorszył się",
-            "same": "Nie zmienił się"
+            "progress": "Poprawił się",
+            "regress": "Pogorszył się",
+            "constant": "Nie zmienił się"
         },
         "summary-info": "Informacje podsumowujące",
         "test-result": "Wynik testu",
         "comparison-label": "Porównując oba pomiary, poziom sprawności Twojego dziecka",
         "comparison-right-title": "Zobacz, w jakiej formie jest Twoje dziecko. Wykres przedstawia jak zmieniały się wyniki dziecka na przestrzeni 2 pomiarów",
         "comparison-button": "Co mogę zrobić?",
+        "no-results-title": "Brak wyników",
+        "no-results-text": "Wyniki nie zostały jeszcze wprowadzone, ponieważ pomiar początkowy jeszcze się nie odbył lub wyniki są w opracowaniu.",
+        "no-results-text-last": "Wyniki nie zostały jeszcze wprowadzone z jednego z trzech powodów:",
+        "no-results-list-1": "Pomiar początkowy jeszcze się nie odbył lub wyniki są w opracowaniu.",
+        "no-results-list-2": "Twoje dziecko było nieobecne w dniu przeprowadzania pomiaru początkowego lub z przyczyn losowych nie było w stanie wziąć udziału w pomiarze.",
+        "no-results-list-3": "Twoje dziecko dołączyło do programu Mali Wspaniali po odbyciu pierwszego pomiaru. Kolejny pomiar sprawności odbędzie się na wiosnę.",
+        "no-results-bottom": "Aby dowiedzieć się, jak wygląda test sprawności, odwiedź zakładkę",
+        "no-results-link": "Informacje o testach",
         "tests-informations": {
             "about": {
                 "panelTitle": "O Wrocławskim Teście Przedszkolaka – parę słów ogólnie",
@@ -346,5 +355,6 @@
     },
     "years_0": "rok",
     "years_1": "lata",
-    "years_2": "lat"
+    "years_2": "lat",
+    "close": "Zamknij"
 }

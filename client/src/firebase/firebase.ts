@@ -11,6 +11,7 @@ import { agreementRepository } from './agreementRepository';
 import { newsletterRepository } from './newsletterRepository';
 import { notificationRepository } from './notificationRepository';
 import { kindergartenRepository } from './kindergartenRepository';
+import { adviceRepository } from './adviceRepository';
 import { invitationCodeRepository } from './invitationCodeRepository';
 
 firebaseApp.initializeApp(config);
@@ -31,6 +32,7 @@ export const firebase = {
     newsletter: newsletterRepository(firestore),
     notification: notificationRepository(firestore),
     kindergarten: kindergartenRepository(firestore),
+    advice: adviceRepository(firestore),
     invitationCode: invitationCodeRepository(firestore),
 };
 

@@ -60,7 +60,7 @@ export const ChildProfile = () => {
                 <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
                 <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
             </Tabs>
-            {activeTab === TABS.results && <ChildProfileResults />}
+            {activeTab === TABS.results && <ChildProfileResults onNoResultClick={() => setActiveTab('aboutTests')} birthYear={child.birthYear} />}
             {activeTab === TABS.aboutTests && <ChildProfileAboutTests />}
             {activeTab === TABS.agreements && <ChildProfileAgreements />}
         </>
