@@ -52,7 +52,7 @@ export class UserRepository {
     return User.create(rawUser, keyCode);
   }
 
-  async addChild(childId: string, userId: string) {
+  async addChild(childId: string, userId: string): Promise<void> {
     await this.userModel.findByIdAndUpdate(userId, {
       $addToSet: { children: childId },
     });
