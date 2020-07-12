@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { NotificationSchema } from './schemas/notifications_schema';
 import { NotificationRepository } from './domain/repositories/notification_repository';
 import { NotificationsCronService } from './notifications_cron_service';
+import { QueryHandlers } from './domain/queries/handlers';
 
 @Module({
   imports: [
@@ -13,7 +14,11 @@ import { NotificationsCronService } from './notifications_cron_service';
       { name: 'Notifications', schema: NotificationSchema },
     ]),
   ],
-  providers: [NotificationsCronService, NotificationRepository],
+  providers: [
+    ...QueryHandlers,
+    NotificationsCronService,
+    NotificationRepository,
+  ],
   exports: [NotificationRepository],
 })
 export class NotificationsModule {}
