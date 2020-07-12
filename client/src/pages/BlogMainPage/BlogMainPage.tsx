@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { useParams, useHistory } from 'react-router-dom';
 
 import { createStyles } from '@material-ui/styles';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
-import { white, mainColor } from '../../colors';
+import { white } from '../../colors';
 import { categoriesList } from './BlogCategories';
 import { getArticles } from '../../queries/articleQueries';
 import { DropDownMenu } from './DropDownMenu';
@@ -18,7 +17,6 @@ import { Theme } from '../../theme/types';
 export const BlogMainPage = () => {
     const classes = useStyles();
     const [articles, setArticles] = useState<Article[]>([]);
-    const { t } = useTranslation();
     const params = useParams<{ category: string; page: string }>();
     const history = useHistory();
     let currentPage = parseInt(params.page, 10);
@@ -47,7 +45,6 @@ export const BlogMainPage = () => {
 
     return (
         <>
-            <div className={classes.headerBar}>{t('blog-main-page.header-bar')}</div>
             <BlogMainHeader />
             <DropDownMenu
                 values={categoriesList}
@@ -85,24 +82,6 @@ export const BlogMainPage = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        headerBar: {
-            backgroundColor: mainColor,
-            borderRadius: '0 0 8px 8px',
-            fontWeight: 'bold',
-            padding: '10px',
-            color: white,
-            fontSize: '21px',
-            top: '50px',
-            left: 0,
-            width: '100vw',
-            position: 'absolute',
-            textTransform: 'uppercase',
-
-            [theme.breakpoints.up('md')]: {
-                display: 'none',
-            },
-        },
-
         gridContainer: {
             maxWidth: '92%',
             margin: '0 4%',
