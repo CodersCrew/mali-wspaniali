@@ -52,6 +52,12 @@ export class UserRepository {
     return User.create(rawUser, keyCode);
   }
 
+  async addChild(childId: string, userId: string): Promise<void> {
+    await this.userModel.findByIdAndUpdate(userId, {
+      $addToSet: { children: childId },
+    });
+  }
+
   // for e2e purpose only
   async clearTable(): Promise<void> {
     await this.userModel.deleteMany({});
