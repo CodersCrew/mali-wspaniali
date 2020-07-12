@@ -5,7 +5,7 @@ import { ChildDTO } from './children_dto';
 @ObjectType()
 export class UserDTO {
   @Field(() => ID)
-  id: string;
+  _id: string;
 
   @Field()
   readonly date: Date;
