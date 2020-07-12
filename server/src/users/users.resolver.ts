@@ -1,4 +1,12 @@
-import { Resolver, Mutation, Query, Args, Context } from '@nestjs/graphql';
+import {
+  Resolver,
+  Mutation,
+  Query,
+  Args,
+  Context,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
 
@@ -18,9 +26,11 @@ import { ChildInput } from './inputs/child_input';
 import { AddChildCommand } from './domain/commands/impl/add_child_command';
 import { ChildProps } from './domain/models/child_model';
 import { LoggedUser } from '../users/params/current_user_param';
+import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
+import { NotificationDTO } from '../notifications/dto/notification.dto';
 
 @UseInterceptors(SentryInterceptor)
-@Resolver()
+@Resolver(of => UserDTO)
 export class UserResolver {
   constructor(
     private commandBus: CommandBus,
@@ -32,6 +42,13 @@ export class UserResolver {
   @UseGuards(GqlAuthGuard)
   async me(@CurrentUser() user: LoggedUser): Promise<UserDTO> {
     return await this.queryBus.execute(new GetUserQuery(user.userId));
+  }
+
+  @ResolveField()
+  async notifications(@Parent() user: UserDTO): Promise<NotificationDTO[]> {
+    return await this.queryBus.execute(
+      new GetNotificationsByUserQuery(user._id),
+    );
   }
 
   @Mutation(() => ReturnedStatusDTO)
