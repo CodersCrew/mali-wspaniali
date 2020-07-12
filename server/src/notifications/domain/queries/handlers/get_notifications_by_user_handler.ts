@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import * as mongoose from 'mongoose';
 
 import { GetNotificationsByUserQuery } from '../impl/get_notifications_by_user_query';
 import { NotificationRepository } from '../../../../notifications/domain/repositories/notification_repository';
