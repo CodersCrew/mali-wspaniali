@@ -1,11 +1,11 @@
-import React from 'react'
-import { TableRow, TableCell, makeStyles } from '@material-ui/core'
+import React from 'react';
+import { TableRow, TableCell, makeStyles } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons/';
-import moment from '../../localizedMoment';
 import clsx from 'clsx';
+import moment from '../../localizedMoment';
 import { Timestamp } from '../../firebase/types';
 import { useAuthorization } from '../../hooks/useAuthorization';
-import { setNotificationReadValue } from '../../queries/notificationQueries'
+import { setNotificationReadValue } from '../../queries/notificationQueries';
 import { secondaryColor, notificationReadColor, darkGrey } from '../../colors';
 
 export type notificationItemProps = {
@@ -13,33 +13,33 @@ export type notificationItemProps = {
     date: Timestamp;
     id: string;
     isRead: boolean;
-}
+};
 
 export const NotificationPageListItem = ({ text, date, id, isRead }: notificationItemProps) => {
     const classes = useStyles();
     const currentUser = useAuthorization(true);
 
     const setNotificationValue = () => {
-        if(currentUser) {
+        if (currentUser) {
             setNotificationReadValue(currentUser.uid, id, !isRead);
         }
-    }
+    };
 
-    return(
+    return (
         <TableRow key={id} onClick={setNotificationValue} className={clsx(classes.background, isRead ? 'read' : null)}>
             <TableCell key={id} className={classes.text} component="th" scope="row">
-                <Notifications className={clsx(classes.icon, isRead ? 'read' : null)}/>
+                <Notifications className={clsx(classes.icon, isRead ? 'read' : null)} />
                 {text}
             </TableCell>
             <TableCell>{moment(date.toDate()).calendar()}</TableCell>
-      </TableRow>
-    )
-}
+        </TableRow>
+    );
+};
 
 const useStyles = makeStyles({
     text: {
         color: 'black',
-        fontSize: '16px'
+        fontSize: '16px',
     },
     icon: {
         position: 'relative',
@@ -47,15 +47,15 @@ const useStyles = makeStyles({
         color: secondaryColor,
         '&.read': {
             color: notificationReadColor,
-        }
+        },
     },
     background: {
         '&:hover': {
-            cursor: 'pointer'
+            cursor: 'pointer',
         },
         '&.read': {
             backgroundColor: darkGrey,
-            transition: 'backgroundColor .3s'
-        }
-    }
-  });
+            transition: 'backgroundColor .3s',
+        },
+    },
+});

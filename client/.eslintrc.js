@@ -1,9 +1,9 @@
 module.exports = {
-    plugins: [ 'i18next', 'react-hooks' ],
+    plugins: ['i18next', 'react-hooks'],
     settings: {
-        "react": {
-            "version": "detect"
-        }
+        react: {
+            version: 'detect',
+        },
     },
     parser: '@typescript-eslint/parser',
     extends: [
@@ -12,8 +12,8 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'prettier',
         'prettier/@typescript-eslint',
-        "plugin:react/recommended",
-        'plugin:cypress/recommended'
+        'plugin:react/recommended',
+        'plugin:cypress/recommended',
     ],
     root: true,
     env: {
@@ -24,10 +24,7 @@ module.exports = {
         'cypress/globals': true,
     },
     rules: {
-        'import/no-extraneous-dependencies': [
-            'error',
-            { devDependencies: true },
-        ],
+        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         'no-useless-constructor': 'off',
         'import/prefer-default-export': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
@@ -42,10 +39,11 @@ module.exports = {
                 tsx: 'never',
             },
         ],
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "semi": [ "warn", "always" ],
-        "quotes": [ "warn", "single", "avoid-escape" ],
-        "indent": [ "warn", 4, { "SwitchCase": 1 } ],
-        "react/prop-types": "off",
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        semi: ['warn', 'always'],
+        quotes: ['warn', 'single', 'avoid-escape'],
+        indent: ['warn', 4],
+        'react/prop-types': 'off',
+        'newline-before-return': 2,
     },
 };

@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, makeStyles, Grid } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 
+import { createStyles } from '@material-ui/styles';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
-import { white } from '../../colors';
-import { Article } from '../../graphql/types';
 import { categoriesList } from './BlogCategories';
 import { getArticles } from '../../queries/articleQueries';
+import { DropDownMenu } from './DropDownMenu';
+import { BlogMainHeader } from '../../components/BlogMainHeader';
+import { Article } from '../../graphql/types';
+import { Theme } from '../../theme/types';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
     const [articles, setArticles] = useState<Article[]>([]);
-    const { t } = useTranslation();
     const params = useParams<{ category: string; page: string }>();
     const history = useHistory();
-    let currentPage = parseInt(params.page);
+    let currentPage = parseInt(params.page, 10);
 
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 
     useEffect(() => {
-        let articles;
+        let fetchedArticles;
 
         if (params.category === 'all') {
-            articles = getArticles(currentPage);
+            fetchedArticles = getArticles(currentPage);
         } else {
-            articles = getArticles(currentPage, params.category);
+            fetchedArticles = getArticles(currentPage, params.category);
         }
 
-        articles.then(({ data }) => setArticles(data.articles));
+        fetchedArticles.then(({ data }) => setArticles(data.articles));
     }, [params.category, currentPage]);
 
     const paginationQuery = (paginationDirection: string) => {
@@ -43,9 +44,12 @@ export const BlogMainPage = () => {
 
     return (
         <>
-            <Typography variant="h2" gutterBottom className={classes.heading}>
-                {t('blog-main-page.header')}
-            </Typography>
+            <BlogMainHeader />
+            <DropDownMenu
+                values={categoriesList}
+                active={params.category}
+                onClick={value => history.push(`/parent/blog/${value}/1`)}
+            />
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
@@ -54,13 +58,13 @@ export const BlogMainPage = () => {
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                     {articles.slice(0, 6).map((article: Article) => (
-                        <Grid key={article.id} item xs={4} zeroMinWidth>
+                        <Grid className={classes.gridSubContainer} key={article.id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
                                 title={article.title}
                                 image={article.pictureUrl}
                                 description={article.description}
-                                link={`/parent/article/${article.id}`}
                                 category={article.category}
+                                link={`/parent/article/${article.id}`}
                             />
                         </Grid>
                     ))}
@@ -75,19 +79,26 @@ export const BlogMainPage = () => {
     );
 };
 
-const useStyles = makeStyles({
-    heading: {
-        marginBottom: '4%',
-        marginLeft: '3%',
-        width: '60%',
-        zIndex: 1,
-    },
-    gridContainer: {
-        maxWidth: '92%',
-        margin: '0 4%',
-    },
-    gridBackground: {
-        backgroundColor: white,
-        borderRadius: '20px',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        gridContainer: {
+            maxWidth: '92%',
+            margin: '0 4%',
+
+            [theme.breakpoints.down('sm')]: {
+                display: 'flex',
+                flexDirection: 'column',
+                lineHeight: theme.typography.subtitle2.lineHeight,
+            },
+        },
+        gridSubContainer: {
+            [theme.breakpoints.down('sm')]: {
+                minWidth: 'fit-content',
+            },
+        },
+        gridBackground: {
+            backgroundColor: theme.palette.primary.contrastText,
+            borderRadius: '20px',
+        },
+    }),
+);

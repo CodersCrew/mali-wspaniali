@@ -63,17 +63,20 @@ export const NewsletterOptionalTextField: React.FC<{
                 if (recipients.value.length > 0) {
                     return t('newsletter.recipient-select-kindergarten-label-filled');
                 }
+
                 return t('newsletter.recipient-select-kindergarten-label');
             case generalType.value === GeneralRecipientInputValues.parents &&
                 specificType.value === SpecificRecipientInputValues.single:
                 if (recipients.value.length > 0) {
                     return t('newsletter.recipient-single-parent-label-filled');
                 }
+
                 return t('newsletter.recipient-single-parent-label');
             default:
                 if (recipients.value.length > 0) {
                     return t('newsletter.recipient-single-kindergarten-label-filled');
                 }
+
                 return t('newsletter.recipient-single-kindergarten-label');
         }
     };
@@ -89,6 +92,7 @@ export const NewsletterOptionalTextField: React.FC<{
             </MenuItem>
         ));
     };
+
     return (
         <TextField
             className={classes.textfield}
@@ -110,6 +114,7 @@ export const NewsletterOptionalTextField: React.FC<{
                 },
                 renderValue: value => {
                     const stringValues = value as string[];
+
                     return stringValues.map(stringValue => (
                         <Chip
                             classes={{

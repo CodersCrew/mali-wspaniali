@@ -1,10 +1,10 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, makeStyles, Button } from '@material-ui/core';
+import { Card, CardMedia, CardContent, Typography, makeStyles, Button, createStyles } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
-import { darkGrey, white } from '../../colors';
 import { ArticleBadge } from './ArticleBadge';
 import { ArticleCategory } from '../../graphql/types';
+import { Theme } from '../../theme/types';
 
 interface Props {
     image: string;
@@ -23,10 +23,12 @@ export const BlogArticleCard = ({ image, title, description, link, category }: P
             <CardMedia component="img" alt={title} image={image} title={title} className={classes.cardImage} />
             <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="subtitle1" className={classes.articleTitle}>
+                <Typography gutterBottom variant="subtitle1" className={`${classes.articleTitle} ${classes.wrapped}`}>
                     {title}
                 </Typography>
-                <Typography variant="body2">{description}</Typography>
+                <Typography variant="body2" className={classes.wrapped}>
+                    {description}
+                </Typography>
             </CardContent>
             <Button
                 href={link}
@@ -42,42 +44,47 @@ export const BlogArticleCard = ({ image, title, description, link, category }: P
     );
 };
 
-const useStyles = makeStyles({
-    card: {
-        position: 'relative',
-        width: '100%',
-        height: '400px',
-        overflow: 'visible',
-        backgroundColor: darkGrey,
-        borderRadius: '4px',
-        marginTop: '20%',
-        boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
-    },
-    cardImage: {
-        width: '100%',
-        maxHeight: '200px',
-        padding: '0 16px',
-        position: 'relative',
-        bottom: '30px',
-    },
-    cardContent: {
-        position: 'relative',
-        bottom: '20px',
-        paddingBottom: 0,
-        height: '120px',
-    },
-    articleTitle: {
-        position: 'relative',
-        bottom: '10px',
-    },
-    readMoreButton: {
-        color: white,
-        fontSize: '13px',
-        whiteSpace: 'nowrap',
-        borderRadius: '4px',
-        position: 'absolute',
-        right: '16px',
-        bottom: '16px',
-        marginTop: '10px',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        wrapped: {
+            wordWrap: 'break-word',
+        },
+        card: {
+            position: 'relative',
+            width: '100%',
+            height: '400px',
+            overflow: 'visible',
+            backgroundColor: theme.palette.grey[400],
+            borderRadius: '4px',
+            marginTop: '20%',
+            boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
+        },
+        cardImage: {
+            width: '100%',
+            maxHeight: '200px',
+            padding: '0 16px',
+            position: 'relative',
+            bottom: '30px',
+        },
+        cardContent: {
+            position: 'relative',
+            bottom: '20px',
+            paddingBottom: 0,
+            height: '120px',
+        },
+        articleTitle: {
+            position: 'relative',
+            bottom: '10px',
+        },
+        readMoreButton: {
+            color: theme.palette.primary.contrastText,
+            fontSize: theme.typography.subtitle2.fontSize,
+            whiteSpace: 'nowrap',
+            borderRadius: '4px',
+            position: 'absolute',
+            right: '16px',
+            bottom: '16px',
+            marginTop: '10px',
+        },
+    }),
+);
