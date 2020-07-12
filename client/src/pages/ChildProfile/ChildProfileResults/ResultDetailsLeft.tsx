@@ -28,7 +28,7 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
             <Card className={classes.card}>
                 <div className={classes.cardTop}>
                     <Typography variant="subtitle1">{t('child-profile.info-about-test')}</Typography>
-                    <Typography variant="h3" className={classes.period}>
+                    <Typography variant="h3">
                         {result.testPeriod === 'begin'
                             ? t('child-profile.initial-test')
                             : t('child-profile.final-test')}
@@ -107,11 +107,6 @@ const useStyles = makeStyles({
         fontSize: '15px',
         paddingTop: '15px',
         lineHeight: 2,
-    },
-    period: {
-        fontSize: '21px',
-        fontWeight: 'bold',
-        lineHeight: '50px',
     },
     chart: {
         marginTop: '15px',

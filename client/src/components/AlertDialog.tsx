@@ -7,6 +7,7 @@ export type DialogTypes = 'error' | 'warning' | 'info' | 'success';
 
 type AlertDialogProps = {
     description: string;
+    title?: string;
     type: DialogTypes;
 };
 
@@ -14,18 +15,18 @@ export const openAlertDialog = (props: AlertDialogProps) => {
     return openDialog<AlertDialogProps>(AlertDialog, props);
 };
 
-const AlertDialog = ({ type, description, onClose }: AlertDialogProps & ActionDialog) => {
+const AlertDialog = ({ type, title, description, onClose }: AlertDialogProps & ActionDialog) => {
     const { t } = useTranslation();
 
-    const title = t(`alert-dialog.${type}`);
+    const titleText = title || t(`alert-dialog.${type}`);
 
     return (
         <Dialog open onClose={onClose}>
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle>{titleText}</DialogTitle>
             <DialogContent>{description}</DialogContent>
             <DialogActions>
                 <Button onClick={onClose} color="primary" autoFocus>
-                    OK
+                    {t('close')}
                 </Button>
             </DialogActions>
         </Dialog>

@@ -1,4 +1,4 @@
-import { firebase, User, UserCredential } from '../firebase/firebase';
+import { firebase, User, UserCredential, AuthError } from '../firebase/firebase';
 
 type OnAuthStateChangedCallback = (user: User | null) => void;
 
@@ -6,7 +6,7 @@ export const handleSignInWithEmailAndPassword = (
     email: string,
     password: string,
     successCallback: (value: UserCredential) => void,
-    failCallback: (error: Error) => void,
+    failCallback: (error: AuthError) => void,
 ) => {
     firebase.auth.handleSession().then(() => {
         firebase.auth

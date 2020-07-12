@@ -3,30 +3,6 @@ import { firestore } from 'firebase';
 export type Document = firestore.DocumentData;
 export type Snapshot = firestore.DocumentSnapshot;
 
-export interface Article {
-    id: string;
-    header: string;
-    pictureUrl: string;
-    title: string;
-    subtitle: string;
-    contentHTML: string;
-    tags: string[];
-    category: string[];
-    description: string;
-    videoUrl: string;
-    readingTime: number;
-    redactor: Redactor;
-    date: Date;
-}
-
-export interface Redactor {
-    avatarUrl: string;
-    firstName: string;
-    lastName: string;
-    profession: string;
-    shortDescription: string;
-}
-
 export interface Result {
     schoolYearStart: number;
     dateOfTest: Date;
@@ -77,13 +53,6 @@ export type User = {
     role: string;
     agreements: UserAgreement[];
 };
-
-export interface PaginatedArticleList {
-    articleList: Article[];
-    firstSnap: Snapshot;
-    lastSnap: Snapshot;
-    isMore: boolean;
-}
 
 export type Notification = {
     text: string;
