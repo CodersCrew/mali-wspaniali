@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Typography, Button, makeStyles, createStyles } from '@material-ui/core';
+import { Typography, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
@@ -11,8 +11,8 @@ import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
-import { secondaryColor, white } from '../../colors';
-import { Theme } from '../../theme/types';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
+import { secondaryColor, white } from '../../colors'
 
 const initialState = {
     type: {
@@ -154,9 +154,7 @@ export const NewsletterPage = () => {
 
     return (
         <div className={classes.container}>
-            <Typography variant="h1" className={classes.header}>
-                {t('newsletter.header')}
-            </Typography>
+            <PageTitle text={t('newsletter.header')} />
             <Typography variant="h2" className={classes.subHeader}>
                 {t('newsletter.subHeader')}
             </Typography>
@@ -208,16 +206,6 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: '0 90px 54px 0',
             [theme.breakpoints.down('sm')]: {
                 padding: '0 10px',
-            },
-        },
-        header: {
-            marginBottom: 20,
-            textTransform: 'uppercase',
-
-            [theme.breakpoints.down('sm')]: {
-                marginTop: 25,
-                fontSize: 21,
-                lineHeight: '26px',
             },
         },
         subHeader: {

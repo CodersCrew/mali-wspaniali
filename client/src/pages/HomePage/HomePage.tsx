@@ -3,6 +3,7 @@ import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { Theme } from '../../theme/types';
 
 export const ParentHomePage = () => {
@@ -12,7 +13,7 @@ export const ParentHomePage = () => {
     return (
         <Grid className={classes.container}>
             <Grid item xs={12}>
-                <h1 className={classes.header}>{t('home-page-content.greeting')}</h1>
+                <PageTitle text={t('home-page-content.greeting')} />
             </Grid>
             <Grid item xs={12}>
                 <p className={classes.description}>
@@ -35,18 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('md')]: {
                 padding: '0 0 5px 0',
                 textAlign: 'center',
-            },
-        },
-        header: {
-            fontSize: 36,
-            marginBottom: 20,
-            marginTop: 0,
-            textTransform: 'uppercase',
-            lineHeight: '44px',
-
-            [theme.breakpoints.down('sm')]: {
-                fontSize: 21,
-                lineHeight: '26px',
             },
         },
         description: {
