@@ -1,4 +1,12 @@
-export function createArticleCreatedNotification(user: string) {
+interface NotificationFactoryResult {
+  user: string;
+  templateId: string;
+  values: string[];
+}
+
+export function createArticleCreatedNotification(
+  user: string,
+): NotificationFactoryResult {
   return {
     user,
     templateId: 'new_article',
@@ -6,7 +14,10 @@ export function createArticleCreatedNotification(user: string) {
   };
 }
 
-export function createUserCreatedNotification(user: string, values: string[]) {
+export function createUserCreatedNotification(
+  user: string,
+  values: string[],
+): NotificationFactoryResult {
   return {
     user,
     templateId: 'new_user',

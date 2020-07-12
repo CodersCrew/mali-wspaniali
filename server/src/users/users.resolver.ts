@@ -17,6 +17,7 @@ import { CurrentUser } from './params/current_user_param';
 import { ChildInput } from './inputs/child_input';
 import { AddChildCommand } from './domain/commands/impl/add_child_command';
 import { ChildProps } from './domain/models/child_model';
+import { LoggedUser } from '../users/params/current_user_param';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -29,7 +30,7 @@ export class UserResolver {
 
   @Query(() => UserDTO)
   @UseGuards(GqlAuthGuard)
-  async me(@CurrentUser() user): Promise<UserDTO> {
+  async me(@CurrentUser() user: LoggedUser): Promise<UserDTO> {
     return await this.queryBus.execute(new GetUserQuery(user.userId));
   }
 
@@ -47,7 +48,7 @@ export class UserResolver {
   @Mutation(() => ReturnedStatusDTO)
   @UseGuards(GqlAuthGuard)
   async addChild(
-    @CurrentUser() user,
+    @CurrentUser() user: LoggedUser,
     @Args('child') child: ChildInput,
   ): Promise<{ status: boolean }> {
     const created: ChildProps = await this.commandBus.execute(
