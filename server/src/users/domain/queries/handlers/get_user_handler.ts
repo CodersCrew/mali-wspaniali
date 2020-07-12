@@ -1,14 +1,17 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import * as mongoose from 'mongoose';
 
 import { GetUserQuery } from '../impl/get_user_query';
 import { UserProps } from '../../models/user_model';
 import { UserRepository } from '../../repositories/user_repository';
 import { NotificationRepository } from '../../../../notifications/domain/repositories/notification_repository';
+import { ChildRepository } from '../../repositories/child_repository';
 
 @QueryHandler(GetUserQuery)
 export class GetUserHandler implements IQueryHandler<GetUserQuery> {
   constructor(
     private readonly userRepository: UserRepository,
+    private readonly childRepository: ChildRepository,
     private readonly notificationRepository: NotificationRepository,
   ) {}
 
@@ -17,6 +20,9 @@ export class GetUserHandler implements IQueryHandler<GetUserQuery> {
 
     if (user) {
       user.notifications = await this.notificationRepository.getAll(user._id);
+      user.children = await this.childRepository.get(
+        user.children as mongoose.Schema.Types.ObjectId[],
+      );
     }
 
     return user;

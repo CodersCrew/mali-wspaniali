@@ -14,6 +14,9 @@ import { LoginInput } from './inputs/login_input';
 import { LoginUserCommand } from './domain/commands/impl/login_user_command';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { CurrentUser } from './params/current_user_param';
+import { ChildInput } from './inputs/child_input';
+import { AddChildCommand } from './domain/commands/impl/add_child_command';
+import { ChildProps } from './domain/models/child_model';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -36,6 +39,19 @@ export class UserResolver {
   ): Promise<{ status: boolean }> {
     const created: UserProps = await this.commandBus.execute(
       new CreateUserCommand(user.mail, user.password, user.keyCode),
+    );
+
+    return { status: !!created };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(GqlAuthGuard)
+  async addChild(
+    @CurrentUser() user,
+    @Args('child') child: ChildInput,
+  ): Promise<{ status: boolean }> {
+    const created: ChildProps = await this.commandBus.execute(
+      new AddChildCommand(child, user.userId),
     );
 
     return { status: !!created };
