@@ -23,15 +23,15 @@ export class UserRepository {
     return await this.userModel.findOne({ mail }).exec();
   }
 
-  async forEach(cb: (user: UserDocument) => void) {
-    return await this.userModel
+  async forEach(cb: (user: UserDocument) => void): Promise<void> {
+    await this.userModel
       .find()
       .cursor()
       .eachAsync(user => cb(user));
   }
 
-  async forEachAdmin(cb: (user: UserDocument) => void) {
-    return await this.userModel
+  async forEachAdmin(cb: (user: UserDocument) => void): Promise<void> {
+    await this.userModel
       .find({ role: 'admin' })
       .cursor()
       .eachAsync(user => cb(user));
