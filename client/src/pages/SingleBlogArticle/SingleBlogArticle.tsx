@@ -54,6 +54,7 @@ export const SingleBlogArticle = () => {
         );
     }
     // TODO: display a placeholder when there is no article
+
     return <div />;
 };
 

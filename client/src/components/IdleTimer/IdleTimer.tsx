@@ -29,6 +29,7 @@ export const IdleTimer: React.FC = ({ children }) => {
             window.clearTimeout(timerId);
             setTimerId(null);
         }
+        
         return () => {
             removeListeners();
         };

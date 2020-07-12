@@ -3,7 +3,7 @@ import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, Badge } fr
 import { Notifications } from '@material-ui/icons/';
 import { Link } from 'react-router-dom';
 import { User } from '../../../firebase/firebase';
-import { secondaryColor, mainColor, white, textColor } from '../../../colors';
+import { secondaryColor, white, textColor } from '../../../colors';
 import { useSubscribed } from '../../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { getChildrenByUserId } from '../../../queries/childQueries';
@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         badgeColor: {
-            backgroundColor: mainColor,
+            backgroundColor: theme.palette.primary.main,
             color: white,
             [theme.breakpoints.down('sm')]: {
                 backgroundColor: secondaryColor,
@@ -141,7 +141,7 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '0 0 8px 8px',
 
             [theme.breakpoints.down('sm')]: {
-                backgroundColor: mainColor,
+                backgroundColor: theme.palette.primary.main,
                 width: '100vw',
                 height: '60px',
                 marginTop: 0,

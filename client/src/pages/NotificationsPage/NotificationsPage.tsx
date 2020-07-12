@@ -74,7 +74,7 @@ export const NotificationsPage = () => {
     return (
         <Container maxWidth="xl">
             <NotificationPageHeader />
-            <NotificationPageList notifications={notificationData} />
+            <NotificationPageList notifications={notificationData as Notification[]} />
             <Pagination
                 disabledPrevious={isFirstPage}
                 disabledNext={isLastPage}

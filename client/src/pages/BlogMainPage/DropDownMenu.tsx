@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Button, Tabs, Grow, Paper, Popper } from '@material-ui/core';
+import { Tabs, Grow, Paper, Popper, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 
@@ -95,9 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: 'none',
             },
         },
-
         button: {
-            fontWeight: 'bold',
             marginLeft: '52px',
             marginRight: '52px',
             width: '100vw',

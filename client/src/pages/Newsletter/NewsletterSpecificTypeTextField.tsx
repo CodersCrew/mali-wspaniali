@@ -97,8 +97,10 @@ export const NewsletterSpecificTypeTextField: React.FC<{
                             );
                             if (specificTypekindergartenRecipient) return specificTypekindergartenRecipient.label;
                         }
+                        
                         return null;
                     };
+                    
                     return (
                         <Chip
                             classes={{

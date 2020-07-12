@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles, Grid, Theme, createStyles } from '@material-ui/core';
+import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
-import { mainColor } from '../../colors';
+import { Theme } from '../../theme/types';
 
 export const ParentHomePage = () => {
     const classes = useStyles();
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         link: {
-            color: mainColor,
+            color: theme.palette.primary.main,
             fontWeight: 'bold',
 
             [theme.breakpoints.down('sm')]: {

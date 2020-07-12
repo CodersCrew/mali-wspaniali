@@ -7,7 +7,7 @@ import { white, secondaryColor } from '../../../colors';
 import { Notification } from '../../../firebase/types';
 
 export type NotificationListProps = {
-    notifications: Notification[] | undefined;
+    notifications: Notification[];
 };
 
 export const NotificationsPanel = (props: NotificationListProps) => {
@@ -21,6 +21,7 @@ export const NotificationsPanel = (props: NotificationListProps) => {
                 {notifications &&
                     notifications.map(notification => {
                         const { text, date, isRead, id } = notification;
+
                         return <NotificationItem key={id} id={id} text={text} date={date} isRead={isRead} />;
                     })}
             </MenuList>

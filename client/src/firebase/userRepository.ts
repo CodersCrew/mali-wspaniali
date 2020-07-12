@@ -70,6 +70,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
                         reject(error);
                     },
                 );
+                
                 return unsubscribe;
             }
             if (!previousLastVisible && previousFirstVisible) {
@@ -87,6 +88,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
                         reject(error);
                     },
                 );
+                
                 return unsubscribe;
             }
             const unsubscribe = userRefWithLimit.onSnapshot(
@@ -103,8 +105,10 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
                     reject(error);
                 },
             );
+            
             return unsubscribe;
         };
+        
         return new Promise<dataPromiseTypes>((resolve, reject) => {
             getQuery(resolve, reject);
         });
@@ -119,6 +123,7 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
                 snapshot.forEach(document => {
                     parents.push(document.data().email as Parent);
                 });
+                
                 return onSnapshotCallback(parents);
             });
     },

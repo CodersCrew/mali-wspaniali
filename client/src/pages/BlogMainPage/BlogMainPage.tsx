@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Grid } from '@material-ui/core';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useParams, useHistory } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import { createStyles } from '@material-ui/styles';
 import { BlogArticleCard } from './BlogArticleCard';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
-import { white, mainColor } from '../../colors';
 import { categoriesList } from './BlogCategories';
 import { getArticles } from '../../queries/articleQueries';
 import { DropDownMenu } from './DropDownMenu';
@@ -26,15 +25,15 @@ export const BlogMainPage = () => {
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 
     useEffect(() => {
-        let articlesToFetch;
+        let fetchedArticles;
 
         if (params.category === 'all') {
-            articlesToFetch = getArticles(currentPage);
+            fetchedArticles = getArticles(currentPage);
         } else {
-            articlesToFetch = getArticles(currentPage, params.category);
+            fetchedArticles = getArticles(currentPage, params.category);
         }
 
-        articlesToFetch.then(({ data }) => setArticles(data.articles));
+        fetchedArticles.then(({ data }) => setArticles(data.articles));
     }, [params.category, currentPage]);
 
     const paginationQuery = (paginationDirection: string) => {
@@ -47,7 +46,12 @@ export const BlogMainPage = () => {
 
     return (
         <>
-            <div className={classes.headerBar}>{t('blog-main-page.header-bar')}</div>
+            <div>
+                <Typography variant="h2" gutterBottom className={classes.headerBar}>
+                    {t('blog-main-page.header-bar')}
+                </Typography>
+            </div>
+
             <BlogMainHeader />
             <DropDownMenu
                 values={categoriesList}
@@ -86,12 +90,10 @@ export const BlogMainPage = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         headerBar: {
-            backgroundColor: mainColor,
+            backgroundColor: theme.palette.primary.main,
             borderRadius: '0 0 8px 8px',
-            fontWeight: 'bold',
             padding: '10px',
-            color: white,
-            fontSize: '21px',
+            color: theme.palette.primary.contrastText,
             top: '50px',
             left: 0,
             width: '100vw',
@@ -108,10 +110,9 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: '0 4%',
 
             [theme.breakpoints.down('sm')]: {
-                fontSize: 150,
                 display: 'flex',
                 flexDirection: 'column',
-                lineHeight: '18px',
+                lineHeight: theme.typography.subtitle2.lineHeight,
             },
         },
         gridSubContainer: {
@@ -120,7 +121,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         gridBackground: {
-            backgroundColor: white,
+            backgroundColor: theme.palette.primary.contrastText,
             borderRadius: '20px',
         },
     }),

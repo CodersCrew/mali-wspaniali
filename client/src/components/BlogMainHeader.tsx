@@ -9,7 +9,7 @@ export const BlogMainHeader = () => {
     const { t } = useTranslation();
 
     return (
-        <Typography variant="h4" gutterBottom className={classes.heading}>
+        <Typography variant="h2" gutterBottom className={classes.heading}>
             {t('blog-main-page.header')}
         </Typography>
     );
@@ -19,16 +19,13 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         heading: {
             marginTop: '20px',
-            fontWeight: 'bold',
-            fontSize: '34px',
             marginBottom: '4%',
             marginLeft: '3%',
-            width: '60%',
+            width: '60vw',
             zIndex: 10,
 
             [theme.breakpoints.down('sm')]: {
-                fontSize: '15px',
-                fontWeight: 'normal',
+                fontSize: theme.typography.subtitle1.fontSize,
                 textAlign: 'center',
                 marginLeft: '20%',
                 textTransform: 'uppercase',

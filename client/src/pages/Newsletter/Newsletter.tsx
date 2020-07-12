@@ -148,6 +148,7 @@ export const NewsletterPage = () => {
                 description: t('newsletter.sending-error'),
             });
         }
+        
         return openDialog(NewsletterSentModal, { goToAdminPage, resetState });
     };
 

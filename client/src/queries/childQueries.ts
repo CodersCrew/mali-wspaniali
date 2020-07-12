@@ -8,6 +8,7 @@ export const getChildrenData = async (rowsPerPage: number, last: Document | null
         last,
         first,
     );
+    
     return { documents, unsubscribe, newLastVisible, newFirstVisible };
 };
 

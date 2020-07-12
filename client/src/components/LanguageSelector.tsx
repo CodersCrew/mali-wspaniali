@@ -19,6 +19,7 @@ export const LanguageSelector: React.FC<Props> = ({ isSidebarOpen }) => {
 
     const changeLanguage = (lng: string) => {
         moment.locale(lng);
+        
         return i18n.changeLanguage(lng);
     };
     const languageImage = (flag: string, language: string) => {
@@ -33,6 +34,7 @@ export const LanguageSelector: React.FC<Props> = ({ isSidebarOpen }) => {
             </div>
         );
     };
+    
     return (
         <Container className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
             {localStorageLanguage === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}

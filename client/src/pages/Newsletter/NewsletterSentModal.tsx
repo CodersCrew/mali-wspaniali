@@ -11,7 +11,8 @@ import {
     DialogContentText,
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { mainColor, secondaryColor, white, textColor } from '../../colors';
+import { secondaryColor, white, textColor } from '../../colors';
+import { Theme } from '../../theme';
 
 export const NewsletterSentModal: React.FC<{
     onClose: () => void;
@@ -30,6 +31,7 @@ export const NewsletterSentModal: React.FC<{
             onClose();
         }
     };
+
     return (
         <Dialog open onClose={onClose}>
             <DialogContent className={classes.sentModal}>
@@ -63,7 +65,7 @@ export const NewsletterSentModal: React.FC<{
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         sentModal: {
             textAlign: 'center',
@@ -80,7 +82,7 @@ const useStyles = makeStyles(() =>
             fontWeight: 500,
         },
         sentModalIcon: {
-            color: mainColor,
+            color: theme.palette.primary.main,
             width: 48,
             height: 48,
             marginBottom: 8,

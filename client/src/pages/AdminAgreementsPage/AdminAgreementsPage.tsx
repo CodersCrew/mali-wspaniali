@@ -70,6 +70,7 @@ export const AdminAgreementsPage = () => {
                             >
                                 {agreements.map(agreement => {
                                     const labelId = `checkbox-list-label-${agreement.id}`;
+                                    
                                     return (
                                         <>
                                             <ListItem

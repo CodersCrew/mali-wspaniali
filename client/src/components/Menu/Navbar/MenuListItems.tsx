@@ -34,6 +34,7 @@ export const MenuListItems = ({ userRole, childrenData, handleClose }: MenuListI
                                 />
                             );
                             const link = `/parent/child/${id}`;
+                            
                             return (
                                 <MenuListItem
                                     key={firstName}
@@ -46,6 +47,7 @@ export const MenuListItems = ({ userRole, childrenData, handleClose }: MenuListI
                         })}
                     {staticMenuItems.slice(1).map(staticItem => {
                         const { name, link, icon } = staticItem;
+                        
                         return (
                             <MenuListItem
                                 key={name}

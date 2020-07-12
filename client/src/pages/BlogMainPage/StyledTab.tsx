@@ -9,6 +9,7 @@ type StyledTabProps = {
 
 export const StyledTab = ({ color, ...props }: StyledTabProps) => {
     const classes = useStyles({ color });
+    
     return (
         <Tab
             disableRipple

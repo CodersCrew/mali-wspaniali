@@ -56,11 +56,13 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
                 );
                 const link = `/parent/child/${id}`;
                 menuItems.splice(1, 0, { name: firstName, link, icon: iconComponent });
+                
                 return menuItems.map(({ name, link: itemLink, icon }) => (
                     <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={itemLink} icon={icon} />
                 ));
             });
         }
+        
         return menuItems.map(({ name, link, icon }) => (
             <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={link} icon={icon} />
         ));
