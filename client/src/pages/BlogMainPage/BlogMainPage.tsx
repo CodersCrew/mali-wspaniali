@@ -83,6 +83,9 @@ export const BlogMainPage = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        dropDownContainer: {
+            margin: `0 ${theme.spacing(7)}px`,
+        },
         gridContainer: {
             maxWidth: '92%',
             margin: '0 4%',

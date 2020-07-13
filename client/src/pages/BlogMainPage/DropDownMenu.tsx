@@ -92,16 +92,21 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         button: {
-            marginLeft: '52px',
-            marginRight: '52px',
-            width: '100vw',
             justifyContent: 'space-between',
         },
+        growContainer: { transformOrigin: 'bottom' },
         container: {
-            marginLeft: '52px',
-            marginRight: '52px',
+            width: '100%',
             alignItems: 'flex-start',
             transform: 'translate3d(0px, 35px, 0px)',
+        },
+        flexContainer: {
+            margin: '3%',
+            alignItems: 'flex-start',
+            flexWrap: 'wrap',
+        },
+        indicator: {
+            display: 'none',
         },
     }),
 );

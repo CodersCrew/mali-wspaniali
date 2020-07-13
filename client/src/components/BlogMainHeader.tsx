@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.primary.contrastText,
             fontSize: theme.typography.h4.fontSize,
             textTransform: 'uppercase',
+            cursor: 'default',
+            userSelect: 'none',
         },
         titleContainer: {
             backgroundColor: theme.palette.primary.main,

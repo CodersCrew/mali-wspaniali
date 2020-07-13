@@ -1,10 +1,9 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, makeStyles, Button } from '@material-ui/core';
+import { Card, CardMedia, CardContent, Typography, makeStyles, Button, Theme } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { ArticleCategory } from '../graphql/types';
 import { ArticleBadge } from '../pages/BlogMainPage/ArticleBadge';
-import { darkGrey, white } from '../colors';
 
 interface Props {
     header: string;
@@ -44,14 +43,13 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link, category
     );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
     card: {
         position: 'relative',
         width: '100%',
         height: '400px',
         overflow: 'visible',
-        backgroundColor: darkGrey,
-        borderRadius: '4px',
+        backgroundColor: theme.palette.grey[300],
         marginTop: '20%',
         boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
     },
@@ -74,13 +72,11 @@ const useStyles = makeStyles({
         bottom: '10px',
     },
     readMoreButton: {
-        color: white,
         fontSize: '13px',
         whiteSpace: 'nowrap',
-        borderRadius: '4px',
         position: 'absolute',
         right: '16px',
         bottom: '16px',
         marginTop: '10px',
     },
-});
+}));
