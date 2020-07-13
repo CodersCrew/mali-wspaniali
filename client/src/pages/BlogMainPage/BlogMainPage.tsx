@@ -45,11 +45,13 @@ export const BlogMainPage = () => {
     return (
         <>
             <BlogMainHeader />
-            <DropDownMenu
-                values={categoriesList}
-                active={params.category}
-                onClick={value => history.push(`/parent/blog/${value}/1`)}
-            />
+            <div className={classes.dropDownContainer}>
+                <DropDownMenu
+                    values={categoriesList}
+                    active={params.category}
+                    onClick={value => history.push(`/parent/blog/${value}/1`)}
+                />
+            </div>
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
