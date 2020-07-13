@@ -14,4 +14,5 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     default: 'user',
   },
+  children: [mongoose.Schema.Types.ObjectId],
 });

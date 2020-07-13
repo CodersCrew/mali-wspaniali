@@ -42,6 +42,7 @@ export const notificationRepository = (db: firebaseApp.firestore.Firestore) => (
                 firstIndex = 0;
                 lastIndex = 8;
             }
+
             return onSnapshotCallback({
                 notifications: notifications.slice(firstIndex, lastIndex + 1),
                 firstSnap: snapshots[firstIndex],

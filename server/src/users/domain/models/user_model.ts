@@ -1,6 +1,10 @@
 import { AggregateRoot } from '@nestjs/cqrs';
+import * as mongoose from 'mongoose';
+
 import { UserCreatedEvent } from '../events/impl/article_created_event';
 import { Mail } from './mail';
+import { NotificationProps } from '../../../notifications/domain/models/notification_model';
+import { ChildProps } from './child_model';
 
 export interface UserProps {
   readonly _id: string;
@@ -8,6 +12,8 @@ export interface UserProps {
   mail: string;
   readonly password: string;
   readonly role: string;
+  notifications: NotificationProps[];
+  children: string[] | mongoose.Schema.Types.ObjectId[] | ChildProps[];
 }
 
 export interface UserBeforeSaveProps {

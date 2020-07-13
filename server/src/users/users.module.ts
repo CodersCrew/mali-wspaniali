@@ -14,13 +14,18 @@ import { KeyCodesModule } from '../key_codes/key_codes.module';
 import { EventHandlers } from './domain/events/handlers';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { JwtStrategy } from './strategy/jwt_strategy';
+import { NotificationsModule } from '../notifications/notifications.module';
+import { ChildRepository } from './domain/repositories/child_repository';
+import { ChildSchema } from './schemas/child_schema';
 
 @Module({
   imports: [
     KeyCodesModule,
+    NotificationsModule,
     CqrsModule,
     ConfigModule.forRoot(),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: 'Child', schema: ChildSchema }]),
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
@@ -32,9 +37,11 @@ import { JwtStrategy } from './strategy/jwt_strategy';
     GqlAuthGuard,
     UserResolver,
     UserRepository,
+    ChildRepository,
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,
   ],
+  exports: [UserRepository],
 })
 export class UserModule {}

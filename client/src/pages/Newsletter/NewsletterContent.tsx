@@ -12,11 +12,12 @@ import {
     Typography,
 } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import { mainColor, newsletterColors, textColor, white } from '../../colors';
+import { newsletterColors, textColor, white } from '../../colors';
 import { WorkSpace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
 import { SingleFieldType, FieldsType } from './types';
+import { Theme } from '../../theme/types';
 
 export const NewsletterContent: React.FC<{
     handleTypeDelete: () => void;
@@ -104,6 +105,7 @@ export const NewsletterContent: React.FC<{
                     renderValue: value => {
                         const item = newsletterTypesArray.find(element => element.name === value);
                         const itemBackgroundColor = item ? item.color : newsletterColors.typeColors.blue;
+
                         return (
                             <Chip
                                 style={{ backgroundColor: itemBackgroundColor }}
@@ -171,7 +173,7 @@ export const NewsletterContent: React.FC<{
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             borderRadius: 4,
@@ -187,7 +189,7 @@ const useStyles = makeStyles(() =>
             opacity: 0.5,
         },
         heading: {
-            backgroundColor: mainColor,
+            backgroundColor: theme.palette.primary.main,
             color: white,
             fontSize: 18,
             fontWeight: 500,
@@ -225,7 +227,7 @@ const useStyles = makeStyles(() =>
         },
         underlineFocus: {
             '&:after': {
-                borderBottom: `2px solid ${mainColor}`,
+                borderBottom: `2px solid ${theme.palette.primary.main}`,
             },
         },
         underlineDisabled: {

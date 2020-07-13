@@ -13,11 +13,28 @@ export class UserRepository {
   ) {}
 
   async get(id: string): Promise<UserProps> {
-    return await this.userModel.findById(id, { password: 0 }).exec();
+    return await this.userModel
+      .findById(id, { password: 0 })
+      .lean()
+      .exec();
   }
 
   async getByMail(mail: string): Promise<UserProps> {
     return await this.userModel.findOne({ mail }).exec();
+  }
+
+  async forEach(cb: (user: UserDocument) => void): Promise<void> {
+    await this.userModel
+      .find()
+      .cursor()
+      .eachAsync(user => cb(user));
+  }
+
+  async forEachAdmin(cb: (user: UserDocument) => void): Promise<void> {
+    await this.userModel
+      .find({ role: 'admin' })
+      .cursor()
+      .eachAsync(user => cb(user));
   }
 
   async create(
@@ -33,6 +50,12 @@ export class UserRepository {
     const rawUser = await createdUser.save();
 
     return User.create(rawUser, keyCode);
+  }
+
+  async addChild(childId: string, userId: string): Promise<void> {
+    await this.userModel.findByIdAndUpdate(userId, {
+      $addToSet: { children: childId },
+    });
   }
 
   // for e2e purpose only

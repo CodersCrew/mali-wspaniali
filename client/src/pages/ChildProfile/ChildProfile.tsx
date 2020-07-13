@@ -11,6 +11,7 @@ import { ChildProfileResults } from './ChildProfileResults';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
 import { secondaryColor, white } from '../../colors';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
 
 const TABS = {
     results: 'results',
@@ -39,9 +40,7 @@ export const ChildProfile = () => {
     return (
         <>
             <Grid container className={classes.header}>
-                <Typography className={classes.name}>
-                    {child.firstName} {child.lastName}
-                </Typography>
+                <PageTitle text={`${child.firstName} ${child.lastName}`} />
                 <Typography className={classes.kindergarten}>
                     {t('child-profile.kindergarten-no')} {child.kindergartenNo}
                 </Typography>
@@ -60,7 +59,7 @@ export const ChildProfile = () => {
                 <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
                 <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
             </Tabs>
-            {activeTab === TABS.results && <ChildProfileResults />}
+            {activeTab === TABS.results && <ChildProfileResults onNoResultClick={() => setActiveTab('aboutTests')} birthYear={child.birthYear} />}
             {activeTab === TABS.aboutTests && <ChildProfileAboutTests />}
             {activeTab === TABS.agreements && <ChildProfileAgreements />}
         </>
@@ -72,15 +71,10 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
     },
-    name: {
-        fontSize: '36px',
-        textTransform: 'uppercase',
-        fontWeight: 700,
-        marginRight: '60px',
-    },
     kindergarten: {
         fontSize: '21px',
         fontWeight: 700,
+        marginLeft: '60px',
     },
     description: {
         fontSize: '21px',

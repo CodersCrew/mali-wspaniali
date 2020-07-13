@@ -1,20 +1,19 @@
 import React from 'react';
-import { Tab, createStyles, makeStyles, Theme } from '@material-ui/core';
-import { white, blogCategoryColors } from '../../colors';
+import { Tab, createStyles, makeStyles } from '@material-ui/core';
+import { blogCategoryColors } from '../../colors';
+import { Theme } from '../../theme/types';
 
-interface Props {
+type StyledTabProps = {
     color: string;
     label: string;
-}
+};
 
-export const StyledTab = ({ color, label, ...props }: Props) => {
+export const StyledTab = ({ color, ...props }: StyledTabProps) => {
     const classes = useStyles({ color });
 
     return (
         <Tab
             disableRipple
-            color={color}
-            label={label}
             classes={{ root: classes.root, wrapper: classes.wrapper, selected: classes.selected }}
             {...props}
         />
@@ -30,13 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '4px',
             opacity: '1',
             whiteSpace: 'nowrap',
-            color: white,
+            color: theme.palette.primary.contrastText,
             textTransform: 'none',
             flexShrink: 2,
-            fontWeight: 600,
+            fontWeight: theme.typography.button.fontWeight,
         },
         wrapper: {
-            margin: '0 10px',
+            margin: '0 10px',
         },
         selected: {
             height: '45px',

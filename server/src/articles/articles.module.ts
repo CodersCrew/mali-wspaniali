@@ -8,10 +8,14 @@ import { ArticlesRepository } from './domain/repositories/article_repository';
 import { CommandHandlers } from './domain/commands/handlers';
 import { EventHandlers } from './domain/events/handlers/index';
 import { QueryHandlers } from './domain/queries/handlers';
+import { NotificationsModule } from '../notifications/notifications.module';
+import { UserModule } from '../users/users.module';
 
 @Module({
   imports: [
     CqrsModule,
+    NotificationsModule,
+    UserModule,
     MongooseModule.forFeature([{ name: 'Article', schema: ArticleSchema }]),
   ],
   providers: [

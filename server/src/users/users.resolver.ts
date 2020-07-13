@@ -4,15 +4,12 @@ import {
   Query,
   Args,
   Context,
-  GqlExecutionContext,
+  ResolveField,
+  Parent,
 } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {
-  UseInterceptors,
-  ExecutionContext,
-  UseGuards,
-  Injectable,
-} from '@nestjs/common';
+import { UseInterceptors, UseGuards } from '@nestjs/common';
+import * as mongoose from 'mongoose';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
@@ -26,9 +23,17 @@ import { LoginInput } from './inputs/login_input';
 import { LoginUserCommand } from './domain/commands/impl/login_user_command';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { CurrentUser } from './params/current_user_param';
+import { ChildInput } from './inputs/child_input';
+import { AddChildCommand } from './domain/commands/impl/add_child_command';
+import { ChildProps } from './domain/models/child_model';
+import { LoggedUser } from '../users/params/current_user_param';
+import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
+import { NotificationDTO } from '../notifications/dto/notification.dto';
+import { ChildDTO } from './dto/children_dto';
+import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 
 @UseInterceptors(SentryInterceptor)
-@Resolver()
+@Resolver(() => UserDTO)
 export class UserResolver {
   constructor(
     private commandBus: CommandBus,
@@ -38,8 +43,22 @@ export class UserResolver {
 
   @Query(() => UserDTO)
   @UseGuards(GqlAuthGuard)
-  async me(@CurrentUser() user): Promise<UserProps> {
+  async me(@CurrentUser() user: LoggedUser): Promise<UserProps> {
     return await this.queryBus.execute(new GetUserQuery(user.userId));
+  }
+
+  @ResolveField()
+  async notifications(@Parent() user: UserDTO): Promise<NotificationDTO[]> {
+    return await this.queryBus.execute(
+      new GetNotificationsByUserQuery(user._id),
+    );
+  }
+
+  @ResolveField()
+  async children(@Parent() user: UserProps): Promise<ChildDTO[]> {
+    return await this.queryBus.execute(
+      new GetChildrenQuery(user.children as mongoose.Schema.Types.ObjectId[]),
+    );
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -48,6 +67,19 @@ export class UserResolver {
   ): Promise<{ status: boolean }> {
     const created: UserProps = await this.commandBus.execute(
       new CreateUserCommand(user.mail, user.password, user.keyCode),
+    );
+
+    return { status: !!created };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(GqlAuthGuard)
+  async addChild(
+    @CurrentUser() user: LoggedUser,
+    @Args('child') child: ChildInput,
+  ): Promise<{ status: boolean }> {
+    const created: ChildProps = await this.commandBus.execute(
+      new AddChildCommand(child, user.userId),
     );
 
     return { status: !!created };

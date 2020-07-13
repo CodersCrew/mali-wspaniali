@@ -38,6 +38,7 @@ export const TestResultsPage = () => {
 
     useEffect(() => {
         waitForData();
+
         return () => detachListeners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

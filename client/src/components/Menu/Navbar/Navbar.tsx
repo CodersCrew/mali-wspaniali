@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, Badge } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
+import { Link } from 'react-router-dom';
 import { User } from '../../../firebase/firebase';
-import { secondaryColor, mainColor, white, textColor } from '../../../colors';
+import { secondaryColor, white, textColor } from '../../../colors';
 import { useSubscribed } from '../../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { getChildrenByUserId } from '../../../queries/childQueries';
-import { getNotificationData } from '../../../queries/notificationQueries'
+import { getNotificationData } from '../../../queries/notificationQueries';
 import { Child, NotificationPaginatedList } from '../../../firebase/types';
 import { MenuListItems } from './MenuListItems';
-import { NotificationsPanel } from './NotificationsPanel'
+import { NotificationsPanel } from './NotificationsPanel';
 import { useAuthorization } from '../../../hooks/useAuthorization';
-import { Link } from 'react-router-dom';
 import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
 import Logo from '../../../assets/MALWSP_logo_nav.png';
 
@@ -32,12 +32,15 @@ export const Navbar = () => {
         [],
         [currentUser],
     ) as Child[];
-    const notificationResponse = useSubscribed<NotificationPaginatedList, User | null>((callback: OnSnapshotCallback<NotificationPaginatedList>) => {
-        if(currentUser) {
-            getNotificationData(callback, currentUser.uid, 5)
-        }
-    }, [], [currentUser],
-    ) as NotificationPaginatedList
+    const notificationResponse = useSubscribed<NotificationPaginatedList, User | null>(
+        (callback: OnSnapshotCallback<NotificationPaginatedList>) => {
+            if (currentUser) {
+                getNotificationData(callback, currentUser.uid, 5);
+            }
+        },
+        [],
+        [currentUser],
+    ) as NotificationPaginatedList;
 
     onAuthStateChanged(async (user: User | null) => {
         if (user) {
@@ -53,7 +56,7 @@ export const Navbar = () => {
     };
 
     const handleNotificationsIconClick = () => {
-        setNotificationsPanelOpen(isOpen => !isOpen)
+        setNotificationsPanelOpen(isOpen => !isOpen);
     };
 
     const handleClose = () => {
@@ -67,7 +70,13 @@ export const Navbar = () => {
                     <img src={Logo} className={classes.logo} alt="Logo Mali Wspaniali" />
                 </Link>
                 <IconButton color="inherit" onClick={handleNotificationsIconClick}>
-                    <Badge badgeContent={notificationResponse.notifications && notificationResponse.notifications.filter(el => !el.isRead).length} classes={{ badge: classes.badgeColor }}>
+                    <Badge
+                        badgeContent={
+                            notificationResponse.notifications &&
+                            notificationResponse.notifications.filter(el => !el.isRead).length
+                        }
+                        classes={{ badge: classes.badgeColor }}
+                    >
                         <Notifications className={classes.notificationsIcon} />
                     </Badge>
                 </IconButton>
@@ -77,7 +86,7 @@ export const Navbar = () => {
                     </Button>
                 </Avatar>
             </div>
-            {isNotificationsPanelOpen && <NotificationsPanel notifications={notificationResponse.notifications}/>}
+            {isNotificationsPanelOpen && <NotificationsPanel notifications={notificationResponse.notifications} />}
             {isMenuOpen && <MenuListItems childrenData={children} userRole={userRole} handleClose={handleClose} />}
         </div>
     );
@@ -118,10 +127,10 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         badgeColor: {
-            backgroundColor: mainColor,
+            backgroundColor: theme.palette.primary.main,
             color: white,
             [theme.breakpoints.down('sm')]: {
-                backgroundColor: secondaryColor
+                backgroundColor: secondaryColor,
             },
         },
         menuContainer: {
@@ -132,13 +141,14 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '0 0 8px 8px',
 
             [theme.breakpoints.down('sm')]: {
-                backgroundColor: mainColor,
+                backgroundColor: theme.palette.primary.main,
                 width: '100vw',
                 height: '60px',
                 marginTop: 0,
                 alignItems: 'center',
                 position: 'fixed',
                 top: 0,
+                borderRadius: '0',
             },
         },
         logo: {
