@@ -35,7 +35,7 @@ export const WorkSpace = (props: WorkspaceProps) => {
 const useStyles = makeStyles(() =>
     createStyles({
         workspace: {
-            padding: '0 30px',
+            borderRadius: '4px',
             '& .ql-container': {
                 minHeight: 170,
             },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
+import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@material-ui/core';
 import { SingleSelectProps } from './types';
 
 export const SingleSelect = ({
@@ -47,6 +47,7 @@ export const SingleSelect = ({
                     );
                 })}
             </Select>
+            {stateData.error && <FormHelperText>{stateData.error}</FormHelperText>}
         </FormControl>
     );
 };

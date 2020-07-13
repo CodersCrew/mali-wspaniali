@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem, FormControl, InputLabel, Select, Checkbox, ListItemText } from '@material-ui/core';
+import { MenuItem, FormControl, InputLabel, Select, Checkbox, ListItemText, FormHelperText } from '@material-ui/core';
 import { MultipleSelectProps } from './types';
 
 export const MultipleSelect = ({
@@ -48,6 +48,7 @@ export const MultipleSelect = ({
                         );
                     })}
             </Select>
+            {stateData.error && <FormHelperText>{stateData.error}</FormHelperText>}
         </FormControl>
     );
 };

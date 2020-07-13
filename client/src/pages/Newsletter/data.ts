@@ -36,3 +36,11 @@ export const kindergartensRecipients = [
         label: 'newsletter.specific-recipient-value-labels.single-kindergarten',
     },
 ];
+
+export const newsletterTypes = [
+    { value: 'results', label: 'newsletter.newsletter-types.results' },
+    { value: 'agreements', label: 'newsletter.newsletter-types.agreements' },
+    { value: 'events', label: 'newsletter.newsletter-types.events' },
+    { value: 'important', label: 'newsletter.newsletter-types.important' },
+    { value: 'other', label: 'newsletter.newsletter-types.other' },
+];

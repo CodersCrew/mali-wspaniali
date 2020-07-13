@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Typography, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { Typography, Button, makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
@@ -114,16 +114,6 @@ export const NewsletterPage = () => {
         }));
     };
 
-    const selectRecipients = (filteredRecipients: string[]): void => {
-        setFields(prevFields => ({
-            ...prevFields,
-            recipients: {
-                value: filteredRecipients,
-                error: false,
-            },
-        }));
-    };
-
     const goToAdminPage = () => {
         history.push('/admin');
     };
@@ -155,30 +145,32 @@ export const NewsletterPage = () => {
 
     return (
         <div className={classes.container}>
-            <Typography variant="h2" className={classes.subHeader}>
+            <Typography variant="h3" className={classes.subHeader}>
                 {t('newsletter.subHeader')}
             </Typography>
             <div className={classes.formContainer}>
                 <NewsletterProgressBar progressBarState={progressBarState} />
-                <div className={classes.inputContainer}>
-                    <NewsletterRecipent
-                        generalType={generalType}
-                        specificType={specificType}
-                        recipients={recipients}
-                        handleChange={handleChange}
-                        selectRecipients={selectRecipients}
-                        setFields={setFields}
-                    />
-                    <NewsletterContent
-                        handleTypeDelete={handleTypeDelete}
-                        handleChange={handleChange}
-                        type={type}
-                        topic={topic}
-                        recipients={recipients}
-                        message={message}
-                        setFields={setFields}
-                    />
-                </div>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <NewsletterRecipent
+                            generalType={generalType}
+                            specificType={specificType}
+                            recipients={recipients}
+                            handleChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <NewsletterContent
+                            handleTypeDelete={handleTypeDelete}
+                            handleChange={handleChange}
+                            type={type}
+                            topic={topic}
+                            recipients={recipients}
+                            message={message}
+                            setFields={setFields}
+                        />
+                    </Grid>
+                </Grid>
             </div>
             <div className={classes.formButtonWrapper}>
                 <Button
@@ -209,7 +201,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         subHeader: {
-            marginBottom: 40,
+            margin: '24px 0 32px',
         },
         formContainer: {
             display: 'flex',

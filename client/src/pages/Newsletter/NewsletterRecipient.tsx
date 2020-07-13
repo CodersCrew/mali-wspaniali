@@ -23,8 +23,6 @@ export const NewsletterRecipent = ({
     specificType,
     recipients,
     handleChange,
-    selectRecipients,
-    setFields,
 }: NewsletterRecipientProps) => {
     const { t } = useTranslation();
 

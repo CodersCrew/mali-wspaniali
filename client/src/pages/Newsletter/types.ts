@@ -100,12 +100,17 @@ export type NewsletterOptionalTextFieldProps = {
 export type NewsletterRecipientProps = {
     generalType: SingleFieldType;
     specificType: SingleFieldType;
-    recipients: {
-        value: string[];
-        error: boolean;
-    };
+    recipients: MultipleFieldType;
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-    selectRecipients: (filteredRecipients: string[]) => void;
+};
+
+export type NewsletterContentProps = {
+    handleTypeDelete: () => void;
+    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+    type: SingleFieldType;
+    topic: SingleFieldType;
+    recipients: MultipleFieldType;
+    message: SingleFieldType;
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
 };
 
