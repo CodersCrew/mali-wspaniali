@@ -31,6 +31,9 @@ import { GetNotificationsByUserQuery } from '../notifications/domain/queries/imp
 import { NotificationDTO } from '../notifications/dto/notification.dto';
 import { ChildDTO } from './dto/children_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
+import { ChildResultDTO } from './dto/child_result_dto';
+import { ResultInput } from './inputs/result_input';
+import { AddChildResultCommand } from './domain/commands/impl/add_child_result_command';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -80,6 +83,18 @@ export class UserResolver {
   ): Promise<{ status: boolean }> {
     const created: ChildProps = await this.commandBus.execute(
       new AddChildCommand(child, user.userId),
+    );
+
+    return { status: !!created };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  async addResult(
+    @Args('childId') childId: string,
+    @Args('result') result: ResultInput,
+  ): Promise<{ status: boolean }> {
+    const created: ChildProps = await this.commandBus.execute(
+      new AddChildResultCommand(result, childId),
     );
 
     return { status: !!created };
