@@ -99,7 +99,6 @@ const useStyles = makeStyles((theme: Theme) =>
         button: {
             justifyContent: 'space-between',
         },
-        growContainer: { transformOrigin: 'bottom' },
         container: {
             width: '100%',
             alignItems: 'flex-start',

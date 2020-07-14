@@ -23,13 +23,11 @@ export const HomePageArticles = () => {
             return (
                 <div className={classes.card} key={article.id}>
                     <BlogArticleCard
-                        header={article.header}
                         title={article.title}
                         pictureUrl={article.pictureUrl}
                         description={article.description}
                         link={`/parent/article/${article.id}`}
                         category={article.category}
-                        contentHTML={article.contentHTML}
                     />
                 </div>
             );

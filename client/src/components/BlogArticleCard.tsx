@@ -6,13 +6,11 @@ import { ArticleCategory } from '../graphql/types';
 import { ArticleBadge } from '../pages/BlogMainPage/ArticleBadge';
 
 interface Props {
-    header: string;
     pictureUrl: string;
     title: string;
     description: string;
     link: string;
     category: ArticleCategory;
-    contentHTML: string;
 }
 
 export const BlogArticleCard = ({ pictureUrl, title, description, link, category }: Props) => {

@@ -62,13 +62,11 @@ export const BlogMainPage = () => {
                     {articles.slice(0, 6).map((article: Article) => (
                         <Grid className={classes.gridSubContainer} key={article.id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
-                                header={article.header}
                                 title={article.title}
                                 pictureUrl={article.pictureUrl}
                                 description={article.description}
                                 category={article.category}
                                 link={`/parent/article/${article.id}`}
-                                contentHTML={article.contentHTML}
                             />
                         </Grid>
                     ))}
