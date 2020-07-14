@@ -13,16 +13,26 @@ export class ChildRepository {
     private readonly childModel: Model<ChildDocument>,
   ) {}
 
-  async create(childDTO: ChildProps): Promise<ChildDocument> {
+  async create(childDTO: Omit<ChildProps, '_id'>): Promise<ChildDocument> {
     const createdChild = new this.childModel(childDTO);
 
     return await createdChild.save();
   }
 
-  async get(
-    childIds: mongoose.Schema.Types.ObjectId[],
-  ): Promise<ChildDocument[]> {
-    return await this.childModel.find({ _id: childIds });
+  async addResult(
+    childId: string,
+    resultId: mongoose.Schema.Types.ObjectId,
+  ): Promise<void> {
+    await this.childModel.findByIdAndUpdate(childId, {
+      $addToSet: { results: resultId },
+    });
+  }
+
+  async get(childIds: mongoose.Schema.Types.ObjectId[]): Promise<ChildProps[]> {
+    return await this.childModel
+      .find({ _id: childIds })
+      .lean()
+      .exec();
   }
 
   // for e2e purpose only
