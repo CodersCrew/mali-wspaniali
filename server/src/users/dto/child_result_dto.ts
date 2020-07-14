@@ -10,5 +10,5 @@ export class ChildResultDTO {
   readonly date: Date;
 
   @Field(() => GraphQLJSONObject)
-  readonly test: object;
+  readonly test: unknown;
 }
