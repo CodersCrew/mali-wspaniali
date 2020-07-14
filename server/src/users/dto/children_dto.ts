@@ -5,7 +5,7 @@ import { ChildResultDTO } from './child_result_dto';
 @ObjectType()
 export class ChildDTO {
   @Field(() => ID)
-  id: string;
+  _id: string;
 
   @Field()
   readonly date: Date;
