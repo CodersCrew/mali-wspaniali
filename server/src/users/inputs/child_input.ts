@@ -4,4 +4,7 @@ import { InputType, Field } from '@nestjs/graphql';
 export class ChildInput {
   @Field()
   readonly firstname: string;
+
+  @Field()
+  readonly lastname: string;
 }

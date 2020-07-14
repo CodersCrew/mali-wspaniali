@@ -1,4 +1,6 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ChildResultProps } from '../../users/domain/models/child_result_model';
+import { ChildResultDTO } from './child_result_dto';
 
 @ObjectType()
 export class ChildDTO {
@@ -10,4 +12,7 @@ export class ChildDTO {
 
   @Field()
   readonly firstname: string;
+
+  @Field(() => [ChildResultDTO])
+  readonly results: ChildResultProps;
 }
