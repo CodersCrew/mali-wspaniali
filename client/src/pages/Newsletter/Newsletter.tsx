@@ -104,16 +104,6 @@ export const NewsletterPage = () => {
         }
     };
 
-    const handleTypeDelete = (): void => {
-        setFields(prevFields => ({
-            ...prevFields,
-            type: {
-                value: '',
-                error: true,
-            },
-        }));
-    };
-
     const goToAdminPage = () => {
         history.push('/admin');
     };
@@ -161,7 +151,6 @@ export const NewsletterPage = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <NewsletterContent
-                            handleTypeDelete={handleTypeDelete}
                             handleChange={handleChange}
                             type={type}
                             topic={topic}
@@ -170,23 +159,25 @@ export const NewsletterPage = () => {
                             setFields={setFields}
                         />
                     </Grid>
+                    <Grid item xs={12}>
+                        <div className={classes.formButtonWrapper}>
+                            <Button
+                                disabled={
+                                    recipients.value.length === 0 ||
+                                    !type.value ||
+                                    !topic.value ||
+                                    !message.value ||
+                                    message.value === '<p><br></p>'
+                                }
+                                className={classes.formButton}
+                                onClick={handleSubmit}
+                                classes={{ disabled: classes.formButtonDisabled }}
+                            >
+                                {t('newsletter.send')}
+                            </Button>
+                        </div>
+                    </Grid>
                 </Grid>
-            </div>
-            <div className={classes.formButtonWrapper}>
-                <Button
-                    disabled={
-                        recipients.value.length === 0 ||
-                        !type.value ||
-                        !topic.value ||
-                        !message.value ||
-                        message.value === '<p><br></p>'
-                    }
-                    className={classes.formButton}
-                    onClick={handleSubmit}
-                    classes={{ disabled: classes.formButtonDisabled }}
-                >
-                    {t('newsletter.send')}
-                </Button>
             </div>
         </div>
     );

@@ -53,6 +53,20 @@ export const NewsletterRecipent = ({
             };
         });
 
+    const specificTypeOptionsValues = areParentsSelected(generalType) ? parentsRecipients : kindergartensRecipients;
+
+    const recipientsOptionsValues = areParentsSelected(generalType) && !areParentsFromKindergartenSelected(specificType)
+        ? parentsOptionsValues
+        : kindergartenOptionsValues;
+
+    const renderRecipients = (selected:unknown) => {
+        return (selected as string[]).map(id => {
+            const obj = areParentsSelected(generalType) ? parentsOptionsValues.find(parent => parent.value === id) : kindergartenOptionsValues.find(kindergarten => kindergarten.value === id);
+
+            return obj?.label;
+        })
+            .join(', ');};
+
     return (
         <Card>
             <CardHeader title={t('newsletter.recipient-heading')} titleTypographyProps={{ variant: 'h4' }} />
@@ -72,9 +86,7 @@ export const NewsletterRecipent = ({
                     <Grid item xs={12}>
                         <SingleSelect
                             stateData={specificType}
-                            optionsValues={
-                                areParentsSelected(generalType) ? parentsRecipients : kindergartensRecipients
-                            }
+                            optionsValues={specificTypeOptionsValues}
                             handleChange={handleChange}
                             id="specific-recipient-type"
                             label={t('newsletter.specific-recipient-label')}
@@ -86,15 +98,12 @@ export const NewsletterRecipent = ({
                         <Grid item xs={12}>
                             <MultipleSelect
                                 stateData={recipients}
-                                optionsValues={
-                                    areParentsSelected(generalType) && !areParentsFromKindergartenSelected(specificType)
-                                        ? parentsOptionsValues
-                                        : kindergartenOptionsValues
-                                }
+                                optionsValues={recipientsOptionsValues}
                                 handleChange={handleChange}
                                 id="recipients"
                                 label={t(setLabel(generalType, specificType, recipients))}
                                 name="recipients"
+                                renderValue={renderRecipients}
                             />
                         </Grid>
                     ) : null}

@@ -10,6 +10,7 @@ export const MultipleSelect = ({
     label,
     name,
     disabled,
+    renderValue,
 }: MultipleSelectProps) => {
     return (
         <FormControl variant="outlined" fullWidth>
@@ -23,7 +24,7 @@ export const MultipleSelect = ({
                 error={stateData.error}
                 onChange={handleChange}
                 multiple
-                renderValue={selected => (selected as string[]).join(', ')}
+                renderValue={renderValue}
                 MenuProps={{
                     anchorOrigin: {
                         vertical: 'bottom',

@@ -105,7 +105,6 @@ export type NewsletterRecipientProps = {
 };
 
 export type NewsletterContentProps = {
-    handleTypeDelete: () => void;
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
     type: SingleFieldType;
     topic: SingleFieldType;
