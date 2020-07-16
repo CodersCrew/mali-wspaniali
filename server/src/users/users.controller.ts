@@ -8,7 +8,7 @@ import { GqlAuthGuard } from './guards/jwt_guard';
 import { GetAllChildrenQuery } from './domain/queries/impl/get_all__children_query';
 
 @UseGuards(GqlAuthGuard)
-@Controller('users')
+@Controller('children/result_sheet')
 export class UserController {
   constructor(private queryBus: QueryBus) {}
 
