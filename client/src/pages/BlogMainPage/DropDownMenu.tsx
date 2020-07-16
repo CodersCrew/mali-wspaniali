@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Tabs, Grow, Paper, Popper, Button } from '@material-ui/core';
-import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -8,13 +8,13 @@ import { DropDownMenuItem } from './DropDownMenuItem';
 import { Theme } from '../../theme/types';
 import { CategoryItem } from './BlogCategories';
 
-type DropDownMenuProps = {
+type Props = {
     onClick: (value: string) => void;
     active: string;
     values: CategoryItem[];
 };
 
-export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => {
+export const DropDownMenu = ({ onClick, active, values }: Props) => {
     const classes = useStyles();
     const [isOpen, setIsOpen] = useState(false);
     const anchorRef = useRef<HTMLButtonElement>(null);
@@ -51,6 +51,7 @@ export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => 
                 aria-haspopup="true"
                 onClick={handleToggle}
                 className={classes.button}
+                fullWidth
             >
                 {values.find(category => category.key === active)!.name}
                 {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -59,7 +60,11 @@ export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => 
                 {({ TransitionProps }) => (
                     <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
                         <Paper>
-                            <MenuStyledTabs value={values.findIndex(tab => tab.key === active)} onChange={handleChange}>
+                            <Tabs
+                                value={values.findIndex(tab => tab.key === active)}
+                                onChange={handleChange}
+                                classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }}
+                            >
                                 {values.map(category => {
                                     return (
                                         <DropDownMenuItem
@@ -69,7 +74,7 @@ export const DropDownMenu = ({ onClick, active, values }: DropDownMenuProps) => 
                                         />
                                     );
                                 })}
-                            </MenuStyledTabs>
+                            </Tabs>
                         </Paper>
                     </Grow>
                 )}
@@ -92,29 +97,20 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         button: {
-            marginLeft: '52px',
-            marginRight: '52px',
-            width: '100vw',
             justifyContent: 'space-between',
         },
         container: {
-            marginLeft: '52px',
-            marginRight: '52px',
+            width: '100%',
             alignItems: 'flex-start',
             transform: 'translate3d(0px, 35px, 0px)',
         },
+        flexContainer: {
+            margin: '3%',
+            alignItems: 'flex-start',
+            flexWrap: 'wrap',
+        },
+        indicator: {
+            display: 'none',
+        },
     }),
 );
-
-const styles = createStyles({
-    flexContainer: {
-        margin: '3%',
-        alignItems: 'flex-start',
-        flexWrap: 'wrap',
-    },
-    indicator: {
-        display: 'none',
-    },
-});
-
-const MenuStyledTabs = withStyles(styles)(Tabs);

@@ -40,6 +40,7 @@ export const theme: ThemeObject = {
             contrastText: 'rgba(0, 0, 0, 0.87)',
         },
         grey: {
+            300: '#e0e0e0',
             400: '#bdbdbd',
         },
         text: {
