@@ -179,7 +179,9 @@ describe('User (e2e)', () => {
         mutation {
           addChild(child: {
               firstname: "John",
-              lastname: "Smith"
+              lastname: "Smith",
+              birthYear: 2000,
+              sex: "male",
           }) {
             status
           }
@@ -200,6 +202,9 @@ describe('User (e2e)', () => {
               children {
                 _id
                 firstname
+                lastname
+                birthYear
+                sex
               }
             }
           }`,
@@ -209,7 +214,12 @@ describe('User (e2e)', () => {
           expect(response.body.data.me.role).toEqual('user');
           expect(response.body.data.me.children.length).toEqual(1);
           expect(response.body.data.me.children[0]).toEqual(
-            jasmine.objectContaining({ firstname: 'John' }),
+            jasmine.objectContaining({
+              firstname: 'John',
+              lastname: 'Smith',
+              birthYear: 2000,
+              sex: 'male',
+            }),
           );
 
           childId = response.body.data.me.children[0]._id;
