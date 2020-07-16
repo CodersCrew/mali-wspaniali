@@ -35,6 +35,13 @@ export class ChildRepository {
       .exec();
   }
 
+  async getAll(): Promise<ChildProps[]> {
+    return await this.childModel
+      .find()
+      .lean()
+      .exec();
+  }
+
   // for e2e purpose only
   async clearTable(): Promise<void> {
     await this.childModel.deleteMany({});
