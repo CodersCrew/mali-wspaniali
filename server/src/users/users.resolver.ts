@@ -8,7 +8,7 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UseInterceptors, UseGuards } from '@nestjs/common';
+import { UseInterceptors, UseGuards, Res } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
@@ -31,7 +31,6 @@ import { GetNotificationsByUserQuery } from '../notifications/domain/queries/imp
 import { NotificationDTO } from '../notifications/dto/notification.dto';
 import { ChildDTO } from './dto/children_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
-import { ChildResultDTO } from './dto/child_result_dto';
 import { ResultInput } from './inputs/result_input';
 import { AddChildResultCommand } from './domain/commands/impl/add_child_result_command';
 

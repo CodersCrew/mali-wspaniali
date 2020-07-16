@@ -19,6 +19,7 @@ import { ChildRepository } from './domain/repositories/child_repository';
 import { ChildSchema } from './schemas/child_schema';
 import { ChildResultSchema } from './schemas/child_result_schema';
 import { ChildResultRepository } from './domain/repositories/child_result_repository';
+import { UserController } from './users.controller';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { ChildResultRepository } from './domain/repositories/child_result_reposi
     ...QueryHandlers,
     ...EventHandlers,
   ],
+  controllers: [UserController],
   exports: [UserRepository],
 })
 export class UserModule {}
