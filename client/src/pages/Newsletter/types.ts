@@ -1,7 +1,5 @@
 import { ChangeEvent } from 'react';
 import { InputLabelProps, SelectProps } from '@material-ui/core';
-import { Kindergarten } from '../../firebase/types';
-// import { Parent } from '../ParentProfile/types';
 
 export type Message = string;
 
@@ -44,6 +42,15 @@ export enum ProgressBarStates {
     FileError = 'FILEERROR',
 }
 
+export enum ProgressBarNames {
+    firstStep = 'FIRSTSTEP',
+    secondStep = 'SECONDSTEP',
+}
+export enum ProgressBarContent {
+    one = '1',
+    two = '2',
+}
+
 export enum GeneralRecipientInputValues {
     parents = 'PARENTS',
     kindergartens = 'KINDERGARTENS',
@@ -54,48 +61,6 @@ export enum SpecificRecipientInputValues {
     kindergarten = 'KINDERGARTEN',
     single = 'SINGLE',
 }
-
-// TODO: this probably won't be necessary
-export type NewsletterGeneralTypeTextFieldProps = {
-    classes: Record<
-        'container' | 'textfield' | 'heading' | 'underlineFocus' | 'selectItem' | 'inputChipLabel' | 'asterisk',
-        string
-    >;
-    generalType: SingleFieldType;
-    handleDelete: (name: string) => void;
-    handleRecipientTypeChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-};
-
-// TODO: this probably won't be necessary
-
-export type NewsletterOptionalTextFieldProps = {
-    classes: Record<
-        | 'container'
-        | 'textfield'
-        | 'heading'
-        | 'underlineFocus'
-        | 'selectItem'
-        | 'inputChipLabel'
-        | 'asterisk'
-        | 'selectMenuItem'
-        | 'selectMenuCheckbox'
-        | 'selectMenuItemText',
-        string
-    >;
-    generalType: SingleFieldType;
-    specificType: SingleFieldType;
-    recipients: {
-        value: string[];
-        error: boolean;
-    };
-    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
-    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-    selectRecipients: (filteredRecipients: string[]) => void;
-    parents: string[];
-    kindergartens: Kindergarten[];
-};
-
-// TODO: this probably won't be necessary
 
 export type NewsletterRecipientProps = {
     generalType: SingleFieldType;
@@ -108,6 +73,7 @@ export type NewsletterContentProps = {
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
     type: SingleFieldType;
     topic: SingleFieldType;
+    specificType: SingleFieldType;
     recipients: MultipleFieldType;
     message: SingleFieldType;
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
@@ -136,3 +102,7 @@ export type MultipleSelectProps = {
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 } & InputLabelProps &
     SelectProps;
+
+export type ProgressBarProps = {
+    progressBarState: { firstStep: ProgressBarStates; secondStep: ProgressBarStates };
+};

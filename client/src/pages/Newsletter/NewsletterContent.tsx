@@ -5,7 +5,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { WorkSpace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
-import { NewsletterContentProps } from './types';
+import { NewsletterContentProps, SpecificRecipientInputValues } from './types';
 import { newsletterTypes } from './data';
 import { SingleSelect } from './SingleSelect';
 
@@ -13,6 +13,7 @@ export const NewsletterContent = ({
     handleChange,
     type,
     topic,
+    specificType,
     recipients,
     message,
     setFields,
@@ -20,14 +21,10 @@ export const NewsletterContent = ({
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
-        if (recipients.value.length > 0) {
+        if (recipients.value.length > 0 || specificType.value === SpecificRecipientInputValues.all) {
             setDisabled(false);
-        } else if (type.value && topic.value && message.value) {
-            setDisabled(false);
-        } else if (!type.value && !topic.value && !message.value) {
-            setDisabled(true);
         }
-    }, [recipients, type, topic, message]);
+    }, [recipients, specificType.value]);
 
     const { t } = useTranslation();
 

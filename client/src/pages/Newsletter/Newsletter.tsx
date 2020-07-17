@@ -12,6 +12,7 @@ import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
 import { secondaryColor, white } from '../../colors';
+import { setProgress } from './utils';
 
 const initialState = {
     type: {
@@ -53,34 +54,8 @@ export const NewsletterPage = () => {
     });
 
     useEffect(() => {
-        if (recipients.value.length > 0) {
-            setProgressBarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Ready });
-        }
-        if (recipients.value.length === 0 && !type.value && !topic.value && !message.value) {
-            setProgressBarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
-        }
-        if (recipients.value.length === 0 && (type.value || topic.value || message.value)) {
-            setProgressBarState(prevSidebarState => ({ ...prevSidebarState, firstStep: ProgressBarStates.Error }));
-        }
-        if ((!type && (topic || message.value)) || ((!type.value || !topic.value) && message.value)) {
-            setProgressBarState(prevSidebarState => ({
-                ...prevSidebarState,
-                secondStep: ProgressBarStates.Error,
-            }));
-        }
-        if (recipients.value.length === 0 && !type.value && !topic.value && message.value === '<p><br></p>') {
-            setProgressBarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
-        }
-        if (
-            recipients.value.length > 0 &&
-            type.value &&
-            topic.value &&
-            message.value &&
-            message.value !== '<p><br></p>'
-        ) {
-            setProgressBarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Done });
-        }
-    }, [recipients, type, topic, message]);
+        setProgress(specificType, recipients, type, topic, message, setProgressBarState);
+    }, [specificType, recipients, type, topic, message]);
 
     const handleChange = (e: ChangeEvent<{ name?: string | undefined; value: unknown }>): void => {
         const { name, value } = e.target;
@@ -154,6 +129,7 @@ export const NewsletterPage = () => {
                             handleChange={handleChange}
                             type={type}
                             topic={topic}
+                            specificType={specificType}
                             recipients={recipients}
                             message={message}
                             setFields={setFields}

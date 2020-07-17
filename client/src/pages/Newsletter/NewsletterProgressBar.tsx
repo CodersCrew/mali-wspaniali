@@ -4,23 +4,12 @@ import { useTranslation } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { white, newsletterColors } from '../../colors';
-import { ProgressBarStates } from './types';
+import { ProgressBarStates, ProgressBarNames, ProgressBarContent, ProgressBarProps } from './types';
 import { Theme } from '../../theme';
 
-export const NewsletterProgressBar: React.FC<{
-    progressBarState: { firstStep: ProgressBarStates; secondStep: ProgressBarStates };
-}> = ({ progressBarState }) => {
+export const NewsletterProgressBar = ({ progressBarState }: ProgressBarProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
-
-    enum ProgressBarNames {
-        firstStep = 'FIRSTSTEP',
-        secondStep = 'SECONDSTEP',
-    }
-    enum ProgressBarContent {
-        one = '1',
-        two = '2',
-    }
 
     const setElement = (name: string) => {
         const number = name === ProgressBarNames.firstStep ? ProgressBarContent.one : ProgressBarContent.two;
@@ -115,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         verticalLine: {
             width: 1,
-            height: 120,
+            height: 165,
             backgroundColor: newsletterColors.disabledColor,
             marginBottom: 15,
         },
