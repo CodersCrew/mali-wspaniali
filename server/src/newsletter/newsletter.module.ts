@@ -1,0 +1,33 @@
+import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
+import { MongooseModule } from '@nestjs/mongoose';
+
+import { NewsletterResolver } from './newsletter.resolver';
+import { NewsletterSchema } from './schemas/newsletter.schema';
+import { NewsletterRepository } from './domain/repositories/newsletter_repository';
+import { CommandHandlers } from './domain/commands/handlers';
+import { EventHandlers } from './domain/events/handlers';
+import { QueryHandlers } from './domain/queries/handlars';
+import { NotificationsModule } from '../notifications/notifications.module';
+import { UserModule } from '../users/users.module';
+import { GqlAuthGuard } from '../users/guards/jwt_guard';
+
+@Module({
+  imports: [
+    CqrsModule,
+    NotificationsModule,
+    UserModule,
+    MongooseModule.forFeature([
+      { name: 'Newsletter', schema: NewsletterSchema },
+    ]),
+  ],
+  providers: [
+    NewsletterResolver,
+    NewsletterRepository,
+    ...CommandHandlers,
+    ...EventHandlers,
+    ...QueryHandlers,
+    GqlAuthGuard,
+  ],
+})
+export class NewslettersModule {}
