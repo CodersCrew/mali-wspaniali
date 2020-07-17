@@ -38,6 +38,8 @@
     "class-validator": "^0.12.2",
     "graphql": "^15.1.0",
     "graphql-tools": "^6.0.10",
+    "graphql-type-json": "^0.3.2",
+    "icg-json-to-xlsx": "^0.2.5",
     "mongoose": "^5.9.20",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",

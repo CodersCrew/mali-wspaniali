@@ -69,6 +69,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         articleContentContainer: {
+            position: 'relative',
+            maxWidth: '100%',
             [theme.breakpoints.down('sm')]: {
                 backgroundColor: SingleArticleColors.contentBackground,
                 width: '100%',

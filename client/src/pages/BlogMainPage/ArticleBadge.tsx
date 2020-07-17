@@ -1,9 +1,8 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { categories } from './BlogCategories';
 import { blogCategoryColors } from '../../colors';
 import { ArticleCategory } from '../../graphql/types';
-import { Theme } from '../../theme';
 
 type Props = {
     articleCategory: ArticleCategory;

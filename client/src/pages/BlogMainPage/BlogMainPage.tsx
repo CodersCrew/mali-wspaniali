@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
-
 import { createStyles } from '@material-ui/styles';
-import { BlogArticleCard } from './BlogArticleCard';
+
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
 import { categoriesList } from './BlogCategories';
@@ -12,6 +11,7 @@ import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
 import { Theme } from '../../theme/types';
+import { BlogArticleCard } from '../../components/BlogArticleCard';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -45,11 +45,13 @@ export const BlogMainPage = () => {
     return (
         <>
             <BlogMainHeader />
-            <DropDownMenu
-                values={categoriesList}
-                active={params.category}
-                onClick={value => history.push(`/parent/blog/${value}/1`)}
-            />
+            <div className={classes.dropDownContainer}>
+                <DropDownMenu
+                    values={categoriesList}
+                    active={params.category}
+                    onClick={value => history.push(`/parent/blog/${value}/1`)}
+                />
+            </div>
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
@@ -61,7 +63,7 @@ export const BlogMainPage = () => {
                         <Grid className={classes.gridSubContainer} key={article.id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
                                 title={article.title}
-                                image={article.pictureUrl}
+                                pictureUrl={article.pictureUrl}
                                 description={article.description}
                                 category={article.category}
                                 link={`/parent/article/${article.id}`}
@@ -81,6 +83,9 @@ export const BlogMainPage = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        dropDownContainer: {
+            margin: `0 ${theme.spacing(7)}px`,
+        },
         gridContainer: {
             maxWidth: '92%',
             margin: '0 4%',

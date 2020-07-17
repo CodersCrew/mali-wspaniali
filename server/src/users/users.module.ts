@@ -17,6 +17,9 @@ import { JwtStrategy } from './strategy/jwt_strategy';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { ChildRepository } from './domain/repositories/child_repository';
 import { ChildSchema } from './schemas/child_schema';
+import { ChildResultSchema } from './schemas/child_result_schema';
+import { ChildResultRepository } from './domain/repositories/child_result_repository';
+import { UserController } from './users.controller';
 
 @Module({
   imports: [
@@ -26,6 +29,9 @@ import { ChildSchema } from './schemas/child_schema';
     ConfigModule.forRoot(),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     MongooseModule.forFeature([{ name: 'Child', schema: ChildSchema }]),
+    MongooseModule.forFeature([
+      { name: 'ChildResult', schema: ChildResultSchema },
+    ]),
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
@@ -38,10 +44,12 @@ import { ChildSchema } from './schemas/child_schema';
     UserResolver,
     UserRepository,
     ChildRepository,
+    ChildResultRepository,
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,
   ],
+  controllers: [UserController],
   exports: [UserRepository],
 })
 export class UserModule {}
