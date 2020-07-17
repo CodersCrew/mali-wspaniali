@@ -9,5 +9,11 @@ export const ChildSchema = new mongoose.Schema({
     default: Date.now(),
   },
   firstname: String,
-  results: [mongoose.Schema.Types.ObjectId],
+  lastname: String,
+  birthYear: Number,
+  sex: String,
+  results: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+  },
 });

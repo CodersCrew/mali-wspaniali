@@ -1,4 +1,4 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
 export class ChildInput {
@@ -7,4 +7,10 @@ export class ChildInput {
 
   @Field()
   readonly lastname: string;
+
+  @Field(() => Int)
+  readonly birthYear: number;
+
+  @Field()
+  readonly sex: string;
 }
