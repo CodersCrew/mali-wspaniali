@@ -18,9 +18,7 @@ export class Category extends ValueObject<CategoryValue> {
     if (!['food', 'activity', 'emotions', 'other'].includes(category)) {
       return Result.fail('Category must be valid.');
     } else {
-      return Result.ok<Category>(
-        new Category({ value: category as CategoryProps }),
-      );
+      return Result.ok(new Category({ value: category as CategoryProps }));
     }
   }
 }

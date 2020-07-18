@@ -39,67 +39,20 @@ interface ArticleInnerProps {
   category: Category;
   readonly contentHTML: string;
   readonly date?: Date;
-  description: TextLengthProps;
-  header: TextLengthProps;
-  pictureUrl: UrlProps;
-  readingTime: number;
+  description: TextLength;
+  header: TextLength;
+  pictureUrl: Url;
+  readingTime: ReadingTime;
   readonly redactor: Redactor;
-  subtitle: TextLengthProps;
-  tags: TagsProps;
-  title: TextLengthProps;
-  videoUrl?: UrlProps;
+  subtitle: TextLength;
+  tags: Tags;
+  title: TextLength;
+  videoUrl?: Url;
 }
 
 export class Article extends AggregateRoot {
-  private props: ArticleInnerProps;
-
-  private constructor(props: ArticleInnerProps) {
+  private constructor(private readonly props: ArticleInnerProps) {
     super();
-
-    const {
-      pictureUrl,
-      videoUrl,
-      description,
-      header,
-      subtitle,
-      title,
-      readingTime,
-      tags,
-      ...otherProps
-    } = props;
-
-    this.props = props;
-
-    this.props.pictureUrl = Url.create(pictureUrl).getValue().value;
-    this.props.videoUrl = Url.create(videoUrl).getValue().value;
-    this.props.description = TextLength.create(
-      description,
-      'description',
-      300,
-      30,
-    ).getValue().value;
-    this.props.header = TextLength.create(
-      header,
-      'header',
-      200,
-      20,
-    ).getValue().value;
-    this.props.subtitle = TextLength.create(
-      subtitle,
-      'subtitle',
-      100,
-      10,
-    ).getValue().value;
-    this.props.title = TextLength.create(
-      title,
-      'title',
-      100,
-      10,
-    ).getValue().value;
-    this.props.readingTime = ReadingTime.create(readingTime).getValue().value;
-    this.props.tags = Tags.create(tags).getValue().value;
-
-    this.props = { ...this.props, ...otherProps };
   }
 
   static create(props: ArticleInnerProps): Article {

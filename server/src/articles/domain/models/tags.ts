@@ -14,11 +14,11 @@ export class Tags extends ValueObject<TagsValue> {
     return this.props.value;
   }
 
-  public static create(tags: string[]): Result<TagsValue> {
+  public static create(tags: string[]): Result<Tags> {
     if (new Set(tags).size !== tags.length) {
-      return Result.fail<TagsValue>('Tags must be valid.');
+      return Result.fail('Tags must be valid.');
     } else {
-      return Result.ok<TagsValue>(new Tags({ value: tags }));
+      return Result.ok(new Tags({ value: tags }));
     }
   }
 }

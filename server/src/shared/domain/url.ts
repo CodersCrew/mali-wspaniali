@@ -14,13 +14,13 @@ export class Url extends ValueObject<UrlValue> {
     return this.props.value;
   }
 
-  public static create(url: string): Result<UrlValue> {
+  public static create(url: string): Result<Url> {
     const IsUrlRegExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
     if (url && !IsUrlRegExp.test(url)) {
-      return Result.fail<UrlValue>('Url must be valid.');
+      return Result.fail('Url must be valid.');
     } else {
-      return Result.ok<UrlValue>(new Url({ value: url }));
+      return Result.ok(new Url({ value: url }));
     }
   }
 }
