@@ -26,7 +26,7 @@ import { CurrentUser } from './params/current_user_param';
 import { ChildInput } from './inputs/child_input';
 import { AddChildCommand } from './domain/commands/impl/add_child_command';
 import { ChildProps } from './domain/models/child_model';
-import { LoggedUser } from '../users/params/current_user_param';
+import { LoggedUser } from './params/current_user_param';
 import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
 import { NotificationDTO } from '../notifications/dto/notification.dto';
 import { ChildDTO } from './dto/children_dto';
