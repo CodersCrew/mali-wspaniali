@@ -14,11 +14,11 @@ export class ReadingTime extends ValueObject<ReadingTimeValue> {
     return this.props.value;
   }
 
-  public static create(time: number): Result<ReadingTimeValue> {
+  public static create(time: number): Result<ReadingTime> {
     if (time < 0) {
-      return Result.fail<ReadingTimeValue>('ReadingTime must be valid.');
+      return Result.fail('ReadingTime must be valid.');
     } else {
-      return Result.ok<ReadingTimeValue>(new ReadingTime({ value: time }));
+      return Result.ok(new ReadingTime({ value: time }));
     }
   }
 }

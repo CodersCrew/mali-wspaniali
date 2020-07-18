@@ -12,6 +12,7 @@ import { GetLastArticlesQuery } from './domain/queries/impl/get_last_articles_qu
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { HttpException, HttpStatus, UseInterceptors } from '@nestjs/common';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
+import { ArticleMapper } from './domain/mappers/article_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -30,7 +31,7 @@ export class ArticlesResolver {
       new GetAllArticlesQuery(page, category),
     );
 
-    return articles.map(article => article.getProps());
+    return articles.map(article => ArticleMapper.toRaw(article));
   }
 
   @Query(() => [CreateArticleDTO])
@@ -39,7 +40,7 @@ export class ArticlesResolver {
       new GetLastArticlesQuery(count),
     );
 
-    return articles.map(article => article.getProps());
+    return articles.map(article => ArticleMapper.toRaw(article));
   }
 
   @Query(() => CreateArticleDTO)
@@ -49,7 +50,7 @@ export class ArticlesResolver {
     );
 
     if (article.getProps()) {
-      return article.getProps();
+      return ArticleMapper.toRaw(article);
     }
 
     throw new HttpException('Article not found', HttpStatus.NOT_FOUND);

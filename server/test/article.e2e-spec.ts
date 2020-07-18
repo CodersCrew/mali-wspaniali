@@ -38,7 +38,7 @@ describe('Article (e2e)', () => {
         .send({
           operationName: null,
           variables: {},
-          query: '{articles(page:0){id, title}}',
+          query: '{articles(page:0){_id, title}}',
         })
         .expect({
           data: { articles: [] },
@@ -84,7 +84,7 @@ describe('Article (e2e)', () => {
           query: `
           {
             articles(page:1){
-              id,
+              _id,
               title,
               category,
               contentHTML
@@ -174,7 +174,7 @@ describe('Article (e2e)', () => {
           query: `
         {
           articles(page:1){
-            id
+            _id
           }
         }
         `,
@@ -195,7 +195,7 @@ describe('Article (e2e)', () => {
           query: `
     {
       articles(page:2){
-        id
+        _id
       }
     }
     `,
@@ -217,7 +217,7 @@ describe('Article (e2e)', () => {
             query: `
     {
       lastArticles(count:4){
-        id
+        _id
       }
     }
     `,
