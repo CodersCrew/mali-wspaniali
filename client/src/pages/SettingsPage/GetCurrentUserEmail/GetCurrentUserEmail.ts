@@ -6,5 +6,6 @@ export const getCurrentUserEmail = () => {
     if (currentUser) {
         ret = currentUser.email;
     }
+
     return ret;
 };

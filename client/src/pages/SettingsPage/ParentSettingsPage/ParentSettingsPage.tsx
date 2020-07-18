@@ -7,6 +7,7 @@ import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
 export const ParentSettingsPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
+
     return (
         <Grid className={classes.container}>
             <Grid item xs={12}>

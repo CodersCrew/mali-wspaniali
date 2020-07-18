@@ -13,9 +13,9 @@ import {
     Button,
     InputBase,
 } from '@material-ui/core';
-import { theme } from '../../../theme';
+import { theme } from '../../../theme/theme';
 import { handleSignInWithEmailAndPassword } from '../../../queries/authQueries';
-import { UserCredential } from '../../../firebase/firebase';
+import { AuthError, UserCredential } from '../../../firebase/firebase';
 import { useAuthorization } from '../../../hooks/useAuthorization';
 import {
     validatePasswordLength,
@@ -94,7 +94,7 @@ export const ChangePasswordPanel = () => {
         }
     };
 
-    const handleOldPasswordInvalid = (error: Error) => {
+    const handleOldPasswordInvalid = (error: AuthError) => {
         setValues({
             ...values,
             oldPasswordError: true,
