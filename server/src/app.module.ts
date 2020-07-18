@@ -11,6 +11,7 @@ import { isProduction, isTest } from './shared/utils/is_production';
 import { KeyCodesModule } from './key_codes/key_codes.module';
 import { UserModule } from './users/users.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { NewslettersModule } from './newsletter/newsletter.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     KeyCodesModule,
     UserModule,
     NotificationsModule,
+    NewslettersModule,
     ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       debug: !isProduction(),
