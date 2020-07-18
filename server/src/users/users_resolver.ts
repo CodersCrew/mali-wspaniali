@@ -28,7 +28,7 @@ import { AddChildCommand } from './domain/commands/impl/add_child_command';
 import { ChildProps } from './domain/models/child_model';
 import { LoggedUser } from './params/current_user_param';
 import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
-import { NotificationDTO } from '../notifications/dto/notification.dto';
+import { NotificationDTO } from '../notifications/dto/notification_dto';
 import { ChildDTO } from './dto/children_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { ResultInput } from './inputs/result_input';
