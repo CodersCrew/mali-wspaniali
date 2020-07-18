@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import * as mongoose from 'mongoose';
 
 import { GetAllChildrenQuery } from '../impl/get_all__children_query';
 import { ChildRepository } from '../../repositories/child_repository';

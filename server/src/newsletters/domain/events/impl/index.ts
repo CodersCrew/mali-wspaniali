@@ -1,1 +1,1 @@
-export * from './article_created_event';
+export * from './newsletter_created_event';

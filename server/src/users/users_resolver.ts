@@ -8,7 +8,7 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UseInterceptors, UseGuards, Res } from '@nestjs/common';
+import { UseInterceptors, UseGuards } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
@@ -26,7 +26,7 @@ import { CurrentUser } from './params/current_user_param';
 import { ChildInput } from './inputs/child_input';
 import { AddChildCommand } from './domain/commands/impl/add_child_command';
 import { ChildProps } from './domain/models/child_model';
-import { LoggedUser } from '../users/params/current_user_param';
+import { LoggedUser } from './params/current_user_param';
 import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
 import { NotificationDTO } from '../notifications/dto/notification.dto';
 import { ChildDTO } from './dto/children_dto';
@@ -36,7 +36,7 @@ import { AddChildResultCommand } from './domain/commands/impl/add_child_result_c
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
-export class UserResolver {
+export class UsersResolver {
   constructor(
     private commandBus: CommandBus,
     private queryBus: QueryBus,

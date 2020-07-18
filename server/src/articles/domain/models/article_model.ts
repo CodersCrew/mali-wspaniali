@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
-import { ArticleCreatedEvent } from '../events/impl/article_created_event';
+import { ArticleCreatedEvent } from '../events/impl';
 import { Category, CategoryProps } from './category';
 import { ReadingTime } from './reading_time';
 import { UrlProps, Url } from '../../../shared/domain/url';
