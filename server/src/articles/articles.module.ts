@@ -9,13 +9,13 @@ import { CommandHandlers } from './domain/commands/handlers';
 import { EventHandlers } from './domain/events/handlers/index';
 import { QueryHandlers } from './domain/queries/handlers';
 import { NotificationsModule } from '../notifications/notifications.module';
-import { UserModule } from '../users/users.module';
+import { UsersModule } from '../users/users_module';
 
 @Module({
   imports: [
     CqrsModule,
     NotificationsModule,
-    UserModule,
+    UsersModule,
     MongooseModule.forFeature([{ name: 'Article', schema: ArticleSchema }]),
   ],
   providers: [

@@ -9,7 +9,7 @@ import { GetAllChildrenQuery } from './domain/queries/impl/get_all__children_que
 
 @UseGuards(GqlAuthGuard)
 @Controller('children/result_sheet')
-export class UserController {
+export class UsersController {
   constructor(private queryBus: QueryBus) {}
 
   @Get()

@@ -9,14 +9,14 @@ import { CommandHandlers } from './domain/commands/handlers';
 import { EventHandlers } from './domain/events/handlers';
 import { QueryHandlers } from './domain/queries/handlars';
 import { NotificationsModule } from '../notifications/notifications.module';
-import { UserModule } from '../users/users_module';
+import { UsersModule } from '../users/users_module';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 
 @Module({
   imports: [
     CqrsModule,
     NotificationsModule,
-    UserModule,
+    UsersModule,
     MongooseModule.forFeature([
       { name: 'Newsletter', schema: NewsletterSchema },
     ]),

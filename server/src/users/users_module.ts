@@ -9,7 +9,7 @@ import { CommandHandlers } from './domain/commands/handlers';
 import { QueryHandlers } from './domain/queries/handlers';
 import { UserSchema } from './schemas/user_schema';
 import { UserRepository } from './domain/repositories/user_repository';
-import { UserResolver } from './users_resolver';
+import { UsersResolver } from './users_resolver';
 import { KeyCodesModule } from '../key_codes/key_codes.module';
 import { EventHandlers } from './domain/events/handlers';
 import { GqlAuthGuard } from './guards/jwt_guard';
@@ -19,7 +19,7 @@ import { ChildRepository } from './domain/repositories/child_repository';
 import { ChildSchema } from './schemas/child_schema';
 import { ChildResultSchema } from './schemas/child_result_schema';
 import { ChildResultRepository } from './domain/repositories/child_result_repository';
-import { UserController } from './users_controller';
+import { UsersController } from './users_controller';
 
 @Module({
   imports: [
@@ -41,7 +41,7 @@ import { UserController } from './users_controller';
   providers: [
     JwtStrategy,
     GqlAuthGuard,
-    UserResolver,
+    UsersResolver,
     UserRepository,
     ChildRepository,
     ChildResultRepository,
@@ -49,7 +49,7 @@ import { UserController } from './users_controller';
     ...QueryHandlers,
     ...EventHandlers,
   ],
-  controllers: [UserController],
+  controllers: [UsersController],
   exports: [UserRepository],
 })
-export class UserModule {}
+export class UsersModule {}

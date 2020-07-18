@@ -36,7 +36,7 @@ import { AddChildResultCommand } from './domain/commands/impl/add_child_result_c
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
-export class UserResolver {
+export class UsersResolver {
   constructor(
     private commandBus: CommandBus,
     private queryBus: QueryBus,
