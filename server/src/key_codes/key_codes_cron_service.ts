@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { KeyCodeRepository } from './domain/repositories/key_code_repository';
+import { KeyCodeRepository } from './domain/repositories/key_codes_repository';
 
 @Injectable()
 export class KeyCodesCronService {

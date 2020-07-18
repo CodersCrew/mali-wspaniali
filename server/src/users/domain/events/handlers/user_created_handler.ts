@@ -1,7 +1,7 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
 import { UserCreatedEvent } from '../impl';
-import { KeyCodeRepository } from '../../../../key_codes/domain/repositories/key_code_repository';
+import { KeyCodeRepository } from '../../../../key_codes/domain/repositories/key_codes_repository';
 import { UserRepository } from '../../repositories/user_repository';
 import { NotificationRepository } from '../../../../notifications/domain/repositories/notification_repository';
 import { createUserCreatedNotification } from '../../../../notifications/domain/repositories/notification_factory';

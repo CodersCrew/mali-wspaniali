@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { GetAllKeyCodesQuery } from '../impl/get_all_key_codes_query';
-import { KeyCodeRepository } from '../../repositories/key_code_repository';
+import { KeyCodeRepository } from '../../repositories/key_codes_repository';
 import { KeyCodeProps } from '../../models/key_code_model';
 
 @QueryHandler(GetAllKeyCodesQuery)
