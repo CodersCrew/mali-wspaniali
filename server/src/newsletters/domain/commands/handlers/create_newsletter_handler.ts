@@ -1,7 +1,7 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 
 import { CreateNewsletterCommand } from '../impl/create_newsletter_command';
-import { NewsletterRepository } from '../../repositories/newsletter_repository';
+import { NewsletterRepository } from '../../repositories/newsletters_repository';
 import { Newsletter } from '../../models/newsletter_model';
 
 @CommandHandler(CreateNewsletterCommand)

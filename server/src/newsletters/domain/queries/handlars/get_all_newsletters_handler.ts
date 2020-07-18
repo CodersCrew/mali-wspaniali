@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { GetAllNewsletterQuery } from '../impl';
-import { NewsletterRepository } from '../../repositories/newsletter_repository';
+import { NewsletterRepository } from '../../repositories/newsletters_repository';
 import { Newsletter } from '../../models/newsletter_model';
 
 @QueryHandler(GetAllNewsletterQuery)

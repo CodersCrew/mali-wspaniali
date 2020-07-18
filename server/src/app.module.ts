@@ -11,7 +11,7 @@ import { isProduction, isTest } from './shared/utils/is_production';
 import { KeyCodesModule } from './key_codes/key_codes.module';
 import { UserModule } from './users/users.module';
 import { NotificationsModule } from './notifications/notifications.module';
-import { NewslettersModule } from './newsletters/newsletter.module';
+import { NewslettersModule } from './newsletters/newsletters_module';
 
 @Module({
   imports: [
