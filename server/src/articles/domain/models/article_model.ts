@@ -34,8 +34,26 @@ export interface ArticleProps {
   videoUrl?: UrlProps;
 }
 
+interface ArticleInnerProps {
+  readonly _id?: string;
+  category: Category;
+  readonly contentHTML: string;
+  readonly date?: Date;
+  description: TextLengthProps;
+  header: TextLengthProps;
+  pictureUrl: UrlProps;
+  readingTime: number;
+  readonly redactor: Redactor;
+  subtitle: TextLengthProps;
+  tags: TagsProps;
+  title: TextLengthProps;
+  videoUrl?: UrlProps;
+}
+
 export class Article extends AggregateRoot {
-  private constructor(private readonly props: ArticleProps) {
+  private props: ArticleInnerProps;
+
+  private constructor(props: ArticleInnerProps) {
     super();
 
     this.props.category = Category.create(props.category).getValue().value;
@@ -71,7 +89,7 @@ export class Article extends AggregateRoot {
     this.props.tags = Tags.create(props.tags).getValue().value;
   }
 
-  static create(props: ArticleProps): Article {
+  static create(props: ArticleInnerProps): Article {
     const article = new Article(props);
 
     article.apply(new ArticleCreatedEvent(article.id));
@@ -79,11 +97,11 @@ export class Article extends AggregateRoot {
     return article;
   }
 
-  static recreate(props: ArticleProps): Article {
+  static recreate(props: ArticleInnerProps): Article {
     return new Article(props);
   }
 
-  getProps(): ArticleProps {
+  getProps(): ArticleInnerProps {
     return this.props;
   }
 
