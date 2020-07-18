@@ -4,7 +4,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { handleSignInWithEmailAndPassword } from '../../../../queries/authQueries';
-import { UserCredential } from '../../../../firebase/firebase';
+import { AuthError, UserCredential } from '../../../../firebase/firebase';
 import { getCurrentUserEmail } from '../../GetCurrentUserEmail';
 
 export const FormControlOldPassword = () => {
@@ -58,7 +58,7 @@ export const FormControlOldPassword = () => {
         }
     };
 
-    const handleOldPasswordInvalid = (error: Error) => {
+    const handleOldPasswordInvalid = (error: AuthError) => {
         setValues({
             ...values,
             oldPasswordError: true,
