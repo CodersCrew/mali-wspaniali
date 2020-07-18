@@ -7,6 +7,7 @@ import { AdminSettingsExpansionPanel } from './AdminSettingsExpansionPanel';
 export const AdminSettingsPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
+
     return (
         <Grid className={classes.container}>
             <Grid item xs={12}>
