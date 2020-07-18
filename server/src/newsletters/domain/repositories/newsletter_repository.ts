@@ -6,7 +6,7 @@ import {
   Newsletter,
   NewsletterNotPersistedProps,
 } from '../models/newsletter_model';
-import { NewsletterProps } from '../../../newsletter/domain/models/newsletter_model';
+import { NewsletterProps } from '../models/newsletter_model';
 import { NewsletterDocument } from '../models/newsletter_model';
 
 @Injectable()
