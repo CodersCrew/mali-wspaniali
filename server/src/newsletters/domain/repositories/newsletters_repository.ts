@@ -10,7 +10,7 @@ import { NewsletterProps } from '../models/newsletter_model';
 import { NewsletterDocument } from '../models/newsletter_model';
 
 @Injectable()
-export class NewsletterRepository {
+export class NewslettersRepository {
   constructor(
     @InjectModel('Newsletter')
     private readonly model: Model<NewsletterDocument>,

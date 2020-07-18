@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { NewsletterResolver } from './newsletters_resolver';
 import { NewsletterSchema } from './schemas/newsletter_schema';
-import { NewsletterRepository } from './domain/repositories/newsletters_repository';
+import { NewslettersRepository } from './domain/repositories/newsletters_repository';
 import { CommandHandlers } from './domain/commands/handlers';
 import { EventHandlers } from './domain/events/handlers';
 import { QueryHandlers } from './domain/queries/handlars';
@@ -23,7 +23,7 @@ import { GqlAuthGuard } from '../users/guards/jwt_guard';
   ],
   providers: [
     NewsletterResolver,
-    NewsletterRepository,
+    NewslettersRepository,
     ...CommandHandlers,
     ...EventHandlers,
     ...QueryHandlers,
