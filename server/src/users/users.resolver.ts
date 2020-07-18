@@ -8,7 +8,7 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UseInterceptors, UseGuards, Res } from '@nestjs/common';
+import { UseInterceptors, UseGuards } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
