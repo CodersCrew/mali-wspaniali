@@ -56,37 +56,48 @@ export class Article extends AggregateRoot {
   private constructor(props: ArticleInnerProps) {
     super();
 
-    this.props.category = Category.create(props.category).getValue().value;
-    this.props.pictureUrl = Url.create(props.pictureUrl).getValue().value;
-    this.props.videoUrl = Url.create(props.videoUrl).getValue().value;
+    const {
+      pictureUrl,
+      videoUrl,
+      description,
+      header,
+      subtitle,
+      title,
+      readingTime,
+      tags,
+      ...otherProps
+    } = props;
+
+    this.props.pictureUrl = Url.create(pictureUrl).getValue().value;
+    this.props.videoUrl = Url.create(videoUrl).getValue().value;
     this.props.description = TextLength.create(
-      props.description,
+      description,
       'description',
       300,
       30,
     ).getValue().value;
     this.props.header = TextLength.create(
-      props.header,
+      header,
       'header',
       200,
       20,
     ).getValue().value;
     this.props.subtitle = TextLength.create(
-      props.subtitle,
+      subtitle,
       'subtitle',
       100,
       10,
     ).getValue().value;
     this.props.title = TextLength.create(
-      props.title,
+      title,
       'title',
       100,
       10,
     ).getValue().value;
-    this.props.readingTime = ReadingTime.create(
-      props.readingTime,
-    ).getValue().value;
-    this.props.tags = Tags.create(props.tags).getValue().value;
+    this.props.readingTime = ReadingTime.create(readingTime).getValue().value;
+    this.props.tags = Tags.create(tags).getValue().value;
+
+    this.props = { ...this.props, ...otherProps };
   }
 
   static create(props: ArticleInnerProps): Article {
