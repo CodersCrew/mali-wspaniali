@@ -1,6 +1,6 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
-import { ArticleCreatedEvent } from '../impl/article_created_event';
+import { ArticleCreatedEvent } from '../impl';
 import { NotificationRepository } from '../../../../notifications/domain/repositories/notification_repository';
 import { UserRepository } from '../../../../users/domain/repositories/user_repository';
 import { createArticleCreatedNotification } from '../../../../notifications/domain/repositories/notification_factory';
