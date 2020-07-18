@@ -1,5 +1,5 @@
-import { ValueObject, Props } from '../../../shared/domain/value_object';
-import { Result } from '../../../shared/domain/result';
+import { ValueObject, Props } from './value_object';
+import { Result } from './result';
 
 export type MailProps = string;
 
