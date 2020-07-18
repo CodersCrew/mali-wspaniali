@@ -9,7 +9,7 @@ import {
   CreateKeyCodeCommand,
 } from './domain/commands/impl';
 import { CreateKeyCodeDTO } from './dto/create_key_code.dto';
-import { GetAllKeyCodesQuery } from './domain/queries/impl/get_all_key_codes_query';
+import { GetAllKeyCodesQuery } from './domain/queries/impl';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 
 @UseInterceptors(SentryInterceptor)
