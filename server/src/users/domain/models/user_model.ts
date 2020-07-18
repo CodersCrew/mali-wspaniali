@@ -2,7 +2,7 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import * as mongoose from 'mongoose';
 
 import { UserCreatedEvent } from '../events/impl/article_created_event';
-import { Mail } from './mail';
+import { Mail } from '../../../shared/domain/mail';
 import { NotificationProps } from '../../../notifications/domain/models/notification_model';
 import { ChildProps } from './child_model';
 

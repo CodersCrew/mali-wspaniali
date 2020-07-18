@@ -1,6 +1,7 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
 import { Document } from 'mongoose';
+import { Mail } from '../../../shared/domain/mail';
 
 export interface NewsletterProps {
   readonly _id?: string;
@@ -23,6 +24,10 @@ export class Newsletter extends AggregateRoot {
     private readonly props: NewsletterProps | NewsletterNotPersistedProps,
   ) {
     super();
+
+    this.props.recipients = props.recipients.map(
+      recipient => Mail.create(recipient).getValue().value,
+    );
   }
 
   static create(props: NewsletterNotPersistedProps): Newsletter {
