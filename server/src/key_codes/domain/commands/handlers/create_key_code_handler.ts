@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import ShortUniqueId from 'short-unique-id';
 
 import { CreateKeyCodeCommand } from '../impl/create_key_code_command';
-import { KeyCodeRepository } from '../../repositories/key_code_repository';
+import { KeyCodeRepository } from '../../repositories/key_codes_repository';
 import { KeyCodeProps } from '../../models/key_code_model';
 
 const uuid = new ShortUniqueId();

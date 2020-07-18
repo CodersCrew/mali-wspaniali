@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 
 import { AppModule } from './../src/app.module';
-import { KeyCodeRepository } from '../src/key_codes/domain/repositories/key_code_repository';
+import { KeyCodeRepository } from '../src/key_codes/domain/repositories/key_codes_repository';
 
 jest.setTimeout(10000);
 

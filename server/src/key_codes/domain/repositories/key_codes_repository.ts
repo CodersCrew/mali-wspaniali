@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { KeyCodeDocument } from '../../schemas/key_codes.schema';
+import { KeyCodeDocument } from '../../schemas/key_codes_schema';
 import { KeyCodeProps } from '../models/key_code_model';
 import { KeyCodeInput } from '../../inputs/key_code_input';
 

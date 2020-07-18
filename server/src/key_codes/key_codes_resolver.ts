@@ -2,12 +2,14 @@ import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors } from '@nestjs/common';
 
-import { KeyCodeRepository } from './domain/repositories/key_code_repository';
+import { KeyCodeRepository } from './domain/repositories/key_codes_repository';
 import { KeyCodeProps } from './domain/models/key_code_model';
-import { CreateKeyCodeCommand } from './domain/commands/impl/create_key_code_command';
-import { CreateBulkKeyCodeCommand } from './domain/commands/impl/create_bulk_key_code_command';
+import {
+  CreateBulkKeyCodeCommand,
+  CreateKeyCodeCommand,
+} from './domain/commands/impl';
 import { CreateKeyCodeDTO } from './dto/create_key_code.dto';
-import { GetAllKeyCodesQuery } from './domain/queries/impl/get_all_key_codes_query';
+import { GetAllKeyCodesQuery } from './domain/queries/impl';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 
 @UseInterceptors(SentryInterceptor)

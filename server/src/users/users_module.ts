@@ -10,7 +10,7 @@ import { QueryHandlers } from './domain/queries/handlers';
 import { UserSchema } from './schemas/user_schema';
 import { UserRepository } from './domain/repositories/user_repository';
 import { UsersResolver } from './users_resolver';
-import { KeyCodesModule } from '../key_codes/key_codes.module';
+import { KeyCodesModule } from '../key_codes/key_codes_module';
 import { EventHandlers } from './domain/events/handlers';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { JwtStrategy } from './strategy/jwt_strategy';
