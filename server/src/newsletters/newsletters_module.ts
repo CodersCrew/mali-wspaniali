@@ -9,7 +9,7 @@ import { CommandHandlers } from './domain/commands/handlers';
 import { EventHandlers } from './domain/events/handlers';
 import { QueryHandlers } from './domain/queries/handlars';
 import { NotificationsModule } from '../notifications/notifications.module';
-import { UserModule } from '../users/users.module';
+import { UserModule } from '../users/users_module';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 
 @Module({
