@@ -68,6 +68,8 @@ export class Article extends AggregateRoot {
       ...otherProps
     } = props;
 
+    this.props = props;
+
     this.props.pictureUrl = Url.create(pictureUrl).getValue().value;
     this.props.videoUrl = Url.create(videoUrl).getValue().value;
     this.props.description = TextLength.create(

@@ -19,7 +19,7 @@ export class ArticlesRepository {
 
     return await createdArticle
       .save()
-      .then(article => ArticleMapper.toDomain(article));
+      .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
   async getPage(page: number, category?: string): Promise<Article[]> {
@@ -39,7 +39,7 @@ export class ArticlesRepository {
 
         articles.forEach(article => {
           try {
-            validArticles.push(ArticleMapper.toDomain(article));
+            validArticles.push(ArticleMapper.toDomain(article.toObject()));
           } catch (e) {
             console.log(e);
           }
@@ -61,7 +61,7 @@ export class ArticlesRepository {
 
         articles.forEach(article => {
           try {
-            validArticles.push(ArticleMapper.toDomain(article));
+            validArticles.push(ArticleMapper.toDomain(article.toObject()));
           } catch (e) {
             console.log(e);
           }
@@ -75,7 +75,7 @@ export class ArticlesRepository {
     return await this.articleModel
       .findById(id)
       .exec()
-      .then(article => ArticleMapper.toDomain(article));
+      .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
   // for e2e purpose only
