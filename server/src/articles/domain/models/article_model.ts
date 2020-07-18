@@ -5,18 +5,11 @@ import { Category, CategoryProps } from './category';
 import { ReadingTime } from './reading_time';
 import { UrlProps, Url } from '../../../shared/domain/url';
 import { Tags, TagsProps } from './tags';
+import { Redactor, RedactorProps } from './redactor';
 import {
   TextLength,
   TextLengthProps,
 } from '../../../shared/domain/text_length';
-
-interface Redactor {
-  readonly avatarUrl?: string;
-  readonly firstName: string;
-  readonly lastName?: string;
-  readonly profession?: string;
-  readonly shortDescription?: string;
-}
 
 export interface ArticleProps {
   readonly _id?: string;
@@ -27,7 +20,7 @@ export interface ArticleProps {
   header: TextLengthProps;
   pictureUrl: UrlProps;
   readingTime: number;
-  readonly redactor: Redactor;
+  readonly redactor: RedactorProps;
   subtitle: TextLengthProps;
   tags: TagsProps;
   title: TextLengthProps;
