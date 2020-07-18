@@ -3,7 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { KeyCodeSchema } from './schemas/key_codes.schema';
-import { KeyCodesResolver } from './key_codes.resolver';
+import { KeyCodesResolver } from './key_codes_resolver';
 import { KeyCodeRepository } from './domain/repositories/key_code_repository';
 import { KeyCodesCronService } from './key_codes_cron_service';
 import { CommandHandlers } from './domain/commands/handlers';
