@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import ShortUniqueId from 'short-unique-id';
 
-import { CreateBulkKeyCodeCommand } from '../impl/create_bulk_key_code_command';
+import { CreateBulkKeyCodeCommand } from '../impl';
 import { KeyCodeRepository } from '../../repositories/key_codes_repository';
 import { KeyCodeProps } from '../../models/key_code_model';
 
