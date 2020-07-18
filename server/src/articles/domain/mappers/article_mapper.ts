@@ -5,6 +5,7 @@ import { Url } from '../../../shared/domain/url';
 import { ReadingTime } from '../models/reading_time';
 import { Tags } from '../models/tags';
 import { TextLength } from '../../../shared/domain/text_length';
+import { Redactor } from '../models/redactor';
 
 export class ArticleMapper {
   static toRaw(article: Article): ArticleProps {
@@ -21,6 +22,7 @@ export class ArticleMapper {
       header: props.header.value,
       subtitle: props.subtitle.value,
       title: props.title.value,
+      redactor: props.redactor.getValue(),
     };
 
     return mappedProps;
@@ -51,6 +53,7 @@ export class ArticleMapper {
       10,
     ).getValue();
     const title = TextLength.create(props.title, 'title', 100, 10).getValue();
+    const redactor = Redactor.create(props.redactor);
 
     const mappedProps = {
       ...props,
@@ -63,6 +66,7 @@ export class ArticleMapper {
       header,
       subtitle,
       title,
+      redactor,
     };
 
     return Article.recreate(mappedProps);
