@@ -22,6 +22,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
 
       if (isValidPassword) {
         const payload = this.jwtService.sign({
+          role: user.role,
           mail: user.mail,
           sub: user._id,
         });
