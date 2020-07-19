@@ -10,9 +10,15 @@ import { GetAllArticlesQuery } from './domain/queries/impl';
 import { GetArticleByIdQuery } from './domain/queries/impl/get_article_by_id_query';
 import { GetLastArticlesQuery } from './domain/queries/impl/get_last_articles_query';
 import { ReturnedStatusDTO } from '../shared/returned_status';
-import { HttpException, HttpStatus, UseInterceptors } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  UseInterceptors,
+  UseGuards,
+} from '@nestjs/common';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ArticleMapper } from './domain/mappers/article_mapper';
+import { GqlAuthGuard } from '../users/guards/jwt_guard';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -57,6 +63,7 @@ export class ArticlesResolver {
   }
 
   @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createArticle(
     @Args('article') article: ArticleInput,
   ): Promise<{ status: boolean }> {

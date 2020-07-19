@@ -10,6 +10,7 @@ import { EventHandlers } from './domain/events/handlers/index';
 import { QueryHandlers } from './domain/queries/handlers';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { UsersModule } from '../users/users_module';
+import { GqlAuthGuard } from '../users/guards/jwt_guard';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UsersModule } from '../users/users_module';
     ...CommandHandlers,
     ...EventHandlers,
     ...QueryHandlers,
+    GqlAuthGuard,
   ],
 })
 export class ArticlesModule {}
