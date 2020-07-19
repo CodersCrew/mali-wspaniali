@@ -1,9 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-
-import { TextField, Button, makeStyles, Typography, createStyles } from '@material-ui/core';
-
+import { PresentPasswordPage } from './PresentPasswordPage';
+import { PostsentPasswordPage } from './PostsentPasswordPage';
+import { makeStyles, Typography, createStyles } from '@material-ui/core';
 import { backgroundColor, secondaryColor, white } from '../../colors';
 import { handlePasswordReset } from '../../queries/authQueries';
 import { isValidEmail } from './isValidEmail';
@@ -49,59 +48,6 @@ export const ForgotPasswordPage = () => {
         return DefaultImage;
     };
 
-    const renderPostSentJSX = () => (
-        <>
-            <Typography variant="body1" className={classes.subtitle}>
-                {t('forgot-password-page.email-sent')}
-            </Typography>
-            <Typography variant="body1" className={classes.subtitle}>
-                {t('forgot-password-page.when-received')}
-            </Typography>
-            <Button type="button" variant="contained" color="secondary" className={classes.loginLinkWrapper}>
-                <Link to="/login" className={classes.loginLink}>
-                    {t('forgot-password-page.back-to-login')}
-                </Link>
-            </Button>
-        </>
-    );
-
-    const renderPreSentJSX = () => (
-        <>
-            <Typography variant="body1" className={classes.subtitle}>
-                {t('forgot-password-page.its-ok')}
-            </Typography>
-            <Typography variant="body1" className={`${classes.subtitle} ${classes.subtitleThin}`}>
-                {t('forgot-password-page.receive-link')}
-            </Typography>
-            <TextField
-                required
-                value={email}
-                id="email"
-                label={t('e-mail')}
-                variant="outlined"
-                className={classes.textField}
-                helperText={t('forgot-password-page.email-helper-text')}
-                onChange={handleInputChange}
-            />
-            <div className={classes.buttonWrapper}>
-                <Button
-                    type="button"
-                    variant="contained"
-                    disabled={!isValidEmail(email)}
-                    color="secondary"
-                    className={classes.button}
-                    onClick={handleCreateNewPassword}
-                >
-                    {t('forgot-password-page.new-password')}
-                </Button>
-            </div>
-            <div className={classes.underlinedText}>
-                <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
-                <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
-            </div>
-        </>
-    );
-
     return (
         <div className={classes.container}>
             <div className={classes.layout}>
@@ -109,7 +55,25 @@ export const ForgotPasswordPage = () => {
                 <Typography variant="h3" className={classes.title}>
                     {t('forgot-password-page.forgot-password')}
                 </Typography>
-                {isResetEmailSent ? renderPostSentJSX() : renderPreSentJSX()}
+                {isResetEmailSent ? (
+                    <PostsentPasswordPage
+                        subtitle={classes.subtitle}
+                        loginLink={classes.loginLink}
+                        loginLinkWrapper={classes.loginLinkWrapper}
+                    />
+                ) : (
+                    <PresentPasswordPage
+                        subtitle={classes.subtitle}
+                        subtitleThin={classes.subtitleThin}
+                        textField={classes.textField}
+                        buttonWrapper={classes.buttonWrapper}
+                        button={classes.button}
+                        underlinedText={classes.underlinedText}
+                        handleInputChange={handleInputChange}
+                        handleCreateNewPassword={handleCreateNewPassword}
+                        email={email}
+                    />
+                )}
             </div>
         </div>
     );
