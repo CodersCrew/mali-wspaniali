@@ -61,7 +61,7 @@ import { UserChangePasswordCronService } from './user_change_password_cron_servi
     ...QueryHandlers,
     ...EventHandlers,
   ],
-  controllers: [UsersController],
+  controllers: [ChildrenController],
   exports: [UserRepository],
 })
 export class UsersModule {}
