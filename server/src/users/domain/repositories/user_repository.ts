@@ -58,6 +58,10 @@ export class UserRepository {
     });
   }
 
+  async writePassword(userId: string, password: string): Promise<void> {
+    await this.userModel.findByIdAndUpdate(userId, { password });
+  }
+
   // for e2e purpose only
   async clearTable(): Promise<void> {
     await this.userModel.deleteMany({});

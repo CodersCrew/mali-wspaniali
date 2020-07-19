@@ -112,4 +112,23 @@ export class UsersResolver {
 
     return { status: !!payload };
   }
+
+  @Mutation(() => ReturnedStatusDTO)
+  async resetPassword(
+    @Args('mail') mail: string,
+  ): Promise<{ status: boolean }> {
+    await this.commandBus.execute(new ResetPasswordCommand(mail));
+
+    return { status: true };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  async changePassword(
+    @Args('jwt') jwt: string,
+    @Args('password') password: string,
+  ): Promise<{ status: boolean }> {
+    await this.commandBus.execute(new ChangePasswordCommand(jwt, password));
+
+    return { status: true };
+  }
 }
