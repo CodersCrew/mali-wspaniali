@@ -19,7 +19,12 @@ import { ChildRepository } from './domain/repositories/child_repository';
 import { ChildSchema } from './schemas/child_schema';
 import { ChildResultSchema } from './schemas/child_result_schema';
 import { ChildResultRepository } from './domain/repositories/child_result_repository';
-import { UsersController } from './users_controller';
+import { ChildrenController } from './children_controller';
+import { SendMail } from '../shared/services/send_mail/send_mail';
+import { NodemailerProvider } from '../shared/services/send_mail/nodemailer_provider';
+import { UserChangePasswordJWT } from './schemas/user_change_password_jwt_schema';
+import { UserChangePasswordRepository } from './domain/repositories/user_change_password_jwt_repository';
+import { UserChangePasswordCronService } from './user_change_password_cron_service';
 
 @Module({
   imports: [
@@ -31,6 +36,9 @@ import { UsersController } from './users_controller';
     MongooseModule.forFeature([{ name: 'Child', schema: ChildSchema }]),
     MongooseModule.forFeature([
       { name: 'ChildResult', schema: ChildResultSchema },
+    ]),
+    MongooseModule.forFeature([
+      { name: 'UserChangePasswordJWT', schema: UserChangePasswordJWT },
     ]),
     PassportModule,
     JwtModule.register({
@@ -45,11 +53,15 @@ import { UsersController } from './users_controller';
     UserRepository,
     ChildRepository,
     ChildResultRepository,
+    UserChangePasswordRepository,
+    SendMail,
+    NodemailerProvider,
+    UserChangePasswordCronService,
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,
   ],
-  controllers: [UsersController],
+  controllers: [ChildrenController],
   exports: [UserRepository],
 })
 export class UsersModule {}
