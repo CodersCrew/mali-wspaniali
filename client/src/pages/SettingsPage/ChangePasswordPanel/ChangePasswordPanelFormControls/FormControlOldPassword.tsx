@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -6,25 +6,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { handleSignInWithEmailAndPassword } from '../../../../queries/authQueries';
 import { AuthError, UserCredential } from '../../../../firebase/firebase';
 import { getCurrentUserEmail } from '../../GetCurrentUserEmail';
+import { FormControlOldPasswordPropsInterface } from './types';
 
-export const FormControlOldPassword = () => {
+export const FormControlOldPassword = (props: FormControlOldPasswordPropsInterface) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const [values, setValues] = useState({
-        oldPasswordError: false,
-        oldPassword: '',
-        changePasswordButtonDisabled: true,
-        showOldPassword: false,
-        validPasswordLength: false,
-        validPasswordUppercase: false,
-        validPasswordNumber: false,
-        validPasswordSymbol: false,
-        newPassword: '',
-        confirmNewPassword: '',
-        newPasswordDisabled: true,
-        helperText: ' ',
-        currentUserEmail: '',
-    });
+    const states = { ...props.states };
+    const [values, setValues] = useState(states);
 
     const currentUserEmail = getCurrentUserEmail();
 
@@ -52,7 +40,7 @@ export const FormControlOldPassword = () => {
                 ...values,
                 oldPasswordError: false,
                 newPasswordDisabled: false,
-                helperText: ' ',
+                oldPasswordHelperText: ' ',
                 changePasswordButtonDisabled: buttonDisabled,
             });
         }
@@ -63,7 +51,7 @@ export const FormControlOldPassword = () => {
             ...values,
             oldPasswordError: true,
             newPasswordDisabled: true,
-            helperText: `${error.message}`,
+            oldPasswordHelperText: `${error.message}`,
             changePasswordButtonDisabled: true,
         });
     };
@@ -74,6 +62,11 @@ export const FormControlOldPassword = () => {
         }
     };
 
+    useEffect(() => {
+        props.onChange({ states: { ...states, ...values } });
+        // eslint-disable-next-line
+    }, [values.newPasswordDisabled, values.oldPassword]);
+
     return (
         <FormControl variant="outlined" className={classes.form}>
             <InputLabel htmlFor="outlined-adornment-password" error={values.oldPasswordError}>
@@ -81,13 +74,14 @@ export const FormControlOldPassword = () => {
             </InputLabel>
             <OutlinedInput
                 required
-                onChange={event =>
+                onChange={event => {
                     setValues({
                         ...values,
                         oldPassword: event.target.value,
+                        newPasswordDisabled: true,
                         changePasswordButtonDisabled: true,
-                    })
-                }
+                    });
+                }}
                 value={values.oldPassword}
                 id="old-password"
                 label={t('settings-page.old-password')}
@@ -115,7 +109,7 @@ export const FormControlOldPassword = () => {
                 }}
             />
             <FormHelperText error={values.oldPasswordError}>
-                {values.helperText ? values.helperText : ''}
+                {values.oldPasswordHelperText ? values.oldPasswordHelperText : ''}
             </FormHelperText>
         </FormControl>
     );
