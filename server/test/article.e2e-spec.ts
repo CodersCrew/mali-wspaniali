@@ -4,11 +4,14 @@ import * as request from 'supertest';
 
 import { AppModule } from './../src/app.module';
 import { ArticlesRepository } from '../src/articles/domain/repositories/article_repository';
+import { UserRepository } from '../src/users/domain/repositories/user_repository';
+import * as bcrypt from 'bcrypt';
 
 jest.setTimeout(10000);
 
 describe('Article (e2e)', () => {
   let app: INestApplication;
+  let authorization: string;
 
   beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -19,6 +22,7 @@ describe('Article (e2e)', () => {
 
     await app.init();
     await app.get(ArticlesRepository).clearTable();
+    await app.get(UserRepository).clearTable();
 
     done();
   });
@@ -48,8 +52,35 @@ describe('Article (e2e)', () => {
 
   describe('when adding a new article', () => {
     it('adds article', async () => {
+      await app
+        .get(UserRepository)
+        .createAdmin(
+          'admin@admin.com',
+          await bcrypt.hash('adminadmin', await bcrypt.genSalt(10)),
+        );
+
       await request(app.getHttpServer())
         .post('/graphql')
+        .send({
+          operationName: null,
+          variables: {},
+          query: `
+mutation {
+  login(user: {
+      mail: "admin@admin.com", password: "adminadmin"
+  }) {
+    status
+  }
+}
+`,
+        })
+        .then(response => {
+          authorization = response.header['set-cookie'];
+        });
+
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .set('Cookie', ['Authorization', authorization])
         .send({
           operationName: null,
           variables: {},
@@ -131,13 +162,38 @@ describe('Article (e2e)', () => {
 
   describe('when add more than one page of articles', () => {
     beforeEach(async () => {
-      await app.get(ArticlesRepository).clearTable();
+      await app
+        .get(UserRepository)
+        .createAdmin(
+          'admin@admin.com',
+          await bcrypt.hash('adminadmin', await bcrypt.genSalt(10)),
+        );
+
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          operationName: null,
+          variables: {},
+          query: `
+mutation {
+  login(user: {
+      mail: "admin@admin.com", password: "adminadmin"
+  }) {
+    status
+  }
+}
+`,
+        })
+        .then(response => {
+          authorization = response.header['set-cookie'];
+        });
 
       Array(7)
         .fill(null)
         .forEach(async () => {
           await request(app.getHttpServer())
             .post('/graphql')
+            .set('Cookie', ['Authorization', authorization])
             .send({
               operationName: null,
               variables: {},
