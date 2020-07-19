@@ -21,7 +21,7 @@ export class NewsletterResolver {
   ) {}
 
   @Query(() => [NewsletterDTO])
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async newsletters(): Promise<NewsletterProps[]> {
     const newsletters: Newsletter[] = await this.queryBus.execute(
       new GetAllNewsletterQuery(),
@@ -33,7 +33,7 @@ export class NewsletterResolver {
   }
 
   @Mutation(() => ReturnedStatusDTO)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createNewsletter(
     @Args('newsletter') newsletter: NewsletterInput,
   ): Promise<{ status: boolean }> {
