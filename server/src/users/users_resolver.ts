@@ -17,14 +17,11 @@ import { UserProps } from './domain/models/user_model';
 import { UserDTO } from './dto/user_dto';
 import { UserRepository } from './domain/repositories/user_repository';
 import { UserInput } from './inputs/user_input';
-import { CreateUserCommand } from './domain/commands/impl/create_user_command';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { LoginInput } from './inputs/login_input';
-import { LoginUserCommand } from './domain/commands/impl/login_user_command';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { CurrentUser } from './params/current_user_param';
 import { ChildInput } from './inputs/child_input';
-import { AddChildCommand } from './domain/commands/impl/add_child_command';
 import { ChildProps } from './domain/models/child_model';
 import { LoggedUser } from './params/current_user_param';
 import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
@@ -32,7 +29,14 @@ import { NotificationDTO } from '../notifications/dto/notification_dto';
 import { ChildDTO } from './dto/children_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { ResultInput } from './inputs/result_input';
-import { AddChildResultCommand } from './domain/commands/impl/add_child_result_command';
+import {
+  ChangePasswordCommand,
+  AddChildCommand,
+  AddChildResultCommand,
+  LoginUserCommand,
+  CreateUserCommand,
+  ResetPasswordCommand,
+} from './domain/commands/impl';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
