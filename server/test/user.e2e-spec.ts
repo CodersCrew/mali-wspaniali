@@ -4,11 +4,13 @@ import * as request from 'supertest';
 
 import { AppModule } from './../src/app.module';
 import { UserRepository } from '../src/users/domain/repositories/user_repository';
+import * as bcrypt from 'bcrypt';
 
 jest.setTimeout(10000);
 
 describe('User (e2e)', () => {
   let app: INestApplication;
+  let authorization: string;
 
   beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -63,8 +65,35 @@ describe('User (e2e)', () => {
       let createdKeyCode: string;
 
       it('adds user', async done => {
+        await app
+          .get(UserRepository)
+          .createAdmin(
+            'admin@admin.com',
+            await bcrypt.hash('adminadmin', await bcrypt.genSalt(10)),
+          );
+
         await request(app.getHttpServer())
           .post('/graphql')
+          .send({
+            operationName: null,
+            variables: {},
+            query: `
+          mutation {
+            login(user: {
+                mail: "admin@admin.com", password: "adminadmin"
+            }) {
+              status
+            }
+          }
+          `,
+          })
+          .then(response => {
+            authorization = response.header['set-cookie'];
+          });
+
+        await request(app.getHttpServer())
+          .post('/graphql')
+          .set('Cookie', ['Authorization', authorization])
           .send({
             operationName: null,
             variables: {},
@@ -112,8 +141,35 @@ describe('User (e2e)', () => {
     let childId: string;
 
     it('adds a new child', async done => {
+      await app
+        .get(UserRepository)
+        .createAdmin(
+          'admin@admin.com',
+          await bcrypt.hash('adminadmin', await bcrypt.genSalt(10)),
+        );
+
       await request(app.getHttpServer())
         .post('/graphql')
+        .send({
+          operationName: null,
+          variables: {},
+          query: `
+      mutation {
+        login(user: {
+            mail: "admin@admin.com", password: "adminadmin"
+        }) {
+          status
+        }
+      }
+      `,
+        })
+        .then(response => {
+          authorization = response.header['set-cookie'];
+        });
+
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .set('Cookie', ['Authorization', authorization])
         .send({
           operationName: null,
           variables: {},
