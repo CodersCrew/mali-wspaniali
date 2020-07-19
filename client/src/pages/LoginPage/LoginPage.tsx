@@ -1,17 +1,21 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, Button, makeStyles } from '@material-ui/core/';
+import { TextField, Button, makeStyles, createStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { User, UserCredential } from '../../firebase/firebase';
+import { User, UserCredential, AuthError } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { backgroundColor, secondaryColor } from '../../colors';
-import { theme } from '../../theme';
+import { Theme } from '../../theme/types';
+
+const initialError: AuthError = {
+    code: '',
+    message: '',
+};
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loginError, setLoginError] = useState('');
+    const [loginError, setLoginError] = useState(initialError);
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();
@@ -20,7 +24,13 @@ export const LoginPage = () => {
         if (user) history.push('/');
     };
 
-    const handleSubmitError = (error: Error) => setLoginError(error.message);
+    const handleSubmitError = (error: AuthError) => {
+        const { code, message } = error;
+        setLoginError({
+            code,
+            message,
+        });
+    };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -36,115 +46,118 @@ export const LoginPage = () => {
         }
     });
 
+    const { code } = loginError;
+
     return (
-        <ThemeProvider theme={theme}>
-            <div className={classes.container}>
-                <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                    <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
-                    <TextField
+        <div className={classes.container}>
+            <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
+                <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
+                <TextField
                         required
                         onChange={event => setEmail(event.target.value)}
                         value={email}
                         id="email"
                         label={t('e-mail')}
                         variant="outlined"
-                        error={loginError !== ''}
-                        helperText={loginError ? t('login-page.login-error') : t('login-page.e-mail-helper-text')}
+                        error={code === 'auth/user-not-found'}
+                        helperText={
+                            code === 'auth/user-not-found'
+                                ? t('login-page.login-notfound')
+                                : t('login-page.e-mail-helper-text')
+                        }
                         className={classes.formItem}
                     />
-                    <TextField
-                        required
-                        onChange={event => setPassword(event.target.value)}
-                        value={password}
-                        id="password"
-                        label={t('password')}
-                        type="password"
-                        variant="outlined"
-                        error={loginError !== ''}
-                        helperText={loginError ? t('login-page.login-error') : ''}
-                        className={classes.formItem}
-                    />
-                    <div className={classes.submitWrapper}>
-                        <Link className={classes.forgotPasswordLink} to="/forgot-password">
-                            {t('login-page.forgot-password')}
-                        </Link>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            disabled={!email || !password}
-                            color="secondary"
-                            className={classes.loginButton}
-                        >
-                            {t('login-page.login')}
-                        </Button>
-                    </div>
-                </form>
-            </div>
-        </ThemeProvider>
+                <TextField
+                    required
+                    onChange={event => setPassword(event.target.value)}
+                    value={password}
+                    id="password"
+                    label={t('password')}
+                    type="password"
+                    variant="outlined"
+                    error={Boolean(code)}
+                    helperText={Boolean(code) ? t('login-page.login-error') : ''}
+                    className={classes.formItem}
+                />
+                <div className={classes.submitWrapper}>
+                    <Link className={classes.forgotPasswordLink} to="/forgot-password">
+                        {t('login-page.forgot-password')}
+                    </Link>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        disabled={!email || !password}
+                        color="secondary"
+                        className={classes.loginButton}
+                    >
+                        {t('login-page.login')}
+                    </Button>
+                </div>
+            </form>
+        </div>
     );
 };
 
-const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-    },
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '80%',
-        minHeight: '90vh',
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+        },
+        form: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '80%',
+            minHeight: '90vh',
 
-        '@media (max-width:767px)': {
-            minHeight: 'auto',
+            [theme.breakpoints.down('sm')]: {
+                minHeight: 'auto',
+                width: '100%',
+                margin: '0 15px',
+            },
+        },
+        formItem: {
+            margin: '20px',
             width: '100%',
-            margin: '0 15px',
         },
-    },
-    formItem: {
-        margin: '20px',
-        width: '100%',
-    },
-    loginHeader: {
-        textAlign: 'center',
-        fontFamily: 'Montserrat',
-        fontSize: '21px',
-        fontWeight: 'bold',
-        marginBottom: '25px',
-        textTransform: 'uppercase',
+        loginHeader: {
+            textAlign: 'center',
+            fontFamily: 'Montserrat',
+            fontSize: '21px',
+            fontWeight: 'bold',
+            marginBottom: '25px',
+            textTransform: 'uppercase',
 
-        '@media (max-width:767px)': {
-            marginTop: '40px',
+            [theme.breakpoints.down('sm')]: {
+                marginTop: '40px',
+            },
         },
-    },
-    submitWrapper: {
-        marginTop: '20px',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        submitWrapper: {
+            marginTop: '20px',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
 
-        '@media (max-width:767px)': {
-            margin: '0 0 20px 0',
+            [theme.breakpoints.down('sm')]: {
+                margin: '0 0 20px 0',
+            },
         },
-    },
-    loginButton: {
-        color: backgroundColor,
-        fontWeight: 'bold',
-    },
-    forgotPasswordLink: {
-        fontFamily: 'Montserrat',
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: '14px',
-        lineHeight: '17px',
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        color: secondaryColor,
-        textDecoration: 'none',
-    },
-});
+        loginButton: {
+            color: backgroundColor,
+            fontWeight: 'bold',
+        },
+        forgotPasswordLink: {
+            fontStyle: 'normal',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            color: secondaryColor,
+            textDecoration: 'none',
+        },
+    }),
+);

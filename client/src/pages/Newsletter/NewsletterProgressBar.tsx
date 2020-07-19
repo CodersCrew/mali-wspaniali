@@ -3,8 +3,9 @@ import { makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { mainColor, white, newsletterColors } from '../../colors';
+import { white, newsletterColors } from '../../colors';
 import { ProgressBarStates } from './types';
+import { Theme } from '../../theme';
 
 export const NewsletterProgressBar: React.FC<{
     progressBarState: { firstStep: ProgressBarStates; secondStep: ProgressBarStates };
@@ -24,49 +25,49 @@ export const NewsletterProgressBar: React.FC<{
     const setElement = (name: string) => {
         const number = name === ProgressBarNames.firstStep ? ProgressBarContent.one : ProgressBarContent.two;
         switch (name === ProgressBarNames.firstStep ? progressBarState.firstStep : progressBarState.secondStep) {
-            case ProgressBarStates.Inactive:
-                return (
-                    <>
-                        <div className={`${classes.numberWrapper} inactive`}>
-                            <span className={classes.number}>{number}</span>
-                        </div>
-                        <span className={classes.text}>
-                            {number === ProgressBarContent.one
-                                ? t('newsletter.sidebar.fill')
-                                : t('newsletter.sidebar.newsletter-content')}
-                        </span>
-                    </>
-                );
-            case ProgressBarStates.Done:
-                return (
-                    <>
-                        <CheckCircleIcon className={classes.iconReady} />
-                        <span className={`${classes.text} inactive`}>{t('newsletter.sidebar.done')}</span>
-                    </>
-                );
-            case ProgressBarStates.Error:
-                return (
-                    <>
-                        <WarningIcon className={classes.iconError} />
-                        <span className={classes.text}>{t('newsletter.sidebar.error')}</span>
-                    </>
-                );
-            case ProgressBarStates.FileError:
-                return (
-                    <>
-                        <WarningIcon className={classes.iconError} />
-                        <span className={classes.text}>{t('newsletter.sidebar.file-error')}</span>
-                    </>
-                );
-            default:
-                return (
-                    <>
-                        <div className={classes.numberWrapper}>
-                            <span className={classes.number}>{number}</span>
-                        </div>
-                        <span className={classes.text}>{t('newsletter.sidebar.fill')}</span>
-                    </>
-                );
+        case ProgressBarStates.Inactive:
+            return (
+                <>
+                    <div className={`${classes.numberWrapper} inactive`}>
+                        <span className={classes.number}>{number}</span>
+                    </div>
+                    <span className={classes.text}>
+                        {number === ProgressBarContent.one
+                            ? t('newsletter.sidebar.fill')
+                            : t('newsletter.sidebar.newsletter-content')}
+                    </span>
+                </>
+            );
+        case ProgressBarStates.Done:
+            return (
+                <>
+                    <CheckCircleIcon className={classes.iconReady} />
+                    <span className={`${classes.text} inactive`}>{t('newsletter.sidebar.done')}</span>
+                </>
+            );
+        case ProgressBarStates.Error:
+            return (
+                <>
+                    <WarningIcon className={classes.iconError} />
+                    <span className={classes.text}>{t('newsletter.sidebar.error')}</span>
+                </>
+            );
+        case ProgressBarStates.FileError:
+            return (
+                <>
+                    <WarningIcon className={classes.iconError} />
+                    <span className={classes.text}>{t('newsletter.sidebar.file-error')}</span>
+                </>
+            );
+        default:
+            return (
+                <>
+                    <div className={classes.numberWrapper}>
+                        <span className={classes.number}>{number}</span>
+                    </div>
+                    <span className={classes.text}>{t('newsletter.sidebar.fill')}</span>
+                </>
+            );
         }
     };
 
@@ -79,7 +80,7 @@ export const NewsletterProgressBar: React.FC<{
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             display: 'flex',
@@ -93,7 +94,7 @@ const useStyles = makeStyles(() =>
             width: 24,
             height: 24,
             borderRadius: 12,
-            backgroundColor: mainColor,
+            backgroundColor: theme.palette.primary.main,
             marginBottom: 16,
             color: white,
             '&.inactive': {
@@ -105,7 +106,7 @@ const useStyles = makeStyles(() =>
             lineHeight: 2,
         },
         iconReady: {
-            color: mainColor,
+            color: theme.palette.primary.main,
             marginBottom: 16,
         },
         iconError: {

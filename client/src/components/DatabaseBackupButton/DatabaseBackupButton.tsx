@@ -48,5 +48,6 @@ export const DatabaseBackupButton = () => {
                 {t('database-backup.get-backup-json')}
             </Button>
         );
+
     return null;
 };

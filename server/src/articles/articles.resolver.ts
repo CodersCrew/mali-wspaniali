@@ -1,5 +1,6 @@
 import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import * as Sentry from '@sentry/minimal';
 
 import { CreateArticleDTO } from './dto/create_article_dto';
 import { ArticleInput } from './inputs/article_input';
@@ -8,7 +9,18 @@ import { CreateArticleCommand } from './domain/commands/impl/create_article_comm
 import { GetAllArticlesQuery } from './domain/queries/impl';
 import { GetArticleByIdQuery } from './domain/queries/impl/get_article_by_id_query';
 import { GetLastArticlesQuery } from './domain/queries/impl/get_last_articles_query';
+import { ReturnedStatusDTO } from '../shared/returned_status';
+import {
+  HttpException,
+  HttpStatus,
+  UseInterceptors,
+  UseGuards,
+} from '@nestjs/common';
+import { SentryInterceptor } from '../shared/sentry_interceptor';
+import { ArticleMapper } from './domain/mappers/article_mapper';
+import { GqlAuthGuard } from '../users/guards/jwt_guard';
 
+@UseInterceptors(SentryInterceptor)
 @Resolver()
 export class ArticlesResolver {
   constructor(
@@ -25,7 +37,7 @@ export class ArticlesResolver {
       new GetAllArticlesQuery(page, category),
     );
 
-    return articles.map(article => article.getProps());
+    return articles.map(article => ArticleMapper.toRaw(article));
   }
 
   @Query(() => [CreateArticleDTO])
@@ -34,7 +46,7 @@ export class ArticlesResolver {
       new GetLastArticlesQuery(count),
     );
 
-    return articles.map(article => article.getProps());
+    return articles.map(article => ArticleMapper.toRaw(article));
   }
 
   @Query(() => CreateArticleDTO)
@@ -43,17 +55,29 @@ export class ArticlesResolver {
       new GetArticleByIdQuery(id),
     );
 
-    return article.getProps();
+    if (article.getProps()) {
+      return ArticleMapper.toRaw(article);
+    }
+
+    throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
   }
 
-  @Mutation(() => CreateArticleDTO)
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createArticle(
     @Args('article') article: ArticleInput,
-  ): Promise<ArticleProps> {
+  ): Promise<{ status: boolean }> {
     const newArticle: Article = await this.commandBus.execute(
       new CreateArticleCommand(article),
     );
 
-    return newArticle.getProps();
+    const articleContent = newArticle.getProps();
+
+    if (articleContent) {
+      Sentry.captureMessage(
+        `[Mali Wspaniali]: Created a new article ${articleContent.title}`,
+      );
+    }
+    return { status: !!articleContent };
   }
 }

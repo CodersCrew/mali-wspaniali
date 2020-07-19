@@ -15,7 +15,7 @@ export const WorkSpace = (props: WorkspaceProps) => {
             ...prevFields,
             message: {
                 ...prevFields.message,
-                value: value,
+                value,
             },
         }));
     };

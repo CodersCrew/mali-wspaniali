@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { ArticleInput } from '../../inputs/article_input';
 import { Article } from '../models/article_model';
 import { ArticleDocument } from '../../interfaces/article.interface';
+import { ArticleMapper } from '../mappers/article_mapper';
 
 @Injectable()
 export class ArticlesRepository {
@@ -13,9 +14,12 @@ export class ArticlesRepository {
   ) {}
 
   async create(createArticleDTO: ArticleInput): Promise<Article> {
-    const createdArticle = new this.articleModel(createArticleDTO);
+    const article = ArticleMapper.toDomain(createArticleDTO);
+    const createdArticle = new this.articleModel(ArticleMapper.toRaw(article));
 
-    return await createdArticle.save().then(article => new Article(article));
+    return await createdArticle
+      .save()
+      .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
   async getPage(page: number, category?: string): Promise<Article[]> {
@@ -30,7 +34,19 @@ export class ArticlesRepository {
       .skip((page - 1) * 6)
       .limit(7)
       .exec()
-      .then(articles => articles.map(article => new Article(article)));
+      .then(articles => {
+        const validArticles: Article[] = [];
+
+        articles.forEach(article => {
+          try {
+            validArticles.push(ArticleMapper.toDomain(article.toObject()));
+          } catch (e) {
+            console.log(e);
+          }
+        });
+
+        return validArticles;
+      });
   }
 
   async getLast(count: number): Promise<Article[]> {
@@ -40,14 +56,26 @@ export class ArticlesRepository {
       .find({}, {}, { sort: { date: -1 } })
       .limit(count)
       .exec()
-      .then(articles => articles.map(article => new Article(article)));
+      .then(articles => {
+        const validArticles: Article[] = [];
+
+        articles.forEach(article => {
+          try {
+            validArticles.push(ArticleMapper.toDomain(article.toObject()));
+          } catch (e) {
+            console.log(e);
+          }
+        });
+
+        return validArticles;
+      });
   }
 
   async get(id: string): Promise<Article> {
     return await this.articleModel
       .findById(id)
       .exec()
-      .then(article => new Article(article));
+      .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
   // for e2e purpose only

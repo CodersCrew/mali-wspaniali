@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Tabs, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { StyledTab } from './StyledTab';
 import { categoriesList } from './BlogCategories';
 
@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme: Theme) =>
         flexContainer: {
             alignItems: 'flex-end',
             marginLeft: '3%',
+
+            [theme.breakpoints.down('md')]: {
+                display: 'none',
+            },
         },
         indicator: {
             display: 'none',

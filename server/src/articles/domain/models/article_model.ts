@@ -1,41 +1,66 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
-import { ArticleCreatedEvent } from '../events/impl/article_created_event';
-
-interface Redactor {
-  readonly avatarUrl?: string;
-  readonly firstName: string;
-  readonly lastName?: string;
-  readonly profession?: string;
-  readonly shortDescription?: string;
-}
+import { ArticleCreatedEvent } from '../events/impl';
+import { Category, CategoryProps } from './category';
+import { ReadingTime } from './reading_time';
+import { UrlProps, Url } from '../../../shared/domain/url';
+import { Tags, TagsProps } from './tags';
+import { Redactor, RedactorProps } from './redactor';
+import {
+  TextLength,
+  TextLengthProps,
+} from '../../../shared/domain/text_length';
 
 export interface ArticleProps {
-  readonly _id: string;
-  readonly category: string;
+  readonly _id?: string;
+  category: CategoryProps;
   readonly contentHTML: string;
-  readonly date: Date;
-  readonly description: string;
-  readonly header: string;
-  readonly pictureUrl: string;
-  readonly readingTime: number;
+  readonly date?: Date;
+  description: TextLengthProps;
+  header: TextLengthProps;
+  pictureUrl: UrlProps;
+  readingTime: number;
+  readonly redactor: RedactorProps;
+  subtitle: TextLengthProps;
+  tags: TagsProps;
+  title: TextLengthProps;
+  videoUrl?: UrlProps;
+}
+
+interface ArticleInnerProps {
+  readonly _id?: string;
+  category: Category;
+  readonly contentHTML: string;
+  readonly date?: Date;
+  description: TextLength;
+  header: TextLength;
+  pictureUrl: Url;
+  readingTime: ReadingTime;
   readonly redactor: Redactor;
-  readonly subtitle: string;
-  readonly tags: string[];
-  readonly title: string;
-  readonly videoUrl?: string;
+  subtitle: TextLength;
+  tags: Tags;
+  title: TextLength;
+  videoUrl?: Url;
 }
 
 export class Article extends AggregateRoot {
-  constructor(private readonly props: ArticleProps) {
+  private constructor(private readonly props: ArticleInnerProps) {
     super();
   }
 
-  sendNotifications(users: string): void {
-    this.apply(new ArticleCreatedEvent(this.id, users));
+  static create(props: ArticleInnerProps): Article {
+    const article = new Article(props);
+
+    article.apply(new ArticleCreatedEvent(article.id));
+
+    return article;
   }
 
-  getProps(): ArticleProps {
+  static recreate(props: ArticleInnerProps): Article {
+    return new Article(props);
+  }
+
+  getProps(): ArticleInnerProps {
     return this.props;
   }
 

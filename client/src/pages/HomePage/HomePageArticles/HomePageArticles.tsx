@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { HomePageArticleItem } from './HomePageArticleItem';
 import { textColor } from '../../../colors';
 import { Article } from '../../../graphql/types';
 import { getLastArticles } from '../../../queries/articleQueries';
 import { ArticleCarousel } from './HomePageArticleCarousel';
+import { BlogArticleCard } from '../../../components/BlogArticleCard';
 
 const isMobile = window.screen.width < 1024;
 
@@ -19,18 +19,17 @@ export const HomePageArticles = () => {
     }, []);
 
     const renderArticles = () => {
-        return articles.map(({ id, title, description, pictureUrl }) => {
-            const ArticlePictureComponent = (
-                <img className={classes.articleImg} alt="mali_wspaniali_article" src={pictureUrl} />
-            );
+        return articles.map(article => {
             return (
-                <HomePageArticleItem
-                    key={title}
-                    articleId={id}
-                    title={title}
-                    description={description}
-                    ArticlePictureComponent={ArticlePictureComponent}
-                />
+                <div className={classes.card} key={article.id}>
+                    <BlogArticleCard
+                        title={article.title}
+                        pictureUrl={article.pictureUrl}
+                        description={article.description}
+                        link={`/parent/article/${article.id}`}
+                        category={article.category}
+                    />
+                </div>
             );
         });
     };
@@ -51,6 +50,10 @@ export const HomePageArticles = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        card: {
+            maxWidth: '306px',
+            marginRight: '60px',
+        },
         articleHeader: {
             textTransform: 'uppercase',
             fontWeight: 'bold',
@@ -76,18 +79,6 @@ const useStyles = makeStyles((theme: Theme) =>
                 flexDirection: 'column',
                 alignItems: 'center',
                 margin: '5px 0 0 0',
-            },
-        },
-        articleImg: {
-            borderRadius: '4px',
-            position: 'relative',
-            width: '100%',
-            top: '-26px',
-            maxHeight: '185px',
-            maxWidth: '276px',
-
-            [theme.breakpoints.down('sm')]: {
-                maxWidth: 'none',
             },
         },
     }),

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography } from '@material-ui/core';
-import { mainColor, white, newsletterColors, textColor } from '../../colors';
+import { white, newsletterColors, textColor } from '../../colors';
 import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
@@ -12,6 +12,7 @@ import { Parent } from '../ParentProfile/types';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { Kindergarten } from '../../firebase/types';
 import { getKindergartens } from '../../queries/kindergartenQueries';
+import { Theme } from '../../theme';
 
 export const NewsletterRecipent: React.FC<{
     generalType: SingleFieldType;
@@ -78,6 +79,7 @@ export const NewsletterRecipent: React.FC<{
             }));
         }
     };
+
     return (
         <div className={classes.container}>
             <Typography className={classes.heading}>{t('newsletter.recipient-heading')}</Typography>
@@ -96,23 +98,23 @@ export const NewsletterRecipent: React.FC<{
             />
             {specificType.value === SpecificRecipientInputValues.single ||
             specificType.value === SpecificRecipientInputValues.kindergarten ? (
-                <NewsletterOptionalTextField
-                    classes={classes}
-                    selectRecipients={selectRecipients}
-                    generalType={generalType}
-                    specificType={specificType}
-                    recipients={recipients}
-                    handleChange={handleChange}
-                    parents={parents}
-                    kindergartens={kindergartens}
-                    setFields={setFields}
-                />
-            ) : null}
+                    <NewsletterOptionalTextField
+                        classes={classes}
+                        selectRecipients={selectRecipients}
+                        generalType={generalType}
+                        specificType={specificType}
+                        recipients={recipients}
+                        handleChange={handleChange}
+                        parents={parents}
+                        kindergartens={kindergartens}
+                        setFields={setFields}
+                    />
+                ) : null}
         </div>
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             borderRadius: 4,
@@ -123,7 +125,7 @@ const useStyles = makeStyles(() =>
             marginBottom: 35,
         },
         heading: {
-            backgroundColor: mainColor,
+            backgroundColor: theme.palette.primary.main,
             color: white,
             fontSize: 18,
             fontWeight: 500,
@@ -155,7 +157,7 @@ const useStyles = makeStyles(() =>
         },
         underlineFocus: {
             '&:after': {
-                borderBottom: `2px solid ${mainColor}`,
+                borderBottom: `2px solid ${theme.palette.primary.main}`,
             },
         },
         underlineDisabled: {

@@ -26,34 +26,29 @@ export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Pr
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const renderColorButton = () => {
-        changeColorButton(category);
-        return (
-            <Grid item xs={3}>
-                <ColorButton
-                    className={classes.contentCategoryButton}
-                    href={`/parent/blog/${category}/1`}
-                    disableElevation
-                    disableFocusRipple
-                    disableRipple
-                    disableTouchRipple
-                >
-                    <Box className={classes.contentCategoryTextBox}>
-                        <Typography className={classes.contentCategoryText}>
-                            {t(`single-article.${category}`).toUpperCase()}
-                        </Typography>
-                    </Box>
-                </ColorButton>
-            </Grid>
-        );
-    };
+    const ColorButton = createColorButton(category);
 
     return (
         <Grid className={classes.contentGrid} container direction="column">
             <Grid className={classes.contentCategory} container direction="row">
                 <Grid item xs={6}>
                     <Grid container direction="row">
-                        {renderColorButton()}
+                        <Grid item xs={3}>
+                            <ColorButton
+                                className={classes.contentCategoryButton}
+                                href={`#${category.toUpperCase()}`}
+                                disableElevation
+                                disableFocusRipple
+                                disableRipple
+                                disableTouchRipple
+                            >
+                                <Box className={classes.contentCategoryTextBox}>
+                                    <Typography className={classes.contentCategoryText}>
+                                        {t(`single-article.${category}`).toUpperCase()}
+                                    </Typography>
+                                </Box>
+                            </ColorButton>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
@@ -76,61 +71,32 @@ export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Pr
     );
 };
 
-let ColorButton = withStyles(() => ({
-    root: {
-        backgroundColor: SingleArticleColors.categories.emotions,
-        '&:hover': {
-            backgroundColor: SingleArticleColors.categoriesHover.emotions,
+const createColorButton = (category: string) => {
+    const singleArticleColor = getSingleArticleColor(category);
+    const singleArticleColorHover = getSingleArticleColorHover(category);
+
+    return withStyles(() => ({
+        root: {
+            backgroundColor: singleArticleColor,
+            '&:hover': {
+                backgroundColor: singleArticleColorHover,
+            },
         },
-    },
-}))(Button);
+    }))(Button);
+};
 
-const changeColorButton = (category: string) => {
-    switch (category) {
-        case 'food':
-            ColorButton = withStyles(() => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.food,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.food,
-                    },
-                },
-            }))(Button);
-            break;
+const getSingleArticleColor = (category: string) => {
+    const { categories }: { categories: { [index: string]: string } } = SingleArticleColors;
+    const selectedColor = categories[category];
 
-        case 'activity':
-            ColorButton = withStyles(() => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.activity,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.activity,
-                    },
-                },
-            }))(Button);
-            break;
+    return selectedColor || categories.emotions;
+};
 
-        case 'other':
-            ColorButton = withStyles(() => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.other,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.other,
-                    },
-                },
-            }))(Button);
-            break;
+const getSingleArticleColorHover = (category: string) => {
+    const { categoriesHover }: { categoriesHover: { [index: string]: string } } = SingleArticleColors;
+    const selectedColor = categoriesHover[category];
 
-        default:
-            ColorButton = withStyles(() => ({
-                root: {
-                    backgroundColor: SingleArticleColors.categories.emotions,
-                    '&:hover': {
-                        backgroundColor: SingleArticleColors.categoriesHover.emotions,
-                    },
-                },
-            }))(Button);
-            break;
-    }
+    return selectedColor || categoriesHover.emotions;
 };
 
 const useStyles = makeStyles((theme: Theme) =>

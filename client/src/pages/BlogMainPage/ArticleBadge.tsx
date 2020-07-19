@@ -9,7 +9,9 @@ type Props = {
 };
 
 export const ArticleBadge = ({ articleCategory }: Props) => {
-    const { color, name } = categories[articleCategory];
+    const matchedColor = categories[articleCategory] || categories.other;
+
+    const { color, name } = matchedColor;
     const classes = useStyles({ color });
 
     return <span className={classes.badge}>{name}</span>;
@@ -18,7 +20,7 @@ export const ArticleBadge = ({ articleCategory }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         badge: {
-            zIndex: 10,
+            zIndex: 3,
             position: 'relative',
             bottom: '25%',
             float: 'right',
@@ -27,8 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '4px',
             opacity: '90%',
             color: 'white',
-            fontSize: '14px',
-            fontFamily: 'Montserrat',
+            fontSize: theme.typography.subtitle2.fontSize,
+            fontFamily: theme.typography.fontFamily,
             backgroundColor: ({ color }: { color: string }) => blogCategoryColors[color],
         },
     }),
