@@ -29,6 +29,14 @@ export class UserChangePasswordRepository {
       .exec();
   }
 
+  async removeOlderThan(days: number): Promise<void> {
+    this.model
+      .deleteMany({
+        date: { $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
+      })
+      .exec();
+  }
+
   async remove(userId: string, jwt: string): Promise<void> {
     await this.model
       .findOneAndRemove({

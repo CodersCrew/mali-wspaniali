@@ -24,6 +24,7 @@ import { SendMail } from '../shared/services/send_mail/send_mail';
 import { NodemailerProvider } from '../shared/services/send_mail/nodemailer_provider';
 import { UserChangePasswordJWT } from './schemas/user_change_password_jwt_schema';
 import { UserChangePasswordRepository } from './domain/repositories/user_change_password_jwt_repository';
+import { UserChangePasswordCronService } from './user_change_password_cron_service';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { UserChangePasswordRepository } from './domain/repositories/user_change_
     UserChangePasswordRepository,
     SendMail,
     NodemailerProvider,
+    UserChangePasswordCronService,
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,
