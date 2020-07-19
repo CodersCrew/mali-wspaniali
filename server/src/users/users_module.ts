@@ -20,6 +20,8 @@ import { ChildSchema } from './schemas/child_schema';
 import { ChildResultSchema } from './schemas/child_result_schema';
 import { ChildResultRepository } from './domain/repositories/child_result_repository';
 import { UsersController } from './users_controller';
+import { SendMail } from '../shared/services/send_mail/send_mail';
+import { NodemailerProvider } from '../shared/services/send_mail/nodemailer_provider';
 
 @Module({
   imports: [
@@ -45,6 +47,8 @@ import { UsersController } from './users_controller';
     UserRepository,
     ChildRepository,
     ChildResultRepository,
+    SendMail,
+    NodemailerProvider,
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,
