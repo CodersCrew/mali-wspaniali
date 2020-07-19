@@ -9,13 +9,10 @@ import {
     IconButton,
     FormControl,
     OutlinedInput,
-    FormHelperText,
     Button,
     InputBase,
 } from '@material-ui/core';
 import { theme } from '../../../theme/theme';
-import { handleSignInWithEmailAndPassword } from '../../../queries/authQueries';
-import { AuthError, UserCredential } from '../../../firebase/firebase';
 import { useAuthorization } from '../../../hooks/useAuthorization';
 import {
     validatePasswordLength,
@@ -23,39 +20,30 @@ import {
     validatePasswordSymbol,
     validatePasswordUppercase,
 } from './ValidatePassword';
-import { getCurrentUserEmail } from '../GetCurrentUserEmail';
+import { FormControlOldPassword } from './ChangePasswordPanelFormControls';
 
 export const ChangePasswordPanel = () => {
     useAuthorization(true);
     const { t } = useTranslation();
     const classes = useStyles();
     const [values, setValues] = useState({
-        currentUserEmail: '',
-        oldPassword: '',
-        showOldPassword: false,
-        oldPasswordError: false,
-        newPassword: '',
-        showNewPassword: false,
-        newPasswordDisabled: true,
-        confirmNewPassword: '',
-        showConfirmNewPassword: false,
-        confirmNewPasswordDisabled: true,
-        helperText: ' ',
         changePasswordButtonDisabled: true,
+        confirmNewPassword: '',
+        confirmNewPasswordDisabled: true,
+        currentUserEmail: '',
+        newPassword: '',
+        newPasswordDisabled: true,
+        oldPassword: '',
+        oldPasswordError: false,
+        oldPasswordHelperText: ' ',
+        showConfirmNewPassword: false,
+        showNewPassword: false,
+        showOldPassword: false,
         validPasswordLength: false,
-        validPasswordUppercase: false,
         validPasswordNumber: false,
         validPasswordSymbol: false,
+        validPasswordUppercase: false,
     });
-
-    const currentUserEmail = getCurrentUserEmail();
-
-    const handleClickShowOldPassword = () => {
-        setValues({
-            ...values,
-            showOldPassword: !values.showOldPassword,
-        });
-    };
 
     const handleClickShowNewPassword = () => {
         setValues({
@@ -73,41 +61,6 @@ export const ChangePasswordPanel = () => {
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-    };
-
-    const handleOldPasswordValid = ({ user }: UserCredential) => {
-        if (user) {
-            const confirmDisabled = !(
-                values.validPasswordLength &&
-                values.validPasswordUppercase &&
-                values.validPasswordNumber &&
-                values.validPasswordSymbol
-            );
-            const buttonDisabled = confirmDisabled || !(values.newPassword === values.confirmNewPassword);
-            setValues({
-                ...values,
-                oldPasswordError: false,
-                newPasswordDisabled: false,
-                helperText: ' ',
-                changePasswordButtonDisabled: buttonDisabled,
-            });
-        }
-    };
-
-    const handleOldPasswordInvalid = (error: AuthError) => {
-        setValues({
-            ...values,
-            oldPasswordError: true,
-            newPasswordDisabled: true,
-            helperText: `${error.message}`,
-            changePasswordButtonDisabled: true,
-        });
-    };
-
-    const handleOldPasswordOnBlur = (email: string | null | undefined, password: string) => {
-        if (email) {
-            handleSignInWithEmailAndPassword(email, password, handleOldPasswordValid, handleOldPasswordInvalid);
-        }
     };
 
     const validateNewPassword = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -151,49 +104,16 @@ export const ChangePasswordPanel = () => {
                 }}
                 className={classes.container}
             >
-                <FormControl variant="outlined" className={classes.form}>
-                    <InputLabel htmlFor="outlined-adornment-password" error={values.oldPasswordError}>
-                        {t('settings-page.old-password')}
-                    </InputLabel>
-                    <OutlinedInput
-                        required
-                        onChange={event =>
-                            setValues({
-                                ...values,
-                                oldPassword: event.target.value,
-                                changePasswordButtonDisabled: true,
-                            })
-                        }
-                        value={values.oldPassword}
-                        id="old-password"
-                        label={t('settings-page.old-password')}
-                        type={values.showOldPassword ? 'text' : 'password'}
-                        error={values.oldPasswordError}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowOldPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {values.showOldPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        inputProps={{
-                            tabindex: '1',
-                            onBlur: event => {
-                                if (event.target.value) {
-                                    handleOldPasswordOnBlur(currentUserEmail, event.target.value);
-                                }
-                            },
-                        }}
-                    />
-                    <FormHelperText error={values.oldPasswordError}>
-                        {values.helperText ? values.helperText : ''}
-                    </FormHelperText>
-                </FormControl>
+                <FormControlOldPassword
+                    states={values}
+                    onChange={states => {
+                        setValues({
+                            ...values,
+                            ...states.states,
+                        });
+                    }}
+                />
+
                 <FormControl variant="outlined" className={classes.form}>
                     <InputLabel htmlFor="outlined-adornment-password">{t('settings-page.new-password')}</InputLabel>
                     <OutlinedInput
@@ -222,6 +142,7 @@ export const ChangePasswordPanel = () => {
                         }}
                     />
                 </FormControl>
+
                 <div className={classes.checkboxWrapper}>
                     <InputBase
                         disabled={values.newPasswordDisabled}
@@ -268,6 +189,7 @@ export const ChangePasswordPanel = () => {
                         }
                     />
                 </div>
+
                 <FormControl variant="outlined" className={classes.form}>
                     <InputLabel htmlFor="outlined-adornment-password">
                         {t('settings-page.confirm-new-password')}
@@ -298,6 +220,7 @@ export const ChangePasswordPanel = () => {
                         }}
                     />
                 </FormControl>
+
                 <div className={classes.submitWrapper}>
                     {' '}
                     <Button
