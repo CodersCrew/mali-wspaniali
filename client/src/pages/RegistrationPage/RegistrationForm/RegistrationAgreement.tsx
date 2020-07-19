@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-    Button,
     Checkbox,
     ExpansionPanel,
     ExpansionPanelSummary,
@@ -12,6 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import { RegistrationAgreementProps } from './types';
 import { AgreementModal } from './AgreementModal';
+import { Button } from '../../../components/Button';
 
 const T_PREFIX = 'registration-page.agreements';
 
@@ -20,7 +20,6 @@ export const RegistrationAgreement = ({
     handleNext,
     classButton,
     classNextBtn,
-    classPrevBtn,
     agreements,
     agreementMoreBtn,
     agreementContainer,
@@ -51,9 +50,7 @@ export const RegistrationAgreement = ({
                     <b>{t(`${T_PREFIX}.clausule-header`)}</b>
                 </p>
                 <span>{t(`${T_PREFIX}.clausule`)}</span>
-                <Button className={agreementMoreBtn} onClick={toggleModal}>
-                    {t(`${T_PREFIX}.show-more-content-modal`)}
-                </Button>
+                <Button className={agreementMoreBtn} onClick={toggleModal} variant="text" innerText={`${T_PREFIX}.show-more-content-modal`} />
                 <p className={agreementCheckboxHeader}>{t(`${T_PREFIX}.sub-title`)}</p>
                 <span>{t(`${T_PREFIX}.sub-title-description`)}</span>
                 {agreements.map((agreement, idx) => (
@@ -98,12 +95,8 @@ export const RegistrationAgreement = ({
                 </div>
             </div>
             <div className={classButton}>
-                <Button onClick={handleBack} className={classPrevBtn}>
-                    {t('back')}
-                </Button>
-                <Button variant="contained" onClick={handleNext} className={classNextBtn} color="secondary">
-                    {t('next')}
-                </Button>
+                <Button onClick={handleBack} variant="text" innerText="back" />
+                <Button onClick={handleNext} className={classNextBtn} innerText="next" />
             </div>
             <AgreementModal
                 open={isOpen}

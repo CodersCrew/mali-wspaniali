@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { PowerSettingsNew } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { mainColor, backgroundColor } from '../../../colors';
 import { SidebarLogoutPropTypes } from './types';
+import { Button } from '../../../components/Button';
 
 export const SidebarLogoutItem = ({ handleLogoutClick, isSidebarOpen }: SidebarLogoutPropTypes) => {
     const classes = useStyles();
@@ -31,12 +32,14 @@ const useStyles = makeStyles({
         outline: 'none',
         border: 'none',
         background: 'none',
+        boxShadow: 'none',
         position: 'absolute',
         bottom: 53,
         color: '#fff',
 
         '&:hover': {
             background: 'none',
+            boxShadow: 'none',
         },
 
         '& span': {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { makeStyles, createStyles, Button } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
+import { makeStyles, createStyles } from '@material-ui/core/';
 import { Theme } from '../../theme/types';
+import { Button } from '../../components/Button';
 
 interface Props {
     disabledPrevious: boolean;
@@ -11,21 +11,22 @@ interface Props {
 
 export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Props) => {
     const classes = useStyles();
-    const { t } = useTranslation();
 
     return (
         <div className={classes.paginationContainer}>
-            <Button variant="outlined" disabled={disabledPrevious} onClick={() => handleChange('prev')}>
-                {t('blog-pagination.previous')}
-            </Button>
             <Button
-                variant="contained"
+                color="primary"
+                disabled={disabledPrevious}
+                onClick={() => handleChange('prev')}
+                innerText="blog-pagination.previous"
+            />
+            <Button
+                color="primary"
                 disabled={disabledNext}
                 className={classes.next}
                 onClick={() => handleChange('next')}
-            >
-                {t('blog-pagination.next')}
-            </Button>
+                innerText="blog-pagination.next"
+            />
         </div>
     );
 };
@@ -38,12 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: '5%',
         },
         next: {
-            backgroundColor: theme.palette.primary.main,
             marginLeft: '2%',
-            color: theme.palette.primary.contrastText,
-        },
-        prev: {
-            color: theme.palette.primary.contrastText,
-        },
+        }
     }),
 );

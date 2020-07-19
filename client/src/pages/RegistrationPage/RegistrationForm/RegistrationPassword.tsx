@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
     Typography,
     InputAdornment,
-    Button,
     FormControl,
     InputLabel,
     OutlinedInput,
@@ -18,6 +17,7 @@ import {
     passwordDigitTest,
     passwordCapitalTest,
 } from '../passwordStrengthTest';
+import { Button } from '../../../components/Button';
 
 const initialPasswordValidation: PasswordValidation = {
     length: false,
@@ -124,17 +124,13 @@ export const RegistrationPassword = ({
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     className={classPrevBtn}
-                >
-                    {t('back')}
-                </Button>
+                    innerText="back"
+                />
                 <Button
                     type="submit"
-                    variant="contained"
                     className={classNextBtn}
-                    color="secondary"
-                >
-                    {t('registration-page.create-password')}
-                </Button>
+                    innerText="registration-page.create-password"
+                />
             </div>
         </>
     );

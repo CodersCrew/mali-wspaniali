@@ -3,7 +3,6 @@ import {
     makeStyles,
     createStyles,
     Grid,
-    Button,
     withStyles,
     Box,
     Typography,
@@ -14,6 +13,7 @@ import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
+import { Button } from '../../components/Button';
 
 interface Props {
     category: string;
@@ -121,7 +121,6 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: '2px',
             height: '25px',
             width: '85px',
-            borderRadius: '4px',
         },
         contentHeader: {
             paddingTop: '4vw',

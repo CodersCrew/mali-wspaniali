@@ -1,8 +1,9 @@
 import React from 'react';
-import { TextField, Button } from '@material-ui/core/';
+import { TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { RegistrationEmailProps } from './types';
 import { emailTest } from '../emailTest';
+import { Button } from '../../../components/Button';
 
 export const RegistrationEmail = ({
     handleChange,
@@ -31,18 +32,13 @@ export const RegistrationEmail = ({
                 helperText={t('login-page.e-mail-helper-text')}
             />
             <div className={classButton}>
-                <Button onClick={handleBack} className={classPrevBtn}>
-                    {t('back')}
-                </Button>
+                <Button variant="text" onClick={handleBack} className={classPrevBtn} innerText="back" />
                 <Button
-                    variant="contained"
                     onClick={handleNext}
                     className={classNextBtn}
-                    color="secondary"
                     disabled={!emailTest(email)}
-                >
-                    {t('next')}
-                </Button>
+                    innerText="next"
+                />
             </div>
         </>
     );

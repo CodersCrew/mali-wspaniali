@@ -1,6 +1,7 @@
 import React from 'react';
-import { Grid, CardMedia, Button, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { Grid, CardMedia, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
+import { Button } from '../../components/Button';
 
 interface Props {
     videoUrl: string;
@@ -27,7 +28,7 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
                                 {tags.map(tag => {
                                     return (
                                         <Grid key={tag} item xs={3}>
-                                            <Button className={classes.contentTagsButton}>{`#${tag}`}</Button>
+                                            <Button className={classes.contentTagsButton} innerText={`#${tag}`} />
                                         </Grid>
                                     );
                                 })}
@@ -76,9 +77,6 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: SingleArticleColors.tagButton,
             width: '8vw',
             height: '3vw',
-            fontFamily: 'Roboto',
-            fontSize: '12px',
-            fontWeight: 'bold',
 
             [theme.breakpoints.down('sm')]: {
                 fontSize: '8px',

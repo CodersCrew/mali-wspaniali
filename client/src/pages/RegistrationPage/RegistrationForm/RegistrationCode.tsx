@@ -1,8 +1,9 @@
 import React from 'react';
-import { TextField, Button, Typography } from '@material-ui/core/';
+import { TextField, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { RegistrationCodeProps } from './types';
 import { openAlertDialog } from '../../../components/AlertDialog';
+import { Button } from '../../../components/Button';
 
 export const RegistrationCode = ({
     handleChange,
@@ -38,19 +39,14 @@ export const RegistrationCode = ({
                 className={classForm}
             />
             <div className={classButton}>
-                <Button className={classPrevBtn} onClick={handleClick}>
-                    {t('registration-page.no-code')}
-                </Button>
+                <Button variant="text" className={classPrevBtn} onClick={handleClick} innerText="registration-page.no-code" />
                 <Button
-                    variant="contained"
                     onClick={handleNext}
                     className={classNextBtn}
-                    color="secondary"
                     disabled={code.length < 9}
                     data-testid="code-next"
-                >
-                    {t('next')}
-                </Button>
+                    innerText="next"
+                />
             </div>
         </>
     );

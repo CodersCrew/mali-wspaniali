@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Result } from '../../../firebase/types';
 import { lightTextColor } from '../../../colors';
 import { getMaxDate, getSchoolYearLabel } from './utils';
+import { Button } from '../../../components/Button';
 
 interface Props {
     handleClickDetailsButton: (key: string) => void;
@@ -30,11 +31,9 @@ export const ResultSummary = ({ resultGroup, handleClickDetailsButton, isExpande
             <Button
                 onClick={() => handleClickDetailsButton(String(schoolYearStart))}
                 variant={isExpanded ? 'outlined' : 'contained'}
-                color="secondary"
                 className={classes.detailsButton}
-            >
-                {t(isExpanded ? 'child-profile.collapse-details' : 'child-profile.details')}
-            </Button>
+                innerText={isExpanded ? 'child-profile.collapse-details' : 'child-profile.details'}
+            />
         </div>
     );
 };
@@ -60,8 +59,5 @@ const useStyles = makeStyles({
     },
     detailsButton: {
         marginLeft: 'auto',
-        fontSize: '13px',
-        whiteSpace: 'nowrap',
-        borderRadius: '4px',
     },
 });

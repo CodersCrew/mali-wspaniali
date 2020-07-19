@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, Badge } from '@material-ui/core/';
+import { Avatar, IconButton, makeStyles, Theme, createStyles, Badge } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
 import { Link } from 'react-router-dom';
 import { User } from '../../../firebase/firebase';
@@ -14,6 +14,7 @@ import { NotificationsPanel } from './NotificationsPanel';
 import { useAuthorization } from '../../../hooks/useAuthorization';
 import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
 import Logo from '../../../assets/MALWSP_logo_nav.png';
+import { Button } from '../../../components/Button';
 
 export const Navbar = () => {
     const classes = useStyles();

@@ -1,5 +1,5 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/';
-import { backgroundColor, secondaryColor, mainColor, textColor, white } from '../../../colors';
+import { secondaryColor, mainColor, textColor, white } from '../../../colors';
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -89,9 +89,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginTop: '30px',
         },
         nextButton: {
-            color: backgroundColor,
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
 
             [theme.breakpoints.down('sm')]: {
                 '& span': {
@@ -100,9 +97,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
         },
         prevButton: {
-            color: secondaryColor,
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
+            color: theme.palette.secondary.main,
         },
         goToHomepageLink: {
             fontFamily: theme.typography.fontFamily,

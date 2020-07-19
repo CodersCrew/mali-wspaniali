@@ -1,9 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Grid, Button, Typography, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/core';
 
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
+import { Button } from '../../components/Button';
 
 interface Props {
     category: string;

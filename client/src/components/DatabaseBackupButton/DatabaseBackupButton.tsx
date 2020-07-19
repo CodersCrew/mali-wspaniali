@@ -1,16 +1,13 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import Button from '@material-ui/core/Button';
 import { getDatabaseBackup, getStorageRef } from '../../queries/httpQueries';
 import { getCurrentUserIdToken } from '../../queries/userQueries';
 import { load } from '../../utils/load';
 import { openAlertDialog } from '../AlertDialog';
+import { Button } from '../../components/Button';
 
 export const DatabaseBackupButton = () => {
     // Temporary solution until admin page is up
     const isProd = true;
-
-    const { t } = useTranslation();
 
     const getBackup = () => {
         load(
@@ -44,9 +41,7 @@ export const DatabaseBackupButton = () => {
 
     if (isProd)
         return (
-            <Button variant="contained" color="primary" onClick={getBackup}>
-                {t('database-backup.get-backup-json')}
-            </Button>
+            <Button color="primary" onClick={getBackup} innerText="database-backup.get-backup-json" />
         );
 
     return null;

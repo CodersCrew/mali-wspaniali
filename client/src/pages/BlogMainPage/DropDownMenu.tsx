@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Tabs, Grow, Paper, Popper, Button } from '@material-ui/core';
+import { Tabs, Grow, Paper, Popper } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -7,6 +7,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { DropDownMenuItem } from './DropDownMenuItem';
 import { Theme } from '../../theme/types';
 import { CategoryItem } from './BlogCategories';
+import { Button } from '../../components/Button';
 
 type Props = {
     onClick: (value: string) => void;
@@ -51,11 +52,9 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
                 aria-haspopup="true"
                 onClick={handleToggle}
                 className={classes.button}
-                fullWidth
-            >
-                {values.find(category => category.key === active)!.name}
-                {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </Button>
+                endIcon={isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                innerText={values.find(category => category.key === active)!.name}
+            />
             <Popper className={classes.container} open={isOpen} transition disablePortal>
                 {({ TransitionProps }) => (
                     <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>

@@ -1,11 +1,12 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, Button, makeStyles, createStyles } from '@material-ui/core/';
+import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { User, UserCredential, AuthError } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
-import { backgroundColor, secondaryColor } from '../../colors';
+import { secondaryColor } from '../../colors';
 import { Theme } from '../../theme/types';
+import { Button } from '../../components/Button'
 
 const initialError: AuthError = {
     code: '',
@@ -85,13 +86,9 @@ export const LoginPage = () => {
                     </Link>
                     <Button
                         type="submit"
-                        variant="contained"
                         disabled={!email || !password}
-                        color="secondary"
-                        className={classes.loginButton}
-                    >
-                        {t('login-page.login')}
-                    </Button>
+                        innerText="login-page.login"
+                    />
                 </div>
             </form>
         </div>
@@ -146,10 +143,6 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 margin: '0 0 20px 0',
             },
-        },
-        loginButton: {
-            color: backgroundColor,
-            fontWeight: 'bold',
         },
         forgotPasswordLink: {
             fontStyle: 'normal',
