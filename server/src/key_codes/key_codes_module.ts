@@ -8,6 +8,7 @@ import { KeyCodeRepository } from './domain/repositories/key_codes_repository';
 import { KeyCodesCronService } from './key_codes_cron_service';
 import { CommandHandlers } from './domain/commands/handlers';
 import { QueryHandlers } from './domain/queries/handlers';
+import { GqlAuthGuard } from '../users/guards/jwt_guard';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { QueryHandlers } from './domain/queries/handlers';
     KeyCodesCronService,
     ...CommandHandlers,
     ...QueryHandlers,
+    GqlAuthGuard,
   ],
   exports: [KeyCodeRepository],
 })
