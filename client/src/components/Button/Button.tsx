@@ -15,9 +15,18 @@ export const ButtonComponent: FC<Props> = ({ innerText, className, children, col
     const buttonColor = color || "secondary"
     const buttonVariant = variant || "contained"
 
+    let content
+    if (children) {
+        content = children;
+    } else if (innerText) {
+        content = t(innerText);
+    } else {
+        content = '';
+    };
+
     return (
         <Button {...props} className={clsx(className, classes.button)} color={buttonColor} variant={buttonVariant} >
-            {innerText ? t(innerText) : children }
+            {content}
         </Button>
     );
 };
