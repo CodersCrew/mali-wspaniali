@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dialog, DialogContent, DialogActions } from '@material-ui/core/';
 import { openDialog, ActionDialog } from '../utils/openDialog';
-import { Button } from '../components/Button';
+import { Button } from './Button';
 
 type QuestionDialogProps = {
     question: string;
