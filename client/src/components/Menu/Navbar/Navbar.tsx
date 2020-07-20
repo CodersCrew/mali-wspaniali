@@ -3,7 +3,7 @@ import { Avatar, IconButton, makeStyles, Theme, createStyles, Badge } from '@mat
 import { Notifications } from '@material-ui/icons/';
 import { Link } from 'react-router-dom';
 import { User } from '../../../firebase/firebase';
-import { secondaryColor, white, textColor } from '../../../colors';
+import { secondaryColor, white } from '../../../colors';
 import { useSubscribed } from '../../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { getChildrenByUserId } from '../../../queries/childQueries';
@@ -110,11 +110,17 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         avatarButton: {
             color: 'white',
+            height: 'inherit',
 
             [theme.breakpoints.down('sm')]: {
-                color: textColor,
+                color: theme.palette.common.black,
+                backgroundColor: theme.palette.common.white,
                 fontSize: '14px',
                 fontWeight: 'bold',
+
+                '&:hover': {
+                    backgroundColor: theme.palette.common.white,
+                }
             },
         },
         notificationsIcon: {
