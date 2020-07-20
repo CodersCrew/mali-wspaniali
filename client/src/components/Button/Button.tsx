@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Button, ButtonProps, makeStyles, createStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '../../theme/types';
 import clsx from 'clsx';
 
 type Props = ButtonProps & {
@@ -31,7 +30,7 @@ export const ButtonComponent: FC<Props> = ({ innerText, className, children, col
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         button: {
             whiteSpace: 'nowrap',
