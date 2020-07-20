@@ -52,6 +52,7 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
                 aria-haspopup="true"
                 onClick={handleToggle}
                 className={classes.button}
+                fullWidth
                 endIcon={isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 innerText={values.find(category => category.key === active)!.name}
             />
@@ -97,6 +98,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         button: {
             justifyContent: 'space-between',
+            backgroundColor: theme.palette.common.white,
+            color: theme.palette.common.black,
+
+            '&:hover': {
+                backgroundColor: theme.palette.common.white,
+                color: theme.palette.common.black,
+            }
         },
         container: {
             width: '100%',
