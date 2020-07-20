@@ -1,10 +1,9 @@
 import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { User, UserCredential, AuthError } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
-import { secondaryColor } from '../../colors';
 import { Theme } from '../../theme/types';
 import { Button } from '../../components/Button'
 
@@ -81,9 +80,7 @@ export const LoginPage = () => {
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>
-                    <Link className={classes.forgotPasswordLink} to="/forgot-password">
-                        {t('login-page.forgot-password')}
-                    </Link>
+                    <Button variant="text" href="/forgot-password" innerText="login-page.forgot-password" className={classes.forgotPasswordButton} />
                     <Button
                         type="submit"
                         disabled={!email || !password}
@@ -144,13 +141,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 margin: '0 0 20px 0',
             },
         },
-        forgotPasswordLink: {
-            fontStyle: 'normal',
-            fontWeight: 'bold',
+        forgotPasswordButton: {
             textAlign: 'center',
-            textTransform: 'uppercase',
-            color: secondaryColor,
-            textDecoration: 'none',
+            whiteSpace: 'normal',
+            fontSize: '12px',
         },
     }),
 );

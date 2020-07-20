@@ -121,6 +121,7 @@ export const RegistrationPassword = ({
             </FormControl>
             <div className={classButton}>
                 <Button
+                    variant="text"
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     className={classPrevBtn}
