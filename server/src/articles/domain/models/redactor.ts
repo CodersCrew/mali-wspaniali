@@ -31,7 +31,7 @@ export class Redactor extends ValueObject<RedactorInnerProps> {
     return mappedProps;
   }
 
-  static create(props: RedactorProps) {
+  static create(props: RedactorProps): Redactor {
     const avatarUrl = Url.create(props.avatarUrl).getValue();
 
     const mappedProps = {

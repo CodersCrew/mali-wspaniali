@@ -1,3 +1,1 @@
-export class GetAllAggrementsQuery {
-  constructor() {}
-}
+export class GetAllAggrementsQuery {}

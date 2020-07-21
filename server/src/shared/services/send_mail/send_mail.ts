@@ -16,7 +16,7 @@ export interface Sendable {
 export class SendMail {
   constructor(private readonly provider: NodemailerProvider) {}
 
-  send(mail: string, template: string) {
-    this.provider.send('kontakt@coderscrew.pl', mail, 'ffff', 'ffff', template)
+  send(mail: string, template: string): void {
+    this.provider.send('kontakt@coderscrew.pl', mail, 'ffff', 'ffff', template);
   }
 }

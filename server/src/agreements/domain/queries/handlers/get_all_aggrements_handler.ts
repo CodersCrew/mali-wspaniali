@@ -9,7 +9,7 @@ export class GetAllAggrementsHandler
   implements IQueryHandler<GetAllAggrementsQuery> {
   constructor(private readonly repository: AggrementRepository) {}
 
-  async execute(query: GetAllAggrementsQuery): Promise<AggrementProps[]> {
+  async execute(): Promise<AggrementProps[]> {
     return this.repository.getAll();
   }
 }
