@@ -12,6 +12,7 @@ import { KeyCodesModule } from './key_codes/key_codes_module';
 import { UsersModule } from './users/users_module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NewslettersModule } from './newsletters/newsletters_module';
+import { AggrementsModule } from './agreements/aggrements_module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { NewslettersModule } from './newsletters/newsletters_module';
     UsersModule,
     NotificationsModule,
     NewslettersModule,
+    AggrementsModule,
     ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       debug: !isProduction(),

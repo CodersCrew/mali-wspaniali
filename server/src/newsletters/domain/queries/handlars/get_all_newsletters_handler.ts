@@ -9,7 +9,7 @@ export class GetAllNewsletterHandler
   implements IQueryHandler<GetAllNewsletterQuery> {
   constructor(private readonly repository: NewslettersRepository) {}
 
-  async execute(query: GetAllNewsletterQuery): Promise<Newsletter[]> {
+  async execute(): Promise<Newsletter[]> {
     return this.repository.get();
   }
 }
