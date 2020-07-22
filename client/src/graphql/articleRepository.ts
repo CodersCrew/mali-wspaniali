@@ -10,7 +10,7 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
         query = gql`
         {
             articles(page: ${page}, category: "${category}") {
-                id
+                _id
                 title
                 description
                 category
@@ -22,7 +22,7 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
         query = gql`
         {
             articles(page: ${page}) {
-                id
+                _id
                 title
                 description
                 category
@@ -40,7 +40,7 @@ export function getLastArticles(count: number): Promise<ApolloQueryResult<{ last
         query: gql`
     {
         lastArticles(count: ${count}) {
-            id
+            _id
             title
             description
             category
@@ -56,7 +56,7 @@ export function getArticleDocById(articleId: string): Promise<ApolloQueryResult<
         query: gql`
             {
                 article(id: "${articleId}") {
-                    id
+                    _id
                     title
                     description
                     subtitle

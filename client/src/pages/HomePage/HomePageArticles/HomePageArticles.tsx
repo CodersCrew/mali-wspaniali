@@ -21,12 +21,12 @@ export const HomePageArticles = () => {
     const renderArticles = () => {
         return articles.map(article => {
             return (
-                <div className={classes.card} key={article.id}>
+                <div className={classes.card} key={article._id}>
                     <BlogArticleCard
                         title={article.title}
                         pictureUrl={article.pictureUrl}
                         description={article.description}
-                        link={`/parent/article/${article.id}`}
+                        link={`/parent/article/${article._id}`}
                         category={article.category}
                     />
                 </div>

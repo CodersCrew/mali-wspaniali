@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { NotificationDTO } from '../../notifications/dto/notification.dto';
+import { NotificationDTO } from '../../notifications/dto/notification_dto';
 import { ChildDTO } from './children_dto';
 
 @ObjectType()

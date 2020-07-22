@@ -4,7 +4,7 @@ import { CreateRedactorDTO } from './create_redactor_dto';
 @ObjectType()
 export class CreateArticleDTO {
   @Field(() => ID)
-  id: string;
+  _id: string;
 
   @Field(() => String)
   readonly category: string;

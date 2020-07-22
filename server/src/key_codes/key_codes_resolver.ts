@@ -1,14 +1,17 @@
 import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UseInterceptors } from '@nestjs/common';
+import { UseInterceptors, UseGuards } from '@nestjs/common';
 
-import { KeyCodeRepository } from './domain/repositories/key_code_repository';
+import { KeyCodeRepository } from './domain/repositories/key_codes_repository';
 import { KeyCodeProps } from './domain/models/key_code_model';
-import { CreateKeyCodeCommand } from './domain/commands/impl/create_key_code_command';
-import { CreateBulkKeyCodeCommand } from './domain/commands/impl/create_bulk_key_code_command';
+import {
+  CreateBulkKeyCodeCommand,
+  CreateKeyCodeCommand,
+} from './domain/commands/impl';
 import { CreateKeyCodeDTO } from './dto/create_key_code.dto';
-import { GetAllKeyCodesQuery } from './domain/queries/impl/get_all_key_codes_query';
+import { GetAllKeyCodesQuery } from './domain/queries/impl';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
+import { GqlAuthGuard } from '../users/guards/jwt_guard';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -20,6 +23,7 @@ export class KeyCodesResolver {
   ) {}
 
   @Query(() => [CreateKeyCodeDTO])
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async keyCodes(): Promise<KeyCodeProps[]> {
     const keyCodes: KeyCodeProps[] = await this.queryBus.execute(
       new GetAllKeyCodesQuery(),
@@ -29,6 +33,7 @@ export class KeyCodesResolver {
   }
 
   @Mutation(() => CreateKeyCodeDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createKeyCode(): Promise<KeyCodeProps> {
     const createdBy = 'Janek25';
 
@@ -40,6 +45,7 @@ export class KeyCodesResolver {
   }
 
   @Mutation(() => [CreateKeyCodeDTO])
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createKeyCodeBulk(
     @Args('amount') amount: number,
   ): Promise<KeyCodeProps> {

@@ -8,16 +8,20 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
 import { isProduction, isTest } from './shared/utils/is_production';
-import { KeyCodesModule } from './key_codes/key_codes.module';
-import { UserModule } from './users/users.module';
+import { KeyCodesModule } from './key_codes/key_codes_module';
+import { UsersModule } from './users/users_module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { NewslettersModule } from './newsletters/newsletters_module';
+import { AggrementsModule } from './agreements/aggrements_module';
 
 @Module({
   imports: [
     ArticlesModule,
     KeyCodesModule,
-    UserModule,
+    UsersModule,
     NotificationsModule,
+    NewslettersModule,
+    AggrementsModule,
     ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       debug: !isProduction(),

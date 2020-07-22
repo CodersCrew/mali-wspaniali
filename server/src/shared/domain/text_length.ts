@@ -19,13 +19,13 @@ export class TextLength extends ValueObject<TextLengthValue> {
     name: string,
     max: number,
     min: number = 0,
-  ): Result<TextLengthValue> {
+  ): Result<TextLength> {
     if (text.length < min || text.length > max) {
-      return Result.fail<TextLengthValue>(
+      return Result.fail(
         `Text in field "${name}" must have valid length. Min: ${min}, Max: ${max}`,
       );
     } else {
-      return Result.ok<TextLengthValue>(new TextLength({ value: text }));
+      return Result.ok(new TextLength({ value: text }));
     }
   }
 }

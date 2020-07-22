@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserCommand } from '../impl/create_user_command';
 import { User } from '../../models/user_model';
 import { UserRepository } from '../../repositories/user_repository';
-import { KeyCodeRepository } from '../../../../key_codes/domain/repositories/key_code_repository';
+import { KeyCodeRepository } from '../../../../key_codes/domain/repositories/key_codes_repository';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {

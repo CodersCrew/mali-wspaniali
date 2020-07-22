@@ -9,8 +9,8 @@ import { CommandHandlers } from './domain/commands/handlers';
 import { QueryHandlers } from './domain/queries/handlers';
 import { UserSchema } from './schemas/user_schema';
 import { UserRepository } from './domain/repositories/user_repository';
-import { UserResolver } from './users.resolver';
-import { KeyCodesModule } from '../key_codes/key_codes.module';
+import { UsersResolver } from './users_resolver';
+import { KeyCodesModule } from '../key_codes/key_codes_module';
 import { EventHandlers } from './domain/events/handlers';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { JwtStrategy } from './strategy/jwt_strategy';
@@ -19,7 +19,12 @@ import { ChildRepository } from './domain/repositories/child_repository';
 import { ChildSchema } from './schemas/child_schema';
 import { ChildResultSchema } from './schemas/child_result_schema';
 import { ChildResultRepository } from './domain/repositories/child_result_repository';
-import { UserController } from './users.controller';
+import { ChildrenController } from './children_controller';
+import { SendMail } from '../shared/services/send_mail/send_mail';
+import { NodemailerProvider } from '../shared/services/send_mail/nodemailer_provider';
+import { UserChangePasswordJWT } from './schemas/user_change_password_jwt_schema';
+import { UserChangePasswordRepository } from './domain/repositories/user_change_password_jwt_repository';
+import { UserChangePasswordCronService } from './user_change_password_cron_service';
 
 @Module({
   imports: [
@@ -32,6 +37,9 @@ import { UserController } from './users.controller';
     MongooseModule.forFeature([
       { name: 'ChildResult', schema: ChildResultSchema },
     ]),
+    MongooseModule.forFeature([
+      { name: 'UserChangePasswordJWT', schema: UserChangePasswordJWT },
+    ]),
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
@@ -41,15 +49,19 @@ import { UserController } from './users.controller';
   providers: [
     JwtStrategy,
     GqlAuthGuard,
-    UserResolver,
+    UsersResolver,
     UserRepository,
     ChildRepository,
     ChildResultRepository,
+    UserChangePasswordRepository,
+    SendMail,
+    NodemailerProvider,
+    UserChangePasswordCronService,
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,
   ],
-  controllers: [UserController],
+  controllers: [ChildrenController],
   exports: [UserRepository],
 })
-export class UserModule {}
+export class UsersModule {}

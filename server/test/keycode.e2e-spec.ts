@@ -3,12 +3,15 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 
 import { AppModule } from './../src/app.module';
-import { KeyCodeRepository } from '../src/key_codes/domain/repositories/key_code_repository';
+import { KeyCodeRepository } from '../src/key_codes/domain/repositories/key_codes_repository';
+import { UserRepository } from '../src/users/domain/repositories/user_repository';
+import * as bcrypt from 'bcrypt';
 
 jest.setTimeout(10000);
 
 describe('KeyCode (e2e)', () => {
   let app: INestApplication;
+  let authorization: string;
 
   beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -19,6 +22,7 @@ describe('KeyCode (e2e)', () => {
 
     await app.init();
     await app.get(KeyCodeRepository).clearTable();
+    await app.get(UserRepository).clearTable();
 
     done();
   });
@@ -33,8 +37,35 @@ describe('KeyCode (e2e)', () => {
 
   describe('when DB is empty', () => {
     it('returns empty result', async () => {
+      await app
+        .get(UserRepository)
+        .createAdmin(
+          'admin@admin.com',
+          await bcrypt.hash('adminadmin', await bcrypt.genSalt(10)),
+        );
+
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          operationName: null,
+          variables: {},
+          query: `
+  mutation {
+    login(user: {
+        mail: "admin@admin.com", password: "adminadmin"
+    }) {
+      status
+    }
+  }
+  `,
+        })
+        .then(response => {
+          authorization = response.header['set-cookie'];
+        });
+
       return await request(app.getHttpServer())
         .post('/graphql')
+        .set('Cookie', ['Authorization', authorization])
         .send({
           operationName: null,
           variables: {},
@@ -47,9 +78,36 @@ describe('KeyCode (e2e)', () => {
   });
 
   describe('when adding a new keyCode', () => {
-    it('adds article', async () => {
+    it('adds keyCode', async () => {
+      await app
+        .get(UserRepository)
+        .createAdmin(
+          'admin@admin.com',
+          await bcrypt.hash('adminadmin', await bcrypt.genSalt(10)),
+        );
+
       await request(app.getHttpServer())
         .post('/graphql')
+        .send({
+          operationName: null,
+          variables: {},
+          query: `
+    mutation {
+      login(user: {
+          mail: "admin@admin.com", password: "adminadmin"
+      }) {
+        status
+      }
+    }
+    `,
+        })
+        .then(response => {
+          authorization = response.header['set-cookie'];
+        });
+
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .set('Cookie', ['Authorization', authorization])
         .send({
           operationName: null,
           variables: {},
@@ -67,6 +125,7 @@ describe('KeyCode (e2e)', () => {
 
       await request(app.getHttpServer())
         .post('/graphql')
+        .set('Cookie', ['Authorization', authorization])
         .send({
           operationName: null,
           variables: {},

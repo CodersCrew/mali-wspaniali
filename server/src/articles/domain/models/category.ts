@@ -14,13 +14,11 @@ export class Category extends ValueObject<CategoryValue> {
     return this.props.value;
   }
 
-  public static create(category: string): Result<CategoryValue> {
+  public static create(category: string): Result<Category> {
     if (!['food', 'activity', 'emotions', 'other'].includes(category)) {
-      return Result.fail<CategoryValue>('Category must be valid.');
+      return Result.fail('Category must be valid.');
     } else {
-      return Result.ok<CategoryValue>(
-        new Category({ value: category as CategoryProps }),
-      );
+      return Result.ok(new Category({ value: category as CategoryProps }));
     }
   }
 }

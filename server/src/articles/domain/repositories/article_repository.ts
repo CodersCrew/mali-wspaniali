@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { ArticleInput } from '../../inputs/article_input';
 import { Article } from '../models/article_model';
 import { ArticleDocument } from '../../interfaces/article.interface';
+import { ArticleMapper } from '../mappers/article_mapper';
 
 @Injectable()
 export class ArticlesRepository {
@@ -13,10 +14,12 @@ export class ArticlesRepository {
   ) {}
 
   async create(createArticleDTO: ArticleInput): Promise<Article> {
-    const article = Article.recreate(createArticleDTO);
-    const createdArticle = new this.articleModel(article.getProps());
+    const article = ArticleMapper.toDomain(createArticleDTO);
+    const createdArticle = new this.articleModel(ArticleMapper.toRaw(article));
 
-    return await createdArticle.save().then(article => Article.create(article));
+    return await createdArticle
+      .save()
+      .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
   async getPage(page: number, category?: string): Promise<Article[]> {
@@ -36,7 +39,7 @@ export class ArticlesRepository {
 
         articles.forEach(article => {
           try {
-            validArticles.push(Article.recreate(article));
+            validArticles.push(ArticleMapper.toDomain(article.toObject()));
           } catch (e) {
             console.log(e);
           }
@@ -58,7 +61,7 @@ export class ArticlesRepository {
 
         articles.forEach(article => {
           try {
-            validArticles.push(Article.recreate(article));
+            validArticles.push(ArticleMapper.toDomain(article.toObject()));
           } catch (e) {
             console.log(e);
           }
@@ -72,7 +75,7 @@ export class ArticlesRepository {
     return await this.articleModel
       .findById(id)
       .exec()
-      .then(article => Article.recreate(article));
+      .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
   // for e2e purpose only

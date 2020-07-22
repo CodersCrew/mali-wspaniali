@@ -58,8 +58,17 @@ export class UserRepository {
     });
   }
 
+  async writePassword(userId: string, password: string): Promise<void> {
+    await this.userModel.findByIdAndUpdate(userId, { password });
+  }
+
   // for e2e purpose only
   async clearTable(): Promise<void> {
     await this.userModel.deleteMany({});
+  }
+
+  // for e2e purpose only
+  async createAdmin(mail: string, password: string): Promise<void> {
+    await new this.userModel({ mail, password, role: 'admin' }).save();
   }
 }

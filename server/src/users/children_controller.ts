@@ -9,11 +9,11 @@ import { GetAllChildrenQuery } from './domain/queries/impl/get_all__children_que
 
 @UseGuards(GqlAuthGuard)
 @Controller('children/result_sheet')
-export class UserController {
+export class ChildrenController {
   constructor(private queryBus: QueryBus) {}
 
   @Get()
-  async getHello2(@Res() res: Response): Promise<void> {
+  async getExcel(@Res() res: Response): Promise<void> {
     const data = [
       {
         childId: '23',
