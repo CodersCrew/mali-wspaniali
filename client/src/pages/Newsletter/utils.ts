@@ -63,26 +63,49 @@ export const setProgress = (
         }>
     >,
 ) => {
-    if (recipients.value.length > 0 || specificType.value === SpecificRecipientInputValues.all) {
-        setState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Ready });
-    }
-    if (
+    // Are all the required fields of the first step filled in
+    const isFirstStepDone = recipients.value.length > 0 || specificType.value === SpecificRecipientInputValues.all;
+
+    // Are there some missing values in step one while some values provided to step two
+    const isFirstStepError =
         recipients.value.length === 0 &&
         specificType.value !== SpecificRecipientInputValues.all &&
-        (type.value || topic.value || message.value)
-    ) {
-        setState(prevState => ({ ...prevState, firstStep: ProgressBarStates.Error }));
+        !!(type.value || topic.value || message.value);
+
+    // Is there no type provided but topic or message has a value or is there no type or topic provided but message has a value
+    const isSecondStepError = (!type && (topic || message.value)) || !!((!type.value || !topic.value) && message.value);
+
+    // Are there no recipients selected and no fields in the second step filled in
+    const isFirstStepReady =
+        recipients.value.length === 0 && !type.value && !topic.value && message.value === '<p><br></p>';
+
+    // Are recipients selected and all the required fields of the second step filled in
+    const areStepsDone = !!(
+        recipients.value.length > 0 &&
+        type.value &&
+        topic.value &&
+        message.value &&
+        message.value !== '<p><br></p>'
+    );
+
+    const { Done, Ready, Error, Inactive } = ProgressBarStates;
+
+    if (isFirstStepDone) {
+        setState({ firstStep: Done, secondStep: Ready });
     }
-    if ((!type && (topic || message.value)) || ((!type.value || !topic.value) && message.value)) {
+    if (isFirstStepError) {
+        setState(prevState => ({ ...prevState, firstStep: Error }));
+    }
+    if (isSecondStepError) {
         setState(prevState => ({
             ...prevState,
-            secondStep: ProgressBarStates.Error,
+            secondStep: Error,
         }));
     }
-    if (recipients.value.length === 0 && !type.value && !topic.value && message.value === '<p><br></p>') {
-        setState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
+    if (isFirstStepReady) {
+        setState({ firstStep: Ready, secondStep: Inactive });
     }
-    if (recipients.value.length > 0 && type.value && topic.value && message.value && message.value !== '<p><br></p>') {
-        setState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Done });
+    if (areStepsDone) {
+        setState({ firstStep: Done, secondStep: Done });
     }
 };
