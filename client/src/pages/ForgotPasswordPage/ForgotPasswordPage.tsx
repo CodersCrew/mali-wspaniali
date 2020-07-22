@@ -3,10 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { PresentPasswordPage } from './PresentPasswordPage';
 import { PostsentPasswordPage } from './PostsentPasswordPage';
 import { makeStyles, Typography, createStyles } from '@material-ui/core';
-import { backgroundColor, secondaryColor, white } from '../../colors';
 import { handlePasswordReset } from '../../queries/authQueries';
 import { isValidEmail } from './isValidEmail';
-
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
@@ -56,19 +54,9 @@ export const ForgotPasswordPage = () => {
                     {t('forgot-password-page.forgot-password')}
                 </Typography>
                 {isResetEmailSent ? (
-                    <PostsentPasswordPage
-                        subtitle={classes.subtitle}
-                        loginLink={classes.loginLink}
-                        loginLinkWrapper={classes.loginLinkWrapper}
-                    />
+                    <PostsentPasswordPage />
                 ) : (
                     <PresentPasswordPage
-                        subtitle={classes.subtitle}
-                        subtitleThin={classes.subtitleThin}
-                        textField={classes.textField}
-                        buttonWrapper={classes.buttonWrapper}
-                        button={classes.button}
-                        underlinedText={classes.underlinedText}
                         handleInputChange={handleInputChange}
                         handleCreateNewPassword={handleCreateNewPassword}
                         email={email}
@@ -108,71 +96,12 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '20px',
             textTransform: 'uppercase',
         },
-        subtitle: {
-            textAlign: 'center',
-        },
-        subtitleThin: {
-            marginBottom: '20px',
-            width: '320px',
-        },
-        buttonWrapper: {
-            display: 'flex',
-            width: '100%',
-            justifyContent: 'flex-end',
-        },
-        button: {
-            color: backgroundColor,
-            fontWeight: 'bold',
-            marginBottom: '20px',
-            marginTop: '20px',
-
-            [theme.breakpoints.down('sm')]: {
-                marginBottom: '44px',
-                marginTop: '30px',
-            },
-
-            '&disbled': {
-                color: secondaryColor,
-            },
-        },
-        textField: {
-            width: '100%',
-        },
         image: {
             borderRadius: '50%',
             width: '214px',
             [theme.breakpoints.down('sm')]: {
                 width: '100px',
                 marginTop: '40px',
-            },
-        },
-        loginLinkWrapper: {
-            marginBottom: '20px',
-            marginTop: '40px',
-        },
-        loginLink: {
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            color: white,
-            textDecoration: 'none',
-        },
-        underlinedText: {
-            textAlign: 'center',
-            position: 'relative',
-            marginBottom: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-
-            '&::after': {
-                position: 'absolute',
-                content: '""',
-                height: '1px',
-                margin: '0 auto',
-                left: '0',
-                bottom: '-2px',
-                right: '0',
-                width: '100%',
-                background: 'black',
             },
         },
     }),

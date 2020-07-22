@@ -1,26 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { PostsentPasswordPageProps } from './types';
+import { white } from '../../colors';
 
 const t_prefix = 'forgot-password-page';
 
-export const PostsentPasswordPage = ({ subtitle, loginLink, loginLinkWrapper }: PostsentPasswordPageProps) => {
+export const PostsentPasswordPage = () => {
     const { t } = useTranslation();
+    const classes = useStyles();
+
     return (
         <>
-            <Typography variant="body1" className={subtitle}>
-                {t(`${t_prefix}.email-sent`)}
-            </Typography>
-            <Typography variant="body1" className={subtitle}>
-                {t(`${t_prefix}.when-received`)}
-            </Typography>
-            <Button type="button" variant="contained" color="secondary" className={loginLinkWrapper}>
-                <Link to="/login" className={loginLink}>
-                    {t(`${t_prefix}.back-to-login`)}
-                </Link>
+            <Typography className={classes.subtitle}>{t(`${t_prefix}.email-sent`)}</Typography>
+            <Typography className={classes.subtitle}>{t(`${t_prefix}.when-received`)}</Typography>
+            <Button variant="contained" color="secondary" className={classes.loginLinkWrapper} href="/login">
+                {t(`${t_prefix}.back-to-login`)}
             </Button>
         </>
     );
 };
+
+const useStyles = makeStyles({
+    loginLinkWrapper: {
+        marginBottom: '20px',
+        marginTop: '40px',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        color: white,
+        textDecoration: 'none',
+    },
+    subtitle: {
+        textAlign: 'center',
+    },
+});
