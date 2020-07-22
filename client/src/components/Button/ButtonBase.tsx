@@ -3,16 +3,15 @@ import { Button, ButtonProps, makeStyles, createStyles } from '@material-ui/core
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-type Props = ButtonProps & {
-    innerText?: string;
+export type CustomButtonProps = ButtonProps & {
+    innerText?: string,
+    // variant will be required in the final version
+    // variant: string,
 };
 
-export const ButtonComponent: FC<Props> = ({ innerText, className, children, color, variant, ...props }) => {
+export const ButtonBase: FC<CustomButtonProps> = ({ innerText, className, children, ...props }) => {
     const { t } = useTranslation();
     const classes = useStyles();
-
-    const buttonColor = color || "secondary"
-    const buttonVariant = variant || "contained"
 
     let content
     if (children) {
@@ -24,7 +23,7 @@ export const ButtonComponent: FC<Props> = ({ innerText, className, children, col
     };
 
     return (
-        <Button {...props} className={clsx(className, classes.button)} color={buttonColor} variant={buttonVariant} >
+        <Button {...props} className={clsx(className, classes.button)} >
             {content}
         </Button>
     );

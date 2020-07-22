@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { User, UserCredential, AuthError } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { Theme } from '../../theme/types';
-import { Button } from '../../components/Button'
+import { ButtonSecondary } from '../../components/Button'
 
 const initialError: AuthError = {
     code: '',
@@ -80,8 +80,9 @@ export const LoginPage = () => {
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>
-                    <Button variant="text" href="/forgot-password" innerText="login-page.forgot-password" className={classes.forgotPasswordButton} />
-                    <Button
+                    <ButtonSecondary variant="text" href="/forgot-password" innerText="login-page.forgot-password" className={classes.forgotPasswordButton} />
+                    <ButtonSecondary
+                        variant="contained"
                         type="submit"
                         disabled={!email || !password}
                         innerText="login-page.login"
