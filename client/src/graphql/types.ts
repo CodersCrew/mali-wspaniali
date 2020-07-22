@@ -1,7 +1,7 @@
 export type ArticleCategory = 'food' | 'activity' | 'emotions' | 'other';
 
 export interface Article {
-    id: string;
+    _id: string;
     header: string;
     pictureUrl: string;
     title: string;
