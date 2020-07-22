@@ -36,7 +36,7 @@ export const WorkSpace = ({ message, setFields }: WorkspaceProps) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         workspace: {
-            borderRadius: '4px',
+            borderRadius: '4',
             '& .ql-container': {
                 minHeight: 170,
                 borderRadius: '0 0 4px 4px',

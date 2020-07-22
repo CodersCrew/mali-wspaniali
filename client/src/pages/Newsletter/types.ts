@@ -3,6 +3,8 @@ import { InputLabelProps, SelectProps } from '@material-ui/core';
 
 export type Message = string;
 
+export type CheckSelection = (type: SingleFieldType) => boolean;
+
 export type Newsletter = {
     recipients: string[];
     type: string;
@@ -84,24 +86,24 @@ export type RecipientTypeProps = {
     handleRecipientTypeChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 };
 
-export type OptionsValues = {
+export type SelectOptionsValues = {
     value: string;
     label: string;
 }[];
 
-export type SingleSelectProps = {
-    stateData: SingleFieldType;
-    optionsValues: OptionsValues;
+type CommonSelectProps = {
+    optionsValues: SelectOptionsValues;
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 } & InputLabelProps &
     SelectProps;
 
+export type SingleSelectProps = {
+    stateData: SingleFieldType;
+} & CommonSelectProps;
+
 export type MultipleSelectProps = {
     stateData: MultipleFieldType;
-    optionsValues: OptionsValues;
-    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-} & InputLabelProps &
-    SelectProps;
+} & CommonSelectProps;
 
 export type ProgressBarProps = {
     progressBarState: { firstStep: ProgressBarStates; secondStep: ProgressBarStates };

@@ -5,16 +5,15 @@ import {
     SingleFieldType,
     MultipleFieldType,
     ProgressBarStates,
+    CheckSelection,
 } from './types';
 
-type CheckSelectionFn = (type: SingleFieldType) => boolean;
+export const areParentsSelected: CheckSelection = type => type.value === GeneralRecipientInputValues.parents;
 
-export const areParentsSelected: CheckSelectionFn = type => type.value === GeneralRecipientInputValues.parents;
-
-export const areParentsFromKindergartenSelected: CheckSelectionFn = type =>
+export const areParentsFromKindergartenSelected: CheckSelection = type =>
     type.value === SpecificRecipientInputValues.kindergarten;
 
-export const areSpecificRecipientsRequired: CheckSelectionFn = type =>
+export const areSpecificRecipientsRequired: CheckSelection = type =>
     type.value === SpecificRecipientInputValues.single || type.value === SpecificRecipientInputValues.kindergarten;
 
 export const setLabel = (
@@ -25,10 +24,9 @@ export const setLabel = (
     const parentsSelected = generalType.value === GeneralRecipientInputValues.parents;
     const parentsFromKindergartenSelected = specificType.value === SpecificRecipientInputValues.kindergarten;
     const singleRecipientSelected = specificType.value === SpecificRecipientInputValues.single;
-    const { length } = recipients.value;
 
     if (parentsSelected && parentsFromKindergartenSelected) {
-        if (length) {
+        if (recipients.value.length) {
             return 'newsletter.recipient-select-kindergarten-label-filled';
         }
 
@@ -36,14 +34,14 @@ export const setLabel = (
     }
 
     if (parentsSelected && singleRecipientSelected) {
-        if (length) {
+        if (recipients.value.length) {
             return 'newsletter.recipient-single-parent-label-filled';
         }
 
         return 'newsletter.recipient-single-parent-label';
     }
 
-    if (length) {
+    if (recipients.value.length) {
         return 'newsletter.recipient-single-kindergarten-label-filled';
     }
 

@@ -37,17 +37,16 @@ export const MultipleSelect = ({
                     getContentAnchorEl: null,
                 }}
             >
-                {optionsValues &&
-                    optionsValues.map(item => {
-                        const { value, label: selectLabel } = item;
+                {optionsValues.map(item => {
+                    const { value, label: selectLabel } = item;
 
-                        return (
-                            <MenuItem key={value} value={value}>
-                                <Checkbox checked={stateData.value.indexOf(value) > -1} color="primary" />
-                                <ListItemText primary={selectLabel} />
-                            </MenuItem>
-                        );
-                    })}
+                    return (
+                        <MenuItem key={value} value={value}>
+                            <Checkbox checked={stateData.value.indexOf(value) > -1} color="primary" />
+                            <ListItemText primary={selectLabel} />
+                        </MenuItem>
+                    );
+                })}
             </Select>
             {stateData.error && <FormHelperText>{stateData.error}</FormHelperText>}
         </FormControl>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
 import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
-import { NewsletterRecipientProps, OptionsValues } from './types';
+import { NewsletterRecipientProps, SelectOptionsValues } from './types';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { getParents } from '../../queries/userQueries';
 import { Parent } from '../ParentProfile/types';
@@ -35,14 +35,14 @@ export const NewsletterRecipent = ({
     }) as Kindergarten[];
 
     // Temporary solution until parents come with the id
-    const parentsOptionsValues: OptionsValues =
+    const parentsOptionsValues: SelectOptionsValues =
         parents &&
         parents.map((parent, idx) => ({
             value: idx.toString(),
             label: parent,
         }));
 
-    const kindergartenOptionsValues: OptionsValues =
+    const kindergartenOptionsValues: SelectOptionsValues =
         kindergartens &&
         kindergartens.map(kindergarten => {
             const { city, number, id } = kindergarten;

@@ -64,18 +64,9 @@ export const NewsletterPage = () => {
                 ...prevFields,
                 [name]: {
                     value,
-                    error: false,
+                    error: !value,
                 },
             }));
-            if (!value) {
-                setFields(prevFields => ({
-                    ...prevFields,
-                    [name]: {
-                        value,
-                        error: true,
-                    },
-                }));
-            }
         }
     };
 
@@ -108,6 +99,13 @@ export const NewsletterPage = () => {
         return openDialog(NewsletterSentModal, { goToAdminPage, resetState });
     };
 
+    const isSubmitBtnDisabled =
+        recipients.value.length === 0 ||
+        !type.value ||
+        !topic.value ||
+        !message.value ||
+        message.value === '<p><br></p>';
+
     return (
         <div className={classes.container}>
             <Typography variant="h3" className={classes.subHeader}>
@@ -138,13 +136,7 @@ export const NewsletterPage = () => {
                     <Grid item xs={12}>
                         <div className={classes.formButtonWrapper}>
                             <Button
-                                disabled={
-                                    recipients.value.length === 0 ||
-                                    !type.value ||
-                                    !topic.value ||
-                                    !message.value ||
-                                    message.value === '<p><br></p>'
-                                }
+                                disabled={isSubmitBtnDisabled}
                                 className={classes.formButton}
                                 onClick={handleSubmit}
                                 classes={{ disabled: classes.formButtonDisabled }}
