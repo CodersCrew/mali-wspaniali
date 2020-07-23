@@ -5,6 +5,7 @@ import { UserCreatedEvent } from '../events/impl';
 import { Mail } from '../../../shared/domain/mail';
 import { NotificationProps } from '../../../notifications/domain/models/notification_model';
 import { ChildProps } from './child_model';
+import { AggrementProps } from '../../../agreements/schemas/aggrement_schema';
 
 export interface UserProps {
   readonly _id: string;
@@ -14,6 +15,7 @@ export interface UserProps {
   readonly role: string;
   notifications: NotificationProps[];
   children: string[] | mongoose.Schema.Types.ObjectId[] | ChildProps[];
+  aggrements: string[] | mongoose.Schema.Types.ObjectId[] | AggrementProps[];
 }
 
 export interface UserBeforeSaveProps {

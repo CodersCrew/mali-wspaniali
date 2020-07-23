@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
-export class AgreementDTO {
+export class AggrementDTO {
   @Field(() => ID)
   _id: string;
 
@@ -10,4 +10,7 @@ export class AgreementDTO {
 
   @Field()
   readonly text: string;
+
+  @Field()
+  readonly isSigned: boolean;
 }
