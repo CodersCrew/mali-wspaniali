@@ -11,6 +11,7 @@ import { UseInterceptors, UseGuards } from '@nestjs/common';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { Newsletter, NewsletterProps } from './domain/models/newsletter_model';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
+import { NewsletterKindergartenInput } from './inputs/newsletter_kinderkarten_input';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -49,5 +50,21 @@ export class NewsletterResolver {
       );
     }
     return { status: !!newsletterContent };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  async createKindergartenNewsletter(
+    @Args('newsletter') newsletter: NewsletterKindergartenInput,
+  ): Promise<{ status: boolean }> {
+    // todo
+    return { status: !!newsletter };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  async createParentNewsletter(
+    @Args('newsletter') newsletter: NewsletterKindergartenInput,
+  ): Promise<{ status: boolean }> {
+    // todo
+    return { status: !!newsletter };
   }
 }
