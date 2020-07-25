@@ -2,10 +2,11 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles, createStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { User, UserCredential, AuthError } from '../../firebase/firebase';
+import { User, AuthError, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { backgroundColor, secondaryColor } from '../../colors';
 import { Theme } from '../../theme/types';
+import { login } from '../../commands/userCommand';
 
 const initialError: AuthError = {
     code: '',
@@ -34,7 +35,9 @@ export const LoginPage = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
+        login({ mail: email, password }).then(() => {
+            handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
+        });
     };
 
     onAuthStateChanged(async (user: User | null) => {
