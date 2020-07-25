@@ -15,4 +15,5 @@ export const UserSchema = new mongoose.Schema({
     default: 'user',
   },
   children: [mongoose.Schema.Types.ObjectId],
+  aggrements: [mongoose.Schema.Types.ObjectId],
 });

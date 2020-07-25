@@ -62,6 +62,15 @@ export class UserRepository {
     await this.userModel.findByIdAndUpdate(userId, { password });
   }
 
+  async addAgreement(
+    userId: string,
+    aggrementId: string,
+  ): Promise<UserDocument> {
+    return this.userModel.findByIdAndUpdate(userId, {
+      $addToSet: { aggrements: aggrementId },
+    });
+  }
+
   // for e2e purpose only
   async clearTable(): Promise<void> {
     await this.userModel.deleteMany({});

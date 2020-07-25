@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { NotificationDTO } from '../../notifications/dto/notification_dto';
 import { ChildDTO } from './children_dto';
+import { AggrementDTO } from '../../agreements/dto/agreement_dto';
 
 @ObjectType()
 export class UserDTO {
@@ -21,4 +22,7 @@ export class UserDTO {
 
   @Field(() => [ChildDTO], { nullable: true })
   readonly children: ChildDTO[];
+
+  @Field(() => [AggrementDTO])
+  readonly aggrements: AggrementDTO[];
 }
