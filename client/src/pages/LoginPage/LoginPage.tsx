@@ -2,10 +2,11 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, Button, makeStyles, createStyles } from '@material-ui/core/';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { User, UserCredential, AuthError } from '../../firebase/firebase';
+import { User, AuthError, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
 import { backgroundColor, secondaryColor } from '../../colors';
 import { Theme } from '../../theme/types';
+import { login } from '../../commands/userCommand';
 
 const initialError: AuthError = {
     code: '',
@@ -34,7 +35,9 @@ export const LoginPage = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
+        login({ mail: email, password }).then(() => {
+            handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
+        });
     };
 
     onAuthStateChanged(async (user: User | null) => {
@@ -53,20 +56,20 @@ export const LoginPage = () => {
             <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
                 <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
                 <TextField
-                        required
-                        onChange={event => setEmail(event.target.value)}
-                        value={email}
-                        id="email"
-                        label={t('e-mail')}
-                        variant="outlined"
-                        error={code === 'auth/user-not-found'}
-                        helperText={
-                            code === 'auth/user-not-found'
-                                ? t('login-page.login-notfound')
-                                : t('login-page.e-mail-helper-text')
-                        }
-                        className={classes.formItem}
-                    />
+                    required
+                    onChange={event => setEmail(event.target.value)}
+                    value={email}
+                    id="email"
+                    label={t('e-mail')}
+                    variant="outlined"
+                    error={code === 'auth/user-not-found'}
+                    helperText={
+                        code === 'auth/user-not-found'
+                            ? t('login-page.login-notfound')
+                            : t('login-page.e-mail-helper-text')
+                    }
+                    className={classes.formItem}
+                />
                 <TextField
                     required
                     onChange={event => setPassword(event.target.value)}
