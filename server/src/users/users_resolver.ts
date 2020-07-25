@@ -127,6 +127,7 @@ export class UsersResolver {
       new LoginUserCommand(user.mail, user.password),
     );
 
+    context.res.header('Access-Control-Allow-Origin', process.env.SERVER_HOST);
     context.res.cookie('Authorization', payload);
 
     return { status: !!payload };
