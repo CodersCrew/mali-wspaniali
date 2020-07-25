@@ -56,20 +56,20 @@ export const LoginPage = () => {
             <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
                 <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
                 <TextField
-                        required
-                        onChange={event => setEmail(event.target.value)}
-                        value={email}
-                        id="email"
-                        label={t('e-mail')}
-                        variant="outlined"
-                        error={code === 'auth/user-not-found'}
-                        helperText={
-                            code === 'auth/user-not-found'
-                                ? t('login-page.login-notfound')
-                                : t('login-page.e-mail-helper-text')
-                        }
-                        className={classes.formItem}
-                    />
+                    required
+                    onChange={event => setEmail(event.target.value)}
+                    value={email}
+                    id="email"
+                    label={t('e-mail')}
+                    variant="outlined"
+                    error={code === 'auth/user-not-found'}
+                    helperText={
+                        code === 'auth/user-not-found'
+                            ? t('login-page.login-notfound')
+                            : t('login-page.e-mail-helper-text')
+                    }
+                    className={classes.formItem}
+                />
                 <TextField
                     required
                     onChange={event => setPassword(event.target.value)}
