@@ -20,10 +20,6 @@ export const parentsRecipients = [
         value: SpecificRecipientInputValues.kindergarten,
         label: 'newsletter.specific-recipient-value-labels.from-single-kindergarten',
     },
-    {
-        value: SpecificRecipientInputValues.single,
-        label: 'newsletter.specific-recipient-value-labels.individual-message',
-    },
 ];
 
 export const kindergartensRecipients = [

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { TFunction } from 'i18next';
 import {
     GeneralRecipientInputValues,
     SpecificRecipientInputValues,
@@ -6,6 +7,8 @@ import {
     MultipleFieldType,
     ProgressBarStates,
     CheckSelection,
+    SelectOptionsValues,
+    Kindergarden,
 } from './types';
 
 export const areParentsSelected: CheckSelection = type => type.value === GeneralRecipientInputValues.parents;
@@ -23,7 +26,6 @@ export const setLabel = (
 ): string => {
     const parentsSelected = generalType.value === GeneralRecipientInputValues.parents;
     const parentsFromKindergartenSelected = specificType.value === SpecificRecipientInputValues.kindergarten;
-    const singleRecipientSelected = specificType.value === SpecificRecipientInputValues.single;
 
     if (parentsSelected && parentsFromKindergartenSelected) {
         if (recipients.value.length) {
@@ -31,14 +33,6 @@ export const setLabel = (
         }
 
         return 'newsletter.recipient-select-kindergarten-label';
-    }
-
-    if (parentsSelected && singleRecipientSelected) {
-        if (recipients.value.length) {
-            return 'newsletter.recipient-single-parent-label-filled';
-        }
-
-        return 'newsletter.recipient-single-parent-label';
     }
 
     if (recipients.value.length) {
@@ -106,4 +100,40 @@ export const setProgress = (
     if (areStepsDone) {
         setState({ firstStep: Done, secondStep: Done });
     }
+};
+
+export const getKindergardens = (): Kindergarden[] => {
+    return [
+        {
+            id: '1',
+            number: 100,
+            name: 'Bajkowa Przystań',
+            address: 'ul. Krakowska 56-62, 50-425 Wrocław',
+        },
+        {
+            id: '2',
+            number: 105,
+            name: 'Tęczowe Siódemki',
+            address: 'ul. J.U. Niemcewicza 4, 50-238 Wrocław',
+        },
+        {
+            id: '3',
+            number: 777,
+            name: 'Akademia Pana Kleksa',
+            address: 'ul. Wielka 18, 53-341 Wrocław',
+        },
+    ];
+};
+
+export const generateKindergardenOptions = (kindergardens: Kindergarden[], t: TFunction): SelectOptionsValues => {
+    const values = kindergardens.map(kindergarden => {
+        const { id, number, name, address } = kindergarden;
+
+        return {
+            value: id,
+            label: `${t('newsletter.kindergarten-number')} ${number}, ${name}, ${address}`,
+        };
+    });
+
+    return values;
 };

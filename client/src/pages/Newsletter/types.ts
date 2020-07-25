@@ -5,6 +5,13 @@ export type Message = string;
 
 export type CheckSelection = (type: SingleFieldType) => boolean;
 
+export type Kindergarden = {
+    id: string;
+    number: number;
+    name: string;
+    address: string;
+};
+
 export type Newsletter = {
     recipients: string[];
     type: string;
