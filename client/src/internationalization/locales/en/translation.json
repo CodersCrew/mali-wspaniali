@@ -38,7 +38,20 @@
         "length": "8 chars",
         "capital": "Capital letter",
         "digit": "Digit",
-        "special": "Special char"
+        "special": "Special char",
+        "agreements": {
+            "main-title": "Prywatność i warunki",
+            "clausule-header": "Klauzula informacyjna dla rodziców/ opiekunów prawnych dzieci biorących udział w programie MaliWspaniali",
+            "clausule": "przekazywana w wykonaniu obowiązków przewidzianych w Rozporządzeniu Parlamentu Europejskiego i Rady(UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływutakich danych oraz uchylenia dyrektywy 95/46/WE (dalej jako RODO).",
+            "show-more": "Zobacz pełną treść",
+            "show-less": "Zwiń",
+            "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
+            "sub-title": "Zgody",
+            "sub-title-description": "Zgoda na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych nie są obowiązkowai nie skutkują one brakiem możliwości brania udziału w zajęciach.",
+            "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
+            "privacy-policy": "Regulaminu, Polityki prywatności.",
+            "required-field": "*pole obowiązkowe do wypełnienia"
+        }
     },
     "forgot-password-page": {
         "forgot-password": "Forgot password",
