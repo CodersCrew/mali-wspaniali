@@ -6,7 +6,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ArticlesModule } from './articles/articles.module';
+import { ArticlesModule } from './articles/articles_module';
 import { isProduction, isTest } from './shared/utils/is_production';
 import { KeyCodesModule } from './key_codes/key_codes_module';
 import { UsersModule } from './users/users_module';
