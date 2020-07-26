@@ -18,7 +18,7 @@ export const getMenuItems = (t: TFunction, userRole: string) => {
         { name: t('menu.agreements'), link: '/admin/agreements', icon: <AssignmentTurnedIn /> },
         { name: t('menu.newsletter'), link: '/admin/newsletter', icon: <Message /> },
         { name: t('menu.newsletter-archive'), link: '/admin/newsletter', icon: <Archive /> },
-        { name: t('menu.blog'), link: '/admin/blog', icon: <FormatListBulleted /> },
+        { name: t('menu.blog'), link: '/parent/blog/all/1', icon: <FormatListBulleted /> },
         { name: t('menu.settings'), link: '/admin/settings', icon: <BuildSharp /> },
     ];
 
