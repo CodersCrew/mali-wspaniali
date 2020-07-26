@@ -5,11 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { KindergartenResolver } from './kindergarten.resolver';
 import { KindergartenSchema } from './schemas/kindergarten.schema';
 import { KindergartenRepository } from './domain/repositories/kindergarten_repository';
-// import { CommandHandlers } from './domain/commands/handlers';
-// import { EventHandlers } from './domain/events/handlers/index';
+import { CommandHandlers } from './domain/commands/handlers';
 import { QueryHandlers } from './domain/queries/handlers';
 import { NotificationsModule } from '../notifications/notifications.module';
-import { KindergartenService } from './kindergarten.service';
 
 @Module({
   imports: [
@@ -23,9 +21,7 @@ import { KindergartenService } from './kindergarten.service';
   providers: [
     KindergartenResolver,
     KindergartenRepository,
-    KindergartenService,
-    // ...CommandHandlers,
-    // ...EventHandlers,
+    ...CommandHandlers,
     ...QueryHandlers,
   ],
 })

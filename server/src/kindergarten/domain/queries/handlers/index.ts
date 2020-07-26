@@ -1,9 +1,7 @@
 import { GetAllKindergartensHandler } from './get_all_kindergartens_handler';
-// import { GetArticleByIdHandler } from './get_article_by_id_handler';
-// import { GetLastArticlesHandler } from './get_last_articles_handler';
+import { GetKindergartenByIdHandler } from './get_kindergarten_by_id_handler';
 
 export const QueryHandlers = [
   GetAllKindergartensHandler,
-  //   GetLastArticlesHandler,
-  //   GetArticleByIdHandler,
+  GetKindergartenByIdHandler,
 ];

@@ -33,30 +33,21 @@ export class KindergartenResolver {
 
   @Query(() => CreateKindergartenDTO)
   async kindergarten(@Args('id') id: string): Promise<KindergartenProps> {
-    const kindergarten: Kindergarten = await this.queryBus.execute(
+    const kindergarten: KindergartenProps = await this.queryBus.execute(
       new GetKindergartenByIdQuery(id),
     );
-    if (kindergarten.getProps()) {
-      return kindergarten.getProps();
+    if (kindergarten) {
+      return kindergarten;
     }
-    throw new HttpException('Kindergarten not found', HttpStatus.NOT_FOUND);
   }
 
   @Mutation(() => ReturnedStatusDTO)
   async createKindergarten(
     @Args('kindergarten') kindergarten: KindergartenInput,
   ): Promise<{ status: boolean }> {
-    const newKindergarten: Kindergarten = await this.commandBus.execute(
+    const newKindergarten: KindergartenProps = await this.commandBus.execute(
       new CreateKindergartenCommand(kindergarten),
     );
-
-    const kindergartenContent = newKindergarten.getProps();
-
-    if (kindergartenContent) {
-      Sentry.captureMessage(
-        `[Mali Wspaniali]: Created a new kindergarten ${kindergartenContent.name}`,
-      );
-    }
-    return { status: !!kindergartenContent };
+    return { status: !!newKindergarten };
   }
 }
