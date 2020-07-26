@@ -1,4 +1,4 @@
-import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Query, Resolver, Mutation, Args, Context } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
@@ -19,6 +19,7 @@ import {
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ArticleMapper } from './domain/mappers/article_mapper';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
+import { allowHost } from '../shared/allow_host';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -31,29 +32,42 @@ export class ArticlesResolver {
   @Query(() => [CreateArticleDTO])
   async articles(
     @Args('page') page: number,
+    @Context() context,
     @Args('category', { nullable: true }) category?: string,
   ): Promise<ArticleProps[]> {
     const articles: Article[] = await this.queryBus.execute(
       new GetAllArticlesQuery(page, category),
     );
 
+    allowHost(context);
+
     return articles.map(article => ArticleMapper.toRaw(article));
   }
 
   @Query(() => [CreateArticleDTO])
-  async lastArticles(@Args('count') count: number): Promise<ArticleProps[]> {
+  async lastArticles(
+    @Args('count') count: number,
+    @Context() context,
+  ): Promise<ArticleProps[]> {
     const articles: Article[] = await this.queryBus.execute(
       new GetLastArticlesQuery(count),
     );
+
+    allowHost(context);
 
     return articles.map(article => ArticleMapper.toRaw(article));
   }
 
   @Query(() => CreateArticleDTO)
-  async article(@Args('id') id: string): Promise<ArticleProps> {
+  async article(
+    @Args('id') id: string,
+    @Context() context,
+  ): Promise<ArticleProps> {
     const article: Article = await this.queryBus.execute(
       new GetArticleByIdQuery(id),
     );
+
+    allowHost(context);
 
     if (article.getProps()) {
       return ArticleMapper.toRaw(article);
@@ -66,6 +80,7 @@ export class ArticlesResolver {
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createArticle(
     @Args('article') article: ArticleInput,
+    @Context() context,
   ): Promise<{ status: boolean }> {
     const newArticle: Article = await this.commandBus.execute(
       new CreateArticleCommand(article),
@@ -78,6 +93,9 @@ export class ArticlesResolver {
         `[Mali Wspaniali]: Created a new article ${articleContent.title}`,
       );
     }
+
+    allowHost(context);
+
     return { status: !!articleContent };
   }
 }

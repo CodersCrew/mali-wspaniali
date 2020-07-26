@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Query, Args, Context } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
@@ -9,6 +9,7 @@ import { AggrementDTO } from './dto/agreement_dto';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { CreateAggrementCommand } from './domain/commands/impl/create_aggrement_command';
 import { AggrementProps } from './schemas/aggrement_schema';
+import { allowHost } from '../shared/allow_host';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -20,10 +21,12 @@ export class AggrementsResolver {
   ) {}
 
   @Query(() => [AggrementDTO])
-  async aggrements(): Promise<AggrementDTO[]> {
+  async aggrements(@Context() context): Promise<AggrementDTO[]> {
     const aggrements: AggrementDTO[] = await this.queryBus.execute(
       new GetAllAggrementsQuery(),
     );
+
+    allowHost(context);
 
     return aggrements;
   }
@@ -32,10 +35,13 @@ export class AggrementsResolver {
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createAggrement(
     @Args('aggrement') aggrement: string,
+    @Context() context,
   ): Promise<ReturnedStatusDTO> {
     const created: AggrementProps = await this.commandBus.execute(
       new CreateAggrementCommand({ text: aggrement }),
     );
+
+    allowHost(context);
 
     return {
       status: !!created,
