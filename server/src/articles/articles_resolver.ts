@@ -32,8 +32,8 @@ export class ArticlesResolver {
   @Query(() => [CreateArticleDTO])
   async articles(
     @Args('page') page: number,
-    @Args('category', { nullable: true }) category?: string,
     @Context() context,
+    @Args('category', { nullable: true }) category?: string,
   ): Promise<ArticleProps[]> {
     const articles: Article[] = await this.queryBus.execute(
       new GetAllArticlesQuery(page, category),

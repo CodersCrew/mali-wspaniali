@@ -41,7 +41,7 @@ import {
   CreateUserCommand,
   ResetPasswordCommand,
 } from './domain/commands/impl';
-import { allowHost } from 'src/shared/allow_host';
+import { allowHost } from '../shared/allow_host';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
