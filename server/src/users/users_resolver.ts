@@ -33,7 +33,6 @@ import { AggrementDTO } from '../agreements/dto/agreement_dto';
 import { GetValidAggrementsQuery } from '../agreements/domain/queries/impl/get_valid_aggrements_query';
 import { AddAggrementToUserCommand } from './domain/commands/impl/add_aggrement_to_user_command';
 import { AggrementProps } from '../agreements/schemas/aggrement_schema';
-import { isProduction } from '../shared/utils/is_production';
 import {
   ChangePasswordCommand,
   AddChildCommand,
@@ -42,6 +41,7 @@ import {
   CreateUserCommand,
   ResetPasswordCommand,
 } from './domain/commands/impl';
+import { allowHost } from 'src/shared/allow_host';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -54,7 +54,12 @@ export class UsersResolver {
 
   @Query(() => UserDTO)
   @UseGuards(GqlAuthGuard)
-  async me(@CurrentUser() user: LoggedUser): Promise<UserProps> {
+  async me(
+    @CurrentUser() user: LoggedUser,
+    @Context() context,
+  ): Promise<UserProps> {
+    allowHost(context);
+
     return await this.queryBus.execute(new GetUserQuery(user.userId));
   }
 
@@ -86,10 +91,13 @@ export class UsersResolver {
   @Mutation(() => ReturnedStatusDTO)
   async createUser(
     @Args('user') user: UserInput,
+    @Context() context,
   ): Promise<{ status: boolean }> {
     const created: UserProps = await this.commandBus.execute(
       new CreateUserCommand(user.mail, user.password, user.keyCode),
     );
+
+    allowHost(context);
 
     return { status: !!created };
   }
@@ -99,11 +107,13 @@ export class UsersResolver {
   async addChild(
     @CurrentUser() user: LoggedUser,
     @Args('child') child: ChildInput,
+    @Context() context,
   ): Promise<{ status: boolean }> {
     const created: ChildProps = await this.commandBus.execute(
       new AddChildCommand(child, user.userId),
     );
 
+    allowHost(context);
     return { status: !!created };
   }
 
@@ -111,11 +121,13 @@ export class UsersResolver {
   async addResult(
     @Args('childId') childId: string,
     @Args('result') result: ResultInput,
+    @Context() context,
   ): Promise<{ status: boolean }> {
     const created: ChildProps = await this.commandBus.execute(
       new AddChildResultCommand(result, childId),
     );
 
+    allowHost(context);
     return { status: !!created };
   }
 
@@ -128,12 +140,7 @@ export class UsersResolver {
       new LoginUserCommand(user.mail, user.password),
     );
 
-    context.res.header(
-      'Access-Control-Allow-Origin',
-      isProduction()
-        ? 'https://mali-wspaniali.netlify.app'
-        : 'http://localhost:3000',
-    );
+    allowHost(context);
     context.res.cookie('Authorization', payload);
 
     return { status: !!payload };
@@ -142,9 +149,11 @@ export class UsersResolver {
   @Mutation(() => ReturnedStatusDTO)
   async resetPassword(
     @Args('mail') mail: string,
+    @Context() context,
   ): Promise<{ status: boolean }> {
     await this.commandBus.execute(new ResetPasswordCommand(mail));
 
+    allowHost(context);
     return { status: true };
   }
 
@@ -152,9 +161,11 @@ export class UsersResolver {
   async changePassword(
     @Args('jwt') jwt: string,
     @Args('password') password: string,
+    @Context() context,
   ): Promise<{ status: boolean }> {
     await this.commandBus.execute(new ChangePasswordCommand(jwt, password));
 
+    allowHost(context);
     return { status: true };
   }
 
@@ -163,11 +174,13 @@ export class UsersResolver {
   async signAggrement(
     @CurrentUser() user: LoggedUser,
     @Args('aggrementId') aggrementId: string,
+    @Context() context,
   ): Promise<{ status: boolean }> {
     const created: AggrementProps = await this.commandBus.execute(
       new AddAggrementToUserCommand(user.userId, aggrementId),
     );
 
+    allowHost(context);
     return { status: !!created };
   }
 }
