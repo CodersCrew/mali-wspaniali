@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { RedactorSchema } from './redactor_schema';
+import { RedactorSchema } from './redactor.schema';
 
 export const ArticleSchema = new mongoose.Schema({
   category: String,
