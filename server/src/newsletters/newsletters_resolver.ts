@@ -1,4 +1,4 @@
-import { Query, Resolver, Mutation, Args, Context } from '@nestjs/graphql';
+import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
@@ -12,7 +12,6 @@ import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { Newsletter, NewsletterProps } from './domain/models/newsletter_model';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { NewsletterKindergartenInput } from './inputs/newsletter_kinderkarten_input';
-import { allowHost } from '../shared/allow_host';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -24,12 +23,10 @@ export class NewsletterResolver {
 
   @Query(() => [NewsletterDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async newsletters(@Context() context): Promise<NewsletterProps[]> {
+  async newsletters(): Promise<NewsletterProps[]> {
     const newsletters: Newsletter[] = await this.queryBus.execute(
       new GetAllNewsletterQuery(),
     );
-
-    allowHost(context);
 
     return newsletters.map(
       newsletter => newsletter.getProps() as NewsletterProps,
@@ -40,7 +37,6 @@ export class NewsletterResolver {
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createNewsletter(
     @Args('newsletter') newsletter: NewsletterInput,
-    @Context() context,
   ): Promise<{ status: boolean }> {
     const newNewsletter: Newsletter = await this.commandBus.execute(
       new CreateNewsletterCommand(newsletter),
@@ -54,19 +50,14 @@ export class NewsletterResolver {
       );
     }
 
-    allowHost(context);
-
     return { status: !!newsletterContent };
   }
 
   @Mutation(() => ReturnedStatusDTO)
   async createKindergartenNewsletter(
     @Args('newsletter') newsletter: NewsletterKindergartenInput,
-    @Context() context,
   ): Promise<{ status: boolean }> {
     // todo
-
-    allowHost(context);
 
     return { status: !!newsletter };
   }
@@ -74,11 +65,8 @@ export class NewsletterResolver {
   @Mutation(() => ReturnedStatusDTO)
   async createParentNewsletter(
     @Args('newsletter') newsletter: NewsletterKindergartenInput,
-    @Context() context,
   ): Promise<{ status: boolean }> {
     // todo
-
-    allowHost(context);
 
     return { status: !!newsletter };
   }
