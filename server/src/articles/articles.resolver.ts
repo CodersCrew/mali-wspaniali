@@ -19,6 +19,7 @@ import {
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ArticleMapper } from './domain/mappers/article_mapper';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
+import { ArticleDTO } from './dto/article_dto';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -28,7 +29,7 @@ export class ArticlesResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Query(() => [CreateArticleDTO])
+  @Query(() => ArticleDTO)
   @UseGuards(GqlAuthGuard)
   async articles(
     @Args('page') page: number,
@@ -41,7 +42,7 @@ export class ArticlesResolver {
     return articles.map(article => ArticleMapper.toRaw(article));
   }
 
-  @Query(() => [CreateArticleDTO])
+  @Query(() => [ArticleDTO])
   @UseGuards(GqlAuthGuard)
   async lastArticles(@Args('count') count: number): Promise<ArticleProps[]> {
     const articles: Article[] = await this.queryBus.execute(
@@ -51,7 +52,7 @@ export class ArticlesResolver {
     return articles.map(article => ArticleMapper.toRaw(article));
   }
 
-  @Query(() => CreateArticleDTO)
+  @Query(() => ArticleDTO)
   @UseGuards(GqlAuthGuard)
   async article(@Args('id') id: string): Promise<ArticleProps> {
     const article: Article = await this.queryBus.execute(

@@ -2,7 +2,7 @@ import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { CreateRedactorDTO } from './create_redactor_dto';
 
 @ObjectType()
-export class CreateArticleDTO {
+export class ArticleDTO {
   @Field(() => ID)
   _id: string;
 
