@@ -28,8 +28,8 @@ export class ArticlesResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Query(() => [CreateArticleDTO])
-  async articles(
+  @Query(() => PaginatedArticlesDTO)
+  async paginatedArticles(
     @Args('page') page: number,
     @Args('category', { nullable: true }) category?: string,
   ): Promise<ArticleProps[]> {
@@ -41,7 +41,7 @@ export class ArticlesResolver {
     return articles.map(article => ArticleMapper.toRaw(article));
   }
 
-  @Query(() => [CreateArticleDTO])
+  @Query(() => [ArticleDTO])
   async lastArticles(@Args('count') count: number): Promise<ArticleProps[]> {
     const articles: Article[] = await this.queryBus.execute(
       new GetLastArticlesQuery(count),
@@ -50,7 +50,7 @@ export class ArticlesResolver {
     return articles.map(article => ArticleMapper.toRaw(article));
   }
 
-  @Query(() => CreateArticleDTO)
+  @Query(() => ArticleDTO)
   async article(@Args('id') id: string): Promise<ArticleProps> {
     const article: Article = await this.queryBus.execute(
       new GetArticleByIdQuery(id),
