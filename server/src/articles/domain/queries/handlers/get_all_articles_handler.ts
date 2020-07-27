@@ -9,7 +9,11 @@ export class GetAllArticlesHandler
   implements IQueryHandler<GetAllArticlesQuery> {
   constructor(private readonly repository: ArticlesRepository) {}
 
-  async execute(query: GetAllArticlesQuery): Promise<Article[]> {
-    return this.repository.getPage(query.page, query.category);
+  async execute({
+    page,
+    perPage,
+    category,
+  }: GetAllArticlesQuery): Promise<Article[]> {
+    return this.repository.getPage(page, perPage, category);
   }
 }

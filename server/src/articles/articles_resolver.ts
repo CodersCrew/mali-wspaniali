@@ -1,8 +1,8 @@
-import { Query, Resolver, Mutation, Args, Context } from '@nestjs/graphql';
+import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
-import { CreateArticleDTO } from './dto/create_article_dto';
+import { ArticleDTO } from './dto/article_dto';
 import { ArticleInput } from './inputs/article_input';
 import { Article, ArticleProps } from './domain/models/article_model';
 import { CreateArticleCommand } from './domain/commands/impl/create_article_command';
@@ -13,12 +13,16 @@ import { ReturnedStatusDTO } from '../shared/returned_status';
 import {
   HttpException,
   HttpStatus,
-  UseInterceptors,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ArticleMapper } from './domain/mappers/article_mapper';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
+import { GetArticlesCountQuery } from './domain/queries/impl/get_articles_count_query';
+import { PaginatedArticlesDTO } from './dto/paginated_articles_dto';
+
+const ARTICLES_PER_PAGE = 6;
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -32,13 +36,24 @@ export class ArticlesResolver {
   async paginatedArticles(
     @Args('page') page: number,
     @Args('category', { nullable: true }) category?: string,
-  ): Promise<ArticleProps[]> {
+  ): Promise<PaginatedArticlesDTO> {
     const articles: Article[] = await this.queryBus.execute(
-      new GetAllArticlesQuery(page, category),
+      new GetAllArticlesQuery(page, ARTICLES_PER_PAGE, category),
     );
 
+    const articlesCount: number = await this.queryBus.execute(
+      new GetArticlesCountQuery(),
+    );
 
-    return articles.map(article => ArticleMapper.toRaw(article));
+    const result = {
+      articles: articles
+        .map(article => ArticleMapper.toRaw(article))
+        .slice(0, ARTICLES_PER_PAGE),
+      count: articlesCount,
+      hasNext: articles.length === ARTICLES_PER_PAGE + 1,
+    };
+
+    return result;
   }
 
   @Query(() => [ArticleDTO])

@@ -22,7 +22,7 @@ export class ArticlesRepository {
       .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
-  async getPage(page: number, category?: string): Promise<Article[]> {
+  async getPage(page: number, perPage: number, category?: string): Promise<Article[]> {
     const query: { [index: string]: unknown } = {};
 
     if (category) query.category = category;
@@ -31,8 +31,8 @@ export class ArticlesRepository {
 
     return await this.articleModel
       .find(query, {}, { sort: { date: -1 } })
-      .skip((page - 1) * 6)
-      .limit(7)
+      .skip((page - 1) * perPage)
+      .limit(perPage + 1)
       .exec()
       .then(articles => {
         const validArticles: Article[] = [];
@@ -47,6 +47,10 @@ export class ArticlesRepository {
 
         return validArticles;
       });
+  }
+
+  async countArticles(): Promise<number> {
+    return await this.articleModel.countDocuments({});
   }
 
   async getLast(count: number): Promise<Article[]> {

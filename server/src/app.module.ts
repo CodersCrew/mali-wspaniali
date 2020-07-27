@@ -29,7 +29,7 @@ import { AggrementsModule } from './agreements/aggrements_module';
       autoSchemaFile: 'schema.gql',
       context: ({ req, res }) => ({ req, res }),
       cors: {
-        origin: [process.env.SERVER_HOST, 'http://localhost:3000'],
+        origin: 'http://localhost:3000',
         credentials: true,
       },
     }),
