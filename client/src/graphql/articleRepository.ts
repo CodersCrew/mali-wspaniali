@@ -3,30 +3,41 @@ import { gql, DocumentNode, ApolloQueryResult } from 'apollo-boost';
 import { Article } from './types';
 import { client } from '../apollo_client';
 
-export function getArticles(page: number, category?: string): Promise<ApolloQueryResult<{ articles: Article[] }>> {
+export function getPaginatedArticles(
+    page: number,
+    category?: string,
+): Promise<ApolloQueryResult<{ paginatedArticles: { articles: Article[]; count: number; hasNext: boolean } }>> {
     let query: DocumentNode;
 
     if (category) {
         query = gql`
         {
-            articles(page: ${page}, category: "${category}") {
-                _id
-                title
-                description
-                category
-                pictureUrl
+            paginatedArticles(page: ${page}, category: "${category}") {
+                articles {
+                    _id
+                    title
+                    description
+                    category
+                    pictureUrl
+                }
+                count
+                hasNext
             }
         }
     `;
     } else {
         query = gql`
         {
-            articles(page: ${page}) {
-                _id
-                title
-                description
-                category
-                pictureUrl
+            paginatedArticles(page: ${page}) {
+                articles {
+                    _id
+                    title
+                    description
+                    category
+                    pictureUrl
+                }
+                count
+                hasNext
             }
         }
     `;

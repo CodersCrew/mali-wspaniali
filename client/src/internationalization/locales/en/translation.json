@@ -335,7 +335,9 @@
     },
     "blog-pagination": {
         "previous": "Previous",
-        "next": "Next"
+        "next": "Next",
+        "show-more": "Rozwiń więcej",
+        "counter": "Pokazuje {{from}} z {{to}} artykułów"
     },
     "blog-categories": {
         "all": "All",

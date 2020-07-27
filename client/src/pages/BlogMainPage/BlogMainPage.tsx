@@ -1,46 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
 
 import { CategoryTabs } from './CategoryTabs';
-import { Pagination } from './Pagination';
 import { categoriesList } from './BlogCategories';
-import { getArticles } from '../../queries/articleQueries';
+import { useBlogPage } from '../../queries/articleQueries';
 import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
 import { Theme } from '../../theme/types';
 import { BlogArticleCard } from '../../components/BlogArticleCard';
+import { Pagination } from '../../components/Pagination';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
-    const [articles, setArticles] = useState<Article[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
     const params = useParams<{ category: string; page: string }>();
     const history = useHistory();
-    let currentPage = parseInt(params.page, 10);
 
-    if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
+    const { data, fetchMore } = useBlogPage();
 
-    useEffect(() => {
-        let fetchedArticles;
-
-        if (params.category === 'all') {
-            fetchedArticles = getArticles(currentPage);
-        } else {
-            fetchedArticles = getArticles(currentPage, params.category);
-        }
-
-        fetchedArticles.then(({ data }) => setArticles(data.articles));
-    }, [params.category, currentPage]);
-
-    const paginationQuery = (paginationDirection: string) => {
-        if (paginationDirection === 'next') {
-            history.push(`/parent/blog/${params.category}/${currentPage + 1}`);
-        } else {
-            history.push(`/parent/blog/${params.category}/${currentPage - 1}`);
-        }
-    };
+    if (!data) return null;
 
     return (
         <>
@@ -49,17 +30,17 @@ export const BlogMainPage = () => {
                 <DropDownMenu
                     values={categoriesList}
                     active={params.category}
-                    onClick={value => history.push(`/parent/blog/${value}/1`)}
+                    onClick={value => history.push(`/parent/blog/${value}`)}
                 />
             </div>
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
-                onClick={value => history.push(`/parent/blog/${value}/1`)}
+                onClick={value => history.push(`/parent/blog/${value}`)}
             />
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
-                    {articles.slice(0, 6).map((article: Article) => (
+                    {data.paginatedArticles.articles.map((article: Article) => (
                         <Grid className={classes.gridSubContainer} key={article._id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
                                 title={article.title}
@@ -72,9 +53,34 @@ export const BlogMainPage = () => {
                     ))}
                 </Grid>
                 <Pagination
-                    disabledPrevious={currentPage <= 1}
-                    disabledNext={articles.length < 7}
-                    handleChange={paginationQuery}
+                    count={data.paginatedArticles.articles.length}
+                    maxCount={data.paginatedArticles.count}
+                    disabled={!data.paginatedArticles.hasNext}
+                    hidden={data.paginatedArticles.count < 6}
+                    onClick={() => {
+                        const scrollY = window.scrollY;
+
+                        fetchMore({
+                            variables: { page: currentPage + 1 },
+                            updateQuery: (prev, { fetchMoreResult }) => {
+                                setCurrentPage(prev => prev + 1);
+
+                                return {
+                                    ...prev,
+                                    paginatedArticles: {
+                                        ...prev.paginatedArticles,
+                                        ...fetchMoreResult.paginatedArticles,
+                                        articles: [
+                                            ...prev.paginatedArticles.articles,
+                                            ...fetchMoreResult.paginatedArticles.articles,
+                                        ],
+                                    },
+                                };
+                            },
+                        }).then(() => {
+                            window.scroll(0, scrollY);
+                        });
+                    }}
                 />
             </div>
         </>
