@@ -33,7 +33,6 @@ import { AggrementDTO } from '../agreements/dto/agreement_dto';
 import { GetValidAggrementsQuery } from '../agreements/domain/queries/impl/get_valid_aggrements_query';
 import { AddAggrementToUserCommand } from './domain/commands/impl/add_aggrement_to_user_command';
 import { AggrementProps } from '../agreements/schemas/aggrement_schema';
-import { isProduction } from '../shared/utils/is_production';
 import {
   ChangePasswordCommand,
   AddChildCommand,
@@ -128,12 +127,6 @@ export class UsersResolver {
       new LoginUserCommand(user.mail, user.password),
     );
 
-    context.res.header(
-      'Access-Control-Allow-Origin',
-      isProduction()
-        ? 'https://mali-wspaniali.netlify.app'
-        : 'http://localhost:3000',
-    );
     context.res.cookie('Authorization', payload);
 
     return { status: !!payload };
