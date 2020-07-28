@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, makeStyles, Button, Theme } from '@material-ui/core';
+import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { ArticleCategory } from '../graphql/types';
 import { ArticleBadge } from '../pages/BlogMainPage/ArticleBadge';
+import { ButtonSecondary } from '../components/Button';
 
 interface Props {
     pictureUrl: string;
@@ -27,16 +28,14 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link, category
                 </Typography>
                 <Typography variant="body2">{description}</Typography>
             </CardContent>
-            <Button
+            <ButtonSecondary
                 href={link}
                 variant="contained"
-                color="secondary"
                 startIcon={<SendIcon />}
                 className={classes.readMoreButton}
                 disableElevation
-            >
-                {t('blog-article-card.read-more')}
-            </Button>
+                innerText={t('blog-article-card.read-more')}
+            /> 
         </Card>
     );
 };
@@ -71,7 +70,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     readMoreButton: {
         fontSize: '13px',
-        whiteSpace: 'nowrap',
         position: 'absolute',
         right: '16px',
         bottom: '16px',

@@ -4,7 +4,7 @@ import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/
 
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
-import { Button } from '../../components/Button';
+import { ButtonDefault } from '../../components/Button';
 
 interface Props {
     category: string;
@@ -19,13 +19,14 @@ export const BreadcrumbsWithDescription = ({ category, title, readingTime }: Pro
     return (
         <Grid item xs={8} className={classes.pathContainer}>
             <Grid container direction="row">
-                <Button href="/parent/blog/all/1" disableElevation disableFocusRipple disableRipple disableTouchRipple>
+                <ButtonDefault variant="text" href="/parent/blog/all/1" disableElevation disableFocusRipple disableRipple disableTouchRipple>
                     <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
-                </Button>
+                </ButtonDefault>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
                 </div>
-                <Button
+                <ButtonDefault
+                    variant="text"
                     href={`/parent/blog/${category}/1`}
                     disableElevation
                     disableFocusRipple
@@ -35,7 +36,7 @@ export const BreadcrumbsWithDescription = ({ category, title, readingTime }: Pro
                     <Typography className={classes.pathText}>
                         {t(`single-article.${category}`).toUpperCase()}
                     </Typography>
-                </Button>
+                </ButtonDefault>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
                 </div>

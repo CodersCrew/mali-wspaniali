@@ -18,7 +18,7 @@ import { Agreement } from '../../firebase/types';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { Button } from '../../components/Button';
+import { ButtonSecondary } from '../../components/Button';
 
 export const AdminAgreementsPage = () => {
     useAuthorization(true, '/', ['admin']);
@@ -105,7 +105,7 @@ export const AdminAgreementsPage = () => {
                             </List>
                         </Container>
                         <Container>
-                            <Button onClick={handleOpenModal} innerText="admin-agreements-page.show" />
+                            <ButtonSecondary variant="contained" onClick={handleOpenModal} innerText={t('admin-agreements-page.show')} />
                         </Container>
                         <Modal
                             aria-labelledby="modal-title"

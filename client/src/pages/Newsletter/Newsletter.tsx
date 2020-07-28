@@ -12,7 +12,7 @@ import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
-import { Button } from '../../components/Button';
+import { ButtonSecondary } from '../../components/Button';
 
 const initialState = {
     type: {
@@ -181,7 +181,8 @@ export const NewsletterPage = () => {
                 </div>
             </div>
             <div className={classes.formButtonWrapper}>
-                <Button
+                <ButtonSecondary
+                    variant="contained"
                     disabled={
                         recipients.value.length === 0 ||
                         !type.value ||
@@ -191,7 +192,7 @@ export const NewsletterPage = () => {
                     }
                     className={classes.formButton}
                     onClick={handleSubmit}
-                    innerText="newsletter.send"
+                    innerText={t('newsletter.send')}
                 />
             </div>
         </div>

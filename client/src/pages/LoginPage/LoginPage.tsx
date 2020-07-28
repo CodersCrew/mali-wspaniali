@@ -80,12 +80,12 @@ export const LoginPage = () => {
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>
-                    <ButtonSecondary variant="text" href="/forgot-password" innerText="login-page.forgot-password" className={classes.forgotPasswordButton} />
+                    <ButtonSecondary variant="text" href="/forgot-password" innerText={t('login-page.forgot-password')} className={classes.forgotPasswordButton} />
                     <ButtonSecondary
                         variant="contained"
                         type="submit"
                         disabled={!email || !password}
-                        innerText="login-page.login"
+                        innerText={t('login-page.login')}
                     />
                 </div>
             </form>

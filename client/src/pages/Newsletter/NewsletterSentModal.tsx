@@ -12,7 +12,7 @@ import {
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { textColor } from '../../colors';
 import { Theme } from '../../theme';
-import { Button } from '../../components/Button';
+import { ButtonSecondary } from '../../components/Button';
 
 export const NewsletterSentModal: React.FC<{
     onClose: () => void;
@@ -44,17 +44,18 @@ export const NewsletterSentModal: React.FC<{
                 </DialogContentText>
             </DialogContent>
             <DialogActions className={classes.sentModalButtonWrapper}>
-                <Button
+                <ButtonSecondary
+                    variant="contained"
                     id="homePageButton"
                     className={classes.sentModalBackButton}
                     onClick={handleButtonClick}
-                    innerText="newsletter.sending-success-modal.back-button"
+                    innerText={t('newsletter.sending-success-modal.back-button')}
                 />
-                <Button
+                <ButtonSecondary
                     id="nextMessageButton"
                     className={classes.sentModalNextMessageButton}
                     onClick={handleButtonClick}
-                    innerText="newsletter.sending-success-modal.next-msg-button"
+                    innerText={t('newsletter.sending-success-modal.next-msg-button')}
                     variant="text"
                 />
             </DialogActions>

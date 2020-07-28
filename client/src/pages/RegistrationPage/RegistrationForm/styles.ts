@@ -96,9 +96,6 @@ export const useStyles = makeStyles((theme: Theme) =>
                 },
             },
         },
-        prevButton: {
-            color: theme.palette.secondary.main,
-        },
         goToHomepageLink: {
             fontFamily: theme.typography.fontFamily,
             fontStyle: 'normal',

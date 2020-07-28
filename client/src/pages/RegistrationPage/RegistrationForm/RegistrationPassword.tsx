@@ -17,7 +17,7 @@ import {
     passwordDigitTest,
     passwordCapitalTest,
 } from '../passwordStrengthTest';
-import { Button } from '../../../components/Button';
+import { ButtonSecondary } from '../../../components/Button';
 
 const initialPasswordValidation: PasswordValidation = {
     length: false,
@@ -34,7 +34,6 @@ export const RegistrationPassword = ({
     passwordConfirm,
     classButton,
     classNextBtn,
-    classPrevBtn,
     classFormItem,
 }: RegistrationPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -120,17 +119,17 @@ export const RegistrationPassword = ({
                 />
             </FormControl>
             <div className={classButton}>
-                <Button
+                <ButtonSecondary
                     variant="text"
                     disabled={activeStep === 0}
                     onClick={handleBack}
-                    className={classPrevBtn}
-                    innerText="back"
+                    innerText={t('back')}
                 />
-                <Button
+                <ButtonSecondary
+                    variant="contained"
                     type="submit"
                     className={classNextBtn}
-                    innerText="registration-page.create-password"
+                    innerText={t('registration-page.create-password')}
                 />
             </div>
         </>

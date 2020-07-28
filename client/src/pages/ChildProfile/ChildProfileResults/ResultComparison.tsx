@@ -10,7 +10,7 @@ import { Advice } from '../../../firebase/types';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { getAdviceByResultAndAge } from '../../../queries/adviceQueries';
 import { AdviceModal } from './AdviceModal';
-import { Button } from '../../../components/Button';
+import { ButtonSecondary } from '../../../components/Button';
 
 interface Props {
     firstResultPoints: number;
@@ -45,7 +45,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                             {t(`child-profile.difference.${key}`)}
                         </div>
                         {advice && advice.content && (
-                            <Button onClick={() => setIsModalOpen(true)} innerText="child-profile.comparison-button" />
+                            <ButtonSecondary variant="contained" onClick={() => setIsModalOpen(true)} innerText={t('child-profile.comparison-button')} />
                         )}
                     </div>
                 </Card>

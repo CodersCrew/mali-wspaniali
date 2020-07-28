@@ -10,7 +10,7 @@ import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { Theme } from '../../theme/types';
-import { Button } from '../../components/Button';
+import { ButtonSecondary } from '../../components/Button';
 
 enum ImageState {
     default = 'DEFAULT',
@@ -56,10 +56,11 @@ export const ForgotPasswordPage = () => {
             <Typography variant="body1" className={classes.subtitle}>
                 {t('forgot-password-page.when-received')}
             </Typography>
-            <Button
+            <ButtonSecondary
+                variant="contained"
                 href="/login"
                 className={classes.backToLoginButton}
-                innerText="forgot-password-page.back-to-login"
+                innerText={t('forgot-password-page.back-to-login')}
             />
         </>
     );
@@ -82,11 +83,12 @@ export const ForgotPasswordPage = () => {
                 helperText={t('forgot-password-page.email-helper-text')}
                 onChange={handleInputChange}
             />
-            <Button
+            <ButtonSecondary
+                variant="contained"
                 disabled={!isValidEmail(email)}
                 className={classes.createPasswordButton}
                 onClick={handleCreateNewPassword}
-                innerText="forgot-password-page.new-password"
+                innerText={t('forgot-password-page.new-password')}
             />
             <div className={classes.underlinedText}>
                 <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Dialog, DialogContent, DialogActions } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { mainColor, textColor } from '../../colors';
-import { Button } from '../../components/Button';
+import { ButtonSecondary } from '../../components/Button';
 
 export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const classes = useStyles();
@@ -19,7 +19,7 @@ export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <p className={classes.modalText}>{t('newsletter.help-modal.attachment-text')} </p>
             </DialogContent>
             <DialogActions className={classes.modalButtonWrapper}>
-                <Button onClick={onClose} autoFocus innerText="newsletter.help-modal.button" />
+                <ButtonSecondary variant="contained" onClick={onClose} autoFocus innerText={t('newsletter.help-modal.button')} />
             </DialogActions>
         </Dialog>
     );

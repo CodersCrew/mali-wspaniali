@@ -7,7 +7,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { DropDownMenuItem } from './DropDownMenuItem';
 import { Theme } from '../../theme/types';
 import { CategoryItem } from './BlogCategories';
-import { Button } from '../../components/Button';
+import { ButtonDefault } from '../../components/Button';
 
 type Props = {
     onClick: (value: string) => void;
@@ -46,7 +46,8 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
 
     return (
         <div className={classes.root} onKeyDown={handleListKeyDown}>
-            <Button
+            <ButtonDefault
+                variant="text"
                 ref={anchorRef}
                 aria-controls={isOpen ? 'menu-list-grow' : ''}
                 aria-haspopup="true"
@@ -99,11 +100,9 @@ const useStyles = makeStyles((theme: Theme) =>
         button: {
             justifyContent: 'space-between',
             backgroundColor: theme.palette.common.white,
-            color: theme.palette.common.black,
 
             '&:hover': {
                 backgroundColor: theme.palette.common.white,
-                color: theme.palette.common.black,
             }
         },
         container: {

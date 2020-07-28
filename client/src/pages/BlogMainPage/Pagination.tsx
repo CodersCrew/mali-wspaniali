@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/';
 import { Theme } from '../../theme/types';
-import { Button } from '../../components/Button';
+import { ButtonPrimary } from '../../components/Button';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     disabledPrevious: boolean;
@@ -11,21 +12,22 @@ interface Props {
 
 export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Props) => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <div className={classes.paginationContainer}>
-            <Button
-                color="primary"
+            <ButtonPrimary
+                variant="contained"
                 disabled={disabledPrevious}
                 onClick={() => handleChange('prev')}
-                innerText="blog-pagination.previous"
+                innerText={t('blog-pagination.previous')}
             />
-            <Button
-                color="primary"
+            <ButtonPrimary
+                variant="contained"
                 disabled={disabledNext}
                 className={classes.next}
                 onClick={() => handleChange('next')}
-                innerText="blog-pagination.next"
+                innerText={t('blog-pagination.next')}
             />
         </div>
     );

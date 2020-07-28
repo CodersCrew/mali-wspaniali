@@ -13,7 +13,7 @@ import { useSubscribed } from '../../../hooks/useSubscribed';
 import { Advice } from '../../../firebase/types';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { getAdviceByResult } from '../../../queries/adviceQueries';
-import { Button } from '../../../components/Button';
+import { ButtonSecondary } from '../../../components/Button';
 
 export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +63,7 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
                         {t(`child-profile.result-description.${key}`)}
                     </div>
                     {advice && advice.content && (
-                        <Button onClick={() => setIsModalOpen(true)} innerText="child-profile.advice" />
+                        <ButtonSecondary variant="contained" onClick={() => setIsModalOpen(true)} innerText={t('child-profile.advice')} />
                     )}
                 </div>
             </Card>

@@ -14,7 +14,7 @@ import { NotificationsPanel } from './NotificationsPanel';
 import { useAuthorization } from '../../../hooks/useAuthorization';
 import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
 import Logo from '../../../assets/MALWSP_logo_nav.png';
-import { Button } from '../../../components/Button';
+import { ButtonSecondary } from '../../../components/Button';
 
 export const Navbar = () => {
     const classes = useStyles();
@@ -82,9 +82,9 @@ export const Navbar = () => {
                     </Badge>
                 </IconButton>
                 <Avatar className={classes.avatar}>
-                    <Button className={classes.avatarButton} onClick={handleAvatarClick}>
+                    <ButtonSecondary variant="contained" className={classes.avatarButton} onClick={handleAvatarClick}>
                         {avatarContent}
-                    </Button>
+                    </ButtonSecondary>
                 </Avatar>
             </div>
             {isNotificationsPanelOpen && <NotificationsPanel notifications={notificationResponse.notifications} />}

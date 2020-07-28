@@ -2,7 +2,7 @@ import React, { useState, SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Input } from '@material-ui/core';
 import { CloudUpload, DescriptionSharp } from '@material-ui/icons';
-import { Button } from '../../components/Button';
+import { ButtonPrimary } from '../../components/Button';
 
 export const DatabaseUploadButton = () => {
     const classes = useStyles();
@@ -17,19 +17,19 @@ export const DatabaseUploadButton = () => {
 
     return (
         <div className={classes.container}>
-            <Button className={classes.button} color="primary">
+            <ButtonPrimary variant="contained" className={classes.button}>
                 <label className={classes.label}>
                     <DescriptionSharp className={classes.icon} />
                     <span>{t('database-upload.choose-file')}</span>
                     <Input type="file" id="file" className={classes.input} onChange={onSelectFile} value={file} />
                 </label>
-            </Button>
+            </ButtonPrimary>
             <div className={classes.file}>{file.replace(/^.*\\/, '')}</div>
             {Boolean(file) && (
-                <Button>
+                <ButtonPrimary variant="contained">
                     <CloudUpload className={classes.icon} />
                     <span>{t('database-upload.upload-file')}</span>
-                </Button>
+                </ButtonPrimary>
             )}
         </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { Button } from '../../../components/Button';
+import { ButtonPrimary } from '../../../components/Button';
 
 interface Props {
     content: string;
@@ -18,7 +18,7 @@ export const AdviceModal = ({ content, closeModal }: Props) => {
             </DialogTitle>
             <DialogContent>{content}</DialogContent>
             <DialogActions>
-                <Button color="primary" onClick={closeModal} innerText="close" />
+                <ButtonPrimary variant="text" onClick={closeModal} innerText={t('close')} />
             </DialogActions>
         </>
     );

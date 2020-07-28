@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Result } from '../../../firebase/types';
 import { lightTextColor } from '../../../colors';
 import { getMaxDate, getSchoolYearLabel } from './utils';
-import { Button } from '../../../components/Button';
+import { ButtonSecondary } from '../../../components/Button';
 
 interface Props {
     handleClickDetailsButton: (key: string) => void;
@@ -28,11 +28,11 @@ export const ResultSummary = ({ resultGroup, handleClickDetailsButton, isExpande
                 {t('child-profile.last-update-date')}:{' '}
                 <span className={classes.updatedAtDate}>{updatedAt ? updatedAt.format('L') : '-'}</span>
             </Typography>
-            <Button
+            <ButtonSecondary
                 onClick={() => handleClickDetailsButton(String(schoolYearStart))}
                 variant={isExpanded ? 'outlined' : 'contained'}
                 className={classes.detailsButton}
-                innerText={isExpanded ? 'child-profile.collapse-details' : 'child-profile.details'}
+                innerText={isExpanded ? t('child-profile.collapse-details') : t('child-profile.details')}
             />
         </div>
     );

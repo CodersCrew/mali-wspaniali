@@ -21,7 +21,6 @@ export interface RegistrationCodeProps {
     code: string;
     classForm: string;
     classButton: string;
-    classPrevBtn: string;
     classNextBtn: string;
 }
 
@@ -33,7 +32,6 @@ export interface RegistrationEmailProps {
     form: RegisterForm;
     classForm: string;
     classButton: string;
-    classPrevBtn: string;
     classNextBtn: string;
 }
 
@@ -42,7 +40,6 @@ export interface RegistrationAgreementProps {
     handleNext(): void;
     classButton: string;
     classNextBtn: string;
-    classPrevBtn: string;
     agreements: Agreement[];
     agreementMoreBtn: string;
     agreementContainer: string;
@@ -66,7 +63,6 @@ export type RegistrationPasswordProps = {
     classForm: string;
     classButton: string;
     classNextBtn: string;
-    classPrevBtn: string;
     classFormItem: string;
 };
 
