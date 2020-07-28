@@ -4,7 +4,7 @@ import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { ArticleCategory } from '../graphql/types';
 import { ArticleBadge } from '../pages/BlogMainPage/ArticleBadge';
-import { ButtonSecondary } from '../components/Button';
+import { ButtonSecondary } from './Button';
 
 interface Props {
     pictureUrl: string;
@@ -35,7 +35,7 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link, category
                 className={classes.readMoreButton}
                 disableElevation
                 innerText={t('blog-article-card.read-more')}
-            /> 
+            />
         </Card>
     );
 };
