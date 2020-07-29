@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, makeStyles } from '@material-ui/core';
+import { ExpansionPanelSummary, ExpansionPanelDetails, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import { Result } from '../../../firebase/types';
 import { useAuthorization } from '../../../hooks/useAuthorization';
@@ -12,6 +12,7 @@ import { getGroupedResults } from './utils';
 import { gray } from '../../../colors';
 import { ResultDetails } from './ResultDetails';
 import { ResultComparison } from './ResultComparison';
+import { ExpansionPanelExtended } from '../../../components/ExpansionPanel';
 
 export const ChildProfileResults = () => {
     useAuthorization(true);
@@ -56,7 +57,7 @@ export const ChildProfileResults = () => {
                 );
 
                 return (
-                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel}>
+                    <ExpansionPanelExtended key={key} expanded={isExpanded} className={classes.expansionPanel}>
                         <ExpansionPanelSummary
                             onClick={() => handleClickSummary(key)}
                             className={clsx(
@@ -83,7 +84,7 @@ export const ChildProfileResults = () => {
                                 lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
                             />
                         </ExpansionPanelDetails>
-                    </ExpansionPanel>
+                    </ExpansionPanelExtended>
                 );
             })}
         </>
