@@ -33,4 +33,9 @@ export class KindergartenRepository {
       .exec()
       .then(kindergarten => kindergarten.toObject());
   }
+
+  // for e2e purpose only
+  async clearTable(): Promise<void> {
+    await this.kindergartenModel.deleteMany({});
+  }
 }
