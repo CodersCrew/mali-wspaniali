@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Grid, Typography, Tab, Tabs } from '@material-ui/core';
+import { makeStyles, Grid, Typography, Tabs } from '@material-ui/core';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { fetchChild } from '../../queries/childQueries';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
@@ -12,6 +12,7 @@ import { ChildProfileAboutTests } from './ChildProfileAboutTests';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
 import { secondaryColor, white } from '../../colors';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
+import { BaseTab } from '../../components/BaseTab';
 
 const TABS = {
     results: 'results',
@@ -55,11 +56,23 @@ export const ChildProfile = () => {
                     indicator: classes.tabsIndicator,
                 }}
             >
-                <Tab label={t('child-profile.results-list')} value={TABS.results} />
-                <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
-                <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
+                <BaseTab isUseStyle={false} label={t('child-profile.results-list')} value={TABS.results} color={''} />
+                <BaseTab
+                    isUseStyle={false}
+                    label={t('child-profile.tests-information')}
+                    value={TABS.aboutTests}
+                    color={''}
+                />
+                <BaseTab
+                    isUseStyle={false}
+                    label={t('child-profile.your-agreements')}
+                    value={TABS.agreements}
+                    color={''}
+                />
             </Tabs>
-            {activeTab === TABS.results && <ChildProfileResults onNoResultClick={() => setActiveTab('aboutTests')} birthYear={child.birthYear} />}
+            {activeTab === TABS.results && (
+                <ChildProfileResults onNoResultClick={() => setActiveTab('aboutTests')} birthYear={child.birthYear} />
+            )}
             {activeTab === TABS.aboutTests && <ChildProfileAboutTests />}
             {activeTab === TABS.agreements && <ChildProfileAgreements />}
         </>

@@ -3,16 +3,18 @@ import { Tab, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import { blogCategoryColors } from '../colors';
 
 type Props = {
+    label: string;
+    value?: string;
     color: string;
-    isClassName: boolean;
+    isUseStyle: boolean;
     disableRipple?: boolean;
 };
 
-export const BaseTabProps = ({ isClassName, color, ...props }: Props) => {
+export const BaseTab = ({ isUseStyle, color, ...props }: Props) => {
     const classes = useStyles({ color });
 
     let styles;
-    if (isClassName) {
+    if (isUseStyle) {
         styles = { root: classes.root, wrapper: classes.wrapper, selected: classes.selected };
     }
 
@@ -24,11 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             minHeight: '0',
             height: '35px',
-            backgroundColor: ({ color }: { color: string }) => blogCategoryColors[color],
+            border: ({ color }: { color: string }) => `solid 1px ${blogCategoryColors[color]}`,
             borderRadius: '4px',
             opacity: '1',
             whiteSpace: 'nowrap',
-            color: theme.palette.primary.contrastText,
+            color: ({ color }: { color: string }) => blogCategoryColors[color],
             textTransform: 'none',
             flexShrink: 2,
             fontWeight: theme.typography.button.fontWeight,
