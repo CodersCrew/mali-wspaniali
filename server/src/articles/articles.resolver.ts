@@ -29,6 +29,7 @@ export class ArticlesResolver {
   ) {}
 
   @Query(() => [CreateArticleDTO])
+  @UseGuards(GqlAuthGuard)
   async articles(
     @Args('page') page: number,
     @Args('category', { nullable: true }) category?: string,
@@ -41,6 +42,7 @@ export class ArticlesResolver {
   }
 
   @Query(() => [CreateArticleDTO])
+  @UseGuards(GqlAuthGuard)
   async lastArticles(@Args('count') count: number): Promise<ArticleProps[]> {
     const articles: Article[] = await this.queryBus.execute(
       new GetLastArticlesQuery(count),
@@ -50,6 +52,7 @@ export class ArticlesResolver {
   }
 
   @Query(() => CreateArticleDTO)
+  @UseGuards(GqlAuthGuard)
   async article(@Args('id') id: string): Promise<ArticleProps> {
     const article: Article = await this.queryBus.execute(
       new GetArticleByIdQuery(id),
