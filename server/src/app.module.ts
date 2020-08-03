@@ -28,6 +28,10 @@ import { AggrementsModule } from './agreements/aggrements_module';
       playground: !isProduction(),
       autoSchemaFile: 'schema.gql',
       context: ({ req, res }) => ({ req, res }),
+      cors: {
+        origin: [new RegExp(process.env.SERVER_HOST)],
+        credentials: true,
+      },
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
