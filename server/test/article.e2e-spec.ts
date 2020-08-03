@@ -12,6 +12,8 @@ jest.setTimeout(10000);
 describe('Article (e2e)', () => {
   let app: INestApplication;
   let authorization: string;
+  let authorizationUser: string;
+
 
   beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -23,6 +25,32 @@ describe('Article (e2e)', () => {
     await app.init();
     await app.get(ArticlesRepository).clearTable();
     await app.get(UserRepository).clearTable();
+
+    await app
+      .get(UserRepository)
+      .createAdmin(
+        'test@test.pl',
+        await bcrypt.hash('testtest', await bcrypt.genSalt(10)),
+      );
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        variables: {},
+        query: `
+    mutation {
+      login(user: {
+          mail: "test@test.pl", password: "testtest"
+      }) {
+        status
+      }
+    }
+    `,
+      })
+      .then(response => {
+        authorizationUser = response.header['set-cookie'];
+      });
 
     done();
   });
@@ -39,6 +67,7 @@ describe('Article (e2e)', () => {
     it('returns empty result', async () => {
       return await request(app.getHttpServer())
         .post('/graphql')
+        .set('Cookie', ['Authorization', authorizationUser])
         .send({
           operationName: null,
           variables: {},
@@ -109,6 +138,7 @@ mutation {
 
       await request(app.getHttpServer())
         .post('/graphql')
+        .set('Cookie', ['Authorization', authorizationUser])
         .send({
           operationName: null,
           variables: {},
@@ -224,6 +254,7 @@ mutation {
     it('returns full page of articles', async () => {
       await request(app.getHttpServer())
         .post('/graphql')
+        .set('Cookie', ['Authorization', authorizationUser])
         .send({
           operationName: null,
           variables: {},
@@ -245,6 +276,7 @@ mutation {
     it('returns article from second page', async () => {
       await request(app.getHttpServer())
         .post('/graphql')
+        .set('Cookie', ['Authorization', authorizationUser])
         .send({
           operationName: null,
           variables: {},
@@ -267,6 +299,7 @@ mutation {
       it('returns particular articles', async () => {
         await request(app.getHttpServer())
           .post('/graphql')
+          .set('Cookie', ['Authorization', authorizationUser])
           .send({
             operationName: null,
             variables: {},
