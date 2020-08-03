@@ -2,7 +2,6 @@ import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
-import { CreateArticleDTO } from './dto/create_article_dto';
 import { ArticleInput } from './inputs/article_input';
 import { Article, ArticleProps } from './domain/models/article_model';
 import { CreateArticleCommand } from './domain/commands/impl/create_article_command';
@@ -29,7 +28,7 @@ export class ArticlesResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Query(() => ArticleDTO)
+  @Query(() => [ArticleDTO])
   @UseGuards(GqlAuthGuard)
   async articles(
     @Args('page') page: number,
