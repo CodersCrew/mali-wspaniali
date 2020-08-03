@@ -1,13 +1,10 @@
 import React from 'react';
-import { Tab, makeStyles, createStyles, Theme } from '@material-ui/core/';
+import { Tab, makeStyles, createStyles, Theme, TabProps } from '@material-ui/core/';
 import { blogCategoryColors } from '../colors';
 
-type Props = {
-    label: string;
-    value?: string;
+type Props = TabProps & {
     color: string;
     isUseStyle: boolean;
-    disableRipple?: boolean;
 };
 
 export const BaseTab = ({ isUseStyle, color, ...props }: Props) => {
@@ -18,7 +15,7 @@ export const BaseTab = ({ isUseStyle, color, ...props }: Props) => {
         styles = { root: classes.root, wrapper: classes.wrapper, selected: classes.selected };
     }
 
-    return <Tab disableRipple classes={styles} {...props}></Tab>;
+    return <Tab classes={styles} {...props}></Tab>;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
