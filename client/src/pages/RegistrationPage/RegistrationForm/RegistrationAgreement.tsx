@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-    Checkbox,
-    ExpansionPanel,
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
-    Typography,
-} from '@material-ui/core/';
+import { Checkbox, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
@@ -50,7 +44,12 @@ export const RegistrationAgreement = ({
                     <b>{t(`${T_PREFIX}.clausule-header`)}</b>
                 </p>
                 <span>{t(`${T_PREFIX}.clausule`)}</span>
-                <ButtonSecondary className={agreementMoreBtn} onClick={toggleModal} variant="text" innerText={t(`${T_PREFIX}.show-more-content-modal`)} />
+                <ButtonSecondary
+                    className={agreementMoreBtn}
+                    onClick={toggleModal}
+                    variant="text"
+                    innerText={t(`${T_PREFIX}.show-more-content-modal`)}
+                />
                 <p className={agreementCheckboxHeader}>{t(`${T_PREFIX}.sub-title`)}</p>
                 <span>{t(`${T_PREFIX}.sub-title-description`)}</span>
                 {agreements.map((agreement, idx) => (
@@ -96,7 +95,12 @@ export const RegistrationAgreement = ({
             </div>
             <div className={classButton}>
                 <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />
-                <ButtonSecondary onClick={handleNext} variant="contained" className={classNextBtn} innerText={t('next')} />
+                <ButtonSecondary
+                    onClick={handleNext}
+                    variant="contained"
+                    className={classNextBtn}
+                    innerText={t('next')}
+                />
             </div>
             <AgreementModal
                 open={isOpen}

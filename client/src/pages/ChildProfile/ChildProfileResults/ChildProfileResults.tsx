@@ -17,7 +17,7 @@ import { EmptyResultDetailed } from './EmptyResultDetailed';
 
 interface Props {
     birthYear: number;
-    onNoResultClick(): void
+    onNoResultClick(): void;
 }
 
 export const ChildProfileResults = ({ onNoResultClick, birthYear }: Props) => {
@@ -93,13 +93,9 @@ export const ChildProfileResults = ({ onNoResultClick, birthYear }: Props) => {
                                         childAge={sortedResults[sortedResults.length - 1].ageOfChild}
                                     />
                                 )}
-                                {sortedResults.length === 0 && !isLast && (
-                                    <EmptyResultSimple />
-                                )}
+                                {sortedResults.length === 0 && !isLast && <EmptyResultSimple />}
                                 {sortedResults.length === 0 && isLast && (
-                                    <EmptyResultDetailed
-                                        onNoResultClick={onNoResultClick}
-                                    />
+                                    <EmptyResultDetailed onNoResultClick={onNoResultClick} />
                                 )}
                             </ExpansionPanelDetails>
                         </ExpansionPanel>

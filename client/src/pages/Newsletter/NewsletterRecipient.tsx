@@ -98,18 +98,18 @@ export const NewsletterRecipent: React.FC<{
             />
             {specificType.value === SpecificRecipientInputValues.single ||
             specificType.value === SpecificRecipientInputValues.kindergarten ? (
-                    <NewsletterOptionalTextField
-                        classes={classes}
-                        selectRecipients={selectRecipients}
-                        generalType={generalType}
-                        specificType={specificType}
-                        recipients={recipients}
-                        handleChange={handleChange}
-                        parents={parents}
-                        kindergartens={kindergartens}
-                        setFields={setFields}
-                    />
-                ) : null}
+                <NewsletterOptionalTextField
+                    classes={classes}
+                    selectRecipients={selectRecipients}
+                    generalType={generalType}
+                    specificType={specificType}
+                    recipients={recipients}
+                    handleChange={handleChange}
+                    parents={parents}
+                    kindergartens={kindergartens}
+                    setFields={setFields}
+                />
+            ) : null}
         </div>
     );
 };

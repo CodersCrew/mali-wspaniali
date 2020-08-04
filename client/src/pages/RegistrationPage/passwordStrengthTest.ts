@@ -10,15 +10,18 @@ export const passwordLengthTest = (text: string) => {
 
 export const passwordCapitalTest = (text: string) => {
     const regex = new RegExp('(?=.*[A-Z])');
+
     return regex.test(text);
 };
 
 export const passwordDigitTest = (text: string) => {
     const regex = new RegExp('(?=.*?[0-9])');
+
     return regex.test(text);
 };
 
 export const passwordSpecialTest = (text: string) => {
     const regex = new RegExp('(?=.*?[#?!@$%^&*-])');
+
     return regex.test(text);
 };

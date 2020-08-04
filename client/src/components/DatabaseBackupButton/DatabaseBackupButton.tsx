@@ -1,10 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { getDatabaseBackup, getStorageRef } from '../../queries/httpQueries';
 import { getCurrentUserIdToken } from '../../queries/userQueries';
 import { load } from '../../utils/load';
 import { openAlertDialog } from '../AlertDialog';
-import { useTranslation } from 'react-i18next';
-import { ButtonPrimary } from '../../components/Button';
+import { ButtonPrimary } from '../Button';
 
 export const DatabaseBackupButton = () => {
     // Temporary solution until admin page is up

@@ -79,7 +79,7 @@ export const LoginPage = () => {
                     type="password"
                     variant="outlined"
                     error={Boolean(code)}
-                    helperText={Boolean(code) ? t('login-page.login-error') : ''}
+                    helperText={code ? t('login-page.login-error') : ''}
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>

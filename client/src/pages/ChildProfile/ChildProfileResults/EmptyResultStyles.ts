@@ -1,4 +1,3 @@
-
 import { makeStyles } from '@material-ui/styles';
 import { secondaryColor, textColor } from '../../../colors';
 

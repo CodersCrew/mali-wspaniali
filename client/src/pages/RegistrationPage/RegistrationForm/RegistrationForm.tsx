@@ -136,7 +136,7 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-mismatch'),
             });
         } else {
-            load(createUser({mail: email, password, keyCode: code}))
+            load(createUser({ mail: email, password, keyCode: code }))
                 .then(() => {
                     handleNext();
                 })

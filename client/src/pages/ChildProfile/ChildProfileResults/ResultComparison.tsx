@@ -41,11 +41,13 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                         <Typography className={classes.cardBottomText} variant="body2">
                             {t('child-profile.comparison-label')}
                         </Typography>
-                        <div className={classes.difference}>
-                            {t(`child-profile.difference.${key}`)}
-                        </div>
+                        <div className={classes.difference}>{t(`child-profile.difference.${key}`)}</div>
                         {advice && advice.content && (
-                            <ButtonSecondary variant="contained" onClick={() => setIsModalOpen(true)} innerText={t('child-profile.comparison-button')} />
+                            <ButtonSecondary
+                                variant="contained"
+                                onClick={() => setIsModalOpen(true)}
+                                innerText={t('child-profile.comparison-button')}
+                            />
                         )}
                     </div>
                 </Card>

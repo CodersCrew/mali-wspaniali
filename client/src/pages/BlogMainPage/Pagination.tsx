@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/';
+import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
 import { ButtonPrimary } from '../../components/Button';
-import { useTranslation } from 'react-i18next';
 
 interface Props {
     disabledPrevious: boolean;
@@ -42,6 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         next: {
             marginLeft: '2%',
-        }
+        },
     }),
 );
