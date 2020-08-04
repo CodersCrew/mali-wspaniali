@@ -57,7 +57,6 @@ export const RegistrationForm = () => {
                         classForm={classes.formItem}
                         classButton={classes.buttonWrapper}
                         classNextBtn={classes.nextButton}
-                        classPrevBtn={classes.prevButton}
                     />
                 );
             case 1:
@@ -71,7 +70,6 @@ export const RegistrationForm = () => {
                         classForm={classes.formItem}
                         classButton={clsx(classes.buttonWrapper, activeStep === 0 && 'emailContent')}
                         classNextBtn={classes.nextButton}
-                        classPrevBtn={classes.prevButton}
                     />
                 );
             case 2:
@@ -81,7 +79,6 @@ export const RegistrationForm = () => {
                         handleNext={handleNext}
                         classButton={classes.buttonWrapper}
                         classNextBtn={classes.nextButton}
-                        classPrevBtn={classes.prevButton}
                         agreementContainer={classes.agreementContainer}
                         agreementHeader={classes.agreementHeader}
                         agreementMoreBtn={classes.agreementMoreBtn}
@@ -107,7 +104,6 @@ export const RegistrationForm = () => {
                         classForm={classes.formItem}
                         classButton={classes.buttonWrapper}
                         classNextBtn={classes.nextButton}
-                        classPrevBtn={classes.prevButton}
                         classFormItem={classes.formItem}
                     />
                 );

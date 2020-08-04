@@ -1,8 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Dialog, DialogContent, DialogActions, Button } from '@material-ui/core';
+import { makeStyles, createStyles, Dialog, DialogContent, DialogActions } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import { mainColor, textColor, newsletterColors } from '../../colors';
+import { mainColor, textColor } from '../../colors';
+import { ButtonSecondary } from '../../components/Button';
 
 export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const classes = useStyles();
@@ -18,9 +19,7 @@ export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <p className={classes.modalText}>{t('newsletter.help-modal.attachment-text')} </p>
             </DialogContent>
             <DialogActions className={classes.modalButtonWrapper}>
-                <Button className={classes.modalButton} onClick={onClose} autoFocus>
-                    {t('newsletter.help-modal.button')}
-                </Button>
+                <ButtonSecondary variant="contained" onClick={onClose} autoFocus innerText={t('newsletter.help-modal.button')} />
             </DialogActions>
         </Dialog>
     );
@@ -62,12 +61,6 @@ const useStyles = makeStyles(() =>
             '&:last-of-type': {
                 marginBottom: 8,
             },
-        },
-        modalButton: {
-            fontFamily: 'Montserrat',
-            fontSize: 14,
-            fontWeight: 'bold',
-            color: newsletterColors.helpModalButtonColor,
         },
         modalButtonWrapper: {
             paddingRight: 17,

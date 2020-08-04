@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
-export class CreateRedactorDTO {
+export class RedactorDTO {
   @Field({ nullable: true })
   avatarUrl?: string;
 

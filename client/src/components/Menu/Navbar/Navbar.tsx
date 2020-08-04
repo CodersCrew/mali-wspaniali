@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Avatar, IconButton, makeStyles, Button, Theme, createStyles, Badge } from '@material-ui/core/';
+import { Avatar, IconButton, makeStyles, Theme, createStyles, Badge } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
 import { Link } from 'react-router-dom';
 import { User } from '../../../firebase/firebase';
-import { secondaryColor, white, textColor } from '../../../colors';
+import { secondaryColor, white } from '../../../colors';
 import { useSubscribed } from '../../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { getChildrenByUserId } from '../../../queries/childQueries';
@@ -14,6 +14,7 @@ import { NotificationsPanel } from './NotificationsPanel';
 import { useAuthorization } from '../../../hooks/useAuthorization';
 import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
 import Logo from '../../../assets/MALWSP_logo_nav.png';
+import { ButtonSecondary } from '../../../components/Button';
 
 export const Navbar = () => {
     const classes = useStyles();
@@ -81,9 +82,9 @@ export const Navbar = () => {
                     </Badge>
                 </IconButton>
                 <Avatar className={classes.avatar}>
-                    <Button className={classes.avatarButton} onClick={handleAvatarClick}>
+                    <ButtonSecondary variant="contained" className={classes.avatarButton} onClick={handleAvatarClick}>
                         {avatarContent}
-                    </Button>
+                    </ButtonSecondary>
                 </Avatar>
             </div>
             {isNotificationsPanelOpen && <NotificationsPanel notifications={notificationResponse.notifications} />}
@@ -109,11 +110,17 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         avatarButton: {
             color: 'white',
+            height: 'inherit',
 
             [theme.breakpoints.down('sm')]: {
-                color: textColor,
+                color: theme.palette.common.black,
+                backgroundColor: theme.palette.common.white,
                 fontSize: '14px',
                 fontWeight: 'bold',
+
+                '&:hover': {
+                    backgroundColor: theme.palette.common.white,
+                }
             },
         },
         notificationsIcon: {

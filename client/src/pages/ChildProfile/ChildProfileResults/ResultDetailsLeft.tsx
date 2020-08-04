@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Card, Dialog, Typography } from '@material-ui/core';
+import { Card, Dialog, Typography } from '@material-ui/core';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
 import { CircleChart } from '../../../components/CircleChart';
@@ -13,6 +13,7 @@ import { useSubscribed } from '../../../hooks/useSubscribed';
 import { Advice } from '../../../firebase/types';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { getAdviceByResult } from '../../../queries/adviceQueries';
+import { ButtonSecondary } from '../../../components/Button';
 
 export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,9 +63,7 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
                         {t(`child-profile.result-description.${key}`)}
                     </div>
                     {advice && advice.content && (
-                        <Button variant="contained" color="secondary" onClick={() => setIsModalOpen(true)}>
-                            {t('child-profile.advice')}
-                        </Button>
+                        <ButtonSecondary variant="contained" onClick={() => setIsModalOpen(true)} innerText={t('child-profile.advice')} />
                     )}
                 </div>
             </Card>

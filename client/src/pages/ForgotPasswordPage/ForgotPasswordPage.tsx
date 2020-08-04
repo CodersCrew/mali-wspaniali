@@ -1,10 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
-import { TextField, Button, makeStyles, Typography, createStyles } from '@material-ui/core';
+import { TextField, makeStyles, Typography, createStyles } from '@material-ui/core';
 
-import { backgroundColor, secondaryColor, white } from '../../colors';
 import { handlePasswordReset } from '../../queries/authQueries';
 import { isValidEmail } from './isValidEmail';
 
@@ -12,6 +10,7 @@ import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { Theme } from '../../theme/types';
+import { ButtonSecondary } from '../../components/Button';
 
 enum ImageState {
     default = 'DEFAULT',
@@ -57,11 +56,12 @@ export const ForgotPasswordPage = () => {
             <Typography variant="body1" className={classes.subtitle}>
                 {t('forgot-password-page.when-received')}
             </Typography>
-            <Button type="button" variant="contained" color="secondary" className={classes.loginLinkWrapper}>
-                <Link to="/login" className={classes.loginLink}>
-                    {t('forgot-password-page.back-to-login')}
-                </Link>
-            </Button>
+            <ButtonSecondary
+                variant="contained"
+                href="/login"
+                className={classes.backToLoginButton}
+                innerText={t('forgot-password-page.back-to-login')}
+            />
         </>
     );
 
@@ -83,18 +83,13 @@ export const ForgotPasswordPage = () => {
                 helperText={t('forgot-password-page.email-helper-text')}
                 onChange={handleInputChange}
             />
-            <div className={classes.buttonWrapper}>
-                <Button
-                    type="button"
-                    variant="contained"
-                    disabled={!isValidEmail(email)}
-                    color="secondary"
-                    className={classes.button}
-                    onClick={handleCreateNewPassword}
-                >
-                    {t('forgot-password-page.new-password')}
-                </Button>
-            </div>
+            <ButtonSecondary
+                variant="contained"
+                disabled={!isValidEmail(email)}
+                className={classes.createPasswordButton}
+                onClick={handleCreateNewPassword}
+                innerText={t('forgot-password-page.new-password')}
+            />
             <div className={classes.underlinedText}>
                 <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
                 <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
@@ -151,24 +146,13 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '20px',
             width: '320px',
         },
-        buttonWrapper: {
-            display: 'flex',
-            width: '100%',
-            justifyContent: 'flex-end',
-        },
-        button: {
-            color: backgroundColor,
-            fontWeight: 'bold',
+        createPasswordButton: {
             marginBottom: '20px',
             marginTop: '20px',
 
             [theme.breakpoints.down('sm')]: {
                 marginBottom: '44px',
                 marginTop: '30px',
-            },
-
-            '&disbled': {
-                color: secondaryColor,
             },
         },
         textField: {
@@ -182,15 +166,9 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginTop: '40px',
             },
         },
-        loginLinkWrapper: {
+        backToLoginButton: {
             marginBottom: '20px',
             marginTop: '40px',
-        },
-        loginLink: {
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            color: white,
-            textDecoration: 'none',
         },
         underlinedText: {
             textAlign: 'center',

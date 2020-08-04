@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
     Modal,
-    Button,
     Container,
     Typography,
     List,
@@ -19,6 +18,7 @@ import { Agreement } from '../../firebase/types';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { useSubscribed } from '../../hooks/useSubscribed';
 import { OnSnapshotCallback } from '../../firebase/userRepository';
+import { ButtonSecondary } from '../../components/Button';
 
 export const AdminAgreementsPage = () => {
     useAuthorization(true, '/', ['admin']);
@@ -105,9 +105,7 @@ export const AdminAgreementsPage = () => {
                             </List>
                         </Container>
                         <Container>
-                            <Button variant="contained" onClick={handleOpenModal}>
-                                {t('admin-agreements-page.show')}
-                            </Button>
+                            <ButtonSecondary variant="contained" onClick={handleOpenModal} innerText={t('admin-agreements-page.show')} />
                         </Container>
                         <Modal
                             aria-labelledby="modal-title"
