@@ -1,7 +1,7 @@
 import React from 'react';
-import { Modal } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { AgreementModalProps } from './types';
+import { Modal } from '../../../components/Modal';
 
 const T_PREFIX = 'registration-page.agreements';
 
@@ -19,12 +19,7 @@ export const AgreementModal = ({ open, agreementModal, toggleModal, agreementHea
     );
 
     return (
-        <Modal
-            open={open}
-            onClose={toggleModal}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-        >
+        <Modal isOpen={open} handleClose={toggleModal}>
             {body}
         </Modal>
     );
