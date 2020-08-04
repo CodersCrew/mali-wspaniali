@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Dialog, Typography } from '@material-ui/core';
+import { Card, Typography } from '@material-ui/core';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
 import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
 import { gray } from '../../../../colors';
 import { MAX_OVERALL_POINTS } from './constants';
-import { AdviceModal } from './modals/AdviceModal';
 import { ButtonSecondary } from '../../../../components/Button';
 import { TestResult } from '../../../../graphql/types';
+import { Modal } from '../../../../components/Modal';
 
 export interface Props {
     result: TestResult;
@@ -64,12 +64,9 @@ export const TestSummary = ({ result }: Props) => {
                     />
                 </div>
             </Card>
-            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(prev => !prev)}>
-                <AdviceModal
-                    content={t(`child-profile.result-description.${key}`)}
-                    onClose={() => setIsModalOpen(prev => !prev)}
-                />
-            </Dialog>
+            <Modal isOpen={isModalOpen} handleClose={() => setIsModalOpen(prev => !prev)}>
+                {t(`child-profile.result-description.${key}`)}
+            </Modal>
         </>
     );
 };
