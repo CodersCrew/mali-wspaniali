@@ -1,14 +1,12 @@
 import React from 'react';
 import { Tab, makeStyles, createStyles, Theme, TabProps } from '@material-ui/core/';
-import { blogCategoryColors } from '../colors';
 
 type Props = TabProps & {
-    color: string;
     isUseStyle: boolean;
 };
 
-export const BaseTab = ({ isUseStyle, color, ...props }: Props) => {
-    const classes = useStyles({ color });
+export const BaseTab = ({ isUseStyle, ...props }: Props) => {
+    const classes = useStyles();
 
     let styles;
     if (isUseStyle) {
@@ -23,11 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             minHeight: '0',
             height: '35px',
-            border: ({ color }: { color: string }) => `solid 1px ${blogCategoryColors[color]}`,
-            borderRadius: '4px',
             opacity: '1',
             whiteSpace: 'nowrap',
-            color: ({ color }: { color: string }) => blogCategoryColors[color],
+            color: theme.palette.text.secondary,
             textTransform: 'none',
             flexShrink: 2,
             fontWeight: theme.typography.button.fontWeight,
@@ -37,6 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         selected: {
             height: '45px',
+            color: theme.palette.secondary.light,
+            borderBottom: '1px solid',
         },
     }),
 );

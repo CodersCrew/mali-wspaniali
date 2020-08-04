@@ -19,7 +19,7 @@ export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
             onChange={(_event, value) => onClick(categoriesList[value].key)}
         >
             {values.map(category => {
-                return <BaseTab key={category.name} isUseStyle={true} label={category.name} color={category.color} />;
+                return <BaseTab key={category.name} isUseStyle={true} label={category.name} />;
             })}
         </Tabs>
     );
