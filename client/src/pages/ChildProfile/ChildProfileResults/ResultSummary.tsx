@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Result } from '../../../firebase/types';
 import { lightTextColor } from '../../../colors';
 import { getMaxDate, getSchoolYearLabel } from './utils';
+import { ButtonSecondary } from '../../../components/Button';
 
 interface Props {
     handleClickDetailsButton: (key: string) => void;
@@ -27,14 +28,12 @@ export const ResultSummary = ({ resultGroup, handleClickDetailsButton, isExpande
                 {t('child-profile.last-update-date')}:{' '}
                 <span className={classes.updatedAtDate}>{updatedAt ? updatedAt.format('L') : '-'}</span>
             </Typography>
-            <Button
+            <ButtonSecondary
                 onClick={() => handleClickDetailsButton(String(schoolYearStart))}
                 variant={isExpanded ? 'outlined' : 'contained'}
-                color="secondary"
                 className={classes.detailsButton}
-            >
-                {t(isExpanded ? 'child-profile.collapse-details' : 'child-profile.details')}
-            </Button>
+                innerText={isExpanded ? t('child-profile.collapse-details') : t('child-profile.details')}
+            />
         </div>
     );
 };
@@ -60,8 +59,5 @@ const useStyles = makeStyles({
     },
     detailsButton: {
         marginLeft: 'auto',
-        fontSize: '13px',
-        whiteSpace: 'nowrap',
-        borderRadius: '4px',
     },
 });

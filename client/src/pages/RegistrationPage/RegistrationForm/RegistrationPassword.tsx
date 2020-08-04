@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
     Typography,
     InputAdornment,
-    Button,
     FormControl,
     InputLabel,
     OutlinedInput,
@@ -18,6 +17,7 @@ import {
     passwordDigitTest,
     passwordCapitalTest,
 } from '../passwordStrengthTest';
+import { ButtonSecondary } from '../../../components/Button';
 
 const initialPasswordValidation: PasswordValidation = {
     length: false,
@@ -34,7 +34,6 @@ export const RegistrationPassword = ({
     passwordConfirm,
     classButton,
     classNextBtn,
-    classPrevBtn,
     classFormItem,
 }: RegistrationPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -120,21 +119,18 @@ export const RegistrationPassword = ({
                 />
             </FormControl>
             <div className={classButton}>
-                <Button
+                <ButtonSecondary
+                    variant="text"
                     disabled={activeStep === 0}
                     onClick={handleBack}
-                    className={classPrevBtn}
-                >
-                    {t('back')}
-                </Button>
-                <Button
-                    type="submit"
+                    innerText={t('back')}
+                />
+                <ButtonSecondary
                     variant="contained"
+                    type="submit"
                     className={classNextBtn}
-                    color="secondary"
-                >
-                    {t('registration-page.create-password')}
-                </Button>
+                    innerText={t('registration-page.create-password')}
+                />
             </div>
         </>
     );

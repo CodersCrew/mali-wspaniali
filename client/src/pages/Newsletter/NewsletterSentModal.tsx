@@ -6,13 +6,13 @@ import {
     Dialog,
     DialogContent,
     DialogActions,
-    Button,
     DialogTitle,
     DialogContentText,
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { secondaryColor, white, textColor } from '../../colors';
+import { textColor } from '../../colors';
 import { Theme } from '../../theme';
+import { ButtonSecondary } from '../../components/Button';
 
 export const NewsletterSentModal: React.FC<{
     onClose: () => void;
@@ -44,22 +44,20 @@ export const NewsletterSentModal: React.FC<{
                 </DialogContentText>
             </DialogContent>
             <DialogActions className={classes.sentModalButtonWrapper}>
-                <Button
+                <ButtonSecondary
+                    variant="contained"
                     id="homePageButton"
                     className={classes.sentModalBackButton}
                     onClick={handleButtonClick}
-                    autoFocus
-                >
-                    {t('newsletter.sending-success-modal.back-button')}
-                </Button>
-                <Button
+                    innerText={t('newsletter.sending-success-modal.back-button')}
+                />
+                <ButtonSecondary
                     id="nextMessageButton"
                     className={classes.sentModalNextMessageButton}
                     onClick={handleButtonClick}
-                    autoFocus
-                >
-                    {t('newsletter.sending-success-modal.next-msg-button')}
-                </Button>
+                    innerText={t('newsletter.sending-success-modal.next-msg-button')}
+                    variant="text"
+                />
             </DialogActions>
         </Dialog>
     );
@@ -105,27 +103,15 @@ const useStyles = makeStyles((theme: Theme) =>
         sentModalBackButton: {
             maxWidth: 264,
             width: '100%',
-            backgroundColor: secondaryColor,
-            color: white,
             padding: '8px',
-            fontWeight: 600,
-            lineHeight: 1.2,
             marginBottom: 16,
-            fontSize: 14,
-            '&:hover': {
-                color: secondaryColor,
-            },
         },
         sentModalNextMessageButton: {
             maxWidth: 264,
             width: '100%',
-            backgroundColor: white,
-            color: secondaryColor,
-            fontWeight: 600,
-            lineHeight: 1.2,
-            fontSize: 14,
             padding: '8px',
             marginBottom: 16,
+            boxShadow: '0',
         },
     }),
 );

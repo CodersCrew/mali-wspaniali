@@ -1,11 +1,11 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, Button, makeStyles, createStyles } from '@material-ui/core/';
-import { Link, useHistory } from 'react-router-dom';
+import { TextField, makeStyles, createStyles } from '@material-ui/core/';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { User, AuthError, UserCredential } from '../../firebase/firebase';
 import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
-import { backgroundColor, secondaryColor } from '../../colors';
 import { Theme } from '../../theme/types';
+import { ButtonSecondary } from '../../components/Button';
 import { login } from '../../commands/userCommand';
 
 const initialError: AuthError = {
@@ -56,20 +56,20 @@ export const LoginPage = () => {
             <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
                 <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
                 <TextField
-                        required
-                        onChange={event => setEmail(event.target.value)}
-                        value={email}
-                        id="email"
-                        label={t('e-mail')}
-                        variant="outlined"
-                        error={code === 'auth/user-not-found'}
-                        helperText={
-                            code === 'auth/user-not-found'
-                                ? t('login-page.login-notfound')
-                                : t('login-page.e-mail-helper-text')
-                        }
-                        className={classes.formItem}
-                    />
+                    required
+                    onChange={event => setEmail(event.target.value)}
+                    value={email}
+                    id="email"
+                    label={t('e-mail')}
+                    variant="outlined"
+                    error={code === 'auth/user-not-found'}
+                    helperText={
+                        code === 'auth/user-not-found'
+                            ? t('login-page.login-notfound')
+                            : t('login-page.e-mail-helper-text')
+                    }
+                    className={classes.formItem}
+                />
                 <TextField
                     required
                     onChange={event => setPassword(event.target.value)}
@@ -83,18 +83,18 @@ export const LoginPage = () => {
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>
-                    <Link className={classes.forgotPasswordLink} to="/forgot-password">
-                        {t('login-page.forgot-password')}
-                    </Link>
-                    <Button
-                        type="submit"
+                    <ButtonSecondary
+                        variant="text"
+                        href="/forgot-password"
+                        innerText={t('login-page.forgot-password')}
+                        className={classes.forgotPasswordButton}
+                    />
+                    <ButtonSecondary
                         variant="contained"
+                        type="submit"
                         disabled={!email || !password}
-                        color="secondary"
-                        className={classes.loginButton}
-                    >
-                        {t('login-page.login')}
-                    </Button>
+                        innerText={t('login-page.login')}
+                    />
                 </div>
             </form>
         </div>
@@ -150,17 +150,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 margin: '0 0 20px 0',
             },
         },
-        loginButton: {
-            color: backgroundColor,
-            fontWeight: 'bold',
-        },
-        forgotPasswordLink: {
-            fontStyle: 'normal',
-            fontWeight: 'bold',
+        forgotPasswordButton: {
             textAlign: 'center',
-            textTransform: 'uppercase',
-            color: secondaryColor,
-            textDecoration: 'none',
+            whiteSpace: 'normal',
+            fontSize: '12px',
         },
     }),
 );
