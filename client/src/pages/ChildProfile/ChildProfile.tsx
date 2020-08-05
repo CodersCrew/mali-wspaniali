@@ -56,9 +56,9 @@ export const ChildProfile = () => {
                     indicator: classes.tabsIndicator,
                 }}
             >
-                <BaseTab isUseStyle={false} label={t('child-profile.results-list')} value={TABS.results} />
-                <BaseTab isUseStyle={false} label={t('child-profile.tests-information')} value={TABS.aboutTests} />
-                <BaseTab isUseStyle={false} label={t('child-profile.your-agreements')} value={TABS.agreements} />
+                <BaseTab label={t('child-profile.results-list')} value={TABS.results} />
+                <BaseTab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
+                <BaseTab label={t('child-profile.your-agreements')} value={TABS.agreements} />
             </Tabs>
             {activeTab === TABS.results && (
                 <ChildProfileResults onNoResultClick={() => setActiveTab('aboutTests')} birthYear={child.birthYear} />

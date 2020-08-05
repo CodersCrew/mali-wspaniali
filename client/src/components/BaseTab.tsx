@@ -1,19 +1,12 @@
 import React from 'react';
 import { Tab, makeStyles, createStyles, Theme, TabProps } from '@material-ui/core/';
 
-type Props = TabProps & {
-    isUseStyle: boolean;
-};
-
-export const BaseTab = ({ isUseStyle, ...props }: Props) => {
+export const BaseTab = ({ ...props }: TabProps) => {
     const classes = useStyles();
 
-    let styles;
-    if (isUseStyle) {
-        styles = { root: classes.root, wrapper: classes.wrapper, selected: classes.selected };
-    }
-
-    return <Tab classes={styles} {...props}></Tab>;
+    return (
+        <Tab classes={{ root: classes.root, wrapper: classes.wrapper, selected: classes.selected }} {...props}></Tab>
+    );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
