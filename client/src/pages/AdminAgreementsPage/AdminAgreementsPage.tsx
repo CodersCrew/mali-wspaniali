@@ -105,11 +105,7 @@ export const AdminAgreementsPage = () => {
                             </List>
                         </Container>
                         <Container>
-                            <ButtonSecondary
-                                variant="contained"
-                                onClick={handleOpenModal}
-                                innerText={t('admin-agreements-page.show')}
-                            />
+                            <ButtonSecondary variant="contained" onClick={handleOpenModal} innerText={t('admin-agreements-page.show')} />
                         </Container>
                         <Modal
                             aria-labelledby="modal-title"

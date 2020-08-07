@@ -63,11 +63,7 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
                         {t(`child-profile.result-description.${key}`)}
                     </div>
                     {advice && advice.content && (
-                        <ButtonSecondary
-                            variant="contained"
-                            onClick={() => setIsModalOpen(true)}
-                            innerText={t('child-profile.advice')}
-                        />
+                        <ButtonSecondary variant="contained" onClick={() => setIsModalOpen(true)} innerText={t('child-profile.advice')} />
                     )}
                 </div>
             </Card>

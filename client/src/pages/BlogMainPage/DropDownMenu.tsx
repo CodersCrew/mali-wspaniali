@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             '&:hover': {
                 backgroundColor: theme.palette.common.white,
-            },
+            }
         },
         container: {
             width: '100%',

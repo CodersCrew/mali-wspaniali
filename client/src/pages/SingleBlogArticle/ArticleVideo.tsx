@@ -25,7 +25,6 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
                     {tags.map(tag => {
                         return (
                             <ButtonDefault
-                                key={tag}
                                 variant="contained"
                                 disableElevation
                                 className={classes.contentTagsButton}

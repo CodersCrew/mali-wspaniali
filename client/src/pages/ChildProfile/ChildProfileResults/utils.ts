@@ -28,23 +28,23 @@ const getPotentialResults = (yearOfBirth: number) => {
 export const getGroupedResults = (results: Result[], birthYear: number) => {
     const potentialResults = getPotentialResults(birthYear);
     const realResults = results.reduce(
-        (accumulator, currentResult) => {
-            const currentSchoolYearResults = accumulator[currentResult.schoolYearStart];
+            (accumulator, currentResult) => {
+                const currentSchoolYearResults = accumulator[currentResult.schoolYearStart];
 
-            if (currentSchoolYearResults) {
+                if (currentSchoolYearResults) {
+                    return {
+                        ...accumulator,
+                        [currentResult.schoolYearStart]: [...currentSchoolYearResults, currentResult]
+                    };
+                }
+
                 return {
                     ...accumulator,
-                    [currentResult.schoolYearStart]: [...currentSchoolYearResults, currentResult],
+                    [currentResult.schoolYearStart]: [currentResult],
                 };
-            }
-
-            return {
-                ...accumulator,
-                [currentResult.schoolYearStart]: [currentResult],
-            };
-        },
-        {} as GroupedResults,
-    );
+            },
+            {} as GroupedResults,
+        );
 
     return {
         ...potentialResults,
@@ -52,7 +52,7 @@ export const getGroupedResults = (results: Result[], birthYear: number) => {
     };
 };
 
-export type GetMaxDate = (dates: Date[]) => Moment | null;
+export type GetMaxDate = (dates: Date[]) => Moment | null
 
 export const getMaxDate: GetMaxDate = dates => {
     const momentDates = dates.map(date => moment(date));

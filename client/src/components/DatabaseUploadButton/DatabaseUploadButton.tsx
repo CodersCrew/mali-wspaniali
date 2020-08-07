@@ -2,7 +2,7 @@ import React, { useState, SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Input } from '@material-ui/core';
 import { CloudUpload, DescriptionSharp } from '@material-ui/icons';
-import { ButtonPrimary } from '../Button';
+import { ButtonPrimary } from '../../components/Button';
 
 export const DatabaseUploadButton = () => {
     const classes = useStyles();

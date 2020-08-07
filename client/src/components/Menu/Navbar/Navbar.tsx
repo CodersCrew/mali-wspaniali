@@ -14,7 +14,7 @@ import { NotificationsPanel } from './NotificationsPanel';
 import { useAuthorization } from '../../../hooks/useAuthorization';
 import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
 import Logo from '../../../assets/MALWSP_logo_nav.png';
-import { ButtonSecondary } from '../../Button';
+import { ButtonSecondary } from '../../../components/Button';
 
 export const Navbar = () => {
     const classes = useStyles();
@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
                 '&:hover': {
                     backgroundColor: theme.palette.common.white,
-                },
+                }
             },
         },
         notificationsIcon: {

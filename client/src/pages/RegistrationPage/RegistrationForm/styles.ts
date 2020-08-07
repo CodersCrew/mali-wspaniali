@@ -89,6 +89,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginTop: '30px',
         },
         nextButton: {
+
             [theme.breakpoints.down('sm')]: {
                 '& span': {
                     maxHeight: 17,

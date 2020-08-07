@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, InputAdornment, FormControl, InputLabel, OutlinedInput, IconButton } from '@material-ui/core/';
+import {
+    Typography,
+    InputAdornment,
+    FormControl,
+    InputLabel,
+    OutlinedInput,
+    IconButton,
+} from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { RegistrationPasswordProps, PasswordValidation } from './types';
@@ -30,7 +37,9 @@ export const RegistrationPassword = ({
     classFormItem,
 }: RegistrationPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
-    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
+    const [passwordValidation, setPasswordValidation] = useState(
+        initialPasswordValidation
+    );
 
     const { t } = useTranslation();
 
@@ -43,11 +52,13 @@ export const RegistrationPassword = ({
         });
     }, [password]);
 
-    const togglePasswordVisibility = () => setShowPassword(prev => !prev);
+    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
     return (
         <>
-            <Typography>{t('registration-page.create-password-text')}</Typography>
+            <Typography>
+                {t('registration-page.create-password-text')}
+            </Typography>
             <FormControl variant="outlined" className={classFormItem}>
                 <InputLabel htmlFor="password">{t('password')}</InputLabel>
                 <OutlinedInput
@@ -63,17 +74,25 @@ export const RegistrationPassword = ({
                                 onClick={togglePasswordVisibility}
                                 edge="end"
                             >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                {showPassword ? (
+                                    <Visibility />
+                                ) : (
+                                    <VisibilityOff />
+                                )}
                             </IconButton>
                         </InputAdornment>
                     }
                     labelWidth={70}
                     data-testid="password"
                 />
-                <PasswordStrengthChips passwordValidation={passwordValidation} />
+                <PasswordStrengthChips
+                    passwordValidation={passwordValidation}
+                />
             </FormControl>
             <FormControl variant="outlined" className={classFormItem}>
-                <InputLabel htmlFor="passwordConfirm">{t('registration-page.password-confirm')}</InputLabel>
+                <InputLabel htmlFor="passwordConfirm">
+                    {t('registration-page.password-confirm')}
+                </InputLabel>
                 <OutlinedInput
                     required
                     id="passwordConfirm"
@@ -87,7 +106,11 @@ export const RegistrationPassword = ({
                                 onClick={togglePasswordVisibility}
                                 edge="end"
                             >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                {showPassword ? (
+                                    <Visibility />
+                                ) : (
+                                    <VisibilityOff />
+                                )}
                             </IconButton>
                         </InputAdornment>
                     }

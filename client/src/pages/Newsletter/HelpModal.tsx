@@ -19,12 +19,7 @@ export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <p className={classes.modalText}>{t('newsletter.help-modal.attachment-text')} </p>
             </DialogContent>
             <DialogActions className={classes.modalButtonWrapper}>
-                <ButtonSecondary
-                    variant="contained"
-                    onClick={onClose}
-                    autoFocus
-                    innerText={t('newsletter.help-modal.button')}
-                />
+                <ButtonSecondary variant="contained" onClick={onClose} autoFocus innerText={t('newsletter.help-modal.button')} />
             </DialogActions>
         </Dialog>
     );

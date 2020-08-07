@@ -3,24 +3,24 @@ import { Button, ButtonProps, makeStyles, createStyles } from '@material-ui/core
 import clsx from 'clsx';
 
 export type CustomButtonProps = ButtonProps & {
-    innerText?: string;
-    variant: string;
+    innerText?: string,
+    variant: string,
 };
 
 export const ButtonBase: FC<CustomButtonProps> = ({ innerText, className, children, ...props }) => {
     const classes = useStyles();
 
-    let content;
+    let content
     if (children) {
         content = children;
     } else if (innerText) {
         content = innerText;
     } else {
         content = '';
-    }
+    };
 
     return (
-        <Button {...props} className={clsx(className, classes.button)}>
+        <Button {...props} className={clsx(className, classes.button)} >
             {content}
         </Button>
     );
