@@ -1,19 +1,19 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { TextField, Button, Typography, makeStyles, createStyles } from '@material-ui/core';
-import { isValidEmail } from './isValidEmail';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
 import { backgroundColor, secondaryColor, white } from '../../colors';
 
 const t_prefix = 'forgot-password-page';
 
-type PresentPasswordPage = {
-    handleInputChange: (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
-    handleCreateNewPassword: () => void;
+type Props = {
+    onChange: (value: string) => void;
+    onSubmit: () => void;
+    isDisabled: boolean;
     email: string;
 };
 
-export const PresentPasswordPage = ({ handleInputChange, handleCreateNewPassword, email }: PresentPasswordPage) => {
+export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -29,17 +29,16 @@ export const PresentPasswordPage = ({ handleInputChange, handleCreateNewPassword
                 id="email"
                 label={t('e-mail')}
                 variant="outlined"
-                className={classes.textField}
                 helperText={t(`${t_prefix}.email-helper-text`)}
-                onChange={handleInputChange}
+                onChange={({ target: { value } }) => onChange(value)}
             />
             <div className={classes.buttonWrapper}>
                 <Button
                     variant="contained"
-                    disabled={!isValidEmail(email)}
+                    disabled={isDisabled}
                     color="secondary"
                     className={classes.button}
-                    onClick={handleCreateNewPassword}
+                    onClick={onSubmit}
                 >
                     {t(`${t_prefix}.new-password`)}
                 </Button>
@@ -64,9 +63,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         subtitle: {
             textAlign: 'center',
-        },
-        textField: {
-            width: '100%',
         },
         buttonWrapper: {
             display: 'flex',

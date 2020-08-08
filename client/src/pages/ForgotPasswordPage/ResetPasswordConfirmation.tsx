@@ -5,7 +5,7 @@ import { white } from '../../colors';
 
 const t_prefix = 'forgot-password-page';
 
-export const PostsentPasswordPage = () => {
+export const ResetPasswordConfirmation = () => {
     const { t } = useTranslation();
     const classes = useStyles();
 
