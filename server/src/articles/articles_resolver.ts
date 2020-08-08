@@ -2,7 +2,6 @@ import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
-import { CreateArticleDTO } from './dto/create_article_dto';
 import { ArticleInput } from './inputs/article_input';
 import { Article, ArticleProps } from './domain/models/article_model';
 import { CreateArticleCommand } from './domain/commands/impl/create_article_command';
@@ -19,6 +18,7 @@ import {
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ArticleMapper } from './domain/mappers/article_mapper';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
+import { ArticleDTO } from './dto/article_dto';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -28,7 +28,8 @@ export class ArticlesResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Query(() => [CreateArticleDTO])
+  @Query(() => [ArticleDTO])
+  @UseGuards(GqlAuthGuard)
   async articles(
     @Args('page') page: number,
     @Args('category', { nullable: true }) category?: string,
@@ -40,7 +41,8 @@ export class ArticlesResolver {
     return articles.map(article => ArticleMapper.toRaw(article));
   }
 
-  @Query(() => [CreateArticleDTO])
+  @Query(() => [ArticleDTO])
+  @UseGuards(GqlAuthGuard)
   async lastArticles(@Args('count') count: number): Promise<ArticleProps[]> {
     const articles: Article[] = await this.queryBus.execute(
       new GetLastArticlesQuery(count),
@@ -49,7 +51,8 @@ export class ArticlesResolver {
     return articles.map(article => ArticleMapper.toRaw(article));
   }
 
-  @Query(() => CreateArticleDTO)
+  @Query(() => ArticleDTO)
+  @UseGuards(GqlAuthGuard)
   async article(@Args('id') id: string): Promise<ArticleProps> {
     const article: Article = await this.queryBus.execute(
       new GetArticleByIdQuery(id),

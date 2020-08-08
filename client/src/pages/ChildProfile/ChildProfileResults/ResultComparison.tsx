@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Typography, Dialog } from '@material-ui/core';
+import { Card, Typography, Dialog } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import { getDifferenceKey, getResultColorAndLabel } from './utils';
@@ -10,6 +10,7 @@ import { Advice } from '../../../firebase/types';
 import { OnSnapshotCallback } from '../../../firebase/userRepository';
 import { getAdviceByResultAndAge } from '../../../queries/adviceQueries';
 import { AdviceModal } from './AdviceModal';
+import { ButtonSecondary } from '../../../components/Button';
 
 interface Props {
     firstResultPoints: number;
@@ -44,9 +45,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                             {t(`child-profile.difference.${key}`)}
                         </div>
                         {advice && advice.content && (
-                            <Button variant="contained" color="secondary" onClick={() => setIsModalOpen(true)}>
-                                {t('child-profile.comparison-button')}
-                            </Button>
+                            <ButtonSecondary variant="contained" onClick={() => setIsModalOpen(true)} innerText={t('child-profile.comparison-button')} />
                         )}
                     </div>
                 </Card>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { TextField, Button, Typography, makeStyles, createStyles } from '@material-ui/core';
+import { TextField, Typography, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
 import { backgroundColor, secondaryColor, white } from '../../colors';
+import { ButtonSecondary } from '../../components/Button';
 
 const t_prefix = 'forgot-password-page';
 
@@ -33,15 +34,13 @@ export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Pro
                 onChange={({ target: { value } }) => onChange(value)}
             />
             <div className={classes.buttonWrapper}>
-                <Button
+                <ButtonSecondary
                     variant="contained"
                     disabled={isDisabled}
-                    color="secondary"
-                    className={classes.button}
+                    className={classes.createPasswordButton}
                     onClick={onSubmit}
-                >
-                    {t(`${t_prefix}.new-password`)}
-                </Button>
+                    innerText={t('forgot-password-page.new-password')}
+                />
             </div>
             <div className={classes.underlinedText}>
                 <Typography variant="caption">{t(`${t_prefix}.problem`)}</Typography>
@@ -105,6 +104,15 @@ const useStyles = makeStyles((theme: Theme) =>
                 right: '0',
                 width: '100%',
                 background: 'black',
+            },
+        },
+        createPasswordButton: {
+            marginBottom: '20px',
+            marginTop: '20px',
+
+            [theme.breakpoints.down('sm')]: {
+                marginBottom: '44px',
+                marginTop: '30px',
             },
         },
     }),

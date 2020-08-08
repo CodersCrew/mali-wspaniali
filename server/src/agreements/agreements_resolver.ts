@@ -5,7 +5,7 @@ import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { AggrementRepository } from './domain/repositories/aggrement_repository';
 import { GetAllAggrementsQuery } from './domain/queries/impl/get_all_aggrements_query';
-import { AgreementDTO } from './dto/agreement_dto';
+import { AggrementDTO } from './dto/agreement_dto';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { CreateAggrementCommand } from './domain/commands/impl/create_aggrement_command';
 import { AggrementProps } from './schemas/aggrement_schema';
@@ -19,9 +19,9 @@ export class AggrementsResolver {
     public readonly aggrementRepository: AggrementRepository,
   ) {}
 
-  @Query(() => [AgreementDTO])
-  async aggrements(): Promise<AgreementDTO[]> {
-    const aggrements: AgreementDTO[] = await this.queryBus.execute(
+  @Query(() => [AggrementDTO])
+  async aggrements(): Promise<AggrementDTO[]> {
+    const aggrements: AggrementDTO[] = await this.queryBus.execute(
       new GetAllAggrementsQuery(),
     );
 

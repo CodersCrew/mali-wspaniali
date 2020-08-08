@@ -3,7 +3,6 @@ import {
     makeStyles,
     createStyles,
     Grid,
-    Button,
     withStyles,
     Box,
     Typography,
@@ -14,6 +13,7 @@ import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
+import { ButtonDefault } from '../../components/Button';
 
 interface Props {
     category: string;
@@ -35,6 +35,7 @@ export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Pr
                     <Grid container direction="row">
                         <Grid item xs={3}>
                             <ColorButton
+                                variant="contained"
                                 className={classes.contentCategoryButton}
                                 href={`#${category.toUpperCase()}`}
                                 disableElevation
@@ -82,7 +83,7 @@ const createColorButton = (category: string) => {
                 backgroundColor: singleArticleColorHover,
             },
         },
-    }))(Button);
+    }))(ButtonDefault);
 };
 
 const getSingleArticleColor = (category: string) => {
@@ -121,7 +122,6 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: '2px',
             height: '25px',
             width: '85px',
-            borderRadius: '4px',
         },
         contentHeader: {
             paddingTop: '4vw',

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Typography, makeStyles } from '@material-ui/core';
+import { Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { white } from '../../colors';
+import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
 const t_prefix = 'forgot-password-page';
 
@@ -13,9 +14,12 @@ export const ResetPasswordConfirmation = () => {
         <>
             <Typography className={classes.subtitle}>{t(`${t_prefix}.email-sent`)}</Typography>
             <Typography className={classes.subtitle}>{t(`${t_prefix}.when-received`)}</Typography>
-            <Button variant="contained" color="secondary" className={classes.loginLinkWrapper} href="/login">
-                {t(`${t_prefix}.back-to-login`)}
-            </Button>
+            <ButtonSecondary
+                variant="contained"
+                href="/login"
+                className={classes.backToLoginButton}
+                innerText={t('forgot-password-page.back-to-login')}
+            />
         </>
     );
 };
@@ -31,5 +35,9 @@ const useStyles = makeStyles({
     },
     subtitle: {
         textAlign: 'center',
+    },
+    backToLoginButton: {
+        marginBottom: '20px',
+        marginTop: '40px',
     },
 });

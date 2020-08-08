@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { ArticlesResolver } from './articles.resolver';
+import { ArticlesResolver } from './articles_resolver';
 import { ArticleSchema } from './schemas/articles.schema';
 import { ArticlesRepository } from './domain/repositories/article_repository';
 import { CommandHandlers } from './domain/commands/handlers';

@@ -19,6 +19,6 @@ import { CommandHandlers } from './domain/commands/handlers';
     ...CommandHandlers,
     ...QueryHandlers,
   ],
-  exports: [AggrementRepository],
+  exports: [AggrementRepository, ...QueryHandlers],
 })
 export class AggrementsModule {}

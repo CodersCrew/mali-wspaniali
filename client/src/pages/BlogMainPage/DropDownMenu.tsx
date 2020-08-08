@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Tabs, Grow, Paper, Popper, Button } from '@material-ui/core';
+import { Tabs, Grow, Paper, Popper } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -7,6 +7,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { DropDownMenuItem } from './DropDownMenuItem';
 import { Theme } from '../../theme/types';
 import { CategoryItem } from './BlogCategories';
+import { ButtonDefault } from '../../components/Button';
 
 type Props = {
     onClick: (value: string) => void;
@@ -45,17 +46,17 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
 
     return (
         <div className={classes.root} onKeyDown={handleListKeyDown}>
-            <Button
+            <ButtonDefault
+                variant="text"
                 ref={anchorRef}
                 aria-controls={isOpen ? 'menu-list-grow' : ''}
                 aria-haspopup="true"
                 onClick={handleToggle}
                 className={classes.button}
                 fullWidth
-            >
-                {values.find(category => category.key === active)!.name}
-                {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </Button>
+                endIcon={isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                innerText={values.find(category => category.key === active)!.name}
+            />
             <Popper className={classes.container} open={isOpen} transition disablePortal>
                 {({ TransitionProps }) => (
                     <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
@@ -98,6 +99,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         button: {
             justifyContent: 'space-between',
+            backgroundColor: theme.palette.common.white,
+
+            '&:hover': {
+                backgroundColor: theme.palette.common.white,
+            }
         },
         container: {
             width: '100%',

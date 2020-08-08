@@ -1,8 +1,8 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
-import { CreateRedactorDTO } from './create_redactor_dto';
+import { RedactorDTO } from './redactor_dto';
 
 @ObjectType()
-export class CreateArticleDTO {
+export class ArticleDTO {
   @Field(() => ID)
   _id: string;
 
@@ -28,7 +28,7 @@ export class CreateArticleDTO {
   readonly readingTime: number;
 
   @Field()
-  readonly redactor: CreateRedactorDTO;
+  readonly redactor: RedactorDTO;
 
   @Field()
   readonly subtitle: string;

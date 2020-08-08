@@ -29,6 +29,10 @@ import { NotificationDTO } from '../notifications/dto/notification_dto';
 import { ChildDTO } from './dto/children_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { ResultInput } from './inputs/result_input';
+import { AggrementDTO } from '../agreements/dto/agreement_dto';
+import { GetValidAggrementsQuery } from '../agreements/domain/queries/impl/get_valid_aggrements_query';
+import { AddAggrementToUserCommand } from './domain/commands/impl/add_aggrement_to_user_command';
+import { AggrementProps } from '../agreements/schemas/aggrement_schema';
 import {
   ChangePasswordCommand,
   AddChildCommand,
@@ -64,6 +68,17 @@ export class UsersResolver {
   async children(@Parent() user: UserProps): Promise<ChildDTO[]> {
     return await this.queryBus.execute(
       new GetChildrenQuery(user.children as mongoose.Schema.Types.ObjectId[]),
+    );
+  }
+
+  @ResolveField()
+  async aggrements(@Parent() user: UserProps): Promise<AggrementDTO[]> {
+    return await this.queryBus.execute(
+      new GetValidAggrementsQuery(
+        (user.aggrements as mongoose.Schema.Types.ObjectId[]).map(aggrement =>
+          aggrement.toString(),
+        ),
+      ),
     );
   }
 
@@ -112,6 +127,13 @@ export class UsersResolver {
       new LoginUserCommand(user.mail, user.password),
     );
 
+    if (new RegExp(process.env.SERVER_HOST).test(context.req.headers.origin)) {
+      context.res.header(
+        'Access-Control-Allow-Origin',
+        context.req.headers.origin,
+      );
+    }
+
     context.res.cookie('Authorization', payload);
 
     return { status: !!payload };
@@ -134,5 +156,18 @@ export class UsersResolver {
     await this.commandBus.execute(new ChangePasswordCommand(jwt, password));
 
     return { status: true };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(GqlAuthGuard)
+  async signAggrement(
+    @CurrentUser() user: LoggedUser,
+    @Args('aggrementId') aggrementId: string,
+  ): Promise<{ status: boolean }> {
+    const created: AggrementProps = await this.commandBus.execute(
+      new AddAggrementToUserCommand(user.userId, aggrementId),
+    );
+
+    return { status: !!created };
   }
 }

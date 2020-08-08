@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
+import { ThemeProvider } from '../theme/ThemeProvider';
 
 export type Decision = {
     accepted: boolean;
@@ -19,7 +20,7 @@ export function openDialog<T>(Dialog: React.FC<any>, options: T) {
         body.prepend(dialogElement);
 
         ReactDOM.render(
-            <>
+            <ThemeProvider>
                 {
                     <Dialog
                         {...options}
@@ -33,7 +34,7 @@ export function openDialog<T>(Dialog: React.FC<any>, options: T) {
                         }}
                     />
                 }
-            </>,
+            </ThemeProvider>,
             dialogElement,
         );
     });

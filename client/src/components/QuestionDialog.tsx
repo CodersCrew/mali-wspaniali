@@ -1,7 +1,8 @@
 import React from 'react';
-import { Dialog, DialogContent, DialogActions, Button } from '@material-ui/core/';
+import { Dialog, DialogContent, DialogActions } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { openDialog, ActionDialog } from '../utils/openDialog';
+import { ButtonPrimary } from './Button';
 
 type QuestionDialogProps = {
     question: string;
@@ -26,12 +27,13 @@ const QuestionDialog = ({ question, onClose, makeDecision }: QuestionDialogProps
         <Dialog open onClose={onClose}>
             <DialogContent>{question}</DialogContent>
             <DialogActions>
-                <Button onClick={onAccepted} color="primary" autoFocus>
-                    {t('question-dialog.yes')}
-                </Button>
-                <Button onClick={onDeclined} color="primary" autoFocus>
-                    {t('question-dialog.no')}
-                </Button>
+                <ButtonPrimary
+                    onClick={onAccepted}
+                    variant="contained"
+                    autoFocus
+                    innerText={t('question-dialog.yes')}
+                />
+                <ButtonPrimary onClick={onDeclined} variant="text" autoFocus innerText={t('question-dialog.no')} />
             </DialogActions>
         </Dialog>
     );

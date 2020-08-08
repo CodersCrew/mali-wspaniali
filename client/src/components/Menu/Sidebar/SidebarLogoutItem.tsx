@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, makeStyles } from '@material-ui/core';
+import { makeStyles, IconButton } from '@material-ui/core';
 import { PowerSettingsNew } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -15,9 +15,9 @@ export const SidebarLogoutItem = ({ handleLogoutClick, isSidebarOpen }: SidebarL
 
     return (
         <div className={classes.logoutBtnContainer}>
-            <Button className={logoutBtnStyle} onClick={handleLogoutClick}>
+            <IconButton className={logoutBtnStyle} onClick={handleLogoutClick}>
                 {logoutBtnContent}
-            </Button>
+            </IconButton>
         </div>
     );
 };
@@ -28,16 +28,9 @@ const useStyles = makeStyles({
         justifyContent: 'center',
     },
     logoutBtn: {
-        outline: 'none',
-        border: 'none',
-        background: 'none',
         position: 'absolute',
         bottom: 53,
         color: '#fff',
-
-        '&:hover': {
-            background: 'none',
-        },
 
         '& span': {
             '&:hover': {
@@ -52,6 +45,7 @@ const useStyles = makeStyles({
             lineHeight: '18px',
             fontWeight: 'normal',
             fontSize: '15px',
+            textTransform: 'uppercase',
 
             '&:hover': {
                 color: mainColor,

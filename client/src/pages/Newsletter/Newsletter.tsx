@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Typography, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { createNewsletter } from '../../queries/newsletterQueries';
@@ -12,7 +12,7 @@ import { NewsletterContent } from './NewsletterContent';
 import { openDialog } from '../../utils/openDialog';
 import { NewsletterSentModal } from './NewsletterSentModal';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
-import { secondaryColor, white } from '../../colors'
+import { ButtonSecondary } from '../../components/Button';
 
 const initialState = {
     type: {
@@ -181,7 +181,8 @@ export const NewsletterPage = () => {
                 </div>
             </div>
             <div className={classes.formButtonWrapper}>
-                <Button
+                <ButtonSecondary
+                    variant="contained"
                     disabled={
                         recipients.value.length === 0 ||
                         !type.value ||
@@ -191,10 +192,8 @@ export const NewsletterPage = () => {
                     }
                     className={classes.formButton}
                     onClick={handleSubmit}
-                    classes={{ disabled: classes.formButtonDisabled }}
-                >
-                    {t('newsletter.send')}
-                </Button>
+                    innerText={t('newsletter.send')}
+                />
             </div>
         </div>
     );
@@ -223,20 +222,7 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'flex-end',
         },
         formButton: {
-            backgroundColor: secondaryColor,
-            fontSize: 14,
-            color: white,
-            fontWeight: 'bold',
             padding: '8px 22px',
-            lineHeight: 1.2,
-            boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.6)',
-            '&:hover': {
-                color: secondaryColor,
-            },
-        },
-        formButtonDisabled: {
-            backgroundColor: 'rgba(0, 0, 0, 0.23)',
-            color: 'rgba(0, 0, 0, 0.26)',
         },
     }),
 );
