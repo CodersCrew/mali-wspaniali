@@ -64,7 +64,8 @@
         "email-helper-text": "Wpisz adres e-mail podany fundacji",
         "back-to-login": "Wróć do logowania",
         "email-sent": "Na twój adres email wysłaliśmy maila.",
-        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło."
+        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło.",
+        "avatar": "Małgosia"
     },
     "users-page": {
         "agreements": "Zgody",

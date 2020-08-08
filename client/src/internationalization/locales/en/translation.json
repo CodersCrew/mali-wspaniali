@@ -51,7 +51,8 @@
         "email-helper-text": "Type in e-mail address provided to the foundation",
         "back-to-login": "Back to login",
         "email-sent": "We have sent you an email.",
-        "when-received": "Once you receive it, click a link to create a new password."
+        "when-received": "Once you receive it, click a link to create a new password.",
+        "avatar": "Małgosia"
     },
     "users-page": {
         "agreements": "Agreements",

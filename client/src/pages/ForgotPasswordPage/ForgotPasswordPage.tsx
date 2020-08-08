@@ -1,7 +1,7 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PresentPasswordPage } from './PresentPasswordPage';
-import { PostsentPasswordPage } from './PostsentPasswordPage';
+import { ResetPasswordForm } from './ResetPasswordForm';
+import { ResetPasswordConfirmation } from './ResetPasswordConfirmation';
 import { makeStyles, Typography, createStyles } from '@material-ui/core';
 import { handlePasswordReset } from '../../queries/authQueries';
 import { isValidEmail } from './isValidEmail';
@@ -10,57 +10,66 @@ import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { Theme } from '../../theme/types';
 
-enum ImageState {
-    default = 'DEFAULT',
-    error = 'ERROR',
-    success = 'SUCCESS',
-}
+type ImageState = 'DEFAULT' | 'ERROR' | 'SUCCESS';
 
 export const ForgotPasswordPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
-    const [imageState, setImageState] = useState<ImageState>(ImageState.default);
-    const [isResetEmailSent, setIsResetEmailSent] = useState(false);
+    const [imageState, setImageState] = useState<ImageState>('ERROR');
+    const [resetPasswordState, setResetPasswordState] = useState<'FORM' | 'CONFIRMATION'>('FORM');
 
-    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        const { value } = event.target;
+    const handleInputChange = (value: string) => {
+        if (value === '') {
+            setEmail('');
+            return setImageState('ERROR');
+        }
+
         const validEmail = isValidEmail(value);
 
-        setImageState(ImageState[validEmail ? 'success' : 'error']);
-        if (value === '') setImageState(ImageState.default);
-        setEmail(event.target.value);
+        setImageState(validEmail ? 'SUCCESS' : 'DEFAULT');
+
+        setEmail(value);
     };
 
     const handleCreateNewPassword = () => {
-        setImageState(ImageState.success);
+        setResetPasswordState('CONFIRMATION');
+
         handlePasswordReset(email)
-            .then(() => setIsResetEmailSent(true))
-            .catch(() => setIsResetEmailSent(true));
+            .then(() => setImageState('SUCCESS'))
+            .catch(() => setImageState('ERROR'));
     };
 
-    const getImageSource = (_imageState: ImageState) => {
-        if (_imageState === ImageState.error) return ErrorImage;
-        if (_imageState === ImageState.success) return SuccessImage;
+    const getImageSource = (state: ImageState) => {
+        const options = {
+            DEFAULT: DefaultImage,
+            SUCCESS: SuccessImage,
+            ERROR: ErrorImage,
+        };
 
-        return DefaultImage;
+        return options[state];
     };
 
     return (
         <div className={classes.container}>
             <div className={classes.layout}>
-                <img className={classes.image} src={getImageSource(imageState)} alt="małgosia czy jak jej tam" />
+                <img
+                    className={classes.image}
+                    src={getImageSource(imageState)}
+                    alt={t('forgot-password-page.avatar')}
+                />
                 <Typography variant="h3" className={classes.title}>
                     {t('forgot-password-page.forgot-password')}
                 </Typography>
-                {isResetEmailSent ? (
-                    <PostsentPasswordPage />
-                ) : (
-                    <PresentPasswordPage
-                        handleInputChange={handleInputChange}
-                        handleCreateNewPassword={handleCreateNewPassword}
+                {resetPasswordState === 'FORM' ? (
+                    <ResetPasswordForm
+                        onChange={handleInputChange}
+                        onSubmit={handleCreateNewPassword}
+                        isDisabled={!isValidEmail(email)}
                         email={email}
                     />
+                ) : (
+                    <ResetPasswordConfirmation />
                 )}
             </div>
         </div>
