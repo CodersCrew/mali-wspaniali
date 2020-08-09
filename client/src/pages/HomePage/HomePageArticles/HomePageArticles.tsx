@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { textColor } from '../../../colors';
 import { Article } from '../../../graphql/types';
-import { getLastArticles } from '../../../queries/articleQueries';
 import { ArticleCarousel } from './HomePageArticleCarousel';
 import { BlogArticleCard } from '../../../components/BlogArticleCard';
 
 const isMobile = window.screen.width < 1024;
 
-export const HomePageArticles = () => {
-    const classes = useStyles();
-    const [articles, setArticles] = useState<Article[]>([]);
-    const { t } = useTranslation();
+interface Props {
+    articles: Article[];
+}
 
-    useEffect(() => {
-        getLastArticles(6).then(({ data }) => setArticles(data!.lastArticles));
-    }, []);
+export const HomePageArticles = ({ articles }: Props) => {
+    const classes = useStyles();
+    const { t } = useTranslation();
 
     const renderArticles = () => {
         return articles.map(article => {
