@@ -12,18 +12,18 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { NotificationPageListItem } from './NotificationPageListItem';
-import { Notification } from '../../firebase/types';
+import { Notification } from '../../graphql/types';
 import { white } from '../../colors';
 import { Theme } from '../../theme/types';
+import { getNotificationContent } from './notificationContent';
 
-export type NotificationListProps = {
+interface Props {
     notifications: Notification[];
-};
+}
 
-export const NotificationPageList = (props: NotificationListProps) => {
+export const NotificationPageList = ({ notifications }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { notifications } = props;
 
     return (
         <TableContainer className={classes.list} component={Paper}>
@@ -35,14 +35,24 @@ export const NotificationPageList = (props: NotificationListProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {notifications &&
-                        notifications.map(notification => {
-                            const { id, text, date, isRead } = notification;
+                    {notifications.map(notification => {
+                        const { _id, values, templateId, date, isRead } = notification;
 
-                            return (
-                                <NotificationPageListItem key={id} id={id} text={text} date={date} isRead={isRead} />
-                            );
-                        })}
+                        const text = getNotificationContent(templateId, values);
+
+                        return (
+                            <NotificationPageListItem
+                                key={_id}
+                                id={_id}
+                                text={text}
+                                date={new Date(date)}
+                                isRead={isRead}
+                                onClick={() => {
+                                    /* todo */
+                                }}
+                            />
+                        );
+                    })}
                 </TableBody>
             </Table>
         </TableContainer>
