@@ -91,7 +91,6 @@
     },
     "child-profile": {
         "no-child": "Sorry, there is no child with this id",
-        "kindergarten-no": "Kindergarten no.",
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
         "results-list": "Results list",
         "tests-information": "Tests information",
