@@ -7,7 +7,7 @@ export interface Result {
     schoolYearStart: number;
     dateOfTest: Date;
     ageOfChild: number;
-    testPeriod: 'begin' | 'end';
+    testPeriod: 'START' | 'END  ';
     strengthCentimeters: number;
     strengthPoints: number;
     powerCentimeters: number;
@@ -18,12 +18,6 @@ export interface Result {
     agilityPoints: number;
     sumOfPoints: number;
     updatedAt: Date;
-}
-
-export interface UserAgreement {
-    id: string;
-    agreementId: string;
-    checked: boolean;
 }
 
 export interface Agreement {
@@ -51,7 +45,6 @@ export type User = {
     id: string;
     email: string;
     role: string;
-    agreements: UserAgreement[];
 };
 
 export type Notification = {

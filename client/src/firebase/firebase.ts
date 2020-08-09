@@ -7,11 +7,8 @@ import config from './config';
 import { authRepository } from './authRepository';
 import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
-import { agreementRepository } from './agreementRepository';
 import { newsletterRepository } from './newsletterRepository';
 import { notificationRepository } from './notificationRepository';
-import { kindergartenRepository } from './kindergartenRepository';
-import { adviceRepository } from './adviceRepository';
 import { invitationCodeRepository } from './invitationCodeRepository';
 
 firebaseApp.initializeApp(config);
@@ -28,11 +25,8 @@ export const firebase = {
     auth: authRepository(auth),
     child: childRepository(firestore),
     user: userRepository(firestore),
-    agreement: agreementRepository(firestore),
     newsletter: newsletterRepository(firestore),
     notification: notificationRepository(firestore),
-    kindergarten: kindergartenRepository(firestore),
-    advice: adviceRepository(firestore),
     invitationCode: invitationCodeRepository(firestore),
 };
 

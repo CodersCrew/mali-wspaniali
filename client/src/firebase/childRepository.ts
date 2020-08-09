@@ -1,7 +1,6 @@
 import firebaseApp from 'firebase/app';
 import 'firebase/firestore';
-import { Document, Child, Result } from './types';
-import { OnSnapshotCallback } from './userRepository';
+import { Document, Child } from './types';
 import { logQuery } from '../utils/logQuery';
 
 type dataPromiseTypes = {
@@ -12,55 +11,6 @@ type dataPromiseTypes = {
 };
 
 export const childRepository = (db: firebaseApp.firestore.Firestore) => ({
-    getChildDocById: (childId: string, onSnapshotCallback: OnSnapshotCallback<Child>) => {
-        db.collection('child')
-            .doc(childId)
-            .onSnapshot(snapshot => {
-                logQuery(snapshot);
-                const childData = snapshot.data() as Child;
-                if (childData) {
-                    onSnapshotCallback(childData);
-                }
-            });
-    },
-    getChildResults: async (childId: string, onSnapshotCallback: OnSnapshotCallback<Result[]>) => {
-        db.collection('child')
-            .doc(childId)
-            .collection('results')
-            .onSnapshot(snapshot => {
-                if (snapshot.empty) {
-                    return;
-                }
-                logQuery(snapshot);
-                const results = snapshot.docs.map(snap => {
-                    const data = snap.data();
-
-                    return {
-                        ...data,
-                        dateOfTest: data.dateOfTest.toDate(),
-                        updatedAt: data.updatedAt.toDate(),
-                    } as Result;
-                });
-                if (results) {
-                    onSnapshotCallback(results);
-                }
-            });
-    },
-    getChildrenByUserId: (id: string, onSnapshotCallback: OnSnapshotCallback<Child[]>) => {
-        return db
-            .collection('child')
-            .where('userId', '==', id)
-            .onSnapshot(snapshot => {
-                const children = snapshot.docs.map(doc => {
-                    const child = doc.data() as Child;
-                    child.id = doc.id;
-
-                    return child;
-                });
-
-                return onSnapshotCallback(children);
-            });
-    },
     getChildrenData: (
         rowsPerPage: number,
         previousLastVisible: Document | null,

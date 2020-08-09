@@ -1,7 +1,6 @@
 import firebase from 'firebase/app';
-import { Parent } from '../pages/ParentProfile/types';
 import { logQuery } from '../utils/logQuery';
-import { UserAgreement, Document, User } from './types';
+import { Document, User } from './types';
 
 type dataPromiseTypes = {
     users: User[];
@@ -13,18 +12,6 @@ type dataPromiseTypes = {
 export type OnSnapshotCallback<T extends firebase.firestore.DocumentData> = (data: T) => void;
 
 export const userRepository = (firestore: firebase.firestore.Firestore) => ({
-    getUserById: (id: string, onSnapshotCallback: OnSnapshotCallback<Parent>) => {
-        return firestore
-            .collection('user')
-            .doc(id)
-            .onSnapshot(snapshot => {
-                logQuery(snapshot);
-                const parentData = snapshot.data() as Parent;
-                if (parentData) {
-                    onSnapshotCallback(parentData);
-                }
-            });
-    },
     getUsersData: (
         rowsPerPage: number,
         previousLastVisible: Document | null,
@@ -113,37 +100,18 @@ export const userRepository = (firestore: firebase.firestore.Firestore) => ({
             getQuery(resolve, reject);
         });
     },
-    getParents: (onSnapshotCallback: OnSnapshotCallback<Parent[]>) => {
+    getParents: (onSnapshotCallback: OnSnapshotCallback<any[]>) => {
         return firestore
             .collection('user')
             .where('role', '==', 'parent')
             .onSnapshot(snapshot => {
                 logQuery(snapshot);
-                const parents: Parent[] = [];
+                const parents: any[] = [];
                 snapshot.forEach(document => {
-                    parents.push(document.data().email as Parent);
+                    parents.push(document.data().email as any);
                 });
 
                 return onSnapshotCallback(parents);
-            });
-    },
-    getUserAgreements(userId: string, callback: OnSnapshotCallback<UserAgreement[]>) {
-        firestore
-            .collection('user')
-            .doc(userId)
-            .collection('agreements')
-            .onSnapshot(snapshot => {
-                const results = snapshot.docs.map(snap => {
-                    const data = snap.data();
-
-                    return {
-                        ...data,
-                        id: snap.id,
-                    } as UserAgreement;
-                });
-                if (results) {
-                    callback(results);
-                }
             });
     },
     toggleAgreement: (userId: string, userAgreementId: string, value: boolean) => {
