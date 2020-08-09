@@ -36,6 +36,7 @@
     "apollo-server-express": "^2.15.0",
     "bcrypt": "^5.0.0",
     "class-validator": "^0.12.2",
+    "cookie-session": "^1.4.0",
     "graphql": "^15.1.0",
     "graphql-tools": "^6.0.10",
     "graphql-type-json": "^0.3.2",

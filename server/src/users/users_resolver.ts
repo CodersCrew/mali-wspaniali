@@ -134,7 +134,7 @@ export class UsersResolver {
       );
     }
 
-    context.res.cookie('Authorization', payload);
+    context.req.session.Authorization = payload;
 
     return { status: !!payload };
   }

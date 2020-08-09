@@ -9,17 +9,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        request => {
-          const { cookie } = request.headers;
-
-          if (cookie) {
-            const mappedCookie = mapToObject(cookie);
-
-            return mappedCookie.Authorization as string;
-          }
-
-          return null;
-        },
+        request => (request as any).session.Authorization,
       ]),
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
