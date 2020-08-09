@@ -1,25 +1,36 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core';
-import clsx from 'clsx';
 import { Sidebar } from '../../components/Menu/Sidebar';
 import { Navbar } from '../../components/Menu/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
 import { Theme } from '../../theme/types';
+import { getUser } from '../../graphql/userRepository';
+import { useState } from 'react';
+import { Me } from '../../graphql/types';
+
+export const UserContext = React.createContext<Me | null>(null);
 
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [user, setUser] = useState<Me | null>(null);
+    const [isOpen, setIsOpen] = useState(false);
 
-    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+    const toggleSidebar = () => setIsOpen(prev => !prev);
+
+    useEffect(() => {
+        getUser().then(({ data: { me } }) => setUser(me));
+    }, []);
 
     return (
-        <div className={classes.background}>
-            <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-            <div className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
-                <Navbar />
-                <div className={classes.content}>{children}</div>
+        <UserContext.Provider value={user}>
+            <div className={classes.background}>
+                <Sidebar user={user} extended={isOpen} toggleSidebar={toggleSidebar} />
+                <div className={classes.container}>
+                    <Navbar user={user} />
+                    <div className={classes.content}>{children}</div>
+                </div>
             </div>
-        </div>
+        </UserContext.Provider>
     );
 };
 
