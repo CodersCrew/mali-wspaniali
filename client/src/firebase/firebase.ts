@@ -5,11 +5,7 @@ import 'firebase/functions';
 import 'firebase/storage';
 import config from './config';
 import { authRepository } from './authRepository';
-import { childRepository } from './childRepository';
 import { userRepository } from './userRepository';
-import { newsletterRepository } from './newsletterRepository';
-import { notificationRepository } from './notificationRepository';
-import { invitationCodeRepository } from './invitationCodeRepository';
 
 firebaseApp.initializeApp(config);
 
@@ -23,11 +19,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 export const firebase = {
     auth: authRepository(auth),
-    child: childRepository(firestore),
     user: userRepository(firestore),
-    newsletter: newsletterRepository(firestore),
-    notification: notificationRepository(firestore),
-    invitationCode: invitationCodeRepository(firestore),
 };
 
 export type User = firebaseApp.User;

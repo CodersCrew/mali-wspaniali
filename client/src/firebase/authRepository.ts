@@ -3,10 +3,6 @@ import 'firebase/auth';
 
 export const authRepository = (auth: firebaseApp.auth.Auth) => ({
     handleSession: () => auth.setPersistence(firebaseApp.auth.Auth.Persistence.SESSION),
-    handleCreateUserWithEmailAndPassword: (email: string, password: string) =>
-        auth.createUserWithEmailAndPassword(email, password),
-    handleSignInWithEmailAndPassword: (email: string, password: string) =>
-        auth.signInWithEmailAndPassword(email, password),
     handleSignOut: () => auth.signOut(),
     handlePasswordReset: (email: string) => auth.sendPasswordResetEmail(email),
     handlePasswordUpdate: (password: string) => {
