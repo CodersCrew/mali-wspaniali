@@ -29,7 +29,7 @@ export const UsersPage = () => {
     const { t } = useTranslation();
 
     useEffect(() => {
-        getAllUsers().then(({ data: { users } }) => setUsers(users));
+        getAllUsers().then(({ data }) => setUsers(data!.users));
     }, []);
 
     const pageChangeHandler = async (direction: string) => {

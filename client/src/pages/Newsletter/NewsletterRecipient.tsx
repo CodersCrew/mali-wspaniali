@@ -33,7 +33,7 @@ export const NewsletterRecipent: React.FC<{
     }) as string[];
 
     useEffect(() => {
-        getKindergartens().then(({ data: { kindergartens } }) => setKindergartens(kindergartens));
+        getKindergartens().then(({ data }) => setKindergartens(data!.kindergartens));
     }, []);
 
     useEffect(() => {

@@ -34,7 +34,7 @@ export const RegistrationForm = () => {
     const { t } = useTranslation();
 
     useEffect(() => {
-        getAggrements().then(({ data: { aggrements } }) => setAggrements(aggrements));
+        getAggrements().then(({ data }) => setAggrements(data!.aggrements));
     }, []);
 
     const steps = [

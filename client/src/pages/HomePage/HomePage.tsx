@@ -14,7 +14,7 @@ export const ParentHomePage = () => {
     const [articles, setArticles] = useState<Article[]>([]);
 
     useEffect(() => {
-        getLastArticles(6).then(({ data }) => setArticles(data.lastArticles));
+        getLastArticles(6).then(({ data }) => setArticles(data!.lastArticles));
     }, []);
 
     const classes = useStyles();

@@ -1,4 +1,4 @@
-import { gql, FetchResult, ApolloQueryResult } from 'apollo-boost';
+import { gql, FetchResult, ApolloQueryResult } from '@apollo/client';
 
 import { client } from '../apollo_client';
 import { ReturnedStatus, UserInput, Me, User, ReturnedToken } from './types';

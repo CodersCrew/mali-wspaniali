@@ -12,7 +12,7 @@ export const ParentProfile = () => {
     const { t } = useTranslation();
 
     useEffect(() => {
-        getUserById(id).then(({ data: { user } }) => setParent(user));
+        getUserById(id).then(({ data }) => setParent(data!.user));
     }, [id]);
 
     if (!parent) return <div>{t('parent-profile.no-parent')}</div>;

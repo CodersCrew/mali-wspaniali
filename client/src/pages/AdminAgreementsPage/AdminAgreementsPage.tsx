@@ -15,7 +15,7 @@ export const AdminAgreementsPage = () => {
     const [aggrements, setAggrements] = useState<Aggrement[]>([]);
 
     useEffect(() => {
-        getAggrements().then(({ data: { aggrements } }) => setAggrements(aggrements));
+        getAggrements().then(({ data }) => setAggrements(data!.aggrements));
     }, []);
 
     const handleOpenModal = () => {

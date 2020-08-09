@@ -18,7 +18,7 @@ export const AppWrapper: FC = ({ children }) => {
     const toggleSidebar = () => setIsOpen(prev => !prev);
 
     useEffect(() => {
-        getUser().then(({ data: { me } }) => setUser(me));
+        getUser().then(({ data }) => setUser(data!.me));
     }, []);
 
     return (

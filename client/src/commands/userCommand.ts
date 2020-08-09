@@ -1,13 +1,15 @@
-import { loginUser, LoginInput } from '../graphql/userRepository';
+import { loginUser, LoginInput, getUser } from '../graphql/userRepository';
 
 export function login(user: LoginInput) {
-    return loginUser(user).then(({ data }) => {
-        if (!data) return;
+    return loginUser(user)
+        .then(({ data }) => {
+            if (!data) return;
 
-        const {
-            login: { token },
-        } = data;
+            const {
+                login: { token },
+            } = data;
 
-        localStorage.setItem('token', token);
-    });
+            localStorage.setItem('token', token);
+        })
+        .then(() => getUser().then(({ data }) => data!.me));
 }
