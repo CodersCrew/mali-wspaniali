@@ -10,8 +10,8 @@ export const TestResultsTableRow = ({ child }: { child: Child }) => {
         <TableRow>
             <TableCell>{`${child.firstName} ${child.lastName}`}</TableCell>
             {child.results ? (
-                child.results.map((result: Result, index: number) => (
-                    <TableCell key={`${child.userId}-test${index}`}>{result.sumOfPoints}</TableCell>
+                child.results.map((result, index) => (
+                    <TableCell key={`${child._id}-test${index}`}>{countSumOfPoints(result.test)}</TableCell>
                 ))
             ) : (
                 <TableCell>{t('test-results.no-results')}</TableCell>

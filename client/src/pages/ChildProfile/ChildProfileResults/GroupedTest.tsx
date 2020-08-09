@@ -7,6 +7,7 @@ import { ResultComparison } from './ExtendedGroupedTest/ResultComparison';
 import { gray } from '../../../colors';
 import { SingleTest } from './ExtendedGroupedTest/SingleTest';
 import { TestResult } from '../../../graphql/types';
+import { countSumOfPoints } from '../../../utils/countSumOfPoints';
 
 interface Props {
     isExpanded: boolean;
@@ -60,14 +61,6 @@ function getTestSections(tests: TestResult[]) {
             )}
         </>
     );
-}
-
-function countSumOfPoints(result: TestResult['test']) {
-    const { agilityPoints, powerPoints, speedPoints, strengthPoints } = result;
-
-    const sumOfPoints = agilityPoints + powerPoints + speedPoints + strengthPoints;
-
-    return sumOfPoints;
 }
 
 const useStyles = makeStyles({
