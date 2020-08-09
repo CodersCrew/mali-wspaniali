@@ -18,7 +18,7 @@ export const SingleBlogArticle = () => {
     const { articleId } = useParams<{ articleId: string }>();
 
     useEffect(() => {
-        getArticleById(articleId).then(({ data }) => setArticle(data.article));
+        getArticleById(articleId).then(({ data }) => setArticle(data!.article));
     }, [articleId]);
 
     if (article) {

@@ -15,7 +15,7 @@ export const HomePageArticles = () => {
     const { t } = useTranslation();
 
     useEffect(() => {
-        getLastArticles(6).then(({ data }) => setArticles(data.lastArticles));
+        getLastArticles(6).then(({ data }) => setArticles(data!.lastArticles));
     }, []);
 
     const renderArticles = () => {
