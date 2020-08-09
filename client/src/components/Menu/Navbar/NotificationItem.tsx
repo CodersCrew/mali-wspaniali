@@ -2,39 +2,33 @@ import React from 'react';
 import clsx from 'clsx';
 import { Notifications } from '@material-ui/icons/';
 import { ListItem, Typography, createStyles, makeStyles, MenuItem } from '@material-ui/core/';
-import { Timestamp } from '../../../firebase/types';
 import moment from '../../../localizedMoment';
-import { useAuthorization } from '../../../hooks/useAuthorization';
-import { setNotificationReadValue } from '../../../queries/notificationQueries';
 import { darkGrey, textColor, notificationReadColor, notificationCaptionColor, secondaryColor } from '../../../colors';
 
 type notificationItemProps = {
     text: string;
-    date: Timestamp;
+    date: string;
     isRead: boolean;
     id: string;
 };
 
 export const NotificationItem = ({ text, date, isRead, id }: notificationItemProps) => {
     const classes = useStyles();
-    const currentUser = useAuthorization(true);
 
     const setNotificationValue = () => {
-        if (currentUser) {
-            setNotificationReadValue(currentUser.uid, id, !isRead);
-        }
+        // todo
     };
 
     return (
         <MenuItem className={classes.item}>
-            <ListItem className={clsx(classes.notificationItem, isRead ? 'read' : null)}>
-                <Notifications className={clsx(classes.notificationIcon, isRead ? 'read' : null)} />
+            <ListItem className={clsx({ [classes.notificationItem]: true, read: isRead })}>
+                <Notifications className={clsx({ [classes.notificationIcon]: true, read: isRead })} />
                 <div onClick={setNotificationValue} className={classes.notificationText}>
                     <Typography className={classes.notificationTitle} gutterBottom variant="body1">
                         {text}
                     </Typography>
                     <Typography className={classes.notificationCaption} gutterBottom variant="caption">
-                        {moment(date.toDate()).calendar()}
+                        {moment(date).calendar()}
                     </Typography>
                 </div>
             </ListItem>

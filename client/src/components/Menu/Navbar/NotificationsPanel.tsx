@@ -4,7 +4,7 @@ import { MenuList, Paper, createStyles, makeStyles, Theme } from '@material-ui/c
 import { Link } from 'react-router-dom';
 import { NotificationItem } from './NotificationItem';
 import { white, secondaryColor } from '../../../colors';
-import { Notification } from '../../../firebase/types';
+import { Notification } from '../../../graphql/types';
 
 export type NotificationListProps = {
     notifications: Notification[];
@@ -20,9 +20,9 @@ export const NotificationsPanel = (props: NotificationListProps) => {
             <MenuList dense={true}>
                 {notifications &&
                     notifications.map(notification => {
-                        const { text, date, isRead, id } = notification;
+                        const { templateId, date, _id, isRead } = notification;
 
-                        return <NotificationItem key={id} id={id} text={text} date={date} isRead={isRead} />;
+                        return <NotificationItem key={_id} id={_id} text={templateId} date={date} isRead={isRead} />;
                     })}
             </MenuList>
             <Link to={'/parent/notifications'} className={classes.notificationLink}>

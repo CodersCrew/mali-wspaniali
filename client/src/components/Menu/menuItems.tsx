@@ -10,8 +10,9 @@ import {
     Archive,
 } from '@material-ui/icons/';
 import { TFunction } from 'i18next';
+import { Role } from '../../graphql/types';
 
-export const getMenuItems = (t: TFunction, userRole: string) => {
+export const getMenuItems = (t: TFunction, role: Role) => {
     const adminMenuItems = [
         { name: t('menu.home'), link: '/admin', icon: <Home /> },
         { name: t('menu.results'), link: '/admin/tests', icon: <Assessment /> },
@@ -29,5 +30,5 @@ export const getMenuItems = (t: TFunction, userRole: string) => {
         { name: t('menu.settings'), link: '/parent/settings', icon: <BuildSharp /> },
     ];
 
-    return userRole === 'parent' ? parentMenuItems : adminMenuItems;
+    return role === 'parent' ? parentMenuItems : adminMenuItems;
 };
