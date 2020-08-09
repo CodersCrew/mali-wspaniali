@@ -1,7 +1,7 @@
 import { gql, FetchResult, ApolloQueryResult } from '@apollo/client';
 
 import { client } from '../apollo_client';
-import { ReturnedStatus, UserInput, Me, User, ReturnedToken } from './types';
+import { ReturnedStatus, UserInput, Me, User, ReturnedToken, Child } from './types';
 
 export interface LoginInput {
     mail: string;
@@ -151,6 +151,33 @@ export function getAllUsers(): Promise<ApolloQueryResult<{ users: User[] }>> {
                         isSigned
                     }
                     role
+                }
+            }
+        `,
+    });
+}
+
+export function getAllChildren(): Promise<ApolloQueryResult<{ allChildren: Child[] }>> {
+    return client.query({
+        query: gql`
+            {
+                allChildren {
+                    _id
+                    firstname
+                    lastname
+                    sex
+                    birthYear
+                    results {
+                        _id
+                        date
+                        test
+                        rootResultId
+                    }
+                    kindergarten {
+                        _id
+                        name
+                        number
+                    }
                 }
             }
         `,
