@@ -2,8 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { User, AuthError, UserCredential } from '../../firebase/firebase';
-import { handleSignInWithEmailAndPassword, onAuthStateChanged, getUserRole } from '../../queries/authQueries';
+import { AuthError } from '../../firebase/firebase';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
 import { login } from '../../commands/userCommand';
@@ -21,10 +20,6 @@ export const LoginPage = () => {
     const classes = useStyles();
     const history = useHistory();
 
-    const handleSubmitSuccess = ({ user }: UserCredential) => {
-        if (user) history.push('/');
-    };
-
     const handleSubmitError = (error: AuthError) => {
         const { code, message } = error;
         setLoginError({
@@ -35,19 +30,12 @@ export const LoginPage = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        login({ mail: email, password }).then(() => {
-            handleSignInWithEmailAndPassword(email, password, handleSubmitSuccess, handleSubmitError);
-        });
+        login({ mail: email, password })
+            .then(e => {
+                history.push(`/${e.role}`);
+            })
+            .catch(handleSubmitError);
     };
-
-    onAuthStateChanged(async (user: User | null) => {
-        if (user) {
-            const role = await getUserRole(user);
-            if (role) {
-                history.push(`/${role}`);
-            }
-        }
-    });
 
     const { code } = loginError;
 
