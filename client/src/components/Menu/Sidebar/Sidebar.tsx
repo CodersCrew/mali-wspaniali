@@ -7,27 +7,37 @@ import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
 import { handleSignOut } from '../../../queries/authQueries';
 import { white } from '../../../colors';
-import { SidebarPropTypes } from './types';
 import { LanguageSelector } from '../../LanguageSelector';
+import { Me } from '../../../graphql/types';
 
-export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
+export interface Props {
+    toggleSidebar(): void;
+    extended: boolean;
+    user: Me | null;
+}
+
+export const Sidebar = ({ toggleSidebar, extended, user }: Props) => {
     const classes = useStyles();
     const history = useHistory();
 
-    const sidebarContainerStyle = clsx(classes.sidebarContainer, isSidebarOpen ? 'opened' : null);
+    const language = localStorage.getItem('i18nextLng');
+
+    const sidebarContainerStyle = clsx({ [classes.sidebarContainer]: true, opened: extended });
 
     const handleLogoutClick = () => {
         handleSignOut();
         history.push('/login');
     };
 
+    if (!user) return null;
+
     return (
         <div className={sidebarContainerStyle}>
-            <SidebarTopItem toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+            <SidebarTopItem user={user} toggleSidebar={toggleSidebar} extended={extended} />
             <div className={classes.sidebarItemsContainer}>
-                <SidebarMenuList isSidebarOpen={isSidebarOpen} />
-                <LanguageSelector isSidebarOpen={isSidebarOpen} />
-                <SidebarLogoutItem handleLogoutClick={handleLogoutClick} isSidebarOpen={isSidebarOpen} />
+                <SidebarMenuList user={user} extended={extended} />
+                <LanguageSelector language={language} extended={extended} />
+                <SidebarLogoutItem handleLogoutClick={handleLogoutClick} extended={extended} />
             </div>
         </div>
     );
