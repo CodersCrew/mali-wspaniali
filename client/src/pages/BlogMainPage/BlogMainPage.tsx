@@ -31,7 +31,7 @@ export const BlogMainPage = () => {
             fetchedArticles = getArticles(currentPage, params.category);
         }
 
-        fetchedArticles.then(({ data }) => setArticles(data.articles));
+        fetchedArticles.then(({ data }) => setArticles(data!.articles));
     }, [params.category, currentPage]);
 
     const paginationQuery = (paginationDirection: string) => {

@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import * as Sentry from '@sentry/node';
-
 import { AppModule } from './app.module';
 import { isProduction } from './shared/utils/is_production';
 
