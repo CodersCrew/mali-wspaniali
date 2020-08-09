@@ -21,6 +21,10 @@ export class KindergartenRepository {
     return await this.model.findById(id).exec();
   }
 
+  async getMany(ids: string[]): Promise<KindergartenProps[]> {
+    return await this.model.find({ _id: ids }).exec();
+  }
+
   async create(
     createKindergartenDTO: CreateKindergartenInput,
   ): Promise<KindergartenProps> {

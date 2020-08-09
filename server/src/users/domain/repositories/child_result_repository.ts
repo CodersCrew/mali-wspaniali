@@ -29,6 +29,13 @@ export class ChildResultRepository {
       .exec();
   }
 
+  async getMany(childIds: string[]): Promise<ChildResultProps[]> {
+    return await this.childResultModel
+      .find({ childId: { $in: childIds } })
+      .lean()
+      .exec();
+  }
+
   async getByRootResult(rootResultId: string): Promise<ChildResultProps> {
     return await this.childResultModel
       .findOne({ rootResultId })

@@ -5,7 +5,7 @@ import { Response } from 'express';
 import { QueryBus } from '@nestjs/cqrs';
 
 import { GqlAuthGuard } from './guards/jwt_guard';
-import { GetAllChildrenQuery } from './domain/queries/impl/get_all__children_query';
+import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
 
 @UseGuards(GqlAuthGuard)
 @Controller('children/result_sheet')

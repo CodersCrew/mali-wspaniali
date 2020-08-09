@@ -35,6 +35,7 @@ import { GetValidAggrementsQuery } from '../agreements/domain/queries/impl/get_v
 import { AddAggrementToUserCommand } from './domain/commands/impl/add_aggrement_to_user_command';
 import { AggrementProps } from '../agreements/schemas/aggrement_schema';
 import { GetAllUsersQuery } from './domain/queries/impl/get_all_users_query';
+import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
 import {
   ChangePasswordCommand,
   AddChildCommand,
@@ -105,6 +106,13 @@ export class UsersResolver {
     );
 
     return { status: !!created };
+  }
+
+  @Query(() => [ChildDTO])
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async allChildren(): Promise<UserProps> {
+    console.log(await this.queryBus.execute(new GetAllChildrenQuery()));
+    return await this.queryBus.execute(new GetAllChildrenQuery());
   }
 
   @Mutation(() => ReturnedStatusDTO)

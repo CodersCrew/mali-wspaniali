@@ -8,10 +8,7 @@ import * as mongoose from 'mongoose';
 
 @QueryHandler(GetAllUsersQuery)
 export class GetAllUsersHandler implements IQueryHandler<GetAllUsersQuery> {
-  constructor(
-    private readonly userRepository: UserRepository,
-    private readonly childRepository: ChildRepository,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async execute(): Promise<UserProps[]> {
     return await this.userRepository.getAll();
