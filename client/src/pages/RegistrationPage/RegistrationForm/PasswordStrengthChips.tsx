@@ -9,21 +9,25 @@ import { PasswordValidation } from './types';
 
 const T_PREFIX = 'registration-page';
 
-export const PasswordStrengthChips: React.FC<{ passwordValidation: PasswordValidation }> = ({ passwordValidation }) => {
+interface Props {
+    passwordValidation: PasswordValidation;
+}
+
+export const PasswordStrengthChips = ({ passwordValidation }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <div className={classes.chipsContainer}>
-            {Object.entries(passwordValidation).map(([key, value]) => (
+            {Object.entries(passwordValidation).map(([condition, isMet]) => (
                 <Chip
-                    key={key}
+                    key={condition}
                     size="small"
                     variant="outlined"
-                    icon={value ? <CheckCircleIcon /> : <CheckIcon />}
-                    label={t(`${T_PREFIX}.${key}`)}
-                    className={clsx(classes.chip, value && 'checked')}
-                    color={value ? 'primary' : 'default'}
+                    icon={isMet ? <CheckCircleIcon /> : <CheckIcon />}
+                    label={t(`${T_PREFIX}.${condition}`)}
+                    className={clsx({ [classes.chip]: true, checked: isMet })}
+                    color={isMet ? 'primary' : 'default'}
                 />
             ))}
         </div>

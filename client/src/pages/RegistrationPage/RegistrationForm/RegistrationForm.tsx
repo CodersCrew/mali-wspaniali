@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Container } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -13,11 +13,10 @@ import { RegistrationPassword } from './RegistrationPassword';
 import { RegistrationFeedback } from './RegistrationFeedback';
 import { RegistrationCode } from './RegistrationCode';
 import { LanguageSelector } from './LanguageSelector';
-import { getAgreements } from '../../../queries/agreementQueries';
-import { Agreement } from '../../../firebase/types';
+
 import { RegisterForm } from './types';
-import { useSubscribed } from '../../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../../firebase/userRepository';
+import { Aggrement } from '../../../graphql/types';
+import { getAggrements } from '../../../graphql/agreementRepository';
 
 const initialState: RegisterForm = {
     code: '',
@@ -29,14 +28,14 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
+    const [aggrements, setAggrements] = useState<Aggrement[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const agreements = useSubscribed<Agreement[] | null, string>(
-        (callback: OnSnapshotCallback<Agreement[]>) => getAgreements(callback),
-        [],
-    ) as Agreement[];
+    useEffect(() => {
+        getAggrements().then(({ data: { aggrements } }) => setAggrements(aggrements));
+    }, []);
 
     const steps = [
         t('registration-page.enter-code'),
@@ -68,7 +67,7 @@ export const RegistrationForm = () => {
                         email={email}
                         form={form}
                         classForm={classes.formItem}
-                        classButton={clsx(classes.buttonWrapper, activeStep === 0 && 'emailContent')}
+                        classButton={clsx({ [classes.buttonWrapper]: true, emailContent: activeStep === 0 })}
                         classNextBtn={classes.nextButton}
                     />
                 );
@@ -90,7 +89,7 @@ export const RegistrationForm = () => {
                         agreementPanel={classes.agreementPanel}
                         agreementCheckbox={classes.agreementCheckbox}
                         checkboxContent={classes.checkboxContent}
-                        agreements={agreements}
+                        agreements={aggrements}
                     />
                 );
             case 3:
@@ -111,7 +110,7 @@ export const RegistrationForm = () => {
                 return (
                     <RegistrationFeedback
                         classLink={classes.goToHomepageLink}
-                        classHeader={clsx(classes.loginHeader, activeStep === 3 && 'confirmation')}
+                        classHeader={clsx({ [classes.loginHeader]: true, confirmation: activeStep === 3 })}
                         classWrapper={classes.confirmWrapper}
                     />
                 );
@@ -136,7 +135,7 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-mismatch'),
             });
         } else {
-            load(createUser({mail: email, password, keyCode: code}))
+            load(createUser({ mail: email, password, keyCode: code }))
                 .then(() => {
                     handleNext();
                 })
@@ -155,7 +154,7 @@ export const RegistrationForm = () => {
     };
 
     return (
-        <div className={clsx(classes.container, activeStep === 2 && 'agreements')}>
+        <div className={clsx({ [classes.container]: true, agreements: activeStep === 2 })}>
             <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
                 {activeStep !== 4 && (
                     <Container className={classes.headerContainer}>
