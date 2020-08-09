@@ -1,13 +1,13 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useStyles } from './EmptyResultStyles'
+import { useStyles } from './EmptyResultStyles';
 
 interface Props {
-    onNoResultClick: () => void;
+    onClick: () => void;
 }
 
-export const EmptyResultDetailed = ({ onNoResultClick }: Props) => {
+export const EmptyResultDetailed = ({ onClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -41,7 +41,7 @@ export const EmptyResultDetailed = ({ onNoResultClick }: Props) => {
                 </ol>
                 <Typography variant="h4">
                     {t('child-profile.no-results-bottom')}{' '}
-                    <span className={classes.link} onClick={onNoResultClick}>
+                    <span className={classes.link} onClick={onClick}>
                         {t('child-profile.no-results-link')}
                     </span>
                 </Typography>

@@ -3,45 +3,53 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { resultKey, TESTS } from './constants';
-import { ResultDetailsProps } from './types';
-import { SingleTestResult } from './SingleTestResult';
-import { NoResultsBlock } from './NoResultsBlock';
+import { Measurement } from './Measurement';
+import { NoResultsBlock } from './emptyViews/NoResultsBlock';
+import { TestResult } from '../../../../graphql/types';
 
-export const ResultDetailsRight = ({ result, previousResult }: ResultDetailsProps) => {
+export interface Props {
+    result: TestResult;
+}
+
+export const TestDetails = ({ result }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const testsWithNoResult = TESTS.filter(test => !result[test.pointsKey as resultKey]);
+
+    if (!result) return null;
 
     return (
         <div className={classes.wrapper}>
             <Typography variant="body2">
-                {result.testPeriod === 'begin'
+                {result.test.testPeriod === 'START'
                     ? t('child-profile.initial-test-title')
                     : t('child-profile.final-test-title')}
                 :
             </Typography>
             <div className={classes.chartsWrapper}>
                 {TESTS.map(test => (
-                    <SingleTestResult
-                        valueInUnitOfMeasure={result[test.unitOfMeasureKey as resultKey]}
-                        valueInPoints={result[test.pointsKey as resultKey]}
+                    <Measurement
+                        valueInUnitOfMeasure={result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number}
+                        valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
                         unitOfMeasure={test.unitOfMeasure}
                         scaleFrom={test.scaleFrom}
                         scaleTo={test.scaleTo}
                         translationKey={test.translationKey}
                         key={test.translationKey}
-                        previousPoints={previousResult && previousResult[test.pointsKey as resultKey]}
                     />
                 ))}
             </div>
-            <div>
-                {testsWithNoResult.map(test => (
-                    <NoResultsBlock key={test.translationKey} translationKey={test.translationKey} />
-                ))}
-            </div>
+            <div>{getTestUnavailableReason(result)}</div>
         </div>
     );
 };
+
+function getTestUnavailableReason(result: TestResult) {
+    const testsWithNoResult = TESTS.filter(test => !result.test[test.pointsKey as resultKey]);
+
+    return testsWithNoResult.map(test => (
+        <NoResultsBlock key={test.translationKey} translationKey={test.translationKey} />
+    ));
+}
 
 const useStyles = makeStyles({
     wrapper: {

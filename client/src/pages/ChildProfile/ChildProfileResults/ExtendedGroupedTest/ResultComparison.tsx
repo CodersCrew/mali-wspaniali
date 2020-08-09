@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import { Card, Typography, Dialog } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
-import { getDifferenceKey, getResultColorAndLabel } from './utils';
+import { getResultColorAndLabel } from './calculateResult';
 import { MAX_OVERALL_POINTS } from './constants';
-import { gray } from '../../../colors';
-import { useSubscribed } from '../../../hooks/useSubscribed';
-import { Advice } from '../../../firebase/types';
-import { OnSnapshotCallback } from '../../../firebase/userRepository';
-import { getAdviceByResultAndAge } from '../../../queries/adviceQueries';
-import { AdviceModal } from './AdviceModal';
-import { ButtonSecondary } from '../../../components/Button';
+import { gray } from '../../../../colors';
+import { AdviceModal } from './modals/AdviceModal';
+import { ButtonSecondary } from '../../../../components/Button';
 
 interface Props {
     firstResultPoints: number;
@@ -25,10 +21,6 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
     const classes = useStyles({ color });
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);
 
-    const advice = useSubscribed<Advice>((callback: OnSnapshotCallback<Advice>) =>
-        getAdviceByResultAndAge(key, childAge, callback),
-    ) as Advice;
-
     return (
         <>
             <div className={classes.wrapper}>
@@ -41,12 +33,12 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                         <Typography className={classes.cardBottomText} variant="body2">
                             {t('child-profile.comparison-label')}
                         </Typography>
-                        <div className={classes.difference}>
-                            {t(`child-profile.difference.${key}`)}
-                        </div>
-                        {advice && advice.content && (
-                            <ButtonSecondary variant="contained" onClick={() => setIsModalOpen(true)} innerText={t('child-profile.comparison-button')} />
-                        )}
+                        <div className={classes.difference}>{t(`child-profile.difference.${key}`)}</div>
+                        <ButtonSecondary
+                            variant="contained"
+                            onClick={() => setIsModalOpen(prev => !prev)}
+                            innerText={t('child-profile.comparison-button')}
+                        />
                     </div>
                 </Card>
                 <div className={classes.rightWrapper}>
@@ -55,14 +47,22 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                     </Typography>
                 </div>
             </div>
-            {advice && advice.content && (
-                <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    <AdviceModal content={advice.content} closeModal={() => setIsModalOpen(false)} />
-                </Dialog>
-            )}
+            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(prev => !prev)}>
+                <AdviceModal
+                    content={t(`child-profile.difference.${key}`)}
+                    onClose={() => setIsModalOpen(prev => !prev)}
+                />
+            </Dialog>
         </>
     );
 };
+
+function getDifferenceKey(firstValue: number, lastValue: number) {
+    if (firstValue > lastValue) return 'regress';
+    if (firstValue < lastValue) return 'progress';
+
+    return 'constant';
+}
 
 const useStyles = makeStyles({
     wrapper: {

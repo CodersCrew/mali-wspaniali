@@ -2,10 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
-import { CircleChart } from '../../../components/CircleChart';
-import { getResultColorAndLabel } from './utils';
+import { CircleChart } from '../../../../components/CircleChart';
+import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
-import { white } from '../../../colors';
+import { white } from '../../../../colors';
 
 interface Props {
     valueInUnitOfMeasure: number;
@@ -14,33 +14,30 @@ interface Props {
     scaleFrom: number;
     scaleTo: number;
     translationKey: string;
-    previousPoints?: number;
 }
 
-export const SingleTestResult = ({
+export const Measurement = ({
     valueInUnitOfMeasure,
     valueInPoints,
     unitOfMeasure,
     scaleFrom,
     scaleTo,
     translationKey,
-    previousPoints,
 }: Props) => {
-    const classes = useStyles();
     const { t } = useTranslation();
-    const { color, lightColor } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
+    const { color } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
+
+    const classes = useStyles({ color });
 
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.container}>
             <div className={classes.chartWrapper}>
                 <CircleChart
-                    mainColor={color}
+                    color={color}
                     value={valueInPoints}
                     maxValue={MAX_POINTS_FOR_TEST}
                     label={String(valueInUnitOfMeasure)}
                     labelSuffix={unitOfMeasure}
-                    previousValue={previousPoints}
-                    secondaryColor={lightColor}
                 />
             </div>
             <div className={classes.testName}>{t(`child-profile.tests.${translationKey}`)}</div>
@@ -48,7 +45,7 @@ export const SingleTestResult = ({
                 {t('child-profile.scale')}: {scaleFrom} {unitOfMeasure} - {scaleTo} {unitOfMeasure}
             </Typography>
             <Typography variant="body2">{t('child-profile.received-points')}:</Typography>
-            <div className={classes.points} style={{ backgroundColor: color }}>
+            <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>
         </div>
@@ -56,7 +53,7 @@ export const SingleTestResult = ({
 };
 
 const useStyles = makeStyles({
-    wrapper: {
+    container: {
         padding: '10px 20px',
         marginTop: '30px',
     },
@@ -82,6 +79,7 @@ const useStyles = makeStyles({
         width: 'fit-content',
         padding: '3px 10px',
         marginTop: '15px',
+        backgroundColor: ({ color }: { color: string }) => color,
     },
     scale: {
         paddingBottom: '7px',

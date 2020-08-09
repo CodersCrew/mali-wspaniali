@@ -1,23 +1,20 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { Result } from '../../../firebase/types';
-import { lightTextColor } from '../../../colors';
-import { getMaxDate, getSchoolYearLabel } from './utils';
-import { ButtonSecondary } from '../../../components/Button';
+import { lightTextColor } from '../../../../colors';
+import { ButtonSecondary } from '../../../../components/Button';
+import moment from 'moment';
 
 interface Props {
-    handleClickDetailsButton: (key: string) => void;
-    resultGroup: Result[];
+    onClose: () => void;
     isExpanded: boolean;
     schoolYearStart: number;
+    date: Date;
 }
 
-export const ResultSummary = ({ resultGroup, handleClickDetailsButton, isExpanded, schoolYearStart }: Props) => {
+export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, date }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
-
-    const updatedAt = getMaxDate(resultGroup.map(result => result.updatedAt).filter(Boolean));
 
     return (
         <div className={classes.wrapper}>
@@ -26,10 +23,14 @@ export const ResultSummary = ({ resultGroup, handleClickDetailsButton, isExpande
             </Typography>
             <Typography className={classes.updatedAt}>
                 {t('child-profile.last-update-date')}:{' '}
-                <span className={classes.updatedAtDate}>{updatedAt ? updatedAt.format('L') : '-'}</span>
+                <span className={classes.updatedAtDate}>{moment(date).format('L')}</span>
             </Typography>
             <ButtonSecondary
-                onClick={() => handleClickDetailsButton(String(schoolYearStart))}
+                onClick={event => {
+                    isExpanded && event.stopPropagation();
+
+                    onClose();
+                }}
                 variant={isExpanded ? 'outlined' : 'contained'}
                 className={classes.detailsButton}
                 innerText={isExpanded ? t('child-profile.collapse-details') : t('child-profile.details')}
@@ -37,6 +38,10 @@ export const ResultSummary = ({ resultGroup, handleClickDetailsButton, isExpande
         </div>
     );
 };
+
+function getSchoolYearLabel(schoolYearStart: number) {
+    return `${schoolYearStart}/${schoolYearStart + 1}`;
+}
 
 const useStyles = makeStyles({
     wrapper: {

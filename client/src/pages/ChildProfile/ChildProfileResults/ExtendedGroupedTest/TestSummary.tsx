@@ -3,26 +3,27 @@ import { useTranslation } from 'react-i18next';
 import { Card, Dialog, Typography } from '@material-ui/core';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
-import { CircleChart } from '../../../components/CircleChart';
-import { getResultColorAndLabel } from './utils';
-import { gray } from '../../../colors';
-import { ResultDetailsProps } from './types';
+import { CircleChart } from '../../../../components/CircleChart';
+import { getResultColorAndLabel } from './calculateResult';
+import { gray } from '../../../../colors';
 import { MAX_OVERALL_POINTS } from './constants';
-import { AdviceModal } from './AdviceModal';
-import { useSubscribed } from '../../../hooks/useSubscribed';
-import { Advice } from '../../../firebase/types';
-import { OnSnapshotCallback } from '../../../firebase/userRepository';
-import { getAdviceByResult } from '../../../queries/adviceQueries';
-import { ButtonSecondary } from '../../../components/Button';
+import { AdviceModal } from './modals/AdviceModal';
+import { ButtonSecondary } from '../../../../components/Button';
+import { TestResult } from '../../../../graphql/types';
 
-export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps) => {
+export interface Props {
+    result: TestResult;
+}
+
+export const TestSummary = ({ result }: Props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const classes = useStyles();
     const { t } = useTranslation();
-    const { color, lightColor, key } = getResultColorAndLabel(result.sumOfPoints, MAX_OVERALL_POINTS);
-    const advice = useSubscribed<Advice>((callback: OnSnapshotCallback<Advice>) =>
-        getAdviceByResult(key, callback),
-    ) as Advice;
+
+    const { agilityPoints, powerPoints, speedPoints, strengthPoints, childAge, testPeriod } = result.test;
+
+    const sumOfPoints = agilityPoints + powerPoints + speedPoints + strengthPoints;
+    const { color, key } = getResultColorAndLabel(sumOfPoints, MAX_OVERALL_POINTS);
+    const classes = useStyles({ color });
 
     return (
         <>
@@ -30,19 +31,17 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
                 <div className={classes.cardTop}>
                     <Typography variant="subtitle1">{t('child-profile.info-about-test')}</Typography>
                     <Typography variant="h3">
-                        {result.testPeriod === 'begin'
-                            ? t('child-profile.initial-test')
-                            : t('child-profile.final-test')}
+                        {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
                     </Typography>
                     <Typography variant="subtitle1">
-                        {t('child-profile.carries-out-on')} {moment(result.dateOfTest).format('L')}
+                        {t('child-profile.carries-out-on')} {moment(result.date).format('L')}
                     </Typography>
                 </div>
                 <div className={classes.cardMiddle}>
                     <Typography variant="body2">
                         {t('child-profile.age-group')}:{' '}
                         <span className={classes.age}>
-                            {result.ageOfChild} {t('years', { count: result.ageOfChild })}
+                            {childAge} {t('years', { count: childAge })}
                         </span>
                     </Typography>
                 </div>
@@ -50,28 +49,27 @@ export const ResultDetailsLeft = ({ result, previousResult }: ResultDetailsProps
                     <Typography variant="body2">{t('child-profile.fitness-level')}:</Typography>
                     <div className={classes.chart}>
                         <CircleChart
-                            mainColor={color}
-                            secondaryColor={lightColor}
-                            value={result.sumOfPoints}
+                            color={color}
+                            value={sumOfPoints}
                             maxValue={MAX_OVERALL_POINTS}
-                            label={String(result.sumOfPoints)}
+                            label={String(sumOfPoints)}
                             labelSuffix={t('child-profile.pts')}
-                            previousValue={previousResult && previousResult.sumOfPoints}
                         />
                     </div>
-                    <div className={classes.resultDescription} style={{ color }}>
-                        {t(`child-profile.result-description.${key}`)}
-                    </div>
-                    {advice && advice.content && (
-                        <ButtonSecondary variant="contained" onClick={() => setIsModalOpen(true)} innerText={t('child-profile.advice')} />
-                    )}
+                    <div className={classes.resultDescription}>{t(`child-profile.result-description.${key}`)}</div>
+                    <ButtonSecondary
+                        variant="contained"
+                        onClick={() => setIsModalOpen(prev => !prev)}
+                        innerText={t('child-profile.advice')}
+                    />
                 </div>
             </Card>
-            {advice && advice.content && (
-                <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    <AdviceModal content={advice.content} closeModal={() => setIsModalOpen(false)} />
-                </Dialog>
-            )}
+            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(prev => !prev)}>
+                <AdviceModal
+                    content={t(`child-profile.result-description.${key}`)}
+                    onClose={() => setIsModalOpen(prev => !prev)}
+                />
+            </Dialog>
         </>
     );
 };
@@ -118,5 +116,6 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         marginBottom: '15px',
         fontWeight: 'bold',
+        color: ({ color }: { color: string }) => color,
     },
 });
