@@ -2,14 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { mapToObject } from '../../shared/utils/cookie';
-
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        request => (request as any).session.Authorization,
+        request => request.headers.authorization,
       ]),
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
