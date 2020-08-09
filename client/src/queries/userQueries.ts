@@ -2,8 +2,7 @@ import { FetchResult } from 'apollo-boost';
 import { ReturnedStatus, UserInput } from '../graphql/types';
 import { firebase } from '../firebase/firebase';
 import { OnSnapshotCallback } from '../firebase/userRepository';
-import { Parent } from '../pages/ParentProfile/types';
-import { UserAgreement, Document } from '../firebase/types';
+import { Document } from '../firebase/types';
 import * as UserRepository from '../graphql/userRepository';
 
 export const createUser = (user: UserInput): Promise<FetchResult<ReturnedStatus>> => {
@@ -20,9 +19,6 @@ export const getUsersData = async (rowsPerPage: number, last: Document | null, f
     return { users, unsubscribe, newLastVisible, newFirstVisible };
 };
 
-export const getUserById = (id: string, onSnapshotCallback: OnSnapshotCallback<Parent>) =>
-    firebase.user.getUserById(id, onSnapshotCallback);
-
 export const getCurrentUser = () => {
     return firebase.auth.getCurrentUser();
 };
@@ -37,12 +33,8 @@ export const getCurrentUserIdToken = async () => {
     return idToken;
 };
 
-export const getParents = (onSnapshotCallback: OnSnapshotCallback<Parent[]>) => {
+export const getParents = (onSnapshotCallback: OnSnapshotCallback<any[]>) => {
     firebase.user.getParents(onSnapshotCallback);
-};
-
-export const getUserAgreements = (userId: string, callback: OnSnapshotCallback<UserAgreement[]>) => {
-    firebase.user.getUserAgreements(userId, callback);
 };
 
 export const toggleUserAgreement = (userId: string, userAgreementId: string, value: boolean) => {
