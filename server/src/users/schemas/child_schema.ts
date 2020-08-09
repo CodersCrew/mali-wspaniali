@@ -16,4 +16,5 @@ export const ChildSchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
+  kindergarten: mongoose.Schema.Types.ObjectId,
 });

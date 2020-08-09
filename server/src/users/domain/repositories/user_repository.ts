@@ -16,7 +16,22 @@ export class UserRepository {
     return await this.userModel
       .findById(id, { password: 0 })
       .lean()
-      .exec();
+      .exec()
+      .then(user => ({ ...user, aggrements: user.aggrements || [] }));
+  }
+
+  async getAll(): Promise<UserProps[]> {
+    return await this.userModel
+      .find({}, { password: 0 })
+      .lean()
+      .exec()
+      .then(users =>
+        users.map(user => ({
+          ...user,
+          aggrements: user.aggrements || [],
+          children: user.children || [],
+        })),
+      );
   }
 
   async getByMail(mail: string): Promise<UserProps> {

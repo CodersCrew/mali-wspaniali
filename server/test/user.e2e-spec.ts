@@ -267,7 +267,7 @@ describe('User (e2e)', () => {
         })
         .then(response => {
           expect(response.body.data.me.mail).toEqual('test@test.pl');
-          expect(response.body.data.me.role).toEqual('user');
+          expect(response.body.data.me.role).toEqual('parent');
           expect(response.body.data.me.children.length).toEqual(1);
           expect(response.body.data.me.children[0]).toEqual(
             jasmine.objectContaining({

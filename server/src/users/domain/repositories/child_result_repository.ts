@@ -29,6 +29,20 @@ export class ChildResultRepository {
       .exec();
   }
 
+  async getByRootResult(rootResultId: string): Promise<ChildResultProps> {
+    return await this.childResultModel
+      .findOne({ rootResultId })
+      .lean()
+      .exec();
+  }
+
+  async getById(id: string): Promise<ChildResultProps> {
+    return await this.childResultModel
+      .findById(id)
+      .lean()
+      .exec();
+  }
+
   // for e2e purpose only
   async clearTable(): Promise<void> {
     await this.childResultModel.deleteMany({});

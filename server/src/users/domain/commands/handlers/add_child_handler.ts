@@ -1,4 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import * as mongoose from 'mongoose';
 
 import { AddChildCommand } from '../impl/add_child_command';
 import { UserRepository } from '../../repositories/user_repository';
@@ -13,9 +14,15 @@ export class AddChildHandler implements ICommandHandler<AddChildCommand> {
   ) {}
 
   async execute(command: AddChildCommand): Promise<ChildDocument> {
-    const { child, userId } = command;
+    const {
+      child: { kindergartenId, ...rawChild },
+      userId,
+    } = command;
 
-    const createdChild = await this.childRepository.create(child);
+    const createdChild = await this.childRepository.create({
+      ...rawChild,
+      kindergarten: new mongoose.Schema.Types.ObjectId(kindergartenId),
+    });
 
     if (createdChild) {
       this.userRepository.addChild(createdChild._id.toString(), userId);
