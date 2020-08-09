@@ -1,14 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell } from '@material-ui/core/';
-import { Result, Child } from '../../firebase/types';
+import { Child } from '../../graphql/types';
+import { countSumOfPoints } from '../../utils/countSumOfPoints';
 
-export const TestResultsTableRow = ({ child }: { child: Child }) => {
+interface Props {
+    child: Child;
+}
+
+export const TestResultsTableRow = ({ child }: Props) => {
     const { t } = useTranslation();
 
     return (
         <TableRow>
-            <TableCell>{`${child.firstName} ${child.lastName}`}</TableCell>
+            <TableCell>{`${child.firstname} ${child.lastname}`}</TableCell>
             {child.results ? (
                 child.results.map((result, index) => (
                     <TableCell key={`${child._id}-test${index}`}>{countSumOfPoints(result.test)}</TableCell>
