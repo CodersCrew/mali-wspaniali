@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Container from '@material-ui/core/Container';
-import TableContainer from '@material-ui/core/TableContainer';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableHead from '@material-ui/core/TableHead';
-import TableCell from '@material-ui/core/TableCell';
-import Typography from '@material-ui/core/Typography';
+import {
+    Container,
+    TableContainer,
+    TableHead,
+    Table,
+    TableCell,
+    Typography,
+    TableRow,
+    TableBody,
+} from '@material-ui/core';
 import { getUsersData } from '../../queries/userQueries';
 import { Document } from '../../firebase/types';
 import { UsersTableRow } from './UsersTableRow';
 import { UserPagePagination, PaginationDirections } from './UserPagePagination';
 import { NoResults } from './NoResults';
-import { load } from '../../utils/load';
+import { getAllUsers } from '../../graphql/userRepository';
+import { User } from '../../graphql/types';
 
 export const UsersPage = () => {
     const [usersList, setUsersList] = useState<Document[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage] = useState(10);
     const [lastVisible, setLastVisible] = useState<Document | null>(null);
@@ -24,25 +28,8 @@ export const UsersPage = () => {
     const [listeners, setListeners] = useState<(() => void)[]>([]);
     const { t } = useTranslation();
 
-    const detachListeners = () => {
-        listeners.forEach(listener => () => listener());
-    };
-
-    const waitForUsers = async () => {
-        const { users, unsubscribe, newLastVisible, newFirstVisible } = await getUsersData(rowsPerPage, null, null);
-        if (unsubscribe) {
-            setLastVisible(newLastVisible);
-            setFirstVisible(newFirstVisible);
-            setUsersList(users);
-            setListeners([...listeners, unsubscribe]);
-        }
-    };
-
     useEffect(() => {
-        load(waitForUsers());
-
-        return () => detachListeners();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        getAllUsers().then(({ data: { users } }) => setUsers(users));
     }, []);
 
     const pageChangeHandler = async (direction: string) => {
@@ -61,7 +48,7 @@ export const UsersPage = () => {
         }
     };
 
-    if (usersList.length === 0) return <NoResults />;
+    if (users.length === 0) return <NoResults />;
 
     return (
         <Container>
@@ -77,8 +64,8 @@ export const UsersPage = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {usersList.map(user => (
-                            <UsersTableRow user={user} key={user.id} />
+                        {users.map(user => (
+                            <UsersTableRow key={user._id} user={user} />
                         ))}
                     </TableBody>
                 </Table>
@@ -92,5 +79,3 @@ export const UsersPage = () => {
         </Container>
     );
 };
-
-export default UsersPage;
