@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-boost';
+import { ApolloQueryResult } from '@apollo/client';
 
 import { Article } from '../graphql/types';
 import * as ArticleRepository from '../graphql/articleRepository';

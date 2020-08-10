@@ -1,7 +1,7 @@
 import { gql, FetchResult } from 'apollo-boost';
 
 import { client } from '../apollo_client';
-import { ReturnedStatus, UserInput } from './types';
+import { ReturnedStatus, UserInput, ReturnedToken } from './types';
 
 export interface LoginInput {
     mail: string;
@@ -21,12 +21,12 @@ export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>
     });
 }
 
-export function loginUser(user: LoginInput): Promise<FetchResult<ReturnedStatus>> {
+export function loginUser(user: LoginInput): Promise<FetchResult<ReturnedToken>> {
     return client.mutate({
         mutation: gql`
             mutation login($user: LoginInput!) {
                 login(user: $user) {
-                    status
+                    token
                 }
             }
         `,

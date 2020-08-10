@@ -1,4 +1,4 @@
-import { gql, DocumentNode, ApolloQueryResult } from 'apollo-boost';
+import { gql, DocumentNode, ApolloQueryResult } from '@apollo/client';
 
 import { Article } from './types';
 import { client } from '../apollo_client';

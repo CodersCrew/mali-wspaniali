@@ -18,6 +18,7 @@ import { UserDTO } from './dto/user_dto';
 import { UserRepository } from './domain/repositories/user_repository';
 import { UserInput } from './inputs/user_input';
 import { ReturnedStatusDTO } from '../shared/returned_status';
+import { ReturnedTokenDTO } from '../shared/returned_token';
 import { LoginInput } from './inputs/login_input';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { CurrentUser } from './params/current_user_param';
@@ -118,11 +119,11 @@ export class UsersResolver {
     return { status: !!created };
   }
 
-  @Mutation(() => ReturnedStatusDTO)
+  @Mutation(() => ReturnedTokenDTO)
   async login(
     @Context() context,
     @Args('user') user: LoginInput,
-  ): Promise<{ status: boolean }> {
+  ): Promise<{ token: string }> {
     const payload = await this.commandBus.execute(
       new LoginUserCommand(user.mail, user.password),
     );
@@ -134,9 +135,7 @@ export class UsersResolver {
       );
     }
 
-    context.res.cookie('Authorization', payload);
-
-    return { status: !!payload };
+    return { token: payload };
   }
 
   @Mutation(() => ReturnedStatusDTO)

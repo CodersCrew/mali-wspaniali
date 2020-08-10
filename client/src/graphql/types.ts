@@ -32,6 +32,12 @@ export interface ReturnedStatus {
     status: boolean;
 }
 
+export interface ReturnedToken {
+    login: {
+        token: string;
+    };
+}
+
 export interface UserInput {
     mail: string;
     password: string;
