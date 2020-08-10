@@ -58,7 +58,7 @@ export const ParentSettingsExpansionPanel = () => {
                     aria-controls="legal-notes-panel-content"
                     id="legal-notes-panel-header"
                 >
-                    <Typography className={classes.heading}>{t('settings-page.parent.legal-notes.heading')}</Typography>
+                    <Typography className={classes.heading}>{t('settings-page.legal-notes.heading')}</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     <LegalNotesPanel />
