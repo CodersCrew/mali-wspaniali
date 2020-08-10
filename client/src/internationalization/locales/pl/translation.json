@@ -359,8 +359,7 @@
         "description": "Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
         "password-change": "ZMIANA HASŁA",
         "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
-        "legal-data": "INFORMACJE PRAWNE",
-        "legal-data-comment": "Zapoznaj się z regulaminem",
+        "legal-notes-comment": "Zapoznaj się z regulaminem",
         "consents": "ZGODY PODPISANE W PROGRAMIE",
         "consents-comment": "Przejrzyj i zmień wydane zgody",
         "old-password": "Aktualne hasło",
@@ -373,13 +372,21 @@
             "number": "Cyfra",
             "symbol": "Znak specjalny"
         },
+        "cancel-button": "ANULUJ",
+        "legal-notes": {
+            "heading": "INFORMACJE PRAWNE",
+            "privacy-policy": "Polityka prywatności",
+            "regulations": "Regulamin"
+        },
         "parent": {
             "header": "USTAWIENIA",
             "description": "Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
             "password-change": "ZMIANA HASŁA",
             "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
-            "legal-data": "INFORMACJE PRAWNE",
-            "legal-data-comment": "Zapoznaj się z regulaminem",
+            "language-selection": "WYBÓR JĘZYKA",
+            "language-selection-comment": "Wybierz język domyślny dla aplikacji",
+            "legal-notes": "INFORMACJE PRAWNE",
+            "legal-notes-comment": "Zapoznaj się z regulaminem",
             "consents": "ZGODY PODPISANE W PROGRAMIE",
             "consents-comment": "Przejrzyj i zmień wydane zgody"
         },
@@ -388,14 +395,15 @@
             "description": ".Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
             "password-change": ".ZMIANA HASŁA",
             "password-change-comment": ".Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
-            "legal-data": ".INFORMACJE PRAWNE",
-            "legal-data-comment": ".Zapoznaj się z regulaminem",
+            "language-selection": "WYBÓR JĘZYKA",
+            "language-selection-comment": "Wybierz język domyślny dla aplikacji",
+            "legal-notes": ".INFORMACJE PRAWNE",
+            "legal-notes-comment": ".Zapoznaj się z regulaminem",
             "consents": ".ZGODY PODPISANE W PROGRAMIE",
             "consents-comment": ".Przejrzyj i zmień wydane zgody"
         }
     },
     "years_0": "rok",
     "years_1": "lata",
-    "years_2": "lat",
-    "close": "Zamknij"
+    "years_2": "lat"
 }
