@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
 import { ChangePasswordPanel } from '../ChangePasswordPanel';
+import { DefaultLanguagePanel } from '../DefaultLanguagePanel';
+import { LegalNotesPanel } from '../LegalNotesPanel';
+import { ConsentsPanel } from '../ConsentsPanel';
 
 export const ParentSettingsExpansionPanel = () => {
     const classes = useStyles();
@@ -19,62 +22,58 @@ export const ParentSettingsExpansionPanel = () => {
 
     return (
         <div className={classes.root}>
-            <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <ExpansionPanel
+                expanded={expanded === 'password-change-panel'}
+                onChange={handleChange('password-change-panel')}
+            >
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
+                    aria-controls="password-change-panel-content"
+                    id="password-panel-header"
                 >
                     <Typography className={classes.heading}>{t('settings-page.parent.password-change')}</Typography>
-                    <Typography className={classes.secondaryHeading}>
-                        {t('settings-page.parent.password-change-comment')}
-                    </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     <ChangePasswordPanel />
-                    {/* <ChangePasswordPanelOld /> */}
-                    {/*
-                    <Typography>
-                        Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est,
-                        id dignissim quam.
-                    </Typography>
-*/}
                 </ExpansionPanelDetails>
             </ExpansionPanel>
-            <ExpansionPanel expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+            <ExpansionPanel
+                expanded={expanded === 'language-selection-panel'}
+                onChange={handleChange('language-selection-panel')}
+            >
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2bh-content"
-                    id="panel2bh-header"
+                    aria-controls="language-selection-panel-content"
+                    id="language-selection-panel-header"
                 >
-                    <Typography className={classes.heading}>{t('settings-page.parent.legal-data')}</Typography>
-                    <Typography className={classes.secondaryHeading}>
-                        {t('settings-page.parent.legal-data-comment')}
-                    </Typography>
+                    <Typography className={classes.heading}>{t('settings-page.parent.language-selection')}</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <Typography>
-                        Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar diam eros
-                        in elit. Pellentesque convallis laoreet laoreet.
-                    </Typography>
+                    <DefaultLanguagePanel />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
-            <ExpansionPanel expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+            <ExpansionPanel expanded={expanded === 'legal-notes-panel'} onChange={handleChange('legal-notes-panel')}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel3bh-content"
-                    id="panel3bh-header"
+                    aria-controls="legal-notes-panel-content"
+                    id="legal-notes-panel-header"
+                >
+                    <Typography className={classes.heading}>{t('settings-page.parent.legal-notes.heading')}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <LegalNotesPanel />
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel expanded={expanded === 'consents-panel'} onChange={handleChange('consents-panel')}>
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="consents-panel-content"
+                    id="consents-panel-header"
                 >
                     <Typography className={classes.heading}>{t('settings-page.parent.consents')}</Typography>
-                    <Typography className={classes.secondaryHeading}>
-                        {t('settings-page.parent.consents-comment')}
-                    </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros, vitae
-                        egestas augue. Duis vel est augue.
-                    </Typography>
+                    <ConsentsPanel />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
@@ -90,6 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: theme.typography.pxToRem(15),
             flexBasis: '33.33%',
             flexShrink: 0,
+            fontWeight: 'bold',
         },
         secondaryHeading: {
             fontSize: theme.typography.pxToRem(15),
