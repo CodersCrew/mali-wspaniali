@@ -10,5 +10,5 @@ export interface ChildProps {
   sex: string;
   birthYear: number;
   results?: mongoose.Schema.Types.ObjectId[] | ChildResultProps[];
-  kindergarten: mongoose.Schema.Types.ObjectId | KindergartenProps;
+  kindergarten: mongoose.Types.ObjectId | KindergartenProps;
 }

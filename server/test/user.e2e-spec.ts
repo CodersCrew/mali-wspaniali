@@ -238,6 +238,7 @@ describe('User (e2e)', () => {
               lastname: "Smith",
               birthYear: 2000,
               sex: "male",
+              kindergartenId: "5f09a2d6d79ce21357d0bd29",
           }) {
             status
           }
@@ -301,7 +302,7 @@ describe('User (e2e)', () => {
             speedSeconds: 10
             strengthCentimeters: 100
             strengthPoints: 10
-            testPeriod: "abc"
+            testPeriod: "START"
           }, childId: "${childId}") {
             status
           }
@@ -346,7 +347,7 @@ describe('User (e2e)', () => {
               speedSeconds: 10,
               strengthCentimeters: 100,
               strengthPoints: 10,
-              testPeriod: 'abc',
+              testPeriod: 'START',
             }),
           );
         });

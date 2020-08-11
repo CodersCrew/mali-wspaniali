@@ -21,7 +21,7 @@ export class AddChildHandler implements ICommandHandler<AddChildCommand> {
 
     const createdChild = await this.childRepository.create({
       ...rawChild,
-      kindergarten: new mongoose.Schema.Types.ObjectId(kindergartenId),
+      kindergarten: new mongoose.Types.ObjectId(kindergartenId),
     });
 
     if (createdChild) {
