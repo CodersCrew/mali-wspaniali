@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Grid, Typography, Tabs } from '@material-ui/core';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests';
-import { secondaryColor, white } from '../../colors';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { Tab } from '../../components/Tab';
 import { UserContext } from '../AppWrapper/AppWrapper';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
+import { Tabs } from '../../components/Tabs';
 
 const TABS = {
     results: 'results',
@@ -39,15 +39,7 @@ export const ChildProfile = () => {
                 <Typography className={classes.kindergarten}>{child.kindergarten.name}</Typography>
             </Grid>
             <Typography className={classes.description}>{t('child-profile.description')}</Typography>
-            <Tabs
-                value={activeTab}
-                onChange={(_event, value) => setActiveTab(value)}
-                className={classes.tabs}
-                classes={{
-                    root: classes.tabsRoot,
-                    indicator: classes.tabsIndicator,
-                }}
-            >
+            <Tabs value={activeTab} onChange={(_event, value) => setActiveTab(value)}>
                 <Tab label={t('child-profile.results-list')} value={TABS.results} />
                 <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
                 <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
@@ -76,39 +68,5 @@ const useStyles = makeStyles({
         maxWidth: '1070px',
         fontWeight: 500,
         marginTop: '10px',
-    },
-    tabs: {
-        marginTop: '40px',
-        minHeight: 'unset',
-    },
-    tabsRoot: {
-        minHeight: '34px',
-        '& button': {
-            border: `1px solid ${secondaryColor}`,
-            color: secondaryColor,
-            textTransform: 'unset',
-            fontWeight: 700,
-            borderRadius: '10px 10px 0 0',
-            height: '34px',
-            minHeight: 'unset',
-            paddingTop: '4px',
-            opacity: 1,
-
-            '& .MuiTouchRipple-root': {
-                display: 'none',
-            },
-
-            '&:not(:last-child)': {
-                borderRight: 0,
-            },
-        },
-
-        '& .Mui-selected': {
-            color: white,
-            backgroundColor: secondaryColor,
-        },
-    },
-    tabsIndicator: {
-        display: 'none',
     },
 });
