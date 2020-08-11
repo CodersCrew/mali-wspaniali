@@ -12,7 +12,13 @@ import {
 import { TFunction } from 'i18next';
 import { Role } from '../../graphql/types';
 
-export const getMenuItems = (t: TFunction, role: Role) => {
+export interface MenuItem {
+    name: string;
+    link: string;
+    icon: JSX.Element;
+}
+
+export const getMenuItems = (t: TFunction, role: Role): MenuItem[] => {
     const adminMenuItems = [
         { name: t('menu.home'), link: '/admin', icon: <Home /> },
         { name: t('menu.results'), link: '/admin/tests', icon: <Assessment /> },

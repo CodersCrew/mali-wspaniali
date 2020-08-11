@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { SidebarMenuList } from './SidebarMenuList';
 import { SidebarLogoutItem } from './SidebarLogoutItem';
 import { SidebarTopItem } from './SidebarTopItem';
-import { handleSignOut } from '../../../queries/authQueries';
 import { white } from '../../../colors';
 import { LanguageSelector } from '../../LanguageSelector';
 import { Me } from '../../../graphql/types';
@@ -25,7 +24,7 @@ export const Sidebar = ({ toggleSidebar, extended, user }: Props) => {
     const sidebarContainerStyle = clsx({ [classes.sidebarContainer]: true, opened: extended });
 
     const handleLogoutClick = () => {
-        handleSignOut();
+        localStorage.removeItem('token');
         history.push('/login');
     };
 
