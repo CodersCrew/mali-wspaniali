@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { HomePageChildren } from './HomePageTopSection/HomePageChildren';
+import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { Theme } from '../../theme/types';
+import { UserContext } from '../AppWrapper/AppWrapper';
+import { getLastArticles } from '../../graphql/articleRepository';
+import { Article } from '../../graphql/types';
 
 export const ParentHomePage = () => {
+    const user = useContext(UserContext);
+    const [articles, setArticles] = useState<Article[]>([]);
+
+    useEffect(() => {
+        getLastArticles(6).then(({ data }) => setArticles(data!.lastArticles));
+    }, []);
+
     const classes = useStyles();
     const { t } = useTranslation();
+
+    if (!user) return null;
 
     return (
         <Grid className={classes.container}>
@@ -21,8 +33,8 @@ export const ParentHomePage = () => {
                     <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
                 </p>
             </Grid>
-            <HomePageChildren />
-            <HomePageArticles />
+            <HomePageChildren children={user.children} />
+            <HomePageArticles articles={articles} />
         </Grid>
     );
 };

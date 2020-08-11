@@ -16,7 +16,28 @@ export class UserRepository {
     return await this.userModel
       .findById(id, { password: 0 })
       .lean()
-      .exec();
+      .exec()
+      .then(user => ({ ...user, aggrements: user.aggrements || [] }));
+  }
+
+  async getAll(role?: string): Promise<UserProps[]> {
+    let query: { [index: string]: string } = {};
+
+    if (role) {
+      query.role = role;
+    }
+
+    return await this.userModel
+      .find(query, { password: 0 })
+      .lean()
+      .exec()
+      .then(users =>
+        users.map(user => ({
+          ...user,
+          aggrements: user.aggrements || [],
+          children: user.children || [],
+        })),
+      );
   }
 
   async getByMail(mail: string): Promise<UserProps> {

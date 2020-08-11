@@ -12,7 +12,7 @@ export const UserSchema = new mongoose.Schema({
   password: String,
   role: {
     type: String,
-    default: 'user',
+    default: 'parent',
   },
   children: [mongoose.Schema.Types.ObjectId],
   aggrements: [mongoose.Schema.Types.ObjectId],

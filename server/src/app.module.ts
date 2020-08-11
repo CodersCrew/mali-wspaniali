@@ -13,6 +13,7 @@ import { UsersModule } from './users/users_module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NewslettersModule } from './newsletters/newsletters_module';
 import { AggrementsModule } from './agreements/aggrements_module';
+import { KindergartenModule } from './kindergartens/kindergarten_module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AggrementsModule } from './agreements/aggrements_module';
     NotificationsModule,
     NewslettersModule,
     AggrementsModule,
+    KindergartenModule,
     ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       debug: !isProduction(),

@@ -1,1 +1,0 @@
-export { ChildProfileResults } from './ChildProfileResults';

@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Grid, Typography, Tab, Tabs } from '@material-ui/core';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { fetchChild } from '../../queries/childQueries';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { Child } from '../../firebase/types';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import { ChildProfileResults } from './ChildProfileResults';
+import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests';
-import { ChildProfileAgreements } from './ChildProfileAgreements';
 import { secondaryColor, white } from '../../colors';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
+import { UserContext } from '../AppWrapper/AppWrapper';
+import { ChildProfileAgreements } from './ChildProfileAgreements';
 
 const TABS = {
     results: 'results',
@@ -20,18 +16,16 @@ const TABS = {
 };
 
 export const ChildProfile = () => {
-    useAuthorization(true);
     const { t } = useTranslation();
     const { childId } = useParams<{ childId: string }>();
     const [activeTab, setActiveTab] = useState(TABS.results);
-
-    const child = useSubscribed<Child | null, string>(
-        (callback: OnSnapshotCallback<Child>) => fetchChild(childId, callback),
-        null,
-        [childId],
-    ) as Child | null;
-
     const classes = useStyles();
+    const user = useContext(UserContext);
+
+    if (!user) return null;
+
+    const { aggrements } = user;
+    const child = user.children.find(child => child._id === childId);
 
     if (!child) {
         return <Grid container>{t('child-profile.no-child')}</Grid>;
@@ -40,10 +34,8 @@ export const ChildProfile = () => {
     return (
         <>
             <Grid container className={classes.header}>
-                <PageTitle text={`${child.firstName} ${child.lastName}`} />
-                <Typography className={classes.kindergarten}>
-                    {t('child-profile.kindergarten-no')} {child.kindergartenNo}
-                </Typography>
+                <PageTitle text={`${child.firstname} ${child.lastname}`} />
+                <Typography className={classes.kindergarten}>{child.kindergarten.name}</Typography>
             </Grid>
             <Typography className={classes.description}>{t('child-profile.description')}</Typography>
             <Tabs
@@ -59,9 +51,11 @@ export const ChildProfile = () => {
                 <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
                 <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
             </Tabs>
-            {activeTab === TABS.results && <ChildProfileResults onNoResultClick={() => setActiveTab('aboutTests')} birthYear={child.birthYear} />}
+            {activeTab === TABS.results && (
+                <ChildProfileResults child={child} onNoResultClick={() => setActiveTab('aboutTests')} />
+            )}
             {activeTab === TABS.aboutTests && <ChildProfileAboutTests />}
-            {activeTab === TABS.agreements && <ChildProfileAgreements />}
+            {activeTab === TABS.agreements && <ChildProfileAgreements aggrements={aggrements} />}
         </>
     );
 };

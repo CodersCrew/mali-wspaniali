@@ -1,31 +1,31 @@
 import React from 'react';
 import { Avatar, MenuList, Paper, makeStyles, Theme, createStyles, ClickAwayListener } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { Child } from '../../../firebase/types';
 import { MenuListItem, MenuLogoutItem } from './MenuItem';
 import BoyAvatar from '../../../assets/boy.png';
 import GirlAvatar from '../../../assets/girl.png';
 import { getMenuItems } from '../menuItems';
+import { Child, Role } from '../../../graphql/types';
 
 export type MenuListItemsProps = {
-    childrenData: Child[];
-    userRole: string;
+    children: Child[];
+    role: Role;
     handleClose: () => void;
 };
 
-export const MenuListItems = ({ userRole, childrenData, handleClose }: MenuListItemsProps) => {
+export const MenuListItems = ({ role, children, handleClose }: MenuListItemsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const staticMenuItems = getMenuItems(t, userRole);
+    const staticMenuItems = getMenuItems(t, role);
 
     return (
         <ClickAwayListener onClickAway={handleClose}>
             <Paper className={classes.menuList}>
                 <MenuList dense={true}>
-                    {userRole === 'parent' &&
-                        childrenData.map(child => {
-                            const { firstName, id, sex } = child;
+                    {role === 'parent' &&
+                        children.map(child => {
+                            const { firstname, _id, sex } = child;
                             const iconComponent = (
                                 <Avatar
                                     className={classes.listItemAvatar}
@@ -33,13 +33,13 @@ export const MenuListItems = ({ userRole, childrenData, handleClose }: MenuListI
                                     variant="square"
                                 />
                             );
-                            const link = `/parent/child/${id}`;
+                            const link = `/parent/child/${_id}`;
 
                             return (
                                 <MenuListItem
-                                    key={firstName}
+                                    key={firstname}
                                     link={link}
-                                    text={firstName}
+                                    text={firstname}
                                     iconComponent={iconComponent}
                                     handleClose={handleClose}
                                 />

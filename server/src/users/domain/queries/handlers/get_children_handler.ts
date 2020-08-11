@@ -5,12 +5,14 @@ import { GetChildrenQuery } from '../impl/get_children_query';
 import { ChildRepository } from '../../repositories/child_repository';
 import { ChildProps } from '../../models/child_model';
 import { ChildResultRepository } from '../../repositories/child_result_repository';
+import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
 
 @QueryHandler(GetChildrenQuery)
 export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
   constructor(
     private readonly childRepository: ChildRepository,
     private readonly childrResultRepository: ChildResultRepository,
+    private readonly kindergartenRepository: KindergartenRepository,
   ) {}
 
   async execute({
@@ -23,8 +25,11 @@ export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
     return await Promise.all(
       children.map(async child => {
         const results = await this.childrResultRepository.get(child._id);
+        const kindergarten = await this.kindergartenRepository.get(
+          child.kindergarten.toString(),
+        );
 
-        return { ...child, results };
+        return { ...child, results, kindergarten };
       }),
     );
   }

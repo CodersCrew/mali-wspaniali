@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
-import {
-    Checkbox,
-    ExpansionPanel,
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
-    Typography,
-} from '@material-ui/core/';
+import { Checkbox, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
-import { RegistrationAgreementProps } from './types';
 import { AgreementModal } from './AgreementModal';
 import { ButtonSecondary } from '../../../components/Button';
+import { Aggrement } from '../../../graphql/types';
 
 const T_PREFIX = 'registration-page.agreements';
+
+export interface Props {
+    handleBack(): void;
+    handleNext(): void;
+    classButton: string;
+    classNextBtn: string;
+    agreements: Aggrement[];
+    agreementMoreBtn: string;
+    agreementContainer: string;
+    agreementCheckboxHeader: string;
+    agreementCheckboxWrapper: string;
+    agreementText: string;
+    agreementLink: string;
+    agreementHeader: string;
+    agreementModal: string;
+    agreementPanel: string;
+    agreementCheckbox: string;
+    checkboxContent: string;
+}
 
 export const RegistrationAgreement = ({
     handleBack,
@@ -32,7 +45,7 @@ export const RegistrationAgreement = ({
     agreementPanel,
     agreementCheckbox,
     checkboxContent,
-}: RegistrationAgreementProps) => {
+}: Props) => {
     const { t } = useTranslation();
     const [isMoreContent, setIsMoreContent] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -50,18 +63,26 @@ export const RegistrationAgreement = ({
                     <b>{t(`${T_PREFIX}.clausule-header`)}</b>
                 </p>
                 <span>{t(`${T_PREFIX}.clausule`)}</span>
-                <ButtonSecondary className={agreementMoreBtn} onClick={toggleModal} variant="text" innerText={t(`${T_PREFIX}.show-more-content-modal`)} />
+                <ButtonSecondary
+                    className={agreementMoreBtn}
+                    onClick={toggleModal}
+                    variant="text"
+                    innerText={t(`${T_PREFIX}.show-more-content-modal`)}
+                />
                 <p className={agreementCheckboxHeader}>{t(`${T_PREFIX}.sub-title`)}</p>
                 <span>{t(`${T_PREFIX}.sub-title-description`)}</span>
                 {agreements.map((agreement, idx) => (
-                    <div className={clsx(agreementCheckboxWrapper, idx === 2 && 'lastAgreement')} key={agreement.id}>
+                    <div
+                        key={agreement._id}
+                        className={clsx({ [agreementCheckboxWrapper]: true, lastAgreement: idx === 2 })}
+                    >
                         <div className={checkboxContent}>
                             <Checkbox
                                 color="default"
                                 className={agreementCheckbox}
                                 inputProps={{ 'aria-label': 'checkbox with default color' }}
                             />
-                            <p className={agreementText}>{agreement.title}</p>
+                            <p className={agreementText}>{(agreement as any).title}</p>
                         </div>
                         {idx !== 0 && (
                             <ExpansionPanel className={agreementPanel} onClick={handleMoreContent}>
@@ -73,7 +94,7 @@ export const RegistrationAgreement = ({
                                     <Typography className={agreementMoreBtn}>{expansionText}</Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <Typography>{agreement.content}</Typography>
+                                    <Typography>{agreement.text}</Typography>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         )}
@@ -96,7 +117,12 @@ export const RegistrationAgreement = ({
             </div>
             <div className={classButton}>
                 <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />
-                <ButtonSecondary onClick={handleNext} variant="contained" className={classNextBtn} innerText={t('next')} />
+                <ButtonSecondary
+                    onClick={handleNext}
+                    variant="contained"
+                    className={classNextBtn}
+                    innerText={t('next')}
+                />
             </div>
             <AgreementModal
                 open={isOpen}

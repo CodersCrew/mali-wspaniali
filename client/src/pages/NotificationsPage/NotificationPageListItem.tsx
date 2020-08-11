@@ -3,35 +3,26 @@ import { TableRow, TableCell, makeStyles } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons/';
 import clsx from 'clsx';
 import moment from '../../localizedMoment';
-import { Timestamp } from '../../firebase/types';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import { setNotificationReadValue } from '../../queries/notificationQueries';
 import { secondaryColor, notificationReadColor, darkGrey } from '../../colors';
 
-export type notificationItemProps = {
-    text: string;
-    date: Timestamp;
+interface Props {
     id: string;
+    text: string;
+    date: Date;
     isRead: boolean;
-};
+    onClick: (value: string) => void;
+}
 
-export const NotificationPageListItem = ({ text, date, id, isRead }: notificationItemProps) => {
+export const NotificationPageListItem = ({ text, date, id, isRead, onClick }: Props) => {
     const classes = useStyles();
-    const currentUser = useAuthorization(true);
-
-    const setNotificationValue = () => {
-        if (currentUser) {
-            setNotificationReadValue(currentUser.uid, id, !isRead);
-        }
-    };
 
     return (
-        <TableRow key={id} onClick={setNotificationValue} className={clsx(classes.background, isRead ? 'read' : null)}>
+        <TableRow key={id} onClick={() => onClick(id)} className={clsx({ [classes.background]: true, read: isRead })}>
             <TableCell key={id} className={classes.text} component="th" scope="row">
-                <Notifications className={clsx(classes.icon, isRead ? 'read' : null)} />
+                <Notifications className={clsx({ [classes.icon]: true, read: isRead })} />
                 {text}
             </TableCell>
-            <TableCell>{moment(date.toDate()).calendar()}</TableCell>
+            <TableCell>{moment(date).calendar()}</TableCell>
         </TableRow>
     );
 };

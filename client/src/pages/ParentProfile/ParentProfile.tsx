@@ -1,26 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getUserById } from '../../queries/userQueries';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
-import { Parent } from './types';
-import { useAuthorization } from '../../hooks/useAuthorization';
+import { getUserById } from '../../graphql/userRepository';
+import { User } from '../../graphql/types';
 
 export const ParentProfile = () => {
-    useAuthorization(true, '/', ['admin']);
+    const [parent, setParent] = useState<User | null>(null);
     const { id } = useParams<{ id: string }>();
     const { t } = useTranslation();
-    const parent = useSubscribed<Parent | null>((callback: OnSnapshotCallback<Parent>) =>
-        getUserById(id, callback),
-    ) as Parent | null;
 
-    return parent ? (
+    useEffect(() => {
+        getUserById(id).then(({ data }) => setParent(data!.user));
+    }, [id]);
+
+    if (!parent) return <div>{t('parent-profile.no-parent')}</div>;
+
+    return (
         <>
             <div>{t('parent-profile.parent')}</div>
-            <div>{parent.email}</div>
+            <div>{parent.mail}</div>
         </>
-    ) : (
-        <div>{t('parent-profile.no-parent')}</div>
     );
 };

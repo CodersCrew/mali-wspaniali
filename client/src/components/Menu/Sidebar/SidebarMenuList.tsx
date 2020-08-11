@@ -1,50 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, Avatar, MenuList } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { User } from '../../../firebase/firebase';
-import { Child } from '../../../firebase/types';
 import { getMenuItems } from '../menuItems';
 import { SidebarMenuItem } from './SidebarMenuItem';
-import { useSubscribed } from '../../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../../firebase/userRepository';
-import { getChildrenByUserId } from '../../../queries/childQueries';
-import { onAuthStateChanged, getUserRole } from '../../../queries/authQueries';
 import { cardBackgroundColor } from '../../../colors';
-import { SidebarMenuListPropTypes } from './types';
 import BoyAvatar from '../../../assets/boy.png';
 import GirlAvatar from '../../../assets/girl.png';
-import { useAuthorization } from '../../../hooks/useAuthorization';
+import { Me } from '../../../graphql/types';
 
-export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => {
+interface Props {
+    user: Me;
+    extended: boolean;
+}
+
+export const SidebarMenuList = ({ extended, user }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const currentUser = useAuthorization(true);
-    const [userRole, setUserRole] = useState('');
+    const { children } = user;
 
-    onAuthStateChanged(async (user: User | null) => {
-        if (user) {
-            const role = await getUserRole(user);
-            if (role) {
-                setUserRole(role);
-            }
-        }
-    });
+    const [home, ...menuItems] = getMenuItems(t, user.role);
 
-    const children = useSubscribed<Child[], User | null>(
-        (callback: OnSnapshotCallback<Child[]>) => {
-            if (currentUser) {
-                getChildrenByUserId(currentUser.uid, callback);
-            }
-        },
-        [],
-        [currentUser],
-    ) as Child[];
-
-    const menuItems = getMenuItems(t, userRole);
-
-    const renderMenuItems = () => {
-        if (children) {
-            children.map(({ firstName, id, sex }) => {
+    return (
+        <MenuList>
+            <SidebarMenuItem key={home.name} extended={extended} name={home.name} link={home.link} icon={home.icon} />
+            {children.map(({ firstname, _id, sex }) => {
                 const iconComponent = (
                     <div className={classes.avatarWrapper}>
                         <Avatar
@@ -54,21 +33,24 @@ export const SidebarMenuList = ({ isSidebarOpen }: SidebarMenuListPropTypes) => 
                         />
                     </div>
                 );
-                const link = `/parent/child/${id}`;
-                menuItems.splice(1, 0, { name: firstName, link, icon: iconComponent });
 
-                return menuItems.map(({ name, link: itemLink, icon }) => (
-                    <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={itemLink} icon={icon} />
-                ));
-            });
-        }
+                const link = `/parent/child/${_id}`;
 
-        return menuItems.map(({ name, link, icon }) => (
-            <SidebarMenuItem isSidebarOpen={isSidebarOpen} key={name} name={name} link={link} icon={icon} />
-        ));
-    };
-
-    return <MenuList>{renderMenuItems()}</MenuList>;
+                return (
+                    <SidebarMenuItem
+                        key={firstname}
+                        extended={extended}
+                        name={firstname}
+                        link={link}
+                        icon={iconComponent}
+                    />
+                );
+            })}
+            {menuItems.map(({ name, link, icon }) => (
+                <SidebarMenuItem key={name} extended={extended} name={name} link={link} icon={icon} />
+            ))}
+        </MenuList>
+    );
 };
 
 const useStyles = makeStyles({
