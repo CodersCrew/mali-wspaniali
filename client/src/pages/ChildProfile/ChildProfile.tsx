@@ -39,7 +39,11 @@ export const ChildProfile = () => {
                 <Typography className={classes.kindergarten}>{child.kindergarten.name}</Typography>
             </Grid>
             <Typography className={classes.description}>{t('child-profile.description')}</Typography>
-            <Tabs value={activeTab} onChange={(_event, value) => setActiveTab(value)}>
+            <Tabs
+                value={activeTab}
+                //@ts-ignore
+                onChange={(_event, value) => setActiveTab(value)}
+            >
                 <Tab label={t('child-profile.results-list')} value={TABS.results} />
                 <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
                 <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />

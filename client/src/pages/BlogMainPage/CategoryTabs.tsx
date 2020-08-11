@@ -13,7 +13,8 @@ export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
     return (
         <Tabs
             value={values.findIndex(tab => tab.key === active)}
-            onChange={(event: React.ChangeEvent<{}>, value: any) => onClick(categoriesList[value].key)}
+            //@ts-ignore
+            onChange={(_event, value) => onClick(categoriesList[value].key)}
         >
             {values.map(category => {
                 return <Tab key={category.name} label={category.name} />;
