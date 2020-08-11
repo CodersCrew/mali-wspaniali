@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Grid, Typography, Tab, Tabs } from '@material-ui/core';
+import { makeStyles, Grid, Typography, Tabs } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests';
 import { secondaryColor, white } from '../../colors';

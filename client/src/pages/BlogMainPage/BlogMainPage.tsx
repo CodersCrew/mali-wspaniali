@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
-
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
 import { categoriesList } from './BlogCategories';
