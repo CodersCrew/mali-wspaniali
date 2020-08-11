@@ -9,25 +9,26 @@ import EnFlag from '../assets/en.png';
 import { backgroundColor, secondaryColor } from '../colors';
 
 interface Props {
-    isSidebarOpen: boolean;
+    language: string | null;
+    extended: boolean;
 }
 
-export const LanguageSelector: React.FC<Props> = ({ isSidebarOpen }) => {
+export const LanguageSelector = ({ language, extended }: Props) => {
     const { i18n, t } = useTranslation();
     const classes = useStyles();
-    const localStorageLanguage = localStorage.getItem('i18nextLng');
 
     const changeLanguage = (lng: string) => {
         moment.locale(lng);
 
         return i18n.changeLanguage(lng);
     };
-    const languageImage = (flag: string, language: string) => {
+
+    const languageImage = (flag: string, lang: string) => {
         return (
-            <div className={classes.box} onClick={() => changeLanguage(language)}>
-                <img className={clsx(classes.img, isSidebarOpen ? 'opened' : null)} src={flag} alt={language} />
-                {isSidebarOpen && (
-                    <span className={clsx(classes.name, isSidebarOpen ? 'opened' : null)}>
+            <div className={classes.box} onClick={() => changeLanguage(lang)}>
+                <img className={clsx({ [classes.img]: true, opened: extended })} src={flag} alt={lang} />
+                {extended && (
+                    <span className={clsx({ [classes.name]: true, opened: extended })}>
                         {t(`languages.${language}`)}
                     </span>
                 )}
@@ -36,8 +37,8 @@ export const LanguageSelector: React.FC<Props> = ({ isSidebarOpen }) => {
     };
 
     return (
-        <Container className={clsx(classes.container, isSidebarOpen ? 'opened' : null)}>
-            {localStorageLanguage === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}
+        <Container className={clsx({ [classes.container]: true, opened: extended })}>
+            {language === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}
         </Container>
     );
 };

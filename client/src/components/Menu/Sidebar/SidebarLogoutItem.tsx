@@ -4,14 +4,18 @@ import { PowerSettingsNew } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { mainColor, backgroundColor } from '../../../colors';
-import { SidebarLogoutPropTypes } from './types';
 
-export const SidebarLogoutItem = ({ handleLogoutClick, isSidebarOpen }: SidebarLogoutPropTypes) => {
+export interface Props {
+    handleLogoutClick(): void;
+    extended: boolean;
+}
+
+export const SidebarLogoutItem = ({ handleLogoutClick, extended }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const logoutBtnStyle = clsx(classes.logoutBtn, isSidebarOpen ? 'opened' : null);
-    const logoutBtnContent = isSidebarOpen ? t('menu.logout') : <PowerSettingsNew />;
+    const logoutBtnStyle = clsx({ [classes.logoutBtn]: true, opened: extended });
+    const logoutBtnContent = extended ? t('menu.logout') : <PowerSettingsNew />;
 
     return (
         <div className={classes.logoutBtnContainer}>

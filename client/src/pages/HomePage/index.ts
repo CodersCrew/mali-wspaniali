@@ -1,1 +1,0 @@
-export { ParentHomePage } from './HomePage';

@@ -95,7 +95,6 @@
     },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",
-        "kindergarten-no": "Przedszkole nr",
         "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",
         "results-list": "Lista wyników",
         "tests-information": "Informacje o testach",

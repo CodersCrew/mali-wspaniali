@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
-import { useAuthorization } from '../../hooks/useAuthorization';
 import { getArticleById } from '../../queries/articleQueries';
 import { Article } from '../../graphql/types';
 import { BreadcrumbsWithDescription } from './BreadcrumbsWithDescription';
@@ -12,7 +11,6 @@ import { ArticleRedactor } from './ArticleRedactor';
 import { SingleArticleColors } from '../../colors';
 
 export const SingleBlogArticle = () => {
-    useAuthorization(true);
     const classes = useStyles();
     const [article, setArticle] = useState<null | Article>(null);
     const { articleId } = useParams<{ articleId: string }>();

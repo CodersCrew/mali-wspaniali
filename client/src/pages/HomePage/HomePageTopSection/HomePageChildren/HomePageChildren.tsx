@@ -1,55 +1,42 @@
 import React, { useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
-import { User } from 'firebase';
 import { HomePageChildCard } from './HomePageChildCard';
 import { HomePageInfo } from '../HomePageInfo';
-import { getChildrenByUserId } from '../../../../queries/childQueries';
-import { Child } from '../../../../firebase/types';
-import { useSubscribed } from '../../../../hooks/useSubscribed';
-import { OnSnapshotCallback } from '../../../../firebase/userRepository';
-import { useAuthorization } from '../../../../hooks/useAuthorization';
 import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
+import { Child } from '../../../../graphql/types';
 
-export const HomePageChildren = () => {
-    const currentUser = useAuthorization(true);
+interface Props {
+    children: Child[];
+}
+
+export const HomePageChildren = ({ children }: Props) => {
     const classes = useStyles();
     const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(true);
-
-    const children = useSubscribed<Child[], User | null>(
-        (callback: OnSnapshotCallback<Child[]>) => {
-            if (currentUser) {
-                getChildrenByUserId(currentUser.uid, callback);
-            }
-        },
-        [],
-        [currentUser],
-    ) as Child[];
 
     const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
 
     return (
         <div className={classes.infoContainer}>
             <div className={classes.childrenContainer}>
-                {children &&
-                    children.map(({ firstName, id, sex }) => {
-                        const PictureComponent = (
-                            <img
-                                className={classes.childAvatar}
-                                alt="mali_wspaniali_child"
-                                src={sex === 'male' ? BoyAvatar : GirlAvatar}
-                            />
-                        );
+                {children.map(({ firstname, _id, sex }) => {
+                    const PictureComponent = (
+                        <img
+                            className={classes.childAvatar}
+                            alt="mali_wspaniali_child"
+                            src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                        />
+                    );
 
-                        return (
-                            <HomePageChildCard
-                                key={id}
-                                firstName={firstName}
-                                id={id}
-                                PictureComponent={PictureComponent}
-                            />
-                        );
-                    })}
+                    return (
+                        <HomePageChildCard
+                            key={_id}
+                            id={_id}
+                            firstName={firstname}
+                            PictureComponent={PictureComponent}
+                        />
+                    );
+                })}
             </div>
             {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
         </div>

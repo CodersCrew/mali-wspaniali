@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import { Agreement } from '../../../firebase/types';
 
 export type RegisterForm = {
     code: string;
@@ -33,25 +32,6 @@ export interface RegistrationEmailProps {
     classForm: string;
     classButton: string;
     classNextBtn: string;
-}
-
-export interface RegistrationAgreementProps {
-    handleBack(): void;
-    handleNext(): void;
-    classButton: string;
-    classNextBtn: string;
-    agreements: Agreement[];
-    agreementMoreBtn: string;
-    agreementContainer: string;
-    agreementCheckboxHeader: string;
-    agreementCheckboxWrapper: string;
-    agreementText: string;
-    agreementLink: string;
-    agreementHeader: string;
-    agreementModal: string;
-    agreementPanel: string;
-    agreementCheckbox: string;
-    checkboxContent: string;
 }
 
 export type RegistrationPasswordProps = {

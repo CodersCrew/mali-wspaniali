@@ -34,6 +34,8 @@ import { AggrementDTO } from '../agreements/dto/agreement_dto';
 import { GetValidAggrementsQuery } from '../agreements/domain/queries/impl/get_valid_aggrements_query';
 import { AddAggrementToUserCommand } from './domain/commands/impl/add_aggrement_to_user_command';
 import { AggrementProps } from '../agreements/schemas/aggrement_schema';
+import { GetAllUsersQuery } from './domain/queries/impl/get_all_users_query';
+import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
 import {
   ChangePasswordCommand,
   AddChildCommand,
@@ -83,6 +85,20 @@ export class UsersResolver {
     );
   }
 
+  @Query(() => UserDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async user(@Args('id') id: string): Promise<UserProps> {
+    return await this.queryBus.execute(new GetUserQuery(id));
+  }
+
+  @Query(() => [UserDTO])
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async users(
+    @Args('role', { nullable: true }) role: string,
+  ): Promise<UserProps> {
+    return await this.queryBus.execute(new GetAllUsersQuery(role));
+  }
+
   @Mutation(() => ReturnedStatusDTO)
   async createUser(
     @Args('user') user: UserInput,
@@ -92,6 +108,12 @@ export class UsersResolver {
     );
 
     return { status: !!created };
+  }
+
+  @Query(() => [ChildDTO])
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async allChildren(): Promise<UserProps> {
+    return await this.queryBus.execute(new GetAllChildrenQuery());
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -111,9 +133,10 @@ export class UsersResolver {
   async addResult(
     @Args('childId') childId: string,
     @Args('result') result: ResultInput,
+    @Args('rootResultId', { nullable: true }) rootResultId?: string | undefined,
   ): Promise<{ status: boolean }> {
     const created: ChildProps = await this.commandBus.execute(
-      new AddChildResultCommand(result, childId),
+      new AddChildResultCommand(result, childId, rootResultId),
     );
 
     return { status: !!created };

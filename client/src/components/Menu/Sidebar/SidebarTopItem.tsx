@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FastForward } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import { mainColor } from '../../../colors';
-import { SidebarPropTypes } from './types';
 import SidebarLogo from '../../../assets/MALWSP_logo_nav.png';
-import { getUserRole } from '../../../queries/authQueries';
-import { useAuthorization } from '../../../hooks/useAuthorization';
+import { Me } from '../../../graphql/types';
 
-export const SidebarTopItem = ({ toggleSidebar, isSidebarOpen }: SidebarPropTypes) => {
+export interface Props {
+    toggleSidebar(): void;
+    extended: boolean;
+    user: Me;
+}
+
+export const SidebarTopItem = ({ toggleSidebar, extended, user }: Props) => {
     const classes = useStyles();
-    const currentUser = useAuthorization(true);
-    const [userRole, setUserRole] = useState('');
 
-    const switcherIconStyle = clsx(classes.switcherIcon, isSidebarOpen ? 'opened' : null);
-
-    if (currentUser) {
-        getUserRole(currentUser).then(role => setUserRole(role));
-    }
+    const switcherIconStyle = clsx({ [classes.switcherIcon]: true, opened: extended });
 
     return (
         <div className={classes.sidebarLogoWrapper}>
-            <Link to={`/${userRole}`}>
+            <Link to={`/${user.role}`}>
                 <img src={SidebarLogo} alt="mali_wspaniali" />
             </Link>
             <button onClick={toggleSidebar} className={classes.sidebarSwitcher}>

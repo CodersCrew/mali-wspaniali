@@ -4,32 +4,24 @@ import { MenuItem, ListItemIcon, ListItem, ListItemText, makeStyles } from '@mat
 import clsx from 'clsx';
 import { backgroundColor, secondaryColor, white } from '../../../colors';
 
-type SidebarMenuItem = {
+interface Props {
     name: string;
     link: string;
     icon: ReactElement;
-    isSidebarOpen: boolean;
-};
-const getActiveClass = (pathUrl: string, link: string) => {
-    const isParentCategoryBlog = link.includes('/parent/blog/') && pathUrl.includes('/parent/blog/');
-    const isConcreteArticle = link.includes('/parent/blog/') && pathUrl.includes('/parent/article/');
+    extended: boolean;
+}
 
-    if (pathUrl === link || isParentCategoryBlog || isConcreteArticle) return 'active';
-
-    return null;
-};
-export const SidebarMenuItem = ({ name, link, icon, isSidebarOpen }: SidebarMenuItem) => {
+export const SidebarMenuItem = ({ name, link, icon, extended }: Props) => {
     const classes = useStyles();
     const location = useLocation().pathname;
 
+    const isActive = isActiveClass(location, link);
+
     return (
         <Link className={classes.link} to={link}>
-            <MenuItem
-                key={name}
-                className={clsx(classes.menuItem, isSidebarOpen ? 'opened' : null, getActiveClass(location, link))}
-            >
-                <ListItem className={clsx(classes.menuItemWrapper, getActiveClass(location, link))}>
-                    <ListItemIcon className={clsx(classes.menuItemIcon, 'closed', getActiveClass(location, link))}>
+            <MenuItem key={name} className={clsx({ [classes.menuItem]: true, opened: extended, active: isActive })}>
+                <ListItem className={clsx({ [classes.menuItemWrapper]: true, active: isActive })}>
+                    <ListItemIcon className={clsx({ [classes.menuItemIcon]: true, closed: true, active: isActive })}>
                         {icon}
                     </ListItemIcon>
                     <ListItemText className={classes.menuItemLabel}>{name}</ListItemText>
@@ -38,6 +30,13 @@ export const SidebarMenuItem = ({ name, link, icon, isSidebarOpen }: SidebarMenu
         </Link>
     );
 };
+
+function isActiveClass(pathUrl: string, link: string) {
+    const isParentCategoryBlog = link.includes('/parent/blog/') && pathUrl.includes('/parent/blog/');
+    const isConcreteArticle = link.includes('/parent/blog/') && pathUrl.includes('/parent/article/');
+
+    return pathUrl === link || isParentCategoryBlog || isConcreteArticle;
+}
 
 const useStyles = makeStyles({
     menuItem: {

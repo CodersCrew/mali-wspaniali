@@ -11,4 +11,5 @@ export const ChildResultSchema = new mongoose.Schema({
   childId: mongoose.Schema.Types.ObjectId,
   type: String,
   test: Object,
+  rootResultId: mongoose.Schema.Types.ObjectId,
 });

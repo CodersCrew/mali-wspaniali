@@ -11,4 +11,7 @@ export class ChildResultDTO {
 
   @Field(() => GraphQLJSONObject)
   readonly test: unknown;
+
+  @Field({ nullable: true })
+  readonly rootResultId: string;
 }
