@@ -93,8 +93,10 @@ export class UsersResolver {
 
   @Query(() => [UserDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async users(): Promise<UserProps> {
-    return await this.queryBus.execute(new GetAllUsersQuery());
+  async users(
+    @Args('role', { nullable: true }) role: string,
+  ): Promise<UserProps> {
+    return await this.queryBus.execute(new GetAllUsersQuery(role));
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -111,7 +113,6 @@ export class UsersResolver {
   @Query(() => [ChildDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async allChildren(): Promise<UserProps> {
-    console.log(await this.queryBus.execute(new GetAllChildrenQuery()));
     return await this.queryBus.execute(new GetAllChildrenQuery());
   }
 

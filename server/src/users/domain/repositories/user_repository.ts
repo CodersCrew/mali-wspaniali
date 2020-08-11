@@ -20,9 +20,15 @@ export class UserRepository {
       .then(user => ({ ...user, aggrements: user.aggrements || [] }));
   }
 
-  async getAll(): Promise<UserProps[]> {
+  async getAll(role?: string): Promise<UserProps[]> {
+    let query: { [index: string]: string } = {};
+
+    if (role) {
+      query.role = role;
+    }
+
     return await this.userModel
-      .find({}, { password: 0 })
+      .find(query, { password: 0 })
       .lean()
       .exec()
       .then(users =>
