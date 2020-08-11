@@ -27,9 +27,6 @@ yarn-error.log*
 # webstorm files
 .idea
 
-# firebase cache
-/.firebase
-
 # cypress videos
 cypress/videos
 
