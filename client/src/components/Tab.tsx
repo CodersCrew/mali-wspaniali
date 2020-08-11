@@ -1,11 +1,14 @@
 import React from 'react';
-import { Tab, makeStyles, createStyles, Theme, TabProps } from '@material-ui/core/';
+import { Tab as MuiTab, makeStyles, createStyles, Theme, TabProps } from '@material-ui/core/';
 
-export const BaseTab = ({ ...props }: TabProps) => {
+export const Tab = ({ ...props }: TabProps) => {
     const classes = useStyles();
 
     return (
-        <Tab classes={{ root: classes.root, wrapper: classes.wrapper, selected: classes.selected }} {...props}></Tab>
+        <MuiTab
+            classes={{ root: classes.root, wrapper: classes.wrapper, selected: classes.selected }}
+            {...props}
+        ></MuiTab>
     );
 };
 

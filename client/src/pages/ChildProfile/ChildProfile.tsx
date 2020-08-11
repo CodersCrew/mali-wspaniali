@@ -12,7 +12,7 @@ import { ChildProfileAboutTests } from './ChildProfileAboutTests';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
 import { secondaryColor, white } from '../../colors';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
-import { BaseTab } from '../../components/BaseTab';
+import { Tab } from '../../components/Tab';
 
 const TABS = {
     results: 'results',
@@ -49,16 +49,16 @@ export const ChildProfile = () => {
             <Typography className={classes.description}>{t('child-profile.description')}</Typography>
             <Tabs
                 value={activeTab}
-                onChange={(event, value) => setActiveTab(value)}
+                onChange={(_event, value) => setActiveTab(value)}
                 className={classes.tabs}
                 classes={{
                     root: classes.tabsRoot,
                     indicator: classes.tabsIndicator,
                 }}
             >
-                <BaseTab label={t('child-profile.results-list')} value={TABS.results} />
-                <BaseTab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
-                <BaseTab label={t('child-profile.your-agreements')} value={TABS.agreements} />
+                <Tab label={t('child-profile.results-list')} value={TABS.results} />
+                <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
+                <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
             </Tabs>
             {activeTab === TABS.results && (
                 <ChildProfileResults onNoResultClick={() => setActiveTab('aboutTests')} birthYear={child.birthYear} />
