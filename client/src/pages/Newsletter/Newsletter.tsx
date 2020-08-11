@@ -1,16 +1,10 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import { createNewsletter } from '../../queries/newsletterQueries';
-import { openAlertDialog } from '../../components/AlertDialog';
 import { NewsletterProgressBar } from './NewsletterProgressBar';
 import { ProgressBarStates } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
-import { openDialog } from '../../utils/openDialog';
-import { NewsletterSentModal } from './NewsletterSentModal';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { ButtonSecondary } from '../../components/Button';
 
@@ -42,10 +36,8 @@ const initialState = {
 };
 
 export const NewsletterPage = () => {
-    useAuthorization(true, '/', ['admin']);
     const classes = useStyles();
     const { t } = useTranslation();
-    const history = useHistory();
     const [fields, setFields] = useState(initialState);
     const { type, topic, recipients, generalType, specificType, message } = fields;
     const [progressBarState, setProgressBarState] = useState({
@@ -123,33 +115,8 @@ export const NewsletterPage = () => {
         }));
     };
 
-    const goToAdminPage = () => {
-        history.push('/admin');
-    };
-
-    const resetState = () => {
-        setFields(initialState);
-        setProgressBarState({
-            firstStep: ProgressBarStates.Ready,
-            secondStep: ProgressBarStates.Inactive,
-        });
-    };
-
     const handleSubmit = async () => {
-        const response = await createNewsletter({
-            type: type.value,
-            topic: topic.value,
-            recipients: recipients.value,
-            message: message.value,
-        });
-        if (response.error) {
-            return openAlertDialog({
-                type: 'error',
-                description: t('newsletter.sending-error'),
-            });
-        }
-
-        return openDialog(NewsletterSentModal, { goToAdminPage, resetState });
+        // todo
     };
 
     return (

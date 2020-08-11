@@ -6,12 +6,10 @@ import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
 import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType, FieldsType } from './types';
-import { useSubscribed } from '../../hooks/useSubscribed';
-import { getParents } from '../../queries/userQueries';
-import { OnSnapshotCallback } from '../../firebase/userRepository';
 import { Theme } from '../../theme';
 import { getKindergartens } from '../../graphql/kindergartensRepository';
 import { Kindergarten } from '../../graphql/types';
+import { getAllUsers } from '../../graphql/userRepository';
 
 export const NewsletterRecipent: React.FC<{
     generalType: SingleFieldType;
@@ -25,15 +23,13 @@ export const NewsletterRecipent: React.FC<{
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
 }> = ({ generalType, specificType, recipients, handleChange, selectRecipients, setFields }) => {
     const [kindergartens, setKindergartens] = useState<Kindergarten[]>([]);
+    const [parents, setParents] = useState<string[]>([]);
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const parents = useSubscribed<any[] | null>((callback: OnSnapshotCallback<any[]>) => {
-        getParents(callback);
-    }) as string[];
-
     useEffect(() => {
         getKindergartens().then(({ data }) => setKindergartens(data!.kindergartens));
+        getAllUsers('parent').then(({ data }) => setParents(data!.users.map(user => user.mail)));
     }, []);
 
     useEffect(() => {

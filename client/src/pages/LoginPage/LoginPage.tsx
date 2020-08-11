@@ -2,13 +2,13 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AuthError } from '../../firebase/firebase';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
-import { login } from '../../commands/userCommand';
+import { useMutation, useQuery } from '@apollo/client';
+import { AUTHORIZE_USER, GET_ME } from '../../graphql/userRepository';
 
-const initialError: AuthError = {
-    code: '',
+const initialError: Error = {
+    name: '',
     message: '',
 };
 
@@ -19,25 +19,30 @@ export const LoginPage = () => {
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();
-
-    const handleSubmitError = (error: AuthError) => {
-        const { code, message } = error;
-        setLoginError({
-            code,
-            message,
-        });
-    };
+    const [authorizeUser] = useMutation(AUTHORIZE_USER);
+    const { refetch } = useQuery(GET_ME);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        login({ mail: email, password })
-            .then(e => {
-                history.push(`/${e.role}`);
-            })
-            .catch(handleSubmitError);
+        authorizeUser({
+            variables: { user: { mail: email, password } },
+            update: (cache, { data: { login } }) => {
+                localStorage.setItem('token', login.token);
+
+                refetch()
+                    .then(({ data }) => {
+                        if (data) {
+                            history.push(`/${data.me.role}`);
+                        }
+                    })
+                    .catch(e => setLoginError(e));
+            },
+        });
+
+        event.preventDefault();
     };
 
-    const { code } = loginError;
+    const { name } = loginError;
 
     return (
         <div className={classes.container}>
@@ -50,9 +55,9 @@ export const LoginPage = () => {
                     id="email"
                     label={t('e-mail')}
                     variant="outlined"
-                    error={code === 'auth/user-not-found'}
+                    error={name === 'auth/user-not-found'}
                     helperText={
-                        code === 'auth/user-not-found'
+                        name === 'auth/user-not-found'
                             ? t('login-page.login-notfound')
                             : t('login-page.e-mail-helper-text')
                     }
@@ -66,8 +71,8 @@ export const LoginPage = () => {
                     label={t('password')}
                     type="password"
                     variant="outlined"
-                    error={Boolean(code)}
-                    helperText={Boolean(code) ? t('login-page.login-error') : ''}
+                    error={Boolean(name)}
+                    helperText={Boolean(name) ? t('login-page.login-error') : ''}
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>

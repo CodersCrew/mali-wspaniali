@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuthorization } from '../../hooks/useAuthorization';
 import { getUserById } from '../../graphql/userRepository';
 import { User } from '../../graphql/types';
 
 export const ParentProfile = () => {
-    useAuthorization(true, '/', ['admin']);
     const [parent, setParent] = useState<User | null>(null);
     const { id } = useParams<{ id: string }>();
     const { t } = useTranslation();

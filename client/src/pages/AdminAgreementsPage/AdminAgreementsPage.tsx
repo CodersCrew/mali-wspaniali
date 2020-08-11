@@ -55,14 +55,7 @@ export const AdminAgreementsPage = () => {
                             open={isModalOpen}
                             onClose={handleCloseModal}
                         >
-                            <div className={classes.paper}>
-                                {/* <Typography variant="h3">
-                                    {(([].find((agreement: any) => agreement.id === checked[0]) || {}) as any).title}
-                                </Typography>
-                                <Typography variant="body1">
-                                    {(([].find((agreement: any) => agreement.id === checked[0]) || {}) as any).content}
-                                </Typography> */}
-                            </div>
+                            <div className={classes.paper}>aggrements</div>
                         </Modal>
                     </Container>
                 </>
