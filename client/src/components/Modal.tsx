@@ -6,11 +6,11 @@ interface ModalProps {
     isOpen: boolean;
     handleClose: () => void;
     dialogTitle?: string;
-    dialogSubtitle?: string;
+    dialogContentText?: string;
     children?: ReactElement;
 }
 
-export const Modal = ({ isOpen, handleClose, dialogTitle, dialogSubtitle, children }: ModalProps) => {
+export const Modal = ({ isOpen, handleClose, dialogTitle, dialogContentText, children }: ModalProps) => {
     const { t } = useTranslation();
 
     return (
@@ -18,7 +18,7 @@ export const Modal = ({ isOpen, handleClose, dialogTitle, dialogSubtitle, childr
             <Dialog fullWidth maxWidth="md" open={isOpen} onClose={handleClose}>
                 <DialogTitle>{dialogTitle && t(dialogTitle)}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>{dialogSubtitle}</DialogContentText>
+                    <DialogContentText>{dialogContentText}</DialogContentText>
                     {children}
                 </DialogContent>
                 <DialogActions>
