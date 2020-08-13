@@ -15,7 +15,7 @@ export const Modal = ({ isOpen, handleClose, dialogTitle, dialogContentText, chi
 
     return (
         <>
-            <Dialog fullWidth maxWidth="md" open={isOpen} onClose={handleClose}>
+            <Dialog maxWidth="md" open={isOpen} onClose={handleClose}>
                 <DialogTitle>{dialogTitle && t(dialogTitle)}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>{dialogContentText}</DialogContentText>
