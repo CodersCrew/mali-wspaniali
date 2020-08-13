@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,7 @@ interface ModalProps {
     handleClose: () => void;
     dialogTitle?: string;
     dialogSubtitle?: string;
-    children?: any;
+    children?: ReactElement;
 }
 
 export const Modal = ({ isOpen, handleClose, dialogTitle, dialogSubtitle, children }: ModalProps) => {
