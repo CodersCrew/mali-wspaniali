@@ -3,22 +3,20 @@ import { useTranslation } from 'react-i18next';
 import {
     makeStyles,
     createStyles,
-    Dialog,
-    DialogContent,
     DialogActions,
-    DialogTitle,
-    DialogContentText,
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { textColor } from '../../colors';
 import { Theme } from '../../theme';
 import { ButtonSecondary } from '../../components/Button';
+import { Modal } from '../../components/Modal';
 
 export const NewsletterSentModal: React.FC<{
+    isOpen: boolean;
     onClose: () => void;
     goToAdminPage: () => void;
     resetState: () => void;
-}> = ({ onClose, goToAdminPage, resetState }) => {
+}> = ({ isOpen, onClose, goToAdminPage, resetState }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -33,33 +31,33 @@ export const NewsletterSentModal: React.FC<{
     };
 
     return (
-        <Dialog open onClose={onClose}>
-            <DialogContent className={classes.sentModal}>
+        <Modal isOpen={isOpen} handleClose={onClose}>
+            <div className={classes.sentModal}>
                 <CheckCircleIcon className={classes.sentModalIcon} />
-                <DialogTitle disableTypography className={classes.sentModalTitle}>
+                <div className={classes.sentModalTitle}>
                     {t('newsletter.sending-success-modal.title')}
-                </DialogTitle>
-                <DialogContentText className={classes.sentModalText}>
+                </div>
+                <div className={classes.sentModalText}>
                     {t('newsletter.sending-success-modal.content')}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions className={classes.sentModalButtonWrapper}>
-                <ButtonSecondary
-                    variant="contained"
-                    id="homePageButton"
-                    className={classes.sentModalBackButton}
-                    onClick={handleButtonClick}
-                    innerText={t('newsletter.sending-success-modal.back-button')}
-                />
-                <ButtonSecondary
-                    id="nextMessageButton"
-                    className={classes.sentModalNextMessageButton}
-                    onClick={handleButtonClick}
-                    innerText={t('newsletter.sending-success-modal.next-msg-button')}
-                    variant="text"
-                />
-            </DialogActions>
-        </Dialog>
+                </div>
+                <DialogActions className={classes.sentModalButtonWrapper}>
+                    <ButtonSecondary
+                        variant="contained"
+                        id="homePageButton"
+                        className={classes.sentModalBackButton}
+                        onClick={handleButtonClick}
+                        innerText={t('newsletter.sending-success-modal.back-button')}
+                    />
+                    <ButtonSecondary
+                        id="nextMessageButton"
+                        className={classes.sentModalNextMessageButton}
+                        onClick={handleButtonClick}
+                        innerText={t('newsletter.sending-success-modal.next-msg-button')}
+                        variant="text"
+                    />
+                </DialogActions>
+            </div>
+        </Modal >
     );
 };
 
@@ -102,7 +100,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sentModalBackButton: {
             maxWidth: 264,
-            width: '100%',
             padding: '8px',
             marginBottom: 16,
         },
