@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { ButtonPrimary } from '../components/Button/ButtonPrimary'
 
 interface ModalProps {
     isOpen: boolean;
@@ -22,9 +23,9 @@ export const Modal = ({ isOpen, handleClose, dialogTitle, dialogContentText, chi
                     {children}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="secondary">
+                    <ButtonPrimary variant="text" onClick={handleClose}>
                         {t('close')}
-                    </Button>
+                    </ButtonPrimary>
                 </DialogActions>
             </Dialog>
         </>
