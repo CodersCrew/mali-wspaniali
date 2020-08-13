@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ButtonPrimary } from '../components/Button/ButtonPrimary'
+import { ButtonPrimary } from './Button/ButtonPrimary';
 
 interface ModalProps {
     isOpen: boolean;
