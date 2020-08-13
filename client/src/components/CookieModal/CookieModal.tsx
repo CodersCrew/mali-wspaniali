@@ -22,7 +22,6 @@ export const CookieModal = () => {
         return cookie;
     };
     useEffect(() => {
-        setModalIsOpen(true);
         cookiesAccepted() ? setModalIsOpen(false) : setModalIsOpen(true);
     }, []);
 
