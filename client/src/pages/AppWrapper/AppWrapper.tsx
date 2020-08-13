@@ -7,6 +7,7 @@ import { Theme } from '../../theme/types';
 import { getUser } from '../../graphql/userRepository';
 import { useState } from 'react';
 import { Me } from '../../graphql/types';
+import { CookieModal } from '../../components/CookieModal/CookieModal';
 
 export const UserContext = React.createContext<Me | null>(null);
 
@@ -27,7 +28,12 @@ export const AppWrapper: FC = ({ children }) => {
                 <Sidebar user={user} extended={isOpen} toggleSidebar={toggleSidebar} />
                 <div className={classes.container}>
                     <Navbar user={user} />
-                    <div className={classes.content}>{children}</div>
+                    <div className={classes.content}>
+                        <>
+                            <CookieModal />
+                            {children}
+                        </>
+                    </div>
                 </div>
             </div>
         </UserContext.Provider>
@@ -68,6 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         content: {
+            position: 'relative',
             marginTop: '-40px',
             padding: '10px 60px',
             [theme.breakpoints.down('sm')]: {
