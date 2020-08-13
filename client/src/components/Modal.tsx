@@ -25,7 +25,6 @@ export const Modal = ({ isOpen, handleClose, dialogTitle, dialogContentText, chi
                     <Button onClick={handleClose} color="secondary">
                         {t('close')}
                     </Button>
-                    ;
                 </DialogActions>
             </Dialog>
         </>
