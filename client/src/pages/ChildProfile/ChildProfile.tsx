@@ -5,7 +5,6 @@ import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
-import { Tab } from '../../components/Tab';
 import { UserContext } from '../AppWrapper/AppWrapper';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
 import { Tabs } from '../../components/Tabs';
@@ -22,6 +21,12 @@ export const ChildProfile = () => {
     const [activeTab, setActiveTab] = useState(TABS.results);
     const classes = useStyles();
     const user = useContext(UserContext);
+
+    const tabs = [
+        { label: t('child-profile.results-list'), value: 'results' },
+        { label: t('child-profile.tests-information'), value: 'aboutTests' },
+        { label: t('child-profile.your-agreements'), value: 'agreements' },
+    ];
 
     if (!user) return null;
 
@@ -44,9 +49,7 @@ export const ChildProfile = () => {
                 //@ts-ignore
                 onChange={(_event, value) => setActiveTab(value)}
             >
-                <Tab label={t('child-profile.results-list')} value={TABS.results} />
-                <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
-                <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
+                {tabs}
             </Tabs>
             {activeTab === TABS.results && (
                 <ChildProfileResults child={child} onNoResultClick={() => setActiveTab('aboutTests')} />

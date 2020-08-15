@@ -1,6 +1,5 @@
 import React from 'react';
 import { categoriesList } from './BlogCategories';
-import { Tab } from '../../components/Tab';
 import { Tabs } from '../../components/Tabs';
 
 type CategoryTabProps = {
@@ -16,9 +15,7 @@ export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
             //@ts-ignore
             onChange={(_event, value) => onClick(categoriesList[value].key)}
         >
-            {values.map(category => {
-                return <Tab key={category.name} label={category.name} />;
-            })}
+            {values.map(category => Object.assign({}, { label: category.name }))}
         </Tabs>
     );
 };
