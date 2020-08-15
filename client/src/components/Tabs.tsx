@@ -12,7 +12,7 @@ export const Tabs: FC<TabsProps> = ({ children, ...props }) => {
     let content: contentType[] | null;
 
     if (children) {
-        content = children as contentPropsType[];
+        content = children as contentType[];
     }
 
     return (
