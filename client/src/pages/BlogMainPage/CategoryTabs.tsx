@@ -14,8 +14,7 @@ export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
             value={values.findIndex(tab => tab.key === active)}
             //@ts-ignore
             onChange={(_event, value) => onClick(categoriesList[value].key)}
-        >
-            {values.map(category => Object.assign({}, { label: category.name }))}
-        </Tabs>
+            values={values.map(category => ({ label: category.name }))}
+        />
     );
 };

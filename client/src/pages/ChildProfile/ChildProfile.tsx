@@ -48,9 +48,8 @@ export const ChildProfile = () => {
                 value={activeTab}
                 //@ts-ignore
                 onChange={(_event, value) => setActiveTab(value)}
-            >
-                {tabs}
-            </Tabs>
+                values={tabs}
+            />
             {activeTab === TABS.results && (
                 <ChildProfileResults child={child} onNoResultClick={() => setActiveTab('aboutTests')} />
             )}

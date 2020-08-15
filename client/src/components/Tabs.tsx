@@ -1,24 +1,23 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Tabs as MuiTabs, makeStyles, createStyles, Theme, TabsProps } from '@material-ui/core/';
 import { Tab } from './Tab';
 
-type contentType = {
-    value: string;
+type ContentType = {
     label: string;
+    value?: string;
 };
 
-export const Tabs: FC<TabsProps> = ({ children, ...props }) => {
-    const classes = useStyles();
-    let content: contentType[] | null;
+interface Props {
+    values: ContentType[];
+}
 
-    if (children) {
-        content = children as contentType[];
-    }
+export const Tabs = ({ values, ...props }: TabsProps & Props) => {
+    const classes = useStyles();
 
     return (
         <MuiTabs classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }} {...props}>
-            {content!.map((contentItem: contentType) => (
-                <Tab key={contentItem.label} value={contentItem.value} label={contentItem.label} />
+            {values.map(({ label, value }) => (
+                <Tab key={label} value={value} label={label} />
             ))}
         </MuiTabs>
     );
