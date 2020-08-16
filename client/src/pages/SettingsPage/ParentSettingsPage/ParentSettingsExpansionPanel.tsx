@@ -10,6 +10,7 @@ import { ChangePasswordPanel } from '../ChangePasswordPanel';
 import { DefaultLanguagePanel } from '../DefaultLanguagePanel';
 import { LegalNotesPanel } from '../LegalNotesPanel';
 import { ConsentsPanel } from '../ConsentsPanel';
+import { AccountDeletionPanel } from '../AccountDeletionPanel';
 
 export const ParentSettingsExpansionPanel = () => {
     const classes = useStyles();
@@ -77,6 +78,24 @@ export const ParentSettingsExpansionPanel = () => {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     <ConsentsPanel />
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+
+            <ExpansionPanel
+                expanded={expanded === 'account-deletion-panel'}
+                onChange={handleChange('account-deletion-panel')}
+            >
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="account-deletion-panel-content"
+                    id="account-deletion-panel-header"
+                >
+                    <Typography className={classes.heading}>
+                        {t('settings-page.parent.delete-account.header')}
+                    </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <AccountDeletionPanel />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>

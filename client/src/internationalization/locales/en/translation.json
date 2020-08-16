@@ -356,10 +356,10 @@
     "settings-page": {
         "header": "SETTINGS",
         "description": "No idea how to describe this site...",
-        "password-change": "CHANGE PASSWORD",
+        "password-change": "Password change",
         "password-change-comment": "For your personal safety change the password regularly",
         "legal-notes-comment": "Read the regulations",
-        "consents": "CONSENTS GIVEN IN THE PROGRAM",
+        "consents": "Consents given in the program",
         "consents-comment": "Read or change the consents given in the program",
         "old-password": "Old password",
         "new-password": "New password",
@@ -375,32 +375,38 @@
         },
         "cancel-button": "CANCEL",
         "legal-notes": {
-            "heading": "LEGAL NOTES",
+            "heading": "Legal notes",
             "privacy-policy": "Privacy policy",
             "regulations": "Regulations"
         },
         "parent": {
             "header": "SETTINGS",
             "description": "No idea how to describe this site...",
-            "password-change": "CHANGE PASSWORD",
+            "password-change": "Password change",
             "password-change-comment": "For your personal safety change the password regularly",
-            "language-selection": "LANGUAGE SELECTION",
+            "language-selection": "Language selection",
             "language-selection-comment": "Chose your default language for the application",
-            "legal-notes": "LEGAL NOTES",
+            "legal-notes": "Legal notes",
             "legal-notes-comment": "Read the regulations",
-            "consents": "CONSENTS GIVEN IN THE PROGRAM",
-            "consents-comment": "Read or change the consents given in the program"
+            "consents": "Consents given in the program",
+            "consents-comment": "Read or change the consents given in the program",
+            "delete-account": {
+                "header": "Deletion of the account",
+                "deletion-not-allowed": "You are not allowed to delete your own account.",
+                "deletion-hint": "To delete your account contact our Fund.",
+                "deletion-button": "WRITE A MESSAGE"
+            }
         },
         "admin": {
             "header": ".SETTINGS",
             "description": ".No idea how to describe this site...",
-            "password-change": ".CHANGE PASSWORD",
+            "password-change": ".Password change",
             "password-change-comment": ".For your personal safety change the password regularly",
-            "language-selection": "LANGUAGE SELECTION",
+            "language-selection": ".Language selection",
             "language-selection-comment": "Chose your default language for the application",
-            "legal-notes": ".LEGAL NOTES",
+            "legal-notes": ".Legal notes",
             "legal-notes-comment": ".Read the regulations",
-            "consents": ".CONSENTS GIVEN IN THE PROGRAM",
+            "consents": ".Consents given in the program",
             "consents-comment": ".Read or change the consents given in the program"
         }
     },

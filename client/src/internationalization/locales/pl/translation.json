@@ -356,10 +356,10 @@
     "settings-page": {
         "header": "USTAWIENIA",
         "description": "Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
-        "password-change": "ZMIANA HASŁA",
+        "password-change": "Zmiana hasła",
         "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
         "legal-notes-comment": "Zapoznaj się z regulaminem",
-        "consents": "ZGODY PODPISANE W PROGRAMIE",
+        "consents": "Zgody podpisane w programie",
         "consents-comment": "Przejrzyj i zmień wydane zgody",
         "old-password": "Aktualne hasło",
         "new-password": "Nowe hasło",
@@ -375,32 +375,36 @@
         },
         "cancel-button": "ANULUJ",
         "legal-notes": {
-            "heading": "INFORMACJE PRAWNE",
+            "heading": "Informacje prawne",
             "privacy-policy": "Polityka prywatności",
             "regulations": "Regulamin"
         },
         "parent": {
             "header": "USTAWIENIA",
             "description": "Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
-            "password-change": "ZMIANA HASŁA",
+            "password-change": "Zmiana hasła",
             "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
-            "language-selection": "WYBÓR JĘZYKA",
+            "language-selection": "Wybór języka",
             "language-selection-comment": "Wybierz język domyślny dla aplikacji",
-            "legal-notes": "INFORMACJE PRAWNE",
             "legal-notes-comment": "Zapoznaj się z regulaminem",
-            "consents": "ZGODY PODPISANE W PROGRAMIE",
-            "consents-comment": "Przejrzyj i zmień wydane zgody"
+            "consents": "Zgody zapisane w programie",
+            "consents-comment": "Przejrzyj i zmień wydane zgody",
+            "delete-account": {
+                "header": "Usuwanie konta",
+                "deletion-not-allowed": "Usuwanie konta z poziomu użytkownika nie jest możliwe.",
+                "deletion-hint": "Aby usunąć konto w aplikacji skontaktuj się z Fundacją.",
+                "deletion-button": "NAPISZ WIADOMOŚĆ"
+            }
         },
         "admin": {
             "header": ".USTAWIENIA",
             "description": ".Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
-            "password-change": ".ZMIANA HASŁA",
+            "password-change": ".Zmiana hasła",
             "password-change-comment": ".Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
-            "language-selection": "WYBÓR JĘZYKA",
-            "language-selection-comment": "Wybierz język domyślny dla aplikacji",
-            "legal-notes": ".INFORMACJE PRAWNE",
+            "language-selection": ".Wybór języka",
+            "language-selection-comment": ".Wybierz język domyślny dla aplikacji",
             "legal-notes-comment": ".Zapoznaj się z regulaminem",
-            "consents": ".ZGODY PODPISANE W PROGRAMIE",
+            "consents": ".Zgody zapisane w programie",
             "consents-comment": ".Przejrzyj i zmień wydane zgody"
         }
     },
