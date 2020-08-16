@@ -2,9 +2,9 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '../../theme/types';
-import { ButtonSecondary } from '../../components/Button';
 import { useMutation, useQuery } from '@apollo/client';
+import { Theme } from '../../theme';
+import { ButtonSecondary } from '../../components/Button';
 import { AUTHORIZE_USER, GET_ME } from '../../graphql/userRepository';
 
 const initialError: Error = {

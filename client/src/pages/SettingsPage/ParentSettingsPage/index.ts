@@ -1,0 +1,1 @@
+export { ParentSettingsPage } from './ParentSettingsPage';
