@@ -19,7 +19,9 @@ import { SingleBlogArticle } from './SingleBlogArticle';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { BlogMainPage } from './BlogMainPage';
 import { NotificationsPage } from './NotificationsPage';
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '../theme';
+import {ParentSettingsPage} from './SettingsPage/ParentSettingsPage';
+import {AdminSettingsPage} from './SettingsPage/AdminSettingsPage';
 
 export const Root = () => {
     const { i18n } = useTranslation();
@@ -45,10 +47,12 @@ export const Root = () => {
                     <Route path={['/admin', '/parent']}>
                         <AppWrapper>
                             <Route exact path="/parent" component={ParentHomePage} />
+                            <Route path="/parent/settings" component={ParentSettingsPage}/>
                             <Route path="/admin/tests" component={TestResultsPage} />
                             <Route path="/admin/users" component={UsersPage} />
                             <Route path="/parent/child/:childId" component={ChildProfile} />
                             <Route exact path="/admin" />
+                            <Route path="/admin/settings" component={AdminSettingsPage}/>
                             <Route path="/admin/parent/:id" component={ParentProfile} />
                             <Route path="/admin/agreements" component={AdminAgreementsPage} />
                             <Route path="/parent/children" component={ChildrenListPage} />
