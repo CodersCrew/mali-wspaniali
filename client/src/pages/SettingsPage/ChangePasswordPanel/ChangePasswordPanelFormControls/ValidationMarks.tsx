@@ -21,6 +21,7 @@ export const ValidationMarks = (props: ValidationMarksPropsInterface) => {
 
     useEffect(() => {
         props.onChange({ states: { ...values } });
+        // eslint-disable-next-line
     }, [
         values.validPasswordSymbol,
         values.validPasswordNumber,
