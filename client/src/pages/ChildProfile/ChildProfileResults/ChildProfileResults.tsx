@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ExpansionPanelSummary, ExpansionPanelDetails, makeStyles } from '@material-ui/core';
+import { ExpansionPanelSummary, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import { Result } from '../../../firebase/types';
 import { useAuthorization } from '../../../hooks/useAuthorization';
@@ -12,7 +12,7 @@ import { getGroupedResults } from './utils';
 import { gray } from '../../../colors';
 import { ResultDetails } from './ResultDetails';
 import { ResultComparison } from './ResultComparison';
-import { ExpansionPanelExtended } from '../../../components/ExpansionPanel';
+import { ExpansionPanel } from '../../../components/ExpansionPanel';
 
 export const ChildProfileResults = () => {
     useAuthorization(true);
@@ -55,9 +55,22 @@ export const ChildProfileResults = () => {
                 const sortedResults = groupedResults[key].sort(
                     (resultA, resultB) => +resultA.dateOfTest - +resultB.dateOfTest,
                 );
+                const childrenOfDetailsPanel = <div>
+                    {sortedResults.map((result, index) => (
+                        <ResultDetails
+                            result={result}
+                            key={String(result.dateOfTest)}
+                            previousResult={sortedResults[index - 1]}
+                        />
+                    ))}
+                    <ResultComparison
+                        firstResultPoints={sortedResults[0].sumOfPoints}
+                        lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
+                    />
+                </div>;
 
                 return (
-                    <ExpansionPanelExtended key={key} expanded={isExpanded} className={classes.expansionPanel}>
+                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel} panelDetailsClassName={classes.expansionPanelDetails} childrenOfDetailsPanel={childrenOfDetailsPanel}>
                         <ExpansionPanelSummary
                             onClick={() => handleClickSummary(key)}
                             className={clsx(
@@ -71,20 +84,7 @@ export const ChildProfileResults = () => {
                                 isExpanded={isExpanded}
                             />
                         </ExpansionPanelSummary>
-                        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-                            {sortedResults.map((result, index) => (
-                                <ResultDetails
-                                    result={result}
-                                    key={String(result.dateOfTest)}
-                                    previousResult={sortedResults[index - 1]}
-                                />
-                            ))}
-                            <ResultComparison
-                                firstResultPoints={sortedResults[0].sumOfPoints}
-                                lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
-                            />
-                        </ExpansionPanelDetails>
-                    </ExpansionPanelExtended>
+                    </ExpansionPanel>
                 );
             })}
         </>

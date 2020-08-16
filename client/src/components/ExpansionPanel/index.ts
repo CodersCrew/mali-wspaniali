@@ -1,1 +1,1 @@
-export { ExpansionPanelExtended } from './ExpansionPanel';
+export { ExpansionPanel } from './ExpansionPanel';
