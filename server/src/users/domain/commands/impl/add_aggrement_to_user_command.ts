@@ -1,6 +1,6 @@
-export class AddAggrementToUserCommand {
+export class AddAgreementToUserCommand {
   constructor(
     public readonly userId: string,
-    public readonly aggrementId: string,
+    public readonly agreementId: string,
   ) {}
 }

@@ -1,15 +1,15 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { AggrementRepository } from '../../repositories/aggrement_repository';
-import { GetAllAggrementsQuery } from '../impl/get_all_aggrements_query';
-import { AggrementProps } from '../../../../agreements/schemas/aggrement_schema';
+import { AgreementRepository } from '../../repositories/agreement_repository';
+import { GetAllAgreementsQuery } from '../impl/get_all_agreements_query';
+import { AgreementProps } from '../../../../agreements/schemas/agreement_schema';
 
-@QueryHandler(GetAllAggrementsQuery)
-export class GetAllAggrementsHandler
-  implements IQueryHandler<GetAllAggrementsQuery> {
-  constructor(private readonly repository: AggrementRepository) {}
+@QueryHandler(GetAllAgreementsQuery)
+export class GetAllAgreementsHandler
+  implements IQueryHandler<GetAllAgreementsQuery> {
+  constructor(private readonly repository: AgreementRepository) {}
 
-  async execute(): Promise<AggrementProps[]> {
+  async execute(): Promise<AgreementProps[]> {
     return this.repository.getAll();
   }
 }

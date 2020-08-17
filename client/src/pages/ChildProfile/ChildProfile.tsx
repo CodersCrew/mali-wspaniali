@@ -24,7 +24,7 @@ export const ChildProfile = () => {
 
     if (!user) return null;
 
-    const { aggrements } = user;
+    const { agreements } = user;
     const child = user.children.find(child => child._id === childId);
 
     if (!child) {
@@ -55,7 +55,7 @@ export const ChildProfile = () => {
                 <ChildProfileResults child={child} onNoResultClick={() => setActiveTab('aboutTests')} />
             )}
             {activeTab === TABS.aboutTests && <ChildProfileAboutTests />}
-            {activeTab === TABS.agreements && <ChildProfileAgreements aggrements={aggrements} />}
+            {activeTab === TABS.agreements && <ChildProfileAgreements agreements={agreements} />}
         </>
     );
 };

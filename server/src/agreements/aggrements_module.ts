@@ -2,23 +2,23 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { AggrementSchema } from './schemas/aggrement_schema';
-import { AggrementRepository } from './domain/repositories/aggrement_repository';
+import { AgreementSchema } from './schemas/agreement_schema';
+import { AgreementRepository } from './domain/repositories/agreement_repository';
 import { QueryHandlers } from './domain/queries/handlers';
-import { AggrementsResolver } from './agreements_resolver';
+import { AgreementsResolver } from './agreements_resolver';
 import { CommandHandlers } from './domain/commands/handlers';
 
 @Module({
   imports: [
     CqrsModule,
-    MongooseModule.forFeature([{ name: 'Aggrement', schema: AggrementSchema }]),
+    MongooseModule.forFeature([{ name: 'Agreement', schema: AgreementSchema }]),
   ],
   providers: [
-    AggrementsResolver,
-    AggrementRepository,
+    AgreementsResolver,
+    AgreementRepository,
     ...CommandHandlers,
     ...QueryHandlers,
   ],
-  exports: [AggrementRepository, ...QueryHandlers],
+  exports: [AgreementRepository, ...QueryHandlers],
 })
-export class AggrementsModule {}
+export class AgreementsModule {}

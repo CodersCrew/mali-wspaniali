@@ -15,8 +15,8 @@ import { RegistrationCode } from './RegistrationCode';
 import { LanguageSelector } from './LanguageSelector';
 
 import { RegisterForm } from './types';
-import { Aggrement } from '../../../graphql/types';
-import { getAggrements } from '../../../graphql/agreementRepository';
+import { Agreement } from '../../../graphql/types';
+import { getAgreements } from '../../../graphql/agreementRepository';
 
 const initialState: RegisterForm = {
     code: '',
@@ -28,13 +28,13 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
-    const [aggrements, setAggrements] = useState<Aggrement[]>([]);
+    const [agreements, setAgreements] = useState<Agreement[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
 
     useEffect(() => {
-        getAggrements().then(({ data }) => setAggrements(data!.aggrements));
+        getAgreements().then(({ data }) => setAgreements(data!.agreements));
     }, []);
 
     const steps = [
@@ -89,7 +89,7 @@ export const RegistrationForm = () => {
                         agreementPanel={classes.agreementPanel}
                         agreementCheckbox={classes.agreementCheckbox}
                         checkboxContent={classes.checkboxContent}
-                        agreements={aggrements}
+                        agreements={agreements}
                     />
                 );
             case 3:

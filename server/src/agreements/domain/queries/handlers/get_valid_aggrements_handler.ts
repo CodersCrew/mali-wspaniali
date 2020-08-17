@@ -1,28 +1,28 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { AggrementRepository } from '../../repositories/aggrement_repository';
-import { AggrementProps } from '../../../schemas/aggrement_schema';
-import { GetValidAggrementsQuery } from '../impl/get_valid_aggrements_query';
+import { AgreementRepository } from '../../repositories/agreement_repository';
+import { AgreementProps } from '../../../schemas/agreement_schema';
+import { GetValidAgreementsQuery } from '../impl/get_valid_agreements_query';
 
-@QueryHandler(GetValidAggrementsQuery)
-export class GetValidAggrementsHandler
-  implements IQueryHandler<GetValidAggrementsQuery> {
-  constructor(private readonly repository: AggrementRepository) {}
+@QueryHandler(GetValidAgreementsQuery)
+export class GetValidAgreementsHandler
+  implements IQueryHandler<GetValidAgreementsQuery> {
+  constructor(private readonly repository: AgreementRepository) {}
 
-  async execute({ signed }: { signed: string[] }): Promise<AggrementProps[]> {
-    const aggrements = await this.repository.getAll();
+  async execute({ signed }: { signed: string[] }): Promise<AgreementProps[]> {
+    const agreements = await this.repository.getAll();
 
-    const validAggrements = aggrements
-      .filter(aggrement => !aggrement.isOutdated)
-      .map(aggrement => {
-        const isSigned = signed.includes(aggrement._id.toString());
+    const validAgreements = agreements
+      .filter(agreement => !agreement.isOutdated)
+      .map(agreement => {
+        const isSigned = signed.includes(agreement._id.toString());
 
         return {
-          ...aggrement,
+          ...agreement,
           isSigned,
         };
       });
 
-    return validAggrements;
+    return validAgreements;
   }
 }

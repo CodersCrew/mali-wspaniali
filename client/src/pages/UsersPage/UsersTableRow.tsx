@@ -10,13 +10,13 @@ interface Props {
 export const UsersTableRow = ({ user }: Props) => {
     const { t } = useTranslation();
 
-    const { aggrements, _id } = user;
+    const { agreements, _id } = user;
 
     const getAgreements = () => {
-        if (aggrements.length !== 0) {
-            return aggrements.map(aggrement => (
-                <TableCell key={`${_id}-${aggrement._id}`}>
-                    {aggrement.text} {aggrement.isSigned.toString()}
+        if (agreements.length !== 0) {
+            return agreements.map(agreement => (
+                <TableCell key={`${_id}-${agreement._id}`}>
+                    {agreement.text} {agreement.isSigned.toString()}
                 </TableCell>
             ));
         }

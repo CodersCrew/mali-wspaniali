@@ -25,7 +25,7 @@ import { NodemailerProvider } from '../shared/services/send_mail/nodemailer_prov
 import { UserChangePasswordJWT } from './schemas/user_change_password_jwt_schema';
 import { UserChangePasswordRepository } from './domain/repositories/user_change_password_jwt_repository';
 import { UserChangePasswordCronService } from './user_change_password_cron_service';
-import { AggrementsModule } from '../agreements/aggrements_module';
+import { AgreementsModule } from '../agreements/agreements_module';
 import { KindergartenRepository } from '../kindergartens/domain/repositories/kindergarten_repository';
 import { KindergartenModule } from '../kindergartens/kindergarten_module';
 
@@ -34,7 +34,7 @@ import { KindergartenModule } from '../kindergartens/kindergarten_module';
     KeyCodesModule,
     NotificationsModule,
     CqrsModule,
-    AggrementsModule,
+    AgreementsModule,
     KindergartenModule,
     ConfigModule.forRoot(),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),

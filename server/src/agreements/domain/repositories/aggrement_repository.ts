@@ -3,33 +3,33 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import {
-  AggrementDocument,
-  AggrementProps,
-} from '../../schemas/aggrement_schema';
+  AgreementDocument,
+  AgreementProps,
+} from '../../schemas/agreement_schema';
 
 @Injectable()
-export class AggrementRepository {
+export class AgreementRepository {
   constructor(
-    @InjectModel('Aggrement')
-    private readonly model: Model<AggrementDocument>,
+    @InjectModel('Agreement')
+    private readonly model: Model<AgreementDocument>,
   ) {}
 
-  async get(id: string): Promise<AggrementProps> {
+  async get(id: string): Promise<AgreementProps> {
     return await this.model.findById(id).exec();
   }
 
-  async getAll(): Promise<AggrementProps[]> {
+  async getAll(): Promise<AgreementProps[]> {
     return await this.model
       .find({}, {}, { sort: { date: -1 } })
       .exec()
-      .then(aggrements => aggrements.map(aggrement => aggrement.toObject()));
+      .then(agreements => agreements.map(agreement => agreement.toObject()));
   }
 
-  async create(createAgreementDTO: { text: string }): Promise<AggrementProps> {
-    const createdAggrement = new this.model(createAgreementDTO);
+  async create(createAgreementDTO: { text: string }): Promise<AgreementProps> {
+    const createdAgreement = new this.model(createAgreementDTO);
 
-    return await createdAggrement
+    return await createdAgreement
       .save()
-      .then(aggrement => aggrement.toObject());
+      .then(agreement => agreement.toObject());
   }
 }

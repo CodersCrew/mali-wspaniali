@@ -1,17 +1,17 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { CreateAggrementCommand } from '../impl/create_aggrement_command';
-import { AggrementProps } from '../../../schemas/aggrement_schema';
-import { AggrementRepository } from '../../repositories/aggrement_repository';
+import { CreateAgreementCommand } from '../impl/create_agreement_command';
+import { AgreementProps } from '../../../schemas/agreement_schema';
+import { AgreementRepository } from '../../repositories/agreement_repository';
 
-@CommandHandler(CreateAggrementCommand)
-export class CreateAggrementHandler
-  implements ICommandHandler<CreateAggrementCommand> {
-  constructor(private readonly repository: AggrementRepository) {}
+@CommandHandler(CreateAgreementCommand)
+export class CreateAgreementHandler
+  implements ICommandHandler<CreateAgreementCommand> {
+  constructor(private readonly repository: AgreementRepository) {}
 
-  async execute(command: CreateAggrementCommand): Promise<AggrementProps> {
-    const { aggrement } = command;
+  async execute(command: CreateAgreementCommand): Promise<AgreementProps> {
+    const { agreement } = command;
 
-    return await this.repository.create(aggrement);
+    return await this.repository.create(agreement);
   }
 }

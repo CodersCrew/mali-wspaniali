@@ -1,1 +1,1 @@
-export class GetAllAggrementsQuery {}
+export class GetAllAgreementsQuery {}

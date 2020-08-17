@@ -52,7 +52,7 @@ export const GET_ME = gql`
                     number
                 }
             }
-            aggrements {
+            agreements {
                 _id
                 date
                 text
@@ -95,7 +95,7 @@ export function getUser(): Promise<ApolloQueryResult<{ me: Me }>> {
                             number
                         }
                     }
-                    aggrements {
+                    agreements {
                         _id
                         date
                         text
@@ -140,7 +140,7 @@ export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User 
                             number
                         }
                     }
-                    aggrements {
+                    agreements {
                         _id
                         date
                         text
@@ -180,7 +180,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                                 number
                             }
                         }
-                        aggrements {
+                        agreements {
                             _id
                             date
                             text
@@ -218,7 +218,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                             number
                         }
                     }
-                    aggrements {
+                    agreements {
                         _id
                         date
                         text

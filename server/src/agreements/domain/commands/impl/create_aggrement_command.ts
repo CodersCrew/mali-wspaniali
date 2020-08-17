@@ -1,3 +1,3 @@
-export class CreateAggrementCommand {
-  constructor(public readonly aggrement: { text: string }) {}
+export class CreateAgreementCommand {
+  constructor(public readonly agreement: { text: string }) {}
 }
