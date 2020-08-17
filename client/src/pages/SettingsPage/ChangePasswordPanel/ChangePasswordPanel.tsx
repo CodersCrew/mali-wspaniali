@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-// import { useAuthorization } from '../../../hooks/useAuthorization';
 import {
     FormControlConfirmNewPassword,
     FormControlNewPassword,
@@ -10,17 +9,22 @@ import {
     ValidationMarks,
 } from './ChangePasswordPanelFormControls';
 import { ButtonSecondary } from '../../../components/Button';
-import { getCurrentUserEmail } from '../GetCurrentUserEmail';
+import { Me } from '../../../graphql/types';
+import { ChangePasswordReducer, ChangePasswordInitialState, TYPE_NEW_PASSWORD } from './ChangePasswordReducer';
 
-export const ChangePasswordPanel = () => {
-    // useAuthorization(true);
+interface Props {
+    user: Me;
+}
+
+export const ChangePasswordPanel = ({ user }: Props) => {
+    const [state, dispatch] = useReducer(ChangePasswordReducer, ChangePasswordInitialState);
+
     const { t } = useTranslation();
     const classes = useStyles();
     const [values, setValues] = useState({
         changePasswordButtonDisabled: true,
         confirmNewPassword: '',
         confirmNewPasswordDisabled: true,
-        currentUserEmail: '',
         newPassword: '',
         newPasswordDisabled: true,
         oldPassword: '',
@@ -39,14 +43,10 @@ export const ChangePasswordPanel = () => {
         event.preventDefault();
     };
 
-    const updateCurrentUserEmailState = (value: string): void => {
-        setValues({ ...values, currentUserEmail: value });
-    };
+    const handlePasswordVisibility = () => dispatch({ type: 'changeOldPasswordVisibility' });
 
-    useEffect(() => {
-        getCurrentUserEmail(updateCurrentUserEmailState);
-        // eslint-disable-next-line
-    }, [values.currentUserEmail]);
+    const handleOldPasswordChange = (password: string, isSuccess: boolean) =>
+        dispatch({ type: 'changeOldPassword', values: { password, isSuccess } });
 
     return (
         <form
@@ -56,6 +56,7 @@ export const ChangePasswordPanel = () => {
             className={classes.container}
         >
             <FormControlOldPassword
+                email={user.mail}
                 states={values}
                 onChange={states => {
                     setValues({
@@ -63,11 +64,15 @@ export const ChangePasswordPanel = () => {
                         ...states.states,
                     });
                 }}
+                onToggleVisibility={handlePasswordVisibility}
+                onOldPasswordChange={handleOldPasswordChange}
+                visibility={state.oldPasswordVisibility}
             />
 
             <FormControlNewPassword
                 key={`FormControlNewPassword-${values.newPasswordDisabled ? 'disabled' : 'enabled'}`}
                 states={values}
+                isActive={isFormControlNewPassword(state.activeState)}
                 onChange={states => {
                     setValues({
                         ...values,
@@ -155,3 +160,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
+function isFormControlNewPassword(state: string) {
+    return state === TYPE_NEW_PASSWORD;
+}

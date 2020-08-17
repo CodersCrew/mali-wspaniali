@@ -9,9 +9,14 @@ import {
     validatePasswordSymbol,
     validatePasswordUppercase,
 } from '../ValidatePassword';
-import { FormControlNewPasswordPropsInterface } from './types';
+import { FormControlNewPasswordStatesInterface } from './types';
 
-export const FormControlNewPassword = (props: FormControlNewPasswordPropsInterface) => {
+export interface Props extends FormControlNewPasswordStatesInterface {
+    onChange: (states: FormControlNewPasswordStatesInterface) => void;
+    isActive: boolean;
+}
+
+export const FormControlNewPassword = (props: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const states = { ...props.states };
@@ -58,7 +63,7 @@ export const FormControlNewPassword = (props: FormControlNewPasswordPropsInterfa
             <InputLabel htmlFor="outlined-adornment-password">{t('settings-page.new-password')}</InputLabel>
             <OutlinedInput
                 required
-                disabled={values.newPasswordDisabled}
+                disabled={!props.isActive}
                 onChange={event => validateNewPassword(event)}
                 value={values.newPassword}
                 id="new-password"

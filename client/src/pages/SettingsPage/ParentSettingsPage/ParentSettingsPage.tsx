@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { mainColor } from '../../../colors';
 import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
+import { UserContext } from '../../AppWrapper/AppWrapper';
 
 export const ParentSettingsPage = () => {
+    const user = useContext(UserContext);
     const classes = useStyles();
     const { t } = useTranslation();
+
+    if (!user) return null;
 
     return (
         <Grid className={classes.container}>
@@ -16,7 +20,7 @@ export const ParentSettingsPage = () => {
             <Grid item xs={12}>
                 <Typography className={classes.description}>{t('settings-page.parent.description')}</Typography>
             </Grid>
-            <ParentSettingsExpansionPanel />
+            <ParentSettingsExpansionPanel user={user} />
         </Grid>
     );
 };

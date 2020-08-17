@@ -2,7 +2,6 @@ export interface FormControlOldPasswordStatesInterface {
     states: {
         changePasswordButtonDisabled: boolean;
         confirmNewPassword: string;
-        currentUserEmail: string;
         newPassword: string;
         newPasswordDisabled: boolean;
         oldPassword: string;
@@ -49,10 +48,6 @@ export interface ValidationMarksStatesInterface {
         validPasswordSymbol: boolean;
         validPasswordUppercase: boolean;
     };
-}
-
-export interface FormControlOldPasswordPropsInterface extends FormControlOldPasswordStatesInterface {
-    onChange: (states: FormControlOldPasswordStatesInterface) => void;
 }
 
 export interface FormControlNewPasswordPropsInterface extends FormControlNewPasswordStatesInterface {

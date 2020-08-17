@@ -11,21 +11,28 @@ import { DefaultLanguagePanel } from '../DefaultLanguagePanel';
 import { LegalNotesPanel } from '../LegalNotesPanel';
 import { ConsentsPanel } from '../ConsentsPanel';
 import { AccountDeletionPanel } from '../AccountDeletionPanel';
+import { Me } from '../../../graphql/types';
 
-export const ParentSettingsExpansionPanel = () => {
+interface Props {
+    user: Me;
+}
+
+export const ParentSettingsExpansionPanel = ({ user }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [expanded, setExpanded] = React.useState<string | false>(false);
+    const [expanded, setExpanded] = React.useState<string>('');
 
-    const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : false);
+    const handleChange = (panel: string) => {
+        setExpanded(prev => (prev === panel ? '' : panel));
     };
+
+    const isExpanded = (panel: string) => panel === expanded;
 
     return (
         <div className={classes.root}>
             <ExpansionPanel
-                expanded={expanded === 'password-change-panel'}
-                onChange={handleChange('password-change-panel')}
+                expanded={isExpanded('password-change-panel')}
+                onChange={() => handleChange('password-change-panel')}
             >
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -34,14 +41,17 @@ export const ParentSettingsExpansionPanel = () => {
                 >
                     <Typography className={classes.heading}>{t('settings-page.parent.password-change')}</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <ChangePasswordPanel />
+                <ExpansionPanelDetails className={classes.expansionContainer}>
+                    <div className={classes.expansionItem}>
+                        <ChangePasswordPanel user={user} />
+                    </div>
+                    <div className={classes.expansionItem}>Wystąpiły trudności podczas zmiany hasła? </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
             <ExpansionPanel
-                expanded={expanded === 'language-selection-panel'}
-                onChange={handleChange('language-selection-panel')}
+                expanded={isExpanded('language-selection-panel')}
+                onChange={() => handleChange('language-selection-panel')}
             >
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -55,7 +65,10 @@ export const ParentSettingsExpansionPanel = () => {
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            <ExpansionPanel expanded={expanded === 'legal-notes-panel'} onChange={handleChange('legal-notes-panel')}>
+            <ExpansionPanel
+                expanded={isExpanded('legal-notes-panel')}
+                onChange={() => handleChange('legal-notes-panel')}
+            >
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="legal-notes-panel-content"
@@ -68,7 +81,7 @@ export const ParentSettingsExpansionPanel = () => {
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            <ExpansionPanel expanded={expanded === 'consents-panel'} onChange={handleChange('consents-panel')}>
+            <ExpansionPanel expanded={isExpanded('consents-panel')} onChange={() => handleChange('consents-panel')}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="consents-panel-content"
@@ -82,8 +95,8 @@ export const ParentSettingsExpansionPanel = () => {
             </ExpansionPanel>
 
             <ExpansionPanel
-                expanded={expanded === 'account-deletion-panel'}
-                onChange={handleChange('account-deletion-panel')}
+                expanded={isExpanded('account-deletion-panel')}
+                onChange={() => handleChange('account-deletion-panel')}
             >
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -116,6 +129,12 @@ const useStyles = makeStyles((theme: Theme) =>
         secondaryHeading: {
             fontSize: theme.typography.pxToRem(15),
             color: theme.palette.text.secondary,
+        },
+        expansionContainer: {
+            display: 'flex',
+        },
+        expansionItem: {
+            flex: 1,
         },
     }),
 );
