@@ -1,10 +1,10 @@
 import React from 'react';
 import { ListItem, ListItemIcon, ListItemText, Checkbox } from '@material-ui/core';
-import { Aggrement } from '../../graphql/types';
+import { Agreement } from '../../graphql/types';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
-    agreement: Aggrement;
+    agreement: Agreement;
 }
 
 export function AgreementListItem({ agreement }: Props) {

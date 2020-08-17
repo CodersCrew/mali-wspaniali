@@ -50,7 +50,7 @@ export interface Me {
     date: string;
     role: Role;
     children: Child[];
-    aggrements: Aggrement[];
+    agreements: Agreement[];
     notifications: Notification[];
 }
 
@@ -89,7 +89,7 @@ export interface TestResult {
     };
 }
 
-export interface Aggrement {
+export interface Agreement {
     _id: string;
     date: string;
     isSigned: boolean;

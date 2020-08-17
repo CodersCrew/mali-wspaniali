@@ -5,17 +5,17 @@ import { Modal, Container, Typography, List, ListSubheader } from '@material-ui/
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { ButtonSecondary } from '../../components/Button';
 import { AgreementListItem } from './AgreementListItem';
-import { Aggrement } from '../../graphql/types';
-import { getAggrements } from '../../graphql/agreementRepository';
+import { Agreement } from '../../graphql/types';
+import { getAgreements } from '../../graphql/agreementRepository';
 
 export const AdminAgreementsPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [isModalOpen, setOpenModal] = useState(false);
-    const [aggrements, setAggrements] = useState<Aggrement[]>([]);
+    const [agreements, setAgreements] = useState<Agreement[]>([]);
 
     useEffect(() => {
-        getAggrements().then(({ data }) => setAggrements(data!.aggrements));
+        getAgreements().then(({ data }) => setAgreements(data!.agreements));
     }, []);
 
     const handleOpenModal = () => {
@@ -29,7 +29,7 @@ export const AdminAgreementsPage = () => {
     return (
         <>
             <Link to="/">{t('go-to-home-page')}</Link>
-            {aggrements.length > 0 ? (
+            {agreements.length > 0 ? (
                 <>
                     <Container>
                         <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
@@ -37,7 +37,7 @@ export const AdminAgreementsPage = () => {
                             <List
                                 subheader={<ListSubheader>{t('admin-agreements-page.agreements-all')}</ListSubheader>}
                             >
-                                {aggrements.map(agreement => (
+                                {agreements.map(agreement => (
                                     <AgreementListItem key={agreement._id} agreement={agreement} />
                                 ))}
                             </List>
@@ -55,7 +55,7 @@ export const AdminAgreementsPage = () => {
                             open={isModalOpen}
                             onClose={handleCloseModal}
                         >
-                            <div className={classes.paper}>aggrements</div>
+                            <div className={classes.paper}>agreements</div>
                         </Modal>
                     </Container>
                 </>

@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, Typography, List, ListItem, ListItemText, ListItemIcon, Checkbox } from '@material-ui/core';
 import { lightTextColor, textColor } from '../../colors';
-import { Aggrement } from '../../graphql/types';
+import { Agreement } from '../../graphql/types';
 
 interface Props {
-    aggrements: Aggrement[];
+    agreements: Agreement[];
 }
-export const ChildProfileAgreements = ({ aggrements }: Props) => {
+export const ChildProfileAgreements = ({ agreements }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -17,16 +17,16 @@ export const ChildProfileAgreements = ({ aggrements }: Props) => {
             <div>
                 <Typography className={classes.heading}>{t('child-profile.agreements-title')}</Typography>
                 <List>
-                    {aggrements.map(aggrement => {
+                    {agreements.map(agreement => {
                         return (
-                            <ListItem alignItems="flex-start" key={aggrement._id}>
+                            <ListItem alignItems="flex-start" key={agreement._id}>
                                 <ListItemIcon className={classes.listItemIcon}>
-                                    <Checkbox edge="start" checked={aggrement.isSigned} tabIndex={-1} />
+                                    <Checkbox edge="start" checked={agreement.isSigned} tabIndex={-1} />
                                 </ListItemIcon>
                                 <ListItemText
                                     className={classes.listItemText}
                                     primary={'zgoda 1'}
-                                    secondary={aggrement.text}
+                                    secondary={agreement.text}
                                 />
                             </ListItem>
                         );

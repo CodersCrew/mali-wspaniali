@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export interface AggrementProps {
+export interface AgreementProps {
   _id: string;
   date: Date;
   text: string;
@@ -8,9 +8,9 @@ export interface AggrementProps {
   isSigned: boolean;
 }
 
-export type AggrementDocument = AggrementProps & mongoose.Document;
+export type AgreementDocument = AgreementProps & mongoose.Document;
 
-export const AggrementSchema = new mongoose.Schema({
+export const AgreementSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now(),

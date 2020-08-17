@@ -30,10 +30,10 @@ import { NotificationDTO } from '../notifications/dto/notification_dto';
 import { ChildDTO } from './dto/children_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { ResultInput } from './inputs/result_input';
-import { AggrementDTO } from '../agreements/dto/agreement_dto';
-import { GetValidAggrementsQuery } from '../agreements/domain/queries/impl/get_valid_aggrements_query';
-import { AddAggrementToUserCommand } from './domain/commands/impl/add_aggrement_to_user_command';
-import { AggrementProps } from '../agreements/schemas/aggrement_schema';
+import { AgreementDTO } from '../agreements/dto/agreement_dto';
+import { GetValidAgreementsQuery } from '../agreements/domain/queries/impl/get_valid_agreements_query';
+import { AddAgreementToUserCommand } from './domain/commands/impl/add_agreement_to_user_command';
+import { AgreementProps } from '../agreements/schemas/agreement_schema';
 import { GetAllUsersQuery } from './domain/queries/impl/get_all_users_query';
 import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
 import {
@@ -75,11 +75,11 @@ export class UsersResolver {
   }
 
   @ResolveField()
-  async aggrements(@Parent() user: UserProps): Promise<AggrementDTO[]> {
+  async agreements(@Parent() user: UserProps): Promise<AgreementDTO[]> {
     return await this.queryBus.execute(
-      new GetValidAggrementsQuery(
-        (user.aggrements as mongoose.Schema.Types.ObjectId[]).map(aggrement =>
-          aggrement.toString(),
+      new GetValidAgreementsQuery(
+        (user.agreements as mongoose.Schema.Types.ObjectId[]).map(agreement =>
+          agreement.toString(),
         ),
       ),
     );
@@ -182,12 +182,12 @@ export class UsersResolver {
 
   @Mutation(() => ReturnedStatusDTO)
   @UseGuards(GqlAuthGuard)
-  async signAggrement(
+  async signAgreement(
     @CurrentUser() user: LoggedUser,
-    @Args('aggrementId') aggrementId: string,
+    @Args('agreementId') agreementId: string,
   ): Promise<{ status: boolean }> {
-    const created: AggrementProps = await this.commandBus.execute(
-      new AddAggrementToUserCommand(user.userId, aggrementId),
+    const created: AgreementProps = await this.commandBus.execute(
+      new AddAgreementToUserCommand(user.userId, agreementId),
     );
 
     return { status: !!created };

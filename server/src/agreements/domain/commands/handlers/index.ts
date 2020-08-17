@@ -1,3 +1,3 @@
-import { CreateAggrementHandler } from './create_aggrement_handler';
+import { CreateAgreementHandler } from './create_agreement_handler';
 
-export const CommandHandlers = [CreateAggrementHandler];
+export const CommandHandlers = [CreateAgreementHandler];
