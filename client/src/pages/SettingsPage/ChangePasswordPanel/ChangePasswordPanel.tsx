@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-// import { useAuthorization } from '../../../hooks/useAuthorization';
+import { Grid, Typography } from '@material-ui/core';
 import {
     FormControlConfirmNewPassword,
     FormControlNewPassword,
@@ -13,7 +12,6 @@ import { ButtonSecondary } from '../../../components/Button';
 import { getCurrentUserEmail } from '../GetCurrentUserEmail';
 
 export const ChangePasswordPanel = () => {
-    // useAuthorization(true);
     const { t } = useTranslation();
     const classes = useStyles();
     const [values, setValues] = useState({
@@ -49,90 +47,94 @@ export const ChangePasswordPanel = () => {
     }, [values.currentUserEmail]);
 
     return (
-        <form
-            onSubmit={event => {
-                handleSubmit(event);
-            }}
-            className={classes.container}
-        >
-            <FormControlOldPassword
-                states={values}
-                onChange={states => {
-                    setValues({
-                        ...values,
-                        ...states.states,
-                    });
-                }}
-            />
+        <Grid container>
+            <Grid container item xs={12} spacing={10}>
+                <Grid item xs={6}>
+                    <form
+                        onSubmit={event => {
+                            handleSubmit(event);
+                        }}
+                        className={classes.container}
+                    >
+                        <FormControlOldPassword
+                            states={values}
+                            onChange={states => {
+                                setValues({
+                                    ...values,
+                                    ...states.states,
+                                });
+                            }}
+                        />
 
-            <FormControlNewPassword
-                key={`FormControlNewPassword-${values.newPasswordDisabled ? 'disabled' : 'enabled'}`}
-                states={values}
-                onChange={states => {
-                    setValues({
-                        ...values,
-                        ...states.states,
-                    });
-                }}
-            />
+                        <FormControlNewPassword
+                            key={`FormControlNewPassword-${values.newPasswordDisabled ? 'disabled' : 'enabled'}`}
+                            states={values}
+                            onChange={states => {
+                                setValues({
+                                    ...values,
+                                    ...states.states,
+                                });
+                            }}
+                        />
 
-            <ValidationMarks
-                onChange={states => {
-                    setValues({
-                        ...values,
-                        ...states.states,
-                    });
-                }}
-                states={values}
-            />
+                        <ValidationMarks
+                            onChange={states => {
+                                setValues({
+                                    ...values,
+                                    ...states.states,
+                                });
+                            }}
+                            states={values}
+                        />
 
-            <FormControlConfirmNewPassword
-                key={`FormControlConfirmNewPassword-${values.confirmNewPasswordDisabled ? 'disabled' : 'enabled'}`}
-                states={values}
-                onChange={states => {
-                    setValues({
-                        ...values,
-                        ...states.states,
-                    });
-                }}
-            />
+                        <FormControlConfirmNewPassword
+                            key={`FormControlConfirmNewPassword-${
+                                values.confirmNewPasswordDisabled ? 'disabled' : 'enabled'
+                            }`}
+                            states={values}
+                            onChange={states => {
+                                setValues({
+                                    ...values,
+                                    ...states.states,
+                                });
+                            }}
+                        />
 
-            <div className={classes.submitWrapper}>
-                <ButtonSecondary
-                    variant="text"
-                    // TODO: zrobić to w inny sposób
-                    href="/parent/settings"
-                    innerText={t('settings-page.cancel-button')}
-                    className={classes.cancelChangePasswordButton}
-                    disabled={true}
-                />
-                <ButtonSecondary
-                    type="submit"
-                    variant="contained"
-                    // disabled={values.changePasswordButtonDisabled}
-                    className={classes.changePasswordButton}
-                >
-                    {t('settings-page.change-password')}
-                </ButtonSecondary>
-            </div>
-
-            <div className={classes.problems}>
-                <Typography>{'Masz problem ze zmianą hasła?'}</Typography>
-                <Typography>{'Bez obaw, skontaktuj się z fundacją, aby go rozwiązać'}</Typography>
-            </div>
-        </form>
+                        <div className={classes.submitWrapper}>
+                            <ButtonSecondary
+                                type="submit"
+                                variant="contained"
+                                disabled={values.changePasswordButtonDisabled}
+                                className={classes.changePasswordButton}
+                            >
+                                {t('settings-page.change-password')}
+                            </ButtonSecondary>
+                        </div>
+                    </form>
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography variant={'h6'} className={classes.problems}>
+                        Wystąpiły trudności podczas zmiany hasła?
+                    </Typography>
+                    <Typography variant={'subtitle1'} className={classes.problems}>
+                        Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.
+                    </Typography>
+                    <ButtonSecondary variant={'contained'} className={classes.problems}>
+                        <Typography variant={'button'}>
+                            {t('settings-page.parent.delete-account.deletion-button')}
+                        </Typography>
+                    </ButtonSecondary>
+                </Grid>
+            </Grid>
+        </Grid>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            justifyContent: 'center',
-            alignItems: 'left',
-            height: '100%',
-        },
+        container: {},
         submitWrapper: {
-            width: '40%',
+            // width: '40%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -144,14 +146,9 @@ const useStyles = makeStyles((theme: Theme) =>
         cancelChangePasswordButton: {
             textAlign: 'center',
             whiteSpace: 'normal',
-            fontSize: '12px',
         },
         problems: {
-            width: '40%',
-            marginTop: '20px',
-            textAlign: 'center',
-            fontSize: '15px',
-            lineHeight: '120%',
+            marginBottom: '16px',
         },
     }),
 );

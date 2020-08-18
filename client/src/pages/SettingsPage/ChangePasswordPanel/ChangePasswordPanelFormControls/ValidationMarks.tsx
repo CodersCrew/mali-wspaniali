@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { InputAdornment, InputBase } from '@material-ui/core';
-import { CheckCircle, HighlightOff } from '@material-ui/icons';
+import { CheckCircle, CheckCircleOutline } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { ValidationMarksPropsInterface } from './types';
@@ -42,7 +42,7 @@ export const ValidationMarks = (props: ValidationMarksPropsInterface) => {
                             {isMet ? (
                                 <CheckCircle className={classes.adornment} />
                             ) : (
-                                <HighlightOff className={classes.adornment} />
+                                <CheckCircleOutline className={classes.adornment} />
                             )}
                         </InputAdornment>
                     }
@@ -55,7 +55,6 @@ export const ValidationMarks = (props: ValidationMarksPropsInterface) => {
 const useStyles = makeStyles({
     marksWrapper: {
         marginBottom: '15px',
-        width: '50%',
     },
     adornment: {
         fontSize: '1rem',
@@ -63,6 +62,5 @@ const useStyles = makeStyles({
     margin: {
         fontSize: '0.75rem',
         paddingLeft: '14px',
-        width: '35%',
     },
 });

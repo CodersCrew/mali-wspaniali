@@ -84,6 +84,7 @@ export const FormControlOldPassword = (props: FormControlOldPasswordPropsInterfa
             </InputLabel>
             <OutlinedInput
                 required
+                fullWidth
                 onChange={event => {
                     setValues({
                         ...values,
@@ -129,5 +130,6 @@ const useStyles = makeStyles({
     form: {
         display: 'block',
         marginBottom: '15px',
+        width: '100%',
     },
 });

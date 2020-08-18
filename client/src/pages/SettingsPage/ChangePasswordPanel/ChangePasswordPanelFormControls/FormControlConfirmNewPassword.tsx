@@ -40,6 +40,7 @@ export const FormControlConfirmNewPassword = (props: FormControlConfirmNewPasswo
             <InputLabel htmlFor="outlined-adornment-password">{t('settings-page.confirm-new-password')}</InputLabel>
             <OutlinedInput
                 required
+                fullWidth
                 disabled={values.confirmNewPasswordDisabled}
                 onChange={event => validateConfirmNewPassword(event)}
                 value={values.confirmNewPassword}
