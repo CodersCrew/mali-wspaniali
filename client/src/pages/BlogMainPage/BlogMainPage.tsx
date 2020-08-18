@@ -50,13 +50,12 @@ export const BlogMainPage = () => {
                     onClick={value => history.push(`/parent/blog/${value}/1`)}
                 />
             </div>
-            <div className={classes.categoryTabsContainer}>
-                <CategoryTabs
-                    values={categoriesList}
-                    active={params.category}
-                    onClick={value => history.push(`/parent/blog/${value}/1`)}
-                />
-            </div>
+
+            <CategoryTabs
+                values={categoriesList}
+                active={params.category}
+                onClick={value => history.push(`/parent/blog/${value}/1`)}
+            />
 
             <BlogMainHeader />
             <div className={classes.gridBackground}>
@@ -87,9 +86,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         dropDownContainer: {
             margin: `0 ${theme.spacing(7)}px`,
-        },
-        categoryTabsContainer: {
-            maxWidth: '100vw',
         },
         gridContainer: {
             maxWidth: '92%',
