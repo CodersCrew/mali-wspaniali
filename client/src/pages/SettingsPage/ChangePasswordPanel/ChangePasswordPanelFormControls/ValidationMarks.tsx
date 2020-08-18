@@ -3,7 +3,20 @@ import { InputAdornment, InputBase } from '@material-ui/core';
 import { CheckCircle, CheckCircleOutline } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { ValidationMarksPropsInterface } from './types';
+
+export interface ValidationMarksStatesInterface {
+    states: {
+        newPasswordDisabled: boolean;
+        validPasswordLength: boolean;
+        validPasswordNumber: boolean;
+        validPasswordSymbol: boolean;
+        validPasswordUppercase: boolean;
+    };
+}
+
+export interface ValidationMarksPropsInterface extends ValidationMarksStatesInterface {
+    onChange: (states: ValidationMarksStatesInterface) => void;
+}
 
 const T_PREFIX = 'settings-page.valid-password';
 

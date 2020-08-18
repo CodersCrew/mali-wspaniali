@@ -9,9 +9,14 @@ import {
     validatePasswordSymbol,
     validatePasswordUppercase,
 } from '../ValidatePassword';
-import { FormControlNewPasswordPropsInterface } from './types';
+import { FormControlNewPasswordStatesInterface } from './types';
 
-export const FormControlNewPassword = (props: FormControlNewPasswordPropsInterface) => {
+export interface Props extends FormControlNewPasswordStatesInterface {
+    onChange: (states: FormControlNewPasswordStatesInterface) => void;
+    isActive: boolean;
+}
+
+export const FormControlNewPassword = (props: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const states = { ...props.states };
@@ -59,7 +64,7 @@ export const FormControlNewPassword = (props: FormControlNewPasswordPropsInterfa
             <OutlinedInput
                 required
                 fullWidth
-                disabled={values.newPasswordDisabled}
+                disabled={!props.isActive}
                 onChange={event => validateNewPassword(event)}
                 value={values.newPassword}
                 id="new-password"
@@ -68,7 +73,7 @@ export const FormControlNewPassword = (props: FormControlNewPasswordPropsInterfa
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
-                            disabled={values.newPasswordDisabled}
+                            disabled={!props.isActive}
                             aria-label="toggle password visibility"
                             onClick={handleClickShowNewPassword}
                             onMouseDown={handleMouseDownPassword}

@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
+import { UserContext } from '../../AppWrapper/AppWrapper';
 
 export const ParentSettingsPage = () => {
+    const user = useContext(UserContext);
     const classes = useStyles();
     const { t } = useTranslation();
+
+    if (!user) return null;
 
     return (
         <div className={classes.container}>
             <Typography className={classes.header}>{t('settings-page.parent.header')}</Typography>
             <Typography className={classes.description}>{t('settings-page.parent.description')}</Typography>
-            <ParentSettingsExpansionPanel />
+            <ParentSettingsExpansionPanel user={user} />
         </div>
     );
 };

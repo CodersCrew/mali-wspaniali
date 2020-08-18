@@ -3,7 +3,20 @@ import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } fr
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControlConfirmNewPasswordPropsInterface } from './types';
+
+export interface FormControlConfirmNewPasswordStatesInterface {
+    states: {
+        changePasswordButtonDisabled: boolean;
+        confirmNewPassword: string;
+        confirmNewPasswordDisabled: boolean;
+        newPassword: string;
+        showConfirmNewPassword: boolean;
+    };
+}
+
+export interface FormControlConfirmNewPasswordPropsInterface extends FormControlConfirmNewPasswordStatesInterface {
+    onChange: (states: FormControlConfirmNewPasswordStatesInterface) => void;
+}
 
 export const FormControlConfirmNewPassword = (props: FormControlConfirmNewPasswordPropsInterface) => {
     const { t } = useTranslation();

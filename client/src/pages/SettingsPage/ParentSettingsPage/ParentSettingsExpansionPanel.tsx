@@ -11,8 +11,13 @@ import { DefaultLanguagePanel } from '../DefaultLanguagePanel';
 import { LegalNotesPanel } from '../LegalNotesPanel';
 import { ConsentsPanel } from '../ConsentsPanel';
 import { AccountDeletionPanel } from '../AccountDeletionPanel';
+import { Me } from '../../../graphql/types';
 
-export const ParentSettingsExpansionPanel = () => {
+interface Props {
+    user: Me;
+}
+
+export const ParentSettingsExpansionPanel = ({ user }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -35,7 +40,7 @@ export const ParentSettingsExpansionPanel = () => {
                     <Typography className={classes.heading}>{t('settings-page.parent.password-change')}</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <ChangePasswordPanel />
+                    <ChangePasswordPanel user={user} />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
