@@ -15,5 +15,5 @@ export const UserSchema = new mongoose.Schema({
     default: 'parent',
   },
   children: [mongoose.Schema.Types.ObjectId],
-  aggrements: [mongoose.Schema.Types.ObjectId],
+  agreements: [mongoose.Schema.Types.ObjectId],
 });

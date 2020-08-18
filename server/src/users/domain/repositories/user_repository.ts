@@ -17,7 +17,7 @@ export class UserRepository {
       .findById(id, { password: 0 })
       .lean()
       .exec()
-      .then(user => ({ ...user, aggrements: user.aggrements || [] }));
+      .then(user => ({ ...user, agreements: user.agreements || [] }));
   }
 
   async getAll(role?: string): Promise<UserProps[]> {
@@ -34,7 +34,7 @@ export class UserRepository {
       .then(users =>
         users.map(user => ({
           ...user,
-          aggrements: user.aggrements || [],
+          agreements: user.agreements || [],
           children: user.children || [],
         })),
       );
@@ -85,10 +85,10 @@ export class UserRepository {
 
   async addAgreement(
     userId: string,
-    aggrementId: string,
+    agreementId: string,
   ): Promise<UserDocument> {
     return this.userModel.findByIdAndUpdate(userId, {
-      $addToSet: { aggrements: aggrementId },
+      $addToSet: { agreements: agreementId },
     });
   }
 

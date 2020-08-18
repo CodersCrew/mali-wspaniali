@@ -1,13 +1,13 @@
 import { gql, ApolloQueryResult } from '@apollo/client';
 
 import { client } from '../apollo_client';
-import { Aggrement } from './types';
+import { Agreement } from './types';
 
-export function getAggrements(): Promise<ApolloQueryResult<{ aggrements: Aggrement[] }>> {
+export function getAgreements(): Promise<ApolloQueryResult<{ agreements: Agreement[] }>> {
     return client.query({
         query: gql`
             {
-                aggrements {
+                agreements {
                     _id
                     date
                     text

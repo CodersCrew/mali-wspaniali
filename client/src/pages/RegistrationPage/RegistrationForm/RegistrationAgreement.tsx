@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import { AgreementModal } from './AgreementModal';
 import { ButtonSecondary } from '../../../components/Button';
-import { Aggrement } from '../../../graphql/types';
+import { Agreement } from '../../../graphql/types';
 
 const T_PREFIX = 'registration-page.agreements';
 
@@ -14,7 +14,7 @@ export interface Props {
     handleNext(): void;
     classButton: string;
     classNextBtn: string;
-    agreements: Aggrement[];
+    agreements: Agreement[];
     agreementMoreBtn: string;
     agreementContainer: string;
     agreementCheckboxHeader: string;
