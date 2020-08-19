@@ -70,7 +70,7 @@ export const ChildProfileResults = () => {
                 </div>;
 
                 return (
-                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel} panelDetailsClassName={classes.expansionPanelDetails} childrenOfDetailsPanel={childrenOfDetailsPanel}>
+                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel} panelDetails={{className: classes.expansionPanelDetails, children: childrenOfDetailsPanel}}>
                         <ExpansionPanelSummary
                             onClick={() => handleClickSummary(key)}
                             className={clsx(

@@ -4,16 +4,18 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 
 
 export type CustomExpansionPanel = ExpansionPanelProps & {
-    panelDetailsClassName: string;
-    childrenOfDetailsPanel: ReactNode;
+    panelDetails: {
+        className: string;
+        children: ReactNode;
+    }
 };
 
-export const ExpansionPanel: FC<CustomExpansionPanel> = ({expanded, className, children, panelDetailsClassName, childrenOfDetailsPanel ,...props}) => {
+export const ExpansionPanel: FC<CustomExpansionPanel> = ({expanded, className, children, panelDetails ,...props}) => {
 
     return(
         <ExpansionPanelMaterial {...props} expanded={expanded} className={className}>
-            {children || ''}
-            <ExpansionPanelDetails className={panelDetailsClassName}>{childrenOfDetailsPanel}</ExpansionPanelDetails>
+            {children}
+            <ExpansionPanelDetails className={panelDetails.className}>{panelDetails.children}</ExpansionPanelDetails>
         </ExpansionPanelMaterial>
     );
 };
