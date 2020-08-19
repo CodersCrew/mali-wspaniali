@@ -11,7 +11,7 @@ export const Panel: FC<Props> = ({ title, children }) => {
     const classes = useStyles();
 
     return (
-        <ExpansionPanel className={classes.panel} expanded={false} panelDetails={{className: classes.details, children}}>
+        <ExpansionPanel className={classes.panel} panelDetails={{className: classes.details, children}}>
             <PanelSummary>{title}</PanelSummary>
         </ExpansionPanel>
     );
