@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         notificationsPanel: {
             position: 'absolute',
-            top: '80px',
-            right: '100px',
+            top: theme.spacing(7),
+            right: theme.spacing(3),
             zIndex: 200,
             width: '350px',
             borderRadius: '5px',

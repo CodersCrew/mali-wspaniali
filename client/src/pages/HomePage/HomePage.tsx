@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
@@ -8,17 +10,19 @@ import { Theme } from '../../theme/types';
 import { UserContext } from '../AppWrapper/AppWrapper';
 import { getLastArticles } from '../../graphql/articleRepository';
 import { Article } from '../../graphql/types';
+import { activePage } from '../../apollo_client';
 
 export const ParentHomePage = () => {
     const user = useContext(UserContext);
     const [articles, setArticles] = useState<Article[]>([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
+        activePage(['menu.home']);
         getLastArticles(6).then(({ data }) => setArticles(data!.lastArticles));
     }, []);
 
     const classes = useStyles();
-    const { t } = useTranslation();
 
     if (!user) return null;
 

@@ -43,7 +43,6 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link, category
 const useStyles = makeStyles((theme: Theme) => ({
     card: {
         position: 'relative',
-        width: '100%',
         height: '400px',
         overflow: 'visible',
         backgroundColor: theme.palette.grey[300],
@@ -51,7 +50,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
     },
     cardImage: {
-        width: '100%',
         maxHeight: '200px',
         padding: '0 16px',
         position: 'relative',

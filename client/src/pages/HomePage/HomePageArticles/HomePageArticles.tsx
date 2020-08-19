@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         card: {
             maxWidth: '306px',
-            marginRight: '60px',
         },
         articleHeader: {
             textTransform: 'uppercase',

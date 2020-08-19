@@ -12,6 +12,7 @@ import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
 import { Theme } from '../../theme/types';
 import { BlogArticleCard } from '../../components/BlogArticleCard';
+import { activePage } from '../../apollo_client';
 
 export const BlogMainPage = () => {
     const classes = useStyles();
@@ -23,6 +24,8 @@ export const BlogMainPage = () => {
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 
     useEffect(() => {
+        activePage(['menu.news', `blog-categories.${params.category}`]);
+
         let fetchedArticles;
 
         if (params.category === 'all') {

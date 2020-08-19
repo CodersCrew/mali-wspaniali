@@ -1,26 +1,51 @@
 import React, { FC } from 'react';
-import Slider from 'react-slick';
+// import Slider from 'react-slick';
 import { makeStyles } from '@material-ui/core';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
+import Carousel from 'react-material-ui-carousel';
+import { Grid } from '@material-ui/core';
+import clsx from 'clsx';
+import { getChunks } from '../../../utils/chunkArray';
 
 export const ArticleCarousel: FC = ({ children }) => {
     const classes = useStyles();
 
-    const settings = {
-        infinite: false,
-        speed: 500,
-        variableWidth: true,
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        className: classes.container,
-    };
+    const elements = React.Children.toArray(children);
+    const grouped = getChunks(elements, 3);
 
-    return <Slider {...settings}>{children}</Slider>;
+    return (
+        <Carousel autoPlay={false} className={classes.container}>
+            {grouped.map((items, groupIndex) => (
+                <Grid container direction="row" spacing={3} key={groupIndex}>
+                    {items.map((item, index) => (
+                        <Grid
+                            item
+                            md={4}
+                            sm={6}
+                            key={index}
+                            className={clsx({
+                                [classes.firstItem]: index === 0,
+                                [classes.lastItem]: index === items.length - 1,
+                            })}
+                        >
+                            {item}
+                        </Grid>
+                    ))}
+                </Grid>
+            ))}
+        </Carousel>
+    );
 };
 
 const useStyles = makeStyles({
     container: {
-        width: '97%',
+        width: '100%',
+    },
+    firstItem: {
+        paddingLeft: '0 !important',
+    },
+    lastItem: {
+        paddingRight: '0 !important',
     },
 });

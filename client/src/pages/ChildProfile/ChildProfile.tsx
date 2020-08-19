@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Grid, Typography, Tab, Tabs } from '@material-ui/core';
@@ -8,6 +8,7 @@ import { secondaryColor, white } from '../../colors';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { UserContext } from '../AppWrapper/AppWrapper';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
+import { activePage } from '../../apollo_client';
 
 const TABS = {
     results: 'results',
@@ -21,6 +22,15 @@ export const ChildProfile = () => {
     const [activeTab, setActiveTab] = useState(TABS.results);
     const classes = useStyles();
     const user = useContext(UserContext);
+
+    const child = user?.children.find(child => child._id === childId)
+
+
+    useEffect(() => {
+        if (child) {
+            activePage([child.firstname, `/parent/child/${child._id}/results`, 'child-profile.results-list']);
+        }
+    }, [user, child]);
 
     if (!user) return null;
 

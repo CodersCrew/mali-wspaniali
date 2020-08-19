@@ -205,7 +205,9 @@
                 "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
             }
         },
-        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody."
+        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
+        "recomendations": "Rekomendacje",
+        "child-details": "Dane dziecka"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -330,7 +332,7 @@
     "blog-categories": {
         "all": "Wszystkie",
         "food": "Żywienie",
-        "physical-activity": "Aktywność fizyczna",
+        "activity": "Aktywność fizyczna",
         "emotions": "Emocje",
         "other": "Inne"
     },
