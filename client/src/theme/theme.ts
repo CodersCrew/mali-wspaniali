@@ -59,6 +59,14 @@ export const theme: ThemeObject = {
             default: '#F1F2F4',
         },
     },
+    popups: {
+        info: {
+            main: '#2296F3',
+            light: '#E9F5FE',
+            dark: '#113C60',
+            contrastText: 'rgba(0, 0, 0, 0.87)',
+        },
+    },
     typography: {
         fontFamily: 'Montserrat',
         h1: {

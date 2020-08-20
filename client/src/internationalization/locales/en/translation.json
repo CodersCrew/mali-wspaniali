@@ -394,5 +394,9 @@
     "pagination": {
         "previous": "Previous",
         "next": "Next"
+    },
+    "cookies-popup": {
+        "title": "Cookies",
+        "content": "We use cookies to collect information related to the use of the website. The cookies we use allow you to maintain the session after logging in. You can disable this mechanism in your browser settings. Using our website without changing the cookie settings means that they will be stored in the device's memory."
     }
 }

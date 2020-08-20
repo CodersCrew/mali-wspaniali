@@ -393,5 +393,9 @@
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
-    "close": "Zamknij"
+    "close": "Zamknij",
+    "cookies-popup": {
+        "title": "Ciasteczka",
+        "content": "Wykorzystujemy „ciasteczka” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu. Stosowane przez nas pliki typu cookies umożliwiają utrzymanie sesji po zalogowaniu. Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Korzystanie z naszego serwisu bez zmiany ustawień dotyczących cookies oznacza, że będą one zapisane w pamięci urządzenia."
+    }
 }
