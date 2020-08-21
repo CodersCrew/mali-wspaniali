@@ -42,6 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         next: {
             marginLeft: '2%',
-        }
+        },
     }),
 );

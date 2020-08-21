@@ -9,6 +9,7 @@ import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { SingleArticleColors } from '../../colors';
+import { ArticleTags } from './ArticleTags';
 
 export const SingleBlogArticle = () => {
     const classes = useStyles();
@@ -42,7 +43,10 @@ export const SingleBlogArticle = () => {
                         />
                     </Grid>
                     <Grid container direction="row">
-                        <ArticleVideo videoUrl={article.videoUrl} tags={article.tags} />
+                        <ArticleVideo videoUrl={article.videoUrl} />
+                    </Grid>
+                    <Grid container direction="row">
+                        <ArticleTags tags={article.tags} />
                     </Grid>
                     <Grid container direction="row">
                         <ArticleRedactor redactor={article.redactor} />
