@@ -35,11 +35,9 @@ export function getArticles(page: number, category?: string): Promise<ApolloQuer
     return client.query({ query });
 }
 
-export function getLastArticles(count: number): Promise<ApolloQueryResult<{ lastArticles: Article[] }>> {
-    return client.query({
-        query: gql`
-    {
-        lastArticles(count: ${count}) {
+export const LAST_ARTICLES = gql`
+    query Articles($count: Int!) {
+        lastArticles(count: $count) {
             _id
             title
             description
@@ -47,35 +45,29 @@ export function getLastArticles(count: number): Promise<ApolloQueryResult<{ last
             pictureUrl
         }
     }
-`,
-    });
-}
+`;
 
-export function getArticleDocById(articleId: string): Promise<ApolloQueryResult<{ article: Article }>> {
-    return client.query({
-        query: gql`
-            {
-                article(id: "${articleId}") {
-                    _id
-                    title
-                    description
-                    subtitle
-                    header
-                    category
-                    pictureUrl
-                    readingTime
-                    contentHTML
-                    videoUrl
-                    tags
-                    redactor {
-                        avatarUrl
-                        firstName
-                        lastName
-                        profession
-                        biography
-                    }
-                }
+export const ARTICLE_BY_ID = gql`
+    query Article($articleId: String!) {
+        article(id: $articleId) {
+            _id
+            title
+            description
+            subtitle
+            header
+            category
+            pictureUrl
+            readingTime
+            contentHTML
+            videoUrl
+            tags
+            redactor {
+                avatarUrl
+                firstName
+                lastName
+                profession
+                biography
             }
-        `,
-    });
-}
+        }
+    }
+`;
