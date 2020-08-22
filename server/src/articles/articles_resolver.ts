@@ -1,4 +1,4 @@
-import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Query, Resolver, Mutation, Args, Int } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
@@ -43,7 +43,9 @@ export class ArticlesResolver {
 
   @Query(() => [ArticleDTO])
   @UseGuards(GqlAuthGuard)
-  async lastArticles(@Args('count') count: number): Promise<ArticleProps[]> {
+  async lastArticles(
+    @Args('count', { type: () => Int }) count: number,
+  ): Promise<ArticleProps[]> {
     const articles: Article[] = await this.queryBus.execute(
       new GetLastArticlesQuery(count),
     );
