@@ -22,7 +22,7 @@ export const ChildProfile = () => {
     const classes = useStyles();
     const user = useContext(UserContext);
 
-    const child = user?.children.find(child => child._id === childId)
+    const child = user?.children.find(_child => _child._id === childId);
 
     if (!user || !child) return null;
 
@@ -49,7 +49,7 @@ export const ChildProfile = () => {
             <Typography className={classes.description}>{t('child-profile.description')}</Typography>
             <Tabs
                 value={activeTab}
-                //@ts-ignore
+                // @ts-ignore
                 onChange={(_event, value) => setActiveTab(value)}
                 values={tabs}
             />

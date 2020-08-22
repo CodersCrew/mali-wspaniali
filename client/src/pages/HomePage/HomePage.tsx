@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useQuery } from '@apollo/client';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
@@ -8,7 +9,6 @@ import { Theme } from '../../theme/types';
 import { UserContext } from '../AppWrapper/AppWrapper';
 import { LAST_ARTICLES } from '../../graphql/articleRepository';
 import { Article } from '../../graphql/types';
-import { useQuery } from '@apollo/client';
 
 export const ParentHomePage = () => {
     const user = useContext(UserContext);

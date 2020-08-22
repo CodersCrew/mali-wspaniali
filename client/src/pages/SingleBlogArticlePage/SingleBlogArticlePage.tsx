@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
+import { useQuery } from '@apollo/client';
 import { Article } from '../../graphql/types';
 import { BreadcrumbsWithDescription } from './BreadcrumbsWithDescription';
 import { ArticleHeader } from './ArticleHeader';
@@ -8,7 +9,6 @@ import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { SingleArticleColors } from '../../colors';
-import { useQuery } from '@apollo/client';
 import { ARTICLE_BY_ID } from '../../graphql/articleRepository';
 
 export const SingleBlogArticlePage = () => {

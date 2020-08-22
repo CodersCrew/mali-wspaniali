@@ -46,7 +46,12 @@ export const UsersPage = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <UserPagePagination page={0} pageChangeHandler={() => {}} documentsCount={users.length} rowsPerPage={10} />
+            <UserPagePagination
+                page={0}
+                pageChangeHandler={() => true}
+                documentsCount={users.length}
+                rowsPerPage={10}
+            />
         </Container>
     );
 };

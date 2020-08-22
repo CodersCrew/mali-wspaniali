@@ -6,7 +6,7 @@ import { secondaryColor, white } from '../../../colors';
 import { MenuListItems } from './MenuListItems';
 import { NotificationsPanel } from './NotificationsPanel';
 import Logo from '../../../assets/MALWSP_logo_nav.png';
-import { ButtonSecondary } from '../../../components/Button';
+import { ButtonSecondary } from '../../Button';
 import { Me } from '../../../graphql/types';
 
 interface Props {

@@ -29,7 +29,7 @@ export const TestResultsPage = () => {
                     ))}
                 </TableBody>
             </Table>
-            <Pagination page={1} pageChangeHandler={() => {}} documentsCount={children.length} rowsPerPage={10} />
+            <Pagination page={1} pageChangeHandler={() => true} documentsCount={children.length} rowsPerPage={10} />
         </Container>
     );
 };

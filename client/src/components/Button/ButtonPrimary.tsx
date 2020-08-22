@@ -5,5 +5,5 @@ export const ButtonPrimary: FC<CustomButtonProps>  = (props) => {
 
     return (
         <ButtonBase {...props} color="primary" />
-    )
-}
+    );
+};

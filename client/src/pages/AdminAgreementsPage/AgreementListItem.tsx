@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem, ListItemIcon, ListItemText, Checkbox } from '@material-ui/core';
-import { Agreement } from '../../graphql/types';
 import { useTranslation } from 'react-i18next';
+import { Agreement } from '../../graphql/types';
 
 interface Props {
     agreement: Agreement;

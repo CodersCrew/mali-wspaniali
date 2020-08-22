@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UserContext } from '../AppWrapper/AppWrapper';
 import { Container, Typography, List, ListItem, ListItemText } from '@material-ui/core';
+import { UserContext } from '../AppWrapper/AppWrapper';
 
 export const ChildrenListPage = () => {
     const { t } = useTranslation();

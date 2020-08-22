@@ -10,7 +10,7 @@ export type CustomButtonProps = ButtonProps & {
 export const ButtonBase: FC<CustomButtonProps> = ({ innerText, className, children, ...props }) => {
     const classes = useStyles();
 
-    let content
+    let content;
     if (children) {
         content = children;
     } else if (innerText) {

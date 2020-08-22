@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
             border: `1px solid ${theme.palette.text.secondary}`,
 
             [theme.breakpoints.down('md')]: {
-                //display: 'none',
+                // display: 'none',
             },
         },
         indicator: {

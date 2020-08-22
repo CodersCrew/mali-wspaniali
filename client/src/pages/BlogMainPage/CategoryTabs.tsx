@@ -12,7 +12,7 @@ export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
     return (
         <Tabs
             value={values.findIndex(tab => tab.key === active)}
-            //@ts-ignore
+            // @ts-ignore
             onChange={(_event, value) => onClick(categoriesList[value].key)}
             values={values.map(category => ({ label: category.name }))}
         />

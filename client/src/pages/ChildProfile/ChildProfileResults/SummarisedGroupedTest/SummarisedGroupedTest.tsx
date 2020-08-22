@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment';
 import { lightTextColor } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
-import moment from 'moment';
 
 interface Props {
     onClose: () => void;

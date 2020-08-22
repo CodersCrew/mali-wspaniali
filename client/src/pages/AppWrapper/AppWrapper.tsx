@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect , useState } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core';
 import { Sidebar } from '../../components/Menu/Sidebar';
 import { Navbar } from '../../components/Menu/Navbar';
 import { mainColor, backgroundColor } from '../../colors';
 import { Theme } from '../../theme/types';
 import { getUser } from '../../graphql/userRepository';
-import { useState } from 'react';
+
 import { Me } from '../../graphql/types';
 
 export const UserContext = React.createContext<Me | null>(null);
