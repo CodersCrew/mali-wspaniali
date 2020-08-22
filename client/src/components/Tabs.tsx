@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs as MuiTabs, makeStyles, createStyles, Theme, TabsProps } from '@material-ui/core/';
+import { Tabs as MuiTabs, makeStyles, createStyles, Theme, TabsProps } from '@material-ui/core';
 import { Tab } from './Tab';
 
 type ContentType = {
@@ -7,17 +7,17 @@ type ContentType = {
     value?: string;
 };
 
-interface Props {
+interface Props extends TabsProps {
     values: ContentType[];
 }
 
-export const Tabs = ({ values, ...props }: TabsProps & Props) => {
+export const Tabs = ({ values, ...props }: Props) => {
     const classes = useStyles();
 
     return (
         <MuiTabs classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }} {...props}>
-            {values.map(({ label, value }) => (
-                <Tab key={label} value={value} label={label} />
+            {values.map(({ label, value }, index) => (
+                <Tab key={`${index} ${value}`} value={value} label={label} />
             ))}
         </MuiTabs>
     );
