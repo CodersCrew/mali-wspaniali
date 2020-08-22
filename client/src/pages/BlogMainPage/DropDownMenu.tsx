@@ -24,10 +24,10 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
         setIsOpen(prevOpen => !prevOpen);
     };
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        onClick(values[newValue].key);
-        setIsOpen(false);
-    };
+    // const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    //     onClick(values[newValue].key);
+    //     setIsOpen(false);
+    // };
 
     function handleListKeyDown(event: React.KeyboardEvent) {
         if (event.key === 'Tab') {
@@ -63,7 +63,7 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
                         <Paper>
                             <Tabs
                                 value={values.findIndex(tab => tab.key === active)}
-                                onChange={handleChange}
+                                onChange={(_event, newValue) => onClick(values[newValue].key)}
                                 classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }}
                             >
                                 {values.map(category => {
@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             '&:hover': {
                 backgroundColor: theme.palette.common.white,
-            }
+            },
         },
         container: {
             width: '100%',

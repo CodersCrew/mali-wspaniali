@@ -23,7 +23,10 @@ export const ChildProfile = () => {
     const user = useContext(UserContext);
 
     const child = user?.children.find(child => child._id === childId)
+
     if (!user || !child) return null;
+
+    
     const tabs = [
         { label: t('child-profile.results-list'), value: 'results' },
         { label: t('child-profile.tests-information'), value: 'aboutTests' },
