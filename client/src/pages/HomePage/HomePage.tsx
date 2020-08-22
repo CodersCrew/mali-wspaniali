@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
@@ -6,21 +6,19 @@ import { HomePageArticles } from './HomePageArticles';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { Theme } from '../../theme/types';
 import { UserContext } from '../AppWrapper/AppWrapper';
-import { getLastArticles } from '../../graphql/articleRepository';
+import { LAST_ARTICLES } from '../../graphql/articleRepository';
 import { Article } from '../../graphql/types';
+import { useQuery } from '@apollo/client';
 
 export const ParentHomePage = () => {
     const user = useContext(UserContext);
-    const [articles, setArticles] = useState<Article[]>([]);
-
-    useEffect(() => {
-        getLastArticles(6).then(({ data }) => setArticles(data!.lastArticles));
-    }, []);
+    const { data } = useQuery<{ lastArticles: Article[] }>(LAST_ARTICLES, { variables: { count: 6 } });
+    const { t } = useTranslation();
 
     const classes = useStyles();
     const { t } = useTranslation();
 
-    if (!user) return null;
+    if (!user || !data) return null;
 
     return (
         <Grid className={classes.container}>
@@ -34,7 +32,7 @@ export const ParentHomePage = () => {
                 </p>
             </Grid>
             <HomePageChildren children={user.children} />
-            <HomePageArticles articles={articles} />
+            <HomePageArticles articles={data.lastArticles} />
         </Grid>
     );
 };
