@@ -75,7 +75,7 @@ export class ArticlesRepository {
     return await this.articleModel
       .findById(id)
       .exec()
-      .then(article => ArticleMapper.toDomain(article.toObject()));
+      .then(article => article && ArticleMapper.toDomain(article.toObject()));
   }
 
   // for e2e purpose only
