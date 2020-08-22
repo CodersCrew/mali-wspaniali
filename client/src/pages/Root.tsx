@@ -15,7 +15,7 @@ import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './Newsletter';
 import { AppWrapper } from './AppWrapper/AppWrapper';
 import { ParentHomePage } from './HomePage/HomePage';
-import { SingleBlogArticle } from './SingleBlogArticle';
+import { SingleBlogArticle } from './SingleBlogArticlePage';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { BlogMainPage } from './BlogMainPage';
 import { NotificationsPage } from './NotificationsPage';

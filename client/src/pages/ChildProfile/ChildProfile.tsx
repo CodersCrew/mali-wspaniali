@@ -22,16 +22,16 @@ export const ChildProfile = () => {
     const classes = useStyles();
     const user = useContext(UserContext);
 
+    const child = user?.children.find(child => child._id === childId)
+    if (!user || !child) return null;
     const tabs = [
         { label: t('child-profile.results-list'), value: 'results' },
         { label: t('child-profile.tests-information'), value: 'aboutTests' },
         { label: t('child-profile.your-agreements'), value: 'agreements' },
+
     ];
 
-    if (!user) return null;
-
     const { agreements } = user;
-    const child = user.children.find(child => child._id === childId);
 
     if (!child) {
         return <Grid container>{t('child-profile.no-child')}</Grid>;
