@@ -7,7 +7,6 @@ import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
 import { categoriesList } from './BlogCategories';
 import { getArticles } from '../../queries/articleQueries';
-import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
 import { Theme } from '../../theme/types';
@@ -45,13 +44,7 @@ export const BlogMainPage = () => {
     return (
         <>
             <BlogMainHeader />
-            <div className={classes.dropDownContainer}>
-                <DropDownMenu
-                    values={categoriesList}
-                    active={params.category}
-                    onClick={value => history.push(`/parent/blog/${value}/1`)}
-                />
-            </div>
+
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
@@ -60,7 +53,7 @@ export const BlogMainPage = () => {
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                     {articles.slice(0, 6).map((article: Article) => (
-                        <Grid className={classes.gridSubContainer} key={article._id} item xs={4} zeroMinWidth>
+                        <Grid key={article._id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
                                 title={article.title}
                                 pictureUrl={article.pictureUrl}
@@ -89,17 +82,6 @@ const useStyles = makeStyles((theme: Theme) =>
         gridContainer: {
             maxWidth: '92%',
             margin: '0 4%',
-
-            [theme.breakpoints.down('sm')]: {
-                display: 'flex',
-                flexDirection: 'column',
-                lineHeight: theme.typography.subtitle2.lineHeight,
-            },
-        },
-        gridSubContainer: {
-            [theme.breakpoints.down('sm')]: {
-                minWidth: 'fit-content',
-            },
         },
         gridBackground: {
             backgroundColor: theme.palette.primary.contrastText,
