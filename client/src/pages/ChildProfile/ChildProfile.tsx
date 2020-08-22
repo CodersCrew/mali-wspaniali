@@ -22,10 +22,12 @@ export const ChildProfile = () => {
     const classes = useStyles();
     const user = useContext(UserContext);
 
-    if (!user) return null;
+    const child = user?.children.find(child => child._id === childId)
+
+
+    if (!user || !child) return null;
 
     const { agreements } = user;
-    const child = user.children.find(child => child._id === childId);
 
     if (!child) {
         return <Grid container>{t('child-profile.no-child')}</Grid>;

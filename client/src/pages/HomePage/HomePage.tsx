@@ -13,7 +13,6 @@ import { useQuery } from '@apollo/client';
 export const ParentHomePage = () => {
     const user = useContext(UserContext);
     const { data } = useQuery<{ lastArticles: Article[] }>(LAST_ARTICLES, { variables: { count: 6 } });
-    const { t } = useTranslation();
 
     const classes = useStyles();
     const { t } = useTranslation();
