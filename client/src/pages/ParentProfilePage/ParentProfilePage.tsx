@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getUserById } from '../../graphql/userRepository';
 import { User } from '../../graphql/types';
 
-export const ParentProfile = () => {
+export const ParentProfilePage = () => {
     const [parent, setParent] = useState<User | null>(null);
     const { id } = useParams<{ id: string }>();
     const { t } = useTranslation();

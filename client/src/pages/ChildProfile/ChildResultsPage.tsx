@@ -1,13 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Grid, Typography, Tab, Tabs } from '@material-ui/core';
+
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests';
 import { secondaryColor, white } from '../../colors';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
-import { UserContext } from '../AppWrapper/AppWrapper';
+import { UserContext } from '../AppWrapper';
 import { ChildProfileAgreements } from './ChildProfileAgreements';
+import { activePage } from '../../apollo_client';
 
 const TABS = {
     results: 'results',
@@ -15,7 +17,7 @@ const TABS = {
     agreements: 'agreements',
 };
 
-export const ChildProfile = () => {
+export const ChildResultsPage = () => {
     const { t } = useTranslation();
     const { childId } = useParams<{ childId: string }>();
     const [activeTab, setActiveTab] = useState(TABS.results);
@@ -25,14 +27,18 @@ export const ChildProfile = () => {
     const child = user?.children.find(child => child._id === childId)
 
 
-    if (!user || !child) return null;
+    useEffect(() => {
+        if (child) {
+            activePage([child.firstname, `/parent/child/${child._id}/results`, 'parent-menu.child.results-list']);
+        }
+    }, [user, child]);
 
+
+    
+    if (!user || !child) return <EmptyProfile />;
+    
     const { agreements } = user;
-
-    if (!child) {
-        return <Grid container>{t('child-profile.no-child')}</Grid>;
-    }
-
+    
     return (
         <>
             <Grid container className={classes.header}>
@@ -49,7 +55,7 @@ export const ChildProfile = () => {
                     indicator: classes.tabsIndicator,
                 }}
             >
-                <Tab label={t('child-profile.results-list')} value={TABS.results} />
+                <Tab label={t('parent-menu.child.results-list')} value={TABS.results} />
                 <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
                 <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
             </Tabs>
@@ -61,6 +67,13 @@ export const ChildProfile = () => {
         </>
     );
 };
+
+function EmptyProfile() {
+    const { t } = useTranslation();
+
+    return  <Grid container>{t('child-profile.no-child')}</Grid> 
+}
+
 
 const useStyles = makeStyles({
     header: {

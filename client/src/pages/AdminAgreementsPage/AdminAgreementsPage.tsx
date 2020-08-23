@@ -7,6 +7,7 @@ import { ButtonSecondary } from '../../components/Button';
 import { AgreementListItem } from './AgreementListItem';
 import { Agreement } from '../../graphql/types';
 import { getAgreements } from '../../graphql/agreementRepository';
+import { activePage } from '../../apollo_client';
 
 export const AdminAgreementsPage = () => {
     const classes = useStyles();
@@ -15,6 +16,7 @@ export const AdminAgreementsPage = () => {
     const [agreements, setAgreements] = useState<Agreement[]>([]);
 
     useEffect(() => {
+        activePage(['admin-menu.agreements']);
         getAgreements().then(({ data }) => setAgreements(data!.agreements));
     }, []);
 
