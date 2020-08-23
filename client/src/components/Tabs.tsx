@@ -9,14 +9,15 @@ type ContentType = {
 
 interface Props extends TabsProps {
     values: ContentType[];
+    onTabChange: <T>(value: T) => void;
 }
 
-export const Tabs = ({ values, ...props }: Props) => {
+export const Tabs = (props: Props) => {
     const classes = useStyles();
 
     return (
         <MuiTabs classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }} {...props}>
-            {values.map(({ label, value }, index) => (
+            {props.values.map(({ label, value }, index) => (
                 <Tab key={`${index} ${value}`} value={value} label={label} />
             ))}
         </MuiTabs>

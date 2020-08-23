@@ -48,10 +48,10 @@ export const ChildProfile = () => {
             </Grid>
             <Typography className={classes.description}>{t('child-profile.description')}</Typography>
             <Tabs
-                value={activeTab}
-                // @ts-ignore
-                onChange={(_event, value) => setActiveTab(value)}
-                values={tabs}
+                value={ activeTab }
+                onTabChange={ (value:any) => setActiveTab(value) }
+                values={ tabs }
+                onChange={ () =>{}}
             />
             {activeTab === TABS.results && (
                 <ChildProfileResults child={child} onNoResultClick={() => setActiveTab('aboutTests')} />
