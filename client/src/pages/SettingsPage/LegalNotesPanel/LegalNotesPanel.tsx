@@ -9,8 +9,8 @@ export const LegalNotesPanel = () => {
     return (
         <Typography color={'primary'}>
             <ul className={classes.ul}>
-                <li className={classes.li}>{t('settings-page.legal-notes.privacy-policy')}</li>
-                <li className={classes.li}>{t('settings-page.legal-notes.regulations')}</li>
+                <li className={classes.li}>{t('settings-page.parent.legal-notes.privacy-policy')}</li>
+                <li className={classes.li}>{t('settings-page.parent.legal-notes.regulations')}</li>
             </ul>
         </Typography>
     );

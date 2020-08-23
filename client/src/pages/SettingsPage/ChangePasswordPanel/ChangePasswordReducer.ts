@@ -4,7 +4,7 @@ export const TYPE_NEW_PASSWORD = 'TYPE_NEW_PASSWORD';
 export const ChangePasswordInitialState = {
     oldPassword: '',
     oldPasswordVisibility: false,
-    activeState: 'TYPE_OLD_PASSWORD',
+    activeState: TYPE_OLD_PASSWORD,
 };
 
 export function ChangePasswordReducer(

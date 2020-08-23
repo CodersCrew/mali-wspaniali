@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
-import { FormControl, FormControlLabel, makeStyles, Radio, RadioGroup } from '@material-ui/core';
+import { FormControl, RadioGroup } from '@material-ui/core';
 import PlFlag from '../../../assets/pl.png';
 import EnFlag from '../../../assets/en.png';
+import { LanguageRadioButton } from './LanguageRadioButton';
 
 export const DefaultLanguagePanel = () => {
-    const classes = useStyles();
     const [value, setValue] = useState('polish');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -14,22 +14,9 @@ export const DefaultLanguagePanel = () => {
     return (
         <FormControl component="fieldset">
             <RadioGroup aria-label="languages" name="languages" value={value} onChange={handleChange}>
-                <span>
-                    <FormControlLabel value="polish" control={<Radio color={'primary'} />} label="Polski" />
-                    <img className={classes.img} src={PlFlag} alt={'pl'} />
-                </span>
-                <span>
-                    <FormControlLabel value="english" control={<Radio color={'primary'} />} label="English" />
-                    <img className={classes.img} src={EnFlag} alt={'en'} />
-                </span>
+                <LanguageRadioButton value="polish" label="Polski" alt="pl" src={PlFlag} />
+                <LanguageRadioButton value="engish" label="English" alt="en" src={EnFlag} />
             </RadioGroup>
         </FormControl>
     );
 };
-
-const useStyles = makeStyles({
-    img: {
-        boxShadow: '0 0 2px 0px #000',
-        verticalAlign: 'middle',
-    },
-});

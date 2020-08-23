@@ -355,15 +355,11 @@
     },
     "settings-page": {
         "header": "SETTINGS",
-        "description": "No idea how to describe this site...",
         "password-change": "Password change",
         "password-change-comment": "For your personal safety change the password regularly",
-        "legal-notes-comment": "Read the regulations",
-        "consents": "Consents given in the program",
-        "consents-comment": "Read or change the consents given in the program",
         "old-password": "Old password",
         "new-password": "New password",
-        "confirm-new-password": "Repeat password",
+        "confirm-new-password": "Confirm password",
         "change-password": "Change password",
         "wrong-old-password": "Wrong password",
         "wrong-old-password-error": "Something went wrong. Call 911 or Administrator",
@@ -373,20 +369,15 @@
             "number": "Number",
             "symbol": "Symbol"
         },
+        "change-password-problems": "Have difficulties changing your password?",
+        "change-password-problems-hint": "No worries! Contact the Foundation to fix the problem.",
         "cancel-button": "CANCEL",
-        "legal-notes": {
-            "heading": "Legal notes",
-            "privacy-policy": "Privacy policy",
-            "regulations": "Regulations"
-        },
         "parent": {
-            "header": "SETTINGS",
-            "description": "No idea how to describe this site...",
+            "description": "Adjust settings of your account",
             "password-change": "Password change",
             "password-change-comment": "For your personal safety change the password regularly",
             "language-selection": "Language selection",
             "language-selection-comment": "Chose your default language for the application",
-            "legal-notes": "Legal notes",
             "legal-notes-comment": "Read the regulations",
             "consents": "Consents given in the program",
             "consents-comment": "Read or change the consents given in the program",
@@ -395,19 +386,15 @@
                 "deletion-not-allowed": "You are not allowed to delete your own account.",
                 "deletion-hint": "To delete your account contact our Fund.",
                 "deletion-button": "WRITE A MESSAGE"
+            },
+            "legal-notes": {
+                "heading": "Legal notes",
+                "privacy-policy": "Privacy policy",
+                "regulations": "Regulations"
             }
         },
         "admin": {
-            "header": ".SETTINGS",
-            "description": ".No idea how to describe this site...",
-            "password-change": ".Password change",
-            "password-change-comment": ".For your personal safety change the password regularly",
-            "language-selection": ".Language selection",
-            "language-selection-comment": "Chose your default language for the application",
-            "legal-notes": ".Legal notes",
-            "legal-notes-comment": ".Read the regulations",
-            "consents": ".Consents given in the program",
-            "consents-comment": ".Read or change the consents given in the program"
+            "description": ".No idea how to describe this site..."
         }
     },
     "years_0": "year",

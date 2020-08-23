@@ -122,10 +122,10 @@ export const ChangePasswordPanel = ({ user }: Props) => {
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant={'h6'} className={classes.problems}>
-                        Wystąpiły trudności podczas zmiany hasła?
+                        {t('settings-page.change-password-problems')}
                     </Typography>
                     <Typography variant={'subtitle1'} className={classes.problems}>
-                        Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.
+                        {t('settings-page.change-password-problems-hint')}
                     </Typography>
                     <ButtonSecondary variant={'contained'} className={classes.problems}>
                         <Typography variant={'button'}>

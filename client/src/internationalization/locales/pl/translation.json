@@ -355,12 +355,8 @@
     },
     "settings-page": {
         "header": "USTAWIENIA",
-        "description": "Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
         "password-change": "Zmiana hasła",
         "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
-        "legal-notes-comment": "Zapoznaj się z regulaminem",
-        "consents": "Zgody podpisane w programie",
-        "consents-comment": "Przejrzyj i zmień wydane zgody",
         "old-password": "Aktualne hasło",
         "new-password": "Nowe hasło",
         "confirm-new-password": "Powtórz hasło",
@@ -373,15 +369,11 @@
             "number": "Cyfra",
             "symbol": "Znak specjalny"
         },
+        "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
+        "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
         "cancel-button": "ANULUJ",
-        "legal-notes": {
-            "heading": "Informacje prawne",
-            "privacy-policy": "Polityka prywatności",
-            "regulations": "Regulamin"
-        },
         "parent": {
-            "header": "USTAWIENIA",
-            "description": "Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
+            "description": "Dostosuj parametry swojego konta",
             "password-change": "Zmiana hasła",
             "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
             "language-selection": "Wybór języka",
@@ -394,18 +386,15 @@
                 "deletion-not-allowed": "Usuwanie konta z poziomu użytkownika nie jest możliwe.",
                 "deletion-hint": "Aby usunąć konto w aplikacji skontaktuj się z Fundacją.",
                 "deletion-button": "NAPISZ WIADOMOŚĆ"
+            },
+            "legal-notes": {
+                "heading": "Informacje prawne",
+                "privacy-policy": "Polityka prywatności",
+                "regulations": "Regulamin"
             }
         },
         "admin": {
-            "header": ".USTAWIENIA",
-            "description": ".Też nie mam pomysłu, co tu pisać o zarządzaniu kontem...",
-            "password-change": ".Zmiana hasła",
-            "password-change-comment": ".Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
-            "language-selection": ".Wybór języka",
-            "language-selection-comment": ".Wybierz język domyślny dla aplikacji",
-            "legal-notes-comment": ".Zapoznaj się z regulaminem",
-            "consents": ".Zgody zapisane w programie",
-            "consents-comment": ".Przejrzyj i zmień wydane zgody"
+            "description": ".Też nie mam pomysłu, co tu pisać o zarządzaniu kontem..."
         }
     },
     "years_0": "rok",

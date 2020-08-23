@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Checkbox, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Theme } from '../../../theme';
@@ -7,7 +7,7 @@ export const ConsentsPanel = () => {
     // TODO: internacjonalizacja
     const consents = ['Pierwsza zgoda', 'Druga zgoda', 'Trzecia zgoda'];
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([0]);
+    const [checked, setChecked] = useState([0]);
 
     const handleToggle = (value: number) => () => {
         const currentIndex = checked.indexOf(value);

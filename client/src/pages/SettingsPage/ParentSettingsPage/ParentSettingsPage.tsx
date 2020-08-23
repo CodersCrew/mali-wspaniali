@@ -13,7 +13,7 @@ export const ParentSettingsPage = () => {
 
     return (
         <div className={classes.container}>
-            <Typography className={classes.header}>{t('settings-page.parent.header')}</Typography>
+            <Typography className={classes.header}>{t('settings-page.header')}</Typography>
             <Typography className={classes.description}>{t('settings-page.parent.description')}</Typography>
             <ParentSettingsExpansionPanel user={user} />
         </div>

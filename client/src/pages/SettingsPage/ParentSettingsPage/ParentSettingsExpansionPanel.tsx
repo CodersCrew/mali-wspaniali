@@ -1,17 +1,12 @@
-import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from 'react';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { ChangePasswordPanel } from '../ChangePasswordPanel';
 import { DefaultLanguagePanel } from '../DefaultLanguagePanel';
 import { LegalNotesPanel } from '../LegalNotesPanel';
 import { ConsentsPanel } from '../ConsentsPanel';
 import { AccountDeletionPanel } from '../AccountDeletionPanel';
 import { Me } from '../../../graphql/types';
+import { ExpansionPanelItem } from './ExpansionPanelItem';
 
 interface Props {
     user: Me;
@@ -19,8 +14,7 @@ interface Props {
 
 export const ParentSettingsExpansionPanel = ({ user }: Props) => {
     const classes = useStyles();
-    const { t } = useTranslation();
-    const [expanded, setExpanded] = React.useState<string | false>(false);
+    const [expanded, setExpanded] = useState<string | false>(false);
 
     const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
@@ -28,99 +22,58 @@ export const ParentSettingsExpansionPanel = ({ user }: Props) => {
 
     return (
         <div className={classes.root}>
-            <ExpansionPanel
+            <ExpansionPanelItem
+                user={user}
+                name={'password-change-panel'}
+                handle={handleChange('password-change-panel')}
                 expanded={expanded === 'password-change-panel'}
-                onChange={handleChange('password-change-panel')}
-            >
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="password-change-panel-content"
-                    id="password-panel-header"
-                >
-                    <Typography className={classes.heading}>{t('settings-page.parent.password-change')}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <ChangePasswordPanel user={user} />
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                heading={'settings-page.parent.password-change'}
+                panel={ChangePasswordPanel}
+            />
 
-            <ExpansionPanel
+            <ExpansionPanelItem
+                user={user}
+                name={'language-selection-panel'}
+                handle={handleChange('language-selection-panel')}
                 expanded={expanded === 'language-selection-panel'}
-                onChange={handleChange('language-selection-panel')}
-            >
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="language-selection-panel-content"
-                    id="language-selection-panel-header"
-                >
-                    <Typography className={classes.heading}>{t('settings-page.parent.language-selection')}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <DefaultLanguagePanel />
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                heading={'settings-page.parent.language-selection'}
+                panel={DefaultLanguagePanel}
+            />
 
-            <ExpansionPanel expanded={expanded === 'legal-notes-panel'} onChange={handleChange('legal-notes-panel')}>
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="legal-notes-panel-content"
-                    id="legal-notes-panel-header"
-                >
-                    <Typography className={classes.heading}>{t('settings-page.legal-notes.heading')}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <LegalNotesPanel />
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+            <ExpansionPanelItem
+                user={user}
+                name={'legal-notes-panel'}
+                handle={handleChange('legal-notes-panel')}
+                expanded={expanded === 'legal-notes-panel'}
+                heading={'settings-page.parent.legal-notes.heading'}
+                panel={LegalNotesPanel}
+            />
 
-            <ExpansionPanel expanded={expanded === 'consents-panel'} onChange={handleChange('consents-panel')}>
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="consents-panel-content"
-                    id="consents-panel-header"
-                >
-                    <Typography className={classes.heading}>{t('settings-page.parent.consents')}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <ConsentsPanel />
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+            <ExpansionPanelItem
+                user={user}
+                name={'consents-panel'}
+                handle={handleChange('consents-panel')}
+                expanded={expanded === 'consents-panel'}
+                heading={'settings-page.parent.consents'}
+                panel={ConsentsPanel}
+            />
 
-            <ExpansionPanel
+            <ExpansionPanelItem
+                user={user}
+                name={'account-deletion-panel'}
+                handle={handleChange('account-deletion-panel')}
                 expanded={expanded === 'account-deletion-panel'}
-                onChange={handleChange('account-deletion-panel')}
-            >
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="account-deletion-panel-content"
-                    id="account-deletion-panel-header"
-                >
-                    <Typography className={classes.heading}>
-                        {t('settings-page.parent.delete-account.header')}
-                    </Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <AccountDeletionPanel />
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                heading={'settings-page.parent.delete-account.header'}
+                panel={AccountDeletionPanel}
+            />
         </div>
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             width: '100%',
-        },
-        heading: {
-            fontSize: theme.typography.pxToRem(15),
-            flexBasis: '33.33%',
-            flexShrink: 0,
-            fontWeight: 'bold',
-        },
-        secondaryHeading: {
-            fontSize: theme.typography.pxToRem(15),
-            color: theme.palette.text.secondary,
         },
     }),
 );
