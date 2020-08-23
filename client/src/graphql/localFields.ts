@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const GET_CART_ITEMS = gql`
-    query GetCartItems {
+export const ACTIVE_PAGE = gql`
+    query GetActivePage {
         activePage @client
     }
 `;

@@ -12,7 +12,7 @@ import { Me } from '../graphql/types';
 import { AdminSidebar } from '../components/Menu/Sidebar/AdminSidebar';
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
-import { GET_CART_ITEMS } from '../graphql/localFields';
+import { ACTIVE_PAGE } from '../graphql/localFields';
 
 export const UserContext = React.createContext<Me | null>(null);
 
@@ -21,7 +21,7 @@ export const AppWrapper: FC = ({ children }) => {
     const [user, setUser] = useState<Me | null>(null);
     const [isOpen, setIsOpen] = useState(false);
     const { i18n } = useTranslation();
-    const { data } = useQuery(GET_CART_ITEMS);
+    const { data: ActivePageState } = useQuery(ACTIVE_PAGE);
     const device = useBreakpoints();
 
     const history = useHistory();
@@ -42,7 +42,7 @@ export const AppWrapper: FC = ({ children }) => {
             return history.push('/login');
         }
 
-        if (link) history.push(link);
+        if (link) return history.push(link);
     }
 
     function handleSidebarToggle() {
@@ -60,7 +60,7 @@ export const AppWrapper: FC = ({ children }) => {
             <Box display="flex">
                 <Navbar
                     device={device}
-                    activePage={data.activePage}
+                    activePage={ActivePageState.activePage}
                     language={language}
                     notifications={user.notifications}
                     onLanguageChange={handleLanguageChange}
@@ -69,7 +69,7 @@ export const AppWrapper: FC = ({ children }) => {
                 {user.role === 'admin' ? (
                     <AdminSidebar
                         user={user}
-                        active={data.activePage}
+                        active={ActivePageState.activePage}
                         open={isOpen}
                         onClose={handleSidebarToggle}
                         onClick={handleClick}
@@ -77,7 +77,7 @@ export const AppWrapper: FC = ({ children }) => {
                 ) : (
                     <ParentSidebar
                         user={user}
-                        active={data.activePage}
+                        active={ActivePageState.activePage}
                         open={isOpen}
                         onClose={handleSidebarToggle}
                         onClick={handleClick}
