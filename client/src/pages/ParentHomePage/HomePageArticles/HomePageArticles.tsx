@@ -5,8 +5,7 @@ import { textColor } from '../../../colors';
 import { Article } from '../../../graphql/types';
 import { ArticleCarousel } from './HomePageArticleCarousel';
 import { BlogArticleCard } from '../../../components/BlogArticleCard';
-
-const isMobile = window.screen.width < 1024;
+import { useBreakpoints } from '../../../queries/useBreakpoints';
 
 interface Props {
     articles: Article[];
@@ -14,6 +13,7 @@ interface Props {
 
 export const HomePageArticles = ({ articles }: Props) => {
     const classes = useStyles();
+    const device = useBreakpoints();
     const { t } = useTranslation();
 
     const renderArticles = () => {
@@ -36,7 +36,7 @@ export const HomePageArticles = ({ articles }: Props) => {
         <>
             <h2 className={classes.articleHeader}>{t('home-page-content.recent-news')}</h2>
             <div className={classes.articlesList}>
-                {!isMobile && articles.length > 4 ? (
+                {device !== 'DESKTOP' && articles.length > 4 ? (
                     <ArticleCarousel>{renderArticles()}</ArticleCarousel>
                 ) : (
                     renderArticles()
@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         card: {
             maxWidth: '306px',
-            marginRight: '60px',
         },
         articleHeader: {
             textTransform: 'uppercase',
@@ -67,11 +66,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         articlesList: {
             display: 'flex',
+            flexWrap: 'wrap',
             marginTop: 30,
-
-            [theme.breakpoints.down('md')]: {
-                marginLeft: 30,
-            },
 
             [theme.breakpoints.down('xs')]: {
                 flexDirection: 'column',
