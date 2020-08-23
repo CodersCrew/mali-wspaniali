@@ -11,46 +11,43 @@ import { SingleArticleColors } from '../../colors';
 import { useQuery } from '@apollo/client';
 import { ARTICLE_BY_ID } from '../../graphql/articleRepository';
 
-export const SingleBlogArticlePage = () => {
+export const ArticlePage = () => {
     const classes = useStyles();
     const { articleId } = useParams<{ articleId: string }>();
     const { data } = useQuery<{ article: Article }>(ARTICLE_BY_ID, { variables: { articleId } });
 
-    if (data && data.article) {
-        return (
-            <Grid className={classes.rootGrid} container direction="column">
+    if (!data || !data.article) return null;
+
+    return (
+        <Grid className={classes.rootGrid} container direction="column">
+            <Grid container direction="row">
+                <BreadcrumbsWithDescription
+                    category={data.article.category}
+                    title={data.article.title}
+                    readingTime={data.article.readingTime}
+                />
+            </Grid>
+            <Grid container direction="row">
+                <ArticleHeader title={data.article.title} />
+            </Grid>
+            <div className={classes.articleContentContainer}>
                 <Grid container direction="row">
-                    <BreadcrumbsWithDescription
+                    <ArticleContent
                         category={data.article.category}
-                        title={data.article.title}
-                        readingTime={data.article.readingTime}
+                        header={data.article.header}
+                        pictureUrl={data.article.pictureUrl}
+                        contentHTML={data.article.contentHTML}
                     />
                 </Grid>
                 <Grid container direction="row">
-                    <ArticleHeader title={data.article.title} />
+                    <ArticleVideo videoUrl={data.article.videoUrl} tags={data.article.tags} />
                 </Grid>
-                <div className={classes.articleContentContainer}>
-                    <Grid container direction="row">
-                        <ArticleContent
-                            category={data.article.category}
-                            header={data.article.header}
-                            pictureUrl={data.article.pictureUrl}
-                            contentHTML={data.article.contentHTML}
-                        />
-                    </Grid>
-                    <Grid container direction="row">
-                        <ArticleVideo videoUrl={data.article.videoUrl} tags={data.article.tags} />
-                    </Grid>
-                    <Grid container direction="row">
-                        <ArticleRedactor redactor={data.article.redactor} />
-                    </Grid>
-                </div>
-            </Grid>
-        );
-    }
-    // TODO: display a placeholder when there is no article
-
-    return <div />;
+                <Grid container direction="row">
+                    <ArticleRedactor redactor={data.article.redactor} />
+                </Grid>
+            </div>
+        </Grid>
+    );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
