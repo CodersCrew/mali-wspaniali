@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
@@ -6,33 +6,29 @@ import { createStyles } from '@material-ui/styles';
 import { CategoryTabs } from './CategoryTabs';
 import { Pagination } from './Pagination';
 import { categoriesList } from './BlogCategories';
-import { getArticles } from '../../queries/articleQueries';
 import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
 import { Theme } from '../../theme/types';
 import { BlogArticleCard } from '../../components/BlogArticleCard';
+import { activePage } from '../../apollo_client';
+import { useQuery } from '@apollo/client';
+import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
 
-export const BlogMainPage = () => {
+export const ArticleListPage = () => {
     const classes = useStyles();
-    const [articles, setArticles] = useState<Article[]>([]);
     const params = useParams<{ category: string; page: string }>();
     const history = useHistory();
     let currentPage = parseInt(params.page, 10);
+    const { data } = useQuery<{ articles: Article[] }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
+        variables: { page: currentPage, category: params.category },
+    });
 
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 
     useEffect(() => {
-        let fetchedArticles;
-
-        if (params.category === 'all') {
-            fetchedArticles = getArticles(currentPage);
-        } else {
-            fetchedArticles = getArticles(currentPage, params.category);
-        }
-
-        fetchedArticles.then(({ data }) => setArticles(data!.articles));
-    }, [params.category, currentPage]);
+        activePage(['parent-menu.blog', `blog-categories.${params.category}`]);
+    }, [params.category]);
 
     const paginationQuery = (paginationDirection: string) => {
         if (paginationDirection === 'next') {
@@ -41,6 +37,8 @@ export const BlogMainPage = () => {
             history.push(`/parent/blog/${params.category}/${currentPage - 1}`);
         }
     };
+
+    const articles = (data && data.articles) || [];
 
     return (
         <>
