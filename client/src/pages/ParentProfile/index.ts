@@ -1,1 +1,0 @@
-export { ParentProfile } from './ParentProfile';

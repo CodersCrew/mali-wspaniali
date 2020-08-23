@@ -1,1 +1,0 @@
-export { BlogMainPage } from './BlogMainPage';

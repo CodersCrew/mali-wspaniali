@@ -201,7 +201,9 @@
                 "text4": "text4 (placeholder)"
             }
         },
-        "agreements-title": "Below you can check and edit the signed agreements."
+        "agreements-title": "Below you can check and edit the signed agreements.",
+        "recomendations": "Recomendations",
+        "child-details": "Child's details"
     },
     "parent-profile": {
         "parent": "Parent",
@@ -304,16 +306,29 @@
         "choose-file": "Choose File",
         "upload-file": "Upload File"
     },
-    "menu": {
+    "parent-menu": {
+        "home": "Strona Główna",
+        "child": {
+            "results-list": "Results",
+            "recomendations": "Recomendations",
+            "tests-information": "Tests information",
+            "child-details": "Child details"
+        },
+        "blog": "Blog",
+        "agreements": "Agreements",
+        "settings": "Settings",
+        "notifications": "Notifications",
+        "logout": "Log out"
+    },
+    "admin-menu": {
         "home": "Home",
         "settings": "Settings",
-        "news": "News",
         "notifications": "Notifications",
-        "results": "Results",
-        "agreements": "Agreements",
         "newsletter": "Newsletter",
-        "newsletter-archive": "Archive",
-        "blog": "Blog",
+        "create-blog-article": "Blog",
+        "archive": "Archive",
+        "agreements": "Agreements",
+        "results": "Results",
         "logout": "Log out"
     },
     "home-page-content": {
@@ -340,7 +355,7 @@
     "blog-categories": {
         "all": "All",
         "food": "Food",
-        "physical-activity": "Physical activity",
+        "activity": "Physical activity",
         "emotions": "Emotions",
         "other": "Other"
     },
