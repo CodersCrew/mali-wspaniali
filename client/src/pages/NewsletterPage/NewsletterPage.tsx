@@ -7,6 +7,7 @@ import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { ButtonSecondary } from '../../components/Button';
+import { activePage } from '../../apollo_client';
 
 const initialState = {
     type: {
@@ -44,6 +45,10 @@ export const NewsletterPage = () => {
         firstStep: ProgressBarStates.Ready,
         secondStep: ProgressBarStates.Inactive,
     });
+
+    useEffect(() => {
+        activePage(['admin-menu.newsletter']);
+    }, []);
 
     useEffect(() => {
         if (recipients.value.length > 0) {
