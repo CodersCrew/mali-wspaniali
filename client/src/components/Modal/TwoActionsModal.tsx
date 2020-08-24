@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ButtonSecondary } from './Button/ButtonSecondary';
+import { ButtonSecondary } from '../Button/ButtonSecondary';
 
 interface Props {
     isOpen: boolean;

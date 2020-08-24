@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ButtonPrimary } from './Button/ButtonPrimary';
+import { ButtonPrimary } from '../Button/ButtonPrimary';
 
 interface Props {
     isOpen: boolean;
@@ -11,7 +11,7 @@ interface Props {
     children?: ReactElement;
 }
 
-export const Modal = ({ isOpen, handleClose, dialogTitle, dialogContentText, children }: Props) => {
+export const BasicModal = ({ isOpen, handleClose, dialogTitle, dialogContentText, children }: Props) => {
     const { t } = useTranslation();
 
     return (
