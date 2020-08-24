@@ -7,7 +7,7 @@ import {
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { textColor } from '../../colors';
 import { Theme } from '../../theme';
-import { TwoActionsModal } from '../../components/TwoActionsModal';
+import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
 
 export const NewsletterSentModal: React.FC<{
     isOpen: boolean;

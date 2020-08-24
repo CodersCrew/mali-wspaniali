@@ -6,7 +6,7 @@ import { getResultColorAndLabel } from './calculateResult';
 import { MAX_OVERALL_POINTS } from './constants';
 import { gray } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
-import { Modal } from '../../../../components/Modal';
+import { BasicModal } from '../../../../components/Modal/BasicModal';
 
 interface Props {
     firstResultPoints: number;
@@ -47,9 +47,9 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                     </Typography>
                 </div>
             </div>
-            <Modal isOpen={isModalOpen} handleClose={() => setIsModalOpen(prev => !prev)}>
+            <BasicModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(prev => !prev)}>
                 {t(`child-profile.difference.${key}`)}
-            </Modal>
+            </BasicModal>
         </>
     );
 };

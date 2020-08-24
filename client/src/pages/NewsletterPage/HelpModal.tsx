@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { mainColor, textColor } from '../../colors';
-import { Modal } from '../../components/Modal';
+import { BasicModal } from '../../components/Modal/BasicModal';
 
 export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
-        <Modal isOpen={true} handleClose={onClose}>
+        <BasicModal isOpen={true} handleClose={onClose}>
             <div className={classes.modalContent}>
                 <HelpOutlineIcon className={classes.modalIcon} />
                 <span className={classes.modalTextBold}>{t('newsletter.help-modal.type')}</span>
@@ -18,7 +18,7 @@ export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <span className={classes.modalTextBold}>{t('newsletter.help-modal.attachment')}</span>
                 <p className={classes.modalText}>{t('newsletter.help-modal.attachment-text')} </p>
             </div>
-        </Modal>
+        </BasicModal>
     );
 };
 

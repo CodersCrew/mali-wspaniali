@@ -7,7 +7,7 @@ import { ButtonSecondary } from '../../components/Button';
 import { AgreementListItem } from './AgreementListItem';
 import { Agreement } from '../../graphql/types';
 import { getAgreements } from '../../graphql/agreementRepository';
-import { Modal } from '../../components/Modal';
+import { BasicModal } from '../../components/Modal/BasicModal';
 import { activePage } from '../../apollo_client';
 
 export const AdminAgreementsPage = () => {
@@ -52,9 +52,9 @@ export const AdminAgreementsPage = () => {
                                 innerText={t('admin-agreements-page.show')}
                             />
                         </Container>
-                        <Modal isOpen={isModalOpen} handleClose={handleCloseModal}>
+                        <BasicModal isOpen={isModalOpen} handleClose={handleCloseModal}>
                             <div className={classes.paper}>aggreements</div>
-                        </Modal>
+                        </BasicModal>
                     </Container>
                 </>
             ) : (

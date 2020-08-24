@@ -9,7 +9,7 @@ import { gray } from '../../../../colors';
 import { MAX_OVERALL_POINTS } from './constants';
 import { ButtonSecondary } from '../../../../components/Button';
 import { TestResult } from '../../../../graphql/types';
-import { Modal } from '../../../../components/Modal';
+import { BasicModal } from '../../../../components/Modal/BasicModal';
 
 export interface Props {
     result: TestResult;
@@ -64,9 +64,9 @@ export const TestSummary = ({ result }: Props) => {
                     />
                 </div>
             </Card>
-            <Modal isOpen={isModalOpen} handleClose={() => setIsModalOpen(prev => !prev)}>
+            <BasicModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(prev => !prev)}>
                 {t(`child-profile.result-description.${key}`)}
-            </Modal>
+            </BasicModal>
         </>
     );
 };
