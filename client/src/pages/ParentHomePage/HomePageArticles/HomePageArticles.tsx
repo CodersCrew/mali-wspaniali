@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { textColor } from '../../../colors';
 import { Article } from '../../../graphql/types';
 import { ArticleCarousel } from './HomePageArticleCarousel';
-import { BlogArticleCard } from '../../../components/BlogArticleCard';
+import { BlogArticleCard } from '../../../components/Blog/BlogArticleCard';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 
 interface Props {

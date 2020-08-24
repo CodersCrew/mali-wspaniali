@@ -69,10 +69,17 @@ describe('Article (e2e)', () => {
         .send({
           operationName: null,
           variables: {},
-          query: '{articles(page:0){_id, title}}',
+          query: `{
+            paginatedArticles(page:0){
+              articles {
+                _id,
+                title
+              }
+            }
+          }`,
         })
         .expect({
-          data: { articles: [] },
+          data: { paginatedArticles: { articles: [] } },
         });
     });
   });
@@ -142,8 +149,9 @@ mutation {
           variables: {},
           query: `
           {
-            articles(page:1){
-              _id,
+            paginatedArticles(page:1){
+              articles {
+                _id,
               title,
               category,
               contentHTML
@@ -157,12 +165,13 @@ mutation {
               title
               subtitle
               readingTime
+              }
             }
           }
           `,
         })
         .expect(({ body }) => {
-          const { articles } = body.data;
+          const { articles } = body.data.paginatedArticles;
           const [newArticle] = articles;
 
           expect(articles.length).toEqual(1);
@@ -258,14 +267,16 @@ mutation {
           variables: {},
           query: `
         {
-          articles(page:1){
-            _id
+          paginatedArticles(page:1){
+            articles {
+              _id
+            }
           }
         }
         `,
         })
         .expect(({ body }) => {
-          const { articles } = body.data;
+          const { articles } = body.data.paginatedArticles;
 
           expect(articles.length).toEqual(7);
         });
@@ -280,14 +291,16 @@ mutation {
           variables: {},
           query: `
     {
-      articles(page:2){
-        _id
+      paginatedArticles(page:2){
+        articles {
+          _id
+        }
       }
     }
     `,
         })
         .expect(({ body }) => {
-          const { articles } = body.data;
+          const { articles } = body.data.paginatedArticles;
 
           expect(articles.length).toEqual(1);
         });

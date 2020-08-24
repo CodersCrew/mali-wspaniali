@@ -24,6 +24,12 @@ export interface Redactor {
     biography: string;
 }
 
+export interface PaginatedArticles {
+    articles: Article[];
+    hasNext: boolean;
+    count: number;
+}
+
 export interface ReturnedStatus {
     status: boolean;
 }
