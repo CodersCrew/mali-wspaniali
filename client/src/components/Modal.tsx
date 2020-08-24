@@ -3,7 +3,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import { useTranslation } from 'react-i18next';
 import { ButtonPrimary } from './Button/ButtonPrimary';
 
-interface ModalProps {
+interface Props {
     isOpen: boolean;
     handleClose: () => void;
     dialogTitle?: string;
@@ -11,7 +11,7 @@ interface ModalProps {
     children?: ReactElement;
 }
 
-export const Modal = ({ isOpen, handleClose, dialogTitle, dialogContentText, children }: ModalProps) => {
+export const Modal = ({ isOpen, handleClose, dialogTitle, dialogContentText, children }: Props) => {
     const { t } = useTranslation();
 
     return (
