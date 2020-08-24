@@ -1,25 +1,33 @@
 import { gql } from '@apollo/client';
 
 export const ARTICLES_BY_CATEGORY = gql`
-    query Articles($page: Float!, $category: String!) {
+    query Articles($page: Int!, $category: String!) {
         articles(page: $page, category: $category) {
-            _id
-            title
-            description
-            category
-            pictureUrl
+            paginatedArticles {
+                _id
+                title
+                description
+                category
+                pictureUrl
+            }
+            count
+            hasNext
         }
     }
 `;
 
 export const ARTICLES = gql`
-    query Articles($page: Float!) {
-        articles(page: $page) {
-            _id
-            title
-            description
-            category
-            pictureUrl
+    query Articles($page: Int!) {
+        paginatedArticles(page: $page) {
+            articles {
+                _id
+                title
+                description
+                category
+                pictureUrl
+            }
+            count
+            hasNext
         }
     }
 `;
