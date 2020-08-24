@@ -3,13 +3,11 @@ import { useTranslation } from 'react-i18next';
 import {
     makeStyles,
     createStyles,
-    DialogActions,
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { textColor } from '../../colors';
 import { Theme } from '../../theme';
-import { ButtonSecondary } from '../../components/Button';
-import { Modal } from '../../components/Modal';
+import { TwoActionsModal } from '../../components/TwoActionsModal';
 
 export const NewsletterSentModal: React.FC<{
     isOpen: boolean;
@@ -31,7 +29,7 @@ export const NewsletterSentModal: React.FC<{
     };
 
     return (
-        <Modal isOpen={isOpen} handleClose={onClose}>
+        <TwoActionsModal isOpen={isOpen} handleModalClose={onClose} upperButtonOnClick={handleButtonClick} upperButtonText={t('newsletter.sending-success-modal.back-button')} lowerButtonOnClick={handleButtonClick} lowerButtonText={t('newsletter.sending-success-modal.next-msg-button')}>
             <div className={classes.sentModal}>
                 <CheckCircleIcon className={classes.sentModalIcon} />
                 <div className={classes.sentModalTitle}>
@@ -40,24 +38,9 @@ export const NewsletterSentModal: React.FC<{
                 <div className={classes.sentModalText}>
                     {t('newsletter.sending-success-modal.content')}
                 </div>
-                <DialogActions className={classes.sentModalButtonWrapper}>
-                    <ButtonSecondary
-                        variant="contained"
-                        id="homePageButton"
-                        className={classes.sentModalBackButton}
-                        onClick={handleButtonClick}
-                        innerText={t('newsletter.sending-success-modal.back-button')}
-                    />
-                    <ButtonSecondary
-                        id="nextMessageButton"
-                        className={classes.sentModalNextMessageButton}
-                        onClick={handleButtonClick}
-                        innerText={t('newsletter.sending-success-modal.next-msg-button')}
-                        variant="text"
-                    />
-                </DialogActions>
+
             </div>
-        </Modal >
+        </TwoActionsModal >
     );
 };
 
@@ -88,27 +71,6 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: 15,
             lineHeight: 1.2,
             marginBottom: 30,
-        },
-        sentModalButtonWrapper: {
-            padding: '0 78px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyItems: 'center',
-            '& > :not(:first-child)': {
-                marginLeft: 0,
-            },
-        },
-        sentModalBackButton: {
-            maxWidth: 264,
-            padding: '8px',
-            marginBottom: 16,
-        },
-        sentModalNextMessageButton: {
-            maxWidth: 264,
-            width: '100%',
-            padding: '8px',
-            marginBottom: 16,
-            boxShadow: '0',
         },
     }),
 );
