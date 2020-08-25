@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
@@ -6,15 +6,29 @@ import {
     FormControlConfirmNewPassword,
     FormControlNewPassword,
     FormControlOldPassword,
-    ValidationMarks,
 } from './ChangePasswordPanelFormControls';
 import { ButtonSecondary } from '../../../components/Button';
 import { Me } from '../../../graphql/types';
 import { ChangePasswordReducer, ChangePasswordInitialState, TYPE_NEW_PASSWORD } from './ChangePasswordReducer';
+import { PasswordStrengthChips } from '../../RegistrationPage/RegistrationForm/PasswordStrengthChips';
+import { PasswordValidation } from '../../RegistrationPage/RegistrationForm/types';
+import {
+    passwordCapitalTest,
+    passwordDigitTest,
+    passwordLengthTest,
+    passwordSpecialTest,
+} from '../../RegistrationPage/passwordStrengthTest';
 
 interface Props {
     user: Me;
 }
+
+const initialPasswordValidation: PasswordValidation = {
+    length: false,
+    capital: false,
+    digit: false,
+    special: false,
+};
 
 export const ChangePasswordPanel = ({ user }: Props) => {
     const [state, dispatch] = useReducer(ChangePasswordReducer, ChangePasswordInitialState);
@@ -39,6 +53,7 @@ export const ChangePasswordPanel = ({ user }: Props) => {
         validPasswordSymbol: false,
         validPasswordUppercase: false,
     });
+    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -48,6 +63,15 @@ export const ChangePasswordPanel = ({ user }: Props) => {
 
     const handleOldPasswordChange = (password: string, isSuccess: boolean) =>
         dispatch({ type: 'changeOldPassword', values: { password, isSuccess } });
+
+    useEffect(() => {
+        setPasswordValidation({
+            length: passwordLengthTest(values.newPassword),
+            capital: passwordCapitalTest(values.newPassword),
+            digit: passwordDigitTest(values.newPassword),
+            special: passwordSpecialTest(values.newPassword),
+        });
+    }, [values.newPassword]);
 
     return (
         <Grid container>
@@ -85,15 +109,9 @@ export const ChangePasswordPanel = ({ user }: Props) => {
                             }}
                         />
 
-                        <ValidationMarks
-                            onChange={states => {
-                                setValues({
-                                    ...values,
-                                    ...states.states,
-                                });
-                            }}
-                            states={values}
-                        />
+                        <div className={classes.marksWrapper}>
+                            <PasswordStrengthChips passwordValidation={passwordValidation} />
+                        </div>
 
                         <FormControlConfirmNewPassword
                             key={`FormControlConfirmNewPassword-${
@@ -142,7 +160,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {},
         submitWrapper: {
-            // width: '40%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -156,6 +173,9 @@ const useStyles = makeStyles((theme: Theme) =>
             whiteSpace: 'normal',
         },
         problems: {
+            marginBottom: '16px',
+        },
+        marksWrapper: {
             marginBottom: '16px',
         },
     }),

@@ -3,13 +3,13 @@ import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } fr
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import {
-    validatePasswordLength,
-    validatePasswordNumber,
-    validatePasswordSymbol,
-    validatePasswordUppercase,
-} from '../ValidatePassword';
 import { FormControlNewPasswordStatesInterface } from './types';
+import {
+    passwordCapitalTest,
+    passwordDigitTest,
+    passwordLengthTest,
+    passwordSpecialTest,
+} from '../../../RegistrationPage/passwordStrengthTest';
 
 export interface Props extends FormControlNewPasswordStatesInterface {
     onChange: (states: FormControlNewPasswordStatesInterface) => void;
@@ -35,10 +35,10 @@ export const FormControlNewPassword = (props: Props) => {
 
     const validateNewPassword = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const password = event.target.value;
-        const validLength = validatePasswordLength(password);
-        const validUppercase = validatePasswordUppercase(password);
-        const validNumber = validatePasswordNumber(password);
-        const validSymbol = validatePasswordSymbol(password);
+        const validLength = passwordLengthTest(password);
+        const validUppercase = passwordCapitalTest(password);
+        const validNumber = passwordDigitTest(password);
+        const validSymbol = passwordSpecialTest(password);
         const confirmDisabled = !(validLength && validUppercase && validNumber && validSymbol);
         const buttonDisabled = confirmDisabled || !(password === values.confirmNewPassword);
         setValues({
