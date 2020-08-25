@@ -6,12 +6,14 @@ import { TestResultsTableRow } from './TestResultsTableRow';
 import { NoResults } from './NoResults';
 import { Child } from '../../graphql/types';
 import { Pagination } from './Pagination';
+import { activePage } from '../../apollo_client';
 
 export const TestResultsPage = () => {
     const { t } = useTranslation();
     const [children, setChildren] = useState<Child[]>([]);
 
     useEffect(() => {
+        activePage(['admin-menu.results']);
         getAllChildren().then(({ data }) => setChildren(data!.allChildren));
     }, []);
 

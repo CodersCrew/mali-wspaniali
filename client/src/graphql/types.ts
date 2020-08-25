@@ -58,11 +58,13 @@ export interface Child {
     _id: string;
     firstname: string;
     lastname: string;
-    sex: 'male' | 'female';
+    sex: Sex;
     kindergarten: Kindergarten;
     birthYear: number;
     results: TestResult[];
 }
+
+export type Sex = 'male' | 'female';
 
 export interface Kindergarten {
     _id: string;

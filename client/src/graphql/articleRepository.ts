@@ -1,39 +1,28 @@
-import { gql, DocumentNode, ApolloQueryResult } from '@apollo/client';
+import { gql } from '@apollo/client';
 
-import { Article } from './types';
-import { client } from '../apollo_client';
-
-export function getArticles(page: number, category?: string): Promise<ApolloQueryResult<{ articles: Article[] }>> {
-    let query: DocumentNode;
-
-    if (category) {
-        query = gql`
-        {
-            articles(page: ${page}, category: "${category}") {
-                _id
-                title
-                description
-                category
-                pictureUrl
-            }
+export const ARTICLES_BY_CATEGORY = gql`
+    query Articles($page: Float!, $category: String!) {
+        articles(page: $page, category: $category) {
+            _id
+            title
+            description
+            category
+            pictureUrl
         }
-    `;
-    } else {
-        query = gql`
-        {
-            articles(page: ${page}) {
-                _id
-                title
-                description
-                category
-                pictureUrl
-            }
-        }
-    `;
     }
+`;
 
-    return client.query({ query });
-}
+export const ARTICLES = gql`
+    query Articles($page: Float!) {
+        articles(page: $page) {
+            _id
+            title
+            description
+            category
+            pictureUrl
+        }
+    }
+`;
 
 export const LAST_ARTICLES = gql`
     query Articles($count: Int!) {
