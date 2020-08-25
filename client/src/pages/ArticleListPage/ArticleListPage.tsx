@@ -131,6 +131,7 @@ export const ArticleListPage = () => {
                     count={articles.length}
                     maxCount={count}
                     disabled={!hasNext}
+                    hidden={articles.length < ARTICLES_PER_PAGE}
                     onClick={() => {
                         const scrollY = window.scrollY;
 
