@@ -49,13 +49,13 @@ export const ArticleListPage = () => {
                 <DropDownMenu
                     values={categoriesList}
                     active={params.category}
-                    onClick={value => history.push(`/parent/blog/${value}/1`)}
+                    onClick={value => history.push(`/parent/blog/${value}`)}
                 />
             </div>
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
-                onClick={value => history.push(`/parent/blog/${value}/1`)}
+                onClick={value => history.push(`/parent/blog/${value}`)}
             />
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>

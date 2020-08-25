@@ -69,7 +69,7 @@ export const Root = () => {
                             <Route path="/parent/child/:childId/tests-information" component={TestInformationPage} />
                             <Route path="/parent/child/:childId/details" component={ChildDetailsPage} />
                             <Route path="/parent/child/:childId/recomendations" component={RecomendationsPage} />
-                            <Route path="/parent/blog/:category/:page" exact component={ArticleListPage} />
+                            <Route path="/parent/blog/:category" exact component={ArticleListPage} />
                             <Route path="/parent/article/:articleId" component={ArticlePage} />
                             <Route path="/parent/notifications" component={NotificationsPage} />
                             <Route path="/parent/agreements" component={ParentAgreementsPage} />
