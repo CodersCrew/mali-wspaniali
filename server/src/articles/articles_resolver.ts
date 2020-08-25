@@ -49,7 +49,9 @@ export class ArticlesResolver {
     );
 
     const result = {
-      articles: articles.map(article => ArticleMapper.toRaw(article)),
+      articles: articles
+        .slice(0, perPage || ARTICLE_PER_PAGE)
+        .map(article => ArticleMapper.toRaw(article)),
       count: articleCount,
       hasNext: articles.length === (perPage || ARTICLE_PER_PAGE) + 1,
     };

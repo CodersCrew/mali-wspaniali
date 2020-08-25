@@ -278,7 +278,7 @@ mutation {
         .expect(({ body }) => {
           const { articles } = body.data.paginatedArticles;
 
-          expect(articles.length).toEqual(7);
+          expect(articles.length).toEqual(6);
         });
     });
 
