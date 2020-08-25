@@ -1,13 +1,10 @@
 import React, { ReactElement } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, makeStyles, createStyles } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { Dialog, DialogActions, DialogContent, makeStyles, createStyles } from '@material-ui/core';
 import { ButtonSecondary } from '../Button/ButtonSecondary';
 
 interface Props {
     isOpen: boolean;
     handleModalClose: () => void;
-    dialogTitle?: string;
-    dialogContentText?: string;
     children?: ReactElement;
     upperButtonOnClick: (event: any) => void;
     upperButtonText: string;
@@ -15,16 +12,13 @@ interface Props {
     lowerButtonText: string;
 }
 
-export const TwoActionsModal = ({ isOpen, handleModalClose, dialogTitle, dialogContentText, children, upperButtonOnClick, lowerButtonOnClick, upperButtonText, lowerButtonText }: Props) => {
-    const { t } = useTranslation();
+export const TwoActionsModal = ({ isOpen, handleModalClose, children, upperButtonOnClick, lowerButtonOnClick, upperButtonText, lowerButtonText }: Props) => {
     const classes = useStyles();
 
     return (
         <>
             <Dialog maxWidth="md" open={isOpen} onClose={handleModalClose}>
-                <DialogTitle>{dialogTitle && t(dialogTitle)}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>{dialogContentText}</DialogContentText>
                     {children}
                 </DialogContent>
                 <DialogActions>
