@@ -50,7 +50,6 @@ export const BlogMainPage = () => {
                     onClick={value => history.push(`/parent/blog/${value}/1`)}
                 />
             </div>
-
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}

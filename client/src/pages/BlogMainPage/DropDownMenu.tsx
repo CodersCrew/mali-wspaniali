@@ -24,11 +24,6 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
         setIsOpen(prevOpen => !prevOpen);
     };
 
-    // const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    //     onClick(values[newValue].key);
-    //     setIsOpen(false);
-    // };
-
     function handleListKeyDown(event: React.KeyboardEvent) {
         if (event.key === 'Tab') {
             event.preventDefault();
@@ -36,7 +31,6 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
         }
     }
 
-    // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(null);
     useEffect(() => {
         if (anchorRef.current && prevOpen.current && isOpen === false) {

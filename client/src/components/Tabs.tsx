@@ -31,10 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '3%',
             backgroundColor: theme.palette.primary.contrastText,
             border: `1px solid ${theme.palette.text.secondary}`,
-
-            [theme.breakpoints.down('md')]: {
-                // display: 'none',
-            },
         },
         indicator: {
             display: 'none',
