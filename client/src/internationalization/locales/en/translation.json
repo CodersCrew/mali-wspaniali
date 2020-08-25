@@ -349,10 +349,8 @@
         "header": "Here you will find out, how to take care of your child's development"
     },
     "blog-pagination": {
-        "previous": "Previous",
-        "next": "Następna",
-        "show-more": "Rozwiń więcej",
-        "counter": "Pokazuje {{from}} z {{to}} artykułów"
+        "show-more": "Show more",
+        "counter": "Shown {{from}} from {{to}} articles"
     },
     "blog-categories": {
         "all": "All",
@@ -372,5 +370,9 @@
     },
     "years_0": "year",
     "years_1": "years",
-    "close": "Close"
+    "close": "Close",
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    }
 }

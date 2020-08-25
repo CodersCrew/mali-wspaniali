@@ -1,24 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
+<<<<<<< HEAD
+=======
+import { useQuery } from '@apollo/client';
+
+>>>>>>> 8a7a7401... add Pagination component
 import { CategoryTabs } from './CategoryTabs';
-import { Pagination } from './Pagination';
 import { categoriesList } from './BlogCategories';
+<<<<<<< HEAD
 import { BlogMainHeader } from '../../components/BlogMainHeader';
 import { Article } from '../../graphql/types';
+=======
+import { DropDownMenu } from './DropDownMenu';
+import { BlogMainHeader } from '../../components/Blog/BlogMainHeader';
+import { Article, PaginatedArticles } from '../../graphql/types';
+>>>>>>> 8a7a7401... add Pagination component
 import { Theme } from '../../theme/types';
-import { BlogArticleCard } from '../../components/BlogArticleCard';
+import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
 import { activePage } from '../../apollo_client';
-import { useQuery } from '@apollo/client';
 import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
+<<<<<<< HEAD
 import { useBreakpoints, Device } from '../../queries/useBreakpoints';
 import { CategoryTabsMobile } from './CategoryTabsMobile';
+=======
+import { Pagination } from '../../components/Blog/Pagination';
+
+const ARTICLES_PER_PAGE = 6;
+>>>>>>> 8a7a7401... add Pagination component
 
 export const ArticleListPage = () => {
     const classes = useStyles();
-    const params = useParams<{ category: string; page: string }>();
+    const params = useParams<{ category: string }>();
     const history = useHistory();
+<<<<<<< HEAD
     let currentPage = parseInt(params.page, 10);
     const device = useBreakpoints();
     const { data } = useQuery<{ articles: Article[] }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
@@ -26,19 +42,28 @@ export const ArticleListPage = () => {
     });
 
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
+=======
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data, fetchMore } = useQuery<{ paginatedArticles: PaginatedArticles }>(
+        params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY,
+        {
+            variables: {
+                page: currentPage,
+                perPage: ARTICLES_PER_PAGE,
+                category: params.category === 'all' ? undefined : params.category,
+            },
+        },
+    );
+>>>>>>> 8a7a7401... add Pagination component
 
     useEffect(() => {
         activePage(['parent-menu.blog', `blog-categories.${params.category}`]);
+        setCurrentPage(1);
     }, [params.category]);
 
-    const paginationQuery = (paginationDirection: string) => {
-        if (paginationDirection === 'next') {
-            history.push(`/parent/blog/${params.category}/${currentPage + 1}`);
-        } else {
-            history.push(`/parent/blog/${params.category}/${currentPage - 1}`);
-        }
-    };
+    if (!data) return null;
 
+<<<<<<< HEAD
     function onTabChange(value: string) {
         history.push(`/parent/blog/${value}/1`);
     }
@@ -70,6 +95,70 @@ export const ArticleListPage = () => {
                         handleChange={paginationQuery}
                     />
                 </div>
+=======
+    const { articles, count, hasNext } = data.paginatedArticles;
+
+    return (
+        <>
+            <BlogMainHeader />
+            <div className={classes.dropDownContainer}>
+                <DropDownMenu
+                    values={categoriesList}
+                    active={params.category}
+                    onClick={value => history.push(`/parent/blog/${value}/1`)}
+                />
+            </div>
+            <CategoryTabs
+                values={categoriesList}
+                active={params.category}
+                onClick={value => history.push(`/parent/blog/${value}/1`)}
+            />
+            <div className={classes.gridBackground}>
+                <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
+                    {articles.map((article: Article) => (
+                        <Grid className={classes.gridSubContainer} key={article._id} item xs={4} zeroMinWidth>
+                            <BlogArticleCard
+                                title={article.title}
+                                pictureUrl={article.pictureUrl}
+                                description={article.description}
+                                category={article.category}
+                                link={`/parent/article/${article._id}`}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+                <Pagination
+                    count={articles.length}
+                    maxCount={count}
+                    disabled={!hasNext}
+                    onClick={() => {
+                        const scrollY = window.scrollY;
+
+                        fetchMore({
+                            variables: { page: currentPage + 1, perPage: ARTICLES_PER_PAGE, category: params.category },
+                            updateQuery: (prev, { fetchMoreResult }) => {
+                                setCurrentPage(prev => prev + 1);
+
+                                if (!fetchMoreResult) return prev;
+
+                                return {
+                                    ...prev,
+                                    paginatedArticles: {
+                                        ...prev.paginatedArticles,
+                                        ...fetchMoreResult!.paginatedArticles,
+                                        articles: [
+                                            ...prev.paginatedArticles.articles,
+                                            ...fetchMoreResult!.paginatedArticles.articles,
+                                        ],
+                                    },
+                                };
+                            },
+                        }).then(() => {
+                            window.scroll(0, scrollY);
+                        });
+                    }}
+                />
+>>>>>>> 8a7a7401... add Pagination component
             </div>
         </>
     );

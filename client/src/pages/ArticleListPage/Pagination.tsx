@@ -19,14 +19,14 @@ export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Pro
                 variant="contained"
                 disabled={disabledPrevious}
                 onClick={() => handleChange('prev')}
-                innerText={t('blog-pagination.previous')}
+                innerText={t('pagination.previous')}
             />
             <ButtonPrimary
                 variant="contained"
                 disabled={disabledNext}
                 className={classes.next}
                 onClick={() => handleChange('next')}
-                innerText={t('blog-pagination.next')}
+                innerText={t('pagination.next')}
             />
         </div>
     );
@@ -41,6 +41,6 @@ const useStyles = makeStyles(() =>
         },
         next: {
             marginLeft: '2%',
-        }
+        },
     }),
 );
