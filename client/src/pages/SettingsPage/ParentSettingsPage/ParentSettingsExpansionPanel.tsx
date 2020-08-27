@@ -28,6 +28,7 @@ export const ParentSettingsExpansionPanel = ({ user }: Props) => {
                 handle={handleChange('password-change-panel')}
                 expanded={expanded === 'password-change-panel'}
                 heading={'settings-page.parent.password-change'}
+                // panel={ChangePasswordPanel}
                 panel={ChangePasswordPanel}
             />
 

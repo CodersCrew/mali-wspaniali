@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch } from 'react';
 import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useMutation } from '@apollo/client';
-import { FormControlOldPasswordStatesInterface } from './types';
+import {
+    CHANGE_OLD_PASSWORD,
+    EMAIL_IS_CORRECT,
+    TOGGLE_OLD_PASSWORD_VISIBILITY,
+    UPDATE_HELPER_TEXT,
+} from '../ChangePasswordPanelReducer';
 import { AUTHORIZE_USER } from '../../../../graphql/userRepository';
+import { Me } from '../../../../graphql/types';
 import { openAlertDialog } from '../../../../components/AlertDialog';
+import { ChangePasswordPanelStateInterface } from './types';
 
-export interface Props extends FormControlOldPasswordStatesInterface {
-    email: string;
-    onChange: (states: FormControlOldPasswordStatesInterface) => void;
-    onToggleVisibility: () => void;
-    onOldPasswordChange: (password: string, isSuccess: boolean) => void;
-    visibility: boolean;
+interface Props {
+    state: ChangePasswordPanelStateInterface;
+    dispatch: Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
+    user: Me;
 }
 
 export const FormControlOldPassword = (props: Props) => {
-    const { t } = useTranslation();
     const classes = useStyles();
-    const states = { ...props.states };
-    const [values, setValues] = useState(states);
+    const { t } = useTranslation();
     const [authorizeUser] = useMutation(AUTHORIZE_USER);
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
 
     const handleOldPasswordOnBlur = (password: string) => {
         (() => {
             authorizeUser({
-                variables: { user: { mail: props.email, password } },
+                variables: { user: { mail: props.user.mail, password } },
             })
-                .then(() => props.onOldPasswordChange(password, true))
+                .then(() => {
+                    props.dispatch({ type: EMAIL_IS_CORRECT });
+                })
                 .catch(err => passwordIsNotCorrect(err.message));
         })();
 
@@ -48,51 +49,34 @@ export const FormControlOldPassword = (props: Props) => {
 
                 return t('settings-page.wrong-old-password-error');
             };
-            setValues({
-                ...values,
-                oldPasswordError: true,
-                newPasswordDisabled: true,
-                oldPasswordHelperText: helperText(),
-                changePasswordButtonDisabled: true,
-            });
+            props.dispatch({ type: UPDATE_HELPER_TEXT, payload: { value: helperText() } });
         };
     };
 
-    useEffect(() => {
-        props.onChange({ states: { ...states, ...values } });
-        // eslint-disable-next-line
-    }, [values.oldPassword]);
-
     return (
         <FormControl variant="outlined" className={classes.form}>
-            <InputLabel htmlFor="outlined-adornment-password" error={values.oldPasswordError}>
+            <InputLabel htmlFor="outlined-adornment-password" error={props.state.oldPasswordError}>
                 {t('settings-page.old-password')}
             </InputLabel>
             <OutlinedInput
                 required
                 fullWidth
-                onChange={event => {
-                    props.onOldPasswordChange(event.target.value, false);
-                    setValues({
-                        ...values,
-                        oldPassword: event.target.value,
-                        changePasswordButtonDisabled: true,
-                    });
-                }}
-                value={values.oldPassword}
                 id="old-password"
                 label={t('settings-page.old-password')}
-                type={props.visibility ? 'text' : 'password'}
-                error={values.oldPasswordError}
+                type={props.state.showOldPassword ? 'text' : 'password'}
+                value={props.state.oldPassword}
+                error={props.state.oldPasswordError}
+                onChange={event =>
+                    props.dispatch({ type: CHANGE_OLD_PASSWORD, payload: { value: event.target.value } })
+                }
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
                             aria-label="toggle password visibility"
-                            onClick={props.onToggleVisibility}
-                            onMouseDown={handleMouseDownPassword}
                             edge="end"
+                            onClick={() => props.dispatch({ type: TOGGLE_OLD_PASSWORD_VISIBILITY })}
                         >
-                            {props.visibility ? <Visibility /> : <VisibilityOff />}
+                            {props.state.showOldPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                     </InputAdornment>
                 }
@@ -105,8 +89,8 @@ export const FormControlOldPassword = (props: Props) => {
                     },
                 }}
             />
-            <FormHelperText error={values.oldPasswordError}>
-                {values.oldPasswordHelperText ? values.oldPasswordHelperText : ''}
+            <FormHelperText error={props.state.oldPasswordError}>
+                {props.state.oldPasswordHelperText ? props.state.oldPasswordHelperText : ''}
             </FormHelperText>
         </FormControl>
     );

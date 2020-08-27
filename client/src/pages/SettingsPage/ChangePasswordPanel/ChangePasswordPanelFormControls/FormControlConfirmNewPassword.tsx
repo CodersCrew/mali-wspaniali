@@ -1,52 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch } from 'react';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { CHANGE_CONFIRM_PASSWORD, TOGGLE_CONFIRM_PASSWORD_VISIBILITY } from '../ChangePasswordPanelReducer';
+import { ChangePasswordPanelStateInterface } from './types';
 
-export interface FormControlConfirmNewPasswordStatesInterface {
-    states: {
-        changePasswordButtonDisabled: boolean;
-        confirmNewPassword: string;
-        confirmNewPasswordDisabled: boolean;
-        newPassword: string;
-        showConfirmNewPassword: boolean;
-    };
+interface Props {
+    state: ChangePasswordPanelStateInterface;
+    dispatch: Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
 }
 
-export interface FormControlConfirmNewPasswordPropsInterface extends FormControlConfirmNewPasswordStatesInterface {
-    onChange: (states: FormControlConfirmNewPasswordStatesInterface) => void;
-}
-
-export const FormControlConfirmNewPassword = (props: FormControlConfirmNewPasswordPropsInterface) => {
-    const { t } = useTranslation();
+export const FormControlConfirmNewPassword = (props: Props) => {
     const classes = useStyles();
-    const states = { ...props.states };
-    const [values, setValues] = useState(states);
-    const validateConfirmNewPassword = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        const password = event.target.value;
-        if (values.newPassword === password) {
-            setValues({ ...values, confirmNewPassword: password, changePasswordButtonDisabled: false });
-        } else {
-            setValues({ ...values, confirmNewPassword: password, changePasswordButtonDisabled: true });
-        }
-    };
-
-    const handleClickShowConfirmNewPassword = () => {
-        setValues({
-            ...values,
-            showConfirmNewPassword: !values.showConfirmNewPassword,
-        });
-    };
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-
-    useEffect(() => {
-        props.onChange({ states: { ...states, ...values } });
-        // eslint-disable-next-line
-    }, [values.confirmNewPasswordDisabled, values.confirmNewPassword]);
+    const { t } = useTranslation();
 
     return (
         <FormControl variant="outlined" className={classes.form}>
@@ -54,22 +21,25 @@ export const FormControlConfirmNewPassword = (props: FormControlConfirmNewPasswo
             <OutlinedInput
                 required
                 fullWidth
-                disabled={values.confirmNewPasswordDisabled}
-                onChange={event => validateConfirmNewPassword(event)}
-                value={values.confirmNewPassword}
+                disabled={props.state.confirmNewPasswordDisabled}
+                value={props.state.confirmNewPassword}
                 id="confirm-new-password"
                 label={t('settings-page.confirm-new-password')}
-                type={values.showConfirmNewPassword ? 'text' : 'password'}
+                type={props.state.showConfirmNewPassword ? 'text' : 'password'}
+                onChange={event =>
+                    props.dispatch({ type: CHANGE_CONFIRM_PASSWORD, payload: { value: event.target.value } })
+                }
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
-                            disabled={values.confirmNewPasswordDisabled}
+                            disabled={props.state.confirmNewPasswordDisabled}
                             aria-label="toggle password visibility"
-                            onClick={handleClickShowConfirmNewPassword}
-                            onMouseDown={handleMouseDownPassword}
                             edge="end"
+                            onClick={() => {
+                                props.dispatch({ type: TOGGLE_CONFIRM_PASSWORD_VISIBILITY });
+                            }}
                         >
-                            {values.showConfirmNewPassword ? <Visibility /> : <VisibilityOff />}
+                            {props.state.showConfirmNewPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                     </InputAdornment>
                 }
