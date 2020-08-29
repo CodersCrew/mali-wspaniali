@@ -1,44 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
+import { useQuery } from '@apollo/client';
 
 import { CategoryTabs } from './CategoryTabs';
-import { Pagination } from './Pagination';
 import { categoriesList } from './BlogCategories';
 import { DropDownMenu } from './DropDownMenu';
-import { BlogMainHeader } from '../../components/BlogMainHeader';
-import { Article } from '../../graphql/types';
+import { BlogMainHeader } from '../../components/Blog/BlogMainHeader';
+import { Article, PaginatedArticles } from '../../graphql/types';
 import { Theme } from '../../theme/types';
-import { BlogArticleCard } from '../../components/BlogArticleCard';
+import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
 import { activePage } from '../../apollo_client';
-import { useQuery } from '@apollo/client';
 import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
+import { Pagination } from '../../components/Blog/Pagination';
+
+const ARTICLES_PER_PAGE = 6;
 
 export const ArticleListPage = () => {
     const classes = useStyles();
-    const params = useParams<{ category: string; page: string }>();
+    const params = useParams<{ category: string }>();
     const history = useHistory();
-    let currentPage = parseInt(params.page, 10);
-    const { data } = useQuery<{ articles: Article[] }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
-        variables: { page: currentPage, category: params.category },
-    });
-
-    if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data, fetchMore } = useQuery<{ paginatedArticles: PaginatedArticles }>(
+        params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY,
+        {
+            variables: {
+                page: currentPage,
+                perPage: ARTICLES_PER_PAGE,
+                category: params.category === 'all' ? undefined : params.category,
+            },
+        },
+    );
 
     useEffect(() => {
         activePage(['parent-menu.blog', `blog-categories.${params.category}`]);
+        setCurrentPage(1);
     }, [params.category]);
 
-    const paginationQuery = (paginationDirection: string) => {
-        if (paginationDirection === 'next') {
-            history.push(`/parent/blog/${params.category}/${currentPage + 1}`);
-        } else {
-            history.push(`/parent/blog/${params.category}/${currentPage - 1}`);
-        }
-    };
+    if (!data) return null;
 
-    const articles = (data && data.articles) || [];
+    const { articles, count, hasNext } = data.paginatedArticles;
 
     return (
         <>
@@ -47,17 +49,17 @@ export const ArticleListPage = () => {
                 <DropDownMenu
                     values={categoriesList}
                     active={params.category}
-                    onClick={value => history.push(`/parent/blog/${value}/1`)}
+                    onClick={value => history.push(`/parent/blog/${value}`)}
                 />
             </div>
             <CategoryTabs
                 values={categoriesList}
                 active={params.category}
-                onClick={value => history.push(`/parent/blog/${value}/1`)}
+                onClick={value => history.push(`/parent/blog/${value}`)}
             />
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
-                    {articles.slice(0, 6).map((article: Article) => (
+                    {articles.map((article: Article) => (
                         <Grid className={classes.gridSubContainer} key={article._id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
                                 title={article.title}
@@ -70,9 +72,36 @@ export const ArticleListPage = () => {
                     ))}
                 </Grid>
                 <Pagination
-                    disabledPrevious={currentPage <= 1}
-                    disabledNext={articles.length < 7}
-                    handleChange={paginationQuery}
+                    count={articles.length}
+                    maxCount={count}
+                    disabled={!hasNext}
+                    hidden={articles.length < ARTICLES_PER_PAGE}
+                    onClick={() => {
+                        const scrollY = window.scrollY;
+
+                        fetchMore({
+                            variables: { page: currentPage + 1, perPage: ARTICLES_PER_PAGE, category: params.category },
+                            updateQuery: (prev, { fetchMoreResult }) => {
+                                setCurrentPage(prev => prev + 1);
+
+                                if (!fetchMoreResult) return prev;
+
+                                return {
+                                    ...prev,
+                                    paginatedArticles: {
+                                        ...prev.paginatedArticles,
+                                        ...fetchMoreResult!.paginatedArticles,
+                                        articles: [
+                                            ...prev.paginatedArticles.articles,
+                                            ...fetchMoreResult!.paginatedArticles.articles,
+                                        ],
+                                    },
+                                };
+                            },
+                        }).then(() => {
+                            window.scroll(0, scrollY);
+                        });
+                    }}
                 />
             </div>
         </>

@@ -129,7 +129,7 @@ function getBlogMenuItem({ active, t }: BlogMenuItemFactoryProps): MenuItemFacto
     const mainItem = {
         icon: <Icon icon={<LibraryBooks />} />,
         name: t('parent-menu.blog'),
-        link: '/parent/blog/all/1',
+        link: '/parent/blog/all',
         active: active.includes('parent-menu.blog'),
     };
 
@@ -137,31 +137,31 @@ function getBlogMenuItem({ active, t }: BlogMenuItemFactoryProps): MenuItemFacto
         {
             icon: <Icon icon={<ViewModule />} />,
             name: t('blog-categories.all'),
-            link: `/parent/blog/all/1`,
+            link: '/parent/blog/all',
             active: active.includes('blog-categories.all'),
         },
         {
             icon: <Icon icon={<Eco />} />,
             name: t('blog-categories.food'),
-            link: `/parent/blog/food/1`,
+            link: '/parent/blog/food',
             active: active.includes('blog-categories.food'),
         },
         {
             icon: <Icon icon={<SportsBasketball />} />,
             name: t('blog-categories.activity'),
-            link: `/parent/blog/activity/1`,
+            link: '/parent/blog/activity',
             active: active.includes('blog-categories.activity'),
         },
         {
             icon: <Icon icon={<Face />} />,
             name: t('blog-categories.emotions'),
-            link: `/parent/blog/emotions/1`,
+            link: '/parent/blog/emotions',
             active: active.includes('blog-categories.emotions'),
         },
         {
             icon: <Icon icon={<StarBorder />} />,
             name: t('blog-categories.other'),
-            link: `/parent/blog/other/1`,
+            link: '/parent/blog/other',
             active: active.includes('blog-categories.other'),
         },
     ];

@@ -2,9 +2,9 @@ import React from 'react';
 import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
-import { ArticleCategory } from '../graphql/types';
-import { ArticleBadge } from '../pages/ArticleListPage/ArticleBadge';
-import { ButtonSecondary } from './Button';
+import { ArticleCategory } from '../../graphql/types';
+import { ArticleBadge } from '../../pages/ArticleListPage/ArticleBadge';
+import { ButtonSecondary } from '../Button';
 
 interface Props {
     pictureUrl: string;
