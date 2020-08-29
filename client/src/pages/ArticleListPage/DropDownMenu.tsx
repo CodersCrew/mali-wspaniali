@@ -86,10 +86,6 @@ const useStyles = makeStyles((theme: Theme) =>
             transform: 'translate3d(0px, 35px, 0px)',
             zIndex: 9,
             position: 'relative',
-
-            [theme.breakpoints.up('md')]: {
-                display: 'none',
-            },
         },
         button: {
             justifyContent: 'space-between',

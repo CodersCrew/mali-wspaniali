@@ -2,13 +2,13 @@ import React from 'react';
 import { categoriesList } from './BlogCategories';
 import { Tabs } from '../../components/Tabs';
 
-type CategoryTabProps = {
+interface Props {
     onClick: (value: string) => void;
     active: string;
     values: typeof categoriesList;
-};
+}
 
-export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
+export function CategoryTabsMobile({ onClick, active, values }: Props) {
     return (
         <Tabs
             value={values.find(tab => tab.key === active)?.key}

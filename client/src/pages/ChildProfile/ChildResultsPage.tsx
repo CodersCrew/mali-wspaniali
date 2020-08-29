@@ -53,7 +53,7 @@ export const ChildResultsPage = () => {
             <Typography className={classes.description}>{t('child-profile.description')}</Typography>
             <Tabs
                 value={ activeTab }
-                onTabChange={ (value:any) => setActiveTab(value) }
+                onChange2={ (value:any) => setActiveTab(value) }
                 values={ tabs }
             />
                 onChange={ () =>{}}

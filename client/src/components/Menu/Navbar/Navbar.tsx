@@ -60,12 +60,6 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        content: {
-            flexGrow: 1,
-            backgroundColor: theme.palette.background.default,
-            padding: theme.spacing(3),
-            paddingTop: theme.spacing(11),
-        },
         toolbar: theme.mixins.toolbar,
         logo: {
             marginLeft: theme.spacing(5),

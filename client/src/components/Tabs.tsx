@@ -9,16 +9,24 @@ type ContentType = {
 
 interface Props extends TabsProps {
     values: ContentType[];
-    onTabChange: <T>(value: T) => void;
+    onChange2: <T extends string>(value: T) => void;
+    value?: string;
 }
 
 export const Tabs = (props: Props) => {
     const classes = useStyles();
 
     return (
-        <MuiTabs classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }} {...props}>
-            {props.values.map(({ label, value }, index) => (
-                <Tab key={`${index} ${value}`} value={value} label={label} />
+        <MuiTabs
+            classes={{ flexContainer: classes.flexContainer }}
+            value={props.value}
+            onChange={(_e: React.ChangeEvent<{}>, v) => {
+                props.onChange2(v);
+            }}
+            scrollButtons="auto"
+        >
+            {props.values.map(({ label, value }) => (
+                <Tab key={label} value={value} label={label} classes={{ root: classes.singleTab }} selected={true} />
             ))}
         </MuiTabs>
     );
@@ -28,12 +36,13 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         flexContainer: {
             alignItems: 'flex-end',
-            marginTop: '3%',
             backgroundColor: theme.palette.primary.contrastText,
-            border: `1px solid ${theme.palette.text.secondary}`,
         },
         indicator: {
-            display: 'none',
+            // display: 'none',
+        },
+        singleTab: {
+            // height: 45,
         },
     }),
 );

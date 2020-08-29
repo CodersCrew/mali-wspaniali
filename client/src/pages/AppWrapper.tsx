@@ -97,8 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
         content: {
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
-            padding: theme.spacing(3),
-            paddingTop: theme.spacing(11),
+            paddingTop: theme.spacing(8),
         },
         toolbar: theme.mixins.toolbar,
     }),
