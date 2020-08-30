@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { Tabs } from '../Tabs/Tabs';
 import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
@@ -16,7 +17,7 @@ export function CategoryTabsMobile<
     return (
         <Tabs
             value={values.find((tab) => tab.key === active)?.key}
-            onChange2={(value) => {
+            onTabsChange={(value) => {
                 onClick(value);
             }}
             values={values.map((category) => ({

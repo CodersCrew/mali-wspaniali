@@ -9,12 +9,12 @@ type ContentType = {
 
 interface Props extends TabsProps {
     values: ContentType[];
-    onChange2: <T extends string>(value: T) => void;
+    onTabsChange: (value: string) => void;
     value?: string;
     indicator: string;
 }
 
-export const Tabs = ({ value, onChange2, values, indicator, ...props }: Props) => {
+export const Tabs = ({ value, onTabsChange, values, indicator, ...props }: Props) => {
     const classes = useStyles({ indicator });
 
     return (
@@ -24,8 +24,8 @@ export const Tabs = ({ value, onChange2, values, indicator, ...props }: Props) =
                 indicator: classes.indicator,
             }}
             value={value}
-            onChange={(_e: React.ChangeEvent<{}>, v) => {
-                onChange2(v);
+            onChange={(_e: React.ChangeEvent<{}>, v: string) => {
+                onTabsChange(v);
             }}
             {...props}
         >
