@@ -1,4 +1,6 @@
-export interface ChangePasswordPanelStateInterface {
+import { Dispatch } from 'react';
+
+export interface ChangePasswordPanelState {
     changePasswordButtonDisabled: boolean;
     confirmNewPassword: string;
     confirmNewPasswordDisabled: boolean;
@@ -10,4 +12,9 @@ export interface ChangePasswordPanelStateInterface {
     showOldPassword: boolean;
     showNewPassword: boolean;
     showConfirmNewPassword: boolean;
+}
+
+export interface Props {
+    state: ChangePasswordPanelState;
+    dispatch: Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
 }

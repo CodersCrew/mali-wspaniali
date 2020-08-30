@@ -8,7 +8,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Me } from '../../../graphql/types';
 
-export interface ExpansionPanelItemInterface {
+export interface ExpansionPanelItem {
     user: Me;
     name: string;
     handle: (event: React.ChangeEvent<{}>, isExpanded: boolean) => void;
@@ -17,7 +17,7 @@ export interface ExpansionPanelItemInterface {
     panel: FC<{ user: Me }>;
 }
 
-export const ExpansionPanelItem = ({ user, name, handle, expanded, heading, panel }: ExpansionPanelItemInterface) => {
+export const ExpansionPanelItem = ({ user, name, handle, expanded, heading, panel }: ExpansionPanelItem) => {
     const classes = useStyles();
     const { t } = useTranslation();
 

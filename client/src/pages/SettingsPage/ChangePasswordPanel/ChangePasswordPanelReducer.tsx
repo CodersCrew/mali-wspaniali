@@ -1,5 +1,5 @@
 import { validateNewPassword } from './ChangePasswordPanelFormControls';
-import { ChangePasswordPanelStateInterface } from './ChangePasswordPanelFormControls/types';
+import { ChangePasswordPanelState } from './ChangePasswordPanelFormControls/interfaces';
 
 export const CHANGE_OLD_PASSWORD = 'CHANGE_OLD_PASWORD';
 export const CHANGE_NEW_PASSWORD = 'CHANGE_NEW_PASWORD';
@@ -10,7 +10,7 @@ export const TOGGLE_CONFIRM_PASSWORD_VISIBILITY = 'TOGGLE_CONFIRM_PASSWORD_VISIB
 export const UPDATE_HELPER_TEXT = 'UPDATE_HELPER_TEXT';
 export const EMAIL_IS_CORRECT = 'EMAIL_IS_CORRECT';
 
-export const ChangePasswordPanelInitialState: ChangePasswordPanelStateInterface = {
+export const ChangePasswordPanelInitialState: ChangePasswordPanelState = {
     changePasswordButtonDisabled: true,
     confirmNewPassword: '',
     confirmNewPasswordDisabled: true,
@@ -27,7 +27,7 @@ export const ChangePasswordPanelInitialState: ChangePasswordPanelStateInterface 
 export const ChangePasswordPanelReducer = (
     state: typeof ChangePasswordPanelInitialState,
     action: { type: string; payload?: { [p: string]: string | boolean } },
-): ChangePasswordPanelStateInterface => {
+): ChangePasswordPanelState => {
     if (action.type === CHANGE_OLD_PASSWORD) {
         if (action.payload) {
             if (typeof action.payload.value === 'string') {

@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -13,11 +13,9 @@ import {
 import { AUTHORIZE_USER } from '../../../../graphql/userRepository';
 import { Me } from '../../../../graphql/types';
 import { openAlertDialog } from '../../../../components/AlertDialog';
-import { ChangePasswordPanelStateInterface } from './types';
+import { Props as PropsNoMe } from './interfaces';
 
-interface Props {
-    state: ChangePasswordPanelStateInterface;
-    dispatch: Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
+interface Props extends PropsNoMe {
     user: Me;
 }
 
