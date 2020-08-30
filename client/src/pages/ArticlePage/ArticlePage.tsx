@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { Article } from '../../graphql/types';
@@ -10,43 +10,66 @@ import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { SingleArticleColors } from '../../colors';
 import { ARTICLE_BY_ID } from '../../graphql/articleRepository';
+import { activePage } from '../../apollo_client';
+import { useBreakpoints } from '../../queries/useBreakpoints';
+import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
 
 export const ArticlePage = () => {
     const classes = useStyles();
     const { articleId } = useParams<{ articleId: string }>();
-    const { data } = useQuery<{ article: Article }>(ARTICLE_BY_ID, { variables: { articleId } });
+    const device = useBreakpoints();
+    const history = useHistory();
+    const { data } = useQuery<{ article: Article }>(ARTICLE_BY_ID, {
+        variables: { articleId },
+    });
+
+    useEffect(() => {
+        activePage(['parent-menu.blog']);
+    }, [articleId]);
+
+    function onBackClick() {
+        history.goBack();
+    }
 
     if (!data || !data.article) return null;
 
     return (
-        <Grid className={classes.rootGrid} container direction="column">
-            <Grid container direction="row">
-                <BreadcrumbsWithDescription
-                    category={data.article.category}
-                    title={data.article.title}
-                    readingTime={data.article.readingTime}
-                />
-            </Grid>
-            <Grid container direction="row">
-                <ArticleHeader title={data.article.title} />
-            </Grid>
-            <div className={classes.articleContentContainer}>
+        <>
+            {device === 'MOBILE' && (
+                <ArticleNavigationMobile onClick={onBackClick} />
+            )}
+            <Grid className={classes.rootGrid} container direction="column">
                 <Grid container direction="row">
-                    <ArticleContent
+                    <BreadcrumbsWithDescription
                         category={data.article.category}
-                        header={data.article.header}
-                        pictureUrl={data.article.pictureUrl}
-                        contentHTML={data.article.contentHTML}
+                        title={data.article.title}
+                        readingTime={data.article.readingTime}
                     />
                 </Grid>
                 <Grid container direction="row">
-                    <ArticleVideo videoUrl={data.article.videoUrl} tags={data.article.tags} />
+                    <ArticleHeader title={data.article.title} />
                 </Grid>
-                <Grid container direction="row">
-                    <ArticleRedactor redactor={data.article.redactor} />
-                </Grid>
-            </div>
-        </Grid>
+                <div className={classes.articleContentContainer}>
+                    <Grid container direction="row">
+                        <ArticleContent
+                            category={data.article.category}
+                            header={data.article.header}
+                            pictureUrl={data.article.pictureUrl}
+                            contentHTML={data.article.contentHTML}
+                        />
+                    </Grid>
+                    <Grid container direction="row">
+                        <ArticleVideo
+                            videoUrl={data.article.videoUrl}
+                            tags={data.article.tags}
+                        />
+                    </Grid>
+                    <Grid container direction="row">
+                        <ArticleRedactor redactor={data.article.redactor} />
+                    </Grid>
+                </div>
+            </Grid>
+        </>
     );
 };
 

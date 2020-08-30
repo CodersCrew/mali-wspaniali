@@ -5,9 +5,12 @@ import { createStyles } from '@material-ui/styles';
 <<<<<<< HEAD
 =======
 import { useQuery } from '@apollo/client';
+<<<<<<< HEAD
 
 >>>>>>> 8a7a7401... add Pagination component
 import { CategoryTabs } from './CategoryTabs';
+=======
+>>>>>>> a65d1161... adjust blog menu navigation
 import { categoriesList } from './BlogCategories';
 <<<<<<< HEAD
 import { BlogMainHeader } from '../../components/BlogMainHeader';
@@ -20,12 +23,21 @@ import { Article, PaginatedArticles } from '../../graphql/types';
 import { Theme } from '../../theme/types';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
 import { activePage } from '../../apollo_client';
+<<<<<<< HEAD
 import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
 <<<<<<< HEAD
 import { useBreakpoints, Device } from '../../queries/useBreakpoints';
 import { CategoryTabsMobile } from './CategoryTabsMobile';
 =======
+=======
+import {
+    ARTICLES,
+    ARTICLES_BY_CATEGORY,
+} from '../../graphql/articleRepository';
+import { useBreakpoints } from '../../queries/useBreakpoints';
+>>>>>>> a65d1161... adjust blog menu navigation
 import { Pagination } from '../../components/Blog/Pagination';
+import { MobileAwareCategoryTabs } from './MobileAwareCategoryTabs';
 
 const ARTICLES_PER_PAGE = 6;
 >>>>>>> 8a7a7401... add Pagination component
@@ -44,41 +56,83 @@ export const ArticleListPage = () => {
     if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
 =======
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, fetchMore } = useQuery<{ paginatedArticles: PaginatedArticles }>(
-        params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY,
-        {
-            variables: {
-                page: currentPage,
-                perPage: ARTICLES_PER_PAGE,
-                category: params.category === 'all' ? undefined : params.category,
-            },
+    const { data, fetchMore } = useQuery<{
+        paginatedArticles: PaginatedArticles;
+    }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
+        variables: {
+            page: currentPage,
+            perPage: ARTICLES_PER_PAGE,
+            category: params.category === 'all' ? undefined : params.category,
         },
+<<<<<<< HEAD
     );
 >>>>>>> 8a7a7401... add Pagination component
+=======
+    });
+>>>>>>> a65d1161... adjust blog menu navigation
 
     useEffect(() => {
-        activePage(['parent-menu.blog', `blog-categories.${params.category}`]);
+        activePage([`blog-categories.${params.category}`, 'parent-menu.blog']);
         setCurrentPage(1);
     }, [params.category]);
 
+<<<<<<< HEAD
     if (!data) return null;
 
 <<<<<<< HEAD
+=======
+>>>>>>> a65d1161... adjust blog menu navigation
     function onTabChange(value: string) {
         history.push(`/parent/blog/${value}/1`);
     }
 
+<<<<<<< HEAD
     const articles = (data && data.articles) || [];
+=======
+    if (!data)
+        return (
+            <MobileAwareCategoryTabs
+                onTabChange={onTabChange}
+                category={params.category}
+                values={categoriesList}
+                device={device}
+            />
+        );
+
+    const { articles, count, hasNext } = data.paginatedArticles;
+>>>>>>> a65d1161... adjust blog menu navigation
 
     return (
         <>
-            <Navigation onTabChange={onTabChange} category={params.category} device={device} />
+            <MobileAwareCategoryTabs
+                onTabChange={onTabChange}
+                category={params.category}
+                values={categoriesList}
+                device={device}
+            />
             <div className={classes.container}>
                 <BlogMainHeader />
                 <div className={classes.gridBackground}>
+<<<<<<< HEAD
                     <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                         {articles.slice(0, 6).map((article: Article) => (
                             <Grid className={classes.gridSubContainer} key={article._id} item xs={4} zeroMinWidth>
+=======
+                    <Grid
+                        container
+                        justify="space-around"
+                        spacing={6}
+                        className={classes.gridContainer}
+                    >
+                        {articles.map((article: Article) => (
+                            <Grid
+                                className={classes.gridSubContainer}
+                                key={article._id}
+                                item
+                                xs={4}
+                                zeroMinWidth
+                            >
+>>>>>>> a65d1161... adjust blog menu navigation
                                 <BlogArticleCard
                                     title={article.title}
                                     pictureUrl={article.pictureUrl}
@@ -90,9 +144,49 @@ export const ArticleListPage = () => {
                         ))}
                     </Grid>
                     <Pagination
+<<<<<<< HEAD
                         disabledPrevious={currentPage <= 1}
                         disabledNext={articles.length < 7}
                         handleChange={paginationQuery}
+=======
+                        count={articles.length}
+                        maxCount={count}
+                        disabled={!hasNext}
+                        hidden={articles.length < ARTICLES_PER_PAGE}
+                        onClick={() => {
+                            const scrollY = window.scrollY;
+
+                            fetchMore({
+                                variables: {
+                                    page: currentPage + 1,
+                                    perPage: ARTICLES_PER_PAGE,
+                                    category: params.category,
+                                },
+                                updateQuery: (prev, { fetchMoreResult }) => {
+                                    setCurrentPage((prev) => prev + 1);
+
+                                    if (!fetchMoreResult) return prev;
+
+                                    return {
+                                        ...prev,
+                                        paginatedArticles: {
+                                            ...prev.paginatedArticles,
+                                            ...fetchMoreResult!
+                                                .paginatedArticles,
+                                            articles: [
+                                                ...prev.paginatedArticles
+                                                    .articles,
+                                                ...fetchMoreResult!
+                                                    .paginatedArticles.articles,
+                                            ],
+                                        },
+                                    };
+                                },
+                            }).then(() => {
+                                window.scroll(0, scrollY);
+                            });
+                        }}
+>>>>>>> a65d1161... adjust blog menu navigation
                     />
                 </div>
 =======
@@ -165,28 +259,6 @@ export const ArticleListPage = () => {
     );
 };
 
-interface NavigationProps {
-    device: Device;
-    category: string;
-    onTabChange: (value: string) => void;
-}
-
-function Navigation({ device, category, onTabChange }: NavigationProps) {
-    const classes = useStyles();
-
-    return (
-        <>
-            {device === 'MOBILE' ? (
-                <CategoryTabsMobile values={categoriesList} active={category} onClick={onTabChange} />
-            ) : (
-                <div className={classes.navigation}>
-                    <CategoryTabs values={categoriesList} active={category} onClick={onTabChange} />
-                </div>
-            )}
-        </>
-    );
-}
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         dropDownContainer: {
@@ -213,11 +285,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         container: {
             margin: `0 ${theme.spacing(3)}px`,
-        },
-        navigation: {
-            backgroundColor: theme.palette.primary.contrastText,
-            padding: `0 ${theme.spacing(3)}px`,
-            borderBottom: `1px solid ${theme.palette.grey[400]}`,
         },
     }),
 );
