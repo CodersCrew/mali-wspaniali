@@ -9,7 +9,11 @@ interface Props {
     handleChange: (paginationDirection: string) => void;
 }
 
-export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Props) => {
+export const Pagination = ({
+    disabledPrevious,
+    disabledNext,
+    handleChange,
+}: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 

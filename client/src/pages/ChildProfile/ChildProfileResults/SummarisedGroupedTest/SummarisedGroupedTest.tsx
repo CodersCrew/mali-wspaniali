@@ -12,28 +12,40 @@ interface Props {
     date: Date;
 }
 
-export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, date }: Props) => {
+export const SummarisedGroupedTest = ({
+    onClose,
+    isExpanded,
+    schoolYearStart,
+    date,
+}: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <div className={classes.wrapper}>
             <Typography className={classes.title}>
-                {t('child-profile.kindergartener-test')}: {getSchoolYearLabel(schoolYearStart)}
+                {t('child-profile.kindergartener-test')}:{' '}
+                {getSchoolYearLabel(schoolYearStart)}
             </Typography>
             <Typography className={classes.updatedAt}>
                 {t('child-profile.last-update-date')}:{' '}
-                <span className={classes.updatedAtDate}>{moment(date).format('L')}</span>
+                <span className={classes.updatedAtDate}>
+                    {moment(date).format('L')}
+                </span>
             </Typography>
             <ButtonSecondary
-                onClick={event => {
+                onClick={(event) => {
                     isExpanded && event.stopPropagation();
 
                     onClose();
                 }}
                 variant={isExpanded ? 'outlined' : 'contained'}
                 className={classes.detailsButton}
-                innerText={isExpanded ? t('child-profile.collapse-details') : t('child-profile.details')}
+                innerText={
+                    isExpanded
+                        ? t('child-profile.collapse-details')
+                        : t('child-profile.details')
+                }
             />
         </div>
     );

@@ -17,7 +17,7 @@ export const HomePageArticles = ({ articles }: Props) => {
     const { t } = useTranslation();
 
     const renderArticles = () => {
-        return articles.map(article => {
+        return articles.map((article) => {
             return (
                 <div className={classes.card} key={article._id}>
                     <BlogArticleCard
@@ -34,7 +34,9 @@ export const HomePageArticles = ({ articles }: Props) => {
 
     return (
         <>
-            <h2 className={classes.articleHeader}>{t('home-page-content.recent-news')}</h2>
+            <h2 className={classes.articleHeader}>
+                {t('home-page-content.recent-news')}
+            </h2>
             <div className={classes.articlesList}>
                 {device !== 'DESKTOP' && articles.length > 4 ? (
                     <ArticleCarousel>{renderArticles()}</ArticleCarousel>

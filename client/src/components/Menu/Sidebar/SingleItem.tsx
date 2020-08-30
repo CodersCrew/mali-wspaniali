@@ -1,5 +1,12 @@
 import React from 'react';
-import { ListItem, ListItemIcon, ListItemText, makeStyles, Theme, createStyles } from '@material-ui/core';
+import {
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    makeStyles,
+    Theme,
+    createStyles,
+} from '@material-ui/core';
 import clsx from 'clsx';
 
 export interface SingleItemProps {
@@ -29,7 +36,10 @@ export function SingleItem({ item, leftPadding, onClick }: Props) {
             key={item.name}
             onClick={() => onClick(item.link)}
             classes={{
-                button: clsx({ [classes.button]: true, [classes.activeButton]: item.active }),
+                button: clsx({
+                    [classes.button]: true,
+                    [classes.activeButton]: item.active,
+                }),
                 gutters: classes.rootButton,
             }}
         >
@@ -51,7 +61,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         rootButton: {
-            paddingLeft: (props: StyleProps) => theme.spacing(props.leftPadding ? 3 : 2),
+            paddingLeft: (props: StyleProps) =>
+                theme.spacing(props.leftPadding ? 3 : 2),
         },
     }),
 );

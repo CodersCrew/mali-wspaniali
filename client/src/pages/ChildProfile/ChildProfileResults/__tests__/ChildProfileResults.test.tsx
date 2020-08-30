@@ -26,7 +26,12 @@ describe('ChildProfileResults', () => {
         });
 
         it('renders empty results', () => {
-            render(<ChildProfileResults child={child} onNoResultClick={() => true} />);
+            render(
+                <ChildProfileResults
+                    child={child}
+                    onNoResultClick={() => true}
+                />,
+            );
 
             const emptyResults = screen.queryByTestId('no-test-assigned');
             const groupedResults = screen.queryByTestId('grouped-tests');
@@ -57,7 +62,10 @@ describe('ChildProfileResults', () => {
             beforeEach(() => {
                 const firstTest = getEmptyTest('my-first-test', null);
 
-                const secondTest: TestResult = getEmptyTest('my-second-test', 'my-first-test');
+                const secondTest: TestResult = getEmptyTest(
+                    'my-second-test',
+                    'my-first-test',
+                );
 
                 const thirdTest = getEmptyTest('my-third-test', null);
 

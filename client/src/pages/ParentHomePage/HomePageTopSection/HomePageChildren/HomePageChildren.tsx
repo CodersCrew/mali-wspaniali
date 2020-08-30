@@ -14,7 +14,8 @@ export const HomePageChildren = ({ children }: Props) => {
     const classes = useStyles();
     const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(true);
 
-    const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
+    const toggleInfoComponent = () =>
+        setIsInfoComponentVisible(!isInfoComponentVisible);
 
     return (
         <div className={classes.infoContainer}>
@@ -38,7 +39,9 @@ export const HomePageChildren = ({ children }: Props) => {
                     );
                 })}
             </div>
-            {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
+            {isInfoComponentVisible && (
+                <HomePageInfo toggleInfoComponent={toggleInfoComponent} />
+            )}
         </div>
     );
 };

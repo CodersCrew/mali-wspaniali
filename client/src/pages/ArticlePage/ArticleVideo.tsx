@@ -1,5 +1,11 @@
 import React from 'react';
-import { Grid, CardMedia, createStyles, makeStyles, Theme } from '@material-ui/core';
+import {
+    Grid,
+    CardMedia,
+    createStyles,
+    makeStyles,
+    Theme,
+} from '@material-ui/core';
 import { SingleArticleColors } from '../../colors';
 import { ButtonDefault } from '../../components/Button';
 
@@ -13,11 +19,19 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 
     return (
         <Grid className={classes.contentVideoGrid} container direction="row">
-            <Grid className={classes.contentVideoContainer} container direction="row">
+            <Grid
+                className={classes.contentVideoContainer}
+                container
+                direction="row"
+            >
                 <Grid item xs={12}>
                     <Grid container direction="row">
                         <Grid className={classes.contentVideo} item xs={12}>
-                            <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
+                            <CardMedia
+                                className={classes.contentVideoPlayer}
+                                component="iframe"
+                                src={videoUrl}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>

@@ -16,7 +16,9 @@ export const TestResultsTableRow = ({ child }: Props) => {
             <TableCell>{`${child.firstname} ${child.lastname}`}</TableCell>
             {child.results ? (
                 child.results.map((result, index) => (
-                    <TableCell key={`${child._id}-test${index}`}>{countSumOfPoints(result.test)}</TableCell>
+                    <TableCell key={`${child._id}-test${index}`}>
+                        {countSumOfPoints(result.test)}
+                    </TableCell>
                 ))
             ) : (
                 <TableCell>{t('test-results.no-results')}</TableCell>

@@ -18,5 +18,11 @@ export const LanguageSelector = ({ language, onClick }: Props) => {
         );
     };
 
-    return <div>{language === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}</div>;
+    return (
+        <div>
+            {language === 'pl'
+                ? languageImage(EnFlag, 'en')
+                : languageImage(PlFlag, 'pl')}
+        </div>
+    );
 };

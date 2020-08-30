@@ -26,10 +26,18 @@ export const TestDetails = ({ result }: Props) => {
                 :
             </Typography>
             <div className={classes.chartsWrapper}>
-                {TESTS.map(test => (
+                {TESTS.map((test) => (
                     <Measurement
-                        valueInUnitOfMeasure={result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number}
-                        valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
+                        valueInUnitOfMeasure={
+                            result.test[
+                                test.unitOfMeasureKey as keyof TestResult['test']
+                            ] as number
+                        }
+                        valueInPoints={
+                            result.test[
+                                test.pointsKey as keyof TestResult['test']
+                            ] as number
+                        }
                         unitOfMeasure={test.unitOfMeasure}
                         scaleFrom={test.scaleFrom}
                         scaleTo={test.scaleTo}
@@ -44,10 +52,15 @@ export const TestDetails = ({ result }: Props) => {
 };
 
 function getTestUnavailableReason(result: TestResult) {
-    const testsWithNoResult = TESTS.filter(test => !result.test[test.pointsKey as resultKey]);
+    const testsWithNoResult = TESTS.filter(
+        (test) => !result.test[test.pointsKey as resultKey],
+    );
 
-    return testsWithNoResult.map(test => (
-        <NoResultsBlock key={test.translationKey} translationKey={test.translationKey} />
+    return testsWithNoResult.map((test) => (
+        <NoResultsBlock
+            key={test.translationKey}
+            translationKey={test.translationKey}
+        />
     ));
 }
 

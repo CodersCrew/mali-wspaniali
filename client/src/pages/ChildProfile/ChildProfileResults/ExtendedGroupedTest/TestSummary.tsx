@@ -19,22 +19,38 @@ export const TestSummary = ({ result }: Props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useTranslation();
 
-    const { agilityPoints, powerPoints, speedPoints, strengthPoints, childAge, testPeriod } = result.test;
+    const {
+        agilityPoints,
+        powerPoints,
+        speedPoints,
+        strengthPoints,
+        childAge,
+        testPeriod,
+    } = result.test;
 
-    const sumOfPoints = agilityPoints + powerPoints + speedPoints + strengthPoints;
-    const { color, key } = getResultColorAndLabel(sumOfPoints, MAX_OVERALL_POINTS);
+    const sumOfPoints =
+        agilityPoints + powerPoints + speedPoints + strengthPoints;
+    const { color, key } = getResultColorAndLabel(
+        sumOfPoints,
+        MAX_OVERALL_POINTS,
+    );
     const classes = useStyles({ color });
 
     return (
         <>
             <Card className={classes.card}>
                 <div className={classes.cardTop}>
-                    <Typography variant="subtitle1">{t('child-profile.info-about-test')}</Typography>
+                    <Typography variant="subtitle1">
+                        {t('child-profile.info-about-test')}
+                    </Typography>
                     <Typography variant="h3">
-                        {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
+                        {testPeriod === 'START'
+                            ? t('child-profile.initial-test')
+                            : t('child-profile.final-test')}
                     </Typography>
                     <Typography variant="subtitle1">
-                        {t('child-profile.carries-out-on')} {moment(result.date).format('L')}
+                        {t('child-profile.carries-out-on')}{' '}
+                        {moment(result.date).format('L')}
                     </Typography>
                 </div>
                 <div className={classes.cardMiddle}>
@@ -46,7 +62,9 @@ export const TestSummary = ({ result }: Props) => {
                     </Typography>
                 </div>
                 <div className={classes.cardBottom}>
-                    <Typography variant="body2">{t('child-profile.fitness-level')}:</Typography>
+                    <Typography variant="body2">
+                        {t('child-profile.fitness-level')}:
+                    </Typography>
                     <div className={classes.chart}>
                         <CircleChart
                             color={color}
@@ -56,18 +74,23 @@ export const TestSummary = ({ result }: Props) => {
                             labelSuffix={t('child-profile.pts')}
                         />
                     </div>
-                    <div className={classes.resultDescription}>{t(`child-profile.result-description.${key}`)}</div>
+                    <div className={classes.resultDescription}>
+                        {t(`child-profile.result-description.${key}`)}
+                    </div>
                     <ButtonSecondary
                         variant="contained"
-                        onClick={() => setIsModalOpen(prev => !prev)}
+                        onClick={() => setIsModalOpen((prev) => !prev)}
                         innerText={t('child-profile.advice')}
                     />
                 </div>
             </Card>
-            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(prev => !prev)}>
+            <Dialog
+                open={isModalOpen}
+                onClose={() => setIsModalOpen((prev) => !prev)}
+            >
                 <AdviceModal
                     content={t(`child-profile.result-description.${key}`)}
-                    onClose={() => setIsModalOpen(prev => !prev)}
+                    onClose={() => setIsModalOpen((prev) => !prev)}
                 />
             </Dialog>
         </>

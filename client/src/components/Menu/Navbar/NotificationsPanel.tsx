@@ -1,6 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MenuList, Paper, createStyles, makeStyles, Theme } from '@material-ui/core/';
+import {
+    MenuList,
+    Paper,
+    createStyles,
+    makeStyles,
+    Theme,
+} from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 
 import { NotificationItem } from './NotificationItem';
@@ -20,13 +26,24 @@ export const NotificationsPanel = (props: NotificationListProps) => {
         <Paper className={classes.notificationsPanel}>
             <MenuList dense={true}>
                 {notifications &&
-                    notifications.map(notification => {
+                    notifications.map((notification) => {
                         const { templateId, date, _id, isRead } = notification;
 
-                        return <NotificationItem key={_id} id={_id} text={templateId} date={date} isRead={isRead} />;
+                        return (
+                            <NotificationItem
+                                key={_id}
+                                id={_id}
+                                text={templateId}
+                                date={date}
+                                isRead={isRead}
+                            />
+                        );
                     })}
             </MenuList>
-            <Link to={'/parent/notifications'} className={classes.notificationLink}>
+            <Link
+                to={'/parent/notifications'}
+                className={classes.notificationLink}
+            >
                 {t('notification-panel.read-more')}
             </Link>
         </Paper>

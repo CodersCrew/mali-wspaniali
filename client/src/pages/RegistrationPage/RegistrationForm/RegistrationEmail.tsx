@@ -31,7 +31,11 @@ export const RegistrationEmail = ({
                 helperText={t('login-page.e-mail-helper-text')}
             />
             <div className={classButton}>
-                <ButtonSecondary variant="text" onClick={handleBack} innerText={t('back')} />
+                <ButtonSecondary
+                    variant="text"
+                    onClick={handleBack}
+                    innerText={t('back')}
+                />
                 <ButtonSecondary
                     variant="contained"
                     onClick={handleNext}

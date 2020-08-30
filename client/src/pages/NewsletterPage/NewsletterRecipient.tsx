@@ -5,7 +5,12 @@ import { white, newsletterColors, textColor } from '../../colors';
 import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
 import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType, FieldsType } from './types';
+import {
+    GeneralRecipientInputValues,
+    SpecificRecipientInputValues,
+    SingleFieldType,
+    FieldsType,
+} from './types';
 import { Theme } from '../../theme';
 import { getKindergartens } from '../../graphql/kindergartensRepository';
 import { Kindergarten } from '../../graphql/types';
@@ -21,15 +26,26 @@ export const NewsletterRecipent: React.FC<{
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     selectRecipients: (filteredRecipients: string[]) => void;
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
-}> = ({ generalType, specificType, recipients, handleChange, selectRecipients, setFields }) => {
+}> = ({
+    generalType,
+    specificType,
+    recipients,
+    handleChange,
+    selectRecipients,
+    setFields,
+}) => {
     const [kindergartens, setKindergartens] = useState<Kindergarten[]>([]);
     const [parents, setParents] = useState<string[]>([]);
     const classes = useStyles();
     const { t } = useTranslation();
 
     useEffect(() => {
-        getKindergartens().then(({ data }) => setKindergartens(data!.kindergartens));
-        getAllUsers('parent').then(({ data }) => setParents(data!.users.map(user => user.mail)));
+        getKindergartens().then(({ data }) =>
+            setKindergartens(data!.kindergartens),
+        );
+        getAllUsers('parent').then(({ data }) =>
+            setParents(data!.users.map((user) => user.mail)),
+        );
     }, []);
 
     useEffect(() => {
@@ -47,7 +63,9 @@ export const NewsletterRecipent: React.FC<{
             specificType.value === SpecificRecipientInputValues.all
         ) {
             if (kindergartens) {
-                const kindergartensId = kindergartens.map((kindergarten: Kindergarten) => kindergarten._id);
+                const kindergartensId = kindergartens.map(
+                    (kindergarten: Kindergarten) => kindergarten._id,
+                );
                 selectRecipients(kindergartensId);
             }
         }
@@ -56,7 +74,7 @@ export const NewsletterRecipent: React.FC<{
 
     const handleDelete = (name: string) => {
         if (name === 'generalType') {
-            setFields(prevFields => ({
+            setFields((prevFields) => ({
                 ...prevFields,
                 generalType: {
                     error: true,
@@ -68,7 +86,7 @@ export const NewsletterRecipent: React.FC<{
                 },
             }));
         } else {
-            setFields(prevFields => ({
+            setFields((prevFields) => ({
                 ...prevFields,
                 [name]: {
                     error: true,
@@ -80,7 +98,9 @@ export const NewsletterRecipent: React.FC<{
 
     return (
         <div className={classes.container}>
-            <Typography className={classes.heading}>{t('newsletter.recipient-heading')}</Typography>
+            <Typography className={classes.heading}>
+                {t('newsletter.recipient-heading')}
+            </Typography>
             <NewsletterGeneralTypeTextField
                 classes={classes}
                 generalType={generalType}
@@ -96,18 +116,18 @@ export const NewsletterRecipent: React.FC<{
             />
             {specificType.value === SpecificRecipientInputValues.single ||
             specificType.value === SpecificRecipientInputValues.kindergarten ? (
-                    <NewsletterOptionalTextField
-                        classes={classes}
-                        selectRecipients={selectRecipients}
-                        generalType={generalType}
-                        specificType={specificType}
-                        recipients={recipients}
-                        handleChange={handleChange}
-                        parents={parents}
-                        kindergartens={kindergartens}
-                        setFields={setFields}
-                    />
-                ) : null}
+                <NewsletterOptionalTextField
+                    classes={classes}
+                    selectRecipients={selectRecipients}
+                    generalType={generalType}
+                    specificType={specificType}
+                    recipients={recipients}
+                    handleChange={handleChange}
+                    parents={parents}
+                    kindergartens={kindergartens}
+                    setFields={setFields}
+                />
+            ) : null}
         </div>
     );
 };

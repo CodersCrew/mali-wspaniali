@@ -10,7 +10,13 @@ interface Props {
     hidden?: boolean;
 }
 
-export const Pagination = ({ disabled, hidden, count, maxCount, onClick }: Props) => {
+export const Pagination = ({
+    disabled,
+    hidden,
+    count,
+    maxCount,
+    onClick,
+}: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -19,9 +25,19 @@ export const Pagination = ({ disabled, hidden, count, maxCount, onClick }: Props
     return (
         <div className={classes.container}>
             <div className={classes.innerContainer}>
-                <div className={classes.counter}>{t('blog-pagination.counter', { from: count, to: maxCount })}</div>
+                <div className={classes.counter}>
+                    {t('blog-pagination.counter', {
+                        from: count,
+                        to: maxCount,
+                    })}
+                </div>
                 <div>
-                    <Button variant="outlined" color="secondary" disabled={disabled} onClick={onClick}>
+                    <Button
+                        variant="outlined"
+                        color="secondary"
+                        disabled={disabled}
+                        onClick={onClick}
+                    >
                         {t('blog-pagination.show-more')}
                     </Button>
                 </div>

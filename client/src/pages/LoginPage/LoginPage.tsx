@@ -35,7 +35,7 @@ export const LoginPage = () => {
                             history.push(`/${data.me.role}`);
                         }
                     })
-                    .catch(e => setLoginError(e));
+                    .catch((e) => setLoginError(e));
             },
         });
 
@@ -46,11 +46,17 @@ export const LoginPage = () => {
 
     return (
         <div className={classes.container}>
-            <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
+            <form
+                onSubmit={handleSubmit}
+                autoComplete="off"
+                className={classes.form}
+            >
+                <div className={classes.loginHeader}>
+                    {t('login-page.login-header')}
+                </div>
                 <TextField
                     required
-                    onChange={event => setEmail(event.target.value)}
+                    onChange={(event) => setEmail(event.target.value)}
                     value={email}
                     id="email"
                     label={t('e-mail')}
@@ -65,7 +71,7 @@ export const LoginPage = () => {
                 />
                 <TextField
                     required
-                    onChange={event => setPassword(event.target.value)}
+                    onChange={(event) => setPassword(event.target.value)}
                     value={password}
                     id="password"
                     label={t('password')}

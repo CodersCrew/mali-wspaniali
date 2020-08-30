@@ -25,7 +25,10 @@ export const Measurement = ({
     translationKey,
 }: Props) => {
     const { t } = useTranslation();
-    const { color } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
+    const { color } = getResultColorAndLabel(
+        valueInPoints,
+        MAX_POINTS_FOR_TEST,
+    );
 
     const classes = useStyles({ color });
 
@@ -40,11 +43,16 @@ export const Measurement = ({
                     labelSuffix={unitOfMeasure}
                 />
             </div>
-            <div className={classes.testName}>{t(`child-profile.tests.${translationKey}`)}</div>
+            <div className={classes.testName}>
+                {t(`child-profile.tests.${translationKey}`)}
+            </div>
             <Typography variant="body2" className={classes.scale}>
-                {t('child-profile.scale')}: {scaleFrom} {unitOfMeasure} - {scaleTo} {unitOfMeasure}
+                {t('child-profile.scale')}: {scaleFrom} {unitOfMeasure} -{' '}
+                {scaleTo} {unitOfMeasure}
             </Typography>
-            <Typography variant="body2">{t('child-profile.received-points')}:</Typography>
+            <Typography variant="body2">
+                {t('child-profile.received-points')}:
+            </Typography>
             <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>

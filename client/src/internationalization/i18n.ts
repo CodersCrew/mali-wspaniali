@@ -20,7 +20,15 @@ i18n.use(LanguageDetector)
             escapeValue: false,
         },
         detection: {
-            order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+            order: [
+                'querystring',
+                'cookie',
+                'localStorage',
+                'navigator',
+                'htmlTag',
+                'path',
+                'subdomain',
+            ],
             lookupQuerystring: 'lng',
             lookupCookie: 'i18next',
             lookupLocalStorage: 'i18nextLng',

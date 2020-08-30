@@ -38,7 +38,11 @@ export const RegistrationCode = ({
                 className={classForm}
             />
             <div className={classButton}>
-                <ButtonSecondary variant="text" onClick={handleClick} innerText={t('registration-page.no-code')} />
+                <ButtonSecondary
+                    variant="text"
+                    onClick={handleClick}
+                    innerText={t('registration-page.no-code')}
+                />
                 <ButtonSecondary
                     variant="contained"
                     onClick={handleNext}

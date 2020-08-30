@@ -22,7 +22,9 @@ export const NewsletterSentModal: React.FC<{
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleButtonClick = (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) => {
         if (event.currentTarget.id === 'homePageButton') {
             goToAdminPage();
             onClose();
@@ -36,7 +38,10 @@ export const NewsletterSentModal: React.FC<{
         <Dialog open onClose={onClose}>
             <DialogContent className={classes.sentModal}>
                 <CheckCircleIcon className={classes.sentModalIcon} />
-                <DialogTitle disableTypography className={classes.sentModalTitle}>
+                <DialogTitle
+                    disableTypography
+                    className={classes.sentModalTitle}
+                >
                     {t('newsletter.sending-success-modal.title')}
                 </DialogTitle>
                 <DialogContentText className={classes.sentModalText}>
@@ -49,13 +54,17 @@ export const NewsletterSentModal: React.FC<{
                     id="homePageButton"
                     className={classes.sentModalBackButton}
                     onClick={handleButtonClick}
-                    innerText={t('newsletter.sending-success-modal.back-button')}
+                    innerText={t(
+                        'newsletter.sending-success-modal.back-button',
+                    )}
                 />
                 <ButtonSecondary
                     id="nextMessageButton"
                     className={classes.sentModalNextMessageButton}
                     onClick={handleButtonClick}
-                    innerText={t('newsletter.sending-success-modal.next-msg-button')}
+                    innerText={t(
+                        'newsletter.sending-success-modal.next-msg-button',
+                    )}
                     variant="text"
                 />
             </DialogActions>

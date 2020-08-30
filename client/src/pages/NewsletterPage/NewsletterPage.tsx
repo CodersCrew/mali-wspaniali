@@ -40,7 +40,14 @@ export const NewsletterPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [fields, setFields] = useState(initialState);
-    const { type, topic, recipients, generalType, specificType, message } = fields;
+    const {
+        type,
+        topic,
+        recipients,
+        generalType,
+        specificType,
+        message,
+    } = fields;
     const [progressBarState, setProgressBarState] = useState({
         firstStep: ProgressBarStates.Ready,
         secondStep: ProgressBarStates.Inactive,
@@ -52,22 +59,50 @@ export const NewsletterPage = () => {
 
     useEffect(() => {
         if (recipients.value.length > 0) {
-            setProgressBarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Ready });
+            setProgressBarState({
+                firstStep: ProgressBarStates.Done,
+                secondStep: ProgressBarStates.Ready,
+            });
         }
-        if (recipients.value.length === 0 && !type.value && !topic.value && !message.value) {
-            setProgressBarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
+        if (
+            recipients.value.length === 0 &&
+            !type.value &&
+            !topic.value &&
+            !message.value
+        ) {
+            setProgressBarState({
+                firstStep: ProgressBarStates.Ready,
+                secondStep: ProgressBarStates.Inactive,
+            });
         }
-        if (recipients.value.length === 0 && (type.value || topic.value || message.value)) {
-            setProgressBarState(prevSidebarState => ({ ...prevSidebarState, firstStep: ProgressBarStates.Error }));
+        if (
+            recipients.value.length === 0 &&
+            (type.value || topic.value || message.value)
+        ) {
+            setProgressBarState((prevSidebarState) => ({
+                ...prevSidebarState,
+                firstStep: ProgressBarStates.Error,
+            }));
         }
-        if ((!type && (topic || message.value)) || ((!type.value || !topic.value) && message.value)) {
-            setProgressBarState(prevSidebarState => ({
+        if (
+            (!type && (topic || message.value)) ||
+            ((!type.value || !topic.value) && message.value)
+        ) {
+            setProgressBarState((prevSidebarState) => ({
                 ...prevSidebarState,
                 secondStep: ProgressBarStates.Error,
             }));
         }
-        if (recipients.value.length === 0 && !type.value && !topic.value && message.value === '<p><br></p>') {
-            setProgressBarState({ firstStep: ProgressBarStates.Ready, secondStep: ProgressBarStates.Inactive });
+        if (
+            recipients.value.length === 0 &&
+            !type.value &&
+            !topic.value &&
+            message.value === '<p><br></p>'
+        ) {
+            setProgressBarState({
+                firstStep: ProgressBarStates.Ready,
+                secondStep: ProgressBarStates.Inactive,
+            });
         }
         if (
             recipients.value.length > 0 &&
@@ -76,13 +111,16 @@ export const NewsletterPage = () => {
             message.value &&
             message.value !== '<p><br></p>'
         ) {
-            setProgressBarState({ firstStep: ProgressBarStates.Done, secondStep: ProgressBarStates.Done });
+            setProgressBarState({
+                firstStep: ProgressBarStates.Done,
+                secondStep: ProgressBarStates.Done,
+            });
         }
     }, [recipients, type, topic, message]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
-        setFields(prevFields => ({
+        setFields((prevFields) => ({
             ...prevFields,
             [name]: {
                 value,
@@ -90,7 +128,7 @@ export const NewsletterPage = () => {
             },
         }));
         if (!value) {
-            setFields(prevFields => ({
+            setFields((prevFields) => ({
                 ...prevFields,
                 [name]: {
                     value,
@@ -101,7 +139,7 @@ export const NewsletterPage = () => {
     };
 
     const handleTypeDelete = (): void => {
-        setFields(prevFields => ({
+        setFields((prevFields) => ({
             ...prevFields,
             type: {
                 value: '',
@@ -111,7 +149,7 @@ export const NewsletterPage = () => {
     };
 
     const selectRecipients = (filteredRecipients: string[]): void => {
-        setFields(prevFields => ({
+        setFields((prevFields) => ({
             ...prevFields,
             recipients: {
                 value: filteredRecipients,

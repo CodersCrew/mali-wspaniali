@@ -45,26 +45,42 @@ export const Conditions = () => {
 
     return (
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
-            <Typography className={classes.title}>{t(`${T_PREFIX}.title`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
+            <Typography className={classes.title}>
+                {t(`${T_PREFIX}.title`)}
+            </Typography>
+            <Typography className={classes.text}>
+                {t(`${T_PREFIX}.text1`)}
+            </Typography>
             <div className={classes.tests}>
                 {tests.map(({ name, image, imageAlt, description, scale }) => (
                     <Box key={name} display="flex" alignItems="flex-end">
-                        <img className={classes.testImage} src={image} alt={imageAlt} />
+                        <img
+                            className={classes.testImage}
+                            src={image}
+                            alt={imageAlt}
+                        />
                         <Box ml={1.25}>
-                            <Typography className={classes.testName}>{name}</Typography>
-                            <Typography className={classes.testText}>{description}</Typography>
-                            <Typography className={classes.testText}>{scale}</Typography>
+                            <Typography className={classes.testName}>
+                                {name}
+                            </Typography>
+                            <Typography className={classes.testText}>
+                                {description}
+                            </Typography>
+                            <Typography className={classes.testText}>
+                                {scale}
+                            </Typography>
                         </Box>
                     </Box>
                 ))}
             </div>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography>
+            <Typography className={classes.text}>
+                {t(`${T_PREFIX}.text2`)}
+            </Typography>
         </Panel>
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 21,
         fontWeight: 500,

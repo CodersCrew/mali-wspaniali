@@ -1,9 +1,21 @@
 import React from 'react';
 import clsx from 'clsx';
 import { Notifications } from '@material-ui/icons/';
-import { ListItem, Typography, createStyles, makeStyles, MenuItem } from '@material-ui/core/';
+import {
+    ListItem,
+    Typography,
+    createStyles,
+    makeStyles,
+    MenuItem,
+} from '@material-ui/core/';
 import moment from '../../../localizedMoment';
-import { darkGrey, textColor, notificationReadColor, notificationCaptionColor, secondaryColor } from '../../../colors';
+import {
+    darkGrey,
+    textColor,
+    notificationReadColor,
+    notificationCaptionColor,
+    secondaryColor,
+} from '../../../colors';
 
 type notificationItemProps = {
     text: string;
@@ -12,7 +24,11 @@ type notificationItemProps = {
     id: string;
 };
 
-export const NotificationItem = ({ text, date, isRead }: notificationItemProps) => {
+export const NotificationItem = ({
+    text,
+    date,
+    isRead,
+}: notificationItemProps) => {
     const classes = useStyles();
 
     const setNotificationValue = () => {
@@ -21,13 +37,34 @@ export const NotificationItem = ({ text, date, isRead }: notificationItemProps) 
 
     return (
         <MenuItem className={classes.item}>
-            <ListItem className={clsx({ [classes.notificationItem]: true, read: isRead })}>
-                <Notifications className={clsx({ [classes.notificationIcon]: true, read: isRead })} />
-                <div onClick={setNotificationValue} className={classes.notificationText}>
-                    <Typography className={classes.notificationTitle} gutterBottom variant="body1">
+            <ListItem
+                className={clsx({
+                    [classes.notificationItem]: true,
+                    read: isRead,
+                })}
+            >
+                <Notifications
+                    className={clsx({
+                        [classes.notificationIcon]: true,
+                        read: isRead,
+                    })}
+                />
+                <div
+                    onClick={setNotificationValue}
+                    className={classes.notificationText}
+                >
+                    <Typography
+                        className={classes.notificationTitle}
+                        gutterBottom
+                        variant="body1"
+                    >
                         {text}
                     </Typography>
-                    <Typography className={classes.notificationCaption} gutterBottom variant="caption">
+                    <Typography
+                        className={classes.notificationCaption}
+                        gutterBottom
+                        variant="caption"
+                    >
                         {moment(date).calendar()}
                     </Typography>
                 </div>

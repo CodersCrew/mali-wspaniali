@@ -21,7 +21,7 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
     const anchorRef = useRef<HTMLButtonElement>(null);
 
     const handleToggle = () => {
-        setIsOpen(prevOpen => !prevOpen);
+        setIsOpen((prevOpen) => !prevOpen);
     };
 
     function handleListKeyDown(event: React.KeyboardEvent) {
@@ -48,24 +48,43 @@ export const DropDownMenu = ({ onClick, active, values }: Props) => {
                 onClick={handleToggle}
                 className={classes.button}
                 fullWidth
-                endIcon={isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                innerText={values.find(category => category.key === active)!.name}
+                endIcon={
+                    isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+                }
+                innerText={
+                    values.find((category) => category.key === active)!.name
+                }
             />
-            <Popper className={classes.container} open={isOpen} transition disablePortal>
+            <Popper
+                className={classes.container}
+                open={isOpen}
+                transition
+                disablePortal
+            >
                 {({ TransitionProps }) => (
-                    <Grow {...TransitionProps} style={{ transformOrigin: 'bottom' }}>
+                    <Grow
+                        {...TransitionProps}
+                        style={{ transformOrigin: 'bottom' }}
+                    >
                         <Paper>
                             <Tabs
-                                value={values.findIndex(tab => tab.key === active)}
-                                onChange={(_event, newValue) => onClick(values[newValue].key)}
-                                classes={{ flexContainer: classes.flexContainer, indicator: classes.indicator }}
+                                value={values.findIndex(
+                                    (tab) => tab.key === active,
+                                )}
+                                onChange={(_event, newValue) =>
+                                    onClick(values[newValue].key)
+                                }
+                                classes={{
+                                    flexContainer: classes.flexContainer,
+                                    indicator: classes.indicator,
+                                }}
                             >
-                                {values.map(category => {
+                                {values.map((category) => {
                                     return (
                                         <DropDownMenuItem
                                             key={category.name}
                                             label={category.name}
-                                            color={category.color}
+                                            color={category.color!}
                                         />
                                     );
                                 })}

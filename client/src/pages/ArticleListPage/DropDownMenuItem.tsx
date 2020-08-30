@@ -14,7 +14,11 @@ export const DropDownMenuItem = ({ color, ...props }: DropDownMenuTapProps) => {
     return (
         <Tab
             disableRipple
-            classes={{ root: classes.root, wrapper: classes.wrapper, selected: classes.selected }}
+            classes={{
+                root: classes.root,
+                wrapper: classes.wrapper,
+                selected: classes.selected,
+            }}
             {...props}
         />
     );
@@ -25,7 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             minHeight: '0',
             height: '45px',
-            border: ({ color }: { color: string }) => `${blogCategoryColors[color]} solid 1px `,
+            border: ({ color }: { color: string }) =>
+                `${blogCategoryColors[color]} solid 1px `,
             borderRadius: '4px',
             opacity: '1',
             whiteSpace: 'nowrap',

@@ -9,13 +9,16 @@ export const PanelSummary: FC = ({ children }) => {
     const classes = useStyles();
 
     return (
-        <AccordionSummary className={classes.summary} expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary
+            className={classes.summary}
+            expandIcon={<ExpandMoreIcon />}
+        >
             <Typography className={classes.title}>{children}</Typography>
         </AccordionSummary>
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     summary: {
         paddingLeft: theme.spacing(5),
     },

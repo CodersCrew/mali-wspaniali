@@ -17,7 +17,11 @@ export const EmptyResultSimple = () => {
             <Typography variant="body2" className={classes.content}>
                 {t('child-profile.no-results-text')}
             </Typography>
-            <img className={classes.image} src="https://via.placeholder.com/160x100" alt="placeholder" />
+            <img
+                className={classes.image}
+                src="https://via.placeholder.com/160x100"
+                alt="placeholder"
+            />
         </div>
     );
 };

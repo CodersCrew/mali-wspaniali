@@ -15,12 +15,19 @@ export const LanguageSelector: React.FC = () => {
     };
 
     const languageImage = (flag: string, language: string) => (
-        <img className={classes.img} src={flag} alt={language} onClick={() => changeLanguage(language)} />
+        <img
+            className={classes.img}
+            src={flag}
+            alt={language}
+            onClick={() => changeLanguage(language)}
+        />
     );
 
     return (
         <div className={classes.container}>
-            {localStorageLanguage === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}
+            {localStorageLanguage === 'pl'
+                ? languageImage(EnFlag, 'en')
+                : languageImage(PlFlag, 'pl')}
         </div>
     );
 };

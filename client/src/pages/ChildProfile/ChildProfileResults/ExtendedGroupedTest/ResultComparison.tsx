@@ -14,10 +14,17 @@ interface Props {
     childAge: number;
 }
 
-export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge }: Props) => {
+export const ResultComparison = ({
+    firstResultPoints,
+    lastResultPoints,
+    childAge,
+}: Props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useTranslation();
-    const { color } = getResultColorAndLabel(lastResultPoints, MAX_OVERALL_POINTS);
+    const { color } = getResultColorAndLabel(
+        lastResultPoints,
+        MAX_OVERALL_POINTS,
+    );
     const classes = useStyles({ color });
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);
 
@@ -26,17 +33,26 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
             <div className={classes.wrapper}>
                 <Card className={classes.card}>
                     <div className={classes.cardTop}>
-                        <Typography variant="subtitle1">{t('child-profile.summary-info')}</Typography>
-                        <Typography variant="h3">{t('child-profile.test-result')}</Typography>
+                        <Typography variant="subtitle1">
+                            {t('child-profile.summary-info')}
+                        </Typography>
+                        <Typography variant="h3">
+                            {t('child-profile.test-result')}
+                        </Typography>
                     </div>
                     <div className={classes.cardBottom}>
-                        <Typography className={classes.cardBottomText} variant="body2">
+                        <Typography
+                            className={classes.cardBottomText}
+                            variant="body2"
+                        >
                             {t('child-profile.comparison-label')}
                         </Typography>
-                        <div className={classes.difference}>{t(`child-profile.difference.${key}`)}</div>
+                        <div className={classes.difference}>
+                            {t(`child-profile.difference.${key}`)}
+                        </div>
                         <ButtonSecondary
                             variant="contained"
-                            onClick={() => setIsModalOpen(prev => !prev)}
+                            onClick={() => setIsModalOpen((prev) => !prev)}
                             innerText={t('child-profile.comparison-button')}
                         />
                     </div>
@@ -47,10 +63,13 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                     </Typography>
                 </div>
             </div>
-            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(prev => !prev)}>
+            <Dialog
+                open={isModalOpen}
+                onClose={() => setIsModalOpen((prev) => !prev)}
+            >
                 <AdviceModal
                     content={t(`child-profile.difference.${key}`)}
-                    onClose={() => setIsModalOpen(prev => !prev)}
+                    onClose={() => setIsModalOpen((prev) => !prev)}
                 />
             </Dialog>
         </>

@@ -46,26 +46,43 @@ interface BlogMenuItemFactoryProps {
     active: string[];
 }
 
-type CollapsibleItem = { mainItem: SingleItemProps; subItems: SingleItemProps[] };
+type CollapsibleItem = {
+    mainItem: SingleItemProps;
+    subItems: SingleItemProps[];
+};
 
 interface ItemFactory {
-    create: (options: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) => SingleItemProps;
+    create: (
+        options: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>,
+    ) => SingleItemProps;
 }
 
 interface CollapsibleItemFactory<T> {
     create: (options: T) => CollapsibleItem;
 }
 
-export function getParentMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps, 'active' | 't'>): ItemFactory {
+export function getParentMenuItemFactory({
+    active,
+    t,
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): ItemFactory {
     return {
-        create: ({ name, rightIcon }: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) =>
+        create: ({
+            name,
+            rightIcon,
+        }: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) =>
             getParentMenuItem({ active, t, name, rightIcon }),
     };
 }
 
-export function getAdminMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps, 'active' | 't'>): ItemFactory {
+export function getAdminMenuItemFactory({
+    active,
+    t,
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): ItemFactory {
     return {
-        create: ({ name, rightIcon }: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) =>
+        create: ({
+            name,
+            rightIcon,
+        }: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) =>
             getAdminMenuItem({ active, t, name, rightIcon }),
     };
 }
@@ -73,7 +90,9 @@ export function getAdminMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps
 export function getChildMenuItemFactory({
     active,
     t,
-}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<Pick<ChildMenuItemFactoryProps, 'child'>> {
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<
+    Pick<ChildMenuItemFactoryProps, 'child'>
+> {
     return { create: ({ child }) => getChildMenuItem({ active, t, child }) };
 }
 
@@ -86,7 +105,11 @@ export function getBlogMenuItemFactory({
     };
 }
 
-function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): MenuItemFactoryResult {
+function getChildMenuItem({
+    child,
+    active,
+    t,
+}: ChildMenuItemFactoryProps): MenuItemFactoryResult {
     const mainItemAvatar = <ChildAvatar sex={child.sex} />;
 
     const mainItem = {
@@ -106,13 +129,17 @@ function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): Menu
             icon: <Icon icon={<ThumbUp />} />,
             name: t('parent-menu.child.recomendations'),
             link: `/parent/child/${child._id}/recomendations`,
-            active: active.includes(`/parent/child/${child._id}/recomendations`),
+            active: active.includes(
+                `/parent/child/${child._id}/recomendations`,
+            ),
         },
         {
             icon: <Icon icon={<Notes />} />,
             name: t('parent-menu.child.tests-information'),
             link: `/parent/child/${child._id}/tests-information`,
-            active: active.includes(`/parent/child/${child._id}/tests-information`),
+            active: active.includes(
+                `/parent/child/${child._id}/tests-information`,
+            ),
         },
         {
             icon: <Icon icon={<Fingerprint />} />,
@@ -125,7 +152,10 @@ function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): Menu
     return { mainItem, subItems };
 }
 
-function getBlogMenuItem({ active, t }: BlogMenuItemFactoryProps): MenuItemFactoryResult {
+function getBlogMenuItem({
+    active,
+    t,
+}: BlogMenuItemFactoryProps): MenuItemFactoryResult {
     const mainItem = {
         icon: <Icon icon={<LibraryBooks />} />,
         name: t('parent-menu.blog'),
@@ -169,7 +199,12 @@ function getBlogMenuItem({ active, t }: BlogMenuItemFactoryProps): MenuItemFacto
     return { mainItem, subItems };
 }
 
-function getParentMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
+function getParentMenuItem({
+    name,
+    rightIcon,
+    active,
+    t,
+}: MenuItemFactoryProps): SingleItemProps {
     const MainPageItem = {
         name: 'parent-menu.home',
         link: '/parent',
@@ -218,7 +253,12 @@ function getParentMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps)
     return item;
 }
 
-function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
+function getAdminMenuItem({
+    name,
+    rightIcon,
+    active,
+    t,
+}: MenuItemFactoryProps): SingleItemProps {
     const MainPageItem = {
         name: 'admin-menu.home',
         link: '/admin',

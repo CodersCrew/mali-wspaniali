@@ -10,7 +10,11 @@ export const BlogMainHeader = () => {
     return (
         <div>
             <div className={classes.subtitleContainer}>
-                <Typography variant="h4" gutterBottom className={classes.subtitle}>
+                <Typography
+                    variant="h4"
+                    gutterBottom
+                    className={classes.subtitle}
+                >
                     {t('blog-main-page.header')}
                 </Typography>
             </div>

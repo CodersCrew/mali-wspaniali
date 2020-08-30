@@ -46,7 +46,11 @@ export const EmptyResultDetailed = ({ onClick }: Props) => {
                     </span>
                 </Typography>
             </>
-            <img className={classes.image} src="https://via.placeholder.com/160x100" alt="placeholder" />
+            <img
+                className={classes.image}
+                src="https://via.placeholder.com/160x100"
+                alt="placeholder"
+            />
         </div>
     );
 };

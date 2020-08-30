@@ -15,10 +15,18 @@ export enum PaginationDirections {
     prev = 'PREV',
 }
 
-export const UserPagePagination = ({ page, pageChangeHandler, documentsCount, rowsPerPage }: Props) => {
+export const UserPagePagination = ({
+    page,
+    pageChangeHandler,
+    documentsCount,
+    rowsPerPage,
+}: Props) => {
     return (
         <div>
-            <IconButton disabled={page === 0} onClick={() => pageChangeHandler(PaginationDirections.prev)}>
+            <IconButton
+                disabled={page === 0}
+                onClick={() => pageChangeHandler(PaginationDirections.prev)}
+            >
                 <ArrowBackIosIcon />
             </IconButton>
             <IconButton

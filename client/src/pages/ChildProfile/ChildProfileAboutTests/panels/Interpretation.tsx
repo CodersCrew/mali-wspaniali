@@ -13,16 +13,26 @@ export const Interpretation = () => {
 
     return (
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
-            <Typography className={classes.title}>{t(`${T_PREFIX}.title`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text3`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text4`)}</Typography>
+            <Typography className={classes.title}>
+                {t(`${T_PREFIX}.title`)}
+            </Typography>
+            <Typography className={classes.text}>
+                {t(`${T_PREFIX}.text1`)}
+            </Typography>
+            <Typography className={classes.text}>
+                {t(`${T_PREFIX}.text2`)}
+            </Typography>
+            <Typography className={classes.text}>
+                {t(`${T_PREFIX}.text3`)}
+            </Typography>
+            <Typography className={classes.text}>
+                {t(`${T_PREFIX}.text4`)}
+            </Typography>
         </Panel>
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 21,
         fontWeight: 500,

@@ -1,6 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/core';
+import {
+    makeStyles,
+    createStyles,
+    Grid,
+    Typography,
+    Theme,
+} from '@material-ui/core';
 
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
@@ -12,7 +18,11 @@ interface Props {
     readingTime: number;
 }
 
-export const BreadcrumbsWithDescription = ({ category, title, readingTime }: Props) => {
+export const BreadcrumbsWithDescription = ({
+    category,
+    title,
+    readingTime,
+}: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -27,7 +37,9 @@ export const BreadcrumbsWithDescription = ({ category, title, readingTime }: Pro
                     disableRipple
                     disableTouchRipple
                 >
-                    <Typography className={classes.pathText}>{t('single-article.blog').toUpperCase()}</Typography>
+                    <Typography className={classes.pathText}>
+                        {t('single-article.blog').toUpperCase()}
+                    </Typography>
                 </ButtonDefault>
                 <div className={classes.pathArrowContainer}>
                     <Typography className={classes.pathArrow} />
@@ -48,7 +60,9 @@ export const BreadcrumbsWithDescription = ({ category, title, readingTime }: Pro
                     <Typography className={classes.pathArrow} />
                 </div>
                 <div className={classes.pathTitleContainer}>
-                    <Typography className={classes.pathTitle}>{`${title.toUpperCase()}   (${t(
+                    <Typography
+                        className={classes.pathTitle}
+                    >{`${title.toUpperCase()}   (${t(
                         'single-article.length',
                     ).toUpperCase()} - ${readingTime} MIN)`}</Typography>
                 </div>

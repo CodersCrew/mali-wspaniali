@@ -19,7 +19,7 @@ export const ChildProfileResults = ({ child }: Props) => {
 
     return (
         <div data-testid="grouped-tests">
-            {grouped.map(groupedTest => {
+            {grouped.map((groupedTest) => {
                 const [startTest] = groupedTest;
 
                 return (
@@ -38,15 +38,21 @@ export const ChildProfileResults = ({ child }: Props) => {
 };
 
 function getEmptyMessage() {
-    return <div data-testid="no-test-assigned">There is no test assigned to your child</div>;
+    return (
+        <div data-testid="no-test-assigned">
+            There is no test assigned to your child
+        </div>
+    );
 }
 
 // export for test purposes only
 export function getGroupedTest(results: TestResult[]) {
     return results
-        .filter(result => !result.rootResultId)
-        .map(result => {
-            const endResult = results.find(lastResult => lastResult.rootResultId === result._id);
+        .filter((result) => !result.rootResultId)
+        .map((result) => {
+            const endResult = results.find(
+                (lastResult) => lastResult.rootResultId === result._id,
+            );
 
             if (endResult) return [result, endResult];
 

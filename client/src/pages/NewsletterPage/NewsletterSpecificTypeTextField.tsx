@@ -1,7 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, MenuItem, Chip } from '@material-ui/core';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType } from './types';
+import {
+    GeneralRecipientInputValues,
+    SpecificRecipientInputValues,
+    SingleFieldType,
+} from './types';
 
 type ValuesArrayTypes = {
     value: string;
@@ -23,8 +27,16 @@ export const NewsletterSpecificTypeTextField: React.FC<{
     generalType: SingleFieldType;
     specificType: SingleFieldType;
     handleDelete: (name: string) => void;
-    handleRecipientTypeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ classes, generalType, specificType, handleDelete, handleRecipientTypeChange }) => {
+    handleRecipientTypeChange: (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => void;
+}> = ({
+    classes,
+    generalType,
+    specificType,
+    handleDelete,
+    handleRecipientTypeChange,
+}) => {
     const { t } = useTranslation();
 
     const parentsRecipients = [
@@ -34,22 +46,30 @@ export const NewsletterSpecificTypeTextField: React.FC<{
         },
         {
             value: SpecificRecipientInputValues.kindergarten,
-            label: t('newsletter.specific-recipient-value-labels.from-single-kindergarten'),
+            label: t(
+                'newsletter.specific-recipient-value-labels.from-single-kindergarten',
+            ),
         },
         {
             value: SpecificRecipientInputValues.single,
-            label: t('newsletter.specific-recipient-value-labels.individual-message'),
+            label: t(
+                'newsletter.specific-recipient-value-labels.individual-message',
+            ),
         },
     ];
 
     const kindergartensRecipients = [
         {
             value: SpecificRecipientInputValues.all,
-            label: t('newsletter.specific-recipient-value-labels.all-kindergartens'),
+            label: t(
+                'newsletter.specific-recipient-value-labels.all-kindergartens',
+            ),
         },
         {
             value: SpecificRecipientInputValues.single,
-            label: t('newsletter.specific-recipient-value-labels.single-kindergarten'),
+            label: t(
+                'newsletter.specific-recipient-value-labels.single-kindergarten',
+            ),
         },
     ];
 
@@ -83,19 +103,29 @@ export const NewsletterSpecificTypeTextField: React.FC<{
                         horizontal: 'left',
                     },
                 },
-                renderValue: value => {
+                renderValue: (value) => {
                     const getLabel = () => {
-                        if (generalType.value === GeneralRecipientInputValues.parents) {
+                        if (
+                            generalType.value ===
+                            GeneralRecipientInputValues.parents
+                        ) {
                             const specificTypeParentRecipient = parentsRecipients.find(
-                                element => element.value === (value as string),
+                                (element) =>
+                                    element.value === (value as string),
                             );
-                            if (specificTypeParentRecipient) return specificTypeParentRecipient.label;
+                            if (specificTypeParentRecipient)
+                                return specificTypeParentRecipient.label;
                         }
-                        if (generalType.value === GeneralRecipientInputValues.kindergartens) {
+                        if (
+                            generalType.value ===
+                            GeneralRecipientInputValues.kindergartens
+                        ) {
                             const specificTypekindergartenRecipient = kindergartensRecipients.find(
-                                element => element.value === (value as string),
+                                (element) =>
+                                    element.value === (value as string),
                             );
-                            if (specificTypekindergartenRecipient) return specificTypekindergartenRecipient.label;
+                            if (specificTypekindergartenRecipient)
+                                return specificTypekindergartenRecipient.label;
                         }
 
                         return null;
@@ -109,7 +139,7 @@ export const NewsletterSpecificTypeTextField: React.FC<{
                             size={'small'}
                             label={getLabel()}
                             onDelete={() => handleDelete('specificType')}
-                            onMouseDown={event => {
+                            onMouseDown={(event) => {
                                 event.stopPropagation();
                             }}
                         />
@@ -130,7 +160,11 @@ export const NewsletterSpecificTypeTextField: React.FC<{
             name="specificType"
             label={t('newsletter.specific-recipient-label')}
             error={specificType.error}
-            helperText={specificType.error ? t('newsletter.specific-recipient-helper-text') : null}
+            helperText={
+                specificType.error
+                    ? t('newsletter.specific-recipient-helper-text')
+                    : null
+            }
             fullWidth
         >
             {generalType.value === GeneralRecipientInputValues.parents

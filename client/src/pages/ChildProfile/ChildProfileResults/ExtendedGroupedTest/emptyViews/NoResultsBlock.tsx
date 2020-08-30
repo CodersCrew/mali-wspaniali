@@ -4,14 +4,19 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { useTranslation } from 'react-i18next';
 import { darkGray } from '../../../../../colors';
 
-export const NoResultsBlock = ({ translationKey }: { translationKey: string }) => {
+export const NoResultsBlock = ({
+    translationKey,
+}: {
+    translationKey: string;
+}) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <div className={classes.wrapper}>
             <InfoOutlinedIcon className={classes.icon} />
-            {t(`child-profile.tests-in-block.${translationKey}`)} {t('child-profile.no-result-block-text')}
+            {t(`child-profile.tests-in-block.${translationKey}`)}{' '}
+            {t('child-profile.no-result-block-text')}
         </div>
     );
 };

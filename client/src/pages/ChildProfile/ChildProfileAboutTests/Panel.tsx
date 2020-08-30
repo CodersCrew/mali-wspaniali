@@ -13,12 +13,14 @@ export const Panel: FC<Props> = ({ title, children }) => {
     return (
         <Accordion className={classes.panel}>
             <PanelSummary>{title}</PanelSummary>
-            <AccordionDetails className={classes.details}>{children}</AccordionDetails>
+            <AccordionDetails className={classes.details}>
+                {children}
+            </AccordionDetails>
         </Accordion>
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     panel: {
         '&:first-child': {
             marginTop: 0,

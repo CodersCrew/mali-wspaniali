@@ -5,14 +5,20 @@ import { HomePageInfoHeader } from './HomePageInfoHeader';
 import { HomePageInfoContent } from './HomePageInfoContent';
 import { HomePageInfoPropTypes } from './types';
 
-export const HomePageInfo = ({ toggleInfoComponent }: HomePageInfoPropTypes) => {
+export const HomePageInfo = ({
+    toggleInfoComponent,
+}: HomePageInfoPropTypes) => {
     const [isReadMoreBtnClicked, setIsReadMoreBtnClicked] = useState(false);
     const classes = useStyles();
 
     const toggleInfoText = () => setIsReadMoreBtnClicked(!isReadMoreBtnClicked);
 
     return (
-        <Grid className={`${classes.infoContainer} ${!isReadMoreBtnClicked ? classes.smallInfoContainer : ''}`}>
+        <Grid
+            className={`${classes.infoContainer} ${
+                !isReadMoreBtnClicked ? classes.smallInfoContainer : ''
+            }`}
+        >
             <HomePageInfoHeader />
             <HomePageInfoContent
                 toggleInfoText={toggleInfoText}

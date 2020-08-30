@@ -9,8 +9,14 @@ export const HomePageInfoHeader = () => {
 
     return (
         <div className={classes.headerContainer}>
-            <img src={InfoImage} alt="mali_wspaniali_info" className={classes.headerImage} />
-            <h2 className={classes.headerTitle}>{t('home-page-content.foundation-header')}</h2>
+            <img
+                src={InfoImage}
+                alt="mali_wspaniali_info"
+                className={classes.headerImage}
+            />
+            <h2 className={classes.headerTitle}>
+                {t('home-page-content.foundation-header')}
+            </h2>
         </div>
     );
 };

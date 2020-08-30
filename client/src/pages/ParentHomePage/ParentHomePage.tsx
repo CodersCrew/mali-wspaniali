@@ -14,7 +14,9 @@ import { activePage } from '../../apollo_client';
 
 export const ParentHomePage = () => {
     const user = useContext(UserContext);
-    const { data } = useQuery<{ lastArticles: Article[] }>(LAST_ARTICLES, { variables: { count: 6 } });
+    const { data } = useQuery<{ lastArticles: Article[] }>(LAST_ARTICLES, {
+        variables: { count: 6 },
+    });
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -31,8 +33,12 @@ export const ParentHomePage = () => {
             </Grid>
             <Grid item xs={12}>
                 <p className={classes.description}>
-                    <span>{t('home-page-content.check-children-activity')} </span>
-                    <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                    <span>
+                        {t('home-page-content.check-children-activity')}{' '}
+                    </span>
+                    <span className={classes.link}>
+                        {t('home-page-content.mali-wspaniali')}
+                    </span>
                 </p>
             </Grid>
             <HomePageChildren children={user.children} />

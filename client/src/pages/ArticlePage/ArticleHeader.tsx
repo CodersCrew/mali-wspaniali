@@ -1,5 +1,11 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/core';
+import {
+    makeStyles,
+    createStyles,
+    Grid,
+    Typography,
+    Theme,
+} from '@material-ui/core';
 import { lineHeight, letterSpace } from '../../fontStyle';
 import { textColor } from '../../colors';
 
@@ -8,7 +14,9 @@ export const ArticleHeader = ({ title }: { title: string }) => {
 
     return (
         <Grid className={classes.headerLongTitle} item xs={10}>
-            <Typography className={classes.headerLongTitleText}>{title}</Typography>
+            <Typography className={classes.headerLongTitleText}>
+                {title}
+            </Typography>
         </Grid>
     );
 };

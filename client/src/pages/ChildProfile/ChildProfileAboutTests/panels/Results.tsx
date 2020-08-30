@@ -42,14 +42,33 @@ export const Results = () => {
 
     return (
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
-            <Typography className={classes.title}>{t(`${T_PREFIX}.title`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography>
+            <Typography className={classes.title}>
+                {t(`${T_PREFIX}.title`)}
+            </Typography>
+            <Typography className={classes.text}>
+                {t(`${T_PREFIX}.text1`)}
+            </Typography>
+            <Typography className={classes.text}>
+                {t(`${T_PREFIX}.text2`)}
+            </Typography>
             <div className={classes.scores}>
                 {scores.map(({ color, description, label, value }) => (
-                    <Box key={label} display="flex" flexDirection="column" alignItems="center">
-                        <CircleChart color={color} maxValue={100} value={value} label={label} />
-                        <div className={classes.scoreDescription} style={{ backgroundColor: color }}>
+                    <Box
+                        key={label}
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                    >
+                        <CircleChart
+                            color={color}
+                            maxValue={100}
+                            value={value}
+                            label={label}
+                        />
+                        <div
+                            className={classes.scoreDescription}
+                            style={{ backgroundColor: color }}
+                        >
                             {description}
                         </div>
                     </Box>
@@ -59,7 +78,7 @@ export const Results = () => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 21,
         fontWeight: 500,

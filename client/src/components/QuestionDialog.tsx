@@ -12,7 +12,11 @@ export const openQuestionDialog = (props: QuestionDialogProps) => {
     return openDialog<QuestionDialogProps>(QuestionDialog, props);
 };
 
-const QuestionDialog = ({ question, onClose, makeDecision }: QuestionDialogProps & ActionDialog) => {
+const QuestionDialog = ({
+    question,
+    onClose,
+    makeDecision,
+}: QuestionDialogProps & ActionDialog) => {
     const { t } = useTranslation();
 
     const onAccepted = () => {
@@ -33,7 +37,12 @@ const QuestionDialog = ({ question, onClose, makeDecision }: QuestionDialogProps
                     autoFocus
                     innerText={t('question-dialog.yes')}
                 />
-                <ButtonPrimary onClick={onDeclined} variant="text" autoFocus innerText={t('question-dialog.no')} />
+                <ButtonPrimary
+                    onClick={onDeclined}
+                    variant="text"
+                    autoFocus
+                    innerText={t('question-dialog.no')}
+                />
             </DialogActions>
         </Dialog>
     );

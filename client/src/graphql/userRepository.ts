@@ -8,7 +8,9 @@ export interface LoginInput {
     password: string;
 }
 
-export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>> {
+export function createUser(
+    user: UserInput,
+): Promise<FetchResult<ReturnedStatus>> {
     return client.mutate({
         mutation: gql`
             mutation createUser($user: UserInput!) {
@@ -115,7 +117,9 @@ export function getUser(): Promise<ApolloQueryResult<{ me: Me }>> {
     });
 }
 
-export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User }>> {
+export function getUserById(
+    id: string,
+): Promise<ApolloQueryResult<{ user: User }>> {
     return client.query({
         query: gql`
             {
@@ -153,7 +157,9 @@ export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User 
     });
 }
 
-export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: User[] }>> {
+export function getAllUsers(
+    role?: string,
+): Promise<ApolloQueryResult<{ users: User[] }>> {
     if (role) {
         return client.query({
             query: gql`
@@ -231,7 +237,9 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
     });
 }
 
-export function getAllChildren(): Promise<ApolloQueryResult<{ allChildren: Child[] }>> {
+export function getAllChildren(): Promise<
+    ApolloQueryResult<{ allChildren: Child[] }>
+> {
     return client.query({
         query: gql`
             {

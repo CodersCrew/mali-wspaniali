@@ -5,7 +5,12 @@ import { AgreementModalProps } from './types';
 
 const T_PREFIX = 'registration-page.agreements';
 
-export const AgreementModal = ({ open, agreementModal, toggleModal, agreementHeader }: AgreementModalProps) => {
+export const AgreementModal = ({
+    open,
+    agreementModal,
+    toggleModal,
+    agreementHeader,
+}: AgreementModalProps) => {
     const { t } = useTranslation();
 
     const body = (

@@ -12,7 +12,13 @@ interface Props {
     labelSuffix?: string;
 }
 
-export const CircleChart = ({ color, value, maxValue, label, labelSuffix }: Props) => {
+export const CircleChart = ({
+    color,
+    value,
+    maxValue,
+    label,
+    labelSuffix,
+}: Props) => {
     const classes = useStyles();
 
     const dataEntry: DataEntry = { color, value };

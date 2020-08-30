@@ -16,7 +16,9 @@ export const ForgotPasswordPage = () => {
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [imageState, setImageState] = useState<ImageState>('ERROR');
-    const [resetPasswordState, setResetPasswordState] = useState<'FORM' | 'CONFIRMATION'>('FORM');
+    const [resetPasswordState, setResetPasswordState] = useState<
+        'FORM' | 'CONFIRMATION'
+    >('FORM');
 
     const handleInputChange = (value: string): void => {
         if (value === '') {

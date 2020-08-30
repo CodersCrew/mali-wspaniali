@@ -1,4 +1,7 @@
-import { Theme as MuiTheme, ThemeOptions as MuiThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import {
+    Theme as MuiTheme,
+    ThemeOptions as MuiThemeOptions,
+} from '@material-ui/core/styles/createMuiTheme';
 
 export type ThemeObject = MuiThemeOptions;
 

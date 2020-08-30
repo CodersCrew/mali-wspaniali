@@ -1,5 +1,10 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, makeStyles } from '@material-ui/core';
+import {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    makeStyles,
+} from '@material-ui/core';
 import clsx from 'clsx';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
@@ -17,7 +22,13 @@ interface Props {
     tests: TestResult[];
 }
 
-export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props) => {
+export const GroupedTests = ({
+    isExpanded,
+    onOpen,
+    date,
+    onClose,
+    tests,
+}: Props) => {
     const classes = useStyles();
 
     return (
@@ -36,7 +47,9 @@ export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props
                     date={date}
                 />
             </AccordionSummary>
-            <AccordionDetails className={classes.expansionPanelDetails}>{getTestSections(tests)}</AccordionDetails>
+            <AccordionDetails className={classes.expansionPanelDetails}>
+                {getTestSections(tests)}
+            </AccordionDetails>
         </Accordion>
     );
 };

@@ -6,16 +6,29 @@ import Logo from '../../assets/MALWSP_logo.png';
 
 type AuthTemplateType = 'login' | 'register';
 
-export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, type }) => {
+export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({
+    children,
+    type,
+}) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <div className={classes.background}>
             <div className={classes.logoContainer}>
-                <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
-                <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
-                {type === 'register' && <p className={classes.subheading}>{t('login-wrapper.subheading')}</p>}
+                <img
+                    className={classes.logo}
+                    src={Logo}
+                    alt="Mali Wspaniali Logo"
+                />
+                <div className={classes.welcomeText}>
+                    {t('login-wrapper.welcome-text')}
+                </div>
+                {type === 'register' && (
+                    <p className={classes.subheading}>
+                        {t('login-wrapper.subheading')}
+                    </p>
+                )}
             </div>
             <div className={classes.formContainer}>{children}</div>
         </div>

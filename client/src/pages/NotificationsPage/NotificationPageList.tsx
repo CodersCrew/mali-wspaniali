@@ -30,13 +30,23 @@ export const NotificationPageList = ({ notifications }: Props) => {
             <Table className={classes.table} aria-label="Notification table">
                 <TableHead>
                     <TableRow className={classes.heading}>
-                        <TableCell className={classes.content}>{t('notifications-page.content')}</TableCell>
-                        <TableCell className={classes.date}>{t('notifications-page.date')}</TableCell>
+                        <TableCell className={classes.content}>
+                            {t('notifications-page.content')}
+                        </TableCell>
+                        <TableCell className={classes.date}>
+                            {t('notifications-page.date')}
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {notifications.map(notification => {
-                        const { _id, values, templateId, date, isRead } = notification;
+                    {notifications.map((notification) => {
+                        const {
+                            _id,
+                            values,
+                            templateId,
+                            date,
+                            isRead,
+                        } = notification;
 
                         const text = getNotificationContent(templateId, values);
 

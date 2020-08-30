@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Modal, Container, Typography, List, ListSubheader } from '@material-ui/core';
+import {
+    Modal,
+    Container,
+    Typography,
+    List,
+    ListSubheader,
+} from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { ButtonSecondary } from '../../components/Button';
 import { AgreementListItem } from './AgreementListItem';
@@ -34,13 +40,24 @@ export const AdminAgreementsPage = () => {
             {agreements.length > 0 ? (
                 <>
                     <Container>
-                        <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
+                        <Typography variant="h4">
+                            {t('admin-agreements-page.agreements-list')}
+                        </Typography>
                         <Container>
                             <List
-                                subheader={<ListSubheader>{t('admin-agreements-page.agreements-all')}</ListSubheader>}
+                                subheader={
+                                    <ListSubheader>
+                                        {t(
+                                            'admin-agreements-page.agreements-all',
+                                        )}
+                                    </ListSubheader>
+                                }
                             >
-                                {agreements.map(agreement => (
-                                    <AgreementListItem key={agreement._id} agreement={agreement} />
+                                {agreements.map((agreement) => (
+                                    <AgreementListItem
+                                        key={agreement._id}
+                                        agreement={agreement}
+                                    />
                                 ))}
                             </List>
                         </Container>
@@ -74,7 +91,9 @@ function EmptyResults() {
     return (
         <>
             <Container>
-                <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
+                <Typography variant="h4">
+                    {t('admin-agreements-page.agreements-list')}
+                </Typography>
                 <Typography variant="body1">{t('no-results')}</Typography>
             </Container>
         </>

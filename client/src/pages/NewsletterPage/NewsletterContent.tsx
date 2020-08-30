@@ -30,7 +30,15 @@ export const NewsletterContent: React.FC<{
     };
     message: SingleFieldType;
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
-}> = ({ handleTypeDelete, handleChange, type, topic, recipients, message, setFields }) => {
+}> = ({
+    handleTypeDelete,
+    handleChange,
+    type,
+    topic,
+    recipients,
+    message,
+    setFields,
+}) => {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
@@ -47,24 +55,49 @@ export const NewsletterContent: React.FC<{
     const classes = useStyles();
 
     const newsletterTypesArray = [
-        { name: t('newsletter.newsletter-types.results'), color: newsletterColors.typeColors.yellow },
-        { name: t('newsletter.newsletter-types.agreements'), color: newsletterColors.typeColors.blue },
-        { name: t('newsletter.newsletter-types.events'), color: newsletterColors.typeColors.red },
-        { name: t('newsletter.newsletter-types.important'), color: newsletterColors.typeColors.green },
-        { name: t('newsletter.newsletter-types.other'), color: newsletterColors.typeColors.purple },
+        {
+            name: t('newsletter.newsletter-types.results'),
+            color: newsletterColors.typeColors.yellow,
+        },
+        {
+            name: t('newsletter.newsletter-types.agreements'),
+            color: newsletterColors.typeColors.blue,
+        },
+        {
+            name: t('newsletter.newsletter-types.events'),
+            color: newsletterColors.typeColors.red,
+        },
+        {
+            name: t('newsletter.newsletter-types.important'),
+            color: newsletterColors.typeColors.green,
+        },
+        {
+            name: t('newsletter.newsletter-types.other'),
+            color: newsletterColors.typeColors.purple,
+        },
     ];
 
     const setMenuItems = (array: { name: string; color: string }[]) => {
-        return array.map(item => {
+        return array.map((item) => {
             return (
-                <MenuItem key={item.name} value={item.name} className={classes.selectMenuItem}>
+                <MenuItem
+                    key={item.name}
+                    value={item.name}
+                    className={classes.selectMenuItem}
+                >
                     <Checkbox
                         size={'small'}
                         checked={type.value === item.name}
                         className={classes.selectMenuCheckbox}
                     />
-                    <div className={classes.square} style={{ backgroundColor: item.color }}></div>
-                    <ListItemText classes={{ primary: classes.selectMenuItemText }} primary={item.name} />
+                    <div
+                        className={classes.square}
+                        style={{ backgroundColor: item.color }}
+                    ></div>
+                    <ListItemText
+                        classes={{ primary: classes.selectMenuItemText }}
+                        primary={item.name}
+                    />
                 </MenuItem>
             );
         });
@@ -75,12 +108,33 @@ export const NewsletterContent: React.FC<{
     };
 
     return (
-        <div className={disabled ? `${classes.container} ${classes.containerDisabled}` : classes.container}>
-            <Typography className={disabled ? `${classes.heading} ${classes.headingDisabled}` : classes.heading}>
+        <div
+            className={
+                disabled
+                    ? `${classes.container} ${classes.containerDisabled}`
+                    : classes.container
+            }
+        >
+            <Typography
+                className={
+                    disabled
+                        ? `${classes.heading} ${classes.headingDisabled}`
+                        : classes.heading
+                }
+            >
                 {t('newsletter.content-heading')}
-                <IconButton onClick={handleModalOpen} size={'small'} color={'inherit'} className={classes.helpButton}>
+                <IconButton
+                    onClick={handleModalOpen}
+                    size={'small'}
+                    color={'inherit'}
+                    className={classes.helpButton}
+                >
                     <HelpOutlineIcon
-                        className={disabled ? `${classes.helpIcon} ${classes.helpIconDisabled}` : classes.helpIcon}
+                        className={
+                            disabled
+                                ? `${classes.helpIcon} ${classes.helpIconDisabled}`
+                                : classes.helpIcon
+                        }
                     />
                 </IconButton>
             </Typography>
@@ -90,7 +144,11 @@ export const NewsletterContent: React.FC<{
                 required
                 onChange={handleChange}
                 name="type"
-                label={type.value ? t('newsletter.type-input-label-filled') : t('newsletter.type-input-label')}
+                label={
+                    type.value
+                        ? t('newsletter.type-input-label-filled')
+                        : t('newsletter.type-input-label')
+                }
                 fullWidth
                 select
                 SelectProps={{
@@ -102,27 +160,33 @@ export const NewsletterContent: React.FC<{
                             horizontal: 'left',
                         },
                     },
-                    renderValue: value => {
-                        const item = newsletterTypesArray.find(element => element.name === value);
-                        const itemBackgroundColor = item ? item.color : newsletterColors.typeColors.blue;
+                    renderValue: (value) => {
+                        const item = newsletterTypesArray.find(
+                            (element) => element.name === value,
+                        );
+                        const itemBackgroundColor = item
+                            ? item.color
+                            : newsletterColors.typeColors.blue;
 
                         return (
                             <Chip
                                 style={{ backgroundColor: itemBackgroundColor }}
                                 classes={{
                                     label:
-                                        (value as string) === t('newsletter.newsletter-types.results')
+                                        (value as string) ===
+                                        t('newsletter.newsletter-types.results')
                                             ? classes.inputChipBlackLabel
                                             : classes.inputChipWhiteLabel,
                                     deleteIcon:
-                                        (value as string) === t('newsletter.newsletter-types.results')
+                                        (value as string) ===
+                                        t('newsletter.newsletter-types.results')
                                             ? undefined
                                             : classes.chipWhiteIcon,
                                 }}
                                 size={'small'}
                                 label={value as string}
                                 onDelete={handleTypeDelete}
-                                onMouseDown={event => {
+                                onMouseDown={(event) => {
                                     event.stopPropagation();
                                 }}
                             />
@@ -141,7 +205,9 @@ export const NewsletterContent: React.FC<{
                     },
                 }}
                 error={type.error}
-                helperText={type.error ? t('newsletter.type-helper-text') : null}
+                helperText={
+                    type.error ? t('newsletter.type-helper-text') : null
+                }
             >
                 {setMenuItems(newsletterTypesArray)}
             </TextField>
@@ -149,7 +215,11 @@ export const NewsletterContent: React.FC<{
                 disabled={disabled}
                 value={topic.value}
                 name="topic"
-                label={topic.value ? t('newsletter.topic-input-label-filled') : t('newsletter.topic-input-label')}
+                label={
+                    topic.value
+                        ? t('newsletter.topic-input-label-filled')
+                        : t('newsletter.topic-input-label')
+                }
                 required
                 onChange={handleChange}
                 className={classes.textfield}
@@ -166,7 +236,9 @@ export const NewsletterContent: React.FC<{
                     },
                 }}
                 error={topic.error}
-                helperText={topic.error ? t('newsletter.topic-helper-text') : null}
+                helperText={
+                    topic.error ? t('newsletter.topic-helper-text') : null
+                }
             />
             <WorkSpace message={message.value} setFields={setFields} />
         </div>

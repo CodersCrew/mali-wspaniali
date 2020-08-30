@@ -18,7 +18,13 @@ export interface Props {
     open: boolean;
 }
 
-export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) => {
+export const AdminSidebar = ({
+    onClick,
+    onClose,
+    user,
+    active,
+    open,
+}: Props) => {
     const { t } = useTranslation();
     const device = useBreakpoints();
     const [, innerMargin] = getMenuWidth(device);
@@ -34,11 +40,16 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
     const ResultsItem = ItemFactory.create({ name: 'results' });
     const NotificationsItem = ItemFactory.create({
         name: 'notifications',
-        rightIcon: notificationsCount > 0 ? <SecondaryLabel label={notificationsCount} /> : undefined,
+        rightIcon:
+            notificationsCount > 0 ? (
+                <SecondaryLabel label={notificationsCount} />
+            ) : undefined,
     });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
-    const CreateBlogArticleItem = ItemFactory.create({ name: 'create-blog-article' });
+    const CreateBlogArticleItem = ItemFactory.create({
+        name: 'create-blog-article',
+    });
     const NewsletterItem = ItemFactory.create({ name: 'newsletter' });
     const ArchiveItem = ItemFactory.create({ name: 'archive' });
     const AgreementsItem = ItemFactory.create({ name: 'agreements' });
@@ -57,7 +68,10 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
                     <SingleItem item={AgreementsItem} onClick={onClick} />
                     <SingleItem item={NewsletterItem} onClick={onClick} />
                     <SingleItem item={ArchiveItem} onClick={onClick} />
-                    <SingleItem item={CreateBlogArticleItem} onClick={onClick} />
+                    <SingleItem
+                        item={CreateBlogArticleItem}
+                        onClick={onClick}
+                    />
                     <SingleItem item={NotificationsItem} onClick={onClick} />
                     <SingleItem item={SettingsItem} onClick={onClick} />
                 </List>

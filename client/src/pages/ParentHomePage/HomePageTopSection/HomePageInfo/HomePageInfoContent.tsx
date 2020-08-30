@@ -19,12 +19,22 @@ export const HomePageInfoContent = ({
     return (
         <>
             <Grid className={classes.contentContainer}>
-                <Close className={classes.contentCloseIcon} onClick={() => toggleInfoComponent()} />
-                <h2 className={classes.contentTitle}>{t('home-page-content.foundation-header')}</h2>
-                <p className={classes.contentDescription}>{t('home-page-content.foundation-content')}</p>
+                <Close
+                    className={classes.contentCloseIcon}
+                    onClick={() => toggleInfoComponent()}
+                />
+                <h2 className={classes.contentTitle}>
+                    {t('home-page-content.foundation-header')}
+                </h2>
+                <p className={classes.contentDescription}>
+                    {t('home-page-content.foundation-content')}
+                </p>
             </Grid>
             <Grid item xs={4} className={classes.contentButtonWrapper}>
-                <button className={classes.contentReadMoreBtn} onClick={() => toggleInfoText()}>
+                <button
+                    className={classes.contentReadMoreBtn}
+                    onClick={() => toggleInfoText()}
+                >
                     {renderInfoButtonText}
                 </button>
             </Grid>

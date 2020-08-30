@@ -1,10 +1,20 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, List, Grid, Divider } from '@material-ui/core';
+import {
+    makeStyles,
+    Theme,
+    createStyles,
+    List,
+    Grid,
+    Divider,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Me } from '../../../graphql/types';
 import { CollapsibleList } from './CollapsibleList';
-import { getParentMenuItemFactory, getChildMenuItemFactory } from './menuItemFactory';
+import {
+    getParentMenuItemFactory,
+    getChildMenuItemFactory,
+} from './menuItemFactory';
 import { SingleItem } from './SingleItem';
 import { SecondaryLabel } from '../../Label';
 import { MenuDrawer } from './MenuDrawer';
@@ -21,7 +31,13 @@ export interface Props {
     open: boolean;
 }
 
-export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) => {
+export const ParentSidebar = ({
+    onClick,
+    onClose,
+    user,
+    active,
+    open,
+}: Props) => {
     const device = useBreakpoints();
 
     const [, innerMargin] = getMenuWidth(device);
@@ -38,7 +54,9 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
     const MainPageItem = ItemFactory.create({ name: 'main-page' });
     const NotificationsItem = ItemFactory.create({
         name: 'notifications',
-        rightIcon: notificationsCount ? <SecondaryLabel label={notificationsCount} /> : undefined,
+        rightIcon: notificationsCount ? (
+            <SecondaryLabel label={notificationsCount} />
+        ) : undefined,
     });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
@@ -56,10 +74,15 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
                 <List>
                     <SingleItem item={MainPageItem} onClick={onClick} />
                     <Divider />
-                    {user.children.map(child => {
-                        const ChildItemFactory = getChildMenuItemFactory({ active, t });
+                    {user.children.map((child) => {
+                        const ChildItemFactory = getChildMenuItemFactory({
+                            active,
+                            t,
+                        });
 
-                        const { mainItem, subItems } = ChildItemFactory.create({ child });
+                        const { mainItem, subItems } = ChildItemFactory.create({
+                            child,
+                        });
 
                         return (
                             <CollapsibleList
@@ -70,7 +93,11 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
                             />
                         );
                     })}
-                    <CollapsibleList mainItem={BlogItem.mainItem} subItems={BlogItem.subItems} onClick={onClick} />
+                    <CollapsibleList
+                        mainItem={BlogItem.mainItem}
+                        subItems={BlogItem.subItems}
+                        onClick={onClick}
+                    />
                     <SingleItem item={AgreementsItem} onClick={onClick} />
                     <SingleItem item={NotificationsItem} onClick={onClick} />
                     <SingleItem item={SettingsItem} onClick={onClick} />

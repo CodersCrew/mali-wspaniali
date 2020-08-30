@@ -22,7 +22,12 @@ interface Props {
     contentHTML: string;
 }
 
-export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Props) => {
+export const ArticleContent = ({
+    category,
+    header,
+    pictureUrl,
+    contentHTML,
+}: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -44,8 +49,12 @@ export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Pr
                                 disableTouchRipple
                             >
                                 <Box className={classes.contentCategoryTextBox}>
-                                    <Typography className={classes.contentCategoryText}>
-                                        {t(`single-article.${category}`).toUpperCase()}
+                                    <Typography
+                                        className={classes.contentCategoryText}
+                                    >
+                                        {t(
+                                            `single-article.${category}`,
+                                        ).toUpperCase()}
                                     </Typography>
                                 </Box>
                             </ColorButton>
@@ -55,12 +64,18 @@ export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Pr
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentHeader} item xs={12}>
-                    <Typography className={classes.contentHeaderText}>{header}</Typography>
+                    <Typography className={classes.contentHeaderText}>
+                        {header}
+                    </Typography>
                 </Grid>
             </Grid>
             <Grid container direction="row">
                 <Grid className={classes.contentPhoto} item xs={12}>
-                    <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
+                    <CardMedia
+                        className={classes.contentPhotoMedia}
+                        component="img"
+                        image={pictureUrl}
+                    />
                 </Grid>
             </Grid>
             <Grid container direction="row">
@@ -87,14 +102,18 @@ const createColorButton = (category: string) => {
 };
 
 const getSingleArticleColor = (category: string) => {
-    const { categories }: { categories: { [index: string]: string } } = SingleArticleColors;
+    const {
+        categories,
+    }: { categories: { [index: string]: string } } = SingleArticleColors;
     const selectedColor = categories[category];
 
     return selectedColor || categories.emotions;
 };
 
 const getSingleArticleColorHover = (category: string) => {
-    const { categoriesHover }: { categoriesHover: { [index: string]: string } } = SingleArticleColors;
+    const {
+        categoriesHover,
+    }: { categoriesHover: { [index: string]: string } } = SingleArticleColors;
     const selectedColor = categoriesHover[category];
 
     return selectedColor || categoriesHover.emotions;

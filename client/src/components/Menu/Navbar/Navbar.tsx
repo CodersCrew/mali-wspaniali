@@ -18,13 +18,22 @@ interface Props {
     onLanguageChange: (language: string) => void;
 }
 
-export function Navbar({ device, language, notifications, activePage, onSidebarToggle, onLanguageChange }: Props) {
-    const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
+export function Navbar({
+    device,
+    language,
+    notifications,
+    activePage,
+    onSidebarToggle,
+    onLanguageChange,
+}: Props) {
+    const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(
+        false,
+    );
     const classes = useStyles();
     const { t } = useTranslation();
 
     function handleNotificationPopupClick() {
-        setIsNotificationPopupOpen(prev => !prev);
+        setIsNotificationPopupOpen((prev) => !prev);
     }
 
     return (

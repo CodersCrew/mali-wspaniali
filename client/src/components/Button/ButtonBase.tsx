@@ -1,13 +1,23 @@
 import React, { FC } from 'react';
-import { Button, ButtonProps, makeStyles, createStyles } from '@material-ui/core/';
+import {
+    Button,
+    ButtonProps,
+    makeStyles,
+    createStyles,
+} from '@material-ui/core/';
 import clsx from 'clsx';
 
 export type CustomButtonProps = ButtonProps & {
-    innerText?: string,
-    variant: string,
+    innerText?: string;
+    variant?: string;
 };
 
-export const ButtonBase: FC<CustomButtonProps> = ({ innerText, className, children, ...props }) => {
+export const ButtonBase: FC<CustomButtonProps> = ({
+    innerText,
+    className,
+    children,
+    ...props
+}) => {
     const classes = useStyles();
 
     let content;
@@ -17,10 +27,10 @@ export const ButtonBase: FC<CustomButtonProps> = ({ innerText, className, childr
         content = innerText;
     } else {
         content = '';
-    };
+    }
 
     return (
-        <Button {...props} className={clsx(className, classes.button)} >
+        <Button {...props} className={clsx(className, classes.button)}>
             {content}
         </Button>
     );

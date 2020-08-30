@@ -1,5 +1,10 @@
 import React from 'react';
-import { TextField, Typography, makeStyles, createStyles } from '@material-ui/core';
+import {
+    TextField,
+    Typography,
+    makeStyles,
+    createStyles,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
 import { backgroundColor, secondaryColor, white } from '../../colors';
@@ -14,14 +19,23 @@ type Props = {
     email: string;
 };
 
-export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Props) => {
+export const ResetPasswordForm = ({
+    onChange,
+    onSubmit,
+    isDisabled,
+    email,
+}: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
     return (
         <>
-            <Typography className={classes.subtitle}>{t(`${tPrefix}.its-ok`)}</Typography>
-            <Typography className={`${classes.subtitle} ${classes.subtitleThin}`}>
+            <Typography className={classes.subtitle}>
+                {t(`${tPrefix}.its-ok`)}
+            </Typography>
+            <Typography
+                className={`${classes.subtitle} ${classes.subtitleThin}`}
+            >
                 {t(`${tPrefix}.receive-link`)}
             </Typography>
             <TextField
@@ -43,8 +57,12 @@ export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Pro
                 />
             </div>
             <div className={classes.underlinedText}>
-                <Typography variant="caption">{t(`${tPrefix}.problem`)}</Typography>
-                <Typography variant="caption">{t(`${tPrefix}.contact`)}</Typography>
+                <Typography variant="caption">
+                    {t(`${tPrefix}.problem`)}
+                </Typography>
+                <Typography variant="caption">
+                    {t(`${tPrefix}.contact`)}
+                </Typography>
             </div>
         </>
     );

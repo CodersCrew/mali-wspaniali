@@ -12,8 +12,12 @@ export const ResetPasswordConfirmation = () => {
 
     return (
         <>
-            <Typography className={classes.subtitle}>{t(`${tPrefix}.email-sent`)}</Typography>
-            <Typography className={classes.subtitle}>{t(`${tPrefix}.when-received`)}</Typography>
+            <Typography className={classes.subtitle}>
+                {t(`${tPrefix}.email-sent`)}
+            </Typography>
+            <Typography className={classes.subtitle}>
+                {t(`${tPrefix}.when-received`)}
+            </Typography>
             <ButtonSecondary
                 variant="contained"
                 href="/login"

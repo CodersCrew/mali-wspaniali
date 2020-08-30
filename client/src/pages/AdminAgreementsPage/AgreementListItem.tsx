@@ -1,5 +1,10 @@
 import React from 'react';
-import { ListItem, ListItemIcon, ListItemText, Checkbox } from '@material-ui/core';
+import {
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Checkbox,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Agreement } from '../../graphql/types';
 
@@ -26,11 +31,16 @@ export function AgreementListItem({ agreement }: Props) {
                 </ListItemIcon>
                 <ListItemText
                     id={labelId}
-                    primary={`${t('admin-agreements-page.agreement')} ${(agreement as any).title}`}
+                    primary={`${t('admin-agreements-page.agreement')} ${
+                        (agreement as any).title
+                    }`}
                 />
                 <ListItemText
                     id={`${labelId}-req`}
-                    primary={(agreement as any).required && t('admin-agreements-page.req')}
+                    primary={
+                        (agreement as any).required &&
+                        t('admin-agreements-page.req')
+                    }
                 />
             </ListItem>
         </>

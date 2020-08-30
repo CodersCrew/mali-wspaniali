@@ -38,7 +38,7 @@ export const RegistrationPassword = ({
 }: RegistrationPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordValidation, setPasswordValidation] = useState(
-        initialPasswordValidation
+        initialPasswordValidation,
     );
 
     const { t } = useTranslation();

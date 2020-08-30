@@ -1,5 +1,13 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
+import {
+    makeStyles,
+    createStyles,
+    Grid,
+    Avatar,
+    Typography,
+    Box,
+    Theme,
+} from '@material-ui/core';
 import { lineHeight, letterSpace } from '../../fontStyle';
 import { Redactor } from '../../graphql/types';
 
@@ -12,7 +20,11 @@ export const ArticleRedactor = ({ redactor }: Props) => {
 
     return (
         <Grid container direction="row">
-            <Grid className={classes.contentRedactorAvatarContainer} item xs={3}>
+            <Grid
+                className={classes.contentRedactorAvatarContainer}
+                item
+                xs={3}
+            >
                 <Avatar
                     className={classes.contentRedactorAvatar}
                     alt={`${redactor.firstName} ${redactor.lastName}`}
@@ -21,15 +33,29 @@ export const ArticleRedactor = ({ redactor }: Props) => {
             </Grid>
             <Grid item xs={6}>
                 <Grid container direction="column">
-                    <Grid className={classes.contentRedactorNameContainer} item xs={3}>
+                    <Grid
+                        className={classes.contentRedactorNameContainer}
+                        item
+                        xs={3}
+                    >
                         <Typography
                             className={classes.contentRedactorName}
                         >{`${redactor.firstName} ${redactor.lastName}`}</Typography>
-                        <Typography className={classes.contentRedactorProf}>{redactor.profession}</Typography>
+                        <Typography className={classes.contentRedactorProf}>
+                            {redactor.profession}
+                        </Typography>
                     </Grid>
-                    <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
+                    <Grid
+                        className={classes.contentRedactorDescriptionContainer}
+                        item
+                        xs={9}
+                    >
                         <Box className={classes.contentRedactorDescriptionBox}>
-                            <Typography className={classes.contentRedactorDescription}>{redactor.biography}</Typography>
+                            <Typography
+                                className={classes.contentRedactorDescription}
+                            >
+                                {redactor.biography}
+                            </Typography>
                         </Box>
                     </Grid>
                 </Grid>

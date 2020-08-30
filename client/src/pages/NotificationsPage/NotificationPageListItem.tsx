@@ -13,13 +13,30 @@ interface Props {
     onClick: (value: string) => void;
 }
 
-export const NotificationPageListItem = ({ text, date, id, isRead, onClick }: Props) => {
+export const NotificationPageListItem = ({
+    text,
+    date,
+    id,
+    isRead,
+    onClick,
+}: Props) => {
     const classes = useStyles();
 
     return (
-        <TableRow key={id} onClick={() => onClick(id)} className={clsx({ [classes.background]: true, read: isRead })}>
-            <TableCell key={id} className={classes.text} component="th" scope="row">
-                <Notifications className={clsx({ [classes.icon]: true, read: isRead })} />
+        <TableRow
+            key={id}
+            onClick={() => onClick(id)}
+            className={clsx({ [classes.background]: true, read: isRead })}
+        >
+            <TableCell
+                key={id}
+                className={classes.text}
+                component="th"
+                scope="row"
+            >
+                <Notifications
+                    className={clsx({ [classes.icon]: true, read: isRead })}
+                />
                 {text}
             </TableCell>
             <TableCell>{moment(date).calendar()}</TableCell>

@@ -1,5 +1,12 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@material-ui/core';
+import {
+    Card,
+    CardMedia,
+    CardContent,
+    Typography,
+    makeStyles,
+    Theme,
+} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { ArticleCategory } from '../../graphql/types';
@@ -14,16 +21,32 @@ interface Props {
     category: ArticleCategory;
 }
 
-export const BlogArticleCard = ({ pictureUrl, title, description, link, category }: Props) => {
+export const BlogArticleCard = ({
+    pictureUrl,
+    title,
+    description,
+    link,
+    category,
+}: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <Card className={classes.card} elevation={0}>
-            <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
+            <CardMedia
+                component="img"
+                alt={title}
+                image={pictureUrl}
+                title={title}
+                className={classes.cardImage}
+            />
             <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="subtitle1" className={classes.articleTitle}>
+                <Typography
+                    gutterBottom
+                    variant="subtitle1"
+                    className={classes.articleTitle}
+                >
                     {title}
                 </Typography>
                 <Typography variant="body2">{description}</Typography>
