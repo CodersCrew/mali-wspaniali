@@ -2,60 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
-<<<<<<< HEAD
-=======
 import { useQuery } from '@apollo/client';
-<<<<<<< HEAD
-
->>>>>>> 8a7a7401... add Pagination component
-import { CategoryTabs } from './CategoryTabs';
-=======
->>>>>>> a65d1161... adjust blog menu navigation
 import { categoriesList } from './BlogCategories';
-<<<<<<< HEAD
-import { BlogMainHeader } from '../../components/BlogMainHeader';
-import { Article } from '../../graphql/types';
-=======
-import { DropDownMenu } from './DropDownMenu';
 import { BlogMainHeader } from '../../components/Blog/BlogMainHeader';
 import { Article, PaginatedArticles } from '../../graphql/types';
->>>>>>> 8a7a7401... add Pagination component
 import { Theme } from '../../theme/types';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
 import { activePage } from '../../apollo_client';
-<<<<<<< HEAD
-import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
-<<<<<<< HEAD
-import { useBreakpoints, Device } from '../../queries/useBreakpoints';
-import { CategoryTabsMobile } from './CategoryTabsMobile';
-=======
-=======
+import { useBreakpoints } from '../../queries/useBreakpoints';
 import {
     ARTICLES,
     ARTICLES_BY_CATEGORY,
 } from '../../graphql/articleRepository';
-import { useBreakpoints } from '../../queries/useBreakpoints';
->>>>>>> a65d1161... adjust blog menu navigation
 import { Pagination } from '../../components/Blog/Pagination';
 import { MobileAwareCategoryTabs } from './MobileAwareCategoryTabs';
 
 const ARTICLES_PER_PAGE = 6;
->>>>>>> 8a7a7401... add Pagination component
 
 export const ArticleListPage = () => {
     const classes = useStyles();
     const params = useParams<{ category: string }>();
     const history = useHistory();
-<<<<<<< HEAD
-    let currentPage = parseInt(params.page, 10);
-    const device = useBreakpoints();
-    const { data } = useQuery<{ articles: Article[] }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
-        variables: { page: currentPage, category: params.category },
-    });
-
-    if (Number.isNaN(currentPage) || currentPage < 1) currentPage = 1;
-=======
     const [currentPage, setCurrentPage] = useState(1);
+    const device = useBreakpoints();
     const { data, fetchMore } = useQuery<{
         paginatedArticles: PaginatedArticles;
     }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
@@ -64,31 +33,17 @@ export const ArticleListPage = () => {
             perPage: ARTICLES_PER_PAGE,
             category: params.category === 'all' ? undefined : params.category,
         },
-<<<<<<< HEAD
-    );
->>>>>>> 8a7a7401... add Pagination component
-=======
     });
->>>>>>> a65d1161... adjust blog menu navigation
 
     useEffect(() => {
         activePage([`blog-categories.${params.category}`, 'parent-menu.blog']);
         setCurrentPage(1);
     }, [params.category]);
 
-<<<<<<< HEAD
-    if (!data) return null;
-
-<<<<<<< HEAD
-=======
->>>>>>> a65d1161... adjust blog menu navigation
     function onTabChange(value: string) {
-        history.push(`/parent/blog/${value}/1`);
+        history.push(`/parent/blog/${value}`);
     }
 
-<<<<<<< HEAD
-    const articles = (data && data.articles) || [];
-=======
     if (!data)
         return (
             <MobileAwareCategoryTabs
@@ -100,7 +55,6 @@ export const ArticleListPage = () => {
         );
 
     const { articles, count, hasNext } = data.paginatedArticles;
->>>>>>> a65d1161... adjust blog menu navigation
 
     return (
         <>
@@ -113,11 +67,6 @@ export const ArticleListPage = () => {
             <div className={classes.container}>
                 <BlogMainHeader />
                 <div className={classes.gridBackground}>
-<<<<<<< HEAD
-                    <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
-                        {articles.slice(0, 6).map((article: Article) => (
-                            <Grid className={classes.gridSubContainer} key={article._id} item xs={4} zeroMinWidth>
-=======
                     <Grid
                         container
                         justify="space-around"
@@ -132,7 +81,6 @@ export const ArticleListPage = () => {
                                 xs={4}
                                 zeroMinWidth
                             >
->>>>>>> a65d1161... adjust blog menu navigation
                                 <BlogArticleCard
                                     title={article.title}
                                     pictureUrl={article.pictureUrl}
@@ -144,17 +92,12 @@ export const ArticleListPage = () => {
                         ))}
                     </Grid>
                     <Pagination
-<<<<<<< HEAD
-                        disabledPrevious={currentPage <= 1}
-                        disabledNext={articles.length < 7}
-                        handleChange={paginationQuery}
-=======
                         count={articles.length}
                         maxCount={count}
                         disabled={!hasNext}
                         hidden={articles.length < ARTICLES_PER_PAGE}
                         onClick={() => {
-                            const scrollY = window.scrollY;
+                            const { scrollY } = window;
 
                             fetchMore({
                                 variables: {
@@ -162,20 +105,24 @@ export const ArticleListPage = () => {
                                     perPage: ARTICLES_PER_PAGE,
                                     category: params.category,
                                 },
-                                updateQuery: (prev, { fetchMoreResult }) => {
+                                updateQuery: (
+                                    previousArticlesState,
+                                    { fetchMoreResult },
+                                ) => {
                                     setCurrentPage((prev) => prev + 1);
 
-                                    if (!fetchMoreResult) return prev;
+                                    if (!fetchMoreResult)
+                                        return previousArticlesState;
 
                                     return {
-                                        ...prev,
+                                        ...previousArticlesState,
                                         paginatedArticles: {
-                                            ...prev.paginatedArticles,
+                                            ...previousArticlesState.paginatedArticles,
                                             ...fetchMoreResult!
                                                 .paginatedArticles,
                                             articles: [
-                                                ...prev.paginatedArticles
-                                                    .articles,
+                                                ...previousArticlesState
+                                                    .paginatedArticles.articles,
                                                 ...fetchMoreResult!
                                                     .paginatedArticles.articles,
                                             ],
@@ -186,74 +133,8 @@ export const ArticleListPage = () => {
                                 window.scroll(0, scrollY);
                             });
                         }}
->>>>>>> a65d1161... adjust blog menu navigation
                     />
                 </div>
-=======
-    const { articles, count, hasNext } = data.paginatedArticles;
-
-    return (
-        <>
-            <BlogMainHeader />
-            <div className={classes.dropDownContainer}>
-                <DropDownMenu
-                    values={categoriesList}
-                    active={params.category}
-                    onClick={value => history.push(`/parent/blog/${value}`)}
-                />
-            </div>
-            <CategoryTabs
-                values={categoriesList}
-                active={params.category}
-                onClick={value => history.push(`/parent/blog/${value}`)}
-            />
-            <div className={classes.gridBackground}>
-                <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
-                    {articles.map((article: Article) => (
-                        <Grid className={classes.gridSubContainer} key={article._id} item xs={4} zeroMinWidth>
-                            <BlogArticleCard
-                                title={article.title}
-                                pictureUrl={article.pictureUrl}
-                                description={article.description}
-                                category={article.category}
-                                link={`/parent/article/${article._id}`}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-                <Pagination
-                    count={articles.length}
-                    maxCount={count}
-                    disabled={!hasNext}
-                    hidden={articles.length < ARTICLES_PER_PAGE}
-                    onClick={() => {
-                        const scrollY = window.scrollY;
-
-                        fetchMore({
-                            variables: { page: currentPage + 1, perPage: ARTICLES_PER_PAGE, category: params.category },
-                            updateQuery: (prev, { fetchMoreResult }) => {
-                                setCurrentPage(prev => prev + 1);
-
-                                if (!fetchMoreResult) return prev;
-
-                                return {
-                                    ...prev,
-                                    paginatedArticles: {
-                                        ...prev.paginatedArticles,
-                                        ...fetchMoreResult!.paginatedArticles,
-                                        articles: [
-                                            ...prev.paginatedArticles.articles,
-                                            ...fetchMoreResult!.paginatedArticles.articles,
-                                        ],
-                                    },
-                                };
-                            },
-                        }).then(() => {
-                            window.scroll(0, scrollY);
-                        });
-                    }}
-                />
->>>>>>> 8a7a7401... add Pagination component
             </div>
         </>
     );
