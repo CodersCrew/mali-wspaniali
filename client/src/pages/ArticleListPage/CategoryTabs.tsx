@@ -1,6 +1,6 @@
 import React from 'react';
 import { CategoryItem } from './BlogCategories';
-import { Tabs } from '../../components/Tabs';
+import { Tabs } from '../../components/Tabs/Tabs';
 import { theme } from '../../theme/theme';
 import { ChildProfileCategoryItem } from '../ChildProfile/ChildProfileCategory';
 
