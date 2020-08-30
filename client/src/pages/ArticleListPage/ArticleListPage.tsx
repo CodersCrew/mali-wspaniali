@@ -3,54 +3,64 @@ import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
 import { useQuery } from '@apollo/client';
-
-import { CategoryTabs } from './CategoryTabs';
 import { categoriesList } from './BlogCategories';
 import { Article, PaginatedArticles } from '../../graphql/types';
 import { Theme } from '../../theme/types';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
 import { activePage } from '../../apollo_client';
 import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
-import { useBreakpoints, Device } from '../../queries/useBreakpoints';
-import { CategoryTabsMobile } from './CategoryTabsMobile';
+import { useBreakpoints } from '../../queries/useBreakpoints';
 import { Pagination } from '../../components/Blog/Pagination';
+import { MobileAwareCategoryTabs } from './MobileAwareCategoryTabs';
 
 const ARTICLES_PER_PAGE = 6;
 
-export const ArticleListPage = () => {
+export function ArticleListPage() {
     const classes = useStyles();
     const params = useParams<{ category: string }>();
     const history = useHistory();
     const device = useBreakpoints();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, fetchMore } = useQuery<{ paginatedArticles: PaginatedArticles }>(
-        params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY,
-        {
-            variables: {
-                page: currentPage,
-                perPage: ARTICLES_PER_PAGE,
-                category: params.category === 'all' ? undefined : params.category,
-            },
+    const { data, fetchMore } = useQuery<{
+        paginatedArticles: PaginatedArticles;
+    }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
+        variables: {
+            page: currentPage,
+            perPage: ARTICLES_PER_PAGE,
+            category: params.category === 'all' ? undefined : params.category,
         },
-    );
+    });
 
     useEffect(() => {
-        activePage(['parent-menu.blog', `blog-categories.${params.category}`]);
+        activePage([`blog-categories.${params.category}`, 'parent-menu.blog']);
         setCurrentPage(1);
     }, [params.category]);
-
-    if (!data) return null;
 
     function onTabChange(value: string) {
         history.push(`/parent/blog/${value}`);
     }
 
+    if (!data)
+        return (
+            <MobileAwareCategoryTabs
+                onTabChange={onTabChange}
+                category={params.category}
+                values={categoriesList}
+                device={device}
+            />
+        );
+
     const { articles, count, hasNext } = data.paginatedArticles;
 
     return (
         <>
-            <Navigation onTabChange={onTabChange} category={params.category} device={device} />
+            <MobileAwareCategoryTabs
+                onTabChange={onTabChange}
+                category={params.category}
+                values={categoriesList}
+                device={device}
+            />
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                     {articles.map((article: Article) => (
@@ -100,28 +110,6 @@ export const ArticleListPage = () => {
             </div>
         </>
     );
-};
-
-interface NavigationProps {
-    device: Device;
-    category: string;
-    onTabChange: (value: string) => void;
-}
-
-function Navigation({ device, category, onTabChange }: NavigationProps) {
-    const classes = useStyles();
-
-    return (
-        <>
-            {device === 'MOBILE' ? (
-                <CategoryTabsMobile values={categoriesList} active={category} onClick={onTabChange} />
-            ) : (
-                <div className={classes.navigation}>
-                    <CategoryTabs values={categoriesList} active={category} onClick={onTabChange} />
-                </div>
-            )}
-        </>
-    );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -147,11 +135,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         container: {
             margin: `0 ${theme.spacing(3)}px`,
-        },
-        navigation: {
-            backgroundColor: theme.palette.primary.contrastText,
-            padding: `0 ${theme.spacing(3)}px`,
-            borderBottom: `1px solid ${theme.palette.grey[400]}`,
         },
     }),
 );

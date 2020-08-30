@@ -1,23 +1,30 @@
 import React from 'react';
-import { categoriesList } from './BlogCategories';
+import { CategoryItem } from './BlogCategories';
 import { Tabs } from '../../components/Tabs';
+import { theme } from '../../theme/theme';
+import { ChildProfileCategoryItem } from '../ChildProfile/ChildProfileCategory';
 
-type CategoryTabProps = {
+interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     onClick: (value: string) => void;
     active: string;
-    values: typeof categoriesList;
-};
+    values: T[];
+}
 
-export const CategoryTabs = ({ onClick, active, values }: CategoryTabProps) => {
+export function CategoryTabs<
+    T extends CategoryItem | ChildProfileCategoryItem
+>({ onClick, active, values }: Props<T>) {
     return (
         <Tabs
-            value={values.find(tab => tab.key === active)?.key}
+            value={values.find((tab) => tab.key === active)?.key}
             onChange2={(value) => {
-                onClick(value)
+                onClick(value);
             }}
-            values={values.map(category => ({ label: category.name, value: category.key }))}
-            indicatorColor="primary"
+            values={values.map((category) => ({
+                label: category.name,
+                value: category.key,
+            }))}
+            indicator={theme.palette!.secondary as string}
             variant="fullWidth"
         />
     );
-};
+}
