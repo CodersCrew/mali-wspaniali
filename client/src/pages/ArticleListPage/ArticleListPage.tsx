@@ -15,7 +15,7 @@ import {
     ARTICLES_BY_CATEGORY,
 } from '../../graphql/articleRepository';
 import { Pagination } from '../../components/Blog/Pagination';
-import { MobileAwareCategoryTabs } from './MobileAwareCategoryTabs';
+import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
 
 const ARTICLES_PER_PAGE = 6;
 
