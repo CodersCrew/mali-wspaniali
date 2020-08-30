@@ -143,9 +143,9 @@ function getChildMenuItem({
         },
         {
             icon: <Icon icon={<Fingerprint />} />,
-            name: t('parent-menu.child.child-details'),
+            name: t('parent-menu.child.details'),
             link: `/parent/child/${child._id}/details`,
-            active: active.includes(`/parent/child/${child._id}/child-details`),
+            active: active.includes(`/parent/child/${child._id}/details`),
         },
     ];
 
