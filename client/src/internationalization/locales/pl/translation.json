@@ -320,7 +320,7 @@
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
-            "results-list": "Lista wyników",
+            "results": "Lista wyników",
             "recomendations": "Rekomendacje",
             "tests-information": "Informacje o testach",
             "details": "Dane dziecka"

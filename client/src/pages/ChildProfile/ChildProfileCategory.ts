@@ -3,7 +3,7 @@ import i18n from 'i18next';
 export type ChildProfileCategoryItem = { key: string; name: string };
 
 export const categories = {
-    results: { name: i18n.t('parent-menu.child.results-list') },
+    results: { name: i18n.t('parent-menu.child.results') },
     recomendations: { name: i18n.t('parent-menu.child.recomendations') },
     'tests-information': {
         name: i18n.t('parent-menu.child.tests-information'),

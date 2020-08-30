@@ -121,7 +121,7 @@ function getChildMenuItem({
     const subItems: SingleItemProps[] = [
         {
             icon: <Icon icon={<Assessment />} />,
-            name: t('parent-menu.child.results-list'),
+            name: t('parent-menu.child.results'),
             link: `/parent/child/${child._id}/results`,
             active: active.includes(`/parent/child/${child._id}/results`),
         },
