@@ -110,7 +110,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         description: {
             fontSize: '21px',
-            maxWidth: '1070px',
             fontWeight: 500,
             marginTop: '10px',
         },

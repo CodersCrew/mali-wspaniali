@@ -30,7 +30,7 @@ export const Tabs = ({ value, onChange2, values, indicator, ...props }: Props) =
             {...props}
         >
             {values.map(({ label, value: v }) => (
-                <Tab key={label} value={v} label={label} selected={true} />
+                <Tab key={label} value={v} label={label} />
             ))}
         </MuiTabs>
     );

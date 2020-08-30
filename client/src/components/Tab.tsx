@@ -11,21 +11,18 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             minHeight: '0',
-            height: '35px',
+            height: '45px',
             opacity: '1',
             whiteSpace: 'nowrap',
             color: theme.palette.text.secondary,
             textTransform: 'none',
-            flexShrink: 2,
             fontWeight: theme.typography.button.fontWeight,
         },
         wrapper: {
             margin: '0 10px',
         },
         selected: {
-            height: '45px',
             color: theme.palette.secondary.light,
-            borderBottom: '1px solid',
         },
     }),
 );
