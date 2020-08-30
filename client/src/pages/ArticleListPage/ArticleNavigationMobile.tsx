@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
 import { ButtonDefault } from '../../components/Button/ButtonDefault';
@@ -16,7 +16,7 @@ export function ArticleNavigationMobile({ onClick }: Props) {
         <div className={classes.container}>
             <ButtonDefault onClick={onClick}>
                 <ArrowBackIosIcon />
-                {t('blog-navigation.back')}
+                <Typography>{t('blog-navigation.back')}</Typography>
             </ButtonDefault>
         </div>
     );
