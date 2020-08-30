@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
 import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 import { NotificationsPanel } from './NotificationsPanel';
 import { Notification } from '../../../graphql/types';
 import { Device } from '../../../queries/useBreakpoints';
@@ -28,8 +30,15 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
 
     return (
         <Box zIndex="appBar">
-            <AppBar position="fixed">
-                <Toolbar>
+            <AppBar
+                position="fixed"
+                classes={{
+                    root: clsx({
+                        [classes.containerMobile]: device !== 'DESKTOP',
+                    }),
+                }}
+            >
+                <Toolbar classes={{ root: classes.container }}>
                     {device === 'DESKTOP' ? (
                         <span className={classes.logo}>
                             <AppLogo />
@@ -40,7 +49,7 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
                         </IconButton>
                     )}
                     <div className={classes.menuRoot}>
-                        <Typography variant="h6" noWrap>
+                        <Typography variant="h6" noWrap color="textPrimary">
                             {activePage.length > 0 && t(activePage[activePage.length - 1])}
                         </Typography>
                         <div className={classes.menuSide}>
@@ -59,6 +68,13 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        container: {
+            minHeight: theme.spacing(8),
+        },
+        containerMobile: {
+            boxShadow: 'none',
+            borderBottom: `1px solid ${theme.palette.primary.main}`,
+        },
         toolbar: theme.mixins.toolbar,
         logo: {
             marginLeft: theme.spacing(5),

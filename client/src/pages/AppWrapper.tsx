@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 
 import { ParentSidebar } from '../components/Menu/Sidebar/ParentSidebar';
 import { Theme } from '../theme/types';
+
 import { getUser } from '../graphql/userRepository';
 import { Me } from '../graphql/types';
 import { AdminSidebar } from '../components/Menu/Sidebar/AdminSidebar';
@@ -98,6 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
             paddingTop: theme.spacing(8),
+            maxWidth: '100%',
         },
         toolbar: theme.mixins.toolbar,
     }),

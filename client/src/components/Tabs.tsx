@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs as MuiTabs, makeStyles, createStyles, Theme, TabsProps } from '@material-ui/core';
+import { Tabs as MuiTabs, makeStyles, createStyles, TabsProps } from '@material-ui/core';
 import { Tab } from './Tab';
 
 type ContentType = {
@@ -11,38 +11,39 @@ interface Props extends TabsProps {
     values: ContentType[];
     onChange2: <T extends string>(value: T) => void;
     value?: string;
+    indicator: string;
 }
 
-export const Tabs = (props: Props) => {
-    const classes = useStyles();
+export const Tabs = ({ value, onChange2, values, indicator, ...props }: Props) => {
+    const classes = useStyles({ indicator });
 
     return (
         <MuiTabs
-            classes={{ flexContainer: classes.flexContainer }}
-            value={props.value}
-            onChange={(_e: React.ChangeEvent<{}>, v) => {
-                props.onChange2(v);
+            classes={{
+                flexContainer: classes.flexContainer,
+                indicator: classes.indicator,
             }}
-            scrollButtons="auto"
+            value={value}
+            onChange={(_e: React.ChangeEvent<{}>, v) => {
+                onChange2(v);
+            }}
+            {...props}
         >
-            {props.values.map(({ label, value }) => (
-                <Tab key={label} value={value} label={label} classes={{ root: classes.singleTab }} selected={true} />
+            {values.map(({ label, value: v }) => (
+                <Tab key={label} value={v} label={label} selected={true} />
             ))}
         </MuiTabs>
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         flexContainer: {
             alignItems: 'flex-end',
-            backgroundColor: theme.palette.primary.contrastText,
+            backgroundColor: 'theme.palette.primary.contrastText',
         },
         indicator: {
-            // display: 'none',
-        },
-        singleTab: {
-            // height: 45,
+            backgroundColor: ({ indicator }: { indicator: string }) => indicator,
         },
     }),
 );
