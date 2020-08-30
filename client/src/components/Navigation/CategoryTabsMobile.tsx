@@ -16,7 +16,7 @@ export function CategoryTabsMobile<
     return (
         <Tabs
             value={values.find((tab) => tab.key === active)?.key}
-            onChange2={(value) => {
+            onTabsChange={(value) => {
                 onClick(value);
             }}
             values={values.map((category) => ({
