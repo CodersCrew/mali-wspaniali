@@ -8,14 +8,13 @@ import {
     Theme,
     createStyles,
 } from '@material-ui/core';
-
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { UserContext } from '../AppWrapper';
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { childProfileCategoriesList } from './ChildProfileCategory';
-import { MobileAwareCategoryTabs } from '../ArticleListPage/MobileAwareCategoryTabs';
+import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
 import { Recomendations } from './Recomendations/Recomendations';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests/ChildProfileAboutTests';
 import { ChildDetails } from './Details/ChildDetails';

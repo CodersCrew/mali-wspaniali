@@ -1,8 +1,8 @@
 import React from 'react';
-import { CategoryItem } from './BlogCategories';
-import { Tabs } from '../../components/Tabs/Tabs';
+import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
+import { Tabs } from '../Tabs/Tabs';
+import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
 import { theme } from '../../theme/theme';
-import { ChildProfileCategoryItem } from '../ChildProfile/ChildProfileCategory';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     onClick: (value: string) => void;
@@ -10,7 +10,7 @@ interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     values: T[];
 }
 
-export function CategoryTabs<
+export function CategoryTabsMobile<
     T extends CategoryItem | ChildProfileCategoryItem
 >({ onClick, active, values }: Props<T>) {
     return (
@@ -23,8 +23,9 @@ export function CategoryTabs<
                 label: category.name,
                 value: category.key,
             }))}
-            indicator={theme.palette!.secondary as string}
-            variant="fullWidth"
+            variant="scrollable"
+            scrollButtons="on"
+            indicator={theme.palette?.text?.primary!}
         />
     );
 }

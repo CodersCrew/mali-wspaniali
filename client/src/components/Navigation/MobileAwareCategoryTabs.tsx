@@ -4,8 +4,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { Device } from '../../queries/useBreakpoints';
 import { CategoryTabsMobile } from './CategoryTabsMobile';
 import { CategoryTabs } from './CategoryTabs';
-import { CategoryItem } from './BlogCategories';
-import { ChildProfileCategoryItem } from '../ChildProfile/ChildProfileCategory';
+import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
+import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     device: Device;

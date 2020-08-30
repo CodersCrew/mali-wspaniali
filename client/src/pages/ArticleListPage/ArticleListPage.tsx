@@ -3,6 +3,7 @@ import { makeStyles, Grid } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
 import { useQuery } from '@apollo/client';
+
 import { categoriesList } from './BlogCategories';
 import { Article, PaginatedArticles } from '../../graphql/types';
 import { Theme } from '../../theme/types';
@@ -11,7 +12,7 @@ import { activePage } from '../../apollo_client';
 import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { Pagination } from '../../components/Blog/Pagination';
-import { MobileAwareCategoryTabs } from './MobileAwareCategoryTabs';
+import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
 
 const ARTICLES_PER_PAGE = 6;
 
