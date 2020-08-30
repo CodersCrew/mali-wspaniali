@@ -309,7 +309,7 @@
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
-            "results-list": "Results",
+            "results": "Results",
             "recomendations": "Recomendations",
             "tests-information": "Tests information",
             "details": "Child details"
