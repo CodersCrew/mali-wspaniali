@@ -41,7 +41,7 @@ export const Tabs = ({
             {...props}
         >
             {values.map(({ label, value }) => (
-                <Tab key={label} value={value} label={label} selected={true} />
+                <Tab key={label} value={value} label={label} />
             ))}
         </MuiTabs>
     );

@@ -57,16 +57,12 @@ function getSchoolYearLabel(schoolYearStart: number) {
 
 const useStyles = makeStyles({
     wrapper: {
-        display: 'flex',
         alignItems: 'center',
-        width: '100%',
         fontSize: '15px',
-        padding: '0 40px',
     },
     title: {
         fontWeight: 'bold',
         marginRight: '88px',
-        width: '300px',
     },
     updatedAt: {
         color: lightTextColor,
