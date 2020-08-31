@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core'; //IconButton
+import { makeStyles, InputLabel, FormControl } from '@material-ui/core'; //IconButton
 import { createStyles } from '@material-ui/styles';
 import { Theme } from '../../theme/types';
 import Box from '@material-ui/core/Box';
@@ -7,25 +7,45 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 // import { Formik, Field, Form, useField, FieldAttributes, FieldArray } from 'formik';
-import { useField, FieldAttributes, Formik } from 'formik';
-// import { TextField, Button, Checkbox, Radio, FormControlLabel, Select, MenuItem } from '@material-ui/core';
+import { FieldAttributes, Formik } from 'formik';
+import { Select as SelectField } from '@material-ui/core';
 // import { useTranslation } from 'react-i18next';
-import { styled } from '@material-ui/core/styles';
+// import { styled } from '@material-ui/core/styles';
 
-interface Opt {
+// interface Opt {
+//     info: string;
+// }
+// const Option = styled(MenuItem)({
+//     a: (props: Opt) => {
+//         return props.info;
+//     },
+//     '&::after': {
+//         content: (props: Opt) => `"${props.info}"`,
+//         color: 'gray',
+//         display: 'inline-block',
+//         marginLeft: '10px',
+//     },
+// });
+
+interface OptionProps {
     info: string;
+    label: string;
 }
-const Option = styled(MenuItem)({
-    a: (props: Opt) => {
-        return props.info;
-    },
-    '&::after': {
-        content: (props: Opt) => `"${props.info}"`,
-        color: 'gray',
-        display: 'inline-block',
-        marginLeft: '10px',
-    },
-});
+
+function OptionField(props: OptionProps) {
+    const classes = useStyles();
+
+    return (
+        <span className={classes.optionField}>
+            {props.label}
+            {props.info}
+        </span>
+    );
+}
+
+// function SelectedOptionField(props: unknown) {
+//     return <InputBase />;
+// }
 
 const selectValues: { [index: string]: any } = {
     sex: [
@@ -91,39 +111,52 @@ const initialValues = {
 interface SelectProps {
     label: string;
     fullWidth?: boolean;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (event: React.ChangeEvent<{ value: unknown; name?: string }>) => void;
 }
 
 const Select: React.FC<FieldAttributes<SelectProps>> = ({ onChange, label, value, fullWidth, className, ...props }) => {
     const { name } = props;
-    const [field, meta] = useField<SelectProps>(props);
-    const errorText = meta.error && meta.touched ? meta.error : '';
+    const classes = useStyles();
+    // const [field] = useField<SelectProps>(props);
+    // const errorText = meta.error && meta.touched ? meta.error : '';
     return (
-        <TextField
-            {...field}
-            helperText={errorText}
-            error={!!errorText}
-            id="outlined-select-currency"
-            select
-            label={label}
-            value={value}
-            name={name}
-            onChange={onChange}
-            variant="outlined"
-            fullWidth={fullWidth}
-        >
-            {selectValues[name].map((option: any) => {
-                return option.helperLabel ? (
-                    <Option key={option.value} value={option.value} info={option.helperLabel}>
-                        {option.label}
-                    </Option>
-                ) : (
-                    <MenuItem key={option.value} value={option.value} className={className}>
-                        {option.label}
-                    </MenuItem>
-                );
-            })}
-        </TextField>
+        <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel htmlFor="filled-age-native-simple">{label}</InputLabel>
+            <SelectField
+                // {...field}
+                // helperText={errorText}
+                // error={!!errorText}
+                id="outlined-select-currency"
+                // select
+                label={label}
+                value={value}
+                name={name}
+                onChange={onChange}
+                // variant="outlined"
+                fullWidth //={fullWidth}
+                // input={<InputBase classes={{ root: classes.selectedInputField }} />}
+                renderValue={() => value}
+                labelId="filled-age-native-simple"
+            >
+                {selectValues[name].map((option: any) => {
+                    console.log(option);
+                    return (
+                        <MenuItem value={option.label}>
+                            <OptionField info={option.helperLabel} label={option.label} />
+                        </MenuItem>
+                    );
+                    // return option.helperLabel ? (
+                    //     <Option key={option.value} value={option.value} info={option.helperLabel}>
+                    //         {option.label}
+                    //     </Option>
+                    // ) : (
+                    //     <MenuItem key={option.value} value={option.value} className={className}>
+                    //         {option.label}
+                    //     </MenuItem>
+                    // );
+                })}
+            </SelectField>
+        </FormControl>
     );
 };
 
@@ -132,10 +165,10 @@ export const AddChildModal: React.FC = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [values, setValues] = useState(initialValues);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<{ value: unknown; name?: string }>) => {
         let { value, name } = event.target;
         console.log(value, name, name === 'birth_quarter', values);
-        setValues({ ...values, [name]: value });
+        setValues({ ...values, [name!]: value });
     };
 
     useEffect(() => {
@@ -253,6 +286,17 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: '100%',
                 marginBottom: '20px',
             },
+        },
+        optionField: {
+            color: 'grey',
+        },
+        selectedInputField: {
+            border: '1px solid black',
+            borderRadius: 4,
+        },
+        formControl: {
+            margin: theme.spacing(1),
+            width: '100%',
         },
         // modal: {
         //     position: 'absolute',
