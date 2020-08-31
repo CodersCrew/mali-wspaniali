@@ -7,6 +7,7 @@ import { Theme } from '../../theme/types';
 import { getUser } from '../../graphql/userRepository';
 import { useState } from 'react';
 import { Me } from '../../graphql/types';
+import { AddChildModal } from '../../components/AddChildModal/AddChildModal';
 
 export const UserContext = React.createContext<Me | null>(null);
 
@@ -24,6 +25,8 @@ export const AppWrapper: FC = ({ children }) => {
     return (
         <UserContext.Provider value={user}>
             <div className={classes.background}>
+                {/* <p>test</p> */}
+                <AddChildModal />
                 <Sidebar user={user} extended={isOpen} toggleSidebar={toggleSidebar} />
                 <div className={classes.container}>
                     <Navbar user={user} />

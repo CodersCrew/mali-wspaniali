@@ -9,6 +9,7 @@ import { UserContext } from '../AppWrapper/AppWrapper';
 import { LAST_ARTICLES } from '../../graphql/articleRepository';
 import { Article } from '../../graphql/types';
 import { useQuery } from '@apollo/client';
+// import { AddChildModal } from '../../components/AddChildModal/AddChildModal';
 
 export const ParentHomePage = () => {
     const user = useContext(UserContext);
@@ -20,19 +21,22 @@ export const ParentHomePage = () => {
     if (!user || !data) return null;
 
     return (
-        <Grid className={classes.container}>
-            <Grid item xs={12}>
-                <PageTitle text={t('home-page-content.greeting')} />
+        <>
+            {/* <AddChildModal /> */}
+            <Grid className={classes.container}>
+                <Grid item xs={12}>
+                    <PageTitle text={t('home-page-content.greeting')} />
+                </Grid>
+                <Grid item xs={12}>
+                    <p className={classes.description}>
+                        <span>{t('home-page-content.check-children-activity')} </span>
+                        <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                    </p>
+                </Grid>
+                <HomePageChildren children={user.children} />
+                <HomePageArticles articles={data.lastArticles} />
             </Grid>
-            <Grid item xs={12}>
-                <p className={classes.description}>
-                    <span>{t('home-page-content.check-children-activity')} </span>
-                    <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
-                </p>
-            </Grid>
-            <HomePageChildren children={user.children} />
-            <HomePageArticles articles={data.lastArticles} />
-        </Grid>
+        </>
     );
 };
 
