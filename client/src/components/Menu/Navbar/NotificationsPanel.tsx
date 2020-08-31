@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuList, Paper, createStyles, makeStyles, Theme } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
+
 import { NotificationItem } from './NotificationItem';
 import { white, secondaryColor } from '../../../colors';
 import { Notification } from '../../../graphql/types';
@@ -36,8 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         notificationsPanel: {
             position: 'absolute',
-            top: '80px',
-            right: '100px',
+            top: theme.spacing(7),
+            right: theme.spacing(3),
             zIndex: 200,
             width: '350px',
             borderRadius: '5px',

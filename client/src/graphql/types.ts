@@ -24,6 +24,12 @@ export interface Redactor {
     biography: string;
 }
 
+export interface PaginatedArticles {
+    articles: Article[];
+    hasNext: boolean;
+    count: number;
+}
+
 export interface ReturnedStatus {
     status: boolean;
 }
@@ -58,11 +64,13 @@ export interface Child {
     _id: string;
     firstname: string;
     lastname: string;
-    sex: 'male' | 'female';
+    sex: Sex;
     kindergarten: Kindergarten;
     birthYear: number;
     results: TestResult[];
 }
+
+export type Sex = 'male' | 'female';
 
 export interface Kindergarten {
     _id: string;

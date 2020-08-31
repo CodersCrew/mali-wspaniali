@@ -127,4 +127,7 @@ export const theme: ThemeObject = {
             letterSpacing: '1.5px',
         },
     },
+    zIndex: {
+        appBar: 1500,
+    },
 };

@@ -96,7 +96,6 @@
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",
         "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",
-        "results-list": "Lista wyników",
         "tests-information": "Informacje o testach",
         "your-agreements": "Twoje zgody",
         "participation-label": "Zgoda na udział w programie Mali Wspaniali.",
@@ -205,7 +204,9 @@
                 "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
             }
         },
-        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody."
+        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
+        "recomendations": "Rekomendacje",
+        "child-details": "Dane dziecka"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -304,16 +305,30 @@
         "choose-file": "Wybierz plik",
         "upload-file": "Dodaj plik"
     },
-    "menu": {
+    "admin-menu": {
         "home": "Strona Główna",
-        "settings": "Ustawienia",
-        "news": "Aktualności",
-        "notifications": "Powiadomienia",
         "results": "Wyniki",
         "agreements": "Zgody",
         "newsletter": "Newsletter",
-        "newsletter-archive": "Archiwum",
-        "blog": "Blog",
+        "create-blog-article": "Blog",
+        "archive": "Archiwum",
+        "results-list": "Lista wyników",
+        "notifications": "Powiadomienia",
+        "settings": "Ustawienia",
+        "logout": "Wyloguj"
+    },
+    "parent-menu": {
+        "home": "Strona Główna",
+        "child": {
+            "results-list": "Lista wyników",
+            "recomendations": "Rekomendacje",
+            "tests-information": "Informacje o testach",
+            "child-details": "Dane dziecka"
+        },
+        "blog": "Aktualności",
+        "agreements": "Zgody",
+        "settings": "Ustawienia",
+        "notifications": "Powiadomienia",
         "logout": "Wyloguj"
     },
     "blog-article-card": {
@@ -325,12 +340,14 @@
     },
     "blog-pagination": {
         "previous": "Poprzednia",
-        "next": "Następna"
+        "next": "Następna",
+        "show-more": "Rozwiń więcej",
+        "counter": "Pokazuje {{from}} z {{to}} artykułów"
     },
     "blog-categories": {
         "all": "Wszystkie",
         "food": "Żywienie",
-        "physical-activity": "Aktywność fizyczna",
+        "activity": "Aktywność fizyczna",
         "emotions": "Emocje",
         "other": "Inne"
     },

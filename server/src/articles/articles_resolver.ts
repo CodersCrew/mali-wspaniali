@@ -19,6 +19,11 @@ import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ArticleMapper } from './domain/mappers/article_mapper';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { ArticleDTO } from './dto/article_dto';
+import { PaginatedArticlesDTO } from './dto/paginated_article_dto';
+import { GetArticlesCountQuery } from './domain/queries/impl/get_article_count_query';
+import { CategoryProps } from './domain/models/category';
+
+const ARTICLE_PER_PAGE = 6;
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -28,17 +33,30 @@ export class ArticlesResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Query(() => [ArticleDTO])
+  @Query(() => PaginatedArticlesDTO)
   @UseGuards(GqlAuthGuard)
-  async articles(
-    @Args('page') page: number,
-    @Args('category', { nullable: true }) category?: string,
-  ): Promise<ArticleProps[]> {
+  async paginatedArticles(
+    @Args('page', { type: () => Int }) page: number,
+    @Args('category', { nullable: true }) category?: CategoryProps,
+    @Args('perPage', { nullable: true, type: () => Int }) perPage?: number,
+  ): Promise<PaginatedArticlesDTO> {
     const articles: Article[] = await this.queryBus.execute(
-      new GetAllArticlesQuery(page, category),
+      new GetAllArticlesQuery(page, perPage || ARTICLE_PER_PAGE, category),
     );
 
-    return articles.map(article => ArticleMapper.toRaw(article));
+    const articleCount: number = await this.queryBus.execute(
+      new GetArticlesCountQuery(category),
+    );
+
+    const result = {
+      articles: articles
+        .slice(0, perPage || ARTICLE_PER_PAGE)
+        .map(article => ArticleMapper.toRaw(article)),
+      count: articleCount,
+      hasNext: articles.length === (perPage || ARTICLE_PER_PAGE) + 1,
+    };
+
+    return result;
   }
 
   @Query(() => [ArticleDTO])
