@@ -23,6 +23,7 @@ import {
 import { Child } from '../../../graphql/types';
 import { SingleItemProps } from './SingleItem';
 import { ChildAvatar, Icon } from './Icon';
+
 interface ChildMenuItemFactoryProps {
     child: Child;
     t: TFunction;
@@ -99,7 +100,9 @@ export function getChildMenuItemFactory({
 export function getBlogMenuItemFactory({
     active,
     t,
-}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<
+    Record<string, unknown>
+> {
     return {
         create: () => getBlogMenuItem({ active, t }),
     };

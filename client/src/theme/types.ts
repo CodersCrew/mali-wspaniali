@@ -5,6 +5,6 @@ import {
 
 export type ThemeObject = MuiThemeOptions;
 
-export type Theme = MuiTheme & {};
+export type Theme = MuiTheme & Record<string, unknown>;
 
 export type BreakpointKey = Theme['breakpoints']['keys'][0];

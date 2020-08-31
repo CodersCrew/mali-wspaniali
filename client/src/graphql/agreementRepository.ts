@@ -1,11 +1,9 @@
-import { gql, ApolloQueryResult } from '@apollo/client';
+import { gql } from '@apollo/client';
 
 import { client } from '../apollo_client';
-import { Agreement } from './types';
+import { Agreement, GraphQLResponse } from './types';
 
-export function getAgreements(): Promise<
-    ApolloQueryResult<{ agreements: Agreement[] }>
-> {
+export function getAgreements(): GraphQLResponse<{ agreements: Agreement[] }> {
     return client.query({
         query: gql`
             {

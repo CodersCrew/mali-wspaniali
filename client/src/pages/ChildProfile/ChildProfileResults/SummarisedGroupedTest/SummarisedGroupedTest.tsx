@@ -35,7 +35,9 @@ export const SummarisedGroupedTest = ({
             </Typography>
             <ButtonSecondary
                 onClick={(event) => {
-                    isExpanded && event.stopPropagation();
+                    if (isExpanded) {
+                        event.stopPropagation();
+                    }
 
                     onClose();
                 }}

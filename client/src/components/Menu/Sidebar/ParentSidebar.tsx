@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     makeStyles,
-    Theme,
     createStyles,
     List,
     Grid,
@@ -14,6 +13,7 @@ import { CollapsibleList } from './CollapsibleList';
 import {
     getParentMenuItemFactory,
     getChildMenuItemFactory,
+    getBlogMenuItemFactory,
 } from './menuItemFactory';
 import { SingleItem } from './SingleItem';
 import { SecondaryLabel } from '../../Label';
@@ -21,7 +21,6 @@ import { MenuDrawer } from './MenuDrawer';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { getMenuWidth } from './getMenuWidth';
 import { LabeledHeader } from './LabeledHeader';
-import { getBlogMenuItemFactory } from './menuItemFactory';
 
 export interface Props {
     user: Me | null;
@@ -121,8 +120,8 @@ export const ParentSidebar = ({
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
+const useStyles = makeStyles(() => {
+    return createStyles({
         container: {
             display: 'flex',
             flexWrap: 'nowrap',
@@ -132,5 +131,5 @@ const useStyles = makeStyles((theme: Theme) =>
             flexShrink: 0,
             width: ({ width }: { width: number }) => width,
         },
-    }),
-);
+    });
+});

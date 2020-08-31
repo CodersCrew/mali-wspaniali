@@ -20,6 +20,7 @@ export const NewsletterProgressBar: React.FC<{
         firstStep = 'FIRSTSTEP',
         secondStep = 'SECONDSTEP',
     }
+
     enum ProgressBarContent {
         one = '1',
         two = '2',

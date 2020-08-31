@@ -47,7 +47,13 @@ export const resultColors = {
 };
 
 export const newsletterColors = {
-    typeColors: { yellow: '#f1dc1c', blue: '#3da8de', red: '#ff5829', green: '#00627a', purple: '#a52ba8' },
+    typeColors: {
+        yellow: '#f1dc1c',
+        blue: '#3da8de',
+        red: '#ff5829',
+        green: '#00627a',
+        purple: '#a52ba8',
+    },
     disabledColor: '#9e9e9e',
     errorIconColor: '#f44336',
     helpModalButtonColor: '#2196f3',

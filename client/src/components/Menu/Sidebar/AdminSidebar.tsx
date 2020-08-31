@@ -1,8 +1,9 @@
 import React from 'react';
 import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
 import { Me } from '../../../graphql/types';
 import { getAdminMenuItemFactory } from './menuItemFactory';
-import { useTranslation } from 'react-i18next';
 import { SingleItem } from './SingleItem';
 import { SecondaryLabel } from '../../Label';
 import { MenuDrawer } from './MenuDrawer';

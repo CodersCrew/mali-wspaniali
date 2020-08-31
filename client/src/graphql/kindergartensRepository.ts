@@ -1,11 +1,11 @@
-import { gql, ApolloQueryResult } from '@apollo/client';
+import { gql } from '@apollo/client';
 
 import { client } from '../apollo_client';
-import { Kindergarten } from './types';
+import { Kindergarten, GraphQLResponse } from './types';
 
-export function getKindergartens(): Promise<
-    ApolloQueryResult<{ kindergartens: Kindergarten[] }>
-> {
+export function getKindergartens(): GraphQLResponse<{
+    kindergartens: Kindergarten[];
+}> {
     return client.query({
         query: gql`
             {

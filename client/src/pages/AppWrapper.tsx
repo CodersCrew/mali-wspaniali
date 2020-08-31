@@ -13,6 +13,7 @@ import { AdminSidebar } from '../components/Menu/Sidebar/AdminSidebar';
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
 import { ACTIVE_PAGE } from '../graphql/localFields';
+import { getLanguage } from '../utils/localStorageUrils';
 
 export const UserContext = React.createContext<Me | null>(null);
 
@@ -25,7 +26,7 @@ export const AppWrapper: FC = ({ children }) => {
     const device = useBreakpoints();
 
     const history = useHistory();
-    const language = localStorage.getItem('i18nextLng')!;
+    const language = getLanguage();
 
     const handleLanguageChange = (lng: string) => {
         moment.locale(lng);
@@ -50,7 +51,7 @@ export const AppWrapper: FC = ({ children }) => {
     }
 
     useEffect(() => {
-        getUser().then(({ data }) => setUser(data!.me));
+        getUser().then(({ data }) => data && setUser(data.me));
     }, []);
 
     if (!user) return null;

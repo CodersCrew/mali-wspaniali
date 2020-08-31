@@ -16,7 +16,7 @@ interface Props extends TabsProps {
     values: ContentType[];
     onTabsChange: (value: string) => void;
     value?: string;
-    indicator: string;
+    indicator?: string;
 }
 
 export const Tabs = ({
@@ -35,7 +35,10 @@ export const Tabs = ({
                 indicator: classes.indicator,
             }}
             value={value}
-            onChange={(_e: React.ChangeEvent<{}>, v: string) => {
+            onChange={(
+                _e: React.ChangeEvent<Record<string, unknown>>,
+                v: string,
+            ) => {
                 onTabsChange(v);
             }}
             {...props}
@@ -54,7 +57,7 @@ const useStyles = makeStyles(() =>
             backgroundColor: 'theme.palette.primary.contrastText',
         },
         indicator: {
-            backgroundColor: ({ indicator }: { indicator: string }) =>
+            backgroundColor: ({ indicator }: { indicator?: string }) =>
                 indicator,
         },
     }),

@@ -4,16 +4,20 @@ import {
     makeStyles,
     Theme,
     createStyles,
+    Box,
+    AppBar,
+    Toolbar,
+    Typography,
 } from '@material-ui/core/';
+import clsx from 'clsx';
+import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
+
 import { NotificationsPanel } from './NotificationsPanel';
 import { Notification } from '../../../graphql/types';
 import { Device } from '../../../queries/useBreakpoints';
-import { Box, AppBar, Toolbar, Typography } from '@material-ui/core';
 import { LanguageSelector } from '../../LanguageSelector';
-import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
-import { useTranslation } from 'react-i18next';
 import { AppLogo } from '../../AppLogo';
-import clsx from 'clsx';
 
 interface Props {
     device: Device;

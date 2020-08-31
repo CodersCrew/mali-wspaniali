@@ -66,7 +66,6 @@ function getTestSections(tests: TestResult[]) {
                     <ResultComparison
                         firstResultPoints={countSumOfPoints(startTest.test)}
                         lastResultPoints={countSumOfPoints(endTest.test)}
-                        childAge={startTest.test.childAge}
                     />
                 </>
             )}

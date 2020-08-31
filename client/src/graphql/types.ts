@@ -1,3 +1,5 @@
+import { ApolloQueryResult } from '@apollo/client';
+
 export type ArticleCategory = 'food' | 'activity' | 'emotions' | 'other';
 
 export interface Article {
@@ -111,3 +113,5 @@ export interface Notification {
     templateId: string;
     isRead: boolean;
 }
+
+export type GraphQLResponse<T> = Promise<ApolloQueryResult<T>>;

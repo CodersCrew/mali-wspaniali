@@ -33,13 +33,13 @@ jobs:
         run: npm run lint
         working-directory: ${{env.working-directory}}
       - name: npx prettier
-        run: npx prettier --check src/**/*
+        run: npm run prettier:check
         working-directory: ${{env.working-directory}}
       - name: npm test
         run: npm test -- --passWithNoTests
         working-directory: ${{env.working-directory}}
     env:
-      CI: true
+      CI: false
       working-directory: ./client
   build:
     needs: [lint-and-test]
@@ -71,5 +71,5 @@ jobs:
           name: build
           path: build
     env:
-      CI: true
+      CI: false
       working-directory: ./client

@@ -1,7 +1,14 @@
-import { gql, FetchResult, ApolloQueryResult } from '@apollo/client';
+import { gql, FetchResult } from '@apollo/client';
 
 import { client } from '../apollo_client';
-import { ReturnedStatus, UserInput, Me, User, Child } from './types';
+import {
+    ReturnedStatus,
+    UserInput,
+    Me,
+    User,
+    Child,
+    GraphQLResponse,
+} from './types';
 
 export interface LoginInput {
     mail: string;
@@ -72,7 +79,7 @@ export const GET_ME = gql`
     }
 `;
 
-export function getUser(): Promise<ApolloQueryResult<{ me: Me }>> {
+export function getUser(): GraphQLResponse<{ me: Me }> {
     return client.query({
         query: gql`
             {
@@ -117,9 +124,7 @@ export function getUser(): Promise<ApolloQueryResult<{ me: Me }>> {
     });
 }
 
-export function getUserById(
-    id: string,
-): Promise<ApolloQueryResult<{ user: User }>> {
+export function getUserById(id: string): GraphQLResponse<{ user: User }> {
     return client.query({
         query: gql`
             {
@@ -157,9 +162,7 @@ export function getUserById(
     });
 }
 
-export function getAllUsers(
-    role?: string,
-): Promise<ApolloQueryResult<{ users: User[] }>> {
+export function getAllUsers(role?: string): GraphQLResponse<{ users: User[] }> {
     if (role) {
         return client.query({
             query: gql`
@@ -237,9 +240,7 @@ export function getAllUsers(
     });
 }
 
-export function getAllChildren(): Promise<
-    ApolloQueryResult<{ allChildren: Child[] }>
-> {
+export function getAllChildren(): GraphQLResponse<{ allChildren: Child[] }> {
     return client.query({
         query: gql`
             {

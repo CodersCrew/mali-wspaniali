@@ -32,7 +32,7 @@ import { CreateArticlePage } from './CreateArticlePage/CreateArticlePage';
 import { ArchivePage } from './ArchivePage/ArchivePage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 
-export const Root = () => {
+export function Root() {
     const { i18n } = useTranslation();
 
     moment.updateLocale(i18n.language, {});
@@ -137,4 +137,4 @@ export const Root = () => {
             </Router>
         </ThemeProvider>
     );
-};
+}

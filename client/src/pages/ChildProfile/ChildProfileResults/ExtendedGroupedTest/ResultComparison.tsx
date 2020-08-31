@@ -11,13 +11,11 @@ import { ButtonSecondary } from '../../../../components/Button';
 interface Props {
     firstResultPoints: number;
     lastResultPoints: number;
-    childAge: number;
 }
 
 export const ResultComparison = ({
     firstResultPoints,
     lastResultPoints,
-    childAge,
 }: Props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useTranslation();

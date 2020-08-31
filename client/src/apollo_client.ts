@@ -1,4 +1,11 @@
-import { ApolloClient, ApolloLink, concat, InMemoryCache, HttpLink, makeVar } from '@apollo/client';
+import {
+    ApolloClient,
+    ApolloLink,
+    concat,
+    InMemoryCache,
+    HttpLink,
+    makeVar,
+} from '@apollo/client';
 
 const link = new HttpLink({
     uri: process.env.REACT_APP_GRAPHQL_SERVER,

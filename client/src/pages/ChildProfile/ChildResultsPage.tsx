@@ -1,13 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {
-    makeStyles,
-    Grid,
-    Typography,
-    Theme,
-    createStyles,
-} from '@material-ui/core';
+import { makeStyles, Grid, Typography, createStyles } from '@material-ui/core';
 
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
@@ -97,8 +91,8 @@ function EmptyProfile() {
     return <Grid container>{t('child-profile.no-child')}</Grid>;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
+const useStyles = makeStyles(() => {
+    return createStyles({
         header: {
             display: 'flex',
             alignItems: 'center',
@@ -113,5 +107,5 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 500,
             marginTop: '10px',
         },
-    }),
-);
+    });
+});
