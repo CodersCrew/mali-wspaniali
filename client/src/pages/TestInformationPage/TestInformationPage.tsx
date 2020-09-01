@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
-import { activePage } from '../../apollo_client';
 import { useParams } from 'react-router-dom';
+import { activePage } from '../../apollo_client';
 import { UserContext } from '../AppWrapper';
 
 export function TestInformationPage() {
@@ -8,7 +8,7 @@ export function TestInformationPage() {
     const user = useContext(UserContext);
 
 
-    const child = user?.children.find(child => child._id === childId)
+    const child = user?.children.find(({ _id }) => _id === childId)
 
     useEffect(() => {
         if (child) {

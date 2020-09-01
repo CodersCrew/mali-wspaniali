@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { IconButton, makeStyles, Theme, createStyles } from '@material-ui/core/';
+import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typography } from '@material-ui/core/';
+import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 import { NotificationsPanel } from './NotificationsPanel';
 import { Notification } from '../../../graphql/types';
 import { Device } from '../../../queries/useBreakpoints';
-import { Box, AppBar, Toolbar, Typography } from '@material-ui/core';
 import { LanguageSelector } from '../../LanguageSelector';
-import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
-import { useTranslation } from 'react-i18next';
 import { AppLogo } from '../../AppLogo';
 
 interface Props {

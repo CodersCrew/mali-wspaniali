@@ -35,7 +35,7 @@ export const ParentHomePage = () => {
                     <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
                 </p>
             </Grid>
-            <HomePageChildren children={user.children} />
+            <HomePageChildren childrenList={user.children} />
             <HomePageArticles articles={data.lastArticles} />
         </Grid>
     );

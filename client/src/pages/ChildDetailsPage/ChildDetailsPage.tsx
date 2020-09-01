@@ -8,7 +8,7 @@ export function ChildDetailsPage() {
     const user = useContext(UserContext);
 
 
-    const child = user?.children.find(child => child._id === childId)
+    const child = user?.children.find(({ _id }) => _id === childId)
 
     useEffect(() => {
         if (child) {

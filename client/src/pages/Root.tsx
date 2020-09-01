@@ -30,7 +30,7 @@ import { ChildDetailsPage } from './ChildDetailsPage/ChildDetailsPage';
 import { RecomendationsPage } from './RecomendationsPage/RecomendationsPage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 
-export const Root = () => {
+export function Root() {
     const { i18n } = useTranslation();
 
     moment.updateLocale(i18n.language, {});
@@ -80,4 +80,4 @@ export const Root = () => {
             </Router>
         </ThemeProvider>
     );
-};
+}

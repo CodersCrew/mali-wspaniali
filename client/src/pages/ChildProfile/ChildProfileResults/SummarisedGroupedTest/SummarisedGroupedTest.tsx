@@ -27,7 +27,9 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, da
             </Typography>
             <ButtonSecondary
                 onClick={event => {
-                    isExpanded && event.stopPropagation();
+                    if (isExpanded) {
+                        event.stopPropagation();
+                    }
 
                     onClose();
                 }}

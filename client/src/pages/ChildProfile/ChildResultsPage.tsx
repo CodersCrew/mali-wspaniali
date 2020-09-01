@@ -56,7 +56,6 @@ export const ChildResultsPage = () => {
                 onChange2={ (value:any) => setActiveTab(value) }
                 values={ tabs }
             />
-                onChange={ () =>{}}
             {activeTab === TABS.results && (
                 <ChildProfileResults child={child} onNoResultClick={() => setActiveTab('aboutTests')} />
             )}

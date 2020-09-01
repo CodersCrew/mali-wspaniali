@@ -23,6 +23,7 @@ import {
 import { Child } from '../../../graphql/types';
 import { SingleItemProps } from './SingleItem';
 import { ChildAvatar, Icon } from './Icon';
+
 interface ChildMenuItemFactoryProps {
     child: Child;
     t: TFunction;

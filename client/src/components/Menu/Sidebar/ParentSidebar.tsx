@@ -4,14 +4,13 @@ import { useTranslation } from 'react-i18next';
 
 import { Me } from '../../../graphql/types';
 import { CollapsibleList } from './CollapsibleList';
-import { getParentMenuItemFactory, getChildMenuItemFactory } from './menuItemFactory';
+import { getParentMenuItemFactory, getChildMenuItemFactory, getBlogMenuItemFactory } from './menuItemFactory';
 import { SingleItem } from './SingleItem';
 import { SecondaryLabel } from '../../Label';
 import { MenuDrawer } from './MenuDrawer';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { getMenuWidth } from './getMenuWidth';
 import { LabeledHeader } from './LabeledHeader';
-import { getBlogMenuItemFactory } from './menuItemFactory';
 
 export interface Props {
     user: Me | null;
