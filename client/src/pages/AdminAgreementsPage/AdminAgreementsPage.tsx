@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Modal, Container, Typography, List, ListSubheader } from '@material-ui/core';
+import { Container, Typography, List, ListSubheader } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { ButtonSecondary } from '../../components/Button';
 import { AgreementListItem } from './AgreementListItem';
 import { Agreement } from '../../graphql/types';
 import { getAgreements } from '../../graphql/agreementRepository';
+import { BasicModal } from '../../components/Modal/BasicModal';
 import { activePage } from '../../apollo_client';
 
 export const AdminAgreementsPage = () => {
@@ -51,19 +52,14 @@ export const AdminAgreementsPage = () => {
                                 innerText={t('admin-agreements-page.show')}
                             />
                         </Container>
-                        <Modal
-                            aria-labelledby="modal-title"
-                            aria-describedby="modal-description"
-                            open={isModalOpen}
-                            onClose={handleCloseModal}
-                        >
-                            <div className={classes.paper}>agreements</div>
-                        </Modal>
+                        <BasicModal isOpen={isModalOpen} handleClose={handleCloseModal}>
+                            <div className={classes.paper}>aggreements</div>
+                        </BasicModal>
                     </Container>
                 </>
             ) : (
-                <EmptyResults />
-            )}
+                    <EmptyResults />
+                )}
         </>
     );
 };
