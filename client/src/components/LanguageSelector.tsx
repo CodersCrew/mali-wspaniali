@@ -14,10 +14,7 @@ export const LanguageSelector = ({ language, onClick }: Props) => {
 
     const languageImage = (flag: string, lang: string) => {
         return (
-            <IconButton
-                aria-label="change language"
-                onClick={() => onClick(lang)}
-            >
+            <IconButton aria-label="change language" onClick={() => onClick(lang)}>
                 <img src={flag} alt={lang} className={classes.flag} />
             </IconButton>
         );
