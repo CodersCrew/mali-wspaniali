@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import { AccordionSummary } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,9 +9,9 @@ export const PanelSummary: FC = ({ children }) => {
     const classes = useStyles();
 
     return (
-        <ExpansionPanelSummary className={classes.summary} expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary className={classes.summary} expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.title}>{children}</Typography>
-        </ExpansionPanelSummary>
+        </AccordionSummary>
     );
 };
 

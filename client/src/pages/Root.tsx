@@ -3,7 +3,6 @@ import moment from 'moment';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
 import { LoginPage } from './LoginPage/LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { ForgotPasswordPage } from './ForgotPasswordPage';
@@ -25,12 +24,9 @@ import { ParentAgreementsPage } from './ParentAgreementsPage/ParentAgreementsPag
 import { ParentSettingsPage } from './ParentSettingsPage/ParentSettingsPage';
 import { CreateArticlePage } from './CreateArticlePage/CreateArticlePage';
 import { ArchivePage } from './ArchivePage/ArchivePage';
-import { TestInformationPage } from './TestInformationPage/TestInformationPage';
-import { ChildDetailsPage } from './ChildDetailsPage/ChildDetailsPage';
-import { RecomendationsPage } from './RecomendationsPage/RecomendationsPage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 
-export const Root = () => {
+export function Root() {
     const { i18n } = useTranslation();
 
     moment.updateLocale(i18n.language, {});
@@ -65,10 +61,7 @@ export const Root = () => {
                             <Route path="/admin/notifications" component={NotificationsPage} />
                             <Route path="/admin/settings" component={AdminSettingsPage} />
                             <Route exact path="/parent" component={ParentHomePage} />
-                            <Route path="/parent/child/:childId/results" component={ChildResultsPage} />
-                            <Route path="/parent/child/:childId/tests-information" component={TestInformationPage} />
-                            <Route path="/parent/child/:childId/details" component={ChildDetailsPage} />
-                            <Route path="/parent/child/:childId/recomendations" component={RecomendationsPage} />
+                            <Route path="/parent/child/:childId/:category" component={ChildResultsPage} />
                             <Route path="/parent/blog/:category" exact component={ArticleListPage} />
                             <Route path="/parent/article/:articleId" component={ArticlePage} />
                             <Route path="/parent/notifications" component={NotificationsPage} />
@@ -80,4 +73,4 @@ export const Root = () => {
             </Router>
         </ThemeProvider>
     );
-};
+}

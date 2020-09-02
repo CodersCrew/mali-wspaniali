@@ -5,7 +5,7 @@ import { Theme } from '../../theme/types';
 import { backgroundColor, secondaryColor, white } from '../../colors';
 import { ButtonSecondary } from '../../components/Button';
 
-const t_prefix = 'forgot-password-page';
+const tPrefix = 'forgot-password-page';
 
 type Props = {
     onChange: (value: string) => void;
@@ -20,9 +20,9 @@ export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Pro
 
     return (
         <>
-            <Typography className={classes.subtitle}>{t(`${t_prefix}.its-ok`)}</Typography>
+            <Typography className={classes.subtitle}>{t(`${tPrefix}.its-ok`)}</Typography>
             <Typography className={`${classes.subtitle} ${classes.subtitleThin}`}>
-                {t(`${t_prefix}.receive-link`)}
+                {t(`${tPrefix}.receive-link`)}
             </Typography>
             <TextField
                 required
@@ -30,7 +30,7 @@ export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Pro
                 id="email"
                 label={t('e-mail')}
                 variant="outlined"
-                helperText={t(`${t_prefix}.email-helper-text`)}
+                helperText={t(`${tPrefix}.email-helper-text`)}
                 onChange={({ target: { value } }) => onChange(value)}
             />
             <div className={classes.buttonWrapper}>
@@ -43,8 +43,8 @@ export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Pro
                 />
             </div>
             <div className={classes.underlinedText}>
-                <Typography variant="caption">{t(`${t_prefix}.problem`)}</Typography>
-                <Typography variant="caption">{t(`${t_prefix}.contact`)}</Typography>
+                <Typography variant="caption">{t(`${tPrefix}.problem`)}</Typography>
+                <Typography variant="caption">{t(`${tPrefix}.contact`)}</Typography>
             </div>
         </>
     );

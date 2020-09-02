@@ -320,10 +320,10 @@
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
-            "results-list": "Lista wyników",
+            "results": "Lista wyników",
             "recomendations": "Rekomendacje",
             "tests-information": "Informacje o testach",
-            "child-details": "Dane dziecka"
+            "details": "Dane dziecka"
         },
         "blog": "Aktualności",
         "agreements": "Zgody",
@@ -350,6 +350,9 @@
         "activity": "Aktywność fizyczna",
         "emotions": "Emocje",
         "other": "Inne"
+    },
+    "blog-navigation": {
+        "back": "Wstecz"
     },
     "home-page-content": {
         "greeting": "Dzień Dobry!",

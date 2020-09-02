@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Card, Typography, Dialog } from '@material-ui/core';
+import { Card, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_OVERALL_POINTS } from './constants';
 import { gray } from '../../../../colors';
-import { AdviceModal } from './modals/AdviceModal';
 import { ButtonSecondary } from '../../../../components/Button';
+import { BasicModal } from '../../../../components/Modal/BasicModal';
 
 interface Props {
     firstResultPoints: number;
@@ -47,12 +47,9 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                     </Typography>
                 </div>
             </div>
-            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(prev => !prev)}>
-                <AdviceModal
-                    content={t(`child-profile.difference.${key}`)}
-                    onClose={() => setIsModalOpen(prev => !prev)}
-                />
-            </Dialog>
+            <BasicModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(prev => !prev)}>
+                {t(`child-profile.difference.${key}`)}
+            </BasicModal>
         </>
     );
 };

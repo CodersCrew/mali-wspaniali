@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/';
-import { Theme } from '../../theme/types';
-import { ButtonPrimary } from '../../components/Button';
 import { useTranslation } from 'react-i18next';
+import { ButtonPrimary } from '../../components/Button';
 
 interface Props {
     disabledPrevious: boolean;
@@ -33,7 +32,7 @@ export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Pro
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         paginationContainer: {
             display: 'flex',

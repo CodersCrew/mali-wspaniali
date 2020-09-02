@@ -2,9 +2,9 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useMutation, useQuery } from '@apollo/client';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
-import { useMutation, useQuery } from '@apollo/client';
 import { AUTHORIZE_USER, GET_ME } from '../../graphql/userRepository';
 
 const initialError: Error = {
@@ -72,7 +72,7 @@ export const LoginPage = () => {
                     type="password"
                     variant="outlined"
                     error={Boolean(name)}
-                    helperText={Boolean(name) ? t('login-page.login-error') : ''}
+                    helperText={name ? t('login-page.login-error') : ''}
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>

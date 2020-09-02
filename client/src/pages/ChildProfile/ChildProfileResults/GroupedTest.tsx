@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, makeStyles } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
@@ -21,8 +21,8 @@ export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props
     const classes = useStyles();
 
     return (
-        <ExpansionPanel expanded={isExpanded} className={classes.expansionPanel}>
-            <ExpansionPanelSummary
+        <Accordion expanded={isExpanded} className={classes.expansionPanel}>
+            <AccordionSummary
                 onClick={onOpen}
                 className={clsx({
                     [classes.expansionPanelSummary]: true,
@@ -35,11 +35,9 @@ export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props
                     isExpanded={isExpanded}
                     date={date}
                 />
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-                {getTestSections(tests)}
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
+            </AccordionSummary>
+            <AccordionDetails className={classes.expansionPanelDetails}>{getTestSections(tests)}</AccordionDetails>
+        </Accordion>
     );
 };
 

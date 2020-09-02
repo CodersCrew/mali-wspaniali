@@ -1,16 +1,18 @@
 import React from 'react';
-import { Modal } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { AgreementModalProps } from './types';
+import { BasicModal } from '../../../components/Modal/BasicModal';
 
 const T_PREFIX = 'registration-page.agreements';
 
-export const AgreementModal = ({ open, agreementModal, toggleModal, agreementHeader }: AgreementModalProps) => {
+export const AgreementModal = ({ open, toggleModal }: AgreementModalProps) => {
     const { t } = useTranslation();
+    const classes = useStyles();
 
     const body = (
-        <div className={agreementModal}>
-            <h3 className={agreementHeader}>{t(`${T_PREFIX}.main-title`)}</h3>
+        <div>
+            <h3 className={classes.agreementHeader}>{t(`${T_PREFIX}.main-title`)}</h3>
             <p>
                 <b>{t(`${T_PREFIX}.clausule-header`)}</b>
             </p>
@@ -19,13 +21,17 @@ export const AgreementModal = ({ open, agreementModal, toggleModal, agreementHea
     );
 
     return (
-        <Modal
-            open={open}
-            onClose={toggleModal}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-        >
+        <BasicModal isOpen={open} handleClose={toggleModal}>
             {body}
-        </Modal>
+        </BasicModal>
     );
 };
+
+export const useStyles = makeStyles(() =>
+    createStyles({
+        agreementHeader: {
+            fontSize: 21,
+            fontWeight: 'normal',
+        },
+    }),
+);

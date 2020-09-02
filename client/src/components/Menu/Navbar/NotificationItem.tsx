@@ -12,7 +12,7 @@ type notificationItemProps = {
     id: string;
 };
 
-export const NotificationItem = ({ text, date, isRead, id }: notificationItemProps) => {
+export const NotificationItem = ({ text, date, isRead }: notificationItemProps) => {
     const classes = useStyles();
 
     const setNotificationValue = () => {

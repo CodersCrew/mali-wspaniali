@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core/';
+import { Checkbox, Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
@@ -85,18 +85,18 @@ export const RegistrationAgreement = ({
                             <p className={agreementText}>{(agreement as any).title}</p>
                         </div>
                         {idx !== 0 && (
-                            <ExpansionPanel className={agreementPanel} onClick={handleMoreContent}>
-                                <ExpansionPanelSummary
+                            <Accordion className={agreementPanel} onClick={handleMoreContent}>
+                                <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1a-content"
                                     id="panel1a-header"
                                 >
                                     <Typography className={agreementMoreBtn}>{expansionText}</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
+                                </AccordionSummary>
+                                <AccordionDetails>
                                     <Typography>{agreement.text}</Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
+                                </AccordionDetails>
+                            </Accordion>
                         )}
                     </div>
                 ))}

@@ -22,9 +22,10 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
                     </Grid>
                 </Grid>
                 <div className={classes.contentTags}>
-                    {tags.map(tag => {
+                    {tags.map((tag, index) => {
                         return (
                             <ButtonDefault
+                                key={`${tag} ${index}`}
                                 variant="contained"
                                 disableElevation
                                 className={classes.contentTagsButton}

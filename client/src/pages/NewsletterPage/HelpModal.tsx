@@ -1,27 +1,24 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Dialog, DialogContent, DialogActions } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { mainColor, textColor } from '../../colors';
-import { ButtonSecondary } from '../../components/Button';
+import { BasicModal } from '../../components/Modal/BasicModal';
 
 export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
-        <Dialog open onClose={onClose}>
-            <DialogContent className={classes.modalContent}>
+        <BasicModal isOpen={true} handleClose={onClose}>
+            <div className={classes.modalContent}>
                 <HelpOutlineIcon className={classes.modalIcon} />
                 <span className={classes.modalTextBold}>{t('newsletter.help-modal.type')}</span>
                 <p className={classes.modalText}>{t('newsletter.help-modal.type-text')}</p>
                 <span className={classes.modalTextBold}>{t('newsletter.help-modal.attachment')}</span>
                 <p className={classes.modalText}>{t('newsletter.help-modal.attachment-text')} </p>
-            </DialogContent>
-            <DialogActions className={classes.modalButtonWrapper}>
-                <ButtonSecondary variant="contained" onClick={onClose} autoFocus innerText={t('newsletter.help-modal.button')} />
-            </DialogActions>
-        </Dialog>
+            </div>
+        </BasicModal>
     );
 };
 
@@ -32,8 +29,8 @@ const useStyles = makeStyles(() =>
             width: 24,
             height: 24,
             position: 'absolute',
-            top: 25,
-            left: 20,
+            top: 45,
+            left: 40,
         },
         modalContent: {
             padding: '29px 54px 0',
@@ -61,9 +58,6 @@ const useStyles = makeStyles(() =>
             '&:last-of-type': {
                 marginBottom: 8,
             },
-        },
-        modalButtonWrapper: {
-            paddingRight: 17,
         },
     }),
 );
