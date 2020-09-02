@@ -65,7 +65,7 @@ export function ArticleListPage() {
             <div className={classes.gridBackground}>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                     {articles.map((article: Article) => (
-                        <Grid className={classes.gridSubContainer} key={article._id} item xs={4} zeroMinWidth>
+                        <Grid key={article._id} item xs={4} zeroMinWidth>
                             <BlogArticleCard
                                 title={article.title}
                                 pictureUrl={article.pictureUrl}
@@ -118,17 +118,6 @@ const useStyles = makeStyles((theme: Theme) =>
         gridContainer: {
             maxWidth: '92%',
             margin: '0 4%',
-
-            [theme.breakpoints.down('sm')]: {
-                display: 'flex',
-                flexDirection: 'column',
-                lineHeight: theme.typography.subtitle2.lineHeight,
-            },
-        },
-        gridSubContainer: {
-            [theme.breakpoints.down('sm')]: {
-                minWidth: 'fit-content',
-            },
         },
         gridBackground: {
             backgroundColor: theme.palette.primary.contrastText,
