@@ -309,10 +309,10 @@
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
-            "results-list": "Results",
+            "results": "Results",
             "recomendations": "Recomendations",
             "tests-information": "Tests information",
-            "child-details": "Child details"
+            "details": "Child details"
         },
         "blog": "Blog",
         "agreements": "Agreements",
@@ -358,6 +358,9 @@
         "activity": "Physical activity",
         "emotions": "Emotions",
         "other": "Other"
+    },
+    "blog-navigation": {
+        "back": "Back"
     },
     "notification-panel": {
         "read-more": "Read more"

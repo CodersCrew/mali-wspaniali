@@ -63,7 +63,8 @@
         "test:cypress:run": "npx cypress run",
         "eject": "react-scripts eject",
         "lint": "eslint src/**/*.ts src/**/*.tsx",
-        "prettier": "prettier --write src/**/*"
+        "prettier": "prettier --write src/**/*",
+        "prettier:check": "prettier --check src/**/*"
     },
     "eslintConfig": {
         "extends": "react-app"

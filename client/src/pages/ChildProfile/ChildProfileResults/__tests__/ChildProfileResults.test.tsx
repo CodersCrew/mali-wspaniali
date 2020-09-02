@@ -26,7 +26,7 @@ describe('ChildProfileResults', () => {
         });
 
         it('renders empty results', () => {
-            render(<ChildProfileResults child={child} onNoResultClick={() => {}} />);
+            render(<ChildProfileResults child={child} onNoResultClick={() => true} />);
 
             const emptyResults = screen.queryByTestId('no-test-assigned');
             const groupedResults = screen.queryByTestId('grouped-tests');

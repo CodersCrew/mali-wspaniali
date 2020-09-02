@@ -7,10 +7,10 @@ import GirlAvatar from '../../../../assets/girl.png';
 import { Child } from '../../../../graphql/types';
 
 interface Props {
-    children: Child[];
+    childrenList: Child[];
 }
 
-export const HomePageChildren = ({ children }: Props) => {
+export const HomePageChildren = ({ childrenList: children }: Props) => {
     const classes = useStyles();
     const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(true);
 

@@ -1,69 +1,91 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Grid, Typography, Tab, Tabs } from '@material-ui/core';
-
+import {
+    makeStyles,
+    Grid,
+    Typography,
+    Theme,
+    createStyles,
+} from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
-import { ChildProfileAboutTests } from './ChildProfileAboutTests';
-import { secondaryColor, white } from '../../colors';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { UserContext } from '../AppWrapper';
-import { ChildProfileAgreements } from './ChildProfileAgreements';
 import { activePage } from '../../apollo_client';
-
-const TABS = {
-    results: 'results',
-    aboutTests: 'aboutTests',
-    agreements: 'agreements',
-};
+import { useBreakpoints } from '../../queries/useBreakpoints';
+import { childProfileCategoriesList } from './ChildProfileCategory';
+import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
+import { Recomendations } from './Recomendations/Recomendations';
+import { ChildProfileAboutTests } from './ChildProfileAboutTests/ChildProfileAboutTests';
+import { ChildDetails } from './Details/ChildDetails';
 
 export const ChildResultsPage = () => {
     const { t } = useTranslation();
-    const { childId } = useParams<{ childId: string }>();
-    const [activeTab, setActiveTab] = useState(TABS.results);
+    const { childId, category } = useParams<{
+        childId: string;
+        category: string;
+    }>();
+    const device = useBreakpoints();
+    const history = useHistory();
     const classes = useStyles();
     const user = useContext(UserContext);
 
-    const child = user?.children.find(child => child._id === childId)
-
+    const child = user?.children.find((_child) => _child._id === childId);
 
     useEffect(() => {
         if (child) {
-            activePage([child.firstname, `/parent/child/${child._id}/results`, 'parent-menu.child.results-list']);
+            activePage([
+                child.firstname,
+                `/parent/child/${child._id}/${category}`,
+                `parent-menu.child.${category}`,
+            ]);
         }
-    }, [user, child]);
+    }, [user, child, category]);
 
+    function onTabChange(value: string) {
+        history.push(`/parent/child/${child?._id}/${value}`);
+    }
 
-    
-    if (!user || !child) return <EmptyProfile />;
-    
-    const { agreements } = user;
-    
+    if (!user || !child) {
+        return (
+            <>
+                <MobileAwareCategoryTabs
+                    onTabChange={onTabChange}
+                    category={category}
+                    values={childProfileCategoriesList}
+                    device={device}
+                />
+                <EmptyProfile />
+            </>
+        );
+    }
+
     return (
         <>
+            <MobileAwareCategoryTabs
+                onTabChange={onTabChange}
+                category={category}
+                values={childProfileCategoriesList}
+                device={device}
+            />
             <Grid container className={classes.header}>
                 <PageTitle text={`${child.firstname} ${child.lastname}`} />
-                <Typography className={classes.kindergarten}>{child.kindergarten.name}</Typography>
+                <Typography className={classes.kindergarten}>
+                    {child.kindergarten.name}
+                </Typography>
             </Grid>
-            <Typography className={classes.description}>{t('child-profile.description')}</Typography>
-            <Tabs
-                value={activeTab}
-                onChange={(event, value) => setActiveTab(value)}
-                className={classes.tabs}
-                classes={{
-                    root: classes.tabsRoot,
-                    indicator: classes.tabsIndicator,
-                }}
-            >
-                <Tab label={t('parent-menu.child.results-list')} value={TABS.results} />
-                <Tab label={t('child-profile.tests-information')} value={TABS.aboutTests} />
-                <Tab label={t('child-profile.your-agreements')} value={TABS.agreements} />
-            </Tabs>
-            {activeTab === TABS.results && (
-                <ChildProfileResults child={child} onNoResultClick={() => setActiveTab('aboutTests')} />
+            <Typography className={classes.description}>
+                {t('child-profile.description')}
+            </Typography>
+            {category === 'results' && (
+                <ChildProfileResults
+                    child={child}
+                    onNoResultClick={() => onTabChange('tests-information')}
+                />
             )}
-            {activeTab === TABS.aboutTests && <ChildProfileAboutTests />}
-            {activeTab === TABS.agreements && <ChildProfileAgreements agreements={agreements} />}
+            {category === 'recomendations' && <Recomendations />}
+            {category === 'tests-information' && <ChildProfileAboutTests />}
+            {category === 'details' && <ChildDetails />}
         </>
     );
 };
@@ -71,58 +93,24 @@ export const ChildResultsPage = () => {
 function EmptyProfile() {
     const { t } = useTranslation();
 
-    return  <Grid container>{t('child-profile.no-child')}</Grid> 
+    return <Grid container>{t('child-profile.no-child')}</Grid>;
 }
 
-
-const useStyles = makeStyles({
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    kindergarten: {
-        fontSize: '21px',
-        fontWeight: 700,
-        marginLeft: '60px',
-    },
-    description: {
-        fontSize: '21px',
-        maxWidth: '1070px',
-        fontWeight: 500,
-        marginTop: '10px',
-    },
-    tabs: {
-        marginTop: '40px',
-        minHeight: 'unset',
-    },
-    tabsRoot: {
-        minHeight: '34px',
-        '& button': {
-            border: `1px solid ${secondaryColor}`,
-            color: secondaryColor,
-            textTransform: 'unset',
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        header: {
+            display: 'flex',
+            alignItems: 'center',
+        },
+        kindergarten: {
+            fontSize: '21px',
             fontWeight: 700,
-            borderRadius: '10px 10px 0 0',
-            height: '34px',
-            minHeight: 'unset',
-            paddingTop: '4px',
-            opacity: 1,
-
-            '& .MuiTouchRipple-root': {
-                display: 'none',
-            },
-
-            '&:not(:last-child)': {
-                borderRight: 0,
-            },
+            marginLeft: '60px',
         },
-
-        '& .Mui-selected': {
-            color: white,
-            backgroundColor: secondaryColor,
+        description: {
+            fontSize: '21px',
+            fontWeight: 500,
+            marginTop: '10px',
         },
-    },
-    tabsIndicator: {
-        display: 'none',
-    },
-});
+    }),
+);

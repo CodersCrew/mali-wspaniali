@@ -58,26 +58,26 @@ export const NewsletterOptionalTextField: React.FC<{
 
     const setLabel = () => {
         switch (true) {
-            case generalType.value === GeneralRecipientInputValues.parents &&
+        case generalType.value === GeneralRecipientInputValues.parents &&
                 specificType.value === SpecificRecipientInputValues.kindergarten:
-                if (recipients.value.length > 0) {
-                    return t('newsletter.recipient-select-kindergarten-label-filled');
-                }
+            if (recipients.value.length > 0) {
+                return t('newsletter.recipient-select-kindergarten-label-filled');
+            }
 
-                return t('newsletter.recipient-select-kindergarten-label');
-            case generalType.value === GeneralRecipientInputValues.parents &&
+            return t('newsletter.recipient-select-kindergarten-label');
+        case generalType.value === GeneralRecipientInputValues.parents &&
                 specificType.value === SpecificRecipientInputValues.single:
-                if (recipients.value.length > 0) {
-                    return t('newsletter.recipient-single-parent-label-filled');
-                }
+            if (recipients.value.length > 0) {
+                return t('newsletter.recipient-single-parent-label-filled');
+            }
 
-                return t('newsletter.recipient-single-parent-label');
-            default:
-                if (recipients.value.length > 0) {
-                    return t('newsletter.recipient-single-kindergarten-label-filled');
-                }
+            return t('newsletter.recipient-single-parent-label');
+        default:
+            if (recipients.value.length > 0) {
+                return t('newsletter.recipient-single-kindergarten-label-filled');
+            }
 
-                return t('newsletter.recipient-single-kindergarten-label');
+            return t('newsletter.recipient-single-kindergarten-label');
         }
     };
     const setMenuItems = (array: string[]) => {
@@ -147,11 +147,11 @@ export const NewsletterOptionalTextField: React.FC<{
             {generalType.value === GeneralRecipientInputValues.kindergartens ||
             specificType.value === SpecificRecipientInputValues.kindergarten
                 ? setMenuItems(
-                      kindergartens.map(
-                          kindergarten =>
-                              `${kindergarten.name}, ${t('newsletter.kindergarten-number')} ${kindergarten.number}`,
-                      ),
-                  )
+                    kindergartens.map(
+                        kindergarten =>
+                            `${kindergarten.name}, ${t('newsletter.kindergarten-number')} ${kindergarten.number}`,
+                    ),
+                )
                 : setMenuItems(parents)}
         </TextField>
     );

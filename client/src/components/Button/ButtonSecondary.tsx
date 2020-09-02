@@ -5,5 +5,5 @@ export const ButtonSecondary: FC<CustomButtonProps>  = (props) => {
 
     return (
         <ButtonBase {...props} color="secondary" />
-    )
-}
+    );
+};

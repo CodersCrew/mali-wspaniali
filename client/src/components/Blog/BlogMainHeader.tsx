@@ -9,9 +9,6 @@ export const BlogMainHeader = () => {
 
     return (
         <div>
-            <div className={classes.titleContainer}>
-                <span className={classes.title}>{t('blog-main-page.header-bar')}</span>
-            </div>
             <div className={classes.subtitleContainer}>
                 <Typography variant="h4" gutterBottom className={classes.subtitle}>
                     {t('blog-main-page.header')}
@@ -29,15 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
             textTransform: 'uppercase',
             cursor: 'default',
             userSelect: 'none',
-        },
-        titleContainer: {
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: '0 0 8px 8px',
-            padding: '10px',
-
-            [theme.breakpoints.up('md')]: {
-                display: 'none',
-            },
         },
         subtitle: {
             fontSize: theme.typography.h2.fontSize,

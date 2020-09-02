@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { white } from '../../colors';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
-const t_prefix = 'forgot-password-page';
+const tPrefix = 'forgot-password-page';
 
 export const ResetPasswordConfirmation = () => {
     const { t } = useTranslation();
@@ -12,8 +12,8 @@ export const ResetPasswordConfirmation = () => {
 
     return (
         <>
-            <Typography className={classes.subtitle}>{t(`${t_prefix}.email-sent`)}</Typography>
-            <Typography className={classes.subtitle}>{t(`${t_prefix}.when-received`)}</Typography>
+            <Typography className={classes.subtitle}>{t(`${tPrefix}.email-sent`)}</Typography>
+            <Typography className={classes.subtitle}>{t(`${tPrefix}.when-received`)}</Typography>
             <ButtonSecondary
                 variant="contained"
                 href="/login"
