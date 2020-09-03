@@ -1,26 +1,31 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { Dialog, DialogActions, DialogContent, makeStyles, createStyles } from '@material-ui/core';
 import { ButtonSecondary } from '../Button/ButtonSecondary';
 
 interface Props {
     isOpen: boolean;
-    handleModalClose: () => void;
-    children?: ReactElement;
+    onClose: () => void;
     upperButtonOnClick: (event: any) => void;
     upperButtonText: string;
     lowerButtonOnClick: (event: any) => void;
     lowerButtonText: string;
 }
 
-export const TwoActionsModal = ({ isOpen, handleModalClose, children, upperButtonOnClick, lowerButtonOnClick, upperButtonText, lowerButtonText }: Props) => {
+export const TwoActionsModal: FC<Props> = ({
+    isOpen,
+    onClose,
+    children,
+    upperButtonOnClick,
+    lowerButtonOnClick,
+    upperButtonText,
+    lowerButtonText,
+}) => {
     const classes = useStyles();
 
     return (
         <>
-            <Dialog maxWidth="md" open={isOpen} onClose={handleModalClose}>
-                <DialogContent>
-                    {children}
-                </DialogContent>
+            <Dialog maxWidth="md" open={isOpen} onClose={onClose}>
+                <DialogContent>{children}</DialogContent>
                 <DialogActions>
                     <div className={classes.buttonsWrapper}>
                         <ButtonSecondary className={classes.button} variant="contained" onClick={upperButtonOnClick}>
@@ -35,7 +40,6 @@ export const TwoActionsModal = ({ isOpen, handleModalClose, children, upperButto
         </>
     );
 };
-
 
 const useStyles = makeStyles(() =>
     createStyles({

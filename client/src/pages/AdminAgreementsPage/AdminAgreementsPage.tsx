@@ -52,14 +52,14 @@ export const AdminAgreementsPage = () => {
                                 innerText={t('admin-agreements-page.show')}
                             />
                         </Container>
-                        <BasicModal isOpen={isModalOpen} handleClose={handleCloseModal}>
+                        <BasicModal isOpen={isModalOpen} onClose={handleCloseModal}>
                             <div className={classes.paper}>aggreements</div>
                         </BasicModal>
                     </Container>
                 </>
             ) : (
-                    <EmptyResults />
-                )}
+                <EmptyResults />
+            )}
         </>
     );
 };
