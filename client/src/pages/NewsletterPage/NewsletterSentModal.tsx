@@ -1,9 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-    makeStyles,
-    createStyles,
-} from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { textColor } from '../../colors';
 import { Theme } from '../../theme';
@@ -29,18 +26,20 @@ export const NewsletterSentModal: React.FC<{
     };
 
     return (
-        <TwoActionsModal isOpen={isOpen} handleModalClose={onClose} upperButtonOnClick={handleButtonClick} upperButtonText={t('newsletter.sending-success-modal.back-button')} lowerButtonOnClick={handleButtonClick} lowerButtonText={t('newsletter.sending-success-modal.next-msg-button')}>
+        <TwoActionsModal
+            isOpen={isOpen}
+            onClose={onClose}
+            upperButtonOnClick={handleButtonClick}
+            upperButtonText={t('newsletter.sending-success-modal.back-button')}
+            lowerButtonOnClick={handleButtonClick}
+            lowerButtonText={t('newsletter.sending-success-modal.next-msg-button')}
+        >
             <div className={classes.sentModal}>
                 <CheckCircleIcon className={classes.sentModalIcon} />
-                <div className={classes.sentModalTitle}>
-                    {t('newsletter.sending-success-modal.title')}
-                </div>
-                <div className={classes.sentModalText}>
-                    {t('newsletter.sending-success-modal.content')}
-                </div>
-
+                <div className={classes.sentModalTitle}>{t('newsletter.sending-success-modal.title')}</div>
+                <div className={classes.sentModalText}>{t('newsletter.sending-success-modal.content')}</div>
             </div>
-        </TwoActionsModal >
+        </TwoActionsModal>
     );
 };
 
