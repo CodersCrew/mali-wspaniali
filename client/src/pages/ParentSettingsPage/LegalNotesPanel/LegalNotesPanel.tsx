@@ -1,5 +1,15 @@
 import React from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
+import {
+    makeStyles,
+    Typography,
+    ExpansionPanel,
+    createStyles,
+    ExpansionPanelSummary,
+    ExpansionPanelDetails,
+    Theme,
+    withStyles,
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
 
 export const LegalNotesPanel = () => {
@@ -8,22 +18,74 @@ export const LegalNotesPanel = () => {
 
     return (
         <Typography color={'primary'}>
-            <ul className={classes.ul}>
-                <li className={classes.li}>{t('settings-page.parent.legal-notes.privacy-policy')}</li>
-                <li className={classes.li}>{t('settings-page.parent.legal-notes.regulations')}</li>
-            </ul>
+            <div className={classes.root}>
+                <ExpansionPanel>
+                    <ExpansionPanelSummaryIconEnd expandIcon={<ExpandMoreIcon className={classes.moreIcon} />}>
+                        <Typography className={classes.heading}>
+                            {t('settings-page.parent.legal-notes.privacy-policy')}
+                        </Typography>
+                    </ExpansionPanelSummaryIconEnd>
+                    <ExpansionPanelDetails>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
+                            amet blandit leo lobortis eget.
+                        </Typography>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+                <ExpansionPanel>
+                    <ExpansionPanelSummaryIconStart expandIcon={<ExpandMoreIcon className={classes.moreIcon} />}>
+                        <Typography className={classes.heading}>
+                            {t('settings-page.parent.legal-notes.regulations')}
+                        </Typography>
+                    </ExpansionPanelSummaryIconStart>
+                    <ExpansionPanelDetails>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
+                            amet blandit leo lobortis eget.
+                        </Typography>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+                <ExpansionPanel>
+                    <ExpansionPanelSummary expandIcon={''}>
+                        <Typography className={classes.heading}>
+                            Coś tam jeszcze
+                            <ExpandMoreIcon />
+                        </Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
+                            amet blandit leo lobortis eget.
+                        </Typography>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+            </div>
         </Typography>
     );
 };
 
-const useStyles = makeStyles({
-    li: {
-        verticalAlign: 'middle',
-        lineHeight: '120%',
-        fontSize: '15px',
-        padding: '9px',
+const ExpansionPanelSummaryIconStart = withStyles({
+    expandIcon: {
+        order: -1,
     },
-    ul: {
-        margin: '0',
+})(ExpansionPanelSummary);
+
+const ExpansionPanelSummaryIconEnd = withStyles({
+    expandIcon: {
+        order: 0,
     },
-});
+})(ExpansionPanelSummary);
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: { width: '100%' },
+        heading: {
+            color: theme.palette.primary.main,
+            fontSize: theme.typography.pxToRem(15),
+            fontWeight: theme.typography.fontWeightRegular,
+        },
+        moreIcon: {
+            color: theme.palette.primary.main,
+        },
+    }),
+);

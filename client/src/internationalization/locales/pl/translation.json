@@ -113,6 +113,7 @@
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",
         "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",
+        "results-list": "Lista wyników",
         "tests-information": "Informacje o testach",
         "your-agreements": "Twoje zgody",
         "participation-label": "Zgoda na udział w programie Mali Wspaniali.",
@@ -324,14 +325,15 @@
     },
     "admin-menu": {
         "home": "Strona Główna",
+        "settings": "Ustawienia",
+        "news": "Aktualności",
+        "notifications": "Powiadomienia",
         "results": "Wyniki",
         "agreements": "Zgody",
         "newsletter": "Newsletter",
         "create-blog-article": "Blog",
         "archive": "Archiwum",
         "results-list": "Lista wyników",
-        "notifications": "Powiadomienia",
-        "settings": "Ustawienia",
         "logout": "Wyloguj"
     },
     "parent-menu": {
@@ -391,21 +393,15 @@
         "date": "Data"
     },
     "settings-page": {
-        "header": "USTAWIENIA",
+        "header": "Ustawienia",
         "password-change": "Zmiana hasła",
         "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
-        "old-password": "Aktualne hasło",
-        "new-password": "Nowe hasło",
+        "old-password": "Wpisz aktualne hasło",
+        "new-password": "Wpisz nowe hasło",
         "confirm-new-password": "Powtórz nowe hasło",
         "change-password": "Zmień hasło",
-        "wrong-old-password": "To nie to hasło",
+        "wrong-old-password": "Niepoprawne hasło",
         "wrong-old-password-error": "Coś poszło nie tak. Powiadom administratora.",
-        "valid-password": {
-            "min-length": "8 znaków",
-            "uppercase-letter": "Duża litera",
-            "number": "Cyfra",
-            "symbol": "Znak specjalny"
-        },
         "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
         "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
         "cancel-button": "ANULUJ",

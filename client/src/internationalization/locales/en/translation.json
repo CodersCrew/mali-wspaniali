@@ -340,12 +340,15 @@
     "admin-menu": {
         "home": "Home",
         "settings": "Settings",
+        "news": "News",
         "notifications": "Notifications",
         "newsletter": "Newsletter",
         "create-blog-article": "Blog",
         "archive": "Archive",
         "agreements": "Agreements",
         "results": "Results",
+        "newsletter-archive": "Archive",
+        "blog": "Blog",
         "logout": "Log out"
     },
     "home-page-content": {
@@ -389,14 +392,14 @@
         "date": "Date"
     },
     "settings-page": {
-        "header": "SETTINGS",
+        "header": "Settings",
         "password-change": "Password change",
         "password-change-comment": "For your personal safety change the password regularly",
-        "old-password": "Old password",
-        "new-password": "New password",
-        "confirm-new-password": "Confirm new password",
+        "old-password": "Enter the old password",
+        "new-password": "Enter a new password",
+        "confirm-new-password": "Confirm the new password",
         "change-password": "Change password",
-        "wrong-old-password": "Wrong password",
+        "wrong-old-password": "Incorrect password",
         "wrong-old-password-error": "Something went wrong. Call 911 or Administrator",
         "valid-password": {
             "min-length": "8 characters",
