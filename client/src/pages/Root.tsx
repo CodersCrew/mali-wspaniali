@@ -21,7 +21,6 @@ import { NotificationsPage } from './NotificationsPage';
 import { ThemeProvider } from '../theme';
 import { AdminHomePage } from './AdminHomePage/AdminHomePage';
 import { ParentAgreementsPage } from './ParentAgreementsPage/ParentAgreementsPage';
-// import { ParentSettingsPageNew } from './ParentSettingsPage/ParentSettingsPageNew';
 import { CreateArticlePage } from './CreateArticlePage/CreateArticlePage';
 import { ArchivePage } from './ArchivePage/ArchivePage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
@@ -67,7 +66,6 @@ export function Root() {
                             <Route path="/parent/article/:articleId" component={ArticlePage} />
                             <Route path="/parent/notifications" component={NotificationsPage} />
                             <Route path="/parent/agreements" component={ParentAgreementsPage} />
-                            {/* <Route path="/parent/settings" component={ParentSettingsPageNew} /> */}
                             <Route path="/parent/settings" component={ParentSettingsPage} />
                         </AppWrapper>
                     </Route>
