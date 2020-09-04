@@ -1,61 +1,28 @@
-import React, { useContext } from 'react';
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import React, { useContext, useEffect } from 'react';
+import { Container, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
 import { UserContext } from '../AppWrapper';
+import { activePage } from '../../apollo_client';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
 
 export const ParentSettingsPage = () => {
     const user = useContext(UserContext);
-    const classes = useStyles();
     const { t } = useTranslation();
+
+    useEffect(() => {
+        activePage(['parent-menu.settings']);
+    }, []);
 
     if (!user) return null;
 
     return (
-        <div className={classes.container}>
-            <Typography className={classes.header}>{t('settings-page.header')}</Typography>
-            <Typography className={classes.description}>{t('settings-page.parent.description')}</Typography>
+        <Container maxWidth="xl">
+            <PageTitle text={t('settings-page.header')} />
+            <Typography variant="h6" gutterBottom>
+                {t('settings-page.parent.description')}
+            </Typography>
             <ParentSettingsExpansionPanel user={user} />
-        </div>
+        </Container>
     );
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            padding: '0 0 54px 0',
-
-            [theme.breakpoints.down('md')]: {
-                padding: '0 0 5px 0',
-                textAlign: 'center',
-            },
-        },
-        header: {
-            fontSize: 36,
-            marginBottom: 20,
-            marginTop: 0,
-            textTransform: 'uppercase',
-            lineHeight: '44px',
-            fontWeight: 700,
-
-            [theme.breakpoints.down('sm')]: {
-                fontSize: 21,
-                lineHeight: '26px',
-            },
-        },
-        description: {
-            margin: '20px 0 40px 0',
-            fontSize: 21,
-            lineHeight: '26px',
-            fontWeight: 500,
-
-            [theme.breakpoints.down('sm')]: {
-                fontSize: 15,
-                display: 'flex',
-                flexDirection: 'column',
-                lineHeight: '18px',
-                margin: '15px 0 20px 0',
-            },
-        },
-    }),
-);
