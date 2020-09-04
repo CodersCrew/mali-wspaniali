@@ -42,10 +42,10 @@ export const ChangePasswordPanel = (props: Props) => {
                     </div>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography variant={'h6'} className={classes.problems}>
+                    <Typography variant={'subtitle2'} className={classes.problems}>
                         {t('settings-page.change-password-problems')}
                     </Typography>
-                    <Typography variant={'subtitle1'} className={classes.problems}>
+                    <Typography variant={'body2'} className={classes.problems}>
                         {t('settings-page.change-password-problems-hint')}
                     </Typography>
                     <ButtonSecondary variant={'contained'} className={classes.problems}>
@@ -68,13 +68,12 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '16px',
         },
         submitWrapper: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
             [theme.breakpoints.down('sm')]: {
                 margin: '0 0 20px 0',
             },
         },
-        changePasswordButton: {},
+        changePasswordButton: {
+            float: 'inline-end',
+        },
     }),
 );
