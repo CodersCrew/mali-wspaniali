@@ -371,9 +371,52 @@
         "content": "Notification content",
         "date": "Date"
     },
+    "settings-page": {
+        "header": "SETTINGS",
+        "password-change": "Password change",
+        "password-change-comment": "For your personal safety change the password regularly",
+        "old-password": "Old password",
+        "new-password": "New password",
+        "confirm-new-password": "Confirm new password",
+        "change-password": "Change password",
+        "wrong-old-password": "Wrong password",
+        "wrong-old-password-error": "Something went wrong. Call 911 or Administrator",
+        "valid-password": {
+            "min-length": "8 characters",
+            "uppercase-letter": "Uppercase letter",
+            "number": "Number",
+            "symbol": "Symbol"
+        },
+        "change-password-problems": "Have difficulties changing your password?",
+        "change-password-problems-hint": "No worries! Contact the Foundation to fix the problem.",
+        "cancel-button": "CANCEL",
+        "parent": {
+            "description": "Adjust settings of your account",
+            "password-change": "Password change",
+            "password-change-comment": "For your personal safety change the password regularly",
+            "language-selection": "Language selection",
+            "language-selection-comment": "Chose your default language for the application",
+            "legal-notes-comment": "Read the regulations",
+            "consents": "Consents given in the program",
+            "consents-comment": "Read or change the consents given in the program",
+            "delete-account": {
+                "header": "Deletion of the account",
+                "deletion-not-allowed": "You are not allowed to delete your own account.",
+                "deletion-hint": "To delete your account contact our Fund.",
+                "deletion-button": "WRITE A MESSAGE"
+            },
+            "legal-notes": {
+                "heading": "Legal notes",
+                "privacy-policy": "Privacy policy",
+                "regulations": "Regulations"
+            }
+        },
+        "admin": {
+            "description": ".No idea how to describe this site..."
+        }
+    },
     "years_0": "year",
     "years_1": "years",
-    "close": "Close",
     "pagination": {
         "previous": "Previous",
         "next": "Next"
