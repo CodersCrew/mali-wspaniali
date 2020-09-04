@@ -390,8 +390,51 @@
         "content": "Treść Powiadomienia",
         "date": "Data"
     },
+    "settings-page": {
+        "header": "USTAWIENIA",
+        "password-change": "Zmiana hasła",
+        "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
+        "old-password": "Aktualne hasło",
+        "new-password": "Nowe hasło",
+        "confirm-new-password": "Powtórz nowe hasło",
+        "change-password": "Zmień hasło",
+        "wrong-old-password": "To nie to hasło",
+        "wrong-old-password-error": "Coś poszło nie tak. Powiadom administratora.",
+        "valid-password": {
+            "min-length": "8 znaków",
+            "uppercase-letter": "Duża litera",
+            "number": "Cyfra",
+            "symbol": "Znak specjalny"
+        },
+        "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
+        "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
+        "cancel-button": "ANULUJ",
+        "parent": {
+            "description": "Dostosuj parametry swojego konta",
+            "password-change": "Zmiana hasła",
+            "password-change-comment": "Dla własnego bezpieczeństwa zmieniaj hasło regularnie",
+            "language-selection": "Wybór języka",
+            "language-selection-comment": "Wybierz język domyślny dla aplikacji",
+            "legal-notes-comment": "Zapoznaj się z regulaminem",
+            "consents": "Zgody zapisane w programie",
+            "consents-comment": "Przejrzyj i zmień wydane zgody",
+            "delete-account": {
+                "header": "Usuwanie konta",
+                "deletion-not-allowed": "Usuwanie konta z poziomu użytkownika nie jest możliwe.",
+                "deletion-hint": "Aby usunąć konto w aplikacji skontaktuj się z Fundacją.",
+                "deletion-button": "NAPISZ WIADOMOŚĆ"
+            },
+            "legal-notes": {
+                "heading": "Informacje prawne",
+                "privacy-policy": "Polityka prywatności",
+                "regulations": "Regulamin"
+            }
+        },
+        "admin": {
+            "description": ".Też nie mam pomysłu, co tu pisać o zarządzaniu kontem..."
+        }
+    },
     "years_0": "rok",
     "years_1": "lata",
-    "years_2": "lat",
-    "close": "Zamknij"
+    "years_2": "lat"
 }

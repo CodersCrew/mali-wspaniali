@@ -18,13 +18,14 @@ import { ArticlePage } from './ArticlePage/ArticlePage';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { ArticleListPage } from './ArticleListPage/ArticleListPage';
 import { NotificationsPage } from './NotificationsPage';
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '../theme';
 import { AdminHomePage } from './AdminHomePage/AdminHomePage';
 import { ParentAgreementsPage } from './ParentAgreementsPage/ParentAgreementsPage';
-import { ParentSettingsPage } from './ParentSettingsPage/ParentSettingsPage';
+// import { ParentSettingsPageNew } from './ParentSettingsPage/ParentSettingsPageNew';
 import { CreateArticlePage } from './CreateArticlePage/CreateArticlePage';
 import { ArchivePage } from './ArchivePage/ArchivePage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
+import { ParentSettingsPage } from './ParentSettingsPage';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -66,6 +67,7 @@ export function Root() {
                             <Route path="/parent/article/:articleId" component={ArticlePage} />
                             <Route path="/parent/notifications" component={NotificationsPage} />
                             <Route path="/parent/agreements" component={ParentAgreementsPage} />
+                            {/* <Route path="/parent/settings" component={ParentSettingsPageNew} /> */}
                             <Route path="/parent/settings" component={ParentSettingsPage} />
                         </AppWrapper>
                     </Route>
