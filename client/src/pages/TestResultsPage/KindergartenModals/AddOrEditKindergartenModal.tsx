@@ -29,7 +29,10 @@ export function AddOrEditKindergartenModal({ onSubmit, initialData }: Props) {
                 address: '',
                 name: '',
             } as FormValue),
-        onSubmit: v => onSubmit(v),
+        onSubmit: v => {
+            onSubmit(v);
+            setIsOpen(false);
+        },
     });
 
     const translationPrefix = initialData ? 'edit' : 'add';
