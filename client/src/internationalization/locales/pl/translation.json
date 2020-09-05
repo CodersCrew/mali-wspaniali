@@ -93,6 +93,22 @@
         "search-result": "Wynik wyszukiwania",
         "no-results": "Brak wyników"
     },
+    "kindergarten-modal": {
+        "city": "miasto",
+        "address": "ulica",
+        "name": "nazwa",
+        "number": "numer"
+    },
+    "add-kindergarten-modal": {
+        "title": "Dodaj przedszkole",
+        "add": "Dodaj",
+        "close": "Zamknij"
+    },
+    "edit-kindergarten-modal": {
+        "title": "Edytuj przedszkole",
+        "edit": "Edytuj",
+        "close": "Zamknij"
+    },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",
         "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",

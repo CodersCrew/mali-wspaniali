@@ -44,9 +44,7 @@ export const TwoActionsModal: FC<Props> = ({
 const useStyles = makeStyles(() =>
     createStyles({
         buttonsWrapper: {
-            padding: '0 78px',
             display: 'flex',
-            flexDirection: 'column',
             justifyItems: 'center',
             '& > :not(:first-child)': {
                 marginLeft: 0,
