@@ -3,4 +3,6 @@ export interface KindergartenProps {
   readonly date: Date;
   readonly number: number;
   readonly name: string;
+  readonly address: string;
+  readonly city: string;
 }

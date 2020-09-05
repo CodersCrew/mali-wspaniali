@@ -13,4 +13,10 @@ export class KindergartenDTO {
 
   @Field()
   readonly name: string;
+
+  @Field()
+  readonly city: string;
+
+  @Field()
+  readonly address: string;
 }

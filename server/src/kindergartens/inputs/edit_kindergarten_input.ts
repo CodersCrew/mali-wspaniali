@@ -1,16 +1,16 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
-export class CreateKindergartenInput {
-  @Field(() => Int)
+export class EditKindergartenInput {
+  @Field(() => Int, { nullable: true })
   readonly number: number;
 
-  @Field()
+  @Field({ nullable: true })
   readonly name: string;
 
-  @Field()
+  @Field({ nullable: true })
   readonly address: string;
 
-  @Field()
+  @Field({ nullable: true })
   readonly city: string;
 }
