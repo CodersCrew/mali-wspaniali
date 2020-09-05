@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography } from '@material-ui/core';
 import { white, newsletterColors, textColor } from '../../colors';
@@ -7,7 +8,7 @@ import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
 import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
 import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType, FieldsType } from './types';
 import { Theme } from '../../theme';
-import { getKindergartens } from '../../graphql/kindergartensRepository';
+import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
 import { Kindergarten } from '../../graphql/types';
 import { getAllUsers } from '../../graphql/userRepository';
 
@@ -22,13 +23,12 @@ export const NewsletterRecipent: React.FC<{
     selectRecipients: (filteredRecipients: string[]) => void;
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
 }> = ({ generalType, specificType, recipients, handleChange, selectRecipients, setFields }) => {
-    const [kindergartens, setKindergartens] = useState<Kindergarten[]>([]);
+    const { data: kindergartensData } = useQuery<KindergartenResponse>(KINDERGARTENS);
     const [parents, setParents] = useState<string[]>([]);
     const classes = useStyles();
     const { t } = useTranslation();
 
     useEffect(() => {
-        getKindergartens().then(({ data }) => setKindergartens(data!.kindergartens));
         getAllUsers('parent').then(({ data }) => setParents(data!.users.map(user => user.mail)));
     }, []);
 
@@ -46,8 +46,10 @@ export const NewsletterRecipent: React.FC<{
             generalType.value === GeneralRecipientInputValues.kindergartens &&
             specificType.value === SpecificRecipientInputValues.all
         ) {
-            if (kindergartens) {
-                const kindergartensId = kindergartens.map((kindergarten: Kindergarten) => kindergarten._id);
+            if (kindergartensData && kindergartensData.kindergartens) {
+                const kindergartensId = kindergartensData.kindergartens.map(
+                    (kindergarten: Kindergarten) => kindergarten._id,
+                );
                 selectRecipients(kindergartensId);
             }
         }
@@ -78,6 +80,10 @@ export const NewsletterRecipent: React.FC<{
         }
     };
 
+    if (!kindergartensData) return null;
+
+    const { kindergartens } = kindergartensData;
+
     return (
         <div className={classes.container}>
             <Typography className={classes.heading}>{t('newsletter.recipient-heading')}</Typography>
@@ -96,18 +102,18 @@ export const NewsletterRecipent: React.FC<{
             />
             {specificType.value === SpecificRecipientInputValues.single ||
             specificType.value === SpecificRecipientInputValues.kindergarten ? (
-                    <NewsletterOptionalTextField
-                        classes={classes}
-                        selectRecipients={selectRecipients}
-                        generalType={generalType}
-                        specificType={specificType}
-                        recipients={recipients}
-                        handleChange={handleChange}
-                        parents={parents}
-                        kindergartens={kindergartens}
-                        setFields={setFields}
-                    />
-                ) : null}
+                <NewsletterOptionalTextField
+                    classes={classes}
+                    selectRecipients={selectRecipients}
+                    generalType={generalType}
+                    specificType={specificType}
+                    recipients={recipients}
+                    handleChange={handleChange}
+                    parents={parents}
+                    kindergartens={kindergartens}
+                    setFields={setFields}
+                />
+            ) : null}
         </div>
     );
 };
