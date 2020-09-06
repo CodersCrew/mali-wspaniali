@@ -388,6 +388,47 @@
         "content": "Notification content",
         "date": "Date"
     },
+    "add-child-modal": {
+        "button": "Add",
+        "heading": "Welcome on the website Mali Wspania",
+        "paragraf": "Enter your child's details before going to the home page.",
+        "errors": {
+            "e1": "this field cannot be empty",
+            "e2": "this field requires a first and last name"
+        },
+        "inputs": {
+            "name_surname": "Name and surname of the child"
+        },
+        "select-options": {
+            "sex": {
+                "label": "Sex",
+                "l1": "man",
+                "l2": "woman"
+            },
+            "birth-date": {
+                "label": "Year of birth"
+            },
+            "birth-quarter": {
+                "label": "Birth quarter",
+                "l1": "I",
+                "hl1": "(january-march)",
+                "l2": "II",
+                "kl2": "(april-june)",
+                "l3": "III",
+                "hl3": "(july-september)",
+                "l4": "IV",
+                "hl4": "(october-december)"
+            },
+            "city": {
+                "label": "City",
+                "l1": "Wroclaw"
+            },
+            "kindergarten": {
+                "label": "Kindergarten",
+                "l1": "Dwarfs"
+            }
+        }
+    },
     "years_0": "year",
     "years_1": "years",
     "close": "Close",

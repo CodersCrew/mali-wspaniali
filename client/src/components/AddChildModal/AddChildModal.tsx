@@ -1,31 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles, InputLabel, FormControl } from '@material-ui/core'; //IconButton
+import { makeStyles, InputLabel, FormControl } from '@material-ui/core';
 import { createStyles } from '@material-ui/styles';
 import { Theme } from '../../theme/types';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-// import { Formik, Field, Form, useField, FieldAttributes, FieldArray } from 'formik';
-import { FieldAttributes, Formik } from 'formik';
+import { FieldAttributes, Formik, Form, useField } from 'formik';
 import { Select as SelectField } from '@material-ui/core';
-// import { useTranslation } from 'react-i18next';
-// import { styled } from '@material-ui/core/styles';
-
-// interface Opt {
-//     info: string;
-// }
-// const Option = styled(MenuItem)({
-//     a: (props: Opt) => {
-//         return props.info;
-//     },
-//     '&::after': {
-//         content: (props: Opt) => `"${props.info}"`,
-//         color: 'gray',
-//         display: 'inline-block',
-//         marginLeft: '10px',
-//     },
-// });
+import FormHelperText from '@material-ui/core/FormHelperText';
+import { useTranslation } from 'react-i18next';
 
 interface OptionProps {
     info: string;
@@ -33,19 +17,13 @@ interface OptionProps {
 }
 
 function OptionField(props: OptionProps) {
-    const classes = useStyles();
-
     return (
-        <span className={classes.optionField}>
+        <span>
             {props.label}
             {props.info}
         </span>
     );
 }
-
-// function SelectedOptionField(props: unknown) {
-//     return <InputBase />;
-// }
 
 const selectValues: { [index: string]: any } = {
     sex: [
@@ -99,8 +77,12 @@ const selectValues: { [index: string]: any } = {
         },
     ],
 };
+// addChildTranslations:{
+
+// }
 
 const initialValues = {
+    name: '',
     sex: '',
     birth_date: '',
     birth_quarter: '',
@@ -111,65 +93,77 @@ const initialValues = {
 interface SelectProps {
     label: string;
     fullWidth?: boolean;
-    onChange: (event: React.ChangeEvent<{ value: unknown; name?: string }>) => void;
+    // onChange: (event: React.ChangeEvent<{ value: unknown; name?: string }>) => void;
 }
 
-const Select: React.FC<FieldAttributes<SelectProps>> = ({ onChange, label, value, fullWidth, className, ...props }) => {
+const Select: React.FC<FieldAttributes<SelectProps>> = ({ label, value, fullWidth, className, disabled, ...props }) => {
     const { name } = props;
-    const classes = useStyles();
-    // const [field] = useField<SelectProps>(props);
-    // const errorText = meta.error && meta.touched ? meta.error : '';
+    const { t } = useTranslation();
+    const [field, meta] = useField<SelectProps>(props);
+    const errorText = meta.error && meta.touched ? meta.error : '';
+
     return (
-        <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel htmlFor="filled-age-native-simple">{label}</InputLabel>
+        <FormControl variant="outlined" className={className}>
+            <InputLabel htmlFor={name} {...field} error={!!errorText}>
+                {label}
+            </InputLabel>
             <SelectField
-                // {...field}
-                // helperText={errorText}
-                // error={!!errorText}
+                {...field}
+                error={!!errorText}
                 id="outlined-select-currency"
-                // select
                 label={label}
                 value={value}
                 name={name}
-                onChange={onChange}
-                // variant="outlined"
-                fullWidth //={fullWidth}
-                // input={<InputBase classes={{ root: classes.selectedInputField }} />}
                 renderValue={() => value}
-                labelId="filled-age-native-simple"
+                labelId={name}
+                disabled={!!disabled}
             >
-                {selectValues[name].map((option: any) => {
-                    console.log(option);
+                {selectValues[name].map((option: any, i: number) => {
+                    const path = `add-child-modal.select-options.${name}.l${i + 1}`;
+                    const label = t(path) !== path ? t(path) : option.label;
+                    const hpath = `add-child-modal.select-options.${name}.hl${i + 1}`;
+                    const helperLabel = t(hpath) !== hpath ? t(hpath) : option.helperLabel;
+
                     return (
-                        <MenuItem value={option.label}>
-                            <OptionField info={option.helperLabel} label={option.label} />
+                        <MenuItem value={option.label} key={label}>
+                            <OptionField info={helperLabel} label={label} />
                         </MenuItem>
                     );
-                    // return option.helperLabel ? (
-                    //     <Option key={option.value} value={option.value} info={option.helperLabel}>
-                    //         {option.label}
-                    //     </Option>
-                    // ) : (
-                    //     <MenuItem key={option.value} value={option.value} className={className}>
-                    //         {option.label}
-                    //     </MenuItem>
-                    // );
                 })}
             </SelectField>
+            <FormHelperText {...field} error={!!errorText}>
+                {errorText}
+            </FormHelperText>
         </FormControl>
     );
 };
 
-export const AddChildModal: React.FC = () => {
+interface InputProps {
+    label: string;
+}
+
+const Input: React.FC<FieldAttributes<InputProps>> = ({ label, ...props }) => {
+    const { name } = props;
+    const [field, meta] = useField<InputProps>(props);
+    const errorText = meta.error && meta.touched ? meta.error : '';
+    return (
+        <TextField
+            {...field}
+            error={!!errorText}
+            helperText={errorText}
+            name={name}
+            label={label}
+            id="outlined-helperText"
+            variant="outlined"
+            fullWidth
+        />
+    );
+};
+
+export const AddChildModal: React.FC<{ handleSubmit: (data: {}) => void }> = ({ handleSubmit }) => {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [values, setValues] = useState(initialValues);
-
-    const handleChange = (event: React.ChangeEvent<{ value: unknown; name?: string }>) => {
-        let { value, name } = event.target;
-        console.log(value, name, name === 'birth_quarter', values);
-        setValues({ ...values, [name!]: value });
-    };
+    const { t } = useTranslation();
 
     useEffect(() => {
         setModalIsOpen(true);
@@ -179,70 +173,85 @@ export const AddChildModal: React.FC = () => {
         <Formik
             validateOnChange={true}
             initialValues={initialValues}
-            // validationSchema={validationSchema}
-            // validate={values => {
-            //   const errors: Record<string, string> = {};
+            validate={(values: { [index: string]: any }) => {
+                const errors: Record<string, string> = {};
 
-            //   if (values.firstName.includes("bob")) {
-            //     errors.firstName = "no bob";
-            //   }
+                if (values.name === '') {
+                    errors.name = t('add-child-modal.errors.e1');
+                } else if (values.name.split(' ').length !== 2) {
+                    errors.name = t('add-child-modal.errors.e2');
+                }
+                const selects: string[] = Object.keys(values).filter(
+                    value => value !== 'name' && value !== 'city' && value !== 'kindergarten',
+                );
+                selects.forEach((name: string) => {
+                    if (values[name] === '') {
+                        errors[name] = t('add-child-modal.errors.e1');
+                    }
+                });
 
-            //   return errors;
-            // }}
+                return errors;
+            }}
             onSubmit={(data, { setSubmitting }) => {
                 setSubmitting(true);
-                // make async call
                 console.log('submit: ', data);
+                handleSubmit(data);
                 setSubmitting(false);
             }}
         >
-            <Box className={classes.shadow} zIndex="modal">
-                <div className={classes.modal}>
-                    <h1>Witaj na stronie Mali Wspaniali</h1>
-                    <p>Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.</p>
-                    <TextField
-                        id="outlined-helperText"
-                        label="Imię i nazwisko dziecka"
-                        defaultValue=""
-                        fullWidth
-                        variant="outlined"
-                    />
-                    <Select label="Płeć" value={values.sex} name="sex" onChange={handleChange} fullWidth />
-                    <Select label="Rok urodzenia" value={values.birth_date} name="birth_date" onChange={handleChange} />
-                    <Select
-                        label="Kwartał urodzenia"
-                        value={values.birth_quarter}
-                        name="birth_quarter"
-                        onChange={handleChange}
-                        className={classes.withHelpers}
-                    />
-                    <Select label="Miasto" value={values.city} name="city" onChange={handleChange} fullWidth />
-                    <Select
-                        label="Przedszkole"
-                        value={values.kindergarten}
-                        name="kindergarten"
-                        onChange={handleChange}
-                        fullWidth
-                    />
-                    <Button href="#text-buttons" color="primary">
-                        Dodaj
-                    </Button>
-                </div>
-            </Box>
+            {({ values, isSubmitting }) => (
+                <Form>
+                    <Box className={classes.shadow} zIndex="modal">
+                        <div className={classes.modal}>
+                            <h1>{t(`add-child-modal.heading`)}</h1>
+                            <p>{t(`add-child-modal.paragraf`)}</p>
+                            <Input value={values.name} name="name" label={t(`add-child-modal.inputs.name_surname`)} />
+                            <Select
+                                label={t(`add-child-modal.select-options.sex.label`)}
+                                value={values.sex}
+                                name="sex"
+                                fullWidth
+                                className={classes.formControl}
+                            />
+                            <Select
+                                label={t(`add-child-modal.select-options.birth-date.label`)}
+                                value={values.birth_date}
+                                name="birth_date"
+                                className={classes.half_size}
+                            />
+                            <Select
+                                label={t(`add-child-modal.select-options.birth-quarter.label`)}
+                                value={values.birth_quarter}
+                                name="birth_quarter"
+                                className={classes.half_size}
+                            />
+                            <Select
+                                label={t(`add-child-modal.select-options.city.label`)}
+                                value={values.city}
+                                name="city"
+                                className={classes.formControl}
+                                disabled
+                            />
+                            <Select
+                                label={t(`add-child-modal.select-options.kindergarten.label`)}
+                                value={values.kindergarten}
+                                name="kindergarten"
+                                className={classes.formControl}
+                                disabled
+                            />
+                            <Button color="primary" type="submit" disabled={isSubmitting}>
+                                {t(`add-child-modal.button`)}
+                            </Button>
+                        </div>
+                    </Box>
+                </Form>
+            )}
         </Formik>
     ) : null;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        withHelpers: {
-            '&::after': {
-                content: '"test"',
-                // content: props.selectValues,
-                display: 'inline-block',
-                marginLeft: '10px',
-            },
-        },
         shadow: {
             background: 'rgba(1,1,1,0.5)',
             height: '100vh',
@@ -287,53 +296,15 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginBottom: '20px',
             },
         },
-        optionField: {
-            color: 'grey',
-        },
-        selectedInputField: {
-            border: '1px solid black',
-            borderRadius: 4,
-        },
         formControl: {
             margin: theme.spacing(1),
-            width: '100%',
+            flexGrow: 1,
+            minWidth: '90%',
         },
-        // modal: {
-        //     position: 'absolute',
-        //     width: 'calc(90% - 120px)', // w '../../pages/AppWrapper/AppWrapper' padding: '10px 60px'
-        //     padding: '16px',
-        //     // backgroundColor: theme.popups.info.light,
-        //     background: 'white',
-        //     display: 'flex',
-        //     flexWrap: 'wrap',
-        //     alignItems: 'flex-start',
-        //     // letterSpacing: theme.typography.caption.letterSpacing,
-        // },
-        // modal_title: {
-        //     margin: '12px 0',
-        //     padding: '0px',
-        //     fontSize: '16px',
-        //     fontWeight: 500,
-        //     fontFamil: 'montserrat',
-        //     height: '22px',
-        //     lineHeight: '22px',
-        // },
-        // modal_textWrapper: {
-        //     padding: '0 12px',
-        // },
-        // modal_info: {
-        //     fonrSize: '14px',
-        // },
-        // modal_icon_info: {
-        //     width: '22px',
-        //     height: '22px',
-        //     margin: '12px 0',
-        //     color: theme.popups.info.main,
-        // },
-        // modal_icon_close: {
-        //     width: '22px',
-        //     height: '22px',
-        //     color: theme.popups.info.dark,
-        // },
+        half_size: {
+            margin: theme.spacing(1),
+            flexGrow: 1,
+            minWidth: '280px',
+        },
     }),
 );

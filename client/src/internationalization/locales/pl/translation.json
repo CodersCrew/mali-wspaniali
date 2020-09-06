@@ -390,6 +390,47 @@
         "content": "Treść Powiadomienia",
         "date": "Data"
     },
+    "add-child-modal": {
+        "button": "Dodaj",
+        "heading": "Witaj na stronie Mali Wspaniali",
+        "paragraf": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
+        "errors": {
+            "e1": "to pole nie może być puste",
+            "e2": "to pole wymaga imienia oraz nazwiska"
+        },
+        "inputs": {
+            "name_surname": "Imię i nazwisko dziecka"
+        },
+        "select-options": {
+            "sex": {
+                "label": "Płeć",
+                "l1": "mężczyzna",
+                "l2": "kobieta"
+            },
+            "birth-date": {
+                "label": "Rok urodzenia"
+            },
+            "birth-quarter": {
+                "label": "Kwartał urodzenia",
+                "l1": "I",
+                "hl1": "(styczen-marzec)",
+                "l2": "II",
+                "kl2": "(kwiecień-czerwiec)",
+                "l3": "III",
+                "hl3": "(lipiec-wrzesień)",
+                "l4": "IV",
+                "hl4": "(październik-grudzień)"
+            },
+            "city": {
+                "label": "Miasto",
+                "l1": "Wrocław"
+            },
+            "kindergarten": {
+                "label": "Przedszkole",
+                "l1": "Krasnoludki"
+            }
+        }
+    },
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
