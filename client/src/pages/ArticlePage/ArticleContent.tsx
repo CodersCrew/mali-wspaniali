@@ -50,11 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         contentPhoto: {
             paddingBottom: `${theme.spacing(4)}px`,
-            paddingTop: `${theme.spacing(4)}px`,
-
-            [theme.breakpoints.down('sm')]: {
-                paddingTop: `${theme.spacing(3)}px`,
-            },
         },
         contentPhotoMedia: {
             height: '200px',
