@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'absolute',
             width: 'inherit',
             padding: '16px',
-            backgroundColor: theme.palette.cookies_modal.light,
+            backgroundColor: theme.palette.cookiesModal.light,
             display: 'flex',
             alignItems: 'flex-start',
             letterSpacing: theme.typography.caption.letterSpacing,
@@ -77,12 +77,12 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '22px',
             height: '22px',
             margin: '12px 0',
-            color: theme.palette.cookies_modal.main,
+            color: theme.palette.cookiesModal.main,
         },
         modal_icon_close: {
             width: '22px',
             height: '22px',
-            color: theme.palette.cookies_modal.dark,
+            color: theme.palette.cookiesModal.dark,
         },
     }),
 );
