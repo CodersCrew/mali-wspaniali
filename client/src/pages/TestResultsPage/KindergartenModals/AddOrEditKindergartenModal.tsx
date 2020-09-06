@@ -13,11 +13,13 @@ interface FormValue {
 }
 
 interface Props {
-    initialData?: FormValue;
     onSubmit: (values: FormValue) => void;
+    initialData?: FormValue;
+    kindergartenId?: string;
+    onDelete?: (id: string) => void;
 }
 
-export function AddOrEditKindergartenModal({ onSubmit, initialData }: Props) {
+export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, kindergartenId }: Props) {
     const [isOpen, setIsOpen] = useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
@@ -36,6 +38,7 @@ export function AddOrEditKindergartenModal({ onSubmit, initialData }: Props) {
     });
 
     const translationPrefix = initialData ? 'edit' : 'add';
+    const isEditState = translationPrefix === 'edit';
 
     return (
         <>
@@ -111,6 +114,18 @@ export function AddOrEditKindergartenModal({ onSubmit, initialData }: Props) {
                                     },
                                 }}
                             />
+                            <Grid item>
+                                {isEditState && (
+                                    <ButtonSecondary
+                                        onClick={() => {
+                                            if (onDelete) onDelete(kindergartenId!);
+
+                                            setIsOpen(false);
+                                        }}
+                                        innerText={t('edit-kindergarten-modal.delete')}
+                                    />
+                                )}
+                            </Grid>
                         </Grid>
                     </Grid>
                 </div>

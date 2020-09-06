@@ -103,7 +103,8 @@
     "edit-kindergarten-modal": {
         "title": "Edit kindergarten",
         "edit": "Update",
-        "close": "Close"
+        "close": "Close",
+        "delete": "Delete"
     },
     "child-profile": {
         "no-child": "Sorry, there is no child with this id",

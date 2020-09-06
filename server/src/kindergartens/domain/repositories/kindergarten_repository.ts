@@ -47,8 +47,8 @@ export class KindergartenRepository {
     return updated;
   }
 
-  async removeKindergarten(kindergartenId: string): Promise<void> {
-    this.model.findByIdAndDelete(kindergartenId).exec();
+  async removeKindergarten(kindergartenId: string): Promise<KindergartenProps> {
+    return this.model.findByIdAndDelete(kindergartenId).exec();
   }
 
   // for e2e purpose only

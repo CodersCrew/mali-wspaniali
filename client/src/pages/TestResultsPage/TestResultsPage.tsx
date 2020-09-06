@@ -15,6 +15,7 @@ import {
     KINDERGARTENS,
     KindergartenResponse,
     UPDATE_KINDERGARTEN,
+    DELETE_KINDERGARTEN,
 } from '../../graphql/kindergartensRepository';
 
 export const TestResultsPage = () => {
@@ -22,6 +23,7 @@ export const TestResultsPage = () => {
     const [children, setChildren] = useState<Child[]>([]);
     const [createKindergarten] = useMutation<AddKindergartenInput>(CREATE_KINDERGARTEN);
     const [updateKindergarten] = useMutation<AddKindergartenInput>(UPDATE_KINDERGARTEN);
+    const [deleteKindergarten] = useMutation<{ id: string }>(DELETE_KINDERGARTEN);
     const { data: kindergartenData } = useQuery<KindergartenResponse>(KINDERGARTENS);
 
     useEffect(() => {
@@ -55,12 +57,18 @@ export const TestResultsPage = () => {
                             {name} {city}{' '}
                             <AddOrEditKindergartenModal
                                 initialData={{ city, name, number, address }}
+                                kindergartenId={_id}
                                 onSubmit={v => {
                                     updateKindergarten({
                                         variables: {
                                             id: _id,
                                             kindergarten: v,
                                         },
+                                    });
+                                }}
+                                onDelete={id => {
+                                    deleteKindergarten({
+                                        variables: { id },
                                     });
                                 }}
                             />
