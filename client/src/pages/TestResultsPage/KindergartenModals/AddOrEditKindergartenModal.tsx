@@ -39,8 +39,8 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
         },
     });
 
-    const translationPrefix = initialData ? 'edit' : 'add';
-    const isEditState = translationPrefix === 'edit';
+    const isEditState = !!initialData;
+    const translationPrefix = isEditState ? 'edit' : 'add';
 
     return (
         <>
