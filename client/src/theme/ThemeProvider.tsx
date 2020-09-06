@@ -33,3 +33,13 @@ export const ThemeProvider: FC = ({ children }) => {
         </PureThemeProvider>
     );
 };
+
+declare module '@material-ui/core/styles/createPalette' {
+    interface PaletteOptions {
+        cookies_modal?: PaletteColorOptions;
+    }
+
+    interface Palette {
+        cookies_modal: PaletteColor;
+    }
+}

@@ -51,9 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         modal: {
             position: 'absolute',
-            width: 'calc(100% - 120px)', // w '../../pages/AppWrapper/AppWrapper' padding: '10px 60px'
+            width: 'inherit',
             padding: '16px',
-            backgroundColor: theme.popups.info.light,
+            backgroundColor: theme.palette.cookies_modal.light,
             display: 'flex',
             alignItems: 'flex-start',
             letterSpacing: theme.typography.caption.letterSpacing,
@@ -77,12 +77,12 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '22px',
             height: '22px',
             margin: '12px 0',
-            color: theme.popups.info.main,
+            color: theme.palette.cookies_modal.main,
         },
         modal_icon_close: {
             width: '22px',
             height: '22px',
-            color: theme.popups.info.dark,
+            color: theme.palette.cookies_modal.dark,
         },
     }),
 );

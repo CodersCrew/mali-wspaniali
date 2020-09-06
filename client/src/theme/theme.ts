@@ -55,16 +55,14 @@ export const theme: ThemeObject = {
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
             focus: 'rgba(0, 0, 0, 0.12)',
         },
-        background: {
-            default: '#F1F2F4',
-        },
-    },
-    popups: {
-        info: {
+        cookies_modal: {
             main: '#2296F3',
             light: '#E9F5FE',
             dark: '#113C60',
             contrastText: 'rgba(0, 0, 0, 0.87)',
+        },
+        background: {
+            default: '#F1F2F4',
         },
     },
     typography: {
