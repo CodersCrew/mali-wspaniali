@@ -3,7 +3,6 @@ import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@ma
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
 import { ArticleCategory } from '../../graphql/types';
-import { ArticleBadge } from '../../pages/ArticleListPage/ArticleBadge';
 import { ButtonSecondary } from '../Button';
 
 interface Props {
@@ -21,7 +20,6 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link, category
     return (
         <Card className={classes.card} elevation={0}>
             <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
-            <ArticleBadge articleCategory={category} />
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="subtitle1" className={classes.articleTitle}>
                     {title}
