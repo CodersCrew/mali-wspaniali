@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { Article } from '../../graphql/types';
-import { BreadcrumbsWithDescription } from './BreadcrumbsWithDescription';
-import { ArticleHeader } from './ArticleHeader';
 import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
-import { SingleArticleColors } from '../../colors';
 import { ARTICLE_BY_ID } from '../../graphql/articleRepository';
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
+import { ButtonDefault } from '../../components/Button';
 
 export const ArticlePage = () => {
     const classes = useStyles();
+    const { t } = useTranslation();
     const { articleId } = useParams<{ articleId: string }>();
     const device = useBreakpoints();
     const history = useHistory();
@@ -35,37 +35,29 @@ export const ArticlePage = () => {
 
     return (
         <>
-            {device === 'MOBILE' && (
-                <ArticleNavigationMobile onClick={onBackClick} />
-            )}
+            {device === 'MOBILE' && <ArticleNavigationMobile onClick={onBackClick} />}
             <Grid className={classes.rootGrid} container direction="column">
-                <Grid container direction="row">
-                    <BreadcrumbsWithDescription
-                        category={data.article.category}
-                        title={data.article.title}
-                        readingTime={data.article.readingTime}
-                    />
-                </Grid>
-                <Grid container direction="row">
-                    <ArticleHeader title={data.article.title} />
-                </Grid>
                 <div className={classes.articleContentContainer}>
                     <Grid container direction="row">
                         <ArticleContent
-                            category={data.article.category}
-                            header={data.article.header}
                             pictureUrl={data.article.pictureUrl}
                             contentHTML={data.article.contentHTML}
+                            title={data.article.title}
+                            date={data.article.date}
+                            readingTime={data.article.readingTime}
                         />
                     </Grid>
-                    <Grid container direction="row">
-                        <ArticleVideo
-                            videoUrl={data.article.videoUrl}
-                            tags={data.article.tags}
-                        />
+                    <Grid item xs={12} className={classes.videoGridContainer}>
+                        <ArticleVideo videoUrl={data.article.videoUrl} tags={data.article.tags} />
                     </Grid>
-                    <Grid container direction="row">
+                    <Grid container direction="row" className={classes.videoGridContainer}>
                         <ArticleRedactor redactor={data.article.redactor} />
+                    </Grid>
+                    <Grid className={classes.paginationButtonsContainer}>
+                        <ButtonDefault variant="contained">{t(`single-article.go-to-previous-page`)}</ButtonDefault>
+                        <ButtonDefault variant="contained" color={'secondary'}>
+                            {t(`single-article.go-to-next-page`)}
+                        </ButtonDefault>
                     </Grid>
                 </div>
             </Grid>
@@ -76,7 +68,7 @@ export const ArticlePage = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         rootGrid: {
-            padding: '3.57vw 12.14vw 2.85vw 6.07vw',
+            padding: '0 0 2.85vw 0',
 
             [theme.breakpoints.down('sm')]: {
                 padding: 0,
@@ -85,12 +77,22 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         articleContentContainer: {
             position: 'relative',
-            maxWidth: '100%',
+            maxWidth: '70vw',
+            padding: '0 0 0 32px',
+
             [theme.breakpoints.down('sm')]: {
-                backgroundColor: SingleArticleColors.contentBackground,
                 width: '100%',
                 marginBottom: '20px',
             },
+        },
+        videoGridContainer: {
+            width: '60vw',
+        },
+        paginationButtonsContainer: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            marginTop: theme.spacing(4),
         },
     }),
 );

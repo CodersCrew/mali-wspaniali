@@ -1,152 +1,62 @@
 import React from 'react';
-import {
-    makeStyles,
-    createStyles,
-    Grid,
-    withStyles,
-    Box,
-    Typography,
-    CardMedia,
-    Theme,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Typography, CardMedia, Theme } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { SingleArticleColors } from '../../colors';
 import { lineHeight, letterSpace } from '../../fontStyle';
-import { ButtonDefault } from '../../components/Button';
 
 interface Props {
-    category: string;
-    header: string;
     pictureUrl: string;
     contentHTML: string;
+    title: string;
+    date: Date;
+    readingTime: number;
 }
 
-export const ArticleContent = ({ category, header, pictureUrl, contentHTML }: Props) => {
+export const ArticleContent = ({ title, pictureUrl, contentHTML, date, readingTime }: Props) => {
     const classes = useStyles();
+    let options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     const { t } = useTranslation();
 
-    const ColorButton = createColorButton(category);
-
     return (
-        <Grid className={classes.contentGrid} container direction="column">
-            <Grid className={classes.contentCategory} container direction="row">
-                <Grid item xs={6}>
-                    <Grid container direction="row">
-                        <Grid item xs={3}>
-                            <ColorButton
-                                variant="contained"
-                                className={classes.contentCategoryButton}
-                                href={`#${category.toUpperCase()}`}
-                                disableElevation
-                                disableFocusRipple
-                                disableRipple
-                                disableTouchRipple
-                            >
-                                <Box className={classes.contentCategoryTextBox}>
-                                    <Typography className={classes.contentCategoryText}>
-                                        {t(`single-article.${category}`).toUpperCase()}
-                                    </Typography>
-                                </Box>
-                            </ColorButton>
-                        </Grid>
-                    </Grid>
-                </Grid>
+        <Grid className={classes.contentGrid} container direction="column" spacing={4}>
+            <Grid className={classes.contentPhoto} item xs={12}>
+                <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
             </Grid>
-            <Grid container direction="row">
+            <Grid className={classes.contentContainer} item xs={12}>
+                <div className={classes.contentDateReadingTime}>
+                    <Typography className={classes.dateReadingTime}>
+                        {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
+                    </Typography>
+                    <Typography className={classes.dateReadingTime}>
+                        {readingTime} {t(`single-article.reading-time`).toUpperCase()}
+                    </Typography>
+                </div>
                 <Grid className={classes.contentHeader} item xs={12}>
-                    <Typography className={classes.contentHeaderText}>{header}</Typography>
+                    <Typography className={classes.contentTitleText}>{title}</Typography>
                 </Grid>
-            </Grid>
-            <Grid container direction="row">
-                <Grid className={classes.contentPhoto} item xs={12}>
-                    <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
-                </Grid>
-            </Grid>
-            <Grid container direction="row">
-                <Grid className={classes.contentHTML} item xs={12}>
-                    {parse(contentHTML)}
+                <Grid container direction="row">
+                    <Grid className={classes.contentHTML} item xs={12}>
+                        {parse(contentHTML)}
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
     );
 };
 
-const createColorButton = (category: string) => {
-    const singleArticleColor = getSingleArticleColor(category);
-    const singleArticleColorHover = getSingleArticleColorHover(category);
-
-    return withStyles(() => ({
-        root: {
-            backgroundColor: singleArticleColor,
-            '&:hover': {
-                backgroundColor: singleArticleColorHover,
-            },
-        },
-    }))(ButtonDefault);
-};
-
-const getSingleArticleColor = (category: string) => {
-    const { categories }: { categories: { [index: string]: string } } = SingleArticleColors;
-    const selectedColor = categories[category];
-
-    return selectedColor || categories.emotions;
-};
-
-const getSingleArticleColorHover = (category: string) => {
-    const { categoriesHover }: { categoriesHover: { [index: string]: string } } = SingleArticleColors;
-    const selectedColor = categoriesHover[category];
-
-    return selectedColor || categoriesHover.emotions;
-};
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentGrid: {
-            backgroundColor: SingleArticleColors.contentBackground,
-            padding: '0 2.14vw 2.85vw',
+            backgroundColor: theme.palette.background.default,
         },
-        contentCategory: {
-            paddingLeft: '2.14vw',
-        },
-        contentCategoryText: {
-            color: SingleArticleColors.contentBackground,
-            letterSpacing: letterSpace,
-            fontSize: '10px',
-            lineHeight,
-        },
-        contentCategoryTextBox: {
-            fontWeight: 500,
-        },
-        contentCategoryButton: {
-            paddingTop: '2px',
-            height: '25px',
-            width: '85px',
-        },
-        contentHeader: {
-            paddingTop: '4vw',
-            paddingBottom: '2.14vw',
 
-            [theme.breakpoints.down('sm')]: {
-                paddingTop: '30px',
-                paddingBottom: '25px',
-            },
-        },
-        contentHeaderText: {
-            fontSize: '20px',
-            fontWeight: 'bolder',
-            letterSpacing: letterSpace,
-            lineHeight,
-            textTransform: 'uppercase',
-
-            [theme.breakpoints.down('sm')]: {
-                textTransform: 'initial',
-            },
-        },
         contentPhoto: {
-            paddingBottom: '2vw',
+            paddingBottom: '2.14vw',
+            paddingTop: '32px',
         },
         contentPhotoMedia: {
+            height: '200px',
             borderRadius: '4px',
             border: 'solid',
             borderColor: SingleArticleColors.break,
@@ -158,9 +68,38 @@ const useStyles = makeStyles((theme: Theme) =>
                 maxWidth: '100vw',
             },
         },
+        contentContainer: {
+            width: '60vw',
+        },
+        contentDateReadingTime: {
+            display: 'flex',
+            flexDirection: 'row',
+        },
+        dateReadingTime: {
+            fontSize: '10px',
+            marginRight: theme.spacing(4),
+            alignSelf: 'center',
+        },
+        contentHeader: {
+            paddingTop: theme.spacing(2),
+            [theme.breakpoints.down('sm')]: {
+                paddingTop: '30px',
+                paddingBottom: '25px',
+            },
+        },
+        contentTitleText: {
+            fontSize: '20px',
+            fontWeight: 'bolder',
+            letterSpacing: letterSpace,
+            lineHeight,
+            textTransform: 'uppercase',
+
+            [theme.breakpoints.down('sm')]: {
+                textTransform: 'initial',
+            },
+        },
         contentHTML: {
-            paddingLeft: '2vw',
-            paddingBottom: '2vw',
+            paddingBottom: theme.spacing(3),
         },
     }),
 );
