@@ -67,6 +67,6 @@ import { KindergartenModule } from '../kindergartens/kindergarten_module';
     ...EventHandlers,
   ],
   controllers: [ChildrenController],
-  exports: [UserRepository],
+  exports: [UserRepository, ChildRepository],
 })
 export class UsersModule {}

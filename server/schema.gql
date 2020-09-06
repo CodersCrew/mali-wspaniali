@@ -148,6 +148,7 @@ type Mutation {
   createAgreement(agreement: String!): ReturnedStatusDTO!
   createKindergarten(kindergarten: CreateKindergartenInput!): KindergartenDTO!
   updateKindergarten(kindergarten: EditKindergartenInput!, id: String!): KindergartenDTO!
+  deleteKindergarten(id: String!): ReturnedStatusDTO!
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
