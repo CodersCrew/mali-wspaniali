@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
-import { ArticleCategory } from '../../graphql/types';
 import { ButtonSecondary } from '../Button';
 
 interface Props {
@@ -10,10 +9,9 @@ interface Props {
     title: string;
     description: string;
     link: string;
-    category: ArticleCategory;
 }
 
-export const BlogArticleCard = ({ pictureUrl, title, description, link, category }: Props) => {
+export const BlogArticleCard = ({ pictureUrl, title, description, link }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 

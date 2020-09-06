@@ -13,7 +13,7 @@ interface Props {
 
 export const ArticleContent = ({ title, pictureUrl, contentHTML, date, readingTime }: Props) => {
     const classes = useStyles();
-    let options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     const { t } = useTranslation();
 
     return (
@@ -27,7 +27,7 @@ export const ArticleContent = ({ title, pictureUrl, contentHTML, date, readingTi
                         {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
                     </Typography>
                     <Typography className={classes.dateReadingTime}>
-                        {readingTime} {t(`single-article.reading-time`)}
+                        {readingTime} {t('single-article.reading-time')}
                     </Typography>
                 </div>
                 <Grid className={classes.contentHeader} item>
