@@ -1,4 +1,5 @@
 import React from 'react';
+import {useQuery} from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
 import { SingleSelect } from './SingleSelect';
@@ -9,9 +10,9 @@ import {
     areParentsSelected,
     areSpecificRecipientsRequired,
     setLabel,
-    getKindergardens,
     generateKindergardenOptions,
 } from './utils';
+import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
 
 export const NewsletterRecipent = ({
     generalType,
@@ -20,9 +21,7 @@ export const NewsletterRecipent = ({
     handleChange,
 }: NewsletterRecipientProps) => {
     const { t } = useTranslation();
-
-    const kindergardens = getKindergardens();
-    const kindergardenOptionsValues = generateKindergardenOptions(kindergardens, t);
+    const { data: kindergartensData } = useQuery<KindergartenResponse>(KINDERGARTENS);
 
     const specificTypeOptionsValues = areParentsSelected(generalType) ? parentsRecipients : kindergartensRecipients;
 
@@ -37,6 +36,8 @@ export const NewsletterRecipent = ({
     if (!kindergartensData) return null;
 
     const { kindergartens } = kindergartensData;
+
+    const kindergardenOptionsValues = generateKindergardenOptions(kindergartens, t);
 
     return (
         <Card>

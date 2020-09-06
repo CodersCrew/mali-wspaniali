@@ -8,8 +8,8 @@ import {
     ProgressBarStates,
     CheckSelection,
     SelectOptionsValues,
-    Kindergarden,
 } from './types';
+import { Kindergarten } from '../../graphql/types';
 
 export const areParentsSelected: CheckSelection = type => type.value === GeneralRecipientInputValues.parents;
 
@@ -102,36 +102,13 @@ export const setProgress = (
     }
 };
 
-export const getKindergardens = (): Kindergarden[] => {
-    return [
-        {
-            id: '1',
-            number: 100,
-            name: 'Bajkowa Przystań',
-            address: 'ul. Krakowska 56-62, 50-425 Wrocław',
-        },
-        {
-            id: '2',
-            number: 105,
-            name: 'Tęczowe Siódemki',
-            address: 'ul. J.U. Niemcewicza 4, 50-238 Wrocław',
-        },
-        {
-            id: '3',
-            number: 777,
-            name: 'Akademia Pana Kleksa',
-            address: 'ul. Wielka 18, 53-341 Wrocław',
-        },
-    ];
-};
-
-export const generateKindergardenOptions = (kindergardens: Kindergarden[], t: TFunction): SelectOptionsValues => {
+export const generateKindergardenOptions = (kindergardens: Kindergarten[], t: TFunction): SelectOptionsValues => {
     const values = kindergardens.map(kindergarden => {
-        const { id, number, name, address } = kindergarden;
+        const { _id, number, name } = kindergarden;
 
         return {
-            value: id,
-            label: `${t('newsletter.kindergarten-number')} ${number}, ${name}, ${address}`,
+            value: _id,
+            label: `${t('newsletter.kindergarten-number')} ${number}, ${name}`,
         };
     });
 

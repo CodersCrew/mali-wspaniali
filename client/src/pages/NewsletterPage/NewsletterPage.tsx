@@ -1,25 +1,10 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-    Typography,
-    Button,
-    makeStyles,
-    createStyles,
-    Theme,
-    Grid,
-    Typography,
-    makeStyles,
-    createStyles,
-    Theme,
-} from '@material-ui/core';
+import { Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { NewsletterProgressBar } from './NewsletterProgressBar';
 import { ProgressBarStates } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
-import { openDialog } from '../../utils/openDialog';
-import { NewsletterSentModal } from './NewsletterSentModal';
-import { secondaryColor, white } from '../../colors';
 import { setProgress } from './utils';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { ButtonSecondary } from '../../components/Button';
@@ -63,6 +48,10 @@ export const NewsletterPage = () => {
     });
 
     useEffect(() => {
+        activePage(['admin-menu.newsletter']);
+    }, []);
+
+    useEffect(() => {
         setProgress(specificType, recipients, type, topic, message, setProgressBarState);
     }, [specificType, recipients, type, topic, message]);
 
@@ -79,20 +68,9 @@ export const NewsletterPage = () => {
         }
     };
 
-    const goToAdminPage = () => {
-        history.push('/admin');
-    };
-
-    const resetState = () => {
-        setFields(initialState);
-        setProgressBarState({
-            firstStep: ProgressBarStates.Ready,
-            secondStep: ProgressBarStates.Inactive,
-        });
-    };
-
     const handleSubmit = async () => {
-        // todo
+        // TODO:
+        console.log('submitted');
     };
 
     const isSubmitBtnDisabled =
@@ -104,7 +82,8 @@ export const NewsletterPage = () => {
 
     return (
         <div className={classes.container}>
-            <Typography variant="h3" className={classes.subHeader}>
+            <PageTitle text={t('newsletter.header')} />
+            <Typography variant="h2" className={classes.subHeader}>
                 {t('newsletter.subHeader')}
             </Typography>
             <div className={classes.formContainer}>
@@ -115,14 +94,12 @@ export const NewsletterPage = () => {
                         specificType={specificType}
                         recipients={recipients}
                         handleChange={handleChange}
-                        selectRecipients={selectRecipients}
-                        setFields={setFields}
                     />
                     <NewsletterContent
-                        handleTypeDelete={handleTypeDelete}
                         handleChange={handleChange}
                         type={type}
                         topic={topic}
+                        specificType={specificType}
                         recipients={recipients}
                         message={message}
                         setFields={setFields}
@@ -132,13 +109,7 @@ export const NewsletterPage = () => {
             <div className={classes.formButtonWrapper}>
                 <ButtonSecondary
                     variant="contained"
-                    disabled={
-                        recipients.value.length === 0 ||
-                        !type.value ||
-                        !topic.value ||
-                        !message.value ||
-                        message.value === '<p><br></p>'
-                    }
+                    disabled={isSubmitBtnDisabled}
                     className={classes.formButton}
                     onClick={handleSubmit}
                     innerText={t('newsletter.send')}
