@@ -297,7 +297,10 @@
         "emotions": "emotions",
         "activity": "activity",
         "food": "food",
-        "other": "other"
+        "other": "other",
+        "reading-time": "min of reading",
+        "go-to-previous-page": "previous",
+        "go-to-next-page": "next"
     },
     "database-backup": {
         "get-backup-json": "Get database as JSON"

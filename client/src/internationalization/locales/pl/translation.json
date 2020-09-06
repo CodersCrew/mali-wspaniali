@@ -296,7 +296,10 @@
         "emotions": "emocje",
         "activity": "aktywność",
         "food": "żywność",
-        "other": "inne"
+        "other": "inne",
+        "reading-time": "min czytania",
+        "go-to-previous-page": "poprzednia",
+        "go-to-next-page": "nastepna"
     },
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
