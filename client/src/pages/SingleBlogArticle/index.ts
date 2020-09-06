@@ -1,1 +1,0 @@
-export { SingleBlogArticle } from './SingleBlogArticle';

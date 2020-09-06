@@ -1,45 +1,40 @@
-import { gql, DocumentNode, ApolloQueryResult } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
-import { Article } from './types';
-import { client } from '../apollo_client';
-
-export function getArticles(page: number, category?: string): Promise<ApolloQueryResult<{ articles: Article[] }>> {
-    let query: DocumentNode;
-
-    if (category) {
-        query = gql`
-        {
-            articles(page: ${page}, category: "${category}") {
+export const ARTICLES_BY_CATEGORY = gql`
+    query Articles($page: Int!, $perPage: Int!, $category: String!) {
+        paginatedArticles(page: $page, perPage: $perPage, category: $category) {
+            articles {
                 _id
                 title
                 description
                 category
                 pictureUrl
             }
+            count
+            hasNext
         }
-    `;
-    } else {
-        query = gql`
-        {
-            articles(page: ${page}) {
-                _id
-                title
-                description
-                category
-                pictureUrl
-            }
-        }
-    `;
     }
+`;
 
-    return client.query({ query });
-}
+export const ARTICLES = gql`
+    query Articles($page: Int!, $perPage: Int!) {
+        paginatedArticles(page: $page, perPage: $perPage) {
+            articles {
+                _id
+                title
+                description
+                category
+                pictureUrl
+            }
+            count
+            hasNext
+        }
+    }
+`;
 
-export function getLastArticles(count: number): Promise<ApolloQueryResult<{ lastArticles: Article[] }>> {
-    return client.query({
-        query: gql`
-    {
-        lastArticles(count: ${count}) {
+export const LAST_ARTICLES = gql`
+    query Articles($count: Int!) {
+        lastArticles(count: $count) {
             _id
             title
             description
@@ -47,35 +42,29 @@ export function getLastArticles(count: number): Promise<ApolloQueryResult<{ last
             pictureUrl
         }
     }
-`,
-    });
-}
+`;
 
-export function getArticleDocById(articleId: string): Promise<ApolloQueryResult<{ article: Article }>> {
-    return client.query({
-        query: gql`
-            {
-                article(id: "${articleId}") {
-                    _id
-                    title
-                    description
-                    subtitle
-                    header
-                    category
-                    pictureUrl
-                    readingTime
-                    contentHTML
-                    videoUrl
-                    tags
-                    redactor {
-                        avatarUrl
-                        firstName
-                        lastName
-                        profession
-                        biography
-                    }
-                }
+export const ARTICLE_BY_ID = gql`
+    query Article($articleId: String!) {
+        article(id: $articleId) {
+            _id
+            title
+            description
+            subtitle
+            header
+            category
+            pictureUrl
+            readingTime
+            contentHTML
+            videoUrl
+            tags
+            redactor {
+                avatarUrl
+                firstName
+                lastName
+                profession
+                biography
             }
-        `,
-    });
-}
+        }
+    }
+`;

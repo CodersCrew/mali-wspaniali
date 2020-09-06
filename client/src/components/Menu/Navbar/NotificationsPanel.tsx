@@ -2,9 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuList, Paper, createStyles, makeStyles, Theme } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
+
 import { NotificationItem } from './NotificationItem';
 import { white, secondaryColor } from '../../../colors';
-import { Notification } from '../../../firebase/types';
+import { Notification } from '../../../graphql/types';
 
 export type NotificationListProps = {
     notifications: Notification[];
@@ -20,9 +21,9 @@ export const NotificationsPanel = (props: NotificationListProps) => {
             <MenuList dense={true}>
                 {notifications &&
                     notifications.map(notification => {
-                        const { text, date, isRead, id } = notification;
+                        const { templateId, date, _id, isRead } = notification;
 
-                        return <NotificationItem key={id} id={id} text={text} date={date} isRead={isRead} />;
+                        return <NotificationItem key={_id} id={_id} text={templateId} date={date} isRead={isRead} />;
                     })}
             </MenuList>
             <Link to={'/parent/notifications'} className={classes.notificationLink}>
@@ -36,8 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         notificationsPanel: {
             position: 'absolute',
-            top: '80px',
-            right: '100px',
+            top: theme.spacing(7),
+            right: theme.spacing(3),
             zIndex: 200,
             width: '350px',
             borderRadius: '5px',

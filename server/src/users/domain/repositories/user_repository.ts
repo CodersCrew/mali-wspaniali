@@ -16,7 +16,28 @@ export class UserRepository {
     return await this.userModel
       .findById(id, { password: 0 })
       .lean()
-      .exec();
+      .exec()
+      .then(user => ({ ...user, agreements: user.agreements || [] }));
+  }
+
+  async getAll(role?: string): Promise<UserProps[]> {
+    let query: { [index: string]: string } = {};
+
+    if (role) {
+      query.role = role;
+    }
+
+    return await this.userModel
+      .find(query, { password: 0 })
+      .lean()
+      .exec()
+      .then(users =>
+        users.map(user => ({
+          ...user,
+          agreements: user.agreements || [],
+          children: user.children || [],
+        })),
+      );
   }
 
   async getByMail(mail: string): Promise<UserProps> {
@@ -64,10 +85,10 @@ export class UserRepository {
 
   async addAgreement(
     userId: string,
-    aggrementId: string,
+    agreementId: string,
   ): Promise<UserDocument> {
     return this.userModel.findByIdAndUpdate(userId, {
-      $addToSet: { aggrements: aggrementId },
+      $addToSet: { agreements: agreementId },
     });
   }
 

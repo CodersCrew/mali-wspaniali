@@ -11,7 +11,7 @@ jest.setTimeout(10000);
 
 describe('Article (e2e)', () => {
   let app: INestApplication;
-  let authorization: string;
+  let authorizationToken: string;
 
   beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -23,6 +23,32 @@ describe('Article (e2e)', () => {
     await app.init();
     await app.get(ArticlesRepository).clearTable();
     await app.get(UserRepository).clearTable();
+
+    await app
+      .get(UserRepository)
+      .createAdmin(
+        'test@test.pl',
+        await bcrypt.hash('testtest', await bcrypt.genSalt(10)),
+      );
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        variables: {},
+        query: `
+    mutation {
+      login(user: {
+          mail: "test@test.pl", password: "testtest"
+      }) {
+        token
+      }
+    }
+    `,
+      })
+      .then(response => {
+        authorizationToken = response.body.data.login.token;
+      });
 
     done();
   });
@@ -39,13 +65,21 @@ describe('Article (e2e)', () => {
     it('returns empty result', async () => {
       return await request(app.getHttpServer())
         .post('/graphql')
+        .set('Authorization', authorizationToken)
         .send({
           operationName: null,
           variables: {},
-          query: '{articles(page:0){_id, title}}',
+          query: `{
+            paginatedArticles(page:0){
+              articles {
+                _id,
+                title
+              }
+            }
+          }`,
         })
         .expect({
-          data: { articles: [] },
+          data: { paginatedArticles: { articles: [] } },
         });
     });
   });
@@ -69,18 +103,18 @@ mutation {
   login(user: {
       mail: "admin@admin.com", password: "adminadmin"
   }) {
-    status
+    token
   }
 }
 `,
         })
         .then(response => {
-          authorization = response.header['set-cookie'];
+          authorizationToken = response.body.data.login.token;
         });
 
       await request(app.getHttpServer())
         .post('/graphql')
-        .set('Cookie', ['Authorization', authorization])
+        .set('Authorization', authorizationToken)
         .send({
           operationName: null,
           variables: {},
@@ -109,13 +143,15 @@ mutation {
 
       await request(app.getHttpServer())
         .post('/graphql')
+        .set('Authorization', authorizationToken)
         .send({
           operationName: null,
           variables: {},
           query: `
           {
-            articles(page:1){
-              _id,
+            paginatedArticles(page:1){
+              articles {
+                _id,
               title,
               category,
               contentHTML
@@ -129,12 +165,13 @@ mutation {
               title
               subtitle
               readingTime
+              }
             }
           }
           `,
         })
         .expect(({ body }) => {
-          const { articles } = body.data;
+          const { articles } = body.data.paginatedArticles;
           const [newArticle] = articles;
 
           expect(articles.length).toEqual(1);
@@ -179,13 +216,13 @@ mutation {
   login(user: {
       mail: "admin@admin.com", password: "adminadmin"
   }) {
-    status
+    token
   }
 }
 `,
         })
         .then(response => {
-          authorization = response.header['set-cookie'];
+          authorizationToken = response.body.data.login.token;
         });
 
       Array(7)
@@ -193,7 +230,7 @@ mutation {
         .forEach(async () => {
           await request(app.getHttpServer())
             .post('/graphql')
-            .set('Cookie', ['Authorization', authorization])
+            .set('Authorization', authorizationToken)
             .send({
               operationName: null,
               variables: {},
@@ -224,40 +261,46 @@ mutation {
     it('returns full page of articles', async () => {
       await request(app.getHttpServer())
         .post('/graphql')
+        .set('Authorization', authorizationToken)
         .send({
           operationName: null,
           variables: {},
           query: `
         {
-          articles(page:1){
-            _id
+          paginatedArticles(page:1){
+            articles {
+              _id
+            }
           }
         }
         `,
         })
         .expect(({ body }) => {
-          const { articles } = body.data;
+          const { articles } = body.data.paginatedArticles;
 
-          expect(articles.length).toEqual(7);
+          expect(articles.length).toEqual(6);
         });
     });
 
     it('returns article from second page', async () => {
       await request(app.getHttpServer())
         .post('/graphql')
+        .set('Authorization', authorizationToken)
         .send({
           operationName: null,
           variables: {},
           query: `
     {
-      articles(page:2){
-        _id
+      paginatedArticles(page:2){
+        articles {
+          _id
+        }
       }
     }
     `,
         })
         .expect(({ body }) => {
-          const { articles } = body.data;
+          const { articles } = body.data.paginatedArticles;
 
           expect(articles.length).toEqual(1);
         });
@@ -267,6 +310,7 @@ mutation {
       it('returns particular articles', async () => {
         await request(app.getHttpServer())
           .post('/graphql')
+          .set('Authorization', authorizationToken)
           .send({
             operationName: null,
             variables: {},

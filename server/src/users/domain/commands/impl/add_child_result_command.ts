@@ -4,5 +4,6 @@ export class AddChildResultCommand {
   constructor(
     public readonly result: ResultInput,
     public readonly childId: string,
+    public readonly rootResultId?: string,
   ) {}
 }

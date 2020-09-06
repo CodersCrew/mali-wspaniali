@@ -24,16 +24,90 @@ export interface Redactor {
     biography: string;
 }
 
-export interface User {
-    email: string;
+export interface PaginatedArticles {
+    articles: Article[];
+    hasNext: boolean;
+    count: number;
 }
 
 export interface ReturnedStatus {
     status: boolean;
 }
 
+export interface ReturnedToken {
+    login: {
+        token: string;
+    };
+}
+
 export interface UserInput {
     mail: string;
     password: string;
     keyCode: string;
+}
+
+export type Role = 'parent' | 'admin';
+
+export type User = Omit<Me, 'notifications'>;
+
+export interface Me {
+    _id: string;
+    mail: string;
+    date: string;
+    role: Role;
+    children: Child[];
+    agreements: Agreement[];
+    notifications: Notification[];
+}
+
+export interface Child {
+    _id: string;
+    firstname: string;
+    lastname: string;
+    sex: Sex;
+    kindergarten: Kindergarten;
+    birthYear: number;
+    results: TestResult[];
+}
+
+export type Sex = 'male' | 'female';
+
+export interface Kindergarten {
+    _id: string;
+    name: string;
+    number: number;
+}
+
+export interface TestResult {
+    _id: string;
+    rootResultId: string | null;
+    date: string;
+    test: {
+        testPeriod: 'START' | 'END';
+        childAge: number;
+        agilityPoints: number;
+        agilitySeconds: number;
+        powerCentimeters: number;
+        powerPoints: number;
+        schoolYearStart: number;
+        speedPoints: number;
+        speedSeconds: number;
+        strengthCentimeters: number;
+        strengthPoints: number;
+    };
+}
+
+export interface Agreement {
+    _id: string;
+    date: string;
+    isSigned: boolean;
+    text: string;
+}
+
+export interface Notification {
+    _id: string;
+    date: string;
+    values: string[];
+    templateId: string;
+    isRead: boolean;
 }

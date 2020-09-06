@@ -48,7 +48,7 @@ export const Results = () => {
             <div className={classes.scores}>
                 {scores.map(({ color, description, label, value }) => (
                     <Box key={label} display="flex" flexDirection="column" alignItems="center">
-                        <CircleChart mainColor={color} maxValue={100} value={value} label={label} />
+                        <CircleChart color={color} maxValue={100} value={value} label={label} />
                         <div className={classes.scoreDescription} style={{ backgroundColor: color }}>
                             {description}
                         </div>

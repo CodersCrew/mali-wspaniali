@@ -6,13 +6,14 @@ import { ScheduleModule } from '@nestjs/schedule';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ArticlesModule } from './articles/articles.module';
+import { ArticlesModule } from './articles/articles_module';
 import { isProduction, isTest } from './shared/utils/is_production';
 import { KeyCodesModule } from './key_codes/key_codes_module';
 import { UsersModule } from './users/users_module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NewslettersModule } from './newsletters/newsletters_module';
-import { AggrementsModule } from './agreements/aggrements_module';
+import { AgreementsModule } from './agreements/agreements_module';
+import { KindergartenModule } from './kindergartens/kindergarten_module';
 
 @Module({
   imports: [
@@ -21,13 +22,18 @@ import { AggrementsModule } from './agreements/aggrements_module';
     UsersModule,
     NotificationsModule,
     NewslettersModule,
-    AggrementsModule,
+    AgreementsModule,
+    KindergartenModule,
     ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       debug: !isProduction(),
       playground: !isProduction(),
       autoSchemaFile: 'schema.gql',
       context: ({ req, res }) => ({ req, res }),
+      cors: {
+        origin: [new RegExp(process.env.SERVER_HOST)],
+        credentials: true,
+      },
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(

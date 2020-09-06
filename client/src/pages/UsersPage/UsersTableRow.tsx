@@ -1,17 +1,22 @@
 import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { Document, UserAgreement } from '../../firebase/types';
+import { User } from '../../graphql/types';
 
-export const UsersTableRow = ({ user }: { user: Document }) => {
+interface Props {
+    user: User;
+}
+
+export const UsersTableRow = ({ user }: Props) => {
     const { t } = useTranslation();
 
+    const { agreements, _id } = user;
+
     const getAgreements = () => {
-        if (user.agreements) {
-            return user.agreements.map((agreement: UserAgreement) => (
-                <TableCell key={`${user.userId}-${agreement.agreementId}`}>
-                    {agreement.agreementId}
-                    {agreement.checked}
+        if (agreements.length !== 0) {
+            return agreements.map(agreement => (
+                <TableCell key={`${_id}-${agreement._id}`}>
+                    {agreement.text} {agreement.isSigned.toString()}
                 </TableCell>
             ));
         }
@@ -22,7 +27,7 @@ export const UsersTableRow = ({ user }: { user: Document }) => {
     return (
         <TableRow>
             <TableCell component="th" scope="row">
-                {user.email}
+                {user.mail}
             </TableCell>
             {getAgreements()}
         </TableRow>

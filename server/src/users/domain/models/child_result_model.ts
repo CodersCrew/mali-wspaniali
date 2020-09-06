@@ -18,4 +18,5 @@ export interface ChildResultProps {
     readonly strengthPoints: number;
     readonly testPeriod: string;
   };
+  readonly rootResultId?: string | mongoose.Schema.Types.ObjectId;
 }

@@ -11,7 +11,7 @@ jest.setTimeout(10000);
 
 describe('KeyCode (e2e)', () => {
   let app: INestApplication;
-  let authorization: string;
+  let authorizationToken: string;
 
   beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -54,18 +54,18 @@ describe('KeyCode (e2e)', () => {
     login(user: {
         mail: "admin@admin.com", password: "adminadmin"
     }) {
-      status
+      token
     }
   }
   `,
         })
         .then(response => {
-          authorization = response.header['set-cookie'];
+          authorizationToken = response.body.data.login.token;
         });
 
       return await request(app.getHttpServer())
         .post('/graphql')
-        .set('Cookie', ['Authorization', authorization])
+        .set('Authorization', authorizationToken)
         .send({
           operationName: null,
           variables: {},
@@ -96,18 +96,18 @@ describe('KeyCode (e2e)', () => {
       login(user: {
           mail: "admin@admin.com", password: "adminadmin"
       }) {
-        status
+        token
       }
     }
     `,
         })
         .then(response => {
-          authorization = response.header['set-cookie'];
+          authorizationToken = response.body.data.login.token;
         });
 
       await request(app.getHttpServer())
         .post('/graphql')
-        .set('Cookie', ['Authorization', authorization])
+        .set('Authorization', authorizationToken)
         .send({
           operationName: null,
           variables: {},
@@ -125,7 +125,7 @@ describe('KeyCode (e2e)', () => {
 
       await request(app.getHttpServer())
         .post('/graphql')
-        .set('Cookie', ['Authorization', authorization])
+        .set('Authorization', authorizationToken)
         .send({
           operationName: null,
           variables: {},

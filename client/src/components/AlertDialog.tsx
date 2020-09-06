@@ -1,7 +1,8 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@material-ui/core/';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { openDialog, ActionDialog } from '../utils/openDialog';
+import { ButtonPrimary } from './Button';
 
 export type DialogTypes = 'error' | 'warning' | 'info' | 'success';
 
@@ -25,9 +26,7 @@ const AlertDialog = ({ type, title, description, onClose }: AlertDialogProps & A
             <DialogTitle>{titleText}</DialogTitle>
             <DialogContent>{description}</DialogContent>
             <DialogActions>
-                <Button onClick={onClose} color="primary" autoFocus>
-                    {t('close')}
-                </Button>
+                <ButtonPrimary variant="text" onClick={onClose} autoFocus innerText={t('close')} />
             </DialogActions>
         </Dialog>
     );

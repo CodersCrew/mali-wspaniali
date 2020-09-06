@@ -1,7 +1,12 @@
-import { gql, FetchResult } from 'apollo-boost';
+import { gql, FetchResult, ApolloQueryResult } from '@apollo/client';
 
 import { client } from '../apollo_client';
-import { ReturnedStatus, UserInput } from './types';
+import { ReturnedStatus, UserInput, Me, User, Child } from './types';
+
+export interface LoginInput {
+    mail: string;
+    password: string;
+}
 
 export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>> {
     return client.mutate({
@@ -13,5 +18,242 @@ export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>
             }
         `,
         variables: { user },
+    });
+}
+
+export const AUTHORIZE_USER = gql`
+    mutation login($user: LoginInput!) {
+        login(user: $user) {
+            token
+        }
+    }
+`;
+
+export const GET_ME = gql`
+    {
+        me {
+            date
+            mail
+            children {
+                _id
+                firstname
+                lastname
+                sex
+                birthYear
+                results {
+                    _id
+                    date
+                    test
+                    rootResultId
+                }
+                kindergarten {
+                    _id
+                    name
+                    number
+                }
+            }
+            agreements {
+                _id
+                date
+                text
+                isSigned
+            }
+            role
+            notifications {
+                _id
+                date
+                values
+                templateId
+                isRead
+            }
+        }
+    }
+`;
+
+export function getUser(): Promise<ApolloQueryResult<{ me: Me }>> {
+    return client.query({
+        query: gql`
+            {
+                me {
+                    date
+                    mail
+                    children {
+                        _id
+                        firstname
+                        lastname
+                        sex
+                        birthYear
+                        results {
+                            _id
+                            date
+                            test
+                            rootResultId
+                        }
+                        kindergarten {
+                            _id
+                            name
+                            number
+                        }
+                    }
+                    agreements {
+                        _id
+                        date
+                        text
+                        isSigned
+                    }
+                    role
+                    notifications {
+                        _id
+                        date
+                        values
+                        templateId
+                        isRead
+                    }
+                }
+            }
+        `,
+    });
+}
+
+export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User }>> {
+    return client.query({
+        query: gql`
+            {
+                user(id: "${id}") {
+                    date
+                    mail
+                    children {
+                        _id
+                        firstname
+                        lastname
+                        sex
+                        birthYear
+                        results {
+                            _id
+                            date
+                            test
+                            rootResultId
+                        }
+                        kindergarten {
+                            _id
+                            name
+                            number
+                        }
+                    }
+                    agreements {
+                        _id
+                        date
+                        text
+                        isSigned
+                    }
+                    role
+                }
+            }
+        `,
+    });
+}
+
+export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: User[] }>> {
+    if (role) {
+        return client.query({
+            query: gql`
+                {
+                    users(role: "${role}") {
+                        _id
+                        date
+                        mail
+                        children {
+                            _id
+                            firstname
+                            lastname
+                            sex
+                            birthYear
+                            results {
+                                _id
+                                date
+                                test
+                                rootResultId
+                            }
+                            kindergarten {
+                                _id
+                                name
+                                number
+                            }
+                        }
+                        agreements {
+                            _id
+                            date
+                            text
+                            isSigned
+                        }
+                        role
+                    }
+                }
+            `,
+        });
+    }
+
+    return client.query({
+        query: gql`
+            {
+                users {
+                    _id
+                    date
+                    mail
+                    children {
+                        _id
+                        firstname
+                        lastname
+                        sex
+                        birthYear
+                        results {
+                            _id
+                            date
+                            test
+                            rootResultId
+                        }
+                        kindergarten {
+                            _id
+                            name
+                            number
+                        }
+                    }
+                    agreements {
+                        _id
+                        date
+                        text
+                        isSigned
+                    }
+                    role
+                }
+            }
+        `,
+    });
+}
+
+export function getAllChildren(): Promise<ApolloQueryResult<{ allChildren: Child[] }>> {
+    return client.query({
+        query: gql`
+            {
+                allChildren {
+                    _id
+                    firstname
+                    lastname
+                    sex
+                    birthYear
+                    results {
+                        _id
+                        date
+                        test
+                        rootResultId
+                    }
+                    kindergarten {
+                        _id
+                        name
+                        number
+                    }
+                }
+            }
+        `,
     });
 }

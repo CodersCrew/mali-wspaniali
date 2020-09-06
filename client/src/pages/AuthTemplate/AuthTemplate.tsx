@@ -3,7 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
-import { AuthTemplateType } from './types';
+
+type AuthTemplateType = 'login' | 'register';
 
 export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, type }) => {
     const classes = useStyles();

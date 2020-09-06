@@ -1,115 +1,76 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-
-import { TextField, Button, makeStyles, Typography, createStyles } from '@material-ui/core';
-
-import { backgroundColor, secondaryColor, white } from '../../colors';
-import { handlePasswordReset } from '../../queries/authQueries';
+import { makeStyles, Typography, createStyles } from '@material-ui/core';
+import { ResetPasswordForm } from './ResetPasswordForm';
+import { ResetPasswordConfirmation } from './ResetPasswordConfirmation';
 import { isValidEmail } from './isValidEmail';
-
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { Theme } from '../../theme/types';
 
-enum ImageState {
-    default = 'DEFAULT',
-    error = 'ERROR',
-    success = 'SUCCESS',
-}
+type ImageState = 'DEFAULT' | 'ERROR' | 'SUCCESS';
 
 export const ForgotPasswordPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
-    const [imageState, setImageState] = useState<ImageState>(ImageState.default);
-    const [isResetEmailSent, setIsResetEmailSent] = useState(false);
+    const [imageState, setImageState] = useState<ImageState>('ERROR');
+    const [resetPasswordState, setResetPasswordState] = useState<'FORM' | 'CONFIRMATION'>('FORM');
 
-    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        const { value } = event.target;
+    const handleInputChange = (value: string): void => {
+        if (value === '') {
+            setEmail('');
+
+            return setImageState('ERROR');
+        }
+
         const validEmail = isValidEmail(value);
 
-        setImageState(ImageState[validEmail ? 'success' : 'error']);
-        if (value === '') setImageState(ImageState.default);
-        setEmail(event.target.value);
+        setImageState(validEmail ? 'SUCCESS' : 'DEFAULT');
+
+        return setEmail(value);
     };
 
     const handleCreateNewPassword = () => {
-        setImageState(ImageState.success);
+        setResetPasswordState('CONFIRMATION');
+
         handlePasswordReset(email)
-            .then(() => setIsResetEmailSent(true))
-            .catch(() => setIsResetEmailSent(true));
+            .then(() => setImageState('SUCCESS'))
+            .catch(() => setImageState('ERROR'));
     };
 
-    const getImageSource = (_imageState: ImageState) => {
-        if (_imageState === ImageState.error) return ErrorImage;
-        if (_imageState === ImageState.success) return SuccessImage;
+    const getImageSource = (state: ImageState) => {
+        const options = {
+            DEFAULT: DefaultImage,
+            SUCCESS: SuccessImage,
+            ERROR: ErrorImage,
+        };
 
-        return DefaultImage;
+        return options[state];
     };
-
-    const renderPostSentJSX = () => (
-        <>
-            <Typography variant="body1" className={classes.subtitle}>
-                {t('forgot-password-page.email-sent')}
-            </Typography>
-            <Typography variant="body1" className={classes.subtitle}>
-                {t('forgot-password-page.when-received')}
-            </Typography>
-            <Button type="button" variant="contained" color="secondary" className={classes.loginLinkWrapper}>
-                <Link to="/login" className={classes.loginLink}>
-                    {t('forgot-password-page.back-to-login')}
-                </Link>
-            </Button>
-        </>
-    );
-
-    const renderPreSentJSX = () => (
-        <>
-            <Typography variant="body1" className={classes.subtitle}>
-                {t('forgot-password-page.its-ok')}
-            </Typography>
-            <Typography variant="body1" className={`${classes.subtitle} ${classes.subtitleThin}`}>
-                {t('forgot-password-page.receive-link')}
-            </Typography>
-            <TextField
-                required
-                value={email}
-                id="email"
-                label={t('e-mail')}
-                variant="outlined"
-                className={classes.textField}
-                helperText={t('forgot-password-page.email-helper-text')}
-                onChange={handleInputChange}
-            />
-            <div className={classes.buttonWrapper}>
-                <Button
-                    type="button"
-                    variant="contained"
-                    disabled={!isValidEmail(email)}
-                    color="secondary"
-                    className={classes.button}
-                    onClick={handleCreateNewPassword}
-                >
-                    {t('forgot-password-page.new-password')}
-                </Button>
-            </div>
-            <div className={classes.underlinedText}>
-                <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
-                <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
-            </div>
-        </>
-    );
 
     return (
         <div className={classes.container}>
             <div className={classes.layout}>
-                <img className={classes.image} src={getImageSource(imageState)} alt="małgosia czy jak jej tam" />
+                <img
+                    className={classes.image}
+                    src={getImageSource(imageState)}
+                    alt={t('forgot-password-page.avatar')}
+                />
                 <Typography variant="h3" className={classes.title}>
                     {t('forgot-password-page.forgot-password')}
                 </Typography>
-                {isResetEmailSent ? renderPostSentJSX() : renderPreSentJSX()}
+                {resetPasswordState === 'FORM' ? (
+                    <ResetPasswordForm
+                        onChange={handleInputChange}
+                        onSubmit={handleCreateNewPassword}
+                        isDisabled={!isValidEmail(email)}
+                        email={email}
+                    />
+                ) : (
+                    <ResetPasswordConfirmation />
+                )}
             </div>
         </div>
     );
@@ -144,36 +105,6 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '20px',
             textTransform: 'uppercase',
         },
-        subtitle: {
-            textAlign: 'center',
-        },
-        subtitleThin: {
-            marginBottom: '20px',
-            width: '320px',
-        },
-        buttonWrapper: {
-            display: 'flex',
-            width: '100%',
-            justifyContent: 'flex-end',
-        },
-        button: {
-            color: backgroundColor,
-            fontWeight: 'bold',
-            marginBottom: '20px',
-            marginTop: '20px',
-
-            [theme.breakpoints.down('sm')]: {
-                marginBottom: '44px',
-                marginTop: '30px',
-            },
-
-            '&disbled': {
-                color: secondaryColor,
-            },
-        },
-        textField: {
-            width: '100%',
-        },
         image: {
             borderRadius: '50%',
             width: '214px',
@@ -182,34 +113,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginTop: '40px',
             },
         },
-        loginLinkWrapper: {
-            marginBottom: '20px',
-            marginTop: '40px',
-        },
-        loginLink: {
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            color: white,
-            textDecoration: 'none',
-        },
-        underlinedText: {
-            textAlign: 'center',
-            position: 'relative',
-            marginBottom: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-
-            '&::after': {
-                position: 'absolute',
-                content: '""',
-                height: '1px',
-                margin: '0 auto',
-                left: '0',
-                bottom: '-2px',
-                right: '0',
-                width: '100%',
-                background: 'black',
-            },
-        },
     }),
 );
+
+function handlePasswordReset(email: string) {
+    // todo
+    return Promise.resolve(email);
+}

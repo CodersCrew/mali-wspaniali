@@ -3,7 +3,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 @ObjectType()
 export class NotificationDTO {
   @Field(() => ID)
-  id: string;
+  _id: string;
 
   @Field()
   readonly date: Date;
@@ -16,4 +16,7 @@ export class NotificationDTO {
 
   @Field(() => [String])
   readonly values: string[];
+
+  @Field()
+  readonly isRead: boolean;
 }

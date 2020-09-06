@@ -28,7 +28,9 @@ export class ChildRepository {
     });
   }
 
-  async get(childIds: mongoose.Schema.Types.ObjectId[]): Promise<ChildProps[]> {
+  async get(
+    childIds: mongoose.Schema.Types.ObjectId[] | string[],
+  ): Promise<ChildProps[]> {
     return await this.childModel
       .find({ _id: childIds })
       .lean()

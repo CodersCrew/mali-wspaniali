@@ -13,4 +13,7 @@ export class ChildInput {
 
   @Field()
   readonly sex: string;
+
+  @Field()
+  readonly kindergartenId: string;
 }

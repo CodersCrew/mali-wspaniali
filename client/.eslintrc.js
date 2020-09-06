@@ -45,5 +45,8 @@ module.exports = {
         indent: ['warn', 4],
         'react/prop-types': 'off',
         'newline-before-return': 2,
+        'consistent-return': 'off',
+        'no-underscore-dangle': 'off',
+        'react/display-name': 'off',
     },
 };

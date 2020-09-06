@@ -11,4 +11,8 @@ export const NotificationSchema = new mongoose.Schema({
   },
   templateId: String,
   values: [String],
+  isRead: {
+    type: Boolean,
+    default: false,
+  },
 });
