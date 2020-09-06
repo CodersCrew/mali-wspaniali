@@ -47,13 +47,13 @@ export const ArticlePage = () => {
                             readingTime={data.article.readingTime}
                         />
                     </Grid>
-                    <Grid item xs={12} className={classes.videoGridContainer}>
+                    <Grid className={classes.videoContainer}>
                         <ArticleVideo videoUrl={data.article.videoUrl} tags={data.article.tags} />
                     </Grid>
-                    <Grid container direction="row" className={classes.videoGridContainer}>
+                    <Grid container direction="row">
                         <ArticleRedactor redactor={data.article.redactor} />
                     </Grid>
-                    <Grid className={classes.paginationButtonsContainer}>
+                    <Grid className={classes.paginationButtonsContainer} item md={9} xs={12}>
                         <ButtonDefault variant="contained">{t(`single-article.go-to-previous-page`)}</ButtonDefault>
                         <ButtonDefault variant="contained" color={'secondary'}>
                             {t(`single-article.go-to-next-page`)}
@@ -68,31 +68,30 @@ export const ArticlePage = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         rootGrid: {
-            padding: '0 0 2.85vw 0',
+            padding: 0,
 
             [theme.breakpoints.down('sm')]: {
-                padding: 0,
                 overflow: 'hidden',
             },
         },
         articleContentContainer: {
             position: 'relative',
-            maxWidth: '70vw',
-            padding: '0 0 0 32px',
+            maxWidth: '100vw',
+            padding: `${theme.spacing(3)}px ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`,
 
             [theme.breakpoints.down('sm')]: {
                 width: '100%',
-                marginBottom: '20px',
             },
         },
-        videoGridContainer: {
-            width: '60vw',
+        videoContainer: {
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(4),
         },
         paginationButtonsContainer: {
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
-            marginTop: theme.spacing(4),
+            padding: `${theme.spacing(4)}px 0 ${theme.spacing(4)}px 0 `,
         },
     }),
 );

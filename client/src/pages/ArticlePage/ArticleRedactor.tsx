@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
-import { lineHeight, letterSpace } from '../../fontStyle';
 import { Redactor } from '../../graphql/types';
 
 interface Props {
@@ -12,7 +11,7 @@ export const ArticleRedactor = ({ redactor }: Props) => {
 
     return (
         <Grid container direction="row">
-            <Grid className={classes.contentRedactorAvatarContainer} item xs={3}>
+            <Grid className={classes.contentRedactorAvatarContainer} item>
                 <Avatar
                     className={classes.contentRedactorAvatar}
                     alt={`${redactor.firstName} ${redactor.lastName}`}
@@ -21,13 +20,13 @@ export const ArticleRedactor = ({ redactor }: Props) => {
             </Grid>
             <Grid item xs={6}>
                 <Grid container direction="column">
-                    <Grid className={classes.contentRedactorNameContainer} item xs={3}>
+                    <Grid className={classes.contentRedactorNameContainer} item xs={3} md={9}>
+                        <Typography className={classes.contentRedactorProf}>{redactor.profession}</Typography>
                         <Typography
                             className={classes.contentRedactorName}
                         >{`${redactor.firstName} ${redactor.lastName}`}</Typography>
-                        <Typography className={classes.contentRedactorProf}>{redactor.profession}</Typography>
                     </Grid>
-                    <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
+                    <Grid>
                         <Box className={classes.contentRedactorDescriptionBox}>
                             <Typography className={classes.contentRedactorDescription}>{redactor.biography}</Typography>
                         </Box>
@@ -41,60 +40,47 @@ export const ArticleRedactor = ({ redactor }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentRedactorAvatarContainer: {
-            paddingTop: '4.2vw',
+            paddingRight: `${theme.spacing(3)}px`,
+            [theme.breakpoints.down('sm')]: {
+                paddingRight: `${theme.spacing(2)}px`,
+            },
         },
         contentRedactorAvatar: {
-            minWidth: '9vw',
-            minHeight: '9vw',
+            width: '94px',
+            height: '94px',
 
             [theme.breakpoints.down('sm')]: {
-                width: '66px',
-                height: '66px',
-                marginRight: '25px',
-                marginLeft: '10px',
+                width: '70px',
+                height: '70px',
             },
         },
         contentRedactorNameContainer: {
-            paddingTop: '4.5vw',
-
-            [theme.breakpoints.down('sm')]: {
-                paddingTop: '9vw',
-                marginLeft: '15px',
-            },
+            paddingTop: `${theme.spacing(1)}px`,
+        },
+        contentRedactorProf: {
+            fontSize: theme.typography.overline.fontSize,
+            letterSpacing: theme.typography.overline.letterSpacing,
+            lineHeight: theme.typography.overline.lineHeight,
+            textTransform: 'uppercase',
         },
         contentRedactorName: {
-            fontSize: '15px',
-            fontWeight: 'bold',
-            letterSpacing: letterSpace,
-            lineHeight,
+            fontSize: theme.typography.h4.fontSize,
+            fontWeight: theme.typography.button.fontWeight,
+            letterSpacing: theme.typography.h4.letterSpacing,
+            lineHeight: theme.typography.h4.lineHeight,
 
             [theme.breakpoints.down('sm')]: {
                 width: '100vw',
             },
         },
-        contentRedactorProf: {
-            fontSize: '14px',
-            letterSpacing: letterSpace,
-            lineHeight,
-        },
-        contentRedactorDescriptionContainer: {
-            paddingTop: '1vw',
-        },
         contentRedactorDescriptionBox: {
-            fontWeight: 500,
-
-            [theme.breakpoints.down('sm')]: {
-                marginTop: '35px',
-                marginLeft: '-80px',
-                marginBottom: '30px',
-            },
+            fontWeight: theme.typography.button.fontWeight,
+            marginTop: `${theme.spacing(2)}px`,
+            padding: 0,
         },
         contentRedactorDescription: {
-            fontSize: '18px',
-
-            [theme.breakpoints.down('sm')]: {
-                fontSize: '13px',
-            },
+            fontSize: theme.typography.subtitle1.fontSize,
+            padding: 0,
         },
     }),
 );

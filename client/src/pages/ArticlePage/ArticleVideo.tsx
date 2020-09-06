@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, CardMedia, createStyles, makeStyles, Theme } from '@material-ui/core';
-import { SingleArticleColors } from '../../colors';
 import { ButtonPrimary } from '../../components/Button';
 
 interface Props {
@@ -13,8 +12,8 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 
     return (
         <Grid className={classes.contentVideoContainer} container direction="row" spacing={3}>
-            <Grid item xs={12} className={classes.contentVideoSubContainer}>
-                <Grid className={classes.contentVideo} item xs={12}>
+            <Grid item xs={12} md={11}>
+                <Grid className={classes.contentVideo} item>
                     <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
                 </Grid>
             </Grid>
@@ -39,42 +38,40 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentVideo: {
-            display: 'flex',
-            justifyContent: 'flex-end',
             [theme.breakpoints.down('sm')]: {
                 paddingLeft: '3vw',
                 paddingRight: '3vw',
             },
         },
-        contentVideoSubContainer: {
+
+        contentVideoContainer: {
             display: 'flex',
             justifyContent: 'flex-end',
-            paddingTop: theme.spacing(3),
-        },
-        contentVideoContainer: {
-            borderTop: 'solid',
-            borderTopColor: SingleArticleColors.break,
             borderBottom: 'solid',
-            borderBottomColor: SingleArticleColors.break,
-            borderTopWidth: '1px',
+            borderBottomColor: theme.palette.divider,
             borderBottomWidth: '1px',
         },
         contentVideoPlayer: {
             minHeight: '35vw',
-            width: '50vw',
+            paddingRight: '30vw',
+            border: 'none',
+            [theme.breakpoints.down('sm')]: {
+                paddingRight: '0',
+            },
         },
         contentTags: {
             display: 'flex',
             width: '100%',
             flexWrap: 'wrap',
 
-            [theme.breakpoints.down('sm')]: {
-                marginLeft: '10px',
+            [theme.breakpoints.down('xs')]: {
+                marginLeft: `${theme.spacing(2)}px`,
             },
         },
         contentTagsButton: {
-            color: 'black',
+            color: theme.palette.text.primary,
             borderRadius: theme.spacing(2),
+            margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px 0`,
         },
     }),
 );

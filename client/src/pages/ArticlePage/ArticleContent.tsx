@@ -2,8 +2,6 @@ import React from 'react';
 import { makeStyles, createStyles, Grid, Typography, CardMedia, Theme } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
-import { SingleArticleColors } from '../../colors';
-import { lineHeight, letterSpace } from '../../fontStyle';
 
 interface Props {
     pictureUrl: string;
@@ -19,24 +17,24 @@ export const ArticleContent = ({ title, pictureUrl, contentHTML, date, readingTi
     const { t } = useTranslation();
 
     return (
-        <Grid className={classes.contentGrid} container direction="column" spacing={4}>
-            <Grid className={classes.contentPhoto} item xs={12}>
+        <Grid className={classes.contentGrid} container direction="column">
+            <Grid className={classes.contentPhoto} item xs={12} md={9}>
                 <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
             </Grid>
-            <Grid className={classes.contentContainer} item xs={12}>
+            <Grid className={classes.contentContainer} item xs={12} sm={7}>
                 <div className={classes.contentDateReadingTime}>
                     <Typography className={classes.dateReadingTime}>
                         {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
                     </Typography>
                     <Typography className={classes.dateReadingTime}>
-                        {readingTime} {t(`single-article.reading-time`).toUpperCase()}
+                        {readingTime} {t(`single-article.reading-time`)}
                     </Typography>
                 </div>
-                <Grid className={classes.contentHeader} item xs={12}>
+                <Grid className={classes.contentHeader} item>
                     <Typography className={classes.contentTitleText}>{title}</Typography>
                 </Grid>
                 <Grid container direction="row">
-                    <Grid className={classes.contentHTML} item xs={12}>
+                    <Grid className={classes.contentHTML} item>
                         {parse(contentHTML)}
                     </Grid>
                 </Grid>
@@ -50,53 +48,44 @@ const useStyles = makeStyles((theme: Theme) =>
         contentGrid: {
             backgroundColor: theme.palette.background.default,
         },
-
         contentPhoto: {
-            paddingBottom: '2.14vw',
-            paddingTop: '32px',
+            paddingBottom: `${theme.spacing(4)}px`,
+            paddingTop: `${theme.spacing(4)}px`,
+
+            [theme.breakpoints.down('sm')]: {
+                paddingTop: `${theme.spacing(3)}px`,
+            },
         },
         contentPhotoMedia: {
             height: '200px',
             borderRadius: '4px',
-            border: 'solid',
-            borderColor: SingleArticleColors.break,
-            borderWidth: '2px',
             maxHeight: '40vw',
-            maxWidth: '70vw',
+            maxWidth: '100vw',
 
             [theme.breakpoints.down('sm')]: {
                 maxWidth: '100vw',
             },
         },
         contentContainer: {
-            width: '60vw',
+            width: '100vw',
         },
         contentDateReadingTime: {
             display: 'flex',
             flexDirection: 'row',
         },
         dateReadingTime: {
-            fontSize: '10px',
+            fontSize: theme.typography.overline.fontSize,
             marginRight: theme.spacing(4),
             alignSelf: 'center',
+            textTransform: 'uppercase',
         },
         contentHeader: {
-            paddingTop: theme.spacing(2),
-            [theme.breakpoints.down('sm')]: {
-                paddingTop: '30px',
-                paddingBottom: '25px',
-            },
+            paddingTop: `${theme.spacing(2)}px`,
         },
         contentTitleText: {
-            fontSize: '20px',
-            fontWeight: 'bolder',
-            letterSpacing: letterSpace,
-            lineHeight,
-            textTransform: 'uppercase',
-
-            [theme.breakpoints.down('sm')]: {
-                textTransform: 'initial',
-            },
+            fontSize: theme.typography.h2.fontSize,
+            letterSpacing: theme.typography.body2.letterSpacing,
+            lineHeight: theme.typography.h2.lineHeight,
         },
         contentHTML: {
             paddingBottom: theme.spacing(3),
