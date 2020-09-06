@@ -14,7 +14,7 @@ import {
 } from './domain/commands/impl';
 import { CreateKindergartenInput } from './inputs/create_kindergarten_input';
 import { EditKindergartenInput } from './inputs/edit_kindergarten_input';
-import { ReturnedStatusDTO } from 'src/shared/returned_status';
+import { ReturnedStatusDTO } from '../shared/returned_status';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
