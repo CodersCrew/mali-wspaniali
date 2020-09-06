@@ -94,21 +94,23 @@
         "no-results": "Brak wyników"
     },
     "kindergarten-modal": {
-        "city": "miasto",
-        "address": "ulica",
-        "name": "nazwa",
-        "number": "numer"
+        "city": "Miasto",
+        "address": "Ulica",
+        "name": "Nazwa",
+        "number": "Numer"
     },
     "add-kindergarten-modal": {
         "title": "Dodaj przedszkole",
+        "description": "Aby dodać przedszkole do bazy danych, uzupełnij poniższe pola.",
         "add": "Dodaj",
         "close": "Zamknij"
     },
     "edit-kindergarten-modal": {
         "title": "Edytuj przedszkole",
+        "description": "Aby edytować dane przedszkola, uzupełnij poniższe pola.",
         "edit": "Edytuj",
         "close": "Zamknij",
-        "delete": "Skasuj"
+        "delete": "Skasuj przedszkole"
     },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",

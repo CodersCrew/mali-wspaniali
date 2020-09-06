@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Dialog, DialogActions, DialogContent, makeStyles, createStyles } from '@material-ui/core';
-import { ButtonSecondary } from '../Button/ButtonSecondary';
+import { ButtonDefault } from '../Button/ButtonDefault';
+import { ButtonPrimary } from '../Button/ButtonPrimary';
 
 interface Props {
     isOpen: boolean;
@@ -28,12 +29,12 @@ export const TwoActionsModal: FC<Props> = ({
                 <DialogContent>{children}</DialogContent>
                 <DialogActions>
                     <div className={classes.buttonsWrapper}>
-                        <ButtonSecondary className={classes.button} variant="contained" onClick={upperButtonOnClick}>
-                            {upperButtonText}
-                        </ButtonSecondary>
-                        <ButtonSecondary className={classes.button} variant="text" onClick={lowerButtonOnClick}>
+                        <ButtonDefault className={classes.button} variant="text" onClick={lowerButtonOnClick}>
                             {lowerButtonText}
-                        </ButtonSecondary>
+                        </ButtonDefault>
+                        <ButtonPrimary className={classes.button} variant="text" onClick={upperButtonOnClick}>
+                            {upperButtonText}
+                        </ButtonPrimary>
                     </div>
                 </DialogActions>
             </Dialog>
@@ -53,7 +54,6 @@ const useStyles = makeStyles(() =>
         button: {
             maxWidth: 264,
             padding: '8px',
-            marginBottom: 16,
         },
     }),
 );
