@@ -89,6 +89,22 @@
         "pl": "Polish",
         "en": "English"
     },
+    "kindergarten-modal": {
+        "city": "city",
+        "address": "address",
+        "name": "name",
+        "number": "number"
+    },
+    "add-kindergarten-modal": {
+        "title": "Add kindergarten",
+        "add": "Add",
+        "close": "Close"
+    },
+    "edit-kindergarten-modal": {
+        "title": "Edit kindergarten",
+        "edit": "Update",
+        "close": "Close"
+    },
     "child-profile": {
         "no-child": "Sorry, there is no child with this id",
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
