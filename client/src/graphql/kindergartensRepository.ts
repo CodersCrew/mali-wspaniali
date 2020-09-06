@@ -44,3 +44,11 @@ export const UPDATE_KINDERGARTEN = gql`
         }
     }
 `;
+
+export const DELETE_KINDERGARTEN = gql`
+    mutation deleteKindergarten($id: String!) {
+        deleteKindergarten(id: $id) {
+            status
+        }
+    }
+`;

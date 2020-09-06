@@ -107,7 +107,8 @@
     "edit-kindergarten-modal": {
         "title": "Edytuj przedszkole",
         "edit": "Edytuj",
-        "close": "Zamknij"
+        "close": "Zamknij",
+        "delete": "Skasuj"
     },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",
