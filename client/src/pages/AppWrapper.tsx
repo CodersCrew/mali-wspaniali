@@ -14,6 +14,7 @@ import { AdminSidebar } from '../components/Menu/Sidebar/AdminSidebar';
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
 import { ACTIVE_PAGE } from '../graphql/localFields';
+import { CookieModal } from '../components/CookieModal/CookieModal';
 
 export const UserContext = React.createContext<Me | null>(null);
 
@@ -86,6 +87,7 @@ export const AppWrapper: FC = ({ children }) => {
                 )}
 
                 <main className={classes.content}>
+                    {user.role !== 'admin' ? <CookieModal /> : null}
                     <div className={classes.toolbar}>{children}</div>
                 </main>
             </Box>

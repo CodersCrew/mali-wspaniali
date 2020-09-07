@@ -50,7 +50,7 @@ export const CookieModal = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         modal: {
-            position: 'absolute',
+            position: 'fixed',
             width: 'inherit',
             padding: '16px',
             backgroundColor: theme.palette.cookiesModal.light,

@@ -11,7 +11,6 @@ import { UserContext } from '../AppWrapper';
 import { LAST_ARTICLES } from '../../graphql/articleRepository';
 import { Article } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
-import { CookieModal } from '../../components/CookieModal/CookieModal';
 
 export const ParentHomePage = () => {
     const user = useContext(UserContext);
@@ -27,7 +26,6 @@ export const ParentHomePage = () => {
 
     return (
         <Grid className={classes.container}>
-            <CookieModal />
             <Grid item xs={12}>
                 <PageTitle text={t('home-page-content.greeting')} />
             </Grid>
