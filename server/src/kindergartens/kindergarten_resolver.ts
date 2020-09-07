@@ -7,8 +7,14 @@ import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { KindergartenProps } from './domain/models/kindergarten_model';
 import { GetAllKindergartensQuery } from './domain/queries/impl';
-import { CreateKindergartenCommand } from './domain/commands/impl';
+import {
+  CreateKindergartenCommand,
+  EditKindergartenCommand,
+  DeleteKindergartenCommand,
+} from './domain/commands/impl';
 import { CreateKindergartenInput } from './inputs/create_kindergarten_input';
+import { EditKindergartenInput } from './inputs/edit_kindergarten_input';
+import { ReturnedStatusDTO } from '../shared/returned_status';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -35,5 +41,30 @@ export class KindergartenResolver {
     );
 
     return created;
+  }
+
+  @Mutation(() => KindergartenDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async updateKindergarten(
+    @Args('id') id: string,
+    @Args('kindergarten') kindergarten: EditKindergartenInput,
+  ): Promise<KindergartenProps> {
+    const updated: KindergartenProps = await this.commandBus.execute(
+      new EditKindergartenCommand(id, kindergarten),
+    );
+
+    return updated;
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async deleteKindergarten(
+    @Args('id') id: string,
+  ): Promise<{ status: boolean }> {
+    const isDeleted: boolean = await this.commandBus.execute(
+      new DeleteKindergartenCommand(id),
+    );
+
+    return { status: isDeleted };
   }
 }
