@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
         articleContentContainer: {
             position: 'relative',
             maxWidth: '100vw',
-            padding: `${theme.spacing(3)}px ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`,
+            padding: `${theme.spacing(3)}px`,
 
             [theme.breakpoints.down('sm')]: {
                 width: '100%',

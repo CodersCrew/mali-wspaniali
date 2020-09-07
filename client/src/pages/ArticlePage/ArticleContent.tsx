@@ -18,10 +18,10 @@ export const ArticleContent = ({ title, pictureUrl, contentHTML, date, readingTi
 
     return (
         <Grid className={classes.contentGrid} container direction="column">
-            <Grid className={classes.contentPhoto} item xs={12} md={9}>
+            <Grid className={classes.contentPhoto} item xs={12} sm={12} md={9}>
                 <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
             </Grid>
-            <Grid className={classes.contentContainer} item xs={12} sm={7}>
+            <Grid className={classes.contentContainer} item xs={12} sm={12} md={7}>
                 <div className={classes.contentDateReadingTime}>
                     <Typography className={classes.dateReadingTime}>
                         {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
@@ -52,9 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingBottom: `${theme.spacing(4)}px`,
         },
         contentPhotoMedia: {
-            height: '200px',
+            minHeight: '441px',
+            height: 'fit-content',
             borderRadius: '4px',
-            maxHeight: '40vw',
             maxWidth: '100vw',
 
             [theme.breakpoints.down('sm')]: {
