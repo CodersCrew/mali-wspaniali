@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { CssBaseline } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { LoginPage } from './LoginPage/LoginPage';
 import { RegistrationPage } from './RegistrationPage';
@@ -33,7 +32,6 @@ export function Root() {
 
     return (
         <ThemeProvider>
-            <CssBaseline />
             <Router>
                 <Switch>
                     <Route exact path="/" render={() => <Redirect to="/login" />} />
