@@ -6,7 +6,6 @@ import { ProgressBarStates } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { setProgress } from './utils';
-import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
 
@@ -82,8 +81,7 @@ export const NewsletterPage = () => {
 
     return (
         <div className={classes.container}>
-            <PageTitle text={t('newsletter.header')} />
-            <Typography variant="h2" className={classes.subHeader}>
+            <Typography variant="h3" className={classes.subHeader}>
                 {t('newsletter.subHeader')}
             </Typography>
             <div className={classes.formContainer}>
@@ -129,6 +127,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         subHeader: {
             margin: '24px 0 32px',
+            fontSize: theme.typography.h3.fontSize,
+            lineHeight: theme.typography.h3.lineHeight,
+            fontWeight: theme.typography.h3.fontWeight,
         },
         formContainer: {
             display: 'flex',
