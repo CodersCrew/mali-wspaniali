@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { ChangePasswordPanel } from './ChangePasswordPanel';
 import { DefaultLanguagePanel } from './DefaultLanguagePanel';
 import { LegalNotesPanel } from './LegalNotesPanel';
@@ -70,10 +70,11 @@ export const ParentSettingsExpansionPanel = ({ user }: Props) => {
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             width: '100%',
+            marginTop: theme.spacing(4),
         },
     }),
 );

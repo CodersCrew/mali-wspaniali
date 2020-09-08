@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControlLabel, makeStyles, Radio } from '@material-ui/core';
+import { createStyles, FormControlLabel, makeStyles, Radio, Theme } from '@material-ui/core';
 
 export interface LanguageRadioButtonProps {
     value: string;
@@ -19,9 +19,11 @@ export const LanguageRadioButton = (props: LanguageRadioButtonProps) => {
     );
 };
 
-const useStyles = makeStyles({
-    img: {
-        boxShadow: '0 0 2px 0px #000',
-        verticalAlign: 'middle',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        img: {
+            boxShadow: `0 0 2px 0px ${theme.palette.common.black}`,
+            verticalAlign: 'middle',
+        },
+    }),
+);

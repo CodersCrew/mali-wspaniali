@@ -4,7 +4,6 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Me } from '../../graphql/types';
 
@@ -18,7 +17,6 @@ export interface ExpansionPanelItem {
 }
 
 export const ExpansionPanelItem = ({ user, name, handle, expanded, heading, panel }: ExpansionPanelItem) => {
-    const classes = useStyles();
     const { t } = useTranslation();
 
     const Panel = panel;
@@ -30,9 +28,7 @@ export const ExpansionPanelItem = ({ user, name, handle, expanded, heading, pane
                 aria-controls={`${name}"-content"`}
                 id={`${name}"-header"`}
             >
-                <Typography variant={'body1'} className={classes.heading}>
-                    {t(heading)}
-                </Typography>
+                <Typography variant={'body2'}>{t(heading)}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <Panel user={user} />
@@ -40,11 +36,3 @@ export const ExpansionPanelItem = ({ user, name, handle, expanded, heading, pane
         </ExpansionPanel>
     );
 };
-
-const useStyles = makeStyles(() =>
-    createStyles({
-        heading: {
-            fontWeight: 'bold',
-        },
-    }),
-);

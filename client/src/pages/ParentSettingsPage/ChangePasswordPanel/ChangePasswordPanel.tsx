@@ -62,14 +62,14 @@ export const ChangePasswordPanel = (props: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         marksWrapper: {
-            marginBottom: '16px',
+            marginBottom: theme.spacing(2),
         },
         problems: {
-            marginBottom: '16px',
+            marginBottom: theme.spacing(2),
         },
         submitWrapper: {
             [theme.breakpoints.down('sm')]: {
-                margin: '0 0 20px 0',
+                marginBottom: theme.spacing(2) * 1.25,
             },
         },
         changePasswordButton: {
