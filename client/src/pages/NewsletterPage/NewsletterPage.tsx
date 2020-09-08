@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
-import { Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { Typography, makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { NewsletterProgressBar } from './NewsletterProgressBar';
 import { ProgressBarStates } from './types';
@@ -86,23 +86,27 @@ export const NewsletterPage = () => {
             </Typography>
             <div className={classes.formContainer}>
                 <NewsletterProgressBar progressBarState={progressBarState} />
-                <div className={classes.inputContainer}>
-                    <NewsletterRecipent
-                        generalType={generalType}
-                        specificType={specificType}
-                        recipients={recipients}
-                        handleChange={handleChange}
-                    />
-                    <NewsletterContent
-                        handleChange={handleChange}
-                        type={type}
-                        topic={topic}
-                        specificType={specificType}
-                        recipients={recipients}
-                        message={message}
-                        setFields={setFields}
-                    />
-                </div>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <NewsletterRecipent
+                            generalType={generalType}
+                            specificType={specificType}
+                            recipients={recipients}
+                            handleChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <NewsletterContent
+                            handleChange={handleChange}
+                            type={type}
+                            topic={topic}
+                            specificType={specificType}
+                            recipients={recipients}
+                            message={message}
+                            setFields={setFields}
+                        />
+                    </Grid>
+                </Grid>
             </div>
             <div className={classes.formButtonWrapper}>
                 <ButtonSecondary
@@ -135,15 +139,13 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             width: '100%',
         },
-        inputContainer: {
-            width: '100%',
-        },
         formButtonWrapper: {
             display: 'flex',
             justifyContent: 'flex-end',
         },
         formButton: {
             padding: '8px 22px',
+            marginTop: theme.spacing(3),
         },
     }),
 );

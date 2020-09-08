@@ -66,7 +66,7 @@ export const NewsletterRecipent = ({
                             name="specificType"
                         />
                     </Grid>
-                    {areSpecificRecipientsRequired(specificType) ? (
+                    {areSpecificRecipientsRequired(specificType) && (
                         <Grid item xs={12}>
                             <MultipleSelect
                                 stateData={recipients}
@@ -78,7 +78,7 @@ export const NewsletterRecipent = ({
                                 renderValue={renderKindergardens}
                             />
                         </Grid>
-                    ) : null}
+                    )}
                 </Grid>
             </CardContent>
         </Card>
