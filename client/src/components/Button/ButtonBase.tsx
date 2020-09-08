@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
-import { Button, ButtonProps, makeStyles, createStyles } from '@material-ui/core/';
+import { Button, ButtonProps, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import clsx from 'clsx';
 
 export type CustomButtonProps = ButtonProps & {
     innerText?: string;
+    icon?: JSX.Element;
     variant?: string;
 };
 
-export const ButtonBase: FC<CustomButtonProps> = ({ innerText, className, children, ...props }) => {
+export const ButtonBase: FC<CustomButtonProps> = ({ innerText, icon, className, children, ...props }) => {
     const classes = useStyles();
 
     let content;
@@ -21,13 +22,18 @@ export const ButtonBase: FC<CustomButtonProps> = ({ innerText, className, childr
 
     return (
         <Button {...props} className={clsx(className, classes.button)}>
+            {icon && <span className={classes.icon}>{icon}</span>}
             {content}
         </Button>
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        icon: {
+            display: 'flex',
+            margin: `0 ${theme.spacing(1)}px`,
+        },
         button: {
             whiteSpace: 'nowrap',
             borderRadius: '4px',

@@ -37,6 +37,10 @@ export class ChildRepository {
       .exec();
   }
 
+  async getByKindergarten(id: string): Promise<ChildProps[]> {
+    return await this.childModel.find({ kindergarten: id }).exec();
+  }
+
   async getAll(): Promise<ChildProps[]> {
     return await this.childModel
       .find()

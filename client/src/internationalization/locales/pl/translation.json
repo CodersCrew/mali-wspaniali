@@ -93,6 +93,25 @@
         "search-result": "Wynik wyszukiwania",
         "no-results": "Brak wyników"
     },
+    "kindergarten-modal": {
+        "city": "Miasto",
+        "address": "Ulica",
+        "name": "Nazwa",
+        "number": "Numer"
+    },
+    "add-kindergarten-modal": {
+        "title": "Dodaj przedszkole",
+        "description": "Aby dodać przedszkole do bazy danych, uzupełnij poniższe pola.",
+        "add": "Dodaj",
+        "close": "Zamknij"
+    },
+    "edit-kindergarten-modal": {
+        "title": "Edytuj przedszkole",
+        "description": "Aby edytować dane przedszkola, uzupełnij poniższe pola.",
+        "edit": "Edytuj",
+        "close": "Zamknij",
+        "delete": "Skasuj przedszkole"
+    },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",
         "description": "Sprawdź, jak Twoje dziecko poradziło sobie w testach sprawności. Zobacz, na czym polegały próby przygotowane przez specjalistów z fundacji Mali Wspaniali.",

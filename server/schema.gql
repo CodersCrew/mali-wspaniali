@@ -35,6 +35,12 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type PaginatedArticlesDTO {
+  articles: [ArticleDTO!]!
+  count: Int!
+  hasNext: Boolean!
+}
+
 type NotificationDTO {
   _id: ID!
   date: DateTime!
@@ -61,6 +67,8 @@ type KindergartenDTO {
   date: DateTime!
   number: Int!
   name: String!
+  city: String!
+  address: String!
 }
 
 type ChildDTO {
@@ -113,7 +121,7 @@ type NewsletterDTO {
 }
 
 type Query {
-  articles(category: String, page: Float!): [ArticleDTO!]!
+  paginatedArticles(perPage: Int, category: String, page: Int!): PaginatedArticlesDTO!
   lastArticles(count: Int!): [ArticleDTO!]!
   article(id: String!): ArticleDTO!
   me: UserDTO!
@@ -139,6 +147,8 @@ type Mutation {
   createKeyCodeBulk(amount: Float!): [CreateKeyCodeDTO!]!
   createAgreement(agreement: String!): ReturnedStatusDTO!
   createKindergarten(kindergarten: CreateKindergartenInput!): KindergartenDTO!
+  updateKindergarten(kindergarten: EditKindergartenInput!, id: String!): KindergartenDTO!
+  deleteKindergarten(id: String!): ReturnedStatusDTO!
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
@@ -203,6 +213,15 @@ input LoginInput {
 input CreateKindergartenInput {
   number: Int!
   name: String!
+  address: String!
+  city: String!
+}
+
+input EditKindergartenInput {
+  number: Int
+  name: String
+  address: String
+  city: String
 }
 
 input NewsletterInput {

@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { KindergartenProps } from '../models/kindergarten_model';
 import { KindergartenDocument } from '../../schemas/kindergarten_schema';
 import { CreateKindergartenInput } from '../../inputs/create_kindergarten_input';
+import { EditKindergartenInput } from 'src/kindergartens/inputs/edit_kindergarten_input';
 
 @Injectable()
 export class KindergartenRepository {
@@ -33,8 +34,21 @@ export class KindergartenRepository {
     return await createdKeyCode.save();
   }
 
-  async removeKindergarten(kindergartenId: string): Promise<void> {
-    this.model.findByIdAndDelete(kindergartenId).exec();
+  async update(
+    kindergartenId: string,
+    options: EditKindergartenInput,
+  ): Promise<KindergartenProps> {
+    const updated = await this.model.findByIdAndUpdate(
+      kindergartenId,
+      options,
+      { new: true },
+    );
+
+    return updated;
+  }
+
+  async removeKindergarten(kindergartenId: string): Promise<KindergartenProps> {
+    return this.model.findByIdAndDelete(kindergartenId).exec();
   }
 
   // for e2e purpose only

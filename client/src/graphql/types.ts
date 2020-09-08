@@ -76,6 +76,8 @@ export interface Kindergarten {
     _id: string;
     name: string;
     number: number;
+    address: string;
+    city: string;
 }
 
 export interface TestResult {

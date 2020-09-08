@@ -10,4 +10,6 @@ export const KindergartenSchema = new mongoose.Schema({
   },
   number: Number,
   name: String,
+  address: String,
+  city: String,
 });
