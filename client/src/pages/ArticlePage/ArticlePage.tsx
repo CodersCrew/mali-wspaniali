@@ -7,10 +7,10 @@ import { Article } from '../../graphql/types';
 import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
+import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
 import { ARTICLE_BY_ID } from '../../graphql/articleRepository';
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
-import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
 import { ButtonDefault } from '../../components/Button';
 
 export const ArticlePage = () => {
