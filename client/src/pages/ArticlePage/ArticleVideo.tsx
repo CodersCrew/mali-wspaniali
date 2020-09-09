@@ -12,7 +12,7 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 
     return (
         <Grid className={classes.contentVideoContainer} container direction="row" spacing={3}>
-            <Grid item xs={12} md={10}>
+            <Grid item xs={12} md={8}>
                 <Grid className={classes.contentVideo} item>
                     <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
                 </Grid>
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
             borderBottom: 'solid',
             borderBottomColor: theme.palette.divider,
             borderBottomWidth: '1px',
-            width: '75vw',
+            width: '70vw',
             [theme.breakpoints.down('sm')]: {
                 width: '100vw',
                 paddingRight: `${theme.spacing(2)}px`,

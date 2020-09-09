@@ -21,7 +21,7 @@ export const ArticleContent = ({ title, pictureUrl, contentHTML, date, readingTi
             <Grid className={classes.contentPhoto} item xs={12} sm={12} md={9}>
                 <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
             </Grid>
-            <Grid className={classes.contentContainer} item xs={12} sm={12} md={7}>
+            <Grid className={classes.contentContainer} item xs={12} sm={12} md={8}>
                 <div className={classes.contentDateReadingTime}>
                     <Typography className={classes.dateReadingTime}>
                         {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
@@ -84,6 +84,14 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         contentHTML: {
             paddingBottom: theme.spacing(3),
+            fontSize: theme.typography.body1.fontSize,
+            lineHeight: theme.typography.body1.lineHeight,
+            letterSpacing: theme.typography.body1.letterSpacing,
+
+            [theme.breakpoints.down('sm')]: {
+                fontSize: theme.typography.h3.fontSize,
+                lineHeight: theme.typography.h3.lineHeight,
+            },
         },
     }),
 );
