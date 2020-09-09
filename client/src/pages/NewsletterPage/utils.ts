@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { MultipleFieldType, SelectOptionsValues, GeneralRecipient, SpecificRecipient } from './types';
+import { MultipleFieldType, SelectOptionsValues, GeneralRecipient, SpecificRecipient, NewsletterState } from './types';
 import { Kindergarten } from '../../graphql/types';
 
 export const setLabel = (
@@ -33,4 +33,62 @@ export const generateKindergardenOptions = (kindergardens: Kindergarten[], t: TF
     });
 
     return values;
+};
+
+export const areSpecificRecipientsRequired = (value: SpecificRecipient) =>
+    value === 'KINDERGARTEN' || value === 'SINGLE';
+
+export const isSubmitBtnDisabled = (data: NewsletterState) => {
+    const { generalType, specificType, type, topic, message, recipients } = data;
+
+    if (areSpecificRecipientsRequired(specificType.value)) {
+        return (
+            recipients.value.length === 0 ||
+            !type.value ||
+            !topic.value ||
+            !message.value ||
+            message.value === '<p><br></p>'
+        );
+    }
+
+    return (
+        !generalType.value || !specificType.value || !topic.value || !message.value || message.value === '<p><br></p>'
+    );
+};
+
+export const isFirstStepCompleted = (
+    generalRecipient: GeneralRecipient,
+    specificRecipient: SpecificRecipient,
+    recipients: string[],
+) => {
+    return areSpecificRecipientsRequired(specificRecipient)
+        ? !!(generalRecipient && specificRecipient && recipients.length)
+        : !!(generalRecipient && specificRecipient);
+};
+
+export const isFirstStepError = (data: NewsletterState) => {
+    const { generalType, specificType, type, topic, message, recipients } = data;
+
+    if (areSpecificRecipientsRequired(specificType.value)) {
+        return (
+            !!(type.value || topic.value || message.value) &&
+            (!generalType.value || !specificType.value || !recipients.value.length)
+        );
+    }
+
+    return !!(type.value || topic.value || message.value) && (!generalType.value || !specificType.value);
+};
+
+export const isSecondStepError = (type: string, topic: string, message: string) =>
+    !!(topic && !type) || !!(message && !topic) || !!(message && !type && !topic);
+
+export const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: boolean) => {
+    if (!firstStepCompleted) {
+        return 'newsletter.sidebar.newsletter-content';
+    }
+    if (secondStepCompleted) {
+        return 'newsletter.sidebar.done';
+    }
+
+    return 'newsletter.sidebar.fill';
 };

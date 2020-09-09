@@ -58,6 +58,7 @@ export const NewsletterRecipent = ({
                             id="specific-recipient-type"
                             label={t('newsletter.specific-recipient-label')}
                             name="specificType"
+                            disabled={!generalType.value}
                         />
                     </Grid>
                     {(specificType.value === 'KINDERGARTEN' || specificType.value === 'SINGLE') && (

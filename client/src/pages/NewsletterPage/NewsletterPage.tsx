@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
+import clsx from 'clsx';
 import { Typography, makeStyles, createStyles, Theme, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { NewsletterState } from './types';
@@ -6,6 +7,14 @@ import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
+import {
+    isSubmitBtnDisabled,
+    isFirstStepCompleted,
+    isFirstStepError,
+    isSecondStepError,
+    setSecondStepLabel,
+    areSpecificRecipientsRequired,
+} from './utils';
 
 const initialState: NewsletterState = {
     type: {
@@ -63,14 +72,13 @@ export const NewsletterPage = () => {
         console.log(fields);
     };
 
-    const isSubmitBtnDisabled =
-        recipients.value.length === 0 ||
-        !type.value ||
-        !topic.value ||
-        !message.value ||
-        message.value === '<p><br></p>';
+    const firstStepCompleted = isFirstStepCompleted(generalType.value, specificType.value, recipients.value);
 
-    const isFirstStepCompleted = !!(generalType.value && specificType.value);
+    const secondStepCompleted = !!(type.value && topic.value && message.value);
+
+    const firstStepError = isFirstStepError(fields);
+
+    const secondStepError = isSecondStepError(type.value, topic.value, message.value);
 
     return (
         <div className={classes.container}>
@@ -78,8 +86,10 @@ export const NewsletterPage = () => {
                 {t('newsletter.subHeader')}
             </Typography>
             <Stepper orientation="vertical" className={classes.stepper} alternativeLabel>
-                <Step expanded className={classes.step} completed={isFirstStepCompleted}>
-                    <StepLabel className={classes.stepLabel}>krok 1</StepLabel>
+                <Step expanded className={classes.step} completed={firstStepCompleted}>
+                    <StepLabel className={classes.stepLabel} error={firstStepError}>
+                        {firstStepCompleted ? t('newsletter.sidebar.done') : t('newsletter.sidebar.fill')}
+                    </StepLabel>
                     <StepContent className={classes.stepContent}>
                         <NewsletterRecipent
                             generalType={generalType}
@@ -89,8 +99,18 @@ export const NewsletterPage = () => {
                         />
                     </StepContent>
                 </Step>
-                <Step expanded className={classes.step} active={isFirstStepCompleted}>
-                    <StepLabel className={classes.stepLabel}>krok 2</StepLabel>
+                <Step
+                    expanded
+                    className={clsx(
+                        classes.step,
+                        areSpecificRecipientsRequired(specificType.value) && classes.stepLong,
+                    )}
+                    active={firstStepCompleted}
+                    completed={secondStepCompleted}
+                >
+                    <StepLabel className={classes.stepLabel} error={secondStepError}>
+                        {t(setSecondStepLabel(firstStepCompleted, secondStepCompleted))}
+                    </StepLabel>
                     <StepContent className={classes.stepContent}>
                         <NewsletterContent
                             handleChange={handleChange}
@@ -105,7 +125,7 @@ export const NewsletterPage = () => {
             <div className={classes.formButtonWrapper}>
                 <ButtonSecondary
                     variant="contained"
-                    disabled={isSubmitBtnDisabled}
+                    disabled={isSubmitBtnDisabled(fields)}
                     className={classes.formButton}
                     onClick={handleSubmit}
                     innerText={t('newsletter.send')}
@@ -152,7 +172,6 @@ const useStyles = makeStyles((theme: Theme) =>
         stepContent: {
             borderLeft: 0,
             padding: 0,
-            // flexGrow: 1,
             width: '100%',
             marginTop: 0,
         },
@@ -171,6 +190,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
                 '& .MuiStepConnector-lineVertical': {
                     height: '167px',
+                },
+            },
+        },
+
+        stepLong: {
+            '& .MuiStepConnector-alternativeLabel': {
+                top: '-260px',
+
+                '& .MuiStepConnector-lineVertical': {
+                    height: '240px',
                 },
             },
         },
