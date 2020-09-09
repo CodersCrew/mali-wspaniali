@@ -32,13 +32,6 @@ export type NewsletterState = {
     };
 };
 
-export type Kindergarden = {
-    id: string;
-    number: number;
-    name: string;
-    address: string;
-};
-
 export type Newsletter = {
     recipients: string[];
     type: string;
@@ -69,23 +62,6 @@ export type WorkspaceProps = {
     message: string;
     setFields: React.Dispatch<React.SetStateAction<NewsletterState>>;
 };
-
-export enum ProgressBarStates {
-    Inactive = 'INACTIVE',
-    Ready = 'READY',
-    Error = 'ERROR',
-    Done = 'DONE',
-    FileError = 'FILEERROR',
-}
-
-export enum ProgressBarNames {
-    firstStep = 'FIRSTSTEP',
-    secondStep = 'SECONDSTEP',
-}
-export enum ProgressBarContent {
-    one = '1',
-    two = '2',
-}
 
 export type NewsletterRecipientProps = {
     generalType: {
@@ -131,7 +107,3 @@ export type SingleSelectProps = {
 export type MultipleSelectProps = {
     stateData: MultipleFieldType;
 } & CommonSelectProps;
-
-export type ProgressBarProps = {
-    progressBarState: { firstStep: ProgressBarStates; secondStep: ProgressBarStates };
-};
