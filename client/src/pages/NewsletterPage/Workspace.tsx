@@ -4,14 +4,14 @@ import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import { modules, formats } from './workspaceConfig';
-import { WorkspaceProps, Message } from './types';
+import { WorkspaceProps } from './types';
 import { Theme } from '../../theme';
 
 export const WorkSpace = ({ message, setFields }: WorkspaceProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
-    const handleChange = (value: Message) => {
+    const handleChange = (value: string) => {
         setFields(prevFields => ({
             ...prevFields,
             message: {

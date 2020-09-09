@@ -1,9 +1,36 @@
 import { ChangeEvent } from 'react';
 import { InputLabelProps, SelectProps } from '@material-ui/core';
 
-export type Message = string;
+export type GeneralRecipient = '' | 'PARENTS' | 'KINDERGARTENS';
 
-export type CheckSelection = (type: SingleFieldType) => boolean;
+export type SpecificRecipient = '' | 'ALL' | 'KINDERGARTEN' | 'SINGLE';
+
+export type NewsletterState = {
+    type: {
+        value: string;
+        error: boolean;
+    };
+    topic: {
+        value: string;
+        error: boolean;
+    };
+    generalType: {
+        value: GeneralRecipient;
+        error: boolean;
+    };
+    specificType: {
+        value: SpecificRecipient;
+        error: boolean;
+    };
+    recipients: {
+        value: string[];
+        error: boolean;
+    };
+    message: {
+        value: string;
+        error: false;
+    };
+};
 
 export type Kindergarden = {
     id: string;
@@ -16,7 +43,7 @@ export type Newsletter = {
     recipients: string[];
     type: string;
     topic: string;
-    message: Message;
+    message: string;
 };
 
 export type SingleFieldType = {
@@ -40,7 +67,7 @@ export type FieldsType = {
 
 export type WorkspaceProps = {
     message: string;
-    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
+    setFields: React.Dispatch<React.SetStateAction<NewsletterState>>;
 };
 
 export enum ProgressBarStates {
@@ -60,20 +87,15 @@ export enum ProgressBarContent {
     two = '2',
 }
 
-export enum GeneralRecipientInputValues {
-    parents = 'PARENTS',
-    kindergartens = 'KINDERGARTENS',
-}
-
-export enum SpecificRecipientInputValues {
-    all = 'ALL',
-    kindergarten = 'KINDERGARTEN',
-    single = 'SINGLE',
-}
-
 export type NewsletterRecipientProps = {
-    generalType: SingleFieldType;
-    specificType: SingleFieldType;
+    generalType: {
+        value: GeneralRecipient;
+        error: boolean;
+    };
+    specificType: {
+        value: SpecificRecipient;
+        error: boolean;
+    };
     recipients: MultipleFieldType;
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 };
@@ -83,7 +105,7 @@ export type NewsletterContentProps = {
     type: SingleFieldType;
     topic: SingleFieldType;
     message: SingleFieldType;
-    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
+    setFields: React.Dispatch<React.SetStateAction<NewsletterState>>;
 };
 
 export type RecipientTypeProps = {

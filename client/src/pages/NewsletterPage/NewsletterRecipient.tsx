@@ -6,12 +6,7 @@ import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
 import { NewsletterRecipientProps } from './types';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
-import {
-    areParentsSelected,
-    areSpecificRecipientsRequired,
-    setLabel,
-    generateKindergardenOptions,
-} from './utils';
+import { setLabel, generateKindergardenOptions } from './utils';
 import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
 
 export const NewsletterRecipent = ({
@@ -23,7 +18,7 @@ export const NewsletterRecipent = ({
     const { t } = useTranslation();
     const { data: kindergartensData } = useQuery<KindergartenResponse>(KINDERGARTENS);
 
-    const specificTypeOptionsValues = areParentsSelected(generalType) ? parentsRecipients : kindergartensRecipients;
+    const specificTypeOptionsValues = generalType.value === 'PARENTS' ? parentsRecipients : kindergartensRecipients;
 
     const renderKindergardens = (selected:unknown) => {
         return (selected as string[]).map(id => {
@@ -65,14 +60,14 @@ export const NewsletterRecipent = ({
                             name="specificType"
                         />
                     </Grid>
-                    {areSpecificRecipientsRequired(specificType) && (
+                    {(specificType.value === 'KINDERGARTEN' || specificType.value === 'SINGLE') && (
                         <Grid item xs={12}>
                             <MultipleSelect
                                 stateData={recipients}
                                 optionsValues={kindergardenOptionsValues}
                                 handleChange={handleChange}
                                 id="recipients"
-                                label={t(setLabel(generalType, specificType, recipients))}
+                                label={t(setLabel(generalType.value, specificType.value, recipients))}
                                 name="recipients"
                                 renderValue={renderKindergardens}
                             />

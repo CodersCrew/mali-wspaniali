@@ -1,15 +1,13 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { Typography, makeStyles, createStyles, Theme, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-// import { NewsletterProgressBar } from './NewsletterProgressBar';
-import { ProgressBarStates } from './types';
+import { NewsletterState } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
-import { setProgress } from './utils';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
 
-const initialState = {
+const initialState: NewsletterState = {
     type: {
         value: '',
         error: false,
@@ -27,7 +25,7 @@ const initialState = {
         error: false,
     },
     recipients: {
-        value: [] as string[],
+        value: [],
         error: false,
     },
     message: {
@@ -41,19 +39,10 @@ export const NewsletterPage = () => {
     const { t } = useTranslation();
     const [fields, setFields] = useState(initialState);
     const { type, topic, recipients, generalType, specificType, message } = fields;
-    const [progressBarState, setProgressBarState] = useState({
-        firstStep: ProgressBarStates.Ready,
-        secondStep: ProgressBarStates.Inactive,
-    });
 
     useEffect(() => {
         activePage(['admin-menu.newsletter']);
-        console.log(progressBarState);
     }, []);
-
-    useEffect(() => {
-        setProgress(specificType, recipients, type, topic, message, setProgressBarState);
-    }, [specificType, recipients, type, topic, message]);
 
     const handleChange = (e: ChangeEvent<{ name?: string | undefined; value: unknown }>): void => {
         const { name, value } = e.target;
@@ -81,13 +70,15 @@ export const NewsletterPage = () => {
         !message.value ||
         message.value === '<p><br></p>';
 
+    const isFirstStepCompleted = !!(generalType.value && specificType.value);
+
     return (
         <div className={classes.container}>
             <Typography variant="h3" className={classes.subHeader}>
                 {t('newsletter.subHeader')}
             </Typography>
             <Stepper orientation="vertical" className={classes.stepper} alternativeLabel>
-                <Step expanded className={classes.step}>
+                <Step expanded className={classes.step} completed={isFirstStepCompleted}>
                     <StepLabel className={classes.stepLabel}>krok 1</StepLabel>
                     <StepContent className={classes.stepContent}>
                         <NewsletterRecipent
@@ -98,7 +89,7 @@ export const NewsletterPage = () => {
                         />
                     </StepContent>
                 </Step>
-                <Step expanded className={classes.step}>
+                <Step expanded className={classes.step} active={isFirstStepCompleted}>
                     <StepLabel className={classes.stepLabel}>krok 2</StepLabel>
                     <StepContent className={classes.stepContent}>
                         <NewsletterContent
@@ -120,39 +111,6 @@ export const NewsletterPage = () => {
                     innerText={t('newsletter.send')}
                 />
             </div>
-            {/* <div className={classes.formContainer}>
-                <NewsletterProgressBar progressBarState={progressBarState} />
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <NewsletterRecipent
-                            generalType={generalType}
-                            specificType={specificType}
-                            recipients={recipients}
-                            handleChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <NewsletterContent
-                            handleChange={handleChange}
-                            type={type}
-                            topic={topic}
-                            specificType={specificType}
-                            recipients={recipients}
-                            message={message}
-                            setFields={setFields}
-                        />
-                    </Grid>
-                </Grid>
-            </div>
-            <div className={classes.formButtonWrapper}>
-                <ButtonSecondary
-                    variant="contained"
-                    disabled={isSubmitBtnDisabled}
-                    className={classes.formButton}
-                    onClick={handleSubmit}
-                    innerText={t('newsletter.send')}
-                />
-            </div> */}
         </div>
     );
 };

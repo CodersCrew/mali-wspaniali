@@ -1,34 +1,34 @@
-import { GeneralRecipientInputValues, SpecificRecipientInputValues } from './types';
+import { GeneralRecipient, SpecificRecipient } from './types';
 
-export const recipientType = [
+export const recipientType: { value: GeneralRecipient; label: string }[] = [
     {
-        value: GeneralRecipientInputValues.parents,
+        value: 'PARENTS',
         label: 'newsletter.parents',
     },
     {
-        value: GeneralRecipientInputValues.kindergartens,
+        value: 'KINDERGARTENS',
         label: 'newsletter.kindergartens',
     },
 ];
 
-export const parentsRecipients = [
+export const parentsRecipients: { value: SpecificRecipient; label: string }[] = [
     {
-        value: SpecificRecipientInputValues.all,
+        value: 'ALL',
         label: 'newsletter.specific-recipient-value-labels.all-parents',
     },
     {
-        value: SpecificRecipientInputValues.kindergarten,
+        value: 'KINDERGARTEN',
         label: 'newsletter.specific-recipient-value-labels.from-single-kindergarten',
     },
 ];
 
-export const kindergartensRecipients = [
+export const kindergartensRecipients: { value: SpecificRecipient; label: string }[] = [
     {
-        value: SpecificRecipientInputValues.all,
+        value: 'ALL',
         label: 'newsletter.specific-recipient-value-labels.all-kindergartens',
     },
     {
-        value: SpecificRecipientInputValues.single,
+        value: 'SINGLE',
         label: 'newsletter.specific-recipient-value-labels.single-kindergarten',
     },
 ];
