@@ -82,8 +82,6 @@ export type NewsletterContentProps = {
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
     type: SingleFieldType;
     topic: SingleFieldType;
-    specificType: SingleFieldType;
-    recipients: MultipleFieldType;
     message: SingleFieldType;
     setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
 };

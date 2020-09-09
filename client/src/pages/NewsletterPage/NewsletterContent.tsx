@@ -1,31 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { WorkSpace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
-import { NewsletterContentProps, SpecificRecipientInputValues } from './types';
+import { NewsletterContentProps } from './types';
 import { newsletterTypes } from './data';
 import { SingleSelect } from './SingleSelect';
 
-export const NewsletterContent = ({
-    handleChange,
-    type,
-    topic,
-    specificType,
-    recipients,
-    message,
-    setFields,
-}: NewsletterContentProps) => {
-    const [disabled, setDisabled] = useState(true);
-
-    useEffect(() => {
-        if (recipients.value.length > 0 || specificType.value === SpecificRecipientInputValues.all) {
-            setDisabled(false);
-        }
-    }, [recipients, specificType.value]);
-
+export const NewsletterContent = ({ handleChange, type, topic, message, setFields }: NewsletterContentProps) => {
     const { t } = useTranslation();
 
     const handleModalOpen = () => {
@@ -48,7 +32,6 @@ export const NewsletterContent = ({
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <SingleSelect
-                            disabled={disabled}
                             stateData={type}
                             optionsValues={newsletterTypes}
                             handleChange={handleChange}
@@ -59,7 +42,6 @@ export const NewsletterContent = ({
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            disabled={disabled}
                             value={topic.value}
                             name="topic"
                             variant="outlined"

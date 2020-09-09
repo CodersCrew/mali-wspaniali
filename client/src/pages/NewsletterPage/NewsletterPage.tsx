@@ -71,6 +71,7 @@ export const NewsletterPage = () => {
     const handleSubmit = async () => {
         // TODO:
         console.log('submitted');
+        console.log(fields);
     };
 
     const isSubmitBtnDisabled =
@@ -87,9 +88,7 @@ export const NewsletterPage = () => {
             </Typography>
             <Stepper orientation="vertical" className={classes.stepper} alternativeLabel>
                 <Step expanded className={classes.step}>
-                    <StepLabel error className={classes.stepLabel}>
-                        krok 1
-                    </StepLabel>
+                    <StepLabel className={classes.stepLabel}>krok 1</StepLabel>
                     <StepContent className={classes.stepContent}>
                         <NewsletterRecipent
                             generalType={generalType}
@@ -106,8 +105,6 @@ export const NewsletterPage = () => {
                             handleChange={handleChange}
                             type={type}
                             topic={topic}
-                            specificType={specificType}
-                            recipients={recipients}
                             message={message}
                             setFields={setFields}
                         />
@@ -197,7 +194,7 @@ const useStyles = makeStyles((theme: Theme) =>
         stepContent: {
             borderLeft: 0,
             padding: 0,
-            flexGrow: 1,
+            // flexGrow: 1,
             width: '100%',
             marginTop: 0,
         },

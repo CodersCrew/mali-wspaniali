@@ -62,7 +62,6 @@ export const NewsletterRecipent = ({
                             handleChange={handleChange}
                             id="specific-recipient-type"
                             label={t('newsletter.specific-recipient-label')}
-                            disabled={!generalType.value}
                             name="specificType"
                         />
                     </Grid>
