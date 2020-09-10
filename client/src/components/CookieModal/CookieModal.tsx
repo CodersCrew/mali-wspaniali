@@ -18,26 +18,25 @@ export const CookieModal = () => {
 
     useEffect(() => setIsOpen(!cookiesAccepted()), []);
 
-    if (IsOpen)
-        return (
-            <Box className={classes.modal} zIndex={ModalProps.zIndex}>
-                <InfoOutlinedIcon className={classes.modalIconInfo} />
-                <div className={classes.modalTextWrapper}>
-                    <p className={classes.modalTitle}>{t('cookies-popup.title')}</p>
-                    <p className={classes.modalInfo}>{t('cookies-popup.content')}</p>
-                </div>
-                <IconButton
-                    onClick={() => {
-                        setCookie('cookies', 'true');
-                        setIsOpen(false);
-                    }}
-                >
-                    <CloseIcon className={classes.modalIconClose} />
-                </IconButton>
-            </Box>
-        );
+    if (!IsOpen) return null;
 
-    return <React.Fragment></React.Fragment>;
+    return (
+        <Box className={classes.modal} zIndex={ModalProps.zIndex}>
+            <InfoOutlinedIcon className={classes.modalIconInfo} />
+            <div className={classes.modalTextWrapper}>
+                <p className={classes.modalTitle}>{t('cookies-popup.title')}</p>
+                <p className={classes.modalInfo}>{t('cookies-popup.content')}</p>
+            </div>
+            <IconButton
+                onClick={() => {
+                    setCookie('cookies', 'true');
+                    setIsOpen(false);
+                }}
+            >
+                <CloseIcon className={classes.modalIconClose} />
+            </IconButton>
+        </Box>
+    );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
