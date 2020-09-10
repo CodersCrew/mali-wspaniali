@@ -87,7 +87,7 @@ export const AppWrapper: FC = ({ children }) => {
                 )}
 
                 <main className={classes.content}>
-                    {user.role !== 'admin' ? <CookieModal /> : null}
+                    <CookieModal />
                     <div className={classes.toolbar}>{children}</div>
                 </main>
             </Box>
