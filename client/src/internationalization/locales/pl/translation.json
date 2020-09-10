@@ -396,7 +396,7 @@
         "paragraf": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
         "errors": {
             "e1": "to pole nie może być puste",
-            "e2": "to pole wymaga imienia oraz nazwiska"
+            "e2": "to pole wymaga imienia i nazwiska"
         },
         "inputs": {
             "name_surname": "Imię i nazwisko dziecka"
@@ -415,7 +415,7 @@
                 "l1": "I",
                 "hl1": "(styczen-marzec)",
                 "l2": "II",
-                "kl2": "(kwiecień-czerwiec)",
+                "hl2": "(kwiecień-czerwiec)",
                 "l3": "III",
                 "hl3": "(lipiec-wrzesień)",
                 "l4": "IV",

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles, InputLabel, FormControl } from '@material-ui/core';
 import { createStyles } from '@material-ui/styles';
 import { Theme } from '../../theme/types';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -10,6 +9,8 @@ import { FieldAttributes, Formik, Form, useField } from 'formik';
 import { Select as SelectField } from '@material-ui/core';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { useTranslation } from 'react-i18next';
+import { useBreakpoints } from '../../queries/useBreakpoints';
+import Modal from '@material-ui/core/Modal';
 
 interface OptionProps {
     info: string;
@@ -17,11 +18,12 @@ interface OptionProps {
 }
 
 function OptionField(props: OptionProps) {
+    const classes = useStyles();
     return (
-        <span>
-            {props.label}
-            {props.info}
-        </span>
+        <>
+            <span>{props.label}</span>
+            <span className={classes.helperLabel}>{props.info}</span>
+        </>
     );
 }
 
@@ -36,13 +38,13 @@ const selectValues: { [index: string]: any } = {
             label: 'kobieta',
         },
     ],
-    birth_date: [
+    'birth-date': [
         ...Array.apply(null, new Array(20)).map((x, i) => ({
             value: new Date().getFullYear() - i,
             label: new Date().getFullYear() - i,
         })),
     ],
-    birth_quarter: [
+    'birth-quarter': [
         {
             value: 'pierwsza',
             label: 'I',
@@ -77,15 +79,12 @@ const selectValues: { [index: string]: any } = {
         },
     ],
 };
-// addChildTranslations:{
-
-// }
 
 const initialValues = {
     name: '',
     sex: '',
-    birth_date: '',
-    birth_quarter: '',
+    'birth-date': '',
+    'birth-quarter': '',
     city: selectValues.city[0]['value'],
     kindergarten: selectValues.kindergarten[0]['value'],
 };
@@ -125,7 +124,7 @@ const Select: React.FC<FieldAttributes<SelectProps>> = ({ label, value, fullWidt
                     const helperLabel = t(hpath) !== hpath ? t(hpath) : option.helperLabel;
 
                     return (
-                        <MenuItem value={option.label} key={label}>
+                        <MenuItem value={label} key={label}>
                             <OptionField info={helperLabel} label={label} />
                         </MenuItem>
                     );
@@ -164,46 +163,47 @@ export const AddChildModal: React.FC<{ handleSubmit: (data: {}) => void }> = ({ 
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const { t } = useTranslation();
+    const device = useBreakpoints();
 
     useEffect(() => {
         setModalIsOpen(true);
     }, []);
 
     return modalIsOpen ? (
-        <Formik
-            validateOnChange={true}
-            initialValues={initialValues}
-            validate={(values: { [index: string]: any }) => {
-                const errors: Record<string, string> = {};
+        <Modal open={true}>
+            <Formik
+                validateOnChange={true}
+                initialValues={initialValues}
+                validate={(values: { [index: string]: any }) => {
+                    const errors: Record<string, string> = {};
 
-                if (values.name === '') {
-                    errors.name = t('add-child-modal.errors.e1');
-                } else if (values.name.split(' ').length !== 2) {
-                    errors.name = t('add-child-modal.errors.e2');
-                }
-                const selects: string[] = Object.keys(values).filter(
-                    value => value !== 'name' && value !== 'city' && value !== 'kindergarten',
-                );
-                selects.forEach((name: string) => {
-                    if (values[name] === '') {
-                        errors[name] = t('add-child-modal.errors.e1');
+                    if (values.name === '') {
+                        errors.name = t('add-child-modal.errors.e1');
+                    } else if (values.name.split(' ').length !== 2) {
+                        errors.name = t('add-child-modal.errors.e2');
                     }
-                });
+                    const selects: string[] = Object.keys(values).filter(
+                        value => value !== 'name' && value !== 'city' && value !== 'kindergarten',
+                    );
+                    selects.forEach((name: string) => {
+                        if (values[name] === '') {
+                            errors[name] = t('add-child-modal.errors.e1');
+                        }
+                    });
 
-                return errors;
-            }}
-            onSubmit={(data, { setSubmitting }) => {
-                setSubmitting(true);
-                console.log('submit: ', data);
-                handleSubmit(data);
-                setSubmitting(false);
-            }}
-        >
-            {({ values, isSubmitting }) => (
-                <Form>
-                    <Box className={classes.shadow} zIndex="modal">
+                    return errors;
+                }}
+                onSubmit={(data, { setSubmitting }) => {
+                    setSubmitting(true);
+                    console.log('submit: ', data);
+                    handleSubmit(data);
+                    setSubmitting(false);
+                }}
+            >
+                {({ values, isSubmitting }) => (
+                    <Form>
                         <div className={classes.modal}>
-                            <h1>{t(`add-child-modal.heading`)}</h1>
+                            <h4>{t(`add-child-modal.heading`)}</h4>
                             <p>{t(`add-child-modal.paragraf`)}</p>
                             <Input value={values.name} name="name" label={t(`add-child-modal.inputs.name_surname`)} />
                             <Select
@@ -215,15 +215,15 @@ export const AddChildModal: React.FC<{ handleSubmit: (data: {}) => void }> = ({ 
                             />
                             <Select
                                 label={t(`add-child-modal.select-options.birth-date.label`)}
-                                value={values.birth_date}
-                                name="birth_date"
-                                className={classes.half_size}
+                                value={values['birth-date']}
+                                name="birth-date"
+                                className={device === 'DESKTOP' ? classes.half_size_l : classes.formControl}
                             />
                             <Select
                                 label={t(`add-child-modal.select-options.birth-quarter.label`)}
-                                value={values.birth_quarter}
-                                name="birth_quarter"
-                                className={classes.half_size}
+                                value={values['birth-quarter']}
+                                name="birth-quarter"
+                                className={device === 'DESKTOP' ? classes.half_size_r : classes.formControl}
                             />
                             <Select
                                 label={t(`add-child-modal.select-options.city.label`)}
@@ -239,21 +239,21 @@ export const AddChildModal: React.FC<{ handleSubmit: (data: {}) => void }> = ({ 
                                 className={classes.formControl}
                                 disabled
                             />
-                            <Button color="primary" type="submit" disabled={isSubmitting}>
+                            <Button color="primary" type="submit" disabled={isSubmitting} className={classes.btn}>
                                 {t(`add-child-modal.button`)}
                             </Button>
                         </div>
-                    </Box>
-                </Form>
-            )}
-        </Formik>
+                    </Form>
+                )}
+            </Formik>
+        </Modal>
     ) : null;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         shadow: {
-            background: 'rgba(1,1,1,0.5)',
+            background: theme.palette.action.active,
             height: '100vh',
             width: '100vw',
             position: 'fixed',
@@ -265,9 +265,8 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'absolute',
             minWidth: '300px',
             maxHeight: '80vh',
-            padding: '16px',
-            // backgroundColor: theme.popups.info.light,
-            background: 'white',
+            padding: '0 24px',
+            background: theme.palette.info.contrastText,
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
@@ -277,34 +276,48 @@ const useStyles = makeStyles((theme: Theme) =>
             left: '50%',
             transform: 'translate(-50%, -50%)',
 
-            '& > *': {
-                margin: '10px',
-            },
-
             '& .MuiTextField-root': {
-                margin: '10px',
+                margin: '8px 0',
                 minWidth: '270px',
                 flexGrow: 1,
             },
 
             '& p': {
                 width: '100%',
+                marginTop: '8px',
+                color: theme.palette.text.secondary,
             },
 
-            '& h1': {
+            '& h4': {
+                fontFamily: theme.typography.fontFamily,
+                fontSize: theme.typography.h4.fontSize,
+                lineHeight: theme.typography.h4.lineHeight,
+                fontWeight: theme.typography.subtitle2.fontWeight, //na layoucie jest 500, więc musiałem dobrać coś podobnego
+                letterSpacing: theme.typography.h4.letterSpacing,
                 width: '100%',
-                marginBottom: '20px',
             },
         },
         formControl: {
-            margin: theme.spacing(1),
+            margin: '8px 0',
             flexGrow: 1,
-            minWidth: '90%',
+            minWidth: '100%',
         },
-        half_size: {
-            margin: theme.spacing(1),
+        half_size_l: {
+            marginRight: theme.spacing(1),
             flexGrow: 1,
             minWidth: '280px',
+        },
+        half_size_r: {
+            marginLeft: theme.spacing(1),
+            flexGrow: 1,
+            minWidth: '280px',
+        },
+        btn: {
+            marginBottom: theme.spacing(1),
+        },
+        helperLabel: {
+            color: theme.palette.grey['400'],
+            marginLeft: theme.spacing(1),
         },
     }),
 );

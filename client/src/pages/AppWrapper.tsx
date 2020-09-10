@@ -14,6 +14,7 @@ import { AdminSidebar } from '../components/Menu/Sidebar/AdminSidebar';
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
 import { ACTIVE_PAGE } from '../graphql/localFields';
+import { AddChildModal } from '../components/AddChildModal/AddChildModal';
 
 export const UserContext = React.createContext<Me | null>(null);
 
@@ -88,6 +89,7 @@ export const AppWrapper: FC = ({ children }) => {
                 <main className={classes.content}>
                     <div className={classes.toolbar}>{children}</div>
                 </main>
+                {user.role !== 'admin' ? <AddChildModal handleSubmit={() => {}} /> : null}
             </Box>
         </UserContext.Provider>
     );
