@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import { modules, formats } from './workspaceConfig';
-import { WorkspaceProps } from './types';
 import { Theme } from '../../theme';
+import { NewsletterState } from './types';
+
+type WorkspaceProps = {
+    message: string;
+    setFields: Dispatch<SetStateAction<NewsletterState>>;
+};
 
 export const WorkSpace = ({ message, setFields }: WorkspaceProps) => {
     const { t } = useTranslation();

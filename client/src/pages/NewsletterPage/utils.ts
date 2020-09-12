@@ -1,11 +1,14 @@
 import { TFunction } from 'i18next';
-import { MultipleFieldType, SelectOptionsValues, GeneralRecipient, SpecificRecipient, NewsletterState } from './types';
+import { GeneralRecipient, SpecificRecipient, NewsletterState } from './types';
 import { Kindergarten } from '../../graphql/types';
 
 export const setLabel = (
     generalType: GeneralRecipient,
     specificType: SpecificRecipient,
-    recipients: MultipleFieldType,
+    recipients: {
+        value: string[];
+        error: boolean;
+    },
 ): string => {
     if (generalType === 'PARENTS' && specificType === 'KINDERGARTEN') {
         if (recipients.value.length) {
@@ -22,7 +25,10 @@ export const setLabel = (
     return 'newsletter.recipient-single-kindergarten-label';
 };
 
-export const generateKindergardenOptions = (kindergardens: Kindergarten[], t: TFunction): SelectOptionsValues => {
+export const generateKindergardenOptions = (
+    kindergardens: Kindergarten[],
+    t: TFunction,
+): { value: string; label: string }[] => {
     const values = kindergardens.map(kindergarden => {
         const { _id, number, name } = kindergarden;
 

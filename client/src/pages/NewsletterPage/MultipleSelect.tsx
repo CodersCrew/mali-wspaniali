@@ -1,6 +1,28 @@
-import React from 'react';
-import { MenuItem, FormControl, InputLabel, Select, Checkbox, ListItemText, FormHelperText } from '@material-ui/core';
-import { MultipleSelectProps } from './types';
+import React, { ChangeEvent } from 'react';
+import {
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Select,
+    Checkbox,
+    ListItemText,
+    FormHelperText,
+    InputLabelProps,
+    SelectProps,
+} from '@material-ui/core';
+
+type MultipleSelectProps = {
+    stateData: {
+        value: string[];
+        error: boolean;
+    };
+    optionsValues: {
+        value: string;
+        label: string;
+    }[];
+    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+} & InputLabelProps &
+    SelectProps;
 
 export const MultipleSelect = ({
     stateData,

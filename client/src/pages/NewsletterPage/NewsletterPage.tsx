@@ -196,10 +196,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
         stepLong: {
             '& .MuiStepConnector-alternativeLabel': {
-                top: '-260px',
-
+                top: '-249px',
                 '& .MuiStepConnector-lineVertical': {
-                    height: '240px',
+                    height: '239px',
                 },
             },
         },

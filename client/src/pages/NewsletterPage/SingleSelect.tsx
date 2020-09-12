@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@material-ui/core';
-import { SingleSelectProps } from './types';
+import {
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Select,
+    FormHelperText,
+    InputLabelProps,
+    SelectProps,
+} from '@material-ui/core';
+
+type SingleSelectProps = {
+    stateData: {
+        value: string;
+        error: boolean;
+    };
+    optionsValues: {
+        value: string;
+        label: string;
+    }[];
+    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+} & InputLabelProps &
+    SelectProps;
 
 export const SingleSelect = ({
     stateData,

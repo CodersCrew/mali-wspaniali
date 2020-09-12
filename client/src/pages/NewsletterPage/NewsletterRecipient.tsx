@@ -1,13 +1,29 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {useQuery} from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
 import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
-import { NewsletterRecipientProps } from './types';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
 import { setLabel, generateKindergardenOptions } from './utils';
 import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
+import {GeneralRecipient, SpecificRecipient} from './types';
+
+type NewsletterRecipientProps = {
+    generalType: {
+        value: GeneralRecipient;
+        error: boolean;
+    };
+    specificType: {
+        value: SpecificRecipient;
+        error: boolean;
+    };
+    recipients: {
+        value: string[];
+        error: boolean;
+    };
+    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+};
 
 export const NewsletterRecipent = ({
     generalType,
