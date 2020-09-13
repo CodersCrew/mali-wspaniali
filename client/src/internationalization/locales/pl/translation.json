@@ -395,5 +395,17 @@
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
-    "close": "Zamknij"
+    "close": "Zamknij",
+    "agreements": {
+        "show-all": "Wszystkie",
+        "marketing": "Zgody marketingowe",
+        "image": "Zgody wizerunkowe",
+        "given": "Oddane",
+        "not-given": "Nieoddane"
+    },
+    "agreements-filter": {
+        "by-agreement-type": "Filtruj po rodzaju zgody",
+        "by-agreement-status": "Filtruj po statusie",
+        "by-kindergarten": "Filtruj po przedszkolu"
+    }
 }
