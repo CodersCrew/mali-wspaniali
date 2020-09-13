@@ -72,44 +72,44 @@ export const AdminAgreementsPage = () => {
 
     return (
         <>
-<Paper elevation={0} classes={{ root: classes.container}}>
-           <div className={classes.filterContainer}>
-           <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader}} >
-            <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
-    <IconButton onClick={() => setIsFilterListOpen(prev => !prev)}><FilterListIcon /></IconButton>
-            </Grid>
-{isFiltersListOpen && (
-    <AgreementsFilter
-    agreementType={agreementsTypeFilter}
-    agreementStatus={agreementsStatusFilter}
-    agreementKindergarten={agreementsKindergartenFilter || []}
-/>
-)}
-           </div>
-           <Divider />
-            <AgreementsList kindergartens={kindergartenList.kindergartens} />
-</Paper>
-                    <Container>
-                        <Container>
-                            <List
-                                subheader={<ListSubheader>{t('admin-agreements-page.agreements-all')}</ListSubheader>}
-                            >
-                                {agreements.map(agreement => (
-                                    <AgreementListItem key={agreement._id} agreement={agreement} />
-                                ))}
-                            </List>
-                        </Container>
-                        <Container>
-                            <ButtonSecondary
-                                variant="contained"
-                                onClick={handleOpenModal}
-                                innerText={t('admin-agreements-page.show')}
-                            />
-                        </Container>
-                        <BasicModal isOpen={isModalOpen} onClose={handleCloseModal}>
-                            <div className={classes.paper}>aggreements</div>
-                        </BasicModal>
-                    </Container>
+            <Paper elevation={0} classes={{ root: classes.container}}>
+                <div className={classes.filterContainer}>
+                    <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader}} >
+                        <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
+                        <IconButton onClick={() => setIsFilterListOpen(prev => !prev)}><FilterListIcon /></IconButton>
+                    </Grid>
+                    {isFiltersListOpen && (
+                        <AgreementsFilter
+                            agreementType={agreementsTypeFilter}
+                            agreementStatus={agreementsStatusFilter}
+                            agreementKindergarten={agreementsKindergartenFilter || []}
+                        />
+                    )}
+                </div>
+                <Divider />
+                <AgreementsList kindergartens={kindergartenList.kindergartens} />
+            </Paper>
+            <Container>
+                <Container>
+                    <List
+                        subheader={<ListSubheader>{t('admin-agreements-page.agreements-all')}</ListSubheader>}
+                    >
+                        {agreements.map(agreement => (
+                            <AgreementListItem key={agreement._id} agreement={agreement} />
+                        ))}
+                    </List>
+                </Container>
+                <Container>
+                    <ButtonSecondary
+                    variant="contained"
+                    onClick={handleOpenModal}
+                    innerText={t('admin-agreements-page.show')}
+                    />
+                </Container>
+                    <BasicModal isOpen={isModalOpen} onClose={handleCloseModal}>
+                        <div className={classes.paper}>aggreements</div>
+                    </BasicModal>
+            </Container>
         </>
     );
 };
