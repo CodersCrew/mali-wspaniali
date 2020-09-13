@@ -7,14 +7,31 @@ interface Props {
     pictureUrl: string;
     contentHTML: string;
     title: string;
+    header: string;
+    subtitle: string;
+    description: string;
     date: Date;
     readingTime: number;
 }
 
-export const ArticleContent = ({ title, pictureUrl, contentHTML, date, readingTime }: Props) => {
+export const ArticleContent = ({
+    title,
+    subtitle,
+    description,
+    header,
+    pictureUrl,
+    contentHTML,
+    date,
+    readingTime,
+}: Props) => {
     const classes = useStyles();
     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     const { t } = useTranslation();
+
+    console.log(header);
+    console.log(title);
+    console.log(subtitle);
+    console.log(description);
 
     return (
         <Grid className={classes.contentGrid} container direction="column">
@@ -31,7 +48,9 @@ export const ArticleContent = ({ title, pictureUrl, contentHTML, date, readingTi
                     </Typography>
                 </div>
                 <Grid className={classes.contentHeader} item>
-                    <Typography className={classes.contentTitleText}>{title}</Typography>
+                    <Typography className={classes.title}>{title}</Typography>
+                    <Typography className={classes.description}>{description}</Typography>
+                    <Typography className={classes.subtitle}>{subtitle}</Typography>
                 </Grid>
                 <Grid container direction="row">
                     <Grid className={classes.contentHTML} item>
@@ -77,16 +96,29 @@ const useStyles = makeStyles((theme: Theme) =>
         contentHeader: {
             paddingTop: `${theme.spacing(2)}px`,
         },
-        contentTitleText: {
+        title: {
             fontSize: theme.typography.h2.fontSize,
             letterSpacing: theme.typography.body2.letterSpacing,
             lineHeight: theme.typography.h2.lineHeight,
+        },
+        description: {
+            paddingTop: `20px`,
+            fontSize: theme.typography.h3.fontSize,
+            letterSpacing: theme.typography.body2.letterSpacing,
+            lineHeight: theme.typography.h3.lineHeight,
+        },
+        subtitle: {
+            paddingTop: `${theme.spacing(3)}px`,
+            fontSize: theme.typography.h4.fontSize,
+            lineHeight: theme.typography.h4.lineHeight,
+            letterSpacing: theme.typography.h4.letterSpacing,
         },
         contentHTML: {
             '& > h3': {
                 fontSize: theme.typography.h3.fontSize,
                 lineHeight: theme.typography.h3.lineHeight,
                 letterSpacing: theme.typography.h3.letterSpacing,
+                marginTop: 0,
                 marginBottom: theme.spacing(3),
             },
             '& > h4': {

@@ -43,6 +43,9 @@ export const ArticlePage = () => {
                             pictureUrl={data.article.pictureUrl}
                             contentHTML={data.article.contentHTML}
                             title={data.article.title}
+                            subtitle={data.article.subtitle}
+                            description={data.article.description}
+                            header={data.article.header}
                             date={data.article.date}
                             readingTime={data.article.readingTime}
                         />
