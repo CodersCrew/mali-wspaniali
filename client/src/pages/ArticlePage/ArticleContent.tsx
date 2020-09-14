@@ -109,24 +109,18 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         subtitle: {
             paddingTop: `${theme.spacing(3)}px`,
+            paddingBottom: `${theme.spacing(2)}px`,
             fontSize: theme.typography.h4.fontSize,
             lineHeight: theme.typography.h4.lineHeight,
             letterSpacing: theme.typography.h4.letterSpacing,
+            fontWeight: theme.typography.subtitle2.fontWeight,
         },
         contentHTML: {
-            '& > h3': {
-                fontSize: theme.typography.h3.fontSize,
-                lineHeight: theme.typography.h3.lineHeight,
-                letterSpacing: theme.typography.h3.letterSpacing,
-                marginTop: 0,
-                marginBottom: theme.spacing(3),
-            },
             '& > h4': {
-                fontSize: theme.typography.h4.fontSize,
-                lineHeight: theme.typography.h4.lineHeight,
-                letterSpacing: theme.typography.h4.letterSpacing,
+                marginTop: 0,
                 marginBottom: theme.spacing(2),
             },
+            marginTop: 0,
             paddingBottom: theme.spacing(3),
             fontSize: theme.typography.body1.fontSize,
             lineHeight: theme.typography.body1.lineHeight,
