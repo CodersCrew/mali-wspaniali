@@ -10,6 +10,7 @@ import {
     Theme,
     Typography,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { Status } from '../../../components/Icons/Status';
 
 interface Parent {
@@ -25,6 +26,7 @@ interface Props {
 
 export function KindergartenAgreementsList({ parents }: Props) {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <>
@@ -32,10 +34,10 @@ export function KindergartenAgreementsList({ parents }: Props) {
             <Table size="small" aria-label="purchases" classes={{ root: classes.container }}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Adres e-mail rodziców</TableCell>
-                        <TableCell>Dzieci</TableCell>
-                        <TableCell>Wizerunkowa</TableCell>
-                        <TableCell>Marketingowa</TableCell>
+                        <TableCell>{t('agreements.email')}</TableCell>
+                        <TableCell>{t('agreements.children')}</TableCell>
+                        <TableCell align="center">{t('agreements.image')}</TableCell>
+                        <TableCell align="center">{t('agreements.marketing')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
