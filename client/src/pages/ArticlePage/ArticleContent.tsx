@@ -28,11 +28,6 @@ export const ArticleContent = ({
     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     const { t } = useTranslation();
 
-    console.log(header);
-    console.log(title);
-    console.log(subtitle);
-    console.log(description);
-
     return (
         <Grid className={classes.contentGrid} container direction="column">
             <Grid className={classes.contentPhoto} item xs={12} sm={12} md={9}>
