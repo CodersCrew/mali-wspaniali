@@ -399,5 +399,19 @@
     "pagination": {
         "previous": "Previous",
         "next": "Next"
+    },
+    "agreements": {
+        "show-all": "Show all",
+        "marketing": "Marketing agreements",
+        "image": "Image agreements",
+        "given": "Given agreements",
+        "not-given": "Not given agreements",
+        "email": "Parent's e-mail",
+        "children": "Children"
+    },
+    "agreements-filter": {
+        "by-agreement-type": "Filter by agreement type",
+        "by-agreement-status": "Filter by agreement status",
+        "by-kindergarten": "Filter by kindergarten"
     }
 }
