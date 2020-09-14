@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Typography, List, ListSubheader, Paper, IconButton, Grid, Divider } from '@material-ui/core';
+import { Typography, Paper, IconButton, Grid, Divider } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useQuery } from '@apollo/client';
 
-import { ButtonSecondary } from '../../components/Button';
-import { AgreementListItem } from './AgreementListItem';
-import { Agreement, Kindergarten } from '../../graphql/types';
-import { getAgreements } from '../../graphql/agreementRepository';
-import { BasicModal } from '../../components/Modal/BasicModal';
+import { Kindergarten } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { AgreementsList } from './AgreementsList/AgreementsList';
 import { KINDERGARTENS } from '../../graphql/kindergartensRepository';
@@ -32,9 +28,7 @@ import {
 export const AdminAgreementsPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [isModalOpen, setOpenModal] = useState(false);
     const [isFiltersListOpen, setIsFilterListOpen] = useState(false);
-    const [agreements, setAgreements] = useState<Agreement[]>([]);
     const { data: kindergartenList } = useQuery<{ kindergartens: Kindergarten[] }>(KINDERGARTENS);
     const agreementsTypeFilterQuery = useQuery<GetAgreementsTypeFilterQuery>(GET_AGREEMENTS_TYPE_FILTER);
     const { agreementsTypeFilter } = agreementsTypeFilterQuery.data!;
@@ -49,7 +43,6 @@ export const AdminAgreementsPage = () => {
 
     useEffect(() => {
         activePage(['admin-menu.agreements']);
-        getAgreements().then(({ data }) => setAgreements(data!.agreements));
     }, []);
 
     useEffect(() => {
@@ -59,14 +52,6 @@ export const AdminAgreementsPage = () => {
             );
         }
     }, [kindergartenList]);
-
-    const handleOpenModal = () => {
-        // if (checked.length ===  1) setOpenModal(true);
-    };
-
-    const handleCloseModal = () => {
-        setOpenModal(false);
-    };
 
     if (!kindergartenList) return null;
 
@@ -89,27 +74,6 @@ export const AdminAgreementsPage = () => {
                 <Divider />
                 <AgreementsList kindergartens={kindergartenList.kindergartens} />
             </Paper>
-            <Container>
-                <Container>
-                    <List
-                        subheader={<ListSubheader>{t('admin-agreements-page.agreements-all')}</ListSubheader>}
-                    >
-                        {agreements.map(agreement => (
-                            <AgreementListItem key={agreement._id} agreement={agreement} />
-                        ))}
-                    </List>
-                </Container>
-                <Container>
-                    <ButtonSecondary
-                    variant="contained"
-                    onClick={handleOpenModal}
-                    innerText={t('admin-agreements-page.show')}
-                    />
-                </Container>
-                    <BasicModal isOpen={isModalOpen} onClose={handleCloseModal}>
-                        <div className={classes.paper}>aggreements</div>
-                    </BasicModal>
-            </Container>
         </>
     );
 };
