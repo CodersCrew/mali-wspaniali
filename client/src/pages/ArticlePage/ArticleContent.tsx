@@ -30,26 +30,28 @@ export const ArticleContent = ({
 
     return (
         <Grid className={classes.contentGrid} container direction="column">
-            <Grid className={classes.contentPhoto} item xs={12} sm={12} md={9}>
+            <Grid item xs={12} lg={9}>
                 <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
             </Grid>
-            <Grid className={classes.contentContainer} item xs={12} sm={12} md={7}>
-                <div className={classes.contentDateReadingTime}>
-                    <Typography className={classes.dateReadingTime}>
-                        {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
-                    </Typography>
-                    <Typography className={classes.dateReadingTime}>
-                        {readingTime} {t('single-article.reading-time')}
-                    </Typography>
-                </div>
-                <Grid className={classes.contentHeader} item>
-                    <Typography className={classes.title}>{title}</Typography>
-                    <Typography className={classes.description}>{description}</Typography>
-                    <Typography className={classes.subtitle}>{subtitle}</Typography>
-                </Grid>
-                <Grid container direction="row">
-                    <Grid className={classes.contentHTML} item>
-                        {parse(contentHTML)}
+            <Grid className={classes.subContainer} item lg={9} xs={12}>
+                <Grid className={classes.contentContainer} item xs={12} lg={8}>
+                    <div className={classes.contentDateReadingTime}>
+                        <Typography className={classes.dateReadingTime}>
+                            {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
+                        </Typography>
+                        <Typography className={classes.dateReadingTime}>
+                            {readingTime} {t('single-article.reading-time')}
+                        </Typography>
+                    </div>
+                    <div className={classes.contentHeader}>
+                        <Typography className={classes.title}>{title}</Typography>
+                        <Typography className={classes.description}>{description}</Typography>
+                        <Typography className={classes.subtitle}>{subtitle}</Typography>
+                    </div>
+                    <Grid container direction="row">
+                        <Grid className={classes.contentHTML} item>
+                            {parse(contentHTML)}
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
@@ -62,14 +64,15 @@ const useStyles = makeStyles((theme: Theme) =>
         contentGrid: {
             backgroundColor: theme.palette.background.default,
         },
-        contentPhoto: {
-            paddingBottom: `${theme.spacing(4)}px`,
+        subContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
         },
         contentPhotoMedia: {
             minHeight: '441px',
             height: 'fit-content',
             borderRadius: '4px',
-            maxWidth: '100vw',
 
             [theme.breakpoints.down('sm')]: {
                 maxWidth: '100vw',
@@ -79,13 +82,13 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100vw',
         },
         contentDateReadingTime: {
+            paddingTop: `${theme.spacing(4)}px`,
             display: 'flex',
             flexDirection: 'row',
         },
         dateReadingTime: {
             fontSize: theme.typography.overline.fontSize,
             marginRight: theme.spacing(4),
-            alignSelf: 'center',
             textTransform: 'uppercase',
         },
         contentHeader: {

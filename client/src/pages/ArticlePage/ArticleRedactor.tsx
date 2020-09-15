@@ -10,7 +10,7 @@ export const ArticleRedactor = ({ redactor }: Props) => {
     const classes = useStyles();
 
     return (
-        <Grid container direction="row">
+        <Grid container direction="row" className={classes.wrapper}>
             <Grid className={classes.contentRedactorAvatarContainer} item>
                 <Avatar
                     className={classes.contentRedactorAvatar}
@@ -39,8 +39,17 @@ export const ArticleRedactor = ({ redactor }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        wrapper: {
+            width: '70vw',
+
+            [theme.breakpoints.down('md')]: {
+                paddingRight: `${theme.spacing(2)}px`,
+                width: '100vw',
+            },
+        },
         contentRedactorAvatarContainer: {
             paddingRight: `${theme.spacing(3)}px`,
+
             [theme.breakpoints.down('sm')]: {
                 paddingRight: `${theme.spacing(2)}px`,
             },

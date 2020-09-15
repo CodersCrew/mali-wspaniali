@@ -37,32 +37,31 @@ export const ArticlePage = () => {
         <>
             {device === 'MOBILE' && <ArticleNavigationMobile onClick={onBackClick} />}
             <Grid className={classes.rootGrid} container direction="column">
-                <div className={classes.articleContentContainer}>
-                    <Grid container direction="row">
-                        <ArticleContent
-                            pictureUrl={data.article.pictureUrl}
-                            contentHTML={data.article.contentHTML}
-                            title={data.article.title}
-                            subtitle={data.article.subtitle}
-                            description={data.article.description}
-                            header={data.article.header}
-                            date={data.article.date}
-                            readingTime={data.article.readingTime}
-                        />
-                    </Grid>
+                <Grid className={classes.articleContentContainer} item lg={12}>
+                    <ArticleContent
+                        pictureUrl={data.article.pictureUrl}
+                        contentHTML={data.article.contentHTML}
+                        title={data.article.title}
+                        subtitle={data.article.subtitle}
+                        description={data.article.description}
+                        header={data.article.header}
+                        date={data.article.date}
+                        readingTime={data.article.readingTime}
+                    />
+
                     <Grid className={classes.videoContainer}>
                         <ArticleVideo videoUrl={data.article.videoUrl} tags={data.article.tags} />
                     </Grid>
-                    <Grid container direction="row">
+                    <Grid container direction="row" className={classes.mainRedactorWrapper}>
                         <ArticleRedactor redactor={data.article.redactor} />
                     </Grid>
-                    <Grid className={classes.paginationButtonsContainer} item md={9} xs={12}>
-                        <ButtonDefault variant="contained">{t(`single-article.go-to-previous-page`)}</ButtonDefault>
-                        <ButtonDefault variant="contained" color={'secondary'}>
-                            {t(`single-article.go-to-next-page`)}
-                        </ButtonDefault>
-                    </Grid>
-                </div>
+                </Grid>
+                <Grid className={classes.paginationButtonsContainer} item md={9} xs={12}>
+                    <ButtonDefault variant="contained">{t(`single-article.go-to-previous-page`)}</ButtonDefault>
+                    <ButtonDefault variant="contained" color={'secondary'}>
+                        {t(`single-article.go-to-next-page`)}
+                    </ButtonDefault>
+                </Grid>
             </Grid>
         </>
     );
@@ -79,7 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         articleContentContainer: {
             position: 'relative',
-            maxWidth: '100vw',
             padding: `${theme.spacing(3)}px`,
 
             [theme.breakpoints.down('sm')]: {
@@ -90,11 +88,16 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: theme.spacing(3),
             paddingBottom: theme.spacing(4),
         },
+        mainRedactorWrapper: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
         paginationButtonsContainer: {
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
-            padding: `${theme.spacing(4)}px 0 ${theme.spacing(4)}px 0 `,
+            padding: `${theme.spacing(4)}px ${theme.spacing(3)}px ${theme.spacing(4)}px ${theme.spacing(3)}px`,
         },
     }),
 );

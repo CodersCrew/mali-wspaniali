@@ -12,24 +12,24 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 
     return (
         <Grid className={classes.contentVideoContainer} container direction="row" spacing={3}>
-            <Grid item xs={12} md={8}>
-                <Grid className={classes.contentVideo} item>
+            <Grid className={classes.wrapperContainer} item lg={9} xs={12}>
+                <Grid className={classes.contentVideo}>
                     <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
                 </Grid>
-            </Grid>
 
-            <Grid className={classes.contentTags} item>
-                {tags.map((tag, index) => {
-                    return (
-                        <ButtonPrimary
-                            key={`${tag} ${index}`}
-                            variant="contained"
-                            disableElevation
-                            className={classes.contentTagsButton}
-                            innerText={`#${tag}`}
-                        />
-                    );
-                })}
+                <Grid className={classes.contentTags} item lg={8} md={11} xs={12}>
+                    {tags.map((tag, index) => {
+                        return (
+                            <ButtonPrimary
+                                key={`${tag} ${index}`}
+                                variant="contained"
+                                disableElevation
+                                className={classes.contentTagsButton}
+                                innerText={`#${tag}`}
+                            />
+                        );
+                    })}
+                </Grid>
             </Grid>
         </Grid>
     );
@@ -38,22 +38,28 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentVideo: {
-            [theme.breakpoints.down('sm')]: {
-                paddingLeft: '3vw',
-                paddingRight: '3vw',
+            width: '50vw',
+            [theme.breakpoints.down('md')]: {
+                paddingLeft: `${theme.spacing(4)}px`,
+                paddingRight: `${theme.spacing(4)}px`,
+                width: '100vw',
             },
+        },
+        wrapperContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
         },
 
         contentVideoContainer: {
-            display: 'flex',
-            justifyContent: 'flex-end',
             borderBottom: 'solid',
             borderBottomColor: theme.palette.divider,
             borderBottomWidth: '1px',
-            width: '70vw',
-            [theme.breakpoints.down('sm')]: {
-                width: '100vw',
-                paddingRight: `${theme.spacing(2)}px`,
+
+            [theme.breakpoints.down('md')]: {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
             },
         },
         contentVideoPlayer: {
@@ -67,6 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             width: '100%',
             flexWrap: 'wrap',
+            marginTop: `${theme.spacing(3)}px`,
 
             [theme.breakpoints.down('xs')]: {
                 marginLeft: `${theme.spacing(2)}px`,
