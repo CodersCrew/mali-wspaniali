@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from 'react';
-import {useQuery} from '@apollo/client';
+import React, { ChangeEvent } from 'react';
+import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
 import { SingleSelect } from './SingleSelect';
@@ -7,7 +7,7 @@ import { MultipleSelect } from './MultipleSelect';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
 import { setLabel, generateKindergardenOptions } from './utils';
 import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
-import {GeneralRecipient, SpecificRecipient} from './types';
+import { GeneralRecipient, SpecificRecipient, MultipleFormValue } from './types';
 
 type NewsletterRecipientProps = {
     generalType: {
@@ -18,10 +18,7 @@ type NewsletterRecipientProps = {
         value: SpecificRecipient;
         error: boolean;
     };
-    recipients: {
-        value: string[];
-        error: boolean;
-    };
+    recipients: MultipleFormValue;
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
 };
 
@@ -36,19 +33,21 @@ export const NewsletterRecipent = ({
 
     const specificTypeOptionsValues = generalType.value === 'PARENTS' ? parentsRecipients : kindergartensRecipients;
 
-    const renderKindergardens = (selected:unknown) => {
-        return (selected as string[]).map(id => {
-            const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
+    const renderKindergardens = (selected: unknown) => {
+        return (selected as string[])
+            .map(id => {
+                const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
 
-            return obj?.label;
-        })
-            .join(', ');};
+                return obj?.label;
+            })
+            .join(', ');
+    };
 
     if (!kindergartensData) return null;
 
     const { kindergartens } = kindergartensData;
 
-    const kindergardenOptionsValues = generateKindergardenOptions(kindergartens, t);
+    const kindergardenOptionsValues = generateKindergardenOptions(kindergartens);
 
     return (
         <Card>

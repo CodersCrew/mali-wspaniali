@@ -8,7 +8,7 @@ import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
 import {
-    isSubmitBtnDisabled,
+    isSubmitButtonDisabled,
     isFirstStepCompleted,
     isFirstStepError,
     isSecondStepError,
@@ -101,10 +101,10 @@ export const NewsletterPage = () => {
                 </Step>
                 <Step
                     expanded
-                    className={clsx(
-                        classes.step,
-                        areSpecificRecipientsRequired(specificType.value) && classes.stepLong,
-                    )}
+                    className={clsx({
+                        [classes.step]: true,
+                        [classes.stepLong]: areSpecificRecipientsRequired(specificType.value),
+                    })}
                     active={firstStepCompleted}
                     completed={secondStepCompleted}
                 >
@@ -125,7 +125,7 @@ export const NewsletterPage = () => {
             <div className={classes.formButtonWrapper}>
                 <ButtonSecondary
                     variant="contained"
-                    disabled={isSubmitBtnDisabled(fields)}
+                    disabled={isSubmitButtonDisabled(fields)}
                     className={classes.formButton}
                     onClick={handleSubmit}
                     innerText={t('newsletter.send')}

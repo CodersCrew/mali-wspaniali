@@ -1,14 +1,10 @@
-import { TFunction } from 'i18next';
-import { GeneralRecipient, SpecificRecipient, NewsletterState } from './types';
+import { GeneralRecipient, SpecificRecipient, NewsletterState, MultipleFormValue } from './types';
 import { Kindergarten } from '../../graphql/types';
 
 export const setLabel = (
     generalType: GeneralRecipient,
     specificType: SpecificRecipient,
-    recipients: {
-        value: string[];
-        error: boolean;
-    },
+    recipients: MultipleFormValue,
 ): string => {
     if (generalType === 'PARENTS' && specificType === 'KINDERGARTEN') {
         if (recipients.value.length) {
@@ -25,16 +21,13 @@ export const setLabel = (
     return 'newsletter.recipient-single-kindergarten-label';
 };
 
-export const generateKindergardenOptions = (
-    kindergardens: Kindergarten[],
-    t: TFunction,
-): { value: string; label: string }[] => {
+export const generateKindergardenOptions = (kindergardens: Kindergarten[]): { value: string; label: string }[] => {
     const values = kindergardens.map(kindergarden => {
         const { _id, number, name } = kindergarden;
 
         return {
             value: _id,
-            label: `${t('newsletter.kindergarten-number')} ${number}, ${name}`,
+            label: `${number}, ${name}`,
         };
     });
 
@@ -44,7 +37,7 @@ export const generateKindergardenOptions = (
 export const areSpecificRecipientsRequired = (value: SpecificRecipient) =>
     value === 'KINDERGARTEN' || value === 'SINGLE';
 
-export const isSubmitBtnDisabled = (data: NewsletterState) => {
+export const isSubmitButtonDisabled = (data: NewsletterState) => {
     const { generalType, specificType, type, topic, message, recipients } = data;
 
     if (areSpecificRecipientsRequired(specificType.value)) {
@@ -68,7 +61,7 @@ export const isFirstStepCompleted = (
     recipients: string[],
 ) => {
     return areSpecificRecipientsRequired(specificRecipient)
-        ? !!(generalRecipient && specificRecipient && recipients.length)
+        ? !!(generalRecipient && specificRecipient && recipients.length > 0)
         : !!(generalRecipient && specificRecipient);
 };
 

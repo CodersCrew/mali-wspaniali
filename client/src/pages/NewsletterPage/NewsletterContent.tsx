@@ -2,27 +2,18 @@ import React, { Dispatch, SetStateAction, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { WorkSpace } from './Workspace';
+import { Workspace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
 import { newsletterTypes } from './data';
 import { SingleSelect } from './SingleSelect';
-import { NewsletterState } from './types';
+import { NewsletterState, SingleFormValue } from './types';
 
 type NewsletterContentProps = {
     handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-    type: {
-        value: string;
-        error: boolean;
-    };
-    topic: {
-        value: string;
-        error: boolean;
-    };
-    message: {
-        value: string;
-        error: boolean;
-    };
+    type: SingleFormValue;
+    topic: SingleFormValue;
+    message: SingleFormValue;
     setFields: Dispatch<SetStateAction<NewsletterState>>;
 };
 
@@ -75,7 +66,7 @@ export const NewsletterContent = ({ handleChange, type, topic, message, setField
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <WorkSpace message={message.value} setFields={setFields} />
+                        <Workspace message={message.value} setFields={setFields} />
                     </Grid>
                 </Grid>
             </CardContent>

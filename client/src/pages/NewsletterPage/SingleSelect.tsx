@@ -9,12 +9,10 @@ import {
     InputLabelProps,
     SelectProps,
 } from '@material-ui/core';
+import { SingleFormValue } from './types';
 
 type SingleSelectProps = {
-    stateData: {
-        value: string;
-        error: boolean;
-    };
+    stateData: SingleFormValue;
     optionsValues: {
         value: string;
         label: string;

@@ -10,12 +10,10 @@ import {
     InputLabelProps,
     SelectProps,
 } from '@material-ui/core';
+import { MultipleFormValue } from './types';
 
 type MultipleSelectProps = {
-    stateData: {
-        value: string[];
-        error: boolean;
-    };
+    stateData: MultipleFormValue;
     optionsValues: {
         value: string;
         label: string;

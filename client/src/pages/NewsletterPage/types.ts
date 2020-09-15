@@ -2,15 +2,19 @@ export type GeneralRecipient = '' | 'PARENTS' | 'KINDERGARTENS';
 
 export type SpecificRecipient = '' | 'ALL' | 'KINDERGARTEN' | 'SINGLE';
 
+export type SingleFormValue = {
+    value: string;
+    error: boolean;
+};
+
+export type MultipleFormValue = {
+    value: string[];
+    error: boolean;
+};
+
 export type NewsletterState = {
-    type: {
-        value: string;
-        error: boolean;
-    };
-    topic: {
-        value: string;
-        error: boolean;
-    };
+    type: SingleFormValue;
+    topic: SingleFormValue;
     generalType: {
         value: GeneralRecipient;
         error: boolean;
@@ -19,17 +23,6 @@ export type NewsletterState = {
         value: SpecificRecipient;
         error: boolean;
     };
-    recipients: {
-        value: string[];
-        error: boolean;
-    };
-    message: {
-        value: string;
-        error: false;
-    };
+    recipients: MultipleFormValue;
+    message: SingleFormValue;
 };
-
-// export type RecipientTypeProps = {
-//     generalType: { value: string; error: boolean };
-//     handleRecipientTypeChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-// };

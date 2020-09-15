@@ -12,7 +12,7 @@ type WorkspaceProps = {
     setFields: Dispatch<SetStateAction<NewsletterState>>;
 };
 
-export const WorkSpace = ({ message, setFields }: WorkspaceProps) => {
+export const Workspace = ({ message, setFields }: WorkspaceProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
