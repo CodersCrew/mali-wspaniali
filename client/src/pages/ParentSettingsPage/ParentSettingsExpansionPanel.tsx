@@ -7,6 +7,7 @@ import { ConsentsPanel } from './ConsentsPanel';
 import { AccountDeletionPanel } from './AccountDeletionPanel';
 import { Me } from '../../graphql/types';
 import { ExpansionPanelItem } from './ExpansionPanelItem';
+import { ChangePasswordPanelFormik } from './ChangePasswordPanelFormik';
 
 interface Props {
     user: Me;
@@ -22,6 +23,15 @@ export const ParentSettingsExpansionPanel = ({ user }: Props) => {
 
     return (
         <div className={classes.root}>
+            <ExpansionPanelItem
+                user={user}
+                name={'password-change-formik-panel'}
+                handle={handleChange('password-change-formik-panel')}
+                expanded={expanded === 'password-change-formik-panel'}
+                heading={'settings-page.parent.password-change'}
+                panel={ChangePasswordPanelFormik}
+            />
+
             <ExpansionPanelItem
                 user={user}
                 name={'password-change-panel'}
