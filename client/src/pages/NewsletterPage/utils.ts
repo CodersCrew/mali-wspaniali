@@ -1,3 +1,4 @@
+import { FormikErrors } from 'formik';
 import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
 import { Kindergarten } from '../../graphql/types';
 
@@ -81,4 +82,33 @@ export const setSecondStepLabel = (firstStepCompleted: boolean, secondStepComple
     }
 
     return 'newsletter.sidebar.fill';
+};
+
+export const validate = (values: NewsletterFormValues) => {
+    const errors: FormikErrors<NewsletterFormValues> = {};
+
+    const { generalRecipientType, specificRecipientType, recipients, type, topic } = values;
+
+    if (!generalRecipientType) {
+        errors.generalRecipientType = 'newsletter.general-recipient-helper-text';
+    }
+
+    if (!specificRecipientType) {
+        errors.specificRecipientType = 'newsletter.specific-recipient-helper-text';
+    }
+
+    if (areSpecificRecipientsRequired(specificRecipientType) && recipients.length === 0) {
+        errors.recipients = 'newsletter.recipient-helper-text';
+    }
+
+    if (!type) {
+        errors.type = 'newsletter.type-helper-text';
+    }
+
+    if (!topic) {
+        errors.topic = 'newsletter.topic-helper-text';
+    }
+
+    // TODO:
+    // validate message field
 };

@@ -15,6 +15,7 @@ import {
     isSecondStepError,
     setSecondStepLabel,
     areSpecificRecipientsRequired,
+    validate,
 } from './utils';
 
 export const NewsletterPage = () => {
@@ -27,6 +28,7 @@ export const NewsletterPage = () => {
             topic: '',
             message: '',
         },
+        validate,
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
         },
