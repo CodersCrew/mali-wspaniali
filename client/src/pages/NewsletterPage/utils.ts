@@ -1,20 +1,20 @@
-import { GeneralRecipient, SpecificRecipient, NewsletterState, MultipleFormValue } from './types';
+import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
 import { Kindergarten } from '../../graphql/types';
 
 export const setLabel = (
-    generalType: GeneralRecipient,
-    specificType: SpecificRecipient,
-    recipients: MultipleFormValue,
+    generalType: GeneralRecipient | '',
+    specificType: SpecificRecipient | '',
+    recipients: string[],
 ): string => {
     if (generalType === 'PARENTS' && specificType === 'KINDERGARTEN') {
-        if (recipients.value.length) {
+        if (recipients.length) {
             return 'newsletter.recipient-select-kindergarten-label-filled';
         }
 
         return 'newsletter.recipient-select-kindergarten-label';
     }
 
-    if (recipients.value.length) {
+    if (recipients.length) {
         return 'newsletter.recipient-single-kindergarten-label-filled';
     }
 
@@ -34,30 +34,24 @@ export const generateKindergardenOptions = (kindergardens: Kindergarten[]): { va
     return values;
 };
 
-export const areSpecificRecipientsRequired = (value: SpecificRecipient) =>
+export const areSpecificRecipientsRequired = (value: SpecificRecipient | '') =>
     value === 'KINDERGARTEN' || value === 'SINGLE';
 
-export const isSubmitButtonDisabled = (data: NewsletterState) => {
-    const { generalType, specificType, type, topic, message, recipients } = data;
+export const isSubmitButtonDisabled = (data: NewsletterFormValues) => {
+    const { generalRecipientType, specificRecipientType, type, topic, message, recipients } = data;
 
-    if (areSpecificRecipientsRequired(specificType.value)) {
-        return (
-            recipients.value.length === 0 ||
-            !type.value ||
-            !topic.value ||
-            !message.value ||
-            message.value === '<p><br></p>'
-        );
+    console.log(message);
+
+    if (areSpecificRecipientsRequired(specificRecipientType)) {
+        return recipients.length === 0 || !type || !topic;
     }
 
-    return (
-        !generalType.value || !specificType.value || !topic.value || !message.value || message.value === '<p><br></p>'
-    );
+    return !generalRecipientType || !specificRecipientType || !topic;
 };
 
 export const isFirstStepCompleted = (
-    generalRecipient: GeneralRecipient,
-    specificRecipient: SpecificRecipient,
+    generalRecipient: GeneralRecipient | '',
+    specificRecipient: SpecificRecipient | '',
     recipients: string[],
 ) => {
     return areSpecificRecipientsRequired(specificRecipient)
@@ -65,17 +59,14 @@ export const isFirstStepCompleted = (
         : !!(generalRecipient && specificRecipient);
 };
 
-export const isFirstStepError = (data: NewsletterState) => {
-    const { generalType, specificType, type, topic, message, recipients } = data;
+export const isFirstStepError = (data: NewsletterFormValues) => {
+    const { generalRecipientType, specificRecipientType, type, topic, message, recipients } = data;
 
-    if (areSpecificRecipientsRequired(specificType.value)) {
-        return (
-            !!(type.value || topic.value || message.value) &&
-            (!generalType.value || !specificType.value || !recipients.value.length)
-        );
+    if (areSpecificRecipientsRequired(specificRecipientType)) {
+        return !!(type || topic || message) && (!generalRecipientType || !specificRecipientType || !recipients.length);
     }
 
-    return !!(type.value || topic.value || message.value) && (!generalType.value || !specificType.value);
+    return !!(type || topic || message) && (!generalRecipientType || !specificRecipientType);
 };
 
 export const isSecondStepError = (type: string, topic: string, message: string) =>

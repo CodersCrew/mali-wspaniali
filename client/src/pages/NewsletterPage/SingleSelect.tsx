@@ -1,35 +1,21 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-    MenuItem,
-    FormControl,
-    InputLabel,
-    Select,
-    FormHelperText,
-    InputLabelProps,
-    SelectProps,
-} from '@material-ui/core';
-import { SingleFormValue } from './types';
+import { MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
 
-type SingleSelectProps = {
-    stateData: SingleFormValue;
+interface Props {
+    stateData: string;
     optionsValues: {
         value: string;
         label: string;
     }[];
-    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-} & InputLabelProps &
-    SelectProps;
+    handleChange: (e: ChangeEvent<any>) => void;
+    id: string;
+    label: string;
+    name: string;
+    disabled?: boolean;
+}
 
-export const SingleSelect = ({
-    stateData,
-    optionsValues,
-    handleChange,
-    id,
-    label,
-    name,
-    disabled,
-}: SingleSelectProps) => {
+export const SingleSelect = ({ stateData, optionsValues, handleChange, id, label, name, disabled }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -40,8 +26,7 @@ export const SingleSelect = ({
                 label={label}
                 name={name}
                 disabled={disabled}
-                value={stateData.value || ''}
-                error={stateData.error}
+                value={stateData || ''}
                 onChange={handleChange}
                 MenuProps={{
                     anchorOrigin: {
@@ -65,7 +50,7 @@ export const SingleSelect = ({
                     );
                 })}
             </Select>
-            {stateData.error && <FormHelperText>{stateData.error}</FormHelperText>}
+            {/* {stateData.error && <FormHelperText>{stateData.error}</FormHelperText>} */}
         </FormControl>
     );
 };

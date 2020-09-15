@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -7,17 +7,16 @@ import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
 import { newsletterTypes } from './data';
 import { SingleSelect } from './SingleSelect';
-import { NewsletterState, SingleFormValue } from './types';
+import { NewsletterType } from './types';
 
-type NewsletterContentProps = {
-    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-    type: SingleFormValue;
-    topic: SingleFormValue;
-    message: SingleFormValue;
-    setFields: Dispatch<SetStateAction<NewsletterState>>;
-};
+interface Props {
+    handleChange: (e: ChangeEvent<any>) => void;
+    type: NewsletterType | '';
+    topic: string;
+    message: string;
+}
 
-export const NewsletterContent = ({ handleChange, type, topic, message, setFields }: NewsletterContentProps) => {
+export const NewsletterContent = ({ handleChange, type, topic, message }: Props) => {
     const { t } = useTranslation();
 
     const handleModalOpen = () => {
@@ -50,23 +49,17 @@ export const NewsletterContent = ({ handleChange, type, topic, message, setField
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            value={topic.value}
+                            value={topic}
                             name="topic"
                             variant="outlined"
-                            label={
-                                topic.value
-                                    ? t('newsletter.topic-input-label-filled')
-                                    : t('newsletter.topic-input-label')
-                            }
+                            label={topic ? t('newsletter.topic-input-label-filled') : t('newsletter.topic-input-label')}
                             required
                             onChange={handleChange}
                             fullWidth
-                            error={topic.error}
-                            helperText={topic.error ? t('newsletter.topic-helper-text') : null}
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Workspace message={message.value} setFields={setFields} />
+                        <Workspace message={message} handleChange={handleChange} />
                     </Grid>
                 </Grid>
             </CardContent>

@@ -7,31 +7,25 @@ import { MultipleSelect } from './MultipleSelect';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
 import { setLabel, generateKindergardenOptions } from './utils';
 import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
-import { GeneralRecipient, SpecificRecipient, MultipleFormValue } from './types';
+import { GeneralRecipient, SpecificRecipient } from './types';
 
-type NewsletterRecipientProps = {
-    generalType: {
-        value: GeneralRecipient;
-        error: boolean;
-    };
-    specificType: {
-        value: SpecificRecipient;
-        error: boolean;
-    };
-    recipients: MultipleFormValue;
-    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+interface Props {
+    generalRecipientType: GeneralRecipient | '';
+    specificRecipientType: SpecificRecipient | '';
+    recipients: string[];
+    handleChange: (e: ChangeEvent<any>) => void;
 };
 
 export const NewsletterRecipent = ({
-    generalType,
-    specificType,
+    generalRecipientType,
+    specificRecipientType,
     recipients,
     handleChange,
-}: NewsletterRecipientProps) => {
+}: Props) => {
     const { t } = useTranslation();
     const { data: kindergartensData } = useQuery<KindergartenResponse>(KINDERGARTENS);
 
-    const specificTypeOptionsValues = generalType.value === 'PARENTS' ? parentsRecipients : kindergartensRecipients;
+    const specificTypeOptionsValues = generalRecipientType === 'PARENTS' ? parentsRecipients : kindergartensRecipients;
 
     const renderKindergardens = (selected: unknown) => {
         return (selected as string[])
@@ -57,33 +51,33 @@ export const NewsletterRecipent = ({
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <SingleSelect
-                            stateData={generalType}
+                            stateData={generalRecipientType}
                             optionsValues={recipientType}
                             handleChange={handleChange}
-                            id="recipient-type"
+                            id="generalRecipientType"
                             label={t('newsletter.general-recipient-label')}
-                            name="generalType"
+                            name="generalRecipientType"
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <SingleSelect
-                            stateData={specificType}
+                            stateData={specificRecipientType}
                             optionsValues={specificTypeOptionsValues}
                             handleChange={handleChange}
-                            id="specific-recipient-type"
+                            id="specificRecipientType"
                             label={t('newsletter.specific-recipient-label')}
-                            name="specificType"
-                            disabled={!generalType.value}
+                            name="specificRecipientType"
+                            disabled={!generalRecipientType}
                         />
                     </Grid>
-                    {(specificType.value === 'KINDERGARTEN' || specificType.value === 'SINGLE') && (
+                    {(specificRecipientType === 'KINDERGARTEN' || specificRecipientType === 'SINGLE') && (
                         <Grid item xs={12}>
                             <MultipleSelect
                                 stateData={recipients}
                                 optionsValues={kindergardenOptionsValues}
                                 handleChange={handleChange}
                                 id="recipients"
-                                label={t(setLabel(generalType.value, specificType.value, recipients))}
+                                label={t(setLabel(generalRecipientType, specificRecipientType, recipients))}
                                 name="recipients"
                                 renderValue={renderKindergardens}
                             />

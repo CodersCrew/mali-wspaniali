@@ -1,8 +1,9 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { Typography, makeStyles, createStyles, Theme, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { NewsletterState } from './types';
+import { useFormik } from 'formik';
+import { NewsletterFormValues } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
@@ -16,121 +17,89 @@ import {
     areSpecificRecipientsRequired,
 } from './utils';
 
-const initialState: NewsletterState = {
-    type: {
-        value: '',
-        error: false,
-    },
-    topic: {
-        value: '',
-        error: false,
-    },
-    generalType: {
-        value: '',
-        error: false,
-    },
-    specificType: {
-        value: '',
-        error: false,
-    },
-    recipients: {
-        value: [],
-        error: false,
-    },
-    message: {
-        value: '',
-        error: false,
-    },
-};
-
 export const NewsletterPage = () => {
+    const formik = useFormik<NewsletterFormValues>({
+        initialValues: {
+            generalRecipientType: '',
+            specificRecipientType: '',
+            recipients: [],
+            type: '',
+            topic: '',
+            message: '',
+        },
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
+
     const classes = useStyles();
     const { t } = useTranslation();
-    const [fields, setFields] = useState(initialState);
-    const { type, topic, recipients, generalType, specificType, message } = fields;
+    const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = formik.values;
 
     useEffect(() => {
         activePage(['admin-menu.newsletter']);
     }, []);
 
-    const handleChange = (e: ChangeEvent<{ name?: string | undefined; value: unknown }>): void => {
-        const { name, value } = e.target;
-        if (name) {
-            setFields(prevFields => ({
-                ...prevFields,
-                [name]: {
-                    value,
-                    error: !value,
-                },
-            }));
-        }
-    };
+    const firstStepCompleted = isFirstStepCompleted(generalRecipientType, specificRecipientType, recipients);
 
-    const handleSubmit = async () => {
-        // TODO:
-        console.log('submitted');
-        console.log(fields);
-    };
+    const secondStepCompleted = !!(type && topic && message);
 
-    const firstStepCompleted = isFirstStepCompleted(generalType.value, specificType.value, recipients.value);
+    const firstStepError = isFirstStepError(formik.values);
 
-    const secondStepCompleted = !!(type.value && topic.value && message.value);
-
-    const firstStepError = isFirstStepError(fields);
-
-    const secondStepError = isSecondStepError(type.value, topic.value, message.value);
+    const secondStepError = isSecondStepError(type, topic, message);
 
     return (
         <div className={classes.container}>
             <Typography variant="h3" className={classes.subHeader}>
                 {t('newsletter.subHeader')}
             </Typography>
-            <Stepper orientation="vertical" className={classes.stepper} alternativeLabel>
-                <Step expanded className={classes.step} completed={firstStepCompleted}>
-                    <StepLabel className={classes.stepLabel} error={firstStepError}>
-                        {firstStepCompleted ? t('newsletter.sidebar.done') : t('newsletter.sidebar.fill')}
-                    </StepLabel>
-                    <StepContent className={classes.stepContent}>
-                        <NewsletterRecipent
-                            generalType={generalType}
-                            specificType={specificType}
-                            recipients={recipients}
-                            handleChange={handleChange}
-                        />
-                    </StepContent>
-                </Step>
-                <Step
-                    expanded
-                    className={clsx({
-                        [classes.step]: true,
-                        [classes.stepLong]: areSpecificRecipientsRequired(specificType.value),
-                    })}
-                    active={firstStepCompleted}
-                    completed={secondStepCompleted}
-                >
-                    <StepLabel className={classes.stepLabel} error={secondStepError}>
-                        {t(setSecondStepLabel(firstStepCompleted, secondStepCompleted))}
-                    </StepLabel>
-                    <StepContent className={classes.stepContent}>
-                        <NewsletterContent
-                            handleChange={handleChange}
-                            type={type}
-                            topic={topic}
-                            message={message}
-                            setFields={setFields}
-                        />
-                    </StepContent>
-                </Step>
-            </Stepper>
-            <div className={classes.formButtonWrapper}>
-                <ButtonSecondary
-                    variant="contained"
-                    disabled={isSubmitButtonDisabled(fields)}
-                    className={classes.formButton}
-                    onClick={handleSubmit}
-                    innerText={t('newsletter.send')}
-                />
-            </div>
+            <form onSubmit={formik.handleSubmit}>
+                <Stepper orientation="vertical" className={classes.stepper} alternativeLabel>
+                    <Step expanded className={classes.step} completed={firstStepCompleted}>
+                        <StepLabel className={classes.stepLabel} error={firstStepError}>
+                            {firstStepCompleted ? t('newsletter.sidebar.done') : t('newsletter.sidebar.fill')}
+                        </StepLabel>
+                        <StepContent className={classes.stepContent}>
+                            <NewsletterRecipent
+                                generalRecipientType={generalRecipientType}
+                                specificRecipientType={specificRecipientType}
+                                recipients={recipients}
+                                handleChange={formik.handleChange}
+                            />
+                        </StepContent>
+                    </Step>
+                    <Step
+                        expanded
+                        className={clsx({
+                            [classes.step]: true,
+                            [classes.stepLong]: areSpecificRecipientsRequired(specificRecipientType),
+                        })}
+                        active={firstStepCompleted}
+                        completed={secondStepCompleted}
+                    >
+                        <StepLabel className={classes.stepLabel} error={secondStepError}>
+                            {t(setSecondStepLabel(firstStepCompleted, secondStepCompleted))}
+                        </StepLabel>
+                        <StepContent className={classes.stepContent}>
+                            <NewsletterContent
+                                handleChange={formik.handleChange}
+                                type={type}
+                                topic={topic}
+                                message={message}
+                            />
+                        </StepContent>
+                    </Step>
+                </Stepper>
+                <div className={classes.formButtonWrapper}>
+                    <ButtonSecondary
+                        variant="contained"
+                        type="submit"
+                        disabled={isSubmitButtonDisabled(formik.values)}
+                        className={classes.formButton}
+                        innerText={t('newsletter.send')}
+                    />
+                </div>
+            </form>
         </div>
     );
 };

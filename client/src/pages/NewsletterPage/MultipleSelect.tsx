@@ -1,26 +1,19 @@
-import React, { ChangeEvent } from 'react';
-import {
-    MenuItem,
-    FormControl,
-    InputLabel,
-    Select,
-    Checkbox,
-    ListItemText,
-    FormHelperText,
-    InputLabelProps,
-    SelectProps,
-} from '@material-ui/core';
-import { MultipleFormValue } from './types';
+import React, { ChangeEvent, ReactNode } from 'react';
+import { MenuItem, FormControl, InputLabel, Select, Checkbox, ListItemText } from '@material-ui/core';
 
-type MultipleSelectProps = {
-    stateData: MultipleFormValue;
+interface Props {
+    stateData: string[];
     optionsValues: {
         value: string;
         label: string;
     }[];
-    handleChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
-} & InputLabelProps &
-    SelectProps;
+    handleChange: (e: ChangeEvent<any>) => void;
+    id: string;
+    label: string;
+    name: string;
+    disabled?: boolean;
+    renderValue: (value: any) => ReactNode;
+}
 
 export const MultipleSelect = ({
     stateData,
@@ -31,7 +24,7 @@ export const MultipleSelect = ({
     name,
     disabled,
     renderValue,
-}: MultipleSelectProps) => {
+}: Props) => {
     return (
         <FormControl variant="outlined" fullWidth>
             <InputLabel id={id}>{label}</InputLabel>
@@ -40,8 +33,7 @@ export const MultipleSelect = ({
                 label={label}
                 name={name}
                 disabled={disabled}
-                value={stateData.value || ''}
-                error={stateData.error}
+                value={stateData || ''}
                 onChange={handleChange}
                 multiple
                 renderValue={renderValue}
@@ -62,13 +54,13 @@ export const MultipleSelect = ({
 
                     return (
                         <MenuItem key={value} value={value}>
-                            <Checkbox checked={stateData.value.indexOf(value) > -1} color="primary" />
+                            <Checkbox checked={stateData.indexOf(value) > -1} color="primary" />
                             <ListItemText primary={selectLabel} />
                         </MenuItem>
                     );
                 })}
             </Select>
-            {stateData.error && <FormHelperText>{stateData.error}</FormHelperText>}
+            {/* {stateData.error && <FormHelperText>{stateData.error}</FormHelperText>} */}
         </FormControl>
     );
 };
