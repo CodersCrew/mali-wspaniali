@@ -171,13 +171,13 @@ function countStatus(agreementResultA: AgreementResult, agreementResultB: Agreem
     return results.includes('RECIEVED') ? 'RECIEVED' : 'NOT_RECIEVED';
 }
 
-const useStyles = makeStyles((ttheme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            paddingLeft: ttheme.spacing(6),
+            paddingLeft: theme.spacing(8),
         },
         statusCellRoot: {
-            paddingLeft: ttheme.spacing(2),
+            paddingLeft: theme.spacing(2),
         },
         progressbarContainer: {
             display: 'flex',
@@ -187,20 +187,20 @@ const useStyles = makeStyles((ttheme: Theme) =>
             flex: 1,
         },
         progressbarStats: {
-            marginLeft: ttheme.spacing(1),
+            marginLeft: theme.spacing(1),
         },
         progressbarPrimary: {
-            background: fade(ttheme.palette.success.light, 0.24),
+            background: fade(theme.palette.success.light, 0.24),
         },
         progressbarSecondary: {
-            background: ttheme.palette.success.dark,
+            background: theme.palette.success.dark,
         },
         status: {
             display: 'flex',
             alignItems: 'center',
             textTransform: 'uppercase',
             '& > span': {
-                marginRight: ttheme.spacing(1),
+                marginRight: theme.spacing(1),
             },
         },
     }),

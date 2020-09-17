@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography, Paper, IconButton, Grid, Divider } from '@material-ui/core';
+import { Typography, Paper, IconButton, Grid, Divider, Collapse } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useQuery } from '@apollo/client';
@@ -12,6 +12,7 @@ import { KINDERGARTENS } from '../../graphql/kindergartensRepository';
 import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
 import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
+import { GET_AGREEMENTS_SORT_STATUS } from '../../operations/queries/Agreements/getAgreementsSortStatus';
 import {
     GetAgreementsKindergartenFilterQuery,
     GET_AGREEMENTS_KINDERGARTEN_FILTER,
@@ -38,8 +39,10 @@ export const AdminAgreementsPage = () => {
     const agreementsKindergartenFilterQuery = useQuery<GetAgreementsKindergartenFilterQuery>(
         GET_AGREEMENTS_KINDERGARTEN_FILTER,
     );
-
     const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter;
+
+    const sortStatusQuery = useQuery(GET_AGREEMENTS_SORT_STATUS)
+    const {agreementsSortStatus} = sortStatusQuery.data
 
     useEffect(() => {
         activePage(['admin-menu.agreements']);
@@ -63,16 +66,22 @@ export const AdminAgreementsPage = () => {
                         <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
                         <IconButton onClick={() => setIsFilterListOpen(prev => !prev)}><FilterListIcon /></IconButton>
                     </Grid>
-                    {isFiltersListOpen && (
-                        <AgreementsFilter
+                    <Collapse in={isFiltersListOpen} unmountOnExit >
+                    <AgreementsFilter
                             agreementType={agreementsTypeFilter}
                             agreementStatus={agreementsStatusFilter}
                             agreementKindergarten={agreementsKindergartenFilter || []}
                         />
-                    )}
+                    </Collapse>
                 </div>
                 <Divider />
-                <AgreementsList kindergartens={kindergartenList.kindergartens} />
+                <AgreementsList
+                    kindergartens={kindergartenList.kindergartens}
+                    activeSortType={agreementsSortStatus.id}
+                    onSortChange={(v) => {
+                        AgreementsTypeFilterMutations.setAgreementsSortStatus({id:v})
+                    }}
+                />
             </Paper>
         </>
     );

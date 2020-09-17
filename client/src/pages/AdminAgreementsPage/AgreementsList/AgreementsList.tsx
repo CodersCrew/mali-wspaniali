@@ -6,16 +6,18 @@ import { SortableHeader } from './SortableHeader';
 
 interface Props {
     kindergartens: Kindergarten[];
+    activeSortType: string;
+    onSortChange: (value: string) => void;
 }
 
-export function AgreementsList({ kindergartens }: Props) {
+export function AgreementsList({ kindergartens, activeSortType, onSortChange }: Props) {
     const classes = useStyles();
 
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
-                    <SortableHeader />
+                    <SortableHeader activeSortType={activeSortType} onSortChange={onSortChange} />
                 </TableHead>
                 <TableBody>
                     {kindergartens.map(kindergarten => (

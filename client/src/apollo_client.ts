@@ -2,6 +2,7 @@ import { ApolloClient, ApolloLink, concat, InMemoryCache, HttpLink, makeVar } fr
 import { AgreementTypeFilter, AgreementTypeFilters } from './models/AgreementTypeFilters';
 import { AgreementStatusFilters, AgreementStatusFilter } from './models/AgreementStatusFilter';
 import { AgreementKindergartenFilter, AgreementKindergartenFilters } from './models/AgreementKindergartenFilters';
+import { AgreementSortStatus, AgreementSortType } from './models/AgreementSortStatus';
 
 const link = new HttpLink({
     uri: process.env.REACT_APP_GRAPHQL_SERVER,
@@ -24,6 +25,7 @@ export const agreementStatusFilterVar = makeVar<AgreementStatusFilter>(Agreement
 export const agreementKindergartenFilterVar = makeVar<AgreementKindergartenFilter[]>([
     AgreementKindergartenFilters.SHOW_ALL,
 ]);
+export const agreementSortStatusVar = makeVar<AgreementSortType>(AgreementSortStatus.BY_NAME_RISING);
 
 const cache = new InMemoryCache({
     typePolicies: {
@@ -47,6 +49,11 @@ const cache = new InMemoryCache({
                 agreementsKindergartenFilter: {
                     read() {
                         return agreementKindergartenFilterVar();
+                    },
+                },
+                agreementsSortStatus: {
+                    read() {
+                        return agreementSortStatusVar();
                     },
                 },
             },
