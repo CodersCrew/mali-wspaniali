@@ -56,10 +56,10 @@ export const theme: ThemeObject = {
             focus: 'rgba(0, 0, 0, 0.12)',
         },
         cookiesModal: {
-            main: '#2296F3',
-            light: '#E9F5FE',
-            dark: '#113C60',
-            contrastText: 'rgba(0, 0, 0, 0.87)',
+            main: '#255071',
+            light: '#FFF',
+            dark: '#0D3C61',
+            contrastText: '#0D3C61',
         },
         background: {
             default: '#F1F2F4',

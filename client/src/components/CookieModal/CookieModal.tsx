@@ -12,29 +12,31 @@ const ModalProps = { zIndex: 'modal' };
 
 export const CookieModal = () => {
     const classes = useStyles();
-    const [IsOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const { t } = useTranslation();
     const cookiesAccepted = () => getCookie('cookies');
 
     useEffect(() => setIsOpen(!cookiesAccepted()), []);
 
-    if (!IsOpen) return null;
+    if (!isOpen) return null;
 
     return (
         <Box className={classes.modal} zIndex={ModalProps.zIndex}>
-            <InfoOutlinedIcon className={classes.modalIconInfo} />
-            <div className={classes.modalTextWrapper}>
-                <p className={classes.modalTitle}>{t('cookies-popup.title')}</p>
-                <p className={classes.modalInfo}>{t('cookies-popup.content')}</p>
+            <div className={classes.wrapper}>
+                <InfoOutlinedIcon className={classes.modalIconInfo} />
+                <div className={classes.modalTextWrapper}>
+                    <p className={classes.modalTitle}>{t('cookies-popup.title')}</p>
+                    <p className={classes.modalInfo}>{t('cookies-popup.content')}</p>
+                </div>
+                <IconButton
+                    onClick={() => {
+                        setCookie('cookies', 'true');
+                        setIsOpen(false);
+                    }}
+                >
+                    <CloseIcon className={classes.modalIconClose} />
+                </IconButton>
             </div>
-            <IconButton
-                onClick={() => {
-                    setCookie('cookies', 'true');
-                    setIsOpen(false);
-                }}
-            >
-                <CloseIcon className={classes.modalIconClose} />
-            </IconButton>
         </Box>
     );
 };
@@ -42,8 +44,18 @@ export const CookieModal = () => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         modal: {
+            margin: '16px',
+            width: 'calc(100% - 32px)',
             position: 'fixed',
-            width: 'inherit',
+            bottom: 0,
+            left: '50%',
+            transform: 'translateX(calc(-50% - 16px))',
+            background: 'transparent',
+            maxWidth: '968px',
+        },
+        wrapper: {
+            color: theme.palette.cookiesModal.contrastText,
+            flexGrow: 1,
             padding: theme.spacing(2),
             backgroundColor: theme.palette.cookiesModal.light,
             display: 'flex',

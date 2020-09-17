@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { mainColor, backgroundColor } from '../../colors';
+import { CookieModal } from '../../components/CookieModal/CookieModal';
 import Logo from '../../assets/MALWSP_logo.png';
 
 type AuthTemplateType = 'login' | 'register';
@@ -18,6 +19,7 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                 {type === 'register' && <p className={classes.subheading}>{t('login-wrapper.subheading')}</p>}
             </div>
             <div className={classes.formContainer}>{children}</div>
+            <CookieModal />
         </div>
     );
 };
