@@ -55,22 +55,9 @@ export const ChildProfileResults = () => {
                 const sortedResults = groupedResults[key].sort(
                     (resultA, resultB) => +resultA.dateOfTest - +resultB.dateOfTest,
                 );
-                const childrenOfDetailsPanel = <div>
-                    {sortedResults.map((result, index) => (
-                        <ResultDetails
-                            result={result}
-                            key={String(result.dateOfTest)}
-                            previousResult={sortedResults[index - 1]}
-                        />
-                    ))}
-                    <ResultComparison
-                        firstResultPoints={sortedResults[0].sumOfPoints}
-                        lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
-                    />
-                </div>;
 
                 return (
-                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel} panelDetails={{className: classes.expansionPanelDetails, children: childrenOfDetailsPanel}}>
+                    <ExpansionPanel key={key} expanded={isExpanded} className={classes.expansionPanel} panelDetails={{className: classes.expansionPanelDetails, children: ChildrenOfDetailsPanel(sortedResults)}}>
                         <ExpansionPanelSummary
                             onClick={() => handleClickSummary(key)}
                             className={clsx(
@@ -90,6 +77,20 @@ export const ChildProfileResults = () => {
         </>
     );
 };
+
+const ChildrenOfDetailsPanel = (sortedResults: Result[]) => (<div>
+    {sortedResults.map((result, index) => (
+        <ResultDetails
+            result={result}
+            key={String(result.dateOfTest)}
+            previousResult={sortedResults[index - 1]}
+        />
+    ))}
+    <ResultComparison
+        firstResultPoints={sortedResults[0].sumOfPoints}
+        lastResultPoints={sortedResults[sortedResults.length - 1].sumOfPoints}
+    />
+</div>);
 
 const useStyles = makeStyles({
     expansionPanel: {
