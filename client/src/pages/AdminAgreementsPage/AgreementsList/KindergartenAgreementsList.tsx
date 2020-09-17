@@ -7,7 +7,6 @@ import {
     TableCell,
     TableHead,
     TableRow,
-    Theme,
     Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -63,7 +62,7 @@ export function KindergartenAgreementsList({ parents }: Props) {
     );
 }
 
-const useStyles = makeStyles((ttheme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             maxHeight: 419,

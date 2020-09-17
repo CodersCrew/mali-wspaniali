@@ -17,15 +17,15 @@ export function Status({ success }: { success?: boolean }) {
     );
 }
 
-const useStyles = makeStyles((ttheme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         successStatus: {
-            color: ttheme.palette.success.dark,
+            color: theme.palette.success.dark,
             width: 13,
             height: 13,
         },
         notSuccessStatus: {
-            color: ttheme.palette.error.dark,
+            color: theme.palette.error.dark,
             width: 13,
             height: 13,
         },
