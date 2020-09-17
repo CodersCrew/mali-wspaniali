@@ -44,6 +44,14 @@ export class UserRepository {
     return await this.userModel.findOne({ mail }).exec();
   }
 
+  async getByChildren(childrenIds: string[]): Promise<UserProps[]> {
+    return await this.userModel.find({
+      children: {
+        $in: childrenIds,
+      },
+    });
+  }
+
   async forEach(cb: (user: UserDocument) => void): Promise<void> {
     await this.userModel
       .find()
