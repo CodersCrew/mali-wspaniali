@@ -174,7 +174,7 @@ function countStatus(agreementResultA: AgreementResult, agreementResultB: Agreem
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            paddingLeft: theme.spacing(6),
+            paddingLeft: theme.spacing(8),
         },
         statusCellRoot: {
             paddingLeft: theme.spacing(2),

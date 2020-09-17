@@ -12,6 +12,7 @@ import { KINDERGARTENS } from '../../graphql/kindergartensRepository';
 import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
 import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
+import { GET_AGREEMENTS_SORT_STATUS } from '../../operations/queries/Agreements/getAgreementsSortStatus';
 import {
     GetAgreementsKindergartenFilterQuery,
     GET_AGREEMENTS_KINDERGARTEN_FILTER,
@@ -38,8 +39,10 @@ export const AdminAgreementsPage = () => {
     const agreementsKindergartenFilterQuery = useQuery<GetAgreementsKindergartenFilterQuery>(
         GET_AGREEMENTS_KINDERGARTEN_FILTER,
     );
-
     const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter;
+
+    const sortStatusQuery = useQuery(GET_AGREEMENTS_SORT_STATUS)
+    const {agreementsSortStatus} = sortStatusQuery.data
 
     useEffect(() => {
         activePage(['admin-menu.agreements']);
@@ -72,7 +75,13 @@ export const AdminAgreementsPage = () => {
                     </Collapse>
                 </div>
                 <Divider />
-                <AgreementsList kindergartens={kindergartenList.kindergartens} />
+                <AgreementsList
+                    kindergartens={kindergartenList.kindergartens}
+                    activeSortType={agreementsSortStatus.id}
+                    onSortChange={(v) => {
+                        AgreementsTypeFilterMutations.setAgreementsSortStatus({id:v})
+                    }}
+                />
             </Paper>
         </>
     );
