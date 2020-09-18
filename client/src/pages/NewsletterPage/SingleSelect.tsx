@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FocusEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
+import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@material-ui/core';
 
 interface Props {
     stateData: string;
@@ -9,25 +9,40 @@ interface Props {
         label: string;
     }[];
     handleChange: (e: ChangeEvent<any>) => void;
+    handleBlur: (e: FocusEvent<any>) => void;
     id: string;
     label: string;
     name: string;
     disabled?: boolean;
+    error?: string;
+    touched?: boolean;
 }
 
-export const SingleSelect = ({ stateData, optionsValues, handleChange, id, label, name, disabled }: Props) => {
+export const SingleSelect = ({
+    stateData,
+    optionsValues,
+    handleChange,
+    handleBlur,
+    id,
+    label,
+    name,
+    disabled,
+    error,
+    touched,
+}: Props) => {
     const { t } = useTranslation();
 
     return (
-        <FormControl variant="outlined" fullWidth>
+        <FormControl variant="outlined" fullWidth error={touched && !!error}>
             <InputLabel id={id}>{label}</InputLabel>
             <Select
                 labelId={id}
-                label={label}
+                label={`${label} ${error}`}
                 name={name}
                 disabled={disabled}
                 value={stateData || ''}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 MenuProps={{
                     anchorOrigin: {
                         vertical: 'bottom',
@@ -39,6 +54,7 @@ export const SingleSelect = ({ stateData, optionsValues, handleChange, id, label
                     },
                     getContentAnchorEl: null,
                 }}
+                error={touched && !!error}
             >
                 {optionsValues.map(item => {
                     const { value, label: selectLabel } = item;
@@ -50,7 +66,7 @@ export const SingleSelect = ({ stateData, optionsValues, handleChange, id, label
                     );
                 })}
             </Select>
-            {/* {stateData.error && <FormHelperText>{stateData.error}</FormHelperText>} */}
+            {touched && error && <FormHelperText>{t(error)}</FormHelperText>}
         </FormControl>
     );
 };

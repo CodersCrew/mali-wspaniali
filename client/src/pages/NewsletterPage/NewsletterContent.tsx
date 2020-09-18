@@ -1,4 +1,5 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FocusEvent } from 'react';
+import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -7,16 +8,19 @@ import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
 import { newsletterTypes } from './data';
 import { SingleSelect } from './SingleSelect';
-import { NewsletterType } from './types';
+import { NewsletterType, NewsletterFormValues } from './types';
 
 interface Props {
     handleChange: (e: ChangeEvent<any>) => void;
+    handleBlur: (e: FocusEvent<any>) => void;
     type: NewsletterType | '';
     topic: string;
     message: string;
+    errors: FormikErrors<NewsletterFormValues>;
+    touched: FormikTouched<NewsletterFormValues>;
 }
 
-export const NewsletterContent = ({ handleChange, type, topic, message }: Props) => {
+export const NewsletterContent = ({ handleChange, handleBlur, type, topic, message, errors, touched }: Props) => {
     const { t } = useTranslation();
 
     const handleModalOpen = () => {
@@ -42,9 +46,12 @@ export const NewsletterContent = ({ handleChange, type, topic, message }: Props)
                             stateData={type}
                             optionsValues={newsletterTypes}
                             handleChange={handleChange}
+                            handleBlur={handleBlur}
                             id="newsletter-type"
                             label={t('newsletter.help-modal.type')}
                             name="type"
+                            error={errors.type}
+                            touched={touched.type}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -53,9 +60,11 @@ export const NewsletterContent = ({ handleChange, type, topic, message }: Props)
                             name="topic"
                             variant="outlined"
                             label={topic ? t('newsletter.topic-input-label-filled') : t('newsletter.topic-input-label')}
-                            required
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             fullWidth
+                            error={touched.topic && !!errors.topic}
+                            helperText={touched.topic && !!errors.topic && t(errors.topic)}
                         />
                     </Grid>
                     <Grid item xs={12}>

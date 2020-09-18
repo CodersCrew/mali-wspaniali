@@ -30,7 +30,7 @@ export const NewsletterPage = () => {
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            console.log(values);
         },
     });
 
@@ -67,6 +67,9 @@ export const NewsletterPage = () => {
                                 specificRecipientType={specificRecipientType}
                                 recipients={recipients}
                                 handleChange={formik.handleChange}
+                                handleBlur={formik.handleBlur}
+                                errors={formik.errors}
+                                touched={formik.touched}
                             />
                         </StepContent>
                     </Step>
@@ -85,9 +88,12 @@ export const NewsletterPage = () => {
                         <StepContent className={classes.stepContent}>
                             <NewsletterContent
                                 handleChange={formik.handleChange}
+                                handleBlur={formik.handleBlur}
                                 type={type}
                                 topic={topic}
                                 message={message}
+                                errors={formik.errors}
+                                touched={formik.touched}
                             />
                         </StepContent>
                     </Step>

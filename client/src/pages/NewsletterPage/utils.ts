@@ -111,4 +111,5 @@ export const validate = (values: NewsletterFormValues) => {
 
     // TODO:
     // validate message field
+    return errors;
 };
