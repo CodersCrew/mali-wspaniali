@@ -1,4 +1,4 @@
-import { FormikErrors } from 'formik';
+import { FormikErrors, FormikTouched } from 'formik';
 import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
 import { Kindergarten } from '../../graphql/types';
 
@@ -38,40 +38,25 @@ export const generateKindergardenOptions = (kindergardens: Kindergarten[]): { va
 export const areSpecificRecipientsRequired = (value: SpecificRecipient | '') =>
     value === 'KINDERGARTEN' || value === 'SINGLE';
 
-export const isSubmitButtonDisabled = (data: NewsletterFormValues) => {
-    const { generalRecipientType, specificRecipientType, type, topic, message, recipients } = data;
+export const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) => Object.keys(errors).length !== 0;
 
-    console.log(message);
+export const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
+    !errors.generalRecipientType && !errors.specificRecipientType && !errors.recipients;
 
-    if (areSpecificRecipientsRequired(specificRecipientType)) {
-        return recipients.length === 0 || !type || !topic;
-    }
+export const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.topic;
 
-    return !generalRecipientType || !specificRecipientType || !topic;
-};
+export const isFirstStepError = (
+    touched: FormikTouched<NewsletterFormValues>,
+    errors: FormikErrors<NewsletterFormValues>,
+) =>
+    (!!touched.generalRecipientType && !!errors.generalRecipientType) ||
+    (!!touched.specificRecipientType && !!errors.specificRecipientType) ||
+    (!!touched.recipients && !!errors.recipients);
 
-export const isFirstStepCompleted = (
-    generalRecipient: GeneralRecipient | '',
-    specificRecipient: SpecificRecipient | '',
-    recipients: string[],
-) => {
-    return areSpecificRecipientsRequired(specificRecipient)
-        ? !!(generalRecipient && specificRecipient && recipients.length > 0)
-        : !!(generalRecipient && specificRecipient);
-};
-
-export const isFirstStepError = (data: NewsletterFormValues) => {
-    const { generalRecipientType, specificRecipientType, type, topic, message, recipients } = data;
-
-    if (areSpecificRecipientsRequired(specificRecipientType)) {
-        return !!(type || topic || message) && (!generalRecipientType || !specificRecipientType || !recipients.length);
-    }
-
-    return !!(type || topic || message) && (!generalRecipientType || !specificRecipientType);
-};
-
-export const isSecondStepError = (type: string, topic: string, message: string) =>
-    !!(topic && !type) || !!(message && !topic) || !!(message && !type && !topic);
+export const isSecondStepError = (
+    touched: FormikTouched<NewsletterFormValues>,
+    errors: FormikErrors<NewsletterFormValues>,
+) => (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic);
 
 export const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: boolean) => {
     if (!firstStepCompleted) {

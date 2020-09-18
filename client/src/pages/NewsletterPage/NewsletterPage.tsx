@@ -13,12 +13,16 @@ import {
     isFirstStepCompleted,
     isFirstStepError,
     isSecondStepError,
+    isSecondStepCompleted,
     setSecondStepLabel,
     areSpecificRecipientsRequired,
     validate,
 } from './utils';
 
 export const NewsletterPage = () => {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
     const formik = useFormik<NewsletterFormValues>({
         initialValues: {
             generalRecipientType: '',
@@ -28,34 +32,40 @@ export const NewsletterPage = () => {
             topic: '',
             message: '',
         },
+        initialErrors: {
+            generalRecipientType: t('newsletter.general-recipient-helper-text'),
+            specificRecipientType: t('newsletter.specific-recipient-helper-text'),
+            recipients: t('newsletter.recipient-helper-text'),
+            type: t('newsletter.type-helper-text'),
+            topic: t('newsletter.topic-helper-text'),
+        },
         validate,
         onSubmit: values => {
             console.log(values);
         },
     });
 
-    const classes = useStyles();
-    const { t } = useTranslation();
     const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = formik.values;
+    const { errors, touched, handleSubmit, handleChange, handleBlur } = formik;
 
     useEffect(() => {
         activePage(['admin-menu.newsletter']);
     }, []);
 
-    const firstStepCompleted = isFirstStepCompleted(generalRecipientType, specificRecipientType, recipients);
+    const firstStepCompleted = isFirstStepCompleted(errors);
 
-    const secondStepCompleted = !!(type && topic && message);
+    const secondStepCompleted = isSecondStepCompleted(errors);
 
-    const firstStepError = isFirstStepError(formik.values);
+    const firstStepError = isFirstStepError(touched, errors);
 
-    const secondStepError = isSecondStepError(type, topic, message);
+    const secondStepError = isSecondStepError(touched, errors);
 
     return (
         <div className={classes.container}>
             <Typography variant="h3" className={classes.subHeader}>
                 {t('newsletter.subHeader')}
             </Typography>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
                 <Stepper orientation="vertical" className={classes.stepper} alternativeLabel>
                     <Step expanded className={classes.step} completed={firstStepCompleted}>
                         <StepLabel className={classes.stepLabel} error={firstStepError}>
@@ -66,10 +76,10 @@ export const NewsletterPage = () => {
                                 generalRecipientType={generalRecipientType}
                                 specificRecipientType={specificRecipientType}
                                 recipients={recipients}
-                                handleChange={formik.handleChange}
-                                handleBlur={formik.handleBlur}
-                                errors={formik.errors}
-                                touched={formik.touched}
+                                handleChange={handleChange}
+                                handleBlur={handleBlur}
+                                errors={errors}
+                                touched={touched}
                             />
                         </StepContent>
                     </Step>
@@ -87,13 +97,13 @@ export const NewsletterPage = () => {
                         </StepLabel>
                         <StepContent className={classes.stepContent}>
                             <NewsletterContent
-                                handleChange={formik.handleChange}
-                                handleBlur={formik.handleBlur}
+                                handleChange={handleChange}
+                                handleBlur={handleBlur}
                                 type={type}
                                 topic={topic}
                                 message={message}
-                                errors={formik.errors}
-                                touched={formik.touched}
+                                errors={errors}
+                                touched={touched}
                             />
                         </StepContent>
                     </Step>
@@ -102,7 +112,7 @@ export const NewsletterPage = () => {
                     <ButtonSecondary
                         variant="contained"
                         type="submit"
-                        disabled={isSubmitButtonDisabled(formik.values)}
+                        disabled={isSubmitButtonDisabled(errors)}
                         className={classes.formButton}
                         innerText={t('newsletter.send')}
                     />
