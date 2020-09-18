@@ -18,7 +18,7 @@ export const parentsRecipients: { value: SpecificRecipient; label: string }[] = 
     },
     {
         value: 'KINDERGARTEN',
-        label: 'newsletter.specific-recipient-value-labels.from-single-kindergarten',
+        label: 'newsletter.specific-recipient-value-labels.from-selected-kindergartens',
     },
 ];
 
@@ -29,7 +29,7 @@ export const kindergartensRecipients: { value: SpecificRecipient; label: string 
     },
     {
         value: 'SINGLE',
-        label: 'newsletter.specific-recipient-value-labels.single-kindergarten',
+        label: 'newsletter.specific-recipient-value-labels.selected-kindergartens',
     },
 ];
 

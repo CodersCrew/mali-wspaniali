@@ -3,11 +3,11 @@ import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { Workspace } from './Workspace';
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
-import { newsletterTypes } from './data';
+import { Workspace } from './Workspace';
 import { SingleSelect } from './SingleSelect';
+import { newsletterTypes } from './data';
 import { NewsletterType, NewsletterFormValues } from './types';
 
 interface Props {

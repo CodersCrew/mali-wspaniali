@@ -18,7 +18,7 @@ interface Props {
     handleBlur: (e: FocusEvent<any>) => void;
     errors: FormikErrors<NewsletterFormValues>;
     touched: FormikTouched<NewsletterFormValues>;
-};
+}
 
 export const NewsletterRecipent = ({
     generalRecipientType,
@@ -27,7 +27,7 @@ export const NewsletterRecipent = ({
     handleChange,
     handleBlur,
     errors,
-    touched
+    touched,
 }: Props) => {
     const { t } = useTranslation();
     const { data: kindergartensData } = useQuery<KindergartenResponse>(KINDERGARTENS);
@@ -39,7 +39,7 @@ export const NewsletterRecipent = ({
             .map(id => {
                 const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
 
-                return obj?.label;
+                return obj ? obj.label : 'unknown label';
             })
             .join(', ');
     };

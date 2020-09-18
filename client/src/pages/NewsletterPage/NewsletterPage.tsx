@@ -127,11 +127,11 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             padding: theme.spacing(3),
             [theme.breakpoints.down('sm')]: {
-                padding: '0 10px',
+                padding: theme.spacing(0, 1),
             },
         },
         subHeader: {
-            margin: '24px 0 8px',
+            margin: theme.spacing(3, 0, 1),
             fontSize: theme.typography.h3.fontSize,
             lineHeight: theme.typography.h3.lineHeight,
             fontWeight: theme.typography.h3.fontWeight,
@@ -145,7 +145,7 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'flex-end',
         },
         formButton: {
-            padding: '8px 22px',
+            padding: theme.spacing(1, 3),
             marginTop: theme.spacing(3),
         },
         stepper: {
