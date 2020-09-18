@@ -1,84 +1,101 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Container, Typography, List, ListSubheader } from '@material-ui/core';
+import { Typography, Paper, IconButton, Grid, Divider, Collapse } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { ButtonSecondary } from '../../components/Button';
-import { AgreementListItem } from './AgreementListItem';
-import { Agreement } from '../../graphql/types';
-import { getAgreements } from '../../graphql/agreementRepository';
-import { BasicModal } from '../../components/Modal/BasicModal';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import { useQuery } from '@apollo/client';
+
+import { Kindergarten } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
+import { AgreementsList } from './AgreementsList/AgreementsList';
+import { KINDERGARTENS } from '../../graphql/kindergartensRepository';
+import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
+import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
+import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
+import { GET_AGREEMENTS_SORT_STATUS } from '../../operations/queries/Agreements/getAgreementsSortStatus';
+import {
+    GetAgreementsKindergartenFilterQuery,
+    GET_AGREEMENTS_KINDERGARTEN_FILTER,
+} from '../../operations/queries/Agreements/getAgreementsKindergartenFilter';
+import {
+    GetAgreementsStatusFilterQuery,
+    GET_AGREEMENTS_STATUS_FILTER,
+} from '../../operations/queries/Agreements/getAgreementsStatusFilter';
+import {
+    GET_AGREEMENTS_TYPE_FILTER,
+    GetAgreementsTypeFilterQuery,
+} from '../../operations/queries/Agreements/getAgreementsTypeFilter';
 
 export const AdminAgreementsPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [isModalOpen, setOpenModal] = useState(false);
-    const [agreements, setAgreements] = useState<Agreement[]>([]);
+    const [isFiltersListOpen, setIsFilterListOpen] = useState(false);
+    const { data: kindergartenList } = useQuery<{ kindergartens: Kindergarten[] }>(KINDERGARTENS);
+    const agreementsTypeFilterQuery = useQuery<GetAgreementsTypeFilterQuery>(GET_AGREEMENTS_TYPE_FILTER);
+    const { agreementsTypeFilter } = agreementsTypeFilterQuery.data!;
+
+    const agreementsStatusFilterQuery = useQuery<GetAgreementsStatusFilterQuery>(GET_AGREEMENTS_STATUS_FILTER);
+    const { agreementsStatusFilter } = agreementsStatusFilterQuery.data!;
+    const agreementsKindergartenFilterQuery = useQuery<GetAgreementsKindergartenFilterQuery>(
+        GET_AGREEMENTS_KINDERGARTEN_FILTER,
+    );
+    const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter;
+
+    const sortStatusQuery = useQuery(GET_AGREEMENTS_SORT_STATUS)
+    const {agreementsSortStatus} = sortStatusQuery.data
 
     useEffect(() => {
         activePage(['admin-menu.agreements']);
-        getAgreements().then(({ data }) => setAgreements(data!.agreements));
     }, []);
 
-    const handleOpenModal = () => {
-        // if (checked.length === 1) setOpenModal(true);
-    };
+    useEffect(() => {
+        if (kindergartenList) {
+            AgreementsTypeFilterMutations.addAgreementsKindergartenFilters(
+                [AgreementKindergartenFilters.SHOW_ALL, ...kindergartenList.kindergartens.map(mapToFilter)],
+            );
+        }
+    }, [kindergartenList]);
 
-    const handleCloseModal = () => {
-        setOpenModal(false);
-    };
+    if (!kindergartenList) return null;
 
     return (
         <>
-            <Link to="/">{t('go-to-home-page')}</Link>
-            {agreements.length > 0 ? (
-                <>
-                    <Container>
+            <Paper elevation={0} classes={{ root: classes.container}}>
+                <div className={classes.filterContainer}>
+                    <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader}} >
                         <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
-                        <Container>
-                            <List
-                                subheader={<ListSubheader>{t('admin-agreements-page.agreements-all')}</ListSubheader>}
-                            >
-                                {agreements.map(agreement => (
-                                    <AgreementListItem key={agreement._id} agreement={agreement} />
-                                ))}
-                            </List>
-                        </Container>
-                        <Container>
-                            <ButtonSecondary
-                                variant="contained"
-                                onClick={handleOpenModal}
-                                innerText={t('admin-agreements-page.show')}
-                            />
-                        </Container>
-                        <BasicModal isOpen={isModalOpen} onClose={handleCloseModal}>
-                            <div className={classes.paper}>aggreements</div>
-                        </BasicModal>
-                    </Container>
-                </>
-            ) : (
-                <EmptyResults />
-            )}
+                        <IconButton onClick={() => setIsFilterListOpen(prev => !prev)}><FilterListIcon /></IconButton>
+                    </Grid>
+                    <Collapse in={isFiltersListOpen} unmountOnExit >
+                    <AgreementsFilter
+                            agreementType={agreementsTypeFilter}
+                            agreementStatus={agreementsStatusFilter}
+                            agreementKindergarten={agreementsKindergartenFilter || []}
+                        />
+                    </Collapse>
+                </div>
+                <Divider />
+                <AgreementsList
+                    kindergartens={kindergartenList.kindergartens}
+                    activeSortType={agreementsSortStatus.id}
+                    onSortChange={(v) => {
+                        AgreementsTypeFilterMutations.setAgreementsSortStatus({id:v})
+                    }}
+                />
+            </Paper>
         </>
     );
 };
 
-function EmptyResults() {
-    const { t } = useTranslation();
-
-    return (
-        <>
-            <Container>
-                <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
-                <Typography variant="body1">{t('no-results')}</Typography>
-            </Container>
-        </>
-    );
+function mapToFilter({ _id, name }: Kindergarten) {
+    return { id: _id, displayName: name, displayNameKey: '', selected: false };
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        container: {
+            margin: theme.spacing(3)
+        },
         paper: {
             position: 'absolute',
             width: 400,
@@ -87,5 +104,11 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
         },
+        filterContainer: {
+            margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`
+        },
+        filterHeader: {
+            paddingTop: 14
+        }
     }),
 );
