@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Typography, CardMedia, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Typography, CardMedia, Theme, createMuiTheme } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +13,18 @@ interface Props {
     date: Date;
     readingTime: number;
 }
+
+const theme2 = createMuiTheme({
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 960,
+            lg: 1280,
+            xl: 1920,
+        },
+    },
+});
 
 export const ArticleContent = ({
     title,
@@ -70,12 +82,21 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
         },
         contentPhotoMedia: {
-            minHeight: '441px',
-            height: 'fit-content',
+            height: '441px',
+            //height: 'fit-content',
             borderRadius: '4px',
-
             [theme.breakpoints.down('sm')]: {
                 maxWidth: '100vw',
+                height: '413.61px',
+            },
+
+            [theme2.breakpoints.down('sm')]: {
+                height: '20px',
+            },
+
+            [theme.breakpoints.down('xs')]: {
+                maxWidth: '100vw',
+                height: '139px',
             },
         },
         contentContainer: {
