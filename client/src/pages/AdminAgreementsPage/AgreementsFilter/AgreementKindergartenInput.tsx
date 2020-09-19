@@ -13,14 +13,14 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { FilterMenuProps } from './FilterMenuProps';
-import { AgreementsTypeFilterMutations } from '../../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilter } from '../../../models/AgreementKindergartenFilters';
 
 interface Props {
     values: AgreementKindergartenFilter[];
+    onChange: (type: string, value: string[]) => void;
 }
 
-export function AgreementKindergartenInput({ values: currentValues }: Props) {
+export function AgreementKindergartenInput({ values: currentValues, onChange }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -42,12 +42,10 @@ export function AgreementKindergartenInput({ values: currentValues }: Props) {
                         .join(', ');
                 }}
                 value={currentValues.filter(e => e.selected).map(e => e.id)}
-                onChange={({ target: { value } }) => {
-                    AgreementsTypeFilterMutations.setAgreementsKindergartenFilter(value as string[]);
-                }}
+                onChange={({ target: { name, value } }) => onChange(name as string, value as string[])}
                 fullWidth
                 inputProps={{
-                    name: 'age',
+                    name: 'KINDERGARTEN',
                     id: 'age-native-simple',
                 }}
                 MenuProps={FilterMenuProps}
