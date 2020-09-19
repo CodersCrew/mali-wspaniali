@@ -1,80 +1,84 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import {useMutation} from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import * as Yup from 'yup';
 import { ButtonSecondary } from '../../../components/Button';
 import { FormControlOldPasswordFormik } from './ChangePasswordPanelFormControlsFormik/FormControlOldPasswordFormik';
 import { openAlertDialog } from '../../../components/AlertDialog';
-import {AUTHORIZE_USER} from '../../../graphql/userRepository';
-import {UserContext} from '../../AppWrapper';
+import { AUTHORIZE_USER } from '../../../graphql/userRepository';
+import { UserContext } from '../../AppWrapper';
 
 export const ChangePasswordPanelFormik = () => {
     const { t } = useTranslation();
     const classes = useStyles();
 
+    const OldPasswordSchema = Yup.object().shape({
+        oldPassword: Yup.string()
+            .required('Required')
+        /*
+            .test('yupValidateOldPassword',
+                'wrong password',
+                function(value) {
+                    console.log(value);
+                
+                    return true;
+                }),
+*/
+    });
+
     const formik = useFormik({
         initialValues: {
             oldPassword: '',
             showOldPassword: false,
-            oldPasswordError: false,
-            oldPasswordHelperText: '',
         },
         onSubmit: values => {
-            // TODO: do zastapienia czymś później
+            // TODO: do zastąpienia czymś później
             alert(JSON.stringify(values, null, 2));
         },
+        validationSchema: OldPasswordSchema,
     });
 
-    /*
-    const OldPasswordSchema = Yup.object().shape({
-        oldPassword: Yup.string()
-            .required('Required')
-    });
-*/
+    const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
     const [authorizeUser] = useMutation(AUTHORIZE_USER);
     const user = useContext(UserContext);
 
     const validateOldPassword = (value: string) => {
-
         if (user?.mail) {
             (() => {
                 authorizeUser({
                     variables: {user: {mail: user.mail, password: value}},
                 })
                     .then(() => {
-                        formik.values = { ...formik.values, oldPasswordError: false, oldPasswordHelperText: '' };
-                        formik.setValues(formik.values);
+                        formik.errors.oldPassword = '';
                     })
                     .catch(err => {
-                        const helperText = () => {
-                            if (err.message === 'Wrong mail or password') {
-                                return t('settings-page.wrong-old-password');
-                            }
+                        if (err.message === 'Wrong mail or password') {
+                            formik.setErrors({oldPassword: t('settings-page.wrong-old-password')});
+                            forceUpdate();
+                        } else {
                             openAlertDialog({
                                 type: 'error',
                                 description: `${t('settings-page.wrong-old-password-error')}: ${err.message}`,
                             });
-
-                            return t('settings-page.wrong-old-password-error');
-                        };
-                        formik.values = { ...formik.values, oldPasswordError: true, oldPasswordHelperText: helperText() };
-                        formik.setValues(formik.values);
+                            formik.setErrors({oldPassword: t('settings-page.wrong-old-password-error')});
+                            forceUpdate();
+                        }
                     });
             })();
         }
-
     };
 
     const toggleShowOldPassword = () => {
-        formik.values = { ...formik.values, showOldPassword: !formik.values.showOldPassword };
-        formik.setValues(formik.values);
+        formik.setValues({ ...formik.values, showOldPassword: !formik.values.showOldPassword });
     };
 
     const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        validateOldPassword(event.target.value);
+        formik.handleBlur(event);
+        if (event.target.value) validateOldPassword(event.target.value);
     };
 
     return (
@@ -87,20 +91,20 @@ export const ChangePasswordPanelFormik = () => {
                         onBlur={handleBlur}
                         show={formik.values.showOldPassword}
                         toggle={toggleShowOldPassword}
-                        error={formik.values.oldPasswordError}
-                        helperText={formik.values.oldPasswordHelperText}
+                        error={!!formik.errors.oldPassword}
+                        helperText={formik.errors.oldPassword || ''}
                     />
-                    <div className={classes.submitWrapper}>
+                    <Typography className={classes.submitWrapper}>
                         <ButtonSecondary
                             type="submit"
                             variant="contained"
                             // TODO: poprawić warunek; to musi być jednak osobny state
-                            disabled={!formik.dirty || formik.values.oldPasswordError}
+                            disabled={!formik.dirty || !!formik.errors.oldPassword}
                             className={classes.changePasswordButton}
                         >
                             {t('settings-page.change-password')}
                         </ButtonSecondary>
-                    </div>
+                    </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant={'subtitle2'} className={classes.problems}>

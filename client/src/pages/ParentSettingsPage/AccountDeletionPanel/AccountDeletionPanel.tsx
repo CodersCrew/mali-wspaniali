@@ -9,7 +9,7 @@ export const AccountDeletionPanel = () => {
     const classes = useStyles();
 
     return (
-        <div>
+        <Typography>
             <Typography className={classes.message}>
                 {t('settings-page.parent.delete-account.deletion-not-allowed')}
             </Typography>
@@ -19,7 +19,7 @@ export const AccountDeletionPanel = () => {
             <ButtonSecondary variant={'contained'}>
                 <Typography variant={'button'}>{t('settings-page.parent.delete-account.deletion-button')}</Typography>
             </ButtonSecondary>
-        </div>
+        </Typography>
     );
 };
 

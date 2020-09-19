@@ -26,11 +26,11 @@ export const ChangePasswordPanel = (props: Props) => {
                 <Grid item xs={6}>
                     <FormControlOldPassword state={state} dispatch={dispatch} user={props.user} />
                     <FormControlNewPassword state={state} dispatch={dispatch} />
-                    <div className={classes.marksWrapper}>
+                    <Typography className={classes.marksWrapper}>
                         <PasswordStrengthChips passwordValidation={validateNewPassword(state.newPassword)} />
-                    </div>
+                    </Typography>
                     <FormControlConfirmNewPassword state={state} dispatch={dispatch} />
-                    <div className={classes.submitWrapper}>
+                    <Typography className={classes.submitWrapper}>
                         <ButtonSecondary
                             type="submit"
                             variant="contained"
@@ -39,7 +39,7 @@ export const ChangePasswordPanel = (props: Props) => {
                         >
                             {t('settings-page.change-password')}
                         </ButtonSecondary>
-                    </div>
+                    </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant={'subtitle2'} className={classes.problems}>
