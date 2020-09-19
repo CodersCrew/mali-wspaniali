@@ -80,6 +80,15 @@ export interface Kindergarten {
     city: string;
 }
 
+export interface KindergartenWithUsers {
+    _id: string;
+    name: string;
+    number: number;
+    address: string;
+    city: string;
+    users: User[];
+}
+
 export interface TestResult {
     _id: string;
     rootResultId: string | null;

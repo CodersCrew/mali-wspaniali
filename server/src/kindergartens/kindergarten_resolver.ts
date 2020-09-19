@@ -6,7 +6,10 @@ import { KindergartenDTO } from './dto/kindergarten_dto';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { KindergartenProps } from './domain/models/kindergarten_model';
-import { GetAllKindergartensQuery } from './domain/queries/impl';
+import {
+  GetAllKindergartensQuery,
+  GetKindergartenWithUsersQuery,
+} from './domain/queries/impl';
 import {
   CreateKindergartenCommand,
   EditKindergartenCommand,
@@ -15,6 +18,7 @@ import {
 import { CreateKindergartenInput } from './inputs/create_kindergarten_input';
 import { EditKindergartenInput } from './inputs/edit_kindergarten_input';
 import { ReturnedStatusDTO } from '../shared/returned_status';
+import { KindergartenWithUsersDTO } from './dto/kindergarten_with_users_dto';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -29,6 +33,18 @@ export class KindergartenResolver {
     );
 
     return kindergartens;
+  }
+
+  @Query(() => [KindergartenWithUsersDTO])
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async kindergartenWithUsers(
+    @Args('ids', { type: () => [String] }) ids: string[],
+  ): Promise<KindergartenProps[]> {
+    const kindergarten: KindergartenProps[] = await this.queryBus.execute(
+      new GetKindergartenWithUsersQuery(ids),
+    );
+
+    return kindergarten;
   }
 
   @Mutation(() => KindergartenDTO)

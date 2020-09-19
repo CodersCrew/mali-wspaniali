@@ -78,9 +78,9 @@ export class UsersResolver {
   async agreements(@Parent() user: UserProps): Promise<AgreementDTO[]> {
     return await this.queryBus.execute(
       new GetValidAgreementsQuery(
-        (user.agreements as mongoose.Schema.Types.ObjectId[]).map(agreement =>
-          agreement.toString(),
-        ),
+        (
+          (user.agreements as mongoose.Schema.Types.ObjectId[]) || []
+        ).map(agreement => agreement.toString()),
       ),
     );
   }

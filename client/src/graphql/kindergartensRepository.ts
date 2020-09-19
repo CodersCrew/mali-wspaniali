@@ -18,6 +18,35 @@ export const KINDERGARTENS = gql`
     }
 `;
 
+export const KINDERGARTEN_WITH_USERS = gql`
+    query Kindergarten($ids: [String!]!) {
+        kindergartenWithUsers(ids: $ids) {
+            _id
+            name
+            number
+            address
+            city
+            users {
+                _id
+                mail
+                children {
+                    _id
+                    firstname
+                    lastname
+                    sex
+                    birthYear
+                }
+                agreements {
+                    _id
+                    date
+                    text
+                    isSigned
+                }
+            }
+        }
+    }
+`;
+
 export interface AddKindergartenInput {
     name: string;
     number: number;
