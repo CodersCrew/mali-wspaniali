@@ -17,49 +17,47 @@ export const LegalNotesPanel = () => {
     const classes = useStyles();
 
     return (
-        <Typography color={'primary'}>
-            <div className={classes.root}>
-                <ExpansionPanel>
-                    <ExpansionPanelSummaryIconEnd expandIcon={<ExpandMoreIcon className={classes.moreIcon} />}>
-                        <Typography className={classes.heading}>
-                            {t('settings-page.parent.legal-notes.privacy-policy')}
-                        </Typography>
-                    </ExpansionPanelSummaryIconEnd>
-                    <ExpansionPanelDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-                            amet blandit leo lobortis eget.
-                        </Typography>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-                <ExpansionPanel>
-                    <ExpansionPanelSummaryIconStart expandIcon={<ExpandMoreIcon className={classes.moreIcon} />}>
-                        <Typography className={classes.heading}>
-                            {t('settings-page.parent.legal-notes.regulations')}
-                        </Typography>
-                    </ExpansionPanelSummaryIconStart>
-                    <ExpansionPanelDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-                            amet blandit leo lobortis eget.
-                        </Typography>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-                <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={''}>
-                        <Typography className={classes.heading}>
-                            Coś tam jeszcze
-                            <ExpandMoreIcon />
-                        </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-                            amet blandit leo lobortis eget.
-                        </Typography>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-            </div>
+        <Typography color={'primary'} className={classes.root}>
+            <ExpansionPanel>
+                <ExpansionPanelSummaryIconEnd expandIcon={<ExpandMoreIcon className={classes.moreIcon} />}>
+                    <Typography className={classes.heading}>
+                        {t('settings-page.parent.legal-notes.privacy-policy')}
+                    </Typography>
+                </ExpansionPanelSummaryIconEnd>
+                <ExpansionPanelDetails>
+                    <Typography>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
+                        amet blandit leo lobortis eget.
+                    </Typography>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel>
+                <ExpansionPanelSummaryIconStart expandIcon={<ExpandMoreIcon className={classes.moreIcon} />}>
+                    <Typography className={classes.heading}>
+                        {t('settings-page.parent.legal-notes.regulations')}
+                    </Typography>
+                </ExpansionPanelSummaryIconStart>
+                <ExpansionPanelDetails>
+                    <Typography>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
+                        amet blandit leo lobortis eget.
+                    </Typography>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel>
+                <ExpansionPanelSummary expandIcon={''}>
+                    <Typography className={classes.heading}>
+                        Coś tam jeszcze
+                        <ExpandMoreIcon />
+                    </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <Typography>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
+                        amet blandit leo lobortis eget.
+                    </Typography>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
         </Typography>
     );
 };

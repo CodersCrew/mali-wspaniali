@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import { ChangePasswordPanel } from './ChangePasswordPanel';
 import { DefaultLanguagePanel } from './DefaultLanguagePanel';
 import { LegalNotesPanel } from './LegalNotesPanel';
@@ -22,7 +23,7 @@ export const ParentSettingsExpansionPanel = ({ user }: Props) => {
     };
 
     return (
-        <div className={classes.root}>
+        <Typography className={classes.root}>
             <ExpansionPanelItem
                 user={user}
                 name={'password-change-formik-panel'}
@@ -76,7 +77,7 @@ export const ParentSettingsExpansionPanel = ({ user }: Props) => {
                 heading={'settings-page.parent.delete-account.header'}
                 panel={AccountDeletionPanel}
             />
-        </div>
+        </Typography>
     );
 };
 

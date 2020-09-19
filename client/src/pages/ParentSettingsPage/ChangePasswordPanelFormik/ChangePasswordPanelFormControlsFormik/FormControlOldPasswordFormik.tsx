@@ -1,23 +1,55 @@
-import React from 'react';
-import { FormControl, InputLabel } from '@material-ui/core';
+import React, { ChangeEvent } from 'react';
+import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
-interface Props {
-    name: string;
+export interface ChangePasswordPanelFormikProps {
     value: string;
-    oldPasswordError: boolean;
+    onChange: (event: ChangeEvent<any>) => void;
+    onBlur: (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    show: boolean;
+    toggle: () => void;
+    error: boolean;
+    helperText: string;
 }
 
-export const FormControlOldPasswordFormik = ({ name, value, oldPasswordError }: Props) => {
+export const FormControlOldPasswordFormik = ({
+    value,
+    onChange,
+    onBlur,
+    show,
+    toggle,
+    error,
+    helperText,
+}: ChangePasswordPanelFormikProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <FormControl variant="outlined" className={classes.form}>
-            <InputLabel htmlFor="outlined-adornment-password" error={oldPasswordError}>
-                {t('settings-page.old-password')}
-            </InputLabel>
+            <InputLabel htmlFor="outlined-adornment-password">{t('settings-page.old-password')}</InputLabel>
+            <OutlinedInput
+                required
+                fullWidth
+                autoComplete="off"
+                label={t('settings-page.old-password')}
+                type={show ? 'text' : 'password'}
+                id="old-password"
+                name="oldPassword"
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                error={error}
+                endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton aria-label="toggle password visibility" edge="end" onClick={toggle}>
+                            {show ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                }
+            />
+            <FormHelperText error={error}>{helperText || ''}</FormHelperText>
         </FormControl>
     );
 };
