@@ -1,3 +1,3 @@
 export class GetKindergartenWithUsersQuery {
-  constructor(public readonly id: string) {}
+  constructor(public readonly ids: string[]) {}
 }

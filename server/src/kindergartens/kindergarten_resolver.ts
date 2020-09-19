@@ -35,13 +35,13 @@ export class KindergartenResolver {
     return kindergartens;
   }
 
-  @Query(() => KindergartenWithUsersDTO)
+  @Query(() => [KindergartenWithUsersDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async kindergartenWithUsers(
-    @Args('id') id: string,
+    @Args('ids', { type: () => [String] }) ids: string[],
   ): Promise<KindergartenProps[]> {
     const kindergarten: KindergartenProps[] = await this.queryBus.execute(
-      new GetKindergartenWithUsersQuery(id),
+      new GetKindergartenWithUsersQuery(ids),
     );
 
     return kindergarten;
