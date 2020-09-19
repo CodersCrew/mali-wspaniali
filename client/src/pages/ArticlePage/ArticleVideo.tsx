@@ -11,7 +11,7 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
     const classes = useStyles();
 
     return (
-        <Grid className={classes.contentVideoContainer} container direction="row" spacing={3}>
+        <Grid className={classes.contentVideoContainer} container direction="row">
             <Grid className={classes.wrapperContainer} item lg={9} xs={12}>
                 <Grid className={classes.contentVideo}>
                     <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
@@ -73,16 +73,19 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             width: '100%',
             flexWrap: 'wrap',
-            marginTop: `${theme.spacing(3)}px`,
+            margin: `${theme.spacing(2)}px 0 ${theme.spacing(4)}px 0`,
 
             [theme.breakpoints.down('xs')]: {
-                marginLeft: `${theme.spacing(2)}px`,
+                marginLeft: `${theme.spacing(1)}px`,
+            },
+            [theme.breakpoints.up('xl')]: {
+                margin: `${theme.spacing(2)}px 0 ${theme.spacing(5)}px 0`,
             },
         },
         contentTagsButton: {
             color: theme.palette.text.primary,
             borderRadius: theme.spacing(2),
-            margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px 0`,
+            margin: `${theme.spacing(2)}px ${theme.spacing(2)}px 0 0`,
         },
     }),
 );

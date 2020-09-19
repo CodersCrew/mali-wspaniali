@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Theme, createMuiTheme } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { Article } from '../../graphql/types';
 import { ArticleContent } from './ArticleContent';
@@ -67,6 +67,18 @@ export const ArticlePage = () => {
     );
 };
 
+export const customArticleTheme = createMuiTheme({
+    breakpoints: {
+        values: {
+            xs: 361,
+            sm: 768,
+            md: 1024,
+            lg: 1440,
+            xl: 1920,
+        },
+    },
+});
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         rootGrid: {
@@ -85,8 +97,11 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         videoContainer: {
-            paddingTop: theme.spacing(3),
             paddingBottom: theme.spacing(4),
+
+            [theme.breakpoints.up('xl')]: {
+                paddingBottom: theme.spacing(5),
+            },
         },
         mainRedactorWrapper: {
             display: 'flex',
@@ -97,7 +112,11 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
-            padding: `${theme.spacing(4)}px ${theme.spacing(3)}px ${theme.spacing(4)}px ${theme.spacing(3)}px`,
+            padding: `${theme.spacing(1)}px ${theme.spacing(3)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
+
+            [theme.breakpoints.up('xl')]: {
+                paddingTop: theme.spacing(2),
+            },
         },
     }),
 );

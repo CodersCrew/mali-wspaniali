@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles, Grid, Typography, CardMedia, Theme } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
+import { customArticleTheme } from './ArticlePage';
 
 interface Props {
     pictureUrl: string;
@@ -46,7 +47,6 @@ export const ArticleContent = ({
                     <div className={classes.contentHeader}>
                         <Typography className={classes.title}>{title}</Typography>
                         <Typography className={classes.description}>{description}</Typography>
-                        <Typography className={classes.subtitle}>{subtitle}</Typography>
                     </div>
                     <Grid container direction="row">
                         <Grid className={classes.contentHTML} item>
@@ -70,9 +70,21 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
         },
         contentPhotoMedia: {
-            minHeight: '441px',
-            height: 'fit-content',
+            height: '441px',
             borderRadius: '4px',
+
+            [customArticleTheme.breakpoints.down('xs')]: {
+                height: '139px',
+            },
+            [customArticleTheme.breakpoints.between('xs', 'sm')]: {
+                height: '305.12px',
+            },
+            [customArticleTheme.breakpoints.between('sm', 'md')]: {
+                height: '413.61px',
+            },
+            [customArticleTheme.breakpoints.between('md', 'lg')]: {
+                height: '439.88px',
+            },
 
             [theme.breakpoints.down('sm')]: {
                 maxWidth: '100vw',
@@ -85,14 +97,26 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: `${theme.spacing(4)}px`,
             display: 'flex',
             flexDirection: 'row',
+
+            [customArticleTheme.breakpoints.down('xs')]: {
+                paddingTop: `${theme.spacing(3)}px`,
+            },
+            [theme.breakpoints.up('xl')]: {
+                paddingTop: `${theme.spacing(5)}px`,
+            },
         },
         dateReadingTime: {
             fontSize: theme.typography.overline.fontSize,
             marginRight: theme.spacing(4),
             textTransform: 'uppercase',
+            letterSpacing: theme.typography.overline.letterSpacing,
         },
         contentHeader: {
             paddingTop: `${theme.spacing(2)}px`,
+
+            [theme.breakpoints.up('xl')]: {
+                paddingTop: `${theme.spacing(4)}px`,
+            },
         },
         title: {
             fontSize: theme.typography.h2.fontSize,
@@ -100,29 +124,32 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight: theme.typography.h2.lineHeight,
         },
         description: {
-            paddingTop: `20px`,
+            paddingTop: `${theme.spacing(2)}px`,
             fontSize: theme.typography.h3.fontSize,
             letterSpacing: theme.typography.body2.letterSpacing,
             lineHeight: theme.typography.h3.lineHeight,
-        },
-        subtitle: {
-            paddingTop: `${theme.spacing(3)}px`,
-            paddingBottom: `${theme.spacing(2)}px`,
-            fontSize: theme.typography.h4.fontSize,
-            lineHeight: theme.typography.h4.lineHeight,
-            letterSpacing: theme.typography.h4.letterSpacing,
-            fontWeight: theme.typography.subtitle2.fontWeight,
+
+            [customArticleTheme.breakpoints.down('xs')]: {
+                paddingTop: `20px`,
+            },
         },
         contentHTML: {
             '& > h4': {
                 marginTop: 0,
                 marginBottom: theme.spacing(2),
             },
+
+            paddingTop: `${theme.spacing(3)}px`,
             marginTop: 0,
             paddingBottom: theme.spacing(3),
             fontSize: theme.typography.body1.fontSize,
             lineHeight: theme.typography.body1.lineHeight,
             letterSpacing: theme.typography.body1.letterSpacing,
+
+            [theme.breakpoints.up('xl')]: {
+                paddingTop: `${theme.spacing(3)}px`,
+                paddingBottom: theme.spacing(4),
+            },
         },
     }),
 );

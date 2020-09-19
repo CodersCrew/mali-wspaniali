@@ -63,9 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 height: '70px',
             },
         },
-        contentRedactorNameContainer: {
-            paddingTop: `${theme.spacing(1)}px`,
-        },
+        contentRedactorNameContainer: {},
         contentRedactorProf: {
             fontSize: theme.typography.overline.fontSize,
             letterSpacing: theme.typography.overline.letterSpacing,
@@ -73,6 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
             textTransform: 'uppercase',
         },
         contentRedactorName: {
+            paddingTop: `${theme.spacing(1)}px`,
             fontSize: theme.typography.h4.fontSize,
             fontWeight: theme.typography.button.fontWeight,
             letterSpacing: theme.typography.h4.letterSpacing,
