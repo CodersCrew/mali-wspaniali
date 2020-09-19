@@ -19,6 +19,7 @@ interface Props {
     agreementsTypeFilter: AgreementTypeFilter;
     agreementsKindergartenFilter: AgreementKindergartenFilter[];
     agreementsSortStatus: AgreementSortType;
+    isKindergartenLoading: boolean;
     actions: {
         setSortStatus: (value: string) => void;
         setAgreementFilter: (type: string, value: string | string[]) => void;
@@ -32,6 +33,7 @@ export const AdminAgreementsPage = ({
     agreementsTypeFilter,
     agreementsKindergartenFilter,
     agreementsSortStatus,
+    isKindergartenLoading,
     actions: { setSortStatus, setAgreementFilter, sendFilterChanges },
 }: Props) => {
     const classes = useStyles();
@@ -63,6 +65,7 @@ export const AdminAgreementsPage = ({
             </div>
             <Divider />
             <AgreementsList
+                isLoading={isKindergartenLoading}
                 kindergartens={kindergartens}
                 activeSortType={agreementsSortStatus.id}
                 onSortChange={setSortStatus}

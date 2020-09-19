@@ -3,15 +3,34 @@ import { TableContainer, Paper, Table, TableHead, TableBody, makeStyles, createS
 import { ChildrenFromKindergartenList } from './ChildrenFromKindergartenList';
 import { KindergartenWithUsers } from '../../../graphql/types';
 import { SortableHeader } from './SortableHeader';
+import { ChildrenFromKindergartenListLoading } from './ChildrenFromKindergartenListLoading';
 
 interface Props {
     kindergartens: KindergartenWithUsers[];
     activeSortType: string;
+    isLoading: boolean;
     onSortChange: (value: string) => void;
 }
 
-export function AgreementsList({ kindergartens, activeSortType, onSortChange }: Props) {
+export function AgreementsList({ kindergartens, activeSortType, isLoading, onSortChange }: Props) {
     const classes = useStyles();
+
+
+    if (isLoading)
+        return (
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <SortableHeader activeSortType={activeSortType} onSortChange={onSortChange} />
+                    </TableHead>
+                    <TableBody>
+                        {[1, 2, 3, 4].map(e => (
+                            <ChildrenFromKindergartenListLoading key={e} />
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
 
     return (
         <TableContainer component={Paper}>
