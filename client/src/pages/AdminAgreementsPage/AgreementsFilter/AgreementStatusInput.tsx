@@ -3,14 +3,14 @@ import { createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Th
 import { useTranslation } from 'react-i18next';
 
 import { FilterMenuProps } from './FilterMenuProps';
-import { AgreementsTypeFilterMutations } from '../../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementStatusFilters } from '../../../models/AgreementStatusFilter';
 
 interface Props {
     value: string;
+    onChange: (type: string, value: string) => void;
 }
 
-export function AgreementStatusInput({ value: currentValue }: Props) {
+export function AgreementStatusInput({ value: currentValue, onChange }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -20,12 +20,10 @@ export function AgreementStatusInput({ value: currentValue }: Props) {
             <Select
                 label={t('agreements-filter.by-agreement-status')}
                 value={currentValue}
-                onChange={({ target: { value } }) => {
-                    AgreementsTypeFilterMutations.setAgreementsStatusFilter(AgreementStatusFilters[value as string]);
-                }}
+                onChange={({ target: { name, value } }) => onChange(name as string, value as string)}
                 fullWidth
                 inputProps={{
-                    name: 'age',
+                    name: 'STATUS',
                     id: 'age-native-simple',
                 }}
                 MenuProps={FilterMenuProps}

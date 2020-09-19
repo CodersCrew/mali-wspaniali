@@ -3,101 +3,78 @@ import { useTranslation } from 'react-i18next';
 import { Typography, Paper, IconButton, Grid, Divider, Collapse } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { useQuery, useLazyQuery } from '@apollo/client';
 
-import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';
+import { KindergartenWithUsers } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { AgreementsList } from './AgreementsList/AgreementsList';
-import { KINDERGARTENS, KINDERGARTEN_WITH_USERS } from '../../graphql/kindergartensRepository';
 import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
-import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
-import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
-import { GET_AGREEMENTS_SORT_STATUS } from '../../operations/queries/Agreements/getAgreementsSortStatus';
-import {
-    GetAgreementsKindergartenFilterQuery,
-    GET_AGREEMENTS_KINDERGARTEN_FILTER,
-} from '../../operations/queries/Agreements/getAgreementsKindergartenFilter';
-import {
-    GetAgreementsStatusFilterQuery,
-    GET_AGREEMENTS_STATUS_FILTER,
-} from '../../operations/queries/Agreements/getAgreementsStatusFilter';
-import {
-    GET_AGREEMENTS_TYPE_FILTER,
-    GetAgreementsTypeFilterQuery,
-} from '../../operations/queries/Agreements/getAgreementsTypeFilter';
+import { AgreementStatusFilter } from '../../models/AgreementStatusFilter';
+import { AgreementTypeFilter } from '../../models/AgreementTypeFilters';
+import { AgreementKindergartenFilter } from '../../models/AgreementKindergartenFilters';
+import { AgreementSortType } from '../../models/AgreementSortStatus';
 
-export const AdminAgreementsPage = () => {
+interface Props {
+    kindergartens: KindergartenWithUsers[];
+    agreementsStatusFilter: AgreementStatusFilter;
+    agreementsTypeFilter: AgreementTypeFilter;
+    agreementsKindergartenFilter: AgreementKindergartenFilter[];
+    agreementsSortStatus: AgreementSortType;
+    actions: {
+        setSortStatus: (value: string) => void;
+        setAgreementFilter: (type: string, value: string | string[]) => void;
+        sendFilterChanges: () => void;
+    };
+}
+
+export const AdminAgreementsPage = ({
+    kindergartens,
+    agreementsStatusFilter,
+    agreementsTypeFilter,
+    agreementsKindergartenFilter,
+    agreementsSortStatus,
+    actions: { setSortStatus, setAgreementFilter, sendFilterChanges },
+}: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const [isFiltersListOpen, setIsFilterListOpen] = useState(false);
-    const { data: kindergartenList } = useQuery<{ kindergartens: Kindergarten[] }>(KINDERGARTENS);
-    const [getSpecificKindergartens, { data: kindergartens}] = useLazyQuery<{ kindergartenWithUsers: KindergartenWithUsers[] }>(KINDERGARTEN_WITH_USERS);
-    const agreementsTypeFilterQuery = useQuery<GetAgreementsTypeFilterQuery>(GET_AGREEMENTS_TYPE_FILTER);
-    const { agreementsTypeFilter } = agreementsTypeFilterQuery.data!;
-
-    const agreementsStatusFilterQuery = useQuery<GetAgreementsStatusFilterQuery>(GET_AGREEMENTS_STATUS_FILTER);
-    const { agreementsStatusFilter } = agreementsStatusFilterQuery.data!;
-    const agreementsKindergartenFilterQuery = useQuery<GetAgreementsKindergartenFilterQuery>(
-        GET_AGREEMENTS_KINDERGARTEN_FILTER,
-    );
-    const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter;
-
-    const sortStatusQuery = useQuery(GET_AGREEMENTS_SORT_STATUS)
-    const {agreementsSortStatus} = sortStatusQuery.data
 
     useEffect(() => {
         activePage(['admin-menu.agreements']);
     }, []);
 
-    useEffect(() => {
-        if (kindergartenList) {
-            AgreementsTypeFilterMutations.addAgreementsKindergartenFilters(
-                [AgreementKindergartenFilters.SHOW_ALL, ...kindergartenList.kindergartens.map(mapToFilter)],
-            );
-
-            getSpecificKindergartens({ variables: { ids: kindergartenList.kindergartens.map(k => k._id) }})
-        }
-    }, [kindergartenList, getSpecificKindergartens]);
-
-    if (!kindergartenList || !kindergartens) return null;
-
     return (
-        <>
-            <Paper elevation={0} classes={{ root: classes.container}}>
-                <div className={classes.filterContainer}>
-                    <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader}} >
-                        <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
-                        <IconButton onClick={() => setIsFilterListOpen(prev => !prev)}><FilterListIcon /></IconButton>
-                    </Grid>
-                    <Collapse in={isFiltersListOpen} unmountOnExit >
+        <Paper elevation={0} classes={{ root: classes.container }}>
+            <div className={classes.filterContainer}>
+                <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader }}>
+                    <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
+                    <IconButton onClick={() => setIsFilterListOpen(prev => !prev)}>
+                        <FilterListIcon />
+                    </IconButton>
+                </Grid>
+                <Collapse in={isFiltersListOpen} unmountOnExit>
                     <AgreementsFilter
-                            agreementType={agreementsTypeFilter}
-                            agreementStatus={agreementsStatusFilter}
-                            agreementKindergarten={agreementsKindergartenFilter || []}
-                        />
-                    </Collapse>
-                </div>
-                <Divider />
-                <AgreementsList
-                    kindergartens={kindergartens.kindergartenWithUsers}
-                    activeSortType={agreementsSortStatus.id}
-                    onSortChange={(v) => {
-                        AgreementsTypeFilterMutations.setAgreementsSortStatus({id:v})
-                    }}
-                />
-            </Paper>
-        </>
+                        agreementType={agreementsTypeFilter}
+                        agreementStatus={agreementsStatusFilter}
+                        agreementKindergarten={agreementsKindergartenFilter}
+                        onChange={setAgreementFilter}
+                        onSubmit={sendFilterChanges}
+                    />
+                </Collapse>
+            </div>
+            <Divider />
+            <AgreementsList
+                kindergartens={kindergartens}
+                activeSortType={agreementsSortStatus.id}
+                onSortChange={setSortStatus}
+            />
+        </Paper>
     );
 };
-
-function mapToFilter({ _id, name }: Kindergarten) {
-    return { id: _id, displayName: name, displayNameKey: '', selected: false };
-}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            margin: theme.spacing(3)
+            margin: theme.spacing(3),
         },
         paper: {
             position: 'absolute',
@@ -108,10 +85,10 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2, 4, 3),
         },
         filterContainer: {
-            margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`
+            margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`,
         },
         filterHeader: {
-            paddingTop: 14
-        }
+            paddingTop: 14,
+        },
     }),
 );
