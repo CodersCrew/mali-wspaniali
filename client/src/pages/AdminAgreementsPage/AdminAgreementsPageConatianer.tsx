@@ -15,6 +15,8 @@ import { GetAgreementsKindergartenFilterQuery, GET_AGREEMENTS_KINDERGARTEN_FILTE
 import { GET_AGREEMENTS_SORT_STATUS } from '../../operations/queries/Agreements/getAgreementsSortStatus';
 import { AgreementTypeFilters } from '../../models/AgreementTypeFilters';
 import { AgreementStatusFilters } from '../../models/AgreementStatusFilter';
+import { agreementSortStatusVar } from '../../apollo_client';
+import { AgreementSortStatus } from '../../models/AgreementSortStatus';
 
 export function AdminAgreementsPageContainer() {
     const { data: allKindergartenList, loading: isAllKindergartenListLoading } = useQuery<{
@@ -56,7 +58,7 @@ export function AdminAgreementsPageContainer() {
 
     return (
         <AdminAgreementsPage
-            kindergartens={kindergartens.kindergartenWithUsers}
+            kindergartens={mapWithFilters([...kindergartens.kindergartenWithUsers])}
             agreementsStatusFilter={agreementsStatusFilter}
             agreementsTypeFilter={agreementsTypeFilter}
             agreementsKindergartenFilter={agreementsKindergartenFilter}
@@ -97,4 +99,26 @@ function setAgreementFilter(type: string, value: string | string[]) {
 
 function sendFilterChanges() {
 console.log('sent')
+}
+
+function mapWithFilters(kindergartens: KindergartenWithUsers[]) {
+    return mapWithSorting(kindergartens)
+}
+
+function mapWithSorting(kindergartens: KindergartenWithUsers[]) {
+    const {id: sortBy} = agreementSortStatusVar()
+
+    if (sortBy === AgreementSortStatus.BY_NAME_RISING.id) {
+        return kindergartens.sort((kA, kB) => {
+            return kA.number - kB.number
+        })
+    }
+
+    if (sortBy === AgreementSortStatus.BY_NAME_FALLING.id) {
+        return kindergartens.sort((kA, kB) => {
+            return kB.number - kA.number
+        })
+    }
+
+    return kindergartens
 }
