@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography, Paper, IconButton, Grid, Divider } from '@material-ui/core';
+import { Typography, Paper, IconButton, Grid, Divider, Collapse } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { AgreementsList } from './AgreementsList/AgreementsList';
-import { KINDERGARTENS } from '../../graphql/kindergartensRepository';
+import { KINDERGARTENS, KINDERGARTEN_WITH_USERS } from '../../graphql/kindergartensRepository';
 import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
 import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
+import { GET_AGREEMENTS_SORT_STATUS } from '../../operations/queries/Agreements/getAgreementsSortStatus';
 import {
     GetAgreementsKindergartenFilterQuery,
     GET_AGREEMENTS_KINDERGARTEN_FILTER,
@@ -30,6 +31,7 @@ export const AdminAgreementsPage = () => {
     const { t } = useTranslation();
     const [isFiltersListOpen, setIsFilterListOpen] = useState(false);
     const { data: kindergartenList } = useQuery<{ kindergartens: Kindergarten[] }>(KINDERGARTENS);
+    const [getSpecificKindergartens, { data: kindergartens}] = useLazyQuery<{ kindergartenWithUsers: KindergartenWithUsers[] }>(KINDERGARTEN_WITH_USERS);
     const agreementsTypeFilterQuery = useQuery<GetAgreementsTypeFilterQuery>(GET_AGREEMENTS_TYPE_FILTER);
     const { agreementsTypeFilter } = agreementsTypeFilterQuery.data!;
 
@@ -38,8 +40,10 @@ export const AdminAgreementsPage = () => {
     const agreementsKindergartenFilterQuery = useQuery<GetAgreementsKindergartenFilterQuery>(
         GET_AGREEMENTS_KINDERGARTEN_FILTER,
     );
-
     const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter;
+
+    const sortStatusQuery = useQuery(GET_AGREEMENTS_SORT_STATUS)
+    const {agreementsSortStatus} = sortStatusQuery.data
 
     useEffect(() => {
         activePage(['admin-menu.agreements']);
@@ -50,10 +54,12 @@ export const AdminAgreementsPage = () => {
             AgreementsTypeFilterMutations.addAgreementsKindergartenFilters(
                 [AgreementKindergartenFilters.SHOW_ALL, ...kindergartenList.kindergartens.map(mapToFilter)],
             );
-        }
-    }, [kindergartenList]);
 
-    if (!kindergartenList) return null;
+            getSpecificKindergartens({ variables: { ids: kindergartenList.kindergartens.map(k => k._id) }})
+        }
+    }, [kindergartenList, getSpecificKindergartens]);
+
+    if (!kindergartenList || !kindergartens) return null;
 
     return (
         <>
@@ -63,16 +69,22 @@ export const AdminAgreementsPage = () => {
                         <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
                         <IconButton onClick={() => setIsFilterListOpen(prev => !prev)}><FilterListIcon /></IconButton>
                     </Grid>
-                    {isFiltersListOpen && (
-                        <AgreementsFilter
+                    <Collapse in={isFiltersListOpen} unmountOnExit >
+                    <AgreementsFilter
                             agreementType={agreementsTypeFilter}
                             agreementStatus={agreementsStatusFilter}
                             agreementKindergarten={agreementsKindergartenFilter || []}
                         />
-                    )}
+                    </Collapse>
                 </div>
                 <Divider />
-                <AgreementsList kindergartens={kindergartenList.kindergartens} />
+                <AgreementsList
+                    kindergartens={kindergartens.kindergartenWithUsers}
+                    activeSortType={agreementsSortStatus.id}
+                    onSortChange={(v) => {
+                        AgreementsTypeFilterMutations.setAgreementsSortStatus({id:v})
+                    }}
+                />
             </Paper>
         </>
     );

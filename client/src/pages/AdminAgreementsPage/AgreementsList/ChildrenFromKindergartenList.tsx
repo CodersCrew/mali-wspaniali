@@ -14,13 +14,13 @@ import {
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-import { Kindergarten } from '../../../graphql/types';
+import { KindergartenWithUsers, User } from '../../../graphql/types';
 import { ArrowTooltip } from '../../../components/Tooltip/ArrowTooltip';
-import { KindergartenAgreementsList } from './KindergartenAgreementsList';
+import { KindergartenAgreementsList, Parent } from './KindergartenAgreementsList';
 import { Status } from '../../../components/Icons/Status';
 
 interface Props {
-    kindergarten: Kindergarten;
+    kindergarten: KindergartenWithUsers;
     viewAgreement: AgreementResult;
     marketingAgreement: AgreementResult;
 }
@@ -32,44 +32,19 @@ interface AgreementResult {
 
 type AgreementStatus = 'RECIEVED' | 'NOT_RECIEVED';
 
-const PARENT_LIST = [
-    {
-        email: 'abc',
-        children: ['abc', 'cde'],
-        marketingAgreement: true,
-        viewAgreement: false,
-    },
-    {
-        email: 'abc2',
-        children: ['abc', 'cde'],
-        marketingAgreement: true,
-        viewAgreement: false,
-    },
-    {
-        email: 'abc3',
-        children: ['abc'],
-        marketingAgreement: true,
-        viewAgreement: false,
-    },
-    {
-        email: 'abc4',
-        children: ['abc'],
-        marketingAgreement: true,
-        viewAgreement: false,
-    },
-];
-
 export function ChildrenFromKindergartenList({ kindergarten, viewAgreement, marketingAgreement }: Props) {
     const [isOpen, setIsOpen] = useState(false);
     const classes = useStyles();
 
     return (
         <>
-            <TableRow key={kindergarten.name}>
+            <TableRow key={kindergarten.name} classes={{ root: classes.rowContainer }}>
                 <TableCell size="small">
-                    <IconButton aria-label="expand row" size="small" onClick={() => setIsOpen(!isOpen)}>
-                        {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
+                    {kindergarten.users.length > 0 && (
+                        <IconButton aria-label="expand row" size="small" onClick={() => setIsOpen(!isOpen)}>
+                            {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </IconButton>
+                    )}
                 </TableCell>
                 <TableCell classes={{ root: classes.root }} size="small">
                     <ArrowTooltip title={`${kindergarten.number}/${kindergarten.name}`}>
@@ -92,7 +67,7 @@ export function ChildrenFromKindergartenList({ kindergarten, viewAgreement, mark
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={isOpen}>
                         <Box margin={1} marginRight={11} marginLeft={11}>
-                            <KindergartenAgreementsList parents={PARENT_LIST} />
+                            <KindergartenAgreementsList parents={mapUsersToAgreemetList(kindergarten.users)} />
                         </Box>
                     </Collapse>
                 </TableCell>
@@ -171,13 +146,24 @@ function countStatus(agreementResultA: AgreementResult, agreementResultB: Agreem
     return results.includes('RECIEVED') ? 'RECIEVED' : 'NOT_RECIEVED';
 }
 
-const useStyles = makeStyles((ttheme: Theme) =>
+function mapUsersToAgreemetList(users: User[]): Parent[] {
+    return users.map(u => {
+        return {
+            email: u.mail,
+            children: u.children.map(c => `${c.firstname} ${c.lastname}`),
+            viewAgreement: u.agreements.find(a => a.text === 'Image')!.isSigned,
+            marketingAgreement: u.agreements.find(a => a.text === 'Marketing')!.isSigned,
+        };
+    });
+}
+
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            paddingLeft: ttheme.spacing(6),
+            paddingLeft: theme.spacing(8),
         },
         statusCellRoot: {
-            paddingLeft: ttheme.spacing(2),
+            paddingLeft: theme.spacing(2),
         },
         progressbarContainer: {
             display: 'flex',
@@ -187,21 +173,24 @@ const useStyles = makeStyles((ttheme: Theme) =>
             flex: 1,
         },
         progressbarStats: {
-            marginLeft: ttheme.spacing(1),
+            marginLeft: theme.spacing(1),
         },
         progressbarPrimary: {
-            background: fade(ttheme.palette.success.light, 0.24),
+            background: fade(theme.palette.success.light, 0.24),
         },
         progressbarSecondary: {
-            background: ttheme.palette.success.dark,
+            background: theme.palette.success.dark,
         },
         status: {
             display: 'flex',
             alignItems: 'center',
             textTransform: 'uppercase',
             '& > span': {
-                marginRight: ttheme.spacing(1),
+                marginRight: theme.spacing(1),
             },
+        },
+        rowContainer: {
+            height: 43,
         },
     }),
 );

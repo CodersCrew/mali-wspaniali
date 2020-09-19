@@ -16,21 +16,27 @@ export class GetKindergartenWithUsersHandler
   ) {}
 
   async execute({
-    id,
-  }: GetKindergartenWithUsersQuery): Promise<KindergartenWithUsersProps> {
-    const kindergarten = await this.kindergartenRepository.get(id);
+    ids,
+  }: GetKindergartenWithUsersQuery): Promise<KindergartenWithUsersProps[]> {
+    const kindergartensWithUser = [];
 
-    const children = await this.childRepository.getByKindergarten(id);
+    for (const id of ids) {
+      const kindergarten = await this.kindergartenRepository.get(id);
 
-    const parents = await this.userRepository.getByChildren(
-      children.map(c => c._id),
-    );
+      const children = await this.childRepository.getByKindergarten(id);
 
-    const kindergartenWithUsers = {
-      ...kindergarten,
-      users: parents,
-    };
+      const parents = await this.userRepository.getByChildren(
+        children.map(c => c._id),
+      );
 
-    return kindergartenWithUsers;
+      const kindergartenWithUsers = {
+        ...kindergarten,
+        users: parents,
+      };
+
+      kindergartensWithUser.push(kindergartenWithUsers);
+    }
+
+    return kindergartensWithUser;
   }
 }
