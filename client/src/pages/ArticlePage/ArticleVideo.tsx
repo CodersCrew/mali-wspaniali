@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, CardMedia, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { ButtonPrimary } from '../../components/Button';
+import { customArticleTheme } from './ArticlePage';
 //import { customArticleTheme } from './ArticlePage';
 
 interface Props {
@@ -13,24 +14,22 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 
     return (
         <Grid className={classes.contentVideoContainer} container direction="row">
-            <Grid className={classes.wrapperContainer} item lg={12} xs={12}>
-                <Grid className={classes.contentVideo}>
-                    <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
-                </Grid>
+            <Grid className={classes.contentVideo} item xs={12}>
+                <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
+            </Grid>
 
-                <Grid className={classes.contentTags} item lg={8} md={11} xs={12}>
-                    {tags.map((tag, index) => {
-                        return (
-                            <ButtonPrimary
-                                key={`${tag} ${index}`}
-                                variant="contained"
-                                disableElevation
-                                className={classes.contentTagsButton}
-                                innerText={`#${tag}`}
-                            />
-                        );
-                    })}
-                </Grid>
+            <Grid className={classes.contentTags} item lg={8} md={11} xs={12}>
+                {tags.map((tag, index) => {
+                    return (
+                        <ButtonPrimary
+                            key={`${tag} ${index}`}
+                            variant="contained"
+                            disableElevation
+                            className={classes.contentTagsButton}
+                            innerText={`#${tag}`}
+                        />
+                    );
+                })}
             </Grid>
         </Grid>
     );
@@ -39,14 +38,15 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentVideo: {
-            width: '95vw',
+            width: '92vw',
+            paddingRight: `${theme.spacing(2)}px`,
 
-            [theme.breakpoints.up('md')]: {
+            [customArticleTheme.breakpoints.up('md')]: {
                 width: '82vw',
             },
 
             [theme.breakpoints.up('lg')]: {
-                width: '62vw',
+                width: '50vw',
             },
         },
         wrapperContainer: {
@@ -58,19 +58,15 @@ const useStyles = makeStyles((theme: Theme) =>
             borderBottom: 'solid',
             borderBottomColor: theme.palette.divider,
             borderBottomWidth: '1px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
 
-            [theme.breakpoints.down('md')]: {
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            },
+            [theme.breakpoints.up('md')]: {},
         },
         contentVideoPlayer: {
             minHeight: '35vw',
             border: 'none',
-            [theme.breakpoints.down('sm')]: {
-                paddingRight: '0',
-            },
         },
         contentTags: {
             display: 'flex',

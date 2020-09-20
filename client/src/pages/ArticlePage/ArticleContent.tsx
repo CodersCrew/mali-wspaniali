@@ -8,23 +8,12 @@ interface Props {
     pictureUrl: string;
     contentHTML: string;
     title: string;
-    header: string;
-    subtitle: string;
     description: string;
     date: Date;
     readingTime: number;
 }
 
-export const ArticleContent = ({
-    title,
-    subtitle,
-    description,
-    header,
-    pictureUrl,
-    contentHTML,
-    date,
-    readingTime,
-}: Props) => {
+export const ArticleContent = ({ title, description, pictureUrl, contentHTML, date, readingTime }: Props) => {
     const classes = useStyles();
     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     const { t } = useTranslation();

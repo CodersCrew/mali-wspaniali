@@ -37,14 +37,12 @@ export const ArticlePage = () => {
         <>
             {device === 'MOBILE' && <ArticleNavigationMobile onClick={onBackClick} />}
             <Grid className={classes.rootGrid} container direction="column">
-                <Grid className={classes.articleContentContainer} item lg={12}>
+                <Grid className={classes.articleContentContainer} item xs={11} lg={10}>
                     <ArticleContent
                         pictureUrl={data.article.pictureUrl}
                         contentHTML={data.article.contentHTML}
                         title={data.article.title}
-                        subtitle={data.article.subtitle}
                         description={data.article.description}
-                        header={data.article.header}
                         date={data.article.date}
                         readingTime={data.article.readingTime}
                     />
@@ -95,13 +93,15 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             padding: `${theme.spacing(3)}px`,
 
-            [customArticleTheme.breakpoints.down('xs')]: {
-                width: '100%',
-                padding: `${theme.spacing(2)}px`,
+            [theme.breakpoints.down('lg')]: {
+                minWidth: '99vw',
             },
-            [customArticleTheme.breakpoints.up('xl')]: {
-                width: '100%',
+            [theme.breakpoints.up('lg')]: {
+                minWidth: 0,
                 padding: `${theme.spacing(4)}px`,
+            },
+            [customArticleTheme.breakpoints.down('xs')]: {
+                padding: `${theme.spacing(2)}px`,
             },
         },
         videoContainer: {
