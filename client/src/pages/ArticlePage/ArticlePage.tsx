@@ -56,7 +56,7 @@ export const ArticlePage = () => {
                         <ArticleRedactor redactor={data.article.redactor} />
                     </Grid>
                 </Grid>
-                <Grid className={classes.paginationButtonsContainer} item md={9} xs={12}>
+                <Grid className={classes.paginationButtonsContainer}>
                     <ButtonDefault variant="contained">{t(`single-article.go-to-previous-page`)}</ButtonDefault>
                     <ButtonDefault variant="contained" color={'secondary'}>
                         {t(`single-article.go-to-next-page`)}
@@ -90,10 +90,18 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         articleContentContainer: {
             position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             padding: `${theme.spacing(3)}px`,
 
-            [theme.breakpoints.down('sm')]: {
+            [customArticleTheme.breakpoints.down('xs')]: {
                 width: '100%',
+                padding: `${theme.spacing(2)}px`,
+            },
+            [customArticleTheme.breakpoints.up('xl')]: {
+                width: '100%',
+                padding: `${theme.spacing(4)}px`,
             },
         },
         videoContainer: {

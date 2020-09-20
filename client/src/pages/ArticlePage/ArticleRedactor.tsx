@@ -40,8 +40,6 @@ export const ArticleRedactor = ({ redactor }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         wrapper: {
-            width: '70vw',
-
             [theme.breakpoints.down('md')]: {
                 paddingRight: `${theme.spacing(2)}px`,
                 width: '100vw',

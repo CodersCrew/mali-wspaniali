@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, CardMedia, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { ButtonPrimary } from '../../components/Button';
+//import { customArticleTheme } from './ArticlePage';
 
 interface Props {
     videoUrl: string;
@@ -12,7 +13,7 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 
     return (
         <Grid className={classes.contentVideoContainer} container direction="row">
-            <Grid className={classes.wrapperContainer} item lg={9} xs={12}>
+            <Grid className={classes.wrapperContainer} item lg={12} xs={12}>
                 <Grid className={classes.contentVideo}>
                     <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
                 </Grid>
@@ -38,17 +39,19 @@ export const ArticleVideo = ({ videoUrl, tags }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentVideo: {
-            width: '50vw',
-            [theme.breakpoints.down('md')]: {
-                paddingLeft: `${theme.spacing(4)}px`,
-                paddingRight: `${theme.spacing(4)}px`,
-                width: '100vw',
+            width: '95vw',
+
+            [theme.breakpoints.up('md')]: {
+                width: '82vw',
+            },
+
+            [theme.breakpoints.up('lg')]: {
+                width: '62vw',
             },
         },
         wrapperContainer: {
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
         },
 
         contentVideoContainer: {

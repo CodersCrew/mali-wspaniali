@@ -31,11 +31,10 @@ export const ArticleContent = ({
 
     return (
         <Grid className={classes.contentGrid} container direction="column">
-            <Grid item xs={12} lg={9}>
-                <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
-            </Grid>
+            <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
+
             <Grid className={classes.subContainer} item lg={9} xs={12}>
-                <Grid className={classes.contentContainer} item xs={12} lg={8}>
+                <Grid className={classes.contentContainer} item xs={12}>
                     <div className={classes.contentDateReadingTime}>
                         <Typography className={classes.dateReadingTime}>
                             {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
@@ -63,11 +62,23 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentGrid: {
             backgroundColor: theme.palette.background.default,
+            alignItems: 'center',
+            [theme.breakpoints.down('md')]: {
+                alignItems: 'center',
+            },
         },
         subContainer: {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            width: '75vw',
+
+            [customArticleTheme.breakpoints.down('md')]: {
+                width: '97vw',
+            },
+            [customArticleTheme.breakpoints.between('md', 'lg')]: {
+                width: '83vw',
+            },
         },
         contentPhotoMedia: {
             height: '441px',
