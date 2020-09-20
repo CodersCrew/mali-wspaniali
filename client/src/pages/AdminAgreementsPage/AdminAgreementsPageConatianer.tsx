@@ -22,7 +22,7 @@ export function AdminAgreementsPageContainer() {
     const { data: allKindergartenList, loading: isAllKindergartenListLoading } = useQuery<{
         kindergartens: Kindergarten[];
     }>(KINDERGARTENS);
-    const [getSpecificKindergartens, { data: kindergartens }] = useLazyQuery<{
+    const [getSpecificKindergartens, { data: kindergartens, loading: isKindergartenLoading }] = useLazyQuery<{
         kindergartenWithUsers: KindergartenWithUsers[];
     }>(KINDERGARTEN_WITH_USERS);
 
@@ -54,15 +54,16 @@ export function AdminAgreementsPageContainer() {
 
     if (isAllKindergartenListLoading) return <div>Loading...</div>;
 
-    if (!allKindergartenList || !kindergartens) return null;
+    if (!allKindergartenList) return null;
 
     return (
         <AdminAgreementsPage
-            kindergartens={mapWithFilters([...kindergartens.kindergartenWithUsers])}
+            kindergartens={mapWithFilters([...kindergartens?.kindergartenWithUsers || []])}
             agreementsStatusFilter={agreementsStatusFilter}
             agreementsTypeFilter={agreementsTypeFilter}
             agreementsKindergartenFilter={agreementsKindergartenFilter}
             agreementsSortStatus={agreementsSortStatus}
+            isKindergartenLoading={isKindergartenLoading}
             actions={{
                 setSortStatus,
                 setAgreementFilter,
