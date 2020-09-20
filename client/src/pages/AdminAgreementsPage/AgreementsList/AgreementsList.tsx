@@ -15,7 +15,6 @@ interface Props {
 export function AgreementsList({ kindergartens, activeSortType, isLoading, onSortChange }: Props) {
     const classes = useStyles();
 
-
     if (isLoading)
         return (
             <TableContainer component={Paper}>
@@ -24,9 +23,13 @@ export function AgreementsList({ kindergartens, activeSortType, isLoading, onSor
                         <SortableHeader activeSortType={activeSortType} onSortChange={onSortChange} />
                     </TableHead>
                     <TableBody>
-                        {[1, 2, 3, 4].map(e => (
-                            <ChildrenFromKindergartenListLoading key={e} />
-                        ))}
+                        <ChildrenFromKindergartenListLoading />
+                        <ChildrenFromKindergartenListLoading />
+                        <ChildrenFromKindergartenListLoading />
+                        <ChildrenFromKindergartenListLoading />
+                        <ChildrenFromKindergartenListLoading />
+                        <ChildrenFromKindergartenListLoading />
+                        <ChildrenFromKindergartenListLoading />
                     </TableBody>
                 </Table>
             </TableContainer>
