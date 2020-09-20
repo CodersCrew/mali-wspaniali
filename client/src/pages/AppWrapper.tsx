@@ -89,7 +89,13 @@ export const AppWrapper: FC = ({ children }) => {
                 <main className={classes.content}>
                     <div className={classes.toolbar}>{children}</div>
                 </main>
-                {user.role !== 'admin' ? <AddChildModal handleSubmit={() => {}} /> : null}
+                {user.role !== 'admin' ? (
+                    <AddChildModal
+                        handleSubmit={() => {
+                            console.log('handleSubmit');
+                        }}
+                    />
+                ) : null}
             </Box>
         </UserContext.Provider>
     );
