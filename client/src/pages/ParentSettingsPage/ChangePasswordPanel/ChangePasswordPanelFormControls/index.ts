@@ -1,2 +1,4 @@
 export { validateNewPassword } from './validateNewPassword';
-export { validateOldPassword } from './validateOldPassword';
+export {
+    validateOldPassword,
+} from '../../ChangePasswordPanelFormik/ChangePasswordPanelFormControlsFormik/validateOldPassword';

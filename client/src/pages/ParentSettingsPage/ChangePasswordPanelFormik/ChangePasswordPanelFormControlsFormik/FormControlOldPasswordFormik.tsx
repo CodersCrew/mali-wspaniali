@@ -1,18 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-
-export interface ChangePasswordPanelFormikProps {
-    value: string;
-    onChange: (event: ChangeEvent<any>) => void;
-    onBlur: (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    show: boolean;
-    toggle: () => void;
-    error: boolean;
-    helperText: string;
-}
+import { ChangePasswordPanelFormikProps } from './interfaces';
 
 export const FormControlOldPasswordFormik = ({
     value,
@@ -28,7 +19,10 @@ export const FormControlOldPasswordFormik = ({
 
     return (
         <FormControl variant="outlined" className={classes.form}>
-            <InputLabel htmlFor="outlined-adornment-password">{t('settings-page.old-password')}</InputLabel>
+            {/* <InputLabel htmlFor="outlined-adornment-password">{t('settings-page.old-password')}</InputLabel> */}
+            <InputLabel htmlFor="old-password" error={error}>
+                {t('settings-page.old-password')}
+            </InputLabel>
             <OutlinedInput
                 required
                 fullWidth

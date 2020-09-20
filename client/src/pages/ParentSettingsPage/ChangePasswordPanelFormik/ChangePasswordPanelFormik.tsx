@@ -8,16 +8,18 @@ import * as Yup from 'yup';
 import { ButtonSecondary } from '../../../components/Button';
 import { FormControlOldPasswordFormik } from './ChangePasswordPanelFormControlsFormik/FormControlOldPasswordFormik';
 import { openAlertDialog } from '../../../components/AlertDialog';
+import { validateOldPassword } from '../ChangePasswordPanel/ChangePasswordPanelFormControls';
 import { AUTHORIZE_USER } from '../../../graphql/userRepository';
 import { UserContext } from '../../AppWrapper';
+import { FormControlNewPasswordFormik } from './ChangePasswordPanelFormControlsFormik/FormControlNewPasswordFormik';
+import { ValidateOldPassword } from './ChangePasswordPanelFormControlsFormik/interfaces';
 
 export const ChangePasswordPanelFormik = () => {
     const { t } = useTranslation();
     const classes = useStyles();
 
     const OldPasswordSchema = Yup.object().shape({
-        oldPassword: Yup.string()
-            .required('Required')
+        oldPassword: Yup.string().required('Required'),
         /*
             .test('yupValidateOldPassword',
                 'wrong password',
@@ -27,48 +29,44 @@ export const ChangePasswordPanelFormik = () => {
                     return true;
                 }),
 */
+        newPassword: Yup.string()
+            .required('Required')
+            .min(8, 'too short'),
     });
 
     const formik = useFormik({
         initialValues: {
             oldPassword: '',
             showOldPassword: false,
+            newPassword: '',
+            showNewPassword: false,
         },
         onSubmit: values => {
-            // TODO: do zastąpienia czymś później
+            // TODO: to be replaced later
             alert(JSON.stringify(values, null, 2));
         },
         validationSchema: OldPasswordSchema,
     });
 
-    const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
+    // This re-renders component;
+    // without it yup.required on the oldPassword doesn't work if fired as the first action
+    // const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
-    const [authorizeUser] = useMutation(AUTHORIZE_USER);
-    const user = useContext(UserContext);
+    const oldPasswordValid = () => {
+        formik.errors.oldPassword = '';
+    };
 
-    const validateOldPassword = (value: string) => {
-        if (user?.mail) {
-            (() => {
-                authorizeUser({
-                    variables: {user: {mail: user.mail, password: value}},
-                })
-                    .then(() => {
-                        formik.errors.oldPassword = '';
-                    })
-                    .catch(err => {
-                        if (err.message === 'Wrong mail or password') {
-                            formik.setErrors({oldPassword: t('settings-page.wrong-old-password')});
-                            forceUpdate();
-                        } else {
-                            openAlertDialog({
-                                type: 'error',
-                                description: `${t('settings-page.wrong-old-password-error')}: ${err.message}`,
-                            });
-                            formik.setErrors({oldPassword: t('settings-page.wrong-old-password-error')});
-                            forceUpdate();
-                        }
-                    });
-            })();
+    const oldPasswordInvalid = (error: any) => {
+        if (error.message === 'Wrong mail or password') {
+            formik.setErrors({ oldPassword: t('settings-page.wrong-old-password') });
+            // forceUpdate();
+        } else {
+            openAlertDialog({
+                type: 'error',
+                description: `${t('settings-page.wrong-old-password-error')}: ${error.message}`,
+            });
+            formik.setErrors({ oldPassword: t('settings-page.wrong-old-password-error') });
+            // forceUpdate();
         }
     };
 
@@ -76,9 +74,20 @@ export const ChangePasswordPanelFormik = () => {
         formik.setValues({ ...formik.values, showOldPassword: !formik.values.showOldPassword });
     };
 
+    const [authorizeUser] = useMutation(AUTHORIZE_USER);
+    const user = useContext(UserContext);
     const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         formik.handleBlur(event);
-        if (event.target.value) validateOldPassword(event.target.value);
+
+        const ValidateOldPasswordParams: ValidateOldPassword = {
+            password: event.target.value,
+            mail: user ? user.mail : '',
+            authorizeUser,
+            callbackValid: oldPasswordValid,
+            callbackInvalid: oldPasswordInvalid,
+        };
+
+        if (event.target.value) validateOldPassword(ValidateOldPasswordParams);
     };
 
     return (
@@ -94,6 +103,7 @@ export const ChangePasswordPanelFormik = () => {
                         error={!!formik.errors.oldPassword}
                         helperText={formik.errors.oldPassword || ''}
                     />
+                    <FormControlNewPasswordFormik />
                     <Typography className={classes.submitWrapper}>
                         <ButtonSecondary
                             type="submit"
