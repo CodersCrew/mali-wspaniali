@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
         toolbar: theme.mixins.toolbar,
         logo: {
             marginLeft: theme.spacing(5),
-            marginRight: theme.spacing(16),
+            marginRight: theme.spacing(33),
         },
         menuRoot: {
             display: 'flex',
