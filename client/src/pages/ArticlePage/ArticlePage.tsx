@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: `${theme.spacing(3)}px`,
 
             [theme.breakpoints.down('lg')]: {
-                minWidth: '99vw',
+                minWidth: '96vw',
             },
             [theme.breakpoints.up('lg')]: {
                 minWidth: 0,

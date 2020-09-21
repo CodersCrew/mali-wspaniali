@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '75vw',
 
             [customArticleTheme.breakpoints.down('md')]: {
-                width: '97vw',
+                width: '96vw',
             },
             [customArticleTheme.breakpoints.between('md', 'lg')]: {
                 width: '83vw',
