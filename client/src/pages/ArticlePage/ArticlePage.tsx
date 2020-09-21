@@ -37,7 +37,7 @@ export const ArticlePage = () => {
         <>
             {device === 'MOBILE' && <ArticleNavigationMobile onClick={onBackClick} />}
             <Grid className={classes.rootGrid} container direction="column">
-                <Grid className={classes.articleContentContainer} item xs={11} lg={10}>
+                <Grid className={classes.articleContentContainer} item xs={12} lg={10}>
                     <ArticleContent
                         pictureUrl={data.article.pictureUrl}
                         contentHTML={data.article.contentHTML}
