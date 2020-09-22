@@ -32,19 +32,20 @@ export const ArticlePage = () => {
     }
 
     if (!data || !data.article) return null;
+    const { pictureUrl, date, readingTime, title, description, contentHTML } = data.article;
 
     return (
-        <>
+        <React.Fragment>
             {device === 'MOBILE' && <ArticleNavigationMobile onClick={onBackClick} />}
             <Grid className={classes.rootGrid} container direction="column">
                 <Grid className={classes.articleContentContainer} item xs={12} lg={10}>
                     <ArticleContent
-                        pictureUrl={data.article.pictureUrl}
-                        contentHTML={data.article.contentHTML}
-                        title={data.article.title}
-                        description={data.article.description}
-                        date={data.article.date}
-                        readingTime={data.article.readingTime}
+                        pictureUrl={pictureUrl}
+                        date={date}
+                        readingTime={readingTime}
+                        title={title}
+                        description={description}
+                        contentHTML={contentHTML}
                     />
 
                     <Grid className={classes.videoContainer}>
@@ -61,7 +62,7 @@ export const ArticlePage = () => {
                     </ButtonDefault>
                 </Grid>
             </Grid>
-        </>
+        </React.Fragment>
     );
 };
 
@@ -91,17 +92,17 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            padding: `${theme.spacing(3)}px`,
+            padding: theme.spacing(3),
 
             [theme.breakpoints.down('lg')]: {
                 minWidth: '96vw',
             },
             [theme.breakpoints.up('lg')]: {
                 minWidth: 0,
-                padding: `${theme.spacing(4)}px`,
+                padding: theme.spacing(4),
             },
             [customArticleTheme.breakpoints.down('xs')]: {
-                padding: `${theme.spacing(2)}px`,
+                padding: theme.spacing(2),
             },
         },
         videoContainer: {
@@ -120,7 +121,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
-            padding: `${theme.spacing(1)}px ${theme.spacing(3)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
+            padding: theme.spacing(1, 3, 3, 3),
 
             [theme.breakpoints.up('xl')]: {
                 paddingTop: theme.spacing(2),
