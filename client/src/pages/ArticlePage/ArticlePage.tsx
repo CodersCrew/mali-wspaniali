@@ -3,11 +3,11 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
-import { Article } from '../../graphql/types';
 import { ArticleContent, customArticleTheme } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
+import { Article } from '../../graphql/types';
 import { ARTICLE_BY_ID } from '../../graphql/articleRepository';
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
@@ -57,7 +57,7 @@ export const ArticlePage = () => {
                 </Grid>
                 <Grid className={classes.paginationButtonsContainer}>
                     <ButtonDefault variant="contained">{t(`single-article.go-to-previous-page`)}</ButtonDefault>
-                    <ButtonDefault variant="contained" color={'secondary'}>
+                    <ButtonDefault variant="contained" color="secondary">
                         {t(`single-article.go-to-next-page`)}
                     </ButtonDefault>
                 </Grid>

@@ -24,18 +24,18 @@ export const ArticleContent = ({ title, description, pictureUrl, contentHTML, da
             <Grid className={classes.subContainer} item lg={9} xs={12}>
                 <Grid className={classes.contentContainer} item xs={12}>
                     <div className={classes.contentDateReadingTime}>
-                        <Typography className={classes.dateReadingTime} variant={'overline'}>
+                        <Typography className={classes.dateReadingTime} variant="overline">
                             {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
                         </Typography>
-                        <Typography className={classes.dateReadingTime} variant={'overline'}>
+                        <Typography className={classes.dateReadingTime} variant="overline">
                             {readingTime} {t('single-article.reading-time')}
                         </Typography>
                     </div>
                     <div className={classes.contentHeader}>
-                        <Typography className={classes.title} variant={'h2'}>
+                        <Typography className={classes.title} variant="h2">
                             {title}
                         </Typography>
-                        <Typography className={classes.description} variant={'h3'}>
+                        <Typography className={classes.description} variant="h3">
                             {description}
                         </Typography>
                     </div>

@@ -21,12 +21,12 @@ export const ArticleRedactor = ({ redactor }: Props) => {
             <Grid item xs={6}>
                 <Grid container direction="column">
                     <Grid item xs={3} md={9}>
-                        <Typography className={classes.contentRedactorProf} variant={'overline'}>
+                        <Typography className={classes.contentRedactorProf} variant="overline">
                             {redactor.profession}
                         </Typography>
                         <Typography
                             className={classes.contentRedactorName}
-                            variant={'h4'}
+                            variant="h4"
                         >{`${redactor.firstName} ${redactor.lastName}`}</Typography>
                     </Grid>
                     <Grid>
