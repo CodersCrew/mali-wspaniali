@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, CardMedia, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { customArticleTheme } from './ArticleContent';
 import { ButtonPrimary } from '../../components/Button';
-import { customArticleTheme } from './ArticlePage';
 
 interface Props {
     videoUrl: string;

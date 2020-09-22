@@ -1,8 +1,7 @@
 import React from 'react';
-import { makeStyles, createStyles, Grid, Typography, CardMedia, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Typography, CardMedia, Theme, createMuiTheme } from '@material-ui/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
-import { customArticleTheme } from './ArticlePage';
 
 interface Props {
     pictureUrl: string;
@@ -50,6 +49,18 @@ export const ArticleContent = ({ title, description, pictureUrl, contentHTML, da
         </Grid>
     );
 };
+
+export const customArticleTheme = createMuiTheme({
+    breakpoints: {
+        values: {
+            xs: 361,
+            sm: 768,
+            md: 1024,
+            lg: 1440,
+            xl: 1920,
+        },
+    },
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

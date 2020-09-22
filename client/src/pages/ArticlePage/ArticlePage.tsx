@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Grid, Theme, createMuiTheme } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { Article } from '../../graphql/types';
-import { ArticleContent } from './ArticleContent';
+import { ArticleContent, customArticleTheme } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
@@ -65,18 +65,6 @@ export const ArticlePage = () => {
         </React.Fragment>
     );
 };
-
-export const customArticleTheme = createMuiTheme({
-    breakpoints: {
-        values: {
-            xs: 361,
-            sm: 768,
-            md: 1024,
-            lg: 1440,
-            xl: 1920,
-        },
-    },
-});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
