@@ -25,16 +25,20 @@ export const ArticleContent = ({ title, description, pictureUrl, contentHTML, da
             <Grid className={classes.subContainer} item lg={9} xs={12}>
                 <Grid className={classes.contentContainer} item xs={12}>
                     <div className={classes.contentDateReadingTime}>
-                        <Typography className={classes.dateReadingTime}>
+                        <Typography className={classes.dateReadingTime} variant={'overline'}>
                             {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
                         </Typography>
-                        <Typography className={classes.dateReadingTime}>
+                        <Typography className={classes.dateReadingTime} variant={'overline'}>
                             {readingTime} {t('single-article.reading-time')}
                         </Typography>
                     </div>
                     <div className={classes.contentHeader}>
-                        <Typography className={classes.title}>{title}</Typography>
-                        <Typography className={classes.description}>{description}</Typography>
+                        <Typography className={classes.title} variant={'h2'}>
+                            {title}
+                        </Typography>
+                        <Typography className={classes.description} variant={'h3'}>
+                            {description}
+                        </Typography>
                     </div>
                     <Grid container direction="row">
                         <Grid className={classes.contentHTML} item>
@@ -94,43 +98,37 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100vw',
         },
         contentDateReadingTime: {
-            paddingTop: `${theme.spacing(4)}px`,
+            paddingTop: theme.spacing(4),
             display: 'flex',
             flexDirection: 'row',
 
             [customArticleTheme.breakpoints.down('xs')]: {
-                paddingTop: `${theme.spacing(3)}px`,
+                paddingTop: theme.spacing(3),
             },
             [theme.breakpoints.up('xl')]: {
-                paddingTop: `${theme.spacing(5)}px`,
+                paddingTop: theme.spacing(5),
             },
         },
         dateReadingTime: {
-            fontSize: theme.typography.overline.fontSize,
             marginRight: theme.spacing(4),
             textTransform: 'uppercase',
-            letterSpacing: theme.typography.overline.letterSpacing,
         },
         contentHeader: {
-            paddingTop: `${theme.spacing(2)}px`,
+            paddingTop: theme.spacing(2),
 
             [theme.breakpoints.up('xl')]: {
-                paddingTop: `${theme.spacing(4)}px`,
+                paddingTop: theme.spacing(4),
             },
         },
         title: {
-            fontSize: theme.typography.h2.fontSize,
             letterSpacing: theme.typography.body2.letterSpacing,
-            lineHeight: theme.typography.h2.lineHeight,
         },
         description: {
-            paddingTop: `${theme.spacing(2)}px`,
-            fontSize: theme.typography.h3.fontSize,
+            paddingTop: theme.spacing(2),
             letterSpacing: theme.typography.body2.letterSpacing,
-            lineHeight: theme.typography.h3.lineHeight,
 
             [customArticleTheme.breakpoints.down('xs')]: {
-                paddingTop: `20px`,
+                paddingTop: theme.spacing(2) + 4,
             },
         },
         contentHTML: {
@@ -139,7 +137,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginBottom: theme.spacing(2),
             },
 
-            paddingTop: `${theme.spacing(3)}px`,
+            paddingTop: theme.spacing(3),
             marginTop: 0,
             paddingBottom: theme.spacing(3),
             fontSize: theme.typography.body1.fontSize,
@@ -147,7 +145,7 @@ const useStyles = makeStyles((theme: Theme) =>
             letterSpacing: theme.typography.body1.letterSpacing,
 
             [theme.breakpoints.up('xl')]: {
-                paddingTop: `${theme.spacing(3)}px`,
+                paddingTop: theme.spacing(3),
                 paddingBottom: theme.spacing(4),
             },
         },

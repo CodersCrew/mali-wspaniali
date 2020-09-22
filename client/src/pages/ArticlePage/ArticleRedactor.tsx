@@ -20,10 +20,13 @@ export const ArticleRedactor = ({ redactor }: Props) => {
             </Grid>
             <Grid item xs={6}>
                 <Grid container direction="column">
-                    <Grid className={classes.contentRedactorNameContainer} item xs={3} md={9}>
-                        <Typography className={classes.contentRedactorProf}>{redactor.profession}</Typography>
+                    <Grid item xs={3} md={9}>
+                        <Typography className={classes.contentRedactorProf} variant={'overline'}>
+                            {redactor.profession}
+                        </Typography>
                         <Typography
                             className={classes.contentRedactorName}
+                            variant={'h4'}
                         >{`${redactor.firstName} ${redactor.lastName}`}</Typography>
                     </Grid>
                     <Grid>
@@ -41,15 +44,15 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         wrapper: {
             [theme.breakpoints.down('md')]: {
-                paddingRight: `${theme.spacing(2)}px`,
+                paddingRight: theme.spacing(2),
                 width: '100vw',
             },
         },
         contentRedactorAvatarContainer: {
-            paddingRight: `${theme.spacing(3)}px`,
+            paddingRight: theme.spacing(3),
 
             [theme.breakpoints.down('sm')]: {
-                paddingRight: `${theme.spacing(2)}px`,
+                paddingRight: theme.spacing(2),
             },
         },
         contentRedactorAvatar: {
@@ -61,19 +64,12 @@ const useStyles = makeStyles((theme: Theme) =>
                 height: '70px',
             },
         },
-        contentRedactorNameContainer: {},
         contentRedactorProf: {
-            fontSize: theme.typography.overline.fontSize,
-            letterSpacing: theme.typography.overline.letterSpacing,
-            lineHeight: theme.typography.overline.lineHeight,
             textTransform: 'uppercase',
         },
         contentRedactorName: {
-            paddingTop: `${theme.spacing(1)}px`,
-            fontSize: theme.typography.h4.fontSize,
+            paddingTop: theme.spacing(1),
             fontWeight: theme.typography.button.fontWeight,
-            letterSpacing: theme.typography.h4.letterSpacing,
-            lineHeight: theme.typography.h4.lineHeight,
 
             [theme.breakpoints.down('sm')]: {
                 width: '100vw',
@@ -81,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         contentRedactorDescriptionBox: {
             fontWeight: theme.typography.button.fontWeight,
-            marginTop: `${theme.spacing(2)}px`,
+            marginTop: theme.spacing(2),
             padding: 0,
         },
         contentRedactorDescription: {

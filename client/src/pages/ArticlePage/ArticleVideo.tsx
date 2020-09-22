@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid, CardMedia, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { ButtonPrimary } from '../../components/Button';
 import { customArticleTheme } from './ArticlePage';
-//import { customArticleTheme } from './ArticlePage';
 
 interface Props {
     videoUrl: string;
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentVideo: {
             width: '92vw',
-            paddingRight: `${theme.spacing(2)}px`,
+            paddingRight: theme.spacing(2),
 
             [customArticleTheme.breakpoints.up('md')]: {
                 width: '82vw',
@@ -61,8 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-
-            [theme.breakpoints.up('md')]: {},
         },
         contentVideoPlayer: {
             minHeight: '35vw',
@@ -72,19 +69,19 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             width: '100%',
             flexWrap: 'wrap',
-            margin: `${theme.spacing(2)}px 0 ${theme.spacing(4)}px 0`,
+            margin: theme.spacing(2, 0, 4),
 
             [theme.breakpoints.down('xs')]: {
-                marginLeft: `${theme.spacing(1)}px`,
+                marginLeft: theme.spacing(1),
             },
             [theme.breakpoints.up('xl')]: {
-                margin: `${theme.spacing(2)}px 0 ${theme.spacing(5)}px 0`,
+                margin: theme.spacing(2, 0, 5),
             },
         },
         contentTagsButton: {
             color: theme.palette.text.primary,
             borderRadius: theme.spacing(2),
-            margin: `${theme.spacing(2)}px ${theme.spacing(2)}px 0 0`,
+            margin: theme.spacing(2, 2, 0, 0),
         },
     }),
 );
