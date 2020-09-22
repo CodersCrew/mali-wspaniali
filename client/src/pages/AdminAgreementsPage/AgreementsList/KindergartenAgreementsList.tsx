@@ -12,7 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Status } from '../../../components/Icons/Status';
 
-interface Parent {
+export interface Parent {
     email: string;
     children: string[];
     viewAgreement: boolean;

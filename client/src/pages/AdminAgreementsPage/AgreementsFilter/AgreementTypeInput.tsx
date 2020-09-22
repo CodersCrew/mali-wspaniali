@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 
 import { FilterMenuProps } from './FilterMenuProps';
 import { AgreementTypeFilters } from '../../../models/AgreementTypeFilters';
-import { AgreementsTypeFilterMutations } from '../../../operations/mutations/agreementsTypeFilterMutations';
 
 interface Props {
     value: string;
+    onChange: (type: string, value: string) => void;
 }
 
-export function AgreementTypeInput({ value: currentValue }: Props) {
+export function AgreementTypeInput({ value: currentValue, onChange }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -20,12 +20,10 @@ export function AgreementTypeInput({ value: currentValue }: Props) {
             <Select
                 label={t('agreements-filter.by-agreement-type')}
                 value={currentValue}
-                onChange={({ target: { value } }) => {
-                    AgreementsTypeFilterMutations.setAgreementsTypeFilter(AgreementTypeFilters[value as string]);
-                }}
+                onChange={({ target: { name, value } }) => onChange(name as string, value as string)}
                 fullWidth
                 inputProps={{
-                    name: 'age',
+                    name: 'TYPE',
                     id: 'outlined-age-native-simple',
                 }}
                 MenuProps={FilterMenuProps}

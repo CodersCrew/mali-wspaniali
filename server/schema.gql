@@ -141,7 +141,7 @@ type Query {
   keyCodes: [CreateKeyCodeDTO!]!
   agreements: [AgreementDTO!]!
   kindergartens: [KindergartenDTO!]!
-  kindergartenWithUsers(id: String!): KindergartenWithUsersDTO!
+  kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   newsletters: [NewsletterDTO!]!
 }
 
