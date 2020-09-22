@@ -390,42 +390,37 @@
     },
     "add-child-modal": {
         "button": "Add",
-        "heading": "Welcome on the website Mali Wspania",
-        "paragraf": "Enter your child's details before going to the home page.",
+        "heading": "Welcome on the website Mali Wspaniali",
+        "description": "Enter your child's details before going to the home page.",
         "errors": {
-            "e1": "this field cannot be empty",
-            "e2": "this field requires a first and last name"
+            "error1": "this field cannot be empty",
+            "error2": "this field requires a first and last name"
         },
         "inputs": {
-            "name_surname": "Name and surname of the child"
+            "name-surname": "Name and surname of the child"
         },
         "select-options": {
             "sex": {
                 "label": "Sex",
-                "l1": "man",
-                "l2": "woman"
+                "option-label-1": "man",
+                "option-label-2": "woman"
             },
             "birth-date": {
                 "label": "Year of birth"
             },
             "birth-quarter": {
                 "label": "Birth quarter",
-                "l1": "I",
-                "hl1": "(january-march)",
-                "l2": "II",
-                "hl2": "(april-june)",
-                "l3": "III",
-                "hl3": "(july-september)",
-                "l4": "IV",
-                "hl4": "(october-december)"
+                "helper-label-1": "(january-march)",
+                "helper-label-2": "(april-june)",
+                "helper-label-3": "(july-september)",
+                "helper-label-4": "(october-december)"
             },
             "city": {
-                "label": "City",
-                "l1": "Wroclaw"
+                "label": "City"
             },
             "kindergarten": {
                 "label": "Kindergarten",
-                "l1": "Dwarfs"
+                "option-label-1": "Dwarfs"
             }
         }
     },

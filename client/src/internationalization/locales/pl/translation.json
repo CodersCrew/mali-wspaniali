@@ -393,41 +393,41 @@
     "add-child-modal": {
         "button": "Dodaj",
         "heading": "Witaj na stronie Mali Wspaniali",
-        "paragraf": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
+        "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
         "errors": {
-            "e1": "to pole nie może być puste",
-            "e2": "to pole wymaga imienia i nazwiska"
+            "error1": "to pole nie może być puste",
+            "error2": "to pole wymaga imienia i nazwiska"
         },
         "inputs": {
-            "name_surname": "Imię i nazwisko dziecka"
+            "name-surname": "Imię i nazwisko dziecka"
         },
         "select-options": {
             "sex": {
                 "label": "Płeć",
-                "l1": "mężczyzna",
-                "l2": "kobieta"
+                "option-label-1": "mężczyzna",
+                "option-label-2": "kobieta"
             },
             "birth-date": {
                 "label": "Rok urodzenia"
             },
             "birth-quarter": {
                 "label": "Kwartał urodzenia",
-                "l1": "I",
-                "hl1": "(styczen-marzec)",
-                "l2": "II",
-                "hl2": "(kwiecień-czerwiec)",
-                "l3": "III",
-                "hl3": "(lipiec-wrzesień)",
-                "l4": "IV",
-                "hl4": "(październik-grudzień)"
+                "option-label-1": "I",
+                "helper-label-1": "(styczen-marzec)",
+                "option-label-2": "II",
+                "helper-label-2": "(kwiecień-czerwiec)",
+                "option-label-3": "III",
+                "helper-label-3": "(lipiec-wrzesień)",
+                "option-label-4": "IV",
+                "helper-label-4": "(październik-grudzień)"
             },
             "city": {
                 "label": "Miasto",
-                "l1": "Wrocław"
+                "option-label-1": "Wrocław"
             },
             "kindergarten": {
                 "label": "Przedszkole",
-                "l1": "Krasnoludki"
+                "option-label-1": "Krasnoludki"
             }
         }
     },

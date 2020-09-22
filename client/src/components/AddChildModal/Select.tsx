@@ -35,14 +35,15 @@ export const Select: FC<FieldAttributes<SelectProps>> = ({ label, value, classNa
                 disabled={!!disabled}
             >
                 {selectValues[name].map((option: Option, i: number) => {
-                    const path = `add-child-modal.select-options.${name}.l${i + 1}`;
-                    const labell = t(path) !== path ? t(path) : option.label;
-                    const hpath = `add-child-modal.select-options.${name}.hl${i + 1}`;
-                    const helperLabel = t(hpath) !== hpath && option.helperLabel ? t(hpath) : '';
+                    const path = `add-child-modal.select-options.${name}.option-label-${i + 1}`;
+                    const optionLabel = t(path) !== path ? t(path) : option.label;
+                    const helperLabelPath = `add-child-modal.select-options.${name}.helper-label-${i + 1}`;
+                    const helperLabel =
+                        t(helperLabelPath) !== helperLabelPath && option.helperLabel ? t(helperLabelPath) : '';
 
                     return (
-                        <MenuItem value={labell} key={labell}>
-                            <OptionField info={helperLabel} label={labell} />
+                        <MenuItem value={optionLabel} key={optionLabel}>
+                            <OptionField info={helperLabel} label={optionLabel} />
                         </MenuItem>
                     );
                 })}

@@ -1,8 +1,17 @@
-// SELECT VALUES
 export interface Option {
     value: string;
     label: string;
     helperLabel?: string;
+}
+function generateDates() {
+    return new Array(20).fill(null).map((x, i) => {
+        const date = (new Date().getFullYear() - i).toString();
+
+        return {
+            value: date,
+            label: date,
+        };
+    });
 }
 
 export const selectValues: { [index: string]: Option[] } = {
@@ -16,12 +25,7 @@ export const selectValues: { [index: string]: Option[] } = {
             label: 'kobieta',
         },
     ],
-    'birth-date': [
-        ...new Array(20).fill(null).map((x, i) => ({
-            value: (new Date().getFullYear() - i).toString(),
-            label: (new Date().getFullYear() - i).toString(),
-        })),
-    ],
+    'birth-date': [...generateDates()],
     'birth-quarter': [
         {
             value: 'pierwsza',
