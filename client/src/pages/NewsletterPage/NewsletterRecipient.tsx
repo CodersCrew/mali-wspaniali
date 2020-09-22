@@ -6,9 +6,42 @@ import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core'
 import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
-import { setLabel, generateKindergardenOptions } from './utils';
 import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
+import { Kindergarten } from '../../graphql/types';
 import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
+
+const setLabel = (
+    generalType: GeneralRecipient | '',
+    specificType: SpecificRecipient | '',
+    recipients: string[],
+): string => {
+    if (generalType === 'PARENTS' && specificType === 'KINDERGARTEN') {
+        if (recipients.length) {
+            return 'newsletter.recipient-select-kindergarten-label-filled';
+        }
+
+        return 'newsletter.recipient-select-kindergarten-label';
+    }
+
+    if (recipients.length) {
+        return 'newsletter.recipient-single-kindergarten-label-filled';
+    }
+
+    return 'newsletter.recipient-single-kindergarten-label';
+};
+
+const generateKindergardenOptions = (kindergardens: Kindergarten[]): { value: string; label: string }[] => {
+    const values = kindergardens.map(kindergarden => {
+        const { _id, number, name } = kindergarden;
+
+        return {
+            value: _id,
+            label: `${number}, ${name}`,
+        };
+    });
+
+    return values;
+};
 
 interface Props {
     generalRecipientType: GeneralRecipient | '';
@@ -34,7 +67,7 @@ export const NewsletterRecipent = ({
 
     const specificTypeOptionsValues = generalRecipientType === 'PARENTS' ? parentsRecipients : kindergartensRecipients;
 
-    const renderKindergardens = (selected: unknown) => {
+    const kidergartenInputValues = (selected: unknown) => {
         return (selected as string[])
             .map(id => {
                 const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
@@ -93,7 +126,7 @@ export const NewsletterRecipent = ({
                                 id="recipients"
                                 label={t(setLabel(generalRecipientType, specificRecipientType, recipients))}
                                 name="recipients"
-                                renderValue={renderKindergardens}
+                                renderValue={kidergartenInputValues}
                                 error={errors.recipients}
                                 touched={touched.recipients}
                             />

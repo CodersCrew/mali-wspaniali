@@ -65,7 +65,7 @@ export const MultipleSelect = ({
 
                     return (
                         <MenuItem key={value} value={value}>
-                            <Checkbox checked={stateData.indexOf(value) > -1} color="primary" />
+                            <Checkbox checked={stateData.includes(value)} color="primary" />
                             <ListItemText primary={selectLabel} />
                         </MenuItem>
                     );
