@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FocusEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@material-ui/core';
+import { ChangeValue } from './types';
 
 interface Props {
     stateData: string;
@@ -8,8 +9,8 @@ interface Props {
         value: string;
         label: string;
     }[];
-    handleChange: (e: ChangeEvent<any>) => void;
-    handleBlur: (e: FocusEvent<any>) => void;
+    handleChange: (e: ChangeEvent<ChangeValue>) => void;
+    handleBlur: (e: FocusEvent<HTMLInputElement>) => void;
     id: string;
     label: string;
     name: string;

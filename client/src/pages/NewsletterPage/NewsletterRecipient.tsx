@@ -8,7 +8,7 @@ import { MultipleSelect } from './MultipleSelect';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
 import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
 import { Kindergarten } from '../../graphql/types';
-import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
+import { GeneralRecipient, SpecificRecipient, NewsletterFormValues, ChangeValue } from './types';
 
 const setLabel = (
     generalType: GeneralRecipient | '',
@@ -47,8 +47,8 @@ interface Props {
     generalRecipientType: GeneralRecipient | '';
     specificRecipientType: SpecificRecipient | '';
     recipients: string[];
-    handleChange: (e: ChangeEvent<any>) => void;
-    handleBlur: (e: FocusEvent<any>) => void;
+    handleChange: (e: ChangeEvent<ChangeValue>) => void;
+    handleBlur: (e: FocusEvent<HTMLInputElement>) => void;
     errors: FormikErrors<NewsletterFormValues>;
     touched: FormikTouched<NewsletterFormValues>;
 }
@@ -68,13 +68,17 @@ export const NewsletterRecipent = ({
     const specificTypeOptionsValues = generalRecipientType === 'PARENTS' ? parentsRecipients : kindergartensRecipients;
 
     const kidergartenInputValues = (selected: unknown) => {
-        return (selected as string[])
-            .map(id => {
-                const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
+        if (Array.isArray(selected)) {
+            return selected
+                .map(id => {
+                    const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
 
-                return obj ? obj.label : 'unknown label';
-            })
-            .join(', ');
+                    return obj ? obj.label : 'unknown label';
+                })
+                .join(', ');
+        }
+
+        return '';
     };
 
     if (!kindergartensData) return null;

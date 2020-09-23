@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FocusEvent, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, FormControl, InputLabel, Select, Checkbox, ListItemText, FormHelperText } from '@material-ui/core';
+import { ChangeValue } from './types';
 
 interface Props {
     stateData: string[];
@@ -8,13 +9,13 @@ interface Props {
         value: string;
         label: string;
     }[];
-    handleChange: (e: ChangeEvent<any>) => void;
-    handleBlur: (e: FocusEvent<any>) => void;
+    handleChange: (e: ChangeEvent<ChangeValue>) => void;
+    handleBlur: (e: FocusEvent<HTMLInputElement>) => void;
     id: string;
     label: string;
     name: string;
     disabled?: boolean;
-    renderValue: (value: any) => ReactNode;
+    renderValue: (value: unknown) => ReactNode;
     error?: string | string[];
     touched?: boolean;
 }

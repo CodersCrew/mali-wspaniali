@@ -8,19 +8,29 @@ import { HelpModal } from './HelpModal';
 import { Workspace } from './Workspace';
 import { SingleSelect } from './SingleSelect';
 import { newsletterTypes } from './data';
-import { NewsletterType, NewsletterFormValues } from './types';
+import { NewsletterType, NewsletterFormValues, ChangeValue } from './types';
 
 interface Props {
-    handleChange: (e: ChangeEvent<any>) => void;
-    handleBlur: (e: FocusEvent<any>) => void;
+    handleChange: (e: ChangeEvent<ChangeValue>) => void;
+    handleBlur: (e: FocusEvent<HTMLInputElement>) => void;
     type: NewsletterType | '';
     topic: string;
     message: string;
     errors: FormikErrors<NewsletterFormValues>;
     touched: FormikTouched<NewsletterFormValues>;
+    onNewsletterChange: (value: string) => void;
 }
 
-export const NewsletterContent = ({ handleChange, handleBlur, type, topic, message, errors, touched }: Props) => {
+export const NewsletterContent = ({
+    handleChange,
+    handleBlur,
+    type,
+    topic,
+    message,
+    errors,
+    touched,
+    onNewsletterChange,
+}: Props) => {
     const { t } = useTranslation();
 
     const handleModalOpen = () => {
@@ -68,7 +78,7 @@ export const NewsletterContent = ({ handleChange, handleBlur, type, topic, messa
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Workspace message={message} handleChange={handleChange} />
+                        <Workspace value={message} onChange={onNewsletterChange} />
                     </Grid>
                 </Grid>
             </CardContent>

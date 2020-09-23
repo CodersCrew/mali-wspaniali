@@ -100,7 +100,7 @@ export const NewsletterPage = () => {
     });
 
     const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = formik.values;
-    const { errors, touched, handleSubmit, handleChange, handleBlur } = formik;
+    const { errors, touched, handleSubmit, handleChange, handleBlur, setFieldValue } = formik;
 
     useEffect(() => {
         activePage(['admin-menu.newsletter']);
@@ -152,6 +152,7 @@ export const NewsletterPage = () => {
                         <StepContent className={classes.stepContent}>
                             <NewsletterContent
                                 handleChange={handleChange}
+                                onNewsletterChange={value => setFieldValue('message', value)}
                                 handleBlur={handleBlur}
                                 type={type}
                                 topic={topic}

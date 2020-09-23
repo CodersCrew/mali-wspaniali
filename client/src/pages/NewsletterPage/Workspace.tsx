@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
@@ -7,19 +7,19 @@ import { modules, formats } from './workspaceConfig';
 import { Theme } from '../../theme';
 
 interface Props {
-    message: string;
-    handleChange: (e: ChangeEvent<any>) => void;
+    value: string;
+    onChange: (value: string) => void;
 }
 
-export const Workspace = ({ message, handleChange }: Props) => {
+export const Workspace = ({ value, onChange }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
     return (
         <ReactQuill
             className={classes.workspace}
-            value={message}
-            onChange={content => console.log(content)}
+            value={value}
+            onChange={onChange}
             theme="snow"
             modules={modules}
             formats={formats}
