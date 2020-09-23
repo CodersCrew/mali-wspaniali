@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 import { InputLabel, FormControl, Select as SelectField } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
-import { FieldAttributes, useField } from 'formik';
 
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { useTranslation } from 'react-i18next';
@@ -10,21 +9,25 @@ import { selectValues, Option } from './selectValues';
 
 interface SelectProps {
     label: string;
+    value: string;
+    name: string;
+    disabled?: boolean;
+    className: string;
+    error: string | undefined;
+    touched: any;
+    onChange: (event: ChangeEvent<{ name?: string | undefined; value: unknown }>, child: ReactNode) => void;
 }
 
-export const Select: FC<FieldAttributes<SelectProps>> = ({ label, value, className, disabled, ...props }) => {
-    const { name } = props;
+export const Select = ({ label, value, className, disabled, name, error, touched, onChange }: SelectProps) => {
     const { t } = useTranslation();
-    const [field, meta] = useField<SelectProps>(props);
-    const errorText = meta.error && meta.touched ? meta.error : '';
+    const errorText = error && touched ? error : '';
 
     return (
         <FormControl variant="outlined" className={className}>
-            <InputLabel htmlFor={name} {...field} error={!!errorText}>
+            <InputLabel htmlFor={name} error={!!errorText}>
                 {label}
             </InputLabel>
             <SelectField
-                {...field}
                 error={!!errorText}
                 id="outlined-select-currency"
                 label={label}
@@ -33,6 +36,7 @@ export const Select: FC<FieldAttributes<SelectProps>> = ({ label, value, classNa
                 renderValue={() => value}
                 labelId={name}
                 disabled={!!disabled}
+                onChange={onChange}
             >
                 {selectValues[name].map((option: Option, i: number) => {
                     const path = `add-child-modal.select-options.${name}.option-label-${i + 1}`;
@@ -48,9 +52,7 @@ export const Select: FC<FieldAttributes<SelectProps>> = ({ label, value, classNa
                     );
                 })}
             </SelectField>
-            <FormHelperText {...field} error={!!errorText}>
-                {errorText}
-            </FormHelperText>
+            <FormHelperText error={!!errorText}>{errorText}</FormHelperText>
         </FormControl>
     );
 };
