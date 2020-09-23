@@ -10,8 +10,3 @@ export interface NewsletterFormValues {
     topic: string;
     message: string;
 }
-
-export interface ChangeValue {
-    name?: string;
-    value: unknown;
-}

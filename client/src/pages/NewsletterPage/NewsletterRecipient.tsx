@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent } from 'react';
+import React, { FocusEvent } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { MultipleSelect } from './MultipleSelect';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
 import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
 import { Kindergarten } from '../../graphql/types';
-import { GeneralRecipient, SpecificRecipient, NewsletterFormValues, ChangeValue } from './types';
+import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
 
 const setLabel = (
     generalType: GeneralRecipient | '',
@@ -47,8 +47,8 @@ interface Props {
     generalRecipientType: GeneralRecipient | '';
     specificRecipientType: SpecificRecipient | '';
     recipients: string[];
-    handleChange: (e: ChangeEvent<ChangeValue>) => void;
-    handleBlur: (e: FocusEvent<HTMLInputElement>) => void;
+    onChange: (name: string, value: string | string[]) => void;
+    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
     errors: FormikErrors<NewsletterFormValues>;
     touched: FormikTouched<NewsletterFormValues>;
 }
@@ -57,8 +57,8 @@ export const NewsletterRecipent = ({
     generalRecipientType,
     specificRecipientType,
     recipients,
-    handleChange,
-    handleBlur,
+    onChange,
+    onBlur,
     errors,
     touched,
 }: Props) => {
@@ -97,8 +97,8 @@ export const NewsletterRecipent = ({
                         <SingleSelect
                             stateData={generalRecipientType}
                             optionsValues={recipientType}
-                            handleChange={handleChange}
-                            handleBlur={handleBlur}
+                            onChange={onChange}
+                            onBlur={onBlur}
                             id="generalRecipientType"
                             label={t('newsletter.general-recipient-label')}
                             name="generalRecipientType"
@@ -110,8 +110,8 @@ export const NewsletterRecipent = ({
                         <SingleSelect
                             stateData={specificRecipientType}
                             optionsValues={specificTypeOptionsValues}
-                            handleChange={handleChange}
-                            handleBlur={handleBlur}
+                            onChange={onChange}
+                            onBlur={onBlur}
                             id="specificRecipientType"
                             label={t('newsletter.specific-recipient-label')}
                             name="specificRecipientType"
@@ -125,8 +125,8 @@ export const NewsletterRecipent = ({
                             <MultipleSelect
                                 stateData={recipients}
                                 optionsValues={kindergardenOptionsValues}
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
+                                onChange={onChange}
+                                onBlur={onBlur}
                                 id="recipients"
                                 label={t(setLabel(generalRecipientType, specificRecipientType, recipients))}
                                 name="recipients"

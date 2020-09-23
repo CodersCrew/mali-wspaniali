@@ -1,7 +1,6 @@
-import React, { ChangeEvent, FocusEvent } from 'react';
+import React, { FocusEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@material-ui/core';
-import { ChangeValue } from './types';
 
 interface Props {
     stateData: string;
@@ -9,8 +8,8 @@ interface Props {
         value: string;
         label: string;
     }[];
-    handleChange: (e: ChangeEvent<ChangeValue>) => void;
-    handleBlur: (e: FocusEvent<HTMLInputElement>) => void;
+    onChange: (name: string, value: string) => void;
+    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
     id: string;
     label: string;
     name: string;
@@ -22,8 +21,8 @@ interface Props {
 export const SingleSelect = ({
     stateData,
     optionsValues,
-    handleChange,
-    handleBlur,
+    onChange,
+    onBlur,
     id,
     label,
     name,
@@ -42,8 +41,10 @@ export const SingleSelect = ({
                 name={name}
                 disabled={disabled}
                 value={stateData || ''}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                onChange={({ target: { name: selectName, value } }) => {
+                    onChange(selectName as string, value as string);
+                }}
+                onBlur={onBlur}
                 MenuProps={{
                     anchorOrigin: {
                         vertical: 'bottom',

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent } from 'react';
+import React, { FocusEvent } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
@@ -8,29 +8,19 @@ import { HelpModal } from './HelpModal';
 import { Workspace } from './Workspace';
 import { SingleSelect } from './SingleSelect';
 import { newsletterTypes } from './data';
-import { NewsletterType, NewsletterFormValues, ChangeValue } from './types';
+import { NewsletterType, NewsletterFormValues } from './types';
 
 interface Props {
-    handleChange: (e: ChangeEvent<ChangeValue>) => void;
-    handleBlur: (e: FocusEvent<HTMLInputElement>) => void;
+    onChange: (name: string, value: string) => void;
+    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
     type: NewsletterType | '';
     topic: string;
     message: string;
     errors: FormikErrors<NewsletterFormValues>;
     touched: FormikTouched<NewsletterFormValues>;
-    onNewsletterChange: (value: string) => void;
 }
 
-export const NewsletterContent = ({
-    handleChange,
-    handleBlur,
-    type,
-    topic,
-    message,
-    errors,
-    touched,
-    onNewsletterChange,
-}: Props) => {
+export const NewsletterContent = ({ onChange, onBlur, type, topic, message, errors, touched }: Props) => {
     const { t } = useTranslation();
 
     const handleModalOpen = () => {
@@ -55,8 +45,8 @@ export const NewsletterContent = ({
                         <SingleSelect
                             stateData={type}
                             optionsValues={newsletterTypes}
-                            handleChange={handleChange}
-                            handleBlur={handleBlur}
+                            onChange={onChange}
+                            onBlur={onBlur}
                             id="newsletter-type"
                             label={t('newsletter.help-modal.type')}
                             name="type"
@@ -70,15 +60,15 @@ export const NewsletterContent = ({
                             name="topic"
                             variant="outlined"
                             label={topic ? t('newsletter.topic-input-label-filled') : t('newsletter.topic-input-label')}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
+                            onChange={({ target: { name, value } }) => onChange(name, value)}
+                            onBlur={onBlur}
                             fullWidth
                             error={touched.topic && !!errors.topic}
                             helperText={touched.topic && !!errors.topic && t(errors.topic)}
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Workspace value={message} onChange={onNewsletterChange} />
+                        <Workspace value={message} onChange={onChange} />
                     </Grid>
                 </Grid>
             </CardContent>

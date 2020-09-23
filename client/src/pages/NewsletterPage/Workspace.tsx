@@ -8,7 +8,7 @@ import { Theme } from '../../theme';
 
 interface Props {
     value: string;
-    onChange: (value: string) => void;
+    onChange: (name: string, value: string) => void;
 }
 
 export const Workspace = ({ value, onChange }: Props) => {
@@ -19,7 +19,7 @@ export const Workspace = ({ value, onChange }: Props) => {
         <ReactQuill
             className={classes.workspace}
             value={value}
-            onChange={onChange}
+            onChange={content => onChange('message', content)}
             theme="snow"
             modules={modules}
             formats={formats}
