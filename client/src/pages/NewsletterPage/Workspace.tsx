@@ -4,27 +4,22 @@ import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import { modules, formats } from './workspaceConfig';
-import { WorkspaceProps, Message } from './types';
+import { Theme } from '../../theme';
 
-export const WorkSpace = (props: WorkspaceProps) => {
+interface Props {
+    value: string;
+    onChange: (name: string, value: string) => void;
+}
+
+export const Workspace = ({ value, onChange }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
-
-    const handleChange = (value: Message) => {
-        props.setFields(prevFields => ({
-            ...prevFields,
-            message: {
-                ...prevFields.message,
-                value,
-            },
-        }));
-    };
 
     return (
         <ReactQuill
             className={classes.workspace}
-            value={props.message}
-            onChange={handleChange}
+            value={value}
+            onChange={content => onChange('message', content)}
             theme="snow"
             modules={modules}
             formats={formats}
@@ -32,12 +27,17 @@ export const WorkSpace = (props: WorkspaceProps) => {
         />
     );
 };
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         workspace: {
-            padding: '0 30px',
+            borderRadius: '4',
             '& .ql-container': {
                 minHeight: 170,
+                borderRadius: '0 0 4px 4px',
+            },
+            '& .ql-toolbar': {
+                borderRadius: '4px 4px 0 0',
+                background: theme.palette.background.default,
             },
         },
     }),
