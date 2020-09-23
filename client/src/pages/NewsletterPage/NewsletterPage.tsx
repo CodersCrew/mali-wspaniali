@@ -9,64 +9,6 @@ import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
 
-const areSpecificRecipientsRequired = (value: SpecificRecipient | '') => value === 'KINDERGARTEN' || value === 'SINGLE';
-
-const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) => Object.keys(errors).length !== 0;
-
-const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
-    !errors.generalRecipientType && !errors.specificRecipientType && !errors.recipients;
-
-const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.topic;
-
-const isFirstStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
-    (!!touched.generalRecipientType && !!errors.generalRecipientType) ||
-    (!!touched.specificRecipientType && !!errors.specificRecipientType) ||
-    (!!touched.recipients && !!errors.recipients);
-
-const isSecondStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
-    (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic);
-
-const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: boolean) => {
-    if (!firstStepCompleted) {
-        return 'newsletter.sidebar.newsletter-content';
-    }
-    if (secondStepCompleted) {
-        return 'newsletter.sidebar.done';
-    }
-
-    return 'newsletter.sidebar.fill';
-};
-
-const validate = (values: NewsletterFormValues) => {
-    const errors: FormikErrors<NewsletterFormValues> = {};
-
-    const { generalRecipientType, specificRecipientType, recipients, type, topic } = values;
-
-    if (!generalRecipientType) {
-        errors.generalRecipientType = 'newsletter.general-recipient-helper-text';
-    }
-
-    if (!specificRecipientType) {
-        errors.specificRecipientType = 'newsletter.specific-recipient-helper-text';
-    }
-
-    if (areSpecificRecipientsRequired(specificRecipientType) && recipients.length === 0) {
-        errors.recipients = 'newsletter.recipient-helper-text';
-    }
-
-    if (!type) {
-        errors.type = 'newsletter.type-helper-text';
-    }
-
-    if (!topic) {
-        errors.topic = 'newsletter.topic-helper-text';
-    }
-
-    // TODO:
-    // validate message field
-    return errors;
-};
-
 export const NewsletterPage = () => {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -169,6 +111,64 @@ export const NewsletterPage = () => {
             </form>
         </div>
     );
+};
+
+const areSpecificRecipientsRequired = (value: SpecificRecipient | '') => value === 'KINDERGARTEN' || value === 'SINGLE';
+
+const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) => Object.keys(errors).length !== 0;
+
+const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
+    !errors.generalRecipientType && !errors.specificRecipientType && !errors.recipients;
+
+const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.topic;
+
+const isFirstStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
+    (!!touched.generalRecipientType && !!errors.generalRecipientType) ||
+    (!!touched.specificRecipientType && !!errors.specificRecipientType) ||
+    (!!touched.recipients && !!errors.recipients);
+
+const isSecondStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
+    (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic);
+
+const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: boolean) => {
+    if (!firstStepCompleted) {
+        return 'newsletter.sidebar.newsletter-content';
+    }
+    if (secondStepCompleted) {
+        return 'newsletter.sidebar.done';
+    }
+
+    return 'newsletter.sidebar.fill';
+};
+
+const validate = (values: NewsletterFormValues) => {
+    const errors: FormikErrors<NewsletterFormValues> = {};
+
+    const { generalRecipientType, specificRecipientType, recipients, type, topic } = values;
+
+    if (!generalRecipientType) {
+        errors.generalRecipientType = 'newsletter.general-recipient-helper-text';
+    }
+
+    if (!specificRecipientType) {
+        errors.specificRecipientType = 'newsletter.specific-recipient-helper-text';
+    }
+
+    if (areSpecificRecipientsRequired(specificRecipientType) && recipients.length === 0) {
+        errors.recipients = 'newsletter.recipient-helper-text';
+    }
+
+    if (!type) {
+        errors.type = 'newsletter.type-helper-text';
+    }
+
+    if (!topic) {
+        errors.topic = 'newsletter.topic-helper-text';
+    }
+
+    // TODO:
+    // validate message field
+    return errors;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
