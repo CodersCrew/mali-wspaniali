@@ -9,30 +9,24 @@ import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
 
-export const areSpecificRecipientsRequired = (value: SpecificRecipient | '') =>
-    value === 'KINDERGARTEN' || value === 'SINGLE';
+const areSpecificRecipientsRequired = (value: SpecificRecipient | '') => value === 'KINDERGARTEN' || value === 'SINGLE';
 
-export const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) => Object.keys(errors).length !== 0;
+const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) => Object.keys(errors).length !== 0;
 
-export const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
+const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
     !errors.generalRecipientType && !errors.specificRecipientType && !errors.recipients;
 
-export const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.topic;
+const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.topic;
 
-export const isFirstStepError = (
-    touched: FormikTouched<NewsletterFormValues>,
-    errors: FormikErrors<NewsletterFormValues>,
-) =>
+const isFirstStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
     (!!touched.generalRecipientType && !!errors.generalRecipientType) ||
     (!!touched.specificRecipientType && !!errors.specificRecipientType) ||
     (!!touched.recipients && !!errors.recipients);
 
-export const isSecondStepError = (
-    touched: FormikTouched<NewsletterFormValues>,
-    errors: FormikErrors<NewsletterFormValues>,
-) => (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic);
+const isSecondStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
+    (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic);
 
-export const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: boolean) => {
+const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: boolean) => {
     if (!firstStepCompleted) {
         return 'newsletter.sidebar.newsletter-content';
     }
@@ -43,7 +37,7 @@ export const setSecondStepLabel = (firstStepCompleted: boolean, secondStepComple
     return 'newsletter.sidebar.fill';
 };
 
-export const validate = (values: NewsletterFormValues) => {
+const validate = (values: NewsletterFormValues) => {
     const errors: FormikErrors<NewsletterFormValues> = {};
 
     const { generalRecipientType, specificRecipientType, recipients, type, topic } = values;
