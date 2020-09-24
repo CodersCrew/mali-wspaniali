@@ -2,17 +2,20 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import { mainColor, textColor } from '../../colors';
 import { BasicModal } from '../../components/Modal/BasicModal';
 
-export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+type ModalProps = {
+    onClose: () => void;
+};
+
+export const HelpModal = ({ onClose }: ModalProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <BasicModal isOpen={true} onClose={onClose}>
             <div className={classes.modalContent}>
-                <HelpOutlineIcon className={classes.modalIcon} />
+                <HelpOutlineIcon className={classes.modalIcon} color="primary" />
                 <span className={classes.modalTextBold}>{t('newsletter.help-modal.type')}</span>
                 <p className={classes.modalText}>{t('newsletter.help-modal.type-text')}</p>
                 <span className={classes.modalTextBold}>{t('newsletter.help-modal.attachment')}</span>
@@ -25,7 +28,6 @@ export const HelpModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 const useStyles = makeStyles(() =>
     createStyles({
         modalIcon: {
-            color: mainColor,
             width: 24,
             height: 24,
             position: 'absolute',
@@ -43,7 +45,6 @@ const useStyles = makeStyles(() =>
             display: 'block',
             fontSize: 15,
             fontWeight: 'bold',
-            color: textColor,
             lineHeight: 1,
             marginBottom: 15,
         },
@@ -51,7 +52,6 @@ const useStyles = makeStyles(() =>
             marginTop: 0,
             fontSize: 15,
             lineHeight: 1.2,
-            color: textColor,
             '&:first-of-type': {
                 marginBottom: 30,
             },

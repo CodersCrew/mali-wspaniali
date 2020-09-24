@@ -256,17 +256,16 @@
         "specific-recipient-label": "Sprecyzuj adresata",
         "specific-recipient-value-labels": {
             "all-parents": "wszyscy rodzice",
-            "from-single-kindergarten": "z wybranego przedszkola",
-            "individual-message": "wiadomość indywidualna",
+            "from-selected-kindergartens": "z wybranych przedszkoli",
             "all-kindergartens": "wszystkie przedszkola",
-            "single-kindergarten": "do wybranego przedszkola"
+            "selected-kindergartens": "wybrane przedszkola"
         },
         "specific-recipient-helper-text": "Nie sprecyzowano adresata. Wypełnij pole, by wysłać wiadomość do prawidłowego odbiorcy.",
         "recipient-single-parent-label": "Aby wysłać wiadomość do konkretnego rodzica, wpisz dane dziecka, lub wybierz je z listy",
         "recipient-single-parent-label-filled": "Wiadomość wyślesz do rodziców dzieci:",
-        "recipient-single-kindergarten-label": "Wybierz przedszkole z listy",
+        "recipient-single-kindergarten-label": "Wybierz przedszkola z listy",
         "recipient-single-kindergarten-label-filled": "Wiadomość wyślesz do przedszkola:",
-        "recipient-select-kindergarten-label": "Wybierz przedszkole z listy",
+        "recipient-select-kindergarten-label": "Wybierz przedszkola z listy",
         "recipient-select-kindergarten-label-filled": "Wiadomość wyślesz do rodziców z przedszkola:",
         "recipient-helper-text": "Te pole nie może być puste. Określ odbiorców. Jeśli chcesz wysłać wiadomość do wszystkich, zmień krok poprzedni.",
         "type-input-label": "Wybierz rodzaj",
@@ -275,7 +274,7 @@
         "topic-input-label": "Wpisz temat",
         "topic-input-label-filled": "Temat",
         "topic-helper-text": "Wpisz temat wiadomości byś mógł ją wysłać",
-        "kindergarten-number": "przedszkole nr",
+        "kindergarten-number": "Przedszkole nr",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success-modal": {
             "title": "Gotowe",
