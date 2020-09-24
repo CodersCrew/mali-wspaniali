@@ -25,6 +25,7 @@ import { ParentSettingsPage } from './ParentSettingsPage/ParentSettingsPage';
 import { CreateArticlePage } from './CreateArticlePage/CreateArticlePage';
 import { ArchivePage } from './ArchivePage/ArchivePage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
+import { ParentWrapper } from './ParentWrapper';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -60,13 +61,15 @@ export function Root() {
                             <Route path="/admin/archive" component={ArchivePage} />
                             <Route path="/admin/notifications" component={NotificationsPage} />
                             <Route path="/admin/settings" component={AdminSettingsPage} />
-                            <Route exact path="/parent" component={ParentHomePage} />
-                            <Route path="/parent/child/:childId/:category" component={ChildResultsPage} />
-                            <Route path="/parent/blog/:category" exact component={ArticleListPage} />
-                            <Route path="/parent/article/:articleId" component={ArticlePage} />
-                            <Route path="/parent/notifications" component={NotificationsPage} />
-                            <Route path="/parent/agreements" component={ParentAgreementsPage} />
-                            <Route path="/parent/settings" component={ParentSettingsPage} />
+                            <ParentWrapper>
+                                <Route exact path="/parent" component={ParentHomePage} />
+                                <Route path="/parent/child/:childId/:category" component={ChildResultsPage} />
+                                <Route path="/parent/blog/:category" exact component={ArticleListPage} />
+                                <Route path="/parent/article/:articleId" component={ArticlePage} />
+                                <Route path="/parent/notifications" component={NotificationsPage} />
+                                <Route path="/parent/agreements" component={ParentAgreementsPage} />
+                                <Route path="/parent/settings" component={ParentSettingsPage} />
+                            </ParentWrapper>
                         </AppWrapper>
                     </Route>
                 </Switch>
