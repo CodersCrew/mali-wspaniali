@@ -1,15 +1,23 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import { useFormik } from 'formik';
+import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Modal from '@material-ui/core/Modal';
 import * as yup from 'yup';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { selectValues } from './selectValues';
 import { Input } from './Input';
 import { Select } from './Select';
-import { useStyles } from './useStyles';
 import { Kindergarten } from '../../graphql/types';
+import { BasicModal } from '../Modal/BasicModal';
+
+interface AddChildResult {
+    name: string;
+    sex: string;
+    'birth-date': string;
+    'birth-quarter': string;
+    city: string;
+    kindergarten: string;
+}
 
 const initialValues = {
     name: '',
@@ -23,7 +31,7 @@ const initialValues = {
 interface Props {
     isOpen: boolean;
     kindergartens: Kindergarten[];
-    handleSubmit: (data: {}) => void;
+    handleSubmit: (data: AddChildResult) => void;
 }
 
 const validationSchema = yup.object({
@@ -35,7 +43,7 @@ const validationSchema = yup.object({
     kindergarten: yup.string().required(),
 });
 
-export const AddChildModal = ({ handleSubmit, isOpen, kindergartens }: Props) => {
+export function AddChildModal({ handleSubmit, isOpen, kindergartens }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();
@@ -45,71 +53,103 @@ export const AddChildModal = ({ handleSubmit, isOpen, kindergartens }: Props) =>
         onSubmit: data => handleSubmit(data),
     });
 
+    const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
+
     return (
-        <Modal open={isOpen}>
+        <BasicModal isOpen={isOpen} actionName={t('add-child-modal.button')} onAction={formik.handleSubmit}>
             <form onSubmit={formik.handleSubmit}>
-                <div className={classes.modal}>
-                    <h4>{t('add-child-modal.heading')}</h4>
-                    <p>{t('add-child-modal.description')}</p>
-                    <Input
-                        value={formik.values.name}
-                        name="name"
-                        label={t('add-child-modal.inputs.name-surname')}
-                        error={formik.errors.name}
-                        touched={formik.touched.name}
-                        onChange={formik.handleChange}
-                    />
-                    <Select
-                        label={t('add-child-modal.select-options.sex.label')}
-                        value={formik.values.sex}
-                        error={formik.errors.sex}
-                        touched={formik.touched.sex}
-                        name="sex"
-                        className={classes.formControl}
-                        onChange={formik.handleChange}
-                    />
-                    <Select
-                        label={t('add-child-modal.select-options.birth-date.label')}
-                        value={formik.values['birth-date']}
-                        error={formik.errors['birth-date']}
-                        touched={formik.touched['birth-date']}
-                        name="birth-date"
-                        className={device === 'DESKTOP' ? `${classes.halfSize} ${classes.left}` : classes.formControl}
-                        onChange={formik.handleChange}
-                    />
-                    <Select
-                        label={t('add-child-modal.select-options.birth-quarter.label')}
-                        value={formik.values['birth-quarter']}
-                        error={formik.errors['birth-quarter']}
-                        touched={formik.touched['birth-quarter']}
-                        name="birth-quarter"
-                        className={device === 'DESKTOP' ? `${classes.halfSize} ${classes.right}` : classes.formControl}
-                        onChange={formik.handleChange}
-                    />
-                    <Select
-                        label={t('add-child-modal.select-options.city.label')}
-                        value={formik.values.city}
-                        error={formik.errors.city}
-                        touched={formik.touched.city}
-                        name="city"
-                        className={classes.formControl}
-                        onChange={formik.handleChange}
-                        disabled
-                    />
-                    <Select
-                        label={t('add-child-modal.select-options.kindergarten.label')}
-                        value={formik.values.kindergarten}
-                        error={formik.errors.kindergarten}
-                        touched={formik.touched.kindergarten}
-                        name="kindergarten"
-                        className={classes.formControl}
-                        onChange={formik.handleChange}
-                    />
-                    <Button color="primary" type="submit" className={classes.btn}>
-                        {t('add-child-modal.button')}
-                    </Button>
-                </div>
+                <Typography variant="h4">{t('add-child-modal.heading')}</Typography>
+                <Typography variant="body1" paragraph>
+                    {t('add-child-modal.description')}
+                </Typography>
+                <Grid container spacing={2} className={classes.container}>
+                    <Grid item xs={12}>
+                        <Input
+                            value={formik.values.name}
+                            name="name"
+                            label={t('add-child-modal.inputs.name-surname')}
+                            error={formik.errors.name}
+                            touched={formik.touched.name}
+                            onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Select
+                            label={t('add-child-modal.select-options.sex.label')}
+                            value={formik.values.sex}
+                            options={selectValues.sex}
+                            error={formik.errors.sex}
+                            touched={formik.touched.sex}
+                            name="sex"
+                            onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container spacing={2} direction={device !== 'DESKTOP' ? 'column' : 'row'}>
+                            <Grid item classes={{ root: classes.item }}>
+                                <Select
+                                    label={t('add-child-modal.select-options.birth-date.label')}
+                                    value={formik.values['birth-date']}
+                                    options={selectValues['birth-date']}
+                                    error={formik.errors['birth-date']}
+                                    touched={formik.touched['birth-date']}
+                                    name="birth-date"
+                                    onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                                />
+                            </Grid>
+                            <Grid item classes={{ root: classes.item }}>
+                                <Select
+                                    label={t('add-child-modal.select-options.birth-quarter.label')}
+                                    value={formik.values['birth-quarter']}
+                                    options={selectValues['birth-quarter']}
+                                    error={formik.errors['birth-quarter']}
+                                    touched={formik.touched['birth-quarter']}
+                                    name="birth-quarter"
+                                    onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Select
+                            label={t('add-child-modal.select-options.city.label')}
+                            value={formik.values.city}
+                            options={selectValues.city}
+                            error={formik.errors.city}
+                            touched={formik.touched.city}
+                            name="city"
+                            onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                            disabled
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Select
+                            label={t('add-child-modal.select-options.kindergarten.label')}
+                            value={formik.values.kindergarten}
+                            options={kindergartenOptions}
+                            error={formik.errors.kindergarten}
+                            touched={formik.touched.kindergarten}
+                            name="kindergarten"
+                            onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                        />
+                    </Grid>
+                </Grid>
             </form>
-        </Modal>
+        </BasicModal>
     );
-};
+}
+
+function mapKindergartenToOption(kindergarten: Kindergarten) {
+    return { value: kindergarten._id, label: `nr. ${kindergarten.number}, ${kindergarten.name}` };
+}
+
+export const useStyles = makeStyles(() =>
+    createStyles({
+        container: {
+            maxWidth: 640,
+        },
+        item: {
+            flex: 1,
+        },
+    }),
+);
