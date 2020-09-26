@@ -392,31 +392,24 @@
         "button": "Add",
         "heading": "Welcome on the website Mali Wspaniali",
         "description": "Enter your child's details before going to the home page.",
-        "errors": {
-            "error1": "this field cannot be empty",
-            "error2": "this field requires a first and last name"
-        },
         "inputs": {
             "name-surname": "Name and surname of the child"
         },
         "select-options": {
             "sex": {
                 "label": "Sex",
-                "option-label-1": "man",
-                "option-label-2": "woman"
+                "male": "man",
+                "female": "woman"
             },
             "birth-date": {
                 "label": "Year of birth"
             },
             "birth-quarter": {
                 "label": "Birth quarter",
-                "helper-label-1": "(january-march)",
-                "helper-label-2": "(april-june)",
-                "helper-label-3": "(july-september)",
-                "helper-label-4": "(october-december)"
-            },
-            "city": {
-                "label": "City"
+                "1": "(january-march)",
+                "2": "(april-june)",
+                "3": "(july-september)",
+                "4": "(october-december)"
             },
             "kindergarten": {
                 "label": "Kindergarten"

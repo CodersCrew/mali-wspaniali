@@ -394,35 +394,24 @@
         "button": "Dodaj",
         "heading": "Witaj na stronie Mali Wspaniali",
         "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
-        "errors": {
-            "error1": "to pole nie może być puste",
-            "error2": "to pole wymaga imienia i nazwiska"
-        },
         "inputs": {
             "name-surname": "Imię i nazwisko dziecka"
         },
         "select-options": {
             "sex": {
                 "label": "Płeć",
-                "option-label-1": "mężczyzna",
-                "option-label-2": "kobieta"
+                "male": "mężczyzna",
+                "female": "kobieta"
             },
             "birth-date": {
                 "label": "Rok urodzenia"
             },
             "birth-quarter": {
                 "label": "Kwartał urodzenia",
-                "option-label-1": "I",
-                "helper-label-1": "(styczen-marzec)",
-                "option-label-2": "II",
-                "helper-label-2": "(kwiecień-czerwiec)",
-                "option-label-3": "III",
-                "helper-label-3": "(lipiec-wrzesień)",
-                "option-label-4": "IV",
-                "helper-label-4": "(październik-grudzień)"
-            },
-            "city": {
-                "label": "Miasto"
+                "1": "(styczen-marzec)",
+                "2": "(kwiecień-czerwiec)",
+                "3": "(lipiec-wrzesień)",
+                "4": "(październik-grudzień)"
             },
             "kindergarten": {
                 "label": "Przedszkole"
