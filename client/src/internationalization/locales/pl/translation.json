@@ -395,7 +395,8 @@
         "heading": "Witaj na stronie Mali Wspaniali",
         "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
         "inputs": {
-            "name-surname": "Imię i nazwisko dziecka"
+            "firstname": "Imię",
+            "lastname": "Nazwisko"
         },
         "select-options": {
             "sex": {

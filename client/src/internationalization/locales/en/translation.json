@@ -393,7 +393,8 @@
         "heading": "Welcome on the website Mali Wspaniali",
         "description": "Enter your child's details before going to the home page.",
         "inputs": {
-            "name-surname": "Name and surname of the child"
+            "firstname": "First name",
+            "lastname": "Last name"
         },
         "select-options": {
             "sex": {

@@ -12,7 +12,8 @@ import { Kindergarten } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
 
 interface AddChildResult {
-    name: string;
+    firstname: string;
+    lastname: string;
     sex: string;
     'birth-date': string;
     'birth-quarter': string;
@@ -20,7 +21,8 @@ interface AddChildResult {
 }
 
 const initialValues = {
-    name: '',
+    firstname: '',
+    lastname: '',
     sex: '',
     'birth-date': '',
     'birth-quarter': '',
@@ -34,11 +36,11 @@ interface Props {
 }
 
 const validationSchema = yup.object({
-    name: yup.string().required(),
+    firstname: yup.string().required(),
+    lastname: yup.string().required(),
     sex: yup.string().required(),
     'birth-date': yup.string().required(),
     'birth-quarter': yup.string().required(),
-    city: yup.string().required(),
     kindergarten: yup.string().required(),
 });
 
@@ -66,14 +68,28 @@ export function AddChildModal({ handleSubmit, isOpen, kindergartens }: Props) {
                 </Typography>
                 <Grid container spacing={2} className={classes.container}>
                     <Grid item xs={12}>
-                        <Input
-                            value={formik.values.name}
-                            name="name"
-                            label={t('add-child-modal.inputs.name-surname')}
-                            error={formik.errors.name}
-                            touched={formik.touched.name}
-                            onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
-                        />
+                        <Grid container spacing={2} direction={device !== 'DESKTOP' ? 'column' : 'row'}>
+                            <Grid item classes={{ root: classes.item }}>
+                                <Input
+                                    value={formik.values.firstname}
+                                    name="firstname"
+                                    label={t('add-child-modal.inputs.firstname')}
+                                    error={formik.errors.firstname}
+                                    touched={formik.touched.firstname}
+                                    onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                                />
+                            </Grid>
+                            <Grid item classes={{ root: classes.item }}>
+                                <Input
+                                    value={formik.values.lastname}
+                                    name="lastname"
+                                    label={t('add-child-modal.inputs.lastname')}
+                                    error={formik.errors.lastname}
+                                    touched={formik.touched.lastname}
+                                    onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                                />
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item xs={12}>
                         <Select
