@@ -46,6 +46,14 @@ export interface UserInput {
     keyCode: string;
 }
 
+export interface ChildInput {
+    firstname: string;
+    lastname: string;
+    birthYear: number;
+    sex: string;
+    kindergartenId: string;
+}
+
 export type Role = 'parent' | 'admin';
 
 export type User = Omit<Me, 'notifications'>;

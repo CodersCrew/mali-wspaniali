@@ -389,6 +389,35 @@
         "content": "Notification content",
         "date": "Date"
     },
+    "add-child-modal": {
+        "button": "Add",
+        "heading": "Welcome on the website Mali Wspaniali",
+        "description": "Enter your child's details before going to the home page.",
+        "inputs": {
+            "firstname": "First name",
+            "lastname": "Last name"
+        },
+        "select-options": {
+            "sex": {
+                "label": "Sex",
+                "male": "man",
+                "female": "woman"
+            },
+            "birth-date": {
+                "label": "Year of birth"
+            },
+            "birth-quarter": {
+                "label": "Birth quarter",
+                "1": "(january-march)",
+                "2": "(april-june)",
+                "3": "(july-september)",
+                "4": "(october-december)"
+            },
+            "kindergarten": {
+                "label": "Kindergarten"
+            }
+        }
+    },
     "years_0": "year",
     "years_1": "years",
     "close": "Close",

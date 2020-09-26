@@ -80,7 +80,7 @@ export const theme: ThemeObject = {
         h4: {
             fontSize: '20px',
             lineHeight: '24px',
-            fontWeight: 400,
+            fontWeight: 500,
             letterSpacing: '0.15px',
         },
         subtitle1: {

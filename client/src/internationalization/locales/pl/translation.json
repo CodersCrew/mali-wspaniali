@@ -391,6 +391,35 @@
         "content": "Treść Powiadomienia",
         "date": "Data"
     },
+    "add-child-modal": {
+        "button": "Dodaj",
+        "heading": "Witaj na stronie Mali Wspaniali",
+        "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
+        "inputs": {
+            "firstname": "Imię",
+            "lastname": "Nazwisko"
+        },
+        "select-options": {
+            "sex": {
+                "label": "Płeć",
+                "male": "mężczyzna",
+                "female": "kobieta"
+            },
+            "birth-date": {
+                "label": "Rok urodzenia"
+            },
+            "birth-quarter": {
+                "label": "Kwartał urodzenia",
+                "1": "(styczen-marzec)",
+                "2": "(kwiecień-czerwiec)",
+                "3": "(lipiec-wrzesień)",
+                "4": "(październik-grudzień)"
+            },
+            "kindergarten": {
+                "label": "Przedszkole"
+            }
+        }
+    },
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
