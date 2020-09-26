@@ -1,16 +1,16 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-interface InputProps {
+interface Props {
     label: string;
     value: string;
     name: string;
     error: string | undefined;
     touched: any;
-    onChange: (e: ChangeEvent) => void;
+    onChange: (name: string, value: string) => void;
 }
 
-export const Input = ({ label, value, name, onChange, error, touched }: InputProps) => {
+export function Input({ label, value, name, onChange, error, touched }: Props) {
     const errorText = error && touched ? error : '';
 
     return (
@@ -23,7 +23,9 @@ export const Input = ({ label, value, name, onChange, error, touched }: InputPro
             id="outlined-helperText"
             variant="outlined"
             fullWidth
-            onChange={onChange}
+            onChange={({ target: { name: inputName, value: inputValue } }) =>
+                onChange(inputName as string, inputValue as string)
+            }
         />
     );
-};
+}
