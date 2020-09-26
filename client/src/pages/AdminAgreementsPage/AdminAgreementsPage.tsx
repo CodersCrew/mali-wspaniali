@@ -52,7 +52,12 @@ export const AdminAgreementsPage = () => {
                                 innerText={t('admin-agreements-page.show')}
                             />
                         </Container>
-                        <BasicModal isOpen={isModalOpen} onClose={handleCloseModal}>
+                        <BasicModal
+                            isOpen={isModalOpen}
+                            onClose={handleCloseModal}
+                            actionName={t('close')}
+                            onAction={handleCloseModal}
+                        >
                             <div className={classes.paper}>aggreements</div>
                         </BasicModal>
                     </Container>
