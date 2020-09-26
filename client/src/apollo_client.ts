@@ -1,4 +1,8 @@
 import { ApolloClient, ApolloLink, concat, InMemoryCache, HttpLink, makeVar } from '@apollo/client';
+import { AgreementTypeFilter, AgreementTypeFilters } from './models/AgreementTypeFilters';
+import { AgreementStatusFilters, AgreementStatusFilter } from './models/AgreementStatusFilter';
+import { AgreementKindergartenFilter, AgreementKindergartenFilters } from './models/AgreementKindergartenFilters';
+import { AgreementSortStatus, AgreementSortType } from './models/AgreementSortStatus';
 
 const link = new HttpLink({
     uri: process.env.REACT_APP_GRAPHQL_SERVER,
@@ -16,6 +20,12 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 export const activePage = makeVar<string[]>([]);
+export const agreementTypeFilterVar = makeVar<AgreementTypeFilter>(AgreementTypeFilters.SHOW_ALL);
+export const agreementStatusFilterVar = makeVar<AgreementStatusFilter>(AgreementStatusFilters.SHOW_ALL);
+export const agreementKindergartenFilterVar = makeVar<AgreementKindergartenFilter[]>([
+    AgreementKindergartenFilters.SHOW_ALL,
+]);
+export const agreementSortStatusVar = makeVar<AgreementSortType>(AgreementSortStatus.BY_NAME_RISING);
 
 const cache = new InMemoryCache({
     typePolicies: {
@@ -24,6 +34,26 @@ const cache = new InMemoryCache({
                 activePage: {
                     read() {
                         return activePage();
+                    },
+                },
+                agreementsTypeFilter: {
+                    read() {
+                        return agreementTypeFilterVar();
+                    },
+                },
+                agreementsStatusFilter: {
+                    read() {
+                        return agreementStatusFilterVar();
+                    },
+                },
+                agreementsKindergartenFilter: {
+                    read() {
+                        return agreementKindergartenFilterVar();
+                    },
+                },
+                agreementsSortStatus: {
+                    read() {
+                        return agreementSortStatusVar();
                     },
                 },
             },

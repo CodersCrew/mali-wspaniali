@@ -19,7 +19,10 @@ export class KindergartenRepository {
   }
 
   async get(id: string): Promise<KindergartenProps> {
-    return await this.model.findById(id).exec();
+    return await this.model
+      .findById(id)
+      .lean()
+      .exec();
   }
 
   async getMany(ids: string[]): Promise<KindergartenProps[]> {

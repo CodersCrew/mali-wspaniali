@@ -10,7 +10,6 @@ import { TestResultsPage } from './TestResultsPage';
 import { ChildResultsPage } from './ChildProfile/ChildResultsPage';
 import { ParentProfilePage } from './ParentProfilePage/ParentProfilePage';
 import { UsersPage } from './UsersPage/UsersPage';
-import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { NewsletterPage } from './NewsletterPage/NewsletterPage';
 import { AppWrapper } from './AppWrapper';
 import { ParentHomePage } from './ParentHomePage/ParentHomePage';
@@ -26,6 +25,7 @@ import { CreateArticlePage } from './CreateArticlePage/CreateArticlePage';
 import { ArchivePage } from './ArchivePage/ArchivePage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 import { ParentWrapper } from './ParentWrapper';
+import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreementsPageConatianer';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -56,7 +56,7 @@ export function Root() {
                                 <Route path="/admin/tests" component={TestResultsPage} />
                                 <Route path="/admin/users" component={UsersPage} />
                                 <Route path="/admin/parent/:id" component={ParentProfilePage} />
-                                <Route path="/admin/agreements" component={AdminAgreementsPage} />
+                                <Route path="/admin/agreements" component={AdminAgreementsPageContainer} />
                                 <Route path="/admin/newsletter" component={NewsletterPage} />
                                 <Route path="/admin/article/create" component={CreateArticlePage} />
                                 <Route path="/admin/archive" component={ArchivePage} />

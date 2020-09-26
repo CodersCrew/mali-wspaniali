@@ -110,6 +110,16 @@ type CreateKeyCodeDTO {
   keyCode: String!
 }
 
+type KindergartenWithUsersDTO {
+  _id: ID!
+  date: DateTime!
+  number: Int!
+  name: String!
+  city: String!
+  address: String!
+  users: [UserDTO!]!
+}
+
 type NewsletterDTO {
   _id: ID!
   message: String!
@@ -131,6 +141,7 @@ type Query {
   keyCodes: [CreateKeyCodeDTO!]!
   agreements: [AgreementDTO!]!
   kindergartens: [KindergartenDTO!]!
+  kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   newsletters: [NewsletterDTO!]!
 }
 

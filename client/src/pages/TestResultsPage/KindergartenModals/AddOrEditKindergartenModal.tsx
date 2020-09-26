@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { TextField, Grid, makeStyles, createStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { Theme } from '@material-ui/core/styles';
+import { Delete } from '@material-ui/icons';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 
@@ -37,8 +39,8 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
         },
     });
 
-    const translationPrefix = initialData ? 'edit' : 'add';
-    const isEditState = translationPrefix === 'edit';
+    const isEditState = !!initialData;
+    const translationPrefix = isEditState ? 'edit' : 'add';
 
     return (
         <>
@@ -51,13 +53,14 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
                 lowerButtonText={t(`${translationPrefix}-kindergarten-modal.close`)}
                 upperButtonText={t(`${translationPrefix}-kindergarten-modal.${translationPrefix}`)}
                 isOpen={isOpen}
-                onClose={() => {
-                    setIsOpen(false);
-                }}
+                onClose={() => setIsOpen(false)}
             >
                 <div className={classes.container}>
-                    <Typography variant="h2" align="center">
+                    <Typography variant="h4" className={classes.title}>
                         {t(`${translationPrefix}-kindergarten-modal.title`)}
+                    </Typography>
+                    <Typography variant="body1" className={classes.description}>
+                        {t(`${translationPrefix}-kindergarten-modal.description`)}
                     </Typography>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -84,7 +87,7 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
                                 value={formik.values.address}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={8}>
                             <TextField
                                 name="name"
                                 label={t('kindergarten-modal.name')}
@@ -96,7 +99,7 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
                                 value={formik.values.name}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={4}>
                             <TextField
                                 name="number"
                                 label={t('kindergarten-modal.number')}
@@ -114,18 +117,19 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
                                     },
                                 }}
                             />
-                            <Grid item>
-                                {isEditState && (
-                                    <ButtonSecondary
-                                        onClick={() => {
-                                            if (onDelete) onDelete(kindergartenId!);
+                        </Grid>
+                        <Grid item>
+                            {isEditState && (
+                                <ButtonSecondary
+                                    onClick={() => {
+                                        if (onDelete) onDelete(kindergartenId!);
 
-                                            setIsOpen(false);
-                                        }}
-                                        innerText={t('edit-kindergarten-modal.delete')}
-                                    />
-                                )}
-                            </Grid>
+                                        setIsOpen(false);
+                                    }}
+                                    icon={<Delete />}
+                                    innerText={t('edit-kindergarten-modal.delete')}
+                                />
+                            )}
                         </Grid>
                     </Grid>
                 </div>
@@ -134,10 +138,18 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
     );
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            maxWidth: 450,
+            maxWidth: 684,
+        },
+        title: {
+            paddingBottom: theme.spacing(2),
+        },
+        description: {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(2),
+            color: theme.palette.text.secondary,
         },
     }),
 );
