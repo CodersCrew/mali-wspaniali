@@ -422,12 +422,10 @@
                 "helper-label-4": "(październik-grudzień)"
             },
             "city": {
-                "label": "Miasto",
-                "option-label-1": "Wrocław"
+                "label": "Miasto"
             },
             "kindergarten": {
-                "label": "Przedszkole",
-                "option-label-1": "Krasnoludki"
+                "label": "Przedszkole"
             }
         }
     },

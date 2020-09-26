@@ -419,8 +419,7 @@
                 "label": "City"
             },
             "kindergarten": {
-                "label": "Kindergarten",
-                "option-label-1": "Dwarfs"
+                "label": "Kindergarten"
             }
         }
     },
