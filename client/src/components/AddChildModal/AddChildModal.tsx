@@ -15,7 +15,6 @@ interface AddChildResult {
     sex: string;
     'birth-date': string;
     'birth-quarter': string;
-    city: string;
     kindergarten: string;
 }
 
@@ -24,7 +23,6 @@ const initialValues = {
     sex: '',
     'birth-date': '',
     'birth-quarter': '',
-    city: selectValues.city[0].value,
     kindergarten: '',
 };
 
@@ -109,18 +107,6 @@ export function AddChildModal({ handleSubmit, isOpen, kindergartens }: Props) {
                                 />
                             </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Select
-                            label={t('add-child-modal.select-options.city.label')}
-                            value={formik.values.city}
-                            options={selectValues.city}
-                            error={formik.errors.city}
-                            touched={formik.touched.city}
-                            name="city"
-                            onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
-                            disabled
-                        />
                     </Grid>
                     <Grid item xs={12}>
                         <Select
