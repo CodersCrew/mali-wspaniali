@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { Theme } from '../../theme/types';
 
-import { Option } from './selectValues';
+import { Option } from './useSelectValues';
 
 interface Props {
     label: string;
