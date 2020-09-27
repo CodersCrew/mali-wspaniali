@@ -23,13 +23,7 @@ export const ArticleContent = ({ title, description, pictureUrl, contentHTML, da
 
             <Grid className={classes.subContainer} item lg={9} xs={12}>
                 <Grid className={classes.contentContainer} item xs={12}>
-                    <Grid
-                        className={classes.contentDateReadingTime}
-                        container
-                        direction="row"
-                        justify="center"
-                        spacing={2}
-                    >
+                    <Grid className={classes.contentDateReadingTime} container direction="row" justify="center">
                         <Typography className={classes.dateReadingTime} variant="overline">
                             {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
                         </Typography>
