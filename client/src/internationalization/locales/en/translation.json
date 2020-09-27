@@ -257,17 +257,16 @@
         "specific-recipient-label": "Specify recipient",
         "specific-recipient-value-labels": {
             "all-parents": "all parents",
-            "from-single-kindergarten": "from selected kindergarten",
-            "individual-message": "individual message",
+            "from-selected-kindergartens": "from selected kindergartens",
             "all-kindergartens": "all kindergartens",
-            "single-kindergarten": "single kindergarten"
+            "selected-kindergartens": "selected kindergartens"
         },
         "specific-recipient-helper-text": "Recipient not specified. Fill this field to send message to proper recipient.",
         "recipient-single-parent-label": "To sent message to single parent, select him from the list",
         "recipient-single-parent-label-filled": "Message will be sent to these children parents:",
-        "recipient-single-kindergarten-label": "Select kindergarten from list",
+        "recipient-single-kindergarten-label": "Select kindergartens from list",
         "recipient-single-kindergarten-label-filled": "Message will be sent to these kindergartens:",
-        "recipient-select-kindergarten-label": "Select kindergarten from list",
+        "recipient-select-kindergarten-label": "Select kindergartens from list",
         "recipient-select-kindergarten-label-filled": "Message will be sent to parents from these kindergartens:",
         "recipient-helper-text": "This field can't be empty. Specify recipients. If you wish to send message to all recipients change previous selection.",
         "type-input-label": "Select type",
@@ -276,7 +275,7 @@
         "topic-input-label": "Select topic",
         "topic-input-label-filled": "Topic",
         "topic-helper-text": "Type message topic so You can send it",
-        "kindergarten-number": "kindergarten no.",
+        "kindergarten-number": "Kindergarten no.",
         "sending-error": "An error ocurred during sending the message.",
         "sending-success-modal": {
             "title": "Done",
@@ -394,6 +393,35 @@
         "description": "Check all notifications on your account",
         "content": "Notification content",
         "date": "Date"
+    },
+    "add-child-modal": {
+        "button": "Add",
+        "heading": "Welcome on the website Mali Wspaniali",
+        "description": "Enter your child's details before going to the home page.",
+        "inputs": {
+            "firstname": "First name",
+            "lastname": "Last name"
+        },
+        "select-options": {
+            "sex": {
+                "label": "Sex",
+                "male": "man",
+                "female": "woman"
+            },
+            "birth-date": {
+                "label": "Year of birth"
+            },
+            "birth-quarter": {
+                "label": "Birth quarter",
+                "1": "(january-march)",
+                "2": "(april-june)",
+                "3": "(july-september)",
+                "4": "(october-december)"
+            },
+            "kindergarten": {
+                "label": "Kindergarten"
+            }
+        }
     },
     "years_0": "year",
     "years_1": "years",

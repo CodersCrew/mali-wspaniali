@@ -48,6 +48,14 @@ export interface UserInput {
 
 export type Role = 'parent' | 'admin' | 'instructor';
 
+export interface ChildInput {
+    firstname: string;
+    lastname: string;
+    birthYear: number;
+    sex: string;
+    kindergartenId: string;
+}
+
 export type User = Omit<Me, 'notifications'>;
 
 export interface Me {

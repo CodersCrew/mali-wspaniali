@@ -47,7 +47,12 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                     </Typography>
                 </div>
             </div>
-            <BasicModal isOpen={isModalOpen} onClose={() => setIsModalOpen(prev => !prev)}>
+            <BasicModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(prev => !prev)}
+                onAction={() => setIsModalOpen(prev => !prev)}
+                actionName={t('close')}
+            >
                 {t(`child-profile.difference.${key}`)}
             </BasicModal>
         </>

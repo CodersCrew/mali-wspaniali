@@ -1,195 +1,143 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { FocusEvent } from 'react';
+import { FormikErrors, FormikTouched } from 'formik';
 import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Typography } from '@material-ui/core';
-import { white, newsletterColors, textColor } from '../../colors';
-import { NewsletterGeneralTypeTextField } from './NewsletterGeneralTypeTextField';
-import { NewsletterOptionalTextField } from './NewsletterOptionalTextField';
-import { NewsletterSpecificTypeTextField } from './NewsletterSpecificTypeTextField';
-import { GeneralRecipientInputValues, SpecificRecipientInputValues, SingleFieldType, FieldsType } from './types';
-import { Theme } from '../../theme';
+import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
+import { SingleSelect } from './SingleSelect';
+import { MultipleSelect } from './MultipleSelect';
+import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
 import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
 import { Kindergarten } from '../../graphql/types';
-import { getAllUsers } from '../../graphql/userRepository';
+import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
 
-export const NewsletterRecipent: React.FC<{
-    generalType: SingleFieldType;
-    specificType: SingleFieldType;
-    recipients: {
-        value: string[];
-        error: boolean;
-    };
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    selectRecipients: (filteredRecipients: string[]) => void;
-    setFields: React.Dispatch<React.SetStateAction<FieldsType>>;
-}> = ({ generalType, specificType, recipients, handleChange, selectRecipients, setFields }) => {
-    const { data: kindergartensData } = useQuery<KindergartenResponse>(KINDERGARTENS);
-    const [parents, setParents] = useState<string[]>([]);
-    const classes = useStyles();
+const setLabel = (
+    generalType: GeneralRecipient | '',
+    specificType: SpecificRecipient | '',
+    recipients: string[],
+): string => {
+    if (generalType === 'PARENTS' && specificType === 'KINDERGARTEN') {
+        if (recipients.length) {
+            return 'newsletter.recipient-select-kindergarten-label-filled';
+        }
+
+        return 'newsletter.recipient-select-kindergarten-label';
+    }
+
+    if (recipients.length) {
+        return 'newsletter.recipient-single-kindergarten-label-filled';
+    }
+
+    return 'newsletter.recipient-single-kindergarten-label';
+};
+
+const generateKindergardenOptions = (kindergardens: Kindergarten[]): { value: string; label: string }[] => {
+    const values = kindergardens.map(kindergarden => {
+        const { _id, number, name } = kindergarden;
+
+        return {
+            value: _id,
+            label: `${number}, ${name}`,
+        };
+    });
+
+    return values;
+};
+
+interface Props {
+    generalRecipientType: GeneralRecipient | '';
+    specificRecipientType: SpecificRecipient | '';
+    recipients: string[];
+    onChange: (name: string, value: string | string[]) => void;
+    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
+    errors: FormikErrors<NewsletterFormValues>;
+    touched: FormikTouched<NewsletterFormValues>;
+}
+
+export const NewsletterRecipent = ({
+    generalRecipientType,
+    specificRecipientType,
+    recipients,
+    onChange,
+    onBlur,
+    errors,
+    touched,
+}: Props) => {
     const { t } = useTranslation();
+    const { data: kindergartensData } = useQuery<KindergartenResponse>(KINDERGARTENS);
 
-    useEffect(() => {
-        getAllUsers('parent').then(({ data }) => setParents(data!.users.map(user => user.mail)));
-    }, []);
+    const specificTypeOptionsValues = generalRecipientType === 'PARENTS' ? parentsRecipients : kindergartensRecipients;
 
-    useEffect(() => {
-        if (specificType.value === '') {
-            selectRecipients([]);
-        }
-        if (
-            generalType.value === GeneralRecipientInputValues.parents &&
-            specificType.value === SpecificRecipientInputValues.all
-        ) {
-            selectRecipients(parents);
-        }
-        if (
-            generalType.value === GeneralRecipientInputValues.kindergartens &&
-            specificType.value === SpecificRecipientInputValues.all
-        ) {
-            if (kindergartensData && kindergartensData.kindergartens) {
-                const kindergartensId = kindergartensData.kindergartens.map(
-                    (kindergarten: Kindergarten) => kindergarten._id,
-                );
-                selectRecipients(kindergartensId);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [generalType, specificType]);
+    const kidergartenInputValues = (selected: unknown) => {
+        if (Array.isArray(selected)) {
+            return selected
+                .map(id => {
+                    const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
 
-    const handleDelete = (name: string) => {
-        if (name === 'generalType') {
-            setFields(prevFields => ({
-                ...prevFields,
-                generalType: {
-                    error: true,
-                    value: '',
-                },
-                specificType: {
-                    ...specificType,
-                    value: '',
-                },
-            }));
-        } else {
-            setFields(prevFields => ({
-                ...prevFields,
-                [name]: {
-                    error: true,
-                    value: '',
-                },
-            }));
+                    return obj ? obj.label : 'unknown label';
+                })
+                .join(', ');
         }
+
+        return '';
     };
 
     if (!kindergartensData) return null;
 
     const { kindergartens } = kindergartensData;
 
+    const kindergardenOptionsValues = generateKindergardenOptions(kindergartens);
+
     return (
-        <div className={classes.container}>
-            <Typography className={classes.heading}>{t('newsletter.recipient-heading')}</Typography>
-            <NewsletterGeneralTypeTextField
-                classes={classes}
-                generalType={generalType}
-                handleDelete={handleDelete}
-                handleRecipientTypeChange={handleChange}
-            />
-            <NewsletterSpecificTypeTextField
-                classes={classes}
-                generalType={generalType}
-                specificType={specificType}
-                handleDelete={handleDelete}
-                handleRecipientTypeChange={handleChange}
-            />
-            {specificType.value === SpecificRecipientInputValues.single ||
-            specificType.value === SpecificRecipientInputValues.kindergarten ? (
-                <NewsletterOptionalTextField
-                    classes={classes}
-                    selectRecipients={selectRecipients}
-                    generalType={generalType}
-                    specificType={specificType}
-                    recipients={recipients}
-                    handleChange={handleChange}
-                    parents={parents}
-                    kindergartens={kindergartens}
-                    setFields={setFields}
-                />
-            ) : null}
-        </div>
+        <Card>
+            <CardHeader title={t('newsletter.recipient-heading')} titleTypographyProps={{ variant: 'h4' }} />
+            <Divider />
+            <CardContent>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <SingleSelect
+                            stateData={generalRecipientType}
+                            optionsValues={recipientType}
+                            onChange={onChange}
+                            onBlur={onBlur}
+                            id="generalRecipientType"
+                            label={t('newsletter.general-recipient-label')}
+                            name="generalRecipientType"
+                            error={errors.generalRecipientType}
+                            touched={touched.generalRecipientType}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <SingleSelect
+                            stateData={specificRecipientType}
+                            optionsValues={specificTypeOptionsValues}
+                            onChange={onChange}
+                            onBlur={onBlur}
+                            id="specificRecipientType"
+                            label={t('newsletter.specific-recipient-label')}
+                            name="specificRecipientType"
+                            disabled={!generalRecipientType}
+                            error={errors.specificRecipientType}
+                            touched={touched.specificRecipientType}
+                        />
+                    </Grid>
+                    {(specificRecipientType === 'KINDERGARTEN' || specificRecipientType === 'SINGLE') && (
+                        <Grid item xs={12}>
+                            <MultipleSelect
+                                stateData={recipients}
+                                optionsValues={kindergardenOptionsValues}
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                id="recipients"
+                                label={t(setLabel(generalRecipientType, specificRecipientType, recipients))}
+                                name="recipients"
+                                renderValue={kidergartenInputValues}
+                                error={errors.recipients}
+                                touched={touched.recipients}
+                            />
+                        </Grid>
+                    )}
+                </Grid>
+            </CardContent>
+        </Card>
     );
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            borderRadius: 4,
-            boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
-            backgroundColor: white,
-            minHeight: 169,
-            position: 'relative',
-            marginBottom: 35,
-        },
-        heading: {
-            backgroundColor: theme.palette.primary.main,
-            color: white,
-            fontSize: 18,
-            fontWeight: 500,
-            margin: '0 10px',
-            padding: '8px 0 8px 16px',
-            boxShadow: '1px 1px 4px 0 rgba(0, 138, 173, 0.25)',
-            borderRadius: 4,
-            position: 'relative',
-            top: -15,
-            lineHeight: '22px',
-        },
-        textfield: {
-            maxWidth: 'calc(100% - 60px)',
-            left: 30,
-            marginBottom: 20,
-            '& label': {
-                fontSize: 15,
-                lineHeight: 1.2,
-                color: textColor,
-                opacity: 0.42,
-                '&.Mui-focused': {
-                    opacity: 1,
-                    fontSize: 12,
-                },
-            },
-            '& .MuiFormLabel-asterisk': {
-                display: 'none',
-            },
-        },
-        underlineFocus: {
-            '&:after': {
-                borderBottom: `2px solid ${theme.palette.primary.main}`,
-            },
-        },
-        underlineDisabled: {
-            '&.Mui-disabled:before': {
-                opacity: 0.5,
-                borderBottom: `2px solid ${newsletterColors.disabledColor}`,
-            },
-        },
-        selectItem: {
-            fontSize: 12,
-            color: textColor,
-        },
-        inputChipLabel: {
-            fontSize: 15,
-            color: textColor,
-        },
-        asterisk: {
-            display: 'none',
-        },
-        selectMenuItem: {
-            padding: 0,
-        },
-        selectMenuCheckbox: {
-            padding: '6px 8px',
-        },
-        selectMenuItemText: {
-            fontSize: 12,
-            color: textColor,
-        },
-    }),
-);
