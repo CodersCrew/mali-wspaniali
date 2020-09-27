@@ -46,7 +46,7 @@ export interface UserInput {
     keyCode: string;
 }
 
-export type Role = 'parent' | 'admin';
+export type Role = 'parent' | 'admin' | 'instructor';
 
 export type User = Omit<Me, 'notifications'>;
 
