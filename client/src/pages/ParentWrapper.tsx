@@ -32,7 +32,7 @@ export const ParentWrapper: FC = ({ children }) => {
                         },
                     });
                 }}
-                isOpen={user.children.length === 0}
+                isOpen={user.children.length === 0 && user.role === 'parent'}
                 kindergartens={kindergartenData.kindergartens}
             />
             {children}
