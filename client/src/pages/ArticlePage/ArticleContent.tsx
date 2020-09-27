@@ -23,14 +23,15 @@ export const ArticleContent = ({ title, description, pictureUrl, contentHTML, da
 
             <Grid className={classes.subContainer} item lg={9} xs={12}>
                 <Grid className={classes.contentContainer} item xs={12}>
-                    <div className={classes.contentDateReadingTime}>
+                    <Grid className={classes.contentDateReadingTime} container spacing={2}>
                         <Typography className={classes.dateReadingTime} variant="overline">
                             {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
                         </Typography>
+                        <div className={classes.ellipse}></div>
                         <Typography className={classes.dateReadingTime} variant="overline">
                             {readingTime} {t('single-article.reading-time')}
                         </Typography>
-                    </div>
+                    </Grid>
                     <div className={classes.contentHeader}>
                         <Typography className={classes.title} variant="h2">
                             {title}
@@ -110,19 +111,22 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         contentDateReadingTime: {
             paddingTop: theme.spacing(4),
-            display: 'flex',
-            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '206px',
+            margin: 0,
 
-            [customArticleTheme.breakpoints.down('xs')]: {
-                paddingTop: theme.spacing(3),
-            },
             [theme.breakpoints.up('xl')]: {
                 paddingTop: theme.spacing(5),
             },
         },
         dateReadingTime: {
-            marginRight: theme.spacing(4),
             textTransform: 'uppercase',
+        },
+        ellipse: {
+            background: theme.palette.grey[300],
+            borderRadius: theme.spacing(1),
+            width: '12px',
+            height: '12px',
         },
         contentHeader: {
             paddingTop: theme.spacing(2),
