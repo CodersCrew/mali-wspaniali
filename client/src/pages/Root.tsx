@@ -26,6 +26,8 @@ import { ArchivePage } from './ArchivePage/ArchivePage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 import { ParentWrapper } from './ParentWrapper';
 import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreementsPageConatianer';
+import { AddResultsPage } from './AddResultsPage/AddResultsPage';
+import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -49,7 +51,7 @@ export function Root() {
                             <Route path="/forgot-password" component={ForgotPasswordPage} />
                         </AuthTemplate>
                     </Route>
-                    <Route path={['/admin', '/parent']}>
+                    <Route path={['/admin', '/parent', '/instructor']}>
                         <AppWrapper>
                             <Switch>
                                 <Route exact path="/admin" component={AdminHomePage} />
@@ -62,6 +64,8 @@ export function Root() {
                                 <Route path="/admin/archive" component={ArchivePage} />
                                 <Route path="/admin/notifications" component={NotificationsPage} />
                                 <Route path="/admin/settings" component={AdminSettingsPage} />
+                                <Route exact path="/instructor" component={AddResultsPage} />
+                                <Route path="/instructor/settings" component={InstructorSettingsPage} />
                                 <ParentWrapper>
                                     <Route exact path="/parent" component={ParentHomePage} />
                                     <Route path="/parent/child/:childId/:category" component={ChildResultsPage} />

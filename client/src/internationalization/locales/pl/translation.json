@@ -349,6 +349,11 @@
         "notifications": "Powiadomienia",
         "logout": "Wyloguj"
     },
+    "instructor-menu": {
+        "add-results": "Dodaj wyniki",
+        "settings": "Ustawienia",
+        "logout": "Wyloguj"
+    },
     "blog-article-card": {
         "read-more": "Czytaj dalej"
     },

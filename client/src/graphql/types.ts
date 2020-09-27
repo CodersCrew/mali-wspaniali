@@ -46,6 +46,8 @@ export interface UserInput {
     keyCode: string;
 }
 
+export type Role = 'parent' | 'admin' | 'instructor';
+
 export interface ChildInput {
     firstname: string;
     lastname: string;
@@ -53,8 +55,6 @@ export interface ChildInput {
     sex: string;
     kindergartenId: string;
 }
-
-export type Role = 'parent' | 'admin';
 
 export type User = Omit<Me, 'notifications'>;
 

@@ -349,6 +349,11 @@
         "results": "Results",
         "logout": "Log out"
     },
+    "instructor-menu": {
+        "add-results": "Add results",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
     "home-page-content": {
         "greeting": "Good Afternoon!",
         "check-children-activity": "Check out the children activity in the programme",
