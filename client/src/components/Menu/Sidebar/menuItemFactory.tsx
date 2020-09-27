@@ -71,6 +71,13 @@ export function getAdminMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps
     };
 }
 
+export function getInstructorMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps, 'active' | 't'>): ItemFactory {
+    return {
+        create: ({ name, rightIcon }: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) =>
+            getInstructorMenuItem({ active, t, name, rightIcon }),
+    };
+}
+
 export function getChildMenuItemFactory({
     active,
     t,
@@ -287,6 +294,40 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         logout: LogoutItem,
         agreements: AgreementsItem,
         results: ResultsItem,
+    };
+
+    const item = options[name];
+
+    if (active.includes(item.name)) item.active = true;
+
+    item.name = t(item.name);
+
+    return item;
+}
+
+function getInstructorMenuItem({ name, active, t }: MenuItemFactoryProps): SingleItemProps {
+    const AddResultsItem = {
+        name: 'instructor-menu.add-results',
+        link: '/instructor',
+        icon: <Icon icon={<Assessment />} />,
+    };
+
+    const SettingsItem = {
+        name: 'instructor-menu.settings',
+        link: '/instructor/settings',
+        icon: <Icon icon={<Build />} />,
+    };
+
+    const LogoutItem = {
+        name: 'instructor-menu.logout',
+        link: 'logout',
+        icon: <Icon icon={<PowerSettingsNew />} />,
+    };
+
+    const options: { [index: string]: SingleItemProps } = {
+        'add-results': AddResultsItem,
+        settings: SettingsItem,
+        logout: LogoutItem,
     };
 
     const item = options[name];
