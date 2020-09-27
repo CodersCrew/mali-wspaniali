@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             flexWrap: 'wrap',
             margin: theme.spacing(2, 0, 4),
+            alignSelf: 'flex-start',
 
             [theme.breakpoints.down('xs')]: {
                 marginLeft: theme.spacing(1),
