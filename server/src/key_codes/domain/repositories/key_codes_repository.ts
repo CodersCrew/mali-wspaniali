@@ -13,8 +13,11 @@ export class KeyCodeRepository {
     private readonly keyCodeModel: Model<KeyCodeDocument>,
   ) {}
 
-  async getAll(): Promise<KeyCodeProps[]> {
-    return await this.keyCodeModel.find({}, {}, { sort: { date: -1 } }).exec();
+  async getAll(series: string): Promise<KeyCodeProps[]> {
+    return await this.keyCodeModel
+      .find({ series }, {}, { sort: { date: -1 } })
+      .exec();
+  }
 
   async getAllSeries(): Promise<string[]> {
     return await this.keyCodeModel.distinct('series').exec();

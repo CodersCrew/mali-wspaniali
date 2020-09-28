@@ -1,1 +1,3 @@
-export class GetAllKeyCodesQuery {}
+export class GetAllKeyCodesQuery {
+  constructor(public readonly series: string) {}
+}
