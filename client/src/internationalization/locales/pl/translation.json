@@ -92,7 +92,8 @@
             "keycode-amount-total": "Liczba aktywnych kluczy ({{total}})",
             "generate": "Generuj",
             "download-as": "Pobierz jako plik XLSX.",
-            "download": "Pobierz"
+            "download": "Pobierz",
+            "download-alert": "Plik {{filename}} został pobrany."
         }
     },
     "e-mail": "Adres e-mail",
