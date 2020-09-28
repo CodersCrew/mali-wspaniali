@@ -4,7 +4,7 @@
  */
 export const calculateReadingTime = (articleContent: string): number => {
     const amountWordsInArticles: number = articleContent.split(' ').length;
-    const readingTimeInMinutes: number = amountWordsInArticles/200;
+    const readingTimeInMinutes: number = amountWordsInArticles / 200;
 
     return Math.ceil(Number(readingTimeInMinutes.toFixed(2)));
-}
+};
