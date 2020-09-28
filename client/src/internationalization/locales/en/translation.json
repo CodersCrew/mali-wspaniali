@@ -78,6 +78,23 @@
         "agreements-all": "All agreements",
         "req": "* required"
     },
+    "admin-setting-page": {
+        "account-management": "Account management",
+        "keycode-generation": {
+            "title": "KeyCode generate",
+            "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xls. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
+            "role-parent": "Parent",
+            "role-instructor": "Instructor",
+            "filename": "Filename",
+            "target": "Target",
+            "expires-at": "Expires at",
+            "keycode-amount": "KeyCode amount",
+            "keycode-amount-total": "Total active keys ({{total}})",
+            "generate": "Generate",
+            "download-as": "Download as XLSX file.",
+            "download": "Download"
+        }
+    },
     "e-mail": "E-Mail Address",
     "password": "Password",
     "no-results": "No Results",
