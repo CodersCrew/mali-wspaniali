@@ -37,38 +37,38 @@ export function KeyCodes() {
                 if (keyCodes) {
                     const workbook = getKeyCodesWorkbook(keyCodes)
 
-                 XLSX.writeFile(workbook, `mw-keycodes-${series}.xlsx`);
+                    XLSX.writeFile(workbook, `mw-keycodes-${series}.xlsx`);
                 }
-
             });
     }
 
     if (!data) return null;
 
     return (
-        <div
-        >
+        <div>
             <Typography variant="body2">{t('admin-setting-page.keycode-generation.description')}</Typography>
             <Grid container direction="column" spacing={4} classes={{ root: classes.container}}>
                 <Grid item>
                     <RoleToggleButton value={target} onChange={setTarget} />
                 </Grid>
                 <Grid item>
-                <KeyCodesToGenerateTextfield value={keyCodesToGenerate} onChange={(amount) => setKeyCodesToGenerate(amount)} />
+                    <KeyCodesToGenerateTextfield value={keyCodesToGenerate} onChange={(amount) => setKeyCodesToGenerate(amount)} />
                 </Grid>
                 <Grid item>
-            <ButtonSecondary disabled={keyCodesToGenerate === 0 || keyCodesToGenerate > 1000} onClick={() => {
-                createKeyCodes({
-                    variables: {
-                        target, 
-                        amount: keyCodesToGenerate
-                    }
-                })
-            }}
-            variant="contained"
-            >{t('admin-setting-page.keycode-generation.generate')}</ButtonSecondary>
+                    <ButtonSecondary disabled={keyCodesToGenerate === 0 || keyCodesToGenerate > 1000} onClick={() => {
+                        createKeyCodes({
+                            variables: {
+                                target, 
+                                amount: keyCodesToGenerate
+                            }
+                        })
+                    }}
+                    variant="contained"
+                    >
+                        {t('admin-setting-page.keycode-generation.generate')}
+                    </ButtonSecondary>
                 </Grid>
-        <Grid item>{createKeyCodesResponse && <ButtonDefault
+                <Grid item>{createKeyCodesResponse && <ButtonDefault
                                                         icon={<SaveAltIcon className={classes.downloadIcon} />}
                                                         onClick={() => generateExcel(createKeyCodesResponse.createKeyCodeBulk[0].series)}
                                                     >
