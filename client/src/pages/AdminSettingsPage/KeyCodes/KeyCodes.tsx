@@ -1,28 +1,33 @@
 import React, { useState } from 'react';
 import { useApolloClient, useQuery, useMutation } from '@apollo/client';
 import { Typography, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
-import XLSX from 'xlsx';
+import { writeFile } from 'xlsx';
 import { useTranslation } from 'react-i18next';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
-import { KEYCODES, KeyCodeResponse, KeyCodeSeriesResponse, KEYCODE_SERIES, CREATE_KEYCODES } from '../../../graphql/keyCodesRepository';
+import {
+    KEYCODES,
+    KeyCodeResponse,
+    KeyCodeSeriesResponse,
+    KEYCODE_SERIES,
+    CREATE_KEYCODES,
+} from '../../../graphql/keyCodesRepository';
 import { getKeyCodesWorkbook } from './getKeyCodesWorkbook';
-import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { RoleToggleButton } from './RoleToggleButton';
 import { ActiveKeysList } from './ActiveKeysList';
 import { KeyCodesToGenerateTextfield } from './KeyCodesToGenerateTextfield';
-import { ButtonDefault } from '../../../components/Button';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
+import { FilenameButton } from './FilenameButton';
+import { LoadingButton } from './LoadingButton';
 
 export function KeyCodes() {
-    const client = useApolloClient();  
-    const {t} = useTranslation()
+    const client = useApolloClient();
+    const { t } = useTranslation();
     const classes = useStyles();
-    const { data} = useQuery<KeyCodeSeriesResponse>(KEYCODE_SERIES)
-    const [ createKeyCodes, {data: createKeyCodesResponse} ] = useMutation(CREATE_KEYCODES)
+    const { data } = useQuery<KeyCodeSeriesResponse>(KEYCODE_SERIES);
+    const [createKeyCodes, { data: createKeyCodesResponse }] = useMutation(CREATE_KEYCODES);
     const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(1);
-    const [target, setTarget] = useState('parent')
-
+    const [target, setTarget] = useState('parent');
+    const [isLoading, setIsLoading] = useState(false);
 
     function generateExcel(series: string) {
         client
@@ -36,10 +41,11 @@ export function KeyCodes() {
                 const keyCodes = response.data?.keyCodes;
 
                 if (keyCodes) {
+                
                     const filename = `mw-keycodes-${series}.xlsx`
                     const workbook = getKeyCodesWorkbook(keyCodes)
 
-                    XLSX.writeFile(workbook, filename);
+                    writeFile(workbook, filename);
 
                     openSnackbar({text: t('admin-setting-page.keycode-generation.download-alert', { filename })})
                 }
@@ -51,52 +57,69 @@ export function KeyCodes() {
     return (
         <div>
             <Typography variant="body2">{t('admin-setting-page.keycode-generation.description')}</Typography>
-            <Grid container direction="column" spacing={4} classes={{ root: classes.container}}>
-                <Grid item>
+            <Grid container direction="column" spacing={4} classes={{ root: classes.container }}>
+                <div className={classes.toggleContainer}>
                     <RoleToggleButton value={target} onChange={setTarget} />
-                </Grid>
-                <Grid item>
-                    <KeyCodesToGenerateTextfield value={keyCodesToGenerate} onChange={(amount) => setKeyCodesToGenerate(amount)} />
-                </Grid>
-                <Grid item>
-                    <ButtonSecondary disabled={keyCodesToGenerate === 0 || keyCodesToGenerate > 1000} onClick={() => {
-                        createKeyCodes({
-                            variables: {
-                                target, 
-                                amount: keyCodesToGenerate
-                            }
-                        })
-                    }}
-                    variant="contained"
-                    >
-                        {t('admin-setting-page.keycode-generation.generate')}
-                    </ButtonSecondary>
-                </Grid>
-                <Grid item>{createKeyCodesResponse && <ButtonDefault
-                                                        icon={<SaveAltIcon className={classes.downloadIcon} />}
-                                                        onClick={() => generateExcel(createKeyCodesResponse.createKeyCodeBulk[0].series)}
-                                                    >
-                                                       {t('admin-setting-page.keycode-generation.download-as')}
-                                                    </ButtonDefault>}</Grid>
+                </div>
+                <div className={classes.amountContainer}>
+                    <KeyCodesToGenerateTextfield
+                        value={keyCodesToGenerate}
+                        onChange={amount => setKeyCodesToGenerate(amount)}
+                    />
+                </div>
+                <div className={classes.generateButtonContainer}>
+                    <LoadingButton
+                        isLoading={isLoading}
+                        isDisabled={isLoading || keyCodesToGenerate === 0 || keyCodesToGenerate > 1000}
+                        text={t('admin-setting-page.keycode-generation.generate')}
+                        onClick={() => {
+                            setIsLoading(true);
+                            createKeyCodes({
+                                variables: {
+                                    target,
+                                    amount: keyCodesToGenerate,
+                                },
+                            }).then(() => setIsLoading(false));
+                        }}
+                    />
+                </div>
+                <div className={classes.generatedFileContainer}>
+                    {createKeyCodesResponse && (
+                        <FilenameButton
+                            primary
+                            tooltip={t('admin-setting-page.keycode-generation.download')}
+                            text={t('admin-setting-page.keycode-generation.download-as')}
+                            onClick={() => generateExcel(createKeyCodesResponse.createKeyCodeBulk[0].series)}
+                        />
+                    )}
+                </div>
             </Grid>
-            <Grid container>
-                <ActiveKeysList keyCodeSeries={data.keyCodeSeries} onKeyCodeClick={(series) => generateExcel(series)} />
-            </Grid>
+            <div className={classes.fileListContainer}>
+                <ActiveKeysList keyCodeSeries={data.keyCodeSeries} onKeyCodeClick={series => generateExcel(series)} />
+            </div>
         </div>
     );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-
+        toggleContainer: {
+            marginTop: theme.spacing(4),
+        },
+        amountContainer: {
+            marginTop: 40,
+        },
+        generateButtonContainer: {
+            marginTop: theme.spacing(3),
+        },
+        generatedFileContainer: {
+            marginTop: 12,
+        },
         container: {
-            padding: theme.spacing(2)
+            padding: theme.spacing(2),
         },
-        keyCodeTextfield: {
-            width: 200
-        },
-        downloadIcon: {
-            color: theme.palette.success.main,
+        fileListContainer: {
+            marginTop: 40,
         },
     }),
 );
