@@ -99,7 +99,7 @@ describe('User (e2e)', () => {
             variables: {},
             query: `
             mutation {
-              createKeyCode {
+              createKeyCode(target: "parent") {
                 date
                 keyCode
                 createdBy
@@ -175,7 +175,7 @@ describe('User (e2e)', () => {
           variables: {},
           query: `
         mutation {
-          createKeyCode {
+          createKeyCode(target: "parent") {
             date
             keyCode
             createdBy

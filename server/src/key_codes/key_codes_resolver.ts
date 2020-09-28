@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Query, Args, Int } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
 
@@ -9,9 +9,15 @@ import {
   CreateKeyCodeCommand,
 } from './domain/commands/impl';
 import { CreateKeyCodeDTO } from './dto/create_key_code.dto';
-import { GetAllKeyCodesQuery } from './domain/queries/impl';
+import {
+  GetAllKeyCodesQuery,
+  GetAllKeyCodeSeriesQuery,
+} from './domain/queries/impl';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
+import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
+import { KeyCodeSeriesProps } from '../key_codes/domain/models/key_code_model';
+import { KeyCodeSeriesDTO } from './dto/key_code_series.dto';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -24,9 +30,19 @@ export class KeyCodesResolver {
 
   @Query(() => [CreateKeyCodeDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async keyCodes(): Promise<KeyCodeProps[]> {
+  async keyCodes(@Args('series') series: string): Promise<KeyCodeProps[]> {
     const keyCodes: KeyCodeProps[] = await this.queryBus.execute(
-      new GetAllKeyCodesQuery(),
+      new GetAllKeyCodesQuery(series),
+    );
+
+    return keyCodes;
+  }
+
+  @Query(() => [KeyCodeSeriesDTO])
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async keyCodeSeries(): Promise<KeyCodeSeriesProps[]> {
+    const keyCodes: KeyCodeSeriesProps[] = await this.queryBus.execute(
+      new GetAllKeyCodeSeriesQuery(),
     );
 
     return keyCodes;
@@ -34,11 +50,14 @@ export class KeyCodesResolver {
 
   @Mutation(() => CreateKeyCodeDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async createKeyCode(): Promise<KeyCodeProps> {
-    const createdBy = 'Janek25';
+  async createKeyCode(
+    @CurrentUser() user: LoggedUser,
+    @Args('target') target: string,
+  ): Promise<KeyCodeProps> {
+    const createdBy = user.userId;
 
     const created: KeyCodeProps = await this.commandBus.execute(
-      new CreateKeyCodeCommand(createdBy),
+      new CreateKeyCodeCommand(createdBy, target),
     );
 
     return created;
@@ -47,12 +66,14 @@ export class KeyCodesResolver {
   @Mutation(() => [CreateKeyCodeDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createKeyCodeBulk(
-    @Args('amount') amount: number,
+    @CurrentUser() user: LoggedUser,
+    @Args('target') target: string,
+    @Args('amount', { type: () => Int }) amount: number,
   ): Promise<KeyCodeProps> {
-    const createdBy = 'Janek25';
+    const createdBy = user.userId;
 
     const created: KeyCodeProps = await this.commandBus.execute(
-      new CreateBulkKeyCodeCommand(createdBy, amount),
+      new CreateBulkKeyCodeCommand(createdBy, amount, target),
     );
 
     return created;

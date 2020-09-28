@@ -69,16 +69,18 @@ describe('KeyCode (e2e)', () => {
         .send({
           operationName: null,
           variables: {},
-          query: '{keyCodes {id}}',
+          query: '{keyCodeSeries {series}}',
         })
         .expect({
-          data: { keyCodes: [] },
+          data: { keyCodeSeries: [] },
         });
     });
   });
 
   describe('when adding a new keyCode', () => {
     it('adds keyCode', async () => {
+      let adminId;
+
       await app
         .get(UserRepository)
         .createAdmin(
@@ -111,9 +113,25 @@ describe('KeyCode (e2e)', () => {
         .send({
           operationName: null,
           variables: {},
+          query: `{
+            me {
+              _id
+            }
+          }`,
+        })
+        .then(response => {
+          adminId = response.body.data.me._id;
+        });
+
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .set('Authorization', authorizationToken)
+        .send({
+          operationName: null,
+          variables: {},
           query: `
           mutation {
-            createKeyCode {
+            createKeyCode(target: "parent") {
               date
               keyCode
               createdBy
@@ -131,21 +149,24 @@ describe('KeyCode (e2e)', () => {
           variables: {},
           query: `
           {
-            keyCodes {
+            keyCodeSeries {
               createdBy
+              count
             }
           }
           `,
         })
         .expect(({ body }) => {
-          const { keyCodes } = body.data;
-          const [newKeyCode] = keyCodes;
+          const { keyCodeSeries } = body.data;
+          const [newKeyCode] = keyCodeSeries;
 
-          expect(keyCodes.length).toEqual(1);
+          expect(keyCodeSeries.length).toEqual(1);
+          expect(keyCodeSeries[0].count).toEqual(1);
 
           expect(newKeyCode).toEqual(
             jasmine.objectContaining({
-              createdBy: 'Janek25',
+              createdBy: adminId,
+              count: 1,
             }),
           );
         });
