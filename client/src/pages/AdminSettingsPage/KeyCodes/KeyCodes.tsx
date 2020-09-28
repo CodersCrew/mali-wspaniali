@@ -12,6 +12,7 @@ import { RoleToggleButton } from './RoleToggleButton';
 import { ActiveKeysList } from './ActiveKeysList';
 import { KeyCodesToGenerateTextfield } from './KeyCodesToGenerateTextfield';
 import { ButtonDefault } from '../../../components/Button';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 export function KeyCodes() {
     const client = useApolloClient();  
@@ -35,9 +36,12 @@ export function KeyCodes() {
                 const keyCodes = response.data?.keyCodes;
 
                 if (keyCodes) {
+                    const filename = `mw-keycodes-${series}.xlsx`
                     const workbook = getKeyCodesWorkbook(keyCodes)
 
-                    XLSX.writeFile(workbook, `mw-keycodes-${series}.xlsx`);
+                    XLSX.writeFile(workbook, filename);
+
+                    openSnackbar({text: t('admin-setting-page.keycode-generation.download-alert', { filename })})
                 }
             });
     }

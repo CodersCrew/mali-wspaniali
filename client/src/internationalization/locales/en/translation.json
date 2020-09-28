@@ -92,7 +92,8 @@
             "keycode-amount-total": "Total active keys ({{total}})",
             "generate": "Generate",
             "download-as": "Download as XLSX file.",
-            "download": "Download"
+            "download": "Download",
+            "download-alert": "The file {{filename}} has been downloaded."
         }
     },
     "e-mail": "E-Mail Address",
