@@ -15,6 +15,20 @@ export class KeyCodeRepository {
 
   async getAll(): Promise<KeyCodeProps[]> {
     return await this.keyCodeModel.find({}, {}, { sort: { date: -1 } }).exec();
+
+  async getAllSeries(): Promise<string[]> {
+    return await this.keyCodeModel.distinct('series').exec();
+  }
+
+  async getOne(series: string): Promise<KeyCodeProps> {
+    return await this.keyCodeModel
+      .findOne({ series })
+      .lean()
+      .exec();
+  }
+
+  async count(series: string): Promise<number> {
+    return await this.keyCodeModel.count({ series }).exec();
   }
 
   async create(createKeyCodeDTO: KeyCodeInput): Promise<KeyCodeProps> {
