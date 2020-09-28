@@ -130,3 +130,17 @@ export interface Notification {
     templateId: string;
     isRead: boolean;
 }
+
+export interface KeyCode {
+    id: string;
+    date: string;
+    createdBy: string;
+    keyCode: string;
+}
+
+export interface KeyCodeSeries {
+    date: string;
+    series: string;
+    target: string;
+    count: number;
+}
