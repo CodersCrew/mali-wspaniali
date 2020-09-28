@@ -1,0 +1,41 @@
+import React from 'react';
+import { createStyles, makeStyles, Snackbar } from '@material-ui/core';
+import { Alert, AlertProps } from '@material-ui/lab';
+
+import { ActionDialog, openDialog } from '../../utils/openDialog';
+
+interface Props {
+    text: string;
+    variant?: AlertProps['variant'];
+    severity?: AlertProps['severity'];
+}
+
+export function openSnackbar({ text, variant, severity }: Props) {
+    return openDialog(function({ onClose }: ActionDialog) {
+        const classes = useStyles();
+
+        return (
+            <div>
+                <Snackbar
+                    open
+                    autoHideDuration={6000}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    onClose={onClose}
+                    classes={{ root: classes.container }}
+                >
+                    <Alert onClose={onClose} severity={severity || 'success'} variant={variant || 'filled'}>
+                        {text}
+                    </Alert>
+                </Snackbar>
+            </div>
+        );
+    }, {});
+}
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        container: {
+            zIndex: 10000,
+        },
+    }),
+);
