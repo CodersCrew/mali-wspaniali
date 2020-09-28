@@ -13,6 +13,7 @@ import { ARTICLE_BY_ID } from '../../graphql/articleRepository';
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
+import { calculateReadingTime } from "../../utils/calculateReadingTime";
 
 export const ArticlePage = () => {
     const classes = useStyles();
@@ -43,7 +44,7 @@ export const ArticlePage = () => {
                     <BreadcrumbsWithDescription
                         category={data.article.category}
                         title={data.article.title}
-                        readingTime={data.article.readingTime}
+                        readingTime={calculateReadingTime(data.article.contentHTML)}
                     />
                 </Grid>
                 <Grid container direction="row">
