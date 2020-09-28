@@ -34,8 +34,16 @@ export class KeyCodeRepository {
     return await this.keyCodeModel.count({ series }).exec();
   }
 
-  async create(createKeyCodeDTO: KeyCodeInput): Promise<KeyCodeProps> {
-    const createdKeyCode = new this.keyCodeModel(createKeyCodeDTO);
+  async create(
+    createKeyCodeDTO: KeyCodeInput,
+    series: string,
+    target: string,
+  ): Promise<KeyCodeProps> {
+    const createdKeyCode = new this.keyCodeModel({
+      ...createKeyCodeDTO,
+      series,
+      target,
+    });
 
     return await createdKeyCode.save();
   }
