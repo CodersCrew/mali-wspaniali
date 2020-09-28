@@ -8,6 +8,8 @@ export const KeyCodeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  createdBy: String, // mongoose.Schema.Types.ObjectId,
+  createdBy: String,
   keyCode: String,
+  series: String,
+  target: String,
 });
