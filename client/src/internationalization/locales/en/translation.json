@@ -82,7 +82,7 @@
         "account-management": "Account management",
         "keycode-generation": {
             "title": "KeyCode generate",
-            "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xls. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
+            "description": "Choose for whom you want to generate registration codes and enter their number. After pressing “GENERATE” the codes will be exported to an .xlsx file. The keys will be active for 7 days. After this time, new keys should be generated.",
             "role-parent": "Parent",
             "role-instructor": "Instructor",
             "filename": "Filename",
