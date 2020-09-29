@@ -13,13 +13,11 @@ import {
     Theme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import clsx from 'clsx';
 import moment from 'moment';
 
-import { ButtonDefault } from '../../../components/Button/ButtonDefault';
 import { KeyCodeSeries } from '../../../graphql/types';
-import { ArrowTooltip } from '../../../components/Tooltip/ArrowTooltip';
+import { FilenameButton } from './FilenameButton';
 
 interface Props {
     keyCodeSeries: KeyCodeSeries[];
@@ -66,19 +64,13 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                                 return (
                                     <TableRow key={series}>
                                         <TableCell component="th" scope="row" classes={{ root: classes.cell }}>
-                                            <ArrowTooltip
-                                                title={t('admin-setting-page.keycode-generation.download') as string}
-                                            >
-                                                <span>
-                                                    <ButtonDefault
-                                                        icon={<SaveAltIcon className={classes.downloadIcon} />}
-                                                        onClick={() => onKeyCodeClick(series)}
-                                                        classes={{ root: classes.button }}
-                                                    >
-                                                        mw-keycodes-{series}.clsx
-                                                    </ButtonDefault>
-                                                </span>
-                                            </ArrowTooltip>
+                                            <span>
+                                                <FilenameButton
+                                                    text={`mw-keycodes-${series}.clsx`}
+                                                    tooltip={t('admin-setting-page.keycode-generation.download')}
+                                                    onClick={() => onKeyCodeClick(series)}
+                                                />
+                                            </span>
                                         </TableCell>
                                         <TableCell classes={{ root: clsx(classes.targetCell, classes.cell) }}>
                                             {target}

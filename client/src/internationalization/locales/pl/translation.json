@@ -79,7 +79,7 @@
         "req": "* wymagane"
     },
     "admin-setting-page": {
-        "account-management": "Account management",
+        "account-management": "Zarządzanie kontami",
         "keycode-generation": {
             "title": "Generowanie kluczy",
             "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
