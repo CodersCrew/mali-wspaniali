@@ -18,6 +18,7 @@ import {
     ViewModule,
     Archive,
     Message,
+    AccessAlarm,
 } from '@material-ui/icons';
 
 import { Child } from '../../../graphql/types';
@@ -283,6 +284,12 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         icon: <Icon icon={<Message />} />,
     };
 
+    const TestItem = {
+        name: 'admin-menu.test-management',
+        link: '/admin/test-management',
+        icon: <Icon icon={<AccessAlarm />} />,
+    };
+
     const options: { [index: string]: SingleItemProps } = {
         'main-page': MainPageItem,
         notifications: NotificationsItem,
@@ -290,7 +297,7 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         'create-blog-article': CreateBlogArticleItem,
         archive: ArchiveItem,
         newsletter: NewsletterItem,
-
+        tests: TestItem,
         logout: LogoutItem,
         agreements: AgreementsItem,
         results: ResultsItem,
