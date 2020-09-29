@@ -21,6 +21,14 @@ export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>
     });
 }
 
+export const ADD_CHILD = gql`
+    mutation addChild($child: ChildInput!) {
+        addChild(child: $child) {
+            status
+        }
+    }
+`;
+
 export const AUTHORIZE_USER = gql`
     mutation login($user: LoginInput!) {
         login(user: $user) {

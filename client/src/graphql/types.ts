@@ -46,7 +46,15 @@ export interface UserInput {
     keyCode: string;
 }
 
-export type Role = 'parent' | 'admin';
+export type Role = 'parent' | 'admin' | 'instructor';
+
+export interface ChildInput {
+    firstname: string;
+    lastname: string;
+    birthYear: number;
+    sex: string;
+    kindergartenId: string;
+}
 
 export type User = Omit<Me, 'notifications'>;
 
@@ -121,4 +129,18 @@ export interface Notification {
     values: string[];
     templateId: string;
     isRead: boolean;
+}
+
+export interface KeyCode {
+    id: string;
+    date: string;
+    createdBy: string;
+    keyCode: string;
+}
+
+export interface KeyCodeSeries {
+    date: string;
+    series: string;
+    target: string;
+    count: number;
 }

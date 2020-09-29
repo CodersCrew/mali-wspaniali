@@ -64,7 +64,12 @@ export const TestSummary = ({ result }: Props) => {
                     />
                 </div>
             </Card>
-            <BasicModal isOpen={isModalOpen} onClose={() => setIsModalOpen(prev => !prev)}>
+            <BasicModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(prev => !prev)}
+                onAction={() => setIsModalOpen(prev => !prev)}
+                actionName={t('close')}
+            >
                 {t(`child-profile.result-description.${key}`)}
             </BasicModal>
         </>

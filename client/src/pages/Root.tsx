@@ -24,7 +24,11 @@ import { ParentSettingsPage } from './ParentSettingsPage/ParentSettingsPage';
 import { CreateArticlePage } from './CreateArticlePage/CreateArticlePage';
 import { ArchivePage } from './ArchivePage/ArchivePage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
+import { ParentWrapper } from './ParentWrapper';
 import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreementsPageConatianer';
+import { AddResultsPage } from './AddResultsPage/AddResultsPage';
+import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
+import { TestManagementPage } from './AdminTestsPage/AdminTestsPage';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -48,25 +52,32 @@ export function Root() {
                             <Route path="/forgot-password" component={ForgotPasswordPage} />
                         </AuthTemplate>
                     </Route>
-                    <Route path={['/admin', '/parent']}>
+                    <Route path={['/admin', '/parent', '/instructor']}>
                         <AppWrapper>
-                            <Route exact path="/admin" component={AdminHomePage} />
-                            <Route path="/admin/tests" component={TestResultsPage} />
-                            <Route path="/admin/users" component={UsersPage} />
-                            <Route path="/admin/parent/:id" component={ParentProfilePage} />
-                            <Route path="/admin/agreements" component={AdminAgreementsPageContainer} />
-                            <Route path="/admin/newsletter" component={NewsletterPage} />
-                            <Route path="/admin/article/create" component={CreateArticlePage} />
-                            <Route path="/admin/archive" component={ArchivePage} />
-                            <Route path="/admin/notifications" component={NotificationsPage} />
-                            <Route path="/admin/settings" component={AdminSettingsPage} />
-                            <Route exact path="/parent" component={ParentHomePage} />
-                            <Route path="/parent/child/:childId/:category" component={ChildResultsPage} />
-                            <Route path="/parent/blog/:category" exact component={ArticleListPage} />
-                            <Route path="/parent/article/:articleId" component={ArticlePage} />
-                            <Route path="/parent/notifications" component={NotificationsPage} />
-                            <Route path="/parent/agreements" component={ParentAgreementsPage} />
-                            <Route path="/parent/settings" component={ParentSettingsPage} />
+                            <Switch>
+                                <Route exact path="/admin" component={AdminHomePage} />
+                                <Route path="/admin/tests" component={TestResultsPage} />
+                                <Route path="/admin/users" component={UsersPage} />
+                                <Route path="/admin/parent/:id" component={ParentProfilePage} />
+                                <Route path="/admin/agreements" component={AdminAgreementsPageContainer} />
+                                <Route path="/admin/newsletter" component={NewsletterPage} />
+                                <Route path="/admin/article/create" component={CreateArticlePage} />
+                                <Route path="/admin/archive" component={ArchivePage} />
+                                <Route path="/admin/notifications" component={NotificationsPage} />
+                                <Route path="/admin/test-management" component={TestManagementPage} />
+                                <Route path="/admin/settings" component={AdminSettingsPage} />
+                                <Route exact path="/instructor" component={AddResultsPage} />
+                                <Route path="/instructor/settings" component={InstructorSettingsPage} />
+                                <ParentWrapper>
+                                    <Route exact path="/parent" component={ParentHomePage} />
+                                    <Route path="/parent/child/:childId/:category" component={ChildResultsPage} />
+                                    <Route path="/parent/blog/:category" exact component={ArticleListPage} />
+                                    <Route path="/parent/article/:articleId" component={ArticlePage} />
+                                    <Route path="/parent/notifications" component={NotificationsPage} />
+                                    <Route path="/parent/agreements" component={ParentAgreementsPage} />
+                                    <Route path="/parent/settings" component={ParentSettingsPage} />
+                                </ParentWrapper>
+                            </Switch>
                         </AppWrapper>
                     </Route>
                 </Switch>

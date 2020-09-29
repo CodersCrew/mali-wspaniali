@@ -108,6 +108,17 @@ type CreateKeyCodeDTO {
   date: DateTime!
   createdBy: String!
   keyCode: String!
+  series: String!
+  target: String!
+}
+
+type KeyCodeSeriesDTO {
+  date: DateTime!
+  createdBy: String!
+  keyCode: String!
+  series: String!
+  target: String!
+  count: Int!
 }
 
 type KindergartenWithUsersDTO {
@@ -138,7 +149,8 @@ type Query {
   user(id: String!): UserDTO!
   users(role: String): [UserDTO!]!
   allChildren: [ChildDTO!]!
-  keyCodes: [CreateKeyCodeDTO!]!
+  keyCodes(series: String!): [CreateKeyCodeDTO!]!
+  keyCodeSeries: [KeyCodeSeriesDTO!]!
   agreements: [AgreementDTO!]!
   kindergartens: [KindergartenDTO!]!
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
@@ -154,8 +166,8 @@ type Mutation {
   resetPassword(mail: String!): ReturnedStatusDTO!
   changePassword(password: String!, jwt: String!): ReturnedStatusDTO!
   signAgreement(agreementId: String!): ReturnedStatusDTO!
-  createKeyCode: CreateKeyCodeDTO!
-  createKeyCodeBulk(amount: Float!): [CreateKeyCodeDTO!]!
+  createKeyCode(target: String!): CreateKeyCodeDTO!
+  createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createAgreement(agreement: String!): ReturnedStatusDTO!
   createKindergarten(kindergarten: CreateKindergartenInput!): KindergartenDTO!
   updateKindergarten(kindergarten: EditKindergartenInput!, id: String!): KindergartenDTO!

@@ -13,11 +13,13 @@ export class CreateBulkKeyCodeHandler
   constructor(private readonly repository: KeyCodeRepository) {}
 
   async execute(command: CreateBulkKeyCodeCommand): Promise<KeyCodeProps[]> {
-    const { createdBy, amount } = command;
+    const { createdBy, amount, target } = command;
+
+    const series = uuid.randomUUID(10);
 
     const keyCodes = new Array(amount)
       .fill(null)
-      .map(() => ({ createdBy, keyCode: uuid.randomUUID(10) }));
+      .map(() => ({ createdBy, keyCode: uuid.randomUUID(10), series, target }));
 
     const created = await this.repository.createBulk(keyCodes);
 

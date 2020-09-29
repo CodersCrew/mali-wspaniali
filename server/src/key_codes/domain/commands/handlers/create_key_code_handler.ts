@@ -13,11 +13,17 @@ export class CreateKeyCodeHandler
   constructor(private readonly repository: KeyCodeRepository) {}
 
   async execute(command: CreateKeyCodeCommand): Promise<KeyCodeProps> {
-    const { createdBy } = command;
+    const { createdBy, target } = command;
 
     const keyCode = uuid.randomUUID(10);
 
-    const created = await this.repository.create({ createdBy, keyCode });
+    const series = uuid.randomUUID(10);
+
+    const created = await this.repository.create(
+      { createdBy, keyCode },
+      series,
+      target,
+    );
 
     return created;
   }

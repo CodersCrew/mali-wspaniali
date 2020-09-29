@@ -18,6 +18,7 @@ import {
     ViewModule,
     Archive,
     Message,
+    AccessAlarm,
 } from '@material-ui/icons';
 
 import { Child } from '../../../graphql/types';
@@ -68,6 +69,13 @@ export function getAdminMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps
     return {
         create: ({ name, rightIcon }: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) =>
             getAdminMenuItem({ active, t, name, rightIcon }),
+    };
+}
+
+export function getInstructorMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps, 'active' | 't'>): ItemFactory {
+    return {
+        create: ({ name, rightIcon }: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) =>
+            getInstructorMenuItem({ active, t, name, rightIcon }),
     };
 }
 
@@ -276,6 +284,12 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         icon: <Icon icon={<Message />} />,
     };
 
+    const TestItem = {
+        name: 'admin-menu.test-management',
+        link: '/admin/test-management',
+        icon: <Icon icon={<AccessAlarm />} />,
+    };
+
     const options: { [index: string]: SingleItemProps } = {
         'main-page': MainPageItem,
         notifications: NotificationsItem,
@@ -283,10 +297,44 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         'create-blog-article': CreateBlogArticleItem,
         archive: ArchiveItem,
         newsletter: NewsletterItem,
-
+        tests: TestItem,
         logout: LogoutItem,
         agreements: AgreementsItem,
         results: ResultsItem,
+    };
+
+    const item = options[name];
+
+    if (active.includes(item.name)) item.active = true;
+
+    item.name = t(item.name);
+
+    return item;
+}
+
+function getInstructorMenuItem({ name, active, t }: MenuItemFactoryProps): SingleItemProps {
+    const AddResultsItem = {
+        name: 'instructor-menu.add-results',
+        link: '/instructor',
+        icon: <Icon icon={<Assessment />} />,
+    };
+
+    const SettingsItem = {
+        name: 'instructor-menu.settings',
+        link: '/instructor/settings',
+        icon: <Icon icon={<Build />} />,
+    };
+
+    const LogoutItem = {
+        name: 'instructor-menu.logout',
+        link: 'logout',
+        icon: <Icon icon={<PowerSettingsNew />} />,
+    };
+
+    const options: { [index: string]: SingleItemProps } = {
+        'add-results': AddResultsItem,
+        settings: SettingsItem,
+        logout: LogoutItem,
     };
 
     const item = options[name];

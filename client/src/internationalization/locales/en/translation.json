@@ -78,6 +78,24 @@
         "agreements-all": "All agreements",
         "req": "* required"
     },
+    "admin-setting-page": {
+        "account-management": "Account management",
+        "keycode-generation": {
+            "title": "KeyCode generate",
+            "description": "Choose for whom you want to generate registration codes and enter their number. After pressing “GENERATE” the codes will be exported to an .xlsx file. The keys will be active for 7 days. After this time, new keys should be generated.",
+            "role-parent": "Parent",
+            "role-instructor": "Instructor",
+            "filename": "Filename",
+            "target": "Target",
+            "expires-at": "Expires at",
+            "keycode-amount": "KeyCode amount",
+            "keycode-amount-total": "Total active keys ({{total}})",
+            "generate": "Generate",
+            "download-as": "Download as XLSX file.",
+            "download": "Download",
+            "download-alert": "The file {{filename}} has been downloaded."
+        }
+    },
     "e-mail": "E-Mail Address",
     "password": "Password",
     "no-results": "No Results",
@@ -349,8 +367,14 @@
         "create-blog-article": "Blog",
         "archive": "Archive",
         "agreements": "Agreements",
+        "test-management": "Tests",
         "results": "Results",
         "logout": "Log out"
+    },
+    "instructor-menu": {
+        "add-results": "Add results",
+        "settings": "Settings",
+        "logout": "Logout"
     },
     "home-page-content": {
         "greeting": "Good Afternoon!",
@@ -391,6 +415,35 @@
         "description": "Check all notifications on your account",
         "content": "Notification content",
         "date": "Date"
+    },
+    "add-child-modal": {
+        "button": "Add",
+        "heading": "Welcome on the website Mali Wspaniali",
+        "description": "Enter your child's details before going to the home page.",
+        "inputs": {
+            "firstname": "First name",
+            "lastname": "Last name"
+        },
+        "select-options": {
+            "sex": {
+                "label": "Sex",
+                "male": "man",
+                "female": "woman"
+            },
+            "birth-date": {
+                "label": "Year of birth"
+            },
+            "birth-quarter": {
+                "label": "Birth quarter",
+                "1": "(january-march)",
+                "2": "(april-june)",
+                "3": "(july-september)",
+                "4": "(october-december)"
+            },
+            "kindergarten": {
+                "label": "Kindergarten"
+            }
+        }
     },
     "years_0": "year",
     "years_1": "years",

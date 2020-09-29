@@ -78,6 +78,24 @@
         "agreements-all": "Wszystkie zgody",
         "req": "* wymagane"
     },
+    "admin-setting-page": {
+        "account-management": "Zarządzanie kontami",
+        "keycode-generation": {
+            "title": "Generowanie kluczy",
+            "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
+            "role-parent": "Rodzic",
+            "role-instructor": "Instruktor",
+            "filename": "Nazwa pliku",
+            "target": "Rola",
+            "expires-at": "Wygasa",
+            "keycode-amount": "Ilość kluczy",
+            "keycode-amount-total": "Liczba aktywnych kluczy ({{total}})",
+            "generate": "Generuj",
+            "download-as": "Pobierz jako plik XLSX.",
+            "download": "Pobierz",
+            "download-alert": "Plik {{filename}} został pobrany."
+        }
+    },
     "e-mail": "Adres e-mail",
     "password": "Hasło",
     "no-results": "Brak wyników",
@@ -335,6 +353,7 @@
         "archive": "Archiwum",
         "results-list": "Lista wyników",
         "notifications": "Powiadomienia",
+        "test-management": "Testy",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
     },
@@ -350,6 +369,11 @@
         "agreements": "Zgody",
         "settings": "Ustawienia",
         "notifications": "Powiadomienia",
+        "logout": "Wyloguj"
+    },
+    "instructor-menu": {
+        "add-results": "Dodaj wyniki",
+        "settings": "Ustawienia",
         "logout": "Wyloguj"
     },
     "blog-article-card": {
@@ -393,6 +417,35 @@
         "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
         "content": "Treść Powiadomienia",
         "date": "Data"
+    },
+    "add-child-modal": {
+        "button": "Dodaj",
+        "heading": "Witaj na stronie Mali Wspaniali",
+        "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
+        "inputs": {
+            "firstname": "Imię",
+            "lastname": "Nazwisko"
+        },
+        "select-options": {
+            "sex": {
+                "label": "Płeć",
+                "male": "mężczyzna",
+                "female": "kobieta"
+            },
+            "birth-date": {
+                "label": "Rok urodzenia"
+            },
+            "birth-quarter": {
+                "label": "Kwartał urodzenia",
+                "1": "(styczen-marzec)",
+                "2": "(kwiecień-czerwiec)",
+                "3": "(lipiec-wrzesień)",
+                "4": "(październik-grudzień)"
+            },
+            "kindergarten": {
+                "label": "Przedszkole"
+            }
+        }
     },
     "years_0": "rok",
     "years_1": "lata",

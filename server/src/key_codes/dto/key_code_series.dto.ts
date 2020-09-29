@@ -1,10 +1,7 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 
 @ObjectType()
-export class CreateKeyCodeDTO {
-  @Field(() => ID)
-  id: string;
-
+export class KeyCodeSeriesDTO {
   @Field()
   readonly date: Date;
 
@@ -19,4 +16,7 @@ export class CreateKeyCodeDTO {
 
   @Field()
   readonly target: string;
+
+  @Field(() => Int)
+  count: number;
 }

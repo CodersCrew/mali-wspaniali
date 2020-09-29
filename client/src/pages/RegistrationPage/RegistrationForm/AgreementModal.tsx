@@ -21,7 +21,7 @@ export const AgreementModal = ({ open, toggleModal }: AgreementModalProps) => {
     );
 
     return (
-        <BasicModal isOpen={open} onClose={toggleModal}>
+        <BasicModal isOpen={open} onClose={toggleModal} onAction={toggleModal} actionName={t('close')}>
             {body}
         </BasicModal>
     );

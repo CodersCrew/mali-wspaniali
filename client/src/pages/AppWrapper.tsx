@@ -5,15 +5,13 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { useQuery } from '@apollo/client';
 
-import { ParentSidebar } from '../components/Menu/Sidebar/ParentSidebar';
 import { Theme } from '../theme/types';
-
 import { getUser } from '../graphql/userRepository';
 import { Me } from '../graphql/types';
-import { AdminSidebar } from '../components/Menu/Sidebar/AdminSidebar';
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
 import { ACTIVE_PAGE } from '../graphql/localFields';
+import { Sidebar } from '../components/Menu/Sidebar/Sidebar';
 
 export const UserContext = React.createContext<Me | null>(null);
 
@@ -67,23 +65,13 @@ export const AppWrapper: FC = ({ children }) => {
                     onLanguageChange={handleLanguageChange}
                     onSidebarToggle={handleSidebarToggle}
                 />
-                {user.role === 'admin' ? (
-                    <AdminSidebar
-                        user={user}
-                        active={ActivePageState.activePage}
-                        open={isOpen}
-                        onClose={handleSidebarToggle}
-                        onClick={handleClick}
-                    />
-                ) : (
-                    <ParentSidebar
-                        user={user}
-                        active={ActivePageState.activePage}
-                        open={isOpen}
-                        onClose={handleSidebarToggle}
-                        onClick={handleClick}
-                    />
-                )}
+                <Sidebar
+                    user={user}
+                    activePage={ActivePageState.activePage}
+                    isOpen={isOpen}
+                    onClick={handleClick}
+                    onSidebarClose={handleSidebarToggle}
+                />
 
                 <main className={classes.content}>
                     <div className={classes.toolbar}>{children}</div>
