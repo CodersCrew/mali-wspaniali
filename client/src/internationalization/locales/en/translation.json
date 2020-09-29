@@ -364,6 +364,7 @@
         "create-blog-article": "Blog",
         "archive": "Archive",
         "agreements": "Agreements",
+        "test-management": "Tests",
         "results": "Results",
         "logout": "Log out"
     },

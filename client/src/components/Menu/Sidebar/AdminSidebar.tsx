@@ -40,6 +40,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
     const LogoutItem = ItemFactory.create({ name: 'logout' });
     const CreateBlogArticleItem = ItemFactory.create({ name: 'create-blog-article' });
     const NewsletterItem = ItemFactory.create({ name: 'newsletter' });
+    const TestsItem = ItemFactory.create({ name: 'tests' });
     const ArchiveItem = ItemFactory.create({ name: 'archive' });
     const AgreementsItem = ItemFactory.create({ name: 'agreements' });
 
@@ -59,6 +60,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
                     <SingleItem item={ArchiveItem} onClick={onClick} />
                     <SingleItem item={CreateBlogArticleItem} onClick={onClick} />
                     <SingleItem item={NotificationsItem} onClick={onClick} />
+                    <SingleItem item={TestsItem} onClick={onClick} />
                     <SingleItem item={SettingsItem} onClick={onClick} />
                 </List>
             </Grid>
