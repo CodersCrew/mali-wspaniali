@@ -1,0 +1,1 @@
+export { ChangePasswordPanel } from './ChangePasswordPanel';

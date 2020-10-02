@@ -444,7 +444,6 @@
     },
     "years_0": "year",
     "years_1": "years",
-    "close": "Close",
     "pagination": {
         "previous": "Previous",
         "next": "Next"
@@ -462,5 +461,18 @@
         "by-agreement-type": "Filter by agreement type",
         "by-agreement-status": "Filter by agreement status",
         "by-kindergarten": "Filter by kindergarten"
+    },
+    "settings-page": {
+        "parent": {
+            "password-change": "Password change",
+            "language-selection": "Language selection",
+            "consents": "Consents given in the program",
+            "delete-account": {
+                "header": "Deletion of the account"
+            },
+            "legal-notes": {
+                "heading": "Legal notes"
+            }
+        }
     }
 }

@@ -447,7 +447,6 @@
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
-    "close": "Zamknij",
     "agreements": {
         "show-all": "Wszystkie",
         "marketing": "Zgody marketingowe",
@@ -461,5 +460,18 @@
         "by-agreement-type": "Filtruj po rodzaju zgody",
         "by-agreement-status": "Filtruj po statusie",
         "by-kindergarten": "Filtruj po przedszkolu"
+    },
+    "settings-page": {
+        "parent": {
+            "password-change": "Zmiana hasła",
+            "language-selection": "Wybór języka",
+            "consents": "Zgody zapisane w programie",
+            "delete-account": {
+                "header": "Usuwanie konta"
+            },
+                "legal-notes": {
+                "heading": "Informacje prawne"
+            }
+        }
     }
 }
