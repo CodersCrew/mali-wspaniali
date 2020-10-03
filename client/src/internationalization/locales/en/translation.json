@@ -405,6 +405,8 @@
         "back": "Back"
     },
     "notification-panel": {
+        "title": "Notifications",
+        "empty-content": "Here you will find your notifications",
         "read-more": "Read more"
     },
     "notifications-page": {

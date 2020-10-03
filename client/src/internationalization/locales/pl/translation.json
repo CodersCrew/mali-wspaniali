@@ -407,6 +407,8 @@
         "read-less": "Zwiń"
     },
     "notification-panel": {
+        "title": "Powiadomienia",
+        "empty-content": "Tutaj znajdziesz swoje powiadomienia",
         "read-more": "Sprawdź więcej"
     },
     "notifications-page": {
