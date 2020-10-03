@@ -407,6 +407,8 @@
         "read-less": "Zwiń"
     },
     "notification-panel": {
+        "title": "Powiadomienia",
+        "empty-content": "Tutaj znajdziesz swoje powiadomienia",
         "read-more": "Sprawdź więcej"
     },
     "notifications-page": {
@@ -414,6 +416,10 @@
         "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
         "content": "Treść Powiadomienia",
         "date": "Data"
+    },
+    "notification-list": {
+        "new-assessment": "Nowy test ({{name}}) został dodany.",
+        "new-user": "Nowy użytkownik ({{email}}) został dodany."
     },
     "add-child-modal": {
         "button": "Dodaj",

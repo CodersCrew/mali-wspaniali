@@ -13,9 +13,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { NotificationPageListItem } from './NotificationPageListItem';
 import { Notification } from '../../graphql/types';
-import { white } from '../../colors';
 import { Theme } from '../../theme/types';
-import { getNotificationContent } from './notificationContent';
+import { useNotificationContent } from './useNotificationContent';
 
 interface Props {
     notifications: Notification[];
@@ -24,9 +23,10 @@ interface Props {
 export const NotificationPageList = ({ notifications }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { getNotification } = useNotificationContent();
 
     return (
-        <TableContainer className={classes.list} component={Paper}>
+        <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="Notification table">
                 <TableHead>
                     <TableRow className={classes.heading}>
@@ -38,13 +38,11 @@ export const NotificationPageList = ({ notifications }: Props) => {
                     {notifications.map(notification => {
                         const { _id, values, templateId, date, isRead } = notification;
 
-                        const text = getNotificationContent(templateId, values);
-
                         return (
                             <NotificationPageListItem
                                 key={_id}
                                 id={_id}
-                                text={text}
+                                text={getNotification(templateId, values)}
                                 date={new Date(date)}
                                 isRead={isRead}
                                 onClick={() => {
@@ -67,17 +65,13 @@ const useStyles = makeStyles((theme: Theme) =>
         list: {
             marginTop: '100px',
         },
-        heading: {
-            backgroundColor: theme.palette.primary.main,
-        },
+        heading: {},
         content: {
             paddingLeft: '100px',
-            color: white,
             textTransform: 'uppercase',
             fontWeight: 700,
         },
         date: {
-            color: white,
             textTransform: 'uppercase',
             fontWeight: 700,
             width: '275px',

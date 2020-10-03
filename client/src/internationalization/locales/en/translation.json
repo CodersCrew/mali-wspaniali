@@ -405,6 +405,8 @@
         "back": "Back"
     },
     "notification-panel": {
+        "title": "Notifications",
+        "empty-content": "Here you will find your notifications",
         "read-more": "Read more"
     },
     "notifications-page": {
@@ -412,6 +414,10 @@
         "description": "Check all notifications on your account",
         "content": "Notification content",
         "date": "Date"
+    },
+    "notification-list": {
+        "new-assessment": "A new test ({{name}}) has been added.",
+        "new-user": "A new user ({{email}}) has been added."
     },
     "add-child-modal": {
         "button": "Add",
