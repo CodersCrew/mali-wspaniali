@@ -415,6 +415,10 @@
         "content": "Notification content",
         "date": "Date"
     },
+    "notification-list": {
+        "new-assessment": "A new test ({{name}}) has been added.",
+        "new-user": "A new user ({{email}}) has been added."
+    },
     "add-child-modal": {
         "button": "Add",
         "heading": "Welcome on the website Mali Wspaniali",

@@ -417,6 +417,10 @@
         "content": "Treść Powiadomienia",
         "date": "Data"
     },
+    "notification-list": {
+        "new-assessment": "Nowy test ({{name}}) został dodany.",
+        "new-user": "Nowy użytkownik ({{email}}) został dodany."
+    },
     "add-child-modal": {
         "button": "Dodaj",
         "heading": "Witaj na stronie Mali Wspaniali",
