@@ -59,7 +59,6 @@ export const AppWrapper: FC = ({ children }) => {
             <Box display="flex">
                 <Navbar
                     device={device}
-                    role={user.role}
                     activePage={ActivePageState.activePage}
                     language={language}
                     notifications={user.notifications}

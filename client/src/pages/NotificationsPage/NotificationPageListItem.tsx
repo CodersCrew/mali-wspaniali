@@ -1,52 +1,59 @@
 import React from 'react';
-import { TableRow, TableCell, makeStyles } from '@material-ui/core';
+import { TableRow, TableCell, makeStyles, Theme, Typography } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons/';
 import clsx from 'clsx';
+
 import moment from '../../localizedMoment';
-import { secondaryColor, notificationReadColor, darkGrey } from '../../colors';
 
 interface Props {
     id: string;
     text: string;
     date: Date;
-    isRead: boolean;
+    isVisited: boolean;
     onClick: (value: string) => void;
 }
 
-export const NotificationPageListItem = ({ text, date, id, isRead, onClick }: Props) => {
+export const NotificationPageListItem = ({ text, date, id, isVisited, onClick }: Props) => {
     const classes = useStyles();
 
     return (
-        <TableRow key={id} onClick={() => onClick(id)} className={clsx({ [classes.background]: true, read: isRead })}>
-            <TableCell key={id} className={classes.text} component="th" scope="row">
-                <Notifications className={clsx({ [classes.icon]: true, read: isRead })} />
-                {text}
+        <TableRow
+            onClick={() => onClick(id)}
+            classes={{ root: clsx({ [classes.background]: true, [classes.visited]: isVisited }) }}
+        >
+            <TableCell classes={{ root: classes.text }} component="th" scope="row">
+                <Notifications
+                    classes={{ root: clsx({ [classes.icon]: true, [classes.visited]: isVisited }) }}
+                    fontSize="small"
+                />
+                <span>
+                    <Typography variant="caption">{text}</Typography>
+                </span>
             </TableCell>
-            <TableCell>{moment(date).calendar()}</TableCell>
+            <TableCell>
+                <Typography variant="caption">{moment(date).calendar()}</Typography>
+            </TableCell>
         </TableRow>
     );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
     text: {
-        color: 'black',
-        fontSize: '16px',
+        display: 'flex',
     },
     icon: {
-        position: 'relative',
-        width: '85px',
-        color: secondaryColor,
-        '&.read': {
-            color: notificationReadColor,
-        },
+        marginRight: theme.spacing(2),
+        color: theme.palette.secondary.main,
+    },
+    visited: {
+        color: '#C4C4C4',
+        background: theme.palette.background.default,
+        transition: 'backgroundColor .3s',
     },
     background: {
         '&:hover': {
             cursor: 'pointer',
-        },
-        '&.read': {
-            backgroundColor: darkGrey,
-            transition: 'backgroundColor .3s',
+            background: theme.palette.background.default,
         },
     },
-});
+}));

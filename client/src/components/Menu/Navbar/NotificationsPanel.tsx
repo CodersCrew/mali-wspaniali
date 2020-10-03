@@ -1,20 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuList, Paper, createStyles, makeStyles, Theme, Typography } from '@material-ui/core/';
-import { Link } from 'react-router-dom';
 import { Notifications } from '@material-ui/icons/';
 
 import { NotificationItem } from './NotificationItem';
-import { white, secondaryColor } from '../../../colors';
 import { Notification } from '../../../graphql/types';
 import { useNotificationContent } from '../../../pages/NotificationsPage/useNotificationContent';
 
 export type NotificationListProps = {
-    role: string;
     notifications: Notification[];
 };
 
-export const NotificationsPanel = ({ role, notifications }: NotificationListProps) => {
+export const NotificationsPanel = ({ notifications }: NotificationListProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -23,11 +20,7 @@ export const NotificationsPanel = ({ role, notifications }: NotificationListProp
             <div className={classes.header}>
                 <Typography variant="subtitle2">{t('notification-panel.title')}</Typography>
             </div>
-            {notifications.length === 0 ? (
-                <EmptyMessage />
-            ) : (
-                <ListComponent notifications={notifications} role={role} />
-            )}
+            {notifications.length === 0 ? <EmptyMessage /> : <ListComponent notifications={notifications} />}
         </Paper>
     );
 };
@@ -46,32 +39,26 @@ function EmptyMessage() {
     );
 }
 
-function ListComponent({ notifications, role }: { notifications: Notification[]; role: string }) {
+function ListComponent({ notifications }: { notifications: Notification[] }) {
     const { getNotification } = useNotificationContent();
     const classes = useStyles();
-    const { t } = useTranslation();
 
     return (
-        <>
-            <MenuList dense={true} classes={{ padding: classes.list }}>
-                {notifications.map(notification => {
-                    const { templateId, date, _id, isRead } = notification;
+        <MenuList dense={true} classes={{ padding: classes.list }}>
+            {notifications.map(notification => {
+                const { templateId, date, _id, isRead } = notification;
 
-                    return (
-                        <NotificationItem
-                            key={_id}
-                            id={_id}
-                            text={getNotification(templateId, notification.values)}
-                            date={date}
-                            isRead={isRead}
-                        />
-                    );
-                })}
-            </MenuList>
-            <Link to={`/${role}/notifications`} className={classes.notificationLink}>
-                {t('notification-panel.read-more')}
-            </Link>
-        </>
+                return (
+                    <NotificationItem
+                        key={_id}
+                        id={_id}
+                        text={getNotification(templateId, notification.values)}
+                        date={date}
+                        isRead={isRead}
+                    />
+                );
+            })}
+        </MenuList>
     );
 }
 
@@ -84,8 +71,9 @@ const useStyles = makeStyles((theme: Theme) =>
         list: {
             padding: 0,
             maxHeight: '50vh',
-            minHeight: '167px',
+            minHeight: 167,
             overflowY: 'auto',
+            outlineWidth: 0,
         },
         notificationsPanel: {
             position: 'absolute',
@@ -93,26 +81,12 @@ const useStyles = makeStyles((theme: Theme) =>
             right: theme.spacing(3),
             zIndex: 200,
             width: 328,
-            borderRadius: '5px',
             boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.25)',
-            backgroundColor: white,
             [theme.breakpoints.down('sm')]: {
                 position: 'fixed',
                 width: '100%',
                 top: '60px',
                 right: 0,
-            },
-        },
-        notificationLink: {
-            width: '125px',
-            height: '40px',
-            fontSize: '14px',
-            color: secondaryColor,
-            float: 'right',
-            textDecoration: 'none',
-            padding: '7px',
-            [theme.breakpoints.down('sm')]: {
-                display: 'none',
             },
         },
         emptyMessageContainer: {

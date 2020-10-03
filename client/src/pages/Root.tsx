@@ -16,7 +16,7 @@ import { ParentHomePage } from './ParentHomePage/ParentHomePage';
 import { ArticlePage } from './ArticlePage/ArticlePage';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { ArticleListPage } from './ArticleListPage/ArticleListPage';
-import { NotificationsPage } from './NotificationsPage';
+import { NotificationsPage } from './NotificationsPage/NotificationsPage';
 import { ThemeProvider } from '../theme/ThemeProvider';
 import { AdminHomePage } from './AdminHomePage/AdminHomePage';
 import { ParentAgreementsPage } from './ParentAgreementsPage/ParentAgreementsPage';

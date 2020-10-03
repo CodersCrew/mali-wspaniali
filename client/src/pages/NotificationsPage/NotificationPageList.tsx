@@ -9,11 +9,12 @@ import {
     makeStyles,
     TableBody,
     createStyles,
+    Theme,
+    Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { NotificationPageListItem } from './NotificationPageListItem';
 import { Notification } from '../../graphql/types';
-import { Theme } from '../../theme/types';
 import { useNotificationContent } from './useNotificationContent';
 
 interface Props {
@@ -27,11 +28,15 @@ export const NotificationPageList = ({ notifications }: Props) => {
 
     return (
         <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="Notification table">
+            <Table aria-label="Notification table">
                 <TableHead>
-                    <TableRow className={classes.heading}>
-                        <TableCell className={classes.content}>{t('notifications-page.content')}</TableCell>
-                        <TableCell className={classes.date}>{t('notifications-page.date')}</TableCell>
+                    <TableRow>
+                        <TableCell classes={{ root: classes.content }}>
+                            <Typography variant="subtitle2">{t('notifications-page.content')}</Typography>
+                        </TableCell>
+                        <TableCell classes={{ root: classes.date }}>
+                            <Typography variant="subtitle2">{t('notifications-page.date')}</Typography>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -44,7 +49,7 @@ export const NotificationPageList = ({ notifications }: Props) => {
                                 id={_id}
                                 text={getNotification(templateId, values)}
                                 date={new Date(date)}
-                                isRead={isRead}
+                                isVisited={isRead}
                                 onClick={() => {
                                     /* todo */
                                 }}
@@ -59,22 +64,12 @@ export const NotificationPageList = ({ notifications }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        table: {
-            minWidth: 650,
-        },
-        list: {
-            marginTop: '100px',
-        },
-        heading: {},
         content: {
-            paddingLeft: '100px',
+            paddingLeft: theme.spacing(7),
             textTransform: 'uppercase',
-            fontWeight: 700,
         },
         date: {
             textTransform: 'uppercase',
-            fontWeight: 700,
-            width: '275px',
         },
     }),
 );
