@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
@@ -9,10 +9,10 @@ import { Notification } from '../../../graphql/types';
 import { Device } from '../../../queries/useBreakpoints';
 import { LanguageSelector } from '../../LanguageSelector';
 import { AppLogo } from '../../AppLogo';
+import { useOnClickOutside } from '../../../utils/useOnClickOutside';
 
 interface Props {
     device: Device;
-    role: string;
     language: string;
     notifications: Notification[];
     activePage: string[];
@@ -20,17 +20,11 @@ interface Props {
     onLanguageChange: (language: string) => void;
 }
 
-export function Navbar({
-    device,
-    role,
-    language,
-    notifications,
-    activePage,
-    onSidebarToggle,
-    onLanguageChange,
-}: Props) {
+export function Navbar({ device, language, notifications, activePage, onSidebarToggle, onLanguageChange }: Props) {
     const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
     const classes = useStyles();
+    const popupRef = useRef<HTMLElement | null>(null);
+    useOnClickOutside(popupRef, () => setIsNotificationPopupOpen(false));
     const { t } = useTranslation();
 
     function handleNotificationPopupClick() {
@@ -67,7 +61,9 @@ export function Navbar({
                                 <Notifications />
                             </IconButton>
                             {isNotificationPopupOpen && (
-                                <NotificationsPanel role={role} notifications={notifications} />
+                                <span ref={popupRef}>
+                                    <NotificationsPanel notifications={notifications} />
+                                </span>
                             )}
                         </div>
                     </div>
