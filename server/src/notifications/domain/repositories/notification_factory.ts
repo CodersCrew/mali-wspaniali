@@ -1,5 +1,5 @@
 interface NotificationFactoryResult {
-  user: string;
+  user: string | string[];
   templateId: string;
   values: string[];
 }
@@ -21,6 +21,17 @@ export function createUserCreatedNotification(
   return {
     user,
     templateId: 'new_user',
+    values,
+  };
+}
+
+export function createAssessmentCreatedNotification(
+  users: string | string[],
+  values: string[],
+): NotificationFactoryResult {
+  return {
+    user: users,
+    templateId: 'new_assessment',
     values,
   };
 }
