@@ -34,9 +34,17 @@ export class NotificationRepository {
   async create(
     createNotificationDTO: CreateNotificationProps,
   ): Promise<NotificationDocument> {
-    const createdNotification = new this.repository(createNotificationDTO);
+    if (Array.isArray(createNotificationDTO.user)) {
+      this.repository.insertMany(
+        createNotificationDTO.user.map(u => {
+          return { ...createNotificationDTO, user: u };
+        }),
+      );
+    } else {
+      const createdNotification = new this.repository(createNotificationDTO);
 
-    return await createdNotification.save();
+      return await createdNotification.save();
+    }
   }
 
   async removeOlderThan(days: number): Promise<void> {
