@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { useTranslation } from 'react-i18next';
 
-export function getNotificationContent(): (name: string, values: string[]) => string {
+export function useNotificationContent(): { getNotification: (name: string, values: string[]) => string } {
     const { t } = useTranslation();
 
     const options: { [index: string]: (values: string[]) => string } = {
@@ -9,5 +9,7 @@ export function getNotificationContent(): (name: string, values: string[]) => st
         new_user: (values: string[]) => t('notification-list.new-user', { email: values[0] }),
     };
 
-    return (name: string, values: string[]) => (options[name] ? options[name](values) : '');
+    return {
+        getNotification: (name: string, values: string[]) => (options[name] ? options[name](values) : ''),
+    };
 }

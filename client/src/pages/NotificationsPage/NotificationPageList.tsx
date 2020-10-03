@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { NotificationPageListItem } from './NotificationPageListItem';
 import { Notification } from '../../graphql/types';
 import { Theme } from '../../theme/types';
-import { getNotificationContent } from './notificationContent';
+import { useNotificationContent } from './useNotificationContent';
 
 interface Props {
     notifications: Notification[];
@@ -23,7 +23,7 @@ interface Props {
 export const NotificationPageList = ({ notifications }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const getNotification = getNotificationContent();
+    const { getNotification } = useNotificationContent();
 
     return (
         <TableContainer component={Paper}>

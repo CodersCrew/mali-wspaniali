@@ -21,10 +21,7 @@ export const NotificationItem = ({ text, date, isRead }: notificationItemProps) 
 
     return (
         <MenuItem classes={{ dense: classes.item }}>
-            <ListItem
-                className={clsx({ [classes.notificationItem]: true, read: isRead })}
-                classes={{ root: classes.item }}
-            >
+            <ListItem className={clsx({ [classes.visited]: isRead })} classes={{ root: classes.item }}>
                 <Notifications
                     className={clsx({ [classes.notificationIcon]: true, [classes.notificationIconRead]: isRead })}
                 />
@@ -52,11 +49,17 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         notificationItem: {
             borderBottom: '1px solid notificationReadColor',
+            paddingRight: theme.spacing(2),
             '&.read': {
                 backgroundColor: darkGrey,
                 transition: 'backgroundColor .3s',
             },
         },
+        visited: {
+            background: theme.palette.background.default,
+            transition: 'backgroundColor .3s',
+        },
+
         notificationIconRead: {
             color: theme.palette.background.default,
         },
@@ -67,11 +70,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         notificationIcon: {
             alignSelf: 'start',
-            margin: `${theme.spacing(2)}px ${theme.spacing(1)}px`,
+            margin: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
             color: theme.palette.secondary.main,
         },
         notificationText: {
-            width: '230px',
             whiteSpace: 'pre-wrap',
         },
     }),

@@ -7,7 +7,7 @@ import { Notifications } from '@material-ui/icons/';
 import { NotificationItem } from './NotificationItem';
 import { white, secondaryColor } from '../../../colors';
 import { Notification } from '../../../graphql/types';
-import { getNotificationContent } from '../../../pages/NotificationsPage/notificationContent';
+import { useNotificationContent } from '../../../pages/NotificationsPage/useNotificationContent';
 
 export type NotificationListProps = {
     role: string;
@@ -47,7 +47,7 @@ function EmptyMessage() {
 }
 
 function ListComponent({ notifications, role }: { notifications: Notification[]; role: string }) {
-    const getNotification = getNotificationContent();
+    const { getNotification } = useNotificationContent();
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
             top: theme.spacing(7),
             right: theme.spacing(3),
             zIndex: 200,
-            width: '350px',
+            width: 328,
             borderRadius: '5px',
             boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.25)',
             backgroundColor: white,
