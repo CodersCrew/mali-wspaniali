@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
         list: {
             padding: 0,
             maxHeight: '50vh',
-            minHeight: '167px',
+            minHeight: 167,
             overflowY: 'auto',
             outlineWidth: 0,
         },

@@ -15,11 +15,9 @@ export const NotificationsPage = () => {
 
     if (!user) return null;
 
-    const { notifications } = user;
-
     return (
         <Container classes={{ root: classes.container }}>
-            <NotificationPageList notifications={notifications} />
+            <NotificationPageList notifications={user.notifications} />
             <Pagination disabledPrevious={true} disabledNext={true} handleChange={() => true}></Pagination>
         </Container>
     );
