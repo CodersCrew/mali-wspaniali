@@ -12,6 +12,7 @@ import { AppLogo } from '../../AppLogo';
 
 interface Props {
     device: Device;
+    role: string;
     language: string;
     notifications: Notification[];
     activePage: string[];
@@ -19,7 +20,15 @@ interface Props {
     onLanguageChange: (language: string) => void;
 }
 
-export function Navbar({ device, language, notifications, activePage, onSidebarToggle, onLanguageChange }: Props) {
+export function Navbar({
+    device,
+    role,
+    language,
+    notifications,
+    activePage,
+    onSidebarToggle,
+    onLanguageChange,
+}: Props) {
     const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
     const classes = useStyles();
     const { t } = useTranslation();
@@ -57,7 +66,9 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
                             <IconButton aria-label="notifications" onClick={handleNotificationPopupClick}>
                                 <Notifications />
                             </IconButton>
-                            {isNotificationPopupOpen && <NotificationsPanel notifications={notifications} />}
+                            {isNotificationPopupOpen && (
+                                <NotificationsPanel role={role} notifications={notifications} />
+                            )}
                         </div>
                     </div>
                 </Toolbar>
