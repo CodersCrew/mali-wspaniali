@@ -50,7 +50,7 @@ export function TestHistoryList() {
                 </TableHead>
                 <TableBody>
                     {testList.map(test => (
-                        <TestItem key={test.title} value={test} status={mapStatus(test.status)} />
+                        <TestItem key={test.title} value={test} status={<Status value={test.status} />} />
                     ))}
                 </TableBody>
             </Table>
@@ -58,11 +58,11 @@ export function TestHistoryList() {
     );
 }
 
-function mapStatus(status: string) {
+function Status({ value }: { value: string }) {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    if (status === 'active')
+    if (value === 'active')
         return (
             <Chip
                 size="small"
@@ -71,10 +71,10 @@ function mapStatus(status: string) {
             />
         );
 
-    if (status === 'done')
+    if (value === 'done')
         return <Chip size="small" label={t('manage-test-view.test-list.done')} classes={{ root: classes.doneLabel }} />;
 
-    return <div></div>;
+    return null;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
