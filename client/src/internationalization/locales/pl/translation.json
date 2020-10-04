@@ -422,6 +422,9 @@
         "new-user": "Nowy użytkownik ({{email}}) został dodany."
     },
     "manage-test-view": {
+        "test-search": {
+            "create-test": "Utwórz nowy test"
+        },
         "test-list": {
             "name": "Nazwa testu",
             "first-assessment": "Próba początkowa",

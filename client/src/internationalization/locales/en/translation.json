@@ -420,6 +420,9 @@
         "new-user": "A new user ({{email}}) has been added."
     },
     "manage-test-view": {
+        "test-search": {
+            "create-test": "Create test"
+        },
         "test-list": {
             "name": "Name",
             "first-assessment": "First assessment",
