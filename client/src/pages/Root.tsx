@@ -29,6 +29,7 @@ import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreeme
 import { AddResultsPage } from './AddResultsPage/AddResultsPage';
 import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
 import { TestManagementPage } from './AdminTestsPage/AdminTestsPage';
+import { AdminAddTestPage } from './AdminAddTestPage/AdminAddTestPage';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -64,6 +65,7 @@ export function Root() {
                                 <Route path="/admin/article/create" component={CreateArticlePage} />
                                 <Route path="/admin/archive" component={ArchivePage} />
                                 <Route path="/admin/notifications" component={NotificationsPage} />
+                                <Route path="/admin/test-management/add" component={AdminAddTestPage} />
                                 <Route path="/admin/test-management" component={TestManagementPage} />
                                 <Route path="/admin/settings" component={AdminSettingsPage} />
                                 <Route exact path="/instructor" component={AddResultsPage} />
