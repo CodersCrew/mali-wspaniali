@@ -17,7 +17,7 @@ import { ArticlePage } from './ArticlePage/ArticlePage';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { ArticleListPage } from './ArticleListPage/ArticleListPage';
 import { NotificationsPage } from './NotificationsPage';
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '../theme';
 import { AdminHomePage } from './AdminHomePage/AdminHomePage';
 import { ParentAgreementsPage } from './ParentAgreementsPage/ParentAgreementsPage';
 import { ParentSettingsPage } from './ParentSettingsPage/ParentSettingsPage';
@@ -29,6 +29,7 @@ import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreeme
 import { AddResultsPage } from './AddResultsPage/AddResultsPage';
 import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
 import { TestManagementPage } from './AdminTestsPage/AdminTestsPage';
+import { ResultsWrapper } from '../utils/results2points/components/ResultsWrapper';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -80,6 +81,7 @@ export function Root() {
                             </Switch>
                         </AppWrapper>
                     </Route>
+                    <Route path="/results" component={ResultsWrapper} />
                 </Switch>
             </Router>
         </ThemeProvider>
