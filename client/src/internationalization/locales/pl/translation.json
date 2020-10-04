@@ -421,6 +421,20 @@
         "new-assessment": "Nowy test ({{name}}) został dodany.",
         "new-user": "Nowy użytkownik ({{email}}) został dodany."
     },
+    "manage-test-view": {
+        "test-search": {
+            "create-test": "Utwórz nowy test"
+        },
+        "test-list": {
+            "name": "Nazwa testu",
+            "first-assessment": "Próba początkowa",
+            "last-assessment": "Próba końcowa",
+            "status": "Status",
+            "details": "Zobacz szczegóły",
+            "active": "Aktywny",
+            "done": "Zakończony"
+        }
+    },
     "add-child-modal": {
         "button": "Dodaj",
         "heading": "Witaj na stronie Mali Wspaniali",

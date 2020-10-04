@@ -419,6 +419,20 @@
         "new-assessment": "A new test ({{name}}) has been added.",
         "new-user": "A new user ({{email}}) has been added."
     },
+    "manage-test-view": {
+        "test-search": {
+            "create-test": "Create test"
+        },
+        "test-list": {
+            "name": "Name",
+            "first-assessment": "First assessment",
+            "last-assessment": "Last assessment",
+            "status": "Status",
+            "details": "Details",
+            "active": "Active",
+            "done": "Done"
+        }
+    },
     "add-child-modal": {
         "button": "Add",
         "heading": "Welcome on the website Mali Wspaniali",
