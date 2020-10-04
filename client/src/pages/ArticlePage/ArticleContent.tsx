@@ -20,31 +20,26 @@ export const ArticleContent = ({ title, description, pictureUrl, contentHTML, da
     return (
         <Grid className={classes.contentGrid} container direction="column">
             <CardMedia className={classes.contentPhotoMedia} component="img" image={pictureUrl} />
-
-            <Grid className={classes.subContainer} item lg={9} xs={12}>
-                <Grid className={classes.contentContainer} item xs={12}>
-                    <Grid className={classes.contentDateReadingTime} container direction="row" justify="center">
-                        <Typography className={classes.dateReadingTime} variant="overline">
-                            {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
-                        </Typography>
-                        <div className={classes.ellipse}></div>
-                        <Typography className={classes.dateReadingTime} variant="overline">
-                            {readingTime} {t('single-article.reading-time')}
-                        </Typography>
-                    </Grid>
-                    <div className={classes.contentHeader}>
-                        <Typography className={classes.title} variant="h2">
-                            {title}
-                        </Typography>
-                        <Typography className={classes.description} variant="h3">
-                            {description}
-                        </Typography>
-                    </div>
-                    <Grid container direction="row">
-                        <Grid className={classes.contentHTML} item>
-                            {parse(contentHTML)}
-                        </Grid>
-                    </Grid>
+            <Grid className={classes.contentDateReadingTime} container direction="row" justify="center">
+                <Typography className={classes.dateReadingTime} variant="overline">
+                    {date ? date.toLocaleString('da-DK', options) : new Date().toLocaleString('da-DK', options)}
+                </Typography>
+                <div className={classes.ellipse}></div>
+                <Typography className={classes.dateReadingTime} variant="overline">
+                    {readingTime} {t('single-article.reading-time')}
+                </Typography>
+            </Grid>
+            <div className={classes.contentHeader}>
+                <Typography className={classes.title} variant="h2">
+                    {title}
+                </Typography>
+                <Typography className={classes.description} variant="h3">
+                    {description}
+                </Typography>
+            </div>
+            <Grid container direction="row">
+                <Grid className={classes.contentHTML} item>
+                    {parse(contentHTML)}
                 </Grid>
             </Grid>
         </Grid>
