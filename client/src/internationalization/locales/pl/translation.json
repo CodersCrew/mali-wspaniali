@@ -463,14 +463,20 @@
     },
     "settings-page": {
         "parent": {
-            "password-change": "Zmiana hasła",
-            "language-selection": "Wybór języka",
-            "consents": "Zgody zapisane w programie",
-            "delete-account": {
-                "header": "Usuwanie konta"
+            "password-change": {
+                "title": "Zmiana hasła"
             },
-                "legal-notes": {
-                "heading": "Informacje prawne"
+            "language-selection": {
+                "title": "Wybór języka"
+            },
+            "consents": {
+                "title": "Zgody zapisane w programie"
+            },
+            "delete-account": {
+                "title": "Usuwanie konta"
+            },
+            "legal-notes": {
+                "title": "Informacje prawne"
             }
         }
     }

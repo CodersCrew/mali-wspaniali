@@ -1,1 +1,0 @@
-export { LegalNotesPanel } from './LegalNotesPanel';

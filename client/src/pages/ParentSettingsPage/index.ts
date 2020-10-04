@@ -1,1 +1,0 @@
-export { ParentSettingsPage } from './ParentSettingsPage';

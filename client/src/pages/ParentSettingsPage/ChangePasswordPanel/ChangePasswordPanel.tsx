@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const ChangePasswordPanel = () => {
+export function ChangePasswordPanel() {
     return <>ChangePasswordPanel</>;
-};
+}

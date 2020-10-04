@@ -9,29 +9,29 @@ import { Me } from '../../graphql/types';
 export interface ExpansionPanelItem {
     user: Me;
     name: string;
-    handle: (event: React.ChangeEvent<{}>, isExpanded: boolean) => void;
+    onTogglePanelExpansion: (event: React.ChangeEvent<{}>, isExpanded: boolean) => void;
     expanded: boolean;
-    heading: string;
+    title: string;
     panel: FC<{ user: Me }>;
 }
 
-export const ExpansionPanelItem = ({ user, name, handle, expanded, heading, panel }: ExpansionPanelItem) => {
+export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expanded, title, panel }: ExpansionPanelItem) {
     const { t } = useTranslation();
 
     const Panel = panel;
 
     return (
-        <Accordion expanded={expanded} onChange={handle}>
+        <Accordion expanded={expanded} onChange={onTogglePanelExpansion}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`${name}"-content"`}
-                id={`${name}"-header"`}
+                id={`${name}"-title"`}
             >
-                <Typography variant={'body2'}>{t(heading)}</Typography>
+                <Typography variant={'body2'}>{t(title)}</Typography>
             </AccordionSummary>
             <ExpansionPanelDetails>
                 <Panel user={user} />
             </ExpansionPanelDetails>
         </Accordion>
     );
-};
+}

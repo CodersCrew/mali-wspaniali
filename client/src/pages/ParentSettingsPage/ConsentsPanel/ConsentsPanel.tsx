@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const ConsentsPanel = () => {
+export function ConsentsPanel() {
     return <>ConsentsPanel</>;
-};
+}

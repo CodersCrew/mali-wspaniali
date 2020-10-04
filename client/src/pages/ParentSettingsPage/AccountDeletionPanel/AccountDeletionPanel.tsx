@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const AccountDeletionPanel = () => {
+export function AccountDeletionPanel() {
     return <>AccountDeletionPanel</>;
-};
+}

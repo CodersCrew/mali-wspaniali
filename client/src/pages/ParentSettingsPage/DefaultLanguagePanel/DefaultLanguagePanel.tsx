@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const DefaultLanguagePanel = () => {
+export function DefaultLanguagePanel() {
     return <>DefaultLanguagePanel</>;
-};
+}

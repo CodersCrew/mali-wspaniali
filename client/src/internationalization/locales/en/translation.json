@@ -464,14 +464,20 @@
     },
     "settings-page": {
         "parent": {
-            "password-change": "Password change",
-            "language-selection": "Language selection",
-            "consents": "Consents given in the program",
+            "password-change": {
+                "title": "Password change"
+            },
+            "language-selection": {
+                "title": "Language selection"
+            },
+            "consents": {
+                "title": "Consents given in the program"
+            },
             "delete-account": {
-                "header": "Deletion of the account"
+                "title": "Deletion of the account"
             },
             "legal-notes": {
-                "heading": "Legal notes"
+                "title": "Legal notes"
             }
         }
     }

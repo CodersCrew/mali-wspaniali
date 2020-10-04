@@ -1,81 +1,69 @@
 import React, { useState } from 'react';
-import { createStyles, Typography } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Me } from '../../graphql/types';
-import { ChangePasswordPanel } from './ChangePasswordPanel';
+import { ChangePasswordPanel } from './ChangePasswordPanel/ChangePasswordPanel';
 import { ExpansionPanelItem } from './ExpansionPanelItem';
-import { DefaultLanguagePanel } from './DefaultLanguagePanel';
-import { LegalNotesPanel } from './LegalNotesPanel';
-import { ConsentsPanel } from './ConsentsPanel';
-import { AccountDeletionPanel } from './AccountDeletionPanel';
+import { DefaultLanguagePanel } from './DefaultLanguagePanel/DefaultLanguagePanel';
+import { LegalNotesPanel } from './LegalNotesPanel/LegalNotesPanel';
+import { ConsentsPanel } from './ConsentsPanel/ConsentsPanel';
+import { AccountDeletionPanel } from './AccountDeletionPanel/AccountDeletionPanel';
 
 interface Props {
     user: Me;
 }
 
-export const ParentSettingsExpansionPanel = ({ user }: Props) => {
-    const classes = useStyles();
-    const [expanded, setExpanded] = useState<string | false>(false);
+export function ParentSettingsExpansionPanel({ user }: Props) {
+    const [expandedPanel, setExpandedPanel] = useState<string>('');
 
-    const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : false);
+    const togglePanelExpansion = (name: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+        setExpandedPanel(isExpanded ? name : '');
     };
 
     return (
-        <Typography className={classes.root}>
+        <>
             <ExpansionPanelItem
                 user={user}
                 name={'password-change-panel'}
-                handle={handleChange('password-change-panel')}
-                expanded={expanded === 'password-change-panel'}
-                heading={'settings-page.parent.password-change'}
+                onTogglePanelExpansion={togglePanelExpansion('password-change-panel')}
+                expanded={expandedPanel === 'password-change-panel'}
+                title={'settings-page.parent.password-change.title'}
                 panel={ChangePasswordPanel}
             />
 
             <ExpansionPanelItem
                 user={user}
                 name={'language-selection-panel'}
-                handle={handleChange('language-selection-panel')}
-                expanded={expanded === 'language-selection-panel'}
-                heading={'settings-page.parent.language-selection'}
+                onTogglePanelExpansion={togglePanelExpansion('language-selection-panel')}
+                expanded={expandedPanel === 'language-selection-panel'}
+                title={'settings-page.parent.language-selection.title'}
                 panel={DefaultLanguagePanel}
             />
 
             <ExpansionPanelItem
                 user={user}
                 name={'legal-notes-panel'}
-                handle={handleChange('legal-notes-panel')}
-                expanded={expanded === 'legal-notes-panel'}
-                heading={'settings-page.parent.legal-notes.heading'}
+                onTogglePanelExpansion={togglePanelExpansion('legal-notes-panel')}
+                expanded={expandedPanel === 'legal-notes-panel'}
+                title={'settings-page.parent.legal-notes.title'}
                 panel={LegalNotesPanel}
             />
 
             <ExpansionPanelItem
                 user={user}
                 name={'consents-panel'}
-                handle={handleChange('consents-panel')}
-                expanded={expanded === 'consents-panel'}
-                heading={'settings-page.parent.consents'}
+                onTogglePanelExpansion={togglePanelExpansion('consents-panel')}
+                expanded={expandedPanel === 'consents-panel'}
+                title={'settings-page.parent.consents.title'}
                 panel={ConsentsPanel}
             />
 
             <ExpansionPanelItem
                 user={user}
                 name={'account-deletion-panel'}
-                handle={handleChange('account-deletion-panel')}
-                expanded={expanded === 'account-deletion-panel'}
-                heading={'settings-page.parent.delete-account.header'}
+                onTogglePanelExpansion={togglePanelExpansion('account-deletion-panel')}
+                expanded={expandedPanel === 'account-deletion-panel'}
+                title={'settings-page.parent.delete-account.title'}
                 panel={AccountDeletionPanel}
             />
-        </Typography>
+        </>
     );
-};
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            width: '100%',
-            marginTop: theme.spacing(4),
-        },
-    }),
-);
+}
