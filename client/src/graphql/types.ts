@@ -13,7 +13,7 @@ export interface Article {
     videoUrl: string;
     readingTime: number;
     redactor: Redactor;
-    date: Date;
+    date: string;
 }
 
 export interface Redactor {

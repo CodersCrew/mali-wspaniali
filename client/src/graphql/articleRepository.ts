@@ -58,6 +58,7 @@ export const ARTICLE_BY_ID = gql`
             contentHTML
             videoUrl
             tags
+            date
             redactor {
                 avatarUrl
                 firstName
