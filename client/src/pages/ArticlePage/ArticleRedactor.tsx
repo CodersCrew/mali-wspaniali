@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
+import clsx from 'clsx';
 import { Redactor } from '../../graphql/types';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     redactor: Redactor;
@@ -8,12 +10,24 @@ interface Props {
 
 export const ArticleRedactor = ({ redactor }: Props) => {
     const classes = useStyles();
+    const { isDesktop } = useIsDevice();
 
     return (
-        <Grid container direction="row" className={classes.wrapper}>
-            <Grid className={classes.contentRedactorAvatarContainer} item>
+        <Grid container direction="row">
+            <Grid
+                classes={{
+                    root: clsx({
+                        [classes.contentRedactorAvatarContainer]: true,
+                        [classes.contentRedactorAvatarContainerMobile]: !isDesktop,
+                    }),
+                }}
+                item
+            >
                 <Avatar
-                    className={classes.contentRedactorAvatar}
+                    className={clsx({
+                        [classes.contentRedactorAvatar]: true,
+                        [classes.contentRedactorAvatarMobile]: !isDesktop,
+                    })}
                     alt={`${redactor.firstName} ${redactor.lastName}`}
                     src={redactor.avatarUrl}
                 />
@@ -31,7 +45,9 @@ export const ArticleRedactor = ({ redactor }: Props) => {
                     </Grid>
                     <Grid>
                         <Box className={classes.contentRedactorDescriptionBox}>
-                            <Typography className={classes.contentRedactorDescription}>{redactor.biography}</Typography>
+                            <Typography className={classes.contentRedactorDescription} variant="body1">
+                                {redactor.biography}
+                            </Typography>
                         </Box>
                     </Grid>
                 </Grid>
@@ -42,27 +58,19 @@ export const ArticleRedactor = ({ redactor }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        wrapper: {
-            [theme.breakpoints.down('md')]: {
-                paddingRight: theme.spacing(2),
-                width: '100vw',
-            },
-        },
         contentRedactorAvatarContainer: {
             paddingRight: theme.spacing(3),
-
-            [theme.breakpoints.down('sm')]: {
-                paddingRight: theme.spacing(2),
-            },
+        },
+        contentRedactorAvatarContainerMobile: {
+            paddingRight: theme.spacing(2),
         },
         contentRedactorAvatar: {
-            width: '94px',
-            height: '94px',
-
-            [theme.breakpoints.down('sm')]: {
-                width: '70px',
-                height: '70px',
-            },
+            width: 94,
+            height: 94,
+        },
+        contentRedactorAvatarMobile: {
+            width: 70,
+            height: 70,
         },
         contentRedactorProf: {
             textTransform: 'uppercase',
@@ -70,10 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
         contentRedactorName: {
             paddingTop: theme.spacing(1),
             fontWeight: theme.typography.button.fontWeight,
-
-            [theme.breakpoints.down('sm')]: {
-                width: '100vw',
-            },
         },
         contentRedactorDescriptionBox: {
             fontWeight: theme.typography.button.fontWeight,
