@@ -15,6 +15,7 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 import { ButtonDefault } from '../../components/Button';
 import { ReadingTime } from './ReadingTime';
 import { TagList } from './TagList';
+import { calculateReadingTime } from '../../utils/calculateReadingTime';
 
 export const ArticlePage = () => {
     const { t } = useTranslation();
@@ -55,7 +56,7 @@ export const ArticlePage = () => {
                             [classes.readingTimeContainerDesktop]: isDesktop,
                         })}
                     >
-                        <ReadingTime date={new Date(date)} readingTime={readingTime} />
+                        <ReadingTime date={new Date(date)} readingTime={calculateReadingTime(readingTime)} />
                     </div>
                     <ArticleContent title={title} description={description} contentHTML={contentHTML} />
                     <Grid item classes={{ root: classes.videoContainer }}>

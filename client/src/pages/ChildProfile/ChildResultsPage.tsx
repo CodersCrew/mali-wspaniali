@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
-import { UserContext } from '../AppWrapper';
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { childProfileCategoriesList } from './ChildProfileCategory';
@@ -18,6 +17,7 @@ import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAware
 import { Recomendations } from './Recomendations/Recomendations';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests/ChildProfileAboutTests';
 import { ChildDetails } from './Details/ChildDetails';
+import { useMe } from '../../utils/useMe';
 
 export const ChildResultsPage = () => {
     const { t } = useTranslation();
@@ -28,7 +28,7 @@ export const ChildResultsPage = () => {
     const device = useBreakpoints();
     const history = useHistory();
     const classes = useStyles();
-    const user = useContext(UserContext);
+    const user = useMe()
 
     const child = user?.children.find((_child) => _child._id === childId);
 

@@ -1,0 +1,23 @@
+import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+
+import { CreateAssessmentCommand } from '../impl/create_assessment_command';
+import { AssessmentProps } from '../../../schemas/assessment_schema';
+import { AssessmentRepository } from '../../repositories/assessment_repository';
+import { Assessment } from '../../models/assessment_model';
+
+@CommandHandler(CreateAssessmentCommand)
+export class CreateAssessmentHandler
+  implements ICommandHandler<CreateAssessmentCommand> {
+  constructor(
+    private readonly repository: AssessmentRepository,
+    private readonly publisher: EventPublisher,
+  ) {}
+
+  async execute(command: CreateAssessmentCommand): Promise<void> {
+    const assessment = this.publisher.mergeObjectContext(
+      await this.repository.create(command),
+    );
+
+    assessment.commit();
+  }
+}

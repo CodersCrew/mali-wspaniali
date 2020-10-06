@@ -410,6 +410,8 @@
         "read-less": "Zwiń"
     },
     "notification-panel": {
+        "title": "Powiadomienia",
+        "empty-content": "Tutaj znajdziesz swoje powiadomienia",
         "read-more": "Sprawdź więcej"
     },
     "notifications-page": {
@@ -417,6 +419,24 @@
         "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
         "content": "Treść Powiadomienia",
         "date": "Data"
+    },
+    "notification-list": {
+        "new-assessment": "Nowy test ({{name}}) został dodany.",
+        "new-user": "Nowy użytkownik ({{email}}) został dodany."
+    },
+    "manage-test-view": {
+        "test-search": {
+            "create-test": "Utwórz nowy test"
+        },
+        "test-list": {
+            "name": "Nazwa testu",
+            "first-assessment": "Próba początkowa",
+            "last-assessment": "Próba końcowa",
+            "status": "Status",
+            "details": "Zobacz szczegóły",
+            "active": "Aktywny",
+            "done": "Zakończony"
+        }
     },
     "add-child-modal": {
         "button": "Dodaj",
@@ -450,7 +470,6 @@
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
-    "close": "Zamknij",
     "agreements": {
         "show-all": "Wszystkie",
         "marketing": "Zgody marketingowe",
@@ -464,5 +483,24 @@
         "by-agreement-type": "Filtruj po rodzaju zgody",
         "by-agreement-status": "Filtruj po statusie",
         "by-kindergarten": "Filtruj po przedszkolu"
+    },
+    "settings-page": {
+        "parent": {
+            "password-change": {
+                "title": "Zmiana hasła"
+            },
+            "language-selection": {
+                "title": "Wybór języka"
+            },
+            "consents": {
+                "title": "Zgody zapisane w programie"
+            },
+            "delete-account": {
+                "title": "Usuwanie konta"
+            },
+            "legal-notes": {
+                "title": "Informacje prawne"
+            }
+        }
     }
 }

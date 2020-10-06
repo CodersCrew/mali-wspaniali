@@ -11,7 +11,6 @@ export interface Article {
     category: ArticleCategory;
     description: string;
     videoUrl: string;
-    readingTime: number;
     redactor: Redactor;
     date: string;
 }

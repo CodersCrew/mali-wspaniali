@@ -408,6 +408,8 @@
         "back": "Back"
     },
     "notification-panel": {
+        "title": "Notifications",
+        "empty-content": "Here you will find your notifications",
         "read-more": "Read more"
     },
     "notifications-page": {
@@ -415,6 +417,24 @@
         "description": "Check all notifications on your account",
         "content": "Notification content",
         "date": "Date"
+    },
+    "notification-list": {
+        "new-assessment": "A new test ({{name}}) has been added.",
+        "new-user": "A new user ({{email}}) has been added."
+    },
+    "manage-test-view": {
+        "test-search": {
+            "create-test": "Create test"
+        },
+        "test-list": {
+            "name": "Name",
+            "first-assessment": "First assessment",
+            "last-assessment": "Last assessment",
+            "status": "Status",
+            "details": "Details",
+            "active": "Active",
+            "done": "Done"
+        }
     },
     "add-child-modal": {
         "button": "Add",
@@ -447,7 +467,6 @@
     },
     "years_0": "year",
     "years_1": "years",
-    "close": "Close",
     "pagination": {
         "previous": "Previous",
         "next": "Next"
@@ -465,5 +484,24 @@
         "by-agreement-type": "Filter by agreement type",
         "by-agreement-status": "Filter by agreement status",
         "by-kindergarten": "Filter by kindergarten"
+    },
+    "settings-page": {
+        "parent": {
+            "password-change": {
+                "title": "Password change"
+            },
+            "language-selection": {
+                "title": "Language selection"
+            },
+            "consents": {
+                "title": "Consents given in the program"
+            },
+            "delete-account": {
+                "title": "Deletion of the account"
+            },
+            "legal-notes": {
+                "title": "Legal notes"
+            }
+        }
     }
 }
