@@ -9,7 +9,7 @@ export interface NotificationProps {
 }
 
 export interface CreateNotificationProps {
-  readonly user: string;
+  readonly user: string | string[];
   readonly templateId: string;
   readonly values: string[];
 }
