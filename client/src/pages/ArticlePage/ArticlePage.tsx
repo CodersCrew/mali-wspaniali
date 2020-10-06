@@ -37,7 +37,7 @@ export const ArticlePage = () => {
 
     if (!data || !data.article) return null;
 
-    const { pictureUrl, date, readingTime, title, description, contentHTML, tags, videoUrl, redactor } = data.article;
+    const { pictureUrl, date, title, description, contentHTML, tags, videoUrl, redactor } = data.article;
 
     return (
         <>
@@ -56,7 +56,7 @@ export const ArticlePage = () => {
                             [classes.readingTimeContainerDesktop]: isDesktop,
                         })}
                     >
-                        <ReadingTime date={new Date(date)} readingTime={calculateReadingTime(readingTime)} />
+                        <ReadingTime date={new Date(date)} readingTime={calculateReadingTime(contentHTML)} />
                     </div>
                     <ArticleContent title={title} description={description} contentHTML={contentHTML} />
                     <Grid item classes={{ root: classes.videoContainer }}>
