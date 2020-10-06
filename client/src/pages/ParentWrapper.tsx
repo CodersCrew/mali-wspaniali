@@ -1,14 +1,14 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
 import { AddChildModal } from '../components/AddChildModal/AddChildModal';
-import { UserContext } from './AppWrapper';
 import { KindergartenResponse, KINDERGARTENS } from '../graphql/kindergartensRepository';
 import { ADD_CHILD } from '../graphql/userRepository';
 import { ChildInput } from '../graphql/types';
+import { useMe } from '../utils/useMe';
 
 export const ParentWrapper: FC = ({ children }) => {
-    const user = useContext(UserContext);
+    const user = useMe();
     const { data: kindergartenData } = useQuery<KindergartenResponse>(KINDERGARTENS);
     const [addChild] = useMutation(ADD_CHILD);
 
