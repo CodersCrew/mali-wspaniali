@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createStyles } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { activePage } from '../../apollo_client';
-import { UserContext } from '../AppWrapper';
 import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
 import { Theme } from '../../theme';
+import { useMe } from '../../utils/useMe';
 
 export function ParentSettingsPage() {
-    const user = useContext(UserContext);
+    const user = useMe();
     const classes = useStyles();
 
     useEffect(() => {

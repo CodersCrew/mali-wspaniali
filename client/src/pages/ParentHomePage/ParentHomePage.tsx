@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@apollo/client';
@@ -7,13 +7,13 @@ import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePage
 import { HomePageArticles } from './HomePageArticles';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { Theme } from '../../theme/types';
-import { UserContext } from '../AppWrapper';
 import { LAST_ARTICLES } from '../../graphql/articleRepository';
 import { Article } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
+import { useMe } from '../../utils/useMe';
 
 export const ParentHomePage = () => {
-    const user = useContext(UserContext);
+    const user = useMe();
     const { data } = useQuery<{ lastArticles: Article[] }>(LAST_ARTICLES, { variables: { count: 6 } });
     const { t } = useTranslation();
     const classes = useStyles();
