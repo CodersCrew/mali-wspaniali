@@ -9,7 +9,7 @@ import { Me } from '../../graphql/types';
 export interface ExpansionPanelItem {
     user: Me;
     name: string;
-    onTogglePanelExpansion: (event: React.ChangeEvent<{}>, isExpanded: boolean) => void;
+    onTogglePanelExpansion: (name: string) => void;
     expanded: boolean;
     title: string;
     panel: FC<{ user: Me }>;
@@ -21,7 +21,7 @@ export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expande
     const Panel = panel;
 
     return (
-        <Accordion expanded={expanded} onChange={onTogglePanelExpansion}>
+        <Accordion expanded={expanded} onChange={() => onTogglePanelExpansion(name)}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`${name}"-content"`}

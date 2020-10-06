@@ -14,8 +14,8 @@ interface Props {
 export function ParentSettingsExpansionPanel({ user }: Props) {
     const [expandedPanel, setExpandedPanel] = useState<string>('');
 
-    const togglePanelExpansion = (name: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
-        setExpandedPanel(isExpanded ? name : '');
+    const togglePanelExpansion = (name: string) => {
+        setExpandedPanel(name !== expandedPanel ? name : '');
     };
 
     return (
@@ -23,7 +23,7 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
             <ExpansionPanelItem
                 user={user}
                 name={'password-change-panel'}
-                onTogglePanelExpansion={togglePanelExpansion('password-change-panel')}
+                onTogglePanelExpansion={togglePanelExpansion}
                 expanded={expandedPanel === 'password-change-panel'}
                 title={'settings-page.parent.password-change.title'}
                 panel={ChangePasswordPanel}
@@ -32,7 +32,7 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
             <ExpansionPanelItem
                 user={user}
                 name={'language-selection-panel'}
-                onTogglePanelExpansion={togglePanelExpansion('language-selection-panel')}
+                onTogglePanelExpansion={togglePanelExpansion}
                 expanded={expandedPanel === 'language-selection-panel'}
                 title={'settings-page.parent.language-selection.title'}
                 panel={DefaultLanguagePanel}
@@ -41,7 +41,7 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
             <ExpansionPanelItem
                 user={user}
                 name={'legal-notes-panel'}
-                onTogglePanelExpansion={togglePanelExpansion('legal-notes-panel')}
+                onTogglePanelExpansion={togglePanelExpansion}
                 expanded={expandedPanel === 'legal-notes-panel'}
                 title={'settings-page.parent.legal-notes.title'}
                 panel={LegalNotesPanel}
@@ -50,7 +50,7 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
             <ExpansionPanelItem
                 user={user}
                 name={'consents-panel'}
-                onTogglePanelExpansion={togglePanelExpansion('consents-panel')}
+                onTogglePanelExpansion={togglePanelExpansion}
                 expanded={expandedPanel === 'consents-panel'}
                 title={'settings-page.parent.consents.title'}
                 panel={ConsentsPanel}
@@ -59,7 +59,7 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
             <ExpansionPanelItem
                 user={user}
                 name={'account-deletion-panel'}
-                onTogglePanelExpansion={togglePanelExpansion('account-deletion-panel')}
+                onTogglePanelExpansion={togglePanelExpansion}
                 expanded={expandedPanel === 'account-deletion-panel'}
                 title={'settings-page.parent.delete-account.title'}
                 panel={AccountDeletionPanel}
