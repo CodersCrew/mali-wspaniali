@@ -1,15 +1,24 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
-import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { createStyles, makeStyles } from '@material-ui/core';
 import { Theme } from '../../../theme';
-import { Values } from './ChildDetails';
+import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
+
+export interface Values {
+    firstnameAndSurname: string;
+    sex: string;
+    yearOfBirth: number;
+    quaterOfBirth: number;
+    city: string;
+    kindergarden: string;
+}
 
 export const ChildForm = (props: { values: Values }) => {
     const classes = useStyles();
     const {
         values: { firstnameAndSurname, sex, yearOfBirth, quaterOfBirth, city, kindergarden },
     } = props;
+    console.log(firstnameAndSurname);
 
     return (
         <form
@@ -19,14 +28,16 @@ export const ChildForm = (props: { values: Values }) => {
             }}
         >
             <TextField
+                select
                 id="firstnameAndSurname"
                 name="firstnameAndSurname"
-                label="firstname and surname"
-                value={firstnameAndSurname}
+                label="firstnameAndSurname"
                 fullWidth
+                value={firstnameAndSurname}
                 variant="outlined"
+                size="medium"
             />
-            <TextField id="sex" name="sex" label="sex" fullWidth value={sex} variant="outlined" />
+            <TextField id="sex" name="sex" label="sex" fullWidth value={sex} variant="outlined" size="medium" />
             <TextField
                 select
                 id="yearOfBirth"
@@ -35,7 +46,9 @@ export const ChildForm = (props: { values: Values }) => {
                 fullWidth
                 value={yearOfBirth}
                 variant="outlined"
+                size="medium"
             />
+
             <TextField
                 select
                 id="quaterOfBirth"
@@ -44,19 +57,37 @@ export const ChildForm = (props: { values: Values }) => {
                 fullWidth
                 value={quaterOfBirth}
                 variant="outlined"
+                size="medium"
             />
 
-            <TextField select id="city" name="city" label="city" fullWidth value={city} variant="outlined" />
             <TextField
                 select
+                id="city"
+                name="city"
+                label="city"
+                fullWidth
+                value={city}
+                variant="outlined"
+                size="medium"
+            />
+
+            <TextField
+                select
+                variant="outlined"
                 id="kindergarden"
                 name="kindergarden"
                 label="kindergarden"
                 fullWidth
                 value={kindergarden}
-                variant="outlined"
+                size="medium"
             />
-            <ButtonSecondary className={classes.saveButton} type="submit">
+            <ButtonSecondary
+                className={classes.saveButton}
+                type="submit"
+                color="secondary"
+                variant="contained"
+                size="large"
+            >
                 Save
             </ButtonSecondary>
         </form>
@@ -69,8 +100,9 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             width: '62vw',
-            height: '476px',
+            height: theme.spacing(60),
             justifyContent: 'space-around',
+            paddingTop: theme.spacing(3),
         },
         saveButton: {
             alignSelf: 'flex-end',
