@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
-import { AddChildResult } from '../../../components/AddChildModal/AddChildModal';
 import { useSelectOptions } from '../../../components/AddChildModal/useSelectValues';
 import { Kindergarten } from '../../../graphql/types';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
@@ -22,7 +21,7 @@ const initialValues = {
 
 interface ChildFormProps {
     kindergartens: Kindergarten[];
-    handleSubmit: (data: AddChildResult) => void;
+    handleSubmit: (data: {}) => void;
 }
 
 const validationSchema = yup.object({
