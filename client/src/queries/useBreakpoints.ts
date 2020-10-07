@@ -11,3 +11,13 @@ export function useBreakpoints(): Device {
 
     return mobile || tablet || desktop || 'DESKTOP';
 }
+
+export function useIsDevice() {
+    const device = useBreakpoints();
+
+    return {
+        isDesktop: device === 'DESKTOP',
+        isMobile: device === 'MOBILE',
+        isTablet: device === 'TABLET',
+    };
+}

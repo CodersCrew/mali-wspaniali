@@ -70,7 +70,6 @@ export function ArticleListPage() {
                                 title={article.title}
                                 pictureUrl={article.pictureUrl}
                                 description={article.description}
-                                category={article.category}
                                 link={`/parent/article/${article._id}`}
                             />
                         </Grid>

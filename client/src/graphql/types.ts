@@ -12,7 +12,7 @@ export interface Article {
     description: string;
     videoUrl: string;
     redactor: Redactor;
-    date: Date;
+    date: string;
 }
 
 export interface Redactor {
