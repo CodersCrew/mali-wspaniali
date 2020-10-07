@@ -109,7 +109,14 @@
     },
     "test-results": {
         "search-result": "Wynik wyszukiwania",
-        "no-results": "Brak wyników"
+        "no-results": "Brak wyników",
+        "description": "Wybierz przedszkola, które potrzebujesz i wygodniej pracuj na zakładkach",
+        "add-excel": "Dodaj excel",
+        "add-data": "Dodawanie danych do systemu",
+        "add-data-description": "Aby dodać lub zaktualizować dane, wgraj plik Excel",
+        "cancel": "anuluj",
+        "confirm": "zatwierdź",
+        "changes-history": "Historia zmian"
     },
     "kindergarten-modal": {
         "city": "Miasto",

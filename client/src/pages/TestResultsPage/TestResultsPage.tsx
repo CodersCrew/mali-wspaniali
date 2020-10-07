@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Typography, Table, TableBody } from '@material-ui/core/';
+import { Typography, Table, TableBody, createStyles, makeStyles, Theme } from '@material-ui/core/';
 import { useMutation, useQuery } from '@apollo/client';
 import { getAllChildren } from '../../graphql/userRepository';
 import { TestResultsTableRow } from './TestResultsTableRow';
@@ -17,9 +17,11 @@ import {
     UPDATE_KINDERGARTEN,
     DELETE_KINDERGARTEN,
 } from '../../graphql/kindergartensRepository';
+import { ResultsActions } from './ResultsActions';
 
 export const TestResultsPage = () => {
     const { t } = useTranslation();
+    const classes = useStyles();
     const [children, setChildren] = useState<Child[]>([]);
     const [createKindergarten] = useMutation<AddKindergartenInput>(CREATE_KINDERGARTEN);
     const [updateKindergarten] = useMutation<AddKindergartenInput>(UPDATE_KINDERGARTEN);
@@ -31,22 +33,15 @@ export const TestResultsPage = () => {
         getAllChildren().then(({ data }) => setChildren(data!.allChildren));
     }, []);
 
+    const handleAddKindergarten = (value: AddKindergartenInput) =>
+        createKindergarten({ variables: { kindergarten: value } });
+
     if (children.length === 0 || !kindergartenData) return <NoResults />;
 
     return (
-        <Container>
-            <Typography variant="h2" align="center" gutterBottom>
-                {t('test-results.search-result')}
-            </Typography>
-            <AddOrEditKindergartenModal
-                onSubmit={(value: AddKindergartenInput) =>
-                    createKindergarten({
-                        variables: {
-                            kindergarten: value,
-                        },
-                    })
-                }
-            />
+        <div className={classes.container}>
+            <Typography variant="h3">{t('test-results.description')}</Typography>
+            <ResultsActions handleAddKindergarten={handleAddKindergarten} />
             <Table>
                 <TableBody>
                     {children.map((child: Child) => (
@@ -77,6 +72,17 @@ export const TestResultsPage = () => {
                 </TableBody>
             </Table>
             <Pagination page={1} pageChangeHandler={() => true} documentsCount={children.length} rowsPerPage={10} />
-        </Container>
+        </div>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            padding: theme.spacing(3),
+            display: 'flex',
+            flexDirection: 'column',
+            gap: `${theme.spacing(4)}px`, // for some reason it doesn't work without 'px'
+        },
+    }),
+);

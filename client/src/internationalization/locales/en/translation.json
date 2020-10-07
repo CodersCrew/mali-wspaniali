@@ -248,7 +248,14 @@
     },
     "test-results": {
         "search-result": "Search Result",
-        "no-results": "No Results"
+        "no-results": "No Results",
+        "description": "Select kindergartens you need and work easily with tabs",
+        "add-excel": "Add excel",
+        "add-data": "Adding data to the system",
+        "add-data-description": "To add or update the data, upload an Excel file",
+        "cancel": "cancel",
+        "confirm": "confirm",
+        "changes-history": "Changes history"
     },
     "alert-dialog": {
         "error": "Error",

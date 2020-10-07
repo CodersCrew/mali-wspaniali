@@ -6,22 +6,16 @@ import { Theme } from '@material-ui/core/styles';
 import { Delete } from '@material-ui/icons';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-
-interface FormValue {
-    number: number;
-    name: string;
-    address: string;
-    city: string;
-}
+import { KindergartenFormValue } from '../types';
 
 interface Props {
-    onSubmit: (values: FormValue) => void;
-    initialData?: FormValue;
+    onSubmit: (values: KindergartenFormValue) => void;
+    initialData?: KindergartenFormValue;
     kindergartenId?: string;
     onDelete?: (id: string) => void;
 }
 
-export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, kindergartenId }: Props) {
+export const AddOrEditKindergartenModal = ({ onSubmit, onDelete, initialData, kindergartenId }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
@@ -32,7 +26,7 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
                 city: 'Wrocław',
                 address: '',
                 name: '',
-            } as FormValue),
+            } as KindergartenFormValue),
         onSubmit: v => {
             onSubmit(v);
             setIsOpen(false);
@@ -136,7 +130,7 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
             </TwoActionsModal>
         </>
     );
-}
+};
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
