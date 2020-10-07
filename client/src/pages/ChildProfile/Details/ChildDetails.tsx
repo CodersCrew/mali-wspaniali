@@ -1,41 +1,31 @@
-import React from 'react';
-import { Formik, FormikHelpers } from 'formik';
+import React, { useContext } from 'react';
+import { useQuery } from '@apollo/client';
 import { createStyles, makeStyles, Typography } from '@material-ui/core';
 import { Theme } from '../../../theme';
-import { ChildForm } from './ChildForm';
-
-export interface Values {
-    firstnameAndSurname: string;
-    sex: string;
-    yearOfBirth: number;
-    quaterOfBirth: number;
-    city: string;
-    kindergarden: string;
-}
+import { UserContext } from '../../AppWrapper';
+import { KindergartenResponse, KINDERGARTENS } from '../../../graphql/kindergartensRepository';
+import { EditChildModal } from './EditChildModal';
 
 export function ChildDetails() {
+    const user = useContext(UserContext);
+    const { data: kindergartenData } = useQuery<KindergartenResponse>(KINDERGARTENS);
     const classes = useStyles();
-    const values = {
-        firstnameAndSurname: '',
-        sex: '',
-        yearOfBirth: 0,
-        quaterOfBirth: 0,
-        city: '',
-        kindergarden: '',
-    };
+
+    if (!user || !kindergartenData) return null;
+
     return (
         <div className={classes.mainContainer}>
             <Typography variant="h4"> Edit your child's details if necessary</Typography>
-            <Formik
-                render={values => <ChildForm {...values} />}
-                initialValues={values}
-                onSubmit={(values: Values, { setSubmitting }: FormikHelpers<Values>) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 500);
+            <EditChildModal
+                handleSubmit={_child => {
+                    /*UPDATE_CHILD({
+                        variables: {
+                            child: newChild,
+                        },
+                    });*/
                 }}
-            ></Formik>
+                kindergartens={kindergartenData.kindergartens}
+            />
         </div>
     );
 }
@@ -46,13 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
             background: theme.palette.background.paper,
             margin: theme.spacing(3),
             padding: theme.spacing(2),
-            height: '576px',
-        },
-        formContainer: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            paddingTop: theme.spacing(3),
+            height: theme.spacing(72),
         },
     }),
 );
