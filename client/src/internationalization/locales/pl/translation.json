@@ -121,14 +121,16 @@
         "title": "Dodaj przedszkole",
         "description": "Aby dodać przedszkole do bazy danych, uzupełnij poniższe pola.",
         "add": "Dodaj",
-        "close": "Zamknij"
+        "close": "Zamknij",
+        "save": "Zapisz"
     },
     "edit-kindergarten-modal": {
         "title": "Edytuj przedszkole",
         "description": "Aby edytować dane przedszkola, uzupełnij poniższe pola.",
         "edit": "Edytuj",
         "close": "Zamknij",
-        "delete": "Skasuj przedszkole"
+        "delete": "Usuń przedszkole",
+        "save": "Zapisz"
     },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",
