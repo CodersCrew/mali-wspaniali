@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography, Table, TableBody, createStyles, makeStyles, Theme } from '@material-ui/core/';
+import { Typography, createStyles, makeStyles, Theme } from '@material-ui/core/';
 import { useMutation, useQuery } from '@apollo/client';
 import { getAllChildren } from '../../graphql/userRepository';
-import { TestResultsTableRow } from './TestResultsTableRow';
 import { NoResults } from './NoResults';
 import { Child } from '../../graphql/types';
-import { Pagination } from './Pagination';
 import { activePage } from '../../apollo_client';
-import { AddOrEditKindergartenModal } from './KindergartenModals/AddOrEditKindergartenModal';
 import {
     CREATE_KINDERGARTEN,
     AddKindergartenInput,
@@ -18,6 +15,7 @@ import {
     DELETE_KINDERGARTEN,
 } from '../../graphql/kindergartensRepository';
 import { ResultsActions } from './ResultsActions';
+import { TestResultsTable } from './TestResultsTable';
 
 export const TestResultsPage = () => {
     const { t } = useTranslation();
@@ -31,47 +29,24 @@ export const TestResultsPage = () => {
     useEffect(() => {
         activePage(['admin-menu.results']);
         getAllChildren().then(({ data }) => setChildren(data!.allChildren));
-    }, []);
+        console.log(kindergartenData);
+        console.log(children);
+        console.log(updateKindergarten);
+        console.log(deleteKindergarten);
+    }, [kindergartenData]);
 
     const handleAddKindergarten = (value: AddKindergartenInput) =>
         createKindergarten({ variables: { kindergarten: value } });
 
     if (children.length === 0 || !kindergartenData) return <NoResults />;
 
+    const { kindergartens } = kindergartenData;
+
     return (
         <div className={classes.container}>
             <Typography variant="h3">{t('test-results.description')}</Typography>
             <ResultsActions handleAddKindergarten={handleAddKindergarten} />
-            <Table>
-                <TableBody>
-                    {children.map((child: Child) => (
-                        <TestResultsTableRow key={child._id} child={child} />
-                    ))}
-                    {kindergartenData.kindergartens.map(({ _id, city, name, address, number }) => (
-                        <div key={_id}>
-                            {name} {city}{' '}
-                            <AddOrEditKindergartenModal
-                                initialData={{ city, name, number, address }}
-                                kindergartenId={_id}
-                                onSubmit={v => {
-                                    updateKindergarten({
-                                        variables: {
-                                            id: _id,
-                                            kindergarten: v,
-                                        },
-                                    });
-                                }}
-                                onDelete={id => {
-                                    deleteKindergarten({
-                                        variables: { id },
-                                    });
-                                }}
-                            />
-                        </div>
-                    ))}
-                </TableBody>
-            </Table>
-            <Pagination page={1} pageChangeHandler={() => true} documentsCount={children.length} rowsPerPage={10} />
+            <TestResultsTable kindergartens={kindergartens} />
         </div>
     );
 };
@@ -82,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(3),
             display: 'flex',
             flexDirection: 'column',
-            gap: `${theme.spacing(4)}px`, // for some reason it doesn't work without 'px'
+            gap: `${theme.spacing(4)}px`, // for some reason it doesn't work without 'px',
         },
     }),
 );

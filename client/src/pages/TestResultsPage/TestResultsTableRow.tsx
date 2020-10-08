@@ -1,26 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell } from '@material-ui/core/';
-import { Child } from '../../graphql/types';
-import { countSumOfPoints } from '../../utils/countSumOfPoints';
+import { TableRow, TableCell, IconButton, makeStyles } from '@material-ui/core';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import EditIcon from '@material-ui/icons/Edit';
+import { KindergartenChildrenTable } from './KindergartenChildrenTable';
+import { Kindergarten } from '../../graphql/types';
 
 interface Props {
-    child: Child;
+    kindergarten: Kindergarten;
 }
 
-export const TestResultsTableRow = ({ child }: Props) => {
+export const TestResultsTableRow = ({ kindergarten }: Props) => {
     const { t } = useTranslation();
+    const [open, setOpen] = useState(false);
+    const classes = useStyles();
+
+    const { number, name, address, city } = kindergarten;
 
     return (
-        <TableRow>
-            <TableCell>{`${child.firstname} ${child.lastname}`}</TableCell>
-            {child.results ? (
-                child.results.map((result, index) => (
-                    <TableCell key={`${child._id}-test${index}`}>{countSumOfPoints(result.test)}</TableCell>
-                ))
-            ) : (
-                <TableCell>{t('test-results.no-results')}</TableCell>
-            )}
-        </TableRow>
+        <>
+            <TableRow className={classes.root}>
+                <TableCell>
+                    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </IconButton>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    {`${t('test-results.kindergarten-prefix')} ${number}`}
+                </TableCell>
+                <TableCell>{name}</TableCell>
+                <TableCell>{`${address}, ${city}`}</TableCell>
+                <TableCell align="right">
+                    <IconButton aria-label="edit kindergarten" size="small">
+                        <EditIcon />
+                    </IconButton>
+                </TableCell>
+            </TableRow>
+            <KindergartenChildrenTable open={open} />
+        </>
     );
 };
+
+const useStyles = makeStyles({
+    root: {
+        '& > *': {
+            borderBottom: 'unset',
+        },
+    },
+});

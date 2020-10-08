@@ -116,7 +116,13 @@
         "add-data-description": "Aby dodać lub zaktualizować dane, wgraj plik Excel",
         "cancel": "anuluj",
         "confirm": "zatwierdź",
-        "changes-history": "Historia zmian"
+        "changes-history": "Historia zmian",
+        "kindergarten-number": "Numer przedszkola",
+        "kindergarten-name": "Nazwa przedszkola",
+        "kindergarten-address": "Adres przedszkola",
+        "parents-email": "Adres e-mail rodziców",
+        "children": "Dzieci",
+        "kindergarten-prefix": "Przedszkole nr"
     },
     "kindergarten-modal": {
         "city": "Miasto",
