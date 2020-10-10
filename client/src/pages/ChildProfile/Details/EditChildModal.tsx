@@ -129,7 +129,7 @@ export function EditChildModal({ handleSubmit, kindergartens }: ChildFormProps) 
                 variant="contained"
                 size="large"
             >
-                Save
+                {t('child-profile.child-details.button')}
             </ButtonSecondary>
         </form>
     );

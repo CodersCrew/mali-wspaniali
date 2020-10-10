@@ -1,21 +1,23 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/client';
 import { createStyles, makeStyles, Typography } from '@material-ui/core';
-import { Theme } from '../../../theme';
-import { UserContext } from '../../AppWrapper';
-import { KindergartenResponse, KINDERGARTENS } from '../../../graphql/kindergartensRepository';
+import { useTranslation } from 'react-i18next';
 import { EditChildModal } from './EditChildModal';
+import { UserContext } from '../../AppWrapper';
+import { Theme } from '../../../theme';
+import { KindergartenResponse, KINDERGARTENS } from '../../../graphql/kindergartensRepository';
 
 export function ChildDetails() {
     const user = useContext(UserContext);
     const { data: kindergartenData } = useQuery<KindergartenResponse>(KINDERGARTENS);
     const classes = useStyles();
+    const { t } = useTranslation();
 
     if (!user || !kindergartenData) return null;
 
     return (
         <div className={classes.mainContainer}>
-            <Typography variant="h4"> Edit your child's details if necessary</Typography>
+            <Typography variant="h4">{t('child-profile.child-details.form')} </Typography>
             <EditChildModal
                 handleSubmit={_child => {
                     /*UPDATE_CHILD({

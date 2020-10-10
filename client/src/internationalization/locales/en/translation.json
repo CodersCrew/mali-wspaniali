@@ -240,7 +240,11 @@
         },
         "agreements-title": "Below you can check and edit the signed agreements.",
         "recomendations": "Recomendations",
-        "child-details": "Child's details"
+        "child-details": {
+            "page": "Child's details",
+            "form": "Edit your child's details if necessary.",
+            "button": "Save"
+        }
     },
     "parent-profile": {
         "parent": "Parent",
