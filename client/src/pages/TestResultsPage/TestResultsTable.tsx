@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { TestResultsTableRow } from './TestResultsTableRow';
@@ -6,9 +6,11 @@ import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];
+    setCurrentKindergarten: Dispatch<SetStateAction<Kindergarten | null>>;
+    setKindergartenModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const TestResultsTable = ({ kindergartens }: Props) => {
+export const TestResultsTable = ({ kindergartens, setCurrentKindergarten, setKindergartenModalOpen }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -25,7 +27,12 @@ export const TestResultsTable = ({ kindergartens }: Props) => {
                 </TableHead>
                 <TableBody>
                     {kindergartens.map(kindergarten => (
-                        <TestResultsTableRow key={kindergarten._id} kindergarten={kindergarten} />
+                        <TestResultsTableRow
+                            key={kindergarten._id}
+                            kindergarten={kindergarten}
+                            setCurrentKindergarten={setCurrentKindergarten}
+                            setKindergartenModalOpen={setKindergartenModalOpen}
+                        />
                     ))}
                 </TableBody>
             </Table>

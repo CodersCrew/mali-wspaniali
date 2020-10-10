@@ -6,44 +6,67 @@ import { Delete } from '@material-ui/icons';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { KindergartenFormValue } from '../types';
+import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
     onSubmit: (values: KindergartenFormValue) => void;
-    initialData?: KindergartenFormValue;
-    kindergartenId?: string;
+    initialData: KindergartenFormValue | null;
+    kindergartenId: string | null;
     onDelete?: (id: string) => void;
+    setCurrentKindergarten: Dispatch<SetStateAction<Kindergarten | null>>;
 }
 
-export const KindergartenModal = ({ isOpen, setIsOpen, onSubmit, onDelete, initialData, kindergartenId }: Props) => {
+export const KindergartenModal = ({
+    isOpen,
+    setIsOpen,
+    onSubmit,
+    onDelete,
+    initialData,
+    kindergartenId,
+    setCurrentKindergarten,
+}: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const formik = useFormik({
-        initialValues:
-            initialData ||
-            ({
-                city: 'Wrocław',
-                address: '',
-                name: '',
-            } as KindergartenFormValue),
+        initialValues: initialData || {
+            city: 'Wrocław',
+            address: '',
+            name: '',
+            number: 0,
+        },
+        enableReinitialize: true,
         onSubmit: v => {
             onSubmit(v);
             setIsOpen(false);
+            setCurrentKindergarten(null);
         },
     });
 
     const isEditState = !!initialData;
     const translationPrefix = isEditState ? 'edit' : 'add';
 
+    const {
+        handleChange,
+        handleBlur,
+        values: { city, address, name, number },
+    } = formik;
+
     return (
         <TwoActionsModal
-            lowerButtonOnClick={() => setIsOpen(false)}
+            lowerButtonOnClick={() => {
+                setIsOpen(false);
+                setCurrentKindergarten(null);
+            }}
             upperButtonOnClick={() => formik.submitForm()}
             lowerButtonText={t(`${translationPrefix}-kindergarten-modal.close`)}
             upperButtonText={t(`${translationPrefix}-kindergarten-modal.${translationPrefix}`)}
             isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
+            onClose={() => {
+                setIsOpen(false);
+                setCurrentKindergarten(null);
+            }}
         >
             <div className={classes.container}>
                 <Typography variant="h4" className={classes.title}>
@@ -60,9 +83,9 @@ export const KindergartenModal = ({ isOpen, setIsOpen, onSubmit, onDelete, initi
                             variant="outlined"
                             fullWidth
                             required
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.city}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={city}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -72,9 +95,9 @@ export const KindergartenModal = ({ isOpen, setIsOpen, onSubmit, onDelete, initi
                             variant="outlined"
                             fullWidth
                             required
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.address}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={address}
                         />
                     </Grid>
                     <Grid item xs={12} sm={8}>
@@ -84,9 +107,9 @@ export const KindergartenModal = ({ isOpen, setIsOpen, onSubmit, onDelete, initi
                             variant="outlined"
                             fullWidth
                             required
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={name}
                         />
                     </Grid>
                     <Grid item xs={12} sm={4}>
@@ -97,9 +120,9 @@ export const KindergartenModal = ({ isOpen, setIsOpen, onSubmit, onDelete, initi
                             variant="outlined"
                             fullWidth
                             required
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.number}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={number}
                             InputProps={{
                                 inputProps: {
                                     min: 1,

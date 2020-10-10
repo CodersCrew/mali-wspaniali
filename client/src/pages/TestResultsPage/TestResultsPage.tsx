@@ -17,6 +17,7 @@ import { TestResultsTable } from './TestResultsTable';
 import { KindergartenModal } from './KindergartenModals/KindergartenModal';
 import { ExcelModal } from './KindergartenModals/ExcelModal';
 import { ChangesHistoryModal } from './KindergartenModals/ChangesHistoryModal';
+import { Kindergarten } from '../../graphql/types';
 
 export const TestResultsPage = () => {
     const { t } = useTranslation();
@@ -30,16 +31,22 @@ export const TestResultsPage = () => {
     const [isKindergartenModalOpen, setKindergartenModalOpen] = useState(false);
     const [isExcelModalOpen, setExcelModalOpen] = useState(false);
     const [isChangesHistoryModalOpen, setChangesHistoryModalOpen] = useState(false);
+    const [currentKindergarten, setCurrentKindergarten] = useState<Kindergarten | null>(null);
 
     useEffect(() => {
         activePage(['admin-menu.results']);
         console.log(kindergartenData);
         console.log(updateKindergarten);
         console.log(deleteKindergarten);
-    }, [kindergartenData]);
+        console.log(currentKindergarten);
+    }, [kindergartenData, currentKindergarten]);
 
     const handleAddKindergarten = (value: AddKindergartenInput) =>
         createKindergarten({ variables: { kindergarten: value } });
+
+    const handleDeleteKindergarten = (id: string) => {
+        deleteKindergarten({ variables: { id } });
+    };
 
     if (!kindergartenData) return <NoResults />;
 
@@ -53,11 +60,26 @@ export const TestResultsPage = () => {
                 setExcelModalOpen={setExcelModalOpen}
                 setChangesHistoryModalOpen={setChangesHistoryModalOpen}
             />
-            <TestResultsTable kindergartens={kindergartens} />
+            <TestResultsTable
+                kindergartens={kindergartens}
+                setCurrentKindergarten={setCurrentKindergarten}
+                setKindergartenModalOpen={setKindergartenModalOpen}
+            />
             <KindergartenModal
                 isOpen={isKindergartenModalOpen}
                 setIsOpen={setKindergartenModalOpen}
                 onSubmit={handleAddKindergarten}
+                initialData={
+                    currentKindergarten && {
+                        number: currentKindergarten.number,
+                        name: currentKindergarten.name,
+                        address: currentKindergarten.address,
+                        city: currentKindergarten.city,
+                    }
+                }
+                kindergartenId={currentKindergarten && currentKindergarten._id}
+                setCurrentKindergarten={setCurrentKindergarten}
+                onDelete={handleDeleteKindergarten}
             />
             <ExcelModal isOpen={isExcelModalOpen} setIsOpen={setExcelModalOpen} />
             <ChangesHistoryModal isOpen={isChangesHistoryModalOpen} setIsOpen={setChangesHistoryModalOpen} />

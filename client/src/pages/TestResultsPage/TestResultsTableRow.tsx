@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, makeStyles } from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -9,9 +9,11 @@ import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     kindergarten: Kindergarten;
+    setCurrentKindergarten: Dispatch<SetStateAction<Kindergarten | null>>;
+    setKindergartenModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const TestResultsTableRow = ({ kindergarten }: Props) => {
+export const TestResultsTableRow = ({ kindergarten, setCurrentKindergarten, setKindergartenModalOpen }: Props) => {
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const classes = useStyles();
@@ -32,7 +34,14 @@ export const TestResultsTableRow = ({ kindergarten }: Props) => {
                 <TableCell>{name}</TableCell>
                 <TableCell>{`${address}, ${city}`}</TableCell>
                 <TableCell align="right">
-                    <IconButton aria-label="edit kindergarten" size="small">
+                    <IconButton
+                        aria-label="edit kindergarten"
+                        size="small"
+                        onClick={() => {
+                            setCurrentKindergarten(kindergarten);
+                            setKindergartenModalOpen(true);
+                        }}
+                    >
                         <EditIcon />
                     </IconButton>
                 </TableCell>
