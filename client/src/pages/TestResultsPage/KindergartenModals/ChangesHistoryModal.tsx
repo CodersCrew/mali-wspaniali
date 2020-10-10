@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Theme } from '@material-ui/core';
 import { BasicModal } from '../../../components/Modal/BasicModal';
 
 interface Props {
     isOpen: boolean;
-    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    setIsOpen: (value: boolean) => void;
 }
 
 export const ChangesHistoryModal = ({ isOpen, setIsOpen }: Props) => {

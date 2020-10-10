@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, Grid, makeStyles, createStyles, Typography, Theme } from '@material-ui/core';
@@ -10,12 +10,12 @@ import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     isOpen: boolean;
-    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    setIsOpen: (value: boolean) => void;
     onSubmit: (values: KindergartenFormValue) => void;
     initialData: KindergartenFormValue | null;
     kindergartenId: string | null;
-    onDelete?: (id: string) => void;
-    setCurrentKindergarten: Dispatch<SetStateAction<Kindergarten | null>>;
+    onDelete: (id: string) => void;
+    setCurrentKindergarten: (value: Kindergarten | null) => void;
 }
 
 export const KindergartenModal = ({

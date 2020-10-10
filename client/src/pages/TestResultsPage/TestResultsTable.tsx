@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { TestResultsTableRow } from './TestResultsTableRow';
@@ -6,8 +6,8 @@ import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];
-    setCurrentKindergarten: Dispatch<SetStateAction<Kindergarten | null>>;
-    setKindergartenModalOpen: Dispatch<SetStateAction<boolean>>;
+    setCurrentKindergarten: (value: Kindergarten | null) => void;
+    setKindergartenModalOpen: (value: boolean) => void;
 }
 
 export const TestResultsTable = ({ kindergartens, setCurrentKindergarten, setKindergartenModalOpen }: Props) => {

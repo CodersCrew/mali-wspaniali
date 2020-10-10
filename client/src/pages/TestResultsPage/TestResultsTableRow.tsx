@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, makeStyles } from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -9,8 +9,8 @@ import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     kindergarten: Kindergarten;
-    setCurrentKindergarten: Dispatch<SetStateAction<Kindergarten | null>>;
-    setKindergartenModalOpen: Dispatch<SetStateAction<boolean>>;
+    setCurrentKindergarten: (value: Kindergarten | null) => void;
+    setKindergartenModalOpen: (value: boolean) => void;
 }
 
 export const TestResultsTableRow = ({ kindergarten, setCurrentKindergarten, setKindergartenModalOpen }: Props) => {

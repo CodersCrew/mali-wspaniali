@@ -1,13 +1,13 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { SearchInput } from './SearchInput';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
 interface Props {
-    setKindergartenModalOpen: Dispatch<SetStateAction<boolean>>;
-    setExcelModalOpen: Dispatch<SetStateAction<boolean>>;
-    setChangesHistoryModalOpen: Dispatch<SetStateAction<boolean>>;
+    setKindergartenModalOpen: (value: boolean) => void;
+    setExcelModalOpen: (value: boolean) => void;
+    setChangesHistoryModalOpen: (value: boolean) => void;
 }
 
 export const ResultsActions = ({ setKindergartenModalOpen, setExcelModalOpen, setChangesHistoryModalOpen }: Props) => {
