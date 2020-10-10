@@ -48,7 +48,7 @@ export function EditChildModal({ handleSubmit, kindergartens }: ChildFormProps) 
 
     return (
         <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
-            <Grid container spacing={2} className={classes.container}>
+            <Grid container spacing={2} className={classes.container} direction="column">
                 <Grid item xs={12}>
                     <Grid container spacing={2} direction={device !== 'DESKTOP' ? 'column' : 'row'}>
                         <Grid item classes={{ root: classes.item }}>
@@ -121,16 +121,16 @@ export function EditChildModal({ handleSubmit, kindergartens }: ChildFormProps) 
                         onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
                     />
                 </Grid>
+                <ButtonSecondary
+                    className={classes.saveButton}
+                    type="submit"
+                    color="secondary"
+                    variant="contained"
+                    size="large"
+                >
+                    {t('child-profile.child-details.button')}
+                </ButtonSecondary>
             </Grid>
-            <ButtonSecondary
-                className={classes.saveButton}
-                type="submit"
-                color="secondary"
-                variant="contained"
-                size="large"
-            >
-                {t('child-profile.child-details.button')}
-            </ButtonSecondary>
         </form>
     );
 }
@@ -143,8 +143,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         formContainer: {
             marginTop: theme.spacing(3),
-            display: 'flex',
-            flexDirection: 'column',
             width: '55vw',
         },
         title: { marginBottom: theme.spacing(3) },
