@@ -11,7 +11,8 @@ import { Kindergarten } from '../../../graphql/types';
 interface Props {
     isOpen: boolean;
     setIsOpen: (value: boolean) => void;
-    onSubmit: (values: KindergartenFormValue) => void;
+    onAdd: (values: KindergartenFormValue) => void;
+    onUpdate: (id: string, values: KindergartenFormValue) => void;
     initialData: KindergartenFormValue | null;
     kindergartenId: string | null;
     onDelete: (id: string) => void;
@@ -21,7 +22,8 @@ interface Props {
 export const KindergartenModal = ({
     isOpen,
     setIsOpen,
-    onSubmit,
+    onAdd,
+    onUpdate,
     onDelete,
     initialData,
     kindergartenId,
@@ -29,6 +31,8 @@ export const KindergartenModal = ({
 }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
+    const isEditState = !!initialData;
+
     const formik = useFormik({
         initialValues: initialData || {
             city: 'Wrocław',
@@ -38,13 +42,16 @@ export const KindergartenModal = ({
         },
         enableReinitialize: true,
         onSubmit: v => {
-            onSubmit(v);
+            if (isEditState && kindergartenId) {
+                onUpdate(kindergartenId, v);
+            } else {
+                onAdd(v);
+            }
             setIsOpen(false);
             setCurrentKindergarten(null);
         },
     });
 
-    const isEditState = !!initialData;
     const translationPrefix = isEditState ? 'edit' : 'add';
 
     const {
@@ -132,11 +139,11 @@ export const KindergartenModal = ({
                         />
                     </Grid>
                     <Grid item>
-                        {isEditState && (
+                        {isEditState && kindergartenId && (
                             <ButtonSecondary
                                 onClick={() => {
-                                    if (onDelete) onDelete(kindergartenId!);
-
+                                    onDelete(kindergartenId);
+                                    setCurrentKindergarten(null);
                                     setIsOpen(false);
                                 }}
                                 icon={<Delete />}

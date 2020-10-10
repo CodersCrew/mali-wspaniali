@@ -18,6 +18,7 @@ import { KindergartenModal } from './KindergartenModals/KindergartenModal';
 import { ExcelModal } from './KindergartenModals/ExcelModal';
 import { ChangesHistoryModal } from './KindergartenModals/ChangesHistoryModal';
 import { Kindergarten } from '../../graphql/types';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 export const TestResultsPage = () => {
     const { t } = useTranslation();
@@ -26,7 +27,7 @@ export const TestResultsPage = () => {
     const [createKindergarten] = useMutation<AddKindergartenInput>(CREATE_KINDERGARTEN);
     const [updateKindergarten] = useMutation<AddKindergartenInput>(UPDATE_KINDERGARTEN);
     const [deleteKindergarten] = useMutation<{ id: string }>(DELETE_KINDERGARTEN);
-    const { data: kindergartenData } = useQuery<KindergartenResponse>(KINDERGARTENS);
+    const { data: kindergartenData, refetch } = useQuery<KindergartenResponse>(KINDERGARTENS);
 
     const [isKindergartenModalOpen, setKindergartenModalOpen] = useState(false);
     const [isExcelModalOpen, setExcelModalOpen] = useState(false);
@@ -35,17 +36,30 @@ export const TestResultsPage = () => {
 
     useEffect(() => {
         activePage(['admin-menu.results']);
-        console.log(kindergartenData);
-        console.log(updateKindergarten);
-        console.log(deleteKindergarten);
-        console.log(currentKindergarten);
-    }, [kindergartenData, currentKindergarten]);
+    }, []);
 
-    const handleAddKindergarten = (value: AddKindergartenInput) =>
-        createKindergarten({ variables: { kindergarten: value } });
+    const handleAddKindergarten = (kindergarten: AddKindergartenInput) => {
+        createKindergarten({ variables: { kindergarten } });
+        refetch();
+    };
 
-    const handleDeleteKindergarten = (id: string) => {
-        deleteKindergarten({ variables: { id } });
+    const handleUpdateKindergarten = (id: string, kindergarten: AddKindergartenInput) => {
+        updateKindergarten({
+            variables: {
+                id,
+                kindergarten,
+            },
+        });
+    };
+
+    const handleDeleteKindergarten = async (id: string) => {
+        try {
+            await deleteKindergarten({ variables: { id } });
+            openSnackbar({ text: 'Przedszkole usunięto pomyślnie' });
+            refetch();
+        } catch (error) {
+            openSnackbar({ text: error.message, severity: 'error' });
+        }
     };
 
     if (!kindergartenData) return <NoResults />;
@@ -68,7 +82,8 @@ export const TestResultsPage = () => {
             <KindergartenModal
                 isOpen={isKindergartenModalOpen}
                 setIsOpen={setKindergartenModalOpen}
-                onSubmit={handleAddKindergarten}
+                onAdd={handleAddKindergarten}
+                onUpdate={handleUpdateKindergarten}
                 initialData={
                     currentKindergarten && {
                         number: currentKindergarten.number,
