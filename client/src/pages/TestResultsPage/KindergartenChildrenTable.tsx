@@ -35,7 +35,6 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                     <TableCell>{t('test-results.parents-email')}</TableCell>
                                     <TableCell>{t('test-results.children')}</TableCell>
                                     <TableCell />
-                                    <TableCell />
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -48,8 +47,6 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                         <IconButton aria-label="edit child" size="small">
                                             <EditIcon />
                                         </IconButton>
-                                    </TableCell>
-                                    <TableCell align="right">
                                         <IconButton aria-label="view results" size="small">
                                             <InsertChartIcon />
                                         </IconButton>
@@ -64,8 +61,6 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                         <IconButton aria-label="edit child" size="small">
                                             <EditIcon />
                                         </IconButton>
-                                    </TableCell>
-                                    <TableCell align="right">
                                         <IconButton aria-label="view results" size="small">
                                             <InsertChartIcon />
                                         </IconButton>

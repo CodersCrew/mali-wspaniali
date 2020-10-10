@@ -111,6 +111,7 @@
         "search-result": "Wynik wyszukiwania",
         "no-results": "Brak wyników",
         "description": "Wybierz przedszkola, które potrzebujesz i wygodniej pracuj na zakładkach",
+        "add-kindergarten": "Dodaj przedszkole",
         "add-excel": "Dodaj excel",
         "add-data": "Dodawanie danych do systemu",
         "add-data-description": "Aby dodać lub zaktualizować dane, wgraj plik Excel",
@@ -122,7 +123,8 @@
         "kindergarten-address": "Adres przedszkola",
         "parents-email": "Adres e-mail rodziców",
         "children": "Dzieci",
-        "kindergarten-prefix": "Przedszkole nr"
+        "kindergarten-prefix": "Przedszkole nr",
+        "search": "Szukaj"
     },
     "kindergarten-modal": {
         "city": "Miasto",

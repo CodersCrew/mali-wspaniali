@@ -1,26 +1,39 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { SearchInput } from './SearchInput';
-import { AddOrEditKindergartenModal } from './KindergartenModals/AddOrEditKindergartenModal';
-import { AddExcelModal } from './KindergartenModals/AddExcelModal';
-import { ChangesHistoryModal } from './KindergartenModals/ChangesHistoryModal';
-import { KindergartenFormValue } from './types';
+import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
 interface Props {
-    handleAddKindergarten: (values: KindergartenFormValue) => void;
+    setKindergartenModalOpen: Dispatch<SetStateAction<boolean>>;
+    setExcelModalOpen: Dispatch<SetStateAction<boolean>>;
+    setChangesHistoryModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const ResultsActions = ({ handleAddKindergarten }: Props) => {
+export const ResultsActions = ({ setKindergartenModalOpen, setExcelModalOpen, setChangesHistoryModalOpen }: Props) => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <div className={classes.container}>
             <div className={classes.input}>
                 <SearchInput />
             </div>
-            <AddOrEditKindergartenModal onSubmit={handleAddKindergarten} />
-            <AddExcelModal />
-            <ChangesHistoryModal />
+            <ButtonSecondary
+                variant="contained"
+                innerText={t('test-results.add-kindergarten')}
+                onClick={() => setKindergartenModalOpen(true)}
+            />
+            <ButtonSecondary
+                variant="contained"
+                innerText={t('test-results.add-excel')}
+                onClick={() => setExcelModalOpen(true)}
+            />
+            <ButtonSecondary
+                variant="outlined"
+                innerText={t('test-results.changes-history')}
+                onClick={() => setChangesHistoryModalOpen(true)}
+            />
         </div>
     );
 };
