@@ -32,12 +32,19 @@ export const KEYCODE_SERIES = gql`
     }
 `;
 
+export interface CreateKeyCodeSeriesResponse {
+    createKeyCodeBulk: KeyCode[];
+}
+
 export const CREATE_KEYCODES = gql`
     mutation createKeyCodeBulk($target: String!, $amount: Int!) {
         createKeyCodeBulk(target: $target, amount: $amount) {
+            id
             date
-            keyCode
+            createdBy
+            target
             series
+            keyCode
         }
     }
 `;
