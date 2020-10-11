@@ -12,7 +12,7 @@ export type UserChangePasswordJWTProps = {
 export const UserChangePasswordJWT = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   userId: mongoose.Schema.Types.ObjectId,
   jwt: String,

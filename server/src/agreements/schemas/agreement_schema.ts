@@ -13,7 +13,7 @@ export type AgreementDocument = AgreementProps & mongoose.Document;
 export const AgreementSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   text: String,
   isOutdated: {

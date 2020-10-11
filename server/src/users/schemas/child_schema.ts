@@ -6,7 +6,7 @@ export type ChildDocument = ChildProps & mongoose.Document;
 export const ChildSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   firstname: String,
   lastname: String,
