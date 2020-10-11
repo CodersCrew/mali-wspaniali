@@ -10,6 +10,7 @@ import {
     KeyCodeSeriesResponse,
     KEYCODE_SERIES,
     CREATE_KEYCODES,
+    CreateKeyCodeSeriesResponse,
 } from '../../../graphql/keyCodesRepository';
 import { getKeyCodesWorkbook } from './getKeyCodesWorkbook';
 import { RoleToggleButton } from './RoleToggleButton';
@@ -24,7 +25,22 @@ export function KeyCodes() {
     const { t } = useTranslation();
     const classes = useStyles();
     const { data } = useQuery<KeyCodeSeriesResponse>(KEYCODE_SERIES);
-    const [createKeyCodes, { data: createKeyCodesResponse }] = useMutation(CREATE_KEYCODES);
+    const [createKeyCodes, { data: createKeyCodesResponse }] = useMutation<CreateKeyCodeSeriesResponse>(CREATE_KEYCODES, {
+        update(cache, {data: newKeyCodeResponse}) {
+            if (newKeyCodeResponse) {
+                const newKeyCode = newKeyCodeResponse.createKeyCodeBulk[0];
+
+                cache.modify({
+                    fields: {
+                        keyCodeSeries(keycodes = []) {
+
+                            return [...keycodes, {...newKeyCode, __typename: 'KeyCodeSeriesDTO'}]
+                        }
+                    }
+                })
+            }
+        }
+    });
     const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(1);
     const [target, setTarget] = useState('parent');
     const [isLoading, setIsLoading] = useState(false);
