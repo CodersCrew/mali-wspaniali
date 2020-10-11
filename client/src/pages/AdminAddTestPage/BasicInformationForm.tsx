@@ -11,13 +11,12 @@ interface Props {
 
 export function BasicInformationForm({ onChange }: Props) {
     const { t } = useTranslation();
-    // const [dateState, setDateState] = useState({ start: false, end: false });
     const [testName, setTestName] = useState('');
     const classes = useStyles();
 
     useEffect(() => {
         onChange({ testName });
-    }, [testName]);
+    }, [testName, onChange]);
 
     const dateDefaultNow = new Date();
 
