@@ -440,6 +440,28 @@
             "done": "Zakończony"
         }
     },
+    "add-test-view": {
+        "basic-information-form": {
+            "title": "Podstawowe informacje",
+            "description": "Uzupełnij podstawowe informacje dotyczące testu przedszkolaka",
+            "test-name": "Nazwa testu",
+            "status": "Status",
+            "first-assessment": "Próba początkowa",
+            "last-assessment": "Próba końcowa",
+            "active": "Aktywny",
+            "done": "Zakończony"
+        },
+        "test-trials": {
+            "title": "Próby testu"
+        },
+        "kindergartens": {
+            "title": "Przedszkola"
+        },
+        "assessment-created": "Utworzono nowy test",
+        "errors": {
+            "name-too-short": "Nazwa testu jest za krótka"
+        }
+    },
     "add-child-modal": {
         "button": "Dodaj",
         "heading": "Witaj na stronie Mali Wspaniali",

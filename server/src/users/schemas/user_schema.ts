@@ -6,7 +6,7 @@ export type UserDocument = UserProps & mongoose.Document;
 export const UserSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   mail: String,
   password: String,

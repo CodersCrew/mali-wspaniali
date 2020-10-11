@@ -6,7 +6,7 @@ export const ArticleSchema = new mongoose.Schema({
   contentHTML: String,
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   description: String,
   header: String,

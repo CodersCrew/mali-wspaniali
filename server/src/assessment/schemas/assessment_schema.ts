@@ -13,7 +13,7 @@ export type AssessmentDocument = AssessmentProps & mongoose.Document;
 export const AssessmentSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   title: String,
   isOutdated: {
@@ -22,10 +22,10 @@ export const AssessmentSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   modifiedAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });

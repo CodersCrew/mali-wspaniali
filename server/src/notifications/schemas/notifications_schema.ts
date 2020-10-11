@@ -7,7 +7,7 @@ export const NotificationSchema = new mongoose.Schema({
   user: mongoose.Schema.Types.ObjectId,
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   templateId: String,
   values: [String],

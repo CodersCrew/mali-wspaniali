@@ -82,7 +82,6 @@ function setSortStatus(value: string) {
 }
 
 function setAgreementFilter(type: string, value: string | string[]) {
-    console.log(type, value)
     if (Array.isArray(value)) {
         if (type === 'KINDERGARTEN') {
             AgreementsTypeFilterMutations.setAgreementsKindergartenFilter(value)
