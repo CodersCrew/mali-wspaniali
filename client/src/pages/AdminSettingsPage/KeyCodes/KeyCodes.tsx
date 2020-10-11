@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useApolloClient, useQuery, useMutation } from '@apollo/client';
 import { Typography, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
-import { writeFile } from 'xlsx';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -19,9 +18,9 @@ import { KeyCodesToGenerateTextfield } from './KeyCodesToGenerateTextfield';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 import { FilenameButton } from './FilenameButton';
 import { LoadingButton } from './LoadingButton';
+import { useGenerateExcel } from './useGenerateExcel';
 
 export function KeyCodes() {
-    const client = useApolloClient();
     const { t } = useTranslation();
     const classes = useStyles();
     const { data } = useQuery<KeyCodeSeriesResponse>(KEYCODE_SERIES);
@@ -44,29 +43,9 @@ export function KeyCodes() {
     const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(1);
     const [target, setTarget] = useState('parent');
     const [isLoading, setIsLoading] = useState(false);
-
-    function generateExcel(series: string) {
-        client
-            .query<KeyCodeResponse>({
-                query: KEYCODES,
-                variables: {
-                        series
-                }
-            })
-            .then(response => {
-                const keyCodes = response.data?.keyCodes;
-
-                if (keyCodes) {
-                
-                    const filename = `mw-keycodes-${series}.xlsx`
-                    const workbook = getKeyCodesWorkbook(keyCodes)
-
-                    writeFile(workbook, filename);
-
-                    openSnackbar({text: t('admin-setting-page.keycode-generation.download-alert', { filename })})
-                }
-            });
-    }
+    const { generateExcel } = useGenerateExcel(filename => {
+        openSnackbar({ text: t('admin-setting-page.keycode-generation.download-alert', { filename }) });
+    });
 
     if (!data) return null;
 
