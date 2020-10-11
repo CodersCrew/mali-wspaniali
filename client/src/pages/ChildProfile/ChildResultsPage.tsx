@@ -68,29 +68,24 @@ export const ChildResultsPage = () => {
                 values={childProfileCategoriesList}
                 device={device}
             />
-
-            {category !== 'details' &&
-                    <Grid container className={ classes.header }>
-                        <PageTitle text={ `${child.firstname} ${child.lastname}` } />
-                        <Typography className={ classes.kindergarten }>
-                            { child.kindergarten.name }
-                        </Typography>
-                </Grid> }
-            
-                    <Typography className={ classes.description }>
-                        { t('child-profile.description') }
+            <Grid container className={classes.header}>
+                <PageTitle text={`${child.firstname} ${child.lastname}`} />
+                <Typography className={classes.kindergarten}>
+                    {child.kindergarten.name}
+                </Typography>
+            </Grid>
+            <Typography className={classes.description}>
+                {t('child-profile.description')}
             </Typography>
-            {category === 'details' && <ChildDetails /> }
-                    { category === 'results' && (
-                        <ChildProfileResults
-                            child={ child }
-                            onNoResultClick={ () => onTabChange('tests-information') }
-                        />
-                    ) }
+            {category === 'results' && (
+                <ChildProfileResults
+                    child={child}
+                    onNoResultClick={() => onTabChange('tests-information')}
+                />
+            )}
             {category === 'recomendations' && <Recomendations />}
-            {category === 'tests-information' && <ChildProfileAboutTests /> }
-            
-
+            {category === 'tests-information' && <ChildProfileAboutTests />}
+            {category === 'details' && <ChildDetails />}
         </>
     );
 };
@@ -115,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
         description: {
             fontSize: '21px',
             fontWeight: 500,
-            margin: '24px',
+            marginTop: '10px',
         },
     }),
 );
