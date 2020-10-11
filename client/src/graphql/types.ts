@@ -135,6 +135,8 @@ export interface KeyCode {
     date: string;
     createdBy: string;
     keyCode: string;
+    series: string;
+    target: string;
 }
 
 export interface KeyCodeSeries {
