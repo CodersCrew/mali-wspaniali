@@ -1,23 +1,5 @@
 import { gql } from '@apollo/client';
 
-import { Kindergarten } from './types';
-
-export interface KindergartenResponse {
-    kindergartens: Kindergarten[];
-}
-
-export const KINDERGARTENS = gql`
-    {
-        kindergartens {
-            _id
-            name
-            number
-            address
-            city
-        }
-    }
-`;
-
 export const KINDERGARTEN_WITH_USERS = gql`
     query Kindergarten($ids: [String!]!) {
         kindergartenWithUsers(ids: $ids) {

@@ -1,7 +1,7 @@
 import { useQuery, gql } from '@apollo/client';
 import { KeyCodeSeries } from '../../../graphql/types';
 
-export interface KeyCodeSeriesResponse {
+interface KeyCodeSeriesResponse {
     keyCodeSeries: KeyCodeSeries[];
 }
 
