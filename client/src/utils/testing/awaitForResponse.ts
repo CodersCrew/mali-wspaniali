@@ -1,3 +1,3 @@
-export async function awaitForResponse() {
-    return await new Promise(resolve => setTimeout(resolve, 0));
+export function awaitForResponse(): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, 0));
 }

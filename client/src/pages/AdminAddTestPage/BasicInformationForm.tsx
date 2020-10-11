@@ -9,6 +9,8 @@ interface Props {
     onChange: (value: AddTestState['testInformation']) => void;
 }
 
+const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
+
 export function BasicInformationForm({ onChange }: Props) {
     const { t } = useTranslation();
     const [testName, setTestName] = useState('');
@@ -20,7 +22,7 @@ export function BasicInformationForm({ onChange }: Props) {
 
     const dateDefaultNow = new Date();
 
-    const dateDefaultFuture = new Date(dateDefaultNow.getTime() + 60 * 24 * 60 * 60 * 1000);
+    const dateDefaultFuture = new Date(dateDefaultNow.getTime() + TWO_MONTHS);
 
     return (
         <LabeledContainer title={t('add-test-view.basic-information-form.title')}>
