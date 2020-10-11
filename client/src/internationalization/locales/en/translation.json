@@ -436,6 +436,28 @@
             "done": "Done"
         }
     },
+    "add-test-view": {
+        "basic-information-form": {
+            "title": "Basic information",
+            "description": "Please fill in test information",
+            "test-name": "Test name",
+            "status": "Status",
+            "first-assessment": "First assessment",
+            "last-assessment": "Last assessment",
+            "active": "Active",
+            "done": "Done"
+        },
+        "test-trials": {
+            "title": "Test trials information"
+        },
+        "kindergartens": {
+            "title": "Kindergartens"
+        },
+        "assessment-created": "A new assesment has been created",
+        "errors": {
+            "name-too-short": "Test name is too short."
+        }
+    },
     "add-child-modal": {
         "button": "Add",
         "heading": "Welcome on the website Mali Wspaniali",
