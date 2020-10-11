@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Typography, Table, TableBody } from '@material-ui/core/';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { getAllChildren } from '../../graphql/userRepository';
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { NoResults } from './NoResults';
@@ -9,11 +9,10 @@ import { Child } from '../../graphql/types';
 import { Pagination } from './Pagination';
 import { activePage } from '../../apollo_client';
 import { AddOrEditKindergartenModal } from './KindergartenModals/AddOrEditKindergartenModal';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import {
     CREATE_KINDERGARTEN,
     AddKindergartenInput,
-    KINDERGARTENS,
-    KindergartenResponse,
     UPDATE_KINDERGARTEN,
     DELETE_KINDERGARTEN,
 } from '../../graphql/kindergartensRepository';
@@ -24,14 +23,14 @@ export const TestResultsPage = () => {
     const [createKindergarten] = useMutation<AddKindergartenInput>(CREATE_KINDERGARTEN);
     const [updateKindergarten] = useMutation<AddKindergartenInput>(UPDATE_KINDERGARTEN);
     const [deleteKindergarten] = useMutation<{ id: string }>(DELETE_KINDERGARTEN);
-    const { data: kindergartenData } = useQuery<KindergartenResponse>(KINDERGARTENS);
+    const { kindergartenList } = useKindergartens();
 
     useEffect(() => {
         activePage(['admin-menu.results']);
         getAllChildren().then(({ data }) => setChildren(data!.allChildren));
     }, []);
 
-    if (children.length === 0 || !kindergartenData) return <NoResults />;
+    if (children.length === 0 || !kindergartenList) return <NoResults />;
 
     return (
         <Container>
@@ -52,7 +51,7 @@ export const TestResultsPage = () => {
                     {children.map((child: Child) => (
                         <TestResultsTableRow key={child._id} child={child} />
                     ))}
-                    {kindergartenData.kindergartens.map(({ _id, city, name, address, number }) => (
+                    {kindergartenList.map(({ _id, city, name, address, number }) => (
                         <div key={_id}>
                             {name} {city}{' '}
                             <AddOrEditKindergartenModal
