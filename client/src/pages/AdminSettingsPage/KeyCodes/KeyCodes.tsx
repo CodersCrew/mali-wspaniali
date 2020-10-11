@@ -1,45 +1,23 @@
 import React, { useState } from 'react';
-import { useApolloClient, useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Typography, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import {
-    KEYCODES,
-    KeyCodeResponse,
-    KeyCodeSeriesResponse,
-    KEYCODE_SERIES,
-    CREATE_KEYCODES,
-    CreateKeyCodeSeriesResponse,
-} from '../../../graphql/keyCodesRepository';
-import { getKeyCodesWorkbook } from './getKeyCodesWorkbook';
+import { KeyCodeSeriesResponse, KEYCODE_SERIES } from '../../../graphql/keyCodesRepository';
 import { RoleToggleButton } from './RoleToggleButton';
 import { ActiveKeysList } from './ActiveKeysList';
 import { KeyCodesToGenerateTextfield } from './KeyCodesToGenerateTextfield';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 import { FilenameButton } from './FilenameButton';
 import { LoadingButton } from './LoadingButton';
+import { useCreateKeyCodes } from '../../../operations/mutations/KeyCodes/createKeyCodes';
 import { useGenerateExcel } from './useGenerateExcel';
 
 export function KeyCodes() {
     const { t } = useTranslation();
     const classes = useStyles();
     const { data } = useQuery<KeyCodeSeriesResponse>(KEYCODE_SERIES);
-    const [createKeyCodes, { data: createKeyCodesResponse }] = useMutation<CreateKeyCodeSeriesResponse>(CREATE_KEYCODES, {
-        update(cache, {data: newKeyCodeResponse}) {
-            if (newKeyCodeResponse) {
-                const newKeyCode = newKeyCodeResponse.createKeyCodeBulk[0];
-
-                cache.modify({
-                    fields: {
-                        keyCodeSeries(keycodes = []) {
-
-                            return [...keycodes, {...newKeyCode, __typename: 'KeyCodeSeriesDTO'}]
-                        }
-                    }
-                })
-            }
-        }
-    });
+    const { createKeyCodes, created } = useCreateKeyCodes();
     const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(1);
     const [target, setTarget] = useState('parent');
     const [isLoading, setIsLoading] = useState(false);
@@ -79,12 +57,12 @@ export function KeyCodes() {
                     />
                 </div>
                 <div className={classes.generatedFileContainer}>
-                    {createKeyCodesResponse && (
+                    {created && (
                         <FilenameButton
                             primary
                             tooltip={t('admin-setting-page.keycode-generation.download')}
                             text={t('admin-setting-page.keycode-generation.download-as')}
-                            onClick={() => generateExcel(createKeyCodesResponse.createKeyCodeBulk[0].series)}
+                            onClick={() => generateExcel(created.series)}
                         />
                     )}
                 </div>
