@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { KeyCode, KeyCodeSeries } from './types';
+import { KeyCode } from './types';
 
 export interface KeyCodeResponse {
     keyCodes: KeyCode[];
@@ -13,21 +13,6 @@ export const KEYCODES = gql`
             date
             createdBy
             keyCode
-        }
-    }
-`;
-
-export interface KeyCodeSeriesResponse {
-    keyCodeSeries: KeyCodeSeries[];
-}
-
-export const KEYCODE_SERIES = gql`
-    {
-        keyCodeSeries {
-            date
-            series
-            target
-            count
         }
     }
 `;

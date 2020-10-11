@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
 import { Typography, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { KeyCodeSeriesResponse, KEYCODE_SERIES } from '../../../graphql/keyCodesRepository';
 import { RoleToggleButton } from './RoleToggleButton';
 import { ActiveKeysList } from './ActiveKeysList';
 import { KeyCodesToGenerateTextfield } from './KeyCodesToGenerateTextfield';
@@ -12,11 +10,12 @@ import { FilenameButton } from './FilenameButton';
 import { LoadingButton } from './LoadingButton';
 import { useCreateKeyCodes } from '../../../operations/mutations/KeyCodes/createKeyCodes';
 import { useGenerateExcel } from './useGenerateExcel';
+import { useKeyCodeSeries } from '../../../operations/queries/KeyCodes/getKeyCodesSeries';
 
 export function KeyCodes() {
     const { t } = useTranslation();
     const classes = useStyles();
-    const { data } = useQuery<KeyCodeSeriesResponse>(KEYCODE_SERIES);
+    const { keyCodeSeries } = useKeyCodeSeries();
     const { createKeyCodes, created } = useCreateKeyCodes();
     const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(1);
     const [target, setTarget] = useState('parent');
@@ -25,7 +24,7 @@ export function KeyCodes() {
         openSnackbar({ text: t('admin-setting-page.keycode-generation.download-alert', { filename }) });
     });
 
-    if (!data) return null;
+    if (!keyCodeSeries) return null;
 
     return (
         <div>
@@ -68,7 +67,7 @@ export function KeyCodes() {
                 </div>
             </Grid>
             <div className={classes.fileListContainer}>
-                <ActiveKeysList keyCodeSeries={data.keyCodeSeries} onKeyCodeClick={series => generateExcel(series)} />
+                <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={series => generateExcel(series)} />
             </div>
         </div>
     );
