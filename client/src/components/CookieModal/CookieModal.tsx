@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -15,6 +16,8 @@ export const CookieModal = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { t } = useTranslation();
     const cookiesAccepted = () => getCookie('cookies');
+    const link = t('cookies-popup.link');
+    const content = t('cookies-popup.content').split(link);
 
     useEffect(() => setIsOpen(!cookiesAccepted()), []);
 
@@ -25,8 +28,13 @@ export const CookieModal = () => {
             <div className={classes.wrapper}>
                 <InfoOutlinedIcon className={classes.modalIconInfo} />
                 <div className={classes.modalTextWrapper}>
-                    <p className={classes.modalTitle}>{t('cookies-popup.title')}</p>
-                    <p className={classes.modalInfo}>{t('cookies-popup.content')}</p>
+                    <p className={classes.modalInfo}>
+                        {content[0]}
+                        <Link className={classes.modalLink} to="/cookies">
+                            {link}
+                        </Link>
+                        {content[1]}
+                    </p>
                 </div>
                 <IconButton
                     onClick={() => {
@@ -87,6 +95,10 @@ const useStyles = makeStyles((theme: Theme) =>
             width: theme.spacing(3),
             height: theme.spacing(3),
             color: theme.palette.cookiesModal.dark,
+        },
+        modalLink: {
+            textDecoration: 'none',
+            color: theme.palette.info.main,
         },
     }),
 );

@@ -396,7 +396,7 @@
         "next": "Next"
     },
     "cookies-popup": {
-        "title": "Cookies",
-        "content": "We use cookies to collect information related to the use of the website. The cookies we use allow you to maintain the session after logging in. You can disable this mechanism in your browser settings. Using our website without changing the cookie settings means that they will be stored in the device's memory."
+        "link": "Privacy Policy",
+        "content": "We use „cookies” to collect information on the use of the website. You can find this mechanism in the settings. Read more about our cookie practices in the Site's Privacy Policy."
     }
 }

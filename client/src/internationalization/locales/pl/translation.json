@@ -395,7 +395,8 @@
     "years_2": "lat",
     "close": "Zamknij",
     "cookies-popup": {
-        "title": "Ciasteczka",
-        "content": "Wykorzystujemy „ciasteczka” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu. Stosowane przez nas pliki typu cookies umożliwiają utrzymanie sesji po zalogowaniu. Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Korzystanie z naszego serwisu bez zmiany ustawień dotyczących cookies oznacza, że będą one zapisane w pamięci urządzenia."
+        "link": "Polityce Prywatoności",
+        "content": "Używamy „ciasteczek” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu.  Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Przeczytaj więcej na temat naszych praktyk dotyczących “ciasteczek” w  Polityce Prywatoności serwisu.",
+        "contend-end": " serwisu."
     }
 }
