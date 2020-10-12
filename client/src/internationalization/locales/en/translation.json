@@ -453,7 +453,10 @@
             "title": "Test trials information"
         },
         "kindergartens": {
-            "title": "Kindergartens"
+            "title": "Kindergartens",
+            "description": "Select kindergartens participating in the kindergarten test",
+            "kindergarten-name":"Name"
+
         },
         "assessment-created": "A new assesment has been created",
         "errors": {

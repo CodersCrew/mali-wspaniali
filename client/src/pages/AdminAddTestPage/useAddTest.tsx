@@ -2,6 +2,7 @@ import { useState } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useCreateNewTest } from '../../operations/mutations/Test/createNewTest';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 export interface AddTestState {
     testInformation: {
@@ -17,6 +18,7 @@ export function useAddTest(onSubmit: (state: AddTestState | ErrorState) => void)
     const [testInformation, setTestInformation] = useState({
         testName: '',
     });
+    const { kindergartenList } = useKindergartens();
     const { t } = useTranslation();
     const { createTest, error } = useCreateNewTest();
 
@@ -41,6 +43,7 @@ export function useAddTest(onSubmit: (state: AddTestState | ErrorState) => void)
     return {
         setTestInformation,
         submit,
+        kindergartens: kindergartenList || [],
     };
 }
 

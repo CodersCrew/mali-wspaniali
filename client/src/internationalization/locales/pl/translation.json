@@ -455,7 +455,9 @@
             "title": "Próby testu"
         },
         "kindergartens": {
-            "title": "Przedszkola"
+            "title": "Przedszkola",
+            "description": "Wybierz przedszkola, biorące udział w teście przedszkolaka",
+            "kindergarten-name":"Nazwa przedszkola"
         },
         "assessment-created": "Utworzono nowy test",
         "errors": {
