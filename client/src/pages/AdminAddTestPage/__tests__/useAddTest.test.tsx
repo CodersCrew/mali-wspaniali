@@ -5,6 +5,7 @@ import { MockedProvider } from '@apollo/client/testing';
 import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
 import { awaitForResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
+import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 
 describe('useAddTest', () => {
     let onSubmit: jest.Mock;
@@ -83,6 +84,16 @@ const mocks = [
                     createAssessment: { status: true },
                 },
             };
+        },
+    },
+    {
+        request: {
+            query: KINDERGARTENS,
+        },
+        result: {
+            data: {
+                kindergartens: [],
+            },
         },
     },
 ];

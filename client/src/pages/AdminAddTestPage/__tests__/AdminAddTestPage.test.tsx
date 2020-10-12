@@ -10,6 +10,7 @@ import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTes
 import { awaitForResponse } from '../../../utils/testing/awaitForResponse';
 import { translations } from '../../../internationalization/i18n';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
+import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 
 describe('AdminAddTestPage', () => {
     let page: RenderResult;
@@ -113,6 +114,16 @@ const mocks = [
         result: {
             data: {
                 createAssessment: { status: true },
+            },
+        },
+    },
+    {
+        request: {
+            query: KINDERGARTENS,
+        },
+        result: {
+            data: {
+                kindergartens: [],
             },
         },
     },
