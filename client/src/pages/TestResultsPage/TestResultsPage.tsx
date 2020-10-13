@@ -9,7 +9,7 @@ import { KindergartenModal } from './KindergartenModals/KindergartenModal';
 import { ExcelModal } from './KindergartenModals/ExcelModal';
 import { ChangesHistoryModal } from './KindergartenModals/ChangesHistoryModal';
 import { AddKindergartenInput } from '../../graphql/kindergartensRepository';
-import { KINDERGARTENS, useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useCreateKindergarten } from '../../operations/mutations/Kindergartens/createKindergarten';
 import { useDeleteKindergarten } from '../../operations/mutations/Kindergartens/deleteKindergarten';
 import { useUpdateKindergarten } from '../../operations/mutations/Kindergartens/updateKindergarten';
@@ -62,12 +62,14 @@ export const TestResultsPage = () => {
             await deleteKindergarten({
                 variables: { id },
                 update: cache => {
-                    const data = cache.readQuery({ query: KINDERGARTENS });
-                    const { kindergartens } = data as { kindergartens: Kindergarten[] };
-                    const newKindergartens = kindergartens.filter(kindergarten => kindergarten._id !== id);
-                    cache.writeQuery({
-                        query: KINDERGARTENS,
-                        data: { kindergartens: newKindergartens },
+                    cache.modify({
+                        fields: {
+                            kindergartens(existingKindergartenRefs: { __ref: string }[], { readField }) {
+                                return existingKindergartenRefs.filter(
+                                    kindergartenRef => id !== readField('_id', kindergartenRef),
+                                );
+                            },
+                        },
                     });
                 },
             });

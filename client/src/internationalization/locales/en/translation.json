@@ -269,7 +269,12 @@
         "add-kindergarten-success": "Kindergarten has been added successfully",
         "update-kindergarten-success": "Kindergarten has been updated successfully",
         "delete-kindergarten-success": "Kindergarten has been deleted successfully",
-        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it"
+        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it",
+        "provide-city": "Please provide kindergarten city",
+        "provide-address": "Please provide kindergarten address",
+        "provide-name": "Please provide kindergarten name",
+        "number-min-max": "Kindergarten no. must be a number between 1 and 1000",
+        "provide-number": "Please provide kindergarten number"
     },
     "alert-dialog": {
         "error": "Error",

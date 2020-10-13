@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, Grid, makeStyles, createStyles, Typography, Theme } from '@material-ui/core';
@@ -40,6 +41,15 @@ export const KindergartenModal = ({
             name: '',
             number: 0,
         },
+        validationSchema: Yup.object({
+            city: Yup.string().required(t('test-results.provide-city')),
+            address: Yup.string().required(t('test-results.provide-address')),
+            name: Yup.string().required(t('test-results.provide-name')),
+            number: Yup.number()
+                .min(1, t('test-results.number-min-max'))
+                .max(1000, t('test-results.number-min-max'))
+                .required(t('test-results.provide-number')),
+        }),
         enableReinitialize: true,
         onSubmit: v => {
             if (isEditState && kindergartenId) {
@@ -53,12 +63,6 @@ export const KindergartenModal = ({
     });
 
     const translationPrefix = isEditState ? 'edit' : 'add';
-
-    const {
-        handleChange,
-        handleBlur,
-        values: { city, address, name, number },
-    } = formik;
 
     return (
         <TwoActionsModal
@@ -85,39 +89,34 @@ export const KindergartenModal = ({
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
-                            name="city"
                             label={t('kindergarten-modal.city')}
                             variant="outlined"
                             fullWidth
-                            required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={city}
+                            {...formik.getFieldProps('city')}
+                            error={formik.touched.city && !!formik.errors.city}
+                            helperText={formik.touched.city && formik.errors.city}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            name="address"
                             label={t('kindergarten-modal.address')}
                             variant="outlined"
                             fullWidth
-                            required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={address}
+                            {...formik.getFieldProps('address')}
+                            error={formik.touched.address && !!formik.errors.address}
+                            helperText={formik.touched.address && formik.errors.address}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            name="number"
                             label={t('test-results.kindergarten-number')}
                             type="number"
                             variant="outlined"
                             fullWidth
                             required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={number}
+                            {...formik.getFieldProps('number')}
+                            error={formik.touched.number && !!formik.errors.number}
+                            helperText={formik.touched.number && formik.errors.number}
                             InputProps={{
                                 inputProps: {
                                     min: 1,
@@ -128,14 +127,12 @@ export const KindergartenModal = ({
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            name="name"
                             label={t('test-results.kindergarten-name')}
                             variant="outlined"
                             fullWidth
-                            required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={name}
+                            {...formik.getFieldProps('name')}
+                            error={formik.touched.name && !!formik.errors.name}
+                            helperText={formik.touched.name && formik.errors.name}
                         />
                     </Grid>
                     <Grid item>
