@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { I18nextProvider } from 'react-i18next';
 import { act } from 'react-dom/test-utils';
 import { AdminAddTestPage } from '../AdminAddTestPage';
@@ -18,7 +18,7 @@ describe('AdminAddTestPage', () => {
 
     describe('basic test information', () => {
         beforeEach(() => {
-            page = renderPage();
+            page = renderPage(mocks);
             openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
         });
 
@@ -33,10 +33,91 @@ describe('AdminAddTestPage', () => {
         });
     });
 
+    describe('kindergarten list', () => {
+        describe('when list is loaded', () => {
+            beforeEach(async () => {
+                await act(async () => {
+                    page = renderPage(mockedKindergartens);
+
+                    await awaitForResponse();
+                });
+            });
+
+            it('renders unchecked list', async () => {
+                const rows = screen.queryAllByRole('row');
+
+                expect(rows).toHaveLength(3);
+
+                rows.forEach(row => {
+                    const checkbox = row.querySelector('input[type=checkbox]');
+
+                    expect(checkbox).not.toHaveAttribute('checked');
+                });
+
+                expect(rows[0]).toHaveTextContent(translationOf('add-test-view.kindergartens.kindergarten-name'));
+                expect(rows[1]).toHaveTextContent('1/my-kindergarten');
+                expect(rows[2]).toHaveTextContent('2/happy-meal');
+            });
+
+            describe('and one filtered with valid phrase', () => {
+                it('renders partial list', async () => {
+                    const searchField = screen.queryByTestId('search-field')?.querySelector('input')!;
+
+                    act(() => {
+                        fireEvent.change(searchField, { target: { value: 'meal' } });
+                    });
+
+                    const rows = screen.queryAllByRole('row');
+
+                    expect(rows).toHaveLength(2);
+
+                    expect(rows[0]).toHaveTextContent(translationOf('add-test-view.kindergartens.kindergarten-name'));
+                    expect(rows[1]).toHaveTextContent('2/happy-meal');
+                });
+            });
+
+            describe('and one filtered with', () => {
+                describe('too short phrase', () => {
+                    it('renders all kindergartens', async () => {
+                        const searchField = screen.queryByTestId('search-field')?.querySelector('input')!;
+
+                        act(() => {
+                            fireEvent.change(searchField, { target: { value: 'mea' } });
+                        });
+    
+                        const rows = screen.queryAllByRole('row');
+    
+                        expect(rows).toHaveLength(3);
+    
+                        expect(rows[0]).toHaveTextContent(translationOf('add-test-view.kindergartens.kindergarten-name'));
+                        expect(rows[1]).toHaveTextContent('1/my-kindergarten');
+                        expect(rows[2]).toHaveTextContent('2/happy-meal');
+                    });
+                });
+
+                describe('not found phrase', () => {
+                    it('renders empty list', () => {
+                        const searchField = screen.queryByTestId('search-field')?.querySelector('input')!;
+
+                        act(() => {
+                            fireEvent.change(searchField, { target: { value: 'wrong-name' } });
+                        });
+    
+                        const rows = screen.queryAllByRole('row');
+    
+                        expect(rows).toHaveLength(1);
+                        expect(rows[0]).toHaveTextContent(translationOf('add-test-view.kindergartens.kindergarten-name'));
+    
+                    });
+                });
+            });
+        });
+    });
+
     describe('when executed', () => {
         describe('with valid data', () => {
             beforeEach(() => {
-                page = renderPage();
+                page = renderPage(mocks);
                 openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
             });
 
@@ -63,7 +144,7 @@ describe('AdminAddTestPage', () => {
 
         describe('with invalid data', () => {
             beforeEach(() => {
-                page = renderPage();
+                page = renderPage(mocks);
                 openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
             });
 
@@ -89,11 +170,15 @@ describe('AdminAddTestPage', () => {
                     severity: 'error',
                 });
             });
+
+            describe('when no kindergarten is selected', () => {
+                it('renders error information', () => {});
+            });
         });
     });
 });
 
-function renderPage() {
+function renderPage(mocks: MockedResponse[]) {
     return render(
         <MockedProvider mocks={mocks} addTypename={false}>
             <I18nextProvider i18n={translations}>
@@ -124,6 +209,34 @@ const mocks = [
         result: {
             data: {
                 kindergartens: [],
+            },
+        },
+    },
+];
+
+const mockedKindergartens = [
+    {
+        request: {
+            query: KINDERGARTENS,
+        },
+        result: {
+            data: {
+                kindergartens: [
+                    {
+                        _id: 'my-id-1',
+                        name: 'my-kindergarten',
+                        number: 1,
+                        address: 'unique-address',
+                        city: 'my-city',
+                    },
+                    {
+                        _id: 'my-id-2',
+                        name: 'happy-meal',
+                        number: 2,
+                        address: 'my-street',
+                        city: 'my-city',
+                    },
+                ],
             },
         },
     },

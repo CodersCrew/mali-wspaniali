@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Checkbox,
     createStyles,
@@ -23,39 +23,55 @@ interface Props {
 
 export function KindergartenPicker({ kindergartens }: Props) {
     const { t } = useTranslation();
+    const [searchPhrase, setSearchPhrase] = useState('');
     const classes = useStyles();
 
     return (
         <LabeledContainer title={t('add-test-view.kindergartens.title')}>
             <>
                 <Typography variant="subtitle1">{t('add-test-view.kindergartens.description')}</Typography>
-                <TextField id="outlined-search" label="Search field" type="search" variant="outlined" fullWidth />
+                <TextField
+                    id="outlined-search"
+                    label="Search field"
+                    type="search"
+                    variant="outlined"
+                    fullWidth
+                    data-testid="search-field"
+                    value={searchPhrase}
+                    onChange={({ target: { value } }) => setSearchPhrase(value)}
+                />
                 <TableContainer classes={{ root: classes.table }}>
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell padding="checkbox">
-                                    <Checkbox checked={true} onChange={() => null} name="checkedB" color="default" />
+                                    <Checkbox checked={false} onChange={() => null} name="checkedB" color="default" />
                                 </TableCell>
                                 <TableCell>{t('add-test-view.kindergartens.kindergarten-name')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {kindergartens.map(kindergarten => (
-                                <TableRow key={kindergarten.name} hover>
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            checked={true}
-                                            onChange={() => null}
-                                            name="checkedB"
-                                            color="default"
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        {kindergarten.number}/{kindergarten.name}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {kindergartens
+                                .filter(kindergarten => {
+                                    if (searchPhrase.length <= 3) return true;
+
+                                    return kindergarten.name.includes(searchPhrase);
+                                })
+                                .map(kindergarten => (
+                                    <TableRow key={kindergarten.name} hover role="row">
+                                        <TableCell padding="checkbox">
+                                            <Checkbox
+                                                checked={false}
+                                                onChange={() => null}
+                                                name="checkedB"
+                                                color="default"
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            {kindergarten.number}/{kindergarten.name}
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
