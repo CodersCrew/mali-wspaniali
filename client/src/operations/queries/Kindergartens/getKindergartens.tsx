@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 import { Kindergarten } from '../../../graphql/types';
 
 interface KindergartenListResponse {
@@ -23,5 +23,5 @@ export function useKindergartens() {
     return {
         kindergartenList: data?.kindergartens,
         isKindergartenListLoading: loading
-    }
+    };
 }

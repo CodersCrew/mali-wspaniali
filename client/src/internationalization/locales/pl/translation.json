@@ -124,7 +124,11 @@
         "parents-email": "Adres e-mail rodziców",
         "children": "Dzieci",
         "kindergarten-prefix": "Przedszkole nr",
-        "search": "Szukaj"
+        "search": "Szukaj",
+        "add-kindergarten-success": "Przedszkole zostało dodane pomyślnie",
+        "update-kindergarten-success": "Dane przedszkola zostały zaktualizowane pomyślnie",
+        "delete-kindergarten-success": "Przedszkole zostało usunięte pomyślnie",
+        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko"
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -472,7 +476,7 @@
         "kindergartens": {
             "title": "Przedszkola",
             "description": "Wybierz przedszkola, biorące udział w teście przedszkolaka",
-            "kindergarten-name":"Nazwa przedszkola"
+            "kindergarten-name": "Nazwa przedszkola"
         },
         "assessment-created": "Utworzono nowy test",
         "errors": {

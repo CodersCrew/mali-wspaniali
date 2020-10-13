@@ -265,7 +265,11 @@
         "parents-email": "Parents e-mail address",
         "children": "Children",
         "kindergarten-prefix": "Kindergarten no.",
-        "search": "Search"
+        "search": "Search",
+        "add-kindergarten-success": "Kindergarten has been added successfully",
+        "update-kindergarten-success": "Kindergarten has been updated successfully",
+        "delete-kindergarten-success": "Kindergarten has been deleted successfully",
+        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it"
     },
     "alert-dialog": {
         "error": "Error",
@@ -470,8 +474,7 @@
         "kindergartens": {
             "title": "Kindergartens",
             "description": "Select kindergartens participating in the kindergarten test",
-            "kindergarten-name":"Name"
-
+            "kindergarten-name": "Name"
         },
         "assessment-created": "A new assesment has been created",
         "errors": {
