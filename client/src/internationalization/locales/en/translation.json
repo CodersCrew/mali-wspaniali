@@ -257,6 +257,7 @@
         "add-data": "Adding data to the system",
         "add-data-description": "To add or update the data, upload an Excel file",
         "cancel": "cancel",
+        "delete": "delete",
         "confirm": "confirm",
         "changes-history": "Changes history",
         "kindergarten-number": "Kindergarten no.",
@@ -274,7 +275,9 @@
         "provide-address": "Please provide kindergarten address",
         "provide-name": "Please provide kindergarten name",
         "number-min-max": "Kindergarten no. must be a number between 1 and 1000",
-        "provide-number": "Please provide kindergarten number"
+        "provide-number": "Please provide kindergarten number",
+        "kindergarten-deletion": "Kindergarten deletion",
+        "kindergarten-deletion-question": "Are you sure you want to delete"
     },
     "alert-dialog": {
         "error": "Error",

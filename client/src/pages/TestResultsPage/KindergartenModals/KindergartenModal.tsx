@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -33,6 +33,8 @@ export const KindergartenModal = ({
     const { t } = useTranslation();
     const classes = useStyles();
     const isEditState = !!initialData;
+
+    const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
     const formik = useFormik({
         initialValues: initialData || {
@@ -137,15 +139,42 @@ export const KindergartenModal = ({
                     </Grid>
                     <Grid item>
                         {isEditState && kindergartenId && (
-                            <ButtonSecondary
-                                onClick={() => {
-                                    onDelete(kindergartenId);
-                                    setCurrentKindergarten(null);
-                                    setIsOpen(false);
-                                }}
-                                icon={<Delete />}
-                                innerText={t('edit-kindergarten-modal.delete')}
-                            />
+                            <>
+                                <ButtonSecondary
+                                    onClick={() => {
+                                        setConfirmModalOpen(true);
+                                    }}
+                                    icon={<Delete />}
+                                    innerText={t('edit-kindergarten-modal.delete')}
+                                />
+                                <TwoActionsModal
+                                    lowerButtonOnClick={() => {
+                                        setConfirmModalOpen(false);
+                                    }}
+                                    upperButtonOnClick={() => {
+                                        onDelete(kindergartenId);
+                                        setCurrentKindergarten(null);
+                                        setIsOpen(false);
+                                    }}
+                                    lowerButtonText={t('test-results.cancel')}
+                                    upperButtonText={t('test-results.delete')}
+                                    isOpen={isConfirmModalOpen}
+                                    onClose={() => {
+                                        setConfirmModalOpen(false);
+                                    }}
+                                >
+                                    <div className={classes.subModalContainer}>
+                                        <Typography variant="h4" className={classes.title}>
+                                            {t('test-results.kindergarten-deletion')}
+                                        </Typography>
+                                        <Typography variant="body1" className={classes.description}>
+                                            {t('test-results.kindergarten-deletion-question')}{' '}
+                                            {t('test-results.kindergarten-prefix')} {formik.values.number},{' '}
+                                            {formik.values.name}, {formik.values.address}?
+                                        </Typography>
+                                    </div>
+                                </TwoActionsModal>
+                            </>
                         )}
                     </Grid>
                 </Grid>
@@ -158,6 +187,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             maxWidth: 684,
+        },
+        subModalContainer: {
+            maxWidth: 448,
         },
         title: {
             paddingBottom: theme.spacing(2),

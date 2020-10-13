@@ -116,6 +116,7 @@
         "add-data": "Dodawanie danych do systemu",
         "add-data-description": "Aby dodać lub zaktualizować dane, wgraj plik Excel",
         "cancel": "anuluj",
+        "delete": "usuń",
         "confirm": "zatwierdź",
         "changes-history": "Historia zmian",
         "kindergarten-number": "Numer przedszkola",
@@ -133,7 +134,9 @@
         "provide-address": "Podaj adres przedszkola",
         "provide-name": "Podaj nazwę przedszkola",
         "number-min-max": "Numer przedszkola musi być liczbą pomiędzy 1 a 1000",
-        "provide-number": "Podaj numer przedszkola"
+        "provide-number": "Podaj numer przedszkola",
+        "kindergarten-deletion": "Usuwanie przedszkola",
+        "kindergarten-deletion-question": "Czy na pewno chcesz usunąć"
     },
     "kindergarten-modal": {
         "city": "Miasto",
