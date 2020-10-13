@@ -38,18 +38,28 @@ export const TestResultsPage = () => {
         activePage(['admin-menu.results']);
     }, []);
 
-    const handleAddKindergarten = (kindergarten: AddKindergartenInput) => {
-        createKindergarten({ variables: { kindergarten } });
-        refetch();
+    const handleAddKindergarten = async (kindergarten: AddKindergartenInput) => {
+        try {
+            await createKindergarten({ variables: { kindergarten } });
+            openSnackbar({ text: 'Przedszkole zostało dodane pomyślnie' });
+            refetch();
+        } catch (error) {
+            openSnackbar({ text: error.message, severity: 'error' });
+        }
     };
 
-    const handleUpdateKindergarten = (id: string, kindergarten: AddKindergartenInput) => {
-        updateKindergarten({
-            variables: {
-                id,
-                kindergarten,
-            },
-        });
+    const handleUpdateKindergarten = async (id: string, kindergarten: AddKindergartenInput) => {
+        try {
+            await updateKindergarten({
+                variables: {
+                    id,
+                    kindergarten,
+                },
+            });
+            openSnackbar({ text: 'Dane przedszkola zostały zaktualizowane pomyślnie' });
+        } catch (error) {
+            openSnackbar({ text: error.message, severity: 'error' });
+        }
     };
 
     const handleDeleteKindergarten = async (id: string) => {

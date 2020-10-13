@@ -107,22 +107,10 @@ export const KindergartenModal = ({
                             value={address}
                         />
                     </Grid>
-                    <Grid item xs={12} sm={8}>
-                        <TextField
-                            name="name"
-                            label={t('kindergarten-modal.name')}
-                            variant="outlined"
-                            fullWidth
-                            required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={name}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12}>
                         <TextField
                             name="number"
-                            label={t('kindergarten-modal.number')}
+                            label={t('test-results.kindergarten-number')}
                             type="number"
                             variant="outlined"
                             fullWidth
@@ -136,6 +124,18 @@ export const KindergartenModal = ({
                                     max: 1000,
                                 },
                             }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            name="name"
+                            label={t('test-results.kindergarten-name')}
+                            variant="outlined"
+                            fullWidth
+                            required
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={name}
                         />
                     </Grid>
                     <Grid item>
