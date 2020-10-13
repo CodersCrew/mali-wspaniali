@@ -117,14 +117,16 @@
         "title": "Add kindergarten",
         "description": "Fill in the form to add kindergarten.",
         "add": "Add",
-        "close": "Close"
+        "close": "Close",
+        "save": "Save"
     },
     "edit-kindergarten-modal": {
         "title": "Edit kindergarten",
         "description": "Fill in the form to edit kindergarten.",
         "edit": "Update",
         "close": "Close",
-        "delete": "Delete kindergarten"
+        "delete": "Delete kindergarten",
+        "save": "Save"
     },
     "child-profile": {
         "no-child": "Sorry, there is no child with this id",
@@ -449,6 +451,31 @@
             "details": "Details",
             "active": "Active",
             "done": "Done"
+        }
+    },
+    "add-test-view": {
+        "basic-information-form": {
+            "title": "Basic information",
+            "description": "Please fill in test information",
+            "test-name": "Test name",
+            "status": "Status",
+            "first-assessment": "First assessment",
+            "last-assessment": "Last assessment",
+            "active": "Active",
+            "done": "Done"
+        },
+        "test-trials": {
+            "title": "Test trials information"
+        },
+        "kindergartens": {
+            "title": "Kindergartens",
+            "description": "Select kindergartens participating in the kindergarten test",
+            "kindergarten-name":"Name"
+
+        },
+        "assessment-created": "A new assesment has been created",
+        "errors": {
+            "name-too-short": "Test name is too short."
         }
     },
     "add-child-modal": {

@@ -1,14 +1,13 @@
 import React, { FocusEvent } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
-import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
 import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
-import { KINDERGARTENS, KindergartenResponse } from '../../graphql/kindergartensRepository';
 import { Kindergarten } from '../../graphql/types';
 import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 const setLabel = (
     generalType: GeneralRecipient | '',
@@ -63,7 +62,7 @@ export const NewsletterRecipent = ({
     touched,
 }: Props) => {
     const { t } = useTranslation();
-    const { data: kindergartensData } = useQuery<KindergartenResponse>(KINDERGARTENS);
+    const { kindergartenList } = useKindergartens();
 
     const specificTypeOptionsValues = generalRecipientType === 'PARENTS' ? parentsRecipients : kindergartensRecipients;
 
@@ -81,11 +80,9 @@ export const NewsletterRecipent = ({
         return '';
     };
 
-    if (!kindergartensData) return null;
+    if (!kindergartenList) return null;
 
-    const { kindergartens } = kindergartensData;
-
-    const kindergardenOptionsValues = generateKindergardenOptions(kindergartens);
+    const kindergardenOptionsValues = generateKindergardenOptions(kindergartenList);
 
     return (
         <Card>

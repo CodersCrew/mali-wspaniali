@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, createStyles, makeStyles, Theme } from '@material-ui/core/';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { NoResults } from './NoResults';
 import { activePage } from '../../apollo_client';
-import {
-    CREATE_KINDERGARTEN,
-    AddKindergartenInput,
-    KINDERGARTENS,
-    KindergartenResponse,
-    UPDATE_KINDERGARTEN,
-    DELETE_KINDERGARTEN,
-} from '../../graphql/kindergartensRepository';
 import { ResultsActions } from './ResultsActions';
 import { TestResultsTable } from './TestResultsTable';
 import { KindergartenModal } from './KindergartenModals/KindergartenModal';
 import { ExcelModal } from './KindergartenModals/ExcelModal';
 import { ChangesHistoryModal } from './KindergartenModals/ChangesHistoryModal';
+import {
+    CREATE_KINDERGARTEN,
+    AddKindergartenInput,
+    UPDATE_KINDERGARTEN,
+    DELETE_KINDERGARTEN,
+} from '../../graphql/kindergartensRepository';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { Kindergarten } from '../../graphql/types';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
@@ -27,12 +26,12 @@ export const TestResultsPage = () => {
     const [createKindergarten] = useMutation<AddKindergartenInput>(CREATE_KINDERGARTEN);
     const [updateKindergarten] = useMutation<AddKindergartenInput>(UPDATE_KINDERGARTEN);
     const [deleteKindergarten] = useMutation<{ id: string }>(DELETE_KINDERGARTEN);
-    const { data: kindergartenData, refetch } = useQuery<KindergartenResponse>(KINDERGARTENS);
 
     const [isKindergartenModalOpen, setKindergartenModalOpen] = useState(false);
     const [isExcelModalOpen, setExcelModalOpen] = useState(false);
     const [isChangesHistoryModalOpen, setChangesHistoryModalOpen] = useState(false);
     const [currentKindergarten, setCurrentKindergarten] = useState<Kindergarten | null>(null);
+    const { kindergartenList } = useKindergartens();
 
     useEffect(() => {
         activePage(['admin-menu.results']);
@@ -42,7 +41,6 @@ export const TestResultsPage = () => {
         try {
             await createKindergarten({ variables: { kindergarten } });
             openSnackbar({ text: 'Przedszkole zostało dodane pomyślnie' });
-            refetch();
         } catch (error) {
             openSnackbar({ text: error.message, severity: 'error' });
         }
@@ -66,15 +64,12 @@ export const TestResultsPage = () => {
         try {
             await deleteKindergarten({ variables: { id } });
             openSnackbar({ text: 'Przedszkole usunięto pomyślnie' });
-            refetch();
         } catch (error) {
             openSnackbar({ text: error.message, severity: 'error' });
         }
     };
 
-    if (!kindergartenData) return <NoResults />;
-
-    const { kindergartens } = kindergartenData;
+    if (!kindergartenList) return <NoResults />;
 
     return (
         <div className={classes.container}>
@@ -85,7 +80,7 @@ export const TestResultsPage = () => {
                 setChangesHistoryModalOpen={setChangesHistoryModalOpen}
             />
             <TestResultsTable
-                kindergartens={kindergartens}
+                kindergartens={kindergartenList}
                 setCurrentKindergarten={setCurrentKindergarten}
                 setKindergartenModalOpen={setKindergartenModalOpen}
             />

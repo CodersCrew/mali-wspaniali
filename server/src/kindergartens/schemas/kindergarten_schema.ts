@@ -6,7 +6,7 @@ export type KindergartenDocument = KindergartenProps & mongoose.Document;
 export const KindergartenSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   number: Number,
   name: String,

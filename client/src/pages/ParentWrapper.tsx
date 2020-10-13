@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import { AddChildModal } from '../components/AddChildModal/AddChildModal';
-import { KindergartenResponse, KINDERGARTENS } from '../graphql/kindergartensRepository';
 import { ADD_CHILD } from '../graphql/userRepository';
 import { ChildInput } from '../graphql/types';
 import { useMe } from '../utils/useMe';
+import { useKindergartens } from '../operations/queries/Kindergartens/getKindergartens';
 
 export const ParentWrapper: FC = ({ children }) => {
     const user = useMe();
-    const { data: kindergartenData } = useQuery<KindergartenResponse>(KINDERGARTENS);
+    const { kindergartenList } = useKindergartens();
     const [addChild] = useMutation(ADD_CHILD);
 
-    if (!user || !kindergartenData) return null;
+    if (!user || !kindergartenList) return null;
 
     return (
         <>
@@ -33,7 +33,7 @@ export const ParentWrapper: FC = ({ children }) => {
                     });
                 }}
                 isOpen={user.children.length === 0 && user.role === 'parent'}
-                kindergartens={kindergartenData.kindergartens}
+                kindergartens={kindergartenList}
             />
             {children}
         </>

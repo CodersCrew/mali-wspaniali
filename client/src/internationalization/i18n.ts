@@ -7,7 +7,6 @@ import translationPl from './locales/pl/translation.json';
 i18n.use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        debug: true,
         resources: {
             pl: {
                 translation: translationPl,
