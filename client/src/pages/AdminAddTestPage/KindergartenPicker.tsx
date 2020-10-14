@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Checkbox,
     createStyles,
@@ -19,11 +19,19 @@ import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];
+    onSelect: (id: string[]) => void;
 }
 
-export function KindergartenPicker({ kindergartens }: Props) {
+export function KindergartenPicker({ kindergartens, onSelect }: Props) {
     const { t } = useTranslation();
     const [searchPhrase, setSearchPhrase] = useState('');
+    const [selected, setSelected] = useState<string[]>([]);
+    const [selectedAll, setSelectedAll] = useState(false);
+
+    useEffect(() => {
+        onSelect(selected);
+    }, [selected]);
+
     const classes = useStyles();
 
     return (
@@ -45,7 +53,19 @@ export function KindergartenPicker({ kindergartens }: Props) {
                         <TableHead>
                             <TableRow>
                                 <TableCell padding="checkbox">
-                                    <Checkbox checked={false} onChange={() => null} name="checkedB" color="default" />
+                                    <Checkbox
+                                        onClick={() => {
+                                            if (selectedAll) {
+                                                setSelected([]);
+                                            } else {
+                                                setSelected(kindergartens.map(kindergarten => kindergarten._id));
+                                            }
+
+                                            setSelectedAll(prev => !prev);
+                                        }}
+                                        name="checkedB"
+                                        color="default"
+                                    />
                                 </TableCell>
                                 <TableCell>{t('add-test-view.kindergartens.kindergarten-name')}</TableCell>
                             </TableRow>
@@ -58,14 +78,22 @@ export function KindergartenPicker({ kindergartens }: Props) {
                                     return kindergarten.name.includes(searchPhrase);
                                 })
                                 .map(kindergarten => (
-                                    <TableRow key={kindergarten.name} hover role="row">
+                                    <TableRow
+                                        key={kindergarten.name}
+                                        hover
+                                        role="row"
+                                        onClick={() => {
+                                            setSelected(prev => {
+                                                if (prev.includes(kindergarten._id)) {
+                                                    return prev.filter(selectedId => selectedId !== kindergarten._id);
+                                                }
+
+                                                return [...prev, kindergarten._id];
+                                            });
+                                        }}
+                                    >
                                         <TableCell padding="checkbox">
-                                            <Checkbox
-                                                checked={false}
-                                                onChange={() => null}
-                                                name="checkedB"
-                                                color="default"
-                                            />
+                                            <Checkbox checked={selected.includes(kindergarten._id)} color="default" />
                                         </TableCell>
                                         <TableCell>
                                             {kindergarten.number}/{kindergarten.name}
@@ -83,7 +111,7 @@ export function KindergartenPicker({ kindergartens }: Props) {
 const useStyles = makeStyles(() =>
     createStyles({
         table: {
-            maxHeight: 350,
+            height: 350,
         },
     }),
 );
