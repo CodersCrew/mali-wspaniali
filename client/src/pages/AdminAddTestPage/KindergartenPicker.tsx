@@ -30,7 +30,7 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
 
     useEffect(() => {
         onSelect(selected);
-    }, [selected]);
+    }, [onSelect, selected]);
 
     const classes = useStyles();
 

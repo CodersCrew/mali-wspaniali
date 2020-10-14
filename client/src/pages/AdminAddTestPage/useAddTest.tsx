@@ -18,6 +18,7 @@ export function useAddTest(onSubmit: (state: AddTestState | ErrorState) => void)
     const [testInformation, setTestInformation] = useState({
         testName: '',
     });
+    const [selected, setSelected] = useState<string[]>([]);
     const { kindergartenList } = useKindergartens();
     const { t } = useTranslation();
     const { createTest, error } = useCreateNewTest();
@@ -40,10 +41,18 @@ export function useAddTest(onSubmit: (state: AddTestState | ErrorState) => void)
             });
     }
 
+    function selectKindergarten(ids: string[]) {
+        setSelected(ids);
+    }
+
+    const kindergartens = kindergartenList || [];
+
     return {
         setTestInformation,
         submit,
-        kindergartens: kindergartenList || [],
+        kindergartens,
+        selectKindergarten,
+        selected,
     };
 }
 
