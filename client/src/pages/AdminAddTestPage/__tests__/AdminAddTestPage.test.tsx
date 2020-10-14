@@ -49,9 +49,9 @@ describe('AdminAddTestPage', () => {
                 expect(rows).toHaveLength(3);
 
                 rows.forEach(row => {
-                    const checkbox = row.querySelector('input[type=checkbox]');
-
-                    expect(checkbox).not.toHaveAttribute('checked');
+                    const checkbox = row.querySelector('.MuiCheckbox-root');
+    
+                    expect(checkbox).not.toHaveClass('Mui-checked');
                 });
 
                 expect(rows[0]).toHaveTextContent(translationOf('add-test-view.kindergartens.kindergarten-name'));
@@ -109,6 +109,64 @@ describe('AdminAddTestPage', () => {
                         expect(rows[0]).toHaveTextContent(translationOf('add-test-view.kindergartens.kindergarten-name'));
     
                     });
+                });
+            });
+
+            describe('and one clicked on the item', () => {
+                let rows: HTMLElement[];
+
+                it('selects the item', async () => {
+                    rows = screen.queryAllByRole('row');
+
+                    rows.forEach(row => {
+                        const checkbox = row.querySelector('.MuiCheckbox-root');
+    
+                        expect(checkbox).not.toHaveClass('Mui-checked');
+                    });
+
+                    await act(async () => {
+                        fireEvent.click(rows[1])
+
+                        await awaitForResponse();
+
+                        rows = screen.queryAllByRole('row');
+
+                    })
+
+                    expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
+                    expect(rows[1].querySelector('.MuiCheckbox-root')).toHaveClass('Mui-checked')
+                    expect(rows[2].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
+                });
+            });
+
+            describe('and one clicked on the item twice', () => {
+                let rows: HTMLElement[];
+
+                it('selects the item', async () => {
+                    rows = screen.queryAllByRole('row');
+
+                    rows.forEach(row => {
+                        const checkbox = row.querySelector('.MuiCheckbox-root');
+    
+                        expect(checkbox).not.toHaveClass('Mui-checked');
+                    });
+
+                    await act(async () => {
+                        fireEvent.click(rows[1])
+
+                        await awaitForResponse();
+
+                        fireEvent.click(rows[1])
+
+                        await awaitForResponse();
+
+                        rows = screen.queryAllByRole('row');
+
+                    })
+
+                    expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
+                    expect(rows[1].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
+                    expect(rows[2].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
                 });
             });
         });

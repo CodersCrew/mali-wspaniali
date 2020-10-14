@@ -119,6 +119,126 @@ describe('useAddTest', () => {
                 ]);
             });
         });
+
+        describe('when kindergarten is selected', () => {
+            let kindergartens: Kindergarten[];
+
+            it('returns list', async () => {
+                const { result } = renderHook(() => useAddTest(onSubmit), {
+                    wrapper: renderPage(mockedKindergartens),
+                });
+
+                await act(async () => {
+                    await awaitForResponse();
+
+                    kindergartens = result.current.kindergartens;
+                });
+
+                expect(kindergartens).toEqual([
+                    {
+                        _id: 'my-id-1',
+                        name: 'my-kindergarten',
+                        number: 1,
+                        address: 'unique-address',
+                        city: 'my-city',
+                    },
+                    {
+                        _id: 'my-id-2',
+                        name: 'happy-meal',
+                        number: 2,
+                        address: 'my-street',
+                        city: 'my-city',
+                    },
+                ]);
+
+                await act(async () => {
+                    result.current.selectKindergarten(['my-id-2']);
+
+                    await awaitForResponse();
+
+                    kindergartens = result.current.kindergartens;
+                });
+
+                expect(kindergartens).toEqual([
+                    {
+                        _id: 'my-id-1',
+                        name: 'my-kindergarten',
+                        number: 1,
+                        address: 'unique-address',
+                        city: 'my-city',
+                    },
+                    {
+                        _id: 'my-id-2',
+                        name: 'happy-meal',
+                        number: 2,
+                        address: 'my-street',
+                        city: 'my-city',
+                    },
+                ]);
+            });
+        });
+
+        describe('when kindergarten is selected twice', () => {
+            let kindergartens: Kindergarten[];
+
+            it('returns list', async () => {
+                const { result } = renderHook(() => useAddTest(onSubmit), {
+                    wrapper: renderPage(mockedKindergartens),
+                });
+
+                await act(async () => {
+                    await awaitForResponse();
+
+                    kindergartens = result.current.kindergartens;
+                });
+
+                expect(kindergartens).toEqual([
+                    {
+                        _id: 'my-id-1',
+                        name: 'my-kindergarten',
+                        number: 1,
+                        address: 'unique-address',
+                        city: 'my-city',
+                    },
+                    {
+                        _id: 'my-id-2',
+                        name: 'happy-meal',
+                        number: 2,
+                        address: 'my-street',
+                        city: 'my-city',
+                    },
+                ]);
+
+                await act(async () => {
+                    result.current.selectKindergarten(['my-id-2']);
+
+                    await awaitForResponse();
+
+                    result.current.selectKindergarten(['my-id-2']);
+
+                    await awaitForResponse();
+
+                    kindergartens = result.current.kindergartens;
+                });
+
+                expect(kindergartens).toEqual([
+                    {
+                        _id: 'my-id-1',
+                        name: 'my-kindergarten',
+                        number: 1,
+                        address: 'unique-address',
+                        city: 'my-city',
+                    },
+                    {
+                        _id: 'my-id-2',
+                        name: 'happy-meal',
+                        number: 2,
+                        address: 'my-street',
+                        city: 'my-city',
+                    },
+                ]);
+            });
+        });
     });
 });
 
