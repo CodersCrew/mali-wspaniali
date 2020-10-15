@@ -1,46 +1,38 @@
 import React from 'react';
-import { render, screen, fireEvent, RenderResult } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { I18nextProvider } from 'react-i18next';
-import { act } from 'react-dom/test-utils';
 import { AdminAddTestPage } from '../AdminAddTestPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
 import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
-import { awaitForResponse } from '../../../utils/testing/awaitForResponse';
+import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translations } from '../../../internationalization/i18n';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 
 describe('AdminAddTestPage', () => {
-    let page: RenderResult;
     let openSnackbar: jasmine.Spy;
 
     describe('basic test information', () => {
         beforeEach(() => {
-            page = renderPage(mocks);
+            renderPage(mocks);
             openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
         });
 
         it('renders test name input', async () => {
-            const { container } = page;
+            const input = screen.getByTestId('test-name')!;
 
-            const input = container.querySelector('#test-name')!;
-            const inputLabel = container.querySelector('#test-name-label');
-
-            expect(input).toBeDefined();
-            expect(inputLabel).toBeDefined();
+            expect(input).toBeInTheDocument()
         });
     });
 
     describe('kindergarten list', () => {
         describe('when list is loaded', () => {
             beforeEach(async () => {
-                await act(async () => {
-                    page = renderPage(mockedKindergartens);
+                renderPage(mockedKindergartens);
 
-                    await awaitForResponse();
-                });
+                await awaitForRenderResponse();
             });
 
             it('renders unchecked list', async () => {
@@ -61,11 +53,8 @@ describe('AdminAddTestPage', () => {
 
             describe('and one filtered with valid phrase', () => {
                 it('renders partial list', async () => {
-                    const searchField = screen.queryByTestId('search-field')?.querySelector('input')!;
+                    changeSeachFieldInput('meal');
 
-                    act(() => {
-                        fireEvent.change(searchField, { target: { value: 'meal' } });
-                    });
 
                     const rows = screen.queryAllByRole('row');
 
@@ -79,11 +68,7 @@ describe('AdminAddTestPage', () => {
             describe('and one filtered with', () => {
                 describe('too short phrase', () => {
                     it('renders all kindergartens', async () => {
-                        const searchField = screen.queryByTestId('search-field')?.querySelector('input')!;
-
-                        act(() => {
-                            fireEvent.change(searchField, { target: { value: 'mea' } });
-                        });
+                        changeSeachFieldInput('mea');
     
                         const rows = screen.queryAllByRole('row');
     
@@ -97,11 +82,7 @@ describe('AdminAddTestPage', () => {
 
                 describe('not found phrase', () => {
                     it('renders empty list', () => {
-                        const searchField = screen.queryByTestId('search-field')?.querySelector('input')!;
-
-                        act(() => {
-                            fireEvent.change(searchField, { target: { value: 'wrong-name' } });
-                        });
+                        changeSeachFieldInput('wrong-name');
     
                         const rows = screen.queryAllByRole('row');
     
@@ -124,14 +105,9 @@ describe('AdminAddTestPage', () => {
                         expect(checkbox).not.toHaveClass('Mui-checked');
                     });
 
-                    await act(async () => {
-                        fireEvent.click(rows[1])
+                    fireEvent.click(rows[1])
 
-                        await awaitForResponse();
-
-                        rows = screen.queryAllByRole('row');
-
-                    })
+                    rows = screen.queryAllByRole('row');
 
                     expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
                     expect(rows[1].querySelector('.MuiCheckbox-root')).toHaveClass('Mui-checked')
@@ -142,7 +118,7 @@ describe('AdminAddTestPage', () => {
             describe('and one clicked on the item twice', () => {
                 let rows: HTMLElement[];
 
-                it('selects the item', async () => {
+                it('deselects the item', async () => {
                     rows = screen.queryAllByRole('row');
 
                     rows.forEach(row => {
@@ -151,18 +127,10 @@ describe('AdminAddTestPage', () => {
                         expect(checkbox).not.toHaveClass('Mui-checked');
                     });
 
-                    await act(async () => {
-                        fireEvent.click(rows[1])
+                    fireEvent.click(rows[1])
+                    fireEvent.click(rows[1])
 
-                        await awaitForResponse();
-
-                        fireEvent.click(rows[1])
-
-                        await awaitForResponse();
-
-                        rows = screen.queryAllByRole('row');
-
-                    })
+                    rows = screen.queryAllByRole('row');
 
                     expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
                     expect(rows[1].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
@@ -174,63 +142,47 @@ describe('AdminAddTestPage', () => {
 
     describe('when executed', () => {
         describe('with valid data', () => {
-            beforeEach(() => {
-                page = renderPage(mocks);
+            beforeEach(async () => {
+                renderPage(mocks);
+
+                await awaitForRenderResponse()
+
                 openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
             });
 
             it('renders confirmation', async () => {
-                const { container } = page;
+                changeTestNameInput('new-test')
 
-                const input = container.querySelector('#test-name')!;
-                const button = container.querySelector('#create-button')!;
-
-                act(() => {
-                    fireEvent.change(input, { target: { value: 'new-test' } });
-                });
-
-                await act(async () => {
-                    fireEvent.click(button);
-
-                    await awaitForResponse();
-                    await awaitForResponse();
-                });
+                createTestButtonClick()
+                
+                await awaitForRenderResponse()
+                await awaitForRenderResponse()
 
                 expect(openSnackbar).toHaveBeenCalledWith({ text: translationOf('add-test-view.assessment-created') });
             });
         });
 
         describe('with invalid data', () => {
-            beforeEach(() => {
-                page = renderPage(mocks);
+            beforeEach(async () => {
+                renderPage(mocks);
+
+                await awaitForRenderResponse()
+
                 openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
             });
 
             it('renders error infromation', async () => {
-                const { container } = page;
+                changeTestNameInput('nope')
 
-                const input = container.querySelector('#test-name')!;
-                const button = container.querySelector('#create-button')!;
+                createTestButtonClick();
 
-                act(() => {
-                    fireEvent.change(input, { target: { value: 'nope' } });
-                });
-
-                await act(async () => {
-                    fireEvent.click(button);
-
-                    await awaitForResponse();
-                    await awaitForResponse();
-                });
+                await awaitForRenderResponse();
+                await awaitForRenderResponse();
 
                 expect(openSnackbar).toHaveBeenCalledWith({
                     text: translationOf('add-test-view.errors.name-too-short'),
                     severity: 'error',
                 });
-            });
-
-            describe('when no kindergarten is selected', () => {
-                it('renders error information', () => {});
             });
         });
     });
@@ -299,3 +251,24 @@ const mockedKindergartens = [
         },
     },
 ];
+
+function createTestButtonClick() {
+    const button = screen.getByTestId('create-button')!;
+
+    fireEvent.click(button);
+}
+
+function changeTestNameInput(value: string) {
+    const input = screen.getByTestId('test-name').querySelector('input')!;
+
+    fireEvent.change(input, { target: { value } });
+
+}
+
+function changeSeachFieldInput(value: string) {
+    const searchField = screen.queryByTestId('search-field')?.querySelector('input')!;
+
+
+    fireEvent.change(searchField, { target: { value } });
+
+}

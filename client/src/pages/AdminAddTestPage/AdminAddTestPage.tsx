@@ -38,7 +38,7 @@ export function AdminAddTestPage() {
             <Grid item sm={5}>
                 <KindergartenPicker kindergartens={kindergartens} onSelect={value => selectKindergarten(value)} />
             </Grid>
-            <button id="create-button" onClick={() => submit()}>
+            <button data-testid="create-button" onClick={() => submit()}>
                 Create a new test
             </button>
         </Grid>

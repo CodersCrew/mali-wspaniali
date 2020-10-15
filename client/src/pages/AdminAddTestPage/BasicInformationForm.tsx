@@ -35,7 +35,7 @@ export function BasicInformationForm({ onChange }: Props) {
                         <Grid container spacing={2} direction="column">
                             <Grid item>
                                 <TextField
-                                    id="test-name"
+                                    data-testid="test-name"
                                     variant="outlined"
                                     fullWidth
                                     label={t('add-test-view.basic-information-form.test-name')}
