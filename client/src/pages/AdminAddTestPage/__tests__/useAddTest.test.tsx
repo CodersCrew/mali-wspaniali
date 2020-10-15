@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useAddTest } from '../useAddTest';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
-import { awaitForResponse } from '../../../utils/testing/awaitForResponse';
+import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Kindergarten } from '../../../graphql/types';
@@ -28,10 +28,10 @@ describe('useAddTest', () => {
 
                 await act(async () => {
                     result.current.submit();
-
-                    await awaitForResponse();
-                    await awaitForResponse();
                 });
+
+                await awaitForHookResponse();
+                await awaitForHookResponse();
 
                 expect(onSubmit).toHaveBeenCalledWith(
                     jasmine.objectContaining({ testInformation: { testName: 'my-test' } }),
@@ -51,9 +51,9 @@ describe('useAddTest', () => {
 
                 await act(async () => {
                     result.current.submit();
-
-                    await awaitForResponse();
                 });
+
+                await awaitForHookResponse();
 
                 expect(onSubmit).toHaveBeenCalledWith(
                     jasmine.objectContaining({ errors: translationOf('add-test-view.errors.name-too-short') }),
@@ -77,9 +77,9 @@ describe('useAddTest', () => {
             it('returns empty list', async () => {
                 const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
 
-                await act(async () => {
-                    await awaitForResponse();
+                await awaitForHookResponse();
 
+                await act(async () => {
                     kindergartens = result.current.kindergartens;
                 });
 
@@ -95,9 +95,9 @@ describe('useAddTest', () => {
                     wrapper: renderPage(mockedKindergartens),
                 });
 
-                await act(async () => {
-                    await awaitForResponse();
+                await awaitForHookResponse();
 
+                await act(async () => {
                     kindergartens = result.current.kindergartens;
                 });
 
@@ -128,9 +128,9 @@ describe('useAddTest', () => {
                     wrapper: renderPage(mockedKindergartens),
                 });
 
-                await act(async () => {
-                    await awaitForResponse();
+                await awaitForHookResponse();
 
+                await act(async () => {
                     kindergartens = result.current.kindergartens;
                 });
 
@@ -153,11 +153,11 @@ describe('useAddTest', () => {
 
                 await act(async () => {
                     result.current.selectKindergarten(['my-id-2']);
-
-                    await awaitForResponse();
-
-                    kindergartens = result.current.kindergartens;
                 });
+
+                await awaitForHookResponse();
+
+                kindergartens = result.current.kindergartens;
 
                 expect(kindergartens).toEqual([
                     {
@@ -187,7 +187,7 @@ describe('useAddTest', () => {
                 });
 
                 await act(async () => {
-                    await awaitForResponse();
+                    await awaitForHookResponse();
 
                     kindergartens = result.current.kindergartens;
                 });
@@ -212,11 +212,11 @@ describe('useAddTest', () => {
                 await act(async () => {
                     result.current.selectKindergarten(['my-id-2']);
 
-                    await awaitForResponse();
+                    await awaitForHookResponse();
 
                     result.current.selectKindergarten(['my-id-2']);
 
-                    await awaitForResponse();
+                    await awaitForHookResponse();
 
                     kindergartens = result.current.kindergartens;
                 });
