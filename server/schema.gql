@@ -175,7 +175,7 @@ type Mutation {
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
-  createAssessment(title: String!): ReturnedStatusDTO!
+  createAssessment(assessment: CreateAssessmentInput!): ReturnedStatusDTO!
 }
 
 input ArticleInput {
@@ -260,4 +260,11 @@ input NewsletterKindergartenInput {
   kindergartens: [String!]!
   title: String!
   type: String!
+}
+
+input CreateAssessmentInput {
+  title: String!
+  startDate: String!
+  endDate: String!
+  kindergartenIds: [String!]!
 }

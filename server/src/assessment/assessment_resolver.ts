@@ -6,6 +6,7 @@ import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { CreateAssessmentCommand } from './domain/commands/impl/create_assessment_command';
 import { ReturnedStatusDTO } from '../shared/returned_status';
+import { CreateAssessmentInput } from './inputs/create_assessment_input';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -15,10 +16,10 @@ export class AssessmentResolver {
   @Mutation(() => ReturnedStatusDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createAssessment(
-    @Args('title') title: string,
+    @Args('assessment') assessment: CreateAssessmentInput,
   ): Promise<ReturnedStatusDTO> {
     const created: boolean = await this.commandBus.execute(
-      new CreateAssessmentCommand(title),
+      new CreateAssessmentCommand(assessment),
     );
 
     return { status: !!created };
