@@ -110,11 +110,3 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-function formatDate(date: Date) {
-    return date
-        .toLocaleDateString()
-        .split('/')
-        .reverse()
-        .join('-');
-}
