@@ -4,6 +4,10 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 
+import MutationObserver from '@sheerun/mutationobserver-shim';
+
+window.MutationObserver = MutationObserver;
+
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({
         push: jest.fn(),
