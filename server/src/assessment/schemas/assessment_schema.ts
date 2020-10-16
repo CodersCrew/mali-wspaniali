@@ -27,7 +27,7 @@ export const AssessmentSchema = new mongoose.Schema({
   startDate: String,
   endDate: String,
   kindergartenIds: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
 });
