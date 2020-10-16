@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { I18nextProvider } from 'react-i18next';
@@ -10,6 +10,12 @@ import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse'
 import { translations } from '../../../internationalization/i18n';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
+import { formatDate } from '../../../utils/formatDate';
+
+const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
+
+const startDate = new Date();
+const endDate = new Date(startDate.getTime() + TWO_MONTHS);
 
 describe('AdminAddTestPage', () => {
     let openSnackbar: jasmine.Spy;
@@ -204,6 +210,9 @@ const mocks = [
             query: CREATE_NEW_TEST,
             variables: {
                 title: 'new-test',
+                startDate: formatDate(startDate),
+                endDate: formatDate(endDate),
+                kindergartens: []
             },
         },
         result: {

@@ -12,7 +12,7 @@ import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 export function AdminAddTestPage() {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { setTestInformation, submit, kindergartens, selectKindergarten } = useAddTest(result => {
+    const { testInformation, setTestInformation, submit, kindergartens, selectKindergarten } = useAddTest(result => {
         if ('errors' in result) {
             openSnackbar({ text: t(result.errors), severity: 'error' });
         } else {
@@ -28,7 +28,7 @@ export function AdminAddTestPage() {
             <Grid item sm={7}>
                 <Grid container direction="column" spacing={2}>
                     <Grid item sm={12}>
-                        <BasicInformationForm onChange={setTestInformation} />
+                        <BasicInformationForm value={testInformation} onChange={setTestInformation} />
                     </Grid>
                     <Grid item sm={12}>
                         <TestInformation />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, TextField, createStyles, makeStyles, Theme, MenuItem } from '@material-ui/core';
 
@@ -6,23 +6,13 @@ import { LabeledContainer } from '../../components/LabeledContainer';
 import { AddTestState } from './useAddTest';
 
 interface Props {
+    value: AddTestState['testInformation'];
     onChange: (value: AddTestState['testInformation']) => void;
 }
 
-const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
-
-export function BasicInformationForm({ onChange }: Props) {
+export function BasicInformationForm({ value: formValue, onChange }: Props) {
     const { t } = useTranslation();
-    const [testName, setTestName] = useState('');
     const classes = useStyles();
-
-    useEffect(() => {
-        onChange({ testName });
-    }, [testName, onChange]);
-
-    const dateDefaultNow = new Date();
-
-    const dateDefaultFuture = new Date(dateDefaultNow.getTime() + TWO_MONTHS);
 
     return (
         <LabeledContainer title={t('add-test-view.basic-information-form.title')}>
@@ -39,8 +29,8 @@ export function BasicInformationForm({ onChange }: Props) {
                                     variant="outlined"
                                     fullWidth
                                     label={t('add-test-view.basic-information-form.test-name')}
-                                    value={testName}
-                                    onChange={({ target: { value } }) => setTestName(value)}
+                                    value={formValue.testName}
+                                    onChange={({ target: { value } }) => onChange({ ...formValue, testName: value })}
                                 />
                             </Grid>
                             <Grid item>
@@ -50,10 +40,11 @@ export function BasicInformationForm({ onChange }: Props) {
                                     variant="outlined"
                                     fullWidth
                                     value="active"
+                                    disabled
                                 >
                                     <MenuItem value="active">
                                         {t('add-test-view.basic-information-form.active')}
-                                    </MenuItem>{' '}
+                                    </MenuItem>
                                     <MenuItem value="done">{t('add-test-view.basic-information-form.done')}</MenuItem>
                                 </TextField>
                             </Grid>
@@ -67,12 +58,15 @@ export function BasicInformationForm({ onChange }: Props) {
                                         id="date"
                                         label={t('add-test-view.basic-information-form.first-assessment')}
                                         type="date"
-                                        defaultValue={formatDate(dateDefaultNow)}
                                         fullWidth
                                         variant="outlined"
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
+                                        value={formValue.startDate}
+                                        onChange={({ target: { value } }) =>
+                                            onChange({ ...formValue, startDate: value })
+                                        }
                                     />
                                 </form>
                             </Grid>
@@ -82,12 +76,13 @@ export function BasicInformationForm({ onChange }: Props) {
                                         id="date"
                                         label={t('add-test-view.basic-information-form.last-assessment')}
                                         type="date"
-                                        defaultValue={formatDate(dateDefaultFuture)}
                                         fullWidth
                                         variant="outlined"
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
+                                        value={formValue.endDate}
+                                        onChange={({ target: { value } }) => onChange({ ...formValue, endDate: value })}
                                     />
                                 </form>
                             </Grid>

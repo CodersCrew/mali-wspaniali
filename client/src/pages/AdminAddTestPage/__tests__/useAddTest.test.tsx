@@ -7,6 +7,15 @@ import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Kindergarten } from '../../../graphql/types';
+import { formatDate } from '../../../utils/formatDate';
+
+const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
+
+const startDate = new Date();
+const endDate = new Date(startDate.getTime() + TWO_MONTHS);
+
+const formatedStartDate = formatDate(startDate);
+const formatedEndDate = formatDate(endDate);
 
 describe('useAddTest', () => {
     let onSubmit: jest.Mock;
@@ -21,7 +30,11 @@ describe('useAddTest', () => {
                 const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
 
                 act(() => {
-                    result.current.setTestInformation({ testName: 'my-test' });
+                    result.current.setTestInformation({
+                        testName: 'my-test',
+                        startDate: formatedStartDate,
+                        endDate: formatedEndDate,
+                    });
                 });
 
                 expect(onSubmit).not.toHaveBeenCalled();
@@ -34,7 +47,13 @@ describe('useAddTest', () => {
                 await awaitForHookResponse();
 
                 expect(onSubmit).toHaveBeenCalledWith(
-                    jasmine.objectContaining({ testInformation: { testName: 'my-test' } }),
+                    jasmine.objectContaining({
+                        testInformation: {
+                            testName: 'my-test',
+                            startDate: formatedStartDate,
+                            endDate: formatedEndDate,
+                        },
+                    }),
                 );
             });
         });
@@ -44,7 +63,11 @@ describe('useAddTest', () => {
                 const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
 
                 act(() => {
-                    result.current.setTestInformation({ testName: 'my' });
+                    result.current.setTestInformation({
+                        testName: 'my',
+                        startDate: formatedStartDate,
+                        endDate: formatedEndDate,
+                    });
                 });
 
                 expect(onSubmit).not.toHaveBeenCalled();
@@ -256,6 +279,9 @@ const mocks = [
             query: CREATE_NEW_TEST,
             variables: {
                 title: 'my-test',
+                startDate: formatedStartDate,
+                endDate: formatedEndDate,
+                kindergartens: [],
             },
         },
         result: () => {
