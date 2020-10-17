@@ -27,7 +27,11 @@ export function AdminAddTestPage() {
         if ('errors' in result) {
             openSnackbar({ text: t(result.errors), severity: 'error' });
         } else {
-            openSnackbar({ text: t('add-test-view.assessment-created') });
+            openSnackbar({ text: t('add-test-view.assessment-created') }).then(dialogResult => {
+                if (dialogResult.close) {
+                    redirectIntoTestPage();
+                }
+            });
         }
     });
 
@@ -65,7 +69,7 @@ export function AdminAddTestPage() {
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item>
-                            <ButtonSecondary variant="text" data-testid="create-button" onClick={redirectIntoTestPage}>
+                            <ButtonSecondary variant="text" onClick={redirectIntoTestPage}>
                                 {t('add-test-view.cancel')}
                             </ButtonSecondary>
                         </Grid>
@@ -102,7 +106,7 @@ function SubmitButton({ onClick, reasonForBeingDisabled }: SubmitButtonProps) {
         const translatedDisableReason = t(reasonForBeingDisabled);
 
         return (
-            <ArrowTooltip title={translatedDisableReason}>
+            <ArrowTooltip title={translatedDisableReason} role="tooltip">
                 <span>{button}</span>
             </ArrowTooltip>
         );
