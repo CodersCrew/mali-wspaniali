@@ -54,6 +54,7 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
                             <TableRow>
                                 <TableCell padding="checkbox">
                                     <Checkbox
+                                        checked={selectedAll}
                                         onClick={() => {
                                             if (selectedAll) {
                                                 setSelected([]);
@@ -63,7 +64,7 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
 
                                             setSelectedAll(prev => !prev);
                                         }}
-                                        name="checkedB"
+                                        data-testid="select-all"
                                         color="default"
                                     />
                                 </TableCell>
