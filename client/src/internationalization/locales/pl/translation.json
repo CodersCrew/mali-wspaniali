@@ -457,9 +457,12 @@
         "kindergartens": {
             "title": "Przedszkola",
             "description": "Wybierz przedszkola, biorące udział w teście przedszkolaka",
-            "kindergarten-name":"Nazwa przedszkola"
+            "kindergarten-name":"Nazwa przedszkola",
+            "find-kindergarten": "Znajdź przedszkole"
         },
         "assessment-created": "Utworzono nowy test",
+        "create-test": "Utwórz nowy test",
+        "cancel": "Anuluj",
         "errors": {
             "name-too-short": "Nazwa testu jest za krótka"
         }
