@@ -28,13 +28,21 @@ const initialTestInformation = {
 export function useAddTest(onSubmit: (state: AddTestState | ErrorState) => void) {
     const [testInformation, setTestInformation] = useState(initialTestInformation);
     const [selected, setSelected] = useState<string[]>([]);
+    const [reasonForBeingDisabled, setReasonForBeingDisabled] = useState<string | undefined>(undefined);
     const { kindergartenList } = useKindergartens();
     const { t } = useTranslation();
     const { createTest, error } = useCreateNewTest();
+    const state = { testInformation };
+
+    validate(state)
+        .then(() => setReasonForBeingDisabled(undefined))
+        .catch(e => {
+            if (e.errors.length > 0) {
+                setReasonForBeingDisabled(e.errors[0]);
+            }
+        });
 
     function submit() {
-        const state = { testInformation };
-
         const valid = validate(state);
 
         valid
@@ -63,6 +71,7 @@ export function useAddTest(onSubmit: (state: AddTestState | ErrorState) => void)
         kindergartens,
         selectKindergarten,
         selected,
+        reasonForBeingDisabled,
     };
 }
 

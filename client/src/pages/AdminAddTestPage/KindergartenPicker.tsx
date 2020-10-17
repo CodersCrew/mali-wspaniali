@@ -10,6 +10,7 @@ import {
     TableHead,
     TableRow,
     TextField,
+    Theme,
     Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -38,16 +39,18 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
         <LabeledContainer title={t('add-test-view.kindergartens.title')}>
             <>
                 <Typography variant="subtitle1">{t('add-test-view.kindergartens.description')}</Typography>
-                <TextField
-                    id="outlined-search"
-                    label="Search field"
-                    type="search"
-                    variant="outlined"
-                    fullWidth
-                    data-testid="search-field"
-                    value={searchPhrase}
-                    onChange={({ target: { value } }) => setSearchPhrase(value)}
-                />
+                <div className={classes.searchFieldContainer}>
+                    <TextField
+                        label={t('add-test-view.kindergartens.find-kindergarten')}
+                        type="search"
+                        variant="outlined"
+                        fullWidth
+                        data-testid="search-field"
+                        value={searchPhrase}
+                        onChange={({ target: { value } }) => setSearchPhrase(value)}
+                        size="small"
+                    />
+                </div>
                 <TableContainer classes={{ root: classes.table }}>
                     <Table aria-label="simple table">
                         <TableHead>
@@ -80,7 +83,7 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
                                 })
                                 .map(kindergarten => (
                                     <TableRow
-                                        key={kindergarten.name}
+                                        key={kindergarten._id}
                                         hover
                                         role="row"
                                         onClick={() => {
@@ -96,7 +99,7 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
                                         <TableCell padding="checkbox">
                                             <Checkbox checked={selected.includes(kindergarten._id)} color="default" />
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell classes={{ root: classes.kindergartenItem }}>
                                             {kindergarten.number}/{kindergarten.name}
                                         </TableCell>
                                     </TableRow>
@@ -109,10 +112,16 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
     );
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         table: {
-            height: 350,
+            height: 295,
+        },
+        searchFieldContainer: {
+            margin: theme.spacing(3, 0, 2),
+        },
+        kindergartenItem: {
+            cursor: 'pointer',
         },
     }),
 );

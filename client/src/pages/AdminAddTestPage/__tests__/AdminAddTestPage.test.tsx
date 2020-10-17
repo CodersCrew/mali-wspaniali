@@ -23,14 +23,13 @@ describe('AdminAddTestPage', () => {
     let openSnackbar: jasmine.Spy;
 
     describe('basic test information', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             renderPage(mocks);
-            openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
-        });
 
-        afterEach(() => {
-            cleanup()
-        })
+            await awaitForRenderResponse();
+
+            openSnackbar = spyOn(OpenSnackbar, 'openSnackbar')
+        });
 
         it('renders test name input', async () => {
             const input = screen.getByTestId('test-name')!;
@@ -206,10 +205,15 @@ describe('AdminAddTestPage', () => {
                 await awaitForRenderResponse()
 
                 openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
+
+                openSnackbar.and.returnValue(Promise.resolve({ close: true }));
+
             });
 
             it('renders confirmation', async () => {
                 changeTestNameInput('new-test')
+
+                await awaitForRenderResponse()
 
                 createTestButtonClick()
                 
@@ -229,19 +233,23 @@ describe('AdminAddTestPage', () => {
                 openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
             });
 
-            it('renders error infromation', async () => {
+            it('disables submit button', async () => {
                 changeTestNameInput('nope')
+
+                await awaitForRenderResponse();
+
+                const submitButton = getSubmitButton()
+                const submitTooltip = screen.getByRole('tooltip')
 
                 createTestButtonClick();
 
                 await awaitForRenderResponse();
                 await awaitForRenderResponse();
 
-                expect(openSnackbar).toHaveBeenCalledWith({
-                    text: translationOf('add-test-view.errors.name-too-short'),
-                    severity: 'error',
-                });
-            });
+                expect(openSnackbar).toHaveBeenCalledTimes(0)
+                expect(submitButton).toHaveClass('Mui-disabled')
+                expect(submitTooltip).toHaveAttribute('title', translationOf('add-test-view.errors.name-too-short'))
+           });
         });
     });
 });
@@ -338,4 +346,10 @@ function selectAllClick() {
     const selectAll = screen.getByTestId('select-all');
 
     userEvent.click(selectAll)
+}
+
+function getSubmitButton() {
+    const button = screen.getByTestId('create-button')!;
+
+    return button
 }
