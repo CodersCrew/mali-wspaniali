@@ -6,11 +6,13 @@ import { useHistory } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { TestHistoryList } from './TestHistoryList/TestHistoryList';
 import { ButtonSecondary } from '../../components/Button';
+import { useTests } from '../../operations/queries/Test/getAllTests';
 
 export function TestManagementPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const history = useHistory();
+    const { testList } = useTests();
 
     useEffect(() => {
         activePage(['admin-menu.test-management']);
@@ -26,7 +28,7 @@ export function TestManagementPage() {
                         </ButtonSecondary>
                     </div>
                     <div className={classes.listContainer}>
-                        <TestHistoryList />
+                        <TestHistoryList tests={testList} />
                     </div>
                 </div>
             </Grid>

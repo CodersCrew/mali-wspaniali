@@ -145,3 +145,11 @@ export interface KeyCodeSeries {
     target: string;
     count: number;
 }
+
+export interface Test {
+    _id: string;
+    isOutdated: boolean;
+    title: string;
+    startDate: string;
+    endDate: string;
+}

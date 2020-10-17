@@ -20,7 +20,7 @@ export class AssessmentRepository {
     return await this.model.findById(id).exec();
   }
 
-  async getAll(): Promise<AssessmentProps[]> {
+  async getAll(): Promise<AssessmentDto[]> {
     return await this.model
       .find({}, {}, { sort: { date: -1 } })
       .exec()

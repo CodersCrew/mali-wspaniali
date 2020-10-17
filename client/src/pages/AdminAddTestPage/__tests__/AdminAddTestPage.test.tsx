@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import userEvent from '@testing-library/user-event'
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { I18nextProvider } from 'react-i18next';
 import { AdminAddTestPage } from '../AdminAddTestPage';
@@ -11,6 +12,7 @@ import { translations } from '../../../internationalization/i18n';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { formatDate } from '../../../utils/formatDate';
+import { cleanup } from '@testing-library/react-hooks';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 
@@ -25,6 +27,10 @@ describe('AdminAddTestPage', () => {
             renderPage(mocks);
             openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
         });
+
+        afterEach(() => {
+            cleanup()
+        })
 
         it('renders test name input', async () => {
             const input = screen.getByTestId('test-name')!;
@@ -143,6 +149,52 @@ describe('AdminAddTestPage', () => {
                     expect(rows[2].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
                 });
             });
+
+            describe('when "select all"', () => {
+                let rows: HTMLElement[];
+
+                describe('is clicked', () => {
+                    it('renders all checked items', async () => {
+                        rows = screen.queryAllByRole('row');
+
+                        rows.forEach(row => {
+                            const checkbox = row.querySelector('.MuiCheckbox-root');
+        
+                            expect(checkbox).not.toHaveClass('Mui-checked');
+                        });
+
+                        selectAllClick()
+
+                        rows.forEach(row => {
+                            const checkbox = row.querySelector('.MuiCheckbox-root');
+        
+                            expect(checkbox).toHaveClass('Mui-checked');
+                        });
+                    })
+                })
+
+                describe('is clicked twice', () => {
+                    it('renders all unchecked items', async () => {
+
+                        rows = screen.queryAllByRole('row');
+
+                        rows.forEach(row => {
+                            const checkbox = row.querySelector('.MuiCheckbox-root');
+        
+                            expect(checkbox).not.toHaveClass('Mui-checked');
+                        });
+
+                        selectAllClick()
+                        selectAllClick()
+
+                        rows.forEach(row => {
+                            const checkbox = row.querySelector('.MuiCheckbox-root');
+        
+                            expect(checkbox).not.toHaveClass('Mui-checked');
+                        });
+                    })
+                })
+            })
         });
     });
 
@@ -280,4 +332,10 @@ function changeSeachFieldInput(value: string) {
 
     fireEvent.change(searchField, { target: { value } });
 
+}
+
+function selectAllClick() {
+    const selectAll = screen.getByTestId('select-all');
+
+    userEvent.click(selectAll)
 }
