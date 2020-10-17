@@ -141,6 +141,14 @@ type NewsletterDTO {
   isDone: Boolean!
 }
 
+type AssessmentDTO {
+  _id: ID!
+  isOutdated: Boolean!
+  title: String!
+  startDate: String!
+  endDate: String!
+}
+
 type Query {
   paginatedArticles(perPage: Int, category: String, page: Int!): PaginatedArticlesDTO!
   lastArticles(count: Int!): [ArticleDTO!]!
@@ -155,6 +163,7 @@ type Query {
   kindergartens: [KindergartenDTO!]!
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   newsletters: [NewsletterDTO!]!
+  assessments: [AssessmentDTO!]!
 }
 
 type Mutation {

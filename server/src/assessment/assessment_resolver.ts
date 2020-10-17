@@ -7,6 +7,8 @@ import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { CreateAssessmentCommand } from './domain/commands/impl/create_assessment_command';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { CreateAssessmentInput } from './inputs/create_assessment_input';
+import { AssessmentDTO } from './dto/assessment_dto';
+import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessments_query';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -23,5 +25,15 @@ export class AssessmentResolver {
     );
 
     return { status: !!created };
+  }
+
+  @Query(() => [AssessmentDTO])
+  @UseGuards(GqlAuthGuard)
+  async assessments() {
+    const assessments = await this.queryBus.execute(
+      new GetAllAssessmentsQuery(),
+    );
+
+    return assessments;
   }
 }
