@@ -44,27 +44,3 @@ export const LAST_ARTICLES = gql`
     }
 `;
 
-export const ARTICLE_BY_ID = gql`
-    query Article($articleId: String!) {
-        article(id: $articleId) {
-            _id
-            title
-            description
-            subtitle
-            header
-            category
-            pictureUrl
-            contentHTML
-            videoUrl
-            tags
-            date
-            redactor {
-                avatarUrl
-                firstName
-                lastName
-                profession
-                biography
-            }
-        }
-    }
-`;
