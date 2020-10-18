@@ -245,7 +245,11 @@
         },
         "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
         "recomendations": "Rekomendacje",
-        "child-details": "Dane dziecka"
+        "child-details": {
+            "page": "Dane dziecka",
+            "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
+            "button": "Zapisz"
+        }
     },
     "parent-profile": {
         "parent": "Rodzic",
