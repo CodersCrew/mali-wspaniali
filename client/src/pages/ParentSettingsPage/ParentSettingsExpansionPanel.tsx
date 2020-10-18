@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Me } from '../../graphql/types';
 import { ChangePasswordPanel } from './ChangePasswordPanel/ChangePasswordPanel';
 import { ExpansionPanelItem } from './ExpansionPanelItem';
 import { DefaultLanguagePanel } from './DefaultLanguagePanel/DefaultLanguagePanel';
 import { LegalNotesPanel } from './LegalNotesPanel/LegalNotesPanel';
 import { ConsentsPanel } from './ConsentsPanel/ConsentsPanel';
 import { AccountDeletionPanel } from './AccountDeletionPanel/AccountDeletionPanel';
+import { Me } from '../../graphql/types';
 
 interface Props {
     user: Me;
