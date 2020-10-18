@@ -51,7 +51,7 @@ export function AddOrEditKindergartenModal({ onSubmit, onDelete, initialData, ki
                 lowerButtonOnClick={() => setIsOpen(false)}
                 upperButtonOnClick={() => formik.submitForm()}
                 lowerButtonText={t(`${translationPrefix}-kindergarten-modal.close`)}
-                upperButtonText={t(`${translationPrefix}-kindergarten-modal.${translationPrefix}`)}
+                upperButtonText={t(`${translationPrefix}-kindergarten-modal.save`)}
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
             >

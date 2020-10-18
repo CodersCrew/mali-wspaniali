@@ -141,6 +141,14 @@ type NewsletterDTO {
   isDone: Boolean!
 }
 
+type AssessmentDTO {
+  _id: ID!
+  isOutdated: Boolean!
+  title: String!
+  startDate: String!
+  endDate: String!
+}
+
 type Query {
   paginatedArticles(perPage: Int, category: String, page: Int!): PaginatedArticlesDTO!
   lastArticles(count: Int!): [ArticleDTO!]!
@@ -155,6 +163,7 @@ type Query {
   kindergartens: [KindergartenDTO!]!
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   newsletters: [NewsletterDTO!]!
+  assessments: [AssessmentDTO!]!
 }
 
 type Mutation {
@@ -175,7 +184,7 @@ type Mutation {
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
-  createAssessment(title: String!): ReturnedStatusDTO!
+  createAssessment(assessment: CreateAssessmentInput!): ReturnedStatusDTO!
 }
 
 input ArticleInput {
@@ -260,4 +269,11 @@ input NewsletterKindergartenInput {
   kindergartens: [String!]!
   title: String!
   type: String!
+}
+
+input CreateAssessmentInput {
+  title: String!
+  startDate: String!
+  endDate: String!
+  kindergartenIds: [String!]!
 }

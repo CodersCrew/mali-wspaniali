@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';
-import { KINDERGARTENS, KINDERGARTEN_WITH_USERS } from '../../graphql/kindergartensRepository';
+import { KINDERGARTEN_WITH_USERS } from '../../graphql/kindergartensRepository';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
@@ -17,11 +17,11 @@ import { AgreementTypeFilters } from '../../models/AgreementTypeFilters';
 import { AgreementStatusFilters } from '../../models/AgreementStatusFilter';
 import { agreementSortStatusVar } from '../../apollo_client';
 import { AgreementSortStatus } from '../../models/AgreementSortStatus';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 export function AdminAgreementsPageContainer() {
-    const { data: allKindergartenList, loading: isAllKindergartenListLoading } = useQuery<{
-        kindergartens: Kindergarten[];
-    }>(KINDERGARTENS);
+    const { kindergartenList, isKindergartenListLoading } = useKindergartens();
+
     const [getSpecificKindergartens, { data: kindergartens, loading: isKindergartenLoading }] = useLazyQuery<{
         kindergartenWithUsers: KindergartenWithUsers[];
     }>(KINDERGARTEN_WITH_USERS);
@@ -42,19 +42,19 @@ export function AdminAgreementsPageContainer() {
     const { agreementsSortStatus } = sortStatusQuery.data;
 
     useEffect(() => {
-        if (allKindergartenList) {
+        if (kindergartenList) {
             AgreementsTypeFilterMutations.addAgreementsKindergartenFilters([
                 AgreementKindergartenFilters.SHOW_ALL,
-                ...allKindergartenList.kindergartens.map(mapToFilter),
+                ...kindergartenList.map(mapToFilter),
             ]);
 
-            getSpecificKindergartens({ variables: { ids: allKindergartenList.kindergartens.map(k => k._id) } });
+            getSpecificKindergartens({ variables: { ids: kindergartenList.map(k => k._id) } });
         }
-    }, [allKindergartenList, getSpecificKindergartens]);
+    }, [kindergartenList, getSpecificKindergartens]);
 
-    if (isAllKindergartenListLoading) return <div>Loading...</div>;
+    if (isKindergartenListLoading) return <div>Loading...</div>;
 
-    if (!allKindergartenList) return null;
+    if (!kindergartenList) return null;
 
     return (
         <AdminAgreementsPage
@@ -82,7 +82,6 @@ function setSortStatus(value: string) {
 }
 
 function setAgreementFilter(type: string, value: string | string[]) {
-    console.log(type, value)
     if (Array.isArray(value)) {
         if (type === 'KINDERGARTEN') {
             AgreementsTypeFilterMutations.setAgreementsKindergartenFilter(value)

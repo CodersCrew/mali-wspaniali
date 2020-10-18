@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { NotificationPageList } from './NotificationPageList';
 import { Pagination } from '../ArticleListPage/Pagination';
-import { UserContext } from '../AppWrapper';
 import { activePage } from '../../apollo_client';
+import { useMe } from '../../utils/useMe';
 
 export const NotificationsPage = () => {
-    const user = useContext(UserContext);
+    const user = useMe();
     const classes = useStyles();
 
     useEffect(() => {

@@ -121,14 +121,16 @@
         "title": "Dodaj przedszkole",
         "description": "Aby dodać przedszkole do bazy danych, uzupełnij poniższe pola.",
         "add": "Dodaj",
-        "close": "Zamknij"
+        "close": "Zamknij",
+        "save": "Zapisz"
     },
     "edit-kindergarten-modal": {
         "title": "Edytuj przedszkole",
         "description": "Aby edytować dane przedszkola, uzupełnij poniższe pola.",
         "edit": "Edytuj",
         "close": "Zamknij",
-        "delete": "Skasuj przedszkole"
+        "delete": "Usuń przedszkole",
+        "save": "Zapisz"
     },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",
@@ -243,11 +245,7 @@
         },
         "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
         "recomendations": "Rekomendacje",
-        "child-details": {
-            "page": "Dane dziecka",
-            "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
-            "button": "Zapisz"
-        }
+        "child-details": "Dane dziecka"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -336,7 +334,10 @@
         "emotions": "emocje",
         "activity": "aktywność",
         "food": "żywność",
-        "other": "inne"
+        "other": "inne",
+        "reading-time": "min czytania",
+        "go-to-previous-page": "poprzednia",
+        "go-to-next-page": "nastepna"
     },
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
@@ -439,6 +440,33 @@
             "done": "Zakończony"
         }
     },
+    "add-test-view": {
+        "basic-information-form": {
+            "title": "Podstawowe informacje",
+            "description": "Uzupełnij podstawowe informacje dotyczące testu przedszkolaka",
+            "test-name": "Nazwa testu",
+            "status": "Status",
+            "first-assessment": "Próba początkowa",
+            "last-assessment": "Próba końcowa",
+            "active": "Aktywny",
+            "done": "Zakończony"
+        },
+        "test-trials": {
+            "title": "Próby testu"
+        },
+        "kindergartens": {
+            "title": "Przedszkola",
+            "description": "Wybierz przedszkola, biorące udział w teście przedszkolaka",
+            "kindergarten-name":"Nazwa przedszkola",
+            "find-kindergarten": "Znajdź przedszkole"
+        },
+        "assessment-created": "Utworzono nowy test",
+        "create-test": "Utwórz nowy test",
+        "cancel": "Anuluj",
+        "errors": {
+            "name-too-short": "Nazwa testu jest za krótka"
+        }
+    },
     "add-child-modal": {
         "button": "Dodaj",
         "heading": "Witaj na stronie Mali Wspaniali",
@@ -471,7 +499,6 @@
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
-    "close": "Zamknij",
     "agreements": {
         "show-all": "Wszystkie",
         "marketing": "Zgody marketingowe",
@@ -485,5 +512,24 @@
         "by-agreement-type": "Filtruj po rodzaju zgody",
         "by-agreement-status": "Filtruj po statusie",
         "by-kindergarten": "Filtruj po przedszkolu"
+    },
+    "settings-page": {
+        "parent": {
+            "password-change": {
+                "title": "Zmiana hasła"
+            },
+            "language-selection": {
+                "title": "Wybór języka"
+            },
+            "consents": {
+                "title": "Zgody zapisane w programie"
+            },
+            "delete-account": {
+                "title": "Usuwanie konta"
+            },
+            "legal-notes": {
+                "title": "Informacje prawne"
+            }
+        }
     }
 }

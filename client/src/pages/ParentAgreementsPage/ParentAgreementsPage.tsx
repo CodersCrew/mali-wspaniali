@@ -1,10 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { activePage } from '../../apollo_client';
-import { UserContext } from '../AppWrapper';
 import { Agreements } from './Agreements';
+import { useMe } from '../../utils/useMe';
 
 export function ParentAgreementsPage() {
-    const user = useContext(UserContext);
+    const user = useMe();
 
     useEffect(() => {
         activePage(['parent-menu.agreements']);

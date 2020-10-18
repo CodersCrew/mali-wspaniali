@@ -58,31 +58,33 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {keyCodeSeries.map(({ series, count, target, date }) => {
-                                const expirationDate = moment(date).add(7, 'days');
+                            {[...keyCodeSeries]
+                                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                                .map(({ series, count, target, date }) => {
+                                    const expirationDate = moment(date).add(7, 'days');
 
-                                return (
-                                    <TableRow key={series}>
-                                        <TableCell component="th" scope="row" classes={{ root: classes.cell }}>
-                                            <span>
-                                                <FilenameButton
-                                                    text={`mw-keycodes-${series}.clsx`}
-                                                    tooltip={t('admin-setting-page.keycode-generation.download')}
-                                                    onClick={() => onKeyCodeClick(series)}
-                                                />
-                                            </span>
-                                        </TableCell>
-                                        <TableCell classes={{ root: clsx(classes.targetCell, classes.cell) }}>
-                                            {target}
-                                        </TableCell>
-                                        <TableCell classes={{ root: classes.cell }}>{count}</TableCell>
-                                        <TableCell classes={{ root: classes.cell }}>
-                                            {expirationDate.toDate().toLocaleDateString()}&nbsp;(
-                                            {expirationDate.fromNow()})
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
+                                    return (
+                                        <TableRow key={series}>
+                                            <TableCell component="th" scope="row" classes={{ root: classes.cell }}>
+                                                <span>
+                                                    <FilenameButton
+                                                        text={`mw-keycodes-${series}.clsx`}
+                                                        tooltip={t('admin-setting-page.keycode-generation.download')}
+                                                        onClick={() => onKeyCodeClick(series)}
+                                                    />
+                                                </span>
+                                            </TableCell>
+                                            <TableCell classes={{ root: clsx(classes.targetCell, classes.cell) }}>
+                                                {target}
+                                            </TableCell>
+                                            <TableCell classes={{ root: classes.cell }}>{count}</TableCell>
+                                            <TableCell classes={{ root: classes.cell }}>
+                                                {expirationDate.toDate().toLocaleDateString()}&nbsp;(
+                                                {expirationDate.fromNow()})
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })}
                         </TableBody>
                     </Table>
                 </TableContainer>

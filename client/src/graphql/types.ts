@@ -11,9 +11,8 @@ export interface Article {
     category: ArticleCategory;
     description: string;
     videoUrl: string;
-    readingTime: number;
     redactor: Redactor;
-    date: Date;
+    date: string;
 }
 
 export interface Redactor {
@@ -136,6 +135,8 @@ export interface KeyCode {
     date: string;
     createdBy: string;
     keyCode: string;
+    series: string;
+    target: string;
 }
 
 export interface KeyCodeSeries {
@@ -143,4 +144,12 @@ export interface KeyCodeSeries {
     series: string;
     target: string;
     count: number;
+}
+
+export interface Test {
+    _id: string;
+    isOutdated: boolean;
+    title: string;
+    startDate: string;
+    endDate: string;
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
-import { lineHeight, letterSpace } from '../../fontStyle';
+import clsx from 'clsx';
 import { Redactor } from '../../graphql/types';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     redactor: Redactor;
@@ -9,27 +10,44 @@ interface Props {
 
 export const ArticleRedactor = ({ redactor }: Props) => {
     const classes = useStyles();
+    const { isDesktop } = useIsDevice();
 
     return (
         <Grid container direction="row">
-            <Grid className={classes.contentRedactorAvatarContainer} item xs={3}>
+            <Grid
+                classes={{
+                    root: clsx({
+                        [classes.contentRedactorAvatarContainer]: true,
+                        [classes.contentRedactorAvatarContainerMobile]: !isDesktop,
+                    }),
+                }}
+                item
+            >
                 <Avatar
-                    className={classes.contentRedactorAvatar}
+                    className={clsx({
+                        [classes.contentRedactorAvatar]: true,
+                        [classes.contentRedactorAvatarMobile]: !isDesktop,
+                    })}
                     alt={`${redactor.firstName} ${redactor.lastName}`}
                     src={redactor.avatarUrl}
                 />
             </Grid>
             <Grid item xs={6}>
                 <Grid container direction="column">
-                    <Grid className={classes.contentRedactorNameContainer} item xs={3}>
+                    <Grid item xs={3} md={9}>
+                        <Typography className={classes.contentRedactorProf} variant="overline">
+                            {redactor.profession}
+                        </Typography>
                         <Typography
                             className={classes.contentRedactorName}
+                            variant="h4"
                         >{`${redactor.firstName} ${redactor.lastName}`}</Typography>
-                        <Typography className={classes.contentRedactorProf}>{redactor.profession}</Typography>
                     </Grid>
-                    <Grid className={classes.contentRedactorDescriptionContainer} item xs={9}>
+                    <Grid>
                         <Box className={classes.contentRedactorDescriptionBox}>
-                            <Typography className={classes.contentRedactorDescription}>{redactor.biography}</Typography>
+                            <Typography className={classes.contentRedactorDescription} variant="body1">
+                                {redactor.biography}
+                            </Typography>
                         </Box>
                     </Grid>
                 </Grid>
@@ -41,60 +59,34 @@ export const ArticleRedactor = ({ redactor }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         contentRedactorAvatarContainer: {
-            paddingTop: '4.2vw',
+            paddingRight: theme.spacing(3),
+        },
+        contentRedactorAvatarContainerMobile: {
+            paddingRight: theme.spacing(2),
         },
         contentRedactorAvatar: {
-            minWidth: '9vw',
-            minHeight: '9vw',
-
-            [theme.breakpoints.down('sm')]: {
-                width: '66px',
-                height: '66px',
-                marginRight: '25px',
-                marginLeft: '10px',
-            },
+            width: 94,
+            height: 94,
         },
-        contentRedactorNameContainer: {
-            paddingTop: '4.5vw',
-
-            [theme.breakpoints.down('sm')]: {
-                paddingTop: '9vw',
-                marginLeft: '15px',
-            },
-        },
-        contentRedactorName: {
-            fontSize: '15px',
-            fontWeight: 'bold',
-            letterSpacing: letterSpace,
-            lineHeight,
-
-            [theme.breakpoints.down('sm')]: {
-                width: '100vw',
-            },
+        contentRedactorAvatarMobile: {
+            width: 70,
+            height: 70,
         },
         contentRedactorProf: {
-            fontSize: '14px',
-            letterSpacing: letterSpace,
-            lineHeight,
+            textTransform: 'uppercase',
         },
-        contentRedactorDescriptionContainer: {
-            paddingTop: '1vw',
+        contentRedactorName: {
+            paddingTop: theme.spacing(1),
+            fontWeight: theme.typography.button.fontWeight,
         },
         contentRedactorDescriptionBox: {
-            fontWeight: 500,
-
-            [theme.breakpoints.down('sm')]: {
-                marginTop: '35px',
-                marginLeft: '-80px',
-                marginBottom: '30px',
-            },
+            fontWeight: theme.typography.button.fontWeight,
+            marginTop: theme.spacing(2),
+            padding: 0,
         },
         contentRedactorDescription: {
-            fontSize: '18px',
-
-            [theme.breakpoints.down('sm')]: {
-                fontSize: '13px',
-            },
+            fontSize: theme.typography.subtitle1.fontSize,
+            padding: 0,
         },
     }),
 );

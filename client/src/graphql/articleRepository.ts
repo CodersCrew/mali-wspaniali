@@ -54,10 +54,10 @@ export const ARTICLE_BY_ID = gql`
             header
             category
             pictureUrl
-            readingTime
             contentHTML
             videoUrl
             tags
+            date
             redactor {
                 avatarUrl
                 firstName

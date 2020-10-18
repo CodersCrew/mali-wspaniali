@@ -2,7 +2,7 @@ import React from 'react';
 import { createStyles, makeStyles, Snackbar } from '@material-ui/core';
 import { Alert, AlertProps } from '@material-ui/lab';
 
-import { ActionDialog, openDialog } from '../../utils/openDialog';
+import { ActionDialog, DialogResult, openDialog } from '../../utils/openDialog';
 
 interface Props {
     text: string;
@@ -10,7 +10,7 @@ interface Props {
     severity?: AlertProps['severity'];
 }
 
-export function openSnackbar({ text, variant, severity }: Props) {
+export function openSnackbar({ text, variant, severity }: Props): Promise<DialogResult> {
     return openDialog(function({ onClose }: ActionDialog) {
         const classes = useStyles();
 

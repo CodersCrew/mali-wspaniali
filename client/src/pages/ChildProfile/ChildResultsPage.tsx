@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
-import { UserContext } from '../AppWrapper';
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { childProfileCategoriesList } from './ChildProfileCategory';
@@ -18,6 +17,7 @@ import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAware
 import { Recomendations } from './Recomendations/Recomendations';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests/ChildProfileAboutTests';
 import { ChildDetails } from './Details/ChildDetails';
+import { useMe } from '../../utils/useMe';
 
 export const ChildResultsPage = () => {
     const { t } = useTranslation();
@@ -28,7 +28,7 @@ export const ChildResultsPage = () => {
     const device = useBreakpoints();
     const history = useHistory();
     const classes = useStyles();
-    const user = useContext(UserContext);
+    const user = useMe()
 
     const child = user?.children.find((_child) => _child._id === childId);
 
@@ -68,29 +68,24 @@ export const ChildResultsPage = () => {
                 values={childProfileCategoriesList}
                 device={device}
             />
-
-            {category !== 'details' &&
-                    <Grid container className={ classes.header }>
-                        <PageTitle text={ `${child.firstname} ${child.lastname}` } />
-                        <Typography className={ classes.kindergarten }>
-                            { child.kindergarten.name }
-                        </Typography>
-                </Grid> }
-            
-                    <Typography className={ classes.description }>
-                        { t('child-profile.description') }
+            <Grid container className={classes.header}>
+                <PageTitle text={`${child.firstname} ${child.lastname}`} />
+                <Typography className={classes.kindergarten}>
+                    {child.kindergarten.name}
+                </Typography>
+            </Grid>
+            <Typography className={classes.description}>
+                {t('child-profile.description')}
             </Typography>
-            {category === 'details' && <ChildDetails /> }
-                    { category === 'results' && (
-                        <ChildProfileResults
-                            child={ child }
-                            onNoResultClick={ () => onTabChange('tests-information') }
-                        />
-                    ) }
+            {category === 'results' && (
+                <ChildProfileResults
+                    child={child}
+                    onNoResultClick={() => onTabChange('tests-information')}
+                />
+            )}
             {category === 'recomendations' && <Recomendations />}
-            {category === 'tests-information' && <ChildProfileAboutTests /> }
-            
-
+            {category === 'tests-information' && <ChildProfileAboutTests />}
+            {category === 'details' && <ChildDetails />}
         </>
     );
 };
@@ -115,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
         description: {
             fontSize: '21px',
             fontWeight: 500,
-            margin: '24px',
+            marginTop: '10px',
         },
     }),
 );

@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
-import { UserContext } from '../AppWrapper';
+import { useMe } from '../../utils/useMe';
 
 export function RecomendationsPage() {
     const { childId } = useParams<{ childId: string }>();
-    const user = useContext(UserContext);
+    const user = useMe();
 
 
     const child = user?.children.find(({ _id }) => _id === childId)

@@ -117,14 +117,16 @@
         "title": "Add kindergarten",
         "description": "Fill in the form to add kindergarten.",
         "add": "Add",
-        "close": "Close"
+        "close": "Close",
+        "save": "Save"
     },
     "edit-kindergarten-modal": {
         "title": "Edit kindergarten",
         "description": "Fill in the form to edit kindergarten.",
         "edit": "Update",
         "close": "Close",
-        "delete": "Delete kindergarten"
+        "delete": "Delete kindergarten",
+        "save": "Save"
     },
     "child-profile": {
         "no-child": "Sorry, there is no child with this id",
@@ -240,11 +242,7 @@
         },
         "agreements-title": "Below you can check and edit the signed agreements.",
         "recomendations": "Recomendations",
-        "child-details": {
-            "page": "Child's details",
-            "form": "Edit your child's details if necessary.",
-            "button": "Save"
-        }
+        "child-details": "Child's details"
     },
     "parent-profile": {
         "parent": "Parent",
@@ -337,7 +335,10 @@
         "emotions": "emotions",
         "activity": "activity",
         "food": "food",
-        "other": "other"
+        "other": "other",
+        "reading-time": "min of reading",
+        "go-to-previous-page": "previous",
+        "go-to-next-page": "next"
     },
     "database-backup": {
         "get-backup-json": "Get database as JSON"
@@ -437,6 +438,34 @@
             "done": "Done"
         }
     },
+    "add-test-view": {
+        "basic-information-form": {
+            "title": "Basic information",
+            "description": "Please fill in test information",
+            "test-name": "Test name",
+            "status": "Status",
+            "first-assessment": "First assessment",
+            "last-assessment": "Last assessment",
+            "active": "Active",
+            "done": "Done"
+        },
+        "test-trials": {
+            "title": "Test trials information"
+        },
+        "kindergartens": {
+            "title": "Kindergartens",
+            "description": "Select kindergartens participating in the kindergarten test",
+            "kindergarten-name":"Name",
+            "find-kindergarten": "Find kindergarten"
+
+        },
+        "assessment-created": "A new assesment has been created",
+        "create-test": "Create a new test",
+        "cancel": "Cancel",
+        "errors": {
+            "name-too-short": "Test name is too short."
+        }
+    },
     "add-child-modal": {
         "button": "Add",
         "heading": "Welcome on the website Mali Wspaniali",
@@ -468,7 +497,6 @@
     },
     "years_0": "year",
     "years_1": "years",
-    "close": "Close",
     "pagination": {
         "previous": "Previous",
         "next": "Next"
@@ -486,5 +514,24 @@
         "by-agreement-type": "Filter by agreement type",
         "by-agreement-status": "Filter by agreement status",
         "by-kindergarten": "Filter by kindergarten"
+    },
+    "settings-page": {
+        "parent": {
+            "password-change": {
+                "title": "Password change"
+            },
+            "language-selection": {
+                "title": "Language selection"
+            },
+            "consents": {
+                "title": "Consents given in the program"
+            },
+            "delete-account": {
+                "title": "Deletion of the account"
+            },
+            "legal-notes": {
+                "title": "Legal notes"
+            }
+        }
     }
 }
