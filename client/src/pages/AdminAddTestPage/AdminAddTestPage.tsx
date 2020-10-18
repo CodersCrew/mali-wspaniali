@@ -45,8 +45,8 @@ export function AdminAddTestPage() {
 
     return (
         <div className={classes.container}>
-            <Grid container direction="column" alignItems="flex-end" spacing={6}>
-                <Grid item>
+            <Grid container alignItems="flex-end" spacing={6}>
+                <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item xs={7}>
                             <Grid container direction="column" spacing={2}>
@@ -66,8 +66,8 @@ export function AdminAddTestPage() {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item>
-                    <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Grid container spacing={2} justify="flex-end">
                         <Grid item>
                             <ButtonSecondary variant="text" onClick={redirectIntoTestPage}>
                                 {t('add-test-view.cancel')}
