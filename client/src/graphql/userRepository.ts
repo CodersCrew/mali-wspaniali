@@ -3,11 +3,6 @@ import { gql, FetchResult, ApolloQueryResult } from '@apollo/client';
 import { client } from '../apollo_client';
 import { ReturnedStatus, UserInput, Me, User, Child } from './types';
 
-export interface LoginInput {
-    mail: string;
-    password: string;
-}
-
 export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>> {
     return client.mutate({
         mutation: gql`
@@ -25,14 +20,6 @@ export const ADD_CHILD = gql`
     mutation addChild($child: ChildInput!) {
         addChild(child: $child) {
             status
-        }
-    }
-`;
-
-export const AUTHORIZE_USER = gql`
-    mutation login($user: LoginInput!) {
-        login(user: $user) {
-            token
         }
     }
 `;
