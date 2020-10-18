@@ -2,10 +2,9 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useMutation, useQuery } from '@apollo/client';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
-import { AUTHORIZE_USER, GET_ME } from '../../graphql/userRepository';
+import { useAuthorizeMe } from '../../operations/mutations/User/autthorizeMe';
 
 const initialError: Error = {
     name: '',
@@ -19,30 +18,18 @@ export const LoginPage = () => {
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();
-    const [authorizeUser] = useMutation(AUTHORIZE_USER);
-    const { refetch } = useQuery(GET_ME);
+    const { authorizeMe } = useAuthorizeMe(
+        user => {
+            history.push(`/${user.role}`);
+        },
+        error => setLoginError(error),
+    );
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        authorizeUser({
-            variables: { user: { mail: email, password } },
-            update: (cache, { data: { login } }) => {
-                localStorage.setItem('token', login.token);
 
-                refetch()
-                    .then(({ data }) => {
-                        if (data) {
-                            history.push(`/${data.me.role}`);
-                        }
-                    })
-                    .catch(e => setLoginError(e));
-            },
-        });
-
-        event.preventDefault();
+        authorizeMe(email, password);
     };
-
-    const { name } = loginError;
 
     return (
         <div className={classes.container}>
@@ -50,14 +37,14 @@ export const LoginPage = () => {
                 <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
                 <TextField
                     required
-                    onChange={event => setEmail(event.target.value)}
+                    onChange={({ target: { value } }) => setEmail(value)}
                     value={email}
                     id="email"
                     label={t('e-mail')}
                     variant="outlined"
-                    error={name === 'auth/user-not-found'}
+                    error={loginError.name === 'auth/user-not-found'}
                     helperText={
-                        name === 'auth/user-not-found'
+                        loginError.name === 'auth/user-not-found'
                             ? t('login-page.login-notfound')
                             : t('login-page.e-mail-helper-text')
                     }
@@ -65,14 +52,14 @@ export const LoginPage = () => {
                 />
                 <TextField
                     required
-                    onChange={event => setPassword(event.target.value)}
+                    onChange={({ target: { value } }) => setPassword(value)}
                     value={password}
                     id="password"
                     label={t('password')}
                     type="password"
                     variant="outlined"
-                    error={Boolean(name)}
-                    helperText={name ? t('login-page.login-error') : ''}
+                    error={Boolean(loginError.name)}
+                    helperText={loginError.name ? t('login-page.login-error') : ''}
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>
