@@ -31,16 +31,3 @@ export const ARTICLES = gql`
         }
     }
 `;
-
-export const LAST_ARTICLES = gql`
-    query Articles($count: Int!) {
-        lastArticles(count: $count) {
-            _id
-            title
-            description
-            category
-            pictureUrl
-        }
-    }
-`;
-
