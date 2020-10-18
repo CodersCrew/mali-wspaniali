@@ -156,6 +156,8 @@ export const useStyles = makeStyles((theme: Theme) =>
         saveButton: {
             alignSelf: 'flex-end',
             marginTop: theme.spacing(2),
+            marginRight: theme.spacing(1),
+            margin: theme.spacing(0, 1, 2, 0),
         },
     }),
 );

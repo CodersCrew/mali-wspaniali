@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
             background: theme.palette.background.paper,
             margin: theme.spacing(3),
             padding: theme.spacing(2),
-            height: theme.spacing(72),
         },
     }),
 );
