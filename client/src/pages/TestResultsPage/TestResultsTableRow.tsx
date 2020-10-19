@@ -9,11 +9,10 @@ import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     kindergarten: Kindergarten;
-    setCurrentKindergarten: (value: Kindergarten | null) => void;
-    setKindergartenModalOpen: (value: boolean) => void;
+    onEditClick: (value: Kindergarten) => void;
 }
 
-export const TestResultsTableRow = ({ kindergarten, setCurrentKindergarten, setKindergartenModalOpen }: Props) => {
+export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const classes = useStyles();
@@ -34,14 +33,7 @@ export const TestResultsTableRow = ({ kindergarten, setCurrentKindergarten, setK
                 <TableCell>{name}</TableCell>
                 <TableCell>{`${address}, ${city}`}</TableCell>
                 <TableCell align="right">
-                    <IconButton
-                        aria-label="edit kindergarten"
-                        size="small"
-                        onClick={() => {
-                            setCurrentKindergarten(kindergarten);
-                            setKindergartenModalOpen(true);
-                        }}
-                    >
+                    <IconButton aria-label="edit kindergarten" size="small" onClick={() => onEditClick(kindergarten)}>
                         <EditIcon />
                     </IconButton>
                 </TableCell>

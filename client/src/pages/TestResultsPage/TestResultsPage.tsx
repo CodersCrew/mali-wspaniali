@@ -35,6 +35,11 @@ export const TestResultsPage = () => {
 
     if (!kindergartenList) return <NoResults />;
 
+    const onEditClick = (kindergarten: Kindergarten) => {
+        setCurrentKindergarten(kindergarten);
+        setKindergartenModalOpen(true);
+    };
+
     return (
         <div className={classes.container}>
             <Typography variant="h3">{t('test-results.description')}</Typography>
@@ -42,11 +47,7 @@ export const TestResultsPage = () => {
                 setKindergartenModalOpen={setKindergartenModalOpen}
                 setChangesHistoryModalOpen={setChangesHistoryModalOpen}
             />
-            <TestResultsTable
-                kindergartens={kindergartenList}
-                setCurrentKindergarten={setCurrentKindergarten}
-                setKindergartenModalOpen={setKindergartenModalOpen}
-            />
+            <TestResultsTable kindergartens={kindergartenList} onEditClick={onEditClick} />
             <KindergartenModal
                 isOpen={isKindergartenModalOpen}
                 onClose={() => setKindergartenModalOpen(false)}

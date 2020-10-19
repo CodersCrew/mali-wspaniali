@@ -6,11 +6,10 @@ import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];
-    setCurrentKindergarten: (value: Kindergarten | null) => void;
-    setKindergartenModalOpen: (value: boolean) => void;
+    onEditClick: (value: Kindergarten) => void;
 }
 
-export const TestResultsTable = ({ kindergartens, setCurrentKindergarten, setKindergartenModalOpen }: Props) => {
+export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -30,8 +29,7 @@ export const TestResultsTable = ({ kindergartens, setCurrentKindergarten, setKin
                         <TestResultsTableRow
                             key={kindergarten._id}
                             kindergarten={kindergarten}
-                            setCurrentKindergarten={setCurrentKindergarten}
-                            setKindergartenModalOpen={setKindergartenModalOpen}
+                            onEditClick={onEditClick}
                         />
                     ))}
                 </TableBody>
