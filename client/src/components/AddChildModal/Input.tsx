@@ -7,10 +7,11 @@ interface Props {
     name: string;
     error: string | undefined;
     touched: any;
+    rows?: number;
     onChange: (name: string, value: string) => void;
 }
 
-export function Input({ label, value, name, onChange, error, touched }: Props) {
+export function Input({ label, value, name, onChange, error, touched, rows }: Props) {
     const errorText = error && touched ? error : '';
 
     return (
@@ -23,6 +24,8 @@ export function Input({ label, value, name, onChange, error, touched }: Props) {
             id="outlined-helperText"
             variant="outlined"
             fullWidth
+            rows={rows || 0}
+            multiline
             onChange={({ target: { name: inputName, value: inputValue } }) =>
                 onChange(inputName as string, inputValue as string)
             }

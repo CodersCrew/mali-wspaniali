@@ -531,5 +531,21 @@
                 "title": "Informacje prawne"
             }
         }
+    },
+    "account-deletion-panel": {
+        "title":"Usuwanie konta z poziomu użytkownika nie jest możliwe.",
+        "descritpion":"Aby usunąć konto w aplikacji, skontaktuj się z Fundacją.",
+        "display-modal-button": "Napisz wiadomość",
+        "modal":{
+            "cancel-button": "anuluj",
+            "send-msg-button": "wyślij wiadomość",
+            "heading": "Skontaktuj się z nami",
+            "description":"Jeśli pojawiły się jakies problemy lub masz pytania, napisz do nas! Rozwiejemy wszelkie wątpliwości.",
+            "inputs":{
+                "sender":"Nadawca wiadomości",
+                "topic":"Tytuł wiadomości",
+                "message":"Message content"
+            }
+        }
     }
 }
