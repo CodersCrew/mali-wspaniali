@@ -15,24 +15,13 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { TestItem } from './TestItem';
-import { Test } from '../../../graphql/testsRepository';
+import { Test } from '../../../graphql/types';
 
-const testList: Test[] = [
-    {
-        title: 'Test1',
-        firstAssessment: new Date().toUTCString(),
-        lastAssessment: new Date().toUTCString(),
-        status: 'active',
-    },
-    {
-        title: 'Test2',
-        firstAssessment: new Date().toUTCString(),
-        lastAssessment: new Date().toUTCString(),
-        status: 'done',
-    },
-];
+interface Props {
+    tests: Test[];
+}
 
-export function TestHistoryList() {
+export function TestHistoryList({ tests }: Props) {
     const { t } = useTranslation();
 
     return (
@@ -49,8 +38,8 @@ export function TestHistoryList() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {testList.map(test => (
-                        <TestItem key={test.title} value={test} status={<Status value={test.status} />} />
+                    {tests.map(test => (
+                        <TestItem key={test.title} value={test} status={<Status value={!test.isOutdated} />} />
                     ))}
                 </TableBody>
             </Table>
@@ -58,11 +47,11 @@ export function TestHistoryList() {
     );
 }
 
-function Status({ value }: { value: string }) {
+function Status({ value }: { value: boolean }) {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    if (value === 'active')
+    if (value)
         return (
             <Chip
                 size="small"
@@ -71,10 +60,7 @@ function Status({ value }: { value: string }) {
             />
         );
 
-    if (value === 'done')
-        return <Chip size="small" label={t('manage-test-view.test-list.done')} classes={{ root: classes.doneLabel }} />;
-
-    return null;
+    return <Chip size="small" label={t('manage-test-view.test-list.done')} classes={{ root: classes.doneLabel }} />;
 }
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -2,7 +2,7 @@ import React from 'react';
 import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme } from '@material-ui/core';
 import { Assessment, Edit, Delete } from '@material-ui/icons';
 
-import { Test } from '../../../graphql/testsRepository';
+import { Test } from '../../../graphql/types';
 
 interface Props {
     value: Test;
@@ -17,8 +17,8 @@ export function TestItem({ value, status }: Props) {
             <TableCell component="th" scope="row">
                 {value.title}
             </TableCell>
-            <TableCell>{value.firstAssessment}</TableCell>
-            <TableCell>{value.lastAssessment}</TableCell>
+            <TableCell>{value.startDate}</TableCell>
+            <TableCell>{value.endDate}</TableCell>
             <TableCell>{status}</TableCell>
             <TableCell>
                 <IconButton size="small">

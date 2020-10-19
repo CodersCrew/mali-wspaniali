@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from '@apollo/client';
 
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { Theme } from '../../theme/types';
-import { LAST_ARTICLES } from '../../graphql/articleRepository';
-import { Article } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
+import { useLastArticles } from '../../operations/queries/Articles/getLastArticles';
 
 export const ParentHomePage = () => {
     const user = useMe();
-    const { data } = useQuery<{ lastArticles: Article[] }>(LAST_ARTICLES, { variables: { count: 6 } });
+    const { articles } = useLastArticles(6);
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -22,7 +20,7 @@ export const ParentHomePage = () => {
         activePage(['parent-menu.home']);
     }, []);
 
-    if (!user || !data) return null;
+    if (!user) return null;
 
     return (
         <Grid className={classes.container}>
@@ -36,7 +34,7 @@ export const ParentHomePage = () => {
                 </p>
             </Grid>
             <HomePageChildren childrenList={user.children} />
-            <HomePageArticles articles={data.lastArticles} />
+            <HomePageArticles articles={articles} />
         </Grid>
     );
 };

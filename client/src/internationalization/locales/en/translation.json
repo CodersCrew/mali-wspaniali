@@ -455,10 +455,13 @@
         "kindergartens": {
             "title": "Kindergartens",
             "description": "Select kindergartens participating in the kindergarten test",
-            "kindergarten-name":"Name"
+            "kindergarten-name":"Name",
+            "find-kindergarten": "Find kindergarten"
 
         },
         "assessment-created": "A new assesment has been created",
+        "create-test": "Create a new test",
+        "cancel": "Cancel",
         "errors": {
             "name-too-short": "Test name is too short."
         }
