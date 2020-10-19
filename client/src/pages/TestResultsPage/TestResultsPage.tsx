@@ -6,7 +6,6 @@ import { activePage } from '../../apollo_client';
 import { ResultsActions } from './ResultsActions';
 import { TestResultsTable } from './TestResultsTable';
 import { KindergartenModal } from './KindergartenModals/KindergartenModal';
-import { ExcelModal } from './KindergartenModals/ExcelModal';
 import { ChangesHistoryModal } from './KindergartenModals/ChangesHistoryModal';
 import { AddKindergartenInput } from '../../graphql/kindergartensRepository';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
@@ -26,7 +25,6 @@ export const TestResultsPage = () => {
     const { kindergartenList } = useKindergartens();
 
     const [isKindergartenModalOpen, setKindergartenModalOpen] = useState(false);
-    const [isExcelModalOpen, setExcelModalOpen] = useState(false);
     const [isChangesHistoryModalOpen, setChangesHistoryModalOpen] = useState(false);
     const [currentKindergarten, setCurrentKindergarten] = useState<Kindergarten | null>(null);
 
@@ -86,7 +84,6 @@ export const TestResultsPage = () => {
             <Typography variant="h3">{t('test-results.description')}</Typography>
             <ResultsActions
                 setKindergartenModalOpen={setKindergartenModalOpen}
-                setExcelModalOpen={setExcelModalOpen}
                 setChangesHistoryModalOpen={setChangesHistoryModalOpen}
             />
             <TestResultsTable
@@ -111,7 +108,6 @@ export const TestResultsPage = () => {
                 setCurrentKindergarten={setCurrentKindergarten}
                 onDelete={handleDeleteKindergarten}
             />
-            <ExcelModal isOpen={isExcelModalOpen} setIsOpen={setExcelModalOpen} />
             <ChangesHistoryModal isOpen={isChangesHistoryModalOpen} setIsOpen={setChangesHistoryModalOpen} />
         </div>
     );

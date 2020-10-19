@@ -112,9 +112,6 @@
         "no-results": "Brak wyników",
         "description": "Wybierz przedszkola, które potrzebujesz i wygodniej pracuj na zakładkach",
         "add-kindergarten": "Dodaj przedszkole",
-        "add-excel": "Dodaj excel",
-        "add-data": "Dodawanie danych do systemu",
-        "add-data-description": "Aby dodać lub zaktualizować dane, wgraj plik Excel",
         "cancel": "anuluj",
         "delete": "usuń",
         "confirm": "zatwierdź",
@@ -129,20 +126,18 @@
         "add-kindergarten-success": "Przedszkole zostało dodane pomyślnie",
         "update-kindergarten-success": "Dane przedszkola zostały zaktualizowane pomyślnie",
         "delete-kindergarten-success": "Przedszkole zostało usunięte pomyślnie",
-        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko",
-        "provide-city": "Podaj miasto, w którym znajduje sie przedszkole",
-        "provide-address": "Podaj adres przedszkola",
-        "provide-name": "Podaj nazwę przedszkola",
-        "number-min-max": "Numer przedszkola musi być liczbą pomiędzy 1 a 1000",
-        "provide-number": "Podaj numer przedszkola",
-        "kindergarten-deletion": "Usuwanie przedszkola",
-        "kindergarten-deletion-question": "Czy na pewno chcesz usunąć"
+        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko"
     },
     "kindergarten-modal": {
         "city": "Miasto",
         "address": "Ulica",
         "name": "Nazwa",
-        "number": "Numer"
+        "number": "Numer",
+        "provide-city": "Podaj miasto, w którym znajduje sie przedszkole",
+        "provide-address": "Podaj adres przedszkola",
+        "provide-name": "Podaj nazwę przedszkola",
+        "number-min-max": "Numer przedszkola musi być liczbą pomiędzy 1 a 1000",
+        "provide-number": "Podaj numer przedszkola"
     },
     "add-kindergarten-modal": {
         "title": "Dodaj przedszkole",
@@ -158,6 +153,10 @@
         "close": "Zamknij",
         "delete": "Usuń przedszkole",
         "save": "Zapisz"
+    },
+    "delete-kindergarten-modal": {
+        "title": "Usuwanie przedszkola",
+        "question": "Czy na pewno chcesz usunąć"
     },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",

@@ -44,13 +44,13 @@ export const KindergartenModal = ({
             number: 0,
         },
         validationSchema: Yup.object({
-            city: Yup.string().required(t('test-results.provide-city')),
-            address: Yup.string().required(t('test-results.provide-address')),
-            name: Yup.string().required(t('test-results.provide-name')),
+            city: Yup.string().required(t('kindergarten-modal.provide-city')),
+            address: Yup.string().required(t('kindergarten-modal.provide-address')),
+            name: Yup.string().required(t('kindergarten-modal.provide-name')),
             number: Yup.number()
-                .min(1, t('test-results.number-min-max'))
-                .max(1000, t('test-results.number-min-max'))
-                .required(t('test-results.provide-number')),
+                .min(1, t('kindergarten-modal.number-min-max'))
+                .max(1000, t('kindergarten-modal.number-min-max'))
+                .required(t('kindergarten-modal.provide-number')),
         }),
         enableReinitialize: true,
         onSubmit: v => {
@@ -165,10 +165,10 @@ export const KindergartenModal = ({
                                 >
                                     <div className={classes.subModalContainer}>
                                         <Typography variant="h4" className={classes.title}>
-                                            {t('test-results.kindergarten-deletion')}
+                                            {t('delete-kindergarten-modal.title')}
                                         </Typography>
                                         <Typography variant="body1" className={classes.description}>
-                                            {t('test-results.kindergarten-deletion-question')}{' '}
+                                            {t('delete-kindergarten-modal.question')}{' '}
                                             {t('test-results.kindergarten-prefix')} {formik.values.number},{' '}
                                             {formik.values.name}, {formik.values.address}?
                                         </Typography>

@@ -107,27 +107,6 @@
         "pl": "Polish",
         "en": "English"
     },
-    "kindergarten-modal": {
-        "city": "City",
-        "address": "Address",
-        "name": "Name",
-        "number": "Number"
-    },
-    "add-kindergarten-modal": {
-        "title": "Add kindergarten",
-        "description": "Fill in the form to add kindergarten.",
-        "add": "Add",
-        "close": "Close",
-        "save": "Save"
-    },
-    "edit-kindergarten-modal": {
-        "title": "Edit kindergarten",
-        "description": "Fill in the form to edit kindergarten.",
-        "edit": "Update",
-        "close": "Close",
-        "delete": "Delete kindergarten",
-        "save": "Save"
-    },
     "child-profile": {
         "no-child": "Sorry, there is no child with this id",
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
@@ -253,9 +232,6 @@
         "no-results": "No Results",
         "description": "Select kindergartens you need and work easily with tabs",
         "add-kindergarten": "Add kindergarten",
-        "add-excel": "Add excel",
-        "add-data": "Adding data to the system",
-        "add-data-description": "To add or update the data, upload an Excel file",
         "cancel": "cancel",
         "delete": "delete",
         "confirm": "confirm",
@@ -270,14 +246,37 @@
         "add-kindergarten-success": "Kindergarten has been added successfully",
         "update-kindergarten-success": "Kindergarten has been updated successfully",
         "delete-kindergarten-success": "Kindergarten has been deleted successfully",
-        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it",
+        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it"
+    },
+    "kindergarten-modal": {
+        "city": "City",
+        "address": "Address",
+        "name": "Name",
+        "number": "Number",
         "provide-city": "Please provide kindergarten city",
         "provide-address": "Please provide kindergarten address",
         "provide-name": "Please provide kindergarten name",
         "number-min-max": "Kindergarten no. must be a number between 1 and 1000",
-        "provide-number": "Please provide kindergarten number",
-        "kindergarten-deletion": "Kindergarten deletion",
-        "kindergarten-deletion-question": "Are you sure you want to delete"
+        "provide-number": "Please provide kindergarten number"
+    },
+    "add-kindergarten-modal": {
+        "title": "Add kindergarten",
+        "description": "Fill in the form to add kindergarten.",
+        "add": "Add",
+        "close": "Close",
+        "save": "Save"
+    },
+    "edit-kindergarten-modal": {
+        "title": "Edit kindergarten",
+        "description": "Fill in the form to edit kindergarten.",
+        "edit": "Update",
+        "close": "Close",
+        "delete": "Delete kindergarten",
+        "save": "Save"
+    },
+    "delete-kindergarten-modal": {
+        "title": "Kindergarten deletion",
+        "question": "Are you sure you want to delete"
     },
     "alert-dialog": {
         "error": "Error",

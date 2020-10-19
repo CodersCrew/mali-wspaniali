@@ -6,11 +6,10 @@ import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
 interface Props {
     setKindergartenModalOpen: (value: boolean) => void;
-    setExcelModalOpen: (value: boolean) => void;
     setChangesHistoryModalOpen: (value: boolean) => void;
 }
 
-export const ResultsActions = ({ setKindergartenModalOpen, setExcelModalOpen, setChangesHistoryModalOpen }: Props) => {
+export const ResultsActions = ({ setKindergartenModalOpen, setChangesHistoryModalOpen }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -23,11 +22,6 @@ export const ResultsActions = ({ setKindergartenModalOpen, setExcelModalOpen, se
                 variant="contained"
                 innerText={t('test-results.add-kindergarten')}
                 onClick={() => setKindergartenModalOpen(true)}
-            />
-            <ButtonSecondary
-                variant="contained"
-                innerText={t('test-results.add-excel')}
-                onClick={() => setExcelModalOpen(true)}
             />
             <ButtonSecondary
                 variant="outlined"
