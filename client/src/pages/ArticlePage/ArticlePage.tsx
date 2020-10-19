@@ -2,20 +2,18 @@ import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Theme, CardMedia, Divider } from '@material-ui/core';
-import { useQuery } from '@apollo/client';
 import clsx from 'clsx';
 import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
-import { Article } from '../../graphql/types';
-import { ARTICLE_BY_ID } from '../../graphql/articleRepository';
 import { activePage } from '../../apollo_client';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { ButtonDefault } from '../../components/Button';
 import { ReadingTime } from './ReadingTime';
 import { TagList } from './TagList';
 import { calculateReadingTime } from '../../utils/calculateReadingTime';
+import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
 
 export const ArticlePage = () => {
     const { t } = useTranslation();
@@ -23,9 +21,7 @@ export const ArticlePage = () => {
     const { isMobile, isTablet, isDesktop } = useIsDevice();
     const classes = useStyles();
     const history = useHistory();
-    const { data } = useQuery<{ article: Article }>(ARTICLE_BY_ID, {
-        variables: { articleId },
-    });
+    const { article } = useArticleWithId(articleId);
 
     useEffect(() => {
         activePage(['parent-menu.blog']);
@@ -35,9 +31,9 @@ export const ArticlePage = () => {
         history.goBack();
     }
 
-    if (!data || !data.article) return null;
+    if (!article) return null;
 
-    const { pictureUrl, date, title, description, contentHTML, tags, videoUrl, redactor } = data.article;
+    const { pictureUrl, date, title, description, contentHTML, tags, videoUrl, redactor } = article;
 
     return (
         <>

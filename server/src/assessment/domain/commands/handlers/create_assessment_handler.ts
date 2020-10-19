@@ -13,9 +13,11 @@ export class CreateAssessmentHandler
     private readonly publisher: EventPublisher,
   ) {}
 
-  async execute(command: CreateAssessmentCommand): Promise<void> {
+  async execute({
+    assessment: newAssessment,
+  }: CreateAssessmentCommand): Promise<void> {
     const assessment = this.publisher.mergeObjectContext(
-      await this.repository.create(command),
+      await this.repository.create(newAssessment),
     );
 
     assessment.commit();

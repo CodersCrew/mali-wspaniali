@@ -11,10 +11,6 @@ export interface AssessmentProps {
 export type AssessmentDocument = AssessmentProps & mongoose.Document;
 
 export const AssessmentSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
   title: String,
   isOutdated: {
     type: Boolean,
@@ -27,5 +23,11 @@ export const AssessmentSchema = new mongoose.Schema({
   modifiedAt: {
     type: Date,
     default: Date.now,
+  },
+  startDate: String,
+  endDate: String,
+  kindergartenIds: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
   },
 });
