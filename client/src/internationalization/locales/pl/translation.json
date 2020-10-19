@@ -156,7 +156,7 @@
     },
     "delete-kindergarten-modal": {
         "title": "Usuwanie przedszkola",
-        "question": "Czy na pewno chcesz usunąć"
+        "question": "Czy na pewno chcesz usunąć {{prefix}} {{number}}, {{name}}, {{address}}, {{city}}?"
     },
     "child-profile": {
         "no-child": "Przepraszamy, nie ma dziecka o tym ID",

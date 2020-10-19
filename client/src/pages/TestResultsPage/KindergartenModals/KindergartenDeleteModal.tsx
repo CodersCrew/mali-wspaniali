@@ -22,7 +22,7 @@ export const KindergartenDeleteModal = ({
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const { _id, number, name, address } = kindergarten;
+    const { _id, number, name, address, city } = kindergarten;
 
     return (
         <TwoActionsModal
@@ -42,8 +42,13 @@ export const KindergartenDeleteModal = ({
                     {t('delete-kindergarten-modal.title')}
                 </Typography>
                 <Typography variant="body1" className={classes.description}>
-                    {t('delete-kindergarten-modal.question')} {t('test-results.kindergarten-prefix')} {number}, {name},{' '}
-                    {address}?
+                    {t('delete-kindergarten-modal.question', {
+                        prefix: t('test-results.kindergarten-prefix'),
+                        number,
+                        name,
+                        address,
+                        city,
+                    })}
                 </Typography>
             </div>
         </TwoActionsModal>

@@ -276,7 +276,7 @@
     },
     "delete-kindergarten-modal": {
         "title": "Kindergarten deletion",
-        "question": "Are you sure you want to delete"
+        "question": "Are you sure you want to delete {{prefix}} {{number}}, {{name}}, {{address}}, {{city}}?"
     },
     "alert-dialog": {
         "error": "Error",
