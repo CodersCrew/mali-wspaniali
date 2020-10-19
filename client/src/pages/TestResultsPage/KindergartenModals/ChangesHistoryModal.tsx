@@ -5,15 +5,15 @@ import { BasicModal } from '../../../components/Modal/BasicModal';
 
 interface Props {
     isOpen: boolean;
-    setIsOpen: (value: boolean) => void;
+    onClose: () => void;
 }
 
-export const ChangesHistoryModal = ({ isOpen, setIsOpen }: Props) => {
+export const ChangesHistoryModal = ({ isOpen, onClose }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
     return (
-        <BasicModal isOpen={isOpen} actionName={t('close')} onAction={() => setIsOpen(false)}>
+        <BasicModal isOpen={isOpen} actionName={t('close')} onAction={onClose}>
             <div className={classes.container}>
                 <Typography variant="h4" className={classes.title}>
                     {t('test-results.changes-history')}

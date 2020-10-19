@@ -11,7 +11,7 @@ import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     isOpen: boolean;
-    setIsOpen: (value: boolean) => void;
+    onClose: () => void;
     onAdd: (values: KindergartenFormValue) => void;
     onUpdate: (id: string, values: KindergartenFormValue) => void;
     initialData: KindergartenFormValue | null;
@@ -22,7 +22,7 @@ interface Props {
 
 export const KindergartenModal = ({
     isOpen,
-    setIsOpen,
+    onClose,
     onAdd,
     onUpdate,
     onDelete,
@@ -59,7 +59,7 @@ export const KindergartenModal = ({
             } else {
                 onAdd(v);
             }
-            setIsOpen(false);
+            onClose();
             setCurrentKindergarten(null);
         },
     });
@@ -69,7 +69,7 @@ export const KindergartenModal = ({
     return (
         <TwoActionsModal
             lowerButtonOnClick={() => {
-                setIsOpen(false);
+                onClose();
                 setCurrentKindergarten(null);
             }}
             upperButtonOnClick={() => formik.submitForm()}
@@ -77,7 +77,7 @@ export const KindergartenModal = ({
             upperButtonText={t(`${translationPrefix}-kindergarten-modal.${translationPrefix}`)}
             isOpen={isOpen}
             onClose={() => {
-                setIsOpen(false);
+                onClose();
                 setCurrentKindergarten(null);
             }}
         >
@@ -154,7 +154,7 @@ export const KindergartenModal = ({
                                     upperButtonOnClick={() => {
                                         onDelete(kindergartenId);
                                         setCurrentKindergarten(null);
-                                        setIsOpen(false);
+                                        onClose();
                                     }}
                                     lowerButtonText={t('test-results.cancel')}
                                     upperButtonText={t('test-results.delete')}

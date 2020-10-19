@@ -93,7 +93,7 @@ export const TestResultsPage = () => {
             />
             <KindergartenModal
                 isOpen={isKindergartenModalOpen}
-                setIsOpen={setKindergartenModalOpen}
+                onClose={() => setKindergartenModalOpen(false)}
                 onAdd={handleAddKindergarten}
                 onUpdate={handleUpdateKindergarten}
                 initialData={
@@ -108,7 +108,7 @@ export const TestResultsPage = () => {
                 setCurrentKindergarten={setCurrentKindergarten}
                 onDelete={handleDeleteKindergarten}
             />
-            <ChangesHistoryModal isOpen={isChangesHistoryModalOpen} setIsOpen={setChangesHistoryModalOpen} />
+            <ChangesHistoryModal isOpen={isChangesHistoryModalOpen} onClose={() => setChangesHistoryModalOpen(false)} />
         </div>
     );
 };

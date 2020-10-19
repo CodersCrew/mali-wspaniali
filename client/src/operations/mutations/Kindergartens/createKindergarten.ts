@@ -1,5 +1,13 @@
-import { useMutation } from '@apollo/client';
-import { CREATE_KINDERGARTEN, AddKindergartenInput } from '../../../graphql/kindergartensRepository';
+import { gql, useMutation } from '@apollo/client';
+import { AddKindergartenInput } from '../../../graphql/kindergartensRepository';
+
+export const CREATE_KINDERGARTEN = gql`
+    mutation createKindergarten($kindergarten: CreateKindergartenInput!) {
+        createKindergarten(kindergarten: $kindergarten) {
+            name
+        }
+    }
+`;
 
 export const useCreateKindergarten = () => {
     const [createKindergarten, { data }] = useMutation<AddKindergartenInput>(CREATE_KINDERGARTEN, {
