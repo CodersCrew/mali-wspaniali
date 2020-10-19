@@ -7,6 +7,7 @@ import { ResultsActions } from './ResultsActions';
 import { TestResultsTable } from './TestResultsTable';
 import { KindergartenModal } from './KindergartenModals/KindergartenModal';
 import { ChangesHistoryModal } from './KindergartenModals/ChangesHistoryModal';
+import { KindergartenDeleteModal } from './KindergartenModals/KindergartenDeleteModal';
 import { AddKindergartenInput } from '../../graphql/kindergartensRepository';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useCreateKindergarten } from '../../operations/mutations/Kindergartens/createKindergarten';
@@ -26,6 +27,8 @@ export const TestResultsPage = () => {
 
     const [isKindergartenModalOpen, setKindergartenModalOpen] = useState(false);
     const [isChangesHistoryModalOpen, setChangesHistoryModalOpen] = useState(false);
+    const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
     const [currentKindergarten, setCurrentKindergarten] = useState<Kindergarten | null>(null);
 
     useEffect(() => {
@@ -106,9 +109,18 @@ export const TestResultsPage = () => {
                 }
                 kindergartenId={currentKindergarten && currentKindergarten._id}
                 setCurrentKindergarten={setCurrentKindergarten}
-                onDelete={handleDeleteKindergarten}
+                onDelete={() => setDeleteModalOpen(true)}
             />
             <ChangesHistoryModal isOpen={isChangesHistoryModalOpen} onClose={() => setChangesHistoryModalOpen(false)} />
+            {currentKindergarten && (
+                <KindergartenDeleteModal
+                    isOpen={isDeleteModalOpen}
+                    onClose={() => setDeleteModalOpen(false)}
+                    onDelete={handleDeleteKindergarten}
+                    kindergarten={currentKindergarten}
+                    clearCurrentKindergarten={() => setCurrentKindergarten(null)}
+                />
+            )}
         </div>
     );
 };
