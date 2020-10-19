@@ -6,9 +6,14 @@ import { TextField, Grid, makeStyles, createStyles, Typography, Theme } from '@m
 import { Delete } from '@material-ui/icons';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-import { KindergartenFormValue } from '../types';
 import { Kindergarten } from '../../../graphql/types';
 
+interface KindergartenFormValue {
+    number: number;
+    name: string;
+    address: string;
+    city: string;
+}
 interface Props {
     isOpen: boolean;
     onClose: () => void;
