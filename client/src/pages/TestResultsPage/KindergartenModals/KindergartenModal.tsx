@@ -14,10 +14,9 @@ interface Props {
     onClose: () => void;
     onAdd: (values: KindergartenFormValue) => void;
     onUpdate: (id: string, values: KindergartenFormValue) => void;
-    initialData: KindergartenFormValue | null;
-    kindergartenId: string | null;
+    currentKindergarten: Kindergarten | null;
     onDelete: () => void;
-    setCurrentKindergarten: (value: Kindergarten | null) => void;
+    clearCurrentKindergarten: () => void;
 }
 
 export const KindergartenModal = ({
@@ -26,20 +25,18 @@ export const KindergartenModal = ({
     onAdd,
     onUpdate,
     onDelete,
-    initialData,
-    kindergartenId,
-    setCurrentKindergarten,
+    currentKindergarten,
+    clearCurrentKindergarten,
 }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const isEditState = !!initialData;
 
     const formik = useFormik({
-        initialValues: initialData || {
-            city: 'Wrocław',
-            address: '',
-            name: '',
-            number: 0,
+        initialValues: {
+            city: currentKindergarten?.city || 'Wrocław',
+            address: currentKindergarten?.address || '',
+            name: currentKindergarten?.name || '',
+            number: currentKindergarten?.number || 0
         },
         validationSchema: Yup.object({
             city: Yup.string().required(t('kindergarten-modal.provide-city')),
@@ -52,23 +49,23 @@ export const KindergartenModal = ({
         }),
         enableReinitialize: true,
         onSubmit: v => {
-            if (isEditState && kindergartenId) {
-                onUpdate(kindergartenId, v);
+            if (currentKindergarten) {
+                onUpdate(currentKindergarten._id, v);
             } else {
                 onAdd(v);
             }
             onClose();
-            setCurrentKindergarten(null);
+            clearCurrentKindergarten();
         },
     });
 
-    const translationPrefix = isEditState ? 'edit' : 'add';
+    const translationPrefix = currentKindergarten ? 'edit' : 'add';
 
     return (
         <TwoActionsModal
             lowerButtonOnClick={() => {
                 onClose();
-                setCurrentKindergarten(null);
+                clearCurrentKindergarten();
             }}
             upperButtonOnClick={() => formik.submitForm()}
             lowerButtonText={t(`${translationPrefix}-kindergarten-modal.close`)}
@@ -76,7 +73,7 @@ export const KindergartenModal = ({
             isOpen={isOpen}
             onClose={() => {
                 onClose();
-                setCurrentKindergarten(null);
+                clearCurrentKindergarten();
             }}
         >
             <div className={classes.container}>
@@ -136,7 +133,7 @@ export const KindergartenModal = ({
                         />
                     </Grid>
                     <Grid item>
-                        {isEditState && kindergartenId && (
+                        {currentKindergarten && (
                             <ButtonSecondary
                                 onClick={() => {
                                     onDelete();

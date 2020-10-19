@@ -52,16 +52,8 @@ export const TestResultsPage = () => {
                 onClose={() => setKindergartenModalOpen(false)}
                 onAdd={createKindergarten}
                 onUpdate={updateKindergarten}
-                initialData={
-                    currentKindergarten && {
-                        number: currentKindergarten.number,
-                        name: currentKindergarten.name,
-                        address: currentKindergarten.address,
-                        city: currentKindergarten.city,
-                    }
-                }
-                kindergartenId={currentKindergarten && currentKindergarten._id}
-                setCurrentKindergarten={setCurrentKindergarten}
+                currentKindergarten={currentKindergarten}
+                clearCurrentKindergarten={() => setCurrentKindergarten(null)}
                 onDelete={() => setDeleteModalOpen(true)}
             />
             <ChangesHistoryModal isOpen={isChangesHistoryModalOpen} onClose={() => setChangesHistoryModalOpen(false)} />
