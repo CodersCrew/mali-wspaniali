@@ -23,8 +23,8 @@ export function ChangePasswordPanel() {
             className={classes.container}
         >
             <Grid item direction="column" className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>
-                <FormControlOldPassword state={state} dispatch={dispatch} user={user} />
-                <ButtonValidateOldPassword />
+                <FormControlOldPassword state={state} dispatch={dispatch} />
+                <ButtonValidateOldPassword state={state} dispatch={dispatch} user={user} />
             </Grid>
             <Grid item direction="column" className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>
                 <Typography variant={'subtitle2'} className={classes.problems}>
@@ -33,6 +33,7 @@ export function ChangePasswordPanel() {
                 <Typography variant={'body2'} className={classes.problems}>
                     {t('settings-page.change-password-problems-hint')}
                 </Typography>
+                {/* // TODO: wykorzystać wywołanie formularza kontaktowego (może z "usuwania konta"?) */}
             </Grid>
         </Grid>
     );

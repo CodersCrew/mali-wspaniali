@@ -7,7 +7,7 @@ export interface LoginInput {
     password: string;
 }
 
-export const AUTHORIZE_USER = gql`
+const AUTHORIZE_USER = gql`
     mutation login($user: LoginInput!) {
         login(user: $user) {
             token

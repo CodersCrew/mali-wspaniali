@@ -535,7 +535,6 @@
             }
         },
         "reset-old-password": "Zresetuj hasło",
-        "wrong-old-password": "Niepoprawne hasło",
-        "wrong-old-password-error": "Coś poszło nie tak. Powiadom administratora."
+        "wrong-old-password": "Niepoprawne hasło"
     }
 }

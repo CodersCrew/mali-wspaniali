@@ -537,7 +537,6 @@
             }
         },
         "reset-old-password": "Reset password",
-        "wrong-old-password": "Incorrect password",
-        "wrong-old-password-error": "Something went wrong. Call 911 or Administrator"
+        "wrong-old-password": "Incorrect password"
     }
 }
