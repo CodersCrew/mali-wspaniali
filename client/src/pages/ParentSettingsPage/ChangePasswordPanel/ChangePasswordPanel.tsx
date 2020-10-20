@@ -3,7 +3,7 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
-import { FormControlOldPassword } from './ChangepasswordPanelFormControls';
+import { FormControlOldPassword } from './ChangepasswordPanelFormControls/FormControlOldPassword';
 import { ChangePasswordPanelReducer, ChangePasswordPanelInitialState } from './ChangePasswordPanelReducer';
 import { useMe } from '../../../utils/useMe';
 import { ButtonValidateOldPassword } from './ChangepasswordPanelFormControls/ButtonValidateOldPassword';
@@ -22,11 +22,11 @@ export function ChangePasswordPanel() {
             justify="space-between"
             className={classes.container}
         >
-            <Grid item direction="column" className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>
+            <Grid item className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>
                 <FormControlOldPassword state={state} dispatch={dispatch} />
                 <ButtonValidateOldPassword state={state} dispatch={dispatch} user={user} />
             </Grid>
-            <Grid item direction="column" className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>
+            <Grid item className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>
                 <Typography variant={'subtitle2'} className={classes.problems}>
                     {t('settings-page.change-password-problems')}
                 </Typography>

@@ -1,9 +1,16 @@
-import { ChangePasswordPanelState } from './ChangepasswordPanelFormControls/interfaces';
+import { Dispatch } from 'react';
 
 export const CHANGE_OLD_PASSWORD = 'CHANGE_OLD_PASWORD';
 export const EMAIL_IS_CORRECT = 'EMAIL_IS_CORRECT';
 export const TOGGLE_OLD_PASSWORD_VISIBILITY = 'TOGGLE_OLD_PASSWORD_VISIBILITY';
 export const UPDATE_HELPER_TEXT = 'UPDATE_HELPER_TEXT';
+
+export interface ChangePasswordPanelState {
+    oldPassword: string;
+    oldPasswordError: boolean;
+    oldPasswordHelperText: string;
+    showOldPassword: boolean;
+}
 
 export const ChangePasswordPanelInitialState: ChangePasswordPanelState = {
     oldPassword: '',
@@ -12,6 +19,10 @@ export const ChangePasswordPanelInitialState: ChangePasswordPanelState = {
     showOldPassword: false,
 };
 
+export interface ChangePasswordPanelComponentsProps {
+    state: ChangePasswordPanelState;
+    dispatch: Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
+}
 export const ChangePasswordPanelReducer = (
     state: ChangePasswordPanelState,
     action: { type: string; payload?: { [p: string]: string | boolean } },

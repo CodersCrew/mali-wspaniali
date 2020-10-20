@@ -3,16 +3,19 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { ButtonSecondary } from '../../../../components/Button';
 import { Me } from '../../../../graphql/types';
-import { Props } from './interfaces';
 import { useAuthorizeMe } from '../../../../operations/mutations/User/autthorizeMe';
-import { EMAIL_IS_CORRECT, UPDATE_HELPER_TEXT } from '../ChangePasswordPanelReducer';
+import {
+    ChangePasswordPanelComponentsProps,
+    EMAIL_IS_CORRECT,
+    UPDATE_HELPER_TEXT,
+} from '../ChangePasswordPanelReducer';
 import { openAlertDialog } from '../../../../components/AlertDialog';
 
-interface ComponentProps extends Props {
+interface Props extends ChangePasswordPanelComponentsProps {
     user: Me | null;
 }
 
-export const ButtonValidateOldPassword = (props: ComponentProps) => {
+export const ButtonValidateOldPassword = (props: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { dispatch } = props;

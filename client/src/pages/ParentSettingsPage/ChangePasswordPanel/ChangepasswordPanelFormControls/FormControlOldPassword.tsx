@@ -3,10 +3,13 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { Props } from './interfaces';
-import { CHANGE_OLD_PASSWORD, TOGGLE_OLD_PASSWORD_VISIBILITY } from '../ChangePasswordPanelReducer';
+import {
+    ChangePasswordPanelComponentsProps,
+    CHANGE_OLD_PASSWORD,
+    TOGGLE_OLD_PASSWORD_VISIBILITY,
+} from '../ChangePasswordPanelReducer';
 
-export const FormControlOldPassword = (props: Props) => {
+export const FormControlOldPassword = (props: ChangePasswordPanelComponentsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { state, dispatch } = props;
