@@ -12,7 +12,7 @@ import { useResetPassword } from '../../operations/mutations/User/resetPassword'
 
 type ImageState = 'DEFAULT' | 'ERROR' | 'SUCCESS';
 
-export const ForgotPasswordPage = () => {
+export function ForgotPasswordPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
@@ -74,7 +74,7 @@ export const ForgotPasswordPage = () => {
             </div>
         </div>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
