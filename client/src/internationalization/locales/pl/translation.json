@@ -538,6 +538,7 @@
             }
         },
         "reset-old-password": "Zresetuj hasło",
+        "something-went-wrong": "Coś poszło nie tak. Skontaktuj się z Administratorem.",
         "wrong-old-password": "Niepoprawne hasło"
     }
 }

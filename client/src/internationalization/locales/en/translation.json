@@ -540,6 +540,7 @@
             }
         },
         "reset-old-password": "Reset password",
+        "something-went-wrong": "Something went wrong. Contact your Administrator.",
         "wrong-old-password": "Incorrect password"
     }
 }

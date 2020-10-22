@@ -6,7 +6,7 @@ import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { FormControlOldPassword } from './ChangepasswordPanelFormControls/FormControlOldPassword';
 import { ChangePasswordPanelReducer, ChangePasswordPanelInitialState } from './ChangePasswordPanelReducer';
 import { useMe } from '../../../utils/useMe';
-import { ButtonValidateOldPassword } from './ChangepasswordPanelFormControls/ButtonValidateOldPassword';
+import { ButtonResetOldPassword } from './ChangepasswordPanelFormControls/ButtonResetOldPassword';
 
 export function ChangePasswordPanel() {
     const device = useBreakpoints();
@@ -24,7 +24,7 @@ export function ChangePasswordPanel() {
         >
             <Grid item className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>
                 <FormControlOldPassword state={state} dispatch={dispatch} />
-                <ButtonValidateOldPassword state={state} dispatch={dispatch} user={user} />
+                <ButtonResetOldPassword state={state} dispatch={dispatch} user={user} />
             </Grid>
             <Grid item className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>
                 <Typography variant={'subtitle2'} className={classes.problems}>

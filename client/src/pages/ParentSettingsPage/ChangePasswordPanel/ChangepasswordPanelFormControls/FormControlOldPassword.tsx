@@ -9,11 +9,12 @@ import {
     TOGGLE_OLD_PASSWORD_VISIBILITY,
 } from '../ChangePasswordPanelReducer';
 
+// TODO: żeby ENTER naciśnięty na polu formularza robił to samo, co kliknięcie BUTTON - wykonywał reset hasla
 export const FormControlOldPassword = (props: ChangePasswordPanelComponentsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { state, dispatch } = props;
-    const { oldPassword, oldPasswordError, oldPasswordHelperText, showOldPassword } = state;
+    const { oldPassword, oldPasswordDisabled, oldPasswordError, oldPasswordHelperText, showOldPassword } = state;
 
     return (
         <FormControl variant="outlined" className={classes.form}>
@@ -26,6 +27,7 @@ export const FormControlOldPassword = (props: ChangePasswordPanelComponentsProps
                 type={showOldPassword ? 'text' : 'password'}
                 value={oldPassword}
                 error={oldPasswordError}
+                disabled={oldPasswordDisabled}
                 onChange={event => dispatch({ type: CHANGE_OLD_PASSWORD, payload: { value: event.target.value } })}
                 endAdornment={
                     <InputAdornment position="end">

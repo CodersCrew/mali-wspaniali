@@ -11,7 +11,7 @@ export interface ExpansionPanelItem {
     onTogglePanelExpansion: (name: string) => void;
     expanded: boolean;
     title: string;
-    panel: FC<{ user: Me }>;
+    panel: FC<{ user: Me; onToggle: (name: string) => void; name: string }>;
 }
 
 export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expanded, title, panel }: ExpansionPanelItem) {
@@ -29,7 +29,7 @@ export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expande
                 <Typography variant={'body2'}>{t(title)}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Panel user={user} />
+                <Panel user={user} onToggle={onTogglePanelExpansion} name={name} />
             </AccordionDetails>
         </Accordion>
     );
