@@ -347,6 +347,9 @@
         "choose-file": "Choose File",
         "upload-file": "Upload File"
     },
+    "menu": {
+        "logged-as": "Logged as:"
+    },
     "parent-menu": {
         "home": "Strona Główna",
         "child": {

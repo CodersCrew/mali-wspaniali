@@ -346,6 +346,9 @@
         "choose-file": "Wybierz plik",
         "upload-file": "Dodaj plik"
     },
+    "menu": {
+        "logged-as": "Zalogowany jako:"
+    },
     "admin-menu": {
         "home": "Strona Główna",
         "results": "Wyniki",
