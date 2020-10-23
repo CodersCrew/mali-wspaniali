@@ -34,7 +34,13 @@ export function useAuthorizeMe(onAuthorized: (user: Me) => void, onError: (error
                         })
                         .catch(error => onError(error));
                 },
-            });
+            })
+                .then(({ data }) => {
+                    if (data) {
+                        onAuthorized(data.me);
+                    }
+                })
+                .catch(error => onError(error));
         },
     };
 }
