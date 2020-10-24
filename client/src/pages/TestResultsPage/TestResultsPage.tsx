@@ -33,7 +33,7 @@ export const TestResultsPage = () => {
         activePage(['admin-menu.results']);
     }, []);
 
-    if (!kindergartenList) return <NoResults />;
+    if (kindergartenList.length === 0) return <NoResults />;
 
     const onEditClick = (kindergarten: Kindergarten) => {
         setCurrentKindergarten(kindergarten);

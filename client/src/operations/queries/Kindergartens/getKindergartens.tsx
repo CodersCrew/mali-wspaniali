@@ -21,7 +21,7 @@ export function useKindergartens() {
     const { data, loading } = useQuery<KindergartenListResponse>(KINDERGARTENS);
 
     return {
-        kindergartenList: data?.kindergartens,
+        kindergartenList: data?.kindergartens || [],
         isKindergartenListLoading: loading
     };
 }
