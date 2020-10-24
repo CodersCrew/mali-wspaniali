@@ -34,7 +34,7 @@ export function useAuthorizeMe(onAuthorized: (user: Me) => void, onError: (error
                         })
                         .catch(error => onError(error));
                 },
-            });
+            }).catch(error => onError(error));
         },
     };
 }

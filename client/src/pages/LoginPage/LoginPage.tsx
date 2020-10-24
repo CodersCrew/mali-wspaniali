@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
-import { useAuthorizeMe } from '../../operations/mutations/User/autthorizeMe';
+import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 
 const initialError: Error = {
     name: '',
