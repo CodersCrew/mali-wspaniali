@@ -30,7 +30,7 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
 
     return (
         <Grid container direction="column" spacing={2}>
-            <Grid item>
+            <Grid item data-testid="total-keycodes">
                 {t('admin-setting-page.keycode-generation.keycode-amount-total', {
                     total: countTotalKeys(keyCodeSeries),
                 })}
@@ -64,7 +64,7 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                                     const expirationDate = moment(date).add(7, 'days');
 
                                     return (
-                                        <TableRow key={series}>
+                                        <TableRow key={series} data-testid="keycode-item">
                                             <TableCell component="th" scope="row" classes={{ root: classes.cell }}>
                                                 <span>
                                                     <FilenameButton
@@ -74,10 +74,18 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                                                     />
                                                 </span>
                                             </TableCell>
-                                            <TableCell classes={{ root: clsx(classes.targetCell, classes.cell) }}>
+                                            <TableCell
+                                                classes={{ root: clsx(classes.targetCell, classes.cell) }}
+                                                data-testid="keycode-item-target"
+                                            >
                                                 {target}
                                             </TableCell>
-                                            <TableCell classes={{ root: classes.cell }}>{count}</TableCell>
+                                            <TableCell
+                                                classes={{ root: classes.cell }}
+                                                data-testid="keycode-item-count"
+                                            >
+                                                {count}
+                                            </TableCell>
                                             <TableCell classes={{ root: classes.cell }}>
                                                 {expirationDate.toDate().toLocaleDateString()}&nbsp;(
                                                 {expirationDate.fromNow()})
