@@ -81,8 +81,8 @@ export const KindergartenModal = ({
                 clearCurrentKindergarten();
             }}
         >
-            <div className={classes.container}>
-                <Typography variant="h4" className={classes.title}>
+            <div className={classes.container} data-testid="kindergarten-add-or-edit">
+                <Typography variant="h4" className={classes.title} data-testid="modal-name">
                     {t(`${translationPrefix}-kindergarten-modal.title`)}
                 </Typography>
                 <Typography variant="body1" className={classes.description}>
@@ -115,7 +115,7 @@ export const KindergartenModal = ({
                             type="number"
                             variant="outlined"
                             fullWidth
-                            required
+                            id="kindergarten-number"
                             {...formik.getFieldProps('number')}
                             error={formik.touched.number && !!formik.errors.number}
                             helperText={formik.touched.number && formik.errors.number}

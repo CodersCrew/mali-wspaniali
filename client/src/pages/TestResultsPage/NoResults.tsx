@@ -6,8 +6,10 @@ export const NoResults = () => {
     const { t } = useTranslation();
 
     return (
-        <Typography variant="h3" align="center" gutterBottom>
-            {t('no-results')}
-        </Typography>
+        <span data-testid="no-results">
+            <Typography variant="h3" align="center" gutterBottom>
+                {t('no-results')}
+            </Typography>
+        </span>
     );
 };

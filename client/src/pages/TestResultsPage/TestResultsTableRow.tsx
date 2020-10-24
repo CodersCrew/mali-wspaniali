@@ -21,18 +21,18 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
 
     return (
         <>
-            <TableRow className={classes.root}>
+            <TableRow className={classes.root} data-testid="kindergarten-item">
                 <TableCell>
                     <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" data-testid="kindergarten-number">
                     {`${t('test-results.kindergarten-prefix')} ${number}`}
                 </TableCell>
-                <TableCell>{name}</TableCell>
-                <TableCell>{`${address}, ${city}`}</TableCell>
-                <TableCell align="right">
+                <TableCell data-testid="kindergarten-name">{name}</TableCell>
+                <TableCell data-testid="kindergarten-localization">{`${address}, ${city}`}</TableCell>
+                <TableCell align="right" data-testid="kindergarten-edit">
                     <IconButton aria-label="edit kindergarten" size="small" onClick={() => onEditClick(kindergarten)}>
                         <EditIcon />
                     </IconButton>
