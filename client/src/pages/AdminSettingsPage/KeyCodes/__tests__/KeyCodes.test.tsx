@@ -1,13 +1,12 @@
 import React from 'react';
-import { render, screen, within } from '@testing-library/react';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { I18nextProvider } from 'react-i18next';
+import { screen, within } from '@testing-library/react';
+import { MockedResponse } from '@apollo/client/testing';
 
 import { KeyCodes } from '../KeyCodes';
 import { KEYCODE_SERIES } from '../../../../operations/queries/KeyCodes/getKeyCodesSeries';
 import { awaitForRenderResponse } from '../../../../utils/testing/awaitForResponse';
-import { translation } from '../../../../internationalization/i18n';
 import { translationOf } from '../../../../utils/testing/isTranslationOf';
+import { renderWithMock } from '../../../../utils/testing/renderWithMockedProvider';
 
 describe('KeyCodes', () => {
     describe('when loaded without historical keycodes', () => {
@@ -50,13 +49,7 @@ describe('KeyCodes', () => {
 });
 
 function renderPage(mocks: MockedResponse[]) {
-    return render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <I18nextProvider i18n={translation}>
-                <KeyCodes />
-            </I18nextProvider>
-        </MockedProvider>,
-    );
+    return renderWithMock(mocks, <KeyCodes />);
 }
 
 const emptyKeyCodesList = [
