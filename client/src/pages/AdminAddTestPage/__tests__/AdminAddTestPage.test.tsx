@@ -4,15 +4,14 @@ import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event'
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { I18nextProvider } from 'react-i18next';
+import i18n from 'i18next';
 import { AdminAddTestPage } from '../AdminAddTestPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
 import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
-import { translations } from '../../../internationalization/i18n';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { formatDate } from '../../../utils/formatDate';
-import { cleanup } from '@testing-library/react-hooks';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 
@@ -257,7 +256,7 @@ describe('AdminAddTestPage', () => {
 function renderPage(mocks: MockedResponse[]) {
     return render(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <I18nextProvider i18n={translations}>
+            <I18nextProvider i18n={i18n}>
                 <AdminAddTestPage />
             </I18nextProvider>
         </MockedProvider>,
