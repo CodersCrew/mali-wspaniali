@@ -7,6 +7,9 @@ import translationPl from './locales/pl/translation.json';
 i18n.use(LanguageDetector)
     .use(initReactI18next)
     .init({
+        react: {
+            useSuspense: false,
+        },
         resources: {
             pl: {
                 translation: translationPl,
@@ -29,3 +32,5 @@ i18n.use(LanguageDetector)
             excludeCacheFor: ['cimode'],
         },
     });
+
+export const translation = i18n;
