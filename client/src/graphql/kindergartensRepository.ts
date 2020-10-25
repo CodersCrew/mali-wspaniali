@@ -17,6 +17,9 @@ export const KINDERGARTEN_WITH_USERS = gql`
                     lastname
                     sex
                     birthYear
+                    kindergarten {
+                        _id
+                    }
                 }
                 agreements {
                     _id
