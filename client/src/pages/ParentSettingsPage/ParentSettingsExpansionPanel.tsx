@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Me } from '../../graphql/types';
 import { ChangePasswordPanel } from './ChangePasswordPanel/ChangePasswordPanel';
 import { ExpansionPanelItem } from './ExpansionPanelItem';
 import { DefaultLanguagePanel } from './DefaultLanguagePanel/DefaultLanguagePanel';
 import { LegalNotesPanel } from './LegalNotesPanel/LegalNotesPanel';
 import { ConsentsPanel } from './ConsentsPanel/ConsentsPanel';
 import { AccountDeletionPanel } from './AccountDeletionPanel/AccountDeletionPanel';
+import { Me } from '../../graphql/types';
 
 interface Props {
     user: Me;
@@ -28,7 +28,6 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
                 title={'settings-page.parent.password-change.title'}
                 panel={ChangePasswordPanel}
             />
-
             <ExpansionPanelItem
                 user={user}
                 name={'language-selection-panel'}
@@ -37,7 +36,6 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
                 title={'settings-page.parent.language-selection.title'}
                 panel={DefaultLanguagePanel}
             />
-
             <ExpansionPanelItem
                 user={user}
                 name={'legal-notes-panel'}
@@ -46,7 +44,6 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
                 title={'settings-page.parent.legal-notes.title'}
                 panel={LegalNotesPanel}
             />
-
             <ExpansionPanelItem
                 user={user}
                 name={'consents-panel'}
@@ -55,7 +52,6 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
                 title={'settings-page.parent.consents.title'}
                 panel={ConsentsPanel}
             />
-
             <ExpansionPanelItem
                 user={user}
                 name={'account-deletion-panel'}
