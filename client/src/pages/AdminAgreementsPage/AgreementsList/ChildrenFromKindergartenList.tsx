@@ -67,7 +67,9 @@ export function ChildrenFromKindergartenList({ kindergarten, viewAgreement, mark
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={isOpen}>
                         <Box margin={1} marginRight={11} marginLeft={11}>
-                            <KindergartenAgreementsList parents={mapUsersToAgreemetList(kindergarten.users)} />
+                            <KindergartenAgreementsList
+                                parents={mapUsersToAgreemetList(kindergarten.users, kindergarten._id)}
+                            />
                         </Box>
                     </Collapse>
                 </TableCell>
@@ -146,11 +148,13 @@ function countStatus(agreementResultA: AgreementResult, agreementResultB: Agreem
     return results.includes('RECIEVED') ? 'RECIEVED' : 'NOT_RECIEVED';
 }
 
-function mapUsersToAgreemetList(users: User[]): Parent[] {
+function mapUsersToAgreemetList(users: User[], kindergartenId: string): Parent[] {
     return users.map(u => {
         return {
             email: u.mail,
-            children: u.children.map(c => `${c.firstname} ${c.lastname}`),
+            children: u.children
+                .filter(c => c.kindergarten._id === kindergartenId)
+                .map(c => `${c.firstname} ${c.lastname}`),
             viewAgreement: u.agreements.find(a => a.text === 'Image')!.isSigned,
             marketingAgreement: u.agreements.find(a => a.text === 'Marketing')!.isSigned,
         };
