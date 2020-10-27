@@ -9,16 +9,9 @@ interface Props {
     onClose: () => void;
     onDelete: (id: string) => void;
     kindergarten: Kindergarten;
-    clearCurrentKindergarten: () => void;
 }
 
-export const KindergartenDeleteModal = ({
-    isOpen,
-    onClose,
-    onDelete,
-    clearCurrentKindergarten,
-    kindergarten,
-}: Props) => {
+export const KindergartenDeleteModal = ({ isOpen, onClose, onDelete, kindergarten }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -29,7 +22,6 @@ export const KindergartenDeleteModal = ({
             lowerButtonOnClick={onClose}
             upperButtonOnClick={() => {
                 onDelete(_id);
-                clearCurrentKindergarten();
                 onClose();
             }}
             lowerButtonText={t('test-results.cancel')}
@@ -37,29 +29,24 @@ export const KindergartenDeleteModal = ({
             isOpen={isOpen}
             onClose={onClose}
         >
-            <div className={classes.container}>
-                <Typography variant="h4" className={classes.title}>
-                    {t('delete-kindergarten-modal.title')}
-                </Typography>
-                <Typography variant="body1" className={classes.description}>
-                    {t('delete-kindergarten-modal.question', {
-                        prefix: t('test-results.kindergarten-prefix'),
-                        number,
-                        name,
-                        address,
-                        city,
-                    })}
-                </Typography>
-            </div>
+            <Typography variant="h4" className={classes.title}>
+                {t('delete-kindergarten-modal.title')}
+            </Typography>
+            <Typography variant="body1" className={classes.description}>
+                {t('delete-kindergarten-modal.question', {
+                    prefix: t('test-results.kindergarten-prefix'),
+                    number,
+                    name,
+                    address,
+                    city,
+                })}
+            </Typography>
         </TwoActionsModal>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            maxWidth: 448,
-        },
         title: {
             paddingBottom: theme.spacing(2),
         },

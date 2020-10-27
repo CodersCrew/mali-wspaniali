@@ -5,11 +5,11 @@ import { SearchInput } from './SearchInput';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
 interface Props {
-    setKindergartenModalOpen: (value: boolean) => void;
-    setChangesHistoryModalOpen: (value: boolean) => void;
+    onAddKindergartenClick: () => void;
+    onChangeLogClick: () => void;
 }
 
-export const ResultsActions = ({ setKindergartenModalOpen, setChangesHistoryModalOpen }: Props) => {
+export const ResultsActions = ({ onAddKindergartenClick, onChangeLogClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -21,13 +21,9 @@ export const ResultsActions = ({ setKindergartenModalOpen, setChangesHistoryModa
             <ButtonSecondary
                 variant="contained"
                 innerText={t('test-results.add-kindergarten')}
-                onClick={() => setKindergartenModalOpen(true)}
+                onClick={onAddKindergartenClick}
             />
-            <ButtonSecondary
-                variant="outlined"
-                innerText={t('test-results.changes-history')}
-                onClick={() => setChangesHistoryModalOpen(true)}
-            />
+            <ButtonSecondary variant="outlined" innerText={t('test-results.change-log')} onClick={onChangeLogClick} />
         </div>
     );
 };

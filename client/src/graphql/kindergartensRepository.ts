@@ -1,12 +1,5 @@
 import { gql } from '@apollo/client';
 
-export interface AddKindergartenInput {
-    name: string;
-    number: number;
-    address: string;
-    city: string;
-}
-
 export const KINDERGARTEN_WITH_USERS = gql`
     query Kindergarten($ids: [String!]!) {
         kindergartenWithUsers(ids: $ids) {

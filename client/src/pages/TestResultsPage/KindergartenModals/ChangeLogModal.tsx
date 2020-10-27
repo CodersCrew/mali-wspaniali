@@ -8,7 +8,7 @@ interface Props {
     onClose: () => void;
 }
 
-export const ChangesHistoryModal = ({ isOpen, onClose }: Props) => {
+export const ChangeLogModal = ({ isOpen, onClose }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -16,7 +16,7 @@ export const ChangesHistoryModal = ({ isOpen, onClose }: Props) => {
         <BasicModal isOpen={isOpen} actionName={t('close')} onAction={onClose}>
             <div className={classes.container}>
                 <Typography variant="h4" className={classes.title}>
-                    {t('test-results.changes-history')}
+                    {t('test-results.change-log')}
                 </Typography>
             </div>
         </BasicModal>

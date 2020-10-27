@@ -87,6 +87,13 @@ export interface Kindergarten {
     city: string;
 }
 
+export interface AddKindergartenInput {
+    name: string;
+    number: number;
+    address: string;
+    city: string;
+}
+
 export interface KindergartenWithUsers {
     _id: string;
     name: string;
