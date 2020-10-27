@@ -9,6 +9,7 @@ import { MenuDrawer } from './MenuDrawer';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { getMenuWidth } from './getMenuWidth';
 import { LabeledHeader } from './LabeledHeader';
+import { LoggedAsItem } from './LoggedAsItem';
 
 export interface Props {
     user: Me | null;
@@ -53,6 +54,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
         >
             <Grid item>
                 <List>
+                    <LoggedAsItem name={user.mail} />
                     <SingleItem item={MainPageItem} onClick={onClick} />
                     <SingleItem item={ResultsItem} onClick={onClick} />
                     <SingleItem item={AgreementsItem} onClick={onClick} />

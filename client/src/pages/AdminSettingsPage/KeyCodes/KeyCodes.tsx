@@ -41,6 +41,7 @@ export function KeyCodes() {
                 </div>
                 <div className={classes.generateButtonContainer}>
                     <LoadingButton
+                        data-testid="generate-keycodes-series"
                         isLoading={isLoading}
                         isDisabled={isLoading || keyCodesToGenerate === 0 || keyCodesToGenerate > 1000}
                         text={t('admin-setting-page.keycode-generation.generate')}

@@ -8,15 +8,17 @@ import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { Theme } from '../../theme/types';
+import { useResetPassword } from '../../operations/mutations/User/resetPassword';
 
 type ImageState = 'DEFAULT' | 'ERROR' | 'SUCCESS';
 
-export const ForgotPasswordPage = () => {
+export function ForgotPasswordPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [imageState, setImageState] = useState<ImageState>('ERROR');
     const [resetPasswordState, setResetPasswordState] = useState<'FORM' | 'CONFIRMATION'>('FORM');
+    const { resetPassword } = useResetPassword(() => setImageState('SUCCESS'), () => setImageState('ERROR'));
 
     const handleInputChange = (value: string): void => {
         if (value === '') {
@@ -35,9 +37,7 @@ export const ForgotPasswordPage = () => {
     const handleCreateNewPassword = () => {
         setResetPasswordState('CONFIRMATION');
 
-        handlePasswordReset(email)
-            .then(() => setImageState('SUCCESS'))
-            .catch(() => setImageState('ERROR'));
+        resetPassword(email);
     };
 
     const getImageSource = (state: ImageState) => {
@@ -74,7 +74,7 @@ export const ForgotPasswordPage = () => {
             </div>
         </div>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -115,8 +115,3 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-function handlePasswordReset(email: string) {
-    // todo
-    return Promise.resolve(email);
-}
