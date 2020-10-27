@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { Accordion, AccordionSummary } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { useTranslation } from 'react-i18next';
 import { Me } from '../../graphql/types';
 
@@ -12,7 +11,7 @@ export interface ExpansionPanelItem {
     onTogglePanelExpansion: (name: string) => void;
     expanded: boolean;
     title: string;
-    panel: FC<{ user: Me }>;
+    panel: FC<{ user: Me; onToggle: (name: string) => void; name: string }>;
 }
 
 export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expanded, title, panel }: ExpansionPanelItem) {
@@ -29,9 +28,9 @@ export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expande
             >
                 <Typography variant={'body2'}>{t(title)}</Typography>
             </AccordionSummary>
-            <ExpansionPanelDetails>
-                <Panel user={user} />
-            </ExpansionPanelDetails>
+            <AccordionDetails>
+                <Panel user={user} onToggle={onTogglePanelExpansion} name={name} />
+            </AccordionDetails>
         </Accordion>
     );
 }

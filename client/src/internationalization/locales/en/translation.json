@@ -373,6 +373,9 @@
         "choose-file": "Choose File",
         "upload-file": "Upload File"
     },
+    "menu": {
+        "logged-as": "Logged as:"
+    },
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
@@ -541,6 +544,9 @@
         "by-kindergarten": "Filter by kindergarten"
     },
     "settings-page": {
+        "change-password-problems": "Have difficulties changing your password?",
+        "change-password-problems-hint": "No worries! Contact the Foundation to fix the problem.",
+        "old-password": "Enter the old password",
         "parent": {
             "password-change": {
                 "title": "Password change"
@@ -557,6 +563,9 @@
             "legal-notes": {
                 "title": "Legal notes"
             }
-        }
+        },
+        "reset-old-password": "Reset password",
+        "something-went-wrong": "Something went wrong. Contact your Administrator.",
+        "wrong-old-password": "Incorrect password"
     }
 }

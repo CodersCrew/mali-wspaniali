@@ -372,6 +372,9 @@
         "choose-file": "Wybierz plik",
         "upload-file": "Dodaj plik"
     },
+    "menu": {
+        "logged-as": "Zalogowany jako:"
+    },
     "admin-menu": {
         "home": "Strona Główna",
         "results": "Wyniki",
@@ -540,6 +543,9 @@
         "by-kindergarten": "Filtruj po przedszkolu"
     },
     "settings-page": {
+        "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
+        "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
+        "old-password": "Wpisz aktualne hasło",
         "parent": {
             "password-change": {
                 "title": "Zmiana hasła"
@@ -556,6 +562,9 @@
             "legal-notes": {
                 "title": "Informacje prawne"
             }
-        }
+        },
+        "reset-old-password": "Zresetuj hasło",
+        "something-went-wrong": "Coś poszło nie tak. Skontaktuj się z Administratorem.",
+        "wrong-old-password": "Niepoprawne hasło"
     }
 }

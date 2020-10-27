@@ -9,11 +9,11 @@ interface Props {
     onClick: () => void;
 }
 
-export function LoadingButton({ text, isLoading, isDisabled, onClick }: Props) {
+export function LoadingButton({ text, isLoading, isDisabled, onClick, ...props }: Props) {
     const classes = useStyles();
 
     return (
-        <span className={classes.wrapper}>
+        <span {...props} className={classes.wrapper}>
             <ButtonSecondary disabled={isDisabled} onClick={onClick} variant="contained">
                 {text}
             </ButtonSecondary>
