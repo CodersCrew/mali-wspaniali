@@ -74,7 +74,6 @@ export const TestResultsPage = () => {
             <TestResultsTable kindergartens={kindergartenList} onEditClick={onEditClick} />
             {kindergartenModalStatus.isOpen && (
                 <KindergartenModal
-                    isOpen={true}
                     onClose={onKindergartenModalClose}
                     onSubmit={handleAddOrEditKindergarten}
                     kindergarten={kindergartenModalStatus.kindergarten}
@@ -86,7 +85,6 @@ export const TestResultsPage = () => {
             <ChangeLogModal isOpen={isChangeLogModalOpen} onClose={() => setChangeLogModalOpen(false)} />
             {deleteModalStatus.kindergarten && (
                 <KindergartenDeleteModal
-                    isOpen={true}
                     onClose={() => setDeleteModalStatus({ kindergarten: null })}
                     onDelete={(id: string) => onDelete(id)}
                     kindergarten={deleteModalStatus.kindergarten}

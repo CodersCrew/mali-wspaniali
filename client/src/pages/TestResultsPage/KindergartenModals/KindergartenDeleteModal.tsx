@@ -5,13 +5,12 @@ import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
-    isOpen: boolean;
     onClose: () => void;
     onDelete: (id: string) => void;
     kindergarten: Kindergarten;
 }
 
-export const KindergartenDeleteModal = ({ isOpen, onClose, onDelete, kindergarten }: Props) => {
+export const KindergartenDeleteModal = ({ onClose, onDelete, kindergarten }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -23,7 +22,7 @@ export const KindergartenDeleteModal = ({ isOpen, onClose, onDelete, kindergarte
             upperButtonOnClick={() => onDelete(_id)}
             lowerButtonText={t('test-results.cancel')}
             upperButtonText={t('test-results.delete')}
-            isOpen={isOpen}
+            isOpen
             onClose={onClose}
         >
             <Typography variant="h4" className={classes.title}>

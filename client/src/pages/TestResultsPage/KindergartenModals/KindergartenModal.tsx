@@ -9,7 +9,6 @@ import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, AddKindergartenInput } from '../../../graphql/types';
 
 interface Props {
-    isOpen: boolean;
     onClose: () => void;
     onSubmit: (values: AddKindergartenInput) => void;
     onDelete: (kindergarten: Kindergarten) => void;
@@ -17,7 +16,6 @@ interface Props {
 }
 
 export const KindergartenModal = ({
-    isOpen,
     onClose,
     onSubmit,
     onDelete,
@@ -54,7 +52,7 @@ export const KindergartenModal = ({
             upperButtonOnClick={formik.submitForm}
             lowerButtonText={t(`${translationPrefix}-kindergarten-modal.close`)}
             upperButtonText={t(`${translationPrefix}-kindergarten-modal.${translationPrefix}`)}
-            isOpen={isOpen}
+            isOpen
             onClose={onClose}
         >
             <Typography variant="h4" className={classes.title}>
