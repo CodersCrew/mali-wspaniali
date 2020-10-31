@@ -13,8 +13,7 @@ import {
     makeStyles,
     Theme,
 } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import InsertChartIcon from '@material-ui/icons/InsertChart';
+import { Edit as EditIcon, InsertChart as InsertChartIcon } from '@material-ui/icons';
 
 interface Props {
     open: boolean;

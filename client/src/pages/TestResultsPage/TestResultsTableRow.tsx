@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, makeStyles } from '@material-ui/core';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import EditIcon from '@material-ui/icons/Edit';
+import {
+    Edit as EditIcon,
+    KeyboardArrowDown as KeyboardArrowDownIcon,
+    KeyboardArrowUp as KeyboardArrowUpIcon,
+} from '@material-ui/icons';
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
 import { Kindergarten } from '../../graphql/types';
 
