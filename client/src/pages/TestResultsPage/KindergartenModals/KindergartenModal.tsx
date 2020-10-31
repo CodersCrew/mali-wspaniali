@@ -12,8 +12,8 @@ interface Props {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (values: AddKindergartenInput) => void;
-    onDelete: () => void;
-    currentKindergarten: Kindergarten | null;
+    onDelete: (kindergarten: Kindergarten) => void;
+    kindergarten: Kindergarten | null;
 }
 
 export const KindergartenModal = ({
@@ -21,17 +21,17 @@ export const KindergartenModal = ({
     onClose,
     onSubmit,
     onDelete,
-    currentKindergarten,
+     kindergarten,
 }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
     const formik = useFormik({
         initialValues: {
-            city: currentKindergarten?.city || 'Wrocław',
-            address: currentKindergarten?.address || '',
-            name: currentKindergarten?.name || '',
-            number: currentKindergarten?.number || 0,
+            city: kindergarten?.city || 'Wrocław',
+            address: kindergarten?.address || '',
+            name: kindergarten?.name || '',
+            number: kindergarten?.number || 0,
         },
         validationSchema: Yup.object({
             city: Yup.string().required(t('kindergarten-modal.provide-city')),
@@ -46,12 +46,12 @@ export const KindergartenModal = ({
         onSubmit,
     });
 
-    const translationPrefix = currentKindergarten ? 'edit' : 'add';
+    const translationPrefix = kindergarten ? 'edit' : 'add';
 
     return (
         <TwoActionsModal
             lowerButtonOnClick={onClose}
-            upperButtonOnClick={() => formik.submitForm()}
+            upperButtonOnClick={formik.submitForm}
             lowerButtonText={t(`${translationPrefix}-kindergarten-modal.close`)}
             upperButtonText={t(`${translationPrefix}-kindergarten-modal.${translationPrefix}`)}
             isOpen={isOpen}
@@ -113,10 +113,10 @@ export const KindergartenModal = ({
                     />
                 </Grid>
                 <Grid item>
-                    {currentKindergarten && (
+                    {kindergarten && (
                         <ButtonSecondary
                             onClick={() => {
-                                onDelete();
+                                onDelete(kindergarten);
                                 onClose();
                             }}
                             icon={<Delete />}

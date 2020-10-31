@@ -23,11 +23,16 @@ export const TestResultsPage = () => {
     const { updateKindergarten } = useUpdateKindergarten();
     const { kindergartenList } = useKindergartens();
 
-    const [isKindergartenModalOpen, setKindergartenModalOpen] = useState(false);
+    const [kindergartenModalStatus, setKindergartenModalStatus] = useState<{
+        isOpen?: boolean;
+        kindergarten: Kindergarten | null;
+    }>({
+        kindergarten: null,
+    });
     const [isChangeLogModalOpen, setChangeLogModalOpen] = useState(false);
-    const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-
-    const [currentKindergarten, setCurrentKindergarten] = useState<Kindergarten | null>(null);
+    const [deleteModalStatus, setDeleteModalStatus] = useState<{ kindergarten: Kindergarten | null }>({
+        kindergarten: null,
+    });
 
     useEffect(() => {
         activePage(['admin-menu.results']);
@@ -38,55 +43,53 @@ export const TestResultsPage = () => {
     }
 
     const onEditClick = (kindergarten: Kindergarten) => {
-        setCurrentKindergarten(kindergarten);
-        setKindergartenModalOpen(true);
+        setKindergartenModalStatus({ isOpen: true, kindergarten });
     };
 
     const onDelete = (id: string) => {
         deleteKindergarten(id);
-        setCurrentKindergarten(null);
+        setDeleteModalStatus({ kindergarten: null });
     };
 
     const onKindergartenModalClose = () => {
-        setKindergartenModalOpen(false);
-        setCurrentKindergarten(null);
+        setKindergartenModalStatus({ kindergarten: null });
     };
 
     const handleAddOrEditKindergarten = (values: AddKindergartenInput) => {
-        if (currentKindergarten) {
-            updateKindergarten(currentKindergarten._id, values);
+        if (kindergartenModalStatus.kindergarten) {
+            updateKindergarten(kindergartenModalStatus.kindergarten._id, values);
         } else {
             createKindergarten(values);
         }
-        setKindergartenModalOpen(false);
-        setCurrentKindergarten(null);
+        setKindergartenModalStatus({ kindergarten: null });
     };
 
     return (
         <div className={classes.container}>
             <Typography variant="h3">{t('test-results.description')}</Typography>
             <ResultsActions
-                onAddKindergartenClick={() => setKindergartenModalOpen(true)}
+                onAddKindergartenClick={() => setKindergartenModalStatus({ isOpen: true, kindergarten: null })}
                 onChangeLogClick={() => setChangeLogModalOpen(true)}
             />
             <TestResultsTable kindergartens={kindergartenList} onEditClick={onEditClick} />
-            <KindergartenModal
-                isOpen={isKindergartenModalOpen}
-                onClose={onKindergartenModalClose}
-                onSubmit={handleAddOrEditKindergarten}
-                currentKindergarten={currentKindergarten}
-                onDelete={() => setDeleteModalOpen(true)}
-            />
-            <ChangeLogModal isOpen={isChangeLogModalOpen} onClose={() => setChangeLogModalOpen(false)} />
-            {currentKindergarten && (
-                <KindergartenDeleteModal
-                    isOpen={isDeleteModalOpen}
-                    onClose={() => setDeleteModalOpen(false)}
-                    onDelete={(id: string) => {
-                        onDelete(id);
-                        setDeleteModalOpen(false);
+            {kindergartenModalStatus.isOpen && (
+                <KindergartenModal
+                    isOpen={true}
+                    onClose={onKindergartenModalClose}
+                    onSubmit={handleAddOrEditKindergarten}
+                    kindergarten={kindergartenModalStatus.kindergarten}
+                    onDelete={(kindergarten: Kindergarten) => {
+                        setDeleteModalStatus({ kindergarten });
                     }}
-                    kindergarten={currentKindergarten}
+                />
+            )}
+            <ChangeLogModal isOpen={isChangeLogModalOpen} onClose={() => setChangeLogModalOpen(false)} />
+            {deleteModalStatus.kindergarten && (
+                <KindergartenDeleteModal
+                    isOpen={true}
+                    onClose={() => setDeleteModalStatus({ kindergarten: null })}
+                    onDelete={(id: string) => onDelete(id)}
+                    kindergarten={deleteModalStatus.kindergarten}
                 />
             )}
         </div>
