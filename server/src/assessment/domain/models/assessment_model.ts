@@ -18,7 +18,7 @@ export class Assessment extends AggregateRoot {
     this.data = initialData;
   }
 
-  static create(initialData: CreateAssessmentInput) {
+  static create(initialData: CreateAssessmentInput): Assessment {
     const assessment = new Assessment(initialData);
 
     assessment.apply(new AssessmentCreatedEvent(initialData));

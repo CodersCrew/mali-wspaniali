@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose';
 
 import { ChildResultProps } from './child_result_model';
-import { KindergartenProps } from '../../../kindergartens/domain/models/kindergarten_model';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Firstname } from './firstname_value_object';
 import { Lastname } from './lastname_value_object';
@@ -9,7 +8,6 @@ import { Sex } from './sex_value_object';
 import { BirthYear } from './birth_year_value_object';
 import { ObjectId } from './object_id_value_object';
 import { Result } from '../../../shared/domain/result';
-import { ChildCreatedEvent } from '../events/impl/child_created_event';
 import { ChildDeletedEvent } from '../events/impl/child_deleted_event';
 
 export interface ChildProps {
