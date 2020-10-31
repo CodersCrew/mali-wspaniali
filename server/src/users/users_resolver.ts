@@ -44,6 +44,7 @@ import {
   CreateUserCommand,
   ResetPasswordCommand,
 } from './domain/commands/impl';
+import { ChildWithKindergarten } from './domain/queries/handlers/get_all_children_handler';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -112,8 +113,16 @@ export class UsersResolver {
 
   @Query(() => [ChildDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async allChildren(): Promise<UserProps> {
-    return await this.queryBus.execute(new GetAllChildrenQuery());
+  async allChildren() {
+    const childrenWithKindergarten: ChildWithKindergarten[] = await this.queryBus.execute(
+      new GetAllChildrenQuery(),
+    );
+
+    return childrenWithKindergarten.map(child => ({
+      ...child.child,
+      kindergarten: child.kindergarten,
+      results: child.results,
+    }));
   }
 
   @Mutation(() => ReturnedStatusDTO)
