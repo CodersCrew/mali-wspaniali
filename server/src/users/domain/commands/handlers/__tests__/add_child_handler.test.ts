@@ -18,10 +18,6 @@ import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/comman
 import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
-import {
-  closeInMongodConnection,
-  rootMongooseTestModule,
-} from '../../../../../db_handler';
 
 jest.setTimeout(60000);
 
@@ -42,7 +38,7 @@ describe('AddChildHandler', () => {
   beforeAll(async () => {
     module = await setup();
   });
-  afterAll(async () => await closeInMongodConnection());
+  afterAll(async () => await dbHandler.closeInMongodConnection());
   beforeEach(async () => {
     await dbHandler.clearDatabase();
 
@@ -237,7 +233,7 @@ describe('AddChildHandler', () => {
 async function setup() {
   return await Test.createTestingModule({
     imports: [
-      rootMongooseTestModule(),
+      dbHandler.rootMongooseTestModule(),
       CqrsModule,
       UsersModule,
       KeyCodesModule,
