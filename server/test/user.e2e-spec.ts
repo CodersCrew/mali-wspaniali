@@ -11,6 +11,7 @@ jest.setTimeout(10000);
 describe('User (e2e)', () => {
   let app: INestApplication;
   let authorizationToken: string;
+  let createdKindergartenId: string;
 
   beforeEach(async done => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -137,7 +138,6 @@ describe('User (e2e)', () => {
 
   describe('when adding a new child', () => {
     let createdKeyCode: string;
-    let authorization: string;
     let childId: string;
 
     it('adds a new child', async done => {
@@ -165,6 +165,29 @@ describe('User (e2e)', () => {
         })
         .then(response => {
           authorizationToken = response.body.data.login.token;
+        });
+
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .set('Authorization', authorizationToken)
+        .send({
+          operationName: null,
+          variables: {},
+          query: `
+        mutation {
+          createKindergarten(kindergarten: {
+            name: "my-kindergarten", number: 5, address: "my-address", city: "my-city"
+          }) {
+            _id
+          }
+        }
+        `,
+        })
+        .expect(200)
+        .then(response => {
+          const { _id } = response.body.data.createKindergarten;
+
+          createdKindergartenId = _id;
         });
 
       await request(app.getHttpServer())
@@ -238,7 +261,7 @@ describe('User (e2e)', () => {
               lastname: "Smith",
               birthYear: 2000,
               sex: "male",
-              kindergartenId: "5f09a2d6d79ce21357d0bd29",
+              kindergartenId: "${createdKindergartenId}",
           }) {
             status
           }

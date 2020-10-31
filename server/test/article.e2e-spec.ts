@@ -127,7 +127,9 @@ mutation {
               header: "my header lorem ipsum  lorem ipsum",
               pictureUrl: "https://www.youtube.com/watch?v=rr0gvSS1OzE",
               redactor: {
-                firstName: "cool redactor"
+                firstName: "cool redactor",
+                lastName: "his-lastname",
+                avatarUrl: "https://mali-wspaniali.netlify.app/"
               },
               tags: ["life-style"],
               title: "my title lorem ipsum",
@@ -160,6 +162,8 @@ mutation {
               pictureUrl
               redactor {
                 firstName
+                lastName
+                avatarUrl
               }
               tags
               title
@@ -186,6 +190,8 @@ mutation {
               pictureUrl: 'https://www.youtube.com/watch?v=rr0gvSS1OzE',
               redactor: {
                 firstName: 'cool redactor',
+                lastName: 'his-lastname',
+                avatarUrl: 'https://mali-wspaniali.netlify.app/',
               },
               tags: ['life-style'],
               title: 'my title lorem ipsum',
@@ -244,6 +250,8 @@ mutation {
             pictureUrl: "https://www.youtube.com/watch?v=rr0gvSS1OzE",
             redactor: {
               firstName: "cool redactor"
+              lastName: "his-lastname",
+              avatarUrl: "https://mali-wspaniali.netlify.app/"
             },
             tags: ["life-style"],
             title: "my title lorem ipsum",
