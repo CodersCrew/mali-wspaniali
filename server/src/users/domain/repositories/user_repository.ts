@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 
 import { UserProps, User } from '../models/user_model';
 import { UserDocument } from '../../schemas/user_schema';
+import { ObjectId } from '../models/object_id_value_object';
 
 @Injectable()
 export class UserRepository {
@@ -17,7 +18,14 @@ export class UserRepository {
       .findById(id, { password: 0 })
       .lean()
       .exec()
-      .then(user => ({ ...user, agreements: user.agreements || [] }));
+      .then(user => {
+        if (!user) return user;
+
+        return { ...user, agreements: user.agreements || [] };
+      })
+      .catch(e => {
+        return null;
+      });
   }
 
   async getAll(role?: string): Promise<UserProps[]> {
@@ -81,9 +89,9 @@ export class UserRepository {
     return User.create(rawUser, keyCode);
   }
 
-  async addChild(childId: string, userId: string): Promise<void> {
+  async addChild(childId: ObjectId, userId: string): Promise<void> {
     await this.userModel.findByIdAndUpdate(userId, {
-      $addToSet: { children: childId },
+      $addToSet: { children: childId.value },
     });
   }
 
