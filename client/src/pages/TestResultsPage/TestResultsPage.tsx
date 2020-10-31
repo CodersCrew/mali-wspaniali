@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Typography, createStyles, makeStyles, Theme } from '@material-ui/core/';
 import { NoResults } from './NoResults';
 import { ResultsActions } from './ResultsActions';
-import { TestResultsTable } from './TestResultsTable';
+import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { KindergartenModal } from './KindergartenModals/KindergartenModal';
 import { ChangeLogModal } from './KindergartenModals/ChangeLogModal';
 import { KindergartenDeleteModal } from './KindergartenModals/KindergartenDeleteModal';
