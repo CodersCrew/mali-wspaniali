@@ -5,13 +5,9 @@ export type CategoryProps = 'food' | 'activity' | 'emotions' | 'other';
 
 type CategoryValue = Props<CategoryProps>;
 
-export class Category extends ValueObject<CategoryValue> {
+export class Category extends ValueObject<CategoryProps> {
   private constructor(props: CategoryValue) {
     super(props);
-  }
-
-  get value(): CategoryProps {
-    return this.props.value;
   }
 
   public static create(category: string): Result<Category> {
