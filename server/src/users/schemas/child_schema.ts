@@ -16,5 +16,9 @@ export const ChildSchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
   kindergarten: mongoose.Types.ObjectId,
 });
