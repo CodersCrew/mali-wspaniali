@@ -41,6 +41,7 @@ jobs:
     env:
       CI: true
       working-directory: ./server
+      JWT_SECRET: secret
   build:
     needs: [lint-and-test]
     name: Build

@@ -20,6 +20,14 @@ import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/c
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
 import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
 
+afterAll(async () => {
+  await dbHandler.closeInMongodConnection();
+});
+
+beforeAll(async () => {
+  await dbHandler.connect();
+});
+
 describe('AddChildHandler', () => {
   let parent: UserProps;
   let kindergarten: KindergartenProps;
@@ -34,13 +42,9 @@ describe('AddChildHandler', () => {
     kindergartenId: 'my-kindergartenId',
   };
 
-  beforeAll(async () => {
-    module = await setup();
-  });
-  afterAll(async () => {
-    await dbHandler.closeInMongodConnection();
-  });
   beforeEach(async () => {
+    module = await setup();
+
     await dbHandler.clearDatabase();
 
     const parentObj = await createParent();

@@ -14,20 +14,22 @@ export const clearDatabase = async () => {
   }
 };
 
+export async function connect() {
+  mongod = await MongoMemoryServer.create({
+    instance: {
+      port: 9002,
+      dbName: 'mw-db',
+    },
+  });
+
+  await mongod.start();
+
+  await mongod.ensureInstance();
+}
+
 export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
   MongooseModule.forRootAsync({
     useFactory: async () => {
-      mongod = await MongoMemoryServer.create({
-        instance: {
-          port: 9002,
-          dbName: 'mw-db',
-        },
-      });
-
-      await mongod.start();
-
-      await mongod.ensureInstance();
-
       const mongoUri = await mongod.getUri();
 
       conn = await MongoClient.connect(mongoUri, {
