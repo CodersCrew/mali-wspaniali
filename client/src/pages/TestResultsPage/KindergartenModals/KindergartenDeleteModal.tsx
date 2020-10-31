@@ -20,10 +20,7 @@ export const KindergartenDeleteModal = ({ isOpen, onClose, onDelete, kindergarte
     return (
         <TwoActionsModal
             lowerButtonOnClick={onClose}
-            upperButtonOnClick={() => {
-                onDelete(_id);
-                onClose();
-            }}
+            upperButtonOnClick={() => onDelete(_id)}
             lowerButtonText={t('test-results.cancel')}
             upperButtonText={t('test-results.delete')}
             isOpen={isOpen}

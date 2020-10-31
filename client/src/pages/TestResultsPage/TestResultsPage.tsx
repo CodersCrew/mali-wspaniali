@@ -82,7 +82,10 @@ export const TestResultsPage = () => {
                 <KindergartenDeleteModal
                     isOpen={isDeleteModalOpen}
                     onClose={() => setDeleteModalOpen(false)}
-                    onDelete={onDelete}
+                    onDelete={(id: string) => {
+                        onDelete(id);
+                        setDeleteModalOpen(false);
+                    }}
                     kindergarten={currentKindergarten}
                 />
             )}
