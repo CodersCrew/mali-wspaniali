@@ -1,4 +1,4 @@
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { AddChildHandler } from '../add_child_handler';
 import { AddChildCommand, CreateUserCommand } from '../../impl';
 import * as dbHandler from '../../../../../db_handler';
@@ -18,14 +18,13 @@ import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/comman
 import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
-
-jest.setTimeout(60000);
+import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
 
 describe('AddChildHandler', () => {
   let parent: UserProps;
-  let kindergarten;
+  let kindergarten: KindergartenProps;
   let addedChild: Child;
-  let module;
+  let module: TestingModule;
 
   const validChildOptions = {
     birthYear: 2000,
@@ -38,7 +37,9 @@ describe('AddChildHandler', () => {
   beforeAll(async () => {
     module = await setup();
   });
-  afterAll(async () => await dbHandler.closeInMongodConnection());
+  afterAll(async () => {
+    await dbHandler.closeInMongodConnection();
+  });
   beforeEach(async () => {
     await dbHandler.clearDatabase();
 
@@ -81,22 +82,22 @@ describe('AddChildHandler', () => {
     describe('with invalid', () => {
       describe('with invalid firstname', () => {
         it('throws an error', async () => {
-          await expect(
+          await expect(() =>
             addChildCommandWith({ firstname: 'my' }, parent._id),
           ).rejects.toEqual('Firstname must be valid');
 
-          await expect(
+          await expect(() =>
             addChildCommandWith(
               { firstname: new Array(41).fill(' ').join('') },
               parent._id,
             ),
           ).rejects.toEqual('Firstname must be valid');
 
-          await expect(
+          await expect(() =>
             addChildCommandWith({ firstname: null }, parent._id),
           ).rejects.toEqual('Firstname is null or undefined');
 
-          await expect(
+          await expect(() =>
             addChildCommandWith({ firstname: undefined }, parent._id),
           ).rejects.toEqual('Firstname is null or undefined');
         });
@@ -104,22 +105,22 @@ describe('AddChildHandler', () => {
 
       describe('with invalid lastname', () => {
         it('throws an error', async () => {
-          await expect(
+          await expect(() =>
             addChildCommandWith({ lastname: 'my' }, parent._id),
           ).rejects.toEqual('Lastname must be valid');
 
-          await expect(
+          await expect(() =>
             addChildCommandWith(
               { lastname: new Array(51).fill(' ').join('') },
               parent._id,
             ),
           ).rejects.toEqual('Lastname must be valid');
 
-          await expect(
+          await expect(() =>
             addChildCommandWith({ lastname: null }, parent._id),
           ).rejects.toEqual('Lastname is null or undefined');
 
-          await expect(
+          await expect(() =>
             addChildCommandWith({ lastname: undefined }, parent._id),
           ).rejects.toEqual('Lastname is null or undefined');
         });
@@ -127,11 +128,11 @@ describe('AddChildHandler', () => {
 
       describe('with invalid birth year', () => {
         it('throws an error', async () => {
-          await expect(
+          await expect(() =>
             addChildCommandWith({ birthYear: null }, parent._id),
           ).rejects.toEqual('BirthYear must be valid, but got "null"');
 
-          await expect(
+          await expect(() =>
             addChildCommandWith({ birthYear: undefined }, parent._id),
           ).rejects.toEqual('BirthYear must be valid, but got "undefined"');
         });
@@ -139,19 +140,19 @@ describe('AddChildHandler', () => {
 
       describe('with invalid sex', () => {
         it('throws an error', async () => {
-          await expect(
+          await expect(() =>
             addChildCommandWith({ sex: 'another' }, parent._id),
           ).rejects.toEqual(
             'Sex must be either "male" or "female", but got "another"',
           );
 
-          await expect(
+          await expect(() =>
             addChildCommandWith({ sex: null }, parent._id),
           ).rejects.toEqual(
             'Sex must be either "male" or "female", but got "null"',
           );
 
-          await expect(
+          await expect(() =>
             addChildCommandWith({ sex: undefined }, parent._id),
           ).rejects.toEqual(
             'Sex must be either "male" or "female", but got "undefined"',
@@ -162,14 +163,14 @@ describe('AddChildHandler', () => {
       describe('with invalid parent Id', () => {
         describe('because it does not exist', () => {
           it('throws an error', async () => {
-            await expect(
+            await expect(() =>
               addChildCommandWith(
                 validChildOptions,
                 '5f944c57ac3334f90c8baeb0',
               ),
             ).rejects.toThrow('Parent not found');
 
-            await expect(
+            await expect(() =>
               addChildCommandWith(validChildOptions, 'wrongId'),
             ).rejects.toThrow('Parent not found');
           });

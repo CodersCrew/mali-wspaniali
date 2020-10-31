@@ -1,10 +1,10 @@
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { MongoClient } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-let mongod;
-let con;
-let db;
+let mongod: MongoMemoryServer;
+let conn: MongoClient;
+let db: Db;
 
 export const clearDatabase = async () => {
   const collections = await db.collections();
@@ -24,18 +24,18 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
         },
       });
 
-      await mongod.start(true);
+      await mongod.start();
 
       await mongod.ensureInstance();
 
       const mongoUri = await mongod.getUri();
 
-      con = await MongoClient.connect(mongoUri, {
+      conn = await MongoClient.connect(mongoUri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
 
-      db = con.db(await mongod.getDbName());
+      db = conn.db(await mongod.getDbName());
 
       return {
         uri: mongoUri,
@@ -45,9 +45,10 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
   });
 
 export const closeInMongodConnection = async () => {
-  if (con) {
-    con.close();
+  if (conn) {
+    await conn.close();
   }
+
   if (mongod) {
     await mongod.stop();
   }
