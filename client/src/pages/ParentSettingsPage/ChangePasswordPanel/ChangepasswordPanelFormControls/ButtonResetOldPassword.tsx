@@ -37,7 +37,7 @@ export const ButtonResetOldPassword = (props: Props) => {
             .then(result => {
                 if (result.close) {
                     dispatch({ type: PASSWORD_RESET_EMAIL_SENT });
-                    // TODO: Snackbar zgasł. Może zamknąć Accordion?;
+                    // TODO: Snackbar closed. Maybe Accordion should close automaticaly, aswell??;
                 }
             })
             .catch(reason => {

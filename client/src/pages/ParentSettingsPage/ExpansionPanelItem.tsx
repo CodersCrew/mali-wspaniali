@@ -26,7 +26,7 @@ export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expande
                 aria-controls={`${name}"-content"`}
                 id={`${name}"-title"`}
             >
-                <Typography variant={'body2'}>{t(title)}</Typography>
+                <Typography variant={'subtitle2'}>{t(title)}</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <Panel user={user} onToggle={onTogglePanelExpansion} name={name} />

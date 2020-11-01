@@ -545,22 +545,17 @@
     "settings-page": {
         "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
         "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
+        "change-password-problems-message-button": "Napisz wiadomość",
         "old-password": "Wpisz aktualne hasło",
         "parent": {
-            "password-change": {
-                "title": "Zmiana hasła"
-            },
-            "language-selection": {
-                "title": "Wybór języka"
-            },
-            "consents": {
-                "title": "Zgody zapisane w programie"
-            },
             "delete-account": {
                 "title": "Usuwanie konta"
             },
             "legal-notes": {
                 "title": "Informacje prawne"
+            },
+            "password-change": {
+                "title": "Zmiana hasła"
             }
         },
         "reset-old-password": "Zresetuj hasło",
