@@ -34,8 +34,8 @@ export function ChangePasswordPanel() {
                 <Typography variant={'body2'} className={classes.problems}>
                     {t('settings-page.change-password-problems-hint')}
                 </Typography>
-                {/* // TODO: wykorzystać wywołanie formularza kontaktowego (może z "usuwania konta"?) */}
                 <ButtonSendMessage />
+                {/* // TODO: use contact form from "account deletion" (after merge) */}
             </Grid>
         </Grid>
     );
