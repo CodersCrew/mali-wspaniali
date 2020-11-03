@@ -535,17 +535,17 @@
         }
     },
     "account-deletion-panel": {
-        "title":"It is not possible to delete an account from the user level.",
+        "title":"It is not possible to delete an account being logged in as a user.",
         "descritpion":"To delete an account in the application, contact the Foundation.",
         "display-modal-button": "Write a message",
         "modal":{
             "cancel-button": "cancel",
             "send-msg-button": "send message",
             "heading": "Contact us",
-            "description":"If you have any problems or have any questions, please write to us! We will dispel all doubts.",
+            "description":"If you have any problems or have any questions, please write to us!  We will sort everything out.",
             "inputs":{
                 "sender":"the sender of the message",
-                "topic":"The title of the message",
+                "topic":"message title",
                 "message":"message"
             }
         }

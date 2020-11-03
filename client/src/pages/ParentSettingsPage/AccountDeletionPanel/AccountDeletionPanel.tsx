@@ -28,7 +28,7 @@ export function AccountDeletionPanel(){
                     </Typography>
                     <Grid item xs={4} className={classes.contentButtonWrapper}>
                         <ButtonSecondary
-                            variant={'contained'}
+                            variant='contained'
                             innerText = {t('account-deletion-panel.display-modal-button')}
                             onClick = {()=>{setModalOpen(prevState => !prevState);}}
                         />
@@ -40,15 +40,13 @@ export function AccountDeletionPanel(){
     );
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         title: {
             marginBottom: theme.spacing(1),
-            paddingLeft: theme.spacing(1),
         },
         description: { 
             marginBottom: theme.spacing(1), 
-            paddingLeft: theme.spacing(1),
             color: theme.palette.text.secondary,
         },
         contentButtonWrapper: {
@@ -59,6 +57,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         item: {
             flex: 1,
+            padding: theme.spacing(1),
+            paddingLeft: 0,
+            paddingRight: 0,
         },
     }),
 );

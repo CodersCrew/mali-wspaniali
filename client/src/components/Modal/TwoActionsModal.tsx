@@ -46,6 +46,8 @@ const useStyles = makeStyles(() =>
     createStyles({
         buttonsWrapper: {
             display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-end',
             justifyItems: 'center',
             '& > :not(:first-child)': {
                 marginLeft: 0,

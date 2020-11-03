@@ -544,7 +544,7 @@
             "inputs":{
                 "sender":"Nadawca wiadomości",
                 "topic":"Tytuł wiadomości",
-                "message":"Message content"
+                "message":"Treść wiadomości"
             }
         }
     }

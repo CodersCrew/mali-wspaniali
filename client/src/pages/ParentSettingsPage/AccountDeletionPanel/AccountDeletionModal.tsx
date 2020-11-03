@@ -17,7 +17,13 @@ interface Props {
     modalOpen:boolean;
     setModalOpen:(state:boolean) => void;
     handleSubmit: (data:SendMessageResult)=> void;
-    classes: any;
+    classes: {
+        title: string;
+        description: string;
+        contentButtonWrapper: string;
+        container: string;
+        item: string;
+      };
 }
 
 const validationSchema = yup.object({
@@ -54,7 +60,7 @@ export function Modal({modalOpen, setModalOpen, handleSubmit, classes}:Props){
               
                     <Grid item xs={12}>
                         <Grid container spacing={2} direction="column">
-                            <Grid item  classes={{ root: classes.item }}>
+                            <Grid  classes={{ root: classes.item }}>
                                 <Input
                                     value={formik.values.sender}
                                     name="sender"
@@ -64,7 +70,7 @@ export function Modal({modalOpen, setModalOpen, handleSubmit, classes}:Props){
                                     onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
                                 />
                             </Grid>
-                            <Grid item  classes={{ root: classes.item }}>
+                            <Grid classes={{ root: classes.item }}>
                                 <Input
                                     value={formik.values.title}
                                     name="title"
