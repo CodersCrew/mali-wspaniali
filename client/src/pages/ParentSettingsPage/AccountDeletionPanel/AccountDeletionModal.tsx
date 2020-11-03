@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Grid, Typography } from '@material-ui/core';
+import {  Grid, Typography , createStyles , makeStyles,  Theme} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -17,13 +17,6 @@ interface Props {
     modalOpen:boolean;
     setModalOpen:(state:boolean) => void;
     handleSubmit: (data:SendMessageResult)=> void;
-    classes: {
-        title: string;
-        description: string;
-        contentButtonWrapper: string;
-        container: string;
-        item: string;
-      };
 }
 
 const validationSchema = yup.object({
@@ -32,8 +25,9 @@ const validationSchema = yup.object({
     message: yup.string().required()
 });
 
-export function Modal({modalOpen, setModalOpen, handleSubmit, classes}:Props){
+export function Modal({modalOpen, setModalOpen, handleSubmit}:Props){
     const { t } = useTranslation();
+    const classes = useStyles();
     const user = useMe();
 
     const initialValues = {
@@ -50,7 +44,7 @@ export function Modal({modalOpen, setModalOpen, handleSubmit, classes}:Props){
     return(
         <TwoActionsModal isOpen={modalOpen} onClose={()=>{setModalOpen(false);}}   lowerButtonOnClick={()=>{setModalOpen(false);}} lowerButtonText={t('account-deletion-panel.modal.cancel-button')} upperButtonOnClick={formik.handleSubmit} upperButtonText={t('account-deletion-panel.modal.send-msg-button')}>
             <form onSubmit={formik.handleSubmit}>
-                <Grid container spacing={2} className={classes.container}>
+                <Grid spacing={2} >
                     <Typography variant="h4" classes={{ root: classes.title }}>
                         {t('account-deletion-panel.modal.heading')}
                     </Typography>
@@ -80,7 +74,7 @@ export function Modal({modalOpen, setModalOpen, handleSubmit, classes}:Props){
                                     onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
                                 />
                             </Grid>
-                            <Grid item  classes={{ root: classes.item }}>
+                            <Grid  classes={{ root: classes.item }}>
                                 <Input
                                     value={formik.values.message}
                                     name="message"
@@ -98,3 +92,23 @@ export function Modal({modalOpen, setModalOpen, handleSubmit, classes}:Props){
         </TwoActionsModal>
     );
 }
+
+
+
+export const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        title: {
+            marginBottom: theme.spacing(1),
+        },
+        description: { 
+            marginBottom: theme.spacing(2), 
+            color: theme.palette.text.secondary,
+        },
+        item: {
+            flex: 1,
+            padding: theme.spacing(1),
+            paddingLeft: 0,
+            paddingRight: 0,
+        },
+    }),
+);

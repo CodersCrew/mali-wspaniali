@@ -35,7 +35,7 @@ export function AccountDeletionPanel(){
                     </Grid>
                 </Grid>
             </Grid>
-            <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} classes={classes} handleSubmit={handleSubmit}/>
+            <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} handleSubmit={handleSubmit}/>
         </>
     );
 }
