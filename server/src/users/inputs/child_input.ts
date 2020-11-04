@@ -18,6 +18,7 @@ export class ChildInput {
   readonly kindergartenId: string;
 }
 
+@InputType()
 export class UpdatedChildInput extends PartialType(ChildInput) {
   @Field()
   readonly childId: string;
