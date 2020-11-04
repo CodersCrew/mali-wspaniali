@@ -20,7 +20,7 @@ export class ChildRepository {
 
     const created = await createdChild.save();
 
-    return ChildMapper.toDomain(created);
+    return ChildMapper.toDomain(created, { isNew: true });
   }
 
   async addResult(
@@ -34,11 +34,12 @@ export class ChildRepository {
 
   async get(
     childIds: mongoose.Schema.Types.ObjectId[] | string[],
-  ): Promise<ChildProps[]> {
+  ): Promise<Child[]> {
     return await this.childModel
       .find({ _id: childIds })
       .lean()
-      .exec();
+      .exec()
+      .then(childList => childList.map(child => ChildMapper.toDomain(child)));
   }
 
   async getByKindergarten(id: string): Promise<ChildProps[]> {
@@ -51,6 +52,28 @@ export class ChildRepository {
       .lean()
       .exec()
       .then(childList => childList.map(child => ChildMapper.toDomain(child)));
+  }
+
+  async updateChild(
+    id: string,
+    update: { [index: string]: string | number },
+  ): Promise<Child> {
+    const [child] = await this.get([id]);
+
+    if (!child) {
+      throw new Error('Child not found');
+    }
+
+    ChildMapper.toDomain({
+      ...ChildMapper.toPersistence(child),
+      ...update,
+    });
+
+    const updated = await this.childModel.findByIdAndUpdate(id, update, {
+      new: true,
+    });
+
+    return ChildMapper.toDomain(updated);
   }
 
   // for e2e purpose only

@@ -30,7 +30,7 @@ export class User extends AggregateRoot {
     this.props.mail = Mail.create(props.mail).getValue().value;
   }
 
-  id() {
+  get id() {
     return (this.props as UserProps)._id;
   }
 

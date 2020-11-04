@@ -1,25 +1,24 @@
-import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { AddChildCommand } from '../impl/add_child_command';
 import { UserRepository } from '../../repositories/user_repository';
 import { ChildRepository } from '../../repositories/child_repository';
 import { ChildMapper } from '../../mappers/child_mapper';
 import { Child } from '../../models/child_model';
 import { isObjectId } from '../../../../shared/utils/db_utils';
 import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
+import { EditChildCommand } from '../impl/edit_child_command';
 
-@CommandHandler(AddChildCommand)
-export class AddChildHandler implements ICommandHandler<AddChildCommand> {
+@CommandHandler(EditChildCommand)
+export class EditChildHandler implements ICommandHandler<EditChildCommand> {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly childRepository: ChildRepository,
     private readonly kindergartenRepository: KindergartenRepository,
-    private readonly publisher: EventPublisher,
   ) {}
 
-  async execute(command: AddChildCommand): Promise<Child> {
+  async execute(command: EditChildCommand): Promise<Child> {
     const {
-      child: { kindergartenId, ...rawChild },
+      child: { kindergartenId, childId, ...rawChild },
       userId,
     } = command;
 
@@ -43,25 +42,13 @@ export class AddChildHandler implements ICommandHandler<AddChildCommand> {
       throw new Error('Parent not found');
     }
 
-    const child = ChildMapper.toDomain({
-      ...rawChild,
-      _id: undefined,
+    const updatedChild = await this.childRepository.updateChild(childId, {
       kindergarten: kindergartenId,
-      isDeleted: false,
+      ...rawChild,
     });
 
-    const createdChild = this.publisher.mergeObjectContext(
-      await this.childRepository.create(child),
-    );
+    if (updatedChild) return updatedChild;
 
-    await createdChild.commit();
-
-    if (createdChild) {
-      this.userRepository.addChild(createdChild.id, userId);
-
-      return createdChild;
-    }
-
-    throw new Error('Adding a child failed.');
+    throw new Error('Editing a child failed.');
   }
 }

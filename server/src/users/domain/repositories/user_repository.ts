@@ -90,9 +90,13 @@ export class UserRepository {
   }
 
   async addChild(childId: ObjectId, userId: string): Promise<void> {
-    await this.userModel.findByIdAndUpdate(userId, {
-      $addToSet: { children: childId.value },
-    });
+    await this.userModel.findByIdAndUpdate(
+      userId,
+      {
+        $addToSet: { children: childId.value },
+      },
+      { new: true },
+    );
   }
 
   async writePassword(userId: string, password: string): Promise<void> {
