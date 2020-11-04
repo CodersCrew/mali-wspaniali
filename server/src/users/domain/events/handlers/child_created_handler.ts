@@ -7,5 +7,7 @@ import { UserRepository } from '../../repositories/user_repository';
 export class ChildCreatedHandler implements IEventHandler<ChildCreatedEvent> {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async handle(event: ChildCreatedEvent): Promise<void> {}
+  async handle(event: ChildCreatedEvent): Promise<void> {
+    // todo
+  }
 }

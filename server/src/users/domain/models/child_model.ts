@@ -10,6 +10,7 @@ import { ObjectId } from './object_id_value_object';
 import { Result } from '../../../shared/domain/result';
 import { ChildDeletedEvent } from '../events/impl/child_deleted_event';
 import { ChildCreatedEvent } from '../events/impl';
+import { KindergartenProps } from '../../../kindergartens/domain/models/kindergarten_model';
 
 export interface ChildProps {
   _id: string;
@@ -20,6 +21,11 @@ export interface ChildProps {
   isDeleted: boolean;
   results?: mongoose.Schema.Types.ObjectId[] | ChildResultProps[];
   kindergarten: string;
+}
+
+export interface ChildWithKindergartenProps
+  extends Omit<ChildProps, 'kindergarten'> {
+  kindergarten: KindergartenProps;
 }
 
 interface Props {
