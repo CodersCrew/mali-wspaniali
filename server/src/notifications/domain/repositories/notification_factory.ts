@@ -25,6 +25,16 @@ export function createUserCreatedNotification(
   };
 }
 
+export function createChildNotification(
+  user: string,
+): NotificationFactoryResult {
+  return {
+    user,
+    templateId: 'child_created',
+    values: [],
+  };
+}
+
 export function createAssessmentCreatedNotification(
   users: string | string[],
   values: string[],
