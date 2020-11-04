@@ -3,8 +3,12 @@ import { Result } from '../../../shared/domain/result';
 import { BirthYear } from '../models/birth_year_value_object';
 import { ObjectId } from '../models/object_id_value_object';
 
+interface DomainMapperOptions {
+  isNew: boolean;
+}
+
 export class ChildMapper {
-  static toDomain(props: ChildProps): Child {
+  static toDomain(props: ChildProps, options?: DomainMapperOptions): Child {
     const _id = ObjectId.create(props._id);
     const firstname = Firstname.create(props.firstname);
     const lastname = Lastname.create(props.lastname);
@@ -22,7 +26,10 @@ export class ChildMapper {
     ]);
 
     if (result.isSuccess) {
-      return Child.create({
+      const createChild =
+        options && options.isNew ? Child.create : Child.recreate;
+
+      return createChild({
         _id: _id.getValue(),
         firstname: firstname.getValue(),
         lastname: lastname.getValue(),
@@ -32,7 +39,7 @@ export class ChildMapper {
         kindergarten: kindergarten.getValue(),
       });
     } else {
-      throw result.error;
+      throw new Error(result.error);
     }
   }
 

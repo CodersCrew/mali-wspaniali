@@ -7,7 +7,7 @@ import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { UsersModule } from '../../../../users_module';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
-import { User, UserProps } from '../../../../../users/domain/models/user_model';
+import { User } from '../../../../../users/domain/models/user_model';
 import { Child } from '../../../models/child_model';
 import { ObjectId } from '../../../models/object_id_value_object';
 import { Sex } from '../../../models/sex_value_object';
@@ -19,6 +19,8 @@ import { KindergartenModule } from '../../../../../kindergartens/kindergarten_mo
 import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
 import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
+import { NotificationsModule } from '../../../../../notifications/notifications.module';
+import { ChildCreatedHandler } from '../../../events/handlers/child_created_handler';
 
 afterAll(async () => {
   await dbHandler.closeInMongodConnection();
@@ -29,7 +31,7 @@ beforeAll(async () => {
 });
 
 describe('AddChildHandler', () => {
-  let parent: UserProps;
+  let parent: User;
   let kindergarten: KindergartenProps;
   let addedChild: Child;
   let module: TestingModule;
@@ -47,19 +49,23 @@ describe('AddChildHandler', () => {
 
     await dbHandler.clearDatabase();
 
-    const parentObj = await createParent();
-
-    parent = parentObj.getProps() as UserProps;
+    parent = await createParent();
 
     kindergarten = await createKindergarten();
 
     validChildOptions.kindergartenId = kindergarten._id;
   });
 
+  afterEach(async () => {
+    await module.close();
+  });
+
   describe('when executed', () => {
     describe('with correct data', () => {
       beforeEach(async () => {
-        addedChild = await addChildCommandWith(validChildOptions, parent._id);
+        addedChild = await addChildCommandWith(validChildOptions, parent.id);
+
+        await awaitForResponse();
       });
 
       it('returns child instance', async () => {
@@ -69,7 +75,7 @@ describe('AddChildHandler', () => {
         expect(addedChild.isDeleted).toEqual(false);
         expect(addedChild.kindergarten).toBeInstanceOf(ObjectId);
         expect(addedChild.kindergarten.isEmpty()).toEqual(false);
-        expect(addedChild.kindergarten.value.toString()).toEqual(
+        expect(addedChild.kindergarten.toString()).toEqual(
           kindergarten._id.toString(),
         );
         expect(addedChild.sex).toBeInstanceOf(Sex);
@@ -87,78 +93,78 @@ describe('AddChildHandler', () => {
       describe('with invalid firstname', () => {
         it('throws an error', async () => {
           await expect(() =>
-            addChildCommandWith({ firstname: 'my' }, parent._id),
-          ).rejects.toEqual('Firstname must be valid');
+            addChildCommandWith({ firstname: 'my' }, parent.id),
+          ).rejects.toThrow('Firstname must be valid');
 
           await expect(() =>
             addChildCommandWith(
               { firstname: new Array(41).fill(' ').join('') },
-              parent._id,
+              parent.id,
             ),
-          ).rejects.toEqual('Firstname must be valid');
+          ).rejects.toThrow('Firstname must be valid');
 
           await expect(() =>
-            addChildCommandWith({ firstname: null }, parent._id),
-          ).rejects.toEqual('Firstname is null or undefined');
+            addChildCommandWith({ firstname: null }, parent.id),
+          ).rejects.toThrow('Firstname is null or undefined');
 
           await expect(() =>
-            addChildCommandWith({ firstname: undefined }, parent._id),
-          ).rejects.toEqual('Firstname is null or undefined');
+            addChildCommandWith({ firstname: undefined }, parent.id),
+          ).rejects.toThrow('Firstname is null or undefined');
         });
       });
 
       describe('with invalid lastname', () => {
         it('throws an error', async () => {
           await expect(() =>
-            addChildCommandWith({ lastname: 'my' }, parent._id),
-          ).rejects.toEqual('Lastname must be valid');
+            addChildCommandWith({ lastname: 'my' }, parent.id),
+          ).rejects.toThrow('Lastname must be valid');
 
           await expect(() =>
             addChildCommandWith(
               { lastname: new Array(51).fill(' ').join('') },
-              parent._id,
+              parent.id,
             ),
-          ).rejects.toEqual('Lastname must be valid');
+          ).rejects.toThrow('Lastname must be valid');
 
           await expect(() =>
-            addChildCommandWith({ lastname: null }, parent._id),
-          ).rejects.toEqual('Lastname is null or undefined');
+            addChildCommandWith({ lastname: null }, parent.id),
+          ).rejects.toThrow('Lastname is null or undefined');
 
           await expect(() =>
-            addChildCommandWith({ lastname: undefined }, parent._id),
-          ).rejects.toEqual('Lastname is null or undefined');
+            addChildCommandWith({ lastname: undefined }, parent.id),
+          ).rejects.toThrow('Lastname is null or undefined');
         });
       });
 
       describe('with invalid birth year', () => {
         it('throws an error', async () => {
           await expect(() =>
-            addChildCommandWith({ birthYear: null }, parent._id),
-          ).rejects.toEqual('BirthYear must be valid, but got "null"');
+            addChildCommandWith({ birthYear: null }, parent.id),
+          ).rejects.toThrow('BirthYear must be valid, but got "null"');
 
           await expect(() =>
-            addChildCommandWith({ birthYear: undefined }, parent._id),
-          ).rejects.toEqual('BirthYear must be valid, but got "undefined"');
+            addChildCommandWith({ birthYear: undefined }, parent.id),
+          ).rejects.toThrow('BirthYear must be valid, but got "undefined"');
         });
       });
 
       describe('with invalid sex', () => {
         it('throws an error', async () => {
           await expect(() =>
-            addChildCommandWith({ sex: 'another' }, parent._id),
-          ).rejects.toEqual(
+            addChildCommandWith({ sex: 'another' }, parent.id),
+          ).rejects.toThrow(
             'Sex must be either "male" or "female", but got "another"',
           );
 
           await expect(() =>
-            addChildCommandWith({ sex: null }, parent._id),
-          ).rejects.toEqual(
+            addChildCommandWith({ sex: null }, parent.id),
+          ).rejects.toThrow(
             'Sex must be either "male" or "female", but got "null"',
           );
 
           await expect(() =>
-            addChildCommandWith({ sex: undefined }, parent._id),
-          ).rejects.toEqual(
+            addChildCommandWith({ sex: undefined }, parent.id),
+          ).rejects.toThrow(
             'Sex must be either "male" or "female", but got "undefined"',
           );
         });
@@ -185,11 +191,11 @@ describe('AddChildHandler', () => {
         describe('because it does not exist', () => {
           it('throws an error', async () => {
             await expect(() =>
-              addChildCommandWith({ kindergartenId: parent._id }, parent._id),
+              addChildCommandWith({ kindergartenId: parent.id }, parent.id),
             ).rejects.toThrow('Kindergarten not found');
 
             await expect(() =>
-              addChildCommandWith({ kindergartenId: 'wrongId' }, parent._id),
+              addChildCommandWith({ kindergartenId: 'wrongId' }, parent.id),
             ).rejects.toThrow('Kindergarten not found');
           });
         });
@@ -198,11 +204,11 @@ describe('AddChildHandler', () => {
   });
 
   function addChildCommandWith(options, parentId) {
-    return module
-      .get(AddChildHandler)
-      .execute(
+    return module.resolve(AddChildHandler).then(handler => {
+      return handler.execute(
         new AddChildCommand({ ...validChildOptions, ...options }, parentId),
       );
+    });
   }
 
   async function createParent(): Promise<User> {
@@ -242,12 +248,18 @@ async function setup() {
       CqrsModule,
       UsersModule,
       KeyCodesModule,
+      NotificationsModule,
       KindergartenModule,
     ],
-    providers: [AddChildHandler, CreateUserHandler, CreateKeyCodeHandler],
+    providers: [
+      AddChildHandler,
+      CreateUserHandler,
+      CreateKeyCodeHandler,
+      ChildCreatedHandler,
+    ],
   }).compile();
 }
 
-export function awaitForResponse(): Promise<void> {
+function awaitForResponse(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0));
 }

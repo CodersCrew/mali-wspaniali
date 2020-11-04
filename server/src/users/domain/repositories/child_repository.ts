@@ -20,7 +20,7 @@ export class ChildRepository {
 
     const created = await createdChild.save();
 
-    return ChildMapper.toDomain(created);
+    return ChildMapper.toDomain(created, { isNew: true });
   }
 
   async addResult(
@@ -34,11 +34,12 @@ export class ChildRepository {
 
   async get(
     childIds: mongoose.Schema.Types.ObjectId[] | string[],
-  ): Promise<ChildProps[]> {
+  ): Promise<Child[]> {
     return await this.childModel
       .find({ _id: childIds })
       .lean()
-      .exec();
+      .exec()
+      .then(childList => childList.map(child => ChildMapper.toDomain(child)));
   }
 
   async getByKindergarten(id: string): Promise<ChildProps[]> {
