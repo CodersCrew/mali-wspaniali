@@ -54,6 +54,28 @@ export class ChildRepository {
       .then(childList => childList.map(child => ChildMapper.toDomain(child)));
   }
 
+  async updateChild(
+    id: string,
+    update: { [index: string]: string | number },
+  ): Promise<Child> {
+    const [child] = await this.get([id]);
+
+    if (!child) {
+      throw new Error('Child not found');
+    }
+
+    ChildMapper.toDomain({
+      ...ChildMapper.toPersistence(child),
+      ...update,
+    });
+
+    const updated = await this.childModel.findByIdAndUpdate(id, update, {
+      new: true,
+    });
+
+    return ChildMapper.toDomain(updated);
+  }
+
   // for e2e purpose only
   async clearTable(): Promise<void> {
     await this.childModel.deleteMany({});
