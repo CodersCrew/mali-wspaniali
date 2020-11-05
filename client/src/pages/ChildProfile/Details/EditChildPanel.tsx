@@ -32,7 +32,7 @@ const validationSchema = yup.object({
     kindergarten: yup.string().required(),
 });
 
-export function EditChildModal({ handleSubmit, kindergartens, child }: ChildFormProps) {
+export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildFormProps) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();

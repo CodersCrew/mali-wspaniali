@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStyles, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { EditChildModal } from './EditChildModal';
+import { EditChildPanel } from './EditChildPanel';
 import { Theme } from '../../../theme';
 import { useKindergartens } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Loader } from '../../../components/Loader';
@@ -25,16 +25,16 @@ export function ChildDetails({ child }: Props) {
     return (
         <div className={classes.mainContainer}>
             <Typography variant="h4">{t('child-profile.child-details.form')} </Typography>
-            <EditChildModal
+            <EditChildPanel
                 child={child}
-                handleSubmit={_child => {
+                handleSubmit={updatedChild => {
                     editChild({
                         childId: child._id,
-                        firstname: _child.firstname,
-                        lastname: _child.lastname,
-                        birthYear: parseInt(_child['birth-date'], 10),
-                        sex: _child.sex,
-                        kindergartenId: _child.kindergarten,
+                        firstname: updatedChild.firstname,
+                        lastname: updatedChild.lastname,
+                        birthYear: parseInt(updatedChild['birth-date'], 10),
+                        sex: updatedChild.sex,
+                        kindergartenId: updatedChild.kindergarten,
                     });
                 }}
                 kindergartens={kindergartenList}
