@@ -55,6 +55,15 @@ export interface ChildInput {
     kindergartenId: string;
 }
 
+export interface UpdatedChildInput {
+    childId: string;
+    firstname: string;
+    lastname: string;
+    birthYear: number;
+    sex: string;
+    kindergartenId: string;
+}
+
 export type User = Omit<Me, 'notifications'>;
 
 export interface Me {

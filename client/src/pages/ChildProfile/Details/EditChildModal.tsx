@@ -4,24 +4,23 @@ import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useSelectOptions } from '../../../components/AddChildModal/useSelectValues';
-import { Kindergarten } from '../../../graphql/types';
+import { Child, Kindergarten } from '../../../graphql/types';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { Input } from '../../../components/AddChildModal/Input';
 import { Select } from '../../../components/AddChildModal/Select';
 import { ButtonSecondary } from '../../../components/Button';
 
-const initialValues = {
-    firstname: '',
-    lastname: '',
-    sex: '',
-    'birth-date': '',
-    'birth-quarter': '',
-    kindergarten: '',
-};
-
 interface ChildFormProps {
     kindergartens: Kindergarten[];
-    handleSubmit: (data: {}) => void;
+    handleSubmit: (value: {
+        firstname: string;
+        lastname: string;
+        sex: string;
+        'birth-date': string;
+        'birth-quarter': string;
+        kindergarten: string;
+    }) => void;
+    child: Child;
 }
 
 const validationSchema = yup.object({
@@ -33,14 +32,24 @@ const validationSchema = yup.object({
     kindergarten: yup.string().required(),
 });
 
-export function EditChildModal({ handleSubmit, kindergartens }: ChildFormProps) {
+export function EditChildModal({ handleSubmit, kindergartens, child }: ChildFormProps) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();
+
+    const initialValues = {
+        firstname: child.firstname,
+        lastname: child.lastname,
+        sex: child.sex,
+        'birth-date': child.birthYear.toString(),
+        'birth-quarter': '',
+        kindergarten: child.kindergarten._id,
+    };
+
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: data => handleSubmit(data),
+        onSubmit: handleSubmit,
     });
     const { getOptions } = useSelectOptions();
 
@@ -143,7 +152,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         formContainer: {
             marginTop: theme.spacing(3),
-            width: '55vw',
         },
         title: { marginBottom: theme.spacing(3) },
         description: { marginBottom: theme.spacing(2) },

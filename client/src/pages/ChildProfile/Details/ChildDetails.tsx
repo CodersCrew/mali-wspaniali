@@ -1,30 +1,41 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { createStyles, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { EditChildModal } from './EditChildModal';
-import { UserContext } from '../../AppWrapper';
 import { Theme } from '../../../theme';
 import { useKindergartens } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Loader } from '../../../components/Loader';
+import { Child } from '../../../graphql/types';
+import { useEditChild } from '../../../operations/mutations/User/editChild';
 
-export function ChildDetails() {
-    const user = useContext(UserContext);
+interface Props {
+    child: Child;
+}
+
+export function ChildDetails({ child }: Props) {
     const { kindergartenList, isKindergartenListLoading } = useKindergartens();
+    const { editChild } = useEditChild();
     const classes = useStyles();
     const { t } = useTranslation();
-    if (!user || !kindergartenList) return null;
+
+    if (!kindergartenList) return null;
+
     if (isKindergartenListLoading) return <Loader />;
 
     return (
         <div className={classes.mainContainer}>
             <Typography variant="h4">{t('child-profile.child-details.form')} </Typography>
             <EditChildModal
+                child={child}
                 handleSubmit={_child => {
-                    /* UPDATE_CHILD({
-                        variables: {
-                            child: newChild,
-                        },
-                    }); */
+                    editChild({
+                        childId: child._id,
+                        firstname: _child.firstname,
+                        lastname: _child.lastname,
+                        birthYear: parseInt(_child['birth-date'], 10),
+                        sex: _child.sex,
+                        kindergartenId: _child.kindergarten,
+                    });
                 }}
                 kindergartens={kindergartenList}
             />
