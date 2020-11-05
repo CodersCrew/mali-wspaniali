@@ -14,7 +14,7 @@ type Props = {
     email: string;
 };
 
-export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Props) => {
+export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -48,7 +48,7 @@ export const ResetPasswordForm = ({ onChange, onSubmit, isDisabled, email }: Pro
             </div>
         </>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

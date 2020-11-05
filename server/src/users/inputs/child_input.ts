@@ -1,4 +1,4 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class ChildInput {
@@ -16,4 +16,10 @@ export class ChildInput {
 
   @Field()
   readonly kindergartenId: string;
+}
+
+@InputType()
+export class UpdatedChildInput extends PartialType(ChildInput) {
+  @Field()
+  readonly childId: string;
 }

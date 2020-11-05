@@ -13,6 +13,7 @@ export function KeyCodesToGenerateTextfield({ value, onChange }: Props) {
 
     return (
         <TextField
+            data-testid="keycodes-count-input"
             type="number"
             value={value}
             onChange={({ target: { value: amount } }) =>

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { LoginPage } from './LoginPage/LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { ForgotPasswordPage } from './ForgotPasswordPage';
-import { TestResultsPage } from './TestResultsPage';
+import { TestResultsPage } from './TestResultsPage/TestResultsPage';
 import { ChildResultsPage } from './ChildProfile/ChildResultsPage';
 import { ParentProfilePage } from './ParentProfilePage/ParentProfilePage';
 import { UsersPage } from './UsersPage/UsersPage';

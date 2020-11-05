@@ -30,6 +30,10 @@ export class User extends AggregateRoot {
     this.props.mail = Mail.create(props.mail).getValue().value;
   }
 
+  get id() {
+    return (this.props as UserProps)._id;
+  }
+
   static create(props: UserProps, keyCode: string): User {
     const user = new User(props);
 

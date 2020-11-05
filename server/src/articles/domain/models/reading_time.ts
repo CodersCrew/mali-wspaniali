@@ -5,13 +5,9 @@ export type ReadingTimeProps = number;
 
 export type ReadingTimeValue = Props<ReadingTimeProps>;
 
-export class ReadingTime extends ValueObject<ReadingTimeValue> {
+export class ReadingTime extends ValueObject<ReadingTimeProps> {
   private constructor(props: ReadingTimeValue) {
     super(props);
-  }
-
-  get value(): ReadingTimeProps {
-    return this.props.value;
   }
 
   public static create(time: number): Result<ReadingTime> {
