@@ -85,7 +85,7 @@ export const ChildResultsPage = () => {
             )}
             {category === 'recomendations' && <Recomendations />}
             {category === 'tests-information' && <ChildProfileAboutTests />}
-            {category === 'details' && <ChildDetails />}
+            {category === 'details' && <ChildDetails child={child} />}
         </>
     );
 };
