@@ -22,7 +22,7 @@ import { ReturnedTokenDTO } from '../shared/returned_token';
 import { LoginInput } from './inputs/login_input';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { CurrentUser } from './params/current_user_param';
-import { ChildInput } from './inputs/child_input';
+import { ChildInput, UpdatedChildInput } from './inputs/child_input';
 import { ChildProps } from './domain/models/child_model';
 import { LoggedUser } from './params/current_user_param';
 import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
@@ -45,6 +45,7 @@ import {
   ResetPasswordCommand,
 } from './domain/commands/impl';
 import { ChildWithKindergarten } from './domain/queries/handlers/get_all_children_handler';
+import { EditChildCommand } from './domain/commands/impl/edit_child_command';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -136,6 +137,19 @@ export class UsersResolver {
     );
 
     return { status: !!created };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(GqlAuthGuard)
+  async editChild(
+    @CurrentUser() user: LoggedUser,
+    @Args('child') child: UpdatedChildInput,
+  ): Promise<{ status: boolean }> {
+    const edited: ChildProps = await this.commandBus.execute(
+      new EditChildCommand(child, user.userId),
+    );
+
+    return { status: !!edited };
   }
 
   @Mutation(() => ReturnedStatusDTO)

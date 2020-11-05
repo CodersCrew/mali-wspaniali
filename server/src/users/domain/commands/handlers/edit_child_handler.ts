@@ -14,7 +14,9 @@ export class EditChildHandler implements ICommandHandler<EditChildCommand> {
     private readonly userRepository: UserRepository,
     private readonly childRepository: ChildRepository,
     private readonly kindergartenRepository: KindergartenRepository,
-  ) {}
+  ) {
+    this.getKindergarten = this.getKindergarten.bind(this);
+  }
 
   async execute(command: EditChildCommand): Promise<Child> {
     const {
@@ -22,14 +24,10 @@ export class EditChildHandler implements ICommandHandler<EditChildCommand> {
       userId,
     } = command;
 
-    if (!isObjectId(kindergartenId)) {
-      throw new Error('Kindergarten not found');
-    }
+    let kindergarten;
 
-    const kindergarten = await this.kindergartenRepository.get(kindergartenId);
-
-    if (!kindergarten) {
-      throw new Error('Kindergarten not found');
+    if (command.child.kindergartenId) {
+      kindergarten = await this.getKindergarten(command);
     }
 
     if (!isObjectId(userId)) {
@@ -42,13 +40,37 @@ export class EditChildHandler implements ICommandHandler<EditChildCommand> {
       throw new Error('Parent not found');
     }
 
-    const updatedChild = await this.childRepository.updateChild(childId, {
-      kindergarten: kindergartenId,
-      ...rawChild,
-    });
+    let updateQuery: Partial<EditChildCommand['child']> & {
+      kindergarten?: string;
+    } = rawChild;
+
+    if (kindergarten) {
+      updateQuery.kindergarten = kindergartenId;
+    }
+
+    const updatedChild = await this.childRepository.updateChild(
+      childId,
+      updateQuery,
+    );
 
     if (updatedChild) return updatedChild;
 
     throw new Error('Editing a child failed.');
+  }
+
+  async getKindergarten({ child }: EditChildCommand) {
+    if (child.kindergartenId && !isObjectId(child.kindergartenId)) {
+      throw new Error('Kindergarten not found');
+    }
+
+    const kindergarten = await this.kindergartenRepository.get(
+      child.kindergartenId,
+    );
+
+    if (!kindergarten) {
+      throw new Error('Kindergarten not found');
+    }
+
+    return kindergarten;
   }
 }

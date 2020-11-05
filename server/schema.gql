@@ -170,6 +170,7 @@ type Mutation {
   createArticle(article: ArticleInput!): ReturnedStatusDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
   addChild(child: ChildInput!): ReturnedStatusDTO!
+  editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
   addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   login(user: LoginInput!): ReturnedTokenDTO!
   resetPassword(mail: String!): ReturnedStatusDTO!
@@ -221,6 +222,15 @@ input ChildInput {
   birthYear: Int!
   sex: String!
   kindergartenId: String!
+}
+
+input UpdatedChildInput {
+  firstname: String
+  lastname: String
+  birthYear: Int
+  sex: String
+  kindergartenId: String
+  childId: String!
 }
 
 input ResultInput {
