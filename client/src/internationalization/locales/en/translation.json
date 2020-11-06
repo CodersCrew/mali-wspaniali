@@ -550,22 +550,17 @@
     "settings-page": {
         "change-password-problems": "Have difficulties changing your password?",
         "change-password-problems-hint": "No worries! Contact the Foundation to fix the problem.",
+        "change-password-problems-message-button": "Send message",
         "old-password": "Enter the old password",
         "parent": {
-            "password-change": {
-                "title": "Password change"
-            },
-            "language-selection": {
-                "title": "Language selection"
-            },
-            "consents": {
-                "title": "Consents given in the program"
-            },
             "delete-account": {
                 "title": "Deletion of the account"
             },
             "legal-notes": {
                 "title": "Legal notes"
+            },
+            "password-change": {
+                "title": "Password change"
             }
         },
         "reset-old-password": "Reset password",

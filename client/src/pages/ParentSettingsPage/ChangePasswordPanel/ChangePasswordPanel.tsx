@@ -7,6 +7,7 @@ import { FormControlOldPassword } from './ChangepasswordPanelFormControls/FormCo
 import { ChangePasswordPanelReducer, ChangePasswordPanelInitialState } from './ChangePasswordPanelReducer';
 import { useMe } from '../../../utils/useMe';
 import { ButtonResetOldPassword } from './ChangepasswordPanelFormControls/ButtonResetOldPassword';
+import { ButtonSendMessage } from './ChangepasswordPanelFormControls/ButtonSendMessage';
 
 export function ChangePasswordPanel() {
     const device = useBreakpoints();
@@ -33,7 +34,8 @@ export function ChangePasswordPanel() {
                 <Typography variant={'body2'} className={classes.problems}>
                     {t('settings-page.change-password-problems-hint')}
                 </Typography>
-                {/* // TODO: wykorzystać wywołanie formularza kontaktowego (może z "usuwania konta"?) */}
+                <ButtonSendMessage />
+                {/* // TODO: use contact form from "account deletion" (after merge) */}
             </Grid>
         </Grid>
     );

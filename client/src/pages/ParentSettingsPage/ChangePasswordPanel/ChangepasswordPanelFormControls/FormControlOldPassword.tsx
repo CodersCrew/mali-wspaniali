@@ -9,7 +9,7 @@ import {
     TOGGLE_OLD_PASSWORD_VISIBILITY,
 } from '../ChangePasswordPanelReducer';
 
-// TODO: żeby ENTER naciśnięty na polu formularza robił to samo, co kliknięcie BUTTON - wykonywał reset hasla
+// TODO: Should ENTER pressed during typing the password do the same action as BUTTON click? - invoke password reset process
 export const FormControlOldPassword = (props: ChangePasswordPanelComponentsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();

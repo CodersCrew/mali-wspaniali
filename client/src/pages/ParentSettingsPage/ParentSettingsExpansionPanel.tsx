@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { ChangePasswordPanel } from './ChangePasswordPanel/ChangePasswordPanel';
 import { ExpansionPanelItem } from './ExpansionPanelItem';
-import { DefaultLanguagePanel } from './DefaultLanguagePanel/DefaultLanguagePanel';
 import { LegalNotesPanel } from './LegalNotesPanel/LegalNotesPanel';
-import { ConsentsPanel } from './ConsentsPanel/ConsentsPanel';
 import { AccountDeletionPanel } from './AccountDeletionPanel/AccountDeletionPanel';
 import { Me } from '../../graphql/types';
 
@@ -30,27 +28,11 @@ export function ParentSettingsExpansionPanel({ user }: Props) {
             />
             <ExpansionPanelItem
                 user={user}
-                name={'language-selection-panel'}
-                onTogglePanelExpansion={togglePanelExpansion}
-                expanded={expandedPanel === 'language-selection-panel'}
-                title={'settings-page.parent.language-selection.title'}
-                panel={DefaultLanguagePanel}
-            />
-            <ExpansionPanelItem
-                user={user}
                 name={'legal-notes-panel'}
                 onTogglePanelExpansion={togglePanelExpansion}
                 expanded={expandedPanel === 'legal-notes-panel'}
                 title={'settings-page.parent.legal-notes.title'}
                 panel={LegalNotesPanel}
-            />
-            <ExpansionPanelItem
-                user={user}
-                name={'consents-panel'}
-                onTogglePanelExpansion={togglePanelExpansion}
-                expanded={expandedPanel === 'consents-panel'}
-                title={'settings-page.parent.consents.title'}
-                panel={ConsentsPanel}
             />
             <ExpansionPanelItem
                 user={user}
