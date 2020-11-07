@@ -398,12 +398,25 @@
         "home": "Home",
         "settings": "Settings",
         "notifications": "Notifications",
-        "newsletter": "Newsletter",
+        "newsletter": {
+            "title": "Newsletter",
+            "new-message": "New message",
+            "archive": "Archive"
+        },
+        "results": {
+            "title": "Results",
+            "table": "Results table",
+            "advice-and-recommendations": "Advice and recommendations"
+        },
+        "access": {
+            "title": "Access management",
+            "instructors": "Manage instructors",
+            "keycodes": "Generate keycodes"
+        },
         "create-blog-article": "Blog",
         "archive": "Archive",
         "agreements": "Agreements",
         "test-management": "Tests",
-        "results": "Results",
         "logout": "Log out"
     },
     "instructor-menu": {

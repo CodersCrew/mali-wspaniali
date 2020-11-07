@@ -381,9 +381,22 @@
     },
     "admin-menu": {
         "home": "Strona Główna",
-        "results": "Wyniki",
         "agreements": "Zgody",
-        "newsletter": "Newsletter",
+        "newsletter": {
+            "title": "Newsletter",
+            "new-message": "Nowa wiadomość",
+            "archive": "Archiwum"
+        },
+        "results": {
+            "title": "Wyniki",
+            "table": "Tabela wyników",
+            "advice-and-recommendations": "Porady i rekomendacje"
+        },
+        "access": {
+            "title": "Zarządzanie dostępami",
+            "instructors": "Zarządzaj instruktorami",
+            "keycodes": "Generowanie kodów"
+        },
         "create-blog-article": "Blog",
         "archive": "Archiwum",
         "results-list": "Lista wyników",

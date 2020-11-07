@@ -3,7 +3,7 @@ import { activePage } from '../../apollo_client';
 
 export function ArchivePage() {
     useEffect(() => {
-        activePage(['admin-menu.archive']);
+        activePage(['admin-menu.newsletter.title', 'admin-menu.newsletter.archive']);
     }, []);
 
     return <div>Archive Page</div>;
