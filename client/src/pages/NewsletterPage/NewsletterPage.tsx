@@ -39,7 +39,7 @@ export const NewsletterPage = () => {
     const { errors, touched, handleSubmit, handleBlur, setFieldValue } = formik;
 
     useEffect(() => {
-        activePage(['admin-menu.newsletter.title']);
+        activePage(['admin-menu.newsletter.title', 'admin-menu.newsletter.new-message']);
     }, []);
 
     const firstStepCompleted = isFirstStepCompleted(errors);

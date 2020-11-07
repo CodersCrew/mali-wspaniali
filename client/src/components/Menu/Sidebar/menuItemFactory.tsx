@@ -273,7 +273,7 @@ function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): Men
             icon: <Icon icon={<Ballot />} />,
             name: t('admin-menu.results.table'),
             link: '/admin/tests',
-            active: active.includes('admin-menu.results.title'),
+            active: active.includes('admin-menu.results.table'),
         },
         {
             icon: <Icon icon={<DynamicFeed />} />,
@@ -299,7 +299,7 @@ function getNewsletterMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): 
             icon: <Icon icon={<Email />} />,
             name: t('admin-menu.newsletter.new-message'),
             link: '/admin/newsletter',
-            active: active.includes('admin-menu.newsletter.title'),
+            active: active.includes('admin-menu.newsletter.new-message'),
         },
         {
             icon: <Icon icon={<Archive />} />,
