@@ -35,7 +35,7 @@ export const TestResultsPage = () => {
     });
 
     useEffect(() => {
-        activePage(['admin-menu.results']);
+        activePage(['admin-menu.results.title']);
     }, []);
 
     if (!kindergartenList) {

@@ -1,8 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { CssBaseline } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { CssBaseline } from '@material-ui/core';
+import { AuthTemplate } from './AuthTemplate/AuthTemplate';
+import { AppWrapper } from './AppWrapper';
+import { ParentWrapper } from './ParentWrapper';
 import { LoginPage } from './LoginPage/LoginPage';
 import { RegistrationPage } from './RegistrationPage';
 import { ForgotPasswordPage } from './ForgotPasswordPage';
@@ -11,25 +14,25 @@ import { ChildResultsPage } from './ChildProfile/ChildResultsPage';
 import { ParentProfilePage } from './ParentProfilePage/ParentProfilePage';
 import { UsersPage } from './UsersPage/UsersPage';
 import { NewsletterPage } from './NewsletterPage/NewsletterPage';
-import { AppWrapper } from './AppWrapper';
 import { ParentHomePage } from './ParentHomePage/ParentHomePage';
 import { ArticlePage } from './ArticlePage/ArticlePage';
-import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { ArticleListPage } from './ArticleListPage/ArticleListPage';
 import { NotificationsPage } from './NotificationsPage/NotificationsPage';
-import { ThemeProvider } from '../theme/ThemeProvider';
 import { AdminHomePage } from './AdminHomePage/AdminHomePage';
 import { ParentAgreementsPage } from './ParentAgreementsPage/ParentAgreementsPage';
 import { ParentSettingsPage } from './ParentSettingsPage/ParentSettingsPage';
 import { CreateArticlePage } from './CreateArticlePage/CreateArticlePage';
 import { ArchivePage } from './ArchivePage/ArchivePage';
-import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
-import { ParentWrapper } from './ParentWrapper';
+import { AdminCodesPage } from './AdminCodesPage/AdminCodesPage';
+import { AdminInstructorsPage } from './AdminInstructorsPage/AdminInstructorsPage';
 import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreementsPageConatianer';
 import { AddResultsPage } from './AddResultsPage/AddResultsPage';
 import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
 import { TestManagementPage } from './AdminTestsPage/AdminTestsPage';
+import { AdminRecommendationsPage } from './AdminRecommendationsPage/AdminRecommendationsPage';
 import { AdminAddTestPage } from './AdminAddTestPage/AdminAddTestPage';
+import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
+import { ThemeProvider } from '../theme/ThemeProvider';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -67,6 +70,9 @@ export function Root() {
                                 <Route path="/admin/notifications" component={NotificationsPage} />
                                 <Route path="/admin/test-management/add" component={AdminAddTestPage} />
                                 <Route path="/admin/test-management" component={TestManagementPage} />
+                                <Route path="/admin/recommendations" component={AdminRecommendationsPage} />
+                                <Route path="/admin/keycodes" component={AdminCodesPage} />
+                                <Route path="/admin/instructors" component={AdminInstructorsPage} />
                                 <Route path="/admin/settings" component={AdminSettingsPage} />
                                 <Route exact path="/instructor" component={AddResultsPage} />
                                 <Route path="/instructor/settings" component={InstructorSettingsPage} />

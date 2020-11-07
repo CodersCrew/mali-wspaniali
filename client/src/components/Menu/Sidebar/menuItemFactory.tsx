@@ -19,6 +19,12 @@ import {
     Archive,
     Message,
     AccessAlarm,
+    Ballot,
+    DynamicFeed,
+    Email,
+    PeopleAlt,
+    PersonAdd,
+    Security,
 } from '@material-ui/icons';
 
 import { Child } from '../../../graphql/types';
@@ -43,7 +49,7 @@ interface MenuItemFactoryProps {
     rightIcon?: JSX.Element;
 }
 
-interface BlogMenuItemFactoryProps {
+interface CollapsibleMenuItemFactoryProps {
     t: TFunction;
     active: string[];
 }
@@ -95,6 +101,33 @@ export function getBlogMenuItemFactory({
     };
 }
 
+export function getResultsMenuItemFactory({
+    active,
+    t,
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
+    return {
+        create: () => getResultsMenuItem({ active, t }),
+    };
+}
+
+export function getNewsletterMenuItemFactory({
+    active,
+    t,
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
+    return {
+        create: () => getNewsletterMenuItem({ active, t }),
+    };
+}
+
+export function getAccessMenuItemFactory({
+    active,
+    t,
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
+    return {
+        create: () => getAccessMenuItem({ active, t }),
+    };
+}
+
 function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): MenuItemFactoryResult {
     const mainItemAvatar = <ChildAvatar sex={child.sex} />;
 
@@ -134,7 +167,7 @@ function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): Menu
     return { mainItem, subItems };
 }
 
-function getBlogMenuItem({ active, t }: BlogMenuItemFactoryProps): MenuItemFactoryResult {
+function getBlogMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
     const mainItem = {
         icon: <Icon icon={<LibraryBooks />} />,
         name: t('parent-menu.blog'),
@@ -225,6 +258,84 @@ function getParentMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps)
     item.name = t(item.name);
 
     return item;
+}
+
+function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
+    const mainItem = {
+        icon: <Icon icon={<Assessment />} />,
+        name: t('admin-menu.results.title'),
+        link: '/admin/tests',
+        active: active.includes('admin-menu.results.title'),
+    };
+
+    const subItems: SingleItemProps[] = [
+        {
+            icon: <Icon icon={<Ballot />} />,
+            name: t('admin-menu.results.table'),
+            link: '/admin/tests',
+            active: active.includes('admin-menu.results.title'),
+        },
+        {
+            icon: <Icon icon={<DynamicFeed />} />,
+            name: t('admin-menu.results.advice-and-recommendations'),
+            link: '/admin/recommendations',
+            active: active.includes('admin-menu.results.advice-and-recommendations'),
+        },
+    ];
+
+    return { mainItem, subItems };
+}
+
+function getNewsletterMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
+    const mainItem = {
+        icon: <Icon icon={<Message />} />,
+        name: t('admin-menu.newsletter.title'),
+        link: '/admin/newsletter',
+        active: active.includes('admin-menu.newsletter.title'),
+    };
+
+    const subItems: SingleItemProps[] = [
+        {
+            icon: <Icon icon={<Email />} />,
+            name: t('admin-menu.newsletter.new-message'),
+            link: '/admin/newsletter',
+            active: active.includes('admin-menu.newsletter.title'),
+        },
+        {
+            icon: <Icon icon={<Archive />} />,
+            name: t('admin-menu.newsletter.archive'),
+            link: '/admin/archive',
+            active: active.includes('admin-menu.newsletter.archive'),
+        },
+    ];
+
+    return { mainItem, subItems };
+}
+
+function getAccessMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
+    const mainItem = {
+        icon: <Icon icon={<PeopleAlt />} />,
+        name: t('admin-menu.access.title'),
+        link: '/admin/instructors',
+        active: active.includes('admin-menu.access.title'),
+    };
+
+    const subItems: SingleItemProps[] = [
+        {
+            icon: <Icon icon={<PersonAdd />} />,
+            name: t('admin-menu.access.instructors'),
+            link: '/admin/instructors',
+            active: active.includes('admin-menu.access.instructors'),
+        },
+        {
+            icon: <Icon icon={<Security />} />,
+            name: t('admin-menu.access.keycodes'),
+            link: '/admin/keycodes',
+            active: active.includes('admin-menu.access.keycodes'),
+        },
+    ];
+
+    return { mainItem, subItems };
 }
 
 function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
