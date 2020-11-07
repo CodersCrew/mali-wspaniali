@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { makeStyles, createStyles, Box } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,18 +6,18 @@ import moment from 'moment';
 import { useQuery } from '@apollo/client';
 
 import { Theme } from '../theme/types';
-import { getUser } from '../graphql/userRepository';
 import { Me } from '../graphql/types';
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
 import { ACTIVE_PAGE } from '../graphql/localFields';
 import { Sidebar } from '../components/Menu/Sidebar/Sidebar';
+import { useGetMe } from '../operations/mutations/User/useGetMe';
 
 export const UserContext = React.createContext<Me | null>(null);
 
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
-    const [user, setUser] = useState<Me | null>(null);
+    const { user } = useGetMe();
     const [isOpen, setIsOpen] = useState(false);
     const { i18n } = useTranslation();
     const { data: ActivePageState } = useQuery(ACTIVE_PAGE);
@@ -47,10 +47,6 @@ export const AppWrapper: FC = ({ children }) => {
     function handleSidebarToggle() {
         setIsOpen(prev => !prev);
     }
-
-    useEffect(() => {
-        getUser().then(({ data }) => setUser(data!.me));
-    }, []);
 
     if (!user) return null;
 
