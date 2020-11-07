@@ -1,6 +1,6 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { GET_ME } from '../../../graphql/userRepository';
+import { gql, useMutation } from '@apollo/client';
 import { Me } from '../../../graphql/types';
+import { useGetMe } from './useGetMe';
 
 export interface LoginInput {
     mail: string;
@@ -17,7 +17,7 @@ const AUTHORIZE_USER = gql`
 
 export function useAuthorizeMe(onAuthorized: (user: Me) => void, onError: (error: Error) => void) {
     const [authorizeUser] = useMutation(AUTHORIZE_USER);
-    const { refetch } = useQuery(GET_ME);
+    const { refetch } = useGetMe();
 
     return {
         authorizeMe: (email: string, password: string) => {
