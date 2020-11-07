@@ -1,8 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { UpdatedChildInput } from '../../../graphql/types';
 import { client } from '../../../apollo_client';
-import { GET_ME } from '../../../graphql/userRepository';
-import { useGetMe } from './useGetMe';
+import { GET_ME, useGetMe } from './useGetMe';
 import { useKindergartens } from '../../queries/Kindergartens/getKindergartens';
 
 export interface EditChildResponse {

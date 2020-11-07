@@ -24,47 +24,6 @@ export const ADD_CHILD = gql`
     }
 `;
 
-export const GET_ME = gql`
-    {
-        me {
-            date
-            mail
-            children {
-                _id
-                firstname
-                lastname
-                sex
-                birthYear
-                results {
-                    _id
-                    date
-                    test
-                    rootResultId
-                }
-                kindergarten {
-                    _id
-                    name
-                    number
-                }
-            }
-            agreements {
-                _id
-                date
-                text
-                isSigned
-            }
-            role
-            notifications {
-                _id
-                date
-                values
-                templateId
-                isRead
-            }
-        }
-    }
-`;
-
 export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User }>> {
     return client.query({
         query: gql`
