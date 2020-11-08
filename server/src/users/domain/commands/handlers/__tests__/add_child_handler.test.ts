@@ -4,7 +4,7 @@ import { AddChildCommand, CreateUserCommand } from '../../impl';
 import * as dbHandler from '../../../../../db_handler';
 import { CreateUserHandler } from '../create_user_handler';
 import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
-import { CqrsModule } from '@nestjs/cqrs';
+import waitForExpect from 'wait-for-expect';
 import { UsersModule } from '../../../../users_module';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../../../users/domain/models/user_model';
@@ -20,10 +20,13 @@ import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/c
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
 import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
-import { ChildCreatedHandler } from '../../../events/handlers/child_created_handler';
+import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
+
+let app: TestingModule;
 
 afterAll(async () => {
   await dbHandler.closeInMongodConnection();
+  await app.close();
 });
 
 beforeAll(async () => {
@@ -34,7 +37,6 @@ describe('AddChildHandler', () => {
   let parent: User;
   let kindergarten: KindergartenProps;
   let addedChild: Child;
-  let module: TestingModule;
 
   const validChildOptions = {
     birthYear: 2000,
@@ -45,7 +47,7 @@ describe('AddChildHandler', () => {
   };
 
   beforeEach(async () => {
-    module = await setup();
+    app = await setup();
 
     await dbHandler.clearDatabase();
 
@@ -54,10 +56,6 @@ describe('AddChildHandler', () => {
     kindergarten = await createKindergarten();
 
     validChildOptions.kindergartenId = kindergarten._id;
-  });
-
-  afterEach(async () => {
-    await module.close();
   });
 
   describe('when executed', () => {
@@ -86,6 +84,19 @@ describe('AddChildHandler', () => {
         expect(addedChild.lastname.value).toEqual('my-lastname');
         expect(addedChild.birthYear).toBeInstanceOf(BirthYear);
         expect(addedChild.birthYear.value).toEqual(2000);
+      });
+
+      it('invokes child added notification', async () => {
+        await waitForExpect(async () => {
+          return expect(await getNotificationsForUser(parent.id)).toEqual(
+            jasmine.arrayContaining([
+              jasmine.objectContaining({
+                templateId: 'child_created',
+                user: parent.id,
+              }),
+            ]),
+          );
+        });
       });
     });
 
@@ -204,7 +215,7 @@ describe('AddChildHandler', () => {
   });
 
   function addChildCommandWith(options, parentId) {
-    return module.resolve(AddChildHandler).then(handler => {
+    return app.resolve(AddChildHandler).then(handler => {
       return handler.execute(
         new AddChildCommand({ ...validChildOptions, ...options }, parentId),
       );
@@ -212,11 +223,11 @@ describe('AddChildHandler', () => {
   }
 
   async function createParent(): Promise<User> {
-    const keyCode = await module
+    const keyCode = await app
       .get(CreateKeyCodeHandler)
       .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
 
-    const parent = await module
+    const parent = await app
       .get(CreateUserHandler)
       .execute(
         new CreateUserCommand(
@@ -230,7 +241,7 @@ describe('AddChildHandler', () => {
   }
 
   function createKindergarten() {
-    return module.get(CreateKindergartenHandler).execute(
+    return app.get(CreateKindergartenHandler).execute(
       new CreateKindergartenCommand({
         number: 1,
         name: 'my-name',
@@ -239,25 +250,26 @@ describe('AddChildHandler', () => {
       }),
     );
   }
+
+  function getNotificationsForUser(user: string) {
+    return app.get(NotificationRepository).getAll(user);
+  }
 });
 
 async function setup() {
-  return await Test.createTestingModule({
+  const module = await Test.createTestingModule({
     imports: [
       dbHandler.rootMongooseTestModule(),
-      CqrsModule,
       UsersModule,
       KeyCodesModule,
       NotificationsModule,
       KindergartenModule,
     ],
-    providers: [
-      AddChildHandler,
-      CreateUserHandler,
-      CreateKeyCodeHandler,
-      ChildCreatedHandler,
-    ],
   }).compile();
+
+  await module.init();
+
+  return module;
 }
 
 function awaitForResponse(): Promise<void> {

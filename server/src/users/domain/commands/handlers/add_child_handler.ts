@@ -54,10 +54,10 @@ export class AddChildHandler implements ICommandHandler<AddChildCommand> {
       await this.childRepository.create(child),
     );
 
-    await createdChild.commit();
-
     if (createdChild) {
-      this.userRepository.addChild(createdChild.id, userId);
+      await this.userRepository.addChild(createdChild.id, userId);
+
+      await createdChild.commit();
 
       return createdChild;
     }
