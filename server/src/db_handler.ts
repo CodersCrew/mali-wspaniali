@@ -5,6 +5,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 let mongod: MongoMemoryServer;
 let conn: MongoClient;
 let db: Db;
+let mongoUri;
 
 export const clearDatabase = async () => {
   const collections = await db.collections();
@@ -25,20 +26,20 @@ export async function connect() {
   await mongod.start();
 
   await mongod.ensureInstance();
+
+  mongoUri = await mongod.getUri();
+
+  conn = await MongoClient.connect(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  db = conn.db(await mongod.getDbName());
 }
 
 export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
   MongooseModule.forRootAsync({
     useFactory: async () => {
-      const mongoUri = await mongod.getUri();
-
-      conn = await MongoClient.connect(mongoUri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-
-      db = conn.db(await mongod.getDbName());
-
       return {
         uri: mongoUri,
         ...options,
