@@ -242,7 +242,7 @@ describe('AddChildHandler', () => {
 });
 
 async function setup() {
-  return await Test.createTestingModule({
+  const module = await Test.createTestingModule({
     imports: [
       dbHandler.rootMongooseTestModule(),
       CqrsModule,
@@ -258,6 +258,10 @@ async function setup() {
       ChildCreatedHandler,
     ],
   }).compile();
+
+  await module.init();
+
+  return module;
 }
 
 function awaitForResponse(): Promise<void> {
