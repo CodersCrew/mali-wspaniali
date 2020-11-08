@@ -13,7 +13,6 @@ import { SecondaryLabel } from '../../Label';
 import { MenuDrawer } from './MenuDrawer';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { getMenuWidth } from './getMenuWidth';
-import { LabeledHeader } from './LabeledHeader';
 import { LoggedAsItem } from './LoggedAsItem';
 import { CollapsibleList } from './CollapsibleList';
 
@@ -84,10 +83,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
     return (
         <div className={classes.drawer}>
             <MenuDrawer device={device} onClose={onClose} open={open}>
-                <>
-                    {device !== 'DESKTOP' && <LabeledHeader />}
-                    {drawer}
-                </>
+                {drawer}
             </MenuDrawer>
         </div>
     );
