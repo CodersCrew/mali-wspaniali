@@ -4,7 +4,6 @@ import { AddChildCommand, CreateUserCommand } from '../../impl';
 import * as dbHandler from '../../../../../db_handler';
 import { CreateUserHandler } from '../create_user_handler';
 import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
-import { CqrsModule } from '@nestjs/cqrs';
 import { UsersModule } from '../../../../users_module';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../../../users/domain/models/user_model';
@@ -20,10 +19,12 @@ import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/c
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
 import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
-import { ChildCreatedHandler } from '../../../events/handlers/child_created_handler';
+
+let app: TestingModule;
 
 afterAll(async () => {
   await dbHandler.closeInMongodConnection();
+  await app.close();
 });
 
 beforeAll(async () => {
@@ -34,7 +35,6 @@ describe('AddChildHandler', () => {
   let parent: User;
   let kindergarten: KindergartenProps;
   let addedChild: Child;
-  let module: TestingModule;
 
   const validChildOptions = {
     birthYear: 2000,
@@ -45,7 +45,7 @@ describe('AddChildHandler', () => {
   };
 
   beforeEach(async () => {
-    module = await setup();
+    app = await setup();
 
     await dbHandler.clearDatabase();
 
@@ -54,10 +54,6 @@ describe('AddChildHandler', () => {
     kindergarten = await createKindergarten();
 
     validChildOptions.kindergartenId = kindergarten._id;
-  });
-
-  afterEach(async () => {
-    await module.close();
   });
 
   describe('when executed', () => {
@@ -204,7 +200,7 @@ describe('AddChildHandler', () => {
   });
 
   function addChildCommandWith(options, parentId) {
-    return module.resolve(AddChildHandler).then(handler => {
+    return app.resolve(AddChildHandler).then(handler => {
       return handler.execute(
         new AddChildCommand({ ...validChildOptions, ...options }, parentId),
       );
@@ -212,11 +208,11 @@ describe('AddChildHandler', () => {
   }
 
   async function createParent(): Promise<User> {
-    const keyCode = await module
+    const keyCode = await app
       .get(CreateKeyCodeHandler)
       .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
 
-    const parent = await module
+    const parent = await app
       .get(CreateUserHandler)
       .execute(
         new CreateUserCommand(
@@ -230,7 +226,7 @@ describe('AddChildHandler', () => {
   }
 
   function createKindergarten() {
-    return module.get(CreateKindergartenHandler).execute(
+    return app.get(CreateKindergartenHandler).execute(
       new CreateKindergartenCommand({
         number: 1,
         name: 'my-name',
@@ -245,17 +241,10 @@ async function setup() {
   const module = await Test.createTestingModule({
     imports: [
       dbHandler.rootMongooseTestModule(),
-      CqrsModule,
       UsersModule,
       KeyCodesModule,
       NotificationsModule,
       KindergartenModule,
-    ],
-    providers: [
-      AddChildHandler,
-      CreateUserHandler,
-      CreateKeyCodeHandler,
-      ChildCreatedHandler,
     ],
   }).compile();
 
