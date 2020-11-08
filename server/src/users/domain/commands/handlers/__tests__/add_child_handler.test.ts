@@ -4,6 +4,7 @@ import { AddChildCommand, CreateUserCommand } from '../../impl';
 import * as dbHandler from '../../../../../db_handler';
 import { CreateUserHandler } from '../create_user_handler';
 import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
+import waitForExpect from 'wait-for-expect';
 import { UsersModule } from '../../../../users_module';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../../../users/domain/models/user_model';
@@ -19,6 +20,7 @@ import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/c
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
 import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
+import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 
 let app: TestingModule;
 
@@ -82,6 +84,19 @@ describe('AddChildHandler', () => {
         expect(addedChild.lastname.value).toEqual('my-lastname');
         expect(addedChild.birthYear).toBeInstanceOf(BirthYear);
         expect(addedChild.birthYear.value).toEqual(2000);
+      });
+
+      it('invokes child added notification', async () => {
+        await waitForExpect(async () => {
+          return expect(await getNotificationsForUser(parent.id)).toEqual(
+            jasmine.arrayContaining([
+              jasmine.objectContaining({
+                templateId: 'child_created',
+                user: parent.id,
+              }),
+            ]),
+          );
+        });
       });
     });
 
@@ -234,6 +249,10 @@ describe('AddChildHandler', () => {
         city: 'my-city',
       }),
     );
+  }
+
+  function getNotificationsForUser(user: string) {
+    return app.get(NotificationRepository).getAll(user);
   }
 });
 
