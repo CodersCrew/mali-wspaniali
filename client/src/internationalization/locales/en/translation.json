@@ -587,6 +587,11 @@
             "email": "E-mail address",
             "kindergarten-count": "Kindergarten count",
             "children-count": "Children count"
+        },
+        "table-toolbar": {
+            "select-test": "Select test",
+            "instructor-search": "Search for instructor",
+            "kindergarten-assign": "Assign to kindergarten"
         }
     }
 }

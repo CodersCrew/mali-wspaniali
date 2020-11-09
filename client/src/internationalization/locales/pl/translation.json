@@ -586,6 +586,11 @@
             "email": "Adres e-mail",
             "kindergarten-count": "Liczba przedszkoli",
             "children-count": "Liczba dzieci"
+        },
+        "table-toolbar": {
+            "select-test": "Wybierz test",
+            "instructor-search": "Szukaj instruktora",
+            "kindergarten-assign": "Przydziel do przedszkola"
         }
     }
 }
