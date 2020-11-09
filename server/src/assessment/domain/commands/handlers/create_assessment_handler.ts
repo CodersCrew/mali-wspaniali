@@ -15,11 +15,13 @@ export class CreateAssessmentHandler
 
   async execute({
     assessment: newAssessment,
-  }: CreateAssessmentCommand): Promise<void> {
+  }: CreateAssessmentCommand): Promise<Assessment> {
     const assessment = this.publisher.mergeObjectContext(
       await this.repository.create(newAssessment),
     );
 
     assessment.commit();
+
+    return assessment;
   }
 }

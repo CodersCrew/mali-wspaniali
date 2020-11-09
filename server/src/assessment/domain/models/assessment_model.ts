@@ -1,12 +1,13 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { AssessmentCreatedEvent } from '../events/impl/assessment_created_event';
 import { CreateAssessmentInput } from '../../inputs/create_assessment_input';
+import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 
 export interface AssessmentDto {
   title: string;
   startDate: string;
   endDate: string;
-  kindergartenIds: string[];
+  kindergartenIds: ObjectId[];
 }
 
 export class Assessment extends AggregateRoot {
@@ -18,7 +19,23 @@ export class Assessment extends AggregateRoot {
     this.data = initialData;
   }
 
-  static create(initialData: CreateAssessmentInput): Assessment {
+  get title(): string {
+    return this.data.title;
+  }
+
+  get startDate(): string {
+    return this.data.startDate;
+  }
+
+  get endDate(): string {
+    return this.data.endDate;
+  }
+
+  get kindergartenIds(): ObjectId[] {
+    return this.data.kindergartenIds;
+  }
+
+  static create(initialData: AssessmentDto): Assessment {
     const assessment = new Assessment(initialData);
 
     assessment.apply(new AssessmentCreatedEvent(initialData));
