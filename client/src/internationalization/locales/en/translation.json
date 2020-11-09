@@ -579,5 +579,14 @@
         "reset-old-password": "Reset password",
         "something-went-wrong": "Something went wrong. Contact your Administrator.",
         "wrong-old-password": "Incorrect password"
+    },
+    "admin-instructors-page": {
+        "table-headers": {
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "E-mail address",
+            "kindergarten-count": "Kindergarten count",
+            "children-count": "Children count"
+        }
     }
 }

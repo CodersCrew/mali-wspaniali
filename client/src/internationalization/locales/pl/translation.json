@@ -578,5 +578,14 @@
         "reset-old-password": "Zresetuj hasło",
         "something-went-wrong": "Coś poszło nie tak. Skontaktuj się z Administratorem.",
         "wrong-old-password": "Niepoprawne hasło"
+    },
+    "admin-instructors-page": {
+        "table-headers": {
+            "firstName": "Imię",
+            "lastName": "Nazwisko",
+            "email": "Adres e-mail",
+            "kindergarten-count": "Liczba przedszkoli",
+            "children-count": "Liczba dzieci"
+        }
     }
 }
