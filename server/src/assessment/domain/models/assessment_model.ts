@@ -7,13 +7,20 @@ export interface AssessmentDto {
   title: string;
   startDate: string;
   endDate: string;
+  kindergartenIds: string[];
+}
+
+interface AssessmentProps {
+  title: string;
+  startDate: string;
+  endDate: string;
   kindergartenIds: ObjectId[];
 }
 
 export class Assessment extends AggregateRoot {
-  data: AssessmentDto;
+  data: AssessmentProps;
 
-  private constructor(initialData: AssessmentDto) {
+  private constructor(initialData: AssessmentProps) {
     super();
 
     this.data = initialData;
@@ -35,15 +42,15 @@ export class Assessment extends AggregateRoot {
     return this.data.kindergartenIds;
   }
 
-  static create(initialData: AssessmentDto): Assessment {
+  static create(initialData: AssessmentProps): Assessment {
     const assessment = new Assessment(initialData);
 
-    assessment.apply(new AssessmentCreatedEvent(initialData));
+    assessment.apply(new AssessmentCreatedEvent(assessment));
 
     return assessment;
   }
 
-  static recreate(initialData: AssessmentDto) {
+  static recreate(initialData: AssessmentProps) {
     return new Assessment(initialData);
   }
 }

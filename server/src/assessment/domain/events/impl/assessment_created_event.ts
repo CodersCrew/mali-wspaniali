@@ -1,5 +1,5 @@
-import { AssessmentDto } from '../../models/assessment_model';
+import { Assessment } from '../../models/assessment_model';
 
 export class AssessmentCreatedEvent {
-  constructor(public readonly assessment: AssessmentDto) {}
+  constructor(public readonly assessment: Assessment) {}
 }
