@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AssessmentDto } from '../../../assessment/domain/models/assessment_model';
 import { Assessment } from '../models/assessment_model';
+import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 
 import {
   AssessmentDocument,
@@ -32,9 +33,15 @@ export class AssessmentRepository {
   async create(initialData: AssessmentDto): Promise<Assessment> {
     const createdAssessment = new this.model(initialData);
 
-    const result = await createdAssessment
-      .save()
-      .then(agreement => agreement.toObject());
+    const result = await createdAssessment.save().then(assessment => {
+      const parsedAssessment = assessment.toObject();
+
+      parsedAssessment.kindergartenIds = parsedAssessment.kindergartenIds.map(
+        k => ObjectId.create(k).getValue(),
+      );
+
+      return parsedAssessment;
+    });
 
     const assessment = Assessment.create(result);
 
