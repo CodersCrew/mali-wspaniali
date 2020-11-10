@@ -14,7 +14,10 @@ interface AssessmentProps {
   title: string;
   startDate: string;
   endDate: string;
-  kindergartenIds: ObjectId[];
+  kindergartens: {
+    kindergartenId: ObjectId;
+    instructorId: ObjectId | null;
+  };
 }
 
 export class Assessment extends AggregateRoot {
@@ -38,8 +41,8 @@ export class Assessment extends AggregateRoot {
     return this.data.endDate;
   }
 
-  get kindergartenIds(): ObjectId[] {
-    return this.data.kindergartenIds;
+  get kindergartens(): AssessmentProps['kindergartens'] {
+    return this.data.kindergartens;
   }
 
   static create(initialData: AssessmentProps): Assessment {

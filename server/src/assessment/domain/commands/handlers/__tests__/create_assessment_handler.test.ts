@@ -44,10 +44,13 @@ describe('CreateAssessmentHandler', () => {
         expect(createdAssessment.title).toEqual('my-title');
         expect(createdAssessment.startDate).toEqual('2020-10-16');
         expect(createdAssessment.endDate).toEqual('2020-10-20');
-        expect(createdAssessment.kindergartenIds[0]).toBeInstanceOf(ObjectId);
-        expect(createdAssessment.kindergartenIds[0].toString()).toEqual(
-          '5f88ea2c6d80f367f66a1692',
-        );
+
+        expect(
+          createdAssessment.kindergartens[0].kindergartenId,
+        ).toBeInstanceOf(ObjectId);
+        expect(
+          createdAssessment.kindergartens[0].kindergartenId.toString(),
+        ).toEqual('5f88ea2c6d80f367f66a1692');
       });
     });
   });

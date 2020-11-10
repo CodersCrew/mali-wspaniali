@@ -31,13 +31,15 @@ export class AssessmentRepository {
   }
 
   async create(initialData: AssessmentDto): Promise<Assessment> {
-    const createdAssessment = new this.model(initialData);
+    const createdAssessment = new this.model(
+      mapAssessmenDtotIntoModelInput(initialData),
+    );
 
     const result = await createdAssessment.save().then(assessment => {
       const parsedAssessment = assessment.toObject();
 
-      parsedAssessment.kindergartenIds = parsedAssessment.kindergartenIds.map(
-        k => ObjectId.create(k).getValue(),
+      parsedAssessment.kindergartens = parsedAssessment.kindergartens.map(
+        k => ({ kindergartenId: ObjectId.create(k.kindergartenId).getValue() }),
       );
 
       return parsedAssessment;
@@ -47,4 +49,11 @@ export class AssessmentRepository {
 
     return assessment;
   }
+}
+
+function mapAssessmenDtotIntoModelInput(value: AssessmentDto) {
+  return {
+    ...value,
+    kindergartens: value.kindergartenIds.map(k => ({ kindergartenId: k })),
+  };
 }
