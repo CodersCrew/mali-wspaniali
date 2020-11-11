@@ -4,7 +4,6 @@ import {
   Query,
   Args,
   ResolveField,
-  Parent,
   Root,
 } from '@nestjs/graphql';
 import { QueryBus, CommandBus } from '@nestjs/cqrs';
@@ -17,21 +16,12 @@ import { ReturnedStatusDTO } from '../shared/returned_status';
 import { CreateAssessmentInput } from './inputs/create_assessment_input';
 import { AssessmentDTO } from './dto/assessment_dto';
 import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessments_query';
-import { KindergartenDTO } from '../kindergartens/dto/kindergarten_dto';
 import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructor_dto';
-import {
-  AssessmentDto,
-  AssessmentInput,
-} from './domain/models/assessment_model';
-import { GetAllKindergartensQuery } from '../kindergartens/domain/queries/impl/get_all_kindergartens_query';
-import { GetKindergartenQuery } from '../kindergartens/domain/queries/impl/get_kindergarten_query';
+import { AssessmentDto } from './domain/models/assessment_model';
 import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
 import { KindergartenProps } from '../kindergartens/domain/models/kindergarten_model';
 import { UserProps } from '../users/domain/models/user_model';
-import {
-  GetKindergartensQuery,
-  GetKindergartenWithUsersQuery,
-} from 'src/kindergartens/domain/queries/impl';
+import { GetKindergartensQuery } from 'src/kindergartens/domain/queries/impl';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
