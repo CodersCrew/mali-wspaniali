@@ -3,21 +3,31 @@ import { AssessmentCreatedEvent } from '../events/impl/assessment_created_event'
 import { CreateAssessmentInput } from '../../inputs/create_assessment_input';
 import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 
-export interface AssessmentDto {
+export interface AssessmentInput {
   title: string;
   startDate: string;
   endDate: string;
   kindergartenIds: string[];
 }
 
+export interface AssessmentDto {
+  title: string;
+  startDate: string;
+  endDate: string;
+  kindergartens: Array<{
+    kindergartenId: string;
+    instructorId: string | null;
+  }>;
+}
+
 interface AssessmentProps {
   title: string;
   startDate: string;
   endDate: string;
-  kindergartens: {
+  kindergartens: Array<{
     kindergartenId: ObjectId;
     instructorId: ObjectId | null;
-  };
+  }>;
 }
 
 export class Assessment extends AggregateRoot {

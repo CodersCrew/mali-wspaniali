@@ -141,12 +141,18 @@ type NewsletterDTO {
   isDone: Boolean!
 }
 
+type KindergartenWithInstructorDTO {
+  kindergarten: KindergartenDTO!
+  instructor: UserDTO
+}
+
 type AssessmentDTO {
   _id: ID!
   isOutdated: Boolean!
   title: String!
   startDate: String!
   endDate: String!
+  kindergartens: [KindergartenWithInstructorDTO!]!
 }
 
 type Query {
