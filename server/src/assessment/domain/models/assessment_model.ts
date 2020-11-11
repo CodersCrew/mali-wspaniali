@@ -10,14 +10,24 @@ export interface AssessmentInput {
   kindergartenIds: string[];
 }
 
+export interface AssessmentDto {
+  title: string;
+  startDate: string;
+  endDate: string;
+  kindergartens: Array<{
+    kindergartenId: string;
+    instructorId: string | null;
+  }>;
+}
+
 interface AssessmentProps {
   title: string;
   startDate: string;
   endDate: string;
-  kindergartens: {
+  kindergartens: Array<{
     kindergartenId: ObjectId;
     instructorId: ObjectId | null;
-  };
+  }>;
 }
 
 export class Assessment extends AggregateRoot {
