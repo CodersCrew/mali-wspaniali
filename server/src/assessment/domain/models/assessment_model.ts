@@ -3,7 +3,7 @@ import { AssessmentCreatedEvent } from '../events/impl/assessment_created_event'
 import { CreateAssessmentInput } from '../../inputs/create_assessment_input';
 import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 
-export interface AssessmentDto {
+export interface AssessmentInput {
   title: string;
   startDate: string;
   endDate: string;

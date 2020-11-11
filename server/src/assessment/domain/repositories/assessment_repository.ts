@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AssessmentDto } from '../../../assessment/domain/models/assessment_model';
+import { AssessmentInput } from '../../../assessment/domain/models/assessment_model';
 import { Assessment } from '../models/assessment_model';
 import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 
@@ -21,7 +21,7 @@ export class AssessmentRepository {
     return await this.model.findById(id).exec();
   }
 
-  async getAll(): Promise<AssessmentDto[]> {
+  async getAll(): Promise<AssessmentInput[]> {
     return await this.model
       .find({}, {}, { sort: { date: -1 } })
       .exec()
@@ -30,7 +30,7 @@ export class AssessmentRepository {
       );
   }
 
-  async create(initialData: AssessmentDto): Promise<Assessment> {
+  async create(initialData: AssessmentInput): Promise<Assessment> {
     const createdAssessment = new this.model(
       mapAssessmenDtotIntoModelInput(initialData),
     );
@@ -51,7 +51,7 @@ export class AssessmentRepository {
   }
 }
 
-function mapAssessmenDtotIntoModelInput(value: AssessmentDto) {
+function mapAssessmenDtotIntoModelInput(value: AssessmentInput) {
   return {
     ...value,
     kindergartens: value.kindergartenIds.map(k => ({ kindergartenId: k })),
