@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { KindergartenProps } from '../models/kindergarten_model';
 import { KindergartenDocument } from '../../schemas/kindergarten_schema';
 import { CreateKindergartenInput } from '../../inputs/create_kindergarten_input';
-import { EditKindergartenInput } from 'src/kindergartens/inputs/edit_kindergarten_input';
+import { EditKindergartenInput } from '../../inputs/edit_kindergarten_input';
 
 @Injectable()
 export class KindergartenRepository {

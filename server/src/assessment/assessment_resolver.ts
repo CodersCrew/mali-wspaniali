@@ -21,7 +21,7 @@ import { AssessmentDto } from './domain/models/assessment_model';
 import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
 import { KindergartenProps } from '../kindergartens/domain/models/kindergarten_model';
 import { UserProps } from '../users/domain/models/user_model';
-import { GetKindergartensQuery } from 'src/kindergartens/domain/queries/impl';
+import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)

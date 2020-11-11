@@ -1,7 +1,6 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 
-import { CreateAssessmentCommand } from '../impl/create_assessment_command';
-import { AssessmentProps } from '../../../schemas/assessment_schema';
+import { CreateAssessmentCommand } from '../impl';
 import { AssessmentRepository } from '../../repositories/assessment_repository';
 import { Assessment } from '../../models/assessment_model';
 
