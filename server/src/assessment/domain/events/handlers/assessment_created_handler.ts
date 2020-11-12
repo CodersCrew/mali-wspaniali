@@ -5,7 +5,7 @@ import { createAssessmentCreatedNotification } from '../../../../notifications/d
 import { UserRepository } from '../../../../users/domain/repositories/user_repository';
 
 @EventsHandler(AssessmentCreatedEvent)
-export class DeviceCreatedHandler
+export class AssessmentCreatedHandler
   implements IEventHandler<AssessmentCreatedEvent> {
   constructor(
     private readonly notificationRepository: NotificationRepository,
