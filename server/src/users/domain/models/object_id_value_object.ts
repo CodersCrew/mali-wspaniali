@@ -17,7 +17,7 @@ export class ObjectId extends ValueObject<string | undefined> {
     return this.props.value.toString();
   }
 
-  public static create(value: string | undefined): Result<ObjectId> {
+  public static create(value?: string | undefined): Result<ObjectId> {
     return Result.ok(new ObjectId({ value }));
   }
 }

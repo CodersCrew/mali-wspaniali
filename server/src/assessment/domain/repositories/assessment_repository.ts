@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AssessmentInput } from '../../../assessment/domain/models/assessment_model';
 import { Assessment } from '../models/assessment_model';
-import { ObjectId } from '../../../users/domain/models/object_id_value_object';
+import { AssessmentMapper } from '../mappers/assessment_mapper';
 
 import {
   AssessmentDocument,
@@ -30,30 +30,15 @@ export class AssessmentRepository {
       );
   }
 
-  async create(initialData: AssessmentInput): Promise<Assessment> {
+  async create(newAssessment: Assessment): Promise<Assessment> {
     const createdAssessment = new this.model(
-      mapAssessmenDtotIntoModelInput(initialData),
+      AssessmentMapper.toPersist(newAssessment),
     );
 
-    const result = await createdAssessment.save().then(assessment => {
-      const parsedAssessment = assessment.toObject();
+    const result = await createdAssessment
+      .save()
+      .then(assessment => assessment.toObject());
 
-      parsedAssessment.kindergartens = parsedAssessment.kindergartens.map(
-        k => ({ kindergartenId: ObjectId.create(k.kindergartenId).getValue() }),
-      );
-
-      return parsedAssessment;
-    });
-
-    const assessment = Assessment.create(result);
-
-    return assessment;
+    return AssessmentMapper.toDomain(result, { isNew: true });
   }
-}
-
-function mapAssessmenDtotIntoModelInput(value: AssessmentInput) {
-  return {
-    ...value,
-    kindergartens: value.kindergartenIds.map(k => ({ kindergartenId: k })),
-  };
 }
