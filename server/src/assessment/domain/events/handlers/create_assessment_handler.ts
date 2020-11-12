@@ -18,7 +18,7 @@ export class DeviceCreatedHandler
     this.notificationRepository.create(
       createAssessmentCreatedNotification(
         users.map(u => u._id),
-        [assessment.title],
+        [assessment.title.value],
       ),
     );
   }

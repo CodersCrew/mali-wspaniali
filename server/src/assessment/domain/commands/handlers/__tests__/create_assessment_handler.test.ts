@@ -41,7 +41,7 @@ describe('CreateAssessmentHandler', () => {
 
       it('returns assessment instance', () => {
         expect(createdAssessment).toBeInstanceOf(Assessment);
-        expect(createdAssessment.title).toEqual('my-title');
+        expect(createdAssessment.title.value).toEqual('my-title');
         expect(createdAssessment.startDate.value).toEqual('2020-10-16');
         expect(createdAssessment.endDate.value).toEqual('2020-10-20');
 
