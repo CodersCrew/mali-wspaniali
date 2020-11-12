@@ -1,21 +1,18 @@
 import React, { FC } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { ChildPropTypes } from './types';
+import { AddChildPropTypes } from './types';
 import { cardBackgroundColor } from '../../../../colors';
 
-export const HomePageChildCard: FC<ChildPropTypes> = ({ id, firstName, PictureComponent }) => {
+export const HomePageAddChildCard: FC<AddChildPropTypes> = ({ id, firstName, PictureComponent, onClick }) => {
     const classes = useStyles();
 
     return (
-        <Link to={`parent/child/${id}/results`} className={classes.link}>
-            <div className={classes.container} key={id}>
-                <span>{PictureComponent}</span>
-                <div>
-                    <span className={classes.childName}>{firstName}</span>
-                </div>
+        <div className={classes.container} key={id} onClick={onClick}>
+            <span>{PictureComponent}</span>
+            <div>
+                <span className={classes.childName}>{firstName}</span>
             </div>
-        </Link>
+        </div>
     );
 };
 
@@ -33,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: '4px',
             fontWeight: 'bold',
+            minWidth: '121px',
             maxWidth: '121px',
             maxHeight: '163px',
             height: '163px',
@@ -46,8 +44,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 marginRight: 0,
+                minWidth: '90px',
                 width: '90px',
-                maxWidth: '100px',
+                maxWidth: '90px',
                 maxHeight: '120px',
                 height: '120px',
             },
@@ -55,14 +54,6 @@ const useStyles = makeStyles((theme: Theme) =>
         childName: {
             fontSize: 12,
             lineHeight: '15px',
-        },
-        link: {
-            textDecoration: 'none',
-            color: '#000',
-
-            [theme.breakpoints.down('sm')]: {
-                margin: '0 12px',
-            },
         },
     }),
 );

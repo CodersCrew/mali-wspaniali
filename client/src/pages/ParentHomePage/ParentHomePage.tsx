@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         description: {
+            paddingLeft: 16,
             margin: '20px 0 40px 0',
             fontSize: 21,
             lineHeight: '26px',

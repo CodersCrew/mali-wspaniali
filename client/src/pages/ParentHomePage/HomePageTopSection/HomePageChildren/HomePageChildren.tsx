@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useMutation } from '@apollo/client';
 import { HomePageChildCard } from './HomePageChildCard';
 import { HomePageInfo } from '../HomePageInfo';
 import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
-import { Child } from '../../../../graphql/types';
+import { Child, ChildInput } from '../../../../graphql/types';
+import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
+import { AddChildModal } from '../../../../components/AddChildModal/AddChildModal';
+import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
+import { ADD_CHILD } from '../../../../graphql/userRepository';
+import { AddChildResult } from '../../../../components/AddChildModal/AddChildModal.types';
 
 interface Props {
     childrenList: Child[];
@@ -16,8 +22,32 @@ export const HomePageChildren = ({ childrenList: children }: Props) => {
 
     const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
 
+    const { kindergartenList } = useKindergartens();
+    const [addChild] = useMutation(ADD_CHILD);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleModalSubmit = (child: AddChildResult) => {
+        const newChild: ChildInput = {
+            firstname: child.firstname,
+            lastname: child.lastname,
+            birthYear: parseInt(child['birth-date'], 10),
+            sex: child.sex,
+            kindergartenId: child.kindergarten,
+        };
+
+        addChild({
+            variables: {
+                child: newChild,
+            },
+        });
+    };
+
+    const handleAddChildButtonClick = () => {
+        setModalOpen(true);
+    };
+
     return (
-        <div className={classes.infoContainer}>
+        <>
             <div className={classes.childrenContainer}>
                 {children.map(({ firstname, _id, sex }) => {
                     const PictureComponent = (
@@ -37,9 +67,15 @@ export const HomePageChildren = ({ childrenList: children }: Props) => {
                         />
                     );
                 })}
+                <HomePageAddChildButton onClick={handleAddChildButtonClick} />
             </div>
-            {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
-        </div>
+            {kindergartenList && (
+                <AddChildModal handleSubmit={handleModalSubmit} isOpen={modalOpen} kindergartens={kindergartenList} />
+            )}
+            <div className={classes.infoContainer}>
+                {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
+            </div>
+        </>
     );
 };
 
@@ -61,7 +97,10 @@ const useStyles = makeStyles((theme: Theme) =>
         infoContainer: {
             display: 'flex',
             marginBottom: 40,
-            padding: '0 50px 0 0',
+            marginLeft: 16,
+            // padding: '0 50px 0 0',
+            maxWidth: 1038,
+            flexWrap: 'wrap',
 
             [theme.breakpoints.down('md')]: {
                 flexDirection: 'column',
@@ -71,11 +110,17 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         childrenContainer: {
+            // TODO: remove this background color
+            // backgroundColor: '#ccc',
             display: 'flex',
+            flexWrap: 'wrap',
+            marginLeft: 16,
+            // marginBottom: 16,
+            maxWidth: 1038,
 
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'space-around',
-                paddingLeft: 20,
+                paddingLeft: 16,
                 paddingRight: 20,
                 maxWidth: 400,
             },

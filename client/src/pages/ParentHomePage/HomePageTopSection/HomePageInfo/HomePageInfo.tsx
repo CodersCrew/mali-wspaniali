@@ -26,6 +26,7 @@ export const HomePageInfo = ({ toggleInfoComponent }: HomePageInfoPropTypes) => 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         infoContainer: {
+            // margin: '0 16px',
             display: 'flex',
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: '4px',

@@ -10,15 +10,7 @@ import { Input } from './Input';
 import { Select } from './Select';
 import { Kindergarten } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
-
-interface AddChildResult {
-    firstname: string;
-    lastname: string;
-    sex: string;
-    'birth-date': string;
-    'birth-quarter': string;
-    kindergarten: string;
-}
+import { AddChildResult } from './AddChildModal.types';
 
 const initialValues = {
     firstname: '',
