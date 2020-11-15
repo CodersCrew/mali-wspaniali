@@ -53,9 +53,7 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: 
                         />
                     );
                 })}
-                <span>
-                    <HomePageAddChildButton onClick={handleAddChildButtonClick} />
-                </span>
+                <HomePageAddChildButton onClick={handleAddChildButtonClick} />
             </div>
             {kindergartenList && (
                 <AddChildModal
