@@ -471,7 +471,8 @@
     },
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",
-        "new-user": "Nowy użytkownik ({{email}}) został dodany."
+        "new-user": "Nowy użytkownik ({{email}}) został dodany.",
+        "child-created": "Dziecko zostało dodane."
     },
     "manage-test-view": {
         "test-search": {
