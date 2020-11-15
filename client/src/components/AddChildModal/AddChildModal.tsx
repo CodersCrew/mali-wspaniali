@@ -25,6 +25,8 @@ interface Props {
     isOpen: boolean;
     kindergartens: Kindergarten[];
     handleSubmit: (data: AddChildResult) => void;
+    handleReset?: (e: any) => void;
+    isCancelButtonVisible: boolean;
 }
 
 const validationSchema = yup.object({
@@ -36,7 +38,7 @@ const validationSchema = yup.object({
     kindergarten: yup.string().required(),
 });
 
-export function AddChildModal({ handleSubmit, isOpen, kindergartens }: Props) {
+export function AddChildModal({ handleSubmit, isOpen, kindergartens, handleReset, isCancelButtonVisible }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();
@@ -44,14 +46,21 @@ export function AddChildModal({ handleSubmit, isOpen, kindergartens }: Props) {
         initialValues,
         validationSchema,
         onSubmit: data => handleSubmit(data),
+        onReset: handleReset,
     });
     const { getOptions } = useSelectOptions();
 
     const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
 
     return (
-        <BasicModal isOpen={isOpen} actionName={t('add-child-modal.button')} onAction={formik.handleSubmit}>
-            <form onSubmit={formik.handleSubmit}>
+        <BasicModal
+            isOpen={isOpen}
+            actionName={t('add-child-modal.button')}
+            onAction={formik.handleSubmit}
+            onClose={formik.handleReset}
+            isCancelButtonVisible={isCancelButtonVisible}
+        >
+            <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
                 <Typography variant="h4" classes={{ root: classes.title }}>
                     {t('add-child-modal.heading')}
                 </Typography>

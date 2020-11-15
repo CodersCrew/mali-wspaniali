@@ -1,16 +1,21 @@
 import React, { FC } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
-import { AddChildPropTypes } from './types';
+import { makeStyles, createStyles, Theme, Typography } from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { cardBackgroundColor } from '../../../../colors';
 
-export const HomePageAddChildCard: FC<AddChildPropTypes> = ({ id, firstName, PictureComponent, onClick }) => {
+type AddChildCardProps = {
+    text: string;
+    onClick: () => void;
+};
+
+export const HomePageAddChildCard: FC<AddChildCardProps> = ({ text, onClick }) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.container} key={id} onClick={onClick}>
-            <span>{PictureComponent}</span>
+        <div className={classes.container} onClick={onClick}>
+            <AddCircleIcon className={classes.icon} />
             <div>
-                <span className={classes.childName}>{firstName}</span>
+                <Typography variant="subtitle2">{text}</Typography>
             </div>
         </div>
     );
@@ -21,8 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             display: 'flex',
             flexDirection: 'column',
-            // justifyContent: 'space-between',
-            // paddingBottom: '9px',
             alignItems: 'center',
             marginRight: 16,
             marginBottom: 16,
@@ -51,9 +54,19 @@ const useStyles = makeStyles((theme: Theme) =>
                 height: '120px',
             },
         },
-        childName: {
-            fontSize: 12,
-            lineHeight: '15px',
+        icon: {
+            color: theme.palette.text.secondary,
+            width: '75px',
+            height: '126px',
+            objectFit: 'contain',
+            borderRadius: '4px 4px 0px 0px',
+
+            [theme.breakpoints.down('sm')]: {
+                // maxWidth: '90px',
+                width: '75px',
+                maxHeight: '90px',
+                height: '90px',
+            },
         },
     }),
 );

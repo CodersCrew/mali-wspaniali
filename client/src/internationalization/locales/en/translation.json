@@ -514,6 +514,7 @@
     },
     "add-child-modal": {
         "button": "Add",
+        "cancel": "Cancel",
         "heading": "Welcome on the website Mali Wspaniali",
         "description": "Enter your child's details before going to the home page.",
         "inputs": {

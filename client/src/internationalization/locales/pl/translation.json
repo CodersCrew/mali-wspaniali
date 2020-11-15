@@ -516,6 +516,7 @@
     },
     "add-child-modal": {
         "button": "Dodaj",
+        "cancel": "Anuluj",
         "heading": "Witaj na stronie Mali Wspaniali",
         "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
         "inputs": {

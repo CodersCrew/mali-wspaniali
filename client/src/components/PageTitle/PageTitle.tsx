@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         pageTitle: {
             margin: 0,
-            paddingLeft: 16,
 
             [theme.breakpoints.down('sm')]: {
                 fontSize: 21,

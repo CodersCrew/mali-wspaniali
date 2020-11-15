@@ -1,8 +1,13 @@
-import React, { FC } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import React, { FC, ReactElement } from 'react';
+import { makeStyles, createStyles, Theme, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { ChildPropTypes } from './types';
 import { cardBackgroundColor } from '../../../../colors';
+
+interface ChildPropTypes {
+    firstName: string;
+    id: string;
+    PictureComponent: ReactElement;
+}
 
 export const HomePageChildCard: FC<ChildPropTypes> = ({ id, firstName, PictureComponent }) => {
     const classes = useStyles();
@@ -12,7 +17,7 @@ export const HomePageChildCard: FC<ChildPropTypes> = ({ id, firstName, PictureCo
             <div className={classes.container} key={id}>
                 <span>{PictureComponent}</span>
                 <div>
-                    <span className={classes.childName}>{firstName}</span>
+                    <Typography variant="subtitle2">{firstName}</Typography>
                 </div>
             </div>
         </Link>
@@ -24,8 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             display: 'flex',
             flexDirection: 'column',
-            // justifyContent: 'space-between',
-            // paddingBottom: '9px',
             alignItems: 'center',
             marginRight: 16,
             marginBottom: 16,
