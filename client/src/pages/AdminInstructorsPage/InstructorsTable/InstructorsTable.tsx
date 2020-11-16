@@ -6,16 +6,21 @@ import { User } from '../../../graphql/types';
 
 interface Props {
     instructors: User[];
+    onAssignKindergartenClick: () => void;
 }
 
-export const InstructorsTable = ({ instructors }: Props) => {
+export const InstructorsTable = ({ instructors, onAssignKindergartenClick }: Props) => {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="instructors table">
                 <InstructorsTableHead />
                 <TableBody>
                     {instructors.map(instructor => (
-                        <InstructorsTableRow key={instructor._id} instructor={instructor} />
+                        <InstructorsTableRow
+                            key={instructor._id}
+                            instructor={instructor}
+                            onAssignKindergartenClick={onAssignKindergartenClick}
+                        />
                     ))}
                 </TableBody>
             </Table>

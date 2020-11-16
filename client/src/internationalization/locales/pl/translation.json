@@ -585,8 +585,7 @@
             "firstName": "Imię",
             "lastName": "Nazwisko",
             "email": "Adres e-mail",
-            "kindergarten-count": "Liczba przedszkoli",
-            "children-count": "Liczba dzieci"
+            "kindergarten-count": "Liczba przedszkoli"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",

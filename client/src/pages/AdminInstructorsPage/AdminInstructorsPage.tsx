@@ -30,7 +30,10 @@ export function AdminInstructorsPage() {
                 assessmentSelectOptions={assessmentList}
                 unassignedKindergartens={unassignedKindergartens}
             />
-            <InstructorsTable instructors={usersList} />
+            <InstructorsTable
+                instructors={usersList}
+                onAssignKindergartenClick={() => setAssignInstructorModalOpen(true)}
+            />
             {isAssignInstructorModalOpen && (
                 <AssignInstructorModal
                     onClose={() => setAssignInstructorModalOpen(false)}

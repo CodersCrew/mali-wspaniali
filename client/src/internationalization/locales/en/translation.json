@@ -586,8 +586,7 @@
             "firstName": "First name",
             "lastName": "Last name",
             "email": "E-mail address",
-            "kindergarten-count": "Kindergarten count",
-            "children-count": "Children count"
+            "kindergarten-count": "Kindergarten count"
         },
         "table-toolbar": {
             "select-test": "Select test",
