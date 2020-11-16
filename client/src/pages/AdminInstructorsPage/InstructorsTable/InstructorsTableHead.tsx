@@ -10,11 +10,11 @@ export const InstructorsTableHead = () => {
         <TableHead>
             <TableRow>
                 <TableCell />
-                <TableCell>{t('admin-instructors-page.table-headers.firstName')}</TableCell>
-                <TableCell>{t('admin-instructors-page.table-headers.lastName')}</TableCell>
-                <TableCell>{t('admin-instructors-page.table-headers.email')}</TableCell>
+                <TableCell>{t('admin-instructors-page.table.firstName')}</TableCell>
+                <TableCell>{t('admin-instructors-page.table.lastName')}</TableCell>
+                <TableCell>{t('admin-instructors-page.table.email')}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
-                    {t('admin-instructors-page.table-headers.kindergarten-count')}
+                    {t('admin-instructors-page.table.kindergarten-count')}
                 </TableCell>
             </TableRow>
         </TableHead>

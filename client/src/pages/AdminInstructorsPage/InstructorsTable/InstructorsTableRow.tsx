@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import {
     TableRow,
     TableCell,
     IconButton,
     Fade,
-    makeStyles,
     Box,
     Collapse,
+    Tooltip,
+    makeStyles,
     createStyles,
     Theme,
 } from '@material-ui/core';
@@ -17,17 +20,17 @@ import {
 } from '@material-ui/icons';
 import { User } from '../../../graphql/types';
 
-// TODO: adjust fade button behavior
-
 interface Props {
     instructor: User;
     onAssignKindergartenClick: () => void;
 }
 
 export const InstructorsTableRow = ({ instructor, onAssignKindergartenClick }: Props) => {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
     const [open, setOpen] = useState(false);
     const [showAddButton, setShowAddButton] = useState(false);
-    const classes = useStyles();
 
     const { mail } = instructor;
 
@@ -48,11 +51,20 @@ export const InstructorsTableRow = ({ instructor, onAssignKindergartenClick }: P
                 <TableCell>{mail}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
                     <Fade in={showAddButton} mountOnEnter unmountOnExit>
-                        <IconButton className={classes.iconButton} onClick={onAssignKindergartenClick}>
-                            <AddIcon />
-                        </IconButton>
+                        <div className={classes.iconButtonContainer}>
+                            <Tooltip
+                                title={t('admin-instructors-page.table.tooltip') as string}
+                                aria-label={t('admin-instructors-page.table.tooltip')}
+                                placement="top"
+                                arrow
+                            >
+                                <IconButton className={classes.iconButton} onClick={onAssignKindergartenClick}>
+                                    <AddIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
                     </Fade>
-                    {!showAddButton && '3'}
+                    3
                 </TableCell>
             </TableRow>
             <TableRow>
@@ -77,6 +89,19 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 0,
         },
         kindergartenCell: {
+            position: 'relative',
+            paddingRight: theme.spacing(10),
+        },
+        iconButtonContainer: {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            background: theme.palette.background.paper,
+            top: 0,
+            left: 0,
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
             paddingRight: theme.spacing(10),
         },
         iconButton: {

@@ -581,11 +581,12 @@
         "wrong-old-password": "Niepoprawne hasło"
     },
     "admin-instructors-page": {
-        "table-headers": {
+        "table": {
             "firstName": "Imię",
             "lastName": "Nazwisko",
             "email": "Adres e-mail",
-            "kindergarten-count": "Liczba przedszkoli"
+            "kindergarten-count": "Liczba przedszkoli",
+            "tooltip": "Przydziel do przedszkola"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",

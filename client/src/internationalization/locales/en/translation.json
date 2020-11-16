@@ -582,11 +582,12 @@
         "wrong-old-password": "Incorrect password"
     },
     "admin-instructors-page": {
-        "table-headers": {
+        "table": {
             "firstName": "First name",
             "lastName": "Last name",
             "email": "E-mail address",
-            "kindergarten-count": "Kindergarten count"
+            "kindergarten-count": "Kindergarten count",
+            "tooltip": "Assign to kindergarten"
         },
         "table-toolbar": {
             "select-test": "Select test",
