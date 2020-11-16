@@ -1,3 +1,3 @@
-import { DeviceCreatedHandler } from './create_assessment_handler';
+import { AssessmentCreatedHandler } from './assessment_created_handler';
 
-export const EventHandlers = [DeviceCreatedHandler];
+export const EventHandlers = [AssessmentCreatedHandler];

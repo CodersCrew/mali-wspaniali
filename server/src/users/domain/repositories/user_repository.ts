@@ -28,6 +28,20 @@ export class UserRepository {
       });
   }
 
+  async getMany(ids: string[]): Promise<UserProps[]> {
+    return await this.userModel
+      .find(
+        {
+          _id: {
+            $in: ids,
+          },
+        },
+        { password: 0 },
+      )
+      .lean()
+      .exec();
+  }
+
   async getAll(role?: string): Promise<UserProps[]> {
     let query: { [index: string]: string } = {};
 

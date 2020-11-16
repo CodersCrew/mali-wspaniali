@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AssessmentDto } from '../../../assessment/domain/models/assessment_model';
+import { AssessmentInput } from '../../../assessment/domain/models/assessment_model';
 import { Assessment } from '../models/assessment_model';
+import { AssessmentMapper } from '../mappers/assessment_mapper';
 
 import {
   AssessmentDocument,
@@ -20,7 +21,7 @@ export class AssessmentRepository {
     return await this.model.findById(id).exec();
   }
 
-  async getAll(): Promise<AssessmentDto[]> {
+  async getAll(): Promise<AssessmentInput[]> {
     return await this.model
       .find({}, {}, { sort: { date: -1 } })
       .exec()
@@ -29,15 +30,15 @@ export class AssessmentRepository {
       );
   }
 
-  async create(initialData: AssessmentDto): Promise<Assessment> {
-    const createdAssessment = new this.model(initialData);
+  async create(newAssessment: Assessment): Promise<Assessment> {
+    const createdAssessment = new this.model(
+      AssessmentMapper.toPersist(newAssessment),
+    );
 
     const result = await createdAssessment
       .save()
-      .then(agreement => agreement.toObject());
+      .then(assessment => assessment.toObject());
 
-    const assessment = Assessment.create(result);
-
-    return assessment;
+    return AssessmentMapper.toDomain(result, { isNew: true });
   }
 }

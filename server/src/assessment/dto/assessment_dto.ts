@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
+import { KindergartenWithInstructorDTO } from './kindergarten_with_instructor_dto';
 
 @ObjectType()
 export class AssessmentDTO {
@@ -16,4 +17,7 @@ export class AssessmentDTO {
 
   @Field()
   endDate: string;
+
+  @Field(() => [KindergartenWithInstructorDTO])
+  kindergartens: any;
 }

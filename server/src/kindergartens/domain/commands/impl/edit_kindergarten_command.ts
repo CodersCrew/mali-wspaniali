@@ -1,4 +1,4 @@
-import { EditKindergartenInput } from 'src/kindergartens/inputs/edit_kindergarten_input';
+import { EditKindergartenInput } from '../../../inputs/edit_kindergarten_input';
 
 export class EditKindergartenCommand {
   constructor(
