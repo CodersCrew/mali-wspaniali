@@ -162,7 +162,7 @@ export interface KeyCodeSeries {
     count: number;
 }
 
-export interface Test {
+export interface Assessment {
     _id: string;
     isOutdated: boolean;
     title: string;

@@ -4,19 +4,26 @@ import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
 // import { useFormik } from 'formik';
 // import { useTranslation } from 'react-i18next';
 import { KindergartenTable } from './KindergartenTable';
-import { TestsSelect } from '../TestsSelect';
+import { AssessmentsSelect } from '../AssessmentsSelect';
 import { InstructorsSelect } from '../InstructorsSelect';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-import { User, Kindergarten } from '../../../graphql/types';
+import { User, Kindergarten, Assessment } from '../../../graphql/types';
 
 interface Props {
     onClose: () => void;
     onSubmit: () => void;
     instructorSelectOptions: User[];
+    assessmentSelectOptions: Assessment[];
     kindergartens: Kindergarten[];
 }
 
-export const AssignInstructorModal = ({ onClose, onSubmit, instructorSelectOptions, kindergartens }: Props) => {
+export const AssignInstructorModal = ({
+    onClose,
+    onSubmit,
+    instructorSelectOptions,
+    assessmentSelectOptions,
+    kindergartens,
+}: Props) => {
     const classes = useStyles();
     // const { t } = useTranslation();
 
@@ -33,7 +40,7 @@ export const AssignInstructorModal = ({ onClose, onSubmit, instructorSelectOptio
                 <Typography variant="h4" className={classes.title}>
                     Przydziel do przedszkola
                 </Typography>
-                <TestsSelect label="Wybierz test" />
+                <AssessmentsSelect label="Wybierz test" options={assessmentSelectOptions} />
                 <InstructorsSelect label="Imię i nazwisko instruktora" options={instructorSelectOptions} />
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     Wybierz przedszkola

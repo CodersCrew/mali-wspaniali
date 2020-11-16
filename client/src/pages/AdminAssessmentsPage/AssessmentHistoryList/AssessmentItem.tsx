@@ -1,15 +1,15 @@
 import React from 'react';
 import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme } from '@material-ui/core';
-import { Assessment, Edit, Delete } from '@material-ui/icons';
+import { Assessment as AssessmentIcon, Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 
-import { Test } from '../../../graphql/types';
+import { Assessment } from '../../../graphql/types';
 
 interface Props {
-    value: Test;
+    value: Assessment;
     status: JSX.Element;
 }
 
-export function TestItem({ value, status }: Props) {
+export function AssessmentItem({ value, status }: Props) {
     const classes = useStyles();
 
     return (
@@ -22,15 +22,15 @@ export function TestItem({ value, status }: Props) {
             <TableCell>{status}</TableCell>
             <TableCell>
                 <IconButton size="small">
-                    <Assessment classes={{ root: classes.icon }} />
+                    <AssessmentIcon classes={{ root: classes.icon }} />
                 </IconButton>
             </TableCell>
             <TableCell>
                 <IconButton size="small">
-                    <Edit classes={{ root: classes.icon }} />
+                    <EditIcon classes={{ root: classes.icon }} />
                 </IconButton>
                 <IconButton size="small">
-                    <Delete classes={{ root: classes.icon }} />
+                    <DeleteIcon classes={{ root: classes.icon }} />
                 </IconButton>
             </TableCell>
         </TableRow>

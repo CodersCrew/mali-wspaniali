@@ -14,14 +14,14 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { TestItem } from './TestItem';
-import { Test } from '../../../graphql/types';
+import { AssessmentItem } from './AssessmentItem';
+import { Assessment } from '../../../graphql/types';
 
 interface Props {
-    tests: Test[];
+    assessments: Assessment[];
 }
 
-export function TestHistoryList({ tests }: Props) {
+export function TestHistoryList({ assessments }: Props) {
     const { t } = useTranslation();
 
     return (
@@ -38,8 +38,12 @@ export function TestHistoryList({ tests }: Props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tests.map(test => (
-                        <TestItem key={test.title} value={test} status={<Status value={!test.isOutdated} />} />
+                    {assessments.map(assessment => (
+                        <AssessmentItem
+                            key={assessment._id}
+                            value={assessment}
+                            status={<Status value={!assessment.isOutdated} />}
+                        />
                     ))}
                 </TableBody>
             </Table>

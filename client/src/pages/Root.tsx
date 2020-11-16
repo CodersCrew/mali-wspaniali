@@ -28,7 +28,7 @@ import { AdminInstructorsPage } from './AdminInstructorsPage/AdminInstructorsPag
 import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreementsPageConatianer';
 import { AddResultsPage } from './AddResultsPage/AddResultsPage';
 import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
-import { TestManagementPage } from './AdminTestsPage/AdminTestsPage';
+import { AssessmentManagementPage } from './AdminAssessmentsPage/AdminAssessmentsPage';
 import { AdminRecommendationsPage } from './AdminRecommendationsPage/AdminRecommendationsPage';
 import { AdminAddTestPage } from './AdminAddTestPage/AdminAddTestPage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
@@ -69,7 +69,7 @@ export function Root() {
                                 <Route path="/admin/archive" component={ArchivePage} />
                                 <Route path="/admin/notifications" component={NotificationsPage} />
                                 <Route path="/admin/test-management/add" component={AdminAddTestPage} />
-                                <Route path="/admin/test-management" component={TestManagementPage} />
+                                <Route path="/admin/test-management" component={AssessmentManagementPage} />
                                 <Route path="/admin/recommendations" component={AdminRecommendationsPage} />
                                 <Route path="/admin/keycodes" component={AdminCodesPage} />
                                 <Route path="/admin/instructors" component={AdminInstructorsPage} />

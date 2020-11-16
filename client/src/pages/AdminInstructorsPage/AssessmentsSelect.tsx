@@ -1,11 +1,13 @@
 import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { Assessment } from '../../graphql/types';
 
 interface Props {
     label: string;
+    options: Assessment[];
 }
 
-export const TestsSelect = ({ label }: Props) => {
+export const AssessmentsSelect = ({ label, options }: Props) => {
     return (
         <FormControl variant="outlined" fullWidth>
             <InputLabel id="test-select-label">{label}</InputLabel>
@@ -18,12 +20,11 @@ export const TestsSelect = ({ label }: Props) => {
                     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
                 }}
             >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                <MenuItem>Test 1</MenuItem>
-                <MenuItem>Test 2</MenuItem>
-                <MenuItem>Test 3</MenuItem>
+                {options.map(assessment => (
+                    <MenuItem key={assessment._id} value={assessment._id}>
+                        {assessment.title}
+                    </MenuItem>
+                ))}
             </Select>
         </FormControl>
     );

@@ -2,17 +2,18 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { AddCircle as AddCircleIcon } from '@material-ui/icons';
-import { TestsSelect } from './TestsSelect';
+import { AssessmentsSelect } from './AssessmentsSelect';
 import { InstructorsSelect } from './InstructorsSelect';
 import { ButtonSecondary } from '../../components/Button';
-import { User } from '../../graphql/types';
+import { User, Assessment } from '../../graphql/types';
 
 interface Props {
     onButtonClick: () => void;
     instructorSelectOptions: User[];
+    assessmentSelectOptions: Assessment[];
 }
 
-export const Toolbar = ({ onButtonClick, instructorSelectOptions }: Props) => {
+export const Toolbar = ({ onButtonClick, instructorSelectOptions, assessmentSelectOptions }: Props) => {
     const classes = useStyles();
 
     const { t } = useTranslation();
@@ -20,7 +21,10 @@ export const Toolbar = ({ onButtonClick, instructorSelectOptions }: Props) => {
     return (
         <div className={classes.container}>
             <div className={classes.input}>
-                <TestsSelect label={t('admin-instructors-page.table-toolbar.select-test')} />
+                <AssessmentsSelect
+                    label={t('admin-instructors-page.table-toolbar.select-test')}
+                    options={assessmentSelectOptions}
+                />
             </div>
             <div className={classes.input}>
                 <InstructorsSelect
