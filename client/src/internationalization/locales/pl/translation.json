@@ -591,7 +591,10 @@
         "table-toolbar": {
             "select-test": "Wybierz test",
             "instructor-search": "Szukaj instruktora",
-            "kindergarten-assign": "Przydziel do przedszkola"
+            "unassigned-kindergartens": "Nieprzydzielone przedszkola"
+        },
+        "snackbars": {
+            "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
         }
     }
 }

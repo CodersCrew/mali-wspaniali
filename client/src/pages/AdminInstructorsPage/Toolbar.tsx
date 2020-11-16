@@ -1,22 +1,25 @@
 import React from 'react';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { AddCircle as AddCircleIcon } from '@material-ui/icons';
+import { Typography, IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { InfoOutlined as InfoIcon } from '@material-ui/icons';
 import { AssessmentsSelect } from './AssessmentsSelect';
 import { InstructorsSelect } from './InstructorsSelect';
-import { ButtonSecondary } from '../../components/Button';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { User, Assessment } from '../../graphql/types';
 
 interface Props {
-    onButtonClick: () => void;
     instructorSelectOptions: User[];
     assessmentSelectOptions: Assessment[];
+    unassignedKindergartens: number;
 }
 
-export const Toolbar = ({ onButtonClick, instructorSelectOptions, assessmentSelectOptions }: Props) => {
+export const Toolbar = ({ instructorSelectOptions, assessmentSelectOptions, unassignedKindergartens }: Props) => {
     const classes = useStyles();
 
     const { t } = useTranslation();
+
+    const handleClick = () => openSnackbar({ text: t('admin-instructors-page.snackbars.info'), severity: 'info' });
 
     return (
         <div className={classes.container}>
@@ -32,12 +35,22 @@ export const Toolbar = ({ onButtonClick, instructorSelectOptions, assessmentSele
                     options={instructorSelectOptions}
                 />
             </div>
-            <ButtonSecondary
-                variant="contained"
-                innerText={t('admin-instructors-page.table-toolbar.kindergarten-assign')}
-                startIcon={<AddCircleIcon />}
-                onClick={onButtonClick}
-            />
+            <div className={classes.kindergartenInfoContainer}>
+                <Typography
+                    variant="subtitle2"
+                    color="secondary"
+                    component="p"
+                    className={clsx({
+                        [classes.kindergartenInfoText]: true,
+                        [classes.kindergartenInfoTextSuccess]: unassignedKindergartens === 0,
+                    })}
+                >
+                    {t('admin-instructors-page.table-toolbar.unassigned-kindergartens')}: {unassignedKindergartens}
+                </Typography>
+                <IconButton onClick={handleClick}>
+                    <InfoIcon />
+                </IconButton>
+            </div>
         </div>
     );
 };
@@ -56,6 +69,16 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         input: {
             width: 330,
+        },
+        kindergartenInfoContainer: {
+            display: 'flex',
+            alignItems: 'center',
+        },
+        kindergartenInfoText: {
+            textTransform: 'uppercase',
+        },
+        kindergartenInfoTextSuccess: {
+            color: theme.palette.success.main,
         },
     }),
 );

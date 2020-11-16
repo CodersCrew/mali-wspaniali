@@ -592,7 +592,10 @@
         "table-toolbar": {
             "select-test": "Select test",
             "instructor-search": "Search for instructor",
-            "kindergarten-assign": "Assign to kindergarten"
+            "unassigned-kindergartens": "Unassigned kidnergartens"
+        },
+        "snackbars": {
+            "info": "To add unassigned kindergarten, select the instructor and assign him/her to selected kindergarten"
         }
     }
 }

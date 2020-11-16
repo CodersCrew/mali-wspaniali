@@ -17,6 +17,8 @@ export function AdminInstructorsPage() {
 
     const [isAssignInstructorModalOpen, setAssignInstructorModalOpen] = useState(false);
 
+    const unassignedKindergartens = 3; // TODO: hard-coded for now, yet to be calculated based on the populated assessmentList
+
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
@@ -24,9 +26,9 @@ export function AdminInstructorsPage() {
     return (
         <div className={classes.container}>
             <Toolbar
-                onButtonClick={() => setAssignInstructorModalOpen(true)}
                 instructorSelectOptions={usersList}
                 assessmentSelectOptions={assessmentList}
+                unassignedKindergartens={unassignedKindergartens}
             />
             <InstructorsTable instructors={usersList} />
             {isAssignInstructorModalOpen && (
