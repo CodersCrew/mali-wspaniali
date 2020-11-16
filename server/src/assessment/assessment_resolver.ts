@@ -65,14 +65,17 @@ export class AssessmentResolver {
       new GetUsersQuery(instructorIds),
     );
 
-    return assessment.kindergartens.map(assessmentKindergarten => ({
-      kindergarten: kindergartens.find(
-        k =>
-          k._id.toString() === assessmentKindergarten.kindergartenId.toString(),
-      ),
-      instructor: instructors.find(
-        i => i._id === assessmentKindergarten.instructorId,
-      ),
-    }));
+    return assessment.kindergartens
+      .map(assessmentKindergarten => ({
+        kindergarten: kindergartens.find(
+          k =>
+            k._id.toString() ===
+            assessmentKindergarten.kindergartenId.toString(),
+        ),
+        instructor: instructors.find(
+          i => i._id === assessmentKindergarten.instructorId,
+        ),
+      }))
+      .filter(k => k.kindergarten);
   }
 }

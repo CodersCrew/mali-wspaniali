@@ -142,7 +142,7 @@ type NewsletterDTO {
 }
 
 type KindergartenWithInstructorDTO {
-  kindergarten: KindergartenDTO!
+  kindergarten: KindergartenDTO
   instructor: UserDTO
 }
 

@@ -6,7 +6,7 @@ import { UserProps } from '../../users/domain/models/user_model';
 
 @ObjectType()
 export class KindergartenWithInstructorDTO {
-  @Field(() => KindergartenDTO)
+  @Field(() => KindergartenDTO, { nullable: true })
   kindergarten: KindergartenProps;
 
   @Field(() => UserDTO, { nullable: true })
