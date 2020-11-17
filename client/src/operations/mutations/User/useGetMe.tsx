@@ -12,6 +12,7 @@ export const GET_ME = gql`
                 lastname
                 sex
                 birthYear
+                birthQuarter
                 results {
                     _id
                     date

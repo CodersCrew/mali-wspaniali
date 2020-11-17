@@ -21,6 +21,7 @@ import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/c
 import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
+import { BirthQuarter } from '../../../models/birth_quarter_value_object';
 
 let app: TestingModule;
 
@@ -40,6 +41,7 @@ describe('AddChildHandler', () => {
 
   const validChildOptions = {
     birthYear: 2000,
+    birthQuarter: 1,
     firstname: 'my-name',
     lastname: 'my-lastname',
     sex: 'male',
@@ -84,6 +86,8 @@ describe('AddChildHandler', () => {
         expect(addedChild.lastname.value).toEqual('my-lastname');
         expect(addedChild.birthYear).toBeInstanceOf(BirthYear);
         expect(addedChild.birthYear.value).toEqual(2000);
+        expect(addedChild.birthQuarter).toBeInstanceOf(BirthQuarter);
+        expect(addedChild.birthQuarter.value).toEqual(1);
       });
 
       it('invokes child added notification', async () => {
@@ -156,6 +160,22 @@ describe('AddChildHandler', () => {
           await expect(() =>
             addChildCommandWith({ birthYear: undefined }, parent.id),
           ).rejects.toThrow('BirthYear must be valid, but got "undefined"');
+        });
+      });
+
+      describe('with invalid birth quarter', () => {
+        it('throws an error', async () => {
+          await expect(() =>
+            addChildCommandWith({ birthQuarter: 4 }, parent.id),
+          ).rejects.toThrow('BirthQuarter must be valid, but got "4"');
+
+          await expect(() =>
+            addChildCommandWith({ birthQuarter: null }, parent.id),
+          ).rejects.toThrow('BirthQuarter must be valid, but got "null"');
+
+          await expect(() =>
+            addChildCommandWith({ birthQuarter: undefined }, parent.id),
+          ).rejects.toThrow('BirthQuarter must be valid, but got "undefined"');
         });
       });
 

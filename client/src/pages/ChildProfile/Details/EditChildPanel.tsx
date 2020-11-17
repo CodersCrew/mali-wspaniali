@@ -42,7 +42,7 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
         lastname: child.lastname,
         sex: child.sex,
         'birth-date': child.birthYear.toString(),
-        'birth-quarter': '',
+        'birth-quarter': child.birthQuarter.toString(),
         kindergarten: child.kindergarten._id,
     };
 

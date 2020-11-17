@@ -22,6 +22,7 @@ export const ParentWrapper: FC = ({ children }) => {
                         firstname: child.firstname,
                         lastname: child.lastname,
                         birthYear: parseInt(child['birth-date'], 10),
+                        birthQuarter: parseInt(child['birth-quarter'], 10),
                         sex: child.sex,
                         kindergartenId: child.kindergarten,
                     };

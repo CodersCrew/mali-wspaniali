@@ -260,6 +260,7 @@ describe('User (e2e)', () => {
               firstname: "John",
               lastname: "Smith",
               birthYear: 2000,
+              birthQuarter: 1,
               sex: "male",
               kindergartenId: "${createdKindergartenId}",
           }) {

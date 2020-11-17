@@ -11,6 +11,10 @@ export const ChildSchema = new mongoose.Schema({
   firstname: String,
   lastname: String,
   birthYear: Number,
+  birthQuarter: {
+    type: Number,
+    default: 0,
+  },
   sex: String,
   results: {
     type: [mongoose.Schema.Types.ObjectId],
