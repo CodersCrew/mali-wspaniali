@@ -15,6 +15,8 @@ export function AdminInstructorsPage() {
     const { kindergartenList } = useKindergartens();
     const { assessmentList } = useAssessments();
 
+    console.log(assessmentList);
+
     const [isAssignInstructorModalOpen, setAssignInstructorModalOpen] = useState(false);
 
     const unassignedKindergartens = 3; // TODO: hard-coded for now, yet to be calculated based on the populated assessmentList

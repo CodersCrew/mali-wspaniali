@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingRight: theme.spacing(10),
         },
         iconButton: {
-            padding: 0,
+            // padding: 0,
         },
     }),
 );

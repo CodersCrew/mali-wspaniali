@@ -13,6 +13,17 @@ export const ASSESSMENTS = gql`
             title
             startDate
             endDate
+            kindergartens {
+                kindergarten {
+                    _id
+                    name
+                    number
+                }
+                instructor {
+                    _id
+                    mail
+                }
+            }
         }
     }
 `;
@@ -22,6 +33,6 @@ export function useAssessments() {
 
     return {
         assessmentList: data?.assessments || [],
-        isAssessmentListLoading: loading
+        isAssessmentListLoading: loading,
     };
 }

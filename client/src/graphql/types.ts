@@ -171,4 +171,8 @@ export interface Assessment {
     title: string;
     startDate: string;
     endDate: string;
+    kindergartens: {
+        instructor: User | null;
+        kindergarten: Kindergarten;
+    }[];
 }
