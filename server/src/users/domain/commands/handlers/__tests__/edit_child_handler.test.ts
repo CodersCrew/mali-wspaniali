@@ -23,6 +23,7 @@ import { Sex } from '../../../models/sex_value_object';
 import { Firstname } from '../../../models/firstname_value_object';
 import { ObjectId } from '../../../models/object_id_value_object';
 import { BirthYear } from '../../../models/birth_year_value_object';
+import { BirthQuarter } from '../../../models/birth_quarter_value_object';
 
 afterAll(async () => {
   await dbHandler.closeInMongodConnection();
@@ -42,6 +43,7 @@ describe('EditChildHandler', () => {
 
   const validChildOptions = {
     birthYear: 2000,
+    birthQuarter: 1,
     firstname: 'my-name',
     lastname: 'my-lastname',
     sex: 'male',
@@ -97,6 +99,8 @@ describe('EditChildHandler', () => {
         expect(updatedChild.lastname.value).toEqual('my-lastname');
         expect(updatedChild.birthYear).toBeInstanceOf(BirthYear);
         expect(updatedChild.birthYear.value).toEqual(2001);
+        expect(updatedChild.birthQuarter).toBeInstanceOf(BirthQuarter);
+        expect(updatedChild.birthQuarter.value).toEqual(1);
       });
     });
 
