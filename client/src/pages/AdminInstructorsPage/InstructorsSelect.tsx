@@ -5,9 +5,11 @@ import { User } from '../../graphql/types';
 interface Props {
     label: string;
     options: User[];
+    initialValue?: string;
+    disabled?: boolean;
 }
 
-export const InstructorsSelect = ({ label, options }: Props) => {
+export const InstructorsSelect = ({ label, options, initialValue, disabled }: Props) => {
     return (
         <FormControl variant="outlined" fullWidth>
             <InputLabel id="instructor-select-label">{label}</InputLabel>
@@ -15,6 +17,8 @@ export const InstructorsSelect = ({ label, options }: Props) => {
                 labelId="instructor-select-label"
                 id="instructor-select"
                 label={label}
+                value={initialValue}
+                disabled={disabled}
                 MenuProps={{
                     getContentAnchorEl: null,
                     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },

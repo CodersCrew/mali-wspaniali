@@ -15,6 +15,8 @@ interface Props {
     instructorSelectOptions: User[];
     assessmentSelectOptions: Assessment[];
     kindergartens: Kindergarten[];
+    instructor: User | null;
+    assessment: Assessment | null;
 }
 
 export const AssignInstructorModal = ({
@@ -23,6 +25,8 @@ export const AssignInstructorModal = ({
     instructorSelectOptions,
     assessmentSelectOptions,
     kindergartens,
+    instructor,
+    assessment,
 }: Props) => {
     const classes = useStyles();
     // const { t } = useTranslation();
@@ -40,8 +44,18 @@ export const AssignInstructorModal = ({
                 <Typography variant="h4" className={classes.title}>
                     Przydziel do przedszkola
                 </Typography>
-                <AssessmentsSelect label="Wybierz test" options={assessmentSelectOptions} />
-                <InstructorsSelect label="Imię i nazwisko instruktora" options={instructorSelectOptions} />
+                <AssessmentsSelect
+                    label="Wybierz test"
+                    options={assessmentSelectOptions}
+                    value={assessment ? assessment._id : undefined}
+                    disabled={!!assessment}
+                />
+                <InstructorsSelect
+                    label="Imię i nazwisko instruktora"
+                    options={instructorSelectOptions}
+                    initialValue={instructor ? instructor._id : undefined}
+                    disabled={!!instructor}
+                />
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     Wybierz przedszkola
                 </Typography>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import {
     TableRow,
     TableCell,
@@ -22,10 +21,10 @@ import { User } from '../../../graphql/types';
 
 interface Props {
     instructor: User;
-    onAssignKindergartenClick: () => void;
+    onAssignInstructorClick: (instructor: User | null) => void;
 }
 
-export const InstructorsTableRow = ({ instructor, onAssignKindergartenClick }: Props) => {
+export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -50,7 +49,7 @@ export const InstructorsTableRow = ({ instructor, onAssignKindergartenClick }: P
                 <TableCell>{mail}</TableCell>
                 <TableCell>{mail}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
-                    <Fade in={showAddButton} mountOnEnter unmountOnExit>
+                    <Fade in={showAddButton} mountOnEnter unmountOnExit timeout={500}>
                         <div className={classes.iconButtonContainer}>
                             <Tooltip
                                 title={t('admin-instructors-page.table.tooltip') as string}
@@ -58,7 +57,7 @@ export const InstructorsTableRow = ({ instructor, onAssignKindergartenClick }: P
                                 placement="top"
                                 arrow
                             >
-                                <IconButton className={classes.iconButton} onClick={onAssignKindergartenClick}>
+                                <IconButton onClick={() => onAssignInstructorClick(instructor)}>
                                     <AddIcon />
                                 </IconButton>
                             </Tooltip>
@@ -102,10 +101,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            paddingRight: theme.spacing(10),
-        },
-        iconButton: {
-            // padding: 0,
+            paddingRight: theme.spacing(8),
         },
     }),
 );

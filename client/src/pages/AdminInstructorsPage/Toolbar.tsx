@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Typography, IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
@@ -11,10 +11,18 @@ import { User, Assessment } from '../../graphql/types';
 interface Props {
     instructorSelectOptions: User[];
     assessmentSelectOptions: Assessment[];
+    assessmentSelectValue: string;
+    setSelectedAssessment: Dispatch<SetStateAction<string>>;
     unassignedKindergartens: number;
 }
 
-export const Toolbar = ({ instructorSelectOptions, assessmentSelectOptions, unassignedKindergartens }: Props) => {
+export const Toolbar = ({
+    instructorSelectOptions,
+    assessmentSelectOptions,
+    assessmentSelectValue,
+    setSelectedAssessment,
+    unassignedKindergartens,
+}: Props) => {
     const classes = useStyles();
 
     const { t } = useTranslation();
@@ -27,6 +35,8 @@ export const Toolbar = ({ instructorSelectOptions, assessmentSelectOptions, unas
                 <AssessmentsSelect
                     label={t('admin-instructors-page.table-toolbar.select-test')}
                     options={assessmentSelectOptions}
+                    value={assessmentSelectValue}
+                    setSelectedAssessment={setSelectedAssessment}
                 />
             </div>
             <div className={classes.input}>
