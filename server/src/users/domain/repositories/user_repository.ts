@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { UserProps, User } from '../models/user_model';
 import { UserDocument } from '../../schemas/user_schema';
 import { ObjectId } from '../models/object_id_value_object';
+import { KeyCodeProps } from '../../../key_codes/domain/models/key_code_model';
 
 @Injectable()
 export class UserRepository {
@@ -93,14 +94,17 @@ export class UserRepository {
       mail: string;
       password: string;
     },
-    keyCode: string,
+    keyCode: KeyCodeProps,
   ): Promise<User> {
     const user = User.recreate(createUserDTO);
 
-    const createdUser = new this.userModel(user.getProps());
+    const createdUser = new this.userModel({
+      ...user.getProps(),
+      role: keyCode.target,
+    });
     const rawUser = await createdUser.save();
 
-    return User.create(rawUser, keyCode);
+    return User.create(rawUser, keyCode.keyCode);
   }
 
   async addChild(childId: ObjectId, userId: string): Promise<void> {
