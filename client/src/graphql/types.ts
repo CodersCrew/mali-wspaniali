@@ -51,6 +51,7 @@ export interface ChildInput {
     firstname: string;
     lastname: string;
     birthYear: number;
+    birthQuarter: number;
     sex: string;
     kindergartenId: string;
 }
@@ -60,6 +61,7 @@ export interface UpdatedChildInput {
     firstname: string;
     lastname: string;
     birthYear: number;
+    birthQuarter: number;
     sex: string;
     kindergartenId: string;
 }
@@ -83,6 +85,7 @@ export interface Child {
     sex: Sex;
     kindergarten: Kindergarten;
     birthYear: number;
+    birthQuarter: number;
     results: TestResult[];
 }
 

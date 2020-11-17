@@ -11,6 +11,7 @@ import { Result } from '../../../shared/domain/result';
 import { ChildDeletedEvent } from '../events/impl/child_deleted_event';
 import { ChildCreatedEvent } from '../events/impl';
 import { KindergartenProps } from '../../../kindergartens/domain/models/kindergarten_model';
+import { BirthQuarter } from './birth_quarter_value_object';
 
 export interface ChildProps {
   _id: string;
@@ -18,6 +19,7 @@ export interface ChildProps {
   lastname: string;
   sex: string;
   birthYear: number;
+  birthQuarter: number;
   isDeleted: boolean;
   results?: mongoose.Schema.Types.ObjectId[] | ChildResultProps[];
   kindergarten: string;
@@ -34,6 +36,7 @@ interface Props {
   lastname: Lastname;
   sex: Sex;
   birthYear: BirthYear;
+  birthQuarter: BirthQuarter;
   kindergarten: ObjectId;
   isDeleted: boolean;
 }
@@ -61,6 +64,10 @@ export class Child extends AggregateRoot {
 
   get birthYear(): BirthYear {
     return this.props.birthYear;
+  }
+
+  get birthQuarter(): BirthQuarter {
+    return this.props.birthQuarter;
   }
 
   get kindergarten(): ObjectId {

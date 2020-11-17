@@ -17,6 +17,7 @@ export const KINDERGARTEN_WITH_USERS = gql`
                     lastname
                     sex
                     birthYear
+                    birthQuarter
                     kindergarten {
                         _id
                     }

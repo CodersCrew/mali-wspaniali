@@ -33,6 +33,7 @@ export function ChildDetails({ child }: Props) {
                         firstname: updatedChild.firstname,
                         lastname: updatedChild.lastname,
                         birthYear: parseInt(updatedChild['birth-date'], 10),
+                        birthQuarter: parseInt(updatedChild['birth-quarter'], 10),
                         sex: updatedChild.sex,
                         kindergartenId: updatedChild.kindergarten,
                     });

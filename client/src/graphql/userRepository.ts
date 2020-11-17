@@ -37,6 +37,7 @@ export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User 
                         lastname
                         sex
                         birthYear
+                        birthQuarter
                         results {
                             _id
                             date
@@ -77,6 +78,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                             lastname
                             sex
                             birthYear
+                            birthQuarter
                             results {
                                 _id
                                 date
@@ -115,6 +117,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                         lastname
                         sex
                         birthYear
+                        birthQuarter
                         results {
                             _id
                             date
@@ -150,6 +153,7 @@ export function getAllChildren(): Promise<ApolloQueryResult<{ allChildren: Child
                     lastname
                     sex
                     birthYear
+                    birthQuaarter
                     results {
                         _id
                         date
