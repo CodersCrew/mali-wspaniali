@@ -5,17 +5,14 @@ import { Assessment } from '../../graphql/types';
 interface Props {
     label: string;
     options: Assessment[];
-    value?: string;
-    setSelectedAssessment?: Dispatch<SetStateAction<string>>;
-    disabled?: boolean;
+    value: Assessment | null;
+    setSelectedAssessment: Dispatch<SetStateAction<Assessment | null>>;
 }
 
-export const AssessmentsSelect = ({ label, options, setSelectedAssessment, value, disabled }: Props) => {
-    const handleChange = setSelectedAssessment
-        ? (e: ChangeEvent<{ name?: string | undefined; value: unknown }>) => {
-              setSelectedAssessment(e.target.value as string);
-          }
-        : undefined;
+export const AssessmentsSelect = ({ label, options, setSelectedAssessment, value }: Props) => {
+    const handleChange = (e: ChangeEvent<{ name?: string | undefined; value: unknown }>) => {
+        setSelectedAssessment(options.find(assess => assess._id === e.target.value) as Assessment);
+    };
 
     return (
         <FormControl variant="outlined" fullWidth>
@@ -24,8 +21,8 @@ export const AssessmentsSelect = ({ label, options, setSelectedAssessment, value
                 labelId="test-select-label"
                 id="test-select"
                 label={label}
-                disabled={disabled}
-                value={value}
+                // TODO: figure out why it doesn't work on first render - the selected assessment is set properly, but it doesn't show the right option
+                value={value?._id}
                 onChange={handleChange}
                 MenuProps={{
                     getContentAnchorEl: null,

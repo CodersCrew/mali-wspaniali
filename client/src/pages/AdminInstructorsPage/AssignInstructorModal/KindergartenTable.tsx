@@ -41,6 +41,7 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                 label="Szukaj"
                 variant="outlined"
                 fullWidth
+                autoComplete="off"
                 value={searchPhrase}
                 onChange={({ target: { value } }) => setSearchPhrase(value)}
                 InputProps={{
@@ -77,9 +78,9 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                     <TableBody>
                         {kindergartens
                             .filter(kindergarten => {
-                                if (searchPhrase.length <= 3) return true;
+                                if (searchPhrase.length === 0) return true;
 
-                                return kindergarten.name.includes(searchPhrase);
+                                return kindergarten.name.toLowerCase().includes(searchPhrase);
                             })
                             .map(kindergarten => (
                                 <TableRow

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableContainer';
 import { Toolbar } from './Toolbar';
+import { InstructorsSelect } from './InstructorsSelect';
+import { AssessmentsSelect } from './AssessmentsSelect';
+import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableContainer';
+import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
 import { activePage } from '../../apollo_client';
 import { useUsersByRole } from '../../operations/queries/Users/getUsersByRole';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
 import { User, Assessment } from '../../graphql/types';
-import { AssessmentsSelect } from './AssessmentsSelect';
-import { InstructorsSelect } from './InstructorsSelect';
-import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 
 interface InstructorModalStatus {
     isOpen: boolean;
@@ -29,28 +29,39 @@ export function AdminInstructorsPage() {
     const { t } = useTranslation();
     const classes = useStyles();
 
+    useEffect(() => {
+        activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
+    }, []);
+
     const { usersList } = useUsersByRole('instructor');
     const { kindergartenList } = useKindergartens();
     const { assessmentList } = useAssessments();
 
-    const [selectedAssessment, setSelectedAssessment] = useState(''); // TODO: refactor this piece of state to keep track of the whole assessment object, not just the id
+    const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
     const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
         initialInstructorModalStatus,
     );
+
+    useEffect(() => {
+        activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
+    }, []);
+
+    useEffect(() => {
+        // When assessment data is done fetching, set assessment select value to the most recent test (the data should be sorted by startDate in descending order)
+        if (assessmentList.length !== 0) {
+            setSelectedAssessment(assessmentList[0]);
+        }
+    }, [assessmentList]);
 
     const onAssignInstructorClick = (instructor: User) => {
         setAssignInstructorModalStatus({
             isOpen: true,
             instructor,
-            assessment: assessmentList.find(assess => assess._id === selectedAssessment) || null,
+            assessment: selectedAssessment,
         });
     };
 
-    const unassignedKindergartensCount = 3; // TODO: hard-coded for now, yet to be calculated based on the populated assessmentList
-
-    useEffect(() => {
-        activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
-    }, []);
+    const unassignedKindergartensCount = selectedAssessment?.kindergartens.map(kindergarten => !kindergarten.instructor ? kindergarten : null).length || 0;
 
     return (
         <div className={classes.container}>
@@ -84,8 +95,6 @@ export function AdminInstructorsPage() {
                 <AssignInstructorModal
                     onClose={() => setAssignInstructorModalStatus(initialInstructorModalStatus)}
                     onSubmit={() => console.log('modal form submitted!')}
-                    instructorSelectOptions={usersList}
-                    assessmentSelectOptions={assessmentList}
                     kindergartens={kindergartenList}
                     instructor={assignInstructorModalStatus.instructor}
                     assessment={assignInstructorModalStatus.assessment}

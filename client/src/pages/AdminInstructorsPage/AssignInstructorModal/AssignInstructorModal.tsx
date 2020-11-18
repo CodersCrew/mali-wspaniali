@@ -1,33 +1,30 @@
 import React from 'react';
-import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
+import {
+    Typography,
+    makeStyles,
+    Theme,
+    createStyles,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+} from '@material-ui/core';
 // import * as Yup from 'yup';
 // import { useFormik } from 'formik';
 // import { useTranslation } from 'react-i18next';
 import { KindergartenTable } from './KindergartenTable';
-import { AssessmentsSelect } from '../AssessmentsSelect';
-import { InstructorsSelect } from '../InstructorsSelect';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { User, Kindergarten, Assessment } from '../../../graphql/types';
 
 interface Props {
     onClose: () => void;
     onSubmit: () => void;
-    instructorSelectOptions: User[];
-    assessmentSelectOptions: Assessment[];
     kindergartens: Kindergarten[];
     instructor: User | null;
     assessment: Assessment | null;
 }
 
-export const AssignInstructorModal = ({
-    onClose,
-    onSubmit,
-    instructorSelectOptions,
-    assessmentSelectOptions,
-    kindergartens,
-    instructor,
-    assessment,
-}: Props) => {
+export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instructor, assessment }: Props) => {
     const classes = useStyles();
     // const { t } = useTranslation();
 
@@ -44,18 +41,38 @@ export const AssignInstructorModal = ({
                 <Typography variant="h4" className={classes.title}>
                     Przydziel do przedszkola
                 </Typography>
-                <AssessmentsSelect
-                    label="Wybierz test"
-                    options={assessmentSelectOptions}
-                    value={assessment ? assessment._id : undefined}
-                    disabled={!!assessment}
-                />
-                <InstructorsSelect
-                    label="Imię i nazwisko instruktora"
-                    options={instructorSelectOptions}
-                    initialValue={instructor ? instructor._id : undefined}
-                    disabled={!!instructor}
-                />
+                <FormControl variant="outlined" fullWidth>
+                    <InputLabel id="test-select-label">Wybierz test</InputLabel>
+                    <Select
+                        labelId="test-select-label"
+                        id="test-select"
+                        label="Wybierz test"
+                        value={assessment?._id}
+                        disabled
+                        MenuProps={{
+                            getContentAnchorEl: null,
+                            anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                        }}
+                    >
+                        <MenuItem value={assessment?._id}>{assessment?.title}</MenuItem>
+                    </Select>
+                </FormControl>
+                <FormControl variant="outlined" fullWidth>
+                    <InputLabel id="instructor-select-label">Wybierz instruktora</InputLabel>
+                    <Select
+                        labelId="instructor-select-label"
+                        id="instructor-select"
+                        label="Wybierz instruktora"
+                        value={instructor?._id}
+                        disabled
+                        MenuProps={{
+                            getContentAnchorEl: null,
+                            anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                        }}
+                    >
+                        <MenuItem value={instructor?._id}>{instructor?.mail}</MenuItem>
+                    </Select>
+                </FormControl>
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     Wybierz przedszkola
                 </Typography>
