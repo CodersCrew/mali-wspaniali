@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { InstructorWithKindergartens } from './types';
 import { Toolbar } from './Toolbar';
 import { InstructorsSelect } from './InstructorsSelect';
 import { AssessmentsSelect } from './AssessmentsSelect';
@@ -8,14 +9,14 @@ import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableCo
 import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
 import { activePage } from '../../apollo_client';
+import { Loader } from '../../components/Loader';
 import { useUsersByRole } from '../../operations/queries/Users/getUsersByRole';
-import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
-import { User, Assessment } from '../../graphql/types';
+import { Assessment } from '../../graphql/types';
 
 interface InstructorModalStatus {
     isOpen: boolean;
-    instructor: User | null;
+    instructor: InstructorWithKindergartens | null;
     assessment: Assessment | null;
 }
 
@@ -33,9 +34,8 @@ export function AdminInstructorsPage() {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
 
-    const { usersList } = useUsersByRole('instructor');
-    const { kindergartenList } = useKindergartens();
-    const { assessmentList } = useAssessments();
+    const { usersList, isUsersListLoading } = useUsersByRole('instructor');
+    const { assessmentList, isAssessmentListLoading } = useAssessments();
 
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
     const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
@@ -53,7 +53,12 @@ export function AdminInstructorsPage() {
         }
     }, [assessmentList]);
 
-    const onAssignInstructorClick = (instructor: User) => {
+    const instructorsWithKindergartens: InstructorWithKindergartens[] = usersList.map(instructor => ({
+        ...instructor,
+        kindergartens: selectedAssessment?.kindergartens.filter(kindergarten => kindergarten.instructor?._id === instructor._id).map(kind => kind.kindergarten) || null
+    }));
+
+    const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
         setAssignInstructorModalStatus({
             isOpen: true,
             instructor,
@@ -61,7 +66,13 @@ export function AdminInstructorsPage() {
         });
     };
 
-    const unassignedKindergartensCount = selectedAssessment?.kindergartens.map(kindergarten => !kindergarten.instructor ? kindergarten : null).length || 0;
+    const unassignedKindergartens = selectedAssessment?.kindergartens
+        .filter(kindergarten => kindergarten.instructor === null)
+        .map(kind => kind.kindergarten);
+
+    if (isUsersListLoading || isAssessmentListLoading) {
+        return <Loader />; 
+    }  
 
     return (
         <div className={classes.container}>
@@ -80,10 +91,10 @@ export function AdminInstructorsPage() {
                         options={usersList}
                     />
                 }
-                unassignedKindergartensCount={unassignedKindergartensCount}
+                unassignedKindergartensCount={unassignedKindergartens?.length || 0}
             />
             <InstructorsTableContainer>
-                {usersList.map(instructor => (
+                {instructorsWithKindergartens.map(instructor => (
                     <InstructorsTableRow
                         key={instructor._id}
                         instructor={instructor}
@@ -95,7 +106,7 @@ export function AdminInstructorsPage() {
                 <AssignInstructorModal
                     onClose={() => setAssignInstructorModalStatus(initialInstructorModalStatus)}
                     onSubmit={() => console.log('modal form submitted!')}
-                    kindergartens={kindergartenList}
+                    kindergartens={unassignedKindergartens || []}
                     instructor={assignInstructorModalStatus.instructor}
                     assessment={assignInstructorModalStatus.assessment}
                 />

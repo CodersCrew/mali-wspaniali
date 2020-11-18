@@ -14,13 +14,14 @@ import {
 // import { useTranslation } from 'react-i18next';
 import { KindergartenTable } from './KindergartenTable';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-import { User, Kindergarten, Assessment } from '../../../graphql/types';
+import { Kindergarten, Assessment } from '../../../graphql/types';
+import { InstructorWithKindergartens } from '../types';
 
 interface Props {
     onClose: () => void;
     onSubmit: () => void;
     kindergartens: Kindergarten[];
-    instructor: User | null;
+    instructor: InstructorWithKindergartens | null;
     assessment: Assessment | null;
 }
 
@@ -74,7 +75,10 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
                     </Select>
                 </FormControl>
                 <Typography variant="subtitle1" className={classes.subtitle}>
-                    Wybierz przedszkola
+                    Przydzielone przedszkola
+                </Typography>
+                <Typography variant="subtitle1" className={classes.subtitle}>
+                    Dodaj nieprzydzielone przedszkole
                 </Typography>
                 <KindergartenTable kindergartens={kindergartens} onSelect={value => console.log(value)} />
             </div>

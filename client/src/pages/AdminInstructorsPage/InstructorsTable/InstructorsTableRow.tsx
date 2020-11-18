@@ -17,11 +17,11 @@ import {
     KeyboardArrowUp as KeyboardArrowUpIcon,
     AddCircle as AddIcon,
 } from '@material-ui/icons';
-import { User } from '../../../graphql/types';
+import { InstructorWithKindergartens } from '../types';
 
 interface Props {
-    instructor: User;
-    onAssignInstructorClick: (instructor: User) => void;
+    instructor: InstructorWithKindergartens;
+    onAssignInstructorClick: (instructor: InstructorWithKindergartens) => void;
 }
 
 export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Props) => {
@@ -63,7 +63,7 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
                             </Tooltip>
                         </div>
                     </Fade>
-                    3
+                    {instructor.kindergartens?.length}
                 </TableCell>
             </TableRow>
             <TableRow>
