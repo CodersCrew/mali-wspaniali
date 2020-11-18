@@ -21,7 +21,7 @@ import { User } from '../../../graphql/types';
 
 interface Props {
     instructor: User;
-    onAssignInstructorClick: (instructor: User | null) => void;
+    onAssignInstructorClick: (instructor: User) => void;
 }
 
 export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Props) => {

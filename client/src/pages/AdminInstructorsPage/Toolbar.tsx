@@ -1,28 +1,17 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Typography, IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { InfoOutlined as InfoIcon } from '@material-ui/icons';
-import { AssessmentsSelect } from './AssessmentsSelect';
-import { InstructorsSelect } from './InstructorsSelect';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-import { User, Assessment } from '../../graphql/types';
 
 interface Props {
-    instructorSelectOptions: User[];
-    assessmentSelectOptions: Assessment[];
-    assessmentSelectValue: string;
-    setSelectedAssessment: Dispatch<SetStateAction<string>>;
-    unassignedKindergartens: number;
+    assessmentsSelect: React.ReactNode;
+    instructorsSelect: React.ReactNode;
+    unassignedKindergartensCount: number;
 }
 
-export const Toolbar = ({
-    instructorSelectOptions,
-    assessmentSelectOptions,
-    assessmentSelectValue,
-    setSelectedAssessment,
-    unassignedKindergartens,
-}: Props) => {
+export const Toolbar = ({ assessmentsSelect, instructorsSelect, unassignedKindergartensCount }: Props) => {
     const classes = useStyles();
 
     const { t } = useTranslation();
@@ -31,20 +20,8 @@ export const Toolbar = ({
 
     return (
         <div className={classes.container}>
-            <div className={classes.input}>
-                <AssessmentsSelect
-                    label={t('admin-instructors-page.table-toolbar.select-test')}
-                    options={assessmentSelectOptions}
-                    value={assessmentSelectValue}
-                    setSelectedAssessment={setSelectedAssessment}
-                />
-            </div>
-            <div className={classes.input}>
-                <InstructorsSelect
-                    label={t('admin-instructors-page.table-toolbar.instructor-search')}
-                    options={instructorSelectOptions}
-                />
-            </div>
+            <div className={classes.input}>{assessmentsSelect}</div>
+            <div className={classes.input}>{instructorsSelect}</div>
             <div className={classes.kindergartenInfoContainer}>
                 <Typography
                     variant="subtitle2"
@@ -52,10 +29,10 @@ export const Toolbar = ({
                     component="p"
                     className={clsx({
                         [classes.kindergartenInfoText]: true,
-                        [classes.kindergartenInfoTextSuccess]: unassignedKindergartens === 0,
+                        [classes.kindergartenInfoTextSuccess]: unassignedKindergartensCount === 0,
                     })}
                 >
-                    {t('admin-instructors-page.table-toolbar.unassigned-kindergartens')}: {unassignedKindergartens}
+                    {t('admin-instructors-page.table-toolbar.unassigned-kindergartens')}: {unassignedKindergartensCount}
                 </Typography>
                 <IconButton onClick={handleClick}>
                     <InfoIcon />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { InstructorsTable } from './InstructorsTable/InstructorsTable';
+import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableContainer';
 import { Toolbar } from './Toolbar';
 import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
 import { activePage } from '../../apollo_client';
@@ -8,6 +9,9 @@ import { useUsersByRole } from '../../operations/queries/Users/getUsersByRole';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
 import { User, Assessment } from '../../graphql/types';
+import { AssessmentsSelect } from './AssessmentsSelect';
+import { InstructorsSelect } from './InstructorsSelect';
+import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 
 interface InstructorModalStatus {
     isOpen: boolean;
@@ -22,18 +26,19 @@ const initialInstructorModalStatus = {
 };
 
 export function AdminInstructorsPage() {
+    const { t } = useTranslation();
     const classes = useStyles();
 
     const { usersList } = useUsersByRole('instructor');
     const { kindergartenList } = useKindergartens();
     const { assessmentList } = useAssessments();
 
-    const [selectedAssessment, setSelectedAssessment] = useState('');
+    const [selectedAssessment, setSelectedAssessment] = useState(''); // TODO: refactor this piece of state to keep track of the whole assessment object, not just the id
     const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
         initialInstructorModalStatus,
     );
 
-    const onAssignInstructorClick = (instructor: User | null) => {
+    const onAssignInstructorClick = (instructor: User) => {
         setAssignInstructorModalStatus({
             isOpen: true,
             instructor,
@@ -41,7 +46,7 @@ export function AdminInstructorsPage() {
         });
     };
 
-    const unassignedKindergartens = 3; // TODO: hard-coded for now, yet to be calculated based on the populated assessmentList
+    const unassignedKindergartensCount = 3; // TODO: hard-coded for now, yet to be calculated based on the populated assessmentList
 
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
@@ -50,13 +55,31 @@ export function AdminInstructorsPage() {
     return (
         <div className={classes.container}>
             <Toolbar
-                instructorSelectOptions={usersList}
-                assessmentSelectOptions={assessmentList}
-                assessmentSelectValue={selectedAssessment}
-                setSelectedAssessment={setSelectedAssessment}
-                unassignedKindergartens={unassignedKindergartens}
+                assessmentsSelect={
+                    <AssessmentsSelect
+                        label={t('admin-instructors-page.table-toolbar.select-test')}
+                        options={assessmentList}
+                        value={selectedAssessment}
+                        setSelectedAssessment={setSelectedAssessment}
+                    />
+                }
+                instructorsSelect={
+                    <InstructorsSelect
+                        label={t('admin-instructors-page.table-toolbar.instructor-search')}
+                        options={usersList}
+                    />
+                }
+                unassignedKindergartensCount={unassignedKindergartensCount}
             />
-            <InstructorsTable instructors={usersList} onAssignInstructorClick={onAssignInstructorClick} />
+            <InstructorsTableContainer>
+                {usersList.map(instructor => (
+                    <InstructorsTableRow
+                        key={instructor._id}
+                        instructor={instructor}
+                        onAssignInstructorClick={onAssignInstructorClick}
+                    />
+                ))}
+            </InstructorsTableContainer>
             {assignInstructorModalStatus.isOpen && (
                 <AssignInstructorModal
                     onClose={() => setAssignInstructorModalStatus(initialInstructorModalStatus)}
