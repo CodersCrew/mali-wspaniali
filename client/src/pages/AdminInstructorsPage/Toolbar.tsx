@@ -31,10 +31,11 @@ export const Toolbar = ({ assessmentsSelect, instructorsSelect, unassignedKinder
                         [classes.kindergartenInfoText]: true,
                         [classes.kindergartenInfoTextSuccess]: unassignedKindergartensCount === 0,
                     })}
+                    data-testid="unassigned-kindergartens"
                 >
                     {t('admin-instructors-page.table-toolbar.unassigned-kindergartens')}: {unassignedKindergartensCount}
                 </Typography>
-                <IconButton onClick={handleClick}>
+                <IconButton onClick={handleClick} aria-label="info">
                     <InfoIcon />
                 </IconButton>
             </div>

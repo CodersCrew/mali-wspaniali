@@ -39,6 +39,7 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
                 className={classes.root}
                 onMouseEnter={() => setShowAddButton(true)}
                 onMouseLeave={() => setShowAddButton(false)}
+                data-testid="instructor-item"
             >
                 <TableCell>
                     <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
@@ -47,7 +48,7 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
                 </TableCell>
                 <TableCell>{mail}</TableCell>
                 <TableCell>{mail}</TableCell>
-                <TableCell>{mail}</TableCell>
+                <TableCell data-testid="instructor-mail">{mail}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
                     <Fade in={showAddButton} mountOnEnter unmountOnExit timeout={500}>
                         <div className={classes.iconButtonContainer}>
@@ -57,7 +58,7 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
                                 placement="top"
                                 arrow
                             >
-                                <IconButton onClick={() => onAssignInstructorClick(instructor)}>
+                                <IconButton onClick={() => onAssignInstructorClick(instructor)} aria-label="assign instructor">
                                     <AddIcon />
                                 </IconButton>
                             </Tooltip>
