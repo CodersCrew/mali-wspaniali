@@ -25,7 +25,7 @@ interface Props {
     isOpen: boolean;
     kindergartens: Kindergarten[];
     handleSubmit: (data: AddChildResult) => void;
-    handleReset?: (e: any) => void;
+    handleReset?: () => void;
     isCancelButtonVisible: boolean;
 }
 
@@ -60,7 +60,7 @@ export function AddChildModal({ handleSubmit, isOpen, kindergartens, handleReset
             onClose={formik.handleReset}
             isCancelButtonVisible={isCancelButtonVisible}
         >
-            <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
+            <form onSubmit={formik.handleSubmit}>
                 <Typography variant="h4" classes={{ root: classes.title }}>
                     {t('add-child-modal.heading')}
                 </Typography>

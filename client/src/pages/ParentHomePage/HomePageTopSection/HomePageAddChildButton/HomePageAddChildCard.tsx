@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Theme, Typography } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { cardBackgroundColor } from '../../../../colors';
@@ -8,7 +8,7 @@ type AddChildCardProps = {
     onClick: () => void;
 };
 
-export const HomePageAddChildCard: FC<AddChildCardProps> = ({ text, onClick }) => {
+export const HomePageAddChildCard = ({ text, onClick }: AddChildCardProps) => {
     const classes = useStyles();
 
     return (
@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            marginRight: 16,
-            marginBottom: 16,
+            marginRight: theme.spacing(2),
+            marginBottom: theme.spacing(2),
             background: cardBackgroundColor,
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: '4px',
@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '4px 4px 0px 0px',
 
             [theme.breakpoints.down('sm')]: {
-                // maxWidth: '90px',
                 width: '75px',
                 maxHeight: '90px',
                 height: '90px',
