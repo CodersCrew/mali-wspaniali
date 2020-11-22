@@ -12,4 +12,16 @@ export const KindergartenSchema = new mongoose.Schema({
   name: String,
   address: String,
   city: String,
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  modifiedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
