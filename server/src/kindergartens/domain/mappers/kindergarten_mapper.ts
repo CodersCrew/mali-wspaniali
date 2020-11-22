@@ -22,32 +22,38 @@ export class KindergartenMapper {
 
       const result = Result.combine([_id, kindergartenTitle, isDeleted]);
 
-      if (result.isFailure) {
+      if (result.isSuccess) {
+        return Kindergarten.create({
+          _id: _id.getValue(),
+          date: props.date,
+          number: props.number,
+          name: kindergartenTitle.getValue(),
+          address: props.address,
+          city: props.city,
+          isDeleted: isDeleted.getValue(),
+        });
+      } else {
         throw new Error(result.error);
       }
-
-      return Kindergarten.create({
-        _id: _id.getValue(),
-        date: props.date,
-        number: props.number,
-        name: kindergartenTitle.getValue(),
-        address: props.address,
-        city: props.city,
-        isDeleted: isDeleted.getValue(),
-      });
     } else {
       const _id = ObjectId.create();
       const kindergartenTitle = KindergartenTitle.create(props.name);
 
-      return Kindergarten.create({
-        _id: _id.getValue(),
-        date: new Date(Date.now()),
-        number: props.number,
-        name: kindergartenTitle.getValue(),
-        address: props.address,
-        city: props.city,
-        isDeleted: IsDeleted.create().getValue(),
-      });
+      const result = Result.combine([_id, kindergartenTitle]);
+
+      if (result.isSuccess) {
+        return Kindergarten.create({
+          _id: _id.getValue(),
+          date: new Date(Date.now()),
+          number: props.number,
+          name: kindergartenTitle.getValue(),
+          address: props.address,
+          city: props.city,
+          isDeleted: IsDeleted.create().getValue(),
+        });
+      } else {
+        throw new Error(result.error);
+      }
     }
   }
 

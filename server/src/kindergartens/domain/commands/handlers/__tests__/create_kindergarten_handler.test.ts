@@ -46,6 +46,7 @@ describe('CreatKindergartenHandler', () => {
       expect(createdKindergarten.id).toBeInstanceOf(ObjectId);
       expect(createdKindergarten.name).toBeInstanceOf(KindergartenTitle);
       expect(createdKindergarten.name.value).toEqual('my-name');
+      expect(createdKindergarten.number).toEqual(1);
       expect(createdKindergarten.address).toEqual('my-address');
       expect(createdKindergarten.city).toEqual('my-city');
       expect(createdKindergarten.isDeleted).toBeInstanceOf(IsDeleted);
@@ -53,8 +54,14 @@ describe('CreatKindergartenHandler', () => {
     });
   });
 
-  describe('when executed with incorrect data', () => {
-    it.todo('throws an error');
+  describe('when executed with incorrect', () => {
+    describe('name', () => {
+      it('throws an error', async () => {
+        await expect(
+          createKindergartenWith({ name: 'my' }),
+        ).rejects.toThrowError('KindergartenTitle must be valid');
+      });
+    });
   });
 
   describe('when the kindergarten with the same data already exists', () => {
