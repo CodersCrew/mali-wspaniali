@@ -18,9 +18,10 @@ import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/comman
 import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
-import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
+import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
+import { BirthQuarter } from '../../../models/birth_quarter_value_object';
 
 let app: TestingModule;
 
@@ -35,11 +36,12 @@ beforeAll(async () => {
 
 describe('AddChildHandler', () => {
   let parent: User;
-  let kindergarten: KindergartenProps;
+  let kindergarten: Kindergarten;
   let addedChild: Child;
 
   const validChildOptions = {
     birthYear: 2000,
+    birthQuarter: 1,
     firstname: 'my-name',
     lastname: 'my-lastname',
     sex: 'male',
@@ -55,7 +57,7 @@ describe('AddChildHandler', () => {
 
     kindergarten = await createKindergarten();
 
-    validChildOptions.kindergartenId = kindergarten._id;
+    validChildOptions.kindergartenId = kindergarten.id.toString();
   });
 
   describe('when executed', () => {
@@ -74,7 +76,7 @@ describe('AddChildHandler', () => {
         expect(addedChild.kindergarten).toBeInstanceOf(ObjectId);
         expect(addedChild.kindergarten.isEmpty()).toEqual(false);
         expect(addedChild.kindergarten.toString()).toEqual(
-          kindergarten._id.toString(),
+          kindergarten.id.toString(),
         );
         expect(addedChild.sex).toBeInstanceOf(Sex);
         expect(addedChild.sex.value).toEqual('male');
@@ -84,6 +86,8 @@ describe('AddChildHandler', () => {
         expect(addedChild.lastname.value).toEqual('my-lastname');
         expect(addedChild.birthYear).toBeInstanceOf(BirthYear);
         expect(addedChild.birthYear.value).toEqual(2000);
+        expect(addedChild.birthQuarter).toBeInstanceOf(BirthQuarter);
+        expect(addedChild.birthQuarter.value).toEqual(1);
       });
 
       it('invokes child added notification', async () => {
@@ -156,6 +160,22 @@ describe('AddChildHandler', () => {
           await expect(() =>
             addChildCommandWith({ birthYear: undefined }, parent.id),
           ).rejects.toThrow('BirthYear must be valid, but got "undefined"');
+        });
+      });
+
+      describe('with invalid birth quarter', () => {
+        it('throws an error', async () => {
+          await expect(() =>
+            addChildCommandWith({ birthQuarter: 4 }, parent.id),
+          ).rejects.toThrow('BirthQuarter must be valid, but got "4"');
+
+          await expect(() =>
+            addChildCommandWith({ birthQuarter: null }, parent.id),
+          ).rejects.toThrow('BirthQuarter must be valid, but got "null"');
+
+          await expect(() =>
+            addChildCommandWith({ birthQuarter: undefined }, parent.id),
+          ).rejects.toThrow('BirthQuarter must be valid, but got "undefined"');
         });
       });
 

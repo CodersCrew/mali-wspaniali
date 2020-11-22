@@ -5,7 +5,10 @@ import { UseInterceptors, UseGuards } from '@nestjs/common';
 import { KindergartenDTO } from './dto/kindergarten_dto';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
-import { KindergartenProps } from './domain/models/kindergarten_model';
+import {
+  Kindergarten,
+  KindergartenProps,
+} from './domain/models/kindergarten_model';
 import {
   GetAllKindergartensQuery,
   GetKindergartenWithUsersQuery,
@@ -19,6 +22,7 @@ import { CreateKindergartenInput } from './inputs/create_kindergarten_input';
 import { EditKindergartenInput } from './inputs/edit_kindergarten_input';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { KindergartenWithUsersDTO } from './dto/kindergarten_with_users_dto';
+import { KindergartenMapper } from './domain/mappers/kindergarten_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -52,11 +56,11 @@ export class KindergartenResolver {
   async createKindergarten(
     @Args('kindergarten') kindergarten: CreateKindergartenInput,
   ): Promise<KindergartenProps> {
-    const created: KindergartenProps = await this.commandBus.execute(
+    const created: Kindergarten = await this.commandBus.execute(
       new CreateKindergartenCommand(kindergarten),
     );
 
-    return created;
+    return KindergartenMapper.toRaw(created);
   }
 
   @Mutation(() => KindergartenDTO)

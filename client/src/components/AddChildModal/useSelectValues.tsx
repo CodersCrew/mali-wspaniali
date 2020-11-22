@@ -23,22 +23,22 @@ export function useSelectOptions(): { getOptions: (name: string) => Option[] } {
         'birth-date': [...generateDates()],
         'birth-quarter': [
             {
-                value: '1',
+                value: '0',
                 label: 'I',
                 helperLabel: t('add-child-modal.select-options.birth-quarter.1'),
             },
             {
-                value: '2',
+                value: '1',
                 label: 'II',
                 helperLabel: t('add-child-modal.select-options.birth-quarter.2'),
             },
             {
-                value: '3',
+                value: '2',
                 label: 'III',
                 helperLabel: t('add-child-modal.select-options.birth-quarter.3'),
             },
             {
-                value: '4',
+                value: '3',
                 label: 'IV',
                 helperLabel: t('add-child-modal.select-options.birth-quarter.4'),
             },

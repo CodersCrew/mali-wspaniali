@@ -11,6 +11,9 @@ export class ChildInput {
   @Field(() => Int)
   readonly birthYear: number;
 
+  @Field(() => Int)
+  readonly birthQuarter: number;
+
   @Field()
   readonly sex: string;
 

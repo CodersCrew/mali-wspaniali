@@ -2,6 +2,7 @@ import { Child, ChildProps, Firstname, Lastname, Sex } from '../models';
 import { Result } from '../../../shared/domain/result';
 import { BirthYear } from '../models/birth_year_value_object';
 import { ObjectId } from '../models/object_id_value_object';
+import { BirthQuarter } from '../models/birth_quarter_value_object';
 
 interface DomainMapperOptions {
   isNew: boolean;
@@ -14,6 +15,7 @@ export class ChildMapper {
     const lastname = Lastname.create(props.lastname);
     const sex = Sex.create(props.sex);
     const birthYear = BirthYear.create(props.birthYear);
+    const birthQuarter = BirthQuarter.create(props.birthQuarter);
     const kindergarten = ObjectId.create(props.kindergarten);
 
     const result = Result.combine([
@@ -22,6 +24,7 @@ export class ChildMapper {
       lastname,
       sex,
       birthYear,
+      birthQuarter,
       kindergarten,
     ]);
 
@@ -36,6 +39,7 @@ export class ChildMapper {
         sex: sex.getValue(),
         isDeleted: props.isDeleted,
         birthYear: birthYear.getValue(),
+        birthQuarter: birthQuarter.getValue(),
         kindergarten: kindergarten.getValue(),
       });
     } else {
@@ -51,6 +55,7 @@ export class ChildMapper {
       sex: child.sex.value,
       isDeleted: child.isDeleted,
       birthYear: child.birthYear.value,
+      birthQuarter: child.birthQuarter.value,
       kindergarten: child.kindergarten.value,
     };
 
