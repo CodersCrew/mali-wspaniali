@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { KindergartenProps } from '../models/kindergarten_model';
+import { KindergartenProps, Kindergarten } from '../models/kindergarten_model';
 import { KindergartenDocument } from '../../schemas/kindergarten_schema';
 import { CreateKindergartenInput } from '../../inputs/create_kindergarten_input';
 import { EditKindergartenInput } from '../../inputs/edit_kindergarten_input';
+import { KindergartenMapper } from '../mappers/kindergarten_mapper';
 
 @Injectable()
 export class KindergartenRepository {
@@ -29,12 +30,14 @@ export class KindergartenRepository {
     return await this.model.find({ _id: ids }).exec();
   }
 
-  async create(
-    createKindergartenDTO: CreateKindergartenInput,
-  ): Promise<KindergartenProps> {
-    const createdKeyCode = new this.model(createKindergartenDTO);
+  async create(createKindergarten: Kindergarten): Promise<Kindergarten> {
+    const createdKindergarden = new this.model(
+      KindergartenMapper.toPersistant(createKindergarten),
+    );
 
-    return await createdKeyCode.save();
+    const result = await createdKindergarden.save();
+
+    return KindergartenMapper.toDomainFrom(result, { isNew: true });
   }
 
   async update(

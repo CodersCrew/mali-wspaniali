@@ -18,7 +18,7 @@ import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/comman
 import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
-import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
+import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import { BirthQuarter } from '../../../models/birth_quarter_value_object';
@@ -36,7 +36,7 @@ beforeAll(async () => {
 
 describe('AddChildHandler', () => {
   let parent: User;
-  let kindergarten: KindergartenProps;
+  let kindergarten: Kindergarten;
   let addedChild: Child;
 
   const validChildOptions = {
@@ -57,7 +57,7 @@ describe('AddChildHandler', () => {
 
     kindergarten = await createKindergarten();
 
-    validChildOptions.kindergartenId = kindergarten._id;
+    validChildOptions.kindergartenId = kindergarten.id.toString();
   });
 
   describe('when executed', () => {
@@ -76,7 +76,7 @@ describe('AddChildHandler', () => {
         expect(addedChild.kindergarten).toBeInstanceOf(ObjectId);
         expect(addedChild.kindergarten.isEmpty()).toEqual(false);
         expect(addedChild.kindergarten.toString()).toEqual(
-          kindergarten._id.toString(),
+          kindergarten.id.toString(),
         );
         expect(addedChild.sex).toBeInstanceOf(Sex);
         expect(addedChild.sex.value).toEqual('male');
