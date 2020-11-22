@@ -13,7 +13,10 @@ import { CreateUserHandler } from '../create_user_handler';
 import { CreateUserCommand } from '../../impl/create_user_command';
 import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
-import { KindergartenProps } from '../../../../../kindergartens/domain/models/kindergarten_model';
+import {
+  KindergartenProps,
+  Kindergarten,
+} from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { EditChildHandler } from '../edit_child_handler';
 import { EditChildCommand } from '../../impl/edit_child_command';
 import { Child } from '../../../models/child_model';
@@ -36,10 +39,10 @@ beforeAll(async () => {
 describe('EditChildHandler', () => {
   let module: TestingModule;
   let parent: User;
-  let kindergarten: KindergartenProps;
+  let kindergarten: Kindergarten;
   let updatedChild: Child;
   let createdChild: Child;
-  let newKindergarten: KindergartenProps;
+  let newKindergarten: Kindergarten;
 
   const validChildOptions = {
     birthYear: 2000,
@@ -60,7 +63,7 @@ describe('EditChildHandler', () => {
     kindergarten = await createKindergarten();
     newKindergarten = await createKindergarten();
 
-    validChildOptions.kindergartenId = kindergarten._id;
+    validChildOptions.kindergartenId = kindergarten.id.toString();
   });
 
   afterEach(async () => {
@@ -77,7 +80,7 @@ describe('EditChildHandler', () => {
             birthYear: 2001,
             firstname: 'changed-name',
             sex: 'female',
-            kindergartenId: newKindergarten._id,
+            kindergartenId: newKindergarten.id.toString(),
           },
           parent.id,
         );
@@ -89,7 +92,7 @@ describe('EditChildHandler', () => {
         expect(updatedChild).toBeInstanceOf(Child);
         expect(updatedChild.kindergarten).toBeInstanceOf(ObjectId);
         expect(updatedChild.kindergarten.toString()).toEqual(
-          newKindergarten._id.toString(),
+          newKindergarten.id.toString(),
         );
         expect(updatedChild.sex).toBeInstanceOf(Sex);
         expect(updatedChild.sex.value).toEqual('female');
