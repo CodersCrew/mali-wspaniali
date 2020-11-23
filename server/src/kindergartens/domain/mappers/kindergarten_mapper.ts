@@ -15,6 +15,8 @@ export class KindergartenMapper {
     props: KindergartenInput | KindergartenProps,
     options: DomainMapperOptions = {},
   ): Kindergarten {
+    const create = options.isNew ? Kindergarten.create : Kindergarten.recreate;
+
     if (isKindergartenProps(props)) {
       const _id = ObjectId.create(props._id);
       const kindergartenTitle = KindergartenTitle.create(props.name);
@@ -23,7 +25,7 @@ export class KindergartenMapper {
       const result = Result.combine([_id, kindergartenTitle, isDeleted]);
 
       if (result.isSuccess) {
-        return Kindergarten.create({
+        return create({
           _id: _id.getValue(),
           date: props.date,
           number: props.number,
@@ -42,7 +44,7 @@ export class KindergartenMapper {
       const result = Result.combine([_id, kindergartenTitle]);
 
       if (result.isSuccess) {
-        return Kindergarten.create({
+        return create({
           _id: _id.getValue(),
           date: new Date(Date.now()),
           number: props.number,
