@@ -186,8 +186,8 @@ type Mutation {
   createKeyCode(target: String!): CreateKeyCodeDTO!
   createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createAgreement(agreement: String!): ReturnedStatusDTO!
-  createKindergarten(kindergarten: CreateKindergartenInput!): KindergartenDTO!
-  updateKindergarten(kindergarten: EditKindergartenInput!, id: String!): KindergartenDTO!
+  createKindergarten(kindergarten: KindergartenInput!): KindergartenDTO!
+  updateKindergarten(kindergarten: UpdatedKindergartenInput!, id: String!): KindergartenDTO!
   deleteKindergarten(id: String!): ReturnedStatusDTO!
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
@@ -262,14 +262,14 @@ input LoginInput {
   password: String!
 }
 
-input CreateKindergartenInput {
+input KindergartenInput {
   number: Int!
   name: String!
   address: String!
   city: String!
 }
 
-input EditKindergartenInput {
+input UpdatedKindergartenInput {
   number: Int
   name: String
   address: String

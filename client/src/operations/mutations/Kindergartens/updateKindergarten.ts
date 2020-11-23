@@ -4,7 +4,7 @@ import { AddKindergartenInput } from '../../../graphql/types';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 export const UPDATE_KINDERGARTEN = gql`
-    mutation updateKindergarten($id: String!, $kindergarten: EditKindergartenInput!) {
+    mutation updateKindergarten($id: String!, $kindergarten: UpdatedKindergartenInput!) {
         updateKindergarten(id: $id, kindergarten: $kindergarten) {
             _id
             name

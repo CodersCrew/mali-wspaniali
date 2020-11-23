@@ -1,10 +1,10 @@
-import { CreateKindergartenInput } from '../../inputs/create_kindergarten_input';
 import { KindergartenProps } from '../../../kindergartens/domain/models/kindergarten_model';
 import { Kindergarten } from '../models/kindergarten_model';
 import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 import { KindergartenTitle } from '../models/kindergarten_title_value_object';
 import { IsDeleted } from '../models/is_deleted_value_object';
 import { Result } from '../../../shared/domain/result';
+import { KindergartenInput } from '../../inputs/kindergarten_input';
 
 interface DomainMapperOptions {
   isNew?: boolean;
@@ -12,7 +12,7 @@ interface DomainMapperOptions {
 
 export class KindergartenMapper {
   static toDomainFrom(
-    props: CreateKindergartenInput | KindergartenProps,
+    props: KindergartenInput | KindergartenProps,
     options: DomainMapperOptions = {},
   ): Kindergarten {
     if (isKindergartenProps(props)) {
@@ -83,7 +83,7 @@ export class KindergartenMapper {
 }
 
 function isKindergartenProps(
-  value: CreateKindergartenInput | KindergartenProps,
+  value: KindergartenInput | KindergartenProps,
 ): value is KindergartenProps {
   return '_id' in value;
 }
