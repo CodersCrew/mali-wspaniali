@@ -23,17 +23,6 @@ import { NotificationsModule } from '../../../../../notifications/notifications.
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import { BirthQuarter } from '../../../models/birth_quarter_value_object';
 
-let app: TestingModule;
-
-afterAll(async () => {
-  await dbHandler.closeInMongodConnection();
-  await app.close();
-});
-
-beforeAll(async () => {
-  await dbHandler.connect();
-});
-
 describe('AddChildHandler', () => {
   let parent: User;
   let kindergarten: Kindergarten;
@@ -47,6 +36,17 @@ describe('AddChildHandler', () => {
     sex: 'male',
     kindergartenId: 'my-kindergartenId',
   };
+
+  let app: TestingModule;
+
+  afterAll(async () => {
+    await dbHandler.closeInMongodConnection();
+    await app.close();
+  });
+
+  beforeAll(async () => {
+    await dbHandler.connect();
+  });
 
   beforeEach(async () => {
     app = await setup();

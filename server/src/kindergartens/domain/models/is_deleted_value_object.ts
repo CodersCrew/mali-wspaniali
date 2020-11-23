@@ -1,7 +1,6 @@
-import { Props } from 'src/shared/domain/value_object';
+import { Props } from '../../../shared/domain/value_object';
 import { ValueObject } from '../../../shared/domain/value_object';
 import { Result } from '../../../shared/domain/result';
-import { Guard } from '../../../shared/utils/guard';
 
 type Value = Props<boolean | undefined>;
 
