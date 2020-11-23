@@ -3,6 +3,7 @@ import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 import { KindergartenTitle } from './kindergarten_title_value_object';
 import { Document } from 'mongoose';
 import { IsDeleted } from './is_deleted_value_object';
+import { KindergartenCreatedEvent } from '../events/impl';
 
 export interface KindergartenProps {
   _id: string;
@@ -16,7 +17,7 @@ export interface KindergartenProps {
 
 export type KindergartenDocument = Document & KindergartenProps;
 
-export interface KindergartenP {
+export interface Props {
   readonly _id: ObjectId;
   readonly date: Date;
   readonly number: number;
@@ -27,7 +28,7 @@ export interface KindergartenP {
 }
 
 export class Kindergarten extends AggregateRoot {
-  private constructor(private readonly props: KindergartenP) {
+  private constructor(private readonly props: Props) {
     super();
   }
 
@@ -59,11 +60,17 @@ export class Kindergarten extends AggregateRoot {
     return this.props.isDeleted;
   }
 
-  static create(value: KindergartenP) {
-    return new Kindergarten(value);
+  static create(value: Props) {
+    const kindergarten = new Kindergarten(value);
+
+    kindergarten.apply(
+      new KindergartenCreatedEvent(kindergarten.id.toString()),
+    );
+
+    return kindergarten;
   }
 
-  static recreate(value: KindergartenP) {
+  static recreate(value: Props) {
     return new Kindergarten(value);
   }
 }

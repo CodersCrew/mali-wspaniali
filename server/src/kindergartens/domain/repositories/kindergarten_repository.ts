@@ -4,9 +4,8 @@ import { Model } from 'mongoose';
 
 import { KindergartenProps, Kindergarten } from '../models/kindergarten_model';
 import { KindergartenDocument } from '../../schemas/kindergarten_schema';
-import { CreateKindergartenInput } from '../../inputs/create_kindergarten_input';
-import { EditKindergartenInput } from '../../inputs/edit_kindergarten_input';
 import { KindergartenMapper } from '../mappers/kindergarten_mapper';
+import { UpdatedKindergartenInput } from '../../inputs/kindergarten_input';
 
 @Injectable()
 export class KindergartenRepository {
@@ -42,7 +41,7 @@ export class KindergartenRepository {
 
   async update(
     kindergartenId: string,
-    options: EditKindergartenInput,
+    options: UpdatedKindergartenInput,
   ): Promise<KindergartenProps> {
     const updated = await this.model.findByIdAndUpdate(
       kindergartenId,

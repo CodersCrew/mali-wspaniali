@@ -45,3 +45,14 @@ export function createAssessmentCreatedNotification(
     values,
   };
 }
+
+export function createKindergartenCreatedNotification(
+  user: string[],
+  name: string,
+): NotificationFactoryResult {
+  return {
+    user,
+    templateId: 'kindergarten_created',
+    values: [name],
+  };
+}

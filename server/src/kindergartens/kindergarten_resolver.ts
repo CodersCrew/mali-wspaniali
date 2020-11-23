@@ -18,11 +18,13 @@ import {
   EditKindergartenCommand,
   DeleteKindergartenCommand,
 } from './domain/commands/impl';
-import { CreateKindergartenInput } from './inputs/create_kindergarten_input';
-import { EditKindergartenInput } from './inputs/edit_kindergarten_input';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { KindergartenWithUsersDTO } from './dto/kindergarten_with_users_dto';
 import { KindergartenMapper } from './domain/mappers/kindergarten_mapper';
+import {
+  KindergartenInput,
+  UpdatedKindergartenInput,
+} from './inputs/kindergarten_input';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -54,7 +56,7 @@ export class KindergartenResolver {
   @Mutation(() => KindergartenDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createKindergarten(
-    @Args('kindergarten') kindergarten: CreateKindergartenInput,
+    @Args('kindergarten') kindergarten: KindergartenInput,
   ): Promise<KindergartenProps> {
     const created: Kindergarten = await this.commandBus.execute(
       new CreateKindergartenCommand(kindergarten),
@@ -67,7 +69,7 @@ export class KindergartenResolver {
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async updateKindergarten(
     @Args('id') id: string,
-    @Args('kindergarten') kindergarten: EditKindergartenInput,
+    @Args('kindergarten') kindergarten: UpdatedKindergartenInput,
   ): Promise<KindergartenProps> {
     const updated: KindergartenProps = await this.commandBus.execute(
       new EditKindergartenCommand(id, kindergarten),
