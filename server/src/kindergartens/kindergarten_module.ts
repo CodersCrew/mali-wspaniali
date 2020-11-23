@@ -12,10 +12,13 @@ import { ChildRepository } from '../users/domain/repositories/child_repository';
 import { ChildSchema } from '../users/schemas/child_schema';
 import { UserRepository } from '../users/domain/repositories/user_repository';
 import { UserSchema } from '../users/schemas/user_schema';
+import { EventHandlers } from './domain/events/handlers';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
     CqrsModule,
+    NotificationsModule,
     MongooseModule.forFeature([
       { name: 'Kindergarten', schema: KindergartenSchema },
     ]),
@@ -30,6 +33,7 @@ import { UserSchema } from '../users/schemas/user_schema';
     UserRepository,
     ...CommandHandlers,
     ...QueryHandlers,
+    ...EventHandlers,
     GqlAuthGuard,
   ],
   exports: [KindergartenRepository],
