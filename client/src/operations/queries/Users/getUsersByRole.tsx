@@ -1,50 +1,46 @@
 import { gql, useQuery } from '@apollo/client';
-import { User, Role } from '../../../graphql/types';
+import { PrivilegedUser } from '../../../graphql/types';
 
 interface UsersListReponse {
-    users: User[];
+    users: PrivilegedUser[];
 }
 
-export const USERS_BY_ROLE = gql`
-    query Users($role: String!) {
-        users(role: $role) {
+export const INSTRUCTORS = gql`
+    query Users {
+        users(role: "instructor") {
             _id
             date
             mail
-            children {
-                _id
-                firstname
-                lastname
-                sex
-                birthYear
-                results {
-                    _id
-                    date
-                    test
-                    rootResultId
-                }
-                kindergarten {
-                    _id
-                    name
-                    number
-                }
-            }
-            agreements {
-                _id
-                date
-                text
-                isSigned
-            }
             role
         }
     }
 `;
 
-export function useUsersByRole(role: Role) {
-    const { data, loading } = useQuery<UsersListReponse>(USERS_BY_ROLE, { variables: { role } });
+export const ADMINS = gql`
+    query Users {
+        users(role: "admin") {
+            _id
+            date
+            mail
+            role
+        }
+    }
+`;
+
+export function useInstructors() {
+    const { data, loading } = useQuery<UsersListReponse>(INSTRUCTORS);
 
     return {
-        usersList: data?.users || [],
-        isUsersListLoading: loading,
+        instructors: data?.users || [],
+        isInstructorsListLoading: loading,
+    };
+}
+
+export function useAdmins() {
+    const { data, loading } = useQuery<UsersListReponse>(ADMINS);
+
+    return {
+        admins: data?.users || [],
+        isAdminsListLoading: loading,
     };
 }

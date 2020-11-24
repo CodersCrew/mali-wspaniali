@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, ChangeEvent } from 'react';
+import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { Assessment } from '../../graphql/types';
 
@@ -6,14 +6,10 @@ interface Props {
     label: string;
     options: Assessment[];
     value: Assessment | null;
-    setSelectedAssessment: Dispatch<SetStateAction<Assessment | null>>;
+    onChange: (assessmentId: string) => void;
 }
 
-export const AssessmentsSelect = ({ label, options, setSelectedAssessment, value }: Props) => {
-    const handleChange = (e: ChangeEvent<{ name?: string | undefined; value: unknown }>) => {
-        setSelectedAssessment(options.find(assess => assess._id === e.target.value) as Assessment);
-    };
-
+export const AssessmentsSelect = ({ label, options, onChange, value }: Props) => {
     return (
         <FormControl variant="outlined" fullWidth>
             <InputLabel id="test-select-label">{label}</InputLabel>
@@ -23,7 +19,7 @@ export const AssessmentsSelect = ({ label, options, setSelectedAssessment, value
                 label={label}
                 // TODO: figure out why it doesn't work on first render - the selected assessment is set properly, but it doesn't show the right option
                 value={value?._id}
-                onChange={handleChange}
+                onChange={(e) => onChange(e.target.value as string)}
                 MenuProps={{
                     getContentAnchorEl: null,
                     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },

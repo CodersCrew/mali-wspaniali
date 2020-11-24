@@ -21,7 +21,7 @@ interface Props {
     assessments: Assessment[];
 }
 
-export function TestHistoryList({ assessments }: Props) {
+export function AssessmentHistoryList({ assessments }: Props) {
     const { t } = useTranslation();
 
     return (

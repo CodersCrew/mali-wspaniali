@@ -10,7 +10,7 @@ import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
 import { activePage } from '../../apollo_client';
 import { Loader } from '../../components/Loader';
-import { useUsersByRole } from '../../operations/queries/Users/getUsersByRole';
+import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
 import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
 import { Assessment } from '../../graphql/types';
 
@@ -34,7 +34,7 @@ export function AdminInstructorsPage() {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
 
-    const { usersList, isUsersListLoading } = useUsersByRole('instructor');
+    const { instructors, isInstructorsListLoading } = useInstructors();
     const { assessmentList, isAssessmentListLoading } = useAssessments();
 
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
@@ -46,17 +46,14 @@ export function AdminInstructorsPage() {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
 
-    useEffect(() => {
-        // When assessment data is done fetching, set assessment select value to the most recent test (the data should be sorted by startDate in descending order)
-        if (assessmentList.length !== 0) {
-            setSelectedAssessment(assessmentList[0]);
-        }
-    }, [assessmentList]);
-
-    const instructorsWithKindergartens: InstructorWithKindergartens[] = usersList.map(instructor => ({
+    const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map(instructor => ({
         ...instructor,
         kindergartens: selectedAssessment?.kindergartens.filter(kindergarten => kindergarten.instructor?._id === instructor._id).map(kind => kind.kindergarten) || null
     }));
+
+    const onAssessmentSelectChange = (assessmentId: string) => {
+        setSelectedAssessment(assessmentList.find(assessment => assessment._id === assessmentId) as Assessment);
+    };
 
     const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
         setAssignInstructorModalStatus({
@@ -70,7 +67,7 @@ export function AdminInstructorsPage() {
         .filter(kindergarten => kindergarten.instructor === null)
         .map(kind => kind.kindergarten);
 
-    if (isUsersListLoading || isAssessmentListLoading) {
+    if (isInstructorsListLoading || isAssessmentListLoading) {
         return <Loader />; 
     }  
 
@@ -80,15 +77,15 @@ export function AdminInstructorsPage() {
                 assessmentsSelect={
                     <AssessmentsSelect
                         label={t('admin-instructors-page.table-toolbar.select-test')}
-                        options={assessmentList}
+                        options={assessmentList.filter(assessment => assessment.kindergartens.length !== 0)}
                         value={selectedAssessment}
-                        setSelectedAssessment={setSelectedAssessment}
+                        onChange={onAssessmentSelectChange}
                     />
                 }
                 instructorsSelect={
                     <InstructorsSelect
                         label={t('admin-instructors-page.table-toolbar.instructor-search')}
-                        options={usersList}
+                        options={instructors}
                     />
                 }
                 unassignedKindergartensCount={unassignedKindergartens?.length || 0}

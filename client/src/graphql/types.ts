@@ -68,6 +68,8 @@ export interface UpdatedChildInput {
 
 export type User = Omit<Me, 'notifications'>;
 
+export type PrivilegedUser = Omit<User, 'children' | 'agreements'>;
+
 export interface Me {
     _id: string;
     mail: string;

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
-import { TestHistoryList } from './AssessmentHistoryList/AssessmentHistoryList';
+import { AssessmentHistoryList } from './AssessmentHistoryList/AssessmentHistoryList';
 import { ButtonSecondary } from '../../components/Button';
 import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
 
@@ -28,7 +28,7 @@ export function AssessmentManagementPage() {
                         </ButtonSecondary>
                     </div>
                     <div className={classes.listContainer}>
-                        <TestHistoryList assessments={assessmentList} />
+                        <AssessmentHistoryList assessments={assessmentList} />
                     </div>
                 </div>
             </Grid>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { User } from '../../graphql/types';
+import { PrivilegedUser } from '../../graphql/types';
 
 interface Props {
     label: string;
-    options: User[];
+    options: PrivilegedUser[];
     value?: string;
 }
 

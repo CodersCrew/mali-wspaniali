@@ -1,3 +1,3 @@
-import { User, Kindergarten } from '../../graphql/types';
+import { PrivilegedUser, Kindergarten } from '../../graphql/types';
 
-export type InstructorWithKindergartens = User & { kindergartens: Kindergarten[] | null };
+export type InstructorWithKindergartens = PrivilegedUser & { kindergartens: Kindergarten[] | null };
