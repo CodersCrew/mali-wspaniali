@@ -98,6 +98,8 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "runner": "jest-serial-runner"
+    "runner": "jest-serial-runner",
+    "globalSetup": "./setup.ts",
+    "globalTeardown": "./teardown.ts"
   }
 }
