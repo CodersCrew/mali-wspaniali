@@ -3,24 +3,24 @@ import { ValueObject } from '../../../shared/domain/value_object';
 import { Result } from '../../../shared/domain/result';
 import { Guard } from '../../../shared/utils/guard';
 
-type FirstnameValue = Props<string>;
+type Value = Props<string>;
 
-export class Firstname extends ValueObject<string> {
-  private constructor(props: FirstnameValue) {
+export class KindergartenTitle extends ValueObject<string> {
+  private constructor(props: Value) {
     super(props);
   }
 
-  public static create(value: string): Result<Firstname> {
-    const isNull = Guard.againstNullOrUndefined(value, 'Firstname');
+  public static create(value: string): Result<KindergartenTitle> {
+    const isNull = Guard.againstNullOrUndefined(value, 'KindergartenTitle');
 
     if (!isNull.succeeded) {
       return Result.fail(isNull.message);
     }
 
     if (value.length < 3 || value.length > 40) {
-      return Result.fail('Firstname must be valid');
+      return Result.fail('KindergartenTitle must be valid');
     }
 
-    return Result.ok(new Firstname({ value }));
+    return Result.ok(new KindergartenTitle({ value }));
   }
 }

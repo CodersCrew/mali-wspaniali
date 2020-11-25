@@ -1,6 +1,6 @@
 import { ValueObject } from '../../../shared/domain/value_object';
 import { Url } from '../../../shared/domain/url';
-import { Props } from 'src/shared/domain/value_object';
+import { Props } from '../../../shared/domain/value_object';
 import { Firstname, Lastname } from '../../../users/domain/models';
 
 export interface RedactorProps {
