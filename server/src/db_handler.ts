@@ -1,14 +1,24 @@
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { MongoClient, Db } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-let mongod: MongoMemoryServer;
 let conn: MongoClient;
-let db: Db;
-let mongoUri;
+
+type ExtendedProcess = NodeJS.Process & {
+  mongoUri: string;
+  mongoDbName: string;
+  mongoInstance: MongoMemoryServer;
+};
 
 export const clearDatabase = async () => {
-  const collections = await db.collections();
+  conn = await MongoClient.connect((process as ExtendedProcess).mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  const collections = await conn
+    .db((process as ExtendedProcess).mongoDbName)
+    .collections();
 
   for (let collection of collections) {
     await collection.deleteOne({});
@@ -16,43 +26,50 @@ export const clearDatabase = async () => {
 };
 
 export async function connect() {
-  mongod = await MongoMemoryServer.create({
+  const mongod = await MongoMemoryServer.create({
     instance: {
       port: 9002,
       dbName: 'mw-db',
     },
   });
 
+  (process as ExtendedProcess).mongoInstance = mongod;
+
   await mongod.start();
 
   await mongod.ensureInstance();
 
-  mongoUri = await mongod.getUri();
+  const dbName = await mongod.getDbName();
+  const mongoUri = await mongod.getUri();
+
+  (process as ExtendedProcess).mongoUri = mongoUri;
+  (process as ExtendedProcess).mongoDbName = dbName;
 
   conn = await MongoClient.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 
-  db = conn.db(await mongod.getDbName());
+  conn.db(dbName);
 }
 
-export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
-  MongooseModule.forRootAsync({
+export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) => {
+  return MongooseModule.forRootAsync({
     useFactory: async () => {
       return {
-        uri: mongoUri,
+        uri: (process as ExtendedProcess).mongoUri,
         ...options,
       };
     },
   });
+};
 
 export const closeInMongodConnection = async () => {
   if (conn) {
     await conn.close();
   }
 
-  if (mongod) {
-    await mongod.stop();
+  if ((process as ExtendedProcess).mongoInstance) {
+    await (process as ExtendedProcess).mongoInstance.stop();
   }
 };

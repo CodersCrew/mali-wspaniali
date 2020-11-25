@@ -40,12 +40,7 @@ describe('AddChildHandler', () => {
   let app: TestingModule;
 
   afterAll(async () => {
-    await dbHandler.closeInMongodConnection();
     await app.close();
-  });
-
-  beforeAll(async () => {
-    await dbHandler.connect();
   });
 
   beforeEach(async () => {
