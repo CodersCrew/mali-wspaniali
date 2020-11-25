@@ -5,17 +5,14 @@ import { MockedResponse } from '@apollo/client/testing';
 import { AdminInstructorsPage } from '../AdminInstructorsPage';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
-import { USERS_BY_ROLE } from '../../../operations/queries/Users/getUsersByRole';
+import { INSTRUCTORS } from '../../../operations/queries/Users/getUsersByRole';
 import { ASSESSMENTS } from '../../../operations/queries/Assessments/getAllAssessments';
 import { renderWithMock } from '../../../utils/testing/renderWithMockedProvider';
 
 const populatedMockedResponse: MockedResponse[] = [
     {
         request: {
-            query: USERS_BY_ROLE,
-            variables: {
-                role: 'instructor',
-            },
+            query: INSTRUCTORS,
         },
         result: {
             data: {
@@ -25,16 +22,12 @@ const populatedMockedResponse: MockedResponse[] = [
                         mail: 'test-instructor1@gmail.com',
                         date: '2000-01-01',
                         role: 'instructor',
-                        children: [],
-                        agreements: [],
                     },
                     {
                         _id: '2',
                         mail: 'test-instructor2@gmail.com',
                         date: '2000-01-01',
                         role: 'instructor',
-                        children: [],
-                        agreements: [],
                     },
                 ],
             },

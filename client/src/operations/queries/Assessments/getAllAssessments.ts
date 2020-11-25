@@ -1,8 +1,13 @@
 import { gql, useQuery } from '@apollo/client';
 import { Assessment } from '../../../graphql/types';
 
-interface TestListResponse {
+interface AssessmentListResponse {
     assessments: Assessment[];
+}
+
+interface UseAssessmentsReturnType {
+    assessmentList: Assessment[];
+    isAssessmentListLoading: boolean;
 }
 
 export const ASSESSMENTS = gql`
@@ -28,8 +33,8 @@ export const ASSESSMENTS = gql`
     }
 `;
 
-export function useAssessments() {
-    const { data, loading } = useQuery<TestListResponse>(ASSESSMENTS);
+export function useAssessments(): UseAssessmentsReturnType {
+    const { data, loading } = useQuery<AssessmentListResponse>(ASSESSMENTS);
 
     return {
         assessmentList: data?.assessments || [],

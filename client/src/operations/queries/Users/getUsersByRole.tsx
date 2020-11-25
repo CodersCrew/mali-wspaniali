@@ -5,6 +5,16 @@ interface UsersListReponse {
     users: PrivilegedUser[];
 }
 
+interface UseInstructorsReturnType {
+    instructors: PrivilegedUser[];
+    isInstructorsListLoading: boolean;
+}
+
+interface UseAdminsReturnType {
+    admins: PrivilegedUser[];
+    isAdminsListLoading: boolean;
+}
+
 export const INSTRUCTORS = gql`
     query Users {
         users(role: "instructor") {
@@ -27,7 +37,7 @@ export const ADMINS = gql`
     }
 `;
 
-export function useInstructors() {
+export function useInstructors(): UseInstructorsReturnType {
     const { data, loading } = useQuery<UsersListReponse>(INSTRUCTORS);
 
     return {
@@ -36,7 +46,7 @@ export function useInstructors() {
     };
 }
 
-export function useAdmins() {
+export function useAdmins(): UseAdminsReturnType {
     const { data, loading } = useQuery<UsersListReponse>(ADMINS);
 
     return {
