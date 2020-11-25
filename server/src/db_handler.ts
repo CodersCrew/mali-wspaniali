@@ -1,3 +1,4 @@
+import { DynamicModule } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoClient } from 'mongodb';
 import { MongoMemoryServer } from 'mongodb-memory-server';
@@ -10,7 +11,7 @@ type ExtendedProcess = NodeJS.Process & {
   mongoInstance: MongoMemoryServer;
 };
 
-export async function clearDatabase() {
+export async function clearDatabase(): Promise<void> {
   conn = await MongoClient.connect((process as ExtendedProcess).mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -25,11 +26,14 @@ export async function clearDatabase() {
   }
 }
 
-export async function connect() {
+export async function connect(): Promise<void> {
   const mongod = await MongoMemoryServer.create({
     instance: {
       port: 9002,
       dbName: 'mw-db',
+    },
+    binary: {
+      version: '4.4.2',
     },
   });
 
@@ -53,7 +57,9 @@ export async function connect() {
   conn.db(dbName);
 }
 
-export function rootMongooseTestModule(options: MongooseModuleOptions = {}) {
+export function rootMongooseTestModule(
+  options: MongooseModuleOptions = {},
+): DynamicModule {
   return MongooseModule.forRootAsync({
     useFactory: async () => {
       return {
@@ -64,7 +70,7 @@ export function rootMongooseTestModule(options: MongooseModuleOptions = {}) {
   });
 }
 
-export async function closeInMongodConnection() {
+export async function closeInMongodConnection(): Promise<void> {
   if (conn) {
     await conn.close();
   }

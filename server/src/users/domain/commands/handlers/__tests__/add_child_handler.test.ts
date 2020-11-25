@@ -53,6 +53,8 @@ describe('AddChildHandler', () => {
     kindergarten = await createKindergarten();
 
     validChildOptions.kindergartenId = kindergarten.id.toString();
+
+    await awaitForResponse();
   });
 
   describe('when executed', () => {
