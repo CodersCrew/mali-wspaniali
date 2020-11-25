@@ -10,7 +10,7 @@ type ExtendedProcess = NodeJS.Process & {
   mongoInstance: MongoMemoryServer;
 };
 
-export const clearDatabase = async () => {
+export async function clearDatabase() {
   conn = await MongoClient.connect((process as ExtendedProcess).mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -23,7 +23,7 @@ export const clearDatabase = async () => {
   for (let collection of collections) {
     await collection.deleteOne({});
   }
-};
+}
 
 export async function connect() {
   const mongod = await MongoMemoryServer.create({
@@ -53,7 +53,7 @@ export async function connect() {
   conn.db(dbName);
 }
 
-export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) => {
+export function rootMongooseTestModule(options: MongooseModuleOptions = {}) {
   return MongooseModule.forRootAsync({
     useFactory: async () => {
       return {
@@ -62,9 +62,9 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) => {
       };
     },
   });
-};
+}
 
-export const closeInMongodConnection = async () => {
+export async function closeInMongodConnection() {
   if (conn) {
     await conn.close();
   }
@@ -72,4 +72,4 @@ export const closeInMongodConnection = async () => {
   if ((process as ExtendedProcess).mongoInstance) {
     await (process as ExtendedProcess).mongoInstance.stop();
   }
-};
+}
