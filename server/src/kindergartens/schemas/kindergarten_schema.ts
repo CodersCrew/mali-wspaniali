@@ -8,10 +8,18 @@ export const KindergartenSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  number: Number,
-  name: String,
-  address: String,
-  city: String,
+  number: {
+    type: Number,
+  },
+  name: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
   isDeleted: {
     type: Boolean,
     default: false,

@@ -13,10 +13,7 @@ import { CreateUserHandler } from '../create_user_handler';
 import { CreateUserCommand } from '../../impl/create_user_command';
 import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
-import {
-  KindergartenProps,
-  Kindergarten,
-} from '../../../../../kindergartens/domain/models/kindergarten_model';
+import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { EditChildHandler } from '../edit_child_handler';
 import { EditChildCommand } from '../../impl/edit_child_command';
 import { Child } from '../../../models/child_model';
@@ -27,14 +24,6 @@ import { Firstname } from '../../../models/firstname_value_object';
 import { ObjectId } from '../../../models/object_id_value_object';
 import { BirthYear } from '../../../models/birth_year_value_object';
 import { BirthQuarter } from '../../../models/birth_quarter_value_object';
-
-afterAll(async () => {
-  await dbHandler.closeInMongodConnection();
-});
-
-beforeAll(async () => {
-  await dbHandler.connect();
-});
 
 describe('EditChildHandler', () => {
   let module: TestingModule;

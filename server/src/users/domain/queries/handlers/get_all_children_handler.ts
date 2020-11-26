@@ -50,7 +50,7 @@ export class GetAllChildrenHandler
       );
 
       return {
-        child: ChildMapper.toPersistence(child),
+        child: ChildMapper.toPersistence(child) as ChildProps,
         kindergarten: foundKindergarten,
         results: foundChildrenResults,
       };
