@@ -1,4 +1,5 @@
 import React from 'react';
+import equal from 'fast-deep-equal/es6/react';
 import { useFormik } from 'formik';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -51,6 +52,11 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
         validationSchema,
         onSubmit: handleSubmit,
     });
+
+    if (!equal(initialValues, formik.values)) {
+        formik.setValues(initialValues);
+    }
+
     const { getOptions } = useSelectOptions();
 
     const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
