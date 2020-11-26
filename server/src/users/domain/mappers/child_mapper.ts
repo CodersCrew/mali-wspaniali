@@ -9,8 +9,11 @@ interface DomainMapperOptions {
 }
 
 export class ChildMapper {
-  static toDomain(props: ChildProps, options?: DomainMapperOptions): Child {
-    const _id = ObjectId.create(props._id);
+  static toDomain(
+    props: ChildProps | Omit<ChildProps, '_id'>,
+    options?: DomainMapperOptions,
+  ): Child {
+    const _id = '_id' in props ? ObjectId.create(props._id) : ObjectId.create();
     const firstname = Firstname.create(props.firstname);
     const lastname = Lastname.create(props.lastname);
     const sex = Sex.create(props.sex);
@@ -47,8 +50,20 @@ export class ChildMapper {
     }
   }
 
-  static toPersistence(child: Child): ChildProps {
-    const childOptions = {
+  static toPersistence(child: Child): ChildProps | Omit<ChildProps, '_id'> {
+    if (child.id.isEmpty()) {
+      return {
+        firstname: child.firstname.value,
+        lastname: child.lastname.value,
+        sex: child.sex.value,
+        isDeleted: child.isDeleted,
+        birthYear: child.birthYear.value,
+        birthQuarter: child.birthQuarter.value,
+        kindergarten: child.kindergarten.value,
+      };
+    }
+
+    return {
       _id: child.id.value,
       firstname: child.firstname.value,
       lastname: child.lastname.value,
@@ -58,7 +73,5 @@ export class ChildMapper {
       birthQuarter: child.birthQuarter.value,
       kindergarten: child.kindergarten.value,
     };
-
-    return childOptions;
   }
 }

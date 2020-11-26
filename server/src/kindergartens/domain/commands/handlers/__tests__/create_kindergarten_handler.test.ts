@@ -26,12 +26,7 @@ describe('CreatKindergartenHandler', () => {
   let createdKindergarten: Kindergarten;
 
   afterAll(async () => {
-    await dbHandler.closeInMongodConnection();
     await module.close();
-  });
-
-  beforeAll(async () => {
-    await dbHandler.connect();
   });
 
   beforeEach(async () => {

@@ -39,6 +39,7 @@ export class KindergartenMapper {
       }
     } else {
       const _id = ObjectId.create();
+
       const kindergartenTitle = KindergartenTitle.create(props.name);
 
       const result = Result.combine([_id, kindergartenTitle]);
@@ -59,7 +60,20 @@ export class KindergartenMapper {
     }
   }
 
-  static toPersistant(kindergarten: Kindergarten): KindergartenProps {
+  static toPersistant(
+    kindergarten: Kindergarten,
+  ): KindergartenProps | Omit<KindergartenProps, '_id'> {
+    if (kindergarten.id.isEmpty()) {
+      return {
+        date: kindergarten.date,
+        number: kindergarten.number,
+        name: kindergarten.name.value,
+        address: kindergarten.address,
+        city: kindergarten.city,
+        isDeleted: kindergarten.isDeleted.value,
+      };
+    }
+
     return {
       _id: kindergarten.id.value,
       date: kindergarten.date,
