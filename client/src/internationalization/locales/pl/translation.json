@@ -293,7 +293,8 @@
     },
     "parent-children": {
         "children": "Dzieci",
-        "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
+        "no-children-has-been-found": "Nie znaleziono żadnych dzieci",
+        "add-child": "Dodaj dziecko"
     },
     "newsletter": {
         "header": "Nowa wiadomość",
@@ -517,6 +518,7 @@
     },
     "add-child-modal": {
         "button": "Dodaj",
+        "cancel": "Anuluj",
         "heading": "Witaj na stronie Mali Wspaniali",
         "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
         "inputs": {

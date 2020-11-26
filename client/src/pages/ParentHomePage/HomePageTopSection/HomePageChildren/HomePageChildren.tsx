@@ -5,19 +5,35 @@ import { HomePageInfo } from '../HomePageInfo';
 import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
 import { Child } from '../../../../graphql/types';
+import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
+import { AddChildModal } from '../../../../components/AddChildModal/AddChildModal';
+import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
+import { AddChildResult } from '../../../../components/AddChildModal/AddChildModal.types';
 
 interface Props {
     childrenList: Child[];
+    handleModalSubmit: (child: AddChildResult) => void;
 }
 
-export const HomePageChildren = ({ childrenList: children }: Props) => {
+export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: Props) => {
     const classes = useStyles();
     const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(true);
 
     const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
 
+    const { kindergartenList } = useKindergartens();
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleModalReset = () => {
+        setModalOpen(false);
+    };
+
+    const handleAddChildButtonClick = () => {
+        setModalOpen(true);
+    };
+
     return (
-        <div className={classes.infoContainer}>
+        <>
             <div className={classes.childrenContainer}>
                 {children.map(({ firstname, _id, sex }) => {
                     const PictureComponent = (
@@ -37,9 +53,21 @@ export const HomePageChildren = ({ childrenList: children }: Props) => {
                         />
                     );
                 })}
+                <HomePageAddChildButton onClick={handleAddChildButtonClick} />
             </div>
-            {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
-        </div>
+            {kindergartenList && (
+                <AddChildModal
+                    handleSubmit={handleModalSubmit}
+                    handleReset={handleModalReset}
+                    isOpen={modalOpen}
+                    kindergartens={kindergartenList}
+                    isCancelButtonVisible={true}
+                />
+            )}
+            <div className={classes.infoContainer}>
+                {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
+            </div>
+        </>
     );
 };
 
@@ -61,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
         infoContainer: {
             display: 'flex',
             marginBottom: 40,
-            padding: '0 50px 0 0',
+            flexWrap: 'wrap',
 
             [theme.breakpoints.down('md')]: {
                 flexDirection: 'column',
@@ -72,12 +100,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         childrenContainer: {
             display: 'flex',
+            flexWrap: 'wrap',
 
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'space-around',
-                paddingLeft: 20,
+                paddingLeft: 16,
                 paddingRight: 20,
-                maxWidth: 400,
             },
 
             [theme.breakpoints.down('sm')]: {
