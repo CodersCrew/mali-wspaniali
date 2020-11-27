@@ -14,8 +14,13 @@ export class KindergartenRepository {
     private readonly model: Model<KindergartenDocument>,
   ) {}
 
-  async getAll(): Promise<KindergartenProps[]> {
-    return await this.model.find({}, {}, { sort: { number: 1 } }).exec();
+  getAll(): Promise<Kindergarten[]> {
+    return this.model
+      .find({}, {}, { sort: { number: 1 } })
+      .exec()
+      .then(kindergartenList => {
+        return kindergartenList.map(k => KindergartenMapper.toDomainFrom(k));
+      });
   }
 
   async get(id: string): Promise<KindergartenProps> {
