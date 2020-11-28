@@ -1,5 +1,4 @@
 import React from 'react';
-import equal from 'fast-deep-equal/es6/react';
 import { useFormik } from 'formik';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -39,6 +38,7 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
     const device = useBreakpoints();
 
     const initialValues = {
+        id: child._id,
         firstname: child.firstname,
         lastname: child.lastname,
         sex: child.sex,
@@ -53,7 +53,7 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
         onSubmit: handleSubmit,
     });
 
-    if (!equal(initialValues, formik.values)) {
+    if (formik.values.id !== child._id) {
         formik.setValues(initialValues);
     }
 
