@@ -68,13 +68,15 @@ export class AssessmentResolver {
 
     return assessment.kindergartens
       .map(assessmentKindergarten => {
-        const foundKindergarten = kindergartens.find(
-          k => k.id.value === assessmentKindergarten.kindergartenId.toString(),
-        );
+        const foundKindergarten = kindergartens.find(k => {
+          return (
+            k.id.toString() === assessmentKindergarten.kindergartenId.toString()
+          );
+        });
 
-        const foundInstructor = instructors.find(
-          i => i._id === assessmentKindergarten.instructorId,
-        );
+        const foundInstructor = instructors.find(i => {
+          return i._id === assessmentKindergarten.instructorId;
+        });
 
         return {
           kindergarten: foundKindergarten
