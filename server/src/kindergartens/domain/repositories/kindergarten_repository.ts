@@ -33,8 +33,13 @@ export class KindergartenRepository {
       );
   }
 
-  async getMany(ids: string[]): Promise<KindergartenProps[]> {
-    return await this.model.find({ _id: ids }).exec();
+  getMany(ids: string[]): Promise<Kindergarten[]> {
+    return this.model
+      .find({ _id: ids })
+      .exec()
+      .then(kindergartenList => {
+        return kindergartenList.map(k => KindergartenMapper.toDomainFrom(k));
+      });
   }
 
   async create(createKindergarten: Kindergarten): Promise<Kindergarten> {
