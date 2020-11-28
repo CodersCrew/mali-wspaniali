@@ -38,6 +38,7 @@ export function AdminInstructorsPage() {
     const { assessmentList, isAssessmentListLoading } = useAssessments();
 
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
+    const [selectedInstructor, setSelectedInstructor] = useState('');
     const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
         initialInstructorModalStatus,
     );
@@ -53,6 +54,10 @@ export function AdminInstructorsPage() {
 
     const onAssessmentSelectChange = (assessmentId: string) => {
         setSelectedAssessment(assessmentList.find(assessment => assessment._id === assessmentId) as Assessment);
+    };
+
+    const onInstructorSelectChange = (instructorId: string) => {
+        setSelectedInstructor(instructorId);
     };
 
     const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
@@ -86,12 +91,14 @@ export function AdminInstructorsPage() {
                     <InstructorsSelect
                         label={t('admin-instructors-page.table-toolbar.instructor-search')}
                         options={instructors}
+                        value={selectedInstructor}
+                        onChange={onInstructorSelectChange}
                     />
                 }
                 unassignedKindergartensCount={unassignedKindergartens?.length || 0}
             />
             <InstructorsTableContainer>
-                {instructorsWithKindergartens.map(instructor => (
+                {instructorsWithKindergartens.filter(instructor => instructor._id.includes(selectedInstructor)).map(instructor => (
                     <InstructorsTableRow
                         key={instructor._id}
                         instructor={instructor}

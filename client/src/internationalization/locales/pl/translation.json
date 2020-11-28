@@ -596,6 +596,7 @@
         },
         "snackbars": {
             "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
-        }
+        },
+        "all-instructors": "Wszyscy instruktorzy"
     }
 }
