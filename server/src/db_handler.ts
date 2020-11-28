@@ -22,7 +22,7 @@ export async function clearDatabase(): Promise<void> {
     .collections();
 
   for (let collection of collections) {
-    await collection.deleteOne({});
+    await collection.deleteMany({});
   }
 }
 
