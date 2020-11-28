@@ -583,6 +583,10 @@
         "wrong-old-password": "Incorrect password"
     },
     "admin-instructors-page": {
+        "modal": {
+            "cancel": "Cancel",
+            "assign": "Assign"
+        },
         "table": {
             "firstName": "First name",
             "lastName": "Last name",

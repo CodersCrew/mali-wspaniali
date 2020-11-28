@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Typography,
     makeStyles,
@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 // import * as Yup from 'yup';
 // import { useFormik } from 'formik';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { KindergartenTable } from './KindergartenTable';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, Assessment } from '../../../graphql/types';
@@ -19,22 +19,23 @@ import { InstructorWithKindergartens } from '../types';
 
 interface Props {
     onClose: () => void;
-    onSubmit: () => void;
+    onSubmit: (selected: string[]) => void;
     kindergartens: Kindergarten[];
     instructor: InstructorWithKindergartens | null;
     assessment: Assessment | null;
 }
 
 export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instructor, assessment }: Props) => {
+    const [selected, setSelected] = useState<string[]>([])
     const classes = useStyles();
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <TwoActionsModal
             lowerButtonOnClick={onClose}
-            upperButtonOnClick={onSubmit}
-            lowerButtonText="Anuluj"
-            upperButtonText="Przydziel"
+            upperButtonOnClick={() => onSubmit(selected)}
+            lowerButtonText={t('admin-instructors-page.modal.cancel')}
+            upperButtonText={t('admin-instructors-page.modal.assign')}
             isOpen
             onClose={onClose}
         >
@@ -80,7 +81,7 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     Dodaj nieprzydzielone przedszkole
                 </Typography>
-                <KindergartenTable kindergartens={kindergartens} onSelect={value => console.log(value)} />
+                <KindergartenTable kindergartens={kindergartens} onSelect={setSelected} />
             </div>
         </TwoActionsModal>
     );

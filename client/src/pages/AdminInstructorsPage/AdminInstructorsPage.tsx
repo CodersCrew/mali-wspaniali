@@ -7,24 +7,12 @@ import { InstructorsSelect } from './InstructorsSelect';
 import { AssessmentsSelect } from './AssessmentsSelect';
 import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableContainer';
 import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
-import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
 import { activePage } from '../../apollo_client';
 import { Loader } from '../../components/Loader';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
 import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
 import { Assessment } from '../../graphql/types';
-
-interface InstructorModalStatus {
-    isOpen: boolean;
-    instructor: InstructorWithKindergartens | null;
-    assessment: Assessment | null;
-}
-
-const initialInstructorModalStatus = {
-    isOpen: false,
-    instructor: null,
-    assessment: null,
-};
+import { openAssignInstructorModal } from './openAssignInstructorModal';
 
 export function AdminInstructorsPage() {
     const { t } = useTranslation();
@@ -39,9 +27,6 @@ export function AdminInstructorsPage() {
 
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
     const [selectedInstructor, setSelectedInstructor] = useState('');
-    const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
-        initialInstructorModalStatus,
-    );
 
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
@@ -49,7 +34,10 @@ export function AdminInstructorsPage() {
 
     const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map(instructor => ({
         ...instructor,
-        kindergartens: selectedAssessment?.kindergartens.filter(kindergarten => kindergarten.instructor?._id === instructor._id).map(kind => kind.kindergarten) || null
+        kindergartens:
+            selectedAssessment?.kindergartens
+                .filter(kindergarten => kindergarten.instructor?._id === instructor._id)
+                .map(kind => kind.kindergarten) || null,
     }));
 
     const onAssessmentSelectChange = (assessmentId: string) => {
@@ -61,11 +49,11 @@ export function AdminInstructorsPage() {
     };
 
     const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
-        setAssignInstructorModalStatus({
-            isOpen: true,
+        openAssignInstructorModal({
             instructor,
             assessment: selectedAssessment,
-        });
+            kindergartens: unassignedKindergartens || [],
+        }).then(e => console.log(e));
     };
 
     const unassignedKindergartens = selectedAssessment?.kindergartens
@@ -73,8 +61,8 @@ export function AdminInstructorsPage() {
         .map(kind => kind.kindergarten);
 
     if (isInstructorsListLoading || isAssessmentListLoading) {
-        return <Loader />; 
-    }  
+        return <Loader />;
+    }
 
     return (
         <div className={classes.container}>
@@ -82,7 +70,7 @@ export function AdminInstructorsPage() {
                 assessmentsSelect={
                     <AssessmentsSelect
                         label={t('admin-instructors-page.table-toolbar.select-test')}
-                        options={assessmentList.filter(assessment => assessment.kindergartens.length !== 0)}
+                        options={assessmentList}
                         value={selectedAssessment}
                         onChange={onAssessmentSelectChange}
                     />
@@ -106,15 +94,6 @@ export function AdminInstructorsPage() {
                     />
                 ))}
             </InstructorsTableContainer>
-            {assignInstructorModalStatus.isOpen && (
-                <AssignInstructorModal
-                    onClose={() => setAssignInstructorModalStatus(initialInstructorModalStatus)}
-                    onSubmit={() => console.log('modal form submitted!')}
-                    kindergartens={unassignedKindergartens || []}
-                    instructor={assignInstructorModalStatus.instructor}
-                    assessment={assignInstructorModalStatus.assessment}
-                />
-            )}
         </div>
     );
 }

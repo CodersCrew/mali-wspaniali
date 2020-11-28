@@ -582,6 +582,10 @@
         "wrong-old-password": "Niepoprawne hasło"
     },
     "admin-instructors-page": {
+        "modal": {
+            "cancel": "Anuluj",
+            "assign": "Przypisz"
+        },
         "table": {
             "firstName": "Imię",
             "lastName": "Nazwisko",

@@ -3,21 +3,21 @@ import * as ReactDOM from 'react-dom';
 import { ThemeProvider } from '../theme/ThemeProvider';
 
 export type Decision = {
-    accepted: boolean;
+    accepted?: boolean;
 };
 
-export interface ActionDialog {
+export interface ActionDialog<T = {}> {
     onClose: () => void;
-    makeDecision: (decision: Decision) => void;
+    makeDecision: (decision: Decision & T) => void;
 }
 
-export interface DialogResult {
+export interface DialogResult<T = {}> {
     close?: boolean;
-    decision?: Decision;
+    decision?: Decision & T;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function openDialog<T>(Dialog: React.FC<any>, options: T): Promise<DialogResult> {
+export function openDialog<T, G = {}>(Dialog: React.FC<any>, options: T): Promise<DialogResult<G>> {
     return new Promise(resolve => {
         const dialogElement = document.createElement('div');
         const body = document.querySelector('body') as HTMLBodyElement;
@@ -33,7 +33,7 @@ export function openDialog<T>(Dialog: React.FC<any>, options: T): Promise<Dialog
                             ReactDOM.unmountComponentAtNode(dialogElement);
                             resolve({ close: true });
                         }}
-                        makeDecision={(decision: Decision) => {
+                        makeDecision={(decision: Decision & G) => {
                             ReactDOM.unmountComponentAtNode(dialogElement);
                             resolve({ decision, close: false });
                         }}
