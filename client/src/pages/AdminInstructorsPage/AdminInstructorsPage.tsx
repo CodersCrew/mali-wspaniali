@@ -32,12 +32,38 @@ export function AdminInstructorsPage() {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
 
+    useEffect(() => {
+        if (assessmentList.length !== 0) {
+            setSelectedAssessment(assessmentList[0]);
+        }
+    }, [assessmentList]);
+
+    // const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map(instructor => ({
+    //     ...instructor,
+    //     kindergartens:
+    //         selectedAssessment?.kindergartens
+    //             .filter(kindergarten => kindergarten.instructor?._id === instructor._id)
+    //             .map(kind => kind.kindergarten) || null,
+    // }));
+
     const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map(instructor => ({
         ...instructor,
-        kindergartens:
-            selectedAssessment?.kindergartens
-                .filter(kindergarten => kindergarten.instructor?._id === instructor._id)
-                .map(kind => kind.kindergarten) || null,
+        kindergartens: [
+            {
+                _id: '5f2b063d4f145e2a8c4e3ae3',
+                name: 'Przedszkole Agatka',
+                number: 4,
+                address: 'xyz2',
+                city: 'Wrocław'
+            },
+            {
+                _id: '5f0894f44075fd62bb9e3df3',
+                name: 'Przedszkole Agatka5',
+                number: 5,
+                address: 'ujn2',
+                city: 'aaaa'
+            },
+        ]
     }));
 
     const onAssessmentSelectChange = (assessmentId: string) => {

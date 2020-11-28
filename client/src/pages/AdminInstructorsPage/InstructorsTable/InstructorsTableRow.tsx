@@ -5,12 +5,13 @@ import {
     TableCell,
     IconButton,
     Fade,
-    Box,
     Collapse,
     Tooltip,
+    Typography,
     makeStyles,
     createStyles,
     Theme,
+    Chip,
 } from '@material-ui/core';
 import {
     KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -31,7 +32,9 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
     const [open, setOpen] = useState(false);
     const [showAddButton, setShowAddButton] = useState(false);
 
-    const { mail } = instructor;
+    const { mail, kindergartens } = instructor;
+
+    const instructorKindergartenCount = kindergartens ? kindergartens.length : 0;
 
     return (
         <>
@@ -58,19 +61,35 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
                                 placement="top"
                                 arrow
                             >
-                                <IconButton onClick={() => onAssignInstructorClick(instructor)} aria-label="assign instructor">
+                                <IconButton
+                                    onClick={() => onAssignInstructorClick(instructor)}
+                                    aria-label="assign instructor"
+                                >
                                     <AddIcon />
                                 </IconButton>
                             </Tooltip>
                         </div>
                     </Fade>
-                    {instructor.kindergartens?.length}
+                    {instructorKindergartenCount}
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell className={classes.collapseCell} colSpan={5}>
+                <TableCell className={classes.collapseCell} colSpan={1}>
+                    <Collapse in={open} timeout="auto" unmountOnExit />
+                </TableCell>
+                <TableCell className={classes.collapseCell} colSpan={4}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box margin={1}>Some content</Box>
+                        <div className={classes.collapseContainer}>
+                            <Typography variant="subtitle2">{instructorKindergartenCount} przedszkola</Typography>
+                            {instructor.kindergartens &&
+                                instructor.kindergartens.map(kindergarten => (
+                                    <Chip
+                                        key={kindergarten._id}
+                                        label={`${kindergarten.number}/${kindergarten.name}`}
+                                        onDelete={() => console.log('chip cliked!')}
+                                    />
+                                ))}
+                        </div>
                     </Collapse>
                 </TableCell>
             </TableRow>
@@ -86,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         collapseCell: {
-            padding: 0,
+            padding: theme.spacing(0, 2),
         },
         kindergartenCell: {
             position: 'relative',
@@ -103,6 +122,13 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'flex-end',
             alignItems: 'center',
             paddingRight: theme.spacing(8),
+        },
+        collapseContainer: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: `${theme.spacing(2)}px`,
+            alignItems: 'center',
+            marginBottom: theme.spacing(1),
         },
     }),
 );

@@ -17,9 +17,8 @@ export const AssessmentsSelect = ({ label, options, onChange, value }: Props) =>
                 labelId="test-select-label"
                 id="test-select"
                 label={label}
-                // TODO: figure out why it doesn't work on first render - the selected assessment is set properly, but it doesn't show the right option
-                value={value?._id}
-                onChange={(e) => onChange(e.target.value as string)}
+                value={value ? value._id : ''}
+                onChange={e => onChange(e.target.value as string)}
                 MenuProps={{
                     getContentAnchorEl: null,
                     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
