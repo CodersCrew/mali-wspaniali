@@ -13,6 +13,7 @@ import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
 import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
 import { Assessment } from '../../graphql/types';
 import { openAssignInstructorModal } from './openAssignInstructorModal';
+import { openUnassignKindergartenModal } from './openUnassignKindergartenModal';
 
 export function AdminInstructorsPage() {
     const { t } = useTranslation();
@@ -28,15 +29,17 @@ export function AdminInstructorsPage() {
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
     const [selectedInstructor, setSelectedInstructor] = useState('');
 
+    const filteredAssessments = assessmentList.filter(assessment => assessment.kindergartens.length !== 0);
+
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
 
     useEffect(() => {
-        if (assessmentList.length !== 0) {
-            setSelectedAssessment(assessmentList[0]);
+        if (filteredAssessments.length !== 0) {
+            setSelectedAssessment(filteredAssessments[0]);
         }
-    }, [assessmentList]);
+    }, [filteredAssessments]);
 
     // const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map(instructor => ({
     //     ...instructor,
@@ -82,6 +85,12 @@ export function AdminInstructorsPage() {
         }).then(e => console.log(e));
     };
 
+    const onUnassignKindergartenClick = (kindergartenId: string) => {
+        openUnassignKindergartenModal({
+            kindergartenId
+        }).then(e => console.log(e));
+    };
+
     const unassignedKindergartens = selectedAssessment?.kindergartens
         .filter(kindergarten => kindergarten.instructor === null)
         .map(kind => kind.kindergarten);
@@ -96,7 +105,7 @@ export function AdminInstructorsPage() {
                 assessmentsSelect={
                     <AssessmentsSelect
                         label={t('admin-instructors-page.table-toolbar.select-test')}
-                        options={assessmentList}
+                        options={filteredAssessments}
                         value={selectedAssessment}
                         onChange={onAssessmentSelectChange}
                     />
@@ -117,6 +126,7 @@ export function AdminInstructorsPage() {
                         key={instructor._id}
                         instructor={instructor}
                         onAssignInstructorClick={onAssignInstructorClick}
+                        onUnassignKindergartenClick={onUnassignKindergartenClick}
                     />
                 ))}
             </InstructorsTableContainer>

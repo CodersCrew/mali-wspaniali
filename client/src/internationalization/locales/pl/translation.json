@@ -601,6 +601,12 @@
         "snackbars": {
             "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
         },
-        "all-instructors": "Wszyscy instruktorzy"
+        "all-instructors": "Wszyscy instruktorzy",
+        "unassign-modal": {
+            "title": "Odznaczenie przedszkola",
+            "description": "Czy na pewno chcesz odznaczyć wybrane przedszkole od tego instruktora?",
+            "cancel": "Anuluj",
+            "unassign": "Odznacz"
+        }
     }
 }

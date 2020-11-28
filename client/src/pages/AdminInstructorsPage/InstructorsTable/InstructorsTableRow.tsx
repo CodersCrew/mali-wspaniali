@@ -23,9 +23,10 @@ import { InstructorWithKindergartens } from '../types';
 interface Props {
     instructor: InstructorWithKindergartens;
     onAssignInstructorClick: (instructor: InstructorWithKindergartens) => void;
+    onUnassignKindergartenClick: (kindergartenId: string) => void;
 }
 
-export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Props) => {
+export const InstructorsTableRow = ({ instructor, onAssignInstructorClick, onUnassignKindergartenClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -86,7 +87,7 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
                                     <Chip
                                         key={kindergarten._id}
                                         label={`${kindergarten.number}/${kindergarten.name}`}
-                                        onDelete={() => console.log('chip cliked!')}
+                                        onDelete={() => onUnassignKindergartenClick(kindergarten._id)}
                                     />
                                 ))}
                         </div>
