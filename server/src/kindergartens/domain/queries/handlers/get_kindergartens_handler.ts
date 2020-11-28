@@ -1,12 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { KindergartenRepository } from '../../repositories/kindergarten_repository';
-import { KindergartenWithUsersProps } from '../../models/kindergarten_with_users_model';
-import { GetKindergartenQuery } from '../impl/get_kindergarten_query';
-import {
-  Kindergarten,
-  KindergartenProps,
-} from '../../models/kindergarten_model';
+import { Kindergarten } from '../../models/kindergarten_model';
 import { GetKindergartensQuery } from '../impl';
 
 @QueryHandler(GetKindergartensQuery)

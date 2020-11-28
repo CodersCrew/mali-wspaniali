@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as dbHandler from '../../../../../db_handler';
-import { GetAllKindergartensHandler } from '../get_all_kindergartens_handler';
 import { KindergartenModule } from '../../../../kindergarten_module';
 import { Kindergarten } from '../../../models/kindergarten_model';
 import { CreateKindergartenHandler } from '../../../commands/handlers/create_kindergarten_handler';
