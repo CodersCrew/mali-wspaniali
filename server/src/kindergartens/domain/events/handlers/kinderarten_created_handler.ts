@@ -23,7 +23,7 @@ export class KindergartenCreatedHandler
     this.notificationRepository.create(
       createKindergartenCreatedNotification(
         users.map(u => u._id),
-        kindergarten.name,
+        kindergarten.name.value,
       ),
     );
   }

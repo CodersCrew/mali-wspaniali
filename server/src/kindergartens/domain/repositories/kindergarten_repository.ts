@@ -14,19 +14,32 @@ export class KindergartenRepository {
     private readonly model: Model<KindergartenDocument>,
   ) {}
 
-  async getAll(): Promise<KindergartenProps[]> {
-    return await this.model.find({}, {}, { sort: { number: 1 } }).exec();
+  getAll(): Promise<Kindergarten[]> {
+    return this.model
+      .find({}, {}, { sort: { number: 1 } })
+      .exec()
+      .then(kindergartenList => {
+        return kindergartenList.map(k => KindergartenMapper.toDomainFrom(k));
+      });
   }
 
-  async get(id: string): Promise<KindergartenProps> {
-    return await this.model
+  get(id: string): Promise<Kindergarten | null> {
+    return this.model
       .findById(id)
       .lean()
-      .exec();
+      .exec()
+      .then(kindergarten =>
+        kindergarten ? KindergartenMapper.toDomainFrom(kindergarten) : null,
+      );
   }
 
-  async getMany(ids: string[]): Promise<KindergartenProps[]> {
-    return await this.model.find({ _id: ids }).exec();
+  getMany(ids: string[]): Promise<Kindergarten[]> {
+    return this.model
+      .find({ _id: ids })
+      .exec()
+      .then(kindergartenList => {
+        return kindergartenList.map(k => KindergartenMapper.toDomainFrom(k));
+      });
   }
 
   async create(createKindergarten: Kindergarten): Promise<Kindergarten> {

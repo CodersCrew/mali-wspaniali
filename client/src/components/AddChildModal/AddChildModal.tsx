@@ -10,15 +10,7 @@ import { Input } from './Input';
 import { Select } from './Select';
 import { Kindergarten } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
-
-interface AddChildResult {
-    firstname: string;
-    lastname: string;
-    sex: string;
-    'birth-date': string;
-    'birth-quarter': string;
-    kindergarten: string;
-}
+import { AddChildResult } from './AddChildModal.types';
 
 const initialValues = {
     firstname: '',
@@ -33,6 +25,8 @@ interface Props {
     isOpen: boolean;
     kindergartens: Kindergarten[];
     handleSubmit: (data: AddChildResult) => void;
+    handleReset?: () => void;
+    isCancelButtonVisible: boolean;
 }
 
 const validationSchema = yup.object({
@@ -44,7 +38,7 @@ const validationSchema = yup.object({
     kindergarten: yup.string().required(),
 });
 
-export function AddChildModal({ handleSubmit, isOpen, kindergartens }: Props) {
+export function AddChildModal({ handleSubmit, isOpen, kindergartens, handleReset, isCancelButtonVisible }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();
@@ -52,13 +46,20 @@ export function AddChildModal({ handleSubmit, isOpen, kindergartens }: Props) {
         initialValues,
         validationSchema,
         onSubmit: data => handleSubmit(data),
+        onReset: handleReset,
     });
     const { getOptions } = useSelectOptions();
 
     const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
 
     return (
-        <BasicModal isOpen={isOpen} actionName={t('add-child-modal.button')} onAction={formik.handleSubmit}>
+        <BasicModal
+            isOpen={isOpen}
+            actionName={t('add-child-modal.button')}
+            onAction={formik.handleSubmit}
+            onClose={formik.handleReset}
+            isCancelButtonVisible={isCancelButtonVisible}
+        >
             <form onSubmit={formik.handleSubmit}>
                 <Typography variant="h4" classes={{ root: classes.title }}>
                     {t('add-child-modal.heading')}

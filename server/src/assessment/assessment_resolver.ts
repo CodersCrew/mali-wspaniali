@@ -19,9 +19,10 @@ import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessment
 import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructor_dto';
 import { AssessmentDto } from './domain/models/assessment_model';
 import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
-import { KindergartenProps } from '../kindergartens/domain/models/kindergarten_model';
+import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model';
 import { UserProps } from '../users/domain/models/user_model';
 import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
+import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
@@ -58,7 +59,7 @@ export class AssessmentResolver {
     const instructorIds = assessment.kindergartens
       .map(k => k.instructorId)
       .filter(k => k);
-    const kindergartens: KindergartenProps[] = await this.queryBus.execute(
+    const kindergartens: Kindergarten[] = await this.queryBus.execute(
       new GetKindergartensQuery(kindergartenIds),
     );
     const instructors: UserProps[] = await this.queryBus.execute(
@@ -66,16 +67,22 @@ export class AssessmentResolver {
     );
 
     return assessment.kindergartens
-      .map(assessmentKindergarten => ({
-        kindergarten: kindergartens.find(
-          k =>
-            k._id.toString() ===
-            assessmentKindergarten.kindergartenId.toString(),
-        ),
-        instructor: instructors.find(
+      .map(assessmentKindergarten => {
+        const foundKindergarten = kindergartens.find(
+          k => k.id.value === assessmentKindergarten.kindergartenId.toString(),
+        );
+
+        const foundInstructor = instructors.find(
           i => i._id === assessmentKindergarten.instructorId,
-        ),
-      }))
+        );
+
+        return {
+          kindergarten: foundKindergarten
+            ? KindergartenMapper.toRaw(foundKindergarten)
+            : null,
+          instructor: foundInstructor,
+        };
+      })
       .filter(k => k.kindergarten);
   }
 }
