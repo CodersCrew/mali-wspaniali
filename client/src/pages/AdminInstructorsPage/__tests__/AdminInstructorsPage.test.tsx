@@ -9,93 +9,6 @@ import { INSTRUCTORS } from '../../../operations/queries/Users/getUsersByRole';
 import { ASSESSMENTS } from '../../../operations/queries/Assessments/getAllAssessments';
 import { renderWithMock } from '../../../utils/testing/renderWithMockedProvider';
 
-const populatedMockedResponse: MockedResponse[] = [
-    {
-        request: {
-            query: INSTRUCTORS,
-        },
-        result: {
-            data: {
-                users: [
-                    {
-                        _id: '1',
-                        mail: 'test-instructor1@gmail.com',
-                        date: '2000-01-01',
-                        role: 'instructor',
-                    },
-                    {
-                        _id: '2',
-                        mail: 'test-instructor2@gmail.com',
-                        date: '2000-01-01',
-                        role: 'instructor',
-                    },
-                ],
-            },
-        },
-    },
-    {
-        request: {
-            query: ASSESSMENTS,
-        },
-        result: {
-            data: {
-                assessments: [
-                    {
-                        _id: '1',
-                        isOutdated: false,
-                        title: 'test-assessment1',
-                        startDate: '2000-01-01',
-                        endDate: '2000-01-31',
-                        kindergartens: [
-                            {
-                                kindergarten: {
-                                    _id: '1',
-                                    name: 'test-kindergarten1',
-                                    number: 1,
-                                },
-                                instructor: {
-                                    _id: '1',
-                                    mail: 'test-instructor1@gmail.com',
-                                },
-                            },
-                        ],
-                    },
-                    {
-                        _id: '2',
-                        isOutdated: false,
-                        title: 'test-assessment2',
-                        startDate: '2000-01-01',
-                        endDate: '2000-01-31',
-                        kindergartens: [
-                            {
-                                kindergarten: {
-                                    _id: '1',
-                                    name: 'test-kindergarten1',
-                                    number: 1,
-                                },
-                                instructor: {
-                                    _id: '1',
-                                    mail: 'test-instructor1@gmail.com',
-                                },
-                            },
-                            {
-                                kindergarten: {
-                                    _id: '2',
-                                    name: 'test-kindergarten2',
-                                    number: 2,
-                                },
-                                instructor: null,
-                            },
-                        ],
-                    },
-                ],
-            },
-        },
-    },
-];
-
-const renderPage = (mocks: MockedResponse[]) => renderWithMock(mocks, <AdminInstructorsPage />);
-
 describe('AdminInstructorsPage', () => {
     beforeEach(async () => {
         renderPage(populatedMockedResponse);
@@ -192,3 +105,92 @@ describe('AdminInstructorsPage', () => {
         });
     });
 });
+
+const populatedMockedResponse: MockedResponse[] = [
+    {
+        request: {
+            query: INSTRUCTORS,
+        },
+        result: {
+            data: {
+                users: [
+                    {
+                        _id: '1',
+                        mail: 'test-instructor1@gmail.com',
+                        date: '2000-01-01',
+                        role: 'instructor',
+                    },
+                    {
+                        _id: '2',
+                        mail: 'test-instructor2@gmail.com',
+                        date: '2000-01-01',
+                        role: 'instructor',
+                    },
+                ],
+            },
+        },
+    },
+    {
+        request: {
+            query: ASSESSMENTS,
+        },
+        result: {
+            data: {
+                assessments: [
+                    {
+                        _id: '1',
+                        isOutdated: false,
+                        title: 'test-assessment1',
+                        startDate: '2000-01-01',
+                        endDate: '2000-01-31',
+                        kindergartens: [
+                            {
+                                kindergarten: {
+                                    _id: '1',
+                                    name: 'test-kindergarten1',
+                                    number: 1,
+                                },
+                                instructor: {
+                                    _id: '1',
+                                    mail: 'test-instructor1@gmail.com',
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        _id: '2',
+                        isOutdated: false,
+                        title: 'test-assessment2',
+                        startDate: '2000-01-01',
+                        endDate: '2000-01-31',
+                        kindergartens: [
+                            {
+                                kindergarten: {
+                                    _id: '1',
+                                    name: 'test-kindergarten1',
+                                    number: 1,
+                                },
+                                instructor: {
+                                    _id: '1',
+                                    mail: 'test-instructor1@gmail.com',
+                                },
+                            },
+                            {
+                                kindergarten: {
+                                    _id: '2',
+                                    name: 'test-kindergarten2',
+                                    number: 2,
+                                },
+                                instructor: null,
+                            },
+                        ],
+                    },
+                ],
+            },
+        },
+    },
+];
+
+function renderPage(mocks: MockedResponse[]) {
+    return renderWithMock(mocks, <AdminInstructorsPage />);
+}
