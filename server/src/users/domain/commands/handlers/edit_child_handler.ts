@@ -2,11 +2,11 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { UserRepository } from '../../repositories/user_repository';
 import { ChildRepository } from '../../repositories/child_repository';
-import { ChildMapper } from '../../mappers/child_mapper';
 import { Child } from '../../models/child_model';
 import { isObjectId } from '../../../../shared/utils/db_utils';
 import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
 import { EditChildCommand } from '../impl/edit_child_command';
+import { Kindergarten } from '../../../../kindergartens/domain/models/kindergarten_model';
 
 @CommandHandler(EditChildCommand)
 export class EditChildHandler implements ICommandHandler<EditChildCommand> {
@@ -24,7 +24,7 @@ export class EditChildHandler implements ICommandHandler<EditChildCommand> {
       userId,
     } = command;
 
-    let kindergarten;
+    let kindergarten: Kindergarten | null;
 
     if (command.child.kindergartenId) {
       kindergarten = await this.getKindergarten(command);
