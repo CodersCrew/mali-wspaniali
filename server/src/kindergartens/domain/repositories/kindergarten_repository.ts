@@ -23,11 +23,14 @@ export class KindergartenRepository {
       });
   }
 
-  async get(id: string): Promise<KindergartenProps> {
-    return await this.model
+  get(id: string): Promise<Kindergarten | null> {
+    return this.model
       .findById(id)
       .lean()
-      .exec();
+      .exec()
+      .then(kindergarten =>
+        kindergarten ? KindergartenMapper.toDomainFrom(kindergarten) : null,
+      );
   }
 
   async getMany(ids: string[]): Promise<KindergartenProps[]> {
