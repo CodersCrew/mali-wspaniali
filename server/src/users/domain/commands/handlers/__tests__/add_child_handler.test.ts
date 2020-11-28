@@ -40,12 +40,7 @@ describe('AddChildHandler', () => {
   let app: TestingModule;
 
   afterAll(async () => {
-    await dbHandler.closeInMongodConnection();
     await app.close();
-  });
-
-  beforeAll(async () => {
-    await dbHandler.connect();
   });
 
   beforeEach(async () => {
@@ -58,6 +53,8 @@ describe('AddChildHandler', () => {
     kindergarten = await createKindergarten();
 
     validChildOptions.kindergartenId = kindergarten.id.toString();
+
+    await awaitForResponse();
   });
 
   describe('when executed', () => {
