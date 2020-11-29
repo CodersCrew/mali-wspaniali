@@ -5,10 +5,7 @@ import { AssessmentInput } from '../../../assessment/domain/models/assessment_mo
 import { Assessment } from '../models/assessment_model';
 import { AssessmentMapper } from '../mappers/assessment_mapper';
 
-import {
-  AssessmentDocument,
-  AssessmentProps,
-} from '../../schemas/assessment_schema';
+import { AssessmentDocument } from '../../schemas/assessment_schema';
 
 @Injectable()
 export class AssessmentRepository {
@@ -17,8 +14,12 @@ export class AssessmentRepository {
     private readonly model: Model<AssessmentDocument>,
   ) {}
 
-  async get(id: string): Promise<AssessmentProps> {
-    return await this.model.findById(id).exec();
+  async get(id: string): Promise<Assessment> {
+    return await this.model
+      .findById(id)
+      .lean()
+      .exec()
+      .then(a => (a ? AssessmentMapper.toDomain(a) : null));
   }
 
   async getAll(): Promise<AssessmentInput[]> {
@@ -40,5 +41,17 @@ export class AssessmentRepository {
       .then(assessment => assessment.toObject());
 
     return AssessmentMapper.toDomain(result, { isNew: true });
+  }
+
+  async update(assessment: Assessment): Promise<boolean> {
+    const assessmentDocument = await this.model.findById(
+      assessment.id.toString(),
+    );
+
+    let result = await assessmentDocument.update(
+      AssessmentMapper.toPersist(assessment),
+    );
+
+    return result.ok === 1;
   }
 }

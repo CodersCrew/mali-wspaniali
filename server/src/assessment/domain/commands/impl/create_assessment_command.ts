@@ -1,5 +1,5 @@
-import { CreateAssessmentInput } from '../../../inputs/create_assessment_input';
+import { AssessmentInput } from '../../../inputs/assessment_input';
 
 export class CreateAssessmentCommand {
-  constructor(public readonly assessment: CreateAssessmentInput) {}
+  constructor(public readonly assessment: AssessmentInput) {}
 }

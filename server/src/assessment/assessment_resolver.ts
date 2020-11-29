@@ -26,6 +26,7 @@ import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model'
 import { UserProps } from '../users/domain/models/user_model';
 import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
+import { EditAssessmentCommand } from './domain/commands/impl/edit_assessment_command';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
@@ -42,6 +43,19 @@ export class AssessmentResolver {
     );
 
     return { status: !!created };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async updateAssessment(
+    @Args('id') id: string,
+    @Args('assessment') assessment: UpdatedAssessmentInput,
+  ): Promise<ReturnedStatusDTO> {
+    const updated: boolean = await this.commandBus.execute(
+      new EditAssessmentCommand(id, assessment),
+    );
+
+    return { status: !!updated };
   }
 
   @Query(() => [AssessmentDTO])

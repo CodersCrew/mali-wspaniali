@@ -3,6 +3,7 @@ import { AssessmentCreatedEvent } from '../events/impl/assessment_created_event'
 import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 import { SimpleDate } from './simple_date_value_object';
 import { Title } from './title_value_object';
+import { KindergartenWithInstructor } from './kindergarten_with_instructor_value_object';
 
 export interface AssessmentInput {
   title: string;
@@ -22,15 +23,12 @@ export interface AssessmentDto {
   }>;
 }
 
-interface AssessmentProps {
+export interface AssessmentProps {
   _id: ObjectId;
   title: Title;
   startDate: SimpleDate;
   endDate: SimpleDate;
-  kindergartens: Array<{
-    kindergartenId: ObjectId;
-    instructorId: ObjectId | null;
-  }>;
+  kindergartens: KindergartenWithInstructor[];
 }
 
 export class Assessment extends AggregateRoot {
@@ -60,6 +58,10 @@ export class Assessment extends AggregateRoot {
 
   get kindergartens(): AssessmentProps['kindergartens'] {
     return this.data.kindergartens;
+  }
+
+  update(update: Partial<AssessmentProps>) {
+    this.data = { ...this.data, ...update };
   }
 
   static create(initialData: AssessmentProps): Assessment {

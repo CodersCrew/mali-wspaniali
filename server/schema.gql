@@ -193,6 +193,7 @@ type Mutation {
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createAssessment(assessment: AssessmentInput!): ReturnedStatusDTO!
+  updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): ReturnedStatusDTO!
 }
 
 input ArticleInput {
