@@ -42,10 +42,10 @@ describe('CreateAssessmentHandler', () => {
         expect(createdAssessment.endDate.value).toEqual('2020-10-20');
 
         expect(
-          createdAssessment.kindergartens[0].kindergartenId,
+          createdAssessment.kindergartens[0].value.kindergartenId,
         ).toBeInstanceOf(ObjectId);
         expect(
-          createdAssessment.kindergartens[0].kindergartenId.toString(),
+          createdAssessment.kindergartens[0].value.kindergartenId.toString(),
         ).toEqual('5f88ea2c6d80f367f66a1692');
       });
     });

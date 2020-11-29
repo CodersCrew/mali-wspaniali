@@ -1,11 +1,17 @@
 import * as mongoose from 'mongoose';
 
-export interface AssessmentProps {
+interface AssessmentProps {
   _id: string;
   date: Date;
   title: string;
   isOutdated: boolean;
   isSigned: boolean;
+  startDate: string;
+  endDate: string;
+  kindergartens: Array<{
+    kindergartenId: string;
+    instructorId: string | null;
+  }>;
 }
 
 export type AssessmentDocument = AssessmentProps & mongoose.Document;
