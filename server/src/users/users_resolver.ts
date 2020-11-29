@@ -32,7 +32,7 @@ import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { ResultInput } from './inputs/result_input';
 import { AgreementDTO } from '../agreements/dto/agreement_dto';
 import { GetValidAgreementsQuery } from '../agreements/domain/queries/impl/get_valid_agreements_query';
-import { AddAgreementToUserCommand } from './domain/commands/impl/add_agreement_to_user_command';
+import { ChangeUserAgreementCommand } from './domain/commands/impl/change_user_agreement_command';
 import { AgreementProps } from '../agreements/schemas/agreement_schema';
 import { GetAllUsersQuery } from './domain/queries/impl/get_all_users_query';
 import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
@@ -210,7 +210,7 @@ export class UsersResolver {
     @Args('agreementId') agreementId: string,
   ): Promise<{ status: boolean }> {
     const created: AgreementProps = await this.commandBus.execute(
-      new AddAgreementToUserCommand(user.userId, agreementId),
+      new ChangeUserAgreementCommand(user.userId, agreementId),
     );
 
     return { status: !!created };
