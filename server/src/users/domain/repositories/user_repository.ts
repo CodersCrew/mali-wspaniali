@@ -130,6 +130,15 @@ export class UserRepository {
     });
   }
 
+  async removeAgreement(
+    userId: string,
+    agreementId: string,
+  ): Promise<UserDocument> {
+    return this.userModel.findByIdAndUpdate(userId, {
+      $pull: { agreements: agreementId },
+    });
+  }
+
   // for e2e purpose only
   async clearTable(): Promise<void> {
     await this.userModel.deleteMany({});

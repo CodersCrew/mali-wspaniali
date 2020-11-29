@@ -18,13 +18,22 @@ export class AddAgreementToUserHandler
     userId,
   }: AddAgreementToUserCommand): Promise<AgreementProps> {
     const foundAgreement = await this.agreementRepository.get(agreementId);
+    const foundUser = await this.userRepository.get(userId);
 
-    if (foundAgreement) {
-      await this.userRepository.addAgreement(userId, agreementId);
+    if (foundAgreement && foundUser) {
+      if (
+        (foundUser.agreements as any).find(a => {
+          return a.toString() === agreementId;
+        })
+      ) {
+        await this.userRepository.removeAgreement(userId, agreementId);
+      } else {
+        await this.userRepository.addAgreement(userId, agreementId);
+      }
 
       return foundAgreement;
     }
 
-    throw new Error('Adding a child failed.');
+    throw new Error('Changing agreement failed.');
   }
 }
