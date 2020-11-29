@@ -13,7 +13,10 @@ import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { CreateAssessmentCommand } from './domain/commands/impl/create_assessment_command';
 import { ReturnedStatusDTO } from '../shared/returned_status';
-import { CreateAssessmentInput } from './inputs/create_assessment_input';
+import {
+  AssessmentInput,
+  UpdatedAssessmentInput,
+} from './inputs/assessment_input';
 import { AssessmentDTO } from './dto/assessment_dto';
 import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessments_query';
 import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructor_dto';
@@ -32,7 +35,7 @@ export class AssessmentResolver {
   @Mutation(() => ReturnedStatusDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createAssessment(
-    @Args('assessment') assessment: CreateAssessmentInput,
+    @Args('assessment') assessment: AssessmentInput,
   ): Promise<ReturnedStatusDTO> {
     const created: boolean = await this.commandBus.execute(
       new CreateAssessmentCommand(assessment),
