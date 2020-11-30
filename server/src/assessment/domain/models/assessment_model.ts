@@ -61,6 +61,10 @@ export class Assessment extends AggregateRoot {
   }
 
   update(update: Partial<AssessmentProps>) {
+    if (update._id) {
+      throw new Error('An id cannot be change');
+    }
+
     this.data = { ...this.data, ...update };
   }
 

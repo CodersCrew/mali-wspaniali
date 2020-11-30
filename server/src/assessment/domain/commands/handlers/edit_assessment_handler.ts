@@ -2,7 +2,6 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { EditAssessmentCommand } from '../impl';
 import { AssessmentRepository } from '../../repositories/assessment_repository';
-import { Assessment } from '../../models/assessment_model';
 import { AssessmentMapper } from '../../mappers/assessment_mapper';
 
 @CommandHandler(EditAssessmentCommand)
