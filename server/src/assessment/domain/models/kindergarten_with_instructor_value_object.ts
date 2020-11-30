@@ -23,7 +23,7 @@ export class KindergartenWithInstructor extends ValueObject<
   ): Result<KindergartenWithInstructor> {
     const isNull = Guard.againstNullOrUndefined(
       value.kindergartenId,
-      'KindergartenId',
+      'kindergartenId',
     );
 
     if (!isNull.succeeded) {
