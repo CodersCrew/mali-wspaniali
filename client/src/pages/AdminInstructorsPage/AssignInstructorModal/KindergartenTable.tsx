@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     TextField,
     InputAdornment,
@@ -19,18 +19,21 @@ import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];
-    onSelect: (id: string[]) => void;
+    onSelect: (id: string) => void;
+    selected: string[];
 }
 
-export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
+export const KindergartenTable = ({ kindergartens, onSelect, selected }: Props) => {
     const { t } = useTranslation();
     const [searchPhrase, setSearchPhrase] = useState('');
-    const [selected, setSelected] = useState<string[]>([]);
-    const [selectedAll, setSelectedAll] = useState(false);
+    // const [selected, setSelected] = useState<string[]>([]);
+    // const [selectedAll, setSelectedAll] = useState(false);
 
-    useEffect(() => {
-        onSelect(selected);
-    }, [onSelect, selected]);
+    console.log(onSelect);
+
+    // useEffect(() => {
+    //     onSelect(selected);
+    // }, [onSelect, selected]);
 
     const classes = useStyles();
 
@@ -57,7 +60,7 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell padding="checkbox">
-                                <Checkbox
+                                {/* <Checkbox
                                     checked={selectedAll}
                                     onClick={() => {
                                         if (selectedAll) {
@@ -70,7 +73,7 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                                     }}
                                     data-testid="select-all"
                                     color="default"
-                                />
+                                /> */}
                             </TableCell>
                             <TableCell>{t('add-test-view.kindergartens.kindergarten-name')}</TableCell>
                         </TableRow>
@@ -87,15 +90,7 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                                     key={kindergarten._id}
                                     hover
                                     role="row"
-                                    onClick={() => {
-                                        setSelected(prev => {
-                                            if (prev.includes(kindergarten._id)) {
-                                                return prev.filter(selectedId => selectedId !== kindergarten._id);
-                                            }
-
-                                            return [...prev, kindergarten._id];
-                                        });
-                                    }}
+                                    onClick={() => onSelect(kindergarten._id)}
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox checked={selected.includes(kindergarten._id)} color="default" />
@@ -115,7 +110,7 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         table: {
-            height: 295,
+            maxHeight: 295,
         },
         searchFieldContainer: {
             margin: theme.spacing(3, 0, 2),

@@ -13,6 +13,7 @@ import {
 // import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { KindergartenTable } from './KindergartenTable';
+import { AssginedKindergartenTable } from './AssginedKindergartenTable';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, Assessment } from '../../../graphql/types';
 import { InstructorWithKindergartens } from '../types';
@@ -26,9 +27,19 @@ interface Props {
 }
 
 export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instructor, assessment }: Props) => {
-    const [selected, setSelected] = useState<string[]>([])
+    const instructorKindergartenIds = instructor && instructor.kindergartens ? instructor.kindergartens.map(kindergarten => kindergarten._id) : [];
+
+    const [selected, setSelected] = useState<string[]>(instructorKindergartenIds);
     const classes = useStyles();
     const { t } = useTranslation();
+
+    const onSelect = (id: string) => {
+        if (selected.includes(id)) {
+            setSelected(selected.filter(kindergartenId => kindergartenId !== id));
+        } else {
+            setSelected(prev => [...prev, id]);
+        }
+    };
 
     return (
         <TwoActionsModal
@@ -78,10 +89,11 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     Przydzielone przedszkola
                 </Typography>
+                <AssginedKindergartenTable kindergartens={instructor?.kindergartens || []} onSelect={onSelect} selected={selected} />
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     Dodaj nieprzydzielone przedszkole
                 </Typography>
-                <KindergartenTable kindergartens={kindergartens} onSelect={setSelected} />
+                <KindergartenTable kindergartens={kindergartens} onSelect={onSelect} selected={selected} />
             </div>
         </TwoActionsModal>
     );

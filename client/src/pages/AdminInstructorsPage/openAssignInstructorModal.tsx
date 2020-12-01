@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core';
-
 import { ActionDialog, DialogResult, openDialog } from '../../utils/openDialog';
 import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
 import { InstructorWithKindergartens } from './types';
@@ -14,6 +13,13 @@ interface Props {
 
 interface DecisionProps {
     selectedKindergartens: string[];
+    data: {
+        id: string;
+        assessment: {
+            kindergartenId: string;
+            instructorId: string;
+        }[];
+    };
 }
 
 export function openAssignInstructorModal({ instructor, assessment, kindergartens }: Props): Promise<DialogResult> {
@@ -24,7 +30,13 @@ export function openAssignInstructorModal({ instructor, assessment, kindergarten
             <div className={classes.container}>
                 <AssignInstructorModal
                     onClose={onClose}
-                    onSubmit={selected => makeDecision({ selectedKindergartens: selected })}
+                    onSubmit={selected => makeDecision({ selectedKindergartens: selected, data: {
+                        id: assessment?._id!,
+                        assessment: selected.map(kindergartenId => ({
+                            kindergartenId,
+                            instructorId: instructor?._id!
+                        }))  
+                    } })}
                     kindergartens={kindergartens}
                     instructor={instructor}
                     assessment={assessment}
