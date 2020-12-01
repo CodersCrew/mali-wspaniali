@@ -16,10 +16,12 @@ export class ChildResultRepository {
   async create(childResultDTO: {
     test: ResultInput;
     childId: string;
-  }): Promise<ChildResultDocument> {
+  }): Promise<ChildResultProps> {
     const createdChild = new this.childResultModel(childResultDTO);
 
-    return await createdChild.save();
+    const result = await createdChild.save();
+
+    return result.toObject();
   }
 
   async get(childId: string): Promise<ChildResultProps[]> {

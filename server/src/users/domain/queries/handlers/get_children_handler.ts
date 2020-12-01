@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import * as mongoose from 'mongoose';
 
 import { GetChildrenQuery } from '../impl/get_children_query';
 import { ChildRepository } from '../../repositories/child_repository';
@@ -23,7 +22,7 @@ export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
   async execute({
     ids,
   }: {
-    ids: mongoose.Schema.Types.ObjectId[];
+    ids: string[];
   }): Promise<ChildWithKindergartenProps[]> {
     const children = await this.childRepository.get(ids);
 
