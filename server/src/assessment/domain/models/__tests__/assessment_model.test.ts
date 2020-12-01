@@ -35,6 +35,14 @@ describe('Assessment model', () => {
       expect(assessment.endDate).toBeInstanceOf(SimpleDate);
       expect(assessment.endDate.value).toEqual('2020-10-20');
     });
+
+    describe('with start date greater than end date', () => {
+      it('throws an error', () => {
+        expect(() =>
+          createAssessment({ startDate: '2020-10-20', endDate: '2020-10-15' }),
+        ).toThrowError('The start date cannot be greater than the end date');
+      });
+    });
   });
 
   describe('when created', () => {
@@ -96,11 +104,15 @@ describe('Assessment model', () => {
   });
 });
 
-function createAssessment(options?: { isNew: boolean }) {
+function createAssessment(options?: {
+  isNew?: boolean;
+  startDate?: string;
+  endDate?: string;
+}) {
   const _id = ObjectId.create('id');
   const title = Title.create('my-title');
-  const startDate = SimpleDate.create('2020-10-16');
-  const endDate = SimpleDate.create('2020-10-20');
+  const startDate = SimpleDate.create(options?.startDate || '2020-10-16');
+  const endDate = SimpleDate.create(options?.endDate || '2020-10-20');
 
   const create = options?.isNew ? Assessment.create : Assessment.recreate;
 

@@ -37,6 +37,8 @@ export class Assessment extends AggregateRoot {
   private constructor(initialData: AssessmentProps) {
     super();
 
+    this.guardAgainstStartDateSmallerThanEndDate(initialData);
+
     this.data = initialData;
   }
 
@@ -78,5 +80,11 @@ export class Assessment extends AggregateRoot {
 
   static recreate(initialData: AssessmentProps) {
     return new Assessment(initialData);
+  }
+
+  private guardAgainstStartDateSmallerThanEndDate(value: AssessmentProps) {
+    if (value.startDate.isGreaterThan(value.endDate)) {
+      throw new Error('The start date cannot be greater than the end date');
+    }
   }
 }
