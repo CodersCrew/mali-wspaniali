@@ -72,7 +72,11 @@ export class UsersResolver {
   @ResolveField()
   async children(@Parent() user: UserProps): Promise<ChildDTO[]> {
     return await this.queryBus.execute(
-      new GetChildrenQuery(user.children as mongoose.Schema.Types.ObjectId[]),
+      new GetChildrenQuery(
+        (user.children as mongoose.Schema.Types.ObjectId[]).map(c =>
+          c.toString(),
+        ),
+      ),
     );
   }
 

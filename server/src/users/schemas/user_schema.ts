@@ -1,9 +1,9 @@
-import * as mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { UserProps } from '../domain/models/user_model';
 
-export type UserDocument = UserProps & mongoose.Document;
+export type UserDocument = UserProps & Document;
 
-export const UserSchema = new mongoose.Schema({
+export const UserSchema: Schema = new Schema({
   date: {
     type: Date,
     default: Date.now,
@@ -14,6 +14,6 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     default: 'parent',
   },
-  children: [mongoose.Schema.Types.ObjectId],
-  agreements: [mongoose.Schema.Types.ObjectId],
+  children: [Schema.Types.ObjectId],
+  agreements: [Schema.Types.ObjectId],
 });

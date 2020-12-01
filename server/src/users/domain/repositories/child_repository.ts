@@ -23,20 +23,19 @@ export class ChildRepository {
     return ChildMapper.toDomain(created, { isNew: true });
   }
 
-  async addResult(
-    childId: string,
-    resultId: mongoose.Schema.Types.ObjectId,
-  ): Promise<void> {
+  async addResult(childId: string, resultId: string): Promise<void> {
     await this.childModel.findByIdAndUpdate(childId, {
-      $addToSet: { results: resultId },
+      $addToSet: { results: new mongoose.Types.ObjectId(resultId) as any },
     });
   }
 
-  async get(
-    childIds: mongoose.Schema.Types.ObjectId[] | string[],
-  ): Promise<Child[]> {
+  async get(childIds: string[]): Promise<Child[]> {
     return await this.childModel
-      .find({ _id: childIds })
+      .find({
+        _id: {
+          $in: childIds,
+        },
+      })
       .lean()
       .exec()
       .then(childList => childList.map(child => ChildMapper.toDomain(child)));
