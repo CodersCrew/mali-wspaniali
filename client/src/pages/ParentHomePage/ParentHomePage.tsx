@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -26,13 +26,19 @@ export const ParentHomePage = () => {
     const { kindergartenList } = useKindergartens();
     const [addChild] = useMutation(ADD_CHILD);
 
+    const [isCancelButtonVisible, setIsCancelButtonVisible] = useState(false);
+    const [modalOpen, setModalOpen] = useState(user ? user.role === 'parent' && user.children.length === 0 : false);
+
     useEffect(() => {
         activePage(['parent-menu.home']);
+        setIsCancelButtonVisible(false);
     }, []);
 
     if (!user || !kindergartenList) return null;
 
-    const isOpen = user.role === 'parent' && user.children.length === 0;
+    const handleModalReset = () => {
+        setModalOpen(false);
+    };
 
     const handleModalSubmit = (child: AddChildResult) => {
         const newChild: ChildInput = {
@@ -44,11 +50,16 @@ export const ParentHomePage = () => {
             kindergartenId: child.kindergarten,
         };
 
-        addChild({
-            variables: {
-                child: newChild,
-            },
-        });
+        setModalOpen(false);
+
+        // TODO: rerender HomePageChildren after child added
+        if (true) {
+            addChild({
+                variables: {
+                    child: newChild,
+                },
+            });
+        }
     };
 
     return (
@@ -63,14 +74,19 @@ export const ParentHomePage = () => {
                         <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
                     </p>
                 </Grid>
-                <HomePageChildren childrenList={user.children} handleModalSubmit={handleModalSubmit} />
+                <HomePageChildren
+                    childrenList={user.children}
+                    setModalOpen={setModalOpen}
+                    setIsCancelButtonVisible={setIsCancelButtonVisible}
+                />
                 <HomePageArticles articles={articles} />
             </Grid>
             <AddChildModal
                 handleSubmit={handleModalSubmit}
-                isOpen={isOpen}
+                handleReset={handleModalReset}
+                isOpen={modalOpen}
                 kindergartens={kindergartenList}
-                isCancelButtonVisible={false}
+                isCancelButtonVisible={isCancelButtonVisible}
             />
         </>
     );

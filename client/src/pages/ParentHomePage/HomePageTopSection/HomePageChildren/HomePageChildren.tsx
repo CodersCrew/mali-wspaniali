@@ -6,29 +6,21 @@ import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
 import { Child } from '../../../../graphql/types';
 import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
-import { AddChildModal } from '../../../../components/AddChildModal/AddChildModal';
-import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
-import { AddChildResult } from '../../../../components/AddChildModal/AddChildModal.types';
 
 interface Props {
     childrenList: Child[];
-    handleModalSubmit: (child: AddChildResult) => void;
+    setModalOpen: (value: boolean) => void;
+    setIsCancelButtonVisible: (value: boolean) => void;
 }
 
-export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: Props) => {
+export const HomePageChildren = ({ childrenList: children, setModalOpen, setIsCancelButtonVisible }: Props) => {
     const classes = useStyles();
     const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(true);
 
     const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
 
-    const { kindergartenList } = useKindergartens();
-    const [modalOpen, setModalOpen] = useState(false);
-
-    const handleModalReset = () => {
-        setModalOpen(false);
-    };
-
     const handleAddChildButtonClick = () => {
+        setIsCancelButtonVisible(true);
         setModalOpen(true);
     };
 
@@ -55,15 +47,6 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: 
                 })}
                 <HomePageAddChildButton onClick={handleAddChildButtonClick} />
             </div>
-            {kindergartenList && (
-                <AddChildModal
-                    handleSubmit={handleModalSubmit}
-                    handleReset={handleModalReset}
-                    isOpen={modalOpen}
-                    kindergartens={kindergartenList}
-                    isCancelButtonVisible={true}
-                />
-            )}
             <div className={classes.infoContainer}>
                 {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
             </div>
