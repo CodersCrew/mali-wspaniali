@@ -92,7 +92,9 @@ export class AssessmentResolver {
         });
 
         const foundInstructor = instructors.find(i => {
-          return i._id === assessmentKindergarten.instructorId;
+          return (
+            i._id.toString() === assessmentKindergarten.instructorId.toString()
+          );
         });
 
         return {
