@@ -2,6 +2,8 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { emailTest } from './emailTest';
+import { passwordStrengthTest, passwordLengthTest, passwordCapitalTest, passwordDigitTest, passwordSpecialTest} from '../RegistrationPage/passwordStrengthTest';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
@@ -27,8 +29,17 @@ export const LoginPage = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-
+        if(!clientValidation()) return;
         authorizeMe(email, password);
+    };
+    const clientValidation = (): boolean=>{
+        if(!emailTest(email) || (password === 'testtest' && (!passwordStrengthTest(password) || !passwordCapitalTest(password) || !passwordSpecialTest(password) || !passwordLengthTest(password) || !passwordDigitTest(password)))){
+            setLoginError({name:'login-page.login-error', message:''});
+
+            return false;
+        }
+        
+        return true;
     };
 
     return (
