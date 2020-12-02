@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
 interface AssessmentProps {
   _id: string;
@@ -14,9 +14,9 @@ interface AssessmentProps {
   }>;
 }
 
-export type AssessmentDocument = AssessmentProps & mongoose.Document;
+export type AssessmentDocument = AssessmentProps & Document;
 
-export const AssessmentSchema = new mongoose.Schema({
+export const AssessmentSchema = new Schema({
   title: String,
   isOutdated: {
     type: Boolean,
@@ -36,9 +36,9 @@ export const AssessmentSchema = new mongoose.Schema({
     type: [
       {
         _id: false,
-        kindergartenId: mongoose.Schema.Types.ObjectId,
+        kindergartenId: Schema.Types.ObjectId,
         instructorId: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Schema.Types.ObjectId,
           default: null,
         },
       },

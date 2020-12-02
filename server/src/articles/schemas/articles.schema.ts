@@ -1,7 +1,7 @@
-import * as mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 import { RedactorSchema } from './redactor.schema';
 
-export const ArticleSchema = new mongoose.Schema({
+export const ArticleSchema = new Schema({
   category: String,
   contentHTML: String,
   date: {

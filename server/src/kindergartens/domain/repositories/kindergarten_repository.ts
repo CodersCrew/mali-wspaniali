@@ -35,7 +35,11 @@ export class KindergartenRepository {
 
   getMany(ids: string[]): Promise<Kindergarten[]> {
     return this.model
-      .find({ _id: ids })
+      .find({
+        _id: {
+          $in: ids,
+        },
+      })
       .exec()
       .then(kindergartenList => {
         return kindergartenList.map(k => KindergartenMapper.toDomainFrom(k));

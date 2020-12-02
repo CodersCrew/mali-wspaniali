@@ -10,6 +10,12 @@ export class SimpleDate extends ValueObject<string> {
     super(props);
   }
 
+  isGreaterThan(date: SimpleDate): boolean {
+    return (
+      new Date(this.props.value).valueOf() > new Date(date.value).valueOf()
+    );
+  }
+
   public static create(value: string): Result<SimpleDate> {
     const isNull = Guard.againstNullOrUndefined(value, 'SimpleDate');
 
