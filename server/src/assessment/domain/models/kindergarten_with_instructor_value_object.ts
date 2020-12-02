@@ -6,7 +6,7 @@ import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 
 type Value = Props<KindergartenWithInstructorProps>;
 
-interface KindergartenWithInstructorProps {
+export interface KindergartenWithInstructorProps {
   kindergartenId: ObjectId;
   instructorId: ObjectId | null;
 }

@@ -14,21 +14,22 @@ export class AssessmentRepository {
     private readonly model: Model<AssessmentDocument>,
   ) {}
 
-  async get(id: string): Promise<Assessment> {
-    return await this.model
+  get(id: string): Promise<Assessment> {
+    return this.model
       .findById(id)
       .lean()
       .exec()
       .then(a => (a ? AssessmentMapper.toDomain(a) : null));
   }
 
-  getAll(): Promise<AssessmentDto[]> {
+  getAll(): Promise<Assessment[]> {
     return this.model
       .find({}, {}, { sort: { date: -1 } })
+      .lean()
       .exec()
-      .then(assessments =>
-        assessments.map(assessment => assessment.toObject()),
-      );
+      .then(assessments => {
+        return assessments.map(a => AssessmentMapper.toDomain(a));
+      });
   }
 
   async create(newAssessment: Assessment): Promise<Assessment> {
