@@ -27,7 +27,6 @@ import { UserProps } from '../users/domain/models/user_model';
 import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
 import { EditAssessmentCommand } from './domain/commands/impl/edit_assessment_command';
-import { KindergartenWithInstructorProps } from './domain/models/kindergarten_with_instructor_value_object';
 import { AssessmentMapper } from './domain/mappers/assessment_mapper';
 
 @UseInterceptors(SentryInterceptor)
@@ -88,7 +87,7 @@ export class AssessmentResolver {
     return assessment.kindergartens
       .map(assessmentKindergarten =>
         this.mapKindergartenWithInstructor(
-          assessmentKindergarten as any,
+          assessmentKindergarten,
           kindergartens,
           instructors,
         ),
@@ -105,7 +104,7 @@ export class AssessmentResolver {
   }
 
   private mapKindergartenWithInstructor(
-    assessmentKindergarten: KindergartenWithInstructorProps,
+    assessmentKindergarten: { kindergartenId: string; instructorId: string },
     kindergartens: Kindergarten[],
     instructors: UserProps[],
   ) {
@@ -116,9 +115,7 @@ export class AssessmentResolver {
     });
 
     const foundInstructor = instructors.find(i => {
-      return (
-        i._id.toString() === assessmentKindergarten.instructorId.toString()
-      );
+      return i._id.toString() === assessmentKindergarten.instructorId;
     });
 
     return {

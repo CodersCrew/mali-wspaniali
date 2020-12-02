@@ -5,13 +5,6 @@ import { SimpleDate } from './simple_date_value_object';
 import { Title } from './title_value_object';
 import { KindergartenWithInstructor } from './kindergarten_with_instructor_value_object';
 
-export interface AssessmentInput {
-  title: string;
-  startDate: string;
-  endDate: string;
-  kindergartenIds: string[];
-}
-
 export interface AssessmentDto {
   _id?: string;
   title: string;
