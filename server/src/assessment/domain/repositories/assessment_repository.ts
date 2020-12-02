@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { AssessmentDto } from '../../../assessment/domain/models/assessment_model';
+import { Model, Types } from 'mongoose';
 import { Assessment } from '../models/assessment_model';
 import { AssessmentMapper } from '../mappers/assessment_mapper';
 
-import { AssessmentDocument } from '../../schemas/assessment_schema';
+import {
+  AssessmentDocument,
+  KindergartenWithInstructorDocumentProps,
+} from '../../schemas/assessment_schema';
 
 @Injectable()
 export class AssessmentRepository {
@@ -14,21 +16,47 @@ export class AssessmentRepository {
     private readonly model: Model<AssessmentDocument>,
   ) {}
 
-  async get(id: string): Promise<Assessment> {
-    return await this.model
+  get(id: string): Promise<Assessment> {
+    return this.model
       .findById(id)
       .lean()
       .exec()
-      .then(a => (a ? AssessmentMapper.toDomain(a) : null));
+      .then(fetchAssessment => {
+        if (!fetchAssessment) return null;
+
+        const _id = (fetchAssessment._id as Types.ObjectId).toHexString();
+        const stringifiedKindergartenWithInstructor = fetchAssessment.kindergartens.map(
+          k => this.mapToRawKindergarten(k),
+        );
+
+        return AssessmentMapper.toDomain({
+          ...fetchAssessment,
+          _id,
+          kindergartens: stringifiedKindergartenWithInstructor,
+        });
+      });
   }
 
-  getAll(): Promise<AssessmentDto[]> {
+  getAll(): Promise<Assessment[]> {
     return this.model
       .find({}, {}, { sort: { date: -1 } })
+      .lean()
       .exec()
-      .then(assessments =>
-        assessments.map(assessment => assessment.toObject()),
-      );
+      .then(fetchAssessments => {
+        return fetchAssessments.map(assessment => {
+          const _id = (assessment._id as Types.ObjectId).toHexString();
+
+          const stringifiedKindergartenWithInstructor = assessment.kindergartens.map(
+            k => this.mapToRawKindergarten(k),
+          );
+
+          return AssessmentMapper.toDomain({
+            ...assessment,
+            _id,
+            kindergartens: stringifiedKindergartenWithInstructor,
+          });
+        });
+      });
   }
 
   async create(newAssessment: Assessment): Promise<Assessment> {
@@ -48,10 +76,19 @@ export class AssessmentRepository {
       assessment.id.toString(),
     );
 
-    let result = await assessmentDocument.update(
+    const result = await assessmentDocument.update(
       AssessmentMapper.toPersist(assessment),
     );
 
     return result.ok === 1;
+  }
+
+  private mapToRawKindergarten(
+    kindergarten: KindergartenWithInstructorDocumentProps,
+  ) {
+    return {
+      kindergartenId: kindergarten.kindergartenId?.toHexString() || null,
+      instructorId: kindergarten.instructorId?.toHexString() || null,
+    };
   }
 }

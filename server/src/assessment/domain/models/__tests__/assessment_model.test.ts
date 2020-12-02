@@ -119,6 +119,7 @@ function createAssessment(options?: {
   const assessment = create({
     _id: _id.getValue(),
     title: title.getValue(),
+    isOutdated: false,
     startDate: startDate.getValue(),
     endDate: endDate.getValue(),
     kindergartens: [],

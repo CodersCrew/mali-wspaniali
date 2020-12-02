@@ -20,13 +20,14 @@ import {
 import { AssessmentDTO } from './dto/assessment_dto';
 import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessments_query';
 import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructor_dto';
-import { AssessmentDto } from './domain/models/assessment_model';
+import { Assessment, AssessmentDto } from './domain/models/assessment_model';
 import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
 import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model';
 import { UserProps } from '../users/domain/models/user_model';
 import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
 import { EditAssessmentCommand } from './domain/commands/impl/edit_assessment_command';
+import { AssessmentMapper } from './domain/mappers/assessment_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
@@ -60,12 +61,14 @@ export class AssessmentResolver {
 
   @Query(() => [AssessmentDTO])
   @UseGuards(GqlAuthGuard)
-  async assessments() {
-    const assessments = await this.queryBus.execute(
+  async assessments(): Promise<AssessmentDto[]> {
+    const assessments: Assessment[] = await this.queryBus.execute(
       new GetAllAssessmentsQuery(),
     );
 
-    return assessments;
+    const rawAssessments = assessments.map(a => AssessmentMapper.toPersist(a));
+
+    return rawAssessments;
   }
 
   @ResolveField(() => KindergartenWithInstructorDTO)
@@ -76,34 +79,50 @@ export class AssessmentResolver {
     const instructorIds = assessment.kindergartens
       .map(k => k.instructorId)
       .filter(k => k);
-    const kindergartens: Kindergarten[] = await this.queryBus.execute(
-      new GetKindergartensQuery(kindergartenIds),
+    const kindergartens: Kindergarten[] = await this.getKindergartens(
+      kindergartenIds,
     );
-    const instructors: UserProps[] = await this.queryBus.execute(
-      new GetUsersQuery(instructorIds),
-    );
+    const instructors: UserProps[] = await this.getInstructors(instructorIds);
 
     return assessment.kindergartens
-      .map(assessmentKindergarten => {
-        const foundKindergarten = kindergartens.find(k => {
-          return (
-            k.id.toString() === assessmentKindergarten.kindergartenId.toString()
-          );
-        });
-
-        const foundInstructor = instructors.find(i => {
-          return (
-            i._id.toString() === assessmentKindergarten.instructorId.toString()
-          );
-        });
-
-        return {
-          kindergarten: foundKindergarten
-            ? KindergartenMapper.toRaw(foundKindergarten)
-            : null,
-          instructor: foundInstructor,
-        };
-      })
+      .map(assessmentKindergarten =>
+        this.mapKindergartenWithInstructor(
+          assessmentKindergarten,
+          kindergartens,
+          instructors,
+        ),
+      )
       .filter(k => k.kindergarten);
+  }
+
+  private getKindergartens(ids: string[]): Promise<Kindergarten[]> {
+    return this.queryBus.execute(new GetKindergartensQuery(ids));
+  }
+
+  private getInstructors(ids: string[]): Promise<UserProps[]> {
+    return this.queryBus.execute(new GetUsersQuery(ids));
+  }
+
+  private mapKindergartenWithInstructor(
+    assessmentKindergarten: { kindergartenId: string; instructorId: string },
+    kindergartens: Kindergarten[],
+    instructors: UserProps[],
+  ) {
+    const foundKindergarten = kindergartens.find(k => {
+      return (
+        k.id.toString() === assessmentKindergarten.kindergartenId.toString()
+      );
+    });
+
+    const foundInstructor = instructors.find(i => {
+      return i._id.toString() === assessmentKindergarten.instructorId;
+    });
+
+    return {
+      kindergarten: foundKindergarten
+        ? KindergartenMapper.toRaw(foundKindergarten)
+        : null,
+      instructor: foundInstructor,
+    };
   }
 }

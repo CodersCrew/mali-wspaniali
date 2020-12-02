@@ -5,16 +5,10 @@ import { SimpleDate } from './simple_date_value_object';
 import { Title } from './title_value_object';
 import { KindergartenWithInstructor } from './kindergarten_with_instructor_value_object';
 
-export interface AssessmentInput {
-  title: string;
-  startDate: string;
-  endDate: string;
-  kindergartenIds: string[];
-}
-
 export interface AssessmentDto {
   _id?: string;
   title: string;
+  isOutdated: boolean;
   startDate: string;
   endDate: string;
   kindergartens: Array<{
@@ -26,6 +20,7 @@ export interface AssessmentDto {
 export interface AssessmentProps {
   _id: ObjectId;
   title: Title;
+  isOutdated: boolean;
   startDate: SimpleDate;
   endDate: SimpleDate;
   kindergartens: KindergartenWithInstructor[];
@@ -48,6 +43,10 @@ export class Assessment extends AggregateRoot {
 
   get title(): Title {
     return this.data.title;
+  }
+
+  get isOutdated(): boolean {
+    return this.data.isOutdated;
   }
 
   get startDate(): SimpleDate {

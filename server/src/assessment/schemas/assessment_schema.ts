@@ -1,20 +1,22 @@
-import { Schema, Document } from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 
-interface AssessmentProps {
-  _id: string;
+export interface KindergartenWithInstructorDocumentProps {
+  kindergartenId: Types.ObjectId;
+  instructorId: Types.ObjectId | null;
+}
+
+interface AssessmentDocumentProps {
+  _id: Types.ObjectId;
   date: Date;
   title: string;
   isOutdated: boolean;
   isSigned: boolean;
   startDate: string;
   endDate: string;
-  kindergartens: Array<{
-    kindergartenId: string;
-    instructorId: string | null;
-  }>;
+  kindergartens: Array<KindergartenWithInstructorDocumentProps>;
 }
 
-export type AssessmentDocument = AssessmentProps & Document;
+export type AssessmentDocument = AssessmentDocumentProps & Document;
 
 export const AssessmentSchema = new Schema({
   title: String,
