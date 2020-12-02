@@ -21,16 +21,16 @@ export class AssessmentRepository {
       .findById(id)
       .lean()
       .exec()
-      .then(a => {
-        const _id = (a._id as Types.ObjectId).toHexString();
-        const stringifiedKindergartenWithInstructor = a.kindergartens.map(k =>
-          this.mapToRawKindergarten(k),
+      .then(fetchAssessment => {
+        if (!fetchAssessment) return null;
+
+        const _id = (fetchAssessment._id as Types.ObjectId).toHexString();
+        const stringifiedKindergartenWithInstructor = fetchAssessment.kindergartens.map(
+          k => this.mapToRawKindergarten(k),
         );
 
-        if (!a) return null;
-
         return AssessmentMapper.toDomain({
-          ...a,
+          ...fetchAssessment,
           _id,
           kindergartens: stringifiedKindergartenWithInstructor,
         });
@@ -42,16 +42,16 @@ export class AssessmentRepository {
       .find({}, {}, { sort: { date: -1 } })
       .lean()
       .exec()
-      .then(assessments => {
-        return assessments.map(a => {
-          const _id = (a._id as Types.ObjectId).toHexString();
+      .then(fetchAssessments => {
+        return fetchAssessments.map(assessment => {
+          const _id = (assessment._id as Types.ObjectId).toHexString();
 
-          const stringifiedKindergartenWithInstructor = a.kindergartens.map(k =>
-            this.mapToRawKindergarten(k),
+          const stringifiedKindergartenWithInstructor = assessment.kindergartens.map(
+            k => this.mapToRawKindergarten(k),
           );
 
           return AssessmentMapper.toDomain({
-            ...a,
+            ...assessment,
             _id,
             kindergartens: stringifiedKindergartenWithInstructor,
           });
