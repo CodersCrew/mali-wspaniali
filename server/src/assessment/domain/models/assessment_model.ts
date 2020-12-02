@@ -15,6 +15,7 @@ export interface AssessmentInput {
 export interface AssessmentDto {
   _id?: string;
   title: string;
+  isOutdated: boolean;
   startDate: string;
   endDate: string;
   kindergartens: Array<{
@@ -26,6 +27,7 @@ export interface AssessmentDto {
 export interface AssessmentProps {
   _id: ObjectId;
   title: Title;
+  isOutdated: boolean;
   startDate: SimpleDate;
   endDate: SimpleDate;
   kindergartens: KindergartenWithInstructor[];
@@ -48,6 +50,10 @@ export class Assessment extends AggregateRoot {
 
   get title(): Title {
     return this.data.title;
+  }
+
+  get isOutdated(): boolean {
+    return this.data.isOutdated;
   }
 
   get startDate(): SimpleDate {

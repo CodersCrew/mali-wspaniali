@@ -20,7 +20,11 @@ export class AssessmentMapper {
       instructorId: null,
     }));
 
-    return AssessmentMapper.toDomain({ ...value, kindergartens });
+    return AssessmentMapper.toDomain({
+      ...value,
+      isOutdated: false,
+      kindergartens,
+    });
   }
   static toDomain(
     value: AssessmentDto,
@@ -118,6 +122,7 @@ export class AssessmentMapper {
   static toPersist(assessment: Assessment): AssessmentDto {
     let rawAssessment: AssessmentDto = {
       title: assessment.title.value,
+      isOutdated: assessment.isOutdated,
       startDate: assessment.startDate.value,
       endDate: assessment.endDate.value,
       kindergartens: assessment.kindergartens.map(k => ({
