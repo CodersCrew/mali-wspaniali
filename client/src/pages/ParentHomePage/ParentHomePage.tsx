@@ -52,14 +52,11 @@ export const ParentHomePage = () => {
 
         setModalOpen(false);
 
-        // TODO: rerender HomePageChildren after child added
-        if (true) {
-            addChild({
-                variables: {
-                    child: newChild,
-                },
-            });
-        }
+        addChild({
+            variables: {
+                child: newChild,
+            },
+        });
     };
 
     return (
