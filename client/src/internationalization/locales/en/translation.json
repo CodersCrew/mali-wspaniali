@@ -511,7 +511,8 @@
         "create-test": "Create a new test",
         "cancel": "Cancel",
         "errors": {
-            "name-too-short": "Test name is too short."
+            "name-too-short": "Test name is too short.",
+            "test-already-created": "Test created."
         }
     },
     "add-child-modal": {

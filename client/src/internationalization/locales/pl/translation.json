@@ -513,7 +513,8 @@
         "create-test": "Utwórz nowy test",
         "cancel": "Anuluj",
         "errors": {
-            "name-too-short": "Nazwa testu jest za krótka"
+            "name-too-short": "Nazwa testu jest za krótka",
+            "test-already-created": "Test został utworzony."
         }
     },
     "add-child-modal": {

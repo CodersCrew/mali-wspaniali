@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
@@ -34,13 +34,15 @@ export function useAddTest(onSubmit: (state: AddTestState | ErrorState) => void)
     const { createTest, error } = useCreateNewTest();
     const state = { testInformation };
 
-    validate(state)
-        .then(() => setReasonForBeingDisabled(undefined))
-        .catch(e => {
-            if (e.errors.length > 0) {
-                setReasonForBeingDisabled(e.errors[0]);
-            }
-        });
+    useEffect(() => {
+        validate(state)
+            .then(() => setReasonForBeingDisabled(undefined))
+            .catch(e => {
+                if (e.errors.length > 0) {
+                    setReasonForBeingDisabled(e.errors[0]);
+                }
+            });
+    }, [testInformation, selected]);
 
     function submit() {
         const valid = validate(state);
@@ -49,6 +51,7 @@ export function useAddTest(onSubmit: (state: AddTestState | ErrorState) => void)
             .then(() => {
                 createTest(testInformation, selected).then(() => {
                     if (!error) {
+                        setReasonForBeingDisabled('add-test-view.errors.test-already-created');
                         onSubmit(state);
                     }
                 });
