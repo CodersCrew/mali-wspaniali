@@ -93,7 +93,7 @@ export class AssessmentMapper {
       const endDate = SimpleDate.create(value.endDate);
 
       if (endDate.isSuccess) {
-        updated.startDate = endDate.getValue();
+        updated.endDate = endDate.getValue();
       } else {
         throw new Error(endDate.error.toString());
       }
@@ -114,6 +114,10 @@ export class AssessmentMapper {
 
         return kindergartenWithInstructorResult.getValue();
       });
+    }
+
+    if ('isOutdated' in value) {
+      updated.isOutdated = value.isOutdated;
     }
 
     return updated;

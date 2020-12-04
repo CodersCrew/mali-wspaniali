@@ -67,6 +67,8 @@ export class Assessment extends AggregateRoot {
     }
 
     this.data = { ...this.data, ...update };
+
+    this.guardAgainstStartDateSmallerThanEndDate(this.data);
   }
 
   static create(initialData: AssessmentProps): Assessment {

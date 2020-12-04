@@ -25,4 +25,7 @@ class _UpdatedAssessmmentInput extends AssessmentInput {
 @InputType()
 export class UpdatedAssessmentInput extends PartialType(
   OmitType(_UpdatedAssessmmentInput, ['kindergartenIds']),
-) {}
+) {
+  @Field({ nullable: true })
+  readonly isOutdated: boolean;
+}

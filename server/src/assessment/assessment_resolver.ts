@@ -28,6 +28,7 @@ import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
 import { EditAssessmentCommand } from './domain/commands/impl/edit_assessment_command';
 import { AssessmentMapper } from './domain/mappers/assessment_mapper';
+import { GetAssessmentsQuery } from './domain/queries/impl';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
@@ -66,9 +67,19 @@ export class AssessmentResolver {
       new GetAllAssessmentsQuery(),
     );
 
-    const rawAssessments = assessments.map(a => AssessmentMapper.toPersist(a));
+    return assessments.map(a => AssessmentMapper.toPersist(a));
+  }
 
-    return rawAssessments;
+  @Query(() => AssessmentDTO)
+  @UseGuards(GqlAuthGuard)
+  async assessment(@Args('id') id: string): Promise<AssessmentDto> {
+    const assessment: Assessment | undefined = await this.queryBus.execute(
+      new GetAssessmentsQuery(id),
+    );
+
+    if (!assessment) return null;
+
+    return AssessmentMapper.toPersist(assessment);
   }
 
   @ResolveField(() => KindergartenWithInstructorDTO)
