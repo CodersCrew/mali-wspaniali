@@ -2,8 +2,8 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { emailTest } from './emailTest';
 import { passwordStrengthTest, passwordLengthTest, passwordCapitalTest, passwordDigitTest, passwordSpecialTest} from '../RegistrationPage/passwordStrengthTest';
+import { emailTest } from '../RegistrationPage/emailTest';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
@@ -33,7 +33,7 @@ export const LoginPage = () => {
         authorizeMe(email, password);
     };
     const clientValidation = (): boolean=>{
-        if(!emailTest(email) || (password === 'testtest' && (!passwordStrengthTest(password) || !passwordCapitalTest(password) || !passwordSpecialTest(password) || !passwordLengthTest(password) || !passwordDigitTest(password)))){
+        if(!emailTest(email) || (password !== 'testtest' && (!passwordStrengthTest(password) || !passwordCapitalTest(password) || !passwordSpecialTest(password) || !passwordLengthTest(password) || !passwordDigitTest(password)))){
             setLoginError({name:'login-page.login-error', message:''});
 
             return false;
@@ -53,11 +53,20 @@ export const LoginPage = () => {
                     id="email"
                     label={t('e-mail')}
                     variant="outlined"
-                    error={loginError.name === 'auth/user-not-found'}
+                    error={loginError.name === 'auth/user-not-found' || loginError.name === 'login-page.login-error' || loginError.name === 'Error'}
                     helperText={
-                        loginError.name === 'auth/user-not-found'
-                            ? t('login-page.login-notfound')
-                            : t('login-page.e-mail-helper-text')
+                        (()=>{
+                            switch(loginError.name){
+                            case 'login-page.login-notfound':
+                                return t('login-page.login-notfound');
+                            case 'login-page.login-error':
+                                return '';
+                            case 'Error':
+                                return '';
+                            default:
+                                return t('login-page.e-mail-helper-text');
+                            }
+                        })()
                     }
                     className={classes.formItem}
                 />
