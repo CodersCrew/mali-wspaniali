@@ -165,10 +165,26 @@ export interface KeyCodeSeries {
     count: number;
 }
 
-export interface Test {
+export interface TestDTO {
     _id: string;
     isOutdated: boolean;
+    isDeleted: boolean;
     title: string;
     startDate: string;
     endDate: string;
+    kindergartens: Array<{ kindergartenId: string; instructorId?: string }>;
+}
+
+export interface Assessment {
+    _id: string;
+    isOutdated: boolean;
+    isDeleted: boolean;
+    title: string;
+    startDate: string;
+    endDate: string;
+    kindergartens: Array<{ kindergarten: { _id: string; name: string }; instructor?: { _id: string } }>;
+}
+
+export interface ReturnedStatusDTO {
+    status: boolean;
 }

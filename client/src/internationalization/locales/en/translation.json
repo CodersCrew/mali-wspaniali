@@ -482,9 +482,11 @@
             "first-assessment": "First assessment",
             "last-assessment": "Last assessment",
             "status": "Status",
-            "details": "Details",
             "active": "Active",
-            "done": "Done"
+            "done": "Done",
+            "details": "See details",
+            "delete": "Delete",
+            "edit": "Edit"
         }
     },
     "add-test-view": {
@@ -507,11 +509,20 @@
             "kindergarten-name": "Name",
             "find-kindergarten": "Find kindergarten"
         },
+        "delete-test-dialog": {
+            "title": "Delete test",
+            "description": "Are you sure you want to delete the selected test?"
+        },
         "assessment-created": "A new assesment has been created",
+        "assessment-updated": "Assesment has been updated",
         "create-test": "Create a new test",
+        "update-test": "Save",
         "cancel": "Cancel",
+        "delete": "Delete",
         "errors": {
-            "name-too-short": "Test name is too short."
+            "name-too-short": "Test name is too short.",
+            "test-already-created": "Test created",
+            "test-already-updated": "Test updated"
         }
     },
     "add-child-modal": {

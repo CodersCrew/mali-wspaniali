@@ -120,6 +120,7 @@ function createAssessment(options?: {
     _id: _id.getValue(),
     title: title.getValue(),
     isOutdated: false,
+    isDeleted: false,
     startDate: startDate.getValue(),
     endDate: endDate.getValue(),
     kindergartens: [],

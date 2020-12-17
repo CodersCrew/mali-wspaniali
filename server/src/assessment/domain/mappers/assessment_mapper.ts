@@ -23,6 +23,7 @@ export class AssessmentMapper {
     return AssessmentMapper.toDomain({
       ...value,
       isOutdated: false,
+      isDeleted: false,
       kindergartens,
     });
   }
@@ -93,7 +94,7 @@ export class AssessmentMapper {
       const endDate = SimpleDate.create(value.endDate);
 
       if (endDate.isSuccess) {
-        updated.startDate = endDate.getValue();
+        updated.endDate = endDate.getValue();
       } else {
         throw new Error(endDate.error.toString());
       }
@@ -116,6 +117,14 @@ export class AssessmentMapper {
       });
     }
 
+    if ('isOutdated' in value) {
+      updated.isOutdated = value.isOutdated;
+    }
+
+    if ('isDeleted' in value) {
+      updated.isDeleted = value.isDeleted;
+    }
+
     return updated;
   }
 
@@ -123,6 +132,7 @@ export class AssessmentMapper {
     let rawAssessment: AssessmentDto = {
       title: assessment.title.value,
       isOutdated: assessment.isOutdated,
+      isDeleted: assessment.isDeleted,
       startDate: assessment.startDate.value,
       endDate: assessment.endDate.value,
       kindergartens: assessment.kindergartens.map(k => ({

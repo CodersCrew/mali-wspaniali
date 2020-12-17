@@ -30,9 +30,9 @@ import { AddResultsPage } from './AddResultsPage/AddResultsPage';
 import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
 import { TestManagementPage } from './AdminTestsPage/AdminTestsPage';
 import { AdminRecommendationsPage } from './AdminRecommendationsPage/AdminRecommendationsPage';
-import { AdminAddTestPage } from './AdminAddTestPage/AdminAddTestPage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 import { ThemeProvider } from '../theme/ThemeProvider';
+import { AdminManageTestPage } from './AdminAddTestPage/AdminManageTestPage';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -68,7 +68,9 @@ export function Root() {
                                 <Route path="/admin/article/create" component={CreateArticlePage} />
                                 <Route path="/admin/archive" component={ArchivePage} />
                                 <Route path="/admin/notifications" component={NotificationsPage} />
-                                <Route path="/admin/test-management/add" component={AdminAddTestPage} />
+                                <Route path="/admin/test-management/add" component={AdminManageTestPage} />
+                                <Route path="/admin/test-management/:id/edit" component={AdminManageTestPage} />
+                                <Route path="/admin/test-management/:id/details" component={AdminManageTestPage} />
                                 <Route path="/admin/test-management" component={TestManagementPage} />
                                 <Route path="/admin/recommendations" component={AdminRecommendationsPage} />
                                 <Route path="/admin/keycodes" component={AdminCodesPage} />

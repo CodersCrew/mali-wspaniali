@@ -150,6 +150,7 @@ type KindergartenWithInstructorDTO {
 type AssessmentDTO {
   _id: ID!
   isOutdated: Boolean!
+  isDeleted: Boolean!
   title: String!
   startDate: String!
   endDate: String!
@@ -171,6 +172,7 @@ type Query {
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   newsletters: [NewsletterDTO!]!
   assessments: [AssessmentDTO!]!
+  assessment(id: String!): AssessmentDTO!
 }
 
 type Mutation {
@@ -303,4 +305,6 @@ input UpdatedAssessmentInput {
   startDate: String
   endDate: String
   kindergartens: [JSONObject!]
+  isOutdated: Boolean
+  isDeleted: Boolean
 }
