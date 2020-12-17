@@ -1,15 +1,19 @@
 import { gql, useQuery } from "@apollo/client";
-import { Test } from '../../../graphql/types';
+import { Assessment } from '../../../graphql/types';
+
+export type BasicTest = Omit<Assessment, 'kindergartens'>;
 
 interface TestListResponse {
-    assessments: Test[];
+    assessments: BasicTest[];
 }
 
-export const TESTS = gql`
+
+const GET_ALL_ASSESSMENTS = gql`
     {
         assessments {
             _id
             isOutdated
+            isDeleted
             title
             startDate
             endDate
@@ -18,7 +22,7 @@ export const TESTS = gql`
 `;
 
 export function useTests() {
-    const { data, loading } = useQuery<TestListResponse>(TESTS);
+    const { data, loading } = useQuery<TestListResponse>(GET_ALL_ASSESSMENTS);
 
     return {
         testList: data?.assessments || [],
