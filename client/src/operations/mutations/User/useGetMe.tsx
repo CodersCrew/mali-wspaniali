@@ -46,6 +46,5 @@ export const GET_ME = gql`
 export function useGetMe() {
     const { data, refetch } = useQuery<{ me: Me }>(GET_ME);
 
-
-    return { user: data?.me, refetch }
+    return { user: data?.me, refetch };
 }

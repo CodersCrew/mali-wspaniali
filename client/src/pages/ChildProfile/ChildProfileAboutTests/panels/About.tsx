@@ -30,7 +30,7 @@ export const About = () => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 21,
         fontWeight: 500,

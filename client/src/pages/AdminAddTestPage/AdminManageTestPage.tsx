@@ -26,19 +26,16 @@ export function AdminManageTestPage() {
     const isEditOnly = isState('edit');
     const isViewOnly = isState('details');
 
-    const {
-        submit,
-        kindergartens,
-        reasonForBeingDisabled,
-        assessemnt,
-        updateAssessment
-    } = useAssessmentManager(assessmentId, onAssessmentSubmited);
+    const { submit, kindergartens, reasonForBeingDisabled, assessemnt, updateAssessment } = useAssessmentManager(
+        assessmentId,
+        onAssessmentSubmited,
+    );
 
     function onAssessmentSubmited(result: SuccessState | ErrorState) {
         if ('errors' in result) {
             openSnackbar({ text: t(result.errors), severity: 'error' });
         } else {
-            openSnackbar({ text: result.message! }).then(dialogResult => {
+            openSnackbar({ text: result.message! }).then((dialogResult) => {
                 if (dialogResult.close) {
                     redirectIntoTestPage();
                 }
@@ -51,25 +48,25 @@ export function AdminManageTestPage() {
     }
 
     function onPickerClick(value: string[], options?: { selectedAll?: boolean }) {
-        const kindergartensCopy =[...assessemnt.kindergartenIds]
+        const kindergartensCopy = [...assessemnt.kindergartenIds];
 
         if (options?.selectedAll) {
-            updateAssessment({ kindergartenIds: value })
+            updateAssessment({ kindergartenIds: value });
 
             return;
         }
 
         if (assessemnt.kindergartenIds.includes(value[0])) {
-            updateAssessment({ kindergartenIds:kindergartensCopy.filter(id => id !== value[0]) })
+            updateAssessment({ kindergartenIds: kindergartensCopy.filter((id) => id !== value[0]) });
 
-            return
+            return;
         }
 
-        updateAssessment({ kindergartenIds: [...kindergartensCopy, ...value]})
+        updateAssessment({ kindergartenIds: [...kindergartensCopy, ...value] });
     }
 
     function isState(name: string) {
-        return history.location.pathname.includes(`/${name}`)
+        return history.location.pathname.includes(`/${name}`);
     }
 
     useEffect(() => {
@@ -122,11 +119,11 @@ export function AdminManageTestPage() {
                                         openQuestionDialog({
                                             title: t('add-test-view.delete-test-dialog.title'),
                                             description: t('add-test-view.delete-test-dialog.description'),
-                                        }).then(({decision}) => {
+                                        }).then(({ decision }) => {
                                             if (decision?.accepted) {
                                                 submit({ isDeleted: true });
                                             }
-                                        })
+                                        });
                                     }}
                                 >
                                     {t('add-test-view.delete')}

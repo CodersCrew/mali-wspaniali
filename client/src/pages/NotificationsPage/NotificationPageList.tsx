@@ -40,7 +40,7 @@ export const NotificationPageList = ({ notifications }: Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {notifications.map(notification => {
+                    {notifications.map((notification) => {
                         const { _id, values, templateId, date, isRead } = notification;
 
                         return (

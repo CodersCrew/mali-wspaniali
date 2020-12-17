@@ -28,7 +28,7 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
     const { t } = useTranslation();
 
     function handleNotificationPopupClick() {
-        setIsNotificationPopupOpen(prev => !prev);
+        setIsNotificationPopupOpen((prev) => !prev);
     }
 
     return (

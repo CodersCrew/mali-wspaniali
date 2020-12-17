@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {
-    makeStyles,
-    Grid,
-    Typography,
-    Theme,
-    createStyles,
-} from '@material-ui/core';
+import { makeStyles, Grid, Typography, Theme, createStyles } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { activePage } from '../../apollo_client';
@@ -28,17 +22,13 @@ export const ChildResultsPage = () => {
     const device = useBreakpoints();
     const history = useHistory();
     const classes = useStyles();
-    const user = useMe()
+    const user = useMe();
 
     const child = user?.children.find((_child) => _child._id === childId);
 
     useEffect(() => {
         if (child) {
-            activePage([
-                child.firstname,
-                `/parent/child/${child._id}/${category}`,
-                `parent-menu.child.${category}`,
-            ]);
+            activePage([child.firstname, `/parent/child/${child._id}/${category}`, `parent-menu.child.${category}`]);
         }
     }, [user, child, category]);
 
@@ -70,18 +60,11 @@ export const ChildResultsPage = () => {
             />
             <Grid container className={classes.header}>
                 <PageTitle text={`${child.firstname} ${child.lastname}`} />
-                <Typography className={classes.kindergarten}>
-                    {child.kindergarten.name}
-                </Typography>
+                <Typography className={classes.kindergarten}>{child.kindergarten.name}</Typography>
             </Grid>
-            <Typography className={classes.description}>
-                {t('child-profile.description')}
-            </Typography>
+            <Typography className={classes.description}>{t('child-profile.description')}</Typography>
             {category === 'results' && (
-                <ChildProfileResults
-                    child={child}
-                    onNoResultClick={() => onTabChange('tests-information')}
-                />
+                <ChildProfileResults child={child} onNoResultClick={() => onTabChange('tests-information')} />
             )}
             {category === 'recomendations' && <Recomendations />}
             {category === 'tests-information' && <ChildProfileAboutTests />}

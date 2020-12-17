@@ -46,14 +46,22 @@ export function useUpdateAssessment(id: string): UpdateAssessment {
 
                     const updatedKindergartens = kindergartenList.kindergartens
                         .filter((cachedKindergarten) => {
-                            return !!updatedAssessment.kindergartens?.find(updatedKindergarten => updatedKindergarten.kindergartenId === cachedKindergarten._id);
+                            return !!updatedAssessment.kindergartens?.find(
+                                (updatedKindergarten) => updatedKindergarten.kindergartenId === cachedKindergarten._id,
+                            );
                         })
                         .map((kindergarten) => ({ kindergarten, instructor: null })); // TODO: cach should be aware of the instructor
 
                     cache.writeQuery({
                         query: GET_ASSESSMENT,
                         variables: { id },
-                        data: { assessment: { ...cachedAssessment.assessment, ...updatedAssessment, kindergartens: updatedKindergartens } },
+                        data: {
+                            assessment: {
+                                ...cachedAssessment.assessment,
+                                ...updatedAssessment,
+                                kindergartens: updatedKindergartens,
+                            },
+                        },
                     });
                 },
             });

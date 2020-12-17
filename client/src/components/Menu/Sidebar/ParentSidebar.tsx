@@ -55,7 +55,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
                 <List>
                     <SingleItem item={MainPageItem} onClick={onClick} />
                     <Divider />
-                    {user.children.map(child => {
+                    {user.children.map((child) => {
                         const ChildItemFactory = getChildMenuItemFactory({ active, t });
 
                         const { mainItem, subItems } = ChildItemFactory.create({ child });

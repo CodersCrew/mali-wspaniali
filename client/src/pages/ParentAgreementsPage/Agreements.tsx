@@ -1,15 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-    Card,
-    Typography,
-    List,
-    ListItem,
-    ListItemText,
-    ListItemIcon,
-    Checkbox,
-} from '@material-ui/core';
+import { Card, Typography, List, ListItem, ListItemText, ListItemIcon, Checkbox } from '@material-ui/core';
 import { lightTextColor, textColor } from '../../colors';
 import { Agreement } from '../../graphql/types';
 
@@ -23,22 +15,13 @@ export const Agreements = ({ agreements }: Props) => {
     return (
         <Card className={classes.card}>
             <div>
-                <Typography className={classes.heading}>
-                    {t('child-profile.agreements-title')}
-                </Typography>
+                <Typography className={classes.heading}>{t('child-profile.agreements-title')}</Typography>
                 <List>
                     {agreements.map((agreement) => {
                         return (
-                            <ListItem
-                                alignItems="flex-start"
-                                key={agreement._id}
-                            >
+                            <ListItem alignItems="flex-start" key={agreement._id}>
                                 <ListItemIcon className={classes.listItemIcon}>
-                                    <Checkbox
-                                        edge="start"
-                                        checked={agreement.isSigned}
-                                        tabIndex={-1}
-                                    />
+                                    <Checkbox edge="start" checked={agreement.isSigned} tabIndex={-1} />
                                 </ListItemIcon>
                                 <ListItemText
                                     className={classes.listItemText}
@@ -50,11 +33,7 @@ export const Agreements = ({ agreements }: Props) => {
                     })}
                 </List>
             </div>
-            <img
-                className={classes.image}
-                src="https://via.placeholder.com/316x200"
-                alt="placeholder"
-            />
+            <img className={classes.image} src="https://via.placeholder.com/316x200" alt="placeholder" />
         </Card>
     );
 };

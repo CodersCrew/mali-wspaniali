@@ -15,7 +15,7 @@ export const PanelSummary: FC = ({ children }) => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     summary: {
         paddingLeft: theme.spacing(5),
     },

@@ -25,6 +25,6 @@ export function useKindergartens(): {
 
     return {
         kindergartenList: data?.kindergartens || [],
-        isKindergartenListLoading: loading
+        isKindergartenListLoading: loading,
     };
 }

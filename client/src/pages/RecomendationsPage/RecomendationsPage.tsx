@@ -7,16 +7,17 @@ export function RecomendationsPage() {
     const { childId } = useParams<{ childId: string }>();
     const user = useMe();
 
-
-    const child = user?.children.find(({ _id }) => _id === childId)
+    const child = user?.children.find(({ _id }) => _id === childId);
 
     useEffect(() => {
         if (child) {
-            activePage([child.firstname, `/parent/child/${child._id}/recomendations`, 'parent-menu.child.recomendations']);
+            activePage([
+                child.firstname,
+                `/parent/child/${child._id}/recomendations`,
+                'parent-menu.child.recomendations',
+            ]);
         }
     }, [child]);
-
-
 
     return <div>recomendations page</div>;
 }

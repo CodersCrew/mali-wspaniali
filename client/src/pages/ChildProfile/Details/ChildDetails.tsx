@@ -27,7 +27,7 @@ export function ChildDetails({ child }: Props) {
             <Typography variant="h4">{t('child-profile.child-details.form')} </Typography>
             <EditChildPanel
                 child={child}
-                handleSubmit={updatedChild => {
+                handleSubmit={(updatedChild) => {
                     editChild({
                         childId: child._id,
                         firstname: updatedChild.firstname,

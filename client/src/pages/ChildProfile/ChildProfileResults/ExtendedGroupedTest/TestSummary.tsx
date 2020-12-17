@@ -59,15 +59,15 @@ export const TestSummary = ({ result }: Props) => {
                     <div className={classes.resultDescription}>{t(`child-profile.result-description.${key}`)}</div>
                     <ButtonSecondary
                         variant="contained"
-                        onClick={() => setIsModalOpen(prev => !prev)}
+                        onClick={() => setIsModalOpen((prev) => !prev)}
                         innerText={t('child-profile.advice')}
                     />
                 </div>
             </Card>
             <BasicModal
                 isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(prev => !prev)}
-                onAction={() => setIsModalOpen(prev => !prev)}
+                onClose={() => setIsModalOpen((prev) => !prev)}
+                onAction={() => setIsModalOpen((prev) => !prev)}
                 actionName={t('close')}
             >
                 {t(`child-profile.result-description.${key}`)}

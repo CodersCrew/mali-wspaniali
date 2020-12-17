@@ -25,7 +25,7 @@ export function TestHistoryList({ tests, onTestClick }: Props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tests.map(test => {
+                    {tests.map((test) => {
                         return <TestItem key={test.title} value={test} onClick={onTestClick} />;
                     })}
                 </TableBody>

@@ -18,7 +18,7 @@ export interface DialogResult {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function openDialog<T>(Dialog: React.FC<any>, options: T): Promise<DialogResult> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
         const dialogElement = document.createElement('div');
         const body = document.querySelector('body') as HTMLBodyElement;
 

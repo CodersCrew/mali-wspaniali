@@ -45,7 +45,7 @@ export const AppWrapper: FC = ({ children }) => {
     }
 
     function handleSidebarToggle() {
-        setIsOpen(prev => !prev);
+        setIsOpen((prev) => !prev);
     }
 
     if (!user) return null;

@@ -26,7 +26,7 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, da
                 <span className={classes.updatedAtDate}>{moment(date).format('L')}</span>
             </Typography>
             <ButtonSecondary
-                onClick={event => {
+                onClick={(event) => {
                     if (isExpanded) {
                         event.stopPropagation();
                     }

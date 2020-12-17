@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 import { Assessment } from '../../../graphql/types';
 
 export type BasicTest = Omit<Assessment, 'kindergartens'>;
@@ -6,7 +6,6 @@ export type BasicTest = Omit<Assessment, 'kindergartens'>;
 interface TestListResponse {
     assessments: BasicTest[];
 }
-
 
 const GET_ALL_ASSESSMENTS = gql`
     {
@@ -26,6 +25,6 @@ export function useTests() {
 
     return {
         testList: data?.assessments || [],
-        isTestListLoading: loading
-    }
+        isTestListLoading: loading,
+    };
 }

@@ -45,7 +45,7 @@ export function AddChildModal({ handleSubmit, isOpen, kindergartens, handleReset
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: data => handleSubmit(data),
+        onSubmit: (data) => handleSubmit(data),
         onReset: handleReset,
     });
     const { getOptions } = useSelectOptions();

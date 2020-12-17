@@ -45,7 +45,7 @@ function ListComponent({ notifications }: { notifications: Notification[] }) {
 
     return (
         <MenuList dense={true} classes={{ padding: classes.list }}>
-            {notifications.map(notification => {
+            {notifications.map((notification) => {
                 const { templateId, date, _id, isRead } = notification;
 
                 return (
