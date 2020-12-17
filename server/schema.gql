@@ -150,6 +150,7 @@ type KindergartenWithInstructorDTO {
 type AssessmentDTO {
   _id: ID!
   isOutdated: Boolean!
+  isDeleted: Boolean!
   title: String!
   startDate: String!
   endDate: String!
@@ -305,4 +306,5 @@ input UpdatedAssessmentInput {
   endDate: String
   kindergartens: [JSONObject!]
   isOutdated: Boolean
+  isDeleted: Boolean
 }

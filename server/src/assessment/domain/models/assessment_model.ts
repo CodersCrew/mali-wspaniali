@@ -9,6 +9,7 @@ export interface AssessmentDto {
   _id?: string;
   title: string;
   isOutdated: boolean;
+  isDeleted: boolean;
   startDate: string;
   endDate: string;
   kindergartens: Array<{
@@ -21,6 +22,7 @@ export interface AssessmentProps {
   _id: ObjectId;
   title: Title;
   isOutdated: boolean;
+  isDeleted: boolean;
   startDate: SimpleDate;
   endDate: SimpleDate;
   kindergartens: KindergartenWithInstructor[];
@@ -47,6 +49,10 @@ export class Assessment extends AggregateRoot {
 
   get isOutdated(): boolean {
     return this.data.isOutdated;
+  }
+
+  get isDeleted(): boolean {
+    return this.data.isDeleted || false;
   }
 
   get startDate(): SimpleDate {

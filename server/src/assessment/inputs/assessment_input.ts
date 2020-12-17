@@ -20,12 +20,15 @@ export class AssessmentInput {
 class _UpdatedAssessmmentInput extends AssessmentInput {
   @Field(() => [GraphQLJSONObject])
   kindergartens: Array<{ kindergartenId: string; instructorId: string }>;
+
+  @Field()
+  readonly isOutdated: boolean;
+
+  @Field()
+  readonly isDeleted: boolean;
 }
 
 @InputType()
 export class UpdatedAssessmentInput extends PartialType(
   OmitType(_UpdatedAssessmmentInput, ['kindergartenIds']),
-) {
-  @Field({ nullable: true })
-  readonly isOutdated: boolean;
-}
+) {}

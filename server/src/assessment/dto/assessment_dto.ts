@@ -10,6 +10,9 @@ export class AssessmentDTO {
   isOutdated: boolean;
 
   @Field()
+  isDeleted: boolean;
+
+  @Field()
   title: string;
 
   @Field()

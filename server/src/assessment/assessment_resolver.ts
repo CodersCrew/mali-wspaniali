@@ -57,7 +57,7 @@ export class AssessmentResolver {
       new EditAssessmentCommand(id, assessment),
     );
 
-    return { status: !!updated };
+    return { status: updated };
   }
 
   @Query(() => [AssessmentDTO])

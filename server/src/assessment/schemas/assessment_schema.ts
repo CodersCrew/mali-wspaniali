@@ -10,6 +10,7 @@ interface AssessmentDocumentProps {
   date: Date;
   title: string;
   isOutdated: boolean;
+  isDeleted: boolean;
   isSigned: boolean;
   startDate: string;
   endDate: string;
@@ -21,6 +22,10 @@ export type AssessmentDocument = AssessmentDocumentProps & Document;
 export const AssessmentSchema = new Schema({
   title: String,
   isOutdated: {
+    type: Boolean,
+    default: false,
+  },
+  isDeleted: {
     type: Boolean,
     default: false,
   },
