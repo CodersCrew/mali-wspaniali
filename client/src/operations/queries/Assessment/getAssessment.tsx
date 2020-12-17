@@ -35,7 +35,7 @@ export function useAssessment(id: string | undefined): { assessment: Assessment 
         if (id) {
             getTest({ variables: { id } })
         }
-    }, [id])
+    }, [id, getTest])
 
     return {
         assessment: data?.assessment,

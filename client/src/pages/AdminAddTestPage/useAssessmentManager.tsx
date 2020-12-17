@@ -73,7 +73,7 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
                     setReasonForBeingDisabled(e.errors[0]);
                 }
             });
-    }, [updatedLocalAssessment]);
+    }, [updatedLocalAssessment, state]);
 
     function submit(update: AssessmentManagerState) {
         if (testId) return updatedAssessment(update)
