@@ -3,7 +3,8 @@ import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event'
 import { MockedResponse } from '@apollo/client/testing';
-import { AdminAddTestPage } from '../AdminAddTestPage';
+
+import { AdminManageTestPage } from '../AdminManageTestPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
 import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
@@ -17,8 +18,20 @@ const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 const startDate = new Date();
 const endDate = new Date(startDate.getTime() + TWO_MONTHS);
 
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual("react-router-dom") as any ,
+    useParams: () => ({ }),
+    useHistory: () => ({
+            push: () => {},
+            location: {
+                pathname: '/add'
+            }
+    })
+}))
+
 describe('AdminAddTestPage', () => {
     let openSnackbar: jasmine.Spy;
+
 
     describe('basic test information', () => {
         beforeEach(async () => {
@@ -116,6 +129,8 @@ describe('AdminAddTestPage', () => {
 
                     fireEvent.click(rows[1])
 
+                    await awaitForRenderResponse();
+
                     rows = screen.queryAllByRole('row');
 
                     expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
@@ -136,8 +151,11 @@ describe('AdminAddTestPage', () => {
                         expect(checkbox).not.toHaveClass('Mui-checked');
                     });
 
+
                     fireEvent.click(rows[1])
                     fireEvent.click(rows[1])
+
+                    await awaitForRenderResponse();
 
                     rows = screen.queryAllByRole('row');
 
@@ -162,6 +180,8 @@ describe('AdminAddTestPage', () => {
 
                         selectAllClick()
 
+                        await awaitForRenderResponse();
+
                         rows.forEach(row => {
                             const checkbox = row.querySelector('.MuiCheckbox-root');
         
@@ -183,6 +203,8 @@ describe('AdminAddTestPage', () => {
 
                         selectAllClick()
                         selectAllClick()
+
+                        await awaitForRenderResponse();
 
                         rows.forEach(row => {
                             const checkbox = row.querySelector('.MuiCheckbox-root');
@@ -253,7 +275,7 @@ describe('AdminAddTestPage', () => {
 });
 
 function renderPage(mocks: MockedResponse[]) {
-    return renderWithMock(mocks, <AdminAddTestPage />)
+    return renderWithMock(mocks, <AdminManageTestPage />)
 }
 
 const mocks = [
@@ -264,7 +286,7 @@ const mocks = [
                 title: 'new-test',
                 startDate: formatDate(startDate),
                 endDate: formatDate(endDate),
-                kindergartens: []
+                kindergartenIds: []
             },
         },
         result: {

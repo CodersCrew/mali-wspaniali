@@ -1,27 +1,16 @@
 import React from 'react';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    makeStyles,
-    Theme,
-    createStyles,
-    Chip,
-} from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { TestItem } from './TestItem';
-import { Test } from '../../../graphql/types';
+import { BasicTest } from '../../../operations/queries/Assessment/getAllAssessments';
 
 interface Props {
-    tests: Test[];
+    tests: BasicTest[];
+    onTestClick: (type: string, id: string) => void;
 }
 
-export function TestHistoryList({ tests }: Props) {
+export function TestHistoryList({ tests, onTestClick }: Props) {
     const { t } = useTranslation();
 
     return (
@@ -32,45 +21,15 @@ export function TestHistoryList({ tests }: Props) {
                         <TableCell>{t('manage-test-view.test-list.name')}</TableCell>
                         <TableCell>{t('manage-test-view.test-list.first-assessment')}</TableCell>
                         <TableCell>{t('manage-test-view.test-list.last-assessment')}</TableCell>
-                        <TableCell>{t('manage-test-view.test-list.status')}</TableCell>
-                        <TableCell>{t('manage-test-view.test-list.details')}</TableCell>
-                        <TableCell></TableCell>
+                        <TableCell align="center">{t('manage-test-view.test-list.status')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tests.map(test => (
-                        <TestItem key={test.title} value={test} status={<Status value={!test.isOutdated} />} />
-                    ))}
+                    {tests.map(test => {
+                        return <TestItem key={test.title} value={test} onClick={onTestClick} />;
+                    })}
                 </TableBody>
             </Table>
         </TableContainer>
     );
 }
-
-function Status({ value }: { value: boolean }) {
-    const classes = useStyles();
-    const { t } = useTranslation();
-
-    if (value)
-        return (
-            <Chip
-                size="small"
-                label={t('manage-test-view.test-list.active')}
-                classes={{ root: classes.successLabel }}
-            />
-        );
-
-    return <Chip size="small" label={t('manage-test-view.test-list.done')} classes={{ root: classes.doneLabel }} />;
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        successLabel: {
-            color: theme.palette.secondary.contrastText,
-            background: theme.palette.success.main,
-        },
-        doneLabel: {
-            background: theme.palette.grey[300],
-        },
-    }),
-);

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { useAddTest } from '../useAddTest';
+import { useAssessmentManager } from '../useAssessmentManager';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
 import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';
@@ -27,11 +27,13 @@ describe('useAddTest', () => {
 
         describe('with valid data', () => {
             it('changes the state', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
+                    wrapper: renderPage(mocks),
+                });
 
                 act(() => {
-                    result.current.setTestInformation({
-                        testName: 'my-test',
+                    result.current.updateAssessment({
+                        title: 'my-test',
                         startDate: formatedStartDate,
                         endDate: formatedEndDate,
                     });
@@ -46,27 +48,33 @@ describe('useAddTest', () => {
                 await awaitForHookResponse();
                 await awaitForHookResponse();
 
-                expect(onSubmit).toHaveBeenCalledWith(
-                    jasmine.objectContaining({
-                        testInformation: {
-                            testName: 'my-test',
-                            startDate: formatedStartDate,
-                            endDate: formatedEndDate,
-                        },
-                    }),
-                );
+                expect(onSubmit).toHaveBeenCalledWith({
+                    assessment: {
+                        title: 'my-test',
+                        startDate: formatedStartDate,
+                        endDate: formatedEndDate,
+                        kindergartenIds: [],
+                        isOutdated: false,
+                        isDeleted: false,
+                    },
+                    message: 'A new assesment has been created',
+                });
             });
         });
 
         describe('with invalid data', () => {
             it('changes the state', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
+                    wrapper: renderPage(mocks),
+                });
 
                 act(() => {
-                    result.current.setTestInformation({
-                        testName: 'my',
+                    result.current.updateAssessment({
+                        title: 'my',
                         startDate: formatedStartDate,
                         endDate: formatedEndDate,
+                        kindergartenIds: [],
+                        isOutdated: false,
                     });
                 });
 
@@ -95,10 +103,12 @@ describe('useAddTest', () => {
                 onSubmit = jest.fn();
             });
 
-            let kindergartens: Kindergarten[];
+            let kindergartens: Array<{ kindergarten: Kindergarten; selected: boolean }>;
 
             it('returns empty list', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
+                    wrapper: renderPage(mocks),
+                });
 
                 await awaitForHookResponse();
 
@@ -111,10 +121,10 @@ describe('useAddTest', () => {
         });
 
         describe('when there are kindergartens', () => {
-            let kindergartens: Kindergarten[];
+            let kindergartens: Array<{ kindergarten: Kindergarten; selected: boolean }>;
 
             it('returns list', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), {
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
                     wrapper: renderPage(mockedKindergartens),
                 });
 
@@ -126,28 +136,34 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                 ]);
             });
         });
 
         describe('when kindergarten is selected', () => {
-            let kindergartens: Kindergarten[];
+            let kindergartens: Array<{ kindergarten: Kindergarten; selected: boolean }>;
 
             it('returns list', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), {
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
                     wrapper: renderPage(mockedKindergartens),
                 });
 
@@ -159,23 +175,29 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                 ]);
 
                 await act(async () => {
-                    result.current.selectKindergarten(['my-id-2']);
+                    result.current.updateAssessment({ kindergartenIds: ['my-id-2'] });
                 });
 
                 await awaitForHookResponse();
@@ -184,28 +206,34 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: true,
                     },
                 ]);
             });
         });
 
         describe('when kindergarten is selected twice', () => {
-            let kindergartens: Kindergarten[];
+            let kindergartens: Array<{ kindergarten: Kindergarten; selected: boolean }>;
 
             it('returns list', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), {
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
                     wrapper: renderPage(mockedKindergartens),
                 });
 
@@ -217,27 +245,33 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                 ]);
 
                 await act(async () => {
-                    result.current.selectKindergarten(['my-id-2']);
+                    result.current.updateAssessment({ kindergartenIds: ['my-id-2'] });
 
                     await awaitForHookResponse();
 
-                    result.current.selectKindergarten(['my-id-2']);
+                    result.current.updateAssessment({ kindergartenIds: ['my-id-2'] });
 
                     await awaitForHookResponse();
 
@@ -246,18 +280,24 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: true,
                     },
                 ]);
             });
@@ -281,7 +321,7 @@ const mocks = [
                 title: 'my-test',
                 startDate: formatedStartDate,
                 endDate: formatedEndDate,
-                kindergartens: [],
+                kindergartenIds: [],
             },
         },
         result: () => {
