@@ -8,7 +8,7 @@ import { useBreakpoints } from '../../queries/useBreakpoints';
 import { useSelectOptions } from './useSelectValues';
 import { Input } from './Input';
 import { Select } from './Select';
-import { Kindergarten } from '../../graphql/types';
+import { ChildInput, Kindergarten } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
 import { AddChildResult } from './AddChildModal.types';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
@@ -24,7 +24,8 @@ const initialValues: AddChildResult = {
 
 interface Props {
     kindergartens: Kindergarten[];
-    isCancelButtonVisible: boolean;
+    isCancelButtonVisible?: boolean;
+    preventClose?: boolean;
 }
 
 const validationSchema = yup.object({
@@ -37,7 +38,7 @@ const validationSchema = yup.object({
 });
 
 export const openAddChildModal = (options: Props) => {
-    return openDialog<Props, { child: AddChildResult }>(AddChildModal, options);
+    return openDialog<Props, { child: ChildInput }>(AddChildModal, options);
 };
 
 export function AddChildModal({
@@ -45,7 +46,8 @@ export function AddChildModal({
     isCancelButtonVisible,
     makeDecision,
     onClose,
-}: Props & ActionDialog<{ child: AddChildResult }>) {
+    preventClose,
+}: Props & ActionDialog<{ child: ChildInput }>) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();
@@ -53,7 +55,7 @@ export function AddChildModal({
         initialValues,
         validationSchema,
         onSubmit: values => {
-            makeDecision({ accepted: true, child: values });
+            makeDecision({ accepted: true, child: normalizeChild(values) });
         },
     });
     const { getOptions } = useSelectOptions();
@@ -65,10 +67,14 @@ export function AddChildModal({
             isOpen={true}
             actionName={t('add-child-modal.button')}
             onAction={formik.handleSubmit}
-            onClose={onClose}
+            onClose={() => {
+                if (!preventClose) {
+                    onClose();
+                }
+            }}
             isCancelButtonVisible={isCancelButtonVisible}
         >
-            <form onSubmit={formik.handleSubmit}>
+            <form className={classes.innerContent} onSubmit={formik.handleSubmit}>
                 <Typography variant="h4" classes={{ root: classes.title }}>
                     {t('add-child-modal.heading')}
                 </Typography>
@@ -158,6 +164,17 @@ function mapKindergartenToOption(kindergarten: Kindergarten) {
     return { value: kindergarten._id, label: `nr. ${kindergarten.number}, ${kindergarten.name}` };
 }
 
+function normalizeChild(child: AddChildResult): ChildInput {
+    return {
+        firstname: child.firstname,
+        lastname: child.lastname,
+        birthYear: parseInt(child['birth-date'], 10),
+        birthQuarter: parseInt(child['birth-quarter'], 10),
+        sex: child.sex,
+        kindergartenId: child.kindergarten,
+    };
+}
+
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         title: { marginBottom: theme.spacing(3) },
@@ -167,6 +184,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         item: {
             flex: 1,
+        },
+        innerContent: {
+            maxHeight: 400,
         },
     }),
 );

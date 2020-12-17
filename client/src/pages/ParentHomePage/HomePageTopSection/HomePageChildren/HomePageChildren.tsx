@@ -4,15 +4,14 @@ import { HomePageChildCard } from './HomePageChildCard';
 import { HomePageInfo } from '../HomePageInfo';
 import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
-import { Child } from '../../../../graphql/types';
+import { Child, ChildInput } from '../../../../graphql/types';
 import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
 import { openAddChildModal } from '../../../../components/AddChildModal/AddChildModal';
 import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
-import { AddChildResult } from '../../../../components/AddChildModal/AddChildModal.types';
 
 interface Props {
     childrenList: Child[];
-    handleModalSubmit: (child: AddChildResult) => void;
+    handleModalSubmit: (child: ChildInput) => void;
 }
 
 export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: Props) => {

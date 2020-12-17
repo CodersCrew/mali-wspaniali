@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { makeStyles, Grid, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { useMutation } from '@apollo/client';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
@@ -10,42 +9,23 @@ import { Theme } from '../../theme/types';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 import { useLastArticles } from '../../operations/queries/Articles/getLastArticles';
-import { AddChildResult } from '../../components/AddChildModal/AddChildModal.types';
-import { ChildInput } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
-import { ADD_CHILD } from '../../graphql/userRepository';
+import { useAddChild } from '../../operations/mutations/User/addChild';
 
 export const ParentHomePage = () => {
     const user = useMe();
+    const { addChild } = useAddChild();
     const { articles } = useLastArticles(6);
     const { t } = useTranslation();
     const classes = useStyles();
 
     const { kindergartenList } = useKindergartens();
-    const [addChild] = useMutation(ADD_CHILD);
 
     useEffect(() => {
         activePage(['parent-menu.home']);
     }, []);
 
     if (!user || !kindergartenList) return null;
-
-    const handleModalSubmit = (child: AddChildResult) => {
-        const newChild: ChildInput = {
-            firstname: child.firstname,
-            lastname: child.lastname,
-            birthYear: parseInt(child['birth-date'], 10),
-            birthQuarter: parseInt(child['birth-quarter'], 10),
-            sex: child.sex,
-            kindergartenId: child.kindergarten,
-        };
-
-        addChild({
-            variables: {
-                child: newChild,
-            },
-        });
-    };
 
     return (
         <>
@@ -59,7 +39,7 @@ export const ParentHomePage = () => {
                         <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
                     </p>
                 </Grid>
-                <HomePageChildren childrenList={user.children} handleModalSubmit={handleModalSubmit} />
+                <HomePageChildren childrenList={user.children} handleModalSubmit={addChild} />
                 <HomePageArticles articles={articles} />
             </Grid>
         </>
