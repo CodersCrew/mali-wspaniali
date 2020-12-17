@@ -6,7 +6,7 @@ import { MockedResponse } from '@apollo/client/testing';
 
 import { AdminManageTestPage } from '../AdminManageTestPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
-import { CREATE_ASSESSMENT } from '../../../operations/mutations/Test/createAssessment';
+import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/createAssessment';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';

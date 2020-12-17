@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
-import { useCreateAssessment } from '../../operations/mutations/Test/createAssessment';
+import { useCreateAssessment } from '../../operations/mutations/Assessment/createAssessment';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { formatDate } from '../../utils/formatDate';
 import { useAssessment } from '../../operations/queries/Assessment/getAssessment';
@@ -45,7 +45,7 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
     const [reasonForBeingDisabled, setReasonForBeingDisabled] = useState<string | undefined>(undefined);
     const { kindergartenList } = useKindergartens();
     const { t } = useTranslation();
-    const { createTest, error } = useCreateAssessment();
+    const { createAssessment: createTest, error } = useCreateAssessment();
     const state = updatedLocalAssessment;
     const { updateAssessment } = useUpdateAssessment(testId!);
 

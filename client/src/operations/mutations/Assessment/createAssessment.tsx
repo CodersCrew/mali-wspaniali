@@ -28,7 +28,7 @@ export function useCreateAssessment() {
     const [mutate, { data, error }] = useMutation<Test>(CREATE_ASSESSMENT);
 
     return {
-        createTest: ({ title, startDate, endDate, kindergartenIds }: AssessmentInput) => {
+        createAssessment: ({ title, startDate, endDate, kindergartenIds }: AssessmentInput) => {
             return mutate({
                 variables: {
                     title,

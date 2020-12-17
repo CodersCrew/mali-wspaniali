@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useAssessmentManager } from '../useAssessmentManager';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { CREATE_ASSESSMENT } from '../../../operations/mutations/Test/createAssessment';
+import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/createAssessment';
 import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
