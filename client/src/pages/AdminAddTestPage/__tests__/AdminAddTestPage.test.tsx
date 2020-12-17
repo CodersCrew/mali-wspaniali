@@ -6,7 +6,7 @@ import { MockedResponse } from '@apollo/client/testing';
 
 import { AdminManageTestPage } from '../AdminManageTestPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
-import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
+import { CREATE_ASSESSMENT } from '../../../operations/mutations/Test/createAssessment';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
@@ -281,7 +281,7 @@ function renderPage(mocks: MockedResponse[]) {
 const mocks = [
     {
         request: {
-            query: CREATE_NEW_TEST,
+            query: CREATE_ASSESSMENT,
             variables: {
                 title: 'new-test',
                 startDate: formatDate(startDate),

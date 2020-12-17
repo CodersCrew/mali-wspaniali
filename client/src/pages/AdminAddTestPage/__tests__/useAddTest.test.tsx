@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useAssessmentManager } from '../useAssessmentManager';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
+import { CREATE_ASSESSMENT } from '../../../operations/mutations/Test/createAssessment';
 import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
@@ -316,7 +316,7 @@ const renderPage = (mocks: MockedResponse[]): FC => ({ children }) => {
 const mocks = [
     {
         request: {
-            query: CREATE_NEW_TEST,
+            query: CREATE_ASSESSMENT,
             variables: {
                 title: 'my-test',
                 startDate: formatedStartDate,

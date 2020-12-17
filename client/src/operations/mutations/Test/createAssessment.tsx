@@ -14,7 +14,7 @@ interface AssessmentInput {
     kindergartenIds: string[];
 }
 
-export const CREATE_NEW_TEST = gql`
+export const CREATE_ASSESSMENT = gql`
     mutation createAssessment($title: String!, $startDate: String!, $endDate: String!, $kindergartenIds: [String!]!) {
         createAssessment(
             assessment: { title: $title, startDate: $startDate, endDate: $endDate, kindergartenIds: $kindergartenIds }
@@ -24,8 +24,8 @@ export const CREATE_NEW_TEST = gql`
     }
 `;
 
-export function useCreateNewTest() {
-    const [mutate, { data, error }] = useMutation<Test>(CREATE_NEW_TEST);
+export function useCreateAssessment() {
+    const [mutate, { data, error }] = useMutation<Test>(CREATE_ASSESSMENT);
 
     return {
         createTest: ({ title, startDate, endDate, kindergartenIds }: AssessmentInput) => {
