@@ -7,16 +7,17 @@ export interface Test {
     status: string;
 }
 
-export interface TestInformation {
-    testName: string;
+interface AssessmentInput {
+    title: string;
     startDate: string;
     endDate: string;
+    kindergartenIds: string[];
 }
 
 export const CREATE_NEW_TEST = gql`
-    mutation createAssessment($title: String!, $startDate: String!, $endDate: String!, $kindergartens: [String!]!) {
+    mutation createAssessment($title: String!, $startDate: String!, $endDate: String!, $kindergartenIds: [String!]!) {
         createAssessment(
-            assessment: { title: $title, startDate: $startDate, endDate: $endDate, kindergartenIds: $kindergartens }
+            assessment: { title: $title, startDate: $startDate, endDate: $endDate, kindergartenIds: $kindergartenIds }
         ) {
             status
         }
@@ -27,13 +28,13 @@ export function useCreateNewTest() {
     const [mutate, { data, error }] = useMutation<Test>(CREATE_NEW_TEST);
 
     return {
-        createTest: ({ testName, startDate, endDate }: TestInformation, kindergartens: string[]) => {
+        createTest: ({ title, startDate, endDate, kindergartenIds }: AssessmentInput) => {
             return mutate({
                 variables: {
-                    title: testName,
+                    title,
                     startDate,
                     endDate,
-                    kindergartens,
+                    kindergartenIds,
                 },
             });
         },

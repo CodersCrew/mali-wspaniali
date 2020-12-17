@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Kindergarten } from '../../../graphql/types';
 
-interface KindergartenListResponse {
+export interface KindergartenListResponse {
     kindergartens: Kindergarten[];
 }
 
@@ -17,11 +17,14 @@ export const KINDERGARTENS = gql`
     }
 `;
 
-export function useKindergartens() {
+export function useKindergartens(): {
+    kindergartenList: Kindergarten[];
+    isKindergartenListLoading: boolean;
+} {
     const { data, loading } = useQuery<KindergartenListResponse>(KINDERGARTENS);
 
     return {
-        kindergartenList: data?.kindergartens,
+        kindergartenList: data?.kindergartens || [],
         isKindergartenListLoading: loading
     };
 }
