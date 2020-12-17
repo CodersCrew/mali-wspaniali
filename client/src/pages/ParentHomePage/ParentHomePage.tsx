@@ -13,9 +13,7 @@ import { useLastArticles } from '../../operations/queries/Articles/getLastArticl
 import { AddChildResult } from '../../components/AddChildModal/AddChildModal.types';
 import { ChildInput } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
-
 import { ADD_CHILD } from '../../graphql/userRepository';
-import { AddChildModal } from '../../components/AddChildModal/AddChildModal';
 
 export const ParentHomePage = () => {
     const user = useMe();
@@ -31,8 +29,6 @@ export const ParentHomePage = () => {
     }, []);
 
     if (!user || !kindergartenList) return null;
-
-    const isOpen = user.role === 'parent' && user.children.length === 0;
 
     const handleModalSubmit = (child: AddChildResult) => {
         const newChild: ChildInput = {
@@ -66,12 +62,6 @@ export const ParentHomePage = () => {
                 <HomePageChildren childrenList={user.children} handleModalSubmit={handleModalSubmit} />
                 <HomePageArticles articles={articles} />
             </Grid>
-            <AddChildModal
-                handleSubmit={handleModalSubmit}
-                isOpen={isOpen}
-                kindergartens={kindergartenList}
-                isCancelButtonVisible={false}
-            />
         </>
     );
 };

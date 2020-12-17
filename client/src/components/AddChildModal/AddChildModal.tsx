@@ -11,8 +11,9 @@ import { Select } from './Select';
 import { Kindergarten } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
 import { AddChildResult } from './AddChildModal.types';
+import { openDialog, ActionDialog } from '../../utils/openDialog';
 
-const initialValues = {
+const initialValues: AddChildResult = {
     firstname: '',
     lastname: '',
     sex: '',
@@ -22,10 +23,7 @@ const initialValues = {
 };
 
 interface Props {
-    isOpen: boolean;
     kindergartens: Kindergarten[];
-    handleSubmit: (data: AddChildResult) => void;
-    handleReset?: () => void;
     isCancelButtonVisible: boolean;
 }
 
@@ -38,15 +36,25 @@ const validationSchema = yup.object({
     kindergarten: yup.string().required(),
 });
 
-export function AddChildModal({ handleSubmit, isOpen, kindergartens, handleReset, isCancelButtonVisible }: Props) {
+export const openAddChildModal = (options: Props) => {
+    return openDialog<Props, { child: AddChildResult }>(AddChildModal, options);
+};
+
+export function AddChildModal({
+    kindergartens,
+    isCancelButtonVisible,
+    makeDecision,
+    onClose,
+}: Props & ActionDialog<{ child: AddChildResult }>) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: data => handleSubmit(data),
-        onReset: handleReset,
+        onSubmit: values => {
+            makeDecision({ accepted: true, child: values });
+        },
     });
     const { getOptions } = useSelectOptions();
 
@@ -54,10 +62,10 @@ export function AddChildModal({ handleSubmit, isOpen, kindergartens, handleReset
 
     return (
         <BasicModal
-            isOpen={isOpen}
+            isOpen={true}
             actionName={t('add-child-modal.button')}
             onAction={formik.handleSubmit}
-            onClose={formik.handleReset}
+            onClose={onClose}
             isCancelButtonVisible={isCancelButtonVisible}
         >
             <form onSubmit={formik.handleSubmit}>

@@ -6,7 +6,7 @@ import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
 import { Child } from '../../../../graphql/types';
 import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
-import { AddChildModal } from '../../../../components/AddChildModal/AddChildModal';
+import { openAddChildModal } from '../../../../components/AddChildModal/AddChildModal';
 import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
 import { AddChildResult } from '../../../../components/AddChildModal/AddChildModal.types';
 
@@ -22,15 +22,6 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: 
     const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
 
     const { kindergartenList } = useKindergartens();
-    const [modalOpen, setModalOpen] = useState(false);
-
-    const handleModalReset = () => {
-        setModalOpen(false);
-    };
-
-    const handleAddChildButtonClick = () => {
-        setModalOpen(true);
-    };
 
     return (
         <>
@@ -53,17 +44,19 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: 
                         />
                     );
                 })}
-                <HomePageAddChildButton onClick={handleAddChildButtonClick} />
-            </div>
-            {kindergartenList && (
-                <AddChildModal
-                    handleSubmit={handleModalSubmit}
-                    handleReset={handleModalReset}
-                    isOpen={modalOpen}
-                    kindergartens={kindergartenList}
-                    isCancelButtonVisible={true}
+                <HomePageAddChildButton
+                    onClick={() => {
+                        openAddChildModal({
+                            kindergartens: kindergartenList,
+                            isCancelButtonVisible: true,
+                        }).then((results) => {
+                            if (results.decision?.accepted) {
+                                handleModalSubmit(results.decision.child)
+                            }
+                        });
+                    }}
                 />
-            )}
+            </div>
             <div className={classes.infoContainer}>
                 {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
             </div>
