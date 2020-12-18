@@ -3,6 +3,7 @@ import { Result } from '../../../shared/domain/result';
 import { BirthYear } from '../models/birth_year_value_object';
 import { ObjectId } from '../models/object_id_value_object';
 import { BirthQuarter } from '../models/birth_quarter_value_object';
+import { ChildDTO } from '../../dto/children_dto';
 
 interface DomainMapperOptions {
   isNew: boolean;
@@ -10,7 +11,7 @@ interface DomainMapperOptions {
 
 export class ChildMapper {
   static toDomain(
-    props: ChildProps | Omit<ChildProps, '_id'>,
+    props: ChildProps | Omit<ChildProps, '_id' | 'date'>,
     options?: DomainMapperOptions,
   ): Child {
     const _id = '_id' in props ? ObjectId.create(props._id) : ObjectId.create();
@@ -32,8 +33,7 @@ export class ChildMapper {
     ]);
 
     if (result.isSuccess) {
-      const createChild =
-        options && options.isNew ? Child.create : Child.recreate;
+      const createChild = options?.isNew ? Child.create : Child.recreate;
 
       return createChild({
         _id: _id.getValue(),
@@ -42,6 +42,9 @@ export class ChildMapper {
         sex: sex.getValue(),
         isDeleted: props.isDeleted,
         birthYear: birthYear.getValue(),
+        date: options?.isNew
+          ? new Date()
+          : ((props as ChildProps).date as Date),
         birthQuarter: birthQuarter.getValue(),
         kindergarten: kindergarten.getValue(),
       });
@@ -50,7 +53,9 @@ export class ChildMapper {
     }
   }
 
-  static toPersistence(child: Child): ChildProps | Omit<ChildProps, '_id'> {
+  static toPersistence(
+    child: Child,
+  ): ChildProps | Omit<ChildProps, '_id' | 'date'> {
     if (child.id.isEmpty()) {
       return {
         firstname: child.firstname.value,
@@ -71,7 +76,23 @@ export class ChildMapper {
       isDeleted: child.isDeleted,
       birthYear: child.birthYear.value,
       birthQuarter: child.birthQuarter.value,
+      date: child.date,
       kindergarten: child.kindergarten.value,
+    };
+  }
+
+  static toDTO(child: Child): ChildDTO {
+    return {
+      _id: child.id.value,
+      firstname: child.firstname.value,
+      lastname: child.lastname.value,
+      sex: child.sex.value,
+      isDeleted: child.isDeleted,
+      birthYear: child.birthYear.value,
+      birthQuarter: child.birthQuarter.value,
+      date: child.date,
+      kindergarten: child.kindergarten.value,
+      results: [], // TODO: get results id
     };
   }
 }

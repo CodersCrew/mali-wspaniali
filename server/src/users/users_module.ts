@@ -10,6 +10,7 @@ import { QueryHandlers } from './domain/queries/handlers';
 import { UserSchema } from './schemas/user_schema';
 import { UserRepository } from './domain/repositories/user_repository';
 import { UsersResolver } from './users_resolver';
+import { ChildResolver } from './child_resolver';
 import { KeyCodesModule } from '../key_codes/key_codes_module';
 import { EventHandlers } from './domain/events/handlers';
 import { GqlAuthGuard } from './guards/jwt_guard';
@@ -55,6 +56,7 @@ import { KindergartenModule } from '../kindergartens/kindergarten_module';
     JwtStrategy,
     GqlAuthGuard,
     UsersResolver,
+    ChildResolver,
     UserRepository,
     ChildRepository,
     ChildResultRepository,

@@ -81,6 +81,7 @@ type ChildDTO {
   sex: String!
   results: [ChildResultDTO!]!
   kindergarten: KindergartenDTO!
+  isDeleted: Boolean!
 }
 
 type AgreementDTO {
@@ -178,13 +179,13 @@ type Query {
 type Mutation {
   createArticle(article: ArticleInput!): ReturnedStatusDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
-  addChild(child: ChildInput!): ReturnedStatusDTO!
-  editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
-  addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   login(user: LoginInput!): ReturnedTokenDTO!
   resetPassword(mail: String!): ReturnedStatusDTO!
   changePassword(password: String!, jwt: String!): ReturnedStatusDTO!
   signAgreement(agreementId: String!): ReturnedStatusDTO!
+  addChild(child: ChildInput!): ChildDTO!
+  editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
+  addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   createKeyCode(target: String!): CreateKeyCodeDTO!
   createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createAgreement(agreement: String!): ReturnedStatusDTO!
@@ -226,6 +227,11 @@ input UserInput {
   keyCode: String!
 }
 
+input LoginInput {
+  mail: String!
+  password: String!
+}
+
 input ChildInput {
   firstname: String!
   lastname: String!
@@ -258,11 +264,6 @@ input ResultInput {
   strengthCentimeters: Int!
   strengthPoints: Int!
   testPeriod: String!
-}
-
-input LoginInput {
-  mail: String!
-  password: String!
 }
 
 input KindergartenInput {
