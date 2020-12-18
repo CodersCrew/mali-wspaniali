@@ -19,10 +19,10 @@ export const ParentWrapper: FC = ({ children }) => {
 
         openAddChildModal({
             kindergartens: kindergartenList,
-            preventClose: true
-        }).then((results) => {
-            if (results.decision?.accepted) {
-                addChild(results.decision.child)
+            preventClose: true,
+        }).then(results => {
+            if (results.decision && results.decision.accepted) {
+                addChild(results.decision.child);
             }
         });
     }
