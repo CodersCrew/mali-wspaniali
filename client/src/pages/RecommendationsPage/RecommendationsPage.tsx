@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 
-export function RecomendationsPage() {
+export function RecommendationsPage() {
     const { childId } = useParams<{ childId: string }>();
     const user = useMe();
 
@@ -12,11 +12,11 @@ export function RecomendationsPage() {
 
     useEffect(() => {
         if (child) {
-            activePage([child.firstname, `/parent/child/${child._id}/recomendations`, 'parent-menu.child.recomendations']);
+            activePage([child.firstname, `/parent/child/${child._id}/recommendations`, 'parent-menu.child.recommendations']);
         }
     }, [child]);
 
 
 
-    return <div>recomendations page</div>;
+    return <div>recommendations page</div>;
 }

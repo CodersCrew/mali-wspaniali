@@ -220,7 +220,22 @@
             }
         },
         "agreements-title": "Below you can check and edit the signed agreements.",
-        "recomendations": "Recomendations",
+        "recommendations": {
+            "recommendations": "Recommendations",
+            "panel-title": "Recommendation  - How to improve child's fitness",
+            "title": "title (placeholder)",
+            "text1-1": "text1-1 (placeholder)",
+            "text1-2": "text1-2 (placeholder)",
+            "text1-3": "text1-1 (placeholder)",
+            "text1-4": "text1-1 (placeholder)",
+            "subtitle1": "subtitle1 (placeholder)",
+            "text2": "text2 (placeholder)",
+            "subtitle2": "subtitle2 (placeholder)",
+            "text3": "text3 (placeholder)",
+            "subtitle3": "subtitle3 (placeholder)",
+            "text4": "text4 (placeholder)",
+            "subtitle4": "subtitle4 (placeholder)"
+        },
         "child-details": {
             "page": "Child's details",
             "form": "Edit your child's details if necessary.",
@@ -385,7 +400,7 @@
         "home": "Strona Główna",
         "child": {
             "results": "Results",
-            "recomendations": "Recomendations",
+            "recommendations": "Recommendations",
             "tests-information": "Tests information",
             "details": "Child details"
         },

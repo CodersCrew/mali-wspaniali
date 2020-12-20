@@ -270,7 +270,22 @@
             }
         },
         "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
-        "recomendations": "Rekomendacje",
+        "recommendations": {
+            "recommendations": "Rekomendacje",
+            "panel-title": "Rekomendacja  - Jak poprawić sprawność dziecka",
+            "title": "Pamiętajcie o codziennym ruchu",
+            "text1-1": "Przedszkolaki w wieku 3–4 lata ",
+            "text1-2": "powinny gromadzić przynajmniej ",
+            "text1-3": "180 minut aktywności fizycznej o dowolnej intensywności rozłożone w ciągu dnia. ",
+            "text1-4": "Wśród nich powinny znaleźć się różnorodne zajęcia i zabawy w różnych środowiskach (na placu zabaw, w domu, w lesie, w sali gimnastycznej, w wodzie) oraz działania rozwijające umiejętności ruchowe (rzucanie, chwytanie, skakanie, bieganie, wspinanie, odbijanie,...).",
+            "subtitle1": "Każdy sposób jest dobry na codzienną wspólną aktywność!",
+            "text2": "Dzieci w wieku 5-11 lat powinny energicznie bawić się lub być aktywne fizycznie co najmniej 60 minut codziennie. Co najmniej 3 dni w tygodniu aktywność powinna  uwzględniać zabawy/ćwiczenia o dużej intensywności, wzmacniające mięśnie i kości.",
+            "subtitle2": "60 minut dziennie - możesz pomóc dziecku to osiągnąć!",
+            "text3": "Im więcej codziennej aktywności fizycznej tym większe korzyści dla zdrowia obecnie i w przyszłości.",
+            "subtitle3": "Sen jest kluczowy dla zdrowia i rozwoju:",
+            "text4": "Przedszkolaki 3-5 lat powinny spać od 10 do 13 godzin na dobę. Dzieci 6-13 lat, od 9 do 11 godzin.",
+            "subtitle4": "Śpij na zdrowie!"
+        },
         "child-details": {
             "page": "Dane dziecka",
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
@@ -410,7 +425,7 @@
         "home": "Strona Główna",
         "child": {
             "results": "Lista wyników",
-            "recomendations": "Rekomendacje",
+            "recommendations": "Rekomendacje",
             "tests-information": "Informacje o testach",
             "details": "Dane dziecka"
         },
