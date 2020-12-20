@@ -269,7 +269,17 @@
                 "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
             }
         },
-        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
+        "agreements": {
+            "heading": "Zarządzaj zgodami udzielonymi fundacji Mali Wspaniali. Miej pełną kontrolę nad bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia.",
+            "title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
+            "save": "Zapisz",
+            "Image-primary": "Zgoda na rozpowszechnianie wizerunku.",
+            "Image-secondary": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji.",
+            "Marketing-primary": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+            "Marketing-secondary": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+            "general-primary": "Zgoda na udział w programie Mali Wspaniali.",
+            "general-secondary": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe."
+        },
         "recomendations": "Rekomendacje",
         "child-details": {
             "page": "Dane dziecka",

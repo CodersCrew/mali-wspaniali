@@ -219,7 +219,17 @@
                 "text4": "text4 (placeholder)"
             }
         },
-        "agreements-title": "Below you can check and edit the signed agreements.",
+        "agreements": {
+            "heading": "heading (placeholder)",
+            "title": "Below you can check and edit the signed agreements.",
+            "save": "Save",
+            "Image-primary": "image-primary (placeholder)",
+            "Image-secondary": "image-secondary (placeholder)",
+            "Marketing-primary": "marketing-primary (placeholder)",
+            "Marketing-secondary": "marketing-secondary (placeholder)",
+            "general-primary": "general-primary (placeholder)",
+            "general-secondary": "general-secondary (placeholder)"
+        },
         "recomendations": "Recomendations",
         "child-details": {
             "page": "Child's details",
