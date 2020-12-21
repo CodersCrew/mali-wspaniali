@@ -11,7 +11,7 @@ interface Props {
     onClick: (type: string, id: string) => void;
 }
 
-export function TestItem({ value, onClick }: Props) {
+export function AssessmentItem({ value, onClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 

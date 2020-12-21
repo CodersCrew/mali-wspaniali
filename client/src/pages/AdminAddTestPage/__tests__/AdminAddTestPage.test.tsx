@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event'
 import { MockedResponse } from '@apollo/client/testing';
 
-import { AdminManageTestPage } from '../AdminManageTestPage';
+import { AdminManageSingleAssessmentPage } from '../AdminManageSingleAssessmentPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
 import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/createAssessment';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
@@ -275,7 +275,7 @@ describe('AdminAddTestPage', () => {
 });
 
 function renderPage(mocks: MockedResponse[]) {
-    return renderWithMock(mocks, <AdminManageTestPage />)
+    return renderWithMock(mocks, <AdminManageSingleAssessmentPage />)
 }
 
 const mocks = [

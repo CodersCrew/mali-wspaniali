@@ -21,11 +21,11 @@ const GET_ALL_ASSESSMENTS = gql`
     }
 `;
 
-export function useTests() {
+export function useAssessments() {
     const { data, loading } = useQuery<TestListResponse>(GET_ALL_ASSESSMENTS);
 
     return {
-        testList: data?.assessments || [],
+        assessmentList: data?.assessments || [],
         isTestListLoading: loading
     }
 }

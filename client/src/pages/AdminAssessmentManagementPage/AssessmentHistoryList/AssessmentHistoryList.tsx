@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { TestItem } from './TestItem';
+import { AssessmentItem } from './AssessmentItem';
 import { BasicTest } from '../../../operations/queries/Assessment/getAllAssessments';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
     onTestClick: (type: string, id: string) => void;
 }
 
-export function TestHistoryList({ tests, onTestClick }: Props) {
+export function AssessmentHistoryList({ tests, onTestClick }: Props) {
     const { t } = useTranslation();
 
     return (
@@ -26,7 +26,7 @@ export function TestHistoryList({ tests, onTestClick }: Props) {
                 </TableHead>
                 <TableBody>
                     {tests.map(test => {
-                        return <TestItem key={test.title} value={test} onClick={onTestClick} />;
+                        return <AssessmentItem key={test.title} value={test} onClick={onTestClick} />;
                     })}
                 </TableBody>
             </Table>
