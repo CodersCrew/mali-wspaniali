@@ -1,11 +1,4 @@
-import {
-  Resolver,
-  Mutation,
-  Query,
-  Args,
-  ResolveField,
-  Root,
-} from '@nestjs/graphql';
+import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { QueryBus, CommandBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
 
@@ -19,16 +12,9 @@ import {
 } from './inputs/assessment_input';
 import { AssessmentDTO } from './dto/assessment_dto';
 import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessments_query';
-import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructor_dto';
 import { Assessment, AssessmentDto } from './domain/models/assessment_model';
-import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
-import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model';
-import { UserProps } from '../users/domain/models/user_model';
-import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
-import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
 import { EditAssessmentCommand } from './domain/commands/impl/edit_assessment_command';
 import { AssessmentMapper } from './domain/mappers/assessment_mapper';
-import { GetAssessmentsQuery } from './domain/queries/impl';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
@@ -80,60 +66,5 @@ export class AssessmentResolver {
     if (!assessment) return null;
 
     return AssessmentMapper.toPersist(assessment);
-  }
-
-  @ResolveField(() => KindergartenWithInstructorDTO)
-  async kindergartens(
-    @Root() assessment: AssessmentDto,
-  ): Promise<KindergartenWithInstructorDTO[]> {
-    const kindergartenIds = assessment.kindergartens.map(k => k.kindergartenId);
-    const instructorIds = assessment.kindergartens
-      .map(k => k.instructorId)
-      .filter(k => k);
-    const kindergartens: Kindergarten[] = await this.getKindergartens(
-      kindergartenIds,
-    );
-    const instructors: UserProps[] = await this.getInstructors(instructorIds);
-
-    return assessment.kindergartens
-      .map(assessmentKindergarten =>
-        this.mapKindergartenWithInstructor(
-          assessmentKindergarten,
-          kindergartens,
-          instructors,
-        ),
-      )
-      .filter(k => k.kindergarten);
-  }
-
-  private getKindergartens(ids: string[]): Promise<Kindergarten[]> {
-    return this.queryBus.execute(new GetKindergartensQuery(ids));
-  }
-
-  private getInstructors(ids: string[]): Promise<UserProps[]> {
-    return this.queryBus.execute(new GetUsersQuery(ids));
-  }
-
-  private mapKindergartenWithInstructor(
-    assessmentKindergarten: { kindergartenId: string; instructorId: string },
-    kindergartens: Kindergarten[],
-    instructors: UserProps[],
-  ) {
-    const foundKindergarten = kindergartens.find(k => {
-      return (
-        k.id.toString() === assessmentKindergarten.kindergartenId.toString()
-      );
-    });
-
-    const foundInstructor = instructors.find(i => {
-      return i._id.toString() === assessmentKindergarten.instructorId;
-    });
-
-    return {
-      kindergarten: foundKindergarten
-        ? KindergartenMapper.toRaw(foundKindergarten)
-        : null,
-      instructor: foundInstructor,
-    };
   }
 }
