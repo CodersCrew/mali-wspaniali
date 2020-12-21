@@ -594,5 +594,22 @@
         "reset-old-password": "Reset password",
         "something-went-wrong": "Something went wrong. Contact your Administrator.",
         "wrong-old-password": "Incorrect password"
+    },
+    "admin-instructors-page": {
+        "table": {
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "E-mail address",
+            "kindergarten-count": "Kindergarten count",
+            "tooltip": "Assign to kindergarten"
+        },
+        "table-toolbar": {
+            "select-test": "Select test",
+            "instructor-search": "Search for instructor",
+            "unassigned-kindergartens": "Unassigned kidnergartens"
+        },
+        "snackbars": {
+            "info": "To add unassigned kindergarten, select the instructor and assign him/her to selected kindergarten"
+        }
     }
 }

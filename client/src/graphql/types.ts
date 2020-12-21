@@ -68,6 +68,8 @@ export interface UpdatedChildInput {
 
 export type User = Omit<Me, 'notifications'>;
 
+export type PrivilegedUser = Omit<User, 'children' | 'agreements'>;
+
 export interface Me {
     _id: string;
     mail: string;
@@ -165,16 +167,6 @@ export interface KeyCodeSeries {
     count: number;
 }
 
-export interface TestDTO {
-    _id: string;
-    isOutdated: boolean;
-    isDeleted: boolean;
-    title: string;
-    startDate: string;
-    endDate: string;
-    kindergartens: Array<{ kindergartenId: string; instructorId?: string }>;
-}
-
 export interface Assessment {
     _id: string;
     isOutdated: boolean;
@@ -182,7 +174,10 @@ export interface Assessment {
     title: string;
     startDate: string;
     endDate: string;
-    kindergartens: Array<{ kindergarten: { _id: string; name: string }; instructor?: { _id: string } }>;
+    kindergartens: {
+        instructor: User | null;
+        kindergarten: Kindergarten;
+    }[];
 }
 
 export interface ReturnedStatusDTO {

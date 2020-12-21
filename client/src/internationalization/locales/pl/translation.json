@@ -593,5 +593,22 @@
         "reset-old-password": "Zresetuj hasło",
         "something-went-wrong": "Coś poszło nie tak. Skontaktuj się z Administratorem.",
         "wrong-old-password": "Niepoprawne hasło"
+    },
+    "admin-instructors-page": {
+        "table": {
+            "firstName": "Imię",
+            "lastName": "Nazwisko",
+            "email": "Adres e-mail",
+            "kindergarten-count": "Liczba przedszkoli",
+            "tooltip": "Przydziel do przedszkola"
+        },
+        "table-toolbar": {
+            "select-test": "Wybierz test",
+            "instructor-search": "Szukaj instruktora",
+            "unassigned-kindergartens": "Nieprzydzielone przedszkola"
+        },
+        "snackbars": {
+            "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+        }
     }
 }
