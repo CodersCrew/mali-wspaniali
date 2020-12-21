@@ -293,7 +293,8 @@
     },
     "parent-children": {
         "children": "Dzieci",
-        "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
+        "no-children-has-been-found": "Nie znaleziono żadnych dzieci",
+        "add-child": "Dodaj dziecko"
     },
     "newsletter": {
         "header": "Nowa wiadomość",
@@ -483,9 +484,11 @@
             "first-assessment": "Próba początkowa",
             "last-assessment": "Próba końcowa",
             "status": "Status",
-            "details": "Zobacz szczegóły",
             "active": "Aktywny",
-            "done": "Zakończony"
+            "done": "Zakończony",
+            "details": "Zobacz szczegóły",
+            "delete": "Skasuj",
+            "edit": "Edytuj dane"
         }
     },
     "add-test-view": {
@@ -508,15 +511,25 @@
             "kindergarten-name": "Nazwa przedszkola",
             "find-kindergarten": "Znajdź przedszkole"
         },
+        "delete-test-dialog": {
+            "title": "Skasuj test",
+            "description": "Czy na pewno chcesz usunąć wybrany test przedszkolaka?"
+        },
         "assessment-created": "Utworzono nowy test",
+        "assessment-updated": "Test został zaktualizowany",
         "create-test": "Utwórz nowy test",
+        "update-test": "Zapisz",
         "cancel": "Anuluj",
+        "delete": "Usuń",
         "errors": {
-            "name-too-short": "Nazwa testu jest za krótka"
+            "name-too-short": "Nazwa testu jest za krótka",
+            "test-already-created": "Test został utworzony",
+            "test-already-updated": "Test został zaktualizowany"
         }
     },
     "add-child-modal": {
         "button": "Dodaj",
+        "cancel": "Anuluj",
         "heading": "Witaj na stronie Mali Wspaniali",
         "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
         "inputs": {

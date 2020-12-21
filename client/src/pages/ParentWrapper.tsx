@@ -1,42 +1,31 @@
-import React, { FC } from 'react';
-import { useMutation } from '@apollo/client';
-
-import { AddChildModal } from '../components/AddChildModal/AddChildModal';
-import { ADD_CHILD } from '../graphql/userRepository';
-import { ChildInput } from '../graphql/types';
+import React, { FC, useRef } from 'react';
 import { useMe } from '../utils/useMe';
 import { useKindergartens } from '../operations/queries/Kindergartens/getKindergartens';
+import { openAddChildModal } from '../components/AddChildModal/AddChildModal';
+import { useAddChild } from '../operations/mutations/User/addChild';
 
 export const ParentWrapper: FC = ({ children }) => {
     const user = useMe();
+    const modalInstanceExists = useRef(false);
     const { kindergartenList } = useKindergartens();
-    const [addChild] = useMutation(ADD_CHILD);
+    const { addChild } = useAddChild();
 
-    if (!user || !kindergartenList) return null;
+    if (!user || kindergartenList.length === 0) return null;
 
-    return (
-        <>
-            <AddChildModal
-                handleSubmit={child => {
-                    const newChild: ChildInput = {
-                        firstname: child.firstname,
-                        lastname: child.lastname,
-                        birthYear: parseInt(child['birth-date'], 10),
-                        birthQuarter: parseInt(child['birth-quarter'], 10),
-                        sex: child.sex,
-                        kindergartenId: child.kindergarten,
-                    };
+    const hasNoChildren = user.role === 'parent' && user.children.length === 0;
 
-                    addChild({
-                        variables: {
-                            child: newChild,
-                        },
-                    });
-                }}
-                isOpen={user.children.length === 0 && user.role === 'parent'}
-                kindergartens={kindergartenList}
-            />
-            {children}
-        </>
-    );
+    if (hasNoChildren && !modalInstanceExists.current) {
+        modalInstanceExists.current = true;
+
+        openAddChildModal({
+            kindergartens: kindergartenList,
+            preventClose: true,
+        }).then(results => {
+            if (results.decision && results.decision.accepted) {
+                addChild(results.decision.child);
+            }
+        });
+    }
+
+    return <>{children}</>;
 };

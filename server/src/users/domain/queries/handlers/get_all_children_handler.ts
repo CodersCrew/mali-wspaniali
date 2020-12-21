@@ -8,6 +8,7 @@ import { ChildResultRepository } from '../../repositories/child_result_repositor
 import { ChildMapper } from '../../mappers/child_mapper';
 import { KindergartenProps } from '../../../../kindergartens/domain/models/kindergarten_model';
 import { ChildResultProps } from '../../models/child_result_model';
+import { KindergartenMapper } from '../../../../kindergartens/domain/mappers/kindergarten_mapper';
 
 export interface ChildWithKindergarten {
   child: ChildProps;
@@ -42,7 +43,8 @@ export class GetAllChildrenHandler
     const childrenWithKindergartens = children.map(child => {
       const foundKindergarten = kindergartenList.find(
         kindergarten =>
-          kindergarten._id.toString() === child.kindergarten.value.toString(),
+          kindergarten.id.value.toString() ===
+          child.kindergarten.value.toString(),
       );
 
       const foundChildrenResults = results.filter(
@@ -50,8 +52,8 @@ export class GetAllChildrenHandler
       );
 
       return {
-        child: ChildMapper.toPersistence(child),
-        kindergarten: foundKindergarten,
+        child: ChildMapper.toPersistence(child) as ChildProps,
+        kindergarten: KindergartenMapper.toRaw(foundKindergarten),
         results: foundChildrenResults,
       };
     });

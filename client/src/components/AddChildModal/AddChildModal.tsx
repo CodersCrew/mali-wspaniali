@@ -8,19 +8,12 @@ import { useBreakpoints } from '../../queries/useBreakpoints';
 import { useSelectOptions } from './useSelectValues';
 import { Input } from './Input';
 import { Select } from './Select';
-import { Kindergarten } from '../../graphql/types';
+import { ChildInput, Kindergarten } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
+import { AddChildResult } from './AddChildModal.types';
+import { openDialog, ActionDialog } from '../../utils/openDialog';
 
-interface AddChildResult {
-    firstname: string;
-    lastname: string;
-    sex: string;
-    'birth-date': string;
-    'birth-quarter': string;
-    kindergarten: string;
-}
-
-const initialValues = {
+const initialValues: AddChildResult = {
     firstname: '',
     lastname: '',
     sex: '',
@@ -30,9 +23,9 @@ const initialValues = {
 };
 
 interface Props {
-    isOpen: boolean;
     kindergartens: Kindergarten[];
-    handleSubmit: (data: AddChildResult) => void;
+    isCancelButtonVisible?: boolean;
+    preventClose?: boolean;
 }
 
 const validationSchema = yup.object({
@@ -44,22 +37,44 @@ const validationSchema = yup.object({
     kindergarten: yup.string().required(),
 });
 
-export function AddChildModal({ handleSubmit, isOpen, kindergartens }: Props) {
+export const openAddChildModal = (options: Props) => {
+    return openDialog<Props, { child: ChildInput }>(AddChildModal, options);
+};
+
+export function AddChildModal({
+    kindergartens,
+    isCancelButtonVisible,
+    makeDecision,
+    onClose,
+    preventClose,
+}: Props & ActionDialog<{ child: ChildInput }>) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: data => handleSubmit(data),
+        onSubmit: values => {
+            makeDecision({ accepted: true, child: normalizeChild(values) });
+        },
     });
     const { getOptions } = useSelectOptions();
 
     const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
 
     return (
-        <BasicModal isOpen={isOpen} actionName={t('add-child-modal.button')} onAction={formik.handleSubmit}>
-            <form onSubmit={formik.handleSubmit}>
+        <BasicModal
+            isOpen={true}
+            actionName={t('add-child-modal.button')}
+            onAction={formik.handleSubmit}
+            onClose={() => {
+                if (!preventClose) {
+                    onClose();
+                }
+            }}
+            isCancelButtonVisible={isCancelButtonVisible}
+        >
+            <form className={classes.innerContent} onSubmit={formik.handleSubmit}>
                 <Typography variant="h4" classes={{ root: classes.title }}>
                     {t('add-child-modal.heading')}
                 </Typography>
@@ -149,6 +164,17 @@ function mapKindergartenToOption(kindergarten: Kindergarten) {
     return { value: kindergarten._id, label: `nr. ${kindergarten.number}, ${kindergarten.name}` };
 }
 
+function normalizeChild(child: AddChildResult): ChildInput {
+    return {
+        firstname: child.firstname,
+        lastname: child.lastname,
+        birthYear: parseInt(child['birth-date'], 10),
+        birthQuarter: parseInt(child['birth-quarter'], 10),
+        sex: child.sex,
+        kindergartenId: child.kindergarten,
+    };
+}
+
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         title: { marginBottom: theme.spacing(3) },
@@ -158,6 +184,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         item: {
             flex: 1,
+        },
+        innerContent: {
+            maxHeight: 400,
         },
     }),
 );

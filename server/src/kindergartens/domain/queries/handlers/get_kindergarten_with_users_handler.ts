@@ -5,6 +5,7 @@ import { GetKindergartenWithUsersQuery } from '../impl/get_kindergarten_with_use
 import { ChildRepository } from '../../../../users/domain/repositories/child_repository';
 import { UserRepository } from '../../../../users/domain/repositories/user_repository';
 import { KindergartenWithUsersProps } from '../../models/kindergarten_with_users_model';
+import { KindergartenMapper } from '../../mappers/kindergarten_mapper';
 
 @QueryHandler(GetKindergartenWithUsersQuery)
 export class GetKindergartenWithUsersHandler
@@ -30,7 +31,7 @@ export class GetKindergartenWithUsersHandler
       );
 
       const kindergartenWithUsers = {
-        ...kindergarten,
+        ...KindergartenMapper.toRaw(kindergarten),
         users: parents,
       };
 

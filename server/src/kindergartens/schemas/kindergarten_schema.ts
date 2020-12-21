@@ -1,17 +1,25 @@
-import * as mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { KindergartenProps } from '../domain/models/kindergarten_model';
 
-export type KindergartenDocument = KindergartenProps & mongoose.Document;
+export type KindergartenDocument = KindergartenProps & Document;
 
-export const KindergartenSchema = new mongoose.Schema({
+export const KindergartenSchema = new Schema({
   date: {
     type: Date,
     default: Date.now,
   },
-  number: Number,
-  name: String,
-  address: String,
-  city: String,
+  number: {
+    type: Number,
+  },
+  name: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
   isDeleted: {
     type: Boolean,
     default: false,
