@@ -1,10 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import * as mongoose from 'mongoose';
 
 import { AddChildResultCommand } from '../impl/add_child_result_command';
-import { ChildResultDocument } from '../../../schemas/child_result_schema';
 import { ChildResultRepository } from '../../repositories/child_result_repository';
 import { ChildRepository } from '../../repositories/child_repository';
+import { ChildResultProps } from '../../../../users/domain/models/child_result_model';
 
 @CommandHandler(AddChildResultCommand)
 export class AddChildResultHandler
@@ -14,7 +13,7 @@ export class AddChildResultHandler
     private readonly childRepository: ChildRepository,
   ) {}
 
-  async execute(command: AddChildResultCommand): Promise<ChildResultDocument> {
+  async execute(command: AddChildResultCommand): Promise<ChildResultProps> {
     const { childId, result, rootResultId } = command;
 
     if (result.testPeriod !== 'START' && result.testPeriod !== 'END') {

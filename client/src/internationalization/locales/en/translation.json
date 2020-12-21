@@ -294,7 +294,8 @@
     },
     "parent-children": {
         "children": "Children",
-        "no-children-has-been-found": "No children has been found"
+        "no-children-has-been-found": "No children has been found",
+        "add-child": "Add a child"
     },
     "newsletter": {
         "header": "New Message",
@@ -469,7 +470,8 @@
     "notification-list": {
         "new-assessment": "A new test ({{name}}) has been added.",
         "new-user": "A new user ({{email}}) has been added.",
-        "child-created": "A child has been added."
+        "child-created": "A child has been added.",
+        "kindergarten-created": "A new kindergarten ({{name}}) has been created."
     },
     "manage-test-view": {
         "test-search": {
@@ -480,9 +482,11 @@
             "first-assessment": "First assessment",
             "last-assessment": "Last assessment",
             "status": "Status",
-            "details": "Details",
             "active": "Active",
-            "done": "Done"
+            "done": "Done",
+            "details": "See details",
+            "delete": "Delete",
+            "edit": "Edit"
         }
     },
     "add-test-view": {
@@ -505,15 +509,25 @@
             "kindergarten-name": "Name",
             "find-kindergarten": "Find kindergarten"
         },
+        "delete-test-dialog": {
+            "title": "Delete test",
+            "description": "Are you sure you want to delete the selected test?"
+        },
         "assessment-created": "A new assesment has been created",
+        "assessment-updated": "Assesment has been updated",
         "create-test": "Create a new test",
+        "update-test": "Save",
         "cancel": "Cancel",
+        "delete": "Delete",
         "errors": {
-            "name-too-short": "Test name is too short."
+            "name-too-short": "Test name is too short.",
+            "test-already-created": "Test created",
+            "test-already-updated": "Test updated"
         }
     },
     "add-child-modal": {
         "button": "Add",
+        "cancel": "Cancel",
         "heading": "Welcome on the website Mali Wspaniali",
         "description": "Enter your child's details before going to the home page.",
         "inputs": {

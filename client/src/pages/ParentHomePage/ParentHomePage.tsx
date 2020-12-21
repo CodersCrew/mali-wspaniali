@@ -9,39 +9,47 @@ import { Theme } from '../../theme/types';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 import { useLastArticles } from '../../operations/queries/Articles/getLastArticles';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
+import { useAddChild } from '../../operations/mutations/User/addChild';
 
 export const ParentHomePage = () => {
     const user = useMe();
+    const { addChild } = useAddChild();
     const { articles } = useLastArticles(6);
     const { t } = useTranslation();
     const classes = useStyles();
+
+    const { kindergartenList } = useKindergartens();
 
     useEffect(() => {
         activePage(['parent-menu.home']);
     }, []);
 
-    if (!user) return null;
+    if (!user || !kindergartenList) return null;
 
     return (
-        <Grid className={classes.container}>
-            <Grid item xs={12}>
-                <PageTitle text={t('home-page-content.greeting')} />
+        <>
+            <Grid className={classes.container}>
+                <Grid item xs={12}>
+                    <PageTitle text={t('home-page-content.greeting')} />
+                </Grid>
+                <Grid item xs={12}>
+                    <p className={classes.description}>
+                        <span>{t('home-page-content.check-children-activity')} </span>
+                        <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                    </p>
+                </Grid>
+                <HomePageChildren childrenList={user.children} handleModalSubmit={addChild} />
+                <HomePageArticles articles={articles} />
             </Grid>
-            <Grid item xs={12}>
-                <p className={classes.description}>
-                    <span>{t('home-page-content.check-children-activity')} </span>
-                    <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
-                </p>
-            </Grid>
-            <HomePageChildren childrenList={user.children} />
-            <HomePageArticles articles={articles} />
-        </Grid>
+        </>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
+            margin: 16,
             padding: '0 0 54px 0',
             fontFamily: 'Montserrat, sans-serif',
 

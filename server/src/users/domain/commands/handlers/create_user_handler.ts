@@ -17,17 +17,17 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   async execute(command: CreateUserCommand): Promise<User> {
     const { mail, password, keyCode } = command;
 
-    const existedKeyCode = await this.keyCodeRepository.isKeyCode(keyCode);
+    const existedKeyCode = await this.keyCodeRepository.getOne({ keyCode });
     const existedMail = await this.userRepository.getByMail(mail);
 
-    if (existedKeyCode && !existedMail) {
+    if (!!existedKeyCode && !existedMail) {
       const generatedSalt = await bcrypt.genSalt(10);
       const hashPasword = await bcrypt.hash(password, generatedSalt);
 
       const user = this.publisher.mergeObjectContext(
         await this.userRepository.create(
           { mail, password: hashPasword },
-          keyCode,
+          existedKeyCode,
         ),
       );
 

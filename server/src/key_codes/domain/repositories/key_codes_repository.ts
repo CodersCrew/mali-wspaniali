@@ -23,9 +23,23 @@ export class KeyCodeRepository {
     return await this.keyCodeModel.distinct('series').exec();
   }
 
-  async getOne(series: string): Promise<KeyCodeProps> {
+  async getOne({
+    series,
+    keyCode,
+  }: {
+    series?: string;
+    keyCode?: string;
+  }): Promise<KeyCodeProps> {
+    let query;
+
+    if (series) {
+      query = { series };
+    } else {
+      query = { keyCode };
+    }
+
     return await this.keyCodeModel
-      .findOne({ series })
+      .findOne(query)
       .lean()
       .exec();
   }

@@ -1,4 +1,4 @@
-import { Props } from 'src/shared/domain/value_object';
+import { Props } from '../../../shared/domain/value_object';
 import { ValueObject } from '../../../shared/domain/value_object';
 import { Result } from '../../../shared/domain/result';
 import { Guard } from '../../../shared/utils/guard';
@@ -8,6 +8,12 @@ type Value = Props<string>;
 export class SimpleDate extends ValueObject<string> {
   private constructor(props: Value) {
     super(props);
+  }
+
+  isGreaterThan(date: SimpleDate): boolean {
+    return (
+      new Date(this.props.value).valueOf() > new Date(date.value).valueOf()
+    );
   }
 
   public static create(value: string): Result<SimpleDate> {

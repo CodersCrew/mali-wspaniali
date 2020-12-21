@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import * as mongoose from 'mongoose';
 
 import { GetChildrenQuery } from '../impl/get_children_query';
 import { ChildRepository } from '../../repositories/child_repository';
@@ -8,6 +7,7 @@ import { ChildResultRepository } from '../../repositories/child_result_repositor
 import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
 import { ChildMapper } from '../../mappers/child_mapper';
 import { ChildWithKindergartenProps } from '../../../../users/domain/models/child_model';
+import { KindergartenMapper } from '../../../../kindergartens/domain/mappers/kindergarten_mapper';
 
 @QueryHandler(GetChildrenQuery)
 export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
@@ -22,7 +22,7 @@ export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
   async execute({
     ids,
   }: {
-    ids: mongoose.Schema.Types.ObjectId[];
+    ids: string[];
   }): Promise<ChildWithKindergartenProps[]> {
     const children = await this.childRepository.get(ids);
 
@@ -35,6 +35,10 @@ export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
       child.kindergarten.toString(),
     );
 
-    return { ...ChildMapper.toPersistence(child), results, kindergarten };
+    return {
+      ...ChildMapper.toPersistence(child),
+      results,
+      kindergarten: KindergartenMapper.toRaw(kindergarten),
+    };
   }
 }

@@ -1,18 +1,31 @@
-import * as mongoose from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 
-export interface AssessmentProps {
-  _id: string;
+export interface KindergartenWithInstructorDocumentProps {
+  kindergartenId: Types.ObjectId;
+  instructorId: Types.ObjectId | null;
+}
+
+interface AssessmentDocumentProps {
+  _id: Types.ObjectId;
   date: Date;
   title: string;
   isOutdated: boolean;
+  isDeleted: boolean;
   isSigned: boolean;
+  startDate: string;
+  endDate: string;
+  kindergartens: Array<KindergartenWithInstructorDocumentProps>;
 }
 
-export type AssessmentDocument = AssessmentProps & mongoose.Document;
+export type AssessmentDocument = AssessmentDocumentProps & Document;
 
-export const AssessmentSchema = new mongoose.Schema({
+export const AssessmentSchema = new Schema({
   title: String,
   isOutdated: {
+    type: Boolean,
+    default: false,
+  },
+  isDeleted: {
     type: Boolean,
     default: false,
   },
@@ -30,9 +43,9 @@ export const AssessmentSchema = new mongoose.Schema({
     type: [
       {
         _id: false,
-        kindergartenId: mongoose.Schema.Types.ObjectId,
+        kindergartenId: Schema.Types.ObjectId,
         instructorId: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Schema.Types.ObjectId,
           default: null,
         },
       },

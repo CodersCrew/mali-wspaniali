@@ -170,6 +170,7 @@ export interface KeyCodeSeries {
 export interface Assessment {
     _id: string;
     isOutdated: boolean;
+    isDeleted: boolean;
     title: string;
     startDate: string;
     endDate: string;
@@ -177,4 +178,8 @@ export interface Assessment {
         instructor: User | null;
         kindergarten: Kindergarten;
     }[];
+}
+
+export interface ReturnedStatusDTO {
+    status: boolean;
 }

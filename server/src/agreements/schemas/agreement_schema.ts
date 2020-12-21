@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
 export interface AgreementProps {
   _id: string;
@@ -8,9 +8,9 @@ export interface AgreementProps {
   isSigned: boolean;
 }
 
-export type AgreementDocument = AgreementProps & mongoose.Document;
+export type AgreementDocument = AgreementProps & Document;
 
-export const AgreementSchema = new mongoose.Schema({
+export const AgreementSchema = new Schema({
   date: {
     type: Date,
     default: Date.now,
