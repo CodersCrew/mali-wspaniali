@@ -26,7 +26,7 @@ export const Agreements = ({ agreements }: Props) => {
 
     return (
         <Box className={classes.wrapper}>
-            <Typography className={classes.heading}>{t('child-profile.agreements.heading')}</Typography>
+            <Typography variant="h3">{t('child-profile.agreements.heading')}</Typography>
             <Card className={classes.card}>
                 <Typography variant="h4" className={classes.title}>
                     {t('child-profile.agreements.title')}
@@ -43,15 +43,15 @@ export const Agreements = ({ agreements }: Props) => {
                                 classes={{ primary: classes.primary, secondary: classes.secondary }}
                                 primary={
                                     <span>
-                                    <Typography variant="subtitle1">
-                                            {t(`child-profile.agreements.general-title`)}
-                                    </Typography>
+                                        <Typography variant="subtitle1">
+                                            {t('child-profile.agreements.general-title')}
+                                        </Typography>
                                     </span>
                                 }
                                 secondary={
                                     <span>
                                         <Typography variant="body1">
-                                                {t(`child-profile.agreements.general-description`)}
+                                            {t('child-profile.agreements.general-description')}
                                         </Typography>
                                     </span>
                                 }
@@ -74,15 +74,15 @@ export const Agreements = ({ agreements }: Props) => {
                                         classes={{ primary: classes.primary, secondary: classes.secondary }}
                                         primary={
                                             <span>
-                                            <Typography variant="subtitle1">
+                                                <Typography variant="subtitle1">
                                                     {t(`child-profile.agreements.${agreement.text}-title`)}
-                                            </Typography>
+                                                </Typography>
                                             </span>
                                         }
                                         secondary={
                                             <span>
                                                 <Typography variant="body1">
-                                                        {t(`child-profile.agreements.${agreement.text}-description`)}
+                                                    {t(`child-profile.agreements.${agreement.text}-description`)}
                                                 </Typography>
                                             </span>
                                         }
@@ -123,11 +123,6 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start'
-        },
-        heading: {
-            fontSize: theme.typography.h3.fontSize,
-            lineHeight: theme.typography.h3.lineHeight,
-            fontWeight: theme.typography.h3.fontWeight,
         },
         title: {
             marginBottom: 24,
