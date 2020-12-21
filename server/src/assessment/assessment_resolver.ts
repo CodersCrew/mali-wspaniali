@@ -15,6 +15,11 @@ import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessment
 import { Assessment, AssessmentDto } from './domain/models/assessment_model';
 import { EditAssessmentCommand } from './domain/commands/impl/edit_assessment_command';
 import { AssessmentMapper } from './domain/mappers/assessment_mapper';
+import {
+  GetAllAssessmentsAssignedToInstructorQuery,
+  GetAssessmentsQuery,
+} from './domain/queries/impl';
+import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
@@ -48,9 +53,11 @@ export class AssessmentResolver {
 
   @Query(() => [AssessmentDTO])
   @UseGuards(GqlAuthGuard)
-  async assessments(): Promise<AssessmentDto[]> {
+  async assessments(@CurrentUser() user: LoggedUser): Promise<AssessmentDto[]> {
     const assessments: Assessment[] = await this.queryBus.execute(
-      new GetAllAssessmentsQuery(),
+      user.role === 'instructor'
+        ? new GetAllAssessmentsAssignedToInstructorQuery(user.userId)
+        : new GetAllAssessmentsQuery(),
     );
 
     return assessments.map(a => AssessmentMapper.toPersist(a));
