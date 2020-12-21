@@ -15,7 +15,6 @@ import {
 } from '@material-ui/core';
 import { ButtonSecondary } from '../../components/Button';
 
-import { lightTextColor, textColor } from '../../colors';
 import { Agreement } from '../../graphql/types';
 
 interface Props {
@@ -25,35 +24,40 @@ export const Agreements = ({ agreements }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    console.log(agreements)
-
     return (
         <Box className={classes.wrapper}>
             <Typography className={classes.heading}>{t('child-profile.agreements.heading')}</Typography>
             <Card className={classes.card}>
-                <Typography className={classes.title}>
+                <Typography variant="h4" className={classes.title}>
                     {t('child-profile.agreements.title')}
                 </Typography>
                 <Box className={classes.agreements}>
-                    <ListItem
-                        alignItems="flex-start"
-                    >
-                        <ListItemIcon className={classes.listItemIcon}>
-                            <Checkbox
-                                edge="start"
-                                checked={true}
-                                tabIndex={-1}
-                                disabled={true}
-
-                            />
-                        </ListItemIcon>
-                        <ListItemText
-                            className={classes.listItemText}
-                            primary={t(`child-profile.agreements.general-primary`)}
-                            secondary={t(`child-profile.agreements.general-secondary`)}
-                        />
-                    </ListItem>
                     <List>
+                        <ListItem
+                            alignItems="flex-start"
+                        >
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <Checkbox checked disabled />
+                            </ListItemIcon>
+                            <ListItemText
+                                classes={{ primary: classes.primary, secondary: classes.secondary }}
+                                primary={
+                                    <span>
+                                    <Typography variant="subtitle1">
+                                            {t(`child-profile.agreements.general-title`)}
+                                    </Typography>
+                                    </span>
+                                }
+                                secondary={
+                                    <span>
+                                        <Typography variant="body1">
+                                                {t(`child-profile.agreements.general-description`)}
+                                        </Typography>
+                                    </span>
+                                }
+                                
+                            />
+                        </ListItem>
                         {agreements.map((agreement) => {
                             return (
                                 <ListItem
@@ -62,16 +66,26 @@ export const Agreements = ({ agreements }: Props) => {
                                 >
                                     <ListItemIcon className={classes.listItemIcon}>
                                         <Checkbox
-                                            edge="start"
                                             checked={agreement.isSigned}
-                                            tabIndex={-1}
                                             color="primary"
                                         />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className={classes.listItemText}
-                                        primary={t(`child-profile.agreements.${agreement.text}-primary`)}
-                                        secondary={t(`child-profile.agreements.${agreement.text}-secondary`)}
+                                        classes={{ primary: classes.primary, secondary: classes.secondary }}
+                                        primary={
+                                            <span>
+                                            <Typography variant="subtitle1">
+                                                    {t(`child-profile.agreements.${agreement.text}-title`)}
+                                            </Typography>
+                                            </span>
+                                        }
+                                        secondary={
+                                            <span>
+                                                <Typography variant="body1">
+                                                        {t(`child-profile.agreements.${agreement.text}-description`)}
+                                                </Typography>
+                                            </span>
+                                        }
                                     />
                                 </ListItem>
                             );
@@ -96,8 +110,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         button: {
-            marginTop: "16px",
-            marginLeft: "40px",
+            marginTop: 16,
+            marginLeft: 40,
 
             [theme.breakpoints.down('md')]: {
                 marginLeft: 0,
@@ -105,7 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         card: {
             padding: 16,
-            marginTop: '32px',
+            marginTop: 32,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start'
@@ -116,11 +130,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: theme.typography.h3.fontWeight,
         },
         title: {
-            fontSize: 21,
-            fontWeight: 500,
-            lineHeight: 1.4,
-            color: textColor,
-            marginBottom: '24px',
+            marginBottom: 24,
         },
         listItemIcon: {
             position: 'relative',
@@ -128,20 +138,14 @@ const useStyles = makeStyles((theme: Theme) =>
             minWidth: 'unset',
             marginRight: 9,
         },
-        listItemText: {
-            '& .MuiListItemText-primary': {
-                marginBottom: 16,
-                fontSize: 16,
-                lineHeight: '24px',
-                color: textColor,
-            },
-            '& .MuiListItemText-secondary': {
-                fontSize: 16,
-                color: lightTextColor,
-            },
+        primary: {
+            marginBottom: 16,
+        },
+        secondary: {
+            color: theme.palette.text.secondary,
         },
         wrapper: {
-            padding: '24px',
+            padding: 24,
         }
     })
 );

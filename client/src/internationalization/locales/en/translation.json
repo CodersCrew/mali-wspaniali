@@ -223,12 +223,12 @@
             "heading": "Manage consents granted to the Mali Wspaniali Foundation. Have full control over the security of your personal data, being able to increase or limit the rights granted at any time.",
             "title": "Below you can check and edit the signed agreements.",
             "save": "Save",
-            "Image-primary": "Consent to disseminate the image.",
-            "Image-secondary": "Optional consent, but it allows us to use materials collected during the course, such as photos for promotional purposes, to encourage other parents to particopate in the program.",
-            "Marketing-primary": "Consent to receive marketing information to the provided e-mail address.",
-            "Marketing-secondary": "Optional consent, but thanks to this consent, we will be able to send you an e-mail with current information about the Mali Wspaniali program. We will inform you about our achievements from time to time.",
-            "general-primary": "Consent to participate in the Mali Wspaniali program.",
-            "general-secondary": "It is a compulsory consent, which is necessary for the child to participate in the activities conducted by Mali Wspaniali - it is impossible to uncheck it."
+            "Image-title": "Consent to disseminate the image.",
+            "Image-description": "Optional consent, but it allows us to use materials collected during the course, such as photos for promotional purposes, to encourage other parents to particopate in the program.",
+            "Marketing-title": "Consent to receive marketing information to the provided e-mail address.",
+            "Marketing-description": "Optional consent, but thanks to this consent, we will be able to send you an e-mail with current information about the Mali Wspaniali program. We will inform you about our achievements from time to time.",
+            "general-title": "Consent to participate in the Mali Wspaniali program.",
+            "general-description": "It is a compulsory consent, which is necessary for the child to participate in the activities conducted by Mali Wspaniali - it is impossible to uncheck it."
         },
         "recomendations": "Recomendations",
         "child-details": {
