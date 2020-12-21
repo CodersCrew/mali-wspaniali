@@ -4,7 +4,7 @@ import { Grid, makeStyles, Typography } from '@material-ui/core';
 
 import { LabeledContainer } from '../../components/LabeledContainer';
 import { AssessmentManagerState } from './useAssessmentManager';
-import { StatusChip } from '../AdminTestsPage/TestHistoryList/StatusChip';
+import { StatusChip } from '../AdminAssessmentManagementPage/AssessmentHistoryList/StatusChip';
 
 interface Props {
     assessment: AssessmentManagerState;

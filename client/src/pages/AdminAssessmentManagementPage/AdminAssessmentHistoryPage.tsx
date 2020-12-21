@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
-import { TestHistoryList } from './TestHistoryList/TestHistoryList';
+import { AssessmentHistoryList } from './AssessmentHistoryList/AssessmentHistoryList';
 import { ButtonSecondary } from '../../components/Button';
-import { useTests } from '../../operations/queries/Assessment/getAllAssessments';
+import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 
-export function TestManagementPage() {
+export function AdminAssessmentHistoryPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const history = useHistory();
-    const { testList } = useTests();
+    const { assessmentList } = useAssessments();
 
     useEffect(() => {
         activePage(['admin-menu.test-management']);
@@ -40,8 +40,8 @@ export function TestManagementPage() {
                         </ButtonSecondary>
                     </div>
                     <div className={classes.listContainer}>
-                        <TestHistoryList
-                            tests={testList}
+                        <AssessmentHistoryList
+                            tests={assessmentList}
                             onTestClick={(type, id) => {
                                 if (type === 'edit') {
                                     redirectToEditAssessmentPage(id);
