@@ -6,9 +6,9 @@ import { useHistory } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { AssessmentHistoryList } from './AssessmentHistoryList/AssessmentHistoryList';
 import { ButtonSecondary } from '../../components/Button';
-import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
+import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 
-export function AssessmentManagementPage() {
+export function AdminAssessmentHistoryPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const history = useHistory();
@@ -18,17 +18,40 @@ export function AssessmentManagementPage() {
         activePage(['admin-menu.test-management']);
     }, []);
 
+    function redirectToAddAssessmentPage() {
+        history.push('/admin/test-management/add');
+    }
+
+    function redirectToEditAssessmentPage(id: string) {
+        history.push(`/admin/test-management/${id}/edit`);
+    }
+
+    function redirectToDetailsAssessmentPage(id: string) {
+        history.push(`/admin/test-management/${id}/details`);
+    }
+
     return (
         <Grid container>
             <Grid item sm={12}>
                 <div className={classes.container}>
                     <div className={classes.searchContainer}>
-                        <ButtonSecondary variant="contained" onClick={() => history.push('/admin/test-management/add')}>
+                        <ButtonSecondary variant="contained" onClick={redirectToAddAssessmentPage}>
                             {t('manage-test-view.test-search.create-test')}
                         </ButtonSecondary>
                     </div>
                     <div className={classes.listContainer}>
-                        <AssessmentHistoryList assessments={assessmentList} />
+                        <AssessmentHistoryList
+                            tests={assessmentList}
+                            onTestClick={(type, id) => {
+                                if (type === 'edit') {
+                                    redirectToEditAssessmentPage(id);
+                                }
+
+                                if (type === 'details') {
+                                    redirectToDetailsAssessmentPage(id);
+                                }
+                            }}
+                        />
                     </div>
                 </div>
             </Grid>

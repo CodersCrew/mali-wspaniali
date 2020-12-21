@@ -1,9 +1,9 @@
-import * as mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { ChildProps } from '../domain/models/child_model';
 
-export type ChildDocument = ChildProps & mongoose.Document;
+export type ChildDocument = ChildProps & Document;
 
-export const ChildSchema = new mongoose.Schema({
+export const ChildSchema = new Schema({
   date: {
     type: Date,
     default: Date.now,
@@ -17,12 +17,12 @@ export const ChildSchema = new mongoose.Schema({
   },
   sex: String,
   results: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [Schema.Types.ObjectId],
     default: [],
   },
   isDeleted: {
     type: Boolean,
     default: false,
   },
-  kindergarten: mongoose.Types.ObjectId,
+  kindergarten: Schema.Types.ObjectId,
 });

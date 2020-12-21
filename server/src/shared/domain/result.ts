@@ -26,7 +26,6 @@ export class Result<T> {
 
   public getValue(): T {
     if (!this.isSuccess) {
-      console.log(this.error);
       if (this.error && typeof this.error === 'string') {
         throw new Error(this.error);
       }

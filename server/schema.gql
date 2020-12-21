@@ -81,6 +81,7 @@ type ChildDTO {
   sex: String!
   results: [ChildResultDTO!]!
   kindergarten: KindergartenDTO!
+  isDeleted: Boolean!
 }
 
 type AgreementDTO {
@@ -150,6 +151,7 @@ type KindergartenWithInstructorDTO {
 type AssessmentDTO {
   _id: ID!
   isOutdated: Boolean!
+  isDeleted: Boolean!
   title: String!
   startDate: String!
   endDate: String!
@@ -171,18 +173,19 @@ type Query {
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   newsletters: [NewsletterDTO!]!
   assessments: [AssessmentDTO!]!
+  assessment(id: String!): AssessmentDTO!
 }
 
 type Mutation {
   createArticle(article: ArticleInput!): ReturnedStatusDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
-  addChild(child: ChildInput!): ReturnedStatusDTO!
-  editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
-  addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   login(user: LoginInput!): ReturnedTokenDTO!
   resetPassword(mail: String!): ReturnedStatusDTO!
   changePassword(password: String!, jwt: String!): ReturnedStatusDTO!
   signAgreement(agreementId: String!): ReturnedStatusDTO!
+  addChild(child: ChildInput!): ChildDTO!
+  editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
+  addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   createKeyCode(target: String!): CreateKeyCodeDTO!
   createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createAgreement(agreement: String!): ReturnedStatusDTO!
@@ -192,7 +195,8 @@ type Mutation {
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
-  createAssessment(assessment: CreateAssessmentInput!): ReturnedStatusDTO!
+  createAssessment(assessment: AssessmentInput!): ReturnedStatusDTO!
+  updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): ReturnedStatusDTO!
 }
 
 input ArticleInput {
@@ -221,6 +225,11 @@ input UserInput {
   mail: String!
   password: String!
   keyCode: String!
+}
+
+input LoginInput {
+  mail: String!
+  password: String!
 }
 
 input ChildInput {
@@ -257,11 +266,6 @@ input ResultInput {
   testPeriod: String!
 }
 
-input LoginInput {
-  mail: String!
-  password: String!
-}
-
 input KindergartenInput {
   number: Int!
   name: String!
@@ -290,9 +294,18 @@ input NewsletterKindergartenInput {
   type: String!
 }
 
-input CreateAssessmentInput {
+input AssessmentInput {
   title: String!
   startDate: String!
   endDate: String!
   kindergartenIds: [String!]!
+}
+
+input UpdatedAssessmentInput {
+  title: String
+  startDate: String
+  endDate: String
+  kindergartens: [JSONObject!]
+  isOutdated: Boolean
+  isDeleted: Boolean
 }

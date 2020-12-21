@@ -2,18 +2,18 @@ import React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ThemeProvider } from '../theme/ThemeProvider';
 
-export type Decision = {
-    accepted?: boolean;
-};
+export type Decision<T = {}> = {
+    accepted: boolean;
+} & T;
 
 export interface ActionDialog<T = {}> {
     onClose: () => void;
-    makeDecision: (decision: Decision & T) => void;
+    makeDecision: (decision: Decision<T>) => void;
 }
 
 export interface DialogResult<T = {}> {
     close?: boolean;
-    decision?: Decision & T;
+    decision?: Decision<T>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,7 +33,7 @@ export function openDialog<T, G = {}>(Dialog: React.FC<any>, options: T): Promis
                             ReactDOM.unmountComponentAtNode(dialogElement);
                             resolve({ close: true });
                         }}
-                        makeDecision={(decision: Decision & G) => {
+                        makeDecision={(decision: Decision<G>) => {
                             ReactDOM.unmountComponentAtNode(dialogElement);
                             resolve({ decision, close: false });
                         }}

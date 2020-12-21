@@ -57,14 +57,12 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
                         </Typography>
                         <div className={classes.menuSide}>
                             <LanguageSelector language={language} onClick={onLanguageChange} />
-                            <IconButton aria-label="notifications" onClick={handleNotificationPopupClick}>
-                                <Notifications />
-                            </IconButton>
-                            {isNotificationPopupOpen && (
-                                <span ref={popupRef}>
-                                    <NotificationsPanel notifications={notifications} />
-                                </span>
-                            )}
+                            <span ref={popupRef}>
+                                <IconButton aria-label="notifications" onClick={handleNotificationPopupClick}>
+                                    <Notifications />
+                                </IconButton>
+                                {isNotificationPopupOpen && <NotificationsPanel notifications={notifications} />}
+                            </span>
                         </div>
                     </div>
                 </Toolbar>
