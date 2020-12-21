@@ -17,31 +17,31 @@ export function ChildRecommendations() {
             <Typography variant="h4" className={classes.title}>
                 {t('child-profile.recommendations.title')}
             </Typography>
-            <Typography className={classes.body}>
+            <Typography variant="body1" className={classes.body}>
                 <strong>{t('child-profile.recommendations.text1-1')}</strong>
                 {t('child-profile.recommendations.text1-2')}
                 <strong>{t('child-profile.recommendations.text1-3')}</strong>
                 {t('child-profile.recommendations.text1-4')}
             </Typography>
-            <Typography className={classes.subtitle}>
+            <Typography variant="subtitle1" className={classes.subtitle}>
                 {t('child-profile.recommendations.subtitle1')}
             </Typography>
-            <Typography className={classes.body}>
+            <Typography variant="body1" className={classes.body}>
                 {t('child-profile.recommendations.text2')}
             </Typography>
-            <Typography className={classes.subtitle}>
+            <Typography variant="subtitle1" className={classes.subtitle}>
                 {t('child-profile.recommendations.subtitle2')}
             </Typography>
-            <Typography className={classes.body}>
+            <Typography variant="body1" className={classes.body}>
                 {t('child-profile.recommendations.text3')}
             </Typography>
-            <Typography className={classes.subtitle}>
+            <Typography variant="subtitle1" className={classes.subtitle}>
                 {t('child-profile.recommendations.subtitle3')}
             </Typography>
-            <Typography className={classes.body}>
+            <Typography variant="body1" className={classes.body}>
                 {t('child-profile.recommendations.text4')}
             </Typography>
-            <Typography className={classes.subtitle}>
+            <Typography variant="subtitle1" className={classes.subtitle}>
                 {t('child-profile.recommendations.subtitle4')}
             </Typography>
         </Box>
@@ -80,10 +80,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.text.secondary,
         },
         subtitle: {
-            fontSize: '16px',
-            lineHeight: '20px',
             fontWeight: 600,
-            letterSpacing: '0.5px',
             color: theme.palette.text.secondary,
             marginBottom: '16px',
         },
