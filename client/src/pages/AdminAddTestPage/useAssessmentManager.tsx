@@ -6,7 +6,7 @@ import { useCreateAssessment } from '../../operations/mutations/Assessment/creat
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { formatDate } from '../../utils/formatDate';
 import { useAssessment } from '../../operations/queries/Assessment/getAssessment';
-import { useUpdateAssessment } from '../../operations/queries/Assessment/updateAssessment';
+import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 

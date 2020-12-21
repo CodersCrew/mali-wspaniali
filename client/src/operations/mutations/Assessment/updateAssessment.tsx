@@ -1,7 +1,7 @@
 import { gql, useMutation, FetchResult } from '@apollo/client';
 import { ReturnedStatusDTO } from '../../../graphql/types';
-import { AssessmentResponse, GET_ASSESSMENT } from './getAssessment';
-import { KindergartenListResponse, KINDERGARTENS } from '../Kindergartens/getKindergartens';
+import { AssessmentResponse, GET_ASSESSMENT } from '../../queries/Assessment/getAssessment';
+import { KindergartenListResponse, KINDERGARTENS } from '../../queries/Kindergartens/getKindergartens';
 
 interface UpdatedAssessmentInput {
     title: string;
