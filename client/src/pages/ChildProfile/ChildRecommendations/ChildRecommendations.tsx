@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
-            borderRadius: '4px',
+            borderRadius: theme.spacing(0.5),
             background: theme.palette.primary.contrastText,
             margin: theme.spacing(3),
             padding: theme.spacing(2),
@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
 
             [theme.breakpoints.down('xs')]: {
-                margin: '24px 16px 24px',
-                padding: '12px 16px 12px',
+                margin: theme.spacing(3, 2, 3),
+                padding: theme.spacing(1.5, 2, 1.5),
             },
         },
         title: {
