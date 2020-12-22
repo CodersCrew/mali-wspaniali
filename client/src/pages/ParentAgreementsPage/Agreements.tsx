@@ -13,8 +13,8 @@ import {
     ListItemIcon,
     Checkbox,
 } from '@material-ui/core';
-import { ButtonSecondary } from '../../components/Button';
 
+import { ButtonSecondary } from '../../components/Button';
 import { Agreement } from '../../graphql/types';
 
 interface Props {
@@ -103,44 +103,44 @@ export const Agreements = ({ agreements }: Props) => {
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({
         agreements: {
-            padding: '0 40px',
+            padding: theme.spacing(0, 5),
 
             [theme.breakpoints.down('md')]: {
                 padding: 0,
             },
         },
         button: {
-            marginTop: 16,
-            marginLeft: 40,
+            marginTop: theme.spacing(2),
+            marginLeft: theme.spacing(5),
 
             [theme.breakpoints.down('md')]: {
-                marginLeft: 0,
+                marginLeft: theme.spacing(0),
             },
         },
         card: {
-            padding: 16,
-            marginTop: 32,
+            padding: theme.spacing(2),
+            marginTop: theme.spacing(4),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start'
         },
         title: {
-            marginBottom: 24,
+            marginBottom: theme.spacing(3),
         },
         listItemIcon: {
             position: 'relative',
             top: -10,
             minWidth: 'unset',
-            marginRight: 9,
+            marginRight: theme.spacing(1),
         },
         primary: {
-            marginBottom: 16,
+            marginBottom: theme.spacing(2),
         },
         secondary: {
             color: theme.palette.text.secondary,
         },
         wrapper: {
-            padding: 24,
+            padding: theme.spacing(3),
         }
     })
 );
