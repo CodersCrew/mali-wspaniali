@@ -2,9 +2,6 @@ import React from 'react';
 import { makeStyles, createStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { cardBackgroundColor } from '../../../colors';
-
-
 export function ChildRecommendations() {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -55,13 +52,13 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: '4px',
-            background: cardBackgroundColor,
-            margin: '24px',
-            padding: '16px',
+            background: theme.palette.primary.contrastText,
+            margin: theme.spacing(3),
+            padding: theme.spacing(2),
 
             [theme.breakpoints.down('md')]: {
-                margin: '24',
-                padding: '16px',
+                margin: theme.spacing(3),
+                padding: theme.spacing(2),
             },
 
             [theme.breakpoints.down('xs')]: {
@@ -70,19 +67,19 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         title: {
-            marginBottom: '24px',
+            marginBottom: theme.spacing(3),
         },
         panelTitle: {
-            marginBottom: '36px',
+            marginBottom: theme.spacing(4.5),
         },
         body: {
-            marginBottom: '16px',
+            marginBottom: theme.spacing(2),
             color: theme.palette.text.secondary,
         },
         subtitle: {
             fontWeight: 600,
             color: theme.palette.text.secondary,
-            marginBottom: '16px',
+            marginBottom: theme.spacing(2),
         },
     }),
 );
