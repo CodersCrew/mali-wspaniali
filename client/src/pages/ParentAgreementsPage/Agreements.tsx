@@ -50,7 +50,7 @@ export const Agreements = ({ agreements }: Props) => {
                                 }
                                 secondary={
                                     <span>
-                                        <Typography variant="body1">
+                                        <Typography variant="body1" component="span">
                                             {t('child-profile.agreements.general-description')}
                                         </Typography>
                                     </span>
@@ -81,7 +81,7 @@ export const Agreements = ({ agreements }: Props) => {
                                         }
                                         secondary={
                                             <span>
-                                                <Typography variant="body1">
+                                                <Typography variant="body1" component="span">
                                                     {t(`child-profile.agreements.${agreement.text}-description`)}
                                                 </Typography>
                                             </span>
