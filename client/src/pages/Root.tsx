@@ -28,11 +28,11 @@ import { AdminInstructorsPage } from './AdminInstructorsPage/AdminInstructorsPag
 import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreementsPageConatianer';
 import { AddResultsPage } from './AddResultsPage/AddResultsPage';
 import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
-import { TestManagementPage } from './AdminTestsPage/AdminTestsPage';
+import { AdminAssessmentHistoryPage } from './AdminAssessmentManagementPage/AdminAssessmentHistoryPage';
 import { AdminRecommendationsPage } from './AdminRecommendationsPage/AdminRecommendationsPage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 import { ThemeProvider } from '../theme/ThemeProvider';
-import { AdminManageTestPage } from './AdminAddTestPage/AdminManageTestPage';
+import { AdminManageSingleAssessmentPage } from './AdminAddTestPage/AdminManageSingleAssessmentPage';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -68,10 +68,16 @@ export function Root() {
                                 <Route path="/admin/article/create" component={CreateArticlePage} />
                                 <Route path="/admin/archive" component={ArchivePage} />
                                 <Route path="/admin/notifications" component={NotificationsPage} />
-                                <Route path="/admin/test-management/add" component={AdminManageTestPage} />
-                                <Route path="/admin/test-management/:id/edit" component={AdminManageTestPage} />
-                                <Route path="/admin/test-management/:id/details" component={AdminManageTestPage} />
-                                <Route path="/admin/test-management" component={TestManagementPage} />
+                                <Route path="/admin/test-management/add" component={AdminManageSingleAssessmentPage} />
+                                <Route
+                                    path="/admin/test-management/:id/edit"
+                                    component={AdminManageSingleAssessmentPage}
+                                />
+                                <Route
+                                    path="/admin/test-management/:id/details"
+                                    component={AdminManageSingleAssessmentPage}
+                                />
+                                <Route path="/admin/test-management" component={AdminAssessmentHistoryPage} />
                                 <Route path="/admin/recommendations" component={AdminRecommendationsPage} />
                                 <Route path="/admin/keycodes" component={AdminCodesPage} />
                                 <Route path="/admin/instructors" component={AdminInstructorsPage} />

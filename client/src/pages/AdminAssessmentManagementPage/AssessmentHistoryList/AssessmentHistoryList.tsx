@@ -2,15 +2,15 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { TestItem } from './TestItem';
-import { BasicTest } from '../../../operations/queries/Assessment/getAllAssessments';
+import { AssessmentItem } from './AssessmentItem';
+import { Assessment } from '../../../graphql/types';
 
 interface Props {
-    tests: BasicTest[];
+    assessments: Assessment[];
     onTestClick: (type: string, id: string) => void;
 }
 
-export function TestHistoryList({ tests, onTestClick }: Props) {
+export function AssessmentHistoryList({ assessments, onTestClick }: Props) {
     const { t } = useTranslation();
 
     return (
@@ -25,8 +25,8 @@ export function TestHistoryList({ tests, onTestClick }: Props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tests.map(test => {
-                        return <TestItem key={test.title} value={test} onClick={onTestClick} />;
+                    {assessments.map(assessment => {
+                        return <AssessmentItem key={assessment.title} value={assessment} onClick={onTestClick} />;
                     })}
                 </TableBody>
             </Table>

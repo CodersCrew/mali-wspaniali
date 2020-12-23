@@ -79,7 +79,6 @@
         "req": "* wymagane"
     },
     "admin-setting-page": {
-        "account-management": "Zarządzanie kontami",
         "keycode-generation": {
             "title": "Generowanie kluczy",
             "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
@@ -269,7 +268,6 @@
                 "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
             }
         },
-        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
         "recommendations": {
             "recommendations": "Rekomendacje",
             "panel-title": "Rekomendacja  - Jak poprawić sprawność dziecka",
@@ -285,6 +283,17 @@
             "subtitle3": "Sen jest kluczowy dla zdrowia i rozwoju:",
             "text4": "Przedszkolaki 3-5 lat powinny spać od 10 do 13 godzin na dobę. Dzieci 6-13 lat, od 9 do 11 godzin.",
             "subtitle4": "Śpij na zdrowie!"
+        },
+        "agreements": {
+            "heading": "Zarządzaj zgodami udzielonymi fundacji Mali Wspaniali. Miej pełną kontrolę nad bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia.",
+            "title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
+            "save": "Zapisz",
+            "Image-title": "Zgoda na rozpowszechnianie wizerunku.",
+            "Image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do udziału w programie.",
+            "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+            "Marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+            "general-title": "Zgoda na udział w programie Mali Wspaniali.",
+            "general-description": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe."
         },
         "child-details": {
             "page": "Dane dziecka",
@@ -608,5 +617,37 @@
         "reset-old-password": "Zresetuj hasło",
         "something-went-wrong": "Coś poszło nie tak. Skontaktuj się z Administratorem.",
         "wrong-old-password": "Niepoprawne hasło"
+    },
+    "admin-instructors-page": {
+        "table": {
+            "firstName": "Imię",
+            "lastName": "Nazwisko",
+            "email": "Adres e-mail",
+            "kindergarten-count": "Liczba przedszkoli",
+            "tooltip": "Przydziel do przedszkola"
+        },
+        "table-toolbar": {
+            "select-test": "Wybierz test",
+            "instructor-search": "Szukaj instruktora",
+            "unassigned-kindergartens": "Nieprzydzielone przedszkola"
+        },
+        "snackbars": {
+            "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+        }
+    },
+    "add-results-page": {
+        "test-name":"Nazwa testu",
+        "kindergarten-name": "Przedszkole",
+        "search-by-child-firstname": "Szukaj po imieniu dziecka", 
+        "firstname": "Imie",
+        "lastname": "Nazwisko",
+        "birth-year": "Rok urodzenia",
+        "birth-quarter": "Kwartał urodzenia",
+        "first-assessment": "Próba początkowa",
+        "last-assessment": "Próba końcowa",
+        "see-results": "Zobacz wyniki",
+        "add-first-assessment-result": "Dodaj wyniki próby początkowej",
+        "add-last-assessment-result": "Dodaj wyniki próby końcowej",
+        "add-note": "Dodaj notatkę"
     }
 }

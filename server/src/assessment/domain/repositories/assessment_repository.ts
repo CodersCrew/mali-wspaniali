@@ -59,6 +59,30 @@ export class AssessmentRepository {
       });
   }
 
+  getAllAssignedToInstructor(instructorId: any): Promise<Assessment[]> {
+    return this.model
+      .find({
+        'kindergartens.instructorId': instructorId,
+      })
+      .lean()
+      .exec()
+      .then(fetchAssessments => {
+        return fetchAssessments.map(assessment => {
+          const _id = (assessment._id as Types.ObjectId).toHexString();
+
+          const stringifiedKindergartenWithInstructor = assessment.kindergartens
+            .map(k => this.mapToRawKindergarten(k))
+            .filter(k => k.instructorId === instructorId);
+
+          return AssessmentMapper.toDomain({
+            ...assessment,
+            _id,
+            kindergartens: stringifiedKindergartenWithInstructor,
+          });
+        });
+      });
+  }
+
   async create(newAssessment: Assessment): Promise<Assessment> {
     const createdAssessment = new this.model(
       AssessmentMapper.toPersist(newAssessment),

@@ -15,7 +15,7 @@ import { EditableBasicInformationForm } from './EditableBasicInformationForm';
 import { KindergartenList } from './KindergartenList';
 import { openQuestionDialog } from '../../components/QuestionDialog';
 
-export function AdminManageTestPage() {
+export function AdminManageSingleAssessmentPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const history = useHistory();

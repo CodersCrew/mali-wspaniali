@@ -79,7 +79,6 @@
         "req": "* required"
     },
     "admin-setting-page": {
-        "account-management": "Account management",
         "keycode-generation": {
             "title": "KeyCode generate",
             "description": "Choose for whom you want to generate registration codes and enter their number. After pressing “GENERATE” the codes will be exported to an .xlsx file. The keys will be active for 7 days. After this time, new keys should be generated.",
@@ -219,7 +218,6 @@
                 "text4": "text4 (placeholder)"
             }
         },
-        "agreements-title": "Below you can check and edit the signed agreements.",
         "recommendations": {
             "recommendations": "Recommendations",
             "panel-title": "Recommendation  - How to improve child's fitness",
@@ -235,6 +233,17 @@
             "subtitle3": "Sleep is key to health and development:",
             "text4": "Preschoolers 3-5 years old should sleep 10 to 13 hours a day. Children 6-13 years old, from 9 to 11 hours.",
             "subtitle4": "Sleep for health!"
+        },
+        "agreements": {
+            "heading": "Manage consents granted to the Mali Wspaniali Foundation. Have full control over the security of your personal data, being able to increase or limit the rights granted at any time.",
+            "title": "Below you can check and edit the signed agreements.",
+            "save": "Save",
+            "Image-title": "Consent to disseminate the image.",
+            "Image-description": "Optional consent, but it allows us to use materials collected during the course, such as photos for promotional purposes, to encourage other parents to particopate in the program.",
+            "Marketing-title": "Consent to receive marketing information to the provided e-mail address.",
+            "Marketing-description": "Optional consent, but thanks to this consent, we will be able to send you an e-mail with current information about the Mali Wspaniali program. We will inform you about our achievements from time to time.",
+            "general-title": "Consent to participate in the Mali Wspaniali program.",
+            "general-description": "It is a compulsory consent, which is necessary for the child to participate in the activities conducted by Mali Wspaniali - it is impossible to uncheck it."
         },
         "child-details": {
             "page": "Child's details",
@@ -609,5 +618,37 @@
         "reset-old-password": "Reset password",
         "something-went-wrong": "Something went wrong. Contact your Administrator.",
         "wrong-old-password": "Incorrect password"
+    },
+    "admin-instructors-page": {
+        "table": {
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "E-mail address",
+            "kindergarten-count": "Kindergarten count",
+            "tooltip": "Assign to kindergarten"
+        },
+        "table-toolbar": {
+            "select-test": "Select test",
+            "instructor-search": "Search for instructor",
+            "unassigned-kindergartens": "Unassigned kidnergartens"
+        },
+        "snackbars": {
+            "info": "To add unassigned kindergarten, select the instructor and assign him/her to selected kindergarten"
+        }
+    },
+    "add-results-page": {
+        "test-name":"Test name",
+        "kindergarten-name": "Kindergarten",
+        "search-by-child-firstname": "Search by child's first name", 
+        "firstname": "First name",
+        "lastname": "Last name",
+        "birth-year": "Birth year",
+        "birth-quarter": "Birth quarter",
+        "first-assessment": "First test",
+        "last-assessment": "Last test",
+        "see-results": "See results",
+        "add-first-assessment-result": "Add first test result",
+        "add-last-assessment-result": "Add last test result",
+        "add-note": "Add note"
     }
 }

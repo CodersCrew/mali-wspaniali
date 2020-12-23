@@ -1,14 +1,45 @@
 import { gql, useQuery } from "@apollo/client";
 import { Assessment } from '../../../graphql/types';
 
-export type BasicTest = Omit<Assessment, 'kindergartens'>;
+interface GetAllAssessmentsResponse {
+    assessments: Assessment[];
+}
 
-interface TestListResponse {
-    assessments: BasicTest[];
+interface UseAssessmentReturn {
+    assessments: Assessment[];
+    areAssessmentsLoading: boolean
+}
+
+interface Options {
+    withChildren?: boolean
 }
 
 
-const GET_ALL_ASSESSMENTS = gql`
+export const GET_ALL_ASSESSMENTS = gql`
+{
+    assessments {
+        _id
+        isOutdated
+        isDeleted
+        title
+        startDate
+        endDate
+        kindergartens {
+            kindergarten {
+                _id
+                name
+                number
+            }
+            instructor {
+                _id
+                mail
+            }
+        }
+    }
+}
+`;
+
+const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
     {
         assessments {
             _id
@@ -17,15 +48,35 @@ const GET_ALL_ASSESSMENTS = gql`
             title
             startDate
             endDate
+            kindergartens {
+                kindergarten {
+                    _id
+                    name
+                    number
+                    children {
+                        _id
+                        firstname
+                        lastname
+                        birthYear
+                        birthQuarter
+                    }
+                }
+                instructor {
+                    _id
+                    mail
+                }
+            }
         }
     }
 `;
 
-export function useTests() {
-    const { data, loading } = useQuery<TestListResponse>(GET_ALL_ASSESSMENTS);
+export function useAssessments(options?: Options): UseAssessmentReturn {
+    const query = options?.withChildren ? GET_ALL_ASSESSMENTS_WITH_CHILDREN: GET_ALL_ASSESSMENTS;
+    
+    const { data, loading } = useQuery<GetAllAssessmentsResponse>(query);
 
     return {
-        testList: data?.assessments || [],
-        isTestListLoading: loading
+        assessments: data?.assessments || [],
+        areAssessmentsLoading: loading
     }
 }
