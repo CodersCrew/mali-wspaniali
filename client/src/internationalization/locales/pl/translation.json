@@ -79,7 +79,6 @@
         "req": "* wymagane"
     },
     "admin-setting-page": {
-        "account-management": "Zarządzanie kontami",
         "keycode-generation": {
             "title": "Generowanie kluczy",
             "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
@@ -610,5 +609,20 @@
         "snackbars": {
             "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
         }
+    },
+    "add-results-page": {
+        "test-name":"Nazwa testu",
+        "kindergarten-name": "Przedszkole",
+        "search-by-child-firstname": "Szukaj po imieniu dziecka", 
+        "firstname": "Imie",
+        "lastname": "Nazwisko",
+        "birth-year": "Rok urodzenia",
+        "birth-quarter": "Kwartał urodzenia",
+        "first-assessment": "Próba początkowa",
+        "last-assessment": "Próba końcowa",
+        "see-results": "Zobacz wyniki",
+        "add-first-assessment-result": "Dodaj wyniki próby początkowej",
+        "add-last-assessment-result": "Dodaj wyniki próby końcowej",
+        "add-note": "Dodaj notatkę"
     }
 }

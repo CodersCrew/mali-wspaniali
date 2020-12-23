@@ -33,14 +33,14 @@ export function useUpdateAssessment(id: string): UpdateAssessment {
             return updateAssessment({
                 variables: { id, assessment: updatedAssessment },
                 update(cache) {
-                    const cachedAssessment: AssessmentResponse | null = cache.readQuery({
+                    const cachedAssessment = cache.readQuery<AssessmentResponse>({
                         query: GET_ASSESSMENT,
                         variables: { id },
                     });
 
                     if (!cachedAssessment) return;
 
-                    const kindergartenList: KindergartenListResponse = cache.readQuery({ query: KINDERGARTENS }) || {
+                    const kindergartenList = cache.readQuery<KindergartenListResponse>({ query: KINDERGARTENS }) || {
                         kindergartens: [],
                     };
 

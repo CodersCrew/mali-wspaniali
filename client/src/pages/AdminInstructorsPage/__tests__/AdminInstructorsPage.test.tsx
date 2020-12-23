@@ -6,7 +6,7 @@ import { AdminInstructorsPage } from '../AdminInstructorsPage';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { INSTRUCTORS } from '../../../operations/queries/Users/getUsersByRole';
-import { ASSESSMENTS } from '../../../operations/queries/Assessments/getAllAssessments';
+import { GET_ALL_ASSESSMENTS } from '../../../operations/queries/Assessment/getAllAssessments';
 import { renderWithMock } from '../../../utils/testing/renderWithMockedProvider';
 
 const populatedMockedResponse: MockedResponse[] = [
@@ -35,7 +35,7 @@ const populatedMockedResponse: MockedResponse[] = [
     },
     {
         request: {
-            query: ASSESSMENTS,
+            query: GET_ALL_ASSESSMENTS,
         },
         result: {
             data: {
@@ -43,6 +43,7 @@ const populatedMockedResponse: MockedResponse[] = [
                     {
                         _id: '1',
                         isOutdated: false,
+                        isDeleted: false,
                         title: 'test-assessment1',
                         startDate: '2000-01-01',
                         endDate: '2000-01-31',
@@ -63,6 +64,7 @@ const populatedMockedResponse: MockedResponse[] = [
                     {
                         _id: '2',
                         isOutdated: false,
+                        isDeleted: false,
                         title: 'test-assessment2',
                         startDate: '2000-01-01',
                         endDate: '2000-01-31',

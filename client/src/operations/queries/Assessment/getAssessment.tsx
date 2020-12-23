@@ -6,6 +6,11 @@ export interface AssessmentResponse {
     assessment: Assessment;
 }
 
+interface UseAssessmentReturn { 
+    assessment: Assessment | undefined;
+    isAssessmentLoading: boolean
+}
+
 export const GET_ASSESSMENT = gql`
     query Assessment($id: String!) {
         assessment(id: $id) {
@@ -28,7 +33,7 @@ export const GET_ASSESSMENT = gql`
     }
 `;
 
-export function useAssessment(id: string | undefined): { assessment: Assessment | undefined; isTestListLoading: boolean } {
+export function useAssessment(id: string | undefined): UseAssessmentReturn  {
     const [getTest, { data, loading }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT);
 
     useEffect(() => {
@@ -39,6 +44,6 @@ export function useAssessment(id: string | undefined): { assessment: Assessment 
 
     return {
         assessment: data?.assessment,
-        isTestListLoading: loading
+        isAssessmentLoading: loading
     }
 }

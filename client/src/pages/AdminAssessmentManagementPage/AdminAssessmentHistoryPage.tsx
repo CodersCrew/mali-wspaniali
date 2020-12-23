@@ -12,7 +12,7 @@ export function AdminAssessmentHistoryPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const history = useHistory();
-    const { assessmentList } = useAssessments();
+    const { assessments } = useAssessments();
 
     useEffect(() => {
         activePage(['admin-menu.test-management']);
@@ -41,7 +41,7 @@ export function AdminAssessmentHistoryPage() {
                     </div>
                     <div className={classes.listContainer}>
                         <AssessmentHistoryList
-                            tests={assessmentList}
+                            assessments={assessments}
                             onTestClick={(type, id) => {
                                 if (type === 'edit') {
                                     redirectToEditAssessmentPage(id);

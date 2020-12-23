@@ -69,6 +69,7 @@ type KindergartenDTO {
   name: String!
   city: String!
   address: String!
+  children: [ChildDTO!]!
 }
 
 type ChildDTO {
