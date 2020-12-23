@@ -7,6 +7,7 @@ import { emailTest } from '../RegistrationPage/emailTest';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
+import { openBtnSnackbar } from '../../components/Snackbar/openBtnSnackbar';
 
 const initialError: Error = {
     name: '',
@@ -27,6 +28,8 @@ export const LoginPage = () => {
         error => setLoginError(error),
     );
 
+
+
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         if(!clientValidation()) return;
@@ -34,8 +37,11 @@ export const LoginPage = () => {
     };
     const clientValidation = (): boolean=>{
         if(!emailTest(email) || (password !== 'testtest' && (!passwordStrengthTest(password) || !passwordCapitalTest(password) || !passwordSpecialTest(password) || !passwordLengthTest(password) || !passwordDigitTest(password)))){
-            setLoginError({name:'login-page.login-error', message:''});
+            // setLoginError({name:'login-page.login-error', message:''});
+            // openBtnSnackbar({ text: 'Email lub hasło jest nieprawidłowe', severity: 'error', btnText:'OK' });
+            openBtnSnackbar({ text: t('login-page.login-error'), severity: 'error', btnText:'OK' });
 
+            
             return false;
         }
         
@@ -55,7 +61,7 @@ export const LoginPage = () => {
                     variant="outlined"
                     error={loginError.name === 'auth/user-not-found' || loginError.name === 'login-page.login-error' || loginError.name === 'Error'}
                     helperText={
-                        (()=>{
+                        (()=>{ // do poprawy
                             switch(loginError.name){
                             case 'login-page.login-notfound':
                                 return t('login-page.login-notfound');
