@@ -9,7 +9,6 @@ import {
     createStyles,
 } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
-import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { childProfileCategoriesList } from './ChildProfileCategory';
@@ -68,15 +67,10 @@ export const ChildResultsPage = () => {
                 values={childProfileCategoriesList}
                 device={device}
             />
-            <Grid container className={classes.header}>
-                <PageTitle text={`${child.firstname} ${child.lastname}`} />
-                <Typography className={classes.kindergarten}>
-                    {child.kindergarten.name}
-                </Typography>
-            </Grid>
+            <div className={classes.container}>
             {category === 'results' && (
                 <>
-                    <Typography className={classes.description}>
+                    <Typography variant="h3" className={classes.description}>
                         {t('child-profile.description')}
                     </Typography>
                     <ChildProfileResults
@@ -88,6 +82,7 @@ export const ChildResultsPage = () => {
             {category === 'recommendations' && <ChildRecommendations />}
             {category === 'tests-information' && <ChildProfileAboutTests />}
             {category === 'details' && <ChildDetails child={child} />}
+            </div>
         </>
     );
 };
@@ -100,20 +95,14 @@ function EmptyProfile() {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        header: {
-            display: 'flex',
-            alignItems: 'center',
-            margin: '24px',
-        },
-        kindergarten: {
-            fontSize: '21px',
-            fontWeight: 700,
-            marginLeft: '60px',
+        container: {
+            margin: theme.spacing(3),
+            [theme.breakpoints.down('xs')]: {
+                margin: theme.spacing(3, 2),
+            },
         },
         description: {
-            fontSize: '21px',
-            fontWeight: 500,
-            margin: '0 24px',
-        },
+            marginBottom: 40,
+        }
     }),
 );
