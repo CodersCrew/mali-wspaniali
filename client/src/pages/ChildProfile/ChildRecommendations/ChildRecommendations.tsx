@@ -53,16 +53,13 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: theme.spacing(0.5),
             background: theme.palette.primary.contrastText,
-            margin: theme.spacing(3),
             padding: theme.spacing(2),
 
             [theme.breakpoints.down('md')]: {
-                margin: theme.spacing(3),
                 padding: theme.spacing(2),
             },
 
             [theme.breakpoints.down('xs')]: {
-                margin: theme.spacing(3, 2, 3),
                 padding: theme.spacing(1.5, 2, 1.5),
             },
         },
