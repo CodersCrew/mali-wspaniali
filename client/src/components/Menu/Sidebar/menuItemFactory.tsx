@@ -146,9 +146,9 @@ function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): Menu
         },
         {
             icon: <Icon icon={<ThumbUp />} />,
-            name: t('parent-menu.child.recomendations'),
-            link: `/parent/child/${child._id}/recomendations`,
-            active: active.includes(`/parent/child/${child._id}/recomendations`),
+            name: t('parent-menu.child.recommendations'),
+            link: `/parent/child/${child._id}/recommendations`,
+            active: active.includes(`/parent/child/${child._id}/recommendations`),
         },
         {
             icon: <Icon icon={<Notes />} />,

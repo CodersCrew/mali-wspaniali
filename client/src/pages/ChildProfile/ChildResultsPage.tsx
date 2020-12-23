@@ -14,7 +14,7 @@ import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { childProfileCategoriesList } from './ChildProfileCategory';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
-import { Recomendations } from './Recomendations/Recomendations';
+import { ChildRecommendations } from './ChildRecommendations/ChildRecommendations';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests/ChildProfileAboutTests';
 import { ChildDetails } from './Details/ChildDetails';
 import { useMe } from '../../utils/useMe';
@@ -74,16 +74,18 @@ export const ChildResultsPage = () => {
                     {child.kindergarten.name}
                 </Typography>
             </Grid>
-            <Typography className={classes.description}>
-                {t('child-profile.description')}
-            </Typography>
             {category === 'results' && (
-                <ChildProfileResults
-                    child={child}
-                    onNoResultClick={() => onTabChange('tests-information')}
-                />
+                <>
+                    <Typography className={classes.description}>
+                        {t('child-profile.description')}
+                    </Typography>
+                    <ChildProfileResults
+                        child={child}
+                        onNoResultClick={() => onTabChange('tests-information')}
+                    />
+                </>
             )}
-            {category === 'recomendations' && <Recomendations />}
+            {category === 'recommendations' && <ChildRecommendations />}
             {category === 'tests-information' && <ChildProfileAboutTests />}
             {category === 'details' && <ChildDetails child={child} />}
         </>
@@ -101,6 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
         header: {
             display: 'flex',
             alignItems: 'center',
+            margin: '24px',
         },
         kindergarten: {
             fontSize: '21px',
@@ -110,7 +113,7 @@ const useStyles = makeStyles((theme: Theme) =>
         description: {
             fontSize: '21px',
             fontWeight: 500,
-            marginTop: '10px',
+            margin: '0 24px',
         },
     }),
 );
