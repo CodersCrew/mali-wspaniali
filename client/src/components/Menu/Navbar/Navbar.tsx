@@ -58,7 +58,11 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
                         <div className={classes.menuSide}>
                             <LanguageSelector language={language} onClick={onLanguageChange} />
                             <span ref={popupRef}>
-                                <IconButton aria-label="notifications" onClick={handleNotificationPopupClick}>
+                                <IconButton
+                                    aria-label="notifications"
+                                    onClick={handleNotificationPopupClick}
+                                    color={notifications.find(n => !n.isRead) ? 'secondary' : 'default'}
+                                >
                                     <Notifications />
                                 </IconButton>
                                 {isNotificationPopupOpen && <NotificationsPanel notifications={notifications} />}
