@@ -9,26 +9,17 @@ import { ButtonSecondary } from '../../components/Button';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { openBtnSnackbar } from '../../components/Snackbar/openBtnSnackbar';
 
-const initialError: Error = {
-    name: '',
-    message: '',
-};
-
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loginError, setLoginError] = useState(initialError);
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();
     const { authorizeMe } = useAuthorizeMe(
-        user => {
-            history.push(`/${user.role}`);
-        },
-        error => setLoginError(error),
+        user => { history.push(`/${user.role}`); },
+        error => { openBtnSnackbar({ text: t(error.name), severity: 'error', btnText:'OK' }); }
+        
     );
-
-
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -37,9 +28,7 @@ export const LoginPage = () => {
     };
     const clientValidation = (): boolean=>{
         if(!emailTest(email) || (password !== 'testtest' && (!passwordStrengthTest(password) || !passwordCapitalTest(password) || !passwordSpecialTest(password) || !passwordLengthTest(password) || !passwordDigitTest(password)))){
-            // setLoginError({name:'login-page.login-error', message:''});
-            // openBtnSnackbar({ text: 'Email lub hasło jest nieprawidłowe', severity: 'error', btnText:'OK' });
-            openBtnSnackbar({ text: t('login-page.login-error'), severity: 'error', btnText:'OK' });
+            openBtnSnackbar({ text: t('login-page.login-client-error'), severity: 'error', btnText:'OK' });
 
             
             return false;
@@ -59,21 +48,7 @@ export const LoginPage = () => {
                     id="email"
                     label={t('e-mail')}
                     variant="outlined"
-                    error={loginError.name === 'auth/user-not-found' || loginError.name === 'login-page.login-error' || loginError.name === 'Error'}
-                    helperText={
-                        (()=>{ // do poprawy
-                            switch(loginError.name){
-                            case 'login-page.login-notfound':
-                                return t('login-page.login-notfound');
-                            case 'login-page.login-error':
-                                return '';
-                            case 'Error':
-                                return '';
-                            default:
-                                return t('login-page.e-mail-helper-text');
-                            }
-                        })()
-                    }
+                    helperText={ t('login-page.e-mail-helper-text')}
                     className={classes.formItem}
                 />
                 <TextField
@@ -84,8 +59,7 @@ export const LoginPage = () => {
                     label={t('password')}
                     type="password"
                     variant="outlined"
-                    error={Boolean(loginError.name)}
-                    helperText={loginError.name ? t('login-page.login-error') : ''}
+                    helperText= "" 
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>

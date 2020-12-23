@@ -12,7 +12,8 @@
         "e-mail-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
         "forgot-password": "Zapomniałeś hasła?",
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
-        "login-wrong-password": "Podane hasło jest nieprawidłowe"
+        "login-wrong-password": "Podane hasło jest nieprawidłowe",
+        "login-client-error": "Email lub hasło są nieprawidłowe"
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
