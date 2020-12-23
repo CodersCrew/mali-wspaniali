@@ -68,12 +68,6 @@ export const ChildResultsPage = () => {
                 values={childProfileCategoriesList}
                 device={device}
             />
-            <Grid container className={classes.header}>
-                <PageTitle text={`${child.firstname} ${child.lastname}`} />
-                <Typography className={classes.kindergarten}>
-                    {child.kindergarten.name}
-                </Typography>
-            </Grid>
             {category === 'results' && (
                 <>
                     <Typography className={classes.description}>
