@@ -2,7 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+    Box,
     Card,
+    createStyles,
+    Theme,
     Typography,
     List,
     ListItem,
@@ -10,7 +13,8 @@ import {
     ListItemIcon,
     Checkbox,
 } from '@material-ui/core';
-import { lightTextColor, textColor } from '../../colors';
+
+import { ButtonSecondary } from '../../components/Button';
 import { Agreement } from '../../graphql/types';
 
 interface Props {
@@ -21,77 +25,122 @@ export const Agreements = ({ agreements }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <Card className={classes.card}>
-            <div>
-                <Typography className={classes.heading}>
-                    {t('child-profile.agreements-title')}
+        <Box className={classes.wrapper}>
+            <Typography variant="h3">{t('child-profile.agreements.heading')}</Typography>
+            <Card className={classes.card}>
+                <Typography variant="h4" className={classes.title}>
+                    {t('child-profile.agreements.title')}
                 </Typography>
-                <List>
-                    {agreements.map((agreement) => {
-                        return (
-                            <ListItem
-                                alignItems="flex-start"
-                                key={agreement._id}
-                            >
-                                <ListItemIcon className={classes.listItemIcon}>
-                                    <Checkbox
-                                        edge="start"
-                                        checked={agreement.isSigned}
-                                        tabIndex={-1}
+                <Box className={classes.agreements}>
+                    <List>
+                        <ListItem
+                            alignItems="flex-start"
+                        >
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <Checkbox checked disabled />
+                            </ListItemIcon>
+                            <ListItemText
+                                classes={{ primary: classes.primary, secondary: classes.secondary }}
+                                primary={
+                                    <span>
+                                        <Typography variant="subtitle1">
+                                            {t('child-profile.agreements.general-title')}
+                                        </Typography>
+                                    </span>
+                                }
+                                secondary={
+                                    <span>
+                                        <Typography variant="body1" component="span">
+                                            {t('child-profile.agreements.general-description')}
+                                        </Typography>
+                                    </span>
+                                }
+                                
+                            />
+                        </ListItem>
+                        {agreements.map((agreement) => {
+                            return (
+                                <ListItem
+                                    alignItems="flex-start"
+                                    key={agreement._id}
+                                >
+                                    <ListItemIcon className={classes.listItemIcon}>
+                                        <Checkbox
+                                            checked={agreement.isSigned}
+                                            color="primary"
+                                        />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        classes={{ primary: classes.primary, secondary: classes.secondary }}
+                                        primary={
+                                            <span>
+                                                <Typography variant="subtitle1">
+                                                    {t(`child-profile.agreements.${agreement.text}-title`)}
+                                                </Typography>
+                                            </span>
+                                        }
+                                        secondary={
+                                            <span>
+                                                <Typography variant="body1" component="span">
+                                                    {t(`child-profile.agreements.${agreement.text}-description`)}
+                                                </Typography>
+                                            </span>
+                                        }
                                     />
-                                </ListItemIcon>
-                                <ListItemText
-                                    className={classes.listItemText}
-                                    primary={'zgoda 1'}
-                                    secondary={agreement.text}
-                                />
-                            </ListItem>
-                        );
-                    })}
-                </List>
-            </div>
-            <img
-                className={classes.image}
-                src="https://via.placeholder.com/316x200"
-                alt="placeholder"
-            />
-        </Card>
+                                </ListItem>
+                            );
+                        })}
+                    </List>
+                </Box>
+                <ButtonSecondary variant="contained" className={classes.button}>
+                    {t('child-profile.agreements.save')}
+                </ButtonSecondary>
+            </Card>
+        </Box>
     );
 };
 
-const useStyles = makeStyles({
-    card: {
-        padding: 40,
-        display: 'flex',
-    },
-    heading: {
-        fontSize: 21,
-        fontWeight: 500,
-        lineHeight: 1.4,
-        color: textColor,
-    },
-    listItemIcon: {
-        position: 'relative',
-        top: -10,
-        minWidth: 'unset',
-        marginRight: 9,
-    },
-    listItemText: {
-        '& .MuiListItemText-primary': {
-            marginBottom: 10,
-            fontSize: 15,
-            lineHeight: '24px',
-            color: textColor,
+const useStyles = makeStyles((theme: Theme) => 
+    createStyles({
+        agreements: {
+            padding: theme.spacing(0, 5),
+
+            [theme.breakpoints.down('md')]: {
+                padding: 0,
+            },
         },
-        '& .MuiListItemText-secondary': {
-            fontSize: 12,
-            color: lightTextColor,
+        button: {
+            marginTop: theme.spacing(2),
+            marginLeft: theme.spacing(8),
+
+            [theme.breakpoints.down('md')]: {
+                marginLeft: theme.spacing(0),
+            },
         },
-    },
-    image: {
-        width: 316,
-        height: 200,
-        marginLeft: 'auto',
-        alignSelf: 'flex-end',
-    },
-});
+        card: {
+            padding: theme.spacing(2),
+            marginTop: theme.spacing(4),
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start'
+        },
+        title: {
+            marginBottom: theme.spacing(3),
+        },
+        listItemIcon: {
+            position: 'relative',
+            top: -10,
+            minWidth: 'unset',
+            marginRight: theme.spacing(1),
+        },
+        primary: {
+            marginBottom: theme.spacing(2),
+        },
+        secondary: {
+            color: theme.palette.text.secondary,
+        },
+        wrapper: {
+            padding: theme.spacing(3),
+        }
+    })
+);
