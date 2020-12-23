@@ -647,6 +647,7 @@
         "first-assessment": "First test",
         "last-assessment": "Last test",
         "see-results": "See results",
+        "add-result": "Add test result",
         "add-first-assessment-result": "Add first test result",
         "add-last-assessment-result": "Add last test result",
         "add-note": "Add note"
