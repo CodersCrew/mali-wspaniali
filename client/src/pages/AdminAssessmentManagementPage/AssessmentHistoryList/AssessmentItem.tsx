@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme } from '@material-ui/core';
-import { Assessment, Edit } from '@material-ui/icons';
+import { Assessment as AssessmentIcon, Edit } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { StatusChip } from './StatusChip';
-import { BasicTest } from '../../../operations/queries/Assessment/getAllAssessments';
+import { Assessment } from '../../../graphql/types';
 
 interface Props {
-    value: BasicTest;
+    value: Assessment;
     onClick: (type: string, id: string) => void;
 }
 
@@ -26,7 +26,7 @@ export function AssessmentItem({ value, onClick }: Props) {
                 <div className={classes.itemRoot}>
                     <div className="actionButtons">
                         <IconButton size="small" onClick={() => onClick('details', value._id)}>
-                            <Assessment
+                            <AssessmentIcon
                                 classes={{ root: classes.icon }}
                                 titleAccess={t('manage-test-view.test-list.details')}
                             />

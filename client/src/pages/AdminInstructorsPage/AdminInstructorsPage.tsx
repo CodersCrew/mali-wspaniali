@@ -11,7 +11,7 @@ import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorM
 import { activePage } from '../../apollo_client';
 import { Loader } from '../../components/Loader';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
-import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
+import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { Assessment } from '../../graphql/types';
 
 interface InstructorModalStatus {
@@ -35,7 +35,7 @@ export function AdminInstructorsPage() {
     }, []);
 
     const { instructors, isInstructorsListLoading } = useInstructors();
-    const { assessmentList, isAssessmentListLoading } = useAssessments();
+    const { assessments, areAssessmentsLoading } = useAssessments();
 
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
     const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
@@ -52,7 +52,7 @@ export function AdminInstructorsPage() {
     }));
 
     const onAssessmentSelectChange = (assessmentId: string) => {
-        setSelectedAssessment(assessmentList.find(assessment => assessment._id === assessmentId) as Assessment);
+        setSelectedAssessment(assessments.find(assessment => assessment._id === assessmentId) as Assessment);
     };
 
     const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
@@ -67,7 +67,7 @@ export function AdminInstructorsPage() {
         .filter(kindergarten => kindergarten.instructor === null)
         .map(kind => kind.kindergarten);
 
-    if (isInstructorsListLoading || isAssessmentListLoading) {
+    if (isInstructorsListLoading || areAssessmentsLoading) {
         return <Loader />; 
     }  
 
@@ -77,7 +77,7 @@ export function AdminInstructorsPage() {
                 assessmentsSelect={
                     <AssessmentsSelect
                         label={t('admin-instructors-page.table-toolbar.select-test')}
-                        options={assessmentList.filter(assessment => assessment.kindergartens.length !== 0)}
+                        options={assessments.filter(assessment => assessment.kindergartens.length !== 0)}
                         value={selectedAssessment}
                         onChange={onAssessmentSelectChange}
                     />
