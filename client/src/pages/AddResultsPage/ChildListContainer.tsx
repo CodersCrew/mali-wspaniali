@@ -8,9 +8,10 @@ import { parseBirthQuarter } from '../../utils/parseBirthQuarter';
 interface Props {
     childList: Child[];
     searchTerm: string;
+    onClick: (type: string, value: string) => void;
 }
 
-export function ChildListContainer({ childList, searchTerm }: Props) {
+export function ChildListContainer({ childList, searchTerm, onClick }: Props) {
     const { t } = useTranslation();
 
     return (
@@ -36,23 +37,23 @@ export function ChildListContainer({ childList, searchTerm }: Props) {
                             <TableCell align="right">{c.birthYear}</TableCell>
                             <TableCell align="right">{parseBirthQuarter(c.birthQuarter)}</TableCell>
                             <TableCell align="center">
-                                <IconButton onClick={() => null}>
+                                <IconButton onClick={() => onClick('add-first-assessment-result', c._id)}>
                                     <BarChart titleAccess={t('add-results-page.add-first-assessment-result')} />
                                 </IconButton>
-                                <IconButton onClick={() => null}>
+                                <IconButton onClick={() => onClick('add-first-assessment-note', c._id)}>
                                     <EventNote titleAccess={t('add-results-page.add-note')} />
                                 </IconButton>
                             </TableCell>
                             <TableCell align="center">
-                                <IconButton onClick={() => null}>
+                                <IconButton onClick={() => onClick('add-last-assessment-result', c._id)}>
                                     <BarChart titleAccess={t('add-results-page.add-last-assessment-result')} />
                                 </IconButton>
-                                <IconButton onClick={() => null}>
+                                <IconButton onClick={() => onClick('add-last-assessment-note', c._id)}>
                                     <EventNote titleAccess={t('add-results-page.add-note')} />
                                 </IconButton>
                             </TableCell>
                             <TableCell align="center">
-                                <IconButton onClick={() => null}>
+                                <IconButton onClick={() => onClick('see-results', c._id)}>
                                     <Assessment titleAccess={t('add-results-page.see-results')} />
                                 </IconButton>
                             </TableCell>

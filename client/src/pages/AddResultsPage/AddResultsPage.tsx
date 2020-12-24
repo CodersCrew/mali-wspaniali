@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createStyles, Fab, makeStyles, Theme } from '@material-ui/core';
 import { BarChart } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
@@ -16,6 +17,7 @@ export function AddResultsPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const classes = useStyles();
     const { t } = useTranslation();
+    const history = useHistory();
 
     const currentChildren =
         assessments
@@ -63,7 +65,17 @@ export function AddResultsPage() {
                     />
                 }
                 container={
-                    <ChildListContainer searchTerm={searchTerm} childList={currentChildren} />
+                    <ChildListContainer searchTerm={searchTerm} childList={currentChildren} onClick={(type, value) => {
+                        if (type === 'add-first-assessment-result') {
+                            history.push(`/instructor/result/add/${selectedAssessment}/${selectedKindergarten}/${value}`)
+                        }
+                        
+                        if (type === 'add-last-assessment-result') {
+                            history.push(`/instructor/result/add/${selectedAssessment}/${selectedKindergarten}/${value}`)
+                        }
+
+
+                    }} />
                 }
             />
             <Fab
