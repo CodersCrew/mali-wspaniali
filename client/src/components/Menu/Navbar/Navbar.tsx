@@ -10,6 +10,7 @@ import { Device } from '../../../queries/useBreakpoints';
 import { LanguageSelector } from '../../LanguageSelector';
 import { AppLogo } from '../../AppLogo';
 import { useOnClickOutside } from '../../../utils/useOnClickOutside';
+import { useReadNotification } from '../../../operations/mutations/Notification/readNotification';
 
 interface Props {
     device: Device;
@@ -22,6 +23,7 @@ interface Props {
 
 export function Navbar({ device, language, notifications, activePage, onSidebarToggle, onLanguageChange }: Props) {
     const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
+    const { readNotification } = useReadNotification();
     const classes = useStyles();
     const popupRef = useRef<HTMLElement | null>(null);
     useOnClickOutside(popupRef, () => setIsNotificationPopupOpen(false));
@@ -65,7 +67,12 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
                                 >
                                     <Notifications />
                                 </IconButton>
-                                {isNotificationPopupOpen && <NotificationsPanel notifications={notifications} />}
+                                {isNotificationPopupOpen && (
+                                    <NotificationsPanel
+                                        onClick={id => readNotification(id)}
+                                        notifications={notifications}
+                                    />
+                                )}
                             </span>
                         </div>
                     </div>

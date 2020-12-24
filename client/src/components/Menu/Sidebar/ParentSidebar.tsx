@@ -29,7 +29,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
 
     if (!user) return null;
 
-    const notificationsCount = user.notifications.length;
+    const unreadedNotificationsCount = user.notifications.filter(n => !n.isRead).length;
 
     const ItemFactory = getParentMenuItemFactory({ active, t });
     const BlogItemFactory = getBlogMenuItemFactory({ active, t });
@@ -37,7 +37,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
     const MainPageItem = ItemFactory.create({ name: 'main-page' });
     const NotificationsItem = ItemFactory.create({
         name: 'notifications',
-        rightIcon: notificationsCount ? <SecondaryLabel label={notificationsCount} /> : undefined,
+        rightIcon: unreadedNotificationsCount ? <SecondaryLabel label={unreadedNotificationsCount} /> : undefined,
     });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
