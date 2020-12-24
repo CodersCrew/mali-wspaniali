@@ -47,6 +47,16 @@ export class NotificationRepository {
     }
   }
 
+  async read(id: string): Promise<NotificationProps> {
+    return await this.repository.findByIdAndUpdate(
+      id,
+      {
+        isRead: true,
+      },
+      { new: true },
+    );
+  }
+
   async removeOlderThan(days: number): Promise<void> {
     this.repository
       .deleteMany({

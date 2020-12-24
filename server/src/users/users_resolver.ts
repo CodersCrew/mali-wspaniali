@@ -49,6 +49,8 @@ import { EditChildCommand } from './domain/commands/impl/edit_child_command';
 import { ChildMapper } from './domain/mappers/child_mapper';
 import { KindergartenDTO } from '../kindergartens/dto/kindergarten_dto';
 import { GetKindergartenQuery } from '../kindergartens/domain/queries/impl/get_kindergarten_query';
+import { ReadNotificationCommand } from '../notifications/domain/commands/impl/read_notifiaction_command';
+import { NotificationProps } from '../notifications/domain/models/notification_model';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -102,6 +104,16 @@ export class UsersResolver {
     @Args('role', { nullable: true }) role: string,
   ): Promise<UserProps> {
     return await this.queryBus.execute(new GetAllUsersQuery(role));
+  }
+
+  @Mutation(() => NotificationDTO)
+  @UseGuards(GqlAuthGuard)
+  async readNotification(@Args('id') id: string): Promise<NotificationProps> {
+    const notification: NotificationProps = await this.commandBus.execute(
+      new ReadNotificationCommand(id),
+    );
+
+    return notification;
   }
 
   @Mutation(() => ReturnedStatusDTO)
