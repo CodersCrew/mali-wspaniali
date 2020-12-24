@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, List, Grid, Divider } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Me } from '../../../graphql/types';
@@ -54,7 +54,6 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
             <Grid item>
                 <List>
                     <SingleItem item={MainPageItem} onClick={onClick} />
-                    <Divider />
                     {user.children.map(child => {
                         const ChildItemFactory = getChildMenuItemFactory({ active, t });
 
