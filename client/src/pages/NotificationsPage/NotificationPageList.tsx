@@ -19,9 +19,10 @@ import { useNotificationContent } from './useNotificationContent';
 
 interface Props {
     notifications: Notification[];
+    onClick: (id: string) => void;
 }
 
-export const NotificationPageList = ({ notifications }: Props) => {
+export const NotificationPageList = ({ notifications, onClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { getNotification } = useNotificationContent();
@@ -49,10 +50,8 @@ export const NotificationPageList = ({ notifications }: Props) => {
                                 id={_id}
                                 text={getNotification(templateId, values)}
                                 date={new Date(date)}
-                                isVisited={isRead}
-                                onClick={() => {
-                                    /* todo */
-                                }}
+                                isRead={isRead}
+                                onClick={onClick}
                             />
                         );
                     })}

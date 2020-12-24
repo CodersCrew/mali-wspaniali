@@ -4,10 +4,12 @@ import { NotificationPageList } from './NotificationPageList';
 import { Pagination } from '../ArticleListPage/Pagination';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
+import { useReadNotification } from '../../operations/mutations/Notification/readNotification';
 
 export const NotificationsPage = () => {
     const user = useMe();
     const classes = useStyles();
+    const { readNotification } = useReadNotification();
 
     useEffect(() => {
         activePage(['admin-menu.notifications', 'parent-menu.notifications']);
@@ -17,7 +19,7 @@ export const NotificationsPage = () => {
 
     return (
         <Container classes={{ root: classes.container }}>
-            <NotificationPageList notifications={user.notifications} />
+            <NotificationPageList onClick={id => readNotification(id)} notifications={user.notifications} />
             <Pagination disabledPrevious={true} disabledNext={true} handleChange={() => true}></Pagination>
         </Container>
     );
