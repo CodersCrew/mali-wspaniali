@@ -67,11 +67,11 @@ export function AddResultsPage() {
                 container={
                     <ChildListContainer searchTerm={searchTerm} childList={currentChildren} onClick={(type, value) => {
                         if (type === 'add-first-assessment-result') {
-                            history.push(`/instructor/result/add/${selectedAssessment}/${selectedKindergarten}/${value}`)
+                            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`)
                         }
                         
                         if (type === 'add-last-assessment-result') {
-                            history.push(`/instructor/result/add/${selectedAssessment}/${selectedKindergarten}/${value}`)
+                            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`)
                         }
 
 

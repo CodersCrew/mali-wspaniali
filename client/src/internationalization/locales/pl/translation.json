@@ -650,5 +650,10 @@
         "add-first-assessment-result": "Dodaj wyniki próby początkowej",
         "add-last-assessment-result": "Dodaj wyniki próby końcowej",
         "add-note": "Dodaj notatkę"
+    },
+    "add-result-page": {
+        "select-measurement": "Wybierz pomiar",
+        "first": "Początkowy",
+        "last": "Końcowy"
     }
 }

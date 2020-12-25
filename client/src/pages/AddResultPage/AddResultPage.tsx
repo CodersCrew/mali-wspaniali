@@ -33,11 +33,18 @@ export function AddResultPage() {
                             selectedKindergarten={selectedKindergarten._id || ''}
                             kindergartens={selectedAssessment.kindergartens.map(k => k.kindergarten) || []}
                             selected={selectedChild._id}
+                            measurement={params.measurement}
                             childList={selectedKindergarten.children || []}
                             onClick={(type, value) => {
                                 if (type === 'child') {
                                     history.push(
-                                        `/instructor/result/add/${selectedAssessment._id}/${selectedKindergarten._id}/${value}`,
+                                        `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${selectedKindergarten._id}/${value}`,
+                                    );
+                                }
+                                
+                                if (type === 'measurement') {
+                                    history.push(
+                                        `/instructor/result/add/${value}/${params.assessmentId}/${params.kindergartenId}/${params.childId}`,
                                     );
                                 }
 
@@ -48,7 +55,7 @@ export function AddResultPage() {
 
                                     if (firstChildren) {
                                         history.push(
-                                            `/instructor/result/add/${selectedAssessment._id}/${value}/${firstChildren._id}`,
+                                            `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${value}/${firstChildren._id}`,
                                         ); 
 
                                     }
