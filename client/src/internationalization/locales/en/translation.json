@@ -651,5 +651,10 @@
         "add-first-assessment-result": "Add first test result",
         "add-last-assessment-result": "Add last test result",
         "add-note": "Add note"
+    },
+    "add-result-page": {
+        "select-measurement": "Select measurement",
+        "first": "First",
+        "last": "Last"
     }
 }

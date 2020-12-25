@@ -85,7 +85,7 @@ export function Root() {
                                 <Route path="/admin/settings" component={AdminSettingsPage} />
                                 <Route
                                     exact
-                                    path="/instructor/result/add/:assessmentId/:kindergartenId/:childId"
+                                    path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"
                                     component={AddResultPage}
                                 />
                                 <Route exact path="/instructor" component={AddResultsPage} />

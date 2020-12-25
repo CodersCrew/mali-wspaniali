@@ -10,6 +10,7 @@ import {
     makeStyles,
     Theme,
     fade,
+    Grid,
 } from '@material-ui/core';
 import { BarChart, KeyboardArrowRight } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -20,11 +21,12 @@ interface Props {
     childList: Child[];
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
+    measurement: string;
     onClick: (type: string, value: string) => void;
     selected?: string;
 }
 
-export function ChildPicker({ childList, kindergartens, selectedKindergarten, selected, onClick }: Props) {
+export function ChildPicker({ childList, kindergartens, selectedKindergarten, selected, measurement, onClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -33,30 +35,53 @@ export function ChildPicker({ childList, kindergartens, selectedKindergarten, se
             header={<Typography variant="h4">Przedszkole</Typography>}
             container={
                 <div>
-                    <div className={classes.displayOptions}>
-                        <TextField
-                            select
-                            label={t('add-results-page.test-name')}
-                            onChange={({ target: { value } }) => onClick('kindergarten', value)}
-                            variant="outlined"
-                            value={selectedKindergarten}
-                            fullWidth
-                            SelectProps={{
-                                MenuProps: {
-                                    getContentAnchorEl: null,
-                                    anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-                                },
-                            }}
-                        >
-                            {kindergartens.map(k => (
-                                <MenuItem value={k._id} key={k._id}>
-                                    {k.name}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                        <Typography variant="subtitle1">Lista dzieci</Typography>
-                    </div>
+                    <Grid container className={classes.displayOptions} spacing={2} direction="column">
+                        <Grid item>
+                            <TextField
+                                select
+                                label={t('add-results-page.test-name')}
+                                onChange={({ target: { value } }) => onClick('kindergarten', value)}
+                                variant="outlined"
+                                value={selectedKindergarten}
+                                fullWidth
+                                SelectProps={{
+                                    MenuProps: {
+                                        getContentAnchorEl: null,
+                                        anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                                    },
+                                }}
+                            >
+                                {kindergartens.map(k => (
+                                    <MenuItem value={k._id} key={k._id}>
+                                        {k.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                select
+                                label={t('add-result-page.select-measurement')}
+                                onChange={({ target: { value } }) => onClick('measurement', value)}
+                                variant="outlined"
+                                value={measurement}
+                                fullWidth
+                                SelectProps={{
+                                    MenuProps: {
+                                        getContentAnchorEl: null,
+                                        anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                                    },
+                                }}
+                            >
+                                <MenuItem value="first">{t('add-result-page.first')}</MenuItem>
+                                <MenuItem value="last">{t('add-result-page.last')}</MenuItem>
+                            </TextField>
+                        </Grid>
+                    </Grid>
                     <div>
+                        <div className={classes.listHeader}>
+                            <Typography variant="subtitle1">Lista dzieci</Typography>
+                        </div>
                         <List>
                             <Divider />
                             {childList.map(c => {
@@ -112,6 +137,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         displayOptions: {
             padding: theme.spacing(2),
+        },
+        listHeader: {
+            paddingLeft: theme.spacing(2),
         },
     }),
 );
