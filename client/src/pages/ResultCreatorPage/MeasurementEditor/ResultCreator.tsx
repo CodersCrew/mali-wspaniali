@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import { PieChart } from 'react-minimal-pie-chart';
-import { Child } from '../../graphql/types';
+import { Child } from '../../../graphql/types';
 
 interface Props {
     selectedChild: Child;
 }
 
-export function ResultCreator({ selectedChild }: Props) {
+export function MeasurementEditor({ selectedChild }: Props) {
     const classes = useStyles();
 
     return (

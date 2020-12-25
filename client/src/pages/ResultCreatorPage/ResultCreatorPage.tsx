@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { createStyles, Grid, makeStyles, Divider, Paper, Theme } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
-import { ChildPicker } from './ChildPicker';
-import { ResultCreator } from './ResultCreator';
+import { ChildPicker } from './ChildPicker/ChildPicker';
+import { MeasurementEditor } from './MeasurementEditor/ResultCreator';
 import { activePage } from '../../apollo_client';
 
-export function AddResultPage() {
+export function ResultCreatorPage() {
     const { assessments } = useAssessments({ withChildren: true });
     const params = useParams() as { [index: string]: string };
     const history = useHistory();
@@ -65,7 +65,7 @@ export function AddResultPage() {
                         />
                     </Grid>
                     <Grid item xs={8}>
-                        <ResultCreator selectedChild={selectedChild} />
+                        <MeasurementEditor selectedChild={selectedChild} />
 
                         <Divider />
                     </Grid>
