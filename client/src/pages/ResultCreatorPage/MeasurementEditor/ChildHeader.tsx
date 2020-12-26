@@ -1,17 +1,17 @@
 import React from 'react';
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import { PieChart } from 'react-minimal-pie-chart';
-import { Child } from '../../graphql/types';
+import { Child } from '../../../graphql/types';
 
 interface Props {
     selectedChild: Child;
 }
 
-export function ResultCreator({ selectedChild }: Props) {
+export function ChildHeader({ selectedChild }: Props) {
     const classes = useStyles();
 
     return (
-        <Grid container justify="space-between" className={classes.resultHeading}>
+        <Grid container>
             <Grid item>
                 <Grid container direction="column" justify="space-between" className={classes.childPersonalInformation}>
                     <Grid item>

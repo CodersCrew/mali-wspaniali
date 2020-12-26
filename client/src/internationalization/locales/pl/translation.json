@@ -652,8 +652,12 @@
         "add-note": "Dodaj notatkę"
     },
     "add-result-page": {
+        "kindergarten": "Kindergarten",
         "select-measurement": "Wybierz pomiar",
         "first": "Początkowy",
-        "last": "Końcowy"
+        "last": "Końcowy",
+        "no-result": "Brak wyniku",
+        "received-points":"Otrzymane punkty",
+        "points": "pkt"
     }
 }

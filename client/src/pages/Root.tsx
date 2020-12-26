@@ -33,7 +33,7 @@ import { AdminRecommendationsPage } from './AdminRecommendationsPage/AdminRecomm
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 import { ThemeProvider } from '../theme/ThemeProvider';
 import { AdminManageSingleAssessmentPage } from './AdminAddTestPage/AdminManageSingleAssessmentPage';
-import { AddResultPage } from './AddResultPage/AddResultPage';
+import { ResultCreatorPage } from './ResultCreatorPage/ResultCreatorPage';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -86,7 +86,7 @@ export function Root() {
                                 <Route
                                     exact
                                     path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"
-                                    component={AddResultPage}
+                                    component={ResultCreatorPage}
                                 />
                                 <Route exact path="/instructor" component={AddResultsPage} />
                                 <Route path="/instructor/settings" component={InstructorSettingsPage} />
