@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -14,9 +14,9 @@ import { ActionButton } from './ActionButton';
 import { EditableBasicInformationForm } from './EditableBasicInformationForm';
 import { KindergartenList } from './KindergartenList';
 import { openQuestionDialog } from '../../components/QuestionDialog';
+import { PageContainer } from '../../components/PageContainer';
 
 export function AdminManageSingleAssessmentPage() {
-    const classes = useStyles();
     const { t } = useTranslation();
     const history = useHistory();
     const params = useParams<{ id?: string }>();
@@ -77,7 +77,7 @@ export function AdminManageSingleAssessmentPage() {
     }, []);
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <Grid container alignItems="flex-end" spacing={6}>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
@@ -158,14 +158,6 @@ export function AdminManageSingleAssessmentPage() {
                     </Grid>
                 </Grid>
             </Grid>
-        </div>
+        </PageContainer>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            padding: theme.spacing(3),
-        },
-    }),
-);

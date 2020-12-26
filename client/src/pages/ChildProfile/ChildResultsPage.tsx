@@ -5,8 +5,6 @@ import {
     makeStyles,
     Grid,
     Typography,
-    Theme,
-    createStyles,
 } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { activePage } from '../../apollo_client';
@@ -17,6 +15,7 @@ import { ChildRecommendations } from './ChildRecommendations/ChildRecommendation
 import { ChildProfileAboutTests } from './ChildProfileAboutTests/ChildProfileAboutTests';
 import { ChildDetails } from './Details/ChildDetails';
 import { useMe } from '../../utils/useMe';
+import { PageContainer } from '../../components/PageContainer';
 
 export const ChildResultsPage = () => {
     const { t } = useTranslation();
@@ -67,7 +66,7 @@ export const ChildResultsPage = () => {
                 values={childProfileCategoriesList}
                 device={device}
             />
-            <div className={classes.container}>
+            <PageContainer>
             {category === 'results' && (
                 <>
                     <Typography variant="h3" className={classes.description}>
@@ -82,7 +81,7 @@ export const ChildResultsPage = () => {
             {category === 'recommendations' && <ChildRecommendations />}
             {category === 'tests-information' && <ChildProfileAboutTests />}
             {category === 'details' && <ChildDetails child={child} />}
-            </div>
+            </PageContainer>
         </>
     );
 };
@@ -93,16 +92,8 @@ function EmptyProfile() {
     return <Grid container>{t('child-profile.no-child')}</Grid>;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            margin: theme.spacing(3),
-            [theme.breakpoints.down('xs')]: {
-                margin: theme.spacing(3, 2),
-            },
-        },
-        description: {
-            marginBottom: 40,
-        }
-    }),
-);
+const useStyles = makeStyles({
+    description: {
+        marginBottom: 40,
+    }
+});

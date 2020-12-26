@@ -9,6 +9,7 @@ import { useAssessments } from '../../operations/queries/Assessment/getAllAssess
 import { CustomContainer } from '../../components/CustomContainer';
 import { ChildListHeader } from './ChildListHeader';
 import { ChildListContainer } from './ChildListContainer';
+import { PageContainer } from '../../components/PageContainer';
 
 export function AddResultsPage() {
     const { assessments } = useAssessments({ withChildren: true });
@@ -39,7 +40,7 @@ export function AddResultsPage() {
     }, [assessments]);
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <CustomContainer
                 header={
                     <ChildListHeader
@@ -88,15 +89,12 @@ export function AddResultsPage() {
                 &nbsp;
                 {t('add-results-page.add-result')}
             </Fab>
-        </div>
+        </PageContainer>
     );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            padding: theme.spacing(3),
-        },
         fab: {
             position: 'fixed',
             bottom: theme.spacing(3),

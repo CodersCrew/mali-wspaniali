@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
 
 import { activePage } from '../../apollo_client';
 import { KeyCodes } from './KeyCodes/KeyCodes';
+import { PageContainer } from '../../components/PageContainer';
 
 export function AdminCodesPage() {
     const classes = useStyles();
@@ -12,19 +13,16 @@ export function AdminCodesPage() {
     }, []);
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <Paper classes={{ root: classes.innerContainer }}>
                 <KeyCodes />
             </Paper>
-        </div>
+        </PageContainer>
     );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            padding: theme.spacing(3),
-        },
         innerContainer: {
             padding: theme.spacing(2),
         },

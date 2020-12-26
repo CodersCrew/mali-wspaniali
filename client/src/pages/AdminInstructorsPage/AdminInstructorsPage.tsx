@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { InstructorWithKindergartens } from './types';
 import { Toolbar } from './Toolbar';
 import { InstructorsSelect } from './InstructorsSelect';
@@ -13,6 +12,7 @@ import { Loader } from '../../components/Loader';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { Assessment } from '../../graphql/types';
+import { PageContainer } from '../../components/PageContainer';
 
 interface InstructorModalStatus {
     isOpen: boolean;
@@ -28,7 +28,6 @@ const initialInstructorModalStatus = {
 
 export function AdminInstructorsPage() {
     const { t } = useTranslation();
-    const classes = useStyles();
 
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
@@ -72,7 +71,7 @@ export function AdminInstructorsPage() {
     }  
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <Toolbar
                 assessmentsSelect={
                     <AssessmentsSelect
@@ -108,14 +107,6 @@ export function AdminInstructorsPage() {
                     assessment={assignInstructorModalStatus.assessment}
                 />
             )}
-        </div>
+        </PageContainer>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            padding: theme.spacing(3),
-        },
-    }),
-);
