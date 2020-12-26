@@ -7,8 +7,9 @@ import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
 import { activePage } from '../../apollo_client';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
+import { PageContainer } from '../../components/PageContainer';
 
-export function ResultCreatorPage() {
+export function InstructorResultCreatorPage() {
     const { assessments } = useAssessments({ withChildren: true });
     const params = useParams() as { [index: string]: string };
     const history = useHistory();
@@ -27,7 +28,7 @@ export function ResultCreatorPage() {
     }
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <Paper>
                 <Grid container>
                     <Grid item xs={4}>
@@ -91,15 +92,12 @@ export function ResultCreatorPage() {
                     </Grid>
                 </Grid>
             </Paper>
-        </div>
+        </PageContainer>
     );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            padding: theme.spacing(3),
-        },
         editor: {
             maxHeight: '63vh',
             overflowY: 'auto',

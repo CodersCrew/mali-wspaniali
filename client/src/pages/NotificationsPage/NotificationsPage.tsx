@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { Container, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { NotificationPageList } from './NotificationPageList';
 import { Pagination } from '../ArticleListPage/Pagination';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 import { useReadNotification } from '../../operations/mutations/Notification/readNotification';
+import { PageContainer } from '../../components/PageContainer';
 
 export const NotificationsPage = () => {
     const user = useMe();
-    const classes = useStyles();
     const { readNotification } = useReadNotification();
 
     useEffect(() => {
@@ -18,17 +17,9 @@ export const NotificationsPage = () => {
     if (!user) return null;
 
     return (
-        <Container classes={{ root: classes.container }}>
+        <PageContainer>
             <NotificationPageList onClick={id => readNotification(id)} notifications={user.notifications} />
             <Pagination disabledPrevious={true} disabledNext={true} handleChange={() => true}></Pagination>
-        </Container>
+        </PageContainer>
     );
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            padding: theme.spacing(3),
-        },
-    }),
-);
