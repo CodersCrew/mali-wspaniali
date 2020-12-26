@@ -9,7 +9,7 @@ import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 import { PageContainer } from '../../components/PageContainer';
 
-export function ResultCreatorPage() {
+export function InstructorResultCreatorPage() {
     const { assessments } = useAssessments({ withChildren: true });
     const params = useParams() as { [index: string]: string };
     const history = useHistory();

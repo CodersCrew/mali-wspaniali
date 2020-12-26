@@ -11,7 +11,7 @@ import { ChildListHeader } from './ChildListHeader';
 import { ChildListContainer } from './ChildListContainer';
 import { PageContainer } from '../../components/PageContainer';
 
-export function AddResultsPage() {
+export function InstructorAddResultsPage() {
     const { assessments } = useAssessments({ withChildren: true });
     const [selectedAssessment, setSelectedAssessment] = useState('');
     const [selectedKindergarten, setSelectedKindergarten] = useState('');
