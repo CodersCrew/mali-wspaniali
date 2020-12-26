@@ -656,6 +656,9 @@
         "kindergarten": "Kindergarten",
         "select-measurement": "Select measurement",
         "first": "First",
-        "last": "Last"
+        "last": "Last",
+        "no-result": "No result",
+        "received-points":"Received points",
+        "points": "pts"
     }
 }

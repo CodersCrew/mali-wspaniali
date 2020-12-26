@@ -7,11 +7,11 @@ interface Props {
     selectedChild: Child;
 }
 
-export function MeasurementEditor({ selectedChild }: Props) {
+export function ChildHeader({ selectedChild }: Props) {
     const classes = useStyles();
 
     return (
-        <Grid container justify="space-between" className={classes.resultHeading}>
+        <Grid container>
             <Grid item>
                 <Grid container direction="column" justify="space-between" className={classes.childPersonalInformation}>
                     <Grid item>

@@ -3,8 +3,10 @@ import { createStyles, Grid, makeStyles, Divider, Paper, Theme } from '@material
 import { useParams, useHistory } from 'react-router-dom';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { ChildPicker } from './ChildPicker/ChildPicker';
-import { MeasurementEditor } from './MeasurementEditor/ResultCreator';
+import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
 import { activePage } from '../../apollo_client';
+import { ChildHeader } from './MeasurementEditor/ChildHeader';
+import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
 export function ResultCreatorPage() {
     const { assessments } = useAssessments({ withChildren: true });
@@ -65,9 +67,27 @@ export function ResultCreatorPage() {
                         />
                     </Grid>
                     <Grid item xs={8}>
-                        <MeasurementEditor selectedChild={selectedChild} />
-
-                        <Divider />
+                        <Grid container direction="column">
+                            <Grid item>
+                                <ChildHeader selectedChild={selectedChild} />
+                            </Grid>
+                            <Grid item>
+                                <Divider />
+                            </Grid>
+                            <Grid item className={classes.editor}>
+                                <MeasurementEditor />
+                            </Grid>
+                            <Grid item>
+                                <Divider />
+                            </Grid>
+                            <Grid item>
+                                <Grid container justify="flex-end">
+                                    <Grid item>
+                                        <ButtonSecondary variant="text">Wróć do tabeli</ButtonSecondary>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Paper>
@@ -80,5 +100,9 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             padding: theme.spacing(3),
         },
+        editor: {
+            maxHeight: '63vh',
+            overflowY: 'auto',
+        }
     }),
 );
