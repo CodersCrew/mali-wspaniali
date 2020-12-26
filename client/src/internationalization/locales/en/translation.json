@@ -595,6 +595,28 @@
         "something-went-wrong": "Something went wrong. Contact your Administrator.",
         "wrong-old-password": "Incorrect password"
     },
+    "settings-modal": {
+        "modal-header": "Contact with us",
+        "modal-first-description": "If you have some problems or have any questions, don't hesitate to contact us!",
+        "modal-second-description": "We will dispel all doubts.",
+        "modal-send-button": "Send a message",
+        "modal-close-button": "Cancel",
+        "text-field-email-id": "email",
+        "text-field-email-label": "Message sender",
+        "text-field-email-placeholder": "email",
+        "text-field-title-id": "message",
+        "text-field-title-label": "Message content",
+        "text-field-title-placeholder": "Message content",
+
+        "select-options": {
+            "select-label": "Message Subject",
+            "1": "Password change",
+            "2": "Result of the test",
+            "3": "Classes in kirdengarden",
+            "4": "Delete account",
+            "5": "Other"
+        }
+    },
     "admin-instructors-page": {
         "table": {
             "firstName": "First name",
