@@ -1,18 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, Grid, Typography } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { InfoContentPropTypes } from './types';
 
 export const HomePageInfoContent = ({
     toggleInfoText,
     toggleInfoComponent,
-    isReadMoreBtnClicked,
+    readMore,
 }: InfoContentPropTypes) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const renderInfoButtonText = isReadMoreBtnClicked
+    const renderInfoButtonText = readMore
         ? t('home-page-content.read-less')
         : t('home-page-content.read-more');
 
@@ -20,8 +20,9 @@ export const HomePageInfoContent = ({
         <>
             <Grid className={classes.contentContainer}>
                 <Close className={classes.contentCloseIcon} onClick={() => toggleInfoComponent()} />
-                <h2 className={classes.contentTitle}>{t('home-page-content.foundation-header')}</h2>
-                <p className={classes.contentDescription}>{t('home-page-content.foundation-content')}</p>
+                <Typography variant="h4" className={classes.contentTitle}>{t('home-page-content.foundation-header')}</Typography>
+                <Typography variant="body1" className={classes.contentDescription}>{t('home-page-content.foundation-content')}</Typography>
+                <Typography variant="body1">{t('home-page-content.foundation-content-summary')}</Typography>
             </Grid>
             <Grid item xs={4} className={classes.contentButtonWrapper}>
                 <button className={classes.contentReadMoreBtn} onClick={() => toggleInfoText()}>
@@ -53,20 +54,10 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         contentTitle: {
-            margin: 0,
-            fontWeight: 'bold',
-            marginBottom: 15,
-            fontSize: 15,
-
-            [theme.breakpoints.down('md')]: {
-                display: 'none',
-            },
+            marginBottom: theme.spacing(2),
         },
         contentDescription: {
-            lineHeight: '18px',
-            margin: 0,
-            height: 90,
-            fontSize: 14,
+            marginBottom: theme.spacing(2),
 
             [theme.breakpoints.down('md')]: {
                 marginTop: 0,
@@ -74,6 +65,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         contentButtonWrapper: {
+            marginTop: theme.spacing(1),
+
             [theme.breakpoints.up('md')]: {
                 display: 'none',
             },

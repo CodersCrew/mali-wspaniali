@@ -1,7 +1,7 @@
 export interface InfoContentPropTypes {
     toggleInfoText(): void;
     toggleInfoComponent(): void;
-    isReadMoreBtnClicked: boolean;
+    readMore: boolean;
 }
 
 export interface HomePageInfoPropTypes {

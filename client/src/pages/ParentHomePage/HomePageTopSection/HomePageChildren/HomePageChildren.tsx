@@ -50,7 +50,7 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: 
                             isCancelButtonVisible: true,
                         }).then((results) => {
                             if (results.decision?.accepted) {
-                                handleModalSubmit(results.decision.child)
+                                handleModalSubmit(results.decision.child);
                             }
                         });
                     }}
@@ -66,28 +66,28 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         childAvatar: {
-            width: '122px',
-            height: '126px',
+            width: 122,
+            height: 126,
             objectFit: 'contain',
-            borderRadius: '4px 4px 0px 0px',
+            borderRadius: theme.spacing(0.5, 0),
 
             [theme.breakpoints.down('sm')]: {
-                maxWidth: '90px',
-                width: '90px',
-                maxHeight: '90px',
-                height: '90px',
+                maxWidth: 90,
+                width: 90,
+                maxHeight: 90,
+                height: 90,
             },
         },
         infoContainer: {
             display: 'flex',
-            marginBottom: 40,
+            marginBottom: theme.spacing(5),
             flexWrap: 'wrap',
 
             [theme.breakpoints.down('md')]: {
                 flexDirection: 'column',
                 alignItems: 'center',
-                paddingRight: 0,
-                marginBottom: 30,
+                paddingRight: theme.spacing(0),
+                marginBottom: theme.spacing(4),
             },
         },
         childrenContainer: {
@@ -96,8 +96,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'space-around',
-                paddingLeft: 16,
-                paddingRight: 20,
             },
 
             [theme.breakpoints.down('sm')]: {
