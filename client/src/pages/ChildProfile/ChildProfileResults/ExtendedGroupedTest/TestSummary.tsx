@@ -54,6 +54,7 @@ export const TestSummary = ({ result }: Props) => {
                             maxValue={MAX_OVERALL_POINTS}
                             label={String(sumOfPoints)}
                             labelSuffix={t('child-profile.pts')}
+                            enableInfoIcon
                         />
                     </div>
                     <div className={classes.resultDescription}>{t(`child-profile.result-description.${key}`)}</div>
