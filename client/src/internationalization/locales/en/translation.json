@@ -446,6 +446,7 @@
     },
     "instructor-menu": {
         "add-results": "Add results",
+        "notifications": "Notifications", 
         "settings": "Settings",
         "logout": "Logout"
     },

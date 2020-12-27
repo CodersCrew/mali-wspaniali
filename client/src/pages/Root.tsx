@@ -89,6 +89,7 @@ export function Root() {
                                     component={InstructorResultCreatorPage}
                                 />
                                 <Route exact path="/instructor" component={InstructorAddResultsPage} />
+                                <Route exact path="/instructor/notifications" component={NotificationsPage} />
                                 <Route path="/instructor/settings" component={InstructorSettingsPage} />
                                 <ParentWrapper>
                                     <Route exact path="/parent" component={ParentHomePage} />

@@ -423,11 +423,18 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
     return item;
 }
 
-function getInstructorMenuItem({ name, active, t }: MenuItemFactoryProps): SingleItemProps {
+function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryProps): SingleItemProps {
     const AddResultsItem = {
         name: 'instructor-menu.add-results',
         link: '/instructor',
         icon: <Icon icon={<Assessment />} />,
+    };
+
+    const NotificationsItem = {
+        name: 'instructor-menu.notifications',
+        link: '/instructor/notifications',
+        icon: <Icon icon={<Notifications />} />,
+        rightIcon,
     };
 
     const SettingsItem = {
@@ -445,6 +452,7 @@ function getInstructorMenuItem({ name, active, t }: MenuItemFactoryProps): Singl
     const options: { [index: string]: SingleItemProps } = {
         'add-results': AddResultsItem,
         settings: SettingsItem,
+        notifications: NotificationsItem,
         logout: LogoutItem,
     };
 
