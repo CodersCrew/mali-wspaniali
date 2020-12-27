@@ -617,7 +617,34 @@
         },
         "reset-old-password": "Zresetuj hasło",
         "something-went-wrong": "Coś poszło nie tak. Skontaktuj się z Administratorem.",
-        "wrong-old-password": "Niepoprawne hasło"
+        "wrong-old-password": "Niepoprawne hasło",
+        "delete-account-header": "Usuwanie konta z poziomu użytkownika nie jest możliwe",
+        "delete-account-content": "Aby usunąc  konto w aplikacji skontaktuj się z fundacją",
+        "delete-account-button": "Napisz wiadomość"
+    },
+    "settings-modal": {
+        "button": "Wyślij wiadomość",
+        "modal-header": "Skontaktuj się z nami",
+        "modal-first-description": "Jeśli pojawiły się jakies problemy lub masz pytania, napisz do nas! ",
+        "modal-second-description": "Rozwiejemy wszelkie wątpliwości.",
+        "modal-send-button": "wyślij wiadomość",
+        "modal-close-button": "anuluj",
+        "text-field-email-id": "email",
+        "text-field-email-label": "Nadawca wiadomości",
+        "text-field-email-placeholder": "email",
+        "text-field-title-id": "wiadomość",
+        "text-field-title-label": "Treść wiadomości",
+        "text-field-title-placeholder": "Treść wiadomości",
+
+        "select-options": {
+            "select-label": "Temat wiadomości",
+            "1": "zmiana hasła",
+            "2": "wynik testu",
+            "3": "zajęcia w przedszkolu",
+            "4": "usunięcie konta",
+            "5": "inny"
+        },
+        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail."
     },
     "admin-instructors-page": {
         "table": {
