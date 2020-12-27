@@ -18,7 +18,22 @@ export const HomePageArticles = ({ articles }: Props) => {
     const device = useBreakpoints();
     const { t } = useTranslation();
 
-    const grouped = getChunks([...articles], 3);
+    const renderArticles = () => {
+        return articles.map((article, index) => {
+            return (
+                <Grid item className={classes.card} key={index}>
+                    <BlogArticleCard
+                        title={article.title}
+                        pictureUrl={article.pictureUrl}
+                        description={article.description}
+                        link={`/parent/article/${article._id}`}
+                    />
+                </Grid>
+            );
+        });
+    };
+
+    const grouped = getChunks([...renderArticles()], 3);
 
     return (
         <>
@@ -27,33 +42,13 @@ export const HomePageArticles = ({ articles }: Props) => {
                 <Carousel autoPlay={false}>
                     {grouped.map((items, groupIndex) => (
                         <Grid container direction="row" spacing={3} key={groupIndex} className={classes.gridContainer}>
-                            {items.map((item) => {
-                                return (
-                                    <Grid item md={4} sm={6} key={item._id} className={classes.card}>
-                                        <BlogArticleCard
-                                            title={item.title}
-                                            pictureUrl={item.pictureUrl}
-                                            description={item.description}
-                                            link={`/parent/article/${item._id}`}
-                                        />
-                                    </Grid>
-                                );})}
+                            {items.map((item, _index) => item)}
                         </Grid>
-                    ))}</Carousel>
+                    ))}
+                </Carousel>
             ) : (
                 <Grid container direction="row" spacing={3}>
-                    {articles.map(article => {
-                        return (
-                            <Grid item className={classes.card} key={article._id}>
-                                <BlogArticleCard
-                                    title={article.title}
-                                    pictureUrl={article.pictureUrl}
-                                    description={article.description}
-                                    link={`/parent/article/${article._id}`}
-                                />
-                            </Grid>
-                        );
-                    })}
+                    {renderArticles()}
                 </Grid>
             )}
         </>

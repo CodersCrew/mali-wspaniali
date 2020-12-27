@@ -24,20 +24,17 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         infoContainer: {
             display: 'flex',
+            flexDirection: 'column',
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: theme.spacing(0.5),
             background: cardBackgroundColor,
             padding: theme.spacing(2),
             position: 'relative',
-            maxHeight: 250,
             textAlign: 'left',
 
             [theme.breakpoints.down('md')]: {
                 marginTop: theme.spacing(4),
                 padding: theme.spacing(1.5),
-                maxHeight: 'none',
-                flexDirection: 'column',
-                overflowY: 'hidden',
             },
         },
         contentCloseIcon: {
@@ -60,11 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         contentDescription: {
             marginBottom: theme.spacing(2),
-
-            [theme.breakpoints.down('md')]: {
-                marginTop: 0,
-                height: 'auto',
-            },
         },
     }),
 );
