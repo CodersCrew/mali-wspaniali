@@ -5,6 +5,7 @@ import { useGetMe } from '../../../operations/mutations/User/useGetMe';
 
 import { ButtonSendMessage } from '../ChangePasswordPanel/ChangepasswordPanelFormControls/ButtonSendMessage';
 import { openSettingsModal } from '../../../components/AccountDeletionPanel/ModalSettings';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 const useStyles = makeStyles(theme => ({
     header: { color: theme.palette.text.primary },
@@ -36,8 +37,7 @@ export const AccountDeletionPanel = () => {
                         isCancelButtonVisible: true,
                         user,
                     }).then(result => {
-                        // Add logic to send email
-                        console.log('result', result);
+                        if (!result.close) openSnackbar({ text: t('settings-modal.snackBar-message') });
                     });
                 }}
             />

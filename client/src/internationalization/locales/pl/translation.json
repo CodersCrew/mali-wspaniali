@@ -618,7 +618,8 @@
             "3": "zajęcia w przedszkolu",
             "4": "usunięcie konta",
             "5": "inny"
-        }
+        },
+        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail."
     },
     "admin-instructors-page": {
         "table": {

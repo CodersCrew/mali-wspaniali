@@ -99,6 +99,7 @@ const SettingsMessageModal = ({
                                 error={formik.errors.email}
                                 touched={formik.touched.email}
                                 onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
+                                disabled={true}
                             />
                         </Grid>
                         <Grid item className={classes.inputBox}>
@@ -121,6 +122,7 @@ const SettingsMessageModal = ({
                                 touched={formik.touched.message}
                                 onChange={(name: string, value: string) => formik.setFieldValue(name, value)}
                                 multiline
+                                rows={10}
                             />
                         </Grid>
                     </Grid>
