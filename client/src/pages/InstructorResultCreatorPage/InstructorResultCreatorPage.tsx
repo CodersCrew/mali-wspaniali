@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { createStyles, Grid, makeStyles, Divider, Paper, Theme } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { ChildPicker } from './ChildPicker/ChildPicker';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
@@ -14,6 +15,7 @@ export function InstructorResultCreatorPage() {
     const params = useParams() as { [index: string]: string };
     const history = useHistory();
     const classes = useStyles();
+    const { t } = useTranslation();
 
     useEffect(() => {
         activePage(['instructor-menu.add-results']);
@@ -70,7 +72,7 @@ export function InstructorResultCreatorPage() {
                     <Grid item xs={8}>
                         <Grid container direction="column">
                             <Grid item>
-                                <ChildHeader selectedChild={selectedChild} />
+                                <ChildHeader description={t(`add-result-page.title-${params.measurement}-measurement`)} selectedChild={selectedChild} />
                             </Grid>
                             <Grid item>
                                 <Divider />
@@ -84,7 +86,7 @@ export function InstructorResultCreatorPage() {
                             <Grid item>
                                 <Grid container justify="flex-end">
                                     <Grid item>
-                                        <ButtonSecondary variant="text">Wróć do tabeli</ButtonSecondary>
+                                        <ButtonSecondary variant="text">{t(`add-result-page.back-to-table`)}</ButtonSecondary>
                                     </Grid>
                                 </Grid>
                             </Grid>

@@ -11,6 +11,7 @@ import { ChildListHeader } from './ChildListHeader';
 import { ChildListContainer } from './ChildListContainer';
 import { PageContainer } from '../../components/PageContainer';
 import { openAddNoteDialog } from './AddNoteDialog';
+import { NoAssessmentView } from './NoAssessmentsView';
 
 export function InstructorAddResultsPage() {
     const { assessments } = useAssessments({ withChildren: true });
@@ -39,6 +40,14 @@ export function InstructorAddResultsPage() {
             setSelectedKindergarten(assessment.kindergartens[0]?.kindergarten._id);
         }
     }, [assessments]);
+
+    console.log(assessments)
+
+    if (assessments.length === 0) {
+        return (<PageContainer>
+            <NoAssessmentView onClick={() => history.push('/parent/blog/all')} />
+        </PageContainer>)
+    }
 
     return (
         <PageContainer>

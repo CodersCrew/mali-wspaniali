@@ -9,6 +9,7 @@ import {
     Checkbox,
     Typography,
     FormControlLabel,
+    SimplePaletteColorOptions,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { theme } from '../../../theme/theme';
@@ -63,11 +64,19 @@ export function MeasurementPoint({ name, value, unit, maxValue, isEmpty, onChang
                     <Grid item xs={4} className={classes.pieContainer}>
                         <Grid container alignItems="center" spacing={2}>
                             <Grid item xs={3}>
-                            <CircleChart color={(theme.palette?.success as any).main} maxValue={maxValue} value={value} />
+                                <CircleChart
+                                    color={(theme.palette!.success as SimplePaletteColorOptions).main}
+                                    maxValue={maxValue}
+                                    value={value}
+                                />
                             </Grid>
                             <Grid item xs={9}>
-                        <Typography variant="body2">{t('add-result-page.received-points')} <strong className={classes.points}>{value}</strong> {t('add-result-page.points')} </Typography>
-
+                                <Typography variant="body2">
+                                    {t('add-result-page.received-points')}{' '}
+                                    <strong className={classes.points}>
+                                        {value} {t('add-result-page.points')}
+                                    </strong>
+                                </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -92,7 +101,7 @@ const useStyles = makeStyles((_theme: Theme) =>
             height: _theme.spacing(8),
         },
         points: {
-            color: _theme.palette.success.main
-        }
+            color: _theme.palette.success.main,
+        },
     }),
 );

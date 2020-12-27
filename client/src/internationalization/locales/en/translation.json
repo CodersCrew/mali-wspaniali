@@ -657,7 +657,13 @@
             "description": "Add and manage notes regarding important information about a specific child. Add information about past injuries, medications taken, or reasons for not taking the test.",
             "placeholder": "Click here to start typing",
             "cancel": "Cancel",
-            "save": "Save"
+            "save": "Save",
+            "text-limit": "{{characters}} characters left"
+        },
+        "no-assessments": {
+            "title": "Sorry, you cannot add results at this point",
+            "description": "The Foundation has not yet assigned you a kindergarten where you can add your test results. Sit back and use this moment to read the articles prepared by experts in healthy eating and fitness",
+            "go-to-articles": "Go to articles"
         }
     },
     "add-result-page": {
@@ -667,6 +673,10 @@
         "last": "Last",
         "no-result": "No result",
         "received-points":"Received points",
-        "points": "pts"
+        "points": "pts",
+        "title-first-measurement": "INITIAL TEST EFFICIENCY",
+        "title-last-measurement": "FINAL TRIAL EFFICIENCY",
+        "back-to-table": "Back to table",
+        "child-list": "Child list"
     }
 }

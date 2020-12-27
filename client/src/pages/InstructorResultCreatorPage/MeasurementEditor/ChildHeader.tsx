@@ -4,10 +4,11 @@ import { PieChart } from 'react-minimal-pie-chart';
 import { Child } from '../../../graphql/types';
 
 interface Props {
+    description: string;
     selectedChild: Child;
 }
 
-export function ChildHeader({ selectedChild }: Props) {
+export function ChildHeader({ description, selectedChild }: Props) {
     const classes = useStyles();
 
     return (
@@ -20,7 +21,7 @@ export function ChildHeader({ selectedChild }: Props) {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Typography variant="subtitle1">POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ</Typography>
+                        <Typography variant="subtitle1">{description}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

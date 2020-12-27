@@ -55,7 +55,7 @@ export function ChildPicker({ childList, kindergartens, selectedKindergarten, se
                     </Grid>
                     <div>
                         <div className={classes.listHeader}>
-                            <Typography variant="subtitle1">Lista dzieci</Typography>
+                            <Typography variant="subtitle1">{t(`add-result-page.child-list`)}</Typography>
                         </div>
                         <List>
                             <Divider />
