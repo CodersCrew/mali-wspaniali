@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         smallInfoContainer: {
             [theme.breakpoints.down('md')]: {
-                maxHeight: '200px',
+                maxHeight: 200,
             },
         },
     }),
