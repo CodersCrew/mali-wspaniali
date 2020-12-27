@@ -26,7 +26,7 @@ export const HomePageArticles = ({ articles }: Props) => {
             {device !== 'DESKTOP' && articles.length > 4 ? (
                 <Carousel autoPlay={false}>
                     {grouped.map((items, groupIndex) => (
-                        <Grid container direction="row" spacing={3} key={groupIndex}>
+                        <Grid container direction="row" spacing={3} key={groupIndex} className={classes.gridContainer}>
                             {items.map((item) => {
                                 return (
                                     <Grid item md={4} sm={6} key={item._id} className={classes.card}>
@@ -74,5 +74,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 margin: theme.spacing(0),
             },
         },
+        gridContainer: {
+            justifyContent: "center",
+        }
     }),
 );
