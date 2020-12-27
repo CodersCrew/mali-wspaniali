@@ -598,6 +598,7 @@
         "delete-account-button": "Napisz wiadomość"
     },
     "settings-modal": {
+        "button": "Wyślij wiadomość",
         "modal-header": "Skontaktuj się z nami",
         "modal-first-description": "Jeśli pojawiły się jakies problemy lub masz pytania, napisz do nas! ",
         "modal-second-description": "Rozwiejemy wszelkie wątpliwości.",

@@ -70,7 +70,7 @@ const SettingsMessageModal = ({
     return (
         <BasicModal
             isOpen={true}
-            actionName={t('add-child-modal.button')}
+            actionName={t('settings-modal.button')}
             onAction={formik.handleSubmit}
             onClose={() => {
                 if (!preventClose) {
