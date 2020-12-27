@@ -11,7 +11,7 @@ export const NotificationsPage = () => {
     const { readNotification } = useReadNotification();
 
     useEffect(() => {
-        activePage(['admin-menu.notifications', 'parent-menu.notifications']);
+        activePage(['admin-menu.notifications', 'parent-menu.notifications', 'instructor-menu.notifications']);
     }, []);
 
     if (!user) return null;
