@@ -36,6 +36,7 @@ export const AccountDeletionPanel = () => {
                         isCancelButtonVisible: true,
                         user,
                     }).then(result => {
+                        // Add logic to send email
                         console.log('result', result);
                     });
                 }}
