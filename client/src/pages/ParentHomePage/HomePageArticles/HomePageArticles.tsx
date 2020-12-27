@@ -27,9 +27,9 @@ export const HomePageArticles = ({ articles }: Props) => {
                 <Carousel autoPlay={false}>
                     {grouped.map((items, groupIndex) => (
                         <Grid container direction="row" spacing={3} key={groupIndex}>
-                            {items.map((item, index) => {
+                            {items.map((item) => {
                                 return (
-                                    <Grid item md={4} sm={6} key={index} className={classes.card}>
+                                    <Grid item md={4} sm={6} key={item._id} className={classes.card}>
                                         <BlogArticleCard
                                             title={item.title}
                                             pictureUrl={item.pictureUrl}
