@@ -673,6 +673,10 @@
         "last": "Last",
         "no-result": "No result",
         "received-points":"Received points",
-        "points": "pts"
+        "points": "pts",
+        "title-first-measurement": "INITIAL TEST EFFICIENCY",
+        "title-last-measurement": "FINAL TRIAL EFFICIENCY",
+        "back-to-table": "Back to table",
+        "child-list": "Child list"
     }
 }

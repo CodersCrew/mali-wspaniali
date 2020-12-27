@@ -672,6 +672,10 @@
         "last": "Końcowy",
         "no-result": "Brak wyniku",
         "received-points":"Otrzymane punkty",
-        "points": "pkt"
+        "points": "pkt",
+        "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
+        "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
+        "back-to-table": "Wróć do tabeli",
+        "child-list": "Lista dzieci"
     }
 }
