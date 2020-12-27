@@ -656,7 +656,8 @@
             "description": "Dodawaj i zarządzaj notatkami, dotyczącymi ważnych informacji na temat konkretnego dziecka. Dodaj inforamcje dotyczące przebytych kontuzji, przyjmowanych lekarstw czy powodów niebrania udziału w teście.",
             "placeholder": "Kliknij by zacząć pisać",
             "cancel": "Anuluj",
-            "save": "Zapisz"
+            "save": "Zapisz",
+            "text-limit": "Zostało {{characters}} znaków"
         },
         "no-assessments": {
             "title": "Wybacz, w tym momencie nie możesz jeszcze dodawać wyników",

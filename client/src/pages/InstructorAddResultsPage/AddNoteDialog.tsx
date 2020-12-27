@@ -1,17 +1,5 @@
 import React, { useState } from 'react';
-import {
-    Box,
-    createStyles,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Grid,
-    makeStyles,
-    TextField,
-    Theme,
-    Typography,
-} from '@material-ui/core';
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ButtonDefault, ButtonPrimary } from '../../components/Button';
@@ -33,7 +21,6 @@ function AddNoteDialog({
 }: AddNoteDialogProps & ActionDialog<{ note?: string }>) {
     const { t } = useTranslation();
     const [note, setNote] = useState(initialNote);
-    const classes = useStyles();
     const LENGTH_LIMIT = 500;
 
     const onAccepted = () => {
@@ -47,10 +34,12 @@ function AddNoteDialog({
     return (
         <Dialog open onClose={onClose} maxWidth="sm" fullWidth>
             <DialogTitle>{title}</DialogTitle>
-            <DialogContent classes={{ root: classes.description }} dividers>
+            <DialogContent dividers>
                 <Grid container direction="column" spacing={3}>
                     <Grid item>
-                        <Typography variant="body1">{t('add-results-page.add-note-modal.description')}</Typography>
+                        <Typography variant="body1" color="textSecondary">
+                            {t('add-results-page.add-note-modal.description')}
+                        </Typography>
                     </Grid>
                     <Grid item>
                         <TextField
@@ -66,7 +55,11 @@ function AddNoteDialog({
                         <Grid container justify="flex-end">
                             <Grid item>
                                 <Box mt={1}>
-                                    {note.length}/{LENGTH_LIMIT}
+                                    <Typography variant="caption" color="textSecondary">
+                                        {t('add-results-page.add-note-modal.text-limit', {
+                                            characters: `${note.length}/${LENGTH_LIMIT}`,
+                                        })}
+                                    </Typography>
                                 </Box>
                             </Grid>
                         </Grid>
@@ -88,11 +81,3 @@ function AddNoteDialog({
         </Dialog>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        description: {
-            color: theme.palette.text.secondary,
-        },
-    }),
-);
