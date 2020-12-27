@@ -72,6 +72,7 @@ const SettingsMessageModal = ({
             isOpen={true}
             actionName={t('settings-modal.button')}
             onAction={formik.handleSubmit}
+            isColor={true}
             onClose={() => {
                 if (!preventClose) {
                     onClose();
