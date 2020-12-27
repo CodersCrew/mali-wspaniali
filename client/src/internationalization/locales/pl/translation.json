@@ -649,7 +649,15 @@
         "add-result": "Dodaj wynik",
         "add-first-assessment-result": "Dodaj wyniki próby początkowej",
         "add-last-assessment-result": "Dodaj wyniki próby końcowej",
-        "add-note": "Dodaj notatkę"
+        "add-note": "Dodaj notatkę",
+        "note-first-measurement": "Notatka - Próba początkowa",
+        "note-last-measurement": "Notatka - Próba końcowa",
+        "add-note-modal": {
+            "description": "Dodawaj i zarządzaj notatkami, dotyczącymi ważnych informacji na temat konkretnego dziecka. Dodaj inforamcje dotyczące przebytych kontuzji, przyjmowanych lekarstw czy powodów niebrania udziału w teście.",
+            "placeholder": "Kliknij by zacząć pisać",
+            "cancel": "Anuluj",
+            "save": "Zapisz"
+        }
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",

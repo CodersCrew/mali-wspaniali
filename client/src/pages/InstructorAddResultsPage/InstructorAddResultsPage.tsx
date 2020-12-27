@@ -10,6 +10,7 @@ import { CustomContainer } from '../../components/CustomContainer';
 import { ChildListHeader } from './ChildListHeader';
 import { ChildListContainer } from './ChildListContainer';
 import { PageContainer } from '../../components/PageContainer';
+import { openAddNoteDialog } from './AddNoteDialog';
 
 export function InstructorAddResultsPage() {
     const { assessments } = useAssessments({ withChildren: true });
@@ -75,6 +76,15 @@ export function InstructorAddResultsPage() {
                             history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`)
                         }
 
+                        if (type === 'add-first-assessment-note') {
+                            openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: ''})
+                        }
+                        
+                        if (type === 'add-last-assessment-note') {
+                            openAddNoteDialog({ title: t('add-results-page.note-last-measurement'),note: ''})
+                        }
+
+                    
 
                     }} />
                 }

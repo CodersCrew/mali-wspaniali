@@ -650,7 +650,15 @@
         "add-result": "Add test result",
         "add-first-assessment-result": "Add first test result",
         "add-last-assessment-result": "Add last test result",
-        "add-note": "Add note"
+        "add-note": "Add note",
+        "note-first-measurement": "Note - First measurement",
+        "note-last-measurement": "Note - Last measurement",
+        "add-note-modal": {
+            "description": "Add and manage notes regarding important information about a specific child. Add information about past injuries, medications taken, or reasons for not taking the test.",
+            "placeholder": "Click here to start typing",
+            "cancel": "Cancel",
+            "save": "Save"
+        }
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
