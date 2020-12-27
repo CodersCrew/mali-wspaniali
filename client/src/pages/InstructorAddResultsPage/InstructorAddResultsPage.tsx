@@ -14,7 +14,7 @@ import { openAddNoteDialog } from './AddNoteDialog';
 import { NoAssessmentView } from './NoAssessmentsView';
 
 export function InstructorAddResultsPage() {
-    const { assessments } = useAssessments({ withChildren: true });
+    const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
     const [selectedAssessment, setSelectedAssessment] = useState('');
     const [selectedKindergarten, setSelectedKindergarten] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
@@ -41,7 +41,7 @@ export function InstructorAddResultsPage() {
         }
     }, [assessments]);
 
-    console.log(assessments)
+    if (areAssessmentsLoading) return null;
 
     if (assessments.length === 0) {
         return (<PageContainer>
