@@ -63,10 +63,10 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                                         if (selectedAll) {
                                             setSelected([]);
                                         } else {
-                                            setSelected(kindergartens.map(kindergarten => kindergarten._id));
+                                            setSelected(kindergartens.map((kindergarten) => kindergarten._id));
                                         }
 
-                                        setSelectedAll(prev => !prev);
+                                        setSelectedAll((prev) => !prev);
                                     }}
                                     data-testid="select-all"
                                     color="default"
@@ -77,20 +77,20 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                     </TableHead>
                     <TableBody>
                         {kindergartens
-                            .filter(kindergarten => {
+                            .filter((kindergarten) => {
                                 if (searchPhrase.length === 0) return true;
 
                                 return kindergarten.name.toLowerCase().includes(searchPhrase);
                             })
-                            .map(kindergarten => (
+                            .map((kindergarten) => (
                                 <TableRow
                                     key={kindergarten._id}
                                     hover
                                     role="row"
                                     onClick={() => {
-                                        setSelected(prev => {
+                                        setSelected((prev) => {
                                             if (prev.includes(kindergarten._id)) {
-                                                return prev.filter(selectedId => selectedId !== kindergarten._id);
+                                                return prev.filter((selectedId) => selectedId !== kindergarten._id);
                                             }
 
                                             return [...prev, kindergarten._id];

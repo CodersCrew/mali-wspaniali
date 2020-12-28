@@ -32,8 +32,8 @@ jobs:
       - name: npm run lint
         run: npm run lint
         working-directory: ${{env.working-directory}}
-      - name: npx prettier
-        run: npx prettier --check src/**/*
+      - name: npm prettier
+        run: npm run prettier:check
         working-directory: ${{env.working-directory}}
       - name: npm test
         run: npm test -- --passWithNoTests

@@ -1,5 +1,5 @@
-import { gql, useQuery } from "@apollo/client";
-import { Article } from "../../../graphql/types";
+import { gql, useQuery } from '@apollo/client';
+import { Article } from '../../../graphql/types';
 
 const LAST_ARTICLES = gql`
     query Articles($count: Int!) {
@@ -13,9 +13,8 @@ const LAST_ARTICLES = gql`
     }
 `;
 
-
 export function useLastArticles(count: number) {
-    const { data } = useQuery<{ lastArticles: Article[] }>(LAST_ARTICLES, { variables: { count} });
+    const { data } = useQuery<{ lastArticles: Article[] }>(LAST_ARTICLES, { variables: { count } });
 
-    return { articles: data?.lastArticles || []}
+    return { articles: data?.lastArticles || [] };
 }

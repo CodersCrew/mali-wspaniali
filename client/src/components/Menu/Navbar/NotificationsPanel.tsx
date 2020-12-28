@@ -9,9 +9,10 @@ import { useNotificationContent } from '../../../pages/NotificationsPage/useNoti
 
 export type NotificationListProps = {
     notifications: Notification[];
+    onClick: (id: string) => void;
 };
 
-export const NotificationsPanel = ({ notifications }: NotificationListProps) => {
+export const NotificationsPanel = ({ notifications, onClick }: NotificationListProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -20,7 +21,11 @@ export const NotificationsPanel = ({ notifications }: NotificationListProps) => 
             <div className={classes.header}>
                 <Typography variant="subtitle2">{t('notification-panel.title')}</Typography>
             </div>
-            {notifications.length === 0 ? <EmptyMessage /> : <ListComponent notifications={notifications} />}
+            {notifications.length === 0 ? (
+                <EmptyMessage />
+            ) : (
+                <ListComponent notifications={notifications} onClick={onClick} />
+            )}
         </Paper>
     );
 };
@@ -39,13 +44,13 @@ function EmptyMessage() {
     );
 }
 
-function ListComponent({ notifications }: { notifications: Notification[] }) {
+function ListComponent({ notifications, onClick }: { notifications: Notification[]; onClick: (id: string) => void }) {
     const { getNotification } = useNotificationContent();
     const classes = useStyles();
 
     return (
         <MenuList dense={true} classes={{ padding: classes.list }}>
-            {notifications.map(notification => {
+            {notifications.map((notification) => {
                 const { templateId, date, _id, isRead } = notification;
 
                 return (
@@ -55,6 +60,7 @@ function ListComponent({ notifications }: { notifications: Notification[] }) {
                         text={getNotification(templateId, notification.values)}
                         date={date}
                         isRead={isRead}
+                        onClick={onClick}
                     />
                 );
             })}

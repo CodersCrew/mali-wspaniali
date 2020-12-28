@@ -146,9 +146,9 @@ function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): Menu
         },
         {
             icon: <Icon icon={<ThumbUp />} />,
-            name: t('parent-menu.child.recomendations'),
-            link: `/parent/child/${child._id}/recomendations`,
-            active: active.includes(`/parent/child/${child._id}/recomendations`),
+            name: t('parent-menu.child.recommendations'),
+            link: `/parent/child/${child._id}/recommendations`,
+            active: active.includes(`/parent/child/${child._id}/recommendations`),
         },
         {
             icon: <Icon icon={<Notes />} />,
@@ -423,11 +423,18 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
     return item;
 }
 
-function getInstructorMenuItem({ name, active, t }: MenuItemFactoryProps): SingleItemProps {
+function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryProps): SingleItemProps {
     const AddResultsItem = {
         name: 'instructor-menu.add-results',
         link: '/instructor',
         icon: <Icon icon={<Assessment />} />,
+    };
+
+    const NotificationsItem = {
+        name: 'instructor-menu.notifications',
+        link: '/instructor/notifications',
+        icon: <Icon icon={<Notifications />} />,
+        rightIcon,
     };
 
     const SettingsItem = {
@@ -445,6 +452,7 @@ function getInstructorMenuItem({ name, active, t }: MenuItemFactoryProps): Singl
     const options: { [index: string]: SingleItemProps } = {
         'add-results': AddResultsItem,
         settings: SettingsItem,
+        notifications: NotificationsItem,
         logout: LogoutItem,
     };
 

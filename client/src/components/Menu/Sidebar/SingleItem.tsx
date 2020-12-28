@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItem, ListItemIcon, ListItemText, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { ListItem, ListItemIcon, ListItemText, makeStyles, Theme, createStyles, fade } from '@material-ui/core';
 import clsx from 'clsx';
 
 export interface SingleItemProps {
@@ -14,13 +14,14 @@ interface Props {
     item: SingleItemProps;
     onClick: (link?: string) => void;
     leftPadding?: boolean;
+    grayed?: boolean;
 }
 
 interface StyleProps {
     leftPadding?: boolean;
 }
 
-export function SingleItem({ item, leftPadding, onClick }: Props) {
+export function SingleItem({ item, leftPadding, grayed, onClick }: Props) {
     const classes = useStyles({ leftPadding });
 
     return (
@@ -29,7 +30,7 @@ export function SingleItem({ item, leftPadding, onClick }: Props) {
             key={item.name}
             onClick={() => onClick(item.link)}
             classes={{
-                button: clsx({ [classes.button]: true, [classes.activeButton]: item.active }),
+                button: clsx({ [classes.button]: true, [classes.grayed]: grayed, [classes.activeButton]: item.active }),
                 gutters: classes.rootButton,
             }}
         >
@@ -43,15 +44,18 @@ export function SingleItem({ item, leftPadding, onClick }: Props) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         activeButton: {
-            background: 'rgba(0, 172, 193, 0.08)',
+            background: `${fade(theme.palette.primary.main, 0.2)} !important`,
         },
         button: {
             '&:hover': {
-                background: 'rgba(0, 172, 193, 0.08)',
+                background: fade(theme.palette.primary.main, 0.2),
             },
         },
         rootButton: {
             paddingLeft: (props: StyleProps) => theme.spacing(props.leftPadding ? 3 : 2),
+        },
+        grayed: {
+            background: theme.palette.grey[100],
         },
     }),
 );

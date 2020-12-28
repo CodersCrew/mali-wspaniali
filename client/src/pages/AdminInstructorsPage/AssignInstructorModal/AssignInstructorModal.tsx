@@ -80,7 +80,7 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     Dodaj nieprzydzielone przedszkole
                 </Typography>
-                <KindergartenTable kindergartens={kindergartens} onSelect={value => console.log(value)} />
+                <KindergartenTable kindergartens={kindergartens} onSelect={(value) => console.log(value)} />
             </div>
         </TwoActionsModal>
     );

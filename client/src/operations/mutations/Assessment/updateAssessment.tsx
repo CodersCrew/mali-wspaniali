@@ -33,27 +33,35 @@ export function useUpdateAssessment(id: string): UpdateAssessment {
             return updateAssessment({
                 variables: { id, assessment: updatedAssessment },
                 update(cache) {
-                    const cachedAssessment: AssessmentResponse | null = cache.readQuery({
+                    const cachedAssessment = cache.readQuery<AssessmentResponse>({
                         query: GET_ASSESSMENT,
                         variables: { id },
                     });
 
                     if (!cachedAssessment) return;
 
-                    const kindergartenList: KindergartenListResponse = cache.readQuery({ query: KINDERGARTENS }) || {
+                    const kindergartenList = cache.readQuery<KindergartenListResponse>({ query: KINDERGARTENS }) || {
                         kindergartens: [],
                     };
 
                     const updatedKindergartens = kindergartenList.kindergartens
                         .filter((cachedKindergarten) => {
-                            return !!updatedAssessment.kindergartens?.find(updatedKindergarten => updatedKindergarten.kindergartenId === cachedKindergarten._id);
+                            return !!updatedAssessment.kindergartens?.find(
+                                (updatedKindergarten) => updatedKindergarten.kindergartenId === cachedKindergarten._id,
+                            );
                         })
                         .map((kindergarten) => ({ kindergarten, instructor: null })); // TODO: cach should be aware of the instructor
 
                     cache.writeQuery({
                         query: GET_ASSESSMENT,
                         variables: { id },
-                        data: { assessment: { ...cachedAssessment.assessment, ...updatedAssessment, kindergartens: updatedKindergartens } },
+                        data: {
+                            assessment: {
+                                ...cachedAssessment.assessment,
+                                ...updatedAssessment,
+                                kindergartens: updatedKindergartens,
+                            },
+                        },
                     });
                 },
             });

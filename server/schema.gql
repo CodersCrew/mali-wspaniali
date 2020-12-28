@@ -69,6 +69,7 @@ type KindergartenDTO {
   name: String!
   city: String!
   address: String!
+  children: [ChildDTO!]!
 }
 
 type ChildDTO {
@@ -178,6 +179,7 @@ type Query {
 
 type Mutation {
   createArticle(article: ArticleInput!): ReturnedStatusDTO!
+  readNotification(id: String!): NotificationDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
   login(user: LoginInput!): ReturnedTokenDTO!
   resetPassword(mail: String!): ReturnedStatusDTO!

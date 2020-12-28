@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, makeStyles, Typography } from '@material-ui/core';
+import { createStyles, makeStyles, Paper, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { EditChildPanel } from './EditChildPanel';
 import { Theme } from '../../../theme';
@@ -23,11 +23,11 @@ export function ChildDetails({ child }: Props) {
     if (isKindergartenListLoading) return <Loader />;
 
     return (
-        <div className={classes.mainContainer}>
+        <Paper classes={{ root: classes.container }}>
             <Typography variant="h4">{t('child-profile.child-details.form')} </Typography>
             <EditChildPanel
                 child={child}
-                handleSubmit={updatedChild => {
+                handleSubmit={(updatedChild) => {
                     editChild({
                         childId: child._id,
                         firstname: updatedChild.firstname,
@@ -40,14 +40,12 @@ export function ChildDetails({ child }: Props) {
                 }}
                 kindergartens={kindergartenList}
             />
-        </div>
+        </Paper>
     );
 }
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        mainContainer: {
-            background: theme.palette.background.paper,
-            margin: theme.spacing(3),
+        container: {
             padding: theme.spacing(2),
         },
     }),

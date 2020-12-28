@@ -58,7 +58,10 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
                                 placement="top"
                                 arrow
                             >
-                                <IconButton onClick={() => onAssignInstructorClick(instructor)} aria-label="assign instructor">
+                                <IconButton
+                                    onClick={() => onAssignInstructorClick(instructor)}
+                                    aria-label="assign instructor"
+                                >
                                     <AddIcon />
                                 </IconButton>
                             </Tooltip>

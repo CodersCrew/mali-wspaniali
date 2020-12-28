@@ -30,7 +30,7 @@ export const NewsletterPage = () => {
             topic: t('newsletter.topic-helper-text'),
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values) => {
             console.log(values);
         },
     });

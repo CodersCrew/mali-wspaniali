@@ -8,11 +8,12 @@ interface Props {
     color: string;
     value: number;
     maxValue: number;
+    enableInfoIcon?: boolean;
     label?: string;
     labelSuffix?: string;
 }
 
-export const CircleChart = ({ color, value, maxValue, label, labelSuffix }: Props) => {
+export const CircleChart = ({ color, value, maxValue, label, enableInfoIcon, labelSuffix }: Props) => {
     const classes = useStyles();
 
     const dataEntry: DataEntry = { color, value };
@@ -33,7 +34,7 @@ export const CircleChart = ({ color, value, maxValue, label, labelSuffix }: Prop
                 background="rgba(0, 0, 0, 0.04)"
                 startAngle={270}
             />
-            {!value && <InfoIcon className={classes.icon} />}
+            {!value && enableInfoIcon && <InfoIcon className={classes.icon} />}
         </>
     );
 };

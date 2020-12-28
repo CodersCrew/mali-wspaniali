@@ -28,7 +28,7 @@ export const FormControlOldPassword = (props: ChangePasswordPanelComponentsProps
                 value={oldPassword}
                 error={oldPasswordError}
                 disabled={oldPasswordDisabled}
-                onChange={event => dispatch({ type: CHANGE_OLD_PASSWORD, payload: { value: event.target.value } })}
+                onChange={(event) => dispatch({ type: CHANGE_OLD_PASSWORD, payload: { value: event.target.value } })}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton

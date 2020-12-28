@@ -99,6 +99,7 @@ export interface Kindergarten {
     number: number;
     address: string;
     city: string;
+    children?: Child[];
 }
 
 export interface AddKindergartenInput {
