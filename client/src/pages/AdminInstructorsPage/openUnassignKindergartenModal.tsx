@@ -19,7 +19,7 @@ export function openUnassignKindergartenModal({ kindergartenId }: Props): Promis
             <div className={classes.container}>
                 <UnassignKidnergartenModal
                     onClose={onClose}
-                    onDelete={() => makeDecision({ kindergartenId })}
+                    onDelete={() => makeDecision({ accepted: true, kindergartenId })}
                     kindergartenId={kindergartenId}
                 />
             </div>

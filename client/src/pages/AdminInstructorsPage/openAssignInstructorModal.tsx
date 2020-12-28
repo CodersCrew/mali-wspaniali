@@ -30,7 +30,7 @@ export function openAssignInstructorModal({ instructor, assessment, kindergarten
             <div className={classes.container}>
                 <AssignInstructorModal
                     onClose={onClose}
-                    onSubmit={selected => makeDecision({ selectedKindergartens: selected, data: {
+                    onSubmit={selected => makeDecision({ accepted: true, selectedKindergartens: selected, data: {
                         id: assessment?._id!,
                         assessment: selected.map(kindergartenId => ({
                             kindergartenId,
