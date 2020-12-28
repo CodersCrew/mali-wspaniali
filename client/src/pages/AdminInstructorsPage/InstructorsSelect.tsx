@@ -22,7 +22,7 @@ export const InstructorsSelect = ({ label, options, value }: Props) => {
                     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
                 }}
             >
-                {options.map(instructor => (
+                {options.map((instructor) => (
                     <MenuItem key={instructor._id} value={instructor._id}>
                         {instructor.mail}
                     </MenuItem>

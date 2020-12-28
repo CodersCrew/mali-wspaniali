@@ -19,7 +19,7 @@ export function ChildListHeader({
     onChange,
 }: Props) {
     const { t } = useTranslation();
-    const kindergartens = assessments.find(a => a._id === selectedAssessment)?.kindergartens || []
+    const kindergartens = assessments.find((a) => a._id === selectedAssessment)?.kindergartens || [];
 
     return (
         <div>
@@ -36,10 +36,10 @@ export function ChildListHeader({
                             MenuProps: {
                                 getContentAnchorEl: null,
                                 anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-                            }
+                            },
                         }}
                     >
-                        {assessments.map(a => (
+                        {assessments.map((a) => (
                             <MenuItem value={a._id} key={a.title}>
                                 {a.title}
                             </MenuItem>
@@ -58,10 +58,10 @@ export function ChildListHeader({
                             MenuProps: {
                                 getContentAnchorEl: null,
                                 anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-                            }
+                            },
                         }}
                     >
-                        {kindergartens.map(k => (
+                        {kindergartens.map((k) => (
                             <MenuItem value={k.kindergarten._id} key={k.kindergarten._id}>
                                 {k.kindergarten.number}/{k.kindergarten.name}
                             </MenuItem>
@@ -81,4 +81,3 @@ export function ChildListHeader({
         </div>
     );
 }
- 

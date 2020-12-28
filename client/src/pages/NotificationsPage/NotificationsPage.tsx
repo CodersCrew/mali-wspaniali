@@ -18,7 +18,7 @@ export const NotificationsPage = () => {
 
     return (
         <PageContainer>
-            <NotificationPageList onClick={id => readNotification(id)} notifications={user.notifications} />
+            <NotificationPageList onClick={(id) => readNotification(id)} notifications={user.notifications} />
             <Pagination disabledPrevious={true} disabledNext={true} handleChange={() => true}></Pagination>
         </PageContainer>
     );

@@ -25,7 +25,7 @@ export function AssessmentHistoryList({ assessments, onTestClick }: Props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {assessments.map(assessment => {
+                    {assessments.map((assessment) => {
                         return <AssessmentItem key={assessment.title} value={assessment} onClick={onTestClick} />;
                     })}
                 </TableBody>

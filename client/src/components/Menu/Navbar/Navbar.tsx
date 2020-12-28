@@ -30,7 +30,7 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
     const { t } = useTranslation();
 
     function handleNotificationPopupClick() {
-        setIsNotificationPopupOpen(prev => !prev);
+        setIsNotificationPopupOpen((prev) => !prev);
     }
 
     return (
@@ -63,13 +63,13 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
                                 <IconButton
                                     aria-label="notifications"
                                     onClick={handleNotificationPopupClick}
-                                    color={notifications.find(n => !n.isRead) ? 'secondary' : 'default'}
+                                    color={notifications.find((n) => !n.isRead) ? 'secondary' : 'default'}
                                 >
                                     <Notifications />
                                 </IconButton>
                                 {isNotificationPopupOpen && (
                                     <NotificationsPanel
-                                        onClick={id => readNotification(id)}
+                                        onClick={(id) => readNotification(id)}
                                         notifications={notifications}
                                     />
                                 )}

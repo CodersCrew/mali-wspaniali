@@ -29,7 +29,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
 
     if (!user) return null;
 
-    const unreadedNotificationsCount = user.notifications.filter(n => !n.isRead).length;
+    const unreadedNotificationsCount = user.notifications.filter((n) => !n.isRead).length;
 
     const ItemFactory = getParentMenuItemFactory({ active, t });
     const BlogItemFactory = getBlogMenuItemFactory({ active, t });
@@ -54,7 +54,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
             <Grid item>
                 <List>
                     <SingleItem item={MainPageItem} onClick={onClick} />
-                    {user.children.map(child => {
+                    {user.children.map((child) => {
                         const ChildItemFactory = getChildMenuItemFactory({ active, t });
 
                         const { mainItem, subItems } = ChildItemFactory.create({ child });

@@ -22,7 +22,7 @@ export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
                     rightIcon: isOpen ? <ExpandLess /> : <ExpandMore />,
                     active: mainItem.active,
                 }}
-                onClick={() => setIsOpen(prev => !prev)}
+                onClick={() => setIsOpen((prev) => !prev)}
                 grayed
             />
             <Collapse in={isOpen} timeout="auto" unmountOnExit>

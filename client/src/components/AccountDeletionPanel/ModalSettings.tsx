@@ -11,7 +11,7 @@ import { BasicModal } from '../Modal/BasicModal';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { FormValues, SettingsMessageModalProps } from './types';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     header: { color: theme.palette.text.primary },
     inputBox: {
         margin: theme.spacing(2, 0),
@@ -19,19 +19,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const validationSchema = yup.object({
-    email: yup
-        .string()
-        .required()
-        .email()
-        .label('Email'),
-    messageTopic: yup
-        .string()
-        .required()
-        .label('Message'),
-    message: yup
-        .string()
-        .required()
-        .label('Message'),
+    email: yup.string().required().email().label('Email'),
+    messageTopic: yup.string().required().label('Message'),
+    message: yup.string().required().label('Message'),
 });
 
 const normalizeParent = (parent: FormValues) => {
@@ -62,7 +52,7 @@ const SettingsMessageModal = ({
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
+        onSubmit: (values) => {
             makeDecision({ accepted: true, parent: normalizeParent(values) });
         },
     });

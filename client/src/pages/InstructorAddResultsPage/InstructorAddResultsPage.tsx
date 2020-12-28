@@ -24,8 +24,8 @@ export function InstructorAddResultsPage() {
 
     const currentChildren =
         assessments
-            .find(a => a._id === selectedAssessment)
-            ?.kindergartens.find(k => k.kindergarten._id === selectedKindergarten)?.kindergarten.children || [];
+            .find((a) => a._id === selectedAssessment)
+            ?.kindergartens.find((k) => k.kindergarten._id === selectedKindergarten)?.kindergarten.children || [];
 
     useEffect(() => {
         activePage(['instructor-menu.add-results']);
@@ -44,9 +44,11 @@ export function InstructorAddResultsPage() {
     if (areAssessmentsLoading) return null;
 
     if (assessments.length === 0) {
-        return (<PageContainer>
-            <NoAssessmentView onClick={() => history.push('/parent/blog/all')} />
-        </PageContainer>)
+        return (
+            <PageContainer>
+                <NoAssessmentView onClick={() => history.push('/parent/blog/all')} />
+            </PageContainer>
+        );
     }
 
     return (
@@ -76,34 +78,34 @@ export function InstructorAddResultsPage() {
                     />
                 }
                 container={
-                    <ChildListContainer searchTerm={searchTerm} childList={currentChildren} onClick={(type, value) => {
-                        if (type === 'add-first-assessment-result') {
-                            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`)
-                        }
-                        
-                        if (type === 'add-last-assessment-result') {
-                            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`)
-                        }
+                    <ChildListContainer
+                        searchTerm={searchTerm}
+                        childList={currentChildren}
+                        onClick={(type, value) => {
+                            if (type === 'add-first-assessment-result') {
+                                history.push(
+                                    `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`,
+                                );
+                            }
 
-                        if (type === 'add-first-assessment-note') {
-                            openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: ''})
-                        }
-                        
-                        if (type === 'add-last-assessment-note') {
-                            openAddNoteDialog({ title: t('add-results-page.note-last-measurement'),note: ''})
-                        }
+                            if (type === 'add-last-assessment-result') {
+                                history.push(
+                                    `/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`,
+                                );
+                            }
 
-                    
+                            if (type === 'add-first-assessment-note') {
+                                openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: '' });
+                            }
 
-                    }} />
+                            if (type === 'add-last-assessment-note') {
+                                openAddNoteDialog({ title: t('add-results-page.note-last-measurement'), note: '' });
+                            }
+                        }}
+                    />
                 }
             />
-            <Fab
-                variant="extended"
-                color="secondary"
-                aria-label="add test result"
-                className={classes.fab}
-            >
+            <Fab variant="extended" color="secondary" aria-label="add test result" className={classes.fab}>
                 <BarChart />
                 &nbsp;
                 {t('add-results-page.add-result')}

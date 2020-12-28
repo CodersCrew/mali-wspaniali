@@ -31,8 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: 'white',
             fontSize: theme.typography.subtitle2.fontSize,
             fontFamily: theme.typography.fontFamily,
-            backgroundColor: ({ color }: { color: string }) =>
-                blogCategoryColors[color],
+            backgroundColor: ({ color }: { color: string }) => blogCategoryColors[color],
         },
     }),
 );

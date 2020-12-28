@@ -50,7 +50,7 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit }: 
                             isCancelButtonVisible: true,
                         }).then((results) => {
                             if (results.decision?.accepted) {
-                                handleModalSubmit(results.decision.child)
+                                handleModalSubmit(results.decision.child);
                             }
                         });
                     }}

@@ -29,12 +29,12 @@ export function ChildPicker({ childList, kindergartens, selectedKindergarten, se
                             <SelectList
                                 value={selectedKindergarten}
                                 label={t('add-results-page.test-name')}
-                                items={kindergartens.map(k => (
+                                items={kindergartens.map((k) => (
                                     <MenuItem value={k._id} key={k._id}>
                                         {k.name}
                                     </MenuItem>
                                 ))}
-                                onSelect={value => onClick('kindergarten', value)}
+                                onSelect={(value) => onClick('kindergarten', value)}
                             />
                         </Grid>
                         <Grid item>
@@ -49,7 +49,7 @@ export function ChildPicker({ childList, kindergartens, selectedKindergarten, se
                                         {t('add-result-page.last')}
                                     </MenuItem>,
                                 ]}
-                                onSelect={value => onClick('measurement', value)}
+                                onSelect={(value) => onClick('measurement', value)}
                             />
                         </Grid>
                     </Grid>
@@ -59,13 +59,13 @@ export function ChildPicker({ childList, kindergartens, selectedKindergarten, se
                         </div>
                         <List>
                             <Divider />
-                            {childList.map(c => {
+                            {childList.map((c) => {
                                 return (
                                     <ChildItem
                                         key={c._id}
                                         child={c}
                                         selected={c._id === selected}
-                                        onClick={value => onClick('child', c._id)}
+                                        onClick={(value) => onClick('child', c._id)}
                                     />
                                 );
                             })}

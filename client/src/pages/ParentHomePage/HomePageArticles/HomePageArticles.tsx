@@ -17,7 +17,7 @@ export const HomePageArticles = ({ articles }: Props) => {
     const { t } = useTranslation();
 
     const renderArticles = () => {
-        return articles.map(article => {
+        return articles.map((article) => {
             return (
                 <div className={classes.card} key={article._id}>
                     <BlogArticleCard

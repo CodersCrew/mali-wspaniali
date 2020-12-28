@@ -25,7 +25,7 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {kindergartens.map(kindergarten => (
+                    {kindergartens.map((kindergarten) => (
                         <TestResultsTableRow
                             key={kindergarten._id}
                             kindergarten={kindergarten}

@@ -56,7 +56,7 @@ export const AdminAgreementsPage = ({
                         classes={{ root: classes.filterHeader }}
                     >
                         <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
-                        <IconButton onClick={() => setIsFilterListOpen(prev => !prev)}>
+                        <IconButton onClick={() => setIsFilterListOpen((prev) => !prev)}>
                             <FilterListIcon />
                         </IconButton>
                     </Grid>

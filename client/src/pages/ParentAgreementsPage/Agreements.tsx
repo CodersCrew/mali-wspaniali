@@ -56,7 +56,7 @@ export const Agreements = ({ agreements }: Props) => {
                                 }
                             />
                         </ListItem>
-                        {agreements.map(agreement => {
+                        {agreements.map((agreement) => {
                             return (
                                 <ListItem alignItems="flex-start" key={agreement._id}>
                                     <ListItemIcon className={classes.listItemIcon}>

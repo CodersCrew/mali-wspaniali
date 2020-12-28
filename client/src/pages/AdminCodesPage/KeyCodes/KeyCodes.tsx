@@ -20,7 +20,7 @@ export function KeyCodes() {
     const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(1);
     const [target, setTarget] = useState('parent');
     const [isLoading, setIsLoading] = useState(false);
-    const { generateExcel } = useGenerateExcel(filename => {
+    const { generateExcel } = useGenerateExcel((filename) => {
         openSnackbar({ text: t('admin-setting-page.keycode-generation.download-alert', { filename }) });
     });
 
@@ -36,7 +36,7 @@ export function KeyCodes() {
                 <div className={classes.amountContainer}>
                     <KeyCodesToGenerateTextfield
                         value={keyCodesToGenerate}
-                        onChange={amount => setKeyCodesToGenerate(amount)}
+                        onChange={(amount) => setKeyCodesToGenerate(amount)}
                     />
                 </div>
                 <div className={classes.generateButtonContainer}>
@@ -68,7 +68,7 @@ export function KeyCodes() {
                 </div>
             </Grid>
             <div className={classes.fileListContainer}>
-                <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={series => generateExcel(series)} />
+                <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={(series) => generateExcel(series)} />
             </div>
         </div>
     );
