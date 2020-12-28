@@ -19,10 +19,10 @@ export const LoginPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const { authorizeMe } = useAuthorizeMe(
-        user => {
+        (user) => {
             history.push(`/${user.role}`);
         },
-        error => setLoginError(error),
+        (error) => setLoginError(error),
     );
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {

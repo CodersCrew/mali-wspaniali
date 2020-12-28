@@ -21,9 +21,11 @@ export function InstructorResultCreatorPage() {
         activePage(['instructor-menu.add-results']);
     }, []);
 
-    const selectedAssessment = assessments.find(a => a._id === params.assessmentId);
-    const selectedKindergarten = selectedAssessment?.kindergartens.find(k => k.kindergarten._id === params.kindergartenId)?.kindergarten;
-    const selectedChild = selectedKindergarten?.children?.find(c => c._id === params.childId)
+    const selectedAssessment = assessments.find((a) => a._id === params.assessmentId);
+    const selectedKindergarten = selectedAssessment?.kindergartens.find(
+        (k) => k.kindergarten._id === params.kindergartenId,
+    )?.kindergarten;
+    const selectedChild = selectedKindergarten?.children?.find((c) => c._id === params.childId);
 
     if (!selectedAssessment || !selectedKindergarten || !selectedChild) {
         return null;
@@ -36,7 +38,7 @@ export function InstructorResultCreatorPage() {
                     <Grid item xs={4}>
                         <ChildPicker
                             selectedKindergarten={selectedKindergarten._id || ''}
-                            kindergartens={selectedAssessment.kindergartens.map(k => k.kindergarten) || []}
+                            kindergartens={selectedAssessment.kindergartens.map((k) => k.kindergarten) || []}
                             selected={selectedChild._id}
                             measurement={params.measurement}
                             childList={selectedKindergarten.children || []}
@@ -46,7 +48,7 @@ export function InstructorResultCreatorPage() {
                                         `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${selectedKindergarten._id}/${value}`,
                                     );
                                 }
-                                
+
                                 if (type === 'measurement') {
                                     history.push(
                                         `/instructor/result/add/${value}/${params.assessmentId}/${params.kindergartenId}/${params.childId}`,
@@ -54,17 +56,16 @@ export function InstructorResultCreatorPage() {
                                 }
 
                                 if (type === 'kindergarten') {
-
-                                    const currentSelectedKindergarten = selectedAssessment?.kindergartens.find(k => k.kindergarten._id === value)?.kindergarten;
-                                    const firstChildren = currentSelectedKindergarten?.children![0]
+                                    const currentSelectedKindergarten = selectedAssessment?.kindergartens.find(
+                                        (k) => k.kindergarten._id === value,
+                                    )?.kindergarten;
+                                    const firstChildren = currentSelectedKindergarten?.children![0];
 
                                     if (firstChildren) {
                                         history.push(
                                             `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${value}/${firstChildren._id}`,
-                                        ); 
-
+                                        );
                                     }
-
                                 }
                             }}
                         />
@@ -72,7 +73,10 @@ export function InstructorResultCreatorPage() {
                     <Grid item xs={8}>
                         <Grid container direction="column">
                             <Grid item>
-                                <ChildHeader description={t(`add-result-page.title-${params.measurement}-measurement`)} selectedChild={selectedChild} />
+                                <ChildHeader
+                                    description={t(`add-result-page.title-${params.measurement}-measurement`)}
+                                    selectedChild={selectedChild}
+                                />
                             </Grid>
                             <Grid item>
                                 <Divider />
@@ -86,7 +90,9 @@ export function InstructorResultCreatorPage() {
                             <Grid item>
                                 <Grid container justify="flex-end">
                                     <Grid item>
-                                        <ButtonSecondary variant="text">{t(`add-result-page.back-to-table`)}</ButtonSecondary>
+                                        <ButtonSecondary variant="text">
+                                            {t(`add-result-page.back-to-table`)}
+                                        </ButtonSecondary>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -103,6 +109,6 @@ const useStyles = makeStyles((theme: Theme) =>
         editor: {
             maxHeight: '63vh',
             overflowY: 'auto',
-        }
+        },
     }),
 );

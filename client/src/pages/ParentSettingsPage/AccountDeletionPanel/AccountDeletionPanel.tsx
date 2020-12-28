@@ -7,7 +7,7 @@ import { ButtonSendMessage } from '../ChangePasswordPanel/ChangepasswordPanelFor
 import { openSettingsModal } from '../../../components/AccountDeletionPanel/ModalSettings';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     header: { color: theme.palette.text.primary },
     description: {
         color: theme.palette.text.secondary,
@@ -36,7 +36,7 @@ export const AccountDeletionPanel = () => {
                         preventClose: false,
                         isCancelButtonVisible: true,
                         user,
-                    }).then(result => {
+                    }).then((result) => {
                         if (!result.close) openSnackbar({ text: t('settings-modal.snackBar-message') });
                     });
                 }}

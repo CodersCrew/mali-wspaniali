@@ -18,7 +18,7 @@ export const Panel: FC<Props> = ({ title, children }) => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     panel: {
         '&:first-child': {
             marginTop: 0,

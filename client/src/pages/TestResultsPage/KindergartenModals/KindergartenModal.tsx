@@ -15,12 +15,7 @@ interface Props {
     kindergarten: Kindergarten | null;
 }
 
-export const KindergartenModal = ({
-    onClose,
-    onSubmit,
-    onDelete,
-     kindergarten,
-}: Props) => {
+export const KindergartenModal = ({ onClose, onSubmit, onDelete, kindergarten }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 

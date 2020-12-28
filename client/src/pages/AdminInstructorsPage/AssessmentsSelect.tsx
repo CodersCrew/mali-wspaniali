@@ -25,7 +25,7 @@ export const AssessmentsSelect = ({ label, options, onChange, value }: Props) =>
                     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
                 }}
             >
-                {options.map(assessment => (
+                {options.map((assessment) => (
                     <MenuItem key={assessment._id} value={assessment._id}>
                         {assessment.title}
                     </MenuItem>

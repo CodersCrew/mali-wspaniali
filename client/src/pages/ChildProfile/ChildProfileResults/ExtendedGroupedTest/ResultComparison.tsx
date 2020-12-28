@@ -36,7 +36,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                         <div className={classes.difference}>{t(`child-profile.difference.${key}`)}</div>
                         <ButtonSecondary
                             variant="contained"
-                            onClick={() => setIsModalOpen(prev => !prev)}
+                            onClick={() => setIsModalOpen((prev) => !prev)}
                             innerText={t('child-profile.comparison-button')}
                         />
                     </div>
@@ -49,8 +49,8 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
             </div>
             <BasicModal
                 isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(prev => !prev)}
-                onAction={() => setIsModalOpen(prev => !prev)}
+                onClose={() => setIsModalOpen((prev) => !prev)}
+                onAction={() => setIsModalOpen((prev) => !prev)}
                 actionName={t('close')}
             >
                 {t(`child-profile.difference.${key}`)}

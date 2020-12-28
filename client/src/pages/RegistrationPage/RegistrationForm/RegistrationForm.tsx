@@ -47,80 +47,80 @@ export const RegistrationForm = () => {
 
     const getStepContent = (step: number) => {
         switch (step) {
-        case 0:
-            return (
-                <RegistrationCode
-                    handleChange={handleChange}
-                    handleNext={handleNext}
-                    code={code}
-                    classForm={classes.formItem}
-                    classButton={classes.buttonWrapper}
-                    classNextBtn={classes.nextButton}
-                />
-            );
-        case 1:
-            return (
-                <RegistrationEmail
-                    handleChange={handleChange}
-                    handleNext={handleNext}
-                    handleBack={handleBack}
-                    email={email}
-                    form={form}
-                    classForm={classes.formItem}
-                    classButton={clsx({ [classes.buttonWrapper]: true, emailContent: activeStep === 0 })}
-                    classNextBtn={classes.nextButton}
-                />
-            );
-        case 2:
-            return (
-                <RegistrationAgreement
-                    handleBack={handleBack}
-                    handleNext={handleNext}
-                    classButton={classes.buttonWrapper}
-                    classNextBtn={classes.nextButton}
-                    agreementContainer={classes.agreementContainer}
-                    agreementHeader={classes.agreementHeader}
-                    agreementMoreBtn={classes.agreementMoreBtn}
-                    agreementCheckboxHeader={classes.agreementCheckboxHeader}
-                    agreementCheckboxWrapper={classes.agreementCheckboxWrapper}
-                    agreementText={classes.agreementText}
-                    agreementLink={classes.agreementLink}
-                    agreementModal={classes.agreementModal}
-                    agreementPanel={classes.agreementPanel}
-                    agreementCheckbox={classes.agreementCheckbox}
-                    checkboxContent={classes.checkboxContent}
-                    agreements={agreements}
-                />
-            );
-        case 3:
-            return (
-                <RegistrationPassword
-                    handleChange={handleChange}
-                    handleBack={handleBack}
-                    activeStep={activeStep}
-                    password={password}
-                    passwordConfirm={passwordConfirm}
-                    classForm={classes.formItem}
-                    classButton={classes.buttonWrapper}
-                    classNextBtn={classes.nextButton}
-                    classFormItem={classes.formItem}
-                />
-            );
-        case 4:
-            return (
-                <RegistrationFeedback
-                    classLink={classes.goToHomepageLink}
-                    classHeader={clsx({ [classes.loginHeader]: true, confirmation: activeStep === 3 })}
-                    classWrapper={classes.confirmWrapper}
-                />
-            );
-        default:
-            return null;
+            case 0:
+                return (
+                    <RegistrationCode
+                        handleChange={handleChange}
+                        handleNext={handleNext}
+                        code={code}
+                        classForm={classes.formItem}
+                        classButton={classes.buttonWrapper}
+                        classNextBtn={classes.nextButton}
+                    />
+                );
+            case 1:
+                return (
+                    <RegistrationEmail
+                        handleChange={handleChange}
+                        handleNext={handleNext}
+                        handleBack={handleBack}
+                        email={email}
+                        form={form}
+                        classForm={classes.formItem}
+                        classButton={clsx({ [classes.buttonWrapper]: true, emailContent: activeStep === 0 })}
+                        classNextBtn={classes.nextButton}
+                    />
+                );
+            case 2:
+                return (
+                    <RegistrationAgreement
+                        handleBack={handleBack}
+                        handleNext={handleNext}
+                        classButton={classes.buttonWrapper}
+                        classNextBtn={classes.nextButton}
+                        agreementContainer={classes.agreementContainer}
+                        agreementHeader={classes.agreementHeader}
+                        agreementMoreBtn={classes.agreementMoreBtn}
+                        agreementCheckboxHeader={classes.agreementCheckboxHeader}
+                        agreementCheckboxWrapper={classes.agreementCheckboxWrapper}
+                        agreementText={classes.agreementText}
+                        agreementLink={classes.agreementLink}
+                        agreementModal={classes.agreementModal}
+                        agreementPanel={classes.agreementPanel}
+                        agreementCheckbox={classes.agreementCheckbox}
+                        checkboxContent={classes.checkboxContent}
+                        agreements={agreements}
+                    />
+                );
+            case 3:
+                return (
+                    <RegistrationPassword
+                        handleChange={handleChange}
+                        handleBack={handleBack}
+                        activeStep={activeStep}
+                        password={password}
+                        passwordConfirm={passwordConfirm}
+                        classForm={classes.formItem}
+                        classButton={classes.buttonWrapper}
+                        classNextBtn={classes.nextButton}
+                        classFormItem={classes.formItem}
+                    />
+                );
+            case 4:
+                return (
+                    <RegistrationFeedback
+                        classLink={classes.goToHomepageLink}
+                        classHeader={clsx({ [classes.loginHeader]: true, confirmation: activeStep === 3 })}
+                        classWrapper={classes.confirmWrapper}
+                    />
+                );
+            default:
+                return null;
         }
     };
 
-    const handleNext = () => setActiveStep(prevActiveStep => prevActiveStep + 1);
-    const handleBack = () => setActiveStep(prevActiveStep => prevActiveStep - 1);
+    const handleNext = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -139,7 +139,7 @@ export const RegistrationForm = () => {
                 .then(() => {
                     handleNext();
                 })
-                .catch(err => {
+                .catch((err) => {
                     openAlertDialog({
                         type: 'error',
                         description: err.message,
@@ -150,7 +150,7 @@ export const RegistrationForm = () => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const { id, value } = event.target;
-        setForm(prevForm => ({ ...prevForm, [id]: value }));
+        setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
 
     return (

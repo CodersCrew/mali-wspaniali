@@ -48,8 +48,8 @@ export function KindergartenList({ kindergartens }: Props) {
                         </TableHead>
                         <TableBody>
                             {kindergartens
-                                .filter(kindergarten => kindergarten.selected)
-                                .map(kindergarten => (
+                                .filter((kindergarten) => kindergarten.selected)
+                                .map((kindergarten) => (
                                     <TableRow key={kindergarten.kindergarten._id} hover role="row">
                                         <TableCell classes={{ root: classes.kindergartenItem }}>
                                             {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}

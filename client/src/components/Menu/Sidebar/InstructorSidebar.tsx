@@ -29,7 +29,7 @@ export const InstructorSidebar = ({ onClick, onClose, user, active, open }: Prop
 
     if (!user) return null;
 
-    const unreadedNotificationsCount = user.notifications.filter(n => !n.isRead).length;
+    const unreadedNotificationsCount = user.notifications.filter((n) => !n.isRead).length;
 
     const ItemFactory = getInstructorMenuItemFactory({ active, t });
     const BlogItemFactory = getBlogMenuItemFactory({ active, t });
