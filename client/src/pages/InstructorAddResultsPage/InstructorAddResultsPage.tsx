@@ -50,6 +50,40 @@ export function InstructorAddResultsPage() {
         );
     }
 
+    function onFilterChanged(type: string, value: string) {
+        if (type === 'assessment') {
+            setSelectedAssessment(value);
+
+            return;
+        }
+
+        if (type === 'searchTerm') {
+            setSearchTerm(value);
+
+            return;
+        }
+
+        setSelectedKindergarten(value);
+    }
+
+    function onChildClicked(type: string, value: string) {
+        if (type === 'add-first-assessment-result') {
+            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`);
+        }
+
+        if (type === 'add-last-assessment-result') {
+            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`);
+        }
+
+        if (type === 'add-first-assessment-note') {
+            openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: '' });
+        }
+
+        if (type === 'add-last-assessment-note') {
+            openAddNoteDialog({ title: t('add-results-page.note-last-measurement'), note: '' });
+        }
+    }
+
     return (
         <PageContainer>
             <CustomContainer
@@ -59,49 +93,11 @@ export function InstructorAddResultsPage() {
                         selectedAssessment={selectedAssessment}
                         selectedKindergarten={selectedKindergarten}
                         searchTerm={searchTerm}
-                        onChange={({ type, value }) => {
-                            if (type === 'assessment') {
-                                setSelectedAssessment(value);
-
-                                return;
-                            }
-
-                            if (type === 'searchTerm') {
-                                setSearchTerm(value);
-
-                                return;
-                            }
-
-                            setSelectedKindergarten(value);
-                        }}
+                        onChange={onFilterChanged}
                     />
                 }
                 container={
-                    <ChildListContainer
-                        searchTerm={searchTerm}
-                        childList={currentChildren}
-                        onClick={(type, value) => {
-                            if (type === 'add-first-assessment-result') {
-                                history.push(
-                                    `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`,
-                                );
-                            }
-
-                            if (type === 'add-last-assessment-result') {
-                                history.push(
-                                    `/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`,
-                                );
-                            }
-
-                            if (type === 'add-first-assessment-note') {
-                                openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: '' });
-                            }
-
-                            if (type === 'add-last-assessment-note') {
-                                openAddNoteDialog({ title: t('add-results-page.note-last-measurement'), note: '' });
-                            }
-                        }}
-                    />
+                    <ChildListContainer searchTerm={searchTerm} childList={currentChildren} onClick={onChildClicked} />
                 }
             />
             <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} />
