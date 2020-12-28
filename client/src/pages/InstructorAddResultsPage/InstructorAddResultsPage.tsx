@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { createStyles, Fab, makeStyles, Theme } from '@material-ui/core';
 import { BarChart } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -12,13 +11,13 @@ import { ChildListContainer } from './ChildListContainer';
 import { PageContainer } from '../../components/PageContainer';
 import { openAddNoteDialog } from './AddNoteDialog';
 import { NoAssessmentView } from './NoAssessmentsView';
+import { SecondaryFab } from '../../components/SecondaryFab';
 
 export function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
     const [selectedAssessment, setSelectedAssessment] = useState('');
     const [selectedKindergarten, setSelectedKindergarten] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    const classes = useStyles();
     const { t } = useTranslation();
     const history = useHistory();
 
@@ -51,6 +50,40 @@ export function InstructorAddResultsPage() {
         );
     }
 
+    function onFilterChanged(type: string, value: string) {
+        if (type === 'assessment') {
+            setSelectedAssessment(value);
+
+            return;
+        }
+
+        if (type === 'searchTerm') {
+            setSearchTerm(value);
+
+            return;
+        }
+
+        setSelectedKindergarten(value);
+    }
+
+    function onChildClicked(type: string, value: string) {
+        if (type === 'add-first-assessment-result') {
+            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`);
+        }
+
+        if (type === 'add-last-assessment-result') {
+            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`);
+        }
+
+        if (type === 'add-first-assessment-note') {
+            openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: '' });
+        }
+
+        if (type === 'add-last-assessment-note') {
+            openAddNoteDialog({ title: t('add-results-page.note-last-measurement'), note: '' });
+        }
+    }
+
     return (
         <PageContainer>
             <CustomContainer
@@ -60,66 +93,14 @@ export function InstructorAddResultsPage() {
                         selectedAssessment={selectedAssessment}
                         selectedKindergarten={selectedKindergarten}
                         searchTerm={searchTerm}
-                        onChange={({ type, value }) => {
-                            if (type === 'assessment') {
-                                setSelectedAssessment(value);
-
-                                return;
-                            }
-
-                            if (type === 'searchTerm') {
-                                setSearchTerm(value);
-
-                                return;
-                            }
-
-                            setSelectedKindergarten(value);
-                        }}
+                        onChange={onFilterChanged}
                     />
                 }
                 container={
-                    <ChildListContainer
-                        searchTerm={searchTerm}
-                        childList={currentChildren}
-                        onClick={(type, value) => {
-                            if (type === 'add-first-assessment-result') {
-                                history.push(
-                                    `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`,
-                                );
-                            }
-
-                            if (type === 'add-last-assessment-result') {
-                                history.push(
-                                    `/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`,
-                                );
-                            }
-
-                            if (type === 'add-first-assessment-note') {
-                                openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: '' });
-                            }
-
-                            if (type === 'add-last-assessment-note') {
-                                openAddNoteDialog({ title: t('add-results-page.note-last-measurement'), note: '' });
-                            }
-                        }}
-                    />
+                    <ChildListContainer searchTerm={searchTerm} childList={currentChildren} onClick={onChildClicked} />
                 }
             />
-            <Fab variant="extended" color="secondary" aria-label="add test result" className={classes.fab}>
-                <BarChart />
-                &nbsp;
-                {t('add-results-page.add-result')}
-            </Fab>
+            <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} />
         </PageContainer>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        fab: {
-            position: 'fixed',
-            bottom: theme.spacing(3),
-            right: theme.spacing(3),
-        },
-    }),
-);

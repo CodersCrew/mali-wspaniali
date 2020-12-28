@@ -29,7 +29,7 @@ export function ChildListContainer({ childList, searchTerm, onClick }: Props) {
             </TableHead>
             <TableBody>
                 {childList
-                    .filter((c) => c.firstname.includes(searchTerm))
+                    .filter((c) => c.firstname.toLowerCase().includes(searchTerm.toLowerCase()))
                     .map((c) => (
                         <TableRow key={c._id} hover>
                             <TableCell>{c.firstname}</TableCell>

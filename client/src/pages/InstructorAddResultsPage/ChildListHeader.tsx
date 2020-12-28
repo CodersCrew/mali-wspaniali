@@ -8,7 +8,7 @@ interface Props {
     selectedAssessment: string;
     selectedKindergarten: string;
     searchTerm: string;
-    onChange: (changed: { type: string; value: string }) => void;
+    onChange: (type: string, value: string) => void;
 }
 
 export function ChildListHeader({
@@ -28,7 +28,7 @@ export function ChildListHeader({
                     <TextField
                         select
                         label={t('add-results-page.test-name')}
-                        onChange={({ target: { value } }) => onChange({ type: 'assessment', value: value as string })}
+                        onChange={({ target: { value } }) => onChange('assessment', value as string)}
                         variant="outlined"
                         value={selectedAssessment}
                         fullWidth
@@ -50,7 +50,7 @@ export function ChildListHeader({
                     <TextField
                         select
                         label={t('add-results-page.kindergarten-name')}
-                        onChange={({ target: { value } }) => onChange({ type: 'kindergarten', value: value as string })}
+                        onChange={({ target: { value } }) => onChange('kindergarten', value as string)}
                         variant="outlined"
                         value={selectedKindergarten}
                         fullWidth
@@ -73,7 +73,7 @@ export function ChildListHeader({
                         variant="outlined"
                         label={t('add-results-page.search-by-child-firstname')}
                         value={searchTerm}
-                        onChange={({ target: { value } }) => onChange({ type: 'searchTerm', value })}
+                        onChange={({ target: { value } }) => onChange('searchTerm', value)}
                         fullWidth
                     />
                 </Grid>
