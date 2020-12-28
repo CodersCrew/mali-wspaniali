@@ -10,6 +10,7 @@ interface Props {
     onClose?: (e: any) => void;
     closeButtonText?: string;
     isCancelButtonVisible?: boolean;
+    isColor?: boolean;
 }
 
 export const BasicModal: FC<Props> = ({
@@ -20,6 +21,7 @@ export const BasicModal: FC<Props> = ({
     children,
     closeButtonText,
     isCancelButtonVisible,
+    isColor,
 }) => {
     const { t } = useTranslation();
 
@@ -28,7 +30,7 @@ export const BasicModal: FC<Props> = ({
             <DialogContent>{children}</DialogContent>
             <DialogActions>
                 {isCancelButtonVisible && (
-                    <ButtonPrimary variant="text" onClick={onClose}>
+                    <ButtonPrimary variant="text" onClick={onClose} isColor={isColor}>
                         {closeButtonText || t('add-child-modal.cancel')}
                     </ButtonPrimary>
                 )}

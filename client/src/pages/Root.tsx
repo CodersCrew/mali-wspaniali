@@ -26,13 +26,14 @@ import { ArchivePage } from './ArchivePage/ArchivePage';
 import { AdminCodesPage } from './AdminCodesPage/AdminCodesPage';
 import { AdminInstructorsPage } from './AdminInstructorsPage/AdminInstructorsPage';
 import { AdminAgreementsPageContainer } from './AdminAgreementsPage/AdminAgreementsPageConatianer';
-import { AddResultsPage } from './AddResultsPage/AddResultsPage';
+import { InstructorAddResultsPage } from './InstructorAddResultsPage/InstructorAddResultsPage';
 import { InstructorSettingsPage } from './InstructorSettingsPage/InstructorSettingsPage';
 import { AdminAssessmentHistoryPage } from './AdminAssessmentManagementPage/AdminAssessmentHistoryPage';
 import { AdminRecommendationsPage } from './AdminRecommendationsPage/AdminRecommendationsPage';
 import { AdminSettingsPage } from './AdminSettingsPage/AdminSettingsPage';
 import { ThemeProvider } from '../theme/ThemeProvider';
 import { AdminManageSingleAssessmentPage } from './AdminAddTestPage/AdminManageSingleAssessmentPage';
+import { InstructorResultCreatorPage } from './InstructorResultCreatorPage/InstructorResultCreatorPage';
 
 export function Root() {
     const { i18n } = useTranslation();
@@ -82,7 +83,13 @@ export function Root() {
                                 <Route path="/admin/keycodes" component={AdminCodesPage} />
                                 <Route path="/admin/instructors" component={AdminInstructorsPage} />
                                 <Route path="/admin/settings" component={AdminSettingsPage} />
-                                <Route exact path="/instructor" component={AddResultsPage} />
+                                <Route
+                                    exact
+                                    path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"
+                                    component={InstructorResultCreatorPage}
+                                />
+                                <Route exact path="/instructor" component={InstructorAddResultsPage} />
+                                <Route exact path="/instructor/notifications" component={NotificationsPage} />
                                 <Route path="/instructor/settings" component={InstructorSettingsPage} />
                                 <ParentWrapper>
                                     <Route exact path="/parent" component={ParentHomePage} />

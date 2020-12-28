@@ -4,7 +4,7 @@ import { Kindergarten } from '../../../graphql/types';
 
 export interface KindergartenListResponse {
     kindergartens: Kindergarten[];
-};
+}
 
 interface UseKindergartensReturnType {
     kindergartenList: Kindergarten[];
@@ -28,6 +28,6 @@ export function useKindergartens(): UseKindergartensReturnType {
 
     return {
         kindergartenList: data?.kindergartens || [],
-        isKindergartenListLoading: loading
+        isKindergartenListLoading: loading,
     };
 }

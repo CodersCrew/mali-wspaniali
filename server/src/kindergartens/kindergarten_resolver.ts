@@ -1,4 +1,11 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Mutation,
+  Query,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
 
@@ -21,15 +28,26 @@ import {
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { KindergartenWithUsersDTO } from './dto/kindergarten_with_users_dto';
 import { KindergartenMapper } from './domain/mappers/kindergarten_mapper';
+import { ChildDTO } from '../users/dto/children_dto';
+import { GetChildrenFromKindergartenQuery } from '../users/domain/queries/impl/get_children_from_kindergarten_query';
 import {
   KindergartenInput,
   UpdatedKindergartenInput,
 } from './inputs/kindergarten_input';
 
 @UseInterceptors(SentryInterceptor)
-@Resolver()
+@Resolver(() => KindergartenDTO)
 export class KindergartenResolver {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
+
+  @ResolveField(() => [ChildDTO])
+  async children(@Parent() a: any) {
+    const children = await this.queryBus.execute(
+      new GetChildrenFromKindergartenQuery(a._id),
+    );
+
+    return children;
+  }
 
   @Query(() => [KindergartenDTO])
   @UseGuards(GqlAuthGuard)

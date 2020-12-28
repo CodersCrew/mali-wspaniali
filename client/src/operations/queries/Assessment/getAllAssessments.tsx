@@ -1,14 +1,20 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 import { Assessment } from '../../../graphql/types';
 
-export type BasicTest = Omit<Assessment, 'kindergartens'>;
-
-interface TestListResponse {
-    assessments: BasicTest[];
+interface GetAllAssessmentsResponse {
+    assessments: Assessment[];
 }
 
+interface UseAssessmentReturn {
+    assessments: Assessment[];
+    areAssessmentsLoading: boolean;
+}
 
-const GET_ALL_ASSESSMENTS = gql`
+interface Options {
+    withChildren?: boolean;
+}
+
+export const GET_ALL_ASSESSMENTS = gql`
     {
         assessments {
             _id
@@ -17,15 +23,59 @@ const GET_ALL_ASSESSMENTS = gql`
             title
             startDate
             endDate
+            kindergartens {
+                kindergarten {
+                    _id
+                    name
+                    number
+                }
+                instructor {
+                    _id
+                    mail
+                }
+            }
         }
     }
 `;
 
-export function useAssessments() {
-    const { data, loading } = useQuery<TestListResponse>(GET_ALL_ASSESSMENTS);
+const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
+    {
+        assessments {
+            _id
+            isOutdated
+            isDeleted
+            title
+            startDate
+            endDate
+            kindergartens {
+                kindergarten {
+                    _id
+                    name
+                    number
+                    children {
+                        _id
+                        firstname
+                        lastname
+                        birthYear
+                        birthQuarter
+                    }
+                }
+                instructor {
+                    _id
+                    mail
+                }
+            }
+        }
+    }
+`;
+
+export function useAssessments(options?: Options): UseAssessmentReturn {
+    const query = options?.withChildren ? GET_ALL_ASSESSMENTS_WITH_CHILDREN : GET_ALL_ASSESSMENTS;
+
+    const { data, loading } = useQuery<GetAllAssessmentsResponse>(query);
 
     return {
-        assessmentList: data?.assessments || [],
-        isTestListLoading: loading
-    }
+        assessments: data?.assessments || [],
+        areAssessmentsLoading: loading,
+    };
 }

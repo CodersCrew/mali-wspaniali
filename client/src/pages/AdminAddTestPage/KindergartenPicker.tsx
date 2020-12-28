@@ -62,12 +62,12 @@ export function KindergartenPicker({ isDisabled, kindergartens, onSelect }: Prop
                                                 onSelect([], { selectedAll: true });
                                             } else {
                                                 onSelect(
-                                                    kindergartens.map(kindergarten => kindergarten.kindergarten._id),
+                                                    kindergartens.map((kindergarten) => kindergarten.kindergarten._id),
                                                     { selectedAll: true },
                                                 );
                                             }
 
-                                            setSelectedAll(prev => !prev);
+                                            setSelectedAll((prev) => !prev);
                                         }}
                                         data-testid="select-all"
                                         color="default"
@@ -78,12 +78,12 @@ export function KindergartenPicker({ isDisabled, kindergartens, onSelect }: Prop
                         </TableHead>
                         <TableBody>
                             {kindergartens
-                                .filter(kindergarten => {
+                                .filter((kindergarten) => {
                                     if (searchPhrase.length <= 3) return true;
 
                                     return kindergarten.kindergarten.name.includes(searchPhrase);
                                 })
-                                .map(kindergarten => (
+                                .map((kindergarten) => (
                                     <TableRow
                                         key={kindergarten.kindergarten._id}
                                         hover

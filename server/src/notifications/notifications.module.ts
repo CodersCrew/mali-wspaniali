@@ -6,6 +6,7 @@ import { NotificationSchema } from './schemas/notifications_schema';
 import { NotificationRepository } from './domain/repositories/notification_repository';
 import { NotificationsCronService } from './notifications_cron_service';
 import { QueryHandlers } from './domain/queries/handlers';
+import { CommandHandlers } from './domain/commands/handlers';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { QueryHandlers } from './domain/queries/handlers';
   ],
   providers: [
     ...QueryHandlers,
+    ...CommandHandlers,
     NotificationsCronService,
     NotificationRepository,
   ],

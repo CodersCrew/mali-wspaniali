@@ -3,14 +3,14 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import { useTranslation } from 'react-i18next';
 
 import { AssessmentItem } from './AssessmentItem';
-import { BasicTest } from '../../../operations/queries/Assessment/getAllAssessments';
+import { Assessment } from '../../../graphql/types';
 
 interface Props {
-    tests: BasicTest[];
+    assessments: Assessment[];
     onTestClick: (type: string, id: string) => void;
 }
 
-export function AssessmentHistoryList({ tests, onTestClick }: Props) {
+export function AssessmentHistoryList({ assessments, onTestClick }: Props) {
     const { t } = useTranslation();
 
     return (
@@ -25,8 +25,8 @@ export function AssessmentHistoryList({ tests, onTestClick }: Props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tests.map(test => {
-                        return <AssessmentItem key={test.title} value={test} onClick={onTestClick} />;
+                    {assessments.map((assessment) => {
+                        return <AssessmentItem key={assessment.title} value={assessment} onClick={onTestClick} />;
                     })}
                 </TableBody>
             </Table>

@@ -19,7 +19,7 @@ export const ChildProfileResults = ({ child }: Props) => {
 
     return (
         <div data-testid="grouped-tests">
-            {grouped.map(groupedTest => {
+            {grouped.map((groupedTest) => {
                 const [startTest] = groupedTest;
 
                 return (
@@ -44,9 +44,9 @@ function getEmptyMessage() {
 // export for test purposes only
 export function getGroupedTest(results: TestResult[]) {
     return results
-        .filter(result => !result.rootResultId)
-        .map(result => {
-            const endResult = results.find(lastResult => lastResult.rootResultId === result._id);
+        .filter((result) => !result.rootResultId)
+        .map((result) => {
+            const endResult = results.find((lastResult) => lastResult.rootResultId === result._id);
 
             if (endResult) return [result, endResult];
 

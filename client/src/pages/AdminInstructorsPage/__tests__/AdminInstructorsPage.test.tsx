@@ -6,7 +6,7 @@ import { AdminInstructorsPage } from '../AdminInstructorsPage';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { INSTRUCTORS } from '../../../operations/queries/Users/getUsersByRole';
-import { ASSESSMENTS } from '../../../operations/queries/Assessments/getAllAssessments';
+import { GET_ALL_ASSESSMENTS } from '../../../operations/queries/Assessment/getAllAssessments';
 import { renderWithMock } from '../../../utils/testing/renderWithMockedProvider';
 
 describe('AdminInstructorsPage', () => {
@@ -132,7 +132,7 @@ const populatedMockedResponse: MockedResponse[] = [
     },
     {
         request: {
-            query: ASSESSMENTS,
+            query: GET_ALL_ASSESSMENTS,
         },
         result: {
             data: {

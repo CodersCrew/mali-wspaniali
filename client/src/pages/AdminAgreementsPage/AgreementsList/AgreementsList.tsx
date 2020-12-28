@@ -42,7 +42,7 @@ export function AgreementsList({ kindergartens, activeSortType, isLoading, onSor
                     <SortableHeader activeSortType={activeSortType} onSortChange={onSortChange} />
                 </TableHead>
                 <TableBody>
-                    {kindergartens.map(kindergarten => (
+                    {kindergartens.map((kindergarten) => (
                         <ChildrenFromKindergartenList
                             key={kindergarten._id}
                             kindergarten={kindergarten}
@@ -60,8 +60,8 @@ function countAgreements(kindergarten: KindergartenWithUsers, name: string) {
     return kindergarten.users.reduce(
         (acc, user) => {
             return {
-                value: acc.value + user.agreements.filter(a => a.text === name && a.isSigned).length,
-                total: acc.total + user.agreements.filter(a => a.text === name).length,
+                value: acc.value + user.agreements.filter((a) => a.text === name && a.isSigned).length,
+                total: acc.total + user.agreements.filter((a) => a.text === name).length,
             };
         },
         { value: 0, total: 0 },

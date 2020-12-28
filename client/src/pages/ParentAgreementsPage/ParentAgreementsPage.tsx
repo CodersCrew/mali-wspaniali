@@ -12,5 +12,9 @@ export function ParentAgreementsPage() {
 
     if (!user) return null;
 
-    return <Agreements agreements={user.agreements} />;
+    const sortedAgreements = [...user.agreements].sort((a, b) => {
+        return a.text === 'Marketing' ? -1 : 1;
+    });
+
+    return <Agreements agreements={sortedAgreements} />;
 }

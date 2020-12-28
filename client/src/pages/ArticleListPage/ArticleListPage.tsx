@@ -86,7 +86,7 @@ export function ArticleListPage() {
                         fetchMore({
                             variables: { page: currentPage + 1, perPage: ARTICLES_PER_PAGE, category: params.category },
                             updateQuery: (prev, { fetchMoreResult }) => {
-                                setCurrentPage(prevPage => prevPage + 1);
+                                setCurrentPage((prevPage) => prevPage + 1);
 
                                 if (!fetchMoreResult) return prev;
 

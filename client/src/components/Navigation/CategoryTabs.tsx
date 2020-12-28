@@ -11,9 +11,7 @@ interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     values: T[];
 }
 
-export function CategoryTabs<
-    T extends CategoryItem | ChildProfileCategoryItem
->({ onClick, active, values }: Props<T>) {
+export function CategoryTabs<T extends CategoryItem | ChildProfileCategoryItem>({ onClick, active, values }: Props<T>) {
     return (
         <Tabs
             value={values.find((tab) => tab.key === active)?.key}

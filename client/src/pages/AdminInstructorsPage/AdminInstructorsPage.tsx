@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { InstructorWithKindergartens } from './types';
 import { Toolbar } from './Toolbar';
 import { InstructorsSelect } from './InstructorsSelect';
@@ -10,26 +9,38 @@ import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 import { activePage } from '../../apollo_client';
 import { Loader } from '../../components/Loader';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
-import { useAssessments } from '../../operations/queries/Assessments/getAllAssessments';
+import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { Assessment } from '../../graphql/types';
 import { openAssignInstructorModal } from './openAssignInstructorModal';
 import { openUnassignKindergartenModal } from './openUnassignKindergartenModal';
+import { PageContainer } from '../../components/PageContainer';
+
+interface InstructorModalStatus {
+    isOpen: boolean;
+    instructor: InstructorWithKindergartens | null;
+    assessment: Assessment | null;
+}
+
+const initialInstructorModalStatus = {
+    isOpen: false,
+    instructor: null,
+    assessment: null,
+};
 
 export function AdminInstructorsPage() {
     const { t } = useTranslation();
-    const classes = useStyles();
 
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
 
     const { instructors, isInstructorsListLoading } = useInstructors();
-    const { assessmentList, isAssessmentListLoading } = useAssessments();
+    const { assessments, areAssessmentsLoading } = useAssessments();
 
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
     const [selectedInstructor, setSelectedInstructor] = useState('');
 
-    const filteredAssessments = assessmentList.filter(assessment => assessment.kindergartens.length !== 0);
+    const filteredAssessments = assessments.filter(assessment => assessment.kindergartens.length !== 0);
 
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
@@ -41,36 +52,17 @@ export function AdminInstructorsPage() {
         }
     }, [filteredAssessments]);
 
-    // const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map(instructor => ({
-    //     ...instructor,
-    //     kindergartens:
-    //         selectedAssessment?.kindergartens
-    //             .filter(kindergarten => kindergarten.instructor?._id === instructor._id)
-    //             .map(kind => kind.kindergarten) || null,
-    // }));
 
-    const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map(instructor => ({
+    const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map((instructor) => ({
         ...instructor,
-        kindergartens: [
-            {
-                _id: '5f2b063d4f145e2a8c4e3ae3',
-                name: 'Przedszkole Agatka',
-                number: 4,
-                address: 'xyz2',
-                city: 'Wrocław'
-            },
-            {
-                _id: '5f0894f44075fd62bb9e3df3',
-                name: 'Przedszkole Agatka5',
-                number: 5,
-                address: 'ujn2',
-                city: 'aaaa'
-            },
-        ]
+        kindergartens:
+            selectedAssessment?.kindergartens
+                .filter((kindergarten) => kindergarten.instructor?._id === instructor._id)
+                .map((kind) => kind.kindergarten) || null,
     }));
 
     const onAssessmentSelectChange = (assessmentId: string) => {
-        setSelectedAssessment(assessmentList.find(assessment => assessment._id === assessmentId) as Assessment);
+        setSelectedAssessment(assessments.find((assessment) => assessment._id === assessmentId) as Assessment);
     };
 
     const onInstructorSelectChange = (instructorId: string) => {
@@ -92,15 +84,15 @@ export function AdminInstructorsPage() {
     };
 
     const unassignedKindergartens = selectedAssessment?.kindergartens
-        .filter(kindergarten => kindergarten.instructor === null)
-        .map(kind => kind.kindergarten);
+        .filter((kindergarten) => kindergarten.instructor === null)
+        .map((kind) => kind.kindergarten);
 
-    if (isInstructorsListLoading || isAssessmentListLoading) {
+    if (isInstructorsListLoading || areAssessmentsLoading) {
         return <Loader />;
     }
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <Toolbar
                 assessmentsSelect={
                     <AssessmentsSelect
@@ -130,14 +122,6 @@ export function AdminInstructorsPage() {
                     />
                 ))}
             </InstructorsTableContainer>
-        </div>
+        </PageContainer>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            padding: theme.spacing(3),
-        },
-    }),
-);

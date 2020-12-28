@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     TextField,
     InputAdornment,
@@ -19,21 +19,18 @@ import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];
-    onSelect: (id: string) => void;
-    selected: string[];
+    onSelect: (id: string[]) => void;
 }
 
-export const KindergartenTable = ({ kindergartens, onSelect, selected }: Props) => {
+export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
     const { t } = useTranslation();
     const [searchPhrase, setSearchPhrase] = useState('');
-    // const [selected, setSelected] = useState<string[]>([]);
-    // const [selectedAll, setSelectedAll] = useState(false);
+    const [selected, setSelected] = useState<string[]>([]);
+    const [selectedAll, setSelectedAll] = useState(false);
 
-    console.log(onSelect);
-
-    // useEffect(() => {
-    //     onSelect(selected);
-    // }, [onSelect, selected]);
+    useEffect(() => {
+        onSelect(selected);
+    }, [onSelect, selected]);
 
     const classes = useStyles();
 
@@ -60,37 +57,45 @@ export const KindergartenTable = ({ kindergartens, onSelect, selected }: Props) 
                     <TableHead>
                         <TableRow>
                             <TableCell padding="checkbox">
-                                {/* <Checkbox
+                                <Checkbox
                                     checked={selectedAll}
                                     onClick={() => {
                                         if (selectedAll) {
                                             setSelected([]);
                                         } else {
-                                            setSelected(kindergartens.map(kindergarten => kindergarten._id));
+                                            setSelected(kindergartens.map((kindergarten) => kindergarten._id));
                                         }
 
-                                        setSelectedAll(prev => !prev);
+                                        setSelectedAll((prev) => !prev);
                                     }}
                                     data-testid="select-all"
                                     color="default"
-                                /> */}
+                                />
                             </TableCell>
                             <TableCell>{t('add-test-view.kindergartens.kindergarten-name')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {kindergartens
-                            .filter(kindergarten => {
+                            .filter((kindergarten) => {
                                 if (searchPhrase.length === 0) return true;
 
                                 return kindergarten.name.toLowerCase().includes(searchPhrase);
                             })
-                            .map(kindergarten => (
+                            .map((kindergarten) => (
                                 <TableRow
                                     key={kindergarten._id}
                                     hover
                                     role="row"
-                                    onClick={() => onSelect(kindergarten._id)}
+                                    onClick={() => {
+                                        setSelected((prev) => {
+                                            if (prev.includes(kindergarten._id)) {
+                                                return prev.filter((selectedId) => selectedId !== kindergarten._id);
+                                            }
+
+                                            return [...prev, kindergarten._id];
+                                        });
+                                    }}
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox checked={selected.includes(kindergarten._id)} color="default" />
@@ -110,7 +115,7 @@ export const KindergartenTable = ({ kindergartens, onSelect, selected }: Props) 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         table: {
-            maxHeight: 295,
+            height: 295,
         },
         searchFieldContainer: {
             margin: theme.spacing(3, 0, 2),

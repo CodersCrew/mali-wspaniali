@@ -7,19 +7,25 @@ interface Props {
     name: string;
     error: string | undefined;
     touched: any;
+    multiline?: boolean;
+    rows?: number;
+    disabled?: boolean;
     onChange: (name: string, value: string) => void;
 }
 
-export function Input({ label, value, name, onChange, error, touched }: Props) {
+export function Input({ label, value, name, onChange, error, touched, multiline, rows, disabled }: Props) {
     const errorText = error && touched ? error : '';
 
     return (
         <TextField
+            multiline={multiline}
+            rows={rows}
             error={!!errorText}
             helperText={errorText}
             name={name}
             value={value}
             label={label}
+            disabled={disabled}
             id="outlined-helperText"
             variant="outlined"
             fullWidth
