@@ -31,6 +31,37 @@ export function InstructorResultCreatorPage() {
         return null;
     }
 
+    function onChildClicked(type: string, value: string) {
+        if (!selectedAssessment || !selectedKindergarten || !selectedChild) {
+            return;
+        }
+
+        if (type === 'child') {
+            history.push(
+                `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${selectedKindergarten._id}/${value}`,
+            );
+        }
+
+        if (type === 'measurement') {
+            history.push(
+                `/instructor/result/add/${value}/${params.assessmentId}/${params.kindergartenId}/${params.childId}`,
+            );
+        }
+
+        if (type === 'kindergarten') {
+            const currentSelectedKindergarten = selectedAssessment?.kindergartens.find(
+                (k) => k.kindergarten._id === value,
+            )?.kindergarten;
+            const firstChildren = currentSelectedKindergarten?.children![0];
+
+            if (firstChildren) {
+                history.push(
+                    `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${value}/${firstChildren._id}`,
+                );
+            }
+        }
+    }
+
     return (
         <PageContainer>
             <Paper>
@@ -42,32 +73,7 @@ export function InstructorResultCreatorPage() {
                             selected={selectedChild._id}
                             measurement={params.measurement}
                             childList={selectedKindergarten.children || []}
-                            onClick={(type, value) => {
-                                if (type === 'child') {
-                                    history.push(
-                                        `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${selectedKindergarten._id}/${value}`,
-                                    );
-                                }
-
-                                if (type === 'measurement') {
-                                    history.push(
-                                        `/instructor/result/add/${value}/${params.assessmentId}/${params.kindergartenId}/${params.childId}`,
-                                    );
-                                }
-
-                                if (type === 'kindergarten') {
-                                    const currentSelectedKindergarten = selectedAssessment?.kindergartens.find(
-                                        (k) => k.kindergarten._id === value,
-                                    )?.kindergarten;
-                                    const firstChildren = currentSelectedKindergarten?.children![0];
-
-                                    if (firstChildren) {
-                                        history.push(
-                                            `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${value}/${firstChildren._id}`,
-                                        );
-                                    }
-                                }
-                            }}
+                            onClick={onChildClicked}
                         />
                     </Grid>
                     <Grid item xs={8}>
