@@ -12,6 +12,8 @@ import { PageContainer } from '../../components/PageContainer';
 import { openAddNoteDialog } from './AddNoteDialog';
 import { NoAssessmentView } from './NoAssessmentsView';
 import { SecondaryFab } from '../../components/SecondaryFab';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { ChildListCompactContainer } from './ChildListCompactContainer';
 
 export function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
@@ -20,6 +22,7 @@ export function InstructorAddResultsPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const { t } = useTranslation();
     const history = useHistory();
+    const device = useIsDevice();
 
     const currentChildren =
         assessments
@@ -84,23 +87,46 @@ export function InstructorAddResultsPage() {
         }
     }
 
+    const filtredChildList = currentChildren.filter((c) =>
+        c.firstname.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+
     return (
         <PageContainer>
-            <CustomContainer
-                header={
-                    <ChildListHeader
-                        assessments={assessments}
-                        selectedAssessment={selectedAssessment}
-                        selectedKindergarten={selectedKindergarten}
-                        searchTerm={searchTerm}
-                        onChange={onFilterChanged}
+            {device.isDesktop || device.isTablet ? (
+                <>
+                    <CustomContainer
+                        header={
+                            <ChildListHeader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
+                                searchTerm={searchTerm}
+                                onChange={onFilterChanged}
+                            />
+                        }
+                        container={<ChildListContainer childList={filtredChildList} onClick={onChildClicked} />}
                     />
-                }
-                container={
-                    <ChildListContainer searchTerm={searchTerm} childList={currentChildren} onClick={onChildClicked} />
-                }
-            />
-            <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} />
+                    <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} />
+                </>
+            ) : (
+                <>
+                    <CustomContainer
+                        header={
+                            <ChildListHeader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
+                                searchTerm={searchTerm}
+                                onChange={onFilterChanged}
+                                compact
+                            />
+                        }
+                        container={<ChildListCompactContainer childList={filtredChildList} onClick={onChildClicked} />}
+                    />
+                    <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} />
+                </>
+            )}
         </PageContainer>
     );
 }
