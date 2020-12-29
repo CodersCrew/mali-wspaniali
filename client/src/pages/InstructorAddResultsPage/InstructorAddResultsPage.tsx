@@ -84,6 +84,10 @@ export function InstructorAddResultsPage() {
         }
     }
 
+    const filtredChildList = currentChildren.filter((c) =>
+        c.firstname.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+
     return (
         <PageContainer>
             <CustomContainer
