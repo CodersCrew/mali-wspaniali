@@ -446,6 +446,7 @@
     },
     "instructor-menu": {
         "add-results": "Add results",
+        "notifications": "Notifications", 
         "settings": "Settings",
         "logout": "Logout"
     },
@@ -618,7 +619,32 @@
         },
         "reset-old-password": "Reset password",
         "something-went-wrong": "Something went wrong. Contact your Administrator.",
-        "wrong-old-password": "Incorrect password"
+        "wrong-old-password": "Incorrect password",
+        "delete-account-header": "It is not possible to delete an account from the user level",
+        "delete-account-content": "To delete an account in the application, contact the foundation"
+    },
+    "settings-modal": {
+        "button": "Send message",
+        "modal-header": "Contact with us",
+        "modal-first-description": "If you have some problems or have any questions, don't hesitate to contact us!",
+        "modal-second-description": "We will dispel all doubts.",
+        "modal-close-button": "Cancel",
+        "text-field-email-id": "email",
+        "text-field-email-label": "Message sender",
+        "text-field-email-placeholder": "email",
+        "text-field-title-id": "message",
+        "text-field-title-label": "Message content",
+        "text-field-title-placeholder": "Message content",
+
+        "select-options": {
+            "select-label": "Message subject",
+            "1": "Password change",
+            "2": "Result of the test",
+            "3": "Classes in kirdengarden",
+            "4": "Delete account",
+            "5": "Other"
+        },
+        "snackBar-message": "Your message has been sent correctly to the Mali Magnificent Foundation. You will receive the answer to your e-mail address."
     },
     "admin-instructors-page": {
         "table": {
@@ -648,8 +674,37 @@
         "first-assessment": "First test",
         "last-assessment": "Last test",
         "see-results": "See results",
+        "add-result": "Add test result",
         "add-first-assessment-result": "Add first test result",
         "add-last-assessment-result": "Add last test result",
-        "add-note": "Add note"
+        "add-note": "Add note",
+        "note-first-measurement": "Note - First measurement",
+        "note-last-measurement": "Note - Last measurement",
+        "add-note-modal": {
+            "description": "Add and manage notes regarding important information about a specific child. Add information about past injuries, medications taken, or reasons for not taking the test.",
+            "placeholder": "Click here to start typing",
+            "cancel": "Cancel",
+            "save": "Save",
+            "text-limit": "{{characters}} characters left"
+        },
+        "no-assessments": {
+            "title": "Sorry, you cannot add results at this point",
+            "description": "The Foundation has not yet assigned you a kindergarten where you can add your test results. Sit back and use this moment to read the articles prepared by experts in healthy eating and fitness",
+            "go-to-articles": "Go to articles"
+        },
+        "child-list": "Child list" 
+    },
+    "add-result-page": {
+        "kindergarten": "Kindergarten",
+        "select-measurement": "Select measurement",
+        "first": "First",
+        "last": "Last",
+        "no-result": "No result",
+        "received-points":"Received points",
+        "points": "pts",
+        "title-first-measurement": "INITIAL TEST EFFICIENCY",
+        "title-last-measurement": "FINAL TRIAL EFFICIENCY",
+        "back-to-table": "Back to table",
+        "child-list": "Child list"
     }
 }

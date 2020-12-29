@@ -34,13 +34,13 @@ export const ButtonResetOldPassword = (props: Props) => {
         openSnackbar({
             text,
         })
-            .then(result => {
+            .then((result) => {
                 if (result.close) {
                     dispatch({ type: PASSWORD_RESET_EMAIL_SENT });
                     // TODO: Snackbar closed. Maybe Accordion should close automaticaly, aswell??;
                 }
             })
-            .catch(reason => {
+            .catch((reason) => {
                 dispatch({ type: PASSWORD_RESET_EMAIL_SENT });
                 console.log(reason.message);
             });

@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 import { Assessment } from '../../../graphql/types';
 
 interface GetAllAssessmentsResponse {
@@ -7,36 +7,35 @@ interface GetAllAssessmentsResponse {
 
 interface UseAssessmentReturn {
     assessments: Assessment[];
-    areAssessmentsLoading: boolean
+    areAssessmentsLoading: boolean;
 }
 
 interface Options {
-    withChildren?: boolean
+    withChildren?: boolean;
 }
 
-
 export const GET_ALL_ASSESSMENTS = gql`
-{
-    assessments {
-        _id
-        isOutdated
-        isDeleted
-        title
-        startDate
-        endDate
-        kindergartens {
-            kindergarten {
-                _id
-                name
-                number
-            }
-            instructor {
-                _id
-                mail
+    {
+        assessments {
+            _id
+            isOutdated
+            isDeleted
+            title
+            startDate
+            endDate
+            kindergartens {
+                kindergarten {
+                    _id
+                    name
+                    number
+                }
+                instructor {
+                    _id
+                    mail
+                }
             }
         }
     }
-}
 `;
 
 const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
@@ -71,12 +70,12 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
 `;
 
 export function useAssessments(options?: Options): UseAssessmentReturn {
-    const query = options?.withChildren ? GET_ALL_ASSESSMENTS_WITH_CHILDREN: GET_ALL_ASSESSMENTS;
-    
+    const query = options?.withChildren ? GET_ALL_ASSESSMENTS_WITH_CHILDREN : GET_ALL_ASSESSMENTS;
+
     const { data, loading } = useQuery<GetAllAssessmentsResponse>(query);
 
     return {
         assessments: data?.assessments || [],
-        areAssessmentsLoading: loading
-    }
+        areAssessmentsLoading: loading,
+    };
 }

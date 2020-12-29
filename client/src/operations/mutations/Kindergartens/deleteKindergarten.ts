@@ -19,12 +19,12 @@ export const useDeleteKindergarten = () => {
         try {
             await deleteKindergarten({
                 variables: { id },
-                update: cache => {
+                update: (cache) => {
                     cache.modify({
                         fields: {
                             kindergartens(existingKindergartenRefs: { __ref: string }[], { readField }) {
                                 return existingKindergartenRefs.filter(
-                                    kindergartenRef => id !== readField('_id', kindergartenRef),
+                                    (kindergartenRef) => id !== readField('_id', kindergartenRef),
                                 );
                             },
                         },

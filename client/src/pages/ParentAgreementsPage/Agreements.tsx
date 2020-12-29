@@ -16,6 +16,7 @@ import {
 
 import { ButtonSecondary } from '../../components/Button';
 import { Agreement } from '../../graphql/types';
+import { PageContainer } from '../../components/PageContainer';
 
 interface Props {
     agreements: Agreement[];
@@ -25,7 +26,7 @@ export const Agreements = ({ agreements }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <Box className={classes.wrapper}>
+        <PageContainer>
             <Typography variant="h3">{t('child-profile.agreements.heading')}</Typography>
             <Card className={classes.card}>
                 <Typography variant="h4" className={classes.title}>
@@ -33,9 +34,7 @@ export const Agreements = ({ agreements }: Props) => {
                 </Typography>
                 <Box className={classes.agreements}>
                     <List>
-                        <ListItem
-                            alignItems="flex-start"
-                        >
+                        <ListItem alignItems="flex-start">
                             <ListItemIcon className={classes.listItemIcon}>
                                 <Checkbox checked disabled />
                             </ListItemIcon>
@@ -55,20 +54,13 @@ export const Agreements = ({ agreements }: Props) => {
                                         </Typography>
                                     </span>
                                 }
-                                
                             />
                         </ListItem>
                         {agreements.map((agreement) => {
                             return (
-                                <ListItem
-                                    alignItems="flex-start"
-                                    key={agreement._id}
-                                >
+                                <ListItem alignItems="flex-start" key={agreement._id}>
                                     <ListItemIcon className={classes.listItemIcon}>
-                                        <Checkbox
-                                            checked={agreement.isSigned}
-                                            color="primary"
-                                        />
+                                        <Checkbox checked={agreement.isSigned} color="primary" />
                                     </ListItemIcon>
                                     <ListItemText
                                         classes={{ primary: classes.primary, secondary: classes.secondary }}
@@ -96,11 +88,11 @@ export const Agreements = ({ agreements }: Props) => {
                     {t('child-profile.agreements.save')}
                 </ButtonSecondary>
             </Card>
-        </Box>
+        </PageContainer>
     );
 };
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         agreements: {
             padding: theme.spacing(0, 5),
@@ -122,7 +114,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(4),
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start'
+            alignItems: 'flex-start',
         },
         title: {
             marginBottom: theme.spacing(3),
@@ -139,8 +131,5 @@ const useStyles = makeStyles((theme: Theme) =>
         secondary: {
             color: theme.palette.text.secondary,
         },
-        wrapper: {
-            padding: theme.spacing(3),
-        }
-    })
+    }),
 );

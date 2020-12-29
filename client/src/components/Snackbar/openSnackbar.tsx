@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function openSnackbar({ text, variant, severity }: Props): Promise<DialogResult> {
-    return openDialog(function({ onClose }: ActionDialog) {
+    return openDialog(function ({ onClose }: ActionDialog) {
         const classes = useStyles();
 
         return (

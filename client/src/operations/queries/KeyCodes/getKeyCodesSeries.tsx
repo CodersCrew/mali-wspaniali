@@ -5,7 +5,6 @@ interface KeyCodeSeriesResponse {
     keyCodeSeries: KeyCodeSeries[];
 }
 
-
 export const KEYCODE_SERIES = gql`
     {
         keyCodeSeries {
@@ -17,12 +16,10 @@ export const KEYCODE_SERIES = gql`
     }
 `;
 
-
 export function useKeyCodeSeries() {
     const { data } = useQuery<KeyCodeSeriesResponse>(KEYCODE_SERIES);
 
     return {
-        keyCodeSeries: data?.keyCodeSeries
-    }
-
+        keyCodeSeries: data?.keyCodeSeries,
+    };
 }

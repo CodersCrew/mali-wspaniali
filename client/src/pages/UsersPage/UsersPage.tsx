@@ -40,7 +40,7 @@ export const UsersPage = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.map(user => (
+                        {users.map((user) => (
                             <UsersTableRow key={user._id} user={user} />
                         ))}
                     </TableBody>

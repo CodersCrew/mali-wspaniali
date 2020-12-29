@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { InstructorWithKindergartens } from './types';
 import { Toolbar } from './Toolbar';
 import { InstructorsSelect } from './InstructorsSelect';
@@ -13,6 +12,7 @@ import { Loader } from '../../components/Loader';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { Assessment } from '../../graphql/types';
+import { PageContainer } from '../../components/PageContainer';
 
 interface InstructorModalStatus {
     isOpen: boolean;
@@ -28,7 +28,6 @@ const initialInstructorModalStatus = {
 
 export function AdminInstructorsPage() {
     const { t } = useTranslation();
-    const classes = useStyles();
 
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
@@ -46,13 +45,16 @@ export function AdminInstructorsPage() {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
 
-    const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map(instructor => ({
+    const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map((instructor) => ({
         ...instructor,
-        kindergartens: selectedAssessment?.kindergartens.filter(kindergarten => kindergarten.instructor?._id === instructor._id).map(kind => kind.kindergarten) || null
+        kindergartens:
+            selectedAssessment?.kindergartens
+                .filter((kindergarten) => kindergarten.instructor?._id === instructor._id)
+                .map((kind) => kind.kindergarten) || null,
     }));
 
     const onAssessmentSelectChange = (assessmentId: string) => {
-        setSelectedAssessment(assessments.find(assessment => assessment._id === assessmentId) as Assessment);
+        setSelectedAssessment(assessments.find((assessment) => assessment._id === assessmentId) as Assessment);
     };
 
     const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
@@ -64,20 +66,20 @@ export function AdminInstructorsPage() {
     };
 
     const unassignedKindergartens = selectedAssessment?.kindergartens
-        .filter(kindergarten => kindergarten.instructor === null)
-        .map(kind => kind.kindergarten);
+        .filter((kindergarten) => kindergarten.instructor === null)
+        .map((kind) => kind.kindergarten);
 
     if (isInstructorsListLoading || areAssessmentsLoading) {
-        return <Loader />; 
-    }  
+        return <Loader />;
+    }
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <Toolbar
                 assessmentsSelect={
                     <AssessmentsSelect
                         label={t('admin-instructors-page.table-toolbar.select-test')}
-                        options={assessments.filter(assessment => assessment.kindergartens.length !== 0)}
+                        options={assessments.filter((assessment) => assessment.kindergartens.length !== 0)}
                         value={selectedAssessment}
                         onChange={onAssessmentSelectChange}
                     />
@@ -91,7 +93,7 @@ export function AdminInstructorsPage() {
                 unassignedKindergartensCount={unassignedKindergartens?.length || 0}
             />
             <InstructorsTableContainer>
-                {instructorsWithKindergartens.map(instructor => (
+                {instructorsWithKindergartens.map((instructor) => (
                     <InstructorsTableRow
                         key={instructor._id}
                         instructor={instructor}
@@ -108,14 +110,6 @@ export function AdminInstructorsPage() {
                     assessment={assignInstructorModalStatus.assessment}
                 />
             )}
-        </div>
+        </PageContainer>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            padding: theme.spacing(3),
-        },
-    }),
-);

@@ -18,7 +18,7 @@ export const HomePageArticles = ({ articles }: Props) => {
     const { t } = useTranslation();
 
     const renderArticles = (articlesArray: Article[]) => {
-        return articlesArray.map(article => {
+        return articlesArray.map((article) => {
             return (
                 <Grid item className={classes.card} key={article._id}>
                     <BlogArticleCard
@@ -36,7 +36,9 @@ export const HomePageArticles = ({ articles }: Props) => {
 
     return (
         <>
-            <Typography variant="h3" className={classes.articleHeader}>{t('home-page-content.recent-news')}</Typography>
+            <Typography variant="h3" className={classes.articleHeader}>
+                {t('home-page-content.recent-news')}
+            </Typography>
             {device !== 'DESKTOP' && articles.length > 4 ? (
                 <Carousel autoPlay={false}>
                     {grouped.map((articlesArray, groupIndex) => (
@@ -68,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         gridContainer: {
-            justifyContent: "center",
-        }
+            justifyContent: 'center',
+        },
     }),
 );

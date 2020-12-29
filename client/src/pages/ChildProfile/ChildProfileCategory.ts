@@ -11,8 +11,6 @@ export const categories = {
     details: { name: i18n.t('parent-menu.child.details') },
 };
 
-export const childProfileCategoriesList: ChildProfileCategoryItem[] = Object.entries(
-    categories,
-).map(([key, value]) => {
+export const childProfileCategoriesList: ChildProfileCategoryItem[] = Object.entries(categories).map(([key, value]) => {
     return { key, ...value };
 });
