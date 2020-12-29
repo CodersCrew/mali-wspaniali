@@ -3,7 +3,6 @@ import { makeStyles, createStyles, Theme, Typography, Grid } from '@material-ui/
 import Carousel from 'react-material-ui-carousel';
 import { useTranslation } from 'react-i18next';
 
-import { textColor } from '../../../colors';
 import { Article } from '../../../graphql/types';
 import { BlogArticleCard } from '../../../components/Blog/BlogArticleCard';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
@@ -18,10 +17,10 @@ export const HomePageArticles = ({ articles }: Props) => {
     const device = useBreakpoints();
     const { t } = useTranslation();
 
-    const renderArticles = () => {
-        return articles.map((article, index) => {
+    const renderArticles = (articlesArray: Article[]) => {
+        return articlesArray.map(article => {
             return (
-                <Grid item className={classes.card} key={index}>
+                <Grid item className={classes.card} key={article._id}>
                     <BlogArticleCard
                         title={article.title}
                         pictureUrl={article.pictureUrl}
@@ -33,22 +32,22 @@ export const HomePageArticles = ({ articles }: Props) => {
         });
     };
 
-    const grouped = getChunks([...renderArticles()], 3);
+    const grouped = getChunks([...articles], 3);
 
     return (
         <>
             <Typography variant="h3" className={classes.articleHeader}>{t('home-page-content.recent-news')}</Typography>
             {device !== 'DESKTOP' && articles.length > 4 ? (
                 <Carousel autoPlay={false}>
-                    {grouped.map((items, groupIndex) => (
+                    {grouped.map((articlesArray, groupIndex) => (
                         <Grid container direction="row" spacing={3} key={groupIndex} className={classes.gridContainer}>
-                            {items.map((item, _index) => item)}
+                            {renderArticles(articlesArray)}
                         </Grid>
                     ))}
                 </Carousel>
             ) : (
                 <Grid container direction="row" spacing={3}>
-                    {renderArticles()}
+                    {renderArticles(articles)}
                 </Grid>
             )}
         </>
@@ -62,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         articleHeader: {
             textTransform: 'uppercase',
-            color: textColor,
             margin: theme.spacing(2.5, 0),
 
             [theme.breakpoints.down('sm')]: {

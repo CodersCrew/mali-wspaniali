@@ -3,7 +3,6 @@ import { makeStyles, createStyles, Theme, Typography, Grid } from '@material-ui/
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { cardBackgroundColor } from '../../../../colors';
 import { HomePageInfoPropTypes } from './types';
 
 export const HomePageInfo = ({ toggleInfoComponent }: HomePageInfoPropTypes) => {
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
             borderRadius: theme.spacing(0.5),
-            background: cardBackgroundColor,
+            background: theme.palette.primary.contrastText,
             padding: theme.spacing(2),
             position: 'relative',
             textAlign: 'left',
