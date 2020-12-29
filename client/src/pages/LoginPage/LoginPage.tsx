@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, makeStyles, createStyles } from '@material-ui/core/';
+import { TextField, makeStyles, createStyles, Link } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
@@ -30,6 +30,10 @@ export const LoginPage = () => {
 
         authorizeMe(email, password);
     };
+
+    const handleClick = () => {
+        history.push(`/register`)
+    }
 
     return (
         <div className={classes.container}>
@@ -77,6 +81,12 @@ export const LoginPage = () => {
                     />
                 </div>
             </form>
+            <div className={classes.registerWrapper}>
+                    <div>{t('login-page.no-account')}</div>
+                    <Link className={classes.registerLink} href="#" onClick={handleClick} underline='always'>
+                        {t('registration-page.register')}
+                    </Link>
+            </div>
         </div>
     );
 };
@@ -85,6 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%',
@@ -123,12 +134,21 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '20px',
             width: '100%',
             display: 'flex',
+            marginDown: 'auto',
             alignItems: 'center',
             justifyContent: 'space-between',
 
             [theme.breakpoints.down('sm')]: {
                 margin: '0 0 20px 0',
             },
+        },
+        registerWrapper: {
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+        },
+        registerLink: {
+            marginLeft: '5px',
         },
         forgotPasswordButton: {
             textAlign: 'center',
