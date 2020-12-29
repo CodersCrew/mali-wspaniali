@@ -691,7 +691,8 @@
             "title": "Wybacz, w tym momencie nie możesz jeszcze dodawać wyników",
             "description": "Fundacja nie przydzieliła ci jeszcze przedszkola, w którym móglbyś dodać wyniki testu. Usiądź wygodnie i wykorzystaj tę chwilę by zapoznać się z artykułami przygotgotowanymi przez ekspertów od zdrowego żywienia i sprawności fizycznej",
             "go-to-articles": "Przejdź do artykułów"
-        }
+        },
+        "child-list": "Child list" 
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",

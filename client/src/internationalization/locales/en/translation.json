@@ -690,7 +690,8 @@
             "title": "Sorry, you cannot add results at this point",
             "description": "The Foundation has not yet assigned you a kindergarten where you can add your test results. Sit back and use this moment to read the articles prepared by experts in healthy eating and fitness",
             "go-to-articles": "Go to articles"
-        }
+        },
+        "child-list": "Child list" 
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
