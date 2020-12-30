@@ -1,12 +1,12 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme, Typography, Grid } from '@material-ui/core';
+import { makeStyles, Typography, Grid } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 import { useTranslation } from 'react-i18next';
 
 import { Article } from '../../../graphql/types';
 import { BlogArticleCard } from '../../../components/Blog/BlogArticleCard';
-import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { getChunks } from '../../../utils/chunkArray';
+import { useIsDevice } from '../../../queries/useBreakpoints';
 
 interface Props {
     articles: Article[];
@@ -14,13 +14,13 @@ interface Props {
 
 export const HomePageArticles = ({ articles }: Props) => {
     const classes = useStyles();
-    const device = useBreakpoints();
+    const { isMobile } = useIsDevice();
     const { t } = useTranslation();
 
     const renderArticles = (articlesArray: Article[]) => {
         return articlesArray.map((article) => {
             return (
-                <Grid item className={classes.card} key={article._id}>
+                <Grid item key={article._id} xs={isMobile ? 12 : 4}>
                     <BlogArticleCard
                         title={article.title}
                         pictureUrl={article.pictureUrl}
@@ -39,10 +39,10 @@ export const HomePageArticles = ({ articles }: Props) => {
             <Typography variant="h3" className={classes.articleHeader}>
                 {t('home-page-content.recent-news')}
             </Typography>
-            {device !== 'DESKTOP' && articles.length > 4 ? (
-                <Carousel autoPlay={false}>
+            {articles.length > 4 ? (
+                <Carousel autoPlay={false} animation="slide" timeout={300}>
                     {grouped.map((articlesArray, groupIndex) => (
-                        <Grid container direction="row" spacing={3} key={groupIndex} className={classes.gridContainer}>
+                        <Grid container direction={isMobile ? 'column' : 'row'} spacing={3} key={groupIndex}>
                             {renderArticles(articlesArray)}
                         </Grid>
                     ))}
@@ -56,21 +56,8 @@ export const HomePageArticles = ({ articles }: Props) => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        card: {
-            maxWidth: 305,
-        },
-        articleHeader: {
-            textTransform: 'uppercase',
-            margin: theme.spacing(2.5, 0),
-
-            [theme.breakpoints.down('sm')]: {
-                margin: theme.spacing(0),
-            },
-        },
-        gridContainer: {
-            justifyContent: 'center',
-        },
-    }),
-);
+const useStyles = makeStyles({
+    articleHeader: {
+        textTransform: 'uppercase',
+    },
+});

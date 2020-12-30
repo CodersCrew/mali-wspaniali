@@ -1,22 +1,26 @@
 import React, { useEffect } from 'react';
-import { makeStyles, Grid, createStyles } from '@material-ui/core';
+import { makeStyles, Grid, createStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
-import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { Theme } from '../../theme/types';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 import { useLastArticles } from '../../operations/queries/Articles/getLastArticles';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useAddChild } from '../../operations/mutations/User/addChild';
+import { PageContainer } from '../../components/PageContainer';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 export const ParentHomePage = () => {
     const user = useMe();
     const { addChild } = useAddChild();
     const { articles } = useLastArticles(6);
     const { t } = useTranslation();
+    const history = useHistory();
+    const { isMobile } = useIsDevice();
     const classes = useStyles();
 
     const { kindergartenList } = useKindergartens();
@@ -28,47 +32,49 @@ export const ParentHomePage = () => {
     if (!user || !kindergartenList) return null;
 
     return (
-        <>
+        <PageContainer>
             <Grid className={classes.container}>
                 <Grid item xs={12}>
-                    <PageTitle text={t('home-page-content.greeting')} />
+                    <Typography variant={isMobile ? 'h2' : 'h1'} align={isMobile ? 'center' : 'left'}>
+                        {t('home-page-content.greeting')}
+                    </Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <p className={classes.description}>
-                        <span>{t('home-page-content.check-children-activity')} </span>
-                        <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                        <Typography variant={isMobile ? 'subtitle1' : 'h3'} align={isMobile ? 'center' : 'left'}>
+                            {t('home-page-content.check-children-activity')}{' '}
+                            <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                        </Typography>
                     </p>
                 </Grid>
-                <HomePageChildren childrenList={user.children} handleModalSubmit={addChild} />
+                <HomePageChildren
+                    childrenList={user.children}
+                    handleModalSubmit={addChild}
+                    onChildClick={(id) => {
+                        history.push(`parent/child/${id}/results`);
+                    }}
+                />
                 <HomePageArticles articles={articles} />
             </Grid>
-        </>
+        </PageContainer>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            margin: 16,
             padding: '0 0 54px 0',
-            fontFamily: 'Montserrat, sans-serif',
 
             [theme.breakpoints.down('md')]: {
                 padding: '0 0 5px 0',
-                textAlign: 'center',
             },
         },
         description: {
             margin: '20px 0 40px 0',
-            fontSize: 21,
-            lineHeight: '26px',
-            fontWeight: 500,
 
             [theme.breakpoints.down('sm')]: {
-                fontSize: 15,
                 display: 'flex',
                 flexDirection: 'column',
-                lineHeight: '18px',
                 margin: '15px 0 20px 0',
             },
         },
