@@ -1,67 +1,43 @@
-import React, { FC } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { ChildPropTypes } from './types';
-import { cardBackgroundColor } from '../../../../colors';
+import React, { ReactElement } from 'react';
+import { makeStyles, Typography, Paper, Theme } from '@material-ui/core';
 
-export const HomePageChildCard: FC<ChildPropTypes> = ({ id, firstName, PictureComponent }) => {
+interface Props {
+    firstName: string;
+    PictureComponent: ReactElement;
+    onClick: () => void;
+}
+
+export function HomePageChildCard({ firstName, PictureComponent, onClick }: Props) {
     const classes = useStyles();
 
     return (
-        <Link to={`parent/child/${id}/results`} className={classes.link}>
-            <div className={classes.container} key={id}>
-                <span>{PictureComponent}</span>
-                <div>
-                    <span className={classes.childName}>{firstName}</span>
-                </div>
-            </div>
-        </Link>
+        <Paper className={classes.container} onClick={onClick}>
+            <span className={classes.picture}>{PictureComponent}</span>
+            <Typography variant="subtitle2">{firstName}</Typography>
+        </Paper>
     );
-};
+}
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            paddingBottom: '9px',
-            alignItems: 'center',
-            marginRight: 35,
-            background: cardBackgroundColor,
-            boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
-            borderRadius: '4px',
-            fontWeight: 'bold',
-            maxWidth: '121px',
-            maxHeight: '163px',
-            height: '163px',
+const useStyles = makeStyles((theme: Theme) => ({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: 12,
+        // height: '100%',
 
-            '&:hover': {
-                cursor: 'pointer',
-                opacity: 0.8,
-                boxShadow: '0 0 2px 0px #fff',
-                transition: 'all 0.3s ease-in-out',
-            },
-
-            [theme.breakpoints.down('sm')]: {
-                marginRight: 0,
-                width: '90px',
-                maxWidth: '100px',
-                maxHeight: '120px',
-                height: '120px',
-            },
+        '&:hover': {
+            cursor: 'pointer',
+            opacity: 0.8,
+            boxShadow: '0 0 2px 0px #fff',
+            transition: 'all 0.3s ease-in-out',
         },
-        childName: {
-            fontSize: 12,
-            lineHeight: '15px',
+    },
+    picture: {
+        marginBottom: theme.spacing(3),
+        [theme.breakpoints.down('md')]: {
+            marginBottom: 0,
         },
-        link: {
-            textDecoration: 'none',
-            color: '#000',
-
-            [theme.breakpoints.down('sm')]: {
-                margin: '0 12px',
-            },
-        },
-    }),
-);
+    },
+}));

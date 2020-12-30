@@ -1,9 +1,8 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { KindergartenRepository } from '../../repositories/kindergarten_repository';
-import { KindergartenWithUsersProps } from '../../models/kindergarten_with_users_model';
 import { GetKindergartenQuery } from '../impl/get_kindergarten_query';
-import { KindergartenProps } from '../../models/kindergarten_model';
+import { Kindergarten } from '../../models/kindergarten_model';
 
 @QueryHandler(GetKindergartenQuery)
 export class GetKindergartenHandler
@@ -12,7 +11,7 @@ export class GetKindergartenHandler
     private readonly kindergartenRepository: KindergartenRepository,
   ) {}
 
-  async execute({ id }: GetKindergartenQuery): Promise<KindergartenProps> {
+  async execute({ id }: GetKindergartenQuery): Promise<Kindergarten | null> {
     const kindergarten = await this.kindergartenRepository.get(id);
 
     return kindergarten;

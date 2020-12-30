@@ -30,7 +30,7 @@ const setLabel = (
 };
 
 const generateKindergardenOptions = (kindergardens: Kindergarten[]): { value: string; label: string }[] => {
-    const values = kindergardens.map(kindergarden => {
+    const values = kindergardens.map((kindergarden) => {
         const { _id, number, name } = kindergarden;
 
         return {
@@ -69,8 +69,8 @@ export const NewsletterRecipent = ({
     const kidergartenInputValues = (selected: unknown) => {
         if (Array.isArray(selected)) {
             return selected
-                .map(id => {
-                    const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
+                .map((id) => {
+                    const obj = kindergardenOptionsValues.find((kindergarden) => kindergarden.value === id);
 
                     return obj ? obj.label : 'unknown label';
                 })

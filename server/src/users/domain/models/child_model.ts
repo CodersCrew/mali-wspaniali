@@ -21,6 +21,7 @@ export interface ChildProps {
   birthYear: number;
   birthQuarter: number;
   isDeleted: boolean;
+  date: Date;
   results?: mongoose.Schema.Types.ObjectId[] | ChildResultProps[];
   kindergarten: string;
 }
@@ -37,6 +38,7 @@ interface Props {
   sex: Sex;
   birthYear: BirthYear;
   birthQuarter: BirthQuarter;
+  date: Date;
   kindergarten: ObjectId;
   isDeleted: boolean;
 }
@@ -76,6 +78,10 @@ export class Child extends AggregateRoot {
 
   get isDeleted() {
     return this.props.isDeleted;
+  }
+
+  get date(): Date {
+    return this.props.date;
   }
 
   delete() {

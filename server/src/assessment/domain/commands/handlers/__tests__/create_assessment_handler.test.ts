@@ -6,19 +6,9 @@ import { CreateAssessmentHandler } from '../create_assessment_handler';
 import { Assessment } from '../../../models/assessment_model';
 import { ObjectId } from '../../../../../users/domain/models/object_id_value_object';
 
-let app: TestingModule;
-
-afterAll(async () => {
-  await dbHandler.closeInMongodConnection();
-  await app.close();
-});
-
-beforeAll(async () => {
-  await dbHandler.connect();
-});
-
 describe('CreateAssessmentHandler', () => {
   let createdAssessment: Assessment;
+  let app: TestingModule;
 
   const validAssessmentOptions = {
     title: 'my-title',
@@ -26,6 +16,10 @@ describe('CreateAssessmentHandler', () => {
     endDate: '2020-10-20',
     kindergartenIds: ['5f88ea2c6d80f367f66a1692'],
   };
+
+  afterEach(async () => {
+    await app.close();
+  });
 
   beforeEach(async () => {
     app = await setup();
@@ -37,6 +31,8 @@ describe('CreateAssessmentHandler', () => {
     describe('with correct data', () => {
       beforeEach(async () => {
         createdAssessment = await createAssessmentWith({});
+
+        await awaitForResponse();
       });
 
       it('returns assessment instance', () => {
@@ -46,10 +42,10 @@ describe('CreateAssessmentHandler', () => {
         expect(createdAssessment.endDate.value).toEqual('2020-10-20');
 
         expect(
-          createdAssessment.kindergartens[0].kindergartenId,
+          createdAssessment.kindergartens[0].value.kindergartenId,
         ).toBeInstanceOf(ObjectId);
         expect(
-          createdAssessment.kindergartens[0].kindergartenId.toString(),
+          createdAssessment.kindergartens[0].value.kindergartenId.toString(),
         ).toEqual('5f88ea2c6d80f367f66a1692');
       });
     });
@@ -72,4 +68,8 @@ async function setup() {
   await module.init();
 
   return module;
+}
+
+function awaitForResponse(): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, 0));
 }

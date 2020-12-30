@@ -15,46 +15,35 @@ import { GetUserQuery } from './domain/queries/impl/get_user_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { UserProps } from './domain/models/user_model';
 import { UserDTO } from './dto/user_dto';
-import { UserRepository } from './domain/repositories/user_repository';
 import { UserInput } from './inputs/user_input';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { ReturnedTokenDTO } from '../shared/returned_token';
 import { LoginInput } from './inputs/login_input';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { CurrentUser } from './params/current_user_param';
-import { ChildInput, UpdatedChildInput } from './inputs/child_input';
-import { ChildProps } from './domain/models/child_model';
 import { LoggedUser } from './params/current_user_param';
 import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
 import { NotificationDTO } from '../notifications/dto/notification_dto';
 import { ChildDTO } from './dto/children_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
-import { ResultInput } from './inputs/result_input';
 import { AgreementDTO } from '../agreements/dto/agreement_dto';
 import { GetValidAgreementsQuery } from '../agreements/domain/queries/impl/get_valid_agreements_query';
-import { AddAgreementToUserCommand } from './domain/commands/impl/add_agreement_to_user_command';
+import { ChangeUserAgreementCommand } from './domain/commands/impl/change_user_agreement_command';
 import { AgreementProps } from '../agreements/schemas/agreement_schema';
 import { GetAllUsersQuery } from './domain/queries/impl/get_all_users_query';
-import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
 import {
   ChangePasswordCommand,
-  AddChildCommand,
-  AddChildResultCommand,
   LoginUserCommand,
   CreateUserCommand,
   ResetPasswordCommand,
 } from './domain/commands/impl';
-import { ChildWithKindergarten } from './domain/queries/handlers/get_all_children_handler';
-import { EditChildCommand } from './domain/commands/impl/edit_child_command';
+import { ReadNotificationCommand } from '../notifications/domain/commands/impl/read_notifiaction_command';
+import { NotificationProps } from '../notifications/domain/models/notification_model';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
 export class UsersResolver {
-  constructor(
-    private commandBus: CommandBus,
-    private queryBus: QueryBus,
-    public readonly userRepository: UserRepository,
-  ) {}
+  constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   @Query(() => UserDTO)
   @UseGuards(GqlAuthGuard)
@@ -72,7 +61,11 @@ export class UsersResolver {
   @ResolveField()
   async children(@Parent() user: UserProps): Promise<ChildDTO[]> {
     return await this.queryBus.execute(
-      new GetChildrenQuery(user.children as mongoose.Schema.Types.ObjectId[]),
+      new GetChildrenQuery(
+        (user.children as mongoose.Schema.Types.ObjectId[]).map(c =>
+          c.toString(),
+        ),
+      ),
     );
   }
 
@@ -101,65 +94,22 @@ export class UsersResolver {
     return await this.queryBus.execute(new GetAllUsersQuery(role));
   }
 
+  @Mutation(() => NotificationDTO)
+  @UseGuards(GqlAuthGuard)
+  async readNotification(@Args('id') id: string): Promise<NotificationProps> {
+    const notification: NotificationProps = await this.commandBus.execute(
+      new ReadNotificationCommand(id),
+    );
+
+    return notification;
+  }
+
   @Mutation(() => ReturnedStatusDTO)
   async createUser(
     @Args('user') user: UserInput,
   ): Promise<{ status: boolean }> {
     const created: UserProps = await this.commandBus.execute(
       new CreateUserCommand(user.mail, user.password, user.keyCode),
-    );
-
-    return { status: !!created };
-  }
-
-  @Query(() => [ChildDTO])
-  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async allChildren() {
-    const childrenWithKindergarten: ChildWithKindergarten[] = await this.queryBus.execute(
-      new GetAllChildrenQuery(),
-    );
-
-    return childrenWithKindergarten.map(child => ({
-      ...child.child,
-      kindergarten: child.kindergarten,
-      results: child.results,
-    }));
-  }
-
-  @Mutation(() => ReturnedStatusDTO)
-  @UseGuards(GqlAuthGuard)
-  async addChild(
-    @CurrentUser() user: LoggedUser,
-    @Args('child') child: ChildInput,
-  ): Promise<{ status: boolean }> {
-    const created: ChildProps = await this.commandBus.execute(
-      new AddChildCommand(child, user.userId),
-    );
-
-    return { status: !!created };
-  }
-
-  @Mutation(() => ReturnedStatusDTO)
-  @UseGuards(GqlAuthGuard)
-  async editChild(
-    @CurrentUser() user: LoggedUser,
-    @Args('child') child: UpdatedChildInput,
-  ): Promise<{ status: boolean }> {
-    const edited: ChildProps = await this.commandBus.execute(
-      new EditChildCommand(child, user.userId),
-    );
-
-    return { status: !!edited };
-  }
-
-  @Mutation(() => ReturnedStatusDTO)
-  async addResult(
-    @Args('childId') childId: string,
-    @Args('result') result: ResultInput,
-    @Args('rootResultId', { nullable: true }) rootResultId?: string | undefined,
-  ): Promise<{ status: boolean }> {
-    const created: ChildProps = await this.commandBus.execute(
-      new AddChildResultCommand(result, childId, rootResultId),
     );
 
     return { status: !!created };
@@ -210,7 +160,7 @@ export class UsersResolver {
     @Args('agreementId') agreementId: string,
   ): Promise<{ status: boolean }> {
     const created: AgreementProps = await this.commandBus.execute(
-      new AddAgreementToUserCommand(user.userId, agreementId),
+      new ChangeUserAgreementCommand(user.userId, agreementId),
     );
 
     return { status: !!created };

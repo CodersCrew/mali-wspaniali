@@ -38,7 +38,7 @@ export function Select({ label, value, options, disabled, name, error, touched, 
                 label={label}
                 value={value}
                 name={name}
-                renderValue={() => options.find(o => o.value === value)?.label}
+                renderValue={() => options.find((o) => o.value === value)?.label}
                 labelId={name}
                 disabled={!!disabled}
                 fullWidth

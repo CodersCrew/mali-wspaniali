@@ -1,11 +1,12 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 import { MockedResponse } from '@apollo/client/testing';
-import { AdminAddTestPage } from '../AdminAddTestPage';
+
+import { AdminManageSingleAssessmentPage } from '../AdminManageSingleAssessmentPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
-import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
+import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/createAssessment';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
@@ -17,6 +18,17 @@ const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 const startDate = new Date();
 const endDate = new Date(startDate.getTime() + TWO_MONTHS);
 
+jest.mock('react-router-dom', () => ({
+    ...(jest.requireActual('react-router-dom') as any),
+    useParams: () => ({}),
+    useHistory: () => ({
+        push: () => {},
+        location: {
+            pathname: '/add',
+        },
+    }),
+}));
+
 describe('AdminAddTestPage', () => {
     let openSnackbar: jasmine.Spy;
 
@@ -26,13 +38,13 @@ describe('AdminAddTestPage', () => {
 
             await awaitForRenderResponse();
 
-            openSnackbar = spyOn(OpenSnackbar, 'openSnackbar')
+            openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
         });
 
         it('renders test name input', async () => {
             const input = screen.getByTestId('test-name')!;
 
-            expect(input).toBeInTheDocument()
+            expect(input).toBeInTheDocument();
         });
     });
 
@@ -49,9 +61,9 @@ describe('AdminAddTestPage', () => {
 
                 expect(rows).toHaveLength(3);
 
-                rows.forEach(row => {
+                rows.forEach((row) => {
                     const checkbox = row.querySelector('.MuiCheckbox-root');
-    
+
                     expect(checkbox).not.toHaveClass('Mui-checked');
                 });
 
@@ -63,7 +75,6 @@ describe('AdminAddTestPage', () => {
             describe('and one filtered with valid phrase', () => {
                 it('renders partial list', async () => {
                     changeSeachFieldInput('meal');
-
 
                     const rows = screen.queryAllByRole('row');
 
@@ -78,12 +89,14 @@ describe('AdminAddTestPage', () => {
                 describe('too short phrase', () => {
                     it('renders all kindergartens', async () => {
                         changeSeachFieldInput('mea');
-    
+
                         const rows = screen.queryAllByRole('row');
-    
+
                         expect(rows).toHaveLength(3);
-    
-                        expect(rows[0]).toHaveTextContent(translationOf('add-test-view.kindergartens.kindergarten-name'));
+
+                        expect(rows[0]).toHaveTextContent(
+                            translationOf('add-test-view.kindergartens.kindergarten-name'),
+                        );
                         expect(rows[1]).toHaveTextContent('1/my-kindergarten');
                         expect(rows[2]).toHaveTextContent('2/happy-meal');
                     });
@@ -92,12 +105,13 @@ describe('AdminAddTestPage', () => {
                 describe('not found phrase', () => {
                     it('renders empty list', () => {
                         changeSeachFieldInput('wrong-name');
-    
+
                         const rows = screen.queryAllByRole('row');
-    
+
                         expect(rows).toHaveLength(1);
-                        expect(rows[0]).toHaveTextContent(translationOf('add-test-view.kindergartens.kindergarten-name'));
-    
+                        expect(rows[0]).toHaveTextContent(
+                            translationOf('add-test-view.kindergartens.kindergarten-name'),
+                        );
                     });
                 });
             });
@@ -108,19 +122,21 @@ describe('AdminAddTestPage', () => {
                 it('selects the item', async () => {
                     rows = screen.queryAllByRole('row');
 
-                    rows.forEach(row => {
+                    rows.forEach((row) => {
                         const checkbox = row.querySelector('.MuiCheckbox-root');
-    
+
                         expect(checkbox).not.toHaveClass('Mui-checked');
                     });
 
-                    fireEvent.click(rows[1])
+                    fireEvent.click(rows[1]);
+
+                    await awaitForRenderResponse();
 
                     rows = screen.queryAllByRole('row');
 
-                    expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
-                    expect(rows[1].querySelector('.MuiCheckbox-root')).toHaveClass('Mui-checked')
-                    expect(rows[2].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
+                    expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked');
+                    expect(rows[1].querySelector('.MuiCheckbox-root')).toHaveClass('Mui-checked');
+                    expect(rows[2].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked');
                 });
             });
 
@@ -130,20 +146,22 @@ describe('AdminAddTestPage', () => {
                 it('deselects the item', async () => {
                     rows = screen.queryAllByRole('row');
 
-                    rows.forEach(row => {
+                    rows.forEach((row) => {
                         const checkbox = row.querySelector('.MuiCheckbox-root');
-    
+
                         expect(checkbox).not.toHaveClass('Mui-checked');
                     });
 
-                    fireEvent.click(rows[1])
-                    fireEvent.click(rows[1])
+                    fireEvent.click(rows[1]);
+                    fireEvent.click(rows[1]);
+
+                    await awaitForRenderResponse();
 
                     rows = screen.queryAllByRole('row');
 
-                    expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
-                    expect(rows[1].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
-                    expect(rows[2].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked')
+                    expect(rows[0].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked');
+                    expect(rows[1].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked');
+                    expect(rows[2].querySelector('.MuiCheckbox-root')).not.toHaveClass('Mui-checked');
                 });
             });
 
@@ -154,44 +172,47 @@ describe('AdminAddTestPage', () => {
                     it('renders all checked items', async () => {
                         rows = screen.queryAllByRole('row');
 
-                        rows.forEach(row => {
+                        rows.forEach((row) => {
                             const checkbox = row.querySelector('.MuiCheckbox-root');
-        
+
                             expect(checkbox).not.toHaveClass('Mui-checked');
                         });
 
-                        selectAllClick()
+                        selectAllClick();
 
-                        rows.forEach(row => {
+                        await awaitForRenderResponse();
+
+                        rows.forEach((row) => {
                             const checkbox = row.querySelector('.MuiCheckbox-root');
-        
+
                             expect(checkbox).toHaveClass('Mui-checked');
                         });
-                    })
-                })
+                    });
+                });
 
                 describe('is clicked twice', () => {
                     it('renders all unchecked items', async () => {
-
                         rows = screen.queryAllByRole('row');
 
-                        rows.forEach(row => {
+                        rows.forEach((row) => {
                             const checkbox = row.querySelector('.MuiCheckbox-root');
-        
+
                             expect(checkbox).not.toHaveClass('Mui-checked');
                         });
 
-                        selectAllClick()
-                        selectAllClick()
+                        selectAllClick();
+                        selectAllClick();
 
-                        rows.forEach(row => {
+                        await awaitForRenderResponse();
+
+                        rows.forEach((row) => {
                             const checkbox = row.querySelector('.MuiCheckbox-root');
-        
+
                             expect(checkbox).not.toHaveClass('Mui-checked');
                         });
-                    })
-                })
-            })
+                    });
+                });
+            });
         });
     });
 
@@ -200,23 +221,22 @@ describe('AdminAddTestPage', () => {
             beforeEach(async () => {
                 renderPage(mocks);
 
-                await awaitForRenderResponse()
+                await awaitForRenderResponse();
 
                 openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
 
                 openSnackbar.and.returnValue(Promise.resolve({ close: true }));
-
             });
 
             it('renders confirmation', async () => {
-                changeTestNameInput('new-test')
+                changeTestNameInput('new-test');
 
-                await awaitForRenderResponse()
+                await awaitForRenderResponse();
 
-                createTestButtonClick()
-                
-                await awaitForRenderResponse()
-                await awaitForRenderResponse()
+                createTestButtonClick();
+
+                await awaitForRenderResponse();
+                await awaitForRenderResponse();
 
                 expect(openSnackbar).toHaveBeenCalledWith({ text: translationOf('add-test-view.assessment-created') });
             });
@@ -226,45 +246,45 @@ describe('AdminAddTestPage', () => {
             beforeEach(async () => {
                 renderPage(mocks);
 
-                await awaitForRenderResponse()
+                await awaitForRenderResponse();
 
                 openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
             });
 
             it('disables submit button', async () => {
-                changeTestNameInput('nope')
+                changeTestNameInput('nope');
 
                 await awaitForRenderResponse();
 
-                const submitButton = getSubmitButton()
-                const submitTooltip = screen.getByRole('tooltip')
+                const submitButton = getSubmitButton();
+                const submitTooltip = screen.getByRole('tooltip');
 
                 createTestButtonClick();
 
                 await awaitForRenderResponse();
                 await awaitForRenderResponse();
 
-                expect(openSnackbar).toHaveBeenCalledTimes(0)
-                expect(submitButton).toHaveClass('Mui-disabled')
-                expect(submitTooltip).toHaveAttribute('title', translationOf('add-test-view.errors.name-too-short'))
-           });
+                expect(openSnackbar).toHaveBeenCalledTimes(0);
+                expect(submitButton).toHaveClass('Mui-disabled');
+                expect(submitTooltip).toHaveAttribute('title', translationOf('add-test-view.errors.name-too-short'));
+            });
         });
     });
 });
 
 function renderPage(mocks: MockedResponse[]) {
-    return renderWithMock(mocks, <AdminAddTestPage />)
+    return renderWithMock(mocks, <AdminManageSingleAssessmentPage />);
 }
 
 const mocks = [
     {
         request: {
-            query: CREATE_NEW_TEST,
+            query: CREATE_ASSESSMENT,
             variables: {
                 title: 'new-test',
                 startDate: formatDate(startDate),
                 endDate: formatDate(endDate),
-                kindergartens: []
+                kindergartenIds: [],
             },
         },
         result: {
@@ -323,25 +343,22 @@ function changeTestNameInput(value: string) {
     const input = screen.getByTestId('test-name').querySelector('input')!;
 
     fireEvent.change(input, { target: { value } });
-
 }
 
 function changeSeachFieldInput(value: string) {
     const searchField = screen.queryByTestId('search-field')?.querySelector('input')!;
 
-
     fireEvent.change(searchField, { target: { value } });
-
 }
 
 function selectAllClick() {
     const selectAll = screen.getByTestId('select-all');
 
-    userEvent.click(selectAll)
+    userEvent.click(selectAll);
 }
 
 function getSubmitButton() {
     const button = screen.getByTestId('create-button')!;
 
-    return button
+    return button;
 }

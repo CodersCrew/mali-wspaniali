@@ -3,17 +3,13 @@ import { AssessmentCreatedEvent } from '../events/impl/assessment_created_event'
 import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 import { SimpleDate } from './simple_date_value_object';
 import { Title } from './title_value_object';
-
-export interface AssessmentInput {
-  title: string;
-  startDate: string;
-  endDate: string;
-  kindergartenIds: string[];
-}
+import { KindergartenWithInstructor } from './kindergarten_with_instructor_value_object';
 
 export interface AssessmentDto {
   _id?: string;
   title: string;
+  isOutdated: boolean;
+  isDeleted: boolean;
   startDate: string;
   endDate: string;
   kindergartens: Array<{
@@ -22,15 +18,14 @@ export interface AssessmentDto {
   }>;
 }
 
-interface AssessmentProps {
+export interface AssessmentProps {
   _id: ObjectId;
   title: Title;
+  isOutdated: boolean;
+  isDeleted: boolean;
   startDate: SimpleDate;
   endDate: SimpleDate;
-  kindergartens: Array<{
-    kindergartenId: ObjectId;
-    instructorId: ObjectId | null;
-  }>;
+  kindergartens: KindergartenWithInstructor[];
 }
 
 export class Assessment extends AggregateRoot {
@@ -38,6 +33,8 @@ export class Assessment extends AggregateRoot {
 
   private constructor(initialData: AssessmentProps) {
     super();
+
+    this.guardAgainstStartDateSmallerThanEndDate(initialData);
 
     this.data = initialData;
   }
@@ -48,6 +45,14 @@ export class Assessment extends AggregateRoot {
 
   get title(): Title {
     return this.data.title;
+  }
+
+  get isOutdated(): boolean {
+    return this.data.isOutdated;
+  }
+
+  get isDeleted(): boolean {
+    return this.data.isDeleted || false;
   }
 
   get startDate(): SimpleDate {
@@ -62,6 +67,16 @@ export class Assessment extends AggregateRoot {
     return this.data.kindergartens;
   }
 
+  update(update: Partial<AssessmentProps>) {
+    if (update._id) {
+      throw new Error('An id cannot be change');
+    }
+
+    this.data = { ...this.data, ...update };
+
+    this.guardAgainstStartDateSmallerThanEndDate(this.data);
+  }
+
   static create(initialData: AssessmentProps): Assessment {
     const assessment = new Assessment(initialData);
 
@@ -72,5 +87,11 @@ export class Assessment extends AggregateRoot {
 
   static recreate(initialData: AssessmentProps) {
     return new Assessment(initialData);
+  }
+
+  private guardAgainstStartDateSmallerThanEndDate(value: AssessmentProps) {
+    if (value.startDate.isGreaterThan(value.endDate)) {
+      throw new Error('The start date cannot be greater than the end date');
+    }
   }
 }

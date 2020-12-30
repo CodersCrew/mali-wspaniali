@@ -38,6 +38,7 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
     const device = useBreakpoints();
 
     const initialValues = {
+        id: child._id,
         firstname: child.firstname,
         lastname: child.lastname,
         sex: child.sex,
@@ -51,6 +52,11 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
         validationSchema,
         onSubmit: handleSubmit,
     });
+
+    if (formik.values.id !== child._id) {
+        formik.setValues(initialValues);
+    }
+
     const { getOptions } = useSelectOptions();
 
     const kindergartenOptions = kindergartens.map(mapKindergartenToOption);

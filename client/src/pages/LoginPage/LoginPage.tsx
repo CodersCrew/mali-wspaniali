@@ -18,7 +18,6 @@ export const LoginPage = () => {
     const { authorizeMe } = useAuthorizeMe(
         user => { history.push(`/${user.role}`); },
         error => { openBtnSnackbar({ text: t(error.name), severity: 'error', btnText:'OK' }); }
-        
     );
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {

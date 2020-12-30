@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
-export const RedactorSchema = new mongoose.Schema(
+export const RedactorSchema = new Schema(
   {
     avatarUrl: String,
     firstName: String,

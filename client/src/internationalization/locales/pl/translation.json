@@ -80,7 +80,6 @@
         "req": "* wymagane"
     },
     "admin-setting-page": {
-        "account-management": "Zarządzanie kontami",
         "keycode-generation": {
             "title": "Generowanie kluczy",
             "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
@@ -270,8 +269,33 @@
                 "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
             }
         },
-        "agreements-title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
-        "recomendations": "Rekomendacje",
+        "recommendations": {
+            "recommendations": "Rekomendacje",
+            "panel-title": "Rekomendacja  - Jak poprawić sprawność dziecka",
+            "title": "Pamiętajcie o codziennym ruchu",
+            "text1-1": "Przedszkolaki w wieku 3–4 lata ",
+            "text1-2": "powinny gromadzić przynajmniej ",
+            "text1-3": "180 minut aktywności fizycznej o dowolnej intensywności rozłożone w ciągu dnia. ",
+            "text1-4": "Wśród nich powinny znaleźć się różnorodne zajęcia i zabawy w różnych środowiskach (na placu zabaw, w domu, w lesie, w sali gimnastycznej, w wodzie) oraz działania rozwijające umiejętności ruchowe (rzucanie, chwytanie, skakanie, bieganie, wspinanie, odbijanie,...).",
+            "subtitle1": "Każdy sposób jest dobry na codzienną wspólną aktywność!",
+            "text2": "Dzieci w wieku 5-11 lat powinny energicznie bawić się lub być aktywne fizycznie co najmniej 60 minut codziennie. Co najmniej 3 dni w tygodniu aktywność powinna  uwzględniać zabawy/ćwiczenia o dużej intensywności, wzmacniające mięśnie i kości.",
+            "subtitle2": "60 minut dziennie - możesz pomóc dziecku to osiągnąć!",
+            "text3": "Im więcej codziennej aktywności fizycznej tym większe korzyści dla zdrowia obecnie i w przyszłości.",
+            "subtitle3": "Sen jest kluczowy dla zdrowia i rozwoju:",
+            "text4": "Przedszkolaki 3-5 lat powinny spać od 10 do 13 godzin na dobę. Dzieci 6-13 lat, od 9 do 11 godzin.",
+            "subtitle4": "Śpij na zdrowie!"
+        },
+        "agreements": {
+            "heading": "Zarządzaj zgodami udzielonymi fundacji Mali Wspaniali. Miej pełną kontrolę nad bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia.",
+            "title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
+            "save": "Zapisz",
+            "Image-title": "Zgoda na rozpowszechnianie wizerunku.",
+            "Image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do udziału w programie.",
+            "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+            "Marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+            "general-title": "Zgoda na udział w programie Mali Wspaniali.",
+            "general-description": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe."
+        },
         "child-details": {
             "page": "Dane dziecka",
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
@@ -294,7 +318,8 @@
     },
     "parent-children": {
         "children": "Dzieci",
-        "no-children-has-been-found": "Nie znaleziono żadnych dzieci"
+        "no-children-has-been-found": "Nie znaleziono żadnych dzieci",
+        "add-child": "Dodaj dziecko"
     },
     "newsletter": {
         "header": "Nowa wiadomość",
@@ -410,7 +435,7 @@
         "home": "Strona Główna",
         "child": {
             "results": "Lista wyników",
-            "recomendations": "Rekomendacje",
+            "recommendations": "Rekomendacje",
             "tests-information": "Informacje o testach",
             "details": "Dane dziecka"
         },
@@ -422,6 +447,7 @@
     },
     "instructor-menu": {
         "add-results": "Dodaj wyniki",
+        "notifications": "Powiadomienia",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
     },
@@ -452,8 +478,9 @@
         "greeting": "Dzień Dobry!",
         "check-children-activity": "Sprawdź aktywność swoich dzieci w programie",
         "mali-wspaniali": "Mali Wspaniali",
-        "foundation-header": "Tutaj Nagłówek Fundacji",
-        "foundation-content": "Tutaj będzie krótkie wprowadzenie od Fundacji. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
+        "foundation-header": "Drogi Rodzicu!",
+        "foundation-content": "Jesteśmy wrocławską fundacją, która koordynuje sportowe zajęcia ogólnorozwojowe z elementami karate w przedszkolu Twojego Dziecka. Instruktorzy prowadzący treningi skupiają się przede wszystkim na wesołej, bezpiecznej i aktywnej zabawie, oraz wspieraniu harmonijnego rozwoju Twojej Pociechy. Nieodłącznym elementem programu „Mali Wspaniali” są również testy sprawności dzieciaków. Na platformie znajdziesz wyniki testów, jakie osiągnął Twój Przedszkolak w kolejnych próbach, poznasz dalsze rekomendacje i otrzymasz informacje o rozwoju dzieci w wieku 3-6 lat, które mogą Cię zainteresować.",
+        "foundation-content-summary": "Zapraszamy! Fundacja Mali Wspaniali.",
         "recent-news": "Najnowsze ARTYKUŁY",
         "read-more": "Czytaj więcej",
         "read-less": "Zwiń"
@@ -484,9 +511,11 @@
             "first-assessment": "Próba początkowa",
             "last-assessment": "Próba końcowa",
             "status": "Status",
-            "details": "Zobacz szczegóły",
             "active": "Aktywny",
-            "done": "Zakończony"
+            "done": "Zakończony",
+            "details": "Zobacz szczegóły",
+            "delete": "Skasuj",
+            "edit": "Edytuj dane"
         }
     },
     "add-test-view": {
@@ -509,15 +538,25 @@
             "kindergarten-name": "Nazwa przedszkola",
             "find-kindergarten": "Znajdź przedszkole"
         },
+        "delete-test-dialog": {
+            "title": "Skasuj test",
+            "description": "Czy na pewno chcesz usunąć wybrany test przedszkolaka?"
+        },
         "assessment-created": "Utworzono nowy test",
+        "assessment-updated": "Test został zaktualizowany",
         "create-test": "Utwórz nowy test",
+        "update-test": "Zapisz",
         "cancel": "Anuluj",
+        "delete": "Usuń",
         "errors": {
-            "name-too-short": "Nazwa testu jest za krótka"
+            "name-too-short": "Nazwa testu jest za krótka",
+            "test-already-created": "Test został utworzony",
+            "test-already-updated": "Test został zaktualizowany"
         }
     },
     "add-child-modal": {
         "button": "Dodaj",
+        "cancel": "Anuluj",
         "heading": "Witaj na stronie Mali Wspaniali",
         "description": "Zanim przejdziesz do strony głównej wprowadź dane swojego dziecka.",
         "inputs": {
@@ -580,6 +619,94 @@
         },
         "reset-old-password": "Zresetuj hasło",
         "something-went-wrong": "Coś poszło nie tak. Skontaktuj się z Administratorem.",
-        "wrong-old-password": "Niepoprawne hasło"
+        "wrong-old-password": "Niepoprawne hasło",
+        "delete-account-header": "Usuwanie konta z poziomu użytkownika nie jest możliwe",
+        "delete-account-content": "Aby usunąc  konto w aplikacji skontaktuj się z fundacją",
+        "delete-account-button": "Napisz wiadomość"
+    },
+    "settings-modal": {
+        "button": "Wyślij wiadomość",
+        "modal-header": "Skontaktuj się z nami",
+        "modal-first-description": "Jeśli pojawiły się jakies problemy lub masz pytania, napisz do nas! ",
+        "modal-second-description": "Rozwiejemy wszelkie wątpliwości.",
+        "modal-send-button": "wyślij wiadomość",
+        "modal-close-button": "anuluj",
+        "text-field-email-id": "email",
+        "text-field-email-label": "Nadawca wiadomości",
+        "text-field-email-placeholder": "email",
+        "text-field-title-id": "wiadomość",
+        "text-field-title-label": "Treść wiadomości",
+        "text-field-title-placeholder": "Treść wiadomości",
+
+        "select-options": {
+            "select-label": "Temat wiadomości",
+            "1": "zmiana hasła",
+            "2": "wynik testu",
+            "3": "zajęcia w przedszkolu",
+            "4": "usunięcie konta",
+            "5": "inny"
+        },
+        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail."
+    },
+    "admin-instructors-page": {
+        "table": {
+            "firstName": "Imię",
+            "lastName": "Nazwisko",
+            "email": "Adres e-mail",
+            "kindergarten-count": "Liczba przedszkoli",
+            "tooltip": "Przydziel do przedszkola"
+        },
+        "table-toolbar": {
+            "select-test": "Wybierz test",
+            "instructor-search": "Szukaj instruktora",
+            "unassigned-kindergartens": "Nieprzydzielone przedszkola"
+        },
+        "snackbars": {
+            "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+        }
+    },
+    "add-results-page": {
+        "test-name":"Nazwa testu",
+        "kindergarten-name": "Przedszkole",
+        "search-by-child-firstname": "Szukaj po imieniu dziecka", 
+        "firstname": "Imie",
+        "lastname": "Nazwisko",
+        "birth-year": "Rok urodzenia",
+        "birth-quarter": "Kwartał urodzenia",
+        "first-assessment": "Próba początkowa",
+        "last-assessment": "Próba końcowa",
+        "see-results": "Zobacz wyniki",
+        "add-result": "Dodaj wynik",
+        "add-first-assessment-result": "Dodaj wyniki próby początkowej",
+        "add-last-assessment-result": "Dodaj wyniki próby końcowej",
+        "add-note": "Dodaj notatkę",
+        "note-first-measurement": "Notatka - Próba początkowa",
+        "note-last-measurement": "Notatka - Próba końcowa",
+        "add-note-modal": {
+            "description": "Dodawaj i zarządzaj notatkami, dotyczącymi ważnych informacji na temat konkretnego dziecka. Dodaj inforamcje dotyczące przebytych kontuzji, przyjmowanych lekarstw czy powodów niebrania udziału w teście.",
+            "placeholder": "Kliknij by zacząć pisać",
+            "cancel": "Anuluj",
+            "save": "Zapisz",
+            "text-limit": "Zostało {{characters}} znaków"
+        },
+        "no-assessments": {
+            "title": "Wybacz, w tym momencie nie możesz jeszcze dodawać wyników",
+            "description": "Fundacja nie przydzieliła ci jeszcze przedszkola, w którym móglbyś dodać wyniki testu. Usiądź wygodnie i wykorzystaj tę chwilę by zapoznać się z artykułami przygotgotowanymi przez ekspertów od zdrowego żywienia i sprawności fizycznej",
+            "go-to-articles": "Przejdź do artykułów"
+        },
+        "child-list": "Child list" 
+    },
+    "add-result-page": {
+        "kindergarten": "Kindergarten",
+        "select-measurement": "Wybierz pomiar",
+        "first": "Początkowy",
+        "last": "Końcowy",
+        "no-result": "Brak wyniku",
+        "received-points":"Otrzymane punkty",
+        "points": "pkt",
+        "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
+        "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
+        "back-to-table": "Wróć do tabeli",
+        "child-list": "Lista dzieci"
     }
 }

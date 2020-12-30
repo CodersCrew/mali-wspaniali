@@ -10,6 +10,7 @@ import { MenuDrawer } from './MenuDrawer';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { getMenuWidth } from './getMenuWidth';
 import { LabeledHeader } from './LabeledHeader';
+import { SecondaryLabel } from '../../Label';
 
 export interface Props {
     user: Me | null;
@@ -28,6 +29,8 @@ export const InstructorSidebar = ({ onClick, onClose, user, active, open }: Prop
 
     if (!user) return null;
 
+    const unreadedNotificationsCount = user.notifications.filter((n) => !n.isRead).length;
+
     const ItemFactory = getInstructorMenuItemFactory({ active, t });
     const BlogItemFactory = getBlogMenuItemFactory({ active, t });
 
@@ -35,6 +38,10 @@ export const InstructorSidebar = ({ onClick, onClose, user, active, open }: Prop
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
     const BlogItem = BlogItemFactory.create({ active, t });
+    const NotificationsItem = ItemFactory.create({
+        name: 'notifications',
+        rightIcon: unreadedNotificationsCount ? <SecondaryLabel label={unreadedNotificationsCount} /> : undefined,
+    });
 
     const drawer = (
         <Grid
@@ -48,6 +55,7 @@ export const InstructorSidebar = ({ onClick, onClose, user, active, open }: Prop
                     <SingleItem item={MainPageItem} onClick={onClick} />
                     <Divider />
                     <CollapsibleList mainItem={BlogItem.mainItem} subItems={BlogItem.subItems} onClick={onClick} />
+                    <SingleItem item={NotificationsItem} onClick={onClick} />
                     <SingleItem item={SettingsItem} onClick={onClick} />
                 </List>
             </Grid>

@@ -68,6 +68,8 @@ export interface UpdatedChildInput {
 
 export type User = Omit<Me, 'notifications'>;
 
+export type PrivilegedUser = Omit<User, 'children' | 'agreements'>;
+
 export interface Me {
     _id: string;
     mail: string;
@@ -97,6 +99,7 @@ export interface Kindergarten {
     number: number;
     address: string;
     city: string;
+    children?: Child[];
 }
 
 export interface AddKindergartenInput {
@@ -165,10 +168,19 @@ export interface KeyCodeSeries {
     count: number;
 }
 
-export interface Test {
+export interface Assessment {
     _id: string;
     isOutdated: boolean;
+    isDeleted: boolean;
     title: string;
     startDate: string;
     endDate: string;
+    kindergartens: {
+        instructor: User | null;
+        kindergarten: Kindergarten;
+    }[];
+}
+
+export interface ReturnedStatusDTO {
+    status: boolean;
 }

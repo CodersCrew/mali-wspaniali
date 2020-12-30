@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableRow, TableCell, makeStyles, Theme, Typography } from '@material-ui/core';
+import { TableRow, TableCell, makeStyles, Theme, Typography, IconButton } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons/';
 import clsx from 'clsx';
 
@@ -9,28 +9,33 @@ interface Props {
     id: string;
     text: string;
     date: Date;
-    isVisited: boolean;
-    onClick: (value: string) => void;
+    isRead: boolean;
+    onClick: (id: string) => void;
 }
 
-export const NotificationPageListItem = ({ text, date, id, isVisited, onClick }: Props) => {
+export const NotificationPageListItem = ({ text, date, id, isRead, onClick }: Props) => {
     const classes = useStyles();
 
     return (
         <TableRow
-            onClick={() => onClick(id)}
-            classes={{ root: clsx({ [classes.background]: true, [classes.visited]: isVisited }) }}
+            classes={{ root: clsx({ [classes.background]: !isRead, [classes.visited]: isRead }) }}
+            onClick={() => !isRead && onClick(id)}
         >
-            <TableCell classes={{ root: classes.text }} component="th" scope="row">
-                <Notifications
-                    classes={{ root: clsx({ [classes.icon]: true, [classes.visited]: isVisited }) }}
-                    fontSize="small"
-                />
+            <TableCell classes={{ root: classes.text }}>
+                <IconButton
+                    size="small"
+                    onClick={() => !isRead && onClick(id)}
+                    disabled={isRead}
+                    color="secondary"
+                    classes={{ root: classes.iconButton }}
+                >
+                    <Notifications />
+                </IconButton>
                 <span>
                     <Typography variant="caption">{text}</Typography>
                 </span>
             </TableCell>
-            <TableCell>
+            <TableCell classes={{ root: classes.calendarCell }}>
                 <Typography variant="caption">{moment(date).calendar()}</Typography>
             </TableCell>
         </TableRow>
@@ -40,10 +45,8 @@ export const NotificationPageListItem = ({ text, date, id, isVisited, onClick }:
 const useStyles = makeStyles((theme: Theme) => ({
     text: {
         display: 'flex',
-    },
-    icon: {
-        marginRight: theme.spacing(2),
-        color: theme.palette.secondary.main,
+        alignItems: 'center',
+        padding: 8,
     },
     visited: {
         color: '#C4C4C4',
@@ -55,5 +58,11 @@ const useStyles = makeStyles((theme: Theme) => ({
             cursor: 'pointer',
             background: theme.palette.background.default,
         },
+    },
+    iconButton: {
+        margin: theme.spacing(0, 1),
+    },
+    calendarCell: {
+        padding: 8,
     },
 }));
