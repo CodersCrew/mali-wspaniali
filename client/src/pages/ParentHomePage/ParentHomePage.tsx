@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid, createStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { useKindergartens } from '../../operations/queries/Kindergartens/getKind
 import { useAddChild } from '../../operations/mutations/User/addChild';
 import { PageContainer } from '../../components/PageContainer';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { HomePageInfo } from './HomePageTopSection/HomePageInfo';
 
 export const ParentHomePage = () => {
     const user = useMe();
@@ -22,6 +23,14 @@ export const ParentHomePage = () => {
     const history = useHistory();
     const { isMobile } = useIsDevice();
     const classes = useStyles();
+    const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(
+        () => localStorage.getItem('infoNote') !== 'closed',
+    );
+
+    function toggleInfoComponent() {
+        setIsInfoComponentVisible((prev) => !prev);
+        localStorage.setItem('infoNote', 'closed');
+    }
 
     const { kindergartenList } = useKindergartens();
 
@@ -54,6 +63,9 @@ export const ParentHomePage = () => {
                         history.push(`parent/child/${id}/results`);
                     }}
                 />
+                <div className={classes.infoContainer}>
+                    {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
+                </div>
                 <HomePageArticles articles={articles} />
             </Grid>
         </PageContainer>
@@ -85,6 +97,18 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 textTransform: 'uppercase',
                 lineHeight: '18px',
+            },
+        },
+        infoContainer: {
+            display: 'flex',
+            marginBottom: theme.spacing(5),
+            flexWrap: 'wrap',
+
+            [theme.breakpoints.down('md')]: {
+                flexDirection: 'column',
+                alignItems: 'center',
+                paddingRight: theme.spacing(0),
+                marginBottom: theme.spacing(4),
             },
         },
     }),

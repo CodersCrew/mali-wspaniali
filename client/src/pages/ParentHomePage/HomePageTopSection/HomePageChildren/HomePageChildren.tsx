@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { HomePageChildCard } from './HomePageChildCard';
-import { HomePageInfo } from '../HomePageInfo';
 import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
 import { Child, ChildInput } from '../../../../graphql/types';
@@ -21,18 +20,46 @@ interface Props {
 export const HomePageChildren = ({ childrenList: children, handleModalSubmit, onChildClick }: Props) => {
     const classes = useStyles();
     const device = useIsDevice();
-    const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(true);
-
-    const toggleInfoComponent = () => setIsInfoComponentVisible(!isInfoComponentVisible);
 
     const { kindergartenList } = useKindergartens();
 
-    return (
-        <>
-            {device.isMobile ? (
-                <MobileCarousel
-                    childList={children}
-                    onAddChildClick={() => {
+    return device.isMobile ? (
+        <MobileCarousel
+            childList={children}
+            onAddChildClick={() => {
+                openAddChildModal({
+                    kindergartens: kindergartenList,
+                    isCancelButtonVisible: true,
+                }).then((results) => {
+                    if (results.decision?.accepted) {
+                        handleModalSubmit(results.decision.child);
+                    }
+                });
+            }}
+            onChildClick={onChildClick}
+        />
+    ) : (
+        <Grid container spacing={3}>
+            {children.map(({ firstname, _id, sex }) => {
+                return (
+                    <Grid item key={_id} xs={6} sm={3}>
+                        <HomePageChildCard
+                            firstName={firstname}
+                            PictureComponent={
+                                <img
+                                    className={classes.childAvatar}
+                                    alt="mali_wspaniali_child"
+                                    src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                                />
+                            }
+                            onClick={() => onChildClick(_id)}
+                        />
+                    </Grid>
+                );
+            })}
+            <Grid item xs={6} sm={3}>
+                <HomePageAddChildButton
+                    onClick={() => {
                         openAddChildModal({
                             kindergartens: kindergartenList,
                             isCancelButtonVisible: true,
@@ -42,48 +69,9 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
                             }
                         });
                     }}
-                    onChildClick={onChildClick}
                 />
-            ) : (
-                <Grid container spacing={3}>
-                    {children.map(({ firstname, _id, sex }) => {
-                        return (
-                            <Grid item key={_id} xs={6} sm={3}>
-                                <HomePageChildCard
-                                    firstName={firstname}
-                                    PictureComponent={
-                                        <img
-                                            className={classes.childAvatar}
-                                            alt="mali_wspaniali_child"
-                                            src={sex === 'male' ? BoyAvatar : GirlAvatar}
-                                        />
-                                    }
-                                    onClick={() => onChildClick(_id)}
-                                />
-                            </Grid>
-                        );
-                    })}
-                    <Grid item xs={6} sm={3}>
-                        <HomePageAddChildButton
-                            onClick={() => {
-                                openAddChildModal({
-                                    kindergartens: kindergartenList,
-                                    isCancelButtonVisible: true,
-                                }).then((results) => {
-                                    if (results.decision?.accepted) {
-                                        handleModalSubmit(results.decision.child);
-                                    }
-                                });
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-            )}
-
-            <div className={classes.infoContainer}>
-                {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
-            </div>
-        </>
+            </Grid>
+        </Grid>
     );
 };
 
@@ -137,20 +125,8 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             objectFit: 'contain',
         },
-        infoContainer: {
-            display: 'flex',
-            marginBottom: theme.spacing(5),
-            flexWrap: 'wrap',
-
-            [theme.breakpoints.down('md')]: {
-                flexDirection: 'column',
-                alignItems: 'center',
-                paddingRight: theme.spacing(0),
-                marginBottom: theme.spacing(4),
-            },
-        },
         slide: {
-            paddingRight: 16,
+            paddingRight: theme.spacing(2),
         },
     }),
 );
