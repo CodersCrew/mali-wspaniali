@@ -6,7 +6,7 @@ import { useCreateAssessment } from '../../operations/mutations/Assessment/creat
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { formatDate } from '../../utils/formatDate';
 import { useAssessment } from '../../operations/queries/Assessment/getAssessment';
-import { useUpdateAssessment } from '../../operations/queries/Assessment/updateAssessment';
+import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 
@@ -15,7 +15,7 @@ const defaultEndDate = new Date(defaultStartDate.getTime() + TWO_MONTHS);
 
 export interface SuccessState {
     assessment: AssessmentManagerState;
-    message?: string
+    message?: string;
 }
 
 export interface ErrorState {
@@ -37,11 +37,11 @@ const defaultAssessment: AssessmentManagerState = {
     endDate: formatDate(defaultEndDate),
     isOutdated: false,
     isDeleted: false,
-    kindergartenIds: []
+    kindergartenIds: [],
 };
 
 export function useAssessmentManager(testId: string | undefined, onSubmit: (state: SuccessState | ErrorState) => void) {
-    const [updatedLocalAssessment, setUpdateLocalAssessment] = useState(defaultAssessment)
+    const [updatedLocalAssessment, setUpdateLocalAssessment] = useState(defaultAssessment);
     const [reasonForBeingDisabled, setReasonForBeingDisabled] = useState<string | undefined>(undefined);
     const { kindergartenList } = useKindergartens();
     const { t } = useTranslation();
@@ -60,15 +60,14 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
             endDate: assessment.endDate,
             isOutdated: assessment.isOutdated,
             isDeleted: assessment.isDeleted,
-            kindergartenIds: assessment.kindergartens.map(k => k.kindergarten._id)
-        })
-
+            kindergartenIds: assessment.kindergartens.map((k) => k.kindergarten._id),
+        });
     }, [assessment]);
 
     useEffect(() => {
         validate(state)
             .then(() => setReasonForBeingDisabled(undefined))
-            .catch(e => {
+            .catch((e) => {
                 if (e.errors.length > 0) {
                     setReasonForBeingDisabled(e.errors[0]);
                 }
@@ -76,103 +75,102 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
     }, [updatedLocalAssessment, state]);
 
     function submit(update: AssessmentManagerState) {
-        if (testId) return updatedAssessment(update)
+        if (testId) return updatedAssessment(update);
 
         createAssessment();
     }
 
     function updatedAssessment(update: AssessmentManagerState) {
-        const valid = validate(update || updatedLocalAssessment); 
+        const valid = validate(update || updatedLocalAssessment);
 
-        const parsedKindergarten = getKindergartenUpdateInput()
+        const parsedKindergarten = getKindergartenUpdateInput();
 
         valid.then((result) => {
-
             if (result) {
-                const { kindergartenIds , ...validAssessment} = result as AssessmentManagerState;
-                const updatedAssessmentInput =  { ...validAssessment, kindergartens: parsedKindergarten };
+                const { kindergartenIds, ...validAssessment } = result as AssessmentManagerState;
+                const updatedAssessmentInput = { ...validAssessment, kindergartens: parsedKindergarten };
 
                 updateAssessment(updatedAssessmentInput)
                     .then(() => {
-                        setReasonForBeingDisabled('add-test-view.errors.test-already-updated')
-                        onSubmit({assessment: state, message: t('add-test-view.assessment-updated')})
+                        setReasonForBeingDisabled('add-test-view.errors.test-already-updated');
+                        onSubmit({ assessment: state, message: t('add-test-view.assessment-updated') });
                     })
-                    .catch(e => onSubmit({ errors: e.message}))
+                    .catch((e) => onSubmit({ errors: e.message }));
             }
         });
-
     }
 
     function createAssessment() {
-        const valid = validate(state); 
+        const valid = validate(state);
 
         valid
-        .then(() => {
-            createTest(updatedLocalAssessment).then(() => {
-                if (!error) {
-                    setReasonForBeingDisabled('add-test-view.errors.test-already-created');
-                    onSubmit({ assessment: state, message: t('add-test-view.assessment-created')});
-                }
+            .then(() => {
+                createTest(updatedLocalAssessment).then(() => {
+                    if (!error) {
+                        setReasonForBeingDisabled('add-test-view.errors.test-already-created');
+                        onSubmit({ assessment: state, message: t('add-test-view.assessment-created') });
+                    }
+                });
+            })
+            .catch((e) => {
+                onSubmit({ errors: t(e.message) });
             });
-        })
-        .catch(e => {
-            onSubmit({ errors: t(e.message) });
-        });
     }
 
     function getKindergartenUpdateInput() {
-        const parsedKindergarten = assessment?.kindergartens.map(k => ({
-            kindergartenId: k.kindergarten._id,
-            instructorId: k.instructor?._id
-        }))
-        .filter(k => {
-            return updatedLocalAssessment.kindergartenIds.includes(k.kindergartenId)
-        }) 
-        || []
+        const parsedKindergarten =
+            assessment?.kindergartens
+                .map((k) => ({
+                    kindergartenId: k.kindergarten._id,
+                    instructorId: k.instructor?._id,
+                }))
+                .filter((k) => {
+                    return updatedLocalAssessment.kindergartenIds.includes(k.kindergartenId);
+                }) || [];
 
-        updatedLocalAssessment.kindergartenIds.forEach(s => {
-            if (parsedKindergarten.find(k => k.kindergartenId === s)) {
+        updatedLocalAssessment.kindergartenIds.forEach((s) => {
+            if (parsedKindergarten.find((k) => k.kindergartenId === s)) {
                 return;
             }
 
-            parsedKindergarten.push({ kindergartenId: s, instructorId: undefined})
-        })
-        
-        return parsedKindergarten
+            parsedKindergarten.push({ kindergartenId: s, instructorId: undefined });
+        });
+
+        return parsedKindergarten;
     }
 
     return {
         submit: (update?: Partial<AssessmentManagerState>) => {
-            setUpdateLocalAssessment(prev => {
+            setUpdateLocalAssessment((prev) => {
                 if (update) {
-                    submit({...prev, ...update});
+                    submit({ ...prev, ...update });
 
-                    return ({...prev, ...update})
+                    return { ...prev, ...update };
                 }
 
-                submit({...prev, ...updatedLocalAssessment});
+                submit({ ...prev, ...updatedLocalAssessment });
 
-                return ({...prev, ...updatedLocalAssessment})
-            })
+                return { ...prev, ...updatedLocalAssessment };
+            });
         },
-        kindergartens: kindergartenList.map(k => {
+        kindergartens: kindergartenList.map((k) => {
             return { selected: updatedLocalAssessment.kindergartenIds.includes(k._id), kindergarten: k };
         }),
         reasonForBeingDisabled,
         updateAssessment: (update: Partial<AssessmentManagerState>) => {
-            setUpdateLocalAssessment(prev => {
-                return ({...prev, ...update})
-            })
+            setUpdateLocalAssessment((prev) => {
+                return { ...prev, ...update };
+            });
         },
-        assessemnt: updatedLocalAssessment
+        assessemnt: updatedLocalAssessment,
     };
 }
 
 async function validate(state: AssessmentManagerState) {
     const newTestSchema = yup.object().shape({
-            title: yup.string().min(5, 'add-test-view.errors.name-too-short'),
-            startDate: yup.string().required(),
-            endDate: yup.string().required(),
+        title: yup.string().min(5, 'add-test-view.errors.name-too-short'),
+        startDate: yup.string().required(),
+        endDate: yup.string().required(),
     });
 
     return newTestSchema.validateSync(state);

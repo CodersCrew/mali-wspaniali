@@ -1,5 +1,5 @@
-import { gql, useQuery } from "@apollo/client";
-import { Article } from "../../../graphql/types";
+import { gql, useQuery } from '@apollo/client';
+import { Article } from '../../../graphql/types';
 
 const ARTICLE_BY_ID = gql`
     query Article($articleId: String!) {
@@ -28,8 +28,8 @@ const ARTICLE_BY_ID = gql`
 
 export function useArticleWithId(id: string) {
     const { data } = useQuery<{ article: Article }>(ARTICLE_BY_ID, {
-        variables: { articleId:id },
+        variables: { articleId: id },
     });
 
-    return { article: data?.article }
+    return { article: data?.article };
 }

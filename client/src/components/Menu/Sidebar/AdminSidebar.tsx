@@ -32,7 +32,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
     const classes = useStyles({ width: innerMargin });
     if (!user) return null;
 
-    const notificationsCount = user.notifications.length;
+    const unreadedNotificationsCount = user.notifications.filter((n) => !n.isRead).length;
 
     const ItemFactory = getAdminMenuItemFactory({ active, t });
     const ResultsItemFactory = getResultsMenuItemFactory({ active, t });
@@ -45,7 +45,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
     const { mainItem: AccessMainItem, subItems: AccessSubItems } = AccessItemFactory.create({ active, t });
     const NotificationsItem = ItemFactory.create({
         name: 'notifications',
-        rightIcon: notificationsCount > 0 ? <SecondaryLabel label={notificationsCount} /> : undefined,
+        rightIcon: unreadedNotificationsCount > 0 ? <SecondaryLabel label={unreadedNotificationsCount} /> : undefined,
     });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });

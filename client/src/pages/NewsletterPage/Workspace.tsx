@@ -19,7 +19,7 @@ export const Workspace = ({ value, onChange }: Props) => {
         <ReactQuill
             className={classes.workspace}
             value={value}
-            onChange={content => onChange('message', content)}
+            onChange={(content) => onChange('message', content)}
             theme="snow"
             modules={modules}
             formats={formats}

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { parseBirthQuarter } from '../../utils/parseBirthQuarter';
 
 export interface Option {
     value: string;
@@ -24,22 +25,22 @@ export function useSelectOptions(): { getOptions: (name: string) => Option[] } {
         'birth-quarter': [
             {
                 value: '0',
-                label: 'I',
+                label: parseBirthQuarter(0),
                 helperLabel: t('add-child-modal.select-options.birth-quarter.1'),
             },
             {
                 value: '1',
-                label: 'II',
+                label: parseBirthQuarter(1),
                 helperLabel: t('add-child-modal.select-options.birth-quarter.2'),
             },
             {
                 value: '2',
-                label: 'III',
+                label: parseBirthQuarter(2),
                 helperLabel: t('add-child-modal.select-options.birth-quarter.3'),
             },
             {
                 value: '3',
-                label: 'IV',
+                label: parseBirthQuarter(3),
                 helperLabel: t('add-child-modal.select-options.birth-quarter.4'),
             },
         ],

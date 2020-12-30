@@ -5,6 +5,7 @@ export interface NotificationProps {
   user: string | mongoose.Schema.Types.ObjectId;
   readonly date: Date;
   readonly templateId: string;
+  readonly isRead: boolean;
   readonly values: string[];
 }
 

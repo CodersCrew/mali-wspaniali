@@ -87,7 +87,7 @@ export class KindergartenMapper {
 
   static toRaw(kindergarten: Kindergarten): KindergartenProps {
     return {
-      _id: kindergarten.id.value,
+      _id: kindergarten.id.value.toString(),
       date: kindergarten.date,
       number: kindergarten.number,
       name: kindergarten.name.value,

@@ -54,7 +54,7 @@ export function AddChildModal({
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
+        onSubmit: (values) => {
             makeDecision({ accepted: true, child: normalizeChild(values) });
         },
     });

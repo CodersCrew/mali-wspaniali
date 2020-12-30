@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
-import { cardBackgroundColor } from '../../../../colors';
-import { HomePageInfoHeader } from './HomePageInfoHeader';
-import { HomePageInfoContent } from './HomePageInfoContent';
+import React from 'react';
+import { makeStyles, createStyles, Theme, Typography, Paper } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
+
 import { HomePageInfoPropTypes } from './types';
 
 export const HomePageInfo = ({ toggleInfoComponent }: HomePageInfoPropTypes) => {
-    const [isReadMoreBtnClicked, setIsReadMoreBtnClicked] = useState(false);
     const classes = useStyles();
-
-    const toggleInfoText = () => setIsReadMoreBtnClicked(!isReadMoreBtnClicked);
+    const { t } = useTranslation();
 
     return (
-        <Grid className={`${classes.infoContainer} ${!isReadMoreBtnClicked ? classes.smallInfoContainer : ''}`}>
-            <HomePageInfoHeader />
-            <HomePageInfoContent
-                toggleInfoText={toggleInfoText}
-                toggleInfoComponent={toggleInfoComponent}
-                isReadMoreBtnClicked={isReadMoreBtnClicked}
-            />
-        </Grid>
+        <Paper className={classes.infoContainer}>
+            <Close className={classes.contentCloseIcon} onClick={() => toggleInfoComponent()} />
+            <Typography variant="h4" className={classes.contentTitle}>
+                {t('home-page-content.foundation-header')}
+            </Typography>
+            <Typography variant="body1" className={classes.contentDescription}>
+                {t('home-page-content.foundation-content')}
+            </Typography>
+            <Typography variant="body1">{t('home-page-content.foundation-content-summary')}</Typography>
+        </Paper>
     );
 };
 
@@ -27,33 +27,36 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         infoContainer: {
             display: 'flex',
-            boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
-            borderRadius: '4px',
-            background: cardBackgroundColor,
-            padding: '20px 14px 15px 15px',
+            flexDirection: 'column',
+            padding: theme.spacing(2),
             position: 'relative',
-            maxHeight: '163px',
+            textAlign: 'left',
+            marginTop: theme.spacing(2),
 
             [theme.breakpoints.down('md')]: {
-                margin: '30px 30px 0 30px',
-                padding: '10px 10px 8px 10px',
-                maxHeight: '200px',
-                flexDirection: 'column',
-                textAlign: 'left',
-                overflowY: 'hidden',
-            },
-
-            [theme.breakpoints.down('xs')]: {
-                margin: '30px 0 0 0',
-                padding: '10px 10px 8px 10px',
-                maxHeight: '200px',
-                flexDirection: 'column',
-                textAlign: 'left',
-                overflowY: 'hidden',
+                marginTop: theme.spacing(4),
             },
         },
-        smallInfoContainer: {
-            maxHeight: '200px',
+        contentCloseIcon: {
+            width: 14,
+            height: 14,
+            position: 'absolute',
+            top: 14,
+            right: 14,
+            cursor: 'pointer',
+
+            [theme.breakpoints.down('md')]: {
+                width: 20,
+                height: 20,
+                top: 10,
+                right: 10,
+            },
+        },
+        contentTitle: {
+            marginBottom: theme.spacing(2),
+        },
+        contentDescription: {
+            marginBottom: theme.spacing(2),
         },
     }),
 );

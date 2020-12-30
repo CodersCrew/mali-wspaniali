@@ -62,7 +62,7 @@ export const MultipleSelect = ({
                 }}
                 error={touched && !!error}
             >
-                {optionsValues.map(item => {
+                {optionsValues.map((item) => {
                     const { value, label: selectLabel } = item;
 
                     return (
