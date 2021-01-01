@@ -63,7 +63,7 @@ export function InstructorResultCreatorPage() {
             ),
             jump: countInvertedPoints(values.jump, jump.a, jump.b, jump.lowerLimitPoints, jump.upperLimitPoints),
         });
-    }, [values]);
+    }, [values, selectedChild]);
 
     if (!selectedAssessment || !selectedKindergarten || !selectedChild) {
         return null;

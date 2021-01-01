@@ -26,8 +26,8 @@ import { ChildMapper } from './domain/mappers/child_mapper';
 import { KindergartenDTO } from '../kindergartens/dto/kindergarten_dto';
 import { GetKindergartenQuery } from '../kindergartens/domain/queries/impl/get_kindergarten_query';
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
-import { countParams } from 'src/shared/utils/count_params';
 import { ChildCurrentParamsDTO } from './dto/child_current_params_dto';
+import { countParams } from '../shared/utils/count_params';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildDTO)
