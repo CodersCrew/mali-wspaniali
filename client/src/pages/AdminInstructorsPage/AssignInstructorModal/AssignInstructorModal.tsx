@@ -41,7 +41,7 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
                 instructorId: instructor._id,
                 selectedKindergartens: instructorKindergartenIds,
             }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => onSubmit(values.selectedKindergartens)}
         >
             {({ handleSubmit }) => (
                 <Form>

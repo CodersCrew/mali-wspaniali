@@ -9,20 +9,19 @@ interface Props {
     instructor: InstructorWithKindergartens;
     assessment: Assessment;
     kindergartens: Kindergarten[];
+    onSubmit: (kindergartensList: string[], instructorId: string) => void;
 }
 
 interface DecisionProps {
-    selectedKindergartens: string[];
-    data: {
-        id: string;
-        assessment: {
-            kindergartenId: string;
-            instructorId: string;
-        }[];
-    };
+    handleSubmit: void;
 }
 
-export function openAssignInstructorModal({ instructor, assessment, kindergartens }: Props): Promise<DialogResult> {
+export function openAssignInstructorModal({
+    instructor,
+    assessment,
+    kindergartens,
+    onSubmit,
+}: Props): Promise<DialogResult> {
     return openDialog<{}, DecisionProps>(function ({ onClose, makeDecision }: ActionDialog<DecisionProps>) {
         const classes = useStyles();
 
@@ -33,14 +32,7 @@ export function openAssignInstructorModal({ instructor, assessment, kindergarten
                     onSubmit={(selected) =>
                         makeDecision({
                             accepted: true,
-                            selectedKindergartens: selected,
-                            data: {
-                                id: assessment?._id!,
-                                assessment: selected.map((kindergartenId) => ({
-                                    kindergartenId,
-                                    instructorId: instructor?._id!,
-                                })),
-                            },
+                            handleSubmit: onSubmit(selected, instructor._id),
                         })
                     }
                     kindergartens={kindergartens}

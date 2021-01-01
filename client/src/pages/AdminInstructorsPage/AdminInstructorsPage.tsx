@@ -14,6 +14,7 @@ import { Assessment } from '../../graphql/types';
 import { openAssignInstructorModal } from './openAssignInstructorModal';
 import { openUnassignKindergartenModal } from './openUnassignKindergartenModal';
 import { PageContainer } from '../../components/PageContainer';
+import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
 
 export function AdminInstructorsPage() {
     const { t } = useTranslation();
@@ -27,6 +28,17 @@ export function AdminInstructorsPage() {
 
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
     const [selectedInstructor, setSelectedInstructor] = useState('');
+
+    const { updateAssessment } = useUpdateAssessment(selectedAssessment?._id!);
+
+    const handleAssignInstructor = (kindergartensList: string[], instructorId: string) => {
+        const kindergartens = kindergartensList.map((kindergartenId) => ({
+            kindergartenId,
+            instructorId,
+        }));
+
+        updateAssessment({ kindergartens });
+    };
 
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
@@ -61,6 +73,7 @@ export function AdminInstructorsPage() {
             instructor,
             assessment: selectedAssessment!,
             kindergartens: unassignedKindergartens || [],
+            onSubmit: handleAssignInstructor,
         }).then((e) => console.log(e));
     };
 
