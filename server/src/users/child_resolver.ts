@@ -3,7 +3,6 @@ import {
   Mutation,
   Query,
   Args,
-  Context,
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
@@ -27,6 +26,8 @@ import { ChildMapper } from './domain/mappers/child_mapper';
 import { KindergartenDTO } from '../kindergartens/dto/kindergarten_dto';
 import { GetKindergartenQuery } from '../kindergartens/domain/queries/impl/get_kindergarten_query';
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
+import { countParams } from 'src/shared/utils/count_params';
+import { ChildCurrentParamsDTO } from './dto/child_current_params_dto';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildDTO)
@@ -40,6 +41,11 @@ export class ChildResolver {
     );
 
     return KindergartenMapper.toRaw(result);
+  }
+
+  @ResolveField(() => ChildCurrentParamsDTO)
+  currentParams(@Parent() child: ChildDTO): ChildCurrentParamsDTO {
+    return countParams(child);
   }
 
   @Query(() => [ChildDTO])
