@@ -8,7 +8,6 @@ import {
     Checkbox,
     TableBody,
     makeStyles,
-    Theme,
     createStyles,
 } from '@material-ui/core';
 import { Kindergarten } from '../../../graphql/types';
@@ -25,9 +24,9 @@ export const AssginedKindergartenTable = ({ kindergartens, onSelect, selected }:
 
     return (
         <TableContainer classes={{ root: classes.table }}>
-            <Table aria-label="simple table">
+            <Table aria-label="assigned kindergarten table">
                 <TableBody>
-                    {kindergartens.map(kindergarten => (
+                    {kindergartens.map((kindergarten) => (
                         <TableRow key={kindergarten._id} hover role="row" onClick={() => onSelect(kindergarten._id)}>
                             <TableCell padding="checkbox">
                                 <Checkbox checked={selected.includes(kindergarten._id)} color="default" />
@@ -43,7 +42,7 @@ export const AssginedKindergartenTable = ({ kindergartens, onSelect, selected }:
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         table: {
             maxHeight: 295,

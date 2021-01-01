@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     TextField,
     InputAdornment,
@@ -19,18 +19,18 @@ import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];
-    onSelect: (id: string[]) => void;
+    onSelect: (id: string) => void;
+    selected: string[];
 }
 
 export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
     const { t } = useTranslation();
     const [searchPhrase, setSearchPhrase] = useState('');
     const [selected, setSelected] = useState<string[]>([]);
-    const [selectedAll, setSelectedAll] = useState(false);
 
-    useEffect(() => {
-        onSelect(selected);
-    }, [onSelect, selected]);
+    // useEffect(() => {
+    //     onSelect(selected);
+    // }, [onSelect, selected]);
 
     const classes = useStyles();
 
@@ -56,23 +56,11 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell padding="checkbox">
-                                <Checkbox
-                                    checked={selectedAll}
-                                    onClick={() => {
-                                        if (selectedAll) {
-                                            setSelected([]);
-                                        } else {
-                                            setSelected(kindergartens.map((kindergarten) => kindergarten._id));
-                                        }
-
-                                        setSelectedAll((prev) => !prev);
-                                    }}
-                                    data-testid="select-all"
-                                    color="default"
-                                />
+                            <TableCell className={classes.tableHeadCell} padding="checkbox" />
+                            <TableCell className={classes.tableHeadCell}>
+                                {' '}
+                                {t('add-test-view.kindergartens.kindergarten-name')}
                             </TableCell>
-                            <TableCell>{t('add-test-view.kindergartens.kindergarten-name')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -116,6 +104,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         table: {
             height: 295,
+        },
+        tableHeadCell: {
+            paddingTop: 0,
         },
         searchFieldContainer: {
             margin: theme.spacing(3, 0, 2),

@@ -15,17 +15,17 @@ import { openAssignInstructorModal } from './openAssignInstructorModal';
 import { openUnassignKindergartenModal } from './openUnassignKindergartenModal';
 import { PageContainer } from '../../components/PageContainer';
 
-interface InstructorModalStatus {
-    isOpen: boolean;
-    instructor: InstructorWithKindergartens | null;
-    assessment: Assessment | null;
-}
+// interface InstructorModalStatus {
+//     isOpen: boolean;
+//     instructor: InstructorWithKindergartens | null;
+//     assessment: Assessment | null;
+// }
 
-const initialInstructorModalStatus = {
-    isOpen: false,
-    instructor: null,
-    assessment: null,
-};
+// const initialInstructorModalStatus = {
+//     isOpen: false,
+//     instructor: null,
+//     assessment: null,
+// };
 
 export function AdminInstructorsPage() {
     const { t } = useTranslation();
@@ -40,18 +40,17 @@ export function AdminInstructorsPage() {
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
     const [selectedInstructor, setSelectedInstructor] = useState('');
 
-    const filteredAssessments = assessments.filter(assessment => assessment.kindergartens.length !== 0);
-
     useEffect(() => {
         activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
     }, []);
 
     useEffect(() => {
+        const filteredAssessments = assessments.filter((assessment) => assessment.kindergartens.length !== 0);
+
         if (filteredAssessments.length !== 0) {
             setSelectedAssessment(filteredAssessments[0]);
         }
-    }, [filteredAssessments]);
-
+    }, [assessments]);
 
     const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map((instructor) => ({
         ...instructor,
@@ -74,13 +73,13 @@ export function AdminInstructorsPage() {
             instructor,
             assessment: selectedAssessment,
             kindergartens: unassignedKindergartens || [],
-        }).then(e => console.log(e));
+        }).then((e) => console.log(e));
     };
 
     const onUnassignKindergartenClick = (kindergartenId: string) => {
         openUnassignKindergartenModal({
-            kindergartenId
-        }).then(e => console.log(e));
+            kindergartenId,
+        }).then((e) => console.log(e));
     };
 
     const unassignedKindergartens = selectedAssessment?.kindergartens
@@ -97,7 +96,7 @@ export function AdminInstructorsPage() {
                 assessmentsSelect={
                     <AssessmentsSelect
                         label={t('admin-instructors-page.table-toolbar.select-test')}
-                        options={filteredAssessments}
+                        options={assessments.filter((assessment) => assessment.kindergartens.length !== 0)}
                         value={selectedAssessment}
                         onChange={onAssessmentSelectChange}
                     />
@@ -113,14 +112,16 @@ export function AdminInstructorsPage() {
                 unassignedKindergartensCount={unassignedKindergartens?.length || 0}
             />
             <InstructorsTableContainer>
-                {instructorsWithKindergartens.filter(instructor => instructor._id.includes(selectedInstructor)).map(instructor => (
-                    <InstructorsTableRow
-                        key={instructor._id}
-                        instructor={instructor}
-                        onAssignInstructorClick={onAssignInstructorClick}
-                        onUnassignKindergartenClick={onUnassignKindergartenClick}
-                    />
-                ))}
+                {instructorsWithKindergartens
+                    .filter((instructor) => instructor._id.includes(selectedInstructor))
+                    .map((instructor) => (
+                        <InstructorsTableRow
+                            key={instructor._id}
+                            instructor={instructor}
+                            onAssignInstructorClick={onAssignInstructorClick}
+                            onUnassignKindergartenClick={onUnassignKindergartenClick}
+                        />
+                    ))}
             </InstructorsTableContainer>
         </PageContainer>
     );

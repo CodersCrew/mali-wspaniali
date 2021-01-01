@@ -8,6 +8,7 @@ import {
     InputLabel,
     MenuItem,
     Select,
+    Divider,
 } from '@material-ui/core';
 // import * as Yup from 'yup';
 // import { useFormik } from 'formik';
@@ -27,7 +28,8 @@ interface Props {
 }
 
 export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instructor, assessment }: Props) => {
-    const instructorKindergartenIds = instructor && instructor.kindergartens ? instructor.kindergartens.map(kindergarten => kindergarten._id) : [];
+    const instructorKindergartenIds =
+        instructor && instructor.kindergartens ? instructor.kindergartens.map((kindergarten) => kindergarten._id) : [];
 
     const [selected, setSelected] = useState<string[]>(instructorKindergartenIds);
     const classes = useStyles();
@@ -35,9 +37,9 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
 
     const onSelect = (id: string) => {
         if (selected.includes(id)) {
-            setSelected(selected.filter(kindergartenId => kindergartenId !== id));
+            setSelected(selected.filter((kindergartenId) => kindergartenId !== id));
         } else {
-            setSelected(prev => [...prev, id]);
+            setSelected((prev) => [...prev, id]);
         }
     };
 
@@ -50,10 +52,10 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
             isOpen
             onClose={onClose}
         >
-            <div className={classes.container}>
-                <Typography variant="h4" className={classes.title}>
-                    Przydziel do przedszkola
-                </Typography>
+            <Typography variant="h4" className={classes.title}>
+                Przydziel do przedszkola
+            </Typography>
+            <div className={classes.content}>
                 <FormControl variant="outlined" fullWidth>
                     <InputLabel id="test-select-label">Wybierz test</InputLabel>
                     <Select
@@ -86,13 +88,23 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
                         <MenuItem value={instructor?._id}>{instructor?.mail}</MenuItem>
                     </Select>
                 </FormControl>
-                <Typography variant="subtitle1" className={classes.subtitle}>
-                    Przydzielone przedszkola
-                </Typography>
-                <AssginedKindergartenTable kindergartens={instructor?.kindergartens || []} onSelect={onSelect} selected={selected} />
-                <Typography variant="subtitle1" className={classes.subtitle}>
-                    Dodaj nieprzydzielone przedszkole
-                </Typography>
+                <div>
+                    <Typography variant="subtitle1" className={classes.subtitle}>
+                        Przydzielone przedszkola
+                    </Typography>
+                    <Divider />
+                    <AssginedKindergartenTable
+                        kindergartens={instructor?.kindergartens || []}
+                        onSelect={onSelect}
+                        selected={selected}
+                    />
+                </div>
+                <div>
+                    <Typography variant="subtitle1" className={classes.subtitle}>
+                        Dodaj nieprzydzielone przedszkole
+                    </Typography>
+                    <Divider />
+                </div>
                 <KindergartenTable kindergartens={kindergartens} onSelect={onSelect} selected={selected} />
             </div>
         </TwoActionsModal>
@@ -101,18 +113,26 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            width: '536px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: `${theme.spacing(2)}px`,
+        content: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 420px)',
+            gap: `${theme.spacing(3)}px`,
+
+            '& div:nth-child(2)': {
+                gridColumn: 1,
+                gridRow: 2,
+            },
+
+            '& div:nth-child(3)': {
+                gridColumn: 1,
+                gridRow: 3,
+            },
         },
         title: {
-            paddingBottom: theme.spacing(2),
+            marginBottom: theme.spacing(4),
         },
         subtitle: {
             padding: theme.spacing(1),
-            borderBottom: '1px solid rgba(224, 224, 224, 1)',
         },
     }),
 );
