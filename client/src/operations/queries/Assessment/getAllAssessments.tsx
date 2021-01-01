@@ -58,6 +58,40 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                         lastname
                         birthYear
                         birthQuarter
+                        currentParams {
+                            run {
+                                a
+                                b
+                                lowerLimit
+                                lowerLimitPoints
+                                upperLimit
+                                upperLimitPoints
+                            }
+                            pendelumRun {
+                                a
+                                b
+                                lowerLimit
+                                lowerLimitPoints
+                                upperLimit
+                                upperLimitPoints
+                            }
+                            jump {
+                                a
+                                b
+                                lowerLimit
+                                lowerLimitPoints
+                                upperLimit
+                                upperLimitPoints
+                            }
+                            throw {
+                                a
+                                b
+                                lowerLimit
+                                lowerLimitPoints
+                                upperLimit
+                                upperLimitPoints
+                            }
+                        }
                     }
                 }
                 instructor {

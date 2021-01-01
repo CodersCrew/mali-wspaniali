@@ -1,18 +1,21 @@
 import React from 'react';
-import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
-import { PieChart } from 'react-minimal-pie-chart';
+import { createStyles, Grid, makeStyles, SimplePaletteColorOptions, Theme, Typography } from '@material-ui/core';
 import { Child } from '../../../graphql/types';
+import { theme as theme1 } from '../../../theme/theme';
+import { CircleChart } from '../../../components/CircleChart';
 
 interface Props {
     description: string;
     selectedChild: Child;
+    points: number;
+    maxPoints: number;
 }
 
-export function ChildHeader({ description, selectedChild }: Props) {
+export function ChildHeader({ description, selectedChild, points, maxPoints }: Props) {
     const classes = useStyles();
 
     return (
-        <Grid container>
+        <Grid container justify="space-between" className={classes.container}>
             <Grid item>
                 <Grid container direction="column" justify="space-between" className={classes.childPersonalInformation}>
                     <Grid item>
@@ -27,19 +30,10 @@ export function ChildHeader({ description, selectedChild }: Props) {
             </Grid>
             <Grid item>
                 <div className={classes.pieContainer}>
-                    <PieChart
-                        lineWidth={6}
-                        totalValue={270}
-                        data={[
-                            {
-                                color: 'grey',
-                                value: 0,
-                            },
-                        ]}
-                        labelPosition={0}
-                        labelStyle={{ fontSize: '20px' }}
-                        background="rgba(0, 0, 0, 0.04)"
-                        startAngle={270}
+                    <CircleChart
+                        color={(theme1.palette!.success as SimplePaletteColorOptions).main}
+                        maxValue={maxPoints}
+                        value={points}
                     />
                 </div>
             </Grid>
@@ -58,7 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         childPersonalInformation: {
             height: '100%',
-            padding: '6px 0',
+        },
+        container: {
+            padding: theme.spacing(1, 2),
         },
     }),
 );

@@ -19,14 +19,48 @@ interface Props {
     name: string;
     value: number;
     unit: string;
+    step: number;
     maxValue: number;
+    lowerLimit: number;
+    upperLimit: number;
+    points: number;
     isEmpty: boolean;
     onChange: (value: number) => void;
 }
 
-export function MeasurementPoint({ name, value, unit, maxValue, isEmpty, onChange }: Props) {
+export function MeasurementPoint({
+    name,
+    value,
+    unit,
+    step,
+    maxValue,
+    lowerLimit,
+    upperLimit,
+    points,
+    isEmpty,
+    onChange,
+}: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
+
+    const marks = [
+        {
+            value: Math.floor(lowerLimit - 0.3 * lowerLimit),
+            label: Math.floor(lowerLimit - 0.3 * lowerLimit),
+        },
+        {
+            value: lowerLimit,
+            label: lowerLimit,
+        },
+        {
+            value: upperLimit,
+            label: upperLimit,
+        },
+        {
+            value: Math.floor(upperLimit + 0.3 * upperLimit),
+            label: Math.floor(upperLimit + 0.3 * upperLimit),
+        },
+    ];
 
     return (
         <Grid container direction="column" spacing={1}>
@@ -38,12 +72,14 @@ export function MeasurementPoint({ name, value, unit, maxValue, isEmpty, onChang
                     <Grid item xs={6}>
                         <Slider
                             aria-labelledby="discrete-slider-restrict"
-                            step={1}
+                            step={step}
                             valueLabelDisplay="auto"
-                            min={0}
+                            min={Math.floor(lowerLimit - 0.3 * lowerLimit)}
                             value={value}
-                            max={maxValue}
+                            max={Math.floor(upperLimit + 0.3 * upperLimit)}
                             onChange={(_, v) => onChange(v as number)}
+                            marks={marks}
+                            classes={{ mark: classes.mark }}
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -58,6 +94,7 @@ export function MeasurementPoint({ name, value, unit, maxValue, isEmpty, onChang
                                 type: 'number',
                                 'aria-labelledby': 'input-slider',
                             }}
+                            classes={{ input: classes.input }}
                         />
                         {unit}
                     </Grid>
@@ -67,14 +104,15 @@ export function MeasurementPoint({ name, value, unit, maxValue, isEmpty, onChang
                                 <CircleChart
                                     color={(theme.palette!.success as SimplePaletteColorOptions).main}
                                     maxValue={maxValue}
-                                    value={value}
+                                    value={points}
+                                    disable={isEmpty}
                                 />
                             </Grid>
                             <Grid item xs={9}>
                                 <Typography variant="body2">
                                     {t('add-result-page.received-points')}{' '}
                                     <strong className={classes.points}>
-                                        {value} {t('add-result-page.points')}
+                                        {isEmpty ? '-' : Math.ceil(points)} {t('add-result-page.points')}
                                     </strong>
                                 </Typography>
                             </Grid>
@@ -102,6 +140,15 @@ const useStyles = makeStyles((_theme: Theme) =>
         },
         points: {
             color: _theme.palette.success.main,
+        },
+        input: {
+            width: 50,
+        },
+        mark: {
+            backgroundColor: '#bfbfbf',
+            height: 8,
+            width: 1,
+            marginTop: -3,
         },
     }),
 );
