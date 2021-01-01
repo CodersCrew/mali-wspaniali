@@ -6,8 +6,8 @@ import { InstructorWithKindergartens } from './types';
 import { Assessment, Kindergarten } from '../../graphql/types';
 
 interface Props {
-    instructor: InstructorWithKindergartens | null;
-    assessment: Assessment | null;
+    instructor: InstructorWithKindergartens;
+    assessment: Assessment;
     kindergartens: Kindergarten[];
 }
 
@@ -23,20 +23,26 @@ interface DecisionProps {
 }
 
 export function openAssignInstructorModal({ instructor, assessment, kindergartens }: Props): Promise<DialogResult> {
-    return openDialog<{}, DecisionProps>(function({ onClose, makeDecision }: ActionDialog<DecisionProps>) {
+    return openDialog<{}, DecisionProps>(function ({ onClose, makeDecision }: ActionDialog<DecisionProps>) {
         const classes = useStyles();
 
         return (
             <div className={classes.container}>
                 <AssignInstructorModal
                     onClose={onClose}
-                    onSubmit={selected => makeDecision({ accepted: true, selectedKindergartens: selected, data: {
-                        id: assessment?._id!,
-                        assessment: selected.map(kindergartenId => ({
-                            kindergartenId,
-                            instructorId: instructor?._id!
-                        }))  
-                    } })}
+                    onSubmit={(selected) =>
+                        makeDecision({
+                            accepted: true,
+                            selectedKindergartens: selected,
+                            data: {
+                                id: assessment?._id!,
+                                assessment: selected.map((kindergartenId) => ({
+                                    kindergartenId,
+                                    instructorId: instructor?._id!,
+                                })),
+                            },
+                        })
+                    }
                     kindergartens={kindergartens}
                     instructor={instructor}
                     assessment={assessment}

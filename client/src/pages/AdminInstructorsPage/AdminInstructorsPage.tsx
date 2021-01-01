@@ -15,18 +15,6 @@ import { openAssignInstructorModal } from './openAssignInstructorModal';
 import { openUnassignKindergartenModal } from './openUnassignKindergartenModal';
 import { PageContainer } from '../../components/PageContainer';
 
-// interface InstructorModalStatus {
-//     isOpen: boolean;
-//     instructor: InstructorWithKindergartens | null;
-//     assessment: Assessment | null;
-// }
-
-// const initialInstructorModalStatus = {
-//     isOpen: false,
-//     instructor: null,
-//     assessment: null,
-// };
-
 export function AdminInstructorsPage() {
     const { t } = useTranslation();
 
@@ -71,7 +59,7 @@ export function AdminInstructorsPage() {
     const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
         openAssignInstructorModal({
             instructor,
-            assessment: selectedAssessment,
+            assessment: selectedAssessment!,
             kindergartens: unassignedKindergartens || [],
         }).then((e) => console.log(e));
     };

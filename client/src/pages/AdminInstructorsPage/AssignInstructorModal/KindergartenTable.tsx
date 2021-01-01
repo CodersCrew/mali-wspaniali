@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useField } from 'formik';
 import {
     TextField,
     InputAdornment,
@@ -14,25 +16,28 @@ import {
     Theme,
 } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
-import { useTranslation } from 'react-i18next';
 import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];
-    onSelect: (id: string) => void;
-    selected: string[];
 }
 
-export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
+export const KindergartenTable = ({ kindergartens }: Props) => {
     const { t } = useTranslation();
-    const [searchPhrase, setSearchPhrase] = useState('');
-    const [selected, setSelected] = useState<string[]>([]);
-
-    // useEffect(() => {
-    //     onSelect(selected);
-    // }, [onSelect, selected]);
-
     const classes = useStyles();
+    const [field, meta, helpers] = useField('selectedKindergartens');
+
+    const [searchPhrase, setSearchPhrase] = useState('');
+
+    console.log(meta);
+
+    const handleRowClick = (value: string) => {
+        if (field.value.includes(value)) {
+            helpers.setValue(field.value.filter((id: string) => id !== value));
+        } else {
+            helpers.setValue([...field.value, value]);
+        }
+    };
 
     return (
         <>
@@ -75,18 +80,10 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                                     key={kindergarten._id}
                                     hover
                                     role="row"
-                                    onClick={() => {
-                                        setSelected((prev) => {
-                                            if (prev.includes(kindergarten._id)) {
-                                                return prev.filter((selectedId) => selectedId !== kindergarten._id);
-                                            }
-
-                                            return [...prev, kindergarten._id];
-                                        });
-                                    }}
+                                    onClick={() => handleRowClick(kindergarten._id)}
                                 >
                                     <TableCell padding="checkbox">
-                                        <Checkbox checked={selected.includes(kindergarten._id)} color="default" />
+                                        <Checkbox {...field} value={kindergarten._id} color="default" />
                                     </TableCell>
                                     <TableCell classes={{ root: classes.kindergartenItem }}>
                                         {kindergarten.number}/{kindergarten.name}

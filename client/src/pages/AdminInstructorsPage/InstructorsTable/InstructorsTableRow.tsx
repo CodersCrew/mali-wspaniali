@@ -83,7 +83,7 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick, onUna
                         <div className={classes.collapseContainer}>
                             <Typography variant="subtitle2">{instructorKindergartenCount} przedszkola</Typography>
                             {instructor.kindergartens &&
-                                instructor.kindergartens.map(kindergarten => (
+                                instructor.kindergartens.map((kindergarten) => (
                                     <Chip
                                         key={kindergarten._id}
                                         label={`${kindergarten.number}/${kindergarten.name}`}
