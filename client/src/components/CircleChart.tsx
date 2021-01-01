@@ -11,12 +11,13 @@ interface Props {
     enableInfoIcon?: boolean;
     label?: string;
     labelSuffix?: string;
+    disable?: boolean;
 }
 
-export const CircleChart = ({ color, value, maxValue, label, enableInfoIcon, labelSuffix }: Props) => {
+export function CircleChart({ color, value, maxValue, label, enableInfoIcon, labelSuffix, disable }: Props) {
     const classes = useStyles();
 
-    const dataEntry: DataEntry = { color, value };
+    const dataEntry: DataEntry = { color, value: disable ? 0 : value };
 
     return (
         <>
@@ -25,7 +26,7 @@ export const CircleChart = ({ color, value, maxValue, label, enableInfoIcon, lab
                 totalValue={maxValue}
                 data={[dataEntry]}
                 label={() => {
-                    if (!value) return '-';
+                    if (!value || disable) return '-';
 
                     return labelSuffix ? `${label} ${labelSuffix}` : label;
                 }}
@@ -37,7 +38,7 @@ export const CircleChart = ({ color, value, maxValue, label, enableInfoIcon, lab
             {!value && enableInfoIcon && <InfoIcon className={classes.icon} />}
         </>
     );
-};
+}
 
 const useStyles = makeStyles({
     icon: {

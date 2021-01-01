@@ -80,6 +80,15 @@ export interface Me {
     notifications: Notification[];
 }
 
+export interface AssessmentParam {
+    a: number;
+    b: number;
+    lowerLimit: number;
+    lowerLimitPoints: number;
+    upperLimit: number;
+    upperLimitPoints: number;
+}
+
 export interface Child {
     _id: string;
     firstname: string;
@@ -89,6 +98,12 @@ export interface Child {
     birthYear: number;
     birthQuarter: number;
     results: TestResult[];
+    currentParams?: {
+        run: AssessmentParam;
+        pendelumRun: AssessmentParam;
+        throw: AssessmentParam;
+        jump: AssessmentParam;
+    };
 }
 
 export type Sex = 'male' | 'female';
