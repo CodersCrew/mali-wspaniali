@@ -706,6 +706,10 @@
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
         "back-to-table": "Wróć do tabeli",
-        "child-list": "Lista dzieci"
+        "child-list": "Lista dzieci",
+        "strength": "SIŁA",
+        "dexterity": "ZRĘCZNOŚĆ",
+        "power": "MOC",
+        "velocity": "SZYBKOŚĆ"
     }
 }

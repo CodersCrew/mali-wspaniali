@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStyles, Grid, makeStyles, SimplePaletteColorOptions, Theme, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { Child } from '../../../graphql/types';
 import { theme as theme1 } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
@@ -13,6 +14,7 @@ interface Props {
 
 export function ChildHeader({ description, selectedChild, points, maxPoints }: Props) {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <Grid container justify="space-between" className={classes.container}>
@@ -34,6 +36,7 @@ export function ChildHeader({ description, selectedChild, points, maxPoints }: P
                         color={(theme1.palette!.success as SimplePaletteColorOptions).main}
                         maxValue={maxPoints}
                         value={points}
+                        label={`${Math.ceil(points)} ${t('add-result-page.points')}`}
                     />
                 </div>
             </Grid>
