@@ -14,6 +14,7 @@ import { NoAssessmentView } from './NoAssessmentsView';
 import { SecondaryFab } from '../../components/SecondaryFab';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { ChildListCompactContainer } from './ChildListCompactContainer';
+import { AssessmentSubheader } from './AssessmentSubheader';
 
 export function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
@@ -24,10 +25,11 @@ export function InstructorAddResultsPage() {
     const history = useHistory();
     const device = useIsDevice();
 
+    const currentAssessment = assessments.find((a) => a._id === selectedAssessment);
+
     const currentChildren =
-        assessments
-            .find((a) => a._id === selectedAssessment)
-            ?.kindergartens.find((k) => k.kindergarten._id === selectedKindergarten)?.kindergarten.children || [];
+        currentAssessment?.kindergartens.find((k) => k.kindergarten._id === selectedKindergarten)?.kindergarten
+            .children || [];
 
     useEffect(() => {
         activePage(['instructor-menu.add-results']);
@@ -45,7 +47,7 @@ export function InstructorAddResultsPage() {
 
     if (areAssessmentsLoading) return null;
 
-    if (assessments.length === 0) {
+    if (assessments.length === 0 || !currentAssessment) {
         return (
             <PageContainer>
                 <NoAssessmentView onClick={() => history.push('/parent/blog/all')} />
@@ -87,6 +89,12 @@ export function InstructorAddResultsPage() {
         }
     }
 
+    function onFabClick() {
+        history.push(
+            `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${currentChildren[0]._id}`,
+        );
+    }
+
     const filtredChildList = currentChildren.filter((c) =>
         c.firstname.toLowerCase().includes(searchTerm.toLowerCase()),
     );
@@ -108,7 +116,13 @@ export function InstructorAddResultsPage() {
                         subheader={<AssessmentSubheader assessment={currentAssessment} />}
                         container={<ChildListContainer childList={filtredChildList} onClick={onChildClicked} />}
                     />
-                    <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} />
+                    {currentChildren[0] && (
+                        <SecondaryFab
+                            text={t('add-results-page.add-result')}
+                            icon={<BarChart />}
+                            onClick={onFabClick}
+                        />
+                    )}
                 </>
             ) : (
                 <>
@@ -125,7 +139,13 @@ export function InstructorAddResultsPage() {
                         }
                         container={<ChildListCompactContainer childList={filtredChildList} onClick={onChildClicked} />}
                     />
-                    <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} />
+                    {currentChildren[0] && (
+                        <SecondaryFab
+                            text={t('add-results-page.add-result')}
+                            icon={<BarChart />}
+                            onClick={onFabClick}
+                        />
+                    )}
                 </>
             )}
         </PageContainer>
