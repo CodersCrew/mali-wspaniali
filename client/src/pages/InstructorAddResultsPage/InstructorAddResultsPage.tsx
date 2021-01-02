@@ -105,6 +105,7 @@ export function InstructorAddResultsPage() {
                                 onChange={onFilterChanged}
                             />
                         }
+                        subheader={<AssessmentSubheader assessment={currentAssessment} />}
                         container={<ChildListContainer childList={filtredChildList} onClick={onChildClicked} />}
                     />
                     <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} />

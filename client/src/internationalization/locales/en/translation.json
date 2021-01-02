@@ -673,6 +673,8 @@
         "birth-quarter": "Birth quarter",
         "first-assessment": "First test",
         "last-assessment": "Last test",
+        "first-assessment-progress": "Trials performed by me in the initial measurement",
+        "last-assessment-progress": "Trials performed by me in the last measurement",
         "see-results": "See results",
         "add-result": "Add test result",
         "add-first-assessment-result": "Add first test result",
