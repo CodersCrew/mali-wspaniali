@@ -79,7 +79,13 @@ export function MeasurementPoint({
                             max={Math.floor(upperLimit + 0.3 * upperLimit)}
                             onChange={(_, v) => onChange(v as number)}
                             marks={marks}
-                            classes={{ mark: classes.mark }}
+                            classes={{
+                                mark: classes.mark,
+                                track: classes.sliderRoot,
+                                rail: classes.sliderRoot,
+                                thumb: classes.thumb,
+                                valueLabel: classes.valueLabel,
+                            }}
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -122,10 +128,12 @@ export function MeasurementPoint({
             </Grid>
             <Grid item>
                 <FormControlLabel
-                    value={isEmpty}
+                    checked={isEmpty}
+                    disabled={isEmpty}
                     control={<Checkbox color="default" />}
                     label={<Typography variant="body1">{t('add-result-page.no-result')}</Typography>}
                     labelPlacement="end"
+                    onChange={() => onChange(0)}
                 />
             </Grid>
         </Grid>
@@ -142,13 +150,27 @@ const useStyles = makeStyles((_theme: Theme) =>
             color: _theme.palette.success.main,
         },
         input: {
-            width: 50,
+            width: 55,
+            fontSize: 20,
         },
         mark: {
-            backgroundColor: '#bfbfbf',
-            height: 8,
+            backgroundColor: _theme.palette.divider,
+            height: 16,
             width: 1,
             marginTop: -3,
+        },
+        sliderRoot: {
+            height: 8,
+        },
+        thumb: {
+            height: 24,
+            width: 24,
+            marginTop: -8,
+            marginLeft: -8,
+        },
+        valueLabel: {
+            left: 'calc(-50% + 8px)',
+            top: -32,
         },
     }),
 );

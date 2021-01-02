@@ -705,6 +705,10 @@
         "title-first-measurement": "INITIAL TEST EFFICIENCY",
         "title-last-measurement": "FINAL TRIAL EFFICIENCY",
         "back-to-table": "Back to table",
-        "child-list": "Child list"
+        "child-list": "Child list",
+        "strength": "STRENGTH",
+        "dexterity": "DEXTERITY",
+        "power": "POWER",
+        "velocity": "VELOCITY"
     }
 }

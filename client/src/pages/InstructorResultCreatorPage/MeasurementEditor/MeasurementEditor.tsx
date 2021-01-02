@@ -1,5 +1,6 @@
 import React from 'react';
-import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { MeasurementPoint } from './MeasurementPoint';
 import { Child } from '../../../graphql/types';
 
@@ -19,12 +20,13 @@ interface Props {
 
 export function MeasurementEditor({ child, points, values, onChange }: Props) {
     const classes = useStyles();
+    const { t } = useTranslation();
 
-    if (!child.currentParams || Object.values(child.currentParams).some((v) => v === null)) {
-        return null;
+    const { run, pendelumRun, jump, throw: throwBall } = child.currentParams!;
+
+    if (!child.currentParams || !run || !pendelumRun || !jump || !throwBall) {
+        return <Typography variant="body1">The child doesnt suit to the test</Typography>;
     }
-
-    const { run, pendelumRun, jump, throw: throwBall } = child.currentParams;
 
     return (
         <Grid container justify="space-between" direction="column" spacing={1} className={classes.container}>
@@ -38,7 +40,7 @@ export function MeasurementEditor({ child, points, values, onChange }: Props) {
                     points={points.pendelumRun}
                     value={values.pendelumRun}
                     unit="s"
-                    name=" Próba zwinności"
+                    name={t('add-result-page.dexterity')}
                     onChange={(value) => onChange({ ...values, pendelumRun: value })}
                 />
             </Grid>
@@ -52,7 +54,7 @@ export function MeasurementEditor({ child, points, values, onChange }: Props) {
                     points={points.jump}
                     value={values.jump}
                     unit="cm"
-                    name="Próba mocy"
+                    name={t('add-result-page.power')}
                     onChange={(value) => onChange({ ...values, jump: value })}
                 />
             </Grid>
@@ -66,7 +68,7 @@ export function MeasurementEditor({ child, points, values, onChange }: Props) {
                     points={points.throw}
                     value={values.throw}
                     unit="cm"
-                    name="Próba siły"
+                    name={t('add-result-page.strength')}
                     onChange={(value) => onChange({ ...values, throw: value })}
                 />
             </Grid>
@@ -80,7 +82,7 @@ export function MeasurementEditor({ child, points, values, onChange }: Props) {
                     points={points.run}
                     value={values.run}
                     unit="s"
-                    name="Próba szybkości"
+                    name={t('add-result-page.velocity')}
                     onChange={(value) => onChange({ ...values, run: value })}
                 />
             </Grid>

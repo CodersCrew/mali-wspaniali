@@ -99,10 +99,10 @@ export interface Child {
     birthQuarter: number;
     results: TestResult[];
     currentParams?: {
-        run: AssessmentParam;
-        pendelumRun: AssessmentParam;
-        throw: AssessmentParam;
-        jump: AssessmentParam;
+        run?: AssessmentParam;
+        pendelumRun?: AssessmentParam;
+        throw?: AssessmentParam;
+        jump?: AssessmentParam;
     };
 }
 
