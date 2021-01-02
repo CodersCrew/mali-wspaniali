@@ -674,6 +674,8 @@
         "birth-quarter": "Kwartał urodzenia",
         "first-assessment": "Próba początkowa",
         "last-assessment": "Próba końcowa",
+        "first-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze początkowym",
+        "last-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze końcowym",
         "see-results": "Zobacz wyniki",
         "add-result": "Dodaj wynik",
         "add-first-assessment-result": "Dodaj wyniki próby początkowej",
