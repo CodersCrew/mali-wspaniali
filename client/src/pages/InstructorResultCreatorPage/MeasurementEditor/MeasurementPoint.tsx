@@ -45,8 +45,8 @@ export function MeasurementPoint({
 
     const marks = [
         {
-            value: Math.floor(lowerLimit - 0.3 * lowerLimit),
-            label: Math.floor(lowerLimit - 0.3 * lowerLimit),
+            value: Math.floor(lowerLimit - 0.25 * lowerLimit),
+            label: Math.floor(lowerLimit - 0.25 * lowerLimit),
         },
         {
             value: lowerLimit,
@@ -57,8 +57,8 @@ export function MeasurementPoint({
             label: upperLimit,
         },
         {
-            value: Math.floor(upperLimit + 0.3 * upperLimit),
-            label: Math.floor(upperLimit + 0.3 * upperLimit),
+            value: Math.floor(upperLimit + 0.25 * upperLimit),
+            label: Math.floor(upperLimit + 0.25 * upperLimit),
         },
     ];
 
@@ -74,9 +74,9 @@ export function MeasurementPoint({
                             aria-labelledby="discrete-slider-restrict"
                             step={step}
                             valueLabelDisplay="auto"
-                            min={Math.floor(lowerLimit - 0.3 * lowerLimit)}
+                            min={Math.floor(lowerLimit - 0.25 * lowerLimit)}
                             value={value}
-                            max={Math.floor(upperLimit + 0.3 * upperLimit)}
+                            max={Math.floor(upperLimit + 0.25 * upperLimit)}
                             onChange={(_, v) => onChange(v as number)}
                             marks={marks}
                             classes={{
