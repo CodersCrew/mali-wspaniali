@@ -4,15 +4,22 @@ import { createStyles, Divider, makeStyles, Paper, Theme } from '@material-ui/co
 interface Props {
     header: ReactNode;
     container: ReactNode;
+    subheader?: ReactNode;
 }
 
-export function CustomContainer({ header, container }: Props) {
+export function CustomContainer({ header, subheader, container }: Props) {
     const classes = useStyles();
 
     return (
         <Paper classes={{ root: classes.container }}>
             <div className={classes.titleContainer}>{header}</div>
             <Divider />
+            {subheader && (
+                <>
+                    <div className={classes.titleContainer}>{subheader}</div>
+                    <Divider />
+                </>
+            )}
             <div>{container}</div>
         </Paper>
     );
