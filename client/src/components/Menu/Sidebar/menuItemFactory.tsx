@@ -366,7 +366,7 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
     };
 
     const SettingsItem = {
-        name: 'admin-menu.settings',
+        name: 'admin-menu.settings.title',
         link: '/admin/settings',
         icon: <Icon icon={<Build />} />,
     };

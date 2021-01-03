@@ -1,10 +1,20 @@
 import React, { useEffect } from 'react';
+import { Paper } from '@material-ui/core';
 import { activePage } from '../../apollo_client';
 
-export function AdminSettingsPage() {
+import { AdminSettingsList } from './AdminSettingsList';
+import { PageContainer } from '../../components/PageContainer';
+
+export const AdminSettingsPage = () => {
     useEffect(() => {
-        activePage(['admin-menu.settings']);
+        activePage(['admin-menu.settings.title']);
     }, []);
 
-    return <div>Admin Settings Page</div>;
-}
+    return (
+        <PageContainer>
+            <Paper>
+                <AdminSettingsList />
+            </Paper>
+        </PageContainer>
+    );
+};

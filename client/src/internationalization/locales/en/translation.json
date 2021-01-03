@@ -384,6 +384,11 @@
             "file-error": "File error"
         }
     },
+    "parent-settings": {
+        "header": "Delete parent's account",
+        "header-title-1": "Parent's email adress",
+        "header-title-2": "Children"
+    },
     "single-article": {
         "blog": "blog",
         "length": "length",
@@ -421,7 +426,11 @@
     },
     "admin-menu": {
         "home": "Home",
-        "settings": "Settings",
+        "settings": {
+            "title": "Settings",
+            "parents-settings": "Parent's accounts placings",
+            "change-password": "Change password"
+        },
         "notifications": "Notifications",
         "newsletter": {
             "title": "Newsletter",
@@ -446,7 +455,7 @@
     },
     "instructor-menu": {
         "add-results": "Add results",
-        "notifications": "Notifications", 
+        "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Logout"
     },
@@ -664,9 +673,9 @@
         }
     },
     "add-results-page": {
-        "test-name":"Test name",
+        "test-name": "Test name",
         "kindergarten-name": "Kindergarten",
-        "search-by-child-firstname": "Search by child's first name", 
+        "search-by-child-firstname": "Search by child's first name",
         "firstname": "First name",
         "lastname": "Last name",
         "birth-year": "Birth year",
@@ -694,7 +703,7 @@
             "description": "The Foundation has not yet assigned you a kindergarten where you can add your test results. Sit back and use this moment to read the articles prepared by experts in healthy eating and fitness",
             "go-to-articles": "Go to articles"
         },
-        "child-list": "Child list" 
+        "child-list": "Child list"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -702,7 +711,7 @@
         "first": "First",
         "last": "Last",
         "no-result": "No result",
-        "received-points":"Received points",
+        "received-points": "Received points",
         "points": "pts",
         "title-first-measurement": "INITIAL TEST EFFICIENCY",
         "title-last-measurement": "FINAL TRIAL EFFICIENCY",

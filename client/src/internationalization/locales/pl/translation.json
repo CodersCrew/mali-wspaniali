@@ -383,6 +383,11 @@
             "file-error": "Nieprawidłowy format pliku"
         }
     },
+    "parent-settings": {
+        "header": "Usuwanie kont rodziców",
+        "header-title-1": "Adres email rodzica",
+        "header-title-2": "Dzieci"
+    },
     "single-article": {
         "blog": "blog",
         "length": "długość",
@@ -427,7 +432,11 @@
         "results-list": "Lista wyników",
         "notifications": "Powiadomienia",
         "test-management": "Testy",
-        "settings": "Ustawienia",
+        "settings": {
+            "title": "Ustawienia",
+            "parents-settings": "Usawienie kont rodziców",
+            "change-password": "Zmiana hasła"
+        },
         "logout": "Wyloguj"
     },
     "parent-menu": {
@@ -665,9 +674,9 @@
         }
     },
     "add-results-page": {
-        "test-name":"Nazwa testu",
+        "test-name": "Nazwa testu",
         "kindergarten-name": "Przedszkole",
-        "search-by-child-firstname": "Szukaj po imieniu dziecka", 
+        "search-by-child-firstname": "Szukaj po imieniu dziecka",
         "firstname": "Imie",
         "lastname": "Nazwisko",
         "birth-year": "Rok urodzenia",
@@ -695,7 +704,7 @@
             "description": "Fundacja nie przydzieliła ci jeszcze przedszkola, w którym móglbyś dodać wyniki testu. Usiądź wygodnie i wykorzystaj tę chwilę by zapoznać się z artykułami przygotgotowanymi przez ekspertów od zdrowego żywienia i sprawności fizycznej",
             "go-to-articles": "Przejdź do artykułów"
         },
-        "child-list": "Child list" 
+        "child-list": "Child list"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -703,7 +712,7 @@
         "first": "Początkowy",
         "last": "Końcowy",
         "no-result": "Brak wyniku",
-        "received-points":"Otrzymane punkty",
+        "received-points": "Otrzymane punkty",
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
