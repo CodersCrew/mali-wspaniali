@@ -550,7 +550,8 @@
         "errors": {
             "name-too-short": "Nazwa testu jest za krótka",
             "test-already-created": "Test został utworzony",
-            "test-already-updated": "Test został zaktualizowany"
+            "test-already-updated": "Test został zaktualizowany",
+            "test-already-exists": "Test o podanej nazwie już istnieje"
         }
     },
     "add-child-modal": {

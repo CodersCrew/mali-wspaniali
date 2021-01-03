@@ -26,10 +26,14 @@ export function AdminManageSingleAssessmentPage() {
     const isEditOnly = isState('edit');
     const isViewOnly = isState('details');
 
-    const { submit, kindergartens, reasonForBeingDisabled, assessemnt, updateAssessment } = useAssessmentManager(
-        assessmentId,
-        onAssessmentSubmited,
-    );
+    const {
+        submit,
+        kindergartens,
+        reasonForBeingDisabled,
+        assessemnt,
+        updateAssessment,
+        isLoading,
+    } = useAssessmentManager(assessmentId, onAssessmentSubmited);
 
     function onAssessmentSubmited(result: SuccessState | ErrorState) {
         if ('errors' in result) {
@@ -47,10 +51,10 @@ export function AdminManageSingleAssessmentPage() {
         history.push('/admin/test-management');
     }
 
-    function onPickerClick(value: string[], options?: { selectedAll?: boolean }) {
+    function onPickerClick(value: string[], options: { selectedAll?: boolean } = {}) {
         const kindergartensCopy = [...assessemnt.kindergartenIds];
 
-        if (options?.selectedAll) {
+        if (options.selectedAll) {
             updateAssessment({ kindergartenIds: value });
 
             return;
@@ -146,7 +150,7 @@ export function AdminManageSingleAssessmentPage() {
                                                     : t('add-test-view.create-test')
                                             }
                                             onClick={() => submit()}
-                                            reasonForBeingDisabled={reasonForBeingDisabled}
+                                            reasonForBeingDisabled={reasonForBeingDisabled || (isLoading && 'loading')}
                                         />
                                     </Grid>
                                 )}
