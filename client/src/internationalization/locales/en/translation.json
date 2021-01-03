@@ -548,7 +548,8 @@
         "errors": {
             "name-too-short": "Test name is too short.",
             "test-already-created": "Test created",
-            "test-already-updated": "Test updated"
+            "test-already-updated": "Test updated",
+            "test-already-exists": "The test with given name already exists"
         }
     },
     "add-child-modal": {
