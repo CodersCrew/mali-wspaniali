@@ -386,7 +386,10 @@
     "parent-settings": {
         "header": "Usuwanie kont rodziców",
         "header-title-1": "Adres email rodzica",
-        "header-title-2": "Dzieci"
+        "header-title-2": "Dzieci",
+        "buton-icon-edti-tooltip": "Edytuj",
+        "buton-icon-delete-tooltip": "Usuń",
+        "buton-icon-change-tooltip": "Zmień przedszkole"
     },
     "single-article": {
         "blog": "blog",

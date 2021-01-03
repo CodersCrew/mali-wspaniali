@@ -387,7 +387,10 @@
     "parent-settings": {
         "header": "Delete parent's account",
         "header-title-1": "Parent's email adress",
-        "header-title-2": "Children"
+        "header-title-2": "Children",
+        "buton-icon-edti-tooltip": "Edit",
+        "buton-icon-delete-tooltip": "Delete",
+        "buton-icon-change-tooltip": "Change kindergarden"
     },
     "single-article": {
         "blog": "blog",

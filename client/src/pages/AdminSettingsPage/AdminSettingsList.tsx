@@ -21,7 +21,7 @@ export const AdminSettingsList = () => {
 
     return (
         <TableContainer>
-            <Typography className={classes.title} variant={'subtitle2'}>
+            <Typography className={classes.title} variant={'h4'}>
                 {t('parent-settings.header')}
             </Typography>
             <TableHead>
