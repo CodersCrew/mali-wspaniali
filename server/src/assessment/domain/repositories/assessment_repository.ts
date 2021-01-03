@@ -95,16 +95,14 @@ export class AssessmentRepository {
     return AssessmentMapper.toDomain(result, { isNew: true });
   }
 
-  async update(assessment: Assessment): Promise<boolean> {
+  async update(assessment: Assessment): Promise<Assessment> {
     const assessmentDocument = await this.model.findById(
       assessment.id.toString(),
     );
 
-    const result = await assessmentDocument.update(
-      AssessmentMapper.toPersist(assessment),
-    );
+    await assessmentDocument.update(AssessmentMapper.toPersist(assessment));
 
-    return result.ok === 1;
+    return assessment;
   }
 
   private mapToRawKindergarten(

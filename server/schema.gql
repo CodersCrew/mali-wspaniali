@@ -216,8 +216,8 @@ type Mutation {
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
-  createAssessment(assessment: AssessmentInput!): ReturnedStatusDTO!
-  updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): ReturnedStatusDTO!
+  createAssessment(assessment: AssessmentInput!): AssessmentDTO!
+  updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): AssessmentDTO!
 }
 
 input ArticleInput {

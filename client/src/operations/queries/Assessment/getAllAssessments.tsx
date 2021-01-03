@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Assessment } from '../../../graphql/types';
 
-interface GetAllAssessmentsResponse {
+export interface GetAllAssessmentsResponse {
     assessments: Assessment[];
 }
 
