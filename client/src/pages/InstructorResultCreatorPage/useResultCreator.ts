@@ -25,6 +25,8 @@ export interface ResultCreatorReturnProps {
     selectedChild: Child;
     onChange: (value: AssessmentValues) => void;
     error: null;
+    edited: string;
+    edit: (name: string) => void;
 }
 
 export interface ResultCreatorErrorReturnProps {
@@ -47,6 +49,7 @@ export function useResultCreator({
         throw: 0,
         jump: 0,
     });
+    const [edited, setEdited] = useState(() => localStorage.getItem('edited') || '');
 
     useEffect(() => {
         setValues({
@@ -112,6 +115,11 @@ export function useResultCreator({
         selectedChild,
         onChange: (value: any) => setValues(value),
         error: null,
+        edited,
+        edit: (name: string) => {
+            setEdited(name);
+            localStorage.setItem('edited', name);
+        },
     };
 }
 

@@ -27,7 +27,9 @@ interface Props {
     upperLimit: number;
     points: number;
     isEmpty: boolean;
+    disabled: boolean;
     onChange: (value: number) => void;
+    onClick: () => void;
 }
 
 export function MeasurementPoint({
@@ -40,7 +42,9 @@ export function MeasurementPoint({
     upperLimit,
     points,
     isEmpty,
+    disabled,
     onChange,
+    onClick,
 }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -85,6 +89,7 @@ export function MeasurementPoint({
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <Slider
+                            disabled={!disabled}
                             aria-labelledby="discrete-slider-restrict"
                             step={step}
                             valueLabelDisplay="auto"
@@ -104,6 +109,7 @@ export function MeasurementPoint({
                     </Grid>
                     <Grid item xs={2}>
                         <Input
+                            disabled={!disabled}
                             value={value}
                             margin="dense"
                             onChange={({ target: { value: v } }) => onChange(parseInt(v, 10))}

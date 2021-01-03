@@ -113,7 +113,9 @@ export function InstructorResultCreatorPage() {
                                     child={resultCreator.selectedChild}
                                     values={resultCreator.values}
                                     points={resultCreator.points}
+                                    edited={resultCreator.edited}
                                     onChange={resultCreator.onChange}
+                                    onEditClick={resultCreator.edit}
                                 />
                             </Grid>
                             <Grid item>

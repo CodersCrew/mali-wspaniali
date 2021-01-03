@@ -14,11 +14,13 @@ interface MeasurementValues {
 interface Props {
     values: MeasurementValues;
     points: MeasurementValues;
-    onChange: (value: MeasurementValues) => void;
     child: Child;
+    edited: string;
+    onChange: (value: MeasurementValues) => void;
+    onEditClick: (name: string) => void;
 }
 
-export function MeasurementEditor({ child, points, values, onChange }: Props) {
+export function MeasurementEditor({ child, points, values, edited, onChange, onEditClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -41,7 +43,9 @@ export function MeasurementEditor({ child, points, values, onChange }: Props) {
                     value={values.pendelumRun}
                     unit="s"
                     name={t('add-result-page.dexterity')}
+                    disabled={edited === 'dexterity'}
                     onChange={(value) => onChange({ ...values, pendelumRun: value })}
+                    onClick={() => onEditClick('dexterity')}
                 />
             </Grid>
             <Grid item>
@@ -55,7 +59,9 @@ export function MeasurementEditor({ child, points, values, onChange }: Props) {
                     value={values.jump}
                     unit="cm"
                     name={t('add-result-page.power')}
+                    disabled={edited === 'power'}
                     onChange={(value) => onChange({ ...values, jump: value })}
+                    onClick={() => onEditClick('power')}
                 />
             </Grid>
             <Grid item>
@@ -69,7 +75,9 @@ export function MeasurementEditor({ child, points, values, onChange }: Props) {
                     value={values.throw}
                     unit="cm"
                     name={t('add-result-page.strength')}
+                    disabled={edited === 'strength'}
                     onChange={(value) => onChange({ ...values, throw: value })}
+                    onClick={() => onEditClick('strength')}
                 />
             </Grid>
             <Grid item>
@@ -83,7 +91,9 @@ export function MeasurementEditor({ child, points, values, onChange }: Props) {
                     value={values.run}
                     unit="s"
                     name={t('add-result-page.velocity')}
+                    disabled={edited === 'velocity'}
                     onChange={(value) => onChange({ ...values, run: value })}
+                    onClick={() => onEditClick('velocity')}
                 />
             </Grid>
         </Grid>
