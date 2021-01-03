@@ -11,9 +11,11 @@ import {
     FormControlLabel,
     SimplePaletteColorOptions,
 } from '@material-ui/core';
+import { Edit } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { theme } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
+import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 
 interface Props {
     name: string;
@@ -65,7 +67,19 @@ export function MeasurementPoint({
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
-                <Typography variant="subtitle1">{name}</Typography>
+                <Grid container spacing={1}>
+                    <Grid item className={classes.editMeasurementButton}>
+                        <Typography variant="subtitle1">{name}</Typography>
+                    </Grid>
+                    <Grid item>
+                        {!disabled && (
+                            <ButtonSecondary variant="text" onClick={onClick}>
+                                <Edit className={classes.editIcon} />
+                                {t('add-results-page.edit')}
+                            </ButtonSecondary>
+                        )}
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item>
                 <Grid container spacing={2}>
@@ -171,6 +185,15 @@ const useStyles = makeStyles((_theme: Theme) =>
         valueLabel: {
             left: 'calc(-50% + 8px)',
             top: -32,
+        },
+        editMeasurementButton: {
+            display: 'flex',
+            alignItems: 'center',
+        },
+        editIcon: {
+            width: 18,
+            height: 18,
+            marginRight: _theme.spacing(1),
         },
     }),
 );
