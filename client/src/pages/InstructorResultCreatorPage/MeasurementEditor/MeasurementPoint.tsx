@@ -11,9 +11,11 @@ import {
     FormControlLabel,
     SimplePaletteColorOptions,
 } from '@material-ui/core';
+import { Edit } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { theme } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
+import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 
 interface Props {
     name: string;
@@ -25,7 +27,9 @@ interface Props {
     upperLimit: number;
     points: number;
     isEmpty: boolean;
+    disabled: boolean;
     onChange: (value: number) => void;
+    onClick: () => void;
 }
 
 export function MeasurementPoint({
@@ -38,7 +42,9 @@ export function MeasurementPoint({
     upperLimit,
     points,
     isEmpty,
+    disabled,
     onChange,
+    onClick,
 }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -65,12 +71,25 @@ export function MeasurementPoint({
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
-                <Typography variant="subtitle1">{name}</Typography>
+                <Grid container spacing={1}>
+                    <Grid item className={classes.editMeasurementButton}>
+                        <Typography variant="subtitle1">{name}</Typography>
+                    </Grid>
+                    <Grid item>
+                        {!disabled && (
+                            <ButtonSecondary variant="text" onClick={onClick}>
+                                <Edit className={classes.editIcon} />
+                                {t('add-results-page.edit')}
+                            </ButtonSecondary>
+                        )}
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <Slider
+                            disabled={!disabled}
                             aria-labelledby="discrete-slider-restrict"
                             step={step}
                             valueLabelDisplay="auto"
@@ -90,6 +109,7 @@ export function MeasurementPoint({
                     </Grid>
                     <Grid item xs={2}>
                         <Input
+                            disabled={!disabled}
                             value={value}
                             margin="dense"
                             onChange={({ target: { value: v } }) => onChange(parseInt(v, 10))}
@@ -171,6 +191,15 @@ const useStyles = makeStyles((_theme: Theme) =>
         valueLabel: {
             left: 'calc(-50% + 8px)',
             top: -32,
+        },
+        editMeasurementButton: {
+            display: 'flex',
+            alignItems: 'center',
+        },
+        editIcon: {
+            width: 18,
+            height: 18,
+            marginRight: _theme.spacing(1),
         },
     }),
 );
