@@ -26,7 +26,7 @@ const AlertDialog = ({ type, title, description, onClose }: AlertDialogProps & A
             <DialogTitle>{titleText}</DialogTitle>
             <DialogContent>{description}</DialogContent>
             <DialogActions>
-                <ButtonPrimary variant="text" onClick={onClose} autoFocus innerText={t('close')} />
+                <ButtonPrimary variant="text" onClick={onClose} autoFocus innerText={t('close')} color="primary" />
             </DialogActions>
         </Dialog>
     );

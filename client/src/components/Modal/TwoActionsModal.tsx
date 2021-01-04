@@ -10,6 +10,7 @@ interface Props {
     upperButtonText: string;
     lowerButtonOnClick: (event: any) => void;
     lowerButtonText: string;
+    color?: 'inherit' | 'default' | 'primary' | 'secondary';
 }
 
 export const TwoActionsModal: FC<Props> = ({
@@ -20,6 +21,7 @@ export const TwoActionsModal: FC<Props> = ({
     lowerButtonOnClick,
     upperButtonText,
     lowerButtonText,
+    color,
 }) => {
     const classes = useStyles();
 
@@ -32,7 +34,12 @@ export const TwoActionsModal: FC<Props> = ({
                         <ButtonDefault className={classes.button} variant="text" onClick={lowerButtonOnClick}>
                             {lowerButtonText}
                         </ButtonDefault>
-                        <ButtonPrimary className={classes.button} variant="text" onClick={upperButtonOnClick}>
+                        <ButtonPrimary
+                            className={classes.button}
+                            variant="text"
+                            onClick={upperButtonOnClick}
+                            color={color}
+                        >
                             {upperButtonText}
                         </ButtonPrimary>
                     </div>

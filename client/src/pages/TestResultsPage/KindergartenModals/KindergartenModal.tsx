@@ -49,6 +49,7 @@ export const KindergartenModal = ({ onClose, onSubmit, onDelete, kindergarten }:
             upperButtonText={t(`${translationPrefix}-kindergarten-modal.${translationPrefix}`)}
             isOpen
             onClose={onClose}
+            color="primary"
         >
             <Typography variant="h4" className={classes.title}>
                 {t(`${translationPrefix}-kindergarten-modal.title`)}

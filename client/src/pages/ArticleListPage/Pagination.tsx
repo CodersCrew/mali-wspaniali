@@ -20,6 +20,7 @@ export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Pro
                 disabled={disabledPrevious}
                 onClick={() => handleChange('prev')}
                 innerText={t('pagination.previous')}
+                color="primary"
             />
             <ButtonPrimary
                 variant="contained"
@@ -27,6 +28,7 @@ export const Pagination = ({ disabledPrevious, disabledNext, handleChange }: Pro
                 className={classes.next}
                 onClick={() => handleChange('next')}
                 innerText={t('pagination.next')}
+                color="primary"
             />
         </div>
     );

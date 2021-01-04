@@ -30,7 +30,6 @@ export const AdminSettingsList = () => {
                     <TableCell>{t('parent-settings.header-title-2')}</TableCell>
                 </TableRow>
             </TableHead>
-
             <TableBody>
                 {parents.map((parent) => {
                     return <AdminSettingsItem values={parent} key={parent.mail} />;

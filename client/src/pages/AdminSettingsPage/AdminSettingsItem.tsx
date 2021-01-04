@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import clsx from 'clsx';
 import { TableRow, TableCell, IconButton, makeStyles, Theme, Typography, fade, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -6,6 +6,7 @@ import Edit from '@material-ui/icons/Edit';
 import ForwardIcon from '@material-ui/icons/Forward';
 import { useTranslation } from 'react-i18next';
 
+import { AdminSettingsDeleteParent } from './AdminSettingsDeleteParent';
 import { User } from '../../graphql/types';
 
 interface AdminSettingsItemProps {
@@ -13,6 +14,8 @@ interface AdminSettingsItemProps {
 }
 
 export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
+    const [isOpen, setStateIsOpen] = useState(false);
+
     const classes = useStyles();
     const { t } = useTranslation();
     const childrenData = values?.children.map((child, index) => {
@@ -27,6 +30,13 @@ export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
 
     return (
         <TableRow>
+            <AdminSettingsDeleteParent
+                onClose={() => {
+                    setStateIsOpen(false);
+                }}
+                isOpen={isOpen}
+                mail={values.mail}
+            />
             <TableCell className={clsx(classes.parentEmailColumn, classes.rowText)}>{values.mail}</TableCell>
             <TableCell className={classes.childrenColumn}>
                 <Typography className={classes.rowText}>{childrenData}</Typography>
@@ -51,13 +61,12 @@ export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
                             <ForwardIcon />
                         </IconButton>
                     </Tooltip>
-
                     <Tooltip title={deleteIconTooltip}>
                         <IconButton
                             aria-label="delete"
                             className={classes.deleteButton}
                             onClick={() => {
-                                console.log('do delete actions later');
+                                setStateIsOpen(true);
                             }}
                         >
                             <DeleteIcon />

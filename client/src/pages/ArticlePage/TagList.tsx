@@ -26,6 +26,7 @@ export function TagList({ tags }: Props) {
                             [classes.contentTagsButtonMobile]: isMobile,
                         })}
                         innerText={`#${tag}`}
+                        color="primary"
                     />
                 );
             })}
