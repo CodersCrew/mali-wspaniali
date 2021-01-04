@@ -6,11 +6,11 @@ import Edit from '@material-ui/icons/Edit';
 import ForwardIcon from '@material-ui/icons/Forward';
 import { useTranslation } from 'react-i18next';
 
-import { AdminSettingsDeleteParent } from './AdminSettingsDeleteParent';
-import { User } from '../../graphql/types';
+import { AdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
+import { Me } from '../../graphql/types';
 
 interface AdminSettingsItemProps {
-    values: User;
+    values: Me;
 }
 
 export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {

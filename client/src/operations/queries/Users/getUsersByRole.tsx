@@ -4,7 +4,7 @@ import { PrivilegedUser, Me } from '../../../graphql/types';
 interface UsersListReponse {
     users: PrivilegedUser[];
 }
-interface ParentsListReponse {
+interface ParentsListResponse {
     users: Me[];
 }
 
@@ -110,7 +110,7 @@ export function useAdmins(): UseAdminsReturnType {
 }
 
 export function useParents(): UseParentsReturnType {
-    const { data, loading } = useQuery<ParentsListReponse>(PARENTS);
+    const { data, loading } = useQuery<ParentsListResponse>(PARENTS);
 
     return {
         parents: data?.users || [],
