@@ -83,6 +83,7 @@ type ChildDTO {
   results: [ChildResultDTO!]!
   kindergarten: KindergartenDTO!
   isDeleted: Boolean!
+  currentParams: ChildCurrentParamsDTO!
 }
 
 type AgreementDTO {
@@ -104,6 +105,24 @@ type UserDTO {
 
 type ReturnedTokenDTO {
   token: String!
+}
+
+type ParamsDTO {
+  sex: String!
+  age: Int!
+  a: Float!
+  b: Float!
+  lowerLimit: Float!
+  lowerLimitPoints: Float!
+  upperLimit: Float!
+  upperLimitPoints: Float!
+}
+
+type ChildCurrentParamsDTO {
+  run: ParamsDTO
+  pendelumRun: ParamsDTO
+  throw: ParamsDTO
+  jump: ParamsDTO
 }
 
 type CreateKeyCodeDTO {
@@ -197,8 +216,8 @@ type Mutation {
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
-  createAssessment(assessment: AssessmentInput!): ReturnedStatusDTO!
-  updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): ReturnedStatusDTO!
+  createAssessment(assessment: AssessmentInput!): AssessmentDTO!
+  updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): AssessmentDTO!
 }
 
 input ArticleInput {

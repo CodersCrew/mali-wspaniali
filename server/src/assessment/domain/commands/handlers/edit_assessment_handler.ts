@@ -3,6 +3,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { EditAssessmentCommand } from '../impl';
 import { AssessmentRepository } from '../../repositories/assessment_repository';
 import { AssessmentMapper } from '../../mappers/assessment_mapper';
+import { Assessment } from '../../models/assessment_model';
 
 @CommandHandler(EditAssessmentCommand)
 export class EditAssessmentHandler
@@ -12,7 +13,7 @@ export class EditAssessmentHandler
   async execute({
     id,
     assessment: updatedAssessment,
-  }: EditAssessmentCommand): Promise<boolean> {
+  }: EditAssessmentCommand): Promise<Assessment> {
     const assessment = await this.repository.get(id);
 
     assessment.update(AssessmentMapper.toUpdated(updatedAssessment));

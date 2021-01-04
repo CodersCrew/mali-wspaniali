@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react';
-import { createStyles, Grid, makeStyles, Divider, Paper, Theme } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Divider, Paper } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { ChildPicker } from './ChildPicker/ChildPicker';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
 import { activePage } from '../../apollo_client';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 import { PageContainer } from '../../components/PageContainer';
+import { ResultCreatorErrorReturnProps, ResultCreatorReturnProps, useResultCreator } from './useResultCreator';
+
+interface PageParams {
+    assessmentId: string;
+    kindergartenId: string;
+    childId: string;
+    measurement: string;
+}
 
 export function InstructorResultCreatorPage() {
-    const { assessments } = useAssessments({ withChildren: true });
-    const params = useParams() as { [index: string]: string };
+    const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
+
     const history = useHistory();
     const classes = useStyles();
     const { t } = useTranslation();
@@ -21,42 +28,41 @@ export function InstructorResultCreatorPage() {
         activePage(['instructor-menu.add-results']);
     }, []);
 
-    const selectedAssessment = assessments.find((a) => a._id === params.assessmentId);
-    const selectedKindergarten = selectedAssessment?.kindergartens.find(
-        (k) => k.kindergarten._id === params.kindergartenId,
-    )?.kindergarten;
-    const selectedChild = selectedKindergarten?.children?.find((c) => c._id === params.childId);
+    const resultCreator = useResultCreator({
+        assessmentId,
+        kindergartenId,
+        childId,
+        measurement,
+    });
 
-    if (!selectedAssessment || !selectedKindergarten || !selectedChild) {
+    if (isResultCreatorErrorReturnProps(resultCreator)) {
         return null;
     }
 
     function onChildClicked(type: string, value: string) {
-        if (!selectedAssessment || !selectedKindergarten || !selectedChild) {
+        if (isResultCreatorErrorReturnProps(resultCreator)) {
             return;
         }
 
         if (type === 'child') {
             history.push(
-                `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${selectedKindergarten._id}/${value}`,
+                `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${value}`,
             );
         }
 
         if (type === 'measurement') {
-            history.push(
-                `/instructor/result/add/${value}/${params.assessmentId}/${params.kindergartenId}/${params.childId}`,
-            );
+            history.push(`/instructor/result/add/${value}/${assessmentId}/${kindergartenId}/${childId}`);
         }
 
         if (type === 'kindergarten') {
-            const currentSelectedKindergarten = selectedAssessment?.kindergartens.find(
+            const currentSelectedKindergarten = resultCreator.selectedAssessment?.kindergartens.find(
                 (k) => k.kindergarten._id === value,
             )?.kindergarten;
             const firstChildren = currentSelectedKindergarten?.children![0];
 
             if (firstChildren) {
                 history.push(
-                    `/instructor/result/add/${params.measurement}/${selectedAssessment._id}/${value}/${firstChildren._id}`,
+                    `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${value}/${firstChildren._id}`,
                 );
             }
         }
@@ -68,11 +74,13 @@ export function InstructorResultCreatorPage() {
                 <Grid container>
                     <Grid item xs={4}>
                         <ChildPicker
-                            selectedKindergarten={selectedKindergarten._id || ''}
-                            kindergartens={selectedAssessment.kindergartens.map((k) => k.kindergarten) || []}
-                            selected={selectedChild._id}
-                            measurement={params.measurement}
-                            childList={selectedKindergarten.children || []}
+                            selectedKindergarten={resultCreator.selectedKindergarten._id || ''}
+                            kindergartens={
+                                resultCreator.selectedAssessment.kindergartens.map((k) => k.kindergarten) || []
+                            }
+                            selected={resultCreator.selectedChild._id}
+                            measurement={measurement}
+                            childList={resultCreator.selectedKindergarten.children || []}
                             onClick={onChildClicked}
                         />
                     </Grid>
@@ -80,15 +88,35 @@ export function InstructorResultCreatorPage() {
                         <Grid container direction="column">
                             <Grid item>
                                 <ChildHeader
-                                    description={t(`add-result-page.title-${params.measurement}-measurement`)}
-                                    selectedChild={selectedChild}
+                                    description={t(`add-result-page.title-${measurement}-measurement`)}
+                                    selectedChild={resultCreator.selectedChild}
+                                    points={Object.values(resultCreator.points).reduce((acc, v) => acc + v, 0)}
+                                    maxPoints={Object.values(resultCreator.selectedChild!.currentParams!).reduce(
+                                        (acc, v) => {
+                                            if (!v || !v.lowerLimitPoints || !v.upperLimitPoints) return acc;
+
+                                            if (v.lowerLimitPoints > v.upperLimitPoints) {
+                                                return acc + v.lowerLimitPoints;
+                                            }
+
+                                            return acc + v.upperLimitPoints;
+                                        },
+                                        0,
+                                    )}
                                 />
                             </Grid>
                             <Grid item>
                                 <Divider />
                             </Grid>
                             <Grid item className={classes.editor}>
-                                <MeasurementEditor />
+                                <MeasurementEditor
+                                    child={resultCreator.selectedChild}
+                                    values={resultCreator.values}
+                                    points={resultCreator.points}
+                                    edited={resultCreator.edited}
+                                    onChange={resultCreator.onChange}
+                                    onEditClick={resultCreator.edit}
+                                />
                             </Grid>
                             <Grid item>
                                 <Divider />
@@ -110,7 +138,7 @@ export function InstructorResultCreatorPage() {
     );
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         editor: {
             maxHeight: '63vh',
@@ -118,3 +146,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
+function isResultCreatorErrorReturnProps(
+    value: ResultCreatorReturnProps | ResultCreatorErrorReturnProps,
+): value is ResultCreatorErrorReturnProps {
+    return !!value.error;
+}

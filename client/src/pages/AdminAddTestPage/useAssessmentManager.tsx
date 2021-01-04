@@ -7,6 +7,7 @@ import { useKindergartens } from '../../operations/queries/Kindergartens/getKind
 import { formatDate } from '../../utils/formatDate';
 import { useAssessment } from '../../operations/queries/Assessment/getAssessment';
 import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
+import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 
@@ -45,9 +46,10 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
     const [reasonForBeingDisabled, setReasonForBeingDisabled] = useState<string | undefined>(undefined);
     const { kindergartenList } = useKindergartens();
     const { t } = useTranslation();
-    const { createAssessment: createTest, error } = useCreateAssessment();
+    const { assessments } = useAssessments();
+    const { createAssessment: createTest, error, isCreationPending } = useCreateAssessment();
     const state = updatedLocalAssessment;
-    const { updateAssessment } = useUpdateAssessment(testId!);
+    const { updateAssessment, isUpdatePending } = useUpdateAssessment(testId!);
 
     const { assessment } = useAssessment(testId!);
 
@@ -66,13 +68,21 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
 
     useEffect(() => {
         validate(state)
-            .then(() => setReasonForBeingDisabled(undefined))
+            .then(() => {
+                const assessmentWithUsedName = assessments.find((a) => a.title === state.title);
+
+                if (assessmentWithUsedName && assessmentWithUsedName._id !== testId) {
+                    return setReasonForBeingDisabled(t('add-test-view.errors.test-already-exists'));
+                }
+
+                setReasonForBeingDisabled(undefined);
+            })
             .catch((e) => {
                 if (e.errors.length > 0) {
                     setReasonForBeingDisabled(e.errors[0]);
                 }
             });
-    }, [updatedLocalAssessment, state]);
+    }, [updatedLocalAssessment, state, assessments, t, testId]);
 
     function submit(update: AssessmentManagerState) {
         if (testId) return updatedAssessment(update);
@@ -143,14 +153,18 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
         submit: (update?: Partial<AssessmentManagerState>) => {
             setUpdateLocalAssessment((prev) => {
                 if (update) {
-                    submit({ ...prev, ...update });
+                    const updated = { ...prev, ...update };
 
-                    return { ...prev, ...update };
+                    submit(updated);
+
+                    return updated;
                 }
 
-                submit({ ...prev, ...updatedLocalAssessment });
+                const submited = { ...prev, ...updatedLocalAssessment };
 
-                return { ...prev, ...updatedLocalAssessment };
+                submit(submited);
+
+                return submited;
             });
         },
         kindergartens: kindergartenList.map((k) => {
@@ -163,6 +177,7 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
             });
         },
         assessemnt: updatedLocalAssessment,
+        isLoading: isCreationPending || isUpdatePending,
     };
 }
 

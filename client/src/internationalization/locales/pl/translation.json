@@ -551,7 +551,8 @@
         "errors": {
             "name-too-short": "Nazwa testu jest za krótka",
             "test-already-created": "Test został utworzony",
-            "test-already-updated": "Test został zaktualizowany"
+            "test-already-updated": "Test został zaktualizowany",
+            "test-already-exists": "Test o podanej nazwie już istnieje"
         }
     },
     "add-child-modal": {
@@ -675,6 +676,8 @@
         "birth-quarter": "Kwartał urodzenia",
         "first-assessment": "Próba początkowa",
         "last-assessment": "Próba końcowa",
+        "first-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze początkowym",
+        "last-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze końcowym",
         "see-results": "Zobacz wyniki",
         "add-result": "Dodaj wynik",
         "add-first-assessment-result": "Dodaj wyniki próby początkowej",
@@ -694,7 +697,8 @@
             "description": "Fundacja nie przydzieliła ci jeszcze przedszkola, w którym móglbyś dodać wyniki testu. Usiądź wygodnie i wykorzystaj tę chwilę by zapoznać się z artykułami przygotgotowanymi przez ekspertów od zdrowego żywienia i sprawności fizycznej",
             "go-to-articles": "Przejdź do artykułów"
         },
-        "child-list": "Child list" 
+        "child-list": "Child list",
+        "edit": "Edytuj" 
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -707,6 +711,10 @@
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
         "back-to-table": "Wróć do tabeli",
-        "child-list": "Lista dzieci"
+        "child-list": "Lista dzieci",
+        "strength": "SIŁA",
+        "dexterity": "ZRĘCZNOŚĆ",
+        "power": "MOC",
+        "velocity": "SZYBKOŚĆ"
     }
 }

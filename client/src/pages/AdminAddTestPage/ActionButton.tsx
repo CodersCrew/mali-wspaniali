@@ -7,7 +7,7 @@ import { ArrowTooltip } from '../../components/Tooltip/ArrowTooltip';
 interface Props {
     name: string;
     onClick: () => void;
-    reasonForBeingDisabled?: string;
+    reasonForBeingDisabled?: string | false;
 }
 
 export function ActionButton({ name, onClick, reasonForBeingDisabled }: Props) {
