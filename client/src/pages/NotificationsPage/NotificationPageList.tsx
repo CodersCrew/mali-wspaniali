@@ -98,10 +98,10 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {(rowsPerPage > 0
-            ? notifications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : notifications
-          ).map((notification) => {
+                    {(rowsPerPage > 0
+                        ? notifications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : notifications
+                    ).map((notification) => {
                         const { _id, values, templateId, date, isRead } = notification;
 
                         return (
