@@ -2,12 +2,12 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { passwordStrengthTest, passwordLengthTest, passwordCapitalTest, passwordDigitTest, passwordSpecialTest} from '../RegistrationPage/passwordStrengthTest';
-import { emailTest } from '../RegistrationPage/emailTest';
+
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { openBtnSnackbar } from '../../components/Snackbar/openBtnSnackbar';
+import { validateLoginData } from './validateLoginData';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -16,24 +16,22 @@ export const LoginPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const { authorizeMe } = useAuthorizeMe(
-        user => { history.push(`/${user.role}`); },
-        error => { openBtnSnackbar({ text: t(error.name), severity: 'error', btnText:'OK' }); }
+        user => {
+            history.push(`/${user.role}`);
+        },
+        error => {
+            openBtnSnackbar({ text: t(error.name), severity: 'error', btnText: 'OK' });
+        },
     );
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        if(!clientValidation()) return;
-        authorizeMe(email, password);
-    };
-    const clientValidation = (): boolean=>{
-        if(!emailTest(email) || (password !== 'testtest' && (!passwordStrengthTest(password) || !passwordCapitalTest(password) || !passwordSpecialTest(password) || !passwordLengthTest(password) || !passwordDigitTest(password)))){
-            openBtnSnackbar({ text: t('login-page.login-client-error'), severity: 'error', btnText:'OK' });
+        if (!validateLoginData(email, password)) {
+            openBtnSnackbar({ text: t('login-page.login-client-error'), severity: 'error', btnText: 'OK' });
 
-            
-            return false;
+            return;
         }
-        
-        return true;
+        authorizeMe(email, password);
     };
 
     return (
@@ -47,7 +45,7 @@ export const LoginPage = () => {
                     id="email"
                     label={t('e-mail')}
                     variant="outlined"
-                    helperText={ t('login-page.e-mail-helper-text')}
+                    helperText={t('login-page.e-mail-helper-text')}
                     className={classes.formItem}
                 />
                 <TextField
@@ -58,7 +56,7 @@ export const LoginPage = () => {
                     label={t('password')}
                     type="password"
                     variant="outlined"
-                    helperText= "" 
+                    helperText=""
                     className={classes.formItem}
                 />
                 <div className={classes.submitWrapper}>
