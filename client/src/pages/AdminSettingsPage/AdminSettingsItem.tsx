@@ -46,7 +46,7 @@ export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
                         <IconButton
                             className={classes.editButton}
                             onClick={() => {
-                                console.log('do edit actions later');
+                                console.log('to do edit actions later');
                             }}
                         >
                             <Edit />
@@ -56,7 +56,7 @@ export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
                         <IconButton
                             className={classes.editButton}
                             onClick={() => {
-                                console.log('do change actions later');
+                                console.log('to do later');
                             }}
                         >
                             <ForwardIcon />
@@ -116,11 +116,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         flexDirection: 'row',
         justifyItems: 'right',
-        marginLeft: theme.spacing(20),
 
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'column',
-            marginLeft: theme.spacing(0),
         },
     },
 }));
