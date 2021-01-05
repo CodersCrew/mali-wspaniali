@@ -20,7 +20,7 @@ export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
     const { t } = useTranslation();
     const childrenData = values?.children.map((child, index) => {
         const coma = index < values.children.length - 1 ? ',' : '';
-        const childData = `${child.firstname}${child.lastname}${coma} `;
+        const childData = `${child.firstname} ${child.lastname}${coma} `;
 
         return childData;
     });
@@ -38,8 +38,9 @@ export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
                 mail={values.mail}
             />
             <TableCell className={clsx(classes.parentEmailColumn, classes.rowText)}>{values.mail}</TableCell>
-            <TableCell className={classes.childrenColumn}>
+            <TableCell className={classes.secondColumn}>
                 <Typography className={classes.rowText}>{childrenData}</Typography>
+
                 <div className={classes.actionButtons}>
                     <Tooltip title={editIconTooltip}>
                         <IconButton
@@ -98,12 +99,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     parentEmailColumn: {
         width: '20%',
     },
-    childrenColumn: {
+    secondColumn: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+
+        [theme.breakpoints.down('sm')]: {
+            '&.MuiTableCell-root': {
+                padding: theme.spacing(2, 0),
+            },
+        },
     },
+
     actionButtons: {
         display: 'flex',
         flexDirection: 'row',
@@ -112,6 +120,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'column',
+            marginLeft: theme.spacing(0),
         },
     },
 }));
