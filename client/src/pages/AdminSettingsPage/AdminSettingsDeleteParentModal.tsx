@@ -44,7 +44,11 @@ export const AdminSettingsDeleteParent = ({ onClose, isOpen, mail }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) => ({
     modalContent: {
-        width: 450,
+        width: '25vw',
+
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+        },
     },
     email: { fontWeight: theme.typography.button.fontWeight },
     header: { marginBottom: theme.spacing(2) },
