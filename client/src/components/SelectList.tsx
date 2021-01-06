@@ -5,10 +5,11 @@ interface Props {
     value: string;
     label: string;
     items: ReactNode[];
+    disabled?: boolean;
     onSelect: (value: string) => void;
 }
 
-export function SelectList({ value, label, items, onSelect }: Props) {
+export function SelectList({ value, label, items, disabled, onSelect }: Props) {
     return (
         <TextField
             select
@@ -17,6 +18,7 @@ export function SelectList({ value, label, items, onSelect }: Props) {
             variant="outlined"
             value={value}
             fullWidth
+            disabled={disabled}
             SelectProps={{
                 MenuProps: {
                     getContentAnchorEl: null,

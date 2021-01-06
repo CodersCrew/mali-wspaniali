@@ -47,6 +47,7 @@ const populatedMockedResponse: MockedResponse[] = [
                         title: 'test-assessment1',
                         startDate: '2000-01-01',
                         endDate: '2000-01-31',
+                        status: 'active',
                         kindergartens: [
                             {
                                 kindergarten: {
@@ -68,6 +69,7 @@ const populatedMockedResponse: MockedResponse[] = [
                         title: 'test-assessment2',
                         startDate: '2000-01-01',
                         endDate: '2000-01-31',
+                        status: 'active',
                         kindergartens: [
                             {
                                 kindergarten: {

@@ -8,6 +8,7 @@ import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Kindergarten } from '../../../graphql/types';
 import { formatDate } from '../../../utils/formatDate';
+import { GET_ALL_ASSESSMENTS } from '../../../operations/queries/Assessment/getAllAssessments';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 
@@ -53,6 +54,13 @@ describe('useAddTest', () => {
                         title: 'my-test',
                         startDate: formatedStartDate,
                         endDate: formatedEndDate,
+                        status: 'active',
+                        firstMeasurementEndDate: '2021-7-3',
+                        firstMeasurementStartDate: '2021-6-1',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementEndDate: '2021-7-3',
+                        lastMeasurementStartDate: '2021-6-1',
+                        lastMeasurementStatus: 'active',
                         kindergartenIds: [],
                         isOutdated: false,
                         isDeleted: false,
@@ -318,10 +326,16 @@ const mocks = [
         request: {
             query: CREATE_ASSESSMENT,
             variables: {
-                title: 'my-test',
-                startDate: formatedStartDate,
-                endDate: formatedEndDate,
-                kindergartenIds: [],
+                assessment: {
+                    title: 'my-test',
+                    startDate: formatedStartDate,
+                    endDate: formatedEndDate,
+                    firstMeasurementStartDate: formatedStartDate,
+                    firstMeasurementEndDate: formatedEndDate,
+                    lastMeasurementStartDate: formatedStartDate,
+                    lastMeasurementEndDate: formatedEndDate,
+                    kindergartenIds: [],
+                },
             },
         },
         result: () => {
@@ -339,6 +353,40 @@ const mocks = [
         result: {
             data: {
                 kindergartens: [],
+            },
+        },
+    },
+    {
+        request: {
+            query: GET_ALL_ASSESSMENTS,
+            variables: {},
+        },
+        result: {
+            data: {
+                assessments: [
+                    {
+                        _id: '1',
+                        isOutdated: false,
+                        isDeleted: false,
+                        title: 'test-assessment1',
+                        startDate: '2000-01-01',
+                        endDate: '2000-01-31',
+                        status: 'active',
+                        kindergartens: [
+                            {
+                                kindergarten: {
+                                    _id: '1',
+                                    name: 'test-kindergarten1',
+                                    number: 1,
+                                },
+                                instructor: {
+                                    _id: '1',
+                                    mail: 'test-instructor1@gmail.com',
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
         },
     },
@@ -365,6 +413,40 @@ const mockedKindergartens = [
                         number: 2,
                         address: 'my-street',
                         city: 'my-city',
+                    },
+                ],
+            },
+        },
+    },
+    {
+        request: {
+            query: GET_ALL_ASSESSMENTS,
+            variables: {},
+        },
+        result: {
+            data: {
+                assessments: [
+                    {
+                        _id: '1',
+                        isOutdated: false,
+                        isDeleted: false,
+                        title: 'test-assessment1',
+                        startDate: '2000-01-01',
+                        endDate: '2000-01-31',
+                        status: 'active',
+                        kindergartens: [
+                            {
+                                kindergarten: {
+                                    _id: '1',
+                                    name: 'test-kindergarten1',
+                                    number: 1,
+                                },
+                                instructor: {
+                                    _id: '1',
+                                    mail: 'test-instructor1@gmail.com',
+                                },
+                            },
+                        ],
                     },
                 ],
             },

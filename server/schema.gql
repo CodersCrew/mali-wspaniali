@@ -175,6 +175,13 @@ type AssessmentDTO {
   title: String!
   startDate: String!
   endDate: String!
+  firstMeasurementStartDate: String!
+  firstMeasurementEndDate: String!
+  lastMeasurementStartDate: String!
+  lastMeasurementEndDate: String!
+  status: String!
+  firstMeasurementStatus: String!
+  lastMeasurementStatus: String!
   kindergartens: [KindergartenWithInstructorDTO!]!
 }
 
@@ -319,6 +326,10 @@ input AssessmentInput {
   title: String!
   startDate: String!
   endDate: String!
+  firstMeasurementStartDate: String!
+  firstMeasurementEndDate: String!
+  lastMeasurementStartDate: String!
+  lastMeasurementEndDate: String!
   kindergartenIds: [String!]!
 }
 
@@ -326,7 +337,14 @@ input UpdatedAssessmentInput {
   title: String
   startDate: String
   endDate: String
+  firstMeasurementStartDate: String
+  firstMeasurementEndDate: String
+  lastMeasurementStartDate: String
+  lastMeasurementEndDate: String
   kindergartens: [JSONObject!]
   isOutdated: Boolean
   isDeleted: Boolean
+  status: String
+  firstMeasurementStatus: String
+  lastMeasurementStatus: String
 }

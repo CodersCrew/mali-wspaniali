@@ -12,6 +12,13 @@ export interface AssessmentDto {
   isDeleted: boolean;
   startDate: string;
   endDate: string;
+  firstMeasurementStartDate: string;
+  firstMeasurementEndDate: string;
+  lastMeasurementStartDate: string;
+  lastMeasurementEndDate: string;
+  status: string;
+  firstMeasurementStatus: string;
+  lastMeasurementStatus: string;
   kindergartens: Array<{
     kindergartenId: string;
     instructorId: string | null;
@@ -25,6 +32,13 @@ export interface AssessmentProps {
   isDeleted: boolean;
   startDate: SimpleDate;
   endDate: SimpleDate;
+  firstMeasurementStartDate: SimpleDate;
+  firstMeasurementEndDate: SimpleDate;
+  lastMeasurementStartDate: SimpleDate;
+  lastMeasurementEndDate: SimpleDate;
+  status: string;
+  firstMeasurementStatus: string;
+  lastMeasurementStatus: string;
   kindergartens: KindergartenWithInstructor[];
 }
 
@@ -39,7 +53,7 @@ export class Assessment extends AggregateRoot {
     this.data = initialData;
   }
 
-  get id() {
+  get id(): ObjectId {
     return this.data._id;
   }
 
@@ -61,6 +75,34 @@ export class Assessment extends AggregateRoot {
 
   get endDate(): SimpleDate {
     return this.data.endDate;
+  }
+
+  get firstMeasurementStartDate(): SimpleDate {
+    return this.data.firstMeasurementStartDate;
+  }
+
+  get firstMeasurementEndDate(): SimpleDate {
+    return this.data.firstMeasurementEndDate;
+  }
+
+  get lastMeasurementStartDate(): SimpleDate {
+    return this.data.lastMeasurementStartDate;
+  }
+
+  get lastMeasurementEndDate(): SimpleDate {
+    return this.data.lastMeasurementEndDate;
+  }
+
+  get status(): string {
+    return this.data.status;
+  }
+
+  get firstMeasurementStatus(): string {
+    return this.data.firstMeasurementStatus;
+  }
+
+  get lastMeasurementStatus(): string {
+    return this.data.lastMeasurementStatus;
   }
 
   get kindergartens(): AssessmentProps['kindergartens'] {

@@ -14,6 +14,13 @@ interface AssessmentDocumentProps {
   isSigned: boolean;
   startDate: string;
   endDate: string;
+  firstMeasurementStartDate: string;
+  firstMeasurementEndDate: string;
+  lastMeasurementStartDate: string;
+  lastMeasurementEndDate: string;
+  status: string;
+  firstMeasurementStatus: string;
+  lastMeasurementStatus: string;
   kindergartens: Array<KindergartenWithInstructorDocumentProps>;
 }
 
@@ -39,6 +46,13 @@ export const AssessmentSchema = new Schema({
   },
   startDate: String,
   endDate: String,
+  firstMeasurementStartDate: String,
+  firstMeasurementEndDate: String,
+  lastMeasurementStartDate: String,
+  lastMeasurementEndDate: String,
+  status: String,
+  firstMeasurementStatus: String,
+  lastMeasurementStatus: String,
   kindergartens: {
     type: [
       {

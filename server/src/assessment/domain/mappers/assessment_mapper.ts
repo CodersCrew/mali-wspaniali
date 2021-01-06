@@ -24,6 +24,9 @@ export class AssessmentMapper {
       ...value,
       isOutdated: false,
       isDeleted: false,
+      status: 'active',
+      firstMeasurementStatus: 'active',
+      lastMeasurementStatus: 'active',
       kindergartens,
     });
   }
@@ -35,6 +38,18 @@ export class AssessmentMapper {
     const title = Title.create(value.title);
     const startDate = SimpleDate.create(value.startDate);
     const endDate = SimpleDate.create(value.endDate);
+    const firstMeasurementStartDate = SimpleDate.create(
+      value.firstMeasurementStartDate,
+    );
+    const firstMeasurementEndDate = SimpleDate.create(
+      value.firstMeasurementEndDate,
+    );
+    const lastMeasurementStartDate = SimpleDate.create(
+      value.lastMeasurementStartDate,
+    );
+    const lastMeasurementEndDate = SimpleDate.create(
+      value.lastMeasurementEndDate,
+    );
     const mappedKindergartens = value.kindergartens.map(k => {
       const kindergartenWithInstructorResult = KindergartenWithInstructor.create(
         {
@@ -63,6 +78,10 @@ export class AssessmentMapper {
       title: title.getValue(),
       startDate: startDate.getValue(),
       endDate: endDate.getValue(),
+      firstMeasurementStartDate: firstMeasurementStartDate.getValue(),
+      firstMeasurementEndDate: firstMeasurementEndDate.getValue(),
+      lastMeasurementStartDate: lastMeasurementStartDate.getValue(),
+      lastMeasurementEndDate: lastMeasurementEndDate.getValue(),
       kindergartens: mappedKindergartens,
     });
   }
@@ -100,6 +119,46 @@ export class AssessmentMapper {
       }
     }
 
+    if (value.firstMeasurementStartDate) {
+      const date = SimpleDate.create(value.firstMeasurementStartDate);
+
+      if (date.isSuccess) {
+        updated.firstMeasurementStartDate = date.getValue();
+      } else {
+        throw new Error(date.error.toString());
+      }
+    }
+
+    if (value.firstMeasurementEndDate) {
+      const date = SimpleDate.create(value.firstMeasurementEndDate);
+
+      if (date.isSuccess) {
+        updated.firstMeasurementEndDate = date.getValue();
+      } else {
+        throw new Error(date.error.toString());
+      }
+    }
+
+    if (value.lastMeasurementStartDate) {
+      const date = SimpleDate.create(value.lastMeasurementStartDate);
+
+      if (date.isSuccess) {
+        updated.lastMeasurementStartDate = date.getValue();
+      } else {
+        throw new Error(date.error.toString());
+      }
+    }
+
+    if (value.lastMeasurementEndDate) {
+      const date = SimpleDate.create(value.lastMeasurementEndDate);
+
+      if (date.isSuccess) {
+        updated.lastMeasurementEndDate = date.getValue();
+      } else {
+        throw new Error(date.error.toString());
+      }
+    }
+
     if (value.kindergartens) {
       updated.kindergartens = value.kindergartens.map(k => {
         const kindergartenWithInstructorResult = KindergartenWithInstructor.create(
@@ -125,6 +184,18 @@ export class AssessmentMapper {
       updated.isDeleted = value.isDeleted;
     }
 
+    if (value.status) {
+      updated.status = value.status;
+    }
+
+    if (value.firstMeasurementStatus) {
+      updated.firstMeasurementStatus = value.firstMeasurementStatus;
+    }
+
+    if (value.lastMeasurementStatus) {
+      updated.lastMeasurementStatus = value.lastMeasurementStatus;
+    }
+
     return updated;
   }
 
@@ -135,6 +206,13 @@ export class AssessmentMapper {
       isDeleted: assessment.isDeleted,
       startDate: assessment.startDate.value,
       endDate: assessment.endDate.value,
+      firstMeasurementStartDate: assessment.firstMeasurementStartDate.value,
+      firstMeasurementEndDate: assessment.firstMeasurementEndDate.value,
+      lastMeasurementStartDate: assessment.lastMeasurementStartDate.value,
+      lastMeasurementEndDate: assessment.lastMeasurementEndDate.value,
+      status: assessment.status,
+      firstMeasurementStatus: assessment.firstMeasurementStatus,
+      lastMeasurementStatus: assessment.lastMeasurementStatus,
       kindergartens: assessment.kindergartens.map(k => ({
         kindergartenId: k.value.kindergartenId.value,
         instructorId: k.value.instructorId.value,
