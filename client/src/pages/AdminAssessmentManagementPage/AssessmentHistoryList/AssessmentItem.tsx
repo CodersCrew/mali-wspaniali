@@ -36,7 +36,7 @@ export function AssessmentItem({ value, onClick }: Props) {
                         </IconButton>
                     </div>
                     <div className="status">
-                        <StatusChip value={!value.isOutdated} />
+                        <StatusChip value={value.status} />
                     </div>
                 </div>
             </TableCell>

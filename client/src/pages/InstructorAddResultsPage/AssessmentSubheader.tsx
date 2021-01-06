@@ -26,7 +26,7 @@ export function AssessmentSubheader({ assessment }: Props) {
                                 <Typography variant="h4">{t('add-results-page.first-assessment')}</Typography>
                             </Grid>
                             <Grid item>
-                                <StatusChip value={!assessment.isOutdated} />
+                                <StatusChip value={assessment.status} />
                             </Grid>
                         </Grid>
                     </Grid>
