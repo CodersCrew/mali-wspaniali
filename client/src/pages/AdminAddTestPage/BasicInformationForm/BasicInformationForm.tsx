@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 
-import { LabeledContainer } from '../../components/LabeledContainer';
-import { AssessmentManagerState } from './useAssessmentManager';
-import { StatusChip } from '../AdminAssessmentManagementPage/AssessmentHistoryList/StatusChip';
+import { LabeledContainer } from '../../../components/LabeledContainer';
+import { AssessmentManagerState } from '../useAssessmentManager';
+import { StatusChip } from '../../AdminAssessmentManagementPage/AssessmentHistoryList/StatusChip';
 
 interface Props {
     assessment: AssessmentManagerState;
