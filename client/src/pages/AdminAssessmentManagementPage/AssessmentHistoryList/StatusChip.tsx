@@ -2,11 +2,11 @@ import React from 'react';
 import { Chip, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-export function StatusChip({ value }: { value: boolean }) {
+export function StatusChip({ value }: { value: string }) {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    if (value)
+    if (value === 'active')
         return (
             <Chip
                 size="small"

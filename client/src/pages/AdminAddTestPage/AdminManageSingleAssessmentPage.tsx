@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
-import { BasicInformationForm } from './BasicInformationForm';
+import { BasicInformationForm } from './BasicInformationForm/BasicInformationForm';
 import { KindergartenPicker } from './KindergartenPicker';
 import { TestInformation } from './TestInformation';
 import { useAssessmentManager, SuccessState, ErrorState } from './useAssessmentManager';
@@ -86,7 +86,10 @@ export function AdminManageSingleAssessmentPage() {
                             <Grid container direction="column" spacing={2}>
                                 <Grid item sm={12}>
                                     {isViewOnly ? (
-                                        <BasicInformationForm assessment={assessemnt} />
+                                        <BasicInformationForm
+                                            assessment={assessemnt}
+                                            onClick={() => console.log('click')}
+                                        />
                                     ) : (
                                         <EditableBasicInformationForm
                                             isDisabled={isViewOnly}

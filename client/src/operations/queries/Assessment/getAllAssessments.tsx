@@ -23,6 +23,7 @@ export const GET_ALL_ASSESSMENTS = gql`
             title
             startDate
             endDate
+            status
             kindergartens {
                 kindergarten {
                     _id
