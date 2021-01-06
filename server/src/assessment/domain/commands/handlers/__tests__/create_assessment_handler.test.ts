@@ -14,6 +14,13 @@ describe('CreateAssessmentHandler', () => {
     title: 'my-title',
     startDate: '2020-10-16',
     endDate: '2020-10-20',
+    status: 'active',
+    firstMeasurementStatus: 'active',
+    lastMeasurementStatus: 'active',
+    firstMeasurementStartDate: '2020-10-16',
+    firstMeasurementEndDate: '2020-10-20',
+    lastMeasurementStartDate: '2020-10-16',
+    lastMeasurementEndDate: '2020-10-20',
     kindergartenIds: ['5f88ea2c6d80f367f66a1692'],
   };
 
@@ -40,6 +47,21 @@ describe('CreateAssessmentHandler', () => {
         expect(createdAssessment.title.value).toEqual('my-title');
         expect(createdAssessment.startDate.value).toEqual('2020-10-16');
         expect(createdAssessment.endDate.value).toEqual('2020-10-20');
+        expect(createdAssessment.status).toEqual('active');
+        expect(createdAssessment.firstMeasurementStatus).toEqual('active');
+        expect(createdAssessment.lastMeasurementStatus).toEqual('active');
+        expect(createdAssessment.firstMeasurementStartDate.value).toEqual(
+          '2020-10-16',
+        );
+        expect(createdAssessment.firstMeasurementEndDate.value).toEqual(
+          '2020-10-20',
+        );
+        expect(createdAssessment.lastMeasurementStartDate.value).toEqual(
+          '2020-10-16',
+        );
+        expect(createdAssessment.lastMeasurementEndDate.value).toEqual(
+          '2020-10-20',
+        );
 
         expect(
           createdAssessment.kindergartens[0].value.kindergartenId,
