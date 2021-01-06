@@ -190,6 +190,13 @@ export interface Assessment {
     title: string;
     startDate: string;
     endDate: string;
+    status: string;
+    firstMeasurementStatus: string;
+    lastMeasurementStatus: string;
+    firstMeasurementStartDate: string;
+    firstMeasurementEndDate: string;
+    lastMeasurementStartDate: string;
+    lastMeasurementEndDate: string;
     kindergartens: {
         instructor: User | null;
         kindergarten: Kindergarten;
