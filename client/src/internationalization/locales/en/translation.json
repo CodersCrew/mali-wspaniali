@@ -521,8 +521,10 @@
             "description": "Please fill in test information",
             "test-name": "Test name",
             "status": "Status",
-            "first-assessment": "First assessment",
-            "last-assessment": "Last assessment",
+            "first-measurement": "First measurement",
+            "last-measurement": "Last measurement",
+            "start-date": "Start date",
+            "end-date": "End date",
             "active": "Active",
             "done": "Done"
         },

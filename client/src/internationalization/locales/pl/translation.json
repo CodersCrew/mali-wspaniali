@@ -523,8 +523,10 @@
             "description": "Uzupełnij podstawowe informacje dotyczące testu przedszkolaka",
             "test-name": "Nazwa testu",
             "status": "Status",
-            "first-assessment": "Próba początkowa",
-            "last-assessment": "Próba końcowa",
+            "first-measurement": "Próba początkowa",
+            "last-measurement": "Próba końcowa",
+            "start-date": "Data rozpoczęcia",
+            "end-date": "Data zakończenia",
             "active": "Aktywny",
             "done": "Zakończony"
         },
