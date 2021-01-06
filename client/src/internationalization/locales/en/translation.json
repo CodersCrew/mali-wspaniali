@@ -519,6 +519,7 @@
         "basic-information-form": {
             "title": "Basic information",
             "description": "Please fill in test information",
+            "measurement-amount": "Measurement amount",
             "test-name": "Test name",
             "status": "Status",
             "first-measurement": "First measurement",
@@ -526,7 +527,8 @@
             "start-date": "Start date",
             "end-date": "End date",
             "active": "Active",
-            "done": "Done"
+            "done": "Done",
+            "see-results": "See results"
         },
         "test-trials": {
             "title": "Test trials information"

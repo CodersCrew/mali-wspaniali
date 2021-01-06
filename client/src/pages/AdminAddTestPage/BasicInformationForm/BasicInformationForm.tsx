@@ -1,61 +1,53 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import { Grid, Typography, List } from '@material-ui/core';
 
-import { LabeledContainer } from '../../../components/LabeledContainer';
 import { AssessmentManagerState } from '../useAssessmentManager';
-import { StatusChip } from '../../AdminAssessmentManagementPage/AssessmentHistoryList/StatusChip';
+import { AssessmentInformationItem } from './AssessmentInformationItem';
+import { CustomContainer } from '../../../components/CustomContainer';
 
 interface Props {
     assessment: AssessmentManagerState;
+    onClick: () => void;
 }
 
-export function BasicInformationForm({ assessment }: Props) {
+export function BasicInformationForm({ assessment, onClick }: Props) {
     const { t } = useTranslation();
-    const classes = useStyles();
 
     return (
-        <LabeledContainer title={t('add-test-view.basic-information-form.title')}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
-                    <Grid container spacing={2} direction="column">
-                        <Grid item>
-                            <Typography variant="subtitle2" className={classes.label}>
-                                {t('add-test-view.basic-information-form.test-name')}
-                            </Typography>
-                            {assessment.title}
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="subtitle2" className={classes.label}>
-                                {t('add-test-view.basic-information-form.status')}
-                            </Typography>
-                            <StatusChip value={!assessment.isOutdated} />
-                        </Grid>
+        <CustomContainer
+            header={<Typography variant="h4">{t('add-test-view.basic-information-form.title')}</Typography>}
+            container={
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <List disablePadding>
+                            <AssessmentInformationItem
+                                label={t('add-test-view.basic-information-form.test-name')}
+                                subheader={assessment.title}
+                                status={assessment.status}
+                                result={67.5}
+                                divider
+                                onClick={onClick}
+                            />
+                            <AssessmentInformationItem
+                                label={t('add-test-view.basic-information-form.first-measurement')}
+                                subheader={`${assessment.firstMeasurementStartDate} - ${assessment.firstMeasurementEndDate}`}
+                                status={assessment.firstMeasurementStatus}
+                                result={95}
+                                divider
+                                onClick={onClick}
+                            />{' '}
+                            <AssessmentInformationItem
+                                label={t('add-test-view.basic-information-form.last-measurement')}
+                                subheader={`${assessment.lastMeasurementStartDate} - ${assessment.lastMeasurementEndDate}`}
+                                status={assessment.lastMeasurementStatus}
+                                result={40}
+                                onClick={onClick}
+                            />
+                        </List>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                    <Grid container spacing={2} direction="column">
-                        <Grid item>
-                            <Typography variant="subtitle2" className={classes.label}>
-                                {t('add-test-view.basic-information-form.first-assessment')}
-                            </Typography>
-                            {assessment.startDate}
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="subtitle2" className={classes.label}>
-                                {t('add-test-view.basic-information-form.last-assessment')}
-                            </Typography>
-                            {assessment.endDate}
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </LabeledContainer>
+            }
+        />
     );
 }
-
-const useStyles = makeStyles({
-    label: {
-        marginBottom: 12,
-    },
-});

@@ -521,6 +521,7 @@
         "basic-information-form": {
             "title": "Podstawowe informacje",
             "description": "Uzupełnij podstawowe informacje dotyczące testu przedszkolaka",
+            "measurement-amount": "Ilość przeprowadzonych prób",
             "test-name": "Nazwa testu",
             "status": "Status",
             "first-measurement": "Próba początkowa",
@@ -528,7 +529,8 @@
             "start-date": "Data rozpoczęcia",
             "end-date": "Data zakończenia",
             "active": "Aktywny",
-            "done": "Zakończony"
+            "done": "Zakończony",
+            "see-results": "Przejdź do tabeli wyników"
         },
         "test-trials": {
             "title": "Próby testu"
