@@ -7,16 +7,7 @@ import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Kindergarten } from '../../../graphql/types';
-import { formatDate } from '../../../utils/formatDate';
 import { GET_ALL_ASSESSMENTS } from '../../../operations/queries/Assessment/getAllAssessments';
-
-const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
-
-const startDate = new Date();
-const endDate = new Date(startDate.getTime() + TWO_MONTHS);
-
-const formatedStartDate = formatDate(startDate);
-const formatedEndDate = formatDate(endDate);
 
 describe('useAddTest', () => {
     let onSubmit: jest.Mock;
@@ -35,8 +26,13 @@ describe('useAddTest', () => {
                 act(() => {
                     result.current.updateAssessment({
                         title: 'my-test',
-                        startDate: formatedStartDate,
-                        endDate: formatedEndDate,
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
+                        firstMeasurementEndDate: '2021-7-3',
+                        firstMeasurementStartDate: '2021-6-1',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementEndDate: '2021-7-3',
+                        lastMeasurementStartDate: '2021-6-1',
                     });
                 });
 
@@ -52,8 +48,8 @@ describe('useAddTest', () => {
                 expect(onSubmit).toHaveBeenCalledWith({
                     assessment: {
                         title: 'my-test',
-                        startDate: formatedStartDate,
-                        endDate: formatedEndDate,
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
                         status: 'active',
                         firstMeasurementEndDate: '2021-7-3',
                         firstMeasurementStartDate: '2021-6-1',
@@ -79,8 +75,8 @@ describe('useAddTest', () => {
                 act(() => {
                     result.current.updateAssessment({
                         title: 'my',
-                        startDate: formatedStartDate,
-                        endDate: formatedEndDate,
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
                         kindergartenIds: [],
                         isOutdated: false,
                     });
@@ -328,22 +324,32 @@ const mocks = [
             variables: {
                 assessment: {
                     title: 'my-test',
-                    startDate: formatedStartDate,
-                    endDate: formatedEndDate,
-                    firstMeasurementStartDate: formatedStartDate,
-                    firstMeasurementEndDate: formatedEndDate,
-                    lastMeasurementStartDate: formatedStartDate,
-                    lastMeasurementEndDate: formatedEndDate,
+                    startDate: '2021-6-1',
+                    endDate: '2021-7-3',
+                    firstMeasurementStartDate: '2021-6-1',
+                    firstMeasurementEndDate: '2021-7-3',
+                    lastMeasurementStartDate: '2021-6-1',
+                    lastMeasurementEndDate: '2021-7-3',
                     kindergartenIds: [],
                 },
             },
         },
-        result: () => {
-            return {
-                data: {
-                    createAssessment: { status: true },
+        result: {
+            data: {
+                createAssessment: {
+                    _id: '1',
+                    isOutdated: false,
+                    isDeleted: false,
+                    title: 'my-test',
+                    startDate: '2021-6-1',
+                    endDate: '2021-7-3',
+                    firstMeasurementStartDate: '2021-6-1',
+                    firstMeasurementEndDate: '2021-7-3',
+                    lastMeasurementStartDate: '2021-6-1',
+                    lastMeasurementEndDate: '2021-7-3',
+                    kindergartens: [],
                 },
-            };
+            },
         },
     },
     {
@@ -369,9 +375,15 @@ const mocks = [
                         isOutdated: false,
                         isDeleted: false,
                         title: 'test-assessment1',
-                        startDate: '2000-01-01',
-                        endDate: '2000-01-31',
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
+                        firstMeasurementEndDate: '2021-7-3',
+                        firstMeasurementStartDate: '2021-6-1',
+                        lastMeasurementEndDate: '2021-7-3',
+                        lastMeasurementStartDate: '2021-6-1',
                         status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
                         kindergartens: [
                             {
                                 kindergarten: {
@@ -431,9 +443,15 @@ const mockedKindergartens = [
                         isOutdated: false,
                         isDeleted: false,
                         title: 'test-assessment1',
-                        startDate: '2000-01-01',
-                        endDate: '2000-01-31',
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
+                        firstMeasurementEndDate: '2021-7-3',
+                        firstMeasurementStartDate: '2021-6-1',
+                        lastMeasurementEndDate: '2021-7-3',
+                        lastMeasurementStartDate: '2021-6-1',
                         status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
                         kindergartens: [
                             {
                                 kindergarten: {
