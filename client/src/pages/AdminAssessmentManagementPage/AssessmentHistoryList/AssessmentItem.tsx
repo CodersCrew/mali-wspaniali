@@ -3,7 +3,7 @@ import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme } from
 import { Edit } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { StatusChip } from './StatusChip';
+import { StatusChip } from '../../../components/StatusChip';
 import { Assessment } from '../../../graphql/types';
 
 interface Props {

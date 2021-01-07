@@ -3,7 +3,7 @@ import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme } fro
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { Assessment } from '../../graphql/types';
-import { StatusChip } from '../AdminAssessmentManagementPage/AssessmentHistoryList/StatusChip';
+import { StatusChip } from '../../components/StatusChip';
 
 interface Props {
     assessment: Assessment;
