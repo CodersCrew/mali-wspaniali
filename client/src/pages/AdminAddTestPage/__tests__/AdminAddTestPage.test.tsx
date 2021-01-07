@@ -315,7 +315,13 @@ const mocks = [
                         title: 'test-assessment1',
                         startDate: '2000-01-01',
                         endDate: '2000-01-31',
+                        firstMeasurementStartDate: '2000-01-01',
+                        firstMeasurementEndDate: '2000-01-31',
+                        lastMeasurementStartDate: '2000-01-01',
+                        lastMeasurementEndDate: '2000-01-31',
                         status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
                         kindergartens: [
                             {
                                 kindergarten: {
@@ -387,7 +393,13 @@ const mockedKindergartens = [
                         title: 'test-assessment1',
                         startDate: '2000-01-01',
                         endDate: '2000-01-31',
+                        firstMeasurementStartDate: '2000-01-01',
+                        firstMeasurementEndDate: '2000-01-31',
+                        lastMeasurementStartDate: '2000-01-01',
+                        lastMeasurementEndDate: '2000-01-31',
                         status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
                         kindergartens: [
                             {
                                 kindergarten: {
