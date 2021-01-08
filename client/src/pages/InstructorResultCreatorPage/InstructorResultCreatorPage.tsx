@@ -17,7 +17,7 @@ interface PageParams {
     measurement: string;
 }
 
-export function InstructorResultCreatorPage() {
+export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
 
     const history = useHistory();

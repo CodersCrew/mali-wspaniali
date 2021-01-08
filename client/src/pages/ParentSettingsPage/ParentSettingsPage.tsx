@@ -4,7 +4,7 @@ import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
 import { useMe } from '../../utils/useMe';
 import { PageContainer } from '../../components/PageContainer';
 
-export function ParentSettingsPage() {
+export default function ParentSettingsPage() {
     const user = useMe();
 
     useEffect(() => {

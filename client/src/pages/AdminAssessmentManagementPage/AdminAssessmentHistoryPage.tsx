@@ -9,7 +9,7 @@ import { useAssessments } from '../../operations/queries/Assessment/getAllAssess
 import { PageContainer } from '../../components/PageContainer';
 import { CustomContainer } from '../../components/CustomContainer';
 
-export function AdminAssessmentHistoryPage() {
+export default function AdminAssessmentHistoryPage() {
     const { t } = useTranslation();
     const history = useHistory();
     const { assessments } = useAssessments();

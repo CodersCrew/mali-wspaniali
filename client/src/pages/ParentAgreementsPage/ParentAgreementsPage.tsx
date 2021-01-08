@@ -3,7 +3,7 @@ import { activePage } from '../../apollo_client';
 import { Agreements } from './Agreements';
 import { useMe } from '../../utils/useMe';
 
-export function ParentAgreementsPage() {
+export default function ParentAgreementsPage() {
     const user = useMe();
 
     useEffect(() => {

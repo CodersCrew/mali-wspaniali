@@ -16,7 +16,7 @@ import { KindergartenList } from './KindergartenList';
 import { openQuestionDialog } from '../../components/QuestionDialog';
 import { PageContainer } from '../../components/PageContainer';
 
-export function AdminManageSingleAssessmentPage() {
+export default function AdminManageSingleAssessmentPage() {
     const { t } = useTranslation();
     const history = useHistory();
     const params = useParams<{ id?: string }>();

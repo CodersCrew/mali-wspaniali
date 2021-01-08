@@ -26,7 +26,7 @@ const initialInstructorModalStatus = {
     assessment: null,
 };
 
-export function AdminInstructorsPage() {
+export default function AdminInstructorsPage() {
     const { t } = useTranslation();
 
     useEffect(() => {

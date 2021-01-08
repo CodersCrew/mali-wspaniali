@@ -16,7 +16,7 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 import { ChildListCompactContainer } from './ChildListCompactContainer';
 import { AssessmentSubheader } from './AssessmentSubheader';
 
-export function InstructorAddResultsPage() {
+export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
     const [selectedAssessment, setSelectedAssessment] = useState('');
     const [selectedKindergarten, setSelectedKindergarten] = useState('');
