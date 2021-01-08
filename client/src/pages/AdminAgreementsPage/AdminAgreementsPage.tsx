@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography, Paper, IconButton, Grid, Divider, Collapse } from '@material-ui/core';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import {
+    Typography,
+    Paper,
+    IconButton,
+    Grid,
+    Divider,
+    Collapse,
+    makeStyles,
+    Theme,
+    createStyles,
+} from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import { KindergartenWithUsers } from '../../graphql/types';

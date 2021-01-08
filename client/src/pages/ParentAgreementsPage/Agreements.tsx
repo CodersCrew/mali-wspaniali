@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
 import {
     Box,
     Card,
     createStyles,
+    makeStyles,
     Theme,
     Typography,
     List,
