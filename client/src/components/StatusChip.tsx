@@ -6,7 +6,7 @@ export function StatusChip({ value }: { value: string }) {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    if (value === 'active')
+    if (value === 'active') {
         return (
             <Chip
                 size="small"
@@ -14,8 +14,13 @@ export function StatusChip({ value }: { value: string }) {
                 classes={{ root: classes.successLabel }}
             />
         );
+    }
 
-    return <Chip size="small" label={t('manage-test-view.test-list.done')} classes={{ root: classes.doneLabel }} />;
+    if (value === 'done') {
+        return <Chip size="small" label={t('manage-test-view.test-list.done')} classes={{ root: classes.doneLabel }} />;
+    }
+
+    return <Chip size="small" label={t(`manage-test-view.test-list.${value}`)} classes={{ root: classes.doneLabel }} />;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
