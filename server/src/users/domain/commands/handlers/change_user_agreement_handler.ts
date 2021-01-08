@@ -31,7 +31,14 @@ export class ChangeUserAgreementHandler
         await this.userRepository.addAgreement(userId, agreementId);
       }
 
-      return foundAgreement;
+      const updatedUser = await this.userRepository.get(userId);
+
+      return {
+        ...foundAgreement,
+        isSigned: (updatedUser.agreements as any[])
+          .map(a => a.toString())
+          .includes(agreementId),
+      };
     }
 
     throw new Error('Changing agreement failed.');
