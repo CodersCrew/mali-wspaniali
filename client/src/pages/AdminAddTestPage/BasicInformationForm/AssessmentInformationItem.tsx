@@ -10,10 +10,11 @@ interface Props {
     status: string;
     result: number;
     divider?: boolean;
+    disabled?: boolean;
     onClick: () => void;
 }
 
-export function AssessmentInformationItem({ label, result, status, subheader, divider }: Props) {
+export function AssessmentInformationItem({ label, result, status, subheader, disabled, divider }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -42,12 +43,12 @@ export function AssessmentInformationItem({ label, result, status, subheader, di
                         </Grid>
                         <Grid item>
                             <div className={classes.progressBarContainer}>
-                                <ProgressBar value={result} />
+                                <ProgressBar disabled={disabled} value={result} />
                             </div>
                         </Grid>
                         <Grid item>
                             <div className={classes.linkContainer}>
-                                <Link>{t('add-test-view.basic-information-form.see-results')}</Link>
+                                {!disabled && <Link>{t('add-test-view.basic-information-form.see-results')}</Link>}
                             </div>
                         </Grid>
                     </Grid>

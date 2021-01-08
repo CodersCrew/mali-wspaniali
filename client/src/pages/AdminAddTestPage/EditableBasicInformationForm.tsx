@@ -38,6 +38,9 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                     <Grid item xs={12}>
                         <SelectList
                             items={[
+                                <MenuItem key="done" value="planned">
+                                    {t('add-test-view.basic-information-form.planned')}
+                                </MenuItem>,
                                 <MenuItem key="active" value="active">
                                     {t('add-test-view.basic-information-form.active')}
                                 </MenuItem>,
@@ -79,6 +82,12 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                             <Grid item xs={12}>
                                 <SelectList
                                     items={[
+                                        <MenuItem key="active" value="not-planned">
+                                            {t('add-test-view.basic-information-form.not-planned')}
+                                        </MenuItem>,
+                                        <MenuItem key="done" value="planned">
+                                            {t('add-test-view.basic-information-form.planned')}
+                                        </MenuItem>,
                                         <MenuItem key="active" value="active">
                                             {t('add-test-view.basic-information-form.active')}
                                         </MenuItem>,
@@ -118,6 +127,12 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                             <Grid item xs={12}>
                                 <SelectList
                                     items={[
+                                        <MenuItem key="active" value="not-planned">
+                                            {t('add-test-view.basic-information-form.not-planned')}
+                                        </MenuItem>,
+                                        <MenuItem key="done" value="planned">
+                                            {t('add-test-view.basic-information-form.planned')}
+                                        </MenuItem>,
                                         <MenuItem key="active" value="active">
                                             {t('add-test-view.basic-information-form.active')}
                                         </MenuItem>,

@@ -510,6 +510,8 @@
             "status": "Status",
             "active": "Active",
             "done": "Done",
+            "planned": "Planned",
+            "not-planned": "Not planned",
             "details": "See details",
             "delete": "Delete",
             "edit": "Edit"
@@ -528,6 +530,8 @@
             "end-date": "End date",
             "active": "Active",
             "done": "Done",
+            "planned": "Planned",
+            "not-planned": "Not planned",
             "see-results": "See results"
         },
         "test-trials": {
