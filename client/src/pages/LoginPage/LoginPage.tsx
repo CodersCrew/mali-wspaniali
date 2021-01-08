@@ -11,7 +11,7 @@ const initialError: Error = {
     message: '',
 };
 
-export const LoginPage = () => {
+export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(initialError);
@@ -79,7 +79,7 @@ export const LoginPage = () => {
             </form>
         </div>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

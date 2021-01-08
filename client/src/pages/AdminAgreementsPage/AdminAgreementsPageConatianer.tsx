@@ -25,7 +25,7 @@ import { agreementSortStatusVar } from '../../apollo_client';
 import { AgreementSortStatus } from '../../models/AgreementSortStatus';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
-export function AdminAgreementsPageContainer() {
+export default function AdminAgreementsPageContainer() {
     const { kindergartenList, isKindergartenListLoading } = useKindergartens();
 
     const [getSpecificKindergartens, { data: kindergartens, loading: isKindergartenLoading }] = useLazyQuery<{

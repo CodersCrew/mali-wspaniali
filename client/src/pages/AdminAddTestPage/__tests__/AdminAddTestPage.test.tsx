@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import { MockedResponse } from '@apollo/client/testing';
 
-import { AdminManageSingleAssessmentPage } from '../AdminManageSingleAssessmentPage';
+import AdminManageSingleAssessmentPage from '../AdminManageSingleAssessmentPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
 import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/createAssessment';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
