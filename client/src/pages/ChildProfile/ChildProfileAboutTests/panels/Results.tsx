@@ -1,8 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Typography, Box } from '@material-ui/core';
 import { Panel } from '../Panel';
 import { CircleChart } from '../../../../components/CircleChart';
 import { panelTextColor, white, resultColors } from '../../../../colors';
