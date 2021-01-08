@@ -54,6 +54,13 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
             title
             startDate
             endDate
+            firstMeasurementStartDate
+            firstMeasurementEndDate
+            lastMeasurementStartDate
+            lastMeasurementEndDate
+            status
+            firstMeasurementStatus
+            lastMeasurementStatus
             kindergartens {
                 kindergarten {
                     _id

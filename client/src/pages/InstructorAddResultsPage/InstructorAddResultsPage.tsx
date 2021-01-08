@@ -114,7 +114,13 @@ export function InstructorAddResultsPage() {
                             />
                         }
                         subheader={<AssessmentSubheader assessment={currentAssessment} />}
-                        container={<ChildListContainer childList={filtredChildList} onClick={onChildClicked} />}
+                        container={
+                            <ChildListContainer
+                                assessment={currentAssessment}
+                                childList={filtredChildList}
+                                onClick={onChildClicked}
+                            />
+                        }
                     />
                     {currentChildren[0] && (
                         <SecondaryFab

@@ -35,6 +35,7 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
                                 status={assessment.firstMeasurementStatus}
                                 result={95}
                                 divider
+                                disabled={isFirstMeasurementDisabled()}
                                 onClick={onClick}
                             />{' '}
                             <AssessmentInformationItem
@@ -42,6 +43,7 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
                                 subheader={`${assessment.lastMeasurementStartDate} - ${assessment.lastMeasurementEndDate}`}
                                 status={assessment.lastMeasurementStatus}
                                 result={40}
+                                disabled={isLastMeasurementDisabled()}
                                 onClick={onClick}
                             />
                         </List>
@@ -50,4 +52,12 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
             }
         />
     );
+
+    function isFirstMeasurementDisabled() {
+        return ['planned', 'not-planned'].includes(assessment.firstMeasurementStatus);
+    }
+
+    function isLastMeasurementDisabled() {
+        return ['planned', 'not-planned'].includes(assessment.lastMeasurementStatus);
+    }
 }
