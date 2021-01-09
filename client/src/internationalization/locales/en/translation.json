@@ -384,6 +384,21 @@
             "file-error": "File error"
         }
     },
+    "parent-settings": {
+        "header": "Delete parent's account",
+        "header-title-1": "Parent's email adress",
+        "header-title-2": "Children",
+        "button-icon-edit-tooltip": "Edit",
+        "button-icon-delete-tooltip": "Delete",
+        "button-icon-change-tooltip": "Change kindergarden",
+        "modal-delete-account": {
+            "first-button": "Cancel",
+            "second-button": "Delete",
+            "first-description": "Are you sure you want to delete the parent",
+            "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
+        },
+        "success-message": "Removed (Anonymized) parent"
+    },
     "single-article": {
         "blog": "blog",
         "length": "length",
@@ -421,7 +436,11 @@
     },
     "admin-menu": {
         "home": "Home",
-        "settings": "Settings",
+        "settings": {
+            "title": "Settings",
+            "parents-settings": "Parent's accounts placings",
+            "change-password": "Change password"
+        },
         "notifications": "Notifications",
         "newsletter": {
             "title": "Newsletter",
@@ -446,7 +465,7 @@
     },
     "instructor-menu": {
         "add-results": "Add results",
-        "notifications": "Notifications", 
+        "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Logout"
     },
@@ -673,9 +692,9 @@
         }
     },
     "add-results-page": {
-        "test-name":"Test name",
+        "test-name": "Test name",
         "kindergarten-name": "Kindergarten",
-        "search-by-child-firstname": "Search by child's first name", 
+        "search-by-child-firstname": "Search by child's first name",
         "firstname": "First name",
         "lastname": "Last name",
         "birth-year": "Birth year",
@@ -704,7 +723,7 @@
             "go-to-articles": "Go to articles"
         },
         "child-list": "Child list",
-        "edit": "Edytuj"  
+        "edit": "Edytuj"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -712,7 +731,7 @@
         "first": "First",
         "last": "Last",
         "no-result": "No result",
-        "received-points":"Received points",
+        "received-points": "Received points",
         "points": "pts",
         "title-first-measurement": "INITIAL TEST EFFICIENCY",
         "title-last-measurement": "FINAL TRIAL EFFICIENCY",

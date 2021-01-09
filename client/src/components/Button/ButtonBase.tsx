@@ -6,7 +6,6 @@ export type CustomButtonProps = ButtonProps & {
     innerText?: string;
     icon?: JSX.Element;
     variant?: string;
-    isColor?: boolean;
 };
 
 export const ButtonBase: FC<CustomButtonProps> = ({ innerText, icon, className, children, ...props }) => {

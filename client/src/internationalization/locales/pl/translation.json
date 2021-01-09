@@ -383,6 +383,22 @@
             "file-error": "Nieprawidłowy format pliku"
         }
     },
+    "parent-settings": {
+        "header": "Usuwanie kont rodziców",
+        "header-title-1": "Adres email rodzica",
+        "header-title-2": "Dzieci",
+        "button-icon-edit-tooltip": "Edytuj",
+        "button-icon-delete-tooltip": "Usuń",
+        "button-icon-change-tooltip": "Zmień przedszkole",
+        "modal-delete-account": {
+            "first-button": "Anuluj",
+            "second-button": "Usuń",
+            "first-description": "Czy na pewno chcesz usunąć rodzica",
+            "second-description": "Spowoduje to anonimizację wyników dziecka: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
+        },
+        "success-message": "Usunięto (Zaanonimozowano) rodzica"
+    },
+
     "single-article": {
         "blog": "blog",
         "length": "długość",
@@ -427,7 +443,11 @@
         "results-list": "Lista wyników",
         "notifications": "Powiadomienia",
         "test-management": "Testy",
-        "settings": "Ustawienia",
+        "settings": {
+            "title": "Ustawienia",
+            "parents-settings": "Usawienie kont rodziców",
+            "change-password": "Zmiana hasła"
+        },
         "logout": "Wyloguj"
     },
     "parent-menu": {
@@ -674,9 +694,9 @@
         }
     },
     "add-results-page": {
-        "test-name":"Nazwa testu",
+        "test-name": "Nazwa testu",
         "kindergarten-name": "Przedszkole",
-        "search-by-child-firstname": "Szukaj po imieniu dziecka", 
+        "search-by-child-firstname": "Szukaj po imieniu dziecka",
         "firstname": "Imie",
         "lastname": "Nazwisko",
         "birth-year": "Rok urodzenia",
@@ -705,7 +725,7 @@
             "go-to-articles": "Przejdź do artykułów"
         },
         "child-list": "Child list",
-        "edit": "Edytuj" 
+        "edit": "Edytuj"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -713,7 +733,7 @@
         "first": "Początkowy",
         "last": "Końcowy",
         "no-result": "Brak wyniku",
-        "received-points":"Otrzymane punkty",
+        "received-points": "Otrzymane punkty",
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
