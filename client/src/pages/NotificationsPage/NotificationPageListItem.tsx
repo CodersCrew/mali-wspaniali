@@ -35,7 +35,7 @@ export const NotificationPageListItem = ({ text, date, id, isRead, onClick }: Pr
                     <Typography variant="caption">{text}</Typography>
                 </span>
             </TableCell>
-            <TableCell classes={{ root: classes.calendarCell }}>
+            <TableCell align="right" classes={{ root: classes.calendarCell }}>
                 <Typography variant="caption">{moment(date).calendar()}</Typography>
             </TableCell>
         </TableRow>
@@ -63,6 +63,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         margin: theme.spacing(0, 1),
     },
     calendarCell: {
-        padding: 8,
+        padding: 16,
     },
 }));

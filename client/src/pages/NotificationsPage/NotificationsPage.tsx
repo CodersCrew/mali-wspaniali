@@ -5,6 +5,7 @@ import { useMe } from '../../utils/useMe';
 import { useReadNotification } from '../../operations/mutations/Notification/readNotification';
 import { PageContainer } from '../../components/PageContainer';
 
+
 export const NotificationsPage = () => {
     const user = useMe();
     const { readNotification } = useReadNotification();
