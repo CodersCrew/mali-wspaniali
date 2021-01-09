@@ -24,7 +24,7 @@ export const BasicModal: FC<Props> = ({
     closeButtonText,
     isCancelButtonVisible,
     isActionButtonSecondary,
-    dialogProps = {},
+    dialogProps,
 }) => {
     const { t } = useTranslation();
 
