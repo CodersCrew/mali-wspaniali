@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Box,
@@ -16,6 +16,7 @@ import {
 
 import { ButtonSecondary } from '../../components/Button';
 import { Agreement } from '../../graphql/types';
+import { useUpdateAgreements } from '../../operations/mutations/Agreements/useUpdateAgreements';
 import { PageContainer } from '../../components/PageContainer';
 
 interface Props {
@@ -24,6 +25,27 @@ interface Props {
 export const Agreements = ({ agreements }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { updateAgreements } = useUpdateAgreements();
+    const [agreementsArray, setAgreementsArray] = useState(agreements);
+    const [agreementIds, setAgreementIds] = useState<string[]>([]);
+
+    function changeAgreement(e: React.ChangeEvent<HTMLInputElement>, id: string) {
+        const agreementIndex = agreementsArray.findIndex((agreement) => agreement._id === id);
+        const newArray = [...agreementsArray];
+
+        newArray[agreementIndex] = { ...newArray[agreementIndex], isSigned: e.target.checked };
+        setAgreementsArray([...newArray]);
+
+        if (agreementIds.includes(id)) {
+            setAgreementIds(agreementIds.filter((agreementId) => agreementId !== id));
+        } else {
+            setAgreementIds([...agreementIds, id]);
+        }
+    }
+
+    const save = () => {
+        agreementIds.forEach((agreementId) => updateAgreements({ agreementId }));
+    };
 
     return (
         <PageContainer>
@@ -34,7 +56,7 @@ export const Agreements = ({ agreements }: Props) => {
                 </Typography>
                 <Box className={classes.agreements}>
                     <List>
-                        <ListItem alignItems="flex-start">
+                        <ListItem alignItems="flex-start" className={classes.listItem}>
                             <ListItemIcon className={classes.listItemIcon}>
                                 <Checkbox checked disabled />
                             </ListItemIcon>
@@ -56,11 +78,15 @@ export const Agreements = ({ agreements }: Props) => {
                                 }
                             />
                         </ListItem>
-                        {agreements.map((agreement) => {
+                        {agreementsArray.map((agreement) => {
                             return (
-                                <ListItem alignItems="flex-start" key={agreement._id}>
+                                <ListItem alignItems="flex-start" key={agreement._id} className={classes.listItem}>
                                     <ListItemIcon className={classes.listItemIcon}>
-                                        <Checkbox checked={agreement.isSigned} color="primary" />
+                                        <Checkbox
+                                            checked={agreement.isSigned}
+                                            color="primary"
+                                            onChange={(e) => changeAgreement(e, agreement._id)}
+                                        />
                                     </ListItemIcon>
                                     <ListItemText
                                         classes={{ primary: classes.primary, secondary: classes.secondary }}
@@ -84,7 +110,7 @@ export const Agreements = ({ agreements }: Props) => {
                         })}
                     </List>
                 </Box>
-                <ButtonSecondary variant="contained" className={classes.button}>
+                <ButtonSecondary variant="contained" className={classes.button} onClick={save}>
                     {t('child-profile.agreements.save')}
                 </ButtonSecondary>
             </Card>
@@ -119,10 +145,12 @@ const useStyles = makeStyles((theme: Theme) =>
         title: {
             marginBottom: theme.spacing(3),
         },
+        listItem: {
+            padding: theme.spacing(1, 0),
+        },
         listItemIcon: {
             position: 'relative',
             top: -10,
-            minWidth: 'unset',
             marginRight: theme.spacing(1),
         },
         primary: {
