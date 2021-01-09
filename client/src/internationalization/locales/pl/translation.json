@@ -387,9 +387,9 @@
         "header": "Usuwanie kont rodziców",
         "header-title-1": "Adres email rodzica",
         "header-title-2": "Dzieci",
-        "buton-icon-edit-tooltip": "Edytuj",
-        "buton-icon-delete-tooltip": "Usuń",
-        "buton-icon-change-tooltip": "Zmień przedszkole",
+        "button-icon-edit-tooltip": "Edytuj",
+        "button-icon-delete-tooltip": "Usuń",
+        "button-icon-change-tooltip": "Zmień przedszkole",
         "modal-delete-account": {
             "first-button": "Anuluj",
             "second-button": "Usuń",

@@ -38,7 +38,7 @@ const AdminSettingsDeleteParent = ({
             </Typography>
             <Typography variant="body1">{t('parent-settings.modal-delete-account.first-description')}</Typography>
             <Typography variant="body1">
-                <strong>{parent.mail} ?</strong>
+                <strong>{parent.mail}</strong> ?
             </Typography>
             <Typography variant="body1" className={classes.mail}>
                 {t('parent-settings.modal-delete-account.second-description')}

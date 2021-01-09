@@ -18,9 +18,9 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
     const { t } = useTranslation();
     const childrenData = parent.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
-    const editIconTooltip = t('parent-settings.buton-icon-edit-tooltip');
-    const changeIconTooltip = t('parent-settings.buton-icon-change-tooltip');
-    const deleteIconTooltip = t('parent-settings.buton-icon-delete-tooltip');
+    const editIconTooltip = t('parent-settings.button-icon-edit-tooltip');
+    const changeIconTooltip = t('parent-settings.button-icon-change-tooltip');
+    const deleteIconTooltip = t('parent-settings.button-icon-delete-tooltip');
 
     return (
         <TableRow>
