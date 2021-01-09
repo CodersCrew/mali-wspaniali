@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
-import { useCreateAssessment } from '../../operations/mutations/Assessment/createAssessment';
+import { CreatedAssessmentInput, useCreateAssessment } from '../../operations/mutations/Assessment/createAssessment';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { formatDate } from '../../utils/formatDate';
 import { useAssessment } from '../../operations/queries/Assessment/getAssessment';
@@ -29,6 +29,13 @@ export interface AssessmentManagerState {
     endDate: string;
     isOutdated: boolean;
     isDeleted: boolean;
+    status: string;
+    firstMeasurementStatus: string;
+    lastMeasurementStatus: string;
+    firstMeasurementStartDate: string;
+    firstMeasurementEndDate: string;
+    lastMeasurementStartDate: string;
+    lastMeasurementEndDate: string;
     kindergartenIds: string[];
 }
 
@@ -38,6 +45,13 @@ const defaultAssessment: AssessmentManagerState = {
     endDate: formatDate(defaultEndDate),
     isOutdated: false,
     isDeleted: false,
+    status: 'active',
+    firstMeasurementStatus: 'active',
+    lastMeasurementStatus: 'active',
+    firstMeasurementStartDate: formatDate(defaultStartDate),
+    firstMeasurementEndDate: formatDate(defaultEndDate),
+    lastMeasurementStartDate: formatDate(defaultStartDate),
+    lastMeasurementEndDate: formatDate(defaultEndDate),
     kindergartenIds: [],
 };
 
@@ -60,6 +74,13 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
             title: assessment.title,
             startDate: assessment.startDate,
             endDate: assessment.endDate,
+            status: assessment.status,
+            firstMeasurementStatus: assessment.firstMeasurementStatus,
+            lastMeasurementStatus: assessment.lastMeasurementStatus,
+            firstMeasurementStartDate: assessment.firstMeasurementStartDate,
+            firstMeasurementEndDate: assessment.firstMeasurementEndDate,
+            lastMeasurementStartDate: assessment.lastMeasurementStartDate,
+            lastMeasurementEndDate: assessment.lastMeasurementEndDate,
             isOutdated: assessment.isOutdated,
             isDeleted: assessment.isDeleted,
             kindergartenIds: assessment.kindergartens.map((k) => k.kindergarten._id),
@@ -115,7 +136,7 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
 
         valid
             .then(() => {
-                createTest(updatedLocalAssessment).then(() => {
+                createTest(mapToCreatedAssessment(updatedLocalAssessment)).then(() => {
                     if (!error) {
                         setReasonForBeingDisabled('add-test-view.errors.test-already-created');
                         onSubmit({ assessment: state, message: t('add-test-view.assessment-created') });
@@ -125,6 +146,19 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
             .catch((e) => {
                 onSubmit({ errors: t(e.message) });
             });
+    }
+
+    function mapToCreatedAssessment(assessmentState: AssessmentManagerState): CreatedAssessmentInput {
+        return {
+            title: assessmentState.title,
+            startDate: assessmentState.startDate,
+            endDate: assessmentState.endDate,
+            firstMeasurementStartDate: assessmentState.firstMeasurementStartDate,
+            firstMeasurementEndDate: assessmentState.firstMeasurementEndDate,
+            lastMeasurementStartDate: assessmentState.lastMeasurementStartDate,
+            lastMeasurementEndDate: assessmentState.lastMeasurementEndDate,
+            kindergartenIds: assessmentState.kindergartenIds,
+        };
     }
 
     function getKindergartenUpdateInput() {

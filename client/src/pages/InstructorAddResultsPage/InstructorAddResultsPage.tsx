@@ -16,7 +16,7 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 import { ChildListCompactContainer } from './ChildListCompactContainer';
 import { AssessmentSubheader } from './AssessmentSubheader';
 
-export function InstructorAddResultsPage() {
+export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
     const [selectedAssessment, setSelectedAssessment] = useState('');
     const [selectedKindergarten, setSelectedKindergarten] = useState('');
@@ -114,7 +114,13 @@ export function InstructorAddResultsPage() {
                             />
                         }
                         subheader={<AssessmentSubheader assessment={currentAssessment} />}
-                        container={<ChildListContainer childList={filtredChildList} onClick={onChildClicked} />}
+                        container={
+                            <ChildListContainer
+                                assessment={currentAssessment}
+                                childList={filtredChildList}
+                                onClick={onChildClicked}
+                            />
+                        }
                     />
                     {currentChildren[0] && (
                         <SecondaryFab

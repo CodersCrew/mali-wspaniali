@@ -15,7 +15,7 @@ import { useUpdateKindergarten } from '../../operations/mutations/Kindergartens/
 import { Kindergarten, AddKindergartenInput } from '../../graphql/types';
 import { PageContainer } from '../../components/PageContainer';
 
-export const TestResultsPage = () => {
+export default function TestResultsPage() {
     const { t } = useTranslation();
 
     const { createKindergarten } = useCreateKindergarten();
@@ -92,4 +92,4 @@ export const TestResultsPage = () => {
             )}
         </PageContainer>
     );
-};
+}

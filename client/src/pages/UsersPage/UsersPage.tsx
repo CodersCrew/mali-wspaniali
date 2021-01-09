@@ -16,7 +16,7 @@ import { NoResults } from './NoResults';
 import { getAllUsers } from '../../graphql/userRepository';
 import { User } from '../../graphql/types';
 
-export const UsersPage = () => {
+export default function UsersPage() {
     const [users, setUsers] = useState<User[]>([]);
     const { t } = useTranslation();
 
@@ -54,4 +54,4 @@ export const UsersPage = () => {
             />
         </Container>
     );
-};
+}

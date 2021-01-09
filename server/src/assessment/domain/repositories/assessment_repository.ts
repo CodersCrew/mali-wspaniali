@@ -62,6 +62,9 @@ export class AssessmentRepository {
   getAllAssignedToInstructor(instructorId: any): Promise<Assessment[]> {
     return this.model
       .find({
+        status: {
+          $ne: 'done',
+        },
         'kindergartens.instructorId': instructorId,
       })
       .lean()

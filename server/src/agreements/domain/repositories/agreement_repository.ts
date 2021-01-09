@@ -15,7 +15,10 @@ export class AgreementRepository {
   ) {}
 
   async get(id: string): Promise<AgreementProps> {
-    return await this.model.findById(id).exec();
+    return await this.model
+      .findById(id)
+      .lean()
+      .exec();
   }
 
   async getAll(): Promise<AgreementProps[]> {

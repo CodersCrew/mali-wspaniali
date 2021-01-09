@@ -16,7 +16,7 @@ import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAware
 
 const ARTICLES_PER_PAGE = 6;
 
-export function ArticleListPage() {
+export default function ArticleListPage() {
     const classes = useStyles();
     const params = useParams<{ category: string }>();
     const history = useHistory();

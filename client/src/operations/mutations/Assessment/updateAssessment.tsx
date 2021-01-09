@@ -25,6 +25,13 @@ export const UPDATE_ASSESSMENT = gql`
             title
             startDate
             endDate
+            status
+            firstMeasurementStatus
+            lastMeasurementStatus
+            firstMeasurementStartDate
+            firstMeasurementEndDate
+            lastMeasurementStartDate
+            lastMeasurementEndDate
             kindergartens {
                 kindergarten {
                     _id
