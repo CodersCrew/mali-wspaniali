@@ -10,7 +10,7 @@ export const AdminSettingsListContainers = () => {
     const { t } = useTranslation();
 
     return (
-        <Table size="small">
+        <Table>
             <TableHead>
                 <TableRow>
                     <TableCell>{t('parent-settings.header-title-1')}</TableCell>

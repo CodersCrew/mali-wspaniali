@@ -9,22 +9,18 @@ import { User } from '../../graphql/types';
 export interface SettingsMessageModalProps {
     preventClose: boolean;
     isCancelButtonVisible: boolean;
-    onClose: () => void;
-    isOpen: boolean;
     parent: User;
 }
 
 const AdminSettingsDeleteParent = ({
     onClose,
     makeDecision,
-    isOpen,
     parent,
     preventClose,
     isCancelButtonVisible,
 }: SettingsMessageModalProps & ActionDialog<{ parent: User }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    console.log('parent', parent);
 
     return (
         <BasicModal
@@ -45,10 +41,10 @@ const AdminSettingsDeleteParent = ({
                     {t('parent-settings.header')}
                 </Typography>
                 <Typography variant="body1">{t('parent-settings.modal-delete-account.first-description')}</Typography>
-                <Typography variant="body1">{parent.mail} ?</Typography>
-                <Typography variant="body1" className={classes.content}>
-                    {t('parent-settings.modal-delete-account.second-description')}
+                <Typography variant="body1" className={classes.mailBoldTypography}>
+                    {parent.mail} ?
                 </Typography>
+                <Typography variant="body1">{t('parent-settings.modal-delete-account.second-description')}</Typography>
             </div>
         </BasicModal>
     );
@@ -57,18 +53,14 @@ const AdminSettingsDeleteParent = ({
 const useStyles = makeStyles((theme: Theme) => ({
     modalContent: {
         width: '25vw',
-
         [theme.breakpoints.down('md')]: {
             width: '100%',
         },
     },
-
     header: { marginBottom: theme.spacing(2) },
-    content: {
-        marginTop: theme.spacing(2),
-    },
+    mailBoldTypography: { fontWeight: theme.typography.fontWeightMedium, marginBottom: theme.spacing(2) },
 }));
 
-export const openAdminSettingsDeleteParent = (props: any) => {
-    return openDialog<any>(AdminSettingsDeleteParent, props);
+export const openAdminSettingsDeleteParent = (props: SettingsMessageModalProps) => {
+    return openDialog<SettingsMessageModalProps>(AdminSettingsDeleteParent, props);
 };

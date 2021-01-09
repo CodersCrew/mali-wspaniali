@@ -24,7 +24,6 @@ export const KindergartenDeleteModal = ({ onClose, onDelete, kindergarten }: Pro
             upperButtonText={t('test-results.delete')}
             isOpen
             onClose={onClose}
-            color="primary"
         >
             <Typography variant="h4" className={classes.title}>
                 {t('delete-kindergarten-modal.title')}

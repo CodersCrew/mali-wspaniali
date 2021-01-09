@@ -4,8 +4,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import ForwardIcon from '@material-ui/icons/Forward';
 import { useTranslation } from 'react-i18next';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
 import { User } from '../../graphql/types';
 
@@ -24,10 +24,11 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
 
     return (
         <TableRow>
-            <TableCell className={classes.parentEmailColumn}>{parent.mail}</TableCell>
+            <TableCell className={classes.parentEmailColumn}>
+                <Typography variant="body1">{parent.mail}</Typography>
+            </TableCell>
             <TableCell className={classes.secondColumn}>
-                <Typography variant="body2">{childrenData}</Typography>
-
+                <Typography variant="body1">{childrenData}</Typography>
                 <div className={classes.actionButtons}>
                     <Tooltip title={editIconTooltip}>
                         <IconButton

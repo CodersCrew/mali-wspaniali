@@ -37,7 +37,6 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
             upperButtonText="Przydziel"
             isOpen
             onClose={onClose}
-            color="primary"
         >
             <div className={classes.container}>
                 <Typography variant="h4" className={classes.title}>

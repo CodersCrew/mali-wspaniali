@@ -33,7 +33,6 @@ export const NewsletterSentModal: React.FC<{
             upperButtonText={t('newsletter.sending-success-modal.back-button')}
             lowerButtonOnClick={handleButtonClick}
             lowerButtonText={t('newsletter.sending-success-modal.next-msg-button')}
-            color="primary"
         >
             <div className={classes.sentModal}>
                 <CheckCircleIcon className={classes.sentModalIcon} />
