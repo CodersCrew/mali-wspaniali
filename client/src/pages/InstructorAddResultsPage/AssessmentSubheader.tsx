@@ -1,9 +1,9 @@
 import React from 'react';
-import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme } from '@material-ui/core';
+import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { Assessment } from '../../graphql/types';
-import { StatusChip } from '../AdminAssessmentManagementPage/AssessmentHistoryList/StatusChip';
+import { StatusChip } from '../../components/StatusChip';
 
 interface Props {
     assessment: Assessment;
@@ -12,6 +12,7 @@ interface Props {
 export function AssessmentSubheader({ assessment }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
+    const currentMeasurement = getMostRecentMeasurement();
 
     return (
         <Grid container>
@@ -23,10 +24,10 @@ export function AssessmentSubheader({ assessment }: Props) {
                     <Grid item>
                         <Grid container spacing={1}>
                             <Grid item>
-                                <Typography variant="h4">{t('add-results-page.first-assessment')}</Typography>
+                                <Typography variant="h4">{currentMeasurement.label}</Typography>
                             </Grid>
                             <Grid item>
-                                <StatusChip value={!assessment.isOutdated} />
+                                <StatusChip value={currentMeasurement.status} />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -34,12 +35,14 @@ export function AssessmentSubheader({ assessment }: Props) {
                         <Grid container spacing={1}>
                             <Grid item>
                                 <Typography variant="body2">
-                                    {assessment.startDate.split('-').join('.')}&nbsp;-&nbsp;
-                                    {assessment.endDate.split('-').join('.')}
+                                    {currentMeasurement.startDate.split('-').join('.')}&nbsp;-&nbsp;
+                                    {currentMeasurement.endDate.split('-').join('.')}
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Typography variant="subtitle2">({moment(assessment.endDate).fromNow()})</Typography>
+                                <Typography variant="subtitle2">
+                                    ({moment(currentMeasurement.endDate).fromNow()})
+                                </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -57,20 +60,45 @@ export function AssessmentSubheader({ assessment }: Props) {
                         <Typography variant="body2">{t('add-results-page.first-assessment-progress')}</Typography>
                     </Grid>
                     <Grid item>
-                        <LinearProgress
-                            variant="determinate"
-                            value={40}
-                            classes={{
-                                root: classes.progressBar,
-                                bar: classes.progressBarDark,
-                                colorPrimary: classes.progressBarLight,
-                            }}
-                        />
+                        <Box display="flex" alignItems="flex-end">
+                            <Box width="85%" mr={2}>
+                                <LinearProgress
+                                    variant="determinate"
+                                    value={40}
+                                    classes={{
+                                        root: classes.progressBar,
+                                        bar: classes.progressBarDark,
+                                        colorPrimary: classes.progressBarLight,
+                                    }}
+                                />
+                            </Box>
+                            <Box>
+                                <Typography variant="h4">40%</Typography>
+                            </Box>
+                        </Box>
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
     );
+
+    function getMostRecentMeasurement() {
+        if (assessment.firstMeasurementStatus === 'active') {
+            return {
+                label: t('add-results-page.first-assessment'),
+                status: assessment.firstMeasurementStatus,
+                startDate: assessment.firstMeasurementStartDate,
+                endDate: assessment.firstMeasurementEndDate,
+            };
+        }
+
+        return {
+            label: t('add-results-page.last-assessment'),
+            status: assessment.lastMeasurementStatus,
+            startDate: assessment.lastMeasurementStartDate,
+            endDate: assessment.lastMeasurementEndDate,
+        };
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

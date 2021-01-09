@@ -175,6 +175,13 @@ type AssessmentDTO {
   title: String!
   startDate: String!
   endDate: String!
+  firstMeasurementStartDate: String!
+  firstMeasurementEndDate: String!
+  lastMeasurementStartDate: String!
+  lastMeasurementEndDate: String!
+  status: String!
+  firstMeasurementStatus: String!
+  lastMeasurementStatus: String!
   kindergartens: [KindergartenWithInstructorDTO!]!
 }
 
@@ -203,7 +210,7 @@ type Mutation {
   login(user: LoginInput!): ReturnedTokenDTO!
   resetPassword(mail: String!): ReturnedStatusDTO!
   changePassword(password: String!, jwt: String!): ReturnedStatusDTO!
-  signAgreement(agreementId: String!): ReturnedStatusDTO!
+  signAgreement(agreementId: String!): AgreementDTO!
   addChild(child: ChildInput!): ChildDTO!
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
   addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
@@ -216,8 +223,8 @@ type Mutation {
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
-  createAssessment(assessment: AssessmentInput!): ReturnedStatusDTO!
-  updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): ReturnedStatusDTO!
+  createAssessment(assessment: AssessmentInput!): AssessmentDTO!
+  updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): AssessmentDTO!
 }
 
 input ArticleInput {
@@ -319,6 +326,10 @@ input AssessmentInput {
   title: String!
   startDate: String!
   endDate: String!
+  firstMeasurementStartDate: String!
+  firstMeasurementEndDate: String!
+  lastMeasurementStartDate: String!
+  lastMeasurementEndDate: String!
   kindergartenIds: [String!]!
 }
 
@@ -326,7 +337,14 @@ input UpdatedAssessmentInput {
   title: String
   startDate: String
   endDate: String
+  firstMeasurementStartDate: String
+  firstMeasurementEndDate: String
+  lastMeasurementStartDate: String
+  lastMeasurementEndDate: String
   kindergartens: [JSONObject!]
   isOutdated: Boolean
   isDeleted: Boolean
+  status: String
+  firstMeasurementStatus: String
+  lastMeasurementStatus: String
 }

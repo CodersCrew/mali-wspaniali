@@ -17,7 +17,7 @@ interface PageParams {
     measurement: string;
 }
 
-export function InstructorResultCreatorPage() {
+export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
 
     const history = useHistory();
@@ -113,7 +113,9 @@ export function InstructorResultCreatorPage() {
                                     child={resultCreator.selectedChild}
                                     values={resultCreator.values}
                                     points={resultCreator.points}
+                                    edited={resultCreator.edited}
                                     onChange={resultCreator.onChange}
+                                    onEditClick={resultCreator.edit}
                                 />
                             </Grid>
                             <Grid item>

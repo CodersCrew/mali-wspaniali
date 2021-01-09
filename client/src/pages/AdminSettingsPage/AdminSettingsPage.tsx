@@ -4,7 +4,7 @@ import { AdminSettingsList } from './AdminSettingsList';
 
 import { PageContainer } from '../../components/PageContainer';
 
-export const AdminSettingsPage = () => {
+export default function AdminSettingsPage() {
     useEffect(() => {
         activePage(['admin-menu.settings.title']);
     }, []);
@@ -14,4 +14,4 @@ export const AdminSettingsPage = () => {
             <AdminSettingsList />
         </PageContainer>
     );
-};
+}

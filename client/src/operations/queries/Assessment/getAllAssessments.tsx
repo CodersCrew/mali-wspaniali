@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Assessment } from '../../../graphql/types';
 
-interface GetAllAssessmentsResponse {
+export interface GetAllAssessmentsResponse {
     assessments: Assessment[];
 }
 
@@ -23,6 +23,9 @@ export const GET_ALL_ASSESSMENTS = gql`
             title
             startDate
             endDate
+            status
+            firstMeasurementStatus
+            lastMeasurementStatus
             kindergartens {
                 kindergarten {
                     _id
@@ -34,6 +37,10 @@ export const GET_ALL_ASSESSMENTS = gql`
                     mail
                 }
             }
+            firstMeasurementStartDate
+            firstMeasurementEndDate
+            lastMeasurementStartDate
+            lastMeasurementEndDate
         }
     }
 `;
@@ -47,6 +54,13 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
             title
             startDate
             endDate
+            firstMeasurementStartDate
+            firstMeasurementEndDate
+            lastMeasurementStartDate
+            lastMeasurementEndDate
+            status
+            firstMeasurementStatus
+            lastMeasurementStatus
             kindergartens {
                 kindergarten {
                     _id

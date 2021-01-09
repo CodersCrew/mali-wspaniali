@@ -13,7 +13,7 @@ import {
 import { AssessmentDTO } from './dto/assessment_dto';
 import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessments_query';
 import { Assessment, AssessmentDto } from './domain/models/assessment_model';
-import { EditAssessmentCommand } from './domain/commands/impl/edit_assessment_command';
+import { UpdateAssessmentCommand } from './domain/commands/impl/update_assessment_command';
 import { AssessmentMapper } from './domain/mappers/assessment_mapper';
 import {
   GetAllAssessmentsAssignedToInstructorQuery,
@@ -26,29 +26,29 @@ import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
 export class AssessmentResolver {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
-  @Mutation(() => ReturnedStatusDTO)
+  @Mutation(() => AssessmentDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createAssessment(
     @Args('assessment') assessment: AssessmentInput,
-  ): Promise<ReturnedStatusDTO> {
-    const created: boolean = await this.commandBus.execute(
+  ): Promise<AssessmentDto> {
+    const created: Assessment = await this.commandBus.execute(
       new CreateAssessmentCommand(assessment),
     );
 
-    return { status: !!created };
+    return AssessmentMapper.toPersist(created);
   }
 
-  @Mutation(() => ReturnedStatusDTO)
+  @Mutation(() => AssessmentDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async updateAssessment(
     @Args('id') id: string,
     @Args('assessment') assessment: UpdatedAssessmentInput,
-  ): Promise<ReturnedStatusDTO> {
-    const updated: boolean = await this.commandBus.execute(
-      new EditAssessmentCommand(id, assessment),
+  ): Promise<AssessmentDto> {
+    const updated: Assessment = await this.commandBus.execute(
+      new UpdateAssessmentCommand(id, assessment),
     );
 
-    return { status: updated };
+    return AssessmentMapper.toPersist(updated);
   }
 
   @Query(() => [AssessmentDTO])

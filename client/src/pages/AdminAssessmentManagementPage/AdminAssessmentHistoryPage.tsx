@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
@@ -8,9 +7,9 @@ import { AssessmentHistoryList } from './AssessmentHistoryList/AssessmentHistory
 import { ButtonSecondary } from '../../components/Button';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { PageContainer } from '../../components/PageContainer';
+import { CustomContainer } from '../../components/CustomContainer';
 
-export function AdminAssessmentHistoryPage() {
-    const classes = useStyles();
+export default function AdminAssessmentHistoryPage() {
     const { t } = useTranslation();
     const history = useHistory();
     const { assessments } = useAssessments();
@@ -33,36 +32,29 @@ export function AdminAssessmentHistoryPage() {
 
     return (
         <PageContainer>
-            <div className={classes.searchContainer}>
-                <ButtonSecondary variant="contained" onClick={redirectToAddAssessmentPage}>
-                    {t('manage-test-view.test-search.create-test')}
-                </ButtonSecondary>
-            </div>
-            <div className={classes.listContainer}>
-                <AssessmentHistoryList
-                    assessments={assessments}
-                    onTestClick={(type, id) => {
-                        if (type === 'edit') {
-                            redirectToEditAssessmentPage(id);
-                        }
+            <CustomContainer
+                header={
+                    <ButtonSecondary variant="contained" onClick={redirectToAddAssessmentPage}>
+                        {t('manage-test-view.test-search.create-test')}
+                    </ButtonSecondary>
+                }
+                container={
+                    <div>
+                        <AssessmentHistoryList
+                            assessments={assessments}
+                            onTestClick={(type, id) => {
+                                if (type === 'edit') {
+                                    redirectToEditAssessmentPage(id);
+                                }
 
-                        if (type === 'details') {
-                            redirectToDetailsAssessmentPage(id);
-                        }
-                    }}
-                />
-            </div>
+                                if (type === 'details') {
+                                    redirectToDetailsAssessmentPage(id);
+                                }
+                            }}
+                        />
+                    </div>
+                }
+            />
         </PageContainer>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        searchContainer: {
-            marginTop: 44,
-        },
-        listContainer: {
-            marginTop: 50,
-        },
-    }),
-);

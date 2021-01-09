@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
-import { BasicInformationForm } from './BasicInformationForm';
+import { BasicInformationForm } from './BasicInformationForm/BasicInformationForm';
 import { KindergartenPicker } from './KindergartenPicker';
 import { TestInformation } from './TestInformation';
 import { useAssessmentManager, SuccessState, ErrorState } from './useAssessmentManager';
@@ -16,7 +16,7 @@ import { KindergartenList } from './KindergartenList';
 import { openQuestionDialog } from '../../components/QuestionDialog';
 import { PageContainer } from '../../components/PageContainer';
 
-export function AdminManageSingleAssessmentPage() {
+export default function AdminManageSingleAssessmentPage() {
     const { t } = useTranslation();
     const history = useHistory();
     const params = useParams<{ id?: string }>();
@@ -26,10 +26,14 @@ export function AdminManageSingleAssessmentPage() {
     const isEditOnly = isState('edit');
     const isViewOnly = isState('details');
 
-    const { submit, kindergartens, reasonForBeingDisabled, assessemnt, updateAssessment } = useAssessmentManager(
-        assessmentId,
-        onAssessmentSubmited,
-    );
+    const {
+        submit,
+        kindergartens,
+        reasonForBeingDisabled,
+        assessemnt,
+        updateAssessment,
+        isLoading,
+    } = useAssessmentManager(assessmentId, onAssessmentSubmited);
 
     function onAssessmentSubmited(result: SuccessState | ErrorState) {
         if ('errors' in result) {
@@ -47,10 +51,10 @@ export function AdminManageSingleAssessmentPage() {
         history.push('/admin/test-management');
     }
 
-    function onPickerClick(value: string[], options?: { selectedAll?: boolean }) {
+    function onPickerClick(value: string[], options: { selectedAll?: boolean } = {}) {
         const kindergartensCopy = [...assessemnt.kindergartenIds];
 
-        if (options?.selectedAll) {
+        if (options.selectedAll) {
             updateAssessment({ kindergartenIds: value });
 
             return;
@@ -82,7 +86,10 @@ export function AdminManageSingleAssessmentPage() {
                             <Grid container direction="column" spacing={2}>
                                 <Grid item sm={12}>
                                     {isViewOnly ? (
-                                        <BasicInformationForm assessment={assessemnt} />
+                                        <BasicInformationForm
+                                            assessment={assessemnt}
+                                            onClick={() => console.log('click')}
+                                        />
                                     ) : (
                                         <EditableBasicInformationForm
                                             isDisabled={isViewOnly}
@@ -146,7 +153,7 @@ export function AdminManageSingleAssessmentPage() {
                                                     : t('add-test-view.create-test')
                                             }
                                             onClick={() => submit()}
-                                            reasonForBeingDisabled={reasonForBeingDisabled}
+                                            reasonForBeingDisabled={reasonForBeingDisabled || (isLoading && 'loading')}
                                         />
                                     </Grid>
                                 )}

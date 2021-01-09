@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { activePage } from '../../apollo_client';
 
-export function CreateArticlePage() {
+export default function CreateArticlePage() {
     useEffect(() => {
         activePage(['admin-menu.create-blog-article']);
     }, []);

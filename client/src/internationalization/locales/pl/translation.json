@@ -532,6 +532,8 @@
             "status": "Status",
             "active": "Aktywny",
             "done": "Zakończony",
+            "planned": "Zaplanowany",
+            "not-planned": "Niezaplanowany",
             "details": "Zobacz szczegóły",
             "delete": "Skasuj",
             "edit": "Edytuj dane"
@@ -541,12 +543,18 @@
         "basic-information-form": {
             "title": "Podstawowe informacje",
             "description": "Uzupełnij podstawowe informacje dotyczące testu przedszkolaka",
+            "measurement-amount": "Ilość przeprowadzonych prób",
             "test-name": "Nazwa testu",
             "status": "Status",
-            "first-assessment": "Próba początkowa",
-            "last-assessment": "Próba końcowa",
+            "first-measurement": "Próba początkowa",
+            "last-measurement": "Próba końcowa",
+            "start-date": "Data rozpoczęcia",
+            "end-date": "Data zakończenia",
             "active": "Aktywny",
-            "done": "Zakończony"
+            "done": "Zakończony",
+            "planned": "Zaplanowany",
+            "not-planned": "Niezaplanowany",
+            "see-results": "Przejdź do tabeli wyników"
         },
         "test-trials": {
             "title": "Próby testu"
@@ -570,7 +578,8 @@
         "errors": {
             "name-too-short": "Nazwa testu jest za krótka",
             "test-already-created": "Test został utworzony",
-            "test-already-updated": "Test został zaktualizowany"
+            "test-already-updated": "Test został zaktualizowany",
+            "test-already-exists": "Test o podanej nazwie już istnieje"
         }
     },
     "add-child-modal": {
@@ -715,7 +724,8 @@
             "description": "Fundacja nie przydzieliła ci jeszcze przedszkola, w którym móglbyś dodać wyniki testu. Usiądź wygodnie i wykorzystaj tę chwilę by zapoznać się z artykułami przygotgotowanymi przez ekspertów od zdrowego żywienia i sprawności fizycznej",
             "go-to-articles": "Przejdź do artykułów"
         },
-        "child-list": "Child list"
+        "child-list": "Child list",
+        "edit": "Edytuj"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",

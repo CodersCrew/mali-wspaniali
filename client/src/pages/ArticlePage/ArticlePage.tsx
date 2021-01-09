@@ -15,7 +15,7 @@ import { TagList } from './TagList';
 import { calculateReadingTime } from '../../utils/calculateReadingTime';
 import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
 
-export const ArticlePage = () => {
+export default function ArticlePage() {
     const { t } = useTranslation();
     const { articleId } = useParams<{ articleId: string }>();
     const { isMobile, isTablet, isDesktop } = useIsDevice();
@@ -83,7 +83,7 @@ export const ArticlePage = () => {
             </Grid>
         </>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

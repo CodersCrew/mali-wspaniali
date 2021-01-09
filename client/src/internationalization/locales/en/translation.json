@@ -529,6 +529,8 @@
             "status": "Status",
             "active": "Active",
             "done": "Done",
+            "planned": "Planned",
+            "not-planned": "Not planned",
             "details": "See details",
             "delete": "Delete",
             "edit": "Edit"
@@ -538,12 +540,18 @@
         "basic-information-form": {
             "title": "Basic information",
             "description": "Please fill in test information",
+            "measurement-amount": "Measurement amount",
             "test-name": "Test name",
             "status": "Status",
-            "first-assessment": "First assessment",
-            "last-assessment": "Last assessment",
+            "first-measurement": "First measurement",
+            "last-measurement": "Last measurement",
+            "start-date": "Start date",
+            "end-date": "End date",
             "active": "Active",
-            "done": "Done"
+            "done": "Done",
+            "planned": "Planned",
+            "not-planned": "Not planned",
+            "see-results": "See results"
         },
         "test-trials": {
             "title": "Test trials information"
@@ -567,7 +575,8 @@
         "errors": {
             "name-too-short": "Test name is too short.",
             "test-already-created": "Test created",
-            "test-already-updated": "Test updated"
+            "test-already-updated": "Test updated",
+            "test-already-exists": "The test with given name already exists"
         }
     },
     "add-child-modal": {
@@ -713,7 +722,8 @@
             "description": "The Foundation has not yet assigned you a kindergarten where you can add your test results. Sit back and use this moment to read the articles prepared by experts in healthy eating and fitness",
             "go-to-articles": "Go to articles"
         },
-        "child-list": "Child list"
+        "child-list": "Child list",
+        "edit": "Edytuj"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",

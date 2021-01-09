@@ -9,7 +9,7 @@ import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
 
-export const NewsletterPage = () => {
+export default function NewsletterPage() {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -110,7 +110,7 @@ export const NewsletterPage = () => {
             </form>
         </div>
     );
-};
+}
 
 const areSpecificRecipientsRequired = (value: SpecificRecipient | '') => value === 'KINDERGARTEN' || value === 'SINGLE';
 
