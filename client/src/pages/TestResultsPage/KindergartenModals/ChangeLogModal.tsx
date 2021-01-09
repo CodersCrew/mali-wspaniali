@@ -13,7 +13,7 @@ export const ChangeLogModal = ({ isOpen, onClose }: Props) => {
     const classes = useStyles();
 
     return (
-        <BasicModal isOpen={isOpen} actionName={t('close')} onAction={onClose}>
+        <BasicModal isOpen={isOpen} actionName={t('close')} onAction={onClose} secondButtonColor="primary">
             <div className={classes.container}>
                 <Typography variant="h4" className={classes.title}>
                     {t('test-results.change-log')}

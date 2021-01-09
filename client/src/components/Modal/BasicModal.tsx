@@ -10,6 +10,7 @@ interface Props {
     onClose?: (e: any) => void;
     closeButtonText?: string;
     isCancelButtonVisible?: boolean;
+    secondButtonColor: 'inherit' | 'primary' | 'secondary' | 'default';
 }
 
 export const BasicModal: FC<Props> = ({
@@ -20,6 +21,7 @@ export const BasicModal: FC<Props> = ({
     children,
     closeButtonText,
     isCancelButtonVisible,
+    secondButtonColor,
 }) => {
     const { t } = useTranslation();
 
@@ -32,7 +34,7 @@ export const BasicModal: FC<Props> = ({
                         {closeButtonText || t('add-child-modal.cancel')}
                     </ButtonPrimary>
                 )}
-                <ButtonPrimary variant="text" onClick={onAction} color="primary">
+                <ButtonPrimary variant="text" onClick={onAction} color={secondButtonColor}>
                     {actionName}
                 </ButtonPrimary>
             </DialogActions>

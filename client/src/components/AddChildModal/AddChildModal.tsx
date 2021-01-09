@@ -73,6 +73,7 @@ export function AddChildModal({
                 }
             }}
             isCancelButtonVisible={isCancelButtonVisible}
+            secondButtonColor="primary"
         >
             <form className={classes.innerContent} onSubmit={formik.handleSubmit}>
                 <Typography variant="h4" classes={{ root: classes.title }}>

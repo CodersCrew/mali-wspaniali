@@ -1,11 +1,11 @@
 import { gql, useQuery } from '@apollo/client';
-import { PrivilegedUser, Me } from '../../../graphql/types';
+import { PrivilegedUser, User } from '../../../graphql/types';
 
 interface UsersListReponse {
     users: PrivilegedUser[];
 }
 interface ParentsListResponse {
-    users: Me[];
+    users: User[];
 }
 
 interface UseInstructorsReturnType {
@@ -19,7 +19,7 @@ interface UseAdminsReturnType {
 }
 
 interface UseParentsReturnType {
-    parents: Me[];
+    parents: User[];
     isParentsListLoading: boolean;
 }
 
@@ -79,13 +79,6 @@ export const PARENTS = gql`
                 date
                 text
                 isSigned
-            }
-            notifications {
-                _id
-                date
-                values
-                templateId
-                isRead
             }
         }
     }

@@ -52,6 +52,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge
                 onClose={() => setIsModalOpen((prev) => !prev)}
                 onAction={() => setIsModalOpen((prev) => !prev)}
                 actionName={t('close')}
+                secondButtonColor="primary"
             >
                 {t(`child-profile.difference.${key}`)}
             </BasicModal>

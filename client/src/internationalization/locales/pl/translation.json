@@ -395,8 +395,10 @@
             "second-button": "Usuń",
             "first-description": "Czy na pewno chcesz usunąć rodzica",
             "second-description": "Spowoduje to anonimizację wyników dziecka: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
-        }
+        },
+        "snackBar-message": "Usunięto (Zaanonimozowano) rodzica"
     },
+
     "single-article": {
         "blog": "blog",
         "length": "długość",

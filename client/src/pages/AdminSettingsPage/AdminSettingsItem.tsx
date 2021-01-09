@@ -1,45 +1,32 @@
-import React, { FC, useState } from 'react';
-import clsx from 'clsx';
+import React from 'react';
 import { TableRow, TableCell, IconButton, makeStyles, Theme, Typography, fade, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import ForwardIcon from '@material-ui/icons/Forward';
 import { useTranslation } from 'react-i18next';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
-import { AdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
-import { Me } from '../../graphql/types';
+import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
+import { User } from '../../graphql/types';
 
 interface AdminSettingsItemProps {
-    values: Me;
+    parent: User;
 }
 
-export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
-    const [isOpen, setStateIsOpen] = useState(false);
-
+export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const childrenData = values?.children.map((child, index) => {
-        const coma = index < values.children.length - 1 ? ',' : '';
-        const childData = `${child.firstname} ${child.lastname}${coma} `;
+    const childrenData = parent.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
-        return childData;
-    });
     const editIconTooltip = t('parent-settings.buton-icon-edti-tooltip');
     const changeIconTooltip = t('parent-settings.buton-icon-change-tooltip');
     const deleteIconTooltip = t('parent-settings.buton-icon-delete-tooltip');
 
     return (
         <TableRow>
-            <AdminSettingsDeleteParent
-                onClose={() => {
-                    setStateIsOpen(false);
-                }}
-                isOpen={isOpen}
-                mail={values.mail}
-            />
-            <TableCell className={clsx(classes.parentEmailColumn, classes.rowText)}>{values.mail}</TableCell>
+            <TableCell className={classes.parentEmailColumn}>{parent.mail}</TableCell>
             <TableCell className={classes.secondColumn}>
-                <Typography className={classes.rowText}>{childrenData}</Typography>
+                <Typography variant="body2">{childrenData}</Typography>
 
                 <div className={classes.actionButtons}>
                     <Tooltip title={editIconTooltip}>
@@ -67,7 +54,16 @@ export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
                             aria-label="delete"
                             className={classes.deleteButton}
                             onClick={() => {
-                                setStateIsOpen(true);
+                                openAdminSettingsDeleteParent({
+                                    preventClose: false,
+                                    isCancelButtonVisible: true,
+                                    parent,
+                                }).then((result) => {
+                                    if (!result.close)
+                                        openSnackbar({
+                                            text: t('parent-settings.snackBar-message', parent.mail),
+                                        });
+                                });
                             }}
                         >
                             <DeleteIcon />
@@ -77,13 +73,9 @@ export const AdminSettingsItem: FC<AdminSettingsItemProps> = ({ values }) => {
             </TableCell>
         </TableRow>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
-    rowText: {
-        fontSize: theme.typography.body2.fontSize,
-        color: theme.palette.text.primary,
-    },
     editButton: {
         '&:hover': {
             color: theme.palette.primary.main,
@@ -101,20 +93,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     secondColumn: {
         display: 'flex',
-        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-
-        [theme.breakpoints.down('sm')]: {
-            '&.MuiTableCell-root': {
-                padding: theme.spacing(2, 0),
-            },
-        },
+        padding: theme.spacing(2, 0),
     },
 
     actionButtons: {
         display: 'flex',
-        flexDirection: 'row',
         justifyItems: 'right',
 
         [theme.breakpoints.down('sm')]: {

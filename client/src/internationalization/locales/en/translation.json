@@ -396,7 +396,8 @@
             "second-button": "Delete",
             "first-description": "Are you sure you want to delete the parent",
             "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
-        }
+        },
+        "snackBar-message": "Removed (Anonymized) parent"
     },
     "single-article": {
         "blog": "blog",

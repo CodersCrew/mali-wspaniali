@@ -2,43 +2,55 @@ import React from 'react';
 import { Typography, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
+import { BasicModal } from '../../components/Modal/BasicModal';
+import { openDialog, ActionDialog } from '../../utils/openDialog';
+import { User } from '../../graphql/types';
 
-interface Props {
+export interface SettingsMessageModalProps {
+    preventClose: boolean;
+    isCancelButtonVisible: boolean;
     onClose: () => void;
     isOpen: boolean;
-    mail: string;
+    parent: User;
 }
 
-export const AdminSettingsDeleteParent = ({ onClose, isOpen, mail }: Props) => {
+const AdminSettingsDeleteParent = ({
+    onClose,
+    makeDecision,
+    isOpen,
+    parent,
+    preventClose,
+    isCancelButtonVisible,
+}: SettingsMessageModalProps & ActionDialog<{ parent: User }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
+    console.log('parent', parent);
 
     return (
-        <TwoActionsModal
-            lowerButtonOnClick={onClose}
-            upperButtonOnClick={() => {
-                console.log('onDelete(mail) to do later');
+        <BasicModal
+            closeButtonText={t('parent-settings.modal-delete-account.first-button')}
+            actionName={t('parent-settings.modal-delete-account.second-button')}
+            isOpen={true}
+            onAction={() => makeDecision({ accepted: true, parent })}
+            onClose={() => {
+                if (!preventClose) {
+                    onClose();
+                }
             }}
-            lowerButtonText={t('parent-settings.modal-delete-account.first-button')}
-            upperButtonText={t('parent-settings.modal-delete-account.second-button')}
-            isOpen={isOpen}
-            onClose={onClose}
-            color="secondary"
+            isCancelButtonVisible={isCancelButtonVisible}
+            secondButtonColor="secondary"
         >
             <div className={classes.modalContent}>
                 <Typography variant="h4" className={classes.header}>
                     {t('parent-settings.header')}
                 </Typography>
                 <Typography variant="body1">{t('parent-settings.modal-delete-account.first-description')}</Typography>
-                <Typography variant="body1" className={classes.email}>
-                    {mail} ?
-                </Typography>
+                <Typography variant="body1">{parent.mail} ?</Typography>
                 <Typography variant="body1" className={classes.content}>
                     {t('parent-settings.modal-delete-account.second-description')}
                 </Typography>
             </div>
-        </TwoActionsModal>
+        </BasicModal>
     );
 };
 
@@ -50,9 +62,13 @@ const useStyles = makeStyles((theme: Theme) => ({
             width: '100%',
         },
     },
-    email: { fontWeight: theme.typography.button.fontWeight },
+
     header: { marginBottom: theme.spacing(2) },
     content: {
         marginTop: theme.spacing(2),
     },
 }));
+
+export const openAdminSettingsDeleteParent = (props: any) => {
+    return openDialog<any>(AdminSettingsDeleteParent, props);
+};

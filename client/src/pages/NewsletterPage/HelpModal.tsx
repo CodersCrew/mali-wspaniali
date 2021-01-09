@@ -13,7 +13,13 @@ export const HelpModal = ({ onClose }: ModalProps) => {
     const { t } = useTranslation();
 
     return (
-        <BasicModal isOpen={true} onClose={onClose} onAction={onClose} actionName={t('close')}>
+        <BasicModal
+            isOpen={true}
+            onClose={onClose}
+            onAction={onClose}
+            actionName={t('close')}
+            secondButtonColor="primary"
+        >
             <div className={classes.modalContent}>
                 <HelpOutlineIcon className={classes.modalIcon} color="primary" />
                 <span className={classes.modalTextBold}>{t('newsletter.help-modal.type')}</span>
