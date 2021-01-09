@@ -32,8 +32,8 @@ export default function LoginPage() {
     };
 
     const handleClick = () => {
-        history.push(`/register`)
-    }
+        history.push(`/register`);
+    };
 
     return (
         <div className={classes.container}>
@@ -82,10 +82,10 @@ export default function LoginPage() {
                 </div>
             </form>
             <div className={classes.registerWrapper}>
-                    <div>{t('login-page.no-account')}</div>
-                    <Link className={classes.registerLink} href="#" onClick={handleClick} underline='always'>
-                        {t('registration-page.register')}
-                    </Link>
+                <div>{t('login-page.no-account')}</div>
+                <Link className={classes.registerLink} href="#" onClick={handleClick} underline="always">
+                    {t('registration-page.register')}
+                </Link>
             </div>
         </div>
     );
