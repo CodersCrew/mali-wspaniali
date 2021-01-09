@@ -76,7 +76,6 @@ function AddNoteDialog({
                     onClick={onAccepted}
                     variant="text"
                     innerText={t('add-results-page.add-note-modal.save')}
-                    color="primary"
                 />
             </DialogActions>
         </Dialog>

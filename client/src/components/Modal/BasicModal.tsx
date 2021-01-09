@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
-import { Dialog, DialogActions, DialogContent } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogProps } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ButtonPrimary } from '../Button';
+
+import { ButtonPrimary, ButtonSecondary, ButtonDefault } from '../Button';
 
 interface Props {
     isOpen: boolean;
@@ -10,7 +11,8 @@ interface Props {
     onClose?: (e: any) => void;
     closeButtonText?: string;
     isCancelButtonVisible?: boolean;
-    secondButtonColor: 'inherit' | 'primary' | 'secondary' | 'default';
+    isActionButtonSecondary?: boolean;
+    dialogProps?: Partial<DialogProps>;
 }
 
 export const BasicModal: FC<Props> = ({
@@ -21,22 +23,25 @@ export const BasicModal: FC<Props> = ({
     children,
     closeButtonText,
     isCancelButtonVisible,
-    secondButtonColor,
+    isActionButtonSecondary,
+    dialogProps = {},
 }) => {
     const { t } = useTranslation();
 
+    const ActionButton = isActionButtonSecondary ? ButtonSecondary : ButtonPrimary;
+
     return (
-        <Dialog maxWidth="md" open={isOpen} onClose={onClose}>
+        <Dialog maxWidth="md" open={isOpen} onClose={onClose} {...dialogProps}>
             <DialogContent>{children}</DialogContent>
             <DialogActions>
                 {isCancelButtonVisible && (
-                    <ButtonPrimary variant="text" onClick={onClose} color="inherit">
+                    <ButtonDefault variant="text" onClick={onClose} color="inherit">
                         {closeButtonText || t('add-child-modal.cancel')}
-                    </ButtonPrimary>
+                    </ButtonDefault>
                 )}
-                <ButtonPrimary variant="text" onClick={onAction} color={secondButtonColor}>
+                <ActionButton variant="text" onClick={onAction}>
                     {actionName}
-                </ButtonPrimary>
+                </ActionButton>
             </DialogActions>
         </Dialog>
     );

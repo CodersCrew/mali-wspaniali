@@ -70,7 +70,6 @@ export const TestSummary = ({ result }: Props) => {
                 onClose={() => setIsModalOpen((prev) => !prev)}
                 onAction={() => setIsModalOpen((prev) => !prev)}
                 actionName={t('close')}
-                secondButtonColor="primary"
             >
                 {t(`child-profile.result-description.${key}`)}
             </BasicModal>

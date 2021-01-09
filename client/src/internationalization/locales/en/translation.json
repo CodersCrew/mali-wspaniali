@@ -388,7 +388,7 @@
         "header": "Delete parent's account",
         "header-title-1": "Parent's email adress",
         "header-title-2": "Children",
-        "buton-icon-edti-tooltip": "Edit",
+        "buton-icon-edit-tooltip": "Edit",
         "buton-icon-delete-tooltip": "Delete",
         "buton-icon-change-tooltip": "Change kindergarden",
         "modal-delete-account": {
@@ -397,7 +397,7 @@
             "first-description": "Are you sure you want to delete the parent",
             "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
         },
-        "snackBar-message": "Removed (Anonymized) parent"
+        "success-message": "Removed (Anonymized) parent"
     },
     "single-article": {
         "blog": "blog",

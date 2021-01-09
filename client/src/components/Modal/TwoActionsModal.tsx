@@ -32,12 +32,7 @@ export const TwoActionsModal: FC<Props> = ({
                         <ButtonDefault className={classes.button} variant="text" onClick={lowerButtonOnClick}>
                             {lowerButtonText}
                         </ButtonDefault>
-                        <ButtonPrimary
-                            className={classes.button}
-                            variant="text"
-                            onClick={upperButtonOnClick}
-                            color="primary"
-                        >
+                        <ButtonPrimary className={classes.button} variant="text" onClick={upperButtonOnClick}>
                             {upperButtonText}
                         </ButtonPrimary>
                     </div>

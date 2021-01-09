@@ -16,7 +16,7 @@ export const AdviceModal = ({ content, onClose }: Props) => {
             <DialogTitle>{t('child-profile.advice')}</DialogTitle>
             <DialogContent>{content}</DialogContent>
             <DialogActions>
-                <ButtonPrimary variant="text" onClick={onClose} innerText={t('close')} color="primary" />
+                <ButtonPrimary variant="text" onClick={onClose} innerText={t('close')} />
             </DialogActions>
         </>
     );

@@ -60,7 +60,6 @@ const SettingsMessageModal = ({
     return (
         <BasicModal
             isOpen={true}
-            secondButtonColor="primary"
             actionName={t('settings-modal.button')}
             onAction={formik.handleSubmit}
             onClose={() => {

@@ -18,7 +18,7 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
     const { t } = useTranslation();
     const childrenData = parent.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
-    const editIconTooltip = t('parent-settings.buton-icon-edti-tooltip');
+    const editIconTooltip = t('parent-settings.buton-icon-edit-tooltip');
     const changeIconTooltip = t('parent-settings.buton-icon-change-tooltip');
     const deleteIconTooltip = t('parent-settings.buton-icon-delete-tooltip');
 
@@ -62,7 +62,7 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
                                 }).then((result) => {
                                     if (!result.close)
                                         openSnackbar({
-                                            text: t('parent-settings.snackBar-message', parent.mail),
+                                            text: t('parent-settings.success-message', parent.mail),
                                         });
                                 });
                             }}

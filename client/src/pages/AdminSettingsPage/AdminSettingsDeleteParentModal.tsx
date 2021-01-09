@@ -28,37 +28,28 @@ const AdminSettingsDeleteParent = ({
             actionName={t('parent-settings.modal-delete-account.second-button')}
             isOpen={true}
             onAction={() => makeDecision({ accepted: true, parent })}
-            onClose={() => {
-                if (!preventClose) {
-                    onClose();
-                }
-            }}
+            onClose={onClose}
             isCancelButtonVisible={isCancelButtonVisible}
-            secondButtonColor="secondary"
+            isActionButtonSecondary
+            dialogProps={{ maxWidth: 'xs' }}
         >
-            <div className={classes.modalContent}>
-                <Typography variant="h4" className={classes.header}>
-                    {t('parent-settings.header')}
-                </Typography>
-                <Typography variant="body1">{t('parent-settings.modal-delete-account.first-description')}</Typography>
-                <Typography variant="body1" className={classes.mailBoldTypography}>
-                    {parent.mail} ?
-                </Typography>
-                <Typography variant="body1">{t('parent-settings.modal-delete-account.second-description')}</Typography>
-            </div>
+            <Typography variant="h4" className={classes.header}>
+                {t('parent-settings.header')}
+            </Typography>
+            <Typography variant="body1">{t('parent-settings.modal-delete-account.first-description')}</Typography>
+            <Typography variant="body1">
+                <strong>{parent.mail} ?</strong>
+            </Typography>
+            <Typography variant="body1" className={classes.mail}>
+                {t('parent-settings.modal-delete-account.second-description')}
+            </Typography>
         </BasicModal>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-    modalContent: {
-        width: '25vw',
-        [theme.breakpoints.down('md')]: {
-            width: '100%',
-        },
-    },
     header: { marginBottom: theme.spacing(2) },
-    mailBoldTypography: { fontWeight: theme.typography.fontWeightMedium, marginBottom: theme.spacing(2) },
+    mail: { marginTop: theme.spacing(2) },
 }));
 
 export const openAdminSettingsDeleteParent = (props: SettingsMessageModalProps) => {
