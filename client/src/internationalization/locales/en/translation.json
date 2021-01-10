@@ -740,6 +740,8 @@
         "strength": "STRENGTH",
         "dexterity": "DEXTERITY",
         "power": "POWER",
-        "velocity": "VELOCITY"
+        "velocity": "VELOCITY",
+        "back-to-results": "Back to results",
+        "select-child": "Select a child"
     }
 }

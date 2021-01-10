@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { theme } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
+import { useIsDevice } from '../../../queries/useBreakpoints';
 
 interface Props {
     name: string;
@@ -48,6 +49,7 @@ export function MeasurementPoint({
 }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
+    const device = useIsDevice();
 
     const marks = [
         {
@@ -71,7 +73,7 @@ export function MeasurementPoint({
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
-                <Grid container spacing={1}>
+                <Grid container spacing={1} justify={device.isSmallMobile ? 'space-between' : 'flex-start'}>
                     <Grid item className={classes.editMeasurementButton}>
                         <Typography variant="subtitle1">{name}</Typography>
                     </Grid>
@@ -87,7 +89,7 @@ export function MeasurementPoint({
             </Grid>
             <Grid item>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={9} sm={6}>
                         <Slider
                             disabled={!disabled}
                             aria-labelledby="discrete-slider-restrict"
@@ -107,7 +109,7 @@ export function MeasurementPoint({
                             }}
                         />
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={3} sm={2}>
                         <Input
                             disabled={!disabled}
                             value={value}
@@ -124,17 +126,19 @@ export function MeasurementPoint({
                         />
                         {unit}
                     </Grid>
-                    <Grid item xs={4} className={classes.pieContainer}>
+                    <Grid item xs={12} sm={4} className={classes.pieContainer}>
                         <Grid container alignItems="center" spacing={2}>
-                            <Grid item xs={3}>
-                                <CircleChart
-                                    color={(theme.palette!.success as SimplePaletteColorOptions).main}
-                                    maxValue={maxValue}
-                                    value={points}
-                                    disable={isEmpty}
-                                />
-                            </Grid>
-                            <Grid item xs={9}>
+                            {!device.isSmallMobile && (
+                                <Grid item xs={3}>
+                                    <CircleChart
+                                        color={(theme.palette!.success as SimplePaletteColorOptions).main}
+                                        maxValue={maxValue}
+                                        value={points}
+                                        disable={isEmpty}
+                                    />
+                                </Grid>
+                            )}
+                            <Grid item xs={device.isSmallMobile ? 12 : 9}>
                                 <Typography variant="body2">
                                     {t('add-result-page.received-points')}{' '}
                                     <strong className={classes.points}>
@@ -170,7 +174,6 @@ const useStyles = makeStyles((_theme: Theme) =>
             color: _theme.palette.success.main,
         },
         input: {
-            width: 55,
             fontSize: 20,
         },
         mark: {

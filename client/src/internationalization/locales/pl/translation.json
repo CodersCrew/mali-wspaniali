@@ -742,6 +742,8 @@
         "strength": "SIŁA",
         "dexterity": "ZRĘCZNOŚĆ",
         "power": "MOC",
-        "velocity": "SZYBKOŚĆ"
+        "velocity": "SZYBKOŚĆ",
+        "back-to-results": "Back to results",
+        "select-child": "Select a child"
     }
 }
