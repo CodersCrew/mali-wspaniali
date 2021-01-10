@@ -6,18 +6,20 @@
         "go-to-parent-children-page": "Moje dzieci"
     },
     "login-page": {
-        "login": "Zaloguj się",
+        "login": "Zaloguj",
         "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany",
         "login-header": "Logowanie",
-        "e-mail-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
-        "forgot-password": "Zapomniałeś hasła?",
+        "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail podanego fundacji lub użytego do rejestracji.",
+        "forgot-password": "Nie pamiętasz hasła?",
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
         "login-wrong-password": "Podane hasło jest nieprawidłowe",
-        "no-account": "Nie masz jeszcze konta?"
+        "no-account": "Pierwszy raz na platformie Mali Wspaniali?"
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
-        "subheading": "Dołącz do społeczności świadomych rodziców"
+        "subheading": "Dołącz do społeczności świadomych rodziców",
+        "made-by": "Stworzone przez:",
+        "partners": "Partnerzy strategiczni:"
     },
     "registration-page": {
         "already-have-account": "Masz już konto?",

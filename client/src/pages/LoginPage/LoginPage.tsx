@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, makeStyles, createStyles, Link } from '@material-ui/core/';
+import { TextField, makeStyles, createStyles, Link, Typography } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
@@ -34,7 +34,10 @@ export default function LoginPage() {
     return (
         <div className={classes.container}>
             <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
+                <Typography variant="h3" className={classes.loginHeader}>
+                    {t('login-page.login-header')}
+                </Typography>
+                {/* <div className={classes.loginHeader}>{t('login-page.login-header')}</div> */}
                 <TextField
                     required
                     onChange={({ target: { value } }) => setEmail(value)}
@@ -78,10 +81,12 @@ export default function LoginPage() {
                 </div>
             </form>
             <div className={classes.registerWrapper}>
-                <div>{t('login-page.no-account')}</div>
-                <Link className={classes.registerLink} href="/register" underline="always">
-                    {t('registration-page.register')}
-                </Link>
+                <div>{t('login-page.no-account')} </div>
+                <div>
+                    <Link className={classes.registerLink} href="/register" underline="always">
+                        {t('registration-page.register')}
+                    </Link>
+                </div>
             </div>
         </div>
     );
@@ -115,12 +120,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
         },
         loginHeader: {
-            textAlign: 'center',
-            fontFamily: 'Montserrat',
-            fontSize: '21px',
-            fontWeight: 'bold',
-            marginBottom: '25px',
-            textTransform: 'uppercase',
+            marginBottom: theme.spacing(3),
 
             [theme.breakpoints.down('sm')]: {
                 marginTop: '40px',
@@ -140,7 +140,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         registerWrapper: {
             display: 'flex',
-            alignItems: 'flex-end',
+            flexDirection: 'column',
+            alignItems: 'center',
             justifyContent: 'center',
         },
         registerLink: {
