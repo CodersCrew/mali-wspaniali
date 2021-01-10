@@ -1,10 +1,13 @@
-import React from 'react';
-import { List, Typography, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
+import React, { useState } from 'react';
+import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Child, Kindergarten } from '../../../graphql/types';
 import { ChildItem } from './ChildItem';
 import { SelectList } from '../../../components/SelectList';
+import { SearchChildField } from '../../../components/SearchChildField';
+import { useIsDevice } from '../../../queries/useBreakpoints';
 
 interface Props {
     childList: Child[];
@@ -27,13 +30,24 @@ export function ChildPicker({
 }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
+    const [isSearchFieldOpen, setIsSearchFieldOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const device = useIsDevice();
 
     return (
         <CustomContainer
             header={header}
             container={
                 <div>
-                    <Grid container className={classes.displayOptions} spacing={2} direction="column">
+                    <Grid
+                        container
+                        className={clsx({
+                            [classes.displayOptions]: true,
+                            [classes.smallDisplayOptions]: device.isSmallMobile,
+                        })}
+                        spacing={2}
+                        direction="column"
+                    >
                         <Grid item>
                             <SelectList
                                 value={selectedKindergarten}
@@ -61,20 +75,26 @@ export function ChildPicker({
                                 onSelect={(value) => onClick('measurement', value)}
                             />
                         </Grid>
+                        <Grid item>
+                            <SearchChildField
+                                isCompact={device.isSmallMobile}
+                                isOpen={isSearchFieldOpen}
+                                onClick={() => setIsSearchFieldOpen((prev) => !prev)}
+                                onChange={(value) => setSearchTerm(value)}
+                                searchTerm={searchTerm}
+                            />
+                        </Grid>
                     </Grid>
                     <div>
-                        <div className={classes.listHeader}>
-                            <Typography variant="subtitle1">{t(`add-result-page.child-list`)}</Typography>
-                        </div>
-                        <List>
+                        <List disablePadding>
                             <Divider />
-                            {childList.map((c) => {
+                            {getFilteredChildrenByName().map((c) => {
                                 return (
                                     <ChildItem
                                         key={c._id}
                                         child={c}
                                         selected={c._id === selected}
-                                        onClick={(value) => onClick('child', c._id)}
+                                        onClick={() => onClick('child', c._id)}
                                     />
                                 );
                             })}
@@ -82,14 +102,22 @@ export function ChildPicker({
                     </div>
                 </div>
             }
+            disableShadow={device.isSmallMobile}
         />
     );
+
+    function getFilteredChildrenByName() {
+        return childList.filter((c) => c.firstname.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         displayOptions: {
             padding: theme.spacing(2),
+        },
+        smallDisplayOptions: {
+            paddingBottom: 0,
         },
         listHeader: {
             paddingLeft: theme.spacing(2),
