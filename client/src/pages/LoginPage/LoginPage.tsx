@@ -31,10 +31,6 @@ export default function LoginPage() {
         authorizeMe(email, password);
     };
 
-    const handleClick = () => {
-        history.push(`/register`);
-    };
-
     return (
         <div className={classes.container}>
             <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
@@ -83,7 +79,7 @@ export default function LoginPage() {
             </form>
             <div className={classes.registerWrapper}>
                 <div>{t('login-page.no-account')}</div>
-                <Link className={classes.registerLink} href="#" onClick={handleClick} underline="always">
+                <Link className={classes.registerLink} href="/register" underline="always">
                     {t('registration-page.register')}
                 </Link>
             </div>
