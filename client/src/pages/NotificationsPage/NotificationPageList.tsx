@@ -76,7 +76,7 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
                         );
                     })}
                     {emptyRows > 0 && (
-                        <TableRow style={{ height: 49.5 * emptyRows }}>
+                        <TableRow style={{ height: 47 * emptyRows }}>
                             <TableCell colSpan={6} />
                         </TableRow>
                     )}
@@ -107,7 +107,7 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         content: {
-            paddingLeft: theme.spacing(7),
+            paddingLeft: theme.spacing(6),
         },
     }),
 );

@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         alignItems: 'center',
         padding: 8,
+        paddingLeft: 0,
     },
     visited: {
         color: '#C4C4C4',
@@ -63,6 +64,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         margin: theme.spacing(0, 1),
     },
     calendarCell: {
-        padding: 16,
+        width: 215,
+        padding: 8,
+        paddingRight: 16,
     },
 }));
