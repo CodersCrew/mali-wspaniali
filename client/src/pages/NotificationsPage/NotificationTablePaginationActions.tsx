@@ -3,12 +3,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { useTheme } from '@material-ui/core/styles';
 import React from 'react';
-import {
-    makeStyles,
-    createStyles,
-    Theme,
-} from '@material-ui/core';
-
+import { makeStyles, createStyles, Theme } from '@material-ui/core';
 
 interface Props {
     count: number;
@@ -17,9 +12,7 @@ interface Props {
     onChangePage: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
 }
 
-
-
-export const TablePaginationActions = ({count, page, rowsPerPage, onChangePage}: Props) => {
+export const TablePaginationActions = ({ count, page, rowsPerPage, onChangePage }: Props) => {
     const theme = useTheme();
     const classes = useStyles();
 
@@ -45,7 +38,7 @@ export const TablePaginationActions = ({count, page, rowsPerPage, onChangePage}:
             </IconButton>
         </div>
     );
-}
+};
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

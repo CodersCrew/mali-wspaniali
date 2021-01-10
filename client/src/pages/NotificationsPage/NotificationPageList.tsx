@@ -18,8 +18,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { NotificationPageListItem } from './NotificationPageListItem';
 import { Notification } from '../../graphql/types';
 import { useNotificationContent } from './useNotificationContent';
-import { TablePaginationActions} from './NotificationTablePaginationActions';
-
+import { TablePaginationActions } from './NotificationTablePaginationActions';
 
 interface Props {
     notifications: Notification[];
