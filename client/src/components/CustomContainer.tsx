@@ -1,17 +1,19 @@
 import React, { ReactNode } from 'react';
 import { createStyles, Divider, makeStyles, Paper, Theme } from '@material-ui/core';
+import clsx from 'clsx';
 
 interface Props {
     header: ReactNode;
     container: ReactNode;
     subheader?: ReactNode;
+    disableShadow?: boolean;
 }
 
-export function CustomContainer({ header, subheader, container }: Props) {
+export function CustomContainer({ header, subheader, disableShadow, container }: Props) {
     const classes = useStyles();
 
     return (
-        <Paper classes={{ root: classes.container }}>
+        <Paper classes={{ root: clsx({ [classes.container]: true, [classes.disabledShadow]: disableShadow }) }}>
             <div className={classes.titleContainer}>{header}</div>
             <Divider />
             {subheader && (
@@ -29,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             height: '100%',
+        },
+        disabledShadow: {
+            boxShadow: 'unset',
         },
         titleContainer: {
             padding: theme.spacing(2),

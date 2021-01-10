@@ -29,7 +29,7 @@ export function ChildPickerDrawer(props: Props) {
                 onOpen={() => setIsDrawerOpen(true)}
                 disableBackdropTransition={true}
                 disableDiscovery={true}
-                classes={{ root: classes.drawer }}
+                classes={{ root: classes.drawer, paper: classes.paper }}
             >
                 <ChildPicker
                     header={
@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         drawer: {
             zIndex: '2000 !important' as any,
+        },
+        paper: {
+            width: '90%',
         },
         header: {
             display: 'flex',
