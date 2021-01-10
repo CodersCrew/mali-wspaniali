@@ -11,17 +11,26 @@ interface Props {
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
     measurement: string;
+    header: React.ReactNode;
     onClick: (type: string, value: string) => void;
     selected?: string;
 }
 
-export function ChildPicker({ childList, kindergartens, selectedKindergarten, selected, measurement, onClick }: Props) {
+export function ChildPicker({
+    childList,
+    kindergartens,
+    selectedKindergarten,
+    selected,
+    measurement,
+    header,
+    onClick,
+}: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <CustomContainer
-            header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
+            header={header}
             container={
                 <div>
                     <Grid container className={classes.displayOptions} spacing={2} direction="column">
