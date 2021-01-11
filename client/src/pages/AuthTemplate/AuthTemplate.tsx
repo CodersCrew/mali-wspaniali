@@ -22,7 +22,7 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                 <div className={classes.partnersContainer}>
                     <div className={classes.maker}>
                         <div className={classes.partnersHeader}>
-                            <Typography variant="subtitle1">Stworzone przez:</Typography>{' '}
+                            <Typography variant="subtitle1">{t('login-wrapper.made-by')}</Typography>{' '}
                         </div>
                         <div className={classes.partnersLogos}>
                             <img src={Maker} alt="maker_logo" className={classes.makerPartnersLogo} />
@@ -30,7 +30,7 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                     </div>
                     <div className={classes.partners}>
                         <div className={classes.partnersHeader}>
-                            <Typography variant="subtitle1">Partnerzy strategiczni:</Typography>{' '}
+                            <Typography variant="subtitle1">{t('login-wrapper.partners')}</Typography>{' '}
                         </div>
                         <div className={classes.partnersLogos}>
                             <Typography variant="subtitle1">Logos</Typography>
@@ -65,13 +65,14 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(3),
             [theme.breakpoints.down('sm')]: {
                 flex: '0',
-                marginTop: '15px',
+                marginTop: 15,
             },
         },
         logoInnerContainer: {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
+            alignItems: 'center',
             height: '100%',
         },
         formContainer: {
@@ -85,8 +86,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         welcomeText: {
-            marginTop: '40px',
-            width: '400px',
+            marginTop: theme.spacing(5),
+            width: 400,
             color: theme.palette.text.primary,
             fontFamily: 'Montserrat',
             fontStyle: 'normal',
@@ -96,16 +97,17 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
 
             [theme.breakpoints.down('sm')]: {
-                margin: '15px 0 30px 0',
-                width: '280px',
+                marginTop: theme.spacing(2),
+                marginBottom: theme.spacing(4),
+                width: 280,
                 fontSize: '21px',
-                lineHeight: '26px',
+                lineHeight: 26,
             },
         },
         subheading: {
-            marginTop: '20px',
+            marginTop: theme.spacing(2.5),
             fontSize: '21px',
-            lineHeight: '26px',
+            lineHeight: 26,
             color: backgroundColor,
 
             [theme.breakpoints.down('sm')]: {
@@ -115,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
         logo: {
             width: '327.04px',
             [theme.breakpoints.down('sm')]: {
-                maxWidth: '200px',
+                maxWidth: 200,
             },
         },
         partnersContainer: {

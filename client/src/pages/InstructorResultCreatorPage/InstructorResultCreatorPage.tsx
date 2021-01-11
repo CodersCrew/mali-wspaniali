@@ -140,7 +140,7 @@ export default function InstructorResultCreatorPage() {
                                         <Grid container justify="flex-end">
                                             <Grid item>
                                                 <ButtonSecondary variant="text">
-                                                    {t(`add-result-page.back-to-table`)}
+                                                    {t('add-result-page.back-to-table')}
                                                 </ButtonSecondary>
                                             </Grid>
                                         </Grid>
@@ -189,7 +189,7 @@ export default function InstructorResultCreatorPage() {
                                 <Grid container justify="flex-end">
                                     <Grid item>
                                         <ButtonSecondary variant="text">
-                                            {t(`add-result-page.back-to-table`)}
+                                            {t('add-result-page.back-to-table')}
                                         </ButtonSecondary>
                                     </Grid>
                                 </Grid>
