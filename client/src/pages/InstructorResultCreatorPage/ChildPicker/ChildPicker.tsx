@@ -30,7 +30,6 @@ export function ChildPicker({
 }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [isSearchFieldOpen, setIsSearchFieldOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const device = useIsDevice();
 
@@ -78,8 +77,6 @@ export function ChildPicker({
                         <Grid item>
                             <SearchChildField
                                 isCompact={device.isSmallMobile}
-                                isOpen={isSearchFieldOpen}
-                                onClick={() => setIsSearchFieldOpen((prev) => !prev)}
                                 onChange={(value) => setSearchTerm(value)}
                                 searchTerm={searchTerm}
                             />

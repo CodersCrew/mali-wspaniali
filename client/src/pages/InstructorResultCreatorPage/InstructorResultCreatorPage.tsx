@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { createStyles, Grid, makeStyles, Divider, Paper, Typography } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Divider, Paper, Typography, Box, MenuItem } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChildPicker } from './ChildPicker/ChildPicker';
@@ -11,6 +11,7 @@ import { PageContainer } from '../../components/PageContainer';
 import { ResultCreatorErrorReturnProps, ResultCreatorReturnProps, useResultCreator } from './useResultCreator';
 import { ChildPickerDrawer } from './ChildPicker/ChildPickerDrawer';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
 
 interface PageParams {
     assessmentId: string;
@@ -140,7 +141,7 @@ export default function InstructorResultCreatorPage() {
                                         <Grid container justify="flex-end">
                                             <Grid item>
                                                 <ButtonSecondary variant="text">
-                                                    {t('add-result-page.back-to-table')}
+                                                    {t(`add-result-page.back-to-table`)}
                                                 </ButtonSecondary>
                                             </Grid>
                                         </Grid>
@@ -188,9 +189,14 @@ export default function InstructorResultCreatorPage() {
                             <Grid item>
                                 <Grid container justify="flex-end">
                                     <Grid item>
-                                        <ButtonSecondary variant="text">
-                                            {t('add-result-page.back-to-table')}
-                                        </ButtonSecondary>
+                                        <Box display="flex">
+                                            <ButtonSecondary>{t(`add-result-page.back-to-table`)}</ButtonSecondary>
+                                            <ActionMenuButtonSecondary
+                                                label="Zapisz i następny"
+                                                onClick={() => console.log('click')}
+                                                options={[<MenuItem key="abc">Zapisz i wróć do Tabeli</MenuItem>]}
+                                            />
+                                        </Box>
                                     </Grid>
                                 </Grid>
                             </Grid>
