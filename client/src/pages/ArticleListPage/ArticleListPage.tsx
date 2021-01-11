@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Grid } from '@material-ui/core';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
 import { useQuery } from '@apollo/client';
 
+import { useTranslation } from 'react-i18next';
 import { categoriesList } from './BlogCategories';
 import { Article, PaginatedArticles } from '../../graphql/types';
 import { Theme } from '../../theme/types';
@@ -14,6 +15,7 @@ import { useBreakpoints } from '../../queries/useBreakpoints';
 import { Pagination } from '../../components/Blog/Pagination';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
 
+
 const ARTICLES_PER_PAGE = 6;
 
 export default function ArticleListPage() {
@@ -21,6 +23,7 @@ export default function ArticleListPage() {
     const params = useParams<{ category: string }>();
     const history = useHistory();
     const device = useBreakpoints();
+    const { t } = useTranslation();
 
     const [currentPage, setCurrentPage] = useState(1);
     const { data, fetchMore } = useQuery<{
@@ -62,7 +65,8 @@ export default function ArticleListPage() {
                 values={categoriesList}
                 device={device}
             />
-            <div className={classes.gridBackground}>
+            {/* <div className={classes.gridBackground}> */}
+            <Typography className={classes.headerText} variant='h3'>{t('blog-main-page.header')}</Typography>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                     {articles.map((article: Article) => (
                         <Grid key={article._id} item xs={4} zeroMinWidth>
@@ -107,7 +111,7 @@ export default function ArticleListPage() {
                         });
                     }}
                 />
-            </div>
+            {/* </div> */}
         </>
     );
 }
@@ -124,6 +128,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         container: {
             margin: `0 ${theme.spacing(3)}px`,
+        },
+        headerText: {
+            marginLeft: theme.spacing(3),
+            marginTop: theme.spacing(3),
         },
     }),
 );
