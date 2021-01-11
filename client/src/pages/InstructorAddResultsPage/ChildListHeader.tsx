@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, MenuItem, TextField } from '@material-ui/core';
 import { Assessment } from '../../graphql/types';
@@ -23,7 +23,6 @@ export function ChildListHeader({
 }: Props) {
     const { t } = useTranslation();
     const kindergartens = assessments.find((a) => a._id === selectedAssessment)?.kindergartens || [];
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     return (
         <div>
@@ -75,8 +74,6 @@ export function ChildListHeader({
                 <Grid item xs={compact ? 12 : 4}>
                     <SearchChildField
                         isCompact={!!compact}
-                        isOpen={isSearchOpen}
-                        onClick={() => setIsSearchOpen((prev) => !prev)}
                         searchTerm={searchTerm}
                         onChange={(value) => onChange('searchTerm', value)}
                     />

@@ -1,68 +1,94 @@
-import React from 'react';
-import { Box, Grid, IconButton, TextField, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Box, Grid, IconButton, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Search as SearchIcon } from '@material-ui/icons';
+import { OutlinedTextField } from './OutlinedTextField';
 
 interface SearchChildFieldProps {
     isCompact: boolean;
-    isOpen: boolean;
-    onClick: () => void;
     searchTerm: string;
     onChange: (value: string) => void;
 }
 
-export function SearchChildField({ isCompact, isOpen, onClick, searchTerm, onChange }: SearchChildFieldProps) {
+export function SearchChildField(props: SearchChildFieldProps) {
     const { t } = useTranslation();
+    const [isSearchFieldOpen, setIsSearchFieldOpen] = useState(false);
 
-    if (isCompact && !isOpen) {
-        return (
-            <Grid container justify="space-between" alignItems="center">
-                <Grid item>
-                    <Typography>{t('add-results-page.child-list')}</Typography>
-                </Grid>
-                <Grid item>
-                    <IconButton aria-label="notifications" onClick={() => onClick()}>
-                        <SearchIcon />
-                    </IconButton>
-                </Grid>
-            </Grid>
-        );
+    if (props.isCompact && !isSearchFieldOpen) {
+        return <SearchFieldLabel onClick={() => setIsSearchFieldOpen((prev) => !prev)} />;
     }
 
-    if (!isCompact) {
+    if (!props.isCompact) {
+        const placeholder = t('add-results-page.search-by-child-firstname');
+
         return (
-            <TextField
-                variant="outlined"
-                label={t('add-results-page.search-by-child-firstname')}
-                value={searchTerm}
-                onChange={({ target: { value } }) => onChange(value)}
-                fullWidth
+            <OutlinedTextField
+                label={placeholder}
+                input={props.searchTerm}
+                options={{ autoFocus: true }}
+                onChange={props.onChange}
             />
         );
     }
 
     return (
+        <ExtendedSearchField
+            searchTerm={props.searchTerm}
+            onClick={() => setIsSearchFieldOpen((prev) => !prev)}
+            onChange={props.onChange}
+        />
+    );
+}
+
+interface SearchFieldLabelProps {
+    onClick: () => void;
+}
+
+function SearchFieldLabel(props: SearchFieldLabelProps) {
+    const { t } = useTranslation();
+    const label = t('add-results-page.child-list');
+
+    return (
+        <Grid container justify="space-between" alignItems="center">
+            <Grid item>
+                <Typography>{label}</Typography>
+            </Grid>
+            <Grid item>
+                <IconButton aria-label="notifications" onClick={props.onClick}>
+                    <SearchIcon />
+                </IconButton>
+            </Grid>
+        </Grid>
+    );
+}
+
+interface ExtendedSearchFieldProps {
+    searchTerm: string;
+    onClick: () => void;
+    onChange: (value: string) => void;
+}
+
+function ExtendedSearchField(props: ExtendedSearchFieldProps) {
+    const { t } = useTranslation();
+    const placeholder = t('add-results-page.search-by-child-firstname');
+
+    return (
         <Grid container direction="column">
             <Grid item>
-                <Grid container justify="space-between" alignItems="center">
-                    <Grid item>
-                        <Typography>{t('add-results-page.child-list')}</Typography>
-                    </Grid>
-                    <Grid item>
-                        <IconButton aria-label="notifications" onClick={() => onClick()}>
-                            <SearchIcon />
-                        </IconButton>
-                    </Grid>
-                </Grid>
+                <SearchFieldLabel
+                    onClick={() => {
+                        props.onChange('');
+                        props.onClick();
+                    }}
+                />
             </Grid>
             <Grid item>
                 <Box mb={1}>
-                    <TextField
-                        variant="outlined"
-                        label={t('add-results-page.search-by-child-firstname')}
-                        value={searchTerm}
-                        onChange={({ target: { value } }) => onChange(value)}
-                        fullWidth
+                    <OutlinedTextField
+                        label={placeholder}
+                        input={props.searchTerm}
+                        options={{ autoFocus: true }}
+                        onChange={props.onChange}
                     />
                 </Box>
             </Grid>
