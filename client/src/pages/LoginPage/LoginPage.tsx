@@ -37,7 +37,6 @@ export default function LoginPage() {
                 <Typography variant="h3" className={classes.loginHeader}>
                     {t('login-page.login-header')}
                 </Typography>
-                {/* <div className={classes.loginHeader}>{t('login-page.login-header')}</div> */}
                 <TextField
                     required
                     onChange={({ target: { value } }) => setEmail(value)}
