@@ -73,9 +73,9 @@
         "test:cypress": "npx cypress open",
         "test:cypress:run": "npx cypress run",
         "eject": "react-scripts eject",
-        "lint": "eslint --fix src/**/*.ts src/**/*.tsx",
+        "lint:fix": "eslint --fix src/**/*.ts src/**/*.tsx",
         "lint:check": "eslint src/**/*.ts src/**/*.tsx",
-        "prettier": "prettier --write 'src/**/*.{js,ts,tsx}'",
+        "prettier:fix": "prettier --write 'src/**/*.{js,ts,tsx}'",
         "prettier:check": "prettier --check 'src/**/*.{js,ts,tsx}'"
     },
     "eslintConfig": {
