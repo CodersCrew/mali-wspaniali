@@ -9,7 +9,7 @@
         "login": "Login",
         "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
         "login-header": "Log in",
-        "e-mail-helper-text": "Type in e-mail address provided to Mali Wspaniali's foundation",
+        "e-mail-helper-text": "Log in with e-mail provided to the foundation or used by registration.",
         "forgot-password": "Forgot password?",
         "login-notfound": "We cannot find your account in the system",
         "login-wrong-password": "Entered password is incorrect",
@@ -17,7 +17,9 @@
     },
     "login-wrapper": {
         "welcome-text": "Welcome to Mali Wspaniali's world!",
-        "subheading": "Join the community of conscious parents"
+        "subheading": "Join the community of conscious parents",
+        "made-by": "Made by:",
+        "partners": "Strategic partners:"
     },
     "registration-page": {
         "already-have-account": "Already have an account?",

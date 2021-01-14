@@ -72,11 +72,11 @@ export default function ArticlePage() {
                 </Grid>
                 <Grid container xs={12} justify="space-between">
                     <Grid item>
-                        <ButtonDefault variant="contained">{t(`single-article.go-to-previous-page`)}</ButtonDefault>
+                        <ButtonDefault variant="contained">{t('single-article.go-to-previous-page')}</ButtonDefault>
                     </Grid>
                     <Grid item>
                         <ButtonDefault variant="contained" color="secondary">
-                            {t(`single-article.go-to-next-page`)}
+                            {t('single-article.go-to-next-page')}
                         </ButtonDefault>
                     </Grid>
                 </Grid>
