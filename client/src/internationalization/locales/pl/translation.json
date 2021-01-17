@@ -700,8 +700,9 @@
         "search-by-child-firstname": "Szukaj po imieniu dziecka",
         "firstname": "Imie",
         "lastname": "Nazwisko",
-        "birth-year": "Rok urodzenia",
+        "full-name": "Imie i nazwisko",
         "birth-quarter": "Kwartał urodzenia",
+        "age": "Wiek dziecka",
         "first-assessment": "Próba początkowa",
         "last-assessment": "Próba końcowa",
         "first-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze początkowym",
@@ -745,6 +746,8 @@
         "power": "MOC",
         "velocity": "SZYBKOŚĆ",
         "back-to-results": "Back to results",
+        "save-and-next": "Zapisz i następny",
+        "save-and-back-to-table": "Zapisz i wróć do tabeli",
         "select-child": "Select a child"
     }
 }

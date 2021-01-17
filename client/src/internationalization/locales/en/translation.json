@@ -698,7 +698,8 @@
         "search-by-child-firstname": "Search by child's first name",
         "firstname": "First name",
         "lastname": "Last name",
-        "birth-year": "Birth year",
+        "full-name": "Full name",
+        "age": "Age",
         "birth-quarter": "Birth quarter",
         "first-assessment": "First test",
         "last-assessment": "Last test",
@@ -743,6 +744,8 @@
         "power": "POWER",
         "velocity": "VELOCITY",
         "back-to-results": "Back to results",
+        "save-and-next": "Save and next",
+        "save-and-back-to-table": "Save and back to table",
         "select-child": "Select a child"
     }
 }

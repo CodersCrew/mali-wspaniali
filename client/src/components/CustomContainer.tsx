@@ -13,7 +13,7 @@ export function CustomContainer({ header, subheader, disableShadow, container }:
     const classes = useStyles();
 
     return (
-        <Paper classes={{ root: clsx({ [classes.container]: true, [classes.disabledShadow]: disableShadow }) }}>
+        <Paper classes={{ root: clsx({ [classes.disabledShadow]: disableShadow }) }}>
             <div className={classes.titleContainer}>{header}</div>
             <Divider />
             {subheader && (
@@ -29,9 +29,6 @@ export function CustomContainer({ header, subheader, disableShadow, container }:
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            height: '100%',
-        },
         disabledShadow: {
             boxShadow: 'unset',
         },

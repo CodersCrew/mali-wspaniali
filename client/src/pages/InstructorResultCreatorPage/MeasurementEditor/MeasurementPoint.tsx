@@ -33,53 +33,21 @@ interface Props {
     onClick: () => void;
 }
 
-export function MeasurementPoint({
-    name,
-    value,
-    unit,
-    step,
-    maxValue,
-    lowerLimit,
-    upperLimit,
-    points,
-    isEmpty,
-    disabled,
-    onChange,
-    onClick,
-}: Props) {
+export function MeasurementPoint(props: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useIsDevice();
-
-    const marks = [
-        {
-            value: Math.floor(lowerLimit - 0.25 * lowerLimit),
-            label: Math.floor(lowerLimit - 0.25 * lowerLimit),
-        },
-        {
-            value: lowerLimit,
-            label: lowerLimit,
-        },
-        {
-            value: upperLimit,
-            label: upperLimit,
-        },
-        {
-            value: Math.floor(upperLimit + 0.25 * upperLimit),
-            label: Math.floor(upperLimit + 0.25 * upperLimit),
-        },
-    ];
 
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
                 <Grid container spacing={1} justify={device.isSmallMobile ? 'space-between' : 'flex-start'}>
                     <Grid item className={classes.editMeasurementButton}>
-                        <Typography variant="subtitle1">{name}</Typography>
+                        <Typography variant="subtitle1">{props.name}</Typography>
                     </Grid>
                     <Grid item>
-                        {!disabled && (
-                            <ButtonSecondary variant="text" onClick={onClick}>
+                        {!props.disabled && (
+                            <ButtonSecondary variant="text" onClick={props.onClick}>
                                 <Edit className={classes.editIcon} />
                                 {t('add-results-page.edit')}
                             </ButtonSecondary>
@@ -91,40 +59,41 @@ export function MeasurementPoint({
                 <Grid container spacing={2}>
                     <Grid item xs={9} sm={6}>
                         <Slider
-                            disabled={!disabled}
+                            disabled={!props.disabled}
                             aria-labelledby="discrete-slider-restrict"
-                            step={step}
+                            step={props.step}
                             valueLabelDisplay="auto"
-                            min={Math.floor(lowerLimit - 0.25 * lowerLimit)}
-                            value={value}
-                            max={Math.floor(upperLimit + 0.25 * upperLimit)}
-                            onChange={(_, v) => onChange(v as number)}
-                            marks={marks}
+                            min={Math.floor(props.lowerLimit - 0.25 * props.lowerLimit)}
+                            value={props.value}
+                            max={Math.floor(props.upperLimit + 0.25 * props.upperLimit)}
+                            onChange={(_, v) => props.onChange(v as number)}
+                            marks={getMarks()}
                             classes={{
                                 mark: classes.mark,
                                 track: classes.sliderRoot,
                                 rail: classes.sliderRoot,
                                 thumb: classes.thumb,
                                 valueLabel: classes.valueLabel,
+                                disabled: classes.sliderDisabled,
                             }}
                         />
                     </Grid>
                     <Grid item xs={3} sm={2}>
                         <Input
-                            disabled={!disabled}
-                            value={value}
+                            disabled={!props.disabled}
+                            value={props.value}
                             margin="dense"
-                            onChange={({ target: { value: v } }) => onChange(parseInt(v, 10))}
+                            onChange={({ target: { value: v } }) => props.onChange(parseInt(v, 10))}
                             inputProps={{
                                 step: 1,
                                 min: 0,
-                                max: maxValue,
+                                max: props.maxValue,
                                 type: 'number',
                                 'aria-labelledby': 'input-slider',
                             }}
                             classes={{ input: classes.input }}
                         />
-                        {unit}
+                        {props.unit}
                     </Grid>
                     <Grid item xs={12} sm={4} className={classes.pieContainer}>
                         <Grid container alignItems="center" spacing={2}>
@@ -132,9 +101,9 @@ export function MeasurementPoint({
                                 <Grid item xs={3}>
                                     <CircleChart
                                         color={(theme.palette!.success as SimplePaletteColorOptions).main}
-                                        maxValue={maxValue}
-                                        value={points}
-                                        disable={isEmpty}
+                                        maxValue={props.maxValue}
+                                        value={props.points}
+                                        disable={props.isEmpty}
                                     />
                                 </Grid>
                             )}
@@ -142,7 +111,7 @@ export function MeasurementPoint({
                                 <Typography variant="body2">
                                     {t('add-result-page.received-points')}{' '}
                                     <strong className={classes.points}>
-                                        {isEmpty ? '-' : Math.ceil(points)} {t('add-result-page.points')}
+                                        {props.isEmpty ? '-' : Math.ceil(props.points)} {t('add-result-page.points')}
                                     </strong>
                                 </Typography>
                             </Grid>
@@ -152,16 +121,39 @@ export function MeasurementPoint({
             </Grid>
             <Grid item>
                 <FormControlLabel
-                    checked={isEmpty}
-                    disabled={isEmpty}
+                    checked={props.isEmpty}
+                    disabled={props.isEmpty}
                     control={<Checkbox color="default" />}
                     label={<Typography variant="body1">{t('add-result-page.no-result')}</Typography>}
                     labelPlacement="end"
-                    onChange={() => onChange(0)}
+                    onChange={() => props.onChange(0)}
                 />
             </Grid>
         </Grid>
     );
+
+    function getMarks() {
+        const marks = [
+            {
+                value: Math.floor(props.lowerLimit - 0.25 * props.lowerLimit),
+                label: Math.floor(props.lowerLimit - 0.25 * props.lowerLimit),
+            },
+            {
+                value: props.lowerLimit,
+                label: props.lowerLimit,
+            },
+            {
+                value: props.upperLimit,
+                label: props.upperLimit,
+            },
+            {
+                value: Math.floor(props.upperLimit + 0.25 * props.upperLimit),
+                label: Math.floor(props.upperLimit + 0.25 * props.upperLimit),
+            },
+        ];
+
+        return marks;
+    }
 }
 
 const useStyles = makeStyles((_theme: Theme) =>
@@ -190,6 +182,14 @@ const useStyles = makeStyles((_theme: Theme) =>
             width: 24,
             marginTop: -8,
             marginLeft: -8,
+        },
+        sliderDisabled: {
+            '& span[role=slider]': {
+                width: 16,
+                height: 16,
+                marginTop: -4,
+                marginLeft: -8,
+            },
         },
         valueLabel: {
             left: 'calc(-50% + 8px)',

@@ -84,7 +84,15 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             paddingTop: theme.spacing(8),
             maxWidth: '100%',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
         },
-        toolbar: theme.mixins.toolbar,
+        toolbar: {
+            ...theme.mixins.toolbar,
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+        },
     }),
 );

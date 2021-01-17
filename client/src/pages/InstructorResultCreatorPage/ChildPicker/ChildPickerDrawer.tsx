@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.text.secondary,
         },
         backButtonContainer: {
-            marginTop: -20,
+            marginTop: -35,
         },
     }),
 );
