@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import { Assessment } from '../../graphql/types';
 import { StatusChip } from '../../components/StatusChip';
+import dayjs from '../../localizedMoment';
 
 interface Props {
     assessment: Assessment;
@@ -41,7 +41,7 @@ export function AssessmentSubheader({ assessment }: Props) {
                             </Grid>
                             <Grid item>
                                 <Typography variant="subtitle2">
-                                    ({moment(currentMeasurement.endDate).fromNow()})
+                                    ({dayjs(currentMeasurement.endDate).fromNow()})
                                 </Typography>
                             </Grid>
                         </Grid>

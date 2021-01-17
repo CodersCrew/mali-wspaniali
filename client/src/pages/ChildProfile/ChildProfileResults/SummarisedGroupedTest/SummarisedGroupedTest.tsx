@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import { lightTextColor } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
+import dayjs from '../../../../localizedMoment';
 
 interface Props {
     onClose: () => void;
@@ -23,7 +23,7 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, da
             </Typography>
             <Typography className={classes.updatedAt}>
                 {t('child-profile.last-update-date')}:{' '}
-                <span className={classes.updatedAtDate}>{moment(date).format('L')}</span>
+                <span className={classes.updatedAtDate}>{dayjs(date).format('L')}</span>
             </Typography>
             <ButtonSecondary
                 onClick={(event) => {

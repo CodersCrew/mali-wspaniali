@@ -5,8 +5,8 @@ import { Search as SearchIcon } from '@material-ui/icons';
 import { OutlinedTextField } from './OutlinedTextField';
 
 interface SearchChildFieldProps {
-    isCompact: boolean;
     searchTerm: string;
+    isCompact?: boolean;
     onChange: (value: string) => void;
 }
 
@@ -54,7 +54,7 @@ function SearchFieldLabel(props: SearchFieldLabelProps) {
                 <Typography>{label}</Typography>
             </Grid>
             <Grid item>
-                <IconButton aria-label="notifications" onClick={props.onClick}>
+                <IconButton size="small" aria-label="notifications" onClick={props.onClick}>
                     <SearchIcon />
                 </IconButton>
             </Grid>

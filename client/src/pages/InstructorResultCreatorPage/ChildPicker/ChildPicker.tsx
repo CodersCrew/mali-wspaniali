@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Child, Kindergarten } from '../../../graphql/types';
 import { ChildItem } from './ChildItem';
@@ -37,16 +36,8 @@ export function ChildPicker({
         <CustomContainer
             header={header}
             container={
-                <div>
-                    <Grid
-                        container
-                        className={clsx({
-                            [classes.displayOptions]: true,
-                            [classes.smallDisplayOptions]: device.isSmallMobile,
-                        })}
-                        spacing={2}
-                        direction="column"
-                    >
+                <>
+                    <Grid container className={classes.container} spacing={2} direction="column">
                         <Grid item>
                             <SelectList
                                 value={selectedKindergarten}
@@ -76,28 +67,26 @@ export function ChildPicker({
                         </Grid>
                         <Grid item>
                             <SearchChildField
-                                isCompact={device.isSmallMobile}
+                                isCompact
                                 onChange={(value) => setSearchTerm(value)}
                                 searchTerm={searchTerm}
                             />
                         </Grid>
                     </Grid>
-                    <div>
-                        <List disablePadding>
-                            <Divider />
-                            {getFilteredChildrenByName().map((c) => {
-                                return (
-                                    <ChildItem
-                                        key={c._id}
-                                        child={c}
-                                        selected={c._id === selected}
-                                        onClick={() => onClick('child', c._id)}
-                                    />
-                                );
-                            })}
-                        </List>
-                    </div>
-                </div>
+                    <List disablePadding>
+                        <Divider />
+                        {getFilteredChildrenByName().map((c) => {
+                            return (
+                                <ChildItem
+                                    key={c._id}
+                                    child={c}
+                                    selected={c._id === selected}
+                                    onClick={() => onClick('child', c._id)}
+                                />
+                            );
+                        })}
+                    </List>
+                </>
             }
             disableShadow={device.isSmallMobile}
         />
@@ -110,14 +99,8 @@ export function ChildPicker({
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        displayOptions: {
-            padding: theme.spacing(2),
-        },
-        smallDisplayOptions: {
-            paddingBottom: 0,
-        },
-        listHeader: {
-            paddingLeft: theme.spacing(2),
+        container: {
+            padding: theme.spacing(2, 2, 0, 2),
         },
     }),
 );
