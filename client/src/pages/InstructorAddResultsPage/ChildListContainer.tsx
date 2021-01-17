@@ -27,7 +27,7 @@ export function ChildListContainer(props: Props) {
                     <TableCell onClick={() => props.onClick('full-name', '')}>
                         <SortableHeaderItem label={t('add-results-page.full-name')} type={props.fullNameSortType} />
                     </TableCell>
-                    <TableCell onClick={() => props.onClick('age', '')} align="right">
+                    <TableCell onClick={() => props.onClick('age', '')} align="center">
                         <SortableHeaderItem label={t('add-results-page.age')} type={props.ageSortType} />
                     </TableCell>
                     <TableCell align="center">{t('add-results-page.first-assessment')}</TableCell>
@@ -41,7 +41,7 @@ export function ChildListContainer(props: Props) {
                         <TableCell>
                             {c.firstname} {c.lastname}
                         </TableCell>
-                        <TableCell align="right">{parseDateToAge(c.birthYear, c.birthQuarter)}</TableCell>
+                        <TableCell align="center">{parseDateToAge(c.birthYear, c.birthQuarter)}</TableCell>
                         <TableCell align="center">
                             <IconButton
                                 onClick={() => props.onClick('add-first-assessment-result', c._id)}
