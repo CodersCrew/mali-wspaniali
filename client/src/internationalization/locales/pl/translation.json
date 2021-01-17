@@ -401,7 +401,8 @@
             "header": "Edytuj dane",
             "button": "Zatwierdź",
             "subtitle": "Aby edytować dane rodzica i dziecka uzupełnij poniższe pola",
-            "success-message": "Edycja profilu dziecka przebiegła pomyślnie"
+            "success-message": "Edycja profilu dziecka przebiegła pomyślnie",
+            "label": " E-mail rodzica"
         },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },

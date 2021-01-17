@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, Theme, Typography, Grid, TextField } from '@material-ui/core';
+import { makeStyles, Theme, Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
@@ -67,55 +67,48 @@ const AdminSettingsEditModal = ({
                 <Typography variant="body1" className={classes.header}>
                     {t('parent-settings.modal-edit-account.subtitle')}
                 </Typography>
-                <Typography variant="h4" className={classes.header}>
-                    <TextField
-                        label="E-mail rodzica"
-                        defaultValue={parent.mail}
-                        variant="outlined"
-                        disabled
-                        fullWidth
-                    />
+                <Typography variant="subtitle2">{t('parent-settings.modal-edit-account.label')}</Typography>
+                <Typography variant="body1" className={classes.mail}>
+                    {parent.mail}
                 </Typography>
-                <Typography variant="body1" className={classes.header}>
-                    <Grid container spacing={3}>
-                        {parent.children.map(
-                            (
-                                { firstname, lastname, sex, birthYear, birthQuarter, kindergarten }: EditChildType,
-                                index: number,
-                            ) => {
-                                return (
-                                    <Grid item key={`${firstname}-${lastname}`} xs={6} sm={4}>
-                                        <ChildCard
-                                            firstName={firstname}
-                                            PictureComponent={
-                                                <img
-                                                    className={classes.childAvatar}
-                                                    alt="mali_wspaniali_child"
-                                                    src={sex === 'male' ? BoyAvatar : GirlAvatar}
-                                                />
-                                            }
-                                            onClick={() => {
-                                                setSelectedChild({
-                                                    childIndex: index,
-                                                    isSelected: !selectedChild.isSelected,
-                                                });
-                                                setInitialValues({
-                                                    firstname,
-                                                    lastname,
-                                                    sex,
-                                                    'birth-date': birthYear.toString(),
-                                                    'birth-quarter': birthQuarter.toString(),
-                                                    kindergarten: kindergarten._id,
-                                                });
-                                            }}
-                                            isActive={selectedChild.childIndex === index && selectedChild.isSelected}
-                                        />
-                                    </Grid>
-                                );
-                            },
-                        )}
-                    </Grid>
-                </Typography>
+                <Grid container spacing={3} className={classes.chilCard}>
+                    {parent.children.map(
+                        (
+                            { firstname, lastname, sex, birthYear, birthQuarter, kindergarten }: EditChildType,
+                            index: number,
+                        ) => {
+                            return (
+                                <Grid item key={`${firstname}-${lastname}`} xs={6} sm={4}>
+                                    <ChildCard
+                                        firstName={firstname}
+                                        PictureComponent={
+                                            <img
+                                                className={classes.childAvatar}
+                                                alt="mali_wspaniali_child"
+                                                src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                                            />
+                                        }
+                                        onClick={() => {
+                                            setSelectedChild({
+                                                childIndex: index,
+                                                isSelected: !selectedChild.isSelected,
+                                            });
+                                            setInitialValues({
+                                                firstname,
+                                                lastname,
+                                                sex,
+                                                'birth-date': birthYear.toString(),
+                                                'birth-quarter': birthQuarter.toString(),
+                                                kindergarten: kindergarten._id,
+                                            });
+                                        }}
+                                        isActive={selectedChild.childIndex === index && selectedChild.isSelected}
+                                    />
+                                </Grid>
+                            );
+                        },
+                    )}
+                </Grid>
                 {selectedChild.isSelected && <ChildForm kindergartens={kindergartens} formik={formik} />}
             </form>
         </BasicModal>
@@ -124,7 +117,7 @@ const AdminSettingsEditModal = ({
 
 const useStyles = makeStyles((theme: Theme) => ({
     header: { marginBottom: theme.spacing(2) },
-    mail: { marginTop: theme.spacing(2) },
+    mail: { margin: theme.spacing(0.5, 0, 1.5) },
     childAvatar: {
         width: '100%',
         objectFit: 'contain',
@@ -135,6 +128,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
+    },
+    chilCard: {
+        marginBottom: theme.spacing(2),
     },
 }));
 

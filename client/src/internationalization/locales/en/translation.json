@@ -402,7 +402,8 @@
             "header": "Edit data",
             "button": "Submit",
             "subtitle": "To edit the data of the parent and child, complete the fields below",
-            "success-message": "You have successfully edited your child's profile"
+            "success-message": "You have successfully edited your child's profile",
+            "label": " Parent's email"
         },
         "success-message": "Removed (Anonymized) parent"
     },

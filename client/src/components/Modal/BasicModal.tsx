@@ -33,7 +33,7 @@ export const BasicModal: FC<Props> = ({
 
     return (
         <Dialog maxWidth="md" open={isOpen} classes={{ paper: classes.dialogPaper }} onClose={onClose} {...dialogProps}>
-            <DialogContent>{children}</DialogContent>
+            <DialogContent className={classes.contentScrollbar}>{children}</DialogContent>
             <DialogActions>
                 {isCancelButtonVisible && (
                     <ButtonDefault variant="text" onClick={onClose} color="inherit">
@@ -51,5 +51,8 @@ export const BasicModal: FC<Props> = ({
 const useStyles = makeStyles((theme: Theme) => ({
     dialogPaper: {
         maxHeight: '80vh',
+    },
+    contentScrollbar: {
+        overflowY: 'unset',
     },
 }));
