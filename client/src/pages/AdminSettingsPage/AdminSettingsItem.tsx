@@ -7,7 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
+import { openAdminSettingsEditModal } from '../../components/ChilModals/EditChildModal';
 import { User } from '../../graphql/types';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 interface AdminSettingsItemProps {
     parent: User;
@@ -15,7 +17,9 @@ interface AdminSettingsItemProps {
 
 export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
     const classes = useStyles();
+
     const { t } = useTranslation();
+    const { kindergartenList } = useKindergartens();
     const childrenData = parent.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
     const editIconTooltip = t('parent-settings.button-icon-edit-tooltip');
@@ -29,12 +33,23 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
             </TableCell>
             <TableCell className={classes.secondColumn}>
                 <Typography variant="body1">{childrenData}</Typography>
+
                 <div className={classes.actionButtons}>
                     <Tooltip title={editIconTooltip}>
                         <IconButton
                             className={classes.editButton}
                             onClick={() => {
-                                console.log('to do edit actions later');
+                                openAdminSettingsEditModal({
+                                    preventClose: false,
+                                    isCancelButtonVisible: true,
+                                    parent,
+                                    kindergartens: kindergartenList,
+                                }).then((result) => {
+                                    if (!result.close)
+                                        openSnackbar({
+                                            text: t('parent-settings.modal-edit-account.success-message'),
+                                        });
+                                });
                             }}
                         >
                             <Edit />
@@ -42,9 +57,10 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
                     </Tooltip>
                     <Tooltip title={changeIconTooltip}>
                         <IconButton
+                            aria-label="edit"
                             className={classes.editButton}
                             onClick={() => {
-                                console.log('to do later');
+                                console.log('edit');
                             }}
                         >
                             <ForwardIcon />
@@ -97,14 +113,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: theme.spacing(2, 0),
+        [theme.breakpoints.down('xs')]: {
+            flexDirection: 'column',
+            padding: theme.spacing(1, 0),
+        },
     },
 
     actionButtons: {
         display: 'flex',
         justifyItems: 'right',
-
-        [theme.breakpoints.down('sm')]: {
-            flexDirection: 'column',
-        },
     },
 }));

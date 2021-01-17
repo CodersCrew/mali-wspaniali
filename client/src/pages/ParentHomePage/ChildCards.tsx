@@ -2,14 +2,14 @@ import React from 'react';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import { HomePageChildCard } from './HomePageChildCard';
-import BoyAvatar from '../../../../assets/boy.png';
-import GirlAvatar from '../../../../assets/girl.png';
-import { Child, ChildInput } from '../../../../graphql/types';
-import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
-import { openAddChildModal } from '../../../../components/ChilModals/AddChildModal';
-import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
-import { useIsDevice } from '../../../../queries/useBreakpoints';
+import { ChildCard } from '../../components/ChildCard/ChildCard';
+import BoyAvatar from '../../assets/boy.png';
+import GirlAvatar from '../../assets/girl.png';
+import { Child, ChildInput } from '../../graphql/types';
+import { HomePageAddChildButton } from './HomePageTopSection/HomePageAddChildButton/HomePageAddChildButton';
+import { openAddChildModal } from '../../components/ChilModals/AddChildModal';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     childrenList: Child[];
@@ -17,7 +17,7 @@ interface Props {
     onChildClick: (id: string) => void;
 }
 
-export const HomePageChildren = ({ childrenList: children, handleModalSubmit, onChildClick }: Props) => {
+export const ChildCards = ({ childrenList: children, handleModalSubmit, onChildClick }: Props) => {
     const classes = useStyles();
     const device = useIsDevice();
 
@@ -43,7 +43,7 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
             {children.map(({ firstname, _id, sex }) => {
                 return (
                     <Grid item key={_id} xs={6} sm={3}>
-                        <HomePageChildCard
+                        <ChildCard
                             firstName={firstname}
                             PictureComponent={
                                 <img
@@ -83,6 +83,7 @@ interface MobileCarouselProps {
 
 function MobileCarousel({ childList, onAddChildClick, onChildClick }: MobileCarouselProps) {
     const classes = useStyles();
+    console.log(classes);
     const { isSmallMobile } = useIsDevice();
 
     return (
@@ -97,7 +98,7 @@ function MobileCarousel({ childList, onAddChildClick, onChildClick }: MobileCaro
                 {childList.map(({ firstname, _id, sex }, i) => {
                     return (
                         <Slide index={i} key={_id} innerClassName={classes.slide}>
-                            <HomePageChildCard
+                            <ChildCard
                                 firstName={firstname}
                                 PictureComponent={
                                     <img

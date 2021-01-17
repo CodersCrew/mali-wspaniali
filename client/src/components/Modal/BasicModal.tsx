@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogProps } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonPrimary, ButtonSecondary, ButtonDefault } from '../Button';
@@ -29,9 +29,10 @@ export const BasicModal: FC<Props> = ({
     const { t } = useTranslation();
 
     const ActionButton = isActionButtonSecondary ? ButtonSecondary : ButtonPrimary;
+    const classes = useStyles();
 
     return (
-        <Dialog maxWidth="md" open={isOpen} onClose={onClose} {...dialogProps}>
+        <Dialog maxWidth="md" open={isOpen} classes={{ paper: classes.dialogPaper }} onClose={onClose} {...dialogProps}>
             <DialogContent>{children}</DialogContent>
             <DialogActions>
                 {isCancelButtonVisible && (
@@ -46,3 +47,9 @@ export const BasicModal: FC<Props> = ({
         </Dialog>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) => ({
+    dialogPaper: {
+        maxHeight: '80vh',
+    },
+}));

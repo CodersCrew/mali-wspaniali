@@ -46,7 +46,6 @@ export interface UserInput {
 }
 
 export type Role = 'parent' | 'admin' | 'instructor';
-
 export interface ChildInput {
     firstname: string;
     lastname: string;
@@ -64,6 +63,15 @@ export interface UpdatedChildInput {
     birthQuarter: number;
     sex: string;
     kindergartenId: string;
+}
+
+export interface AddChildResult {
+    firstname: string;
+    lastname: string;
+    sex: string;
+    'birth-date': string;
+    'birth-quarter': string;
+    kindergarten: string;
 }
 
 export type User = Omit<Me, 'notifications'>;
@@ -116,6 +124,7 @@ export interface Kindergarten {
     city: string;
     children?: Child[];
 }
+
 
 export interface AddKindergartenInput {
     name: string;
