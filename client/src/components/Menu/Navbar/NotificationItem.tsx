@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import { ListItem, IconButton, Typography, createStyles, makeStyles, MenuItem, Theme } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
-import moment from '../../../localizedMoment';
 import { darkGrey, notificationCaptionColor } from '../../../colors';
+import dayjs from '../../../localizedMoment';
 
 type notificationItemProps = {
     text: string;
@@ -36,7 +36,7 @@ export const NotificationItem = ({ text, date, isRead, id, onClick }: notificati
                     </div>
                     <div>
                         <Typography className={classes.notificationCaption} gutterBottom variant="caption">
-                            {moment(date).calendar()}
+                            {dayjs(date).fromNow()}
                         </Typography>
                     </div>
                 </div>

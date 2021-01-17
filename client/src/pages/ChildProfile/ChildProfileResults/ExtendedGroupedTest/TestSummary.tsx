@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Typography } from '@material-ui/core';
-import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
 import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
@@ -10,6 +9,7 @@ import { MAX_OVERALL_POINTS } from './constants';
 import { ButtonSecondary } from '../../../../components/Button';
 import { TestResult } from '../../../../graphql/types';
 import { BasicModal } from '../../../../components/Modal/BasicModal';
+import dayjs from '../../../../localizedMoment';
 
 export interface Props {
     result: TestResult;
@@ -34,7 +34,7 @@ export const TestSummary = ({ result }: Props) => {
                         {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
                     </Typography>
                     <Typography variant="subtitle1">
-                        {t('child-profile.carries-out-on')} {moment(result.date).format('L')}
+                        {t('child-profile.carries-out-on')} {dayjs(result.date).format('L')}
                     </Typography>
                 </div>
                 <div className={classes.cardMiddle}>

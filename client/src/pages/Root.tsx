@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react';
-import moment from 'moment';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
@@ -8,6 +7,7 @@ import { AppWrapper } from './AppWrapper';
 import { ParentWrapper } from './ParentWrapper';
 import { ThemeProvider } from '../theme/ThemeProvider';
 import createGenerateClassName from '../classNameGenerator';
+import dayjs from '../localizedMoment';
 
 const LoginPage = React.lazy(() => import('./LoginPage/LoginPage'));
 const RegistrationPage = React.lazy(() => import('./RegistrationPage/RegistrationPage'));
@@ -46,7 +46,7 @@ const generateClassName = createGenerateClassName();
 export function Root() {
     const { i18n } = useTranslation();
 
-    moment.updateLocale(i18n.language, {});
+    dayjs.locale(i18n.language);
 
     return (
         <StylesProvider generateClassName={generateClassName}>
