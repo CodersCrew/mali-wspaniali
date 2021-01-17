@@ -5,7 +5,7 @@ interface Props {
     label: string;
     value: string;
     name: string;
-    error: any;
+    error: string | undefined;
     touched: any;
     multiline?: boolean;
     rows?: number;

@@ -1,6 +1,5 @@
 import { User, Kindergarten } from '../../graphql/types';
 
-
 export interface EditChildModalProps {
     preventClose?: boolean;
     isCancelButtonVisible?: boolean;
@@ -8,4 +7,4 @@ export interface EditChildModalProps {
     kindergartens: Kindergarten[];
 }
 
-export type AddChildModalProps = Omit<EditChildModalProps, "parent">
+export type AddChildModalProps = Omit<EditChildModalProps, 'parent'>;
