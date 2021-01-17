@@ -28,7 +28,7 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
         <Paper>
             <Grid container className={classes.container}>
                 <Grid item xs={4} className={classes.childPickerContainer}>
-                    <Paper>
+                    <Paper className={classes.childPickerPaper}>
                         <ChildPicker
                             header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
                             selectedKindergarten={selectedKindergarten}
@@ -127,6 +127,9 @@ const useStyles = makeStyles(() =>
             overflowY: 'auto',
             height: '100%',
             paddingRight: 2,
+        },
+        childPickerPaper: {
+            height: '100%',
         },
         editorContainer: {
             height: '100%',
