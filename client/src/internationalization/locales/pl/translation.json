@@ -557,7 +557,8 @@
             "done": "Zakończony",
             "planned": "Zaplanowany",
             "not-planned": "Niezaplanowany",
-            "see-results": "Przejdź do tabeli wyników"
+            "see-results": "Przejdź do tabeli wyników",
+            "search": "Szukaj"
         },
         "test-trials": {
             "title": "Próby testu"
@@ -694,6 +695,15 @@
         },
         "snackbars": {
             "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+        },
+        "modal": {
+            "cancel": "Anuluj",
+            "assign": "Przydziel",
+            "assign-to-kindergarten": "Przydziel do przedszkola",
+            "select-test": "Wybierz test",
+            "select-instructor": "Wybierz instruktora",
+            "assigned-kindergartens": "Przydzielone przedszkola",
+            "add-unassigned-kindergarten": "Dodaj nieprzydzielone przedszkole"
         }
     },
     "add-results-page": {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Typography,
     makeStyles,
@@ -11,43 +11,80 @@ import {
 } from '@material-ui/core';
 // import * as Yup from 'yup';
 // import { useFormik } from 'formik';
-// import { useTranslation } from 'react-i18next';
-import { KindergartenTable } from './KindergartenTable';
+import { useTranslation } from 'react-i18next';
+import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
+import type { UpdatedAssessmentInput } from '../../../operations/mutations/Assessment/updateAssessment';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, Assessment } from '../../../graphql/types';
 import { InstructorWithKindergartens } from '../types';
+import { KindergartenTable } from './KindergartenTable';
 
 interface Props {
     onClose: () => void;
-    onSubmit: () => void;
     kindergartens: Kindergarten[];
     instructor: InstructorWithKindergartens | null;
     assessment: Assessment | null;
 }
 
-export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instructor, assessment }: Props) => {
+export const AssignInstructorModal = ({
+    onClose,
+    kindergartens,
+    instructor: selectedInstructor,
+    assessment,
+}: Props) => {
     const classes = useStyles();
-    // const { t } = useTranslation();
+    const [selectedKindergartens, setSelectedKindergartens] = useState<string[]>([]);
+    const { t } = useTranslation();
+
+    const select = (kindergartenIds: string[]) => {
+        setSelectedKindergartens(kindergartenIds);
+    };
+
+    const selectedAssmentId = (assessment && assessment._id) || null;
+
+    const { updateAssessment } = useUpdateAssessment(selectedAssmentId);
+
+    const onSubmitAssignInstructor = (updatedAssessment: Partial<UpdatedAssessmentInput>) => {
+        updateAssessment(updatedAssessment);
+        onClose();
+    };
+
+    const instructorId = (selectedInstructor && selectedInstructor._id) || null;
+
+    const exsistingKindergartemAssignements =
+        (assessment &&
+            assessment.kindergartens
+                .filter(({ instructor }) => instructor)
+                .map(({ kindergarten, instructor }) => ({
+                    kindergartenId: kindergarten._id,
+                    instructorId: instructor?._id,
+                }))) ||
+        [];
+    const newKindergartenAssignment = selectedKindergartens.map((kindergartenId) => ({ kindergartenId, instructorId }));
 
     return (
         <TwoActionsModal
             lowerButtonOnClick={onClose}
-            upperButtonOnClick={onSubmit}
-            lowerButtonText="Anuluj"
-            upperButtonText="Przydziel"
+            upperButtonOnClick={() =>
+                onSubmitAssignInstructor({
+                    kindergartens: [...exsistingKindergartemAssignements, ...newKindergartenAssignment],
+                })
+            }
+            lowerButtonText={t('admin-instructors-page.modal.cancel')}
+            upperButtonText={t('admin-instructors-page.modal.assign')}
             isOpen
             onClose={onClose}
         >
             <div className={classes.container}>
                 <Typography variant="h4" className={classes.title}>
-                    Przydziel do przedszkola
+                    {t('admin-instructors-page.modal.assign-to-kindergarten')}
                 </Typography>
                 <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="test-select-label">Wybierz test</InputLabel>
+                    <InputLabel id="test-select-label">{t('admin-instructors-page.modal.select-test')}</InputLabel>
                     <Select
                         labelId="test-select-label"
                         id="test-select"
-                        label="Wybierz test"
+                        label={t('admin-instructors-page.modal.select-test')}
                         value={assessment?._id}
                         disabled
                         MenuProps={{
@@ -59,28 +96,30 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
                     </Select>
                 </FormControl>
                 <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="instructor-select-label">Wybierz instruktora</InputLabel>
+                    <InputLabel id="instructor-select-label">
+                        {t('admin-instructors-page.modal.select-instructor')}
+                    </InputLabel>
                     <Select
                         labelId="instructor-select-label"
                         id="instructor-select"
-                        label="Wybierz instruktora"
-                        value={instructor?._id}
+                        label={t('admin-instructors-page.modal.select-instructor')}
+                        value={selectedInstructor?._id}
                         disabled
                         MenuProps={{
                             getContentAnchorEl: null,
                             anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
                         }}
                     >
-                        <MenuItem value={instructor?._id}>{instructor?.mail}</MenuItem>
+                        <MenuItem value={selectedInstructor?._id}>{selectedInstructor?.mail}</MenuItem>
                     </Select>
                 </FormControl>
                 <Typography variant="subtitle1" className={classes.subtitle}>
-                    Przydzielone przedszkola
+                    {t('admin-instructors-page.modal.assigned-kindergartens')}
                 </Typography>
                 <Typography variant="subtitle1" className={classes.subtitle}>
-                    Dodaj nieprzydzielone przedszkole
+                    {t('admin-instructors-page.modal.add-unassigned-kindergarten')}
                 </Typography>
-                <KindergartenTable kindergartens={kindergartens} onSelect={(value) => console.log(value)} />
+                <KindergartenTable kindergartens={kindergartens} onSelect={(value) => select(value)} />
             </div>
         </TwoActionsModal>
     );
@@ -89,7 +128,7 @@ export const AssignInstructorModal = ({ onClose, onSubmit, kindergartens, instru
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            width: '536px',
+            width: 536,
             display: 'flex',
             flexDirection: 'column',
             gap: `${theme.spacing(2)}px`,

@@ -554,7 +554,8 @@
             "done": "Done",
             "planned": "Planned",
             "not-planned": "Not planned",
-            "see-results": "See results"
+            "see-results": "See results",
+            "search": "Search"
         },
         "test-trials": {
             "title": "Test trials information"
@@ -692,6 +693,15 @@
         },
         "snackbars": {
             "info": "To add unassigned kindergarten, select the instructor and assign him/her to selected kindergarten"
+        },
+        "modal": {
+            "cancel": "Cancel",
+            "assign": "Assign",
+            "assign-to-kindergarten": "Assign to kindergarten",
+            "select-test": "Select test",
+            "select-instructor": "Select instructor",
+            "assigned-kindergartens": "Assigned kindergartens",
+            "add-unassigned-kindergarten": "Add unassigned kindergarten"
         }
     },
     "add-results-page": {

@@ -1,15 +1,15 @@
 import { gql, useMutation, FetchResult } from '@apollo/client';
 import { AssessmentResponse } from '../../queries/Assessment/getAssessment';
 
-interface UpdatedAssessmentInput {
+export type UpdatedAssessmentInput = {
     title: string;
     startDate: string;
     endDate: string;
     status: string;
     isOutdated: boolean;
     isDeleted: boolean;
-    kindergartens: Array<{ kindergartenId: string; instructorId: string | undefined }>;
-}
+    kindergartens: Array<{ kindergartenId: string; instructorId?: string | null }>;
+};
 
 interface UpdateAssessment {
     updateAssessment: (assessment: Partial<UpdatedAssessmentInput>) => Promise<FetchResult<AssessmentResponse>>;
@@ -47,7 +47,7 @@ export const UPDATE_ASSESSMENT = gql`
     }
 `;
 
-export function useUpdateAssessment(id: string): UpdateAssessment {
+export function useUpdateAssessment(id: string | null): UpdateAssessment {
     const [updateAssessment, { loading }] = useMutation(UPDATE_ASSESSMENT);
 
     return {

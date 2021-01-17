@@ -104,7 +104,6 @@ export default function AdminInstructorsPage() {
             {assignInstructorModalStatus.isOpen && (
                 <AssignInstructorModal
                     onClose={() => setAssignInstructorModalStatus(initialInstructorModalStatus)}
-                    onSubmit={() => console.log('modal form submitted!')}
                     kindergartens={unassignedKindergartens || []}
                     instructor={assignInstructorModalStatus.instructor}
                     assessment={assignInstructorModalStatus.assessment}
