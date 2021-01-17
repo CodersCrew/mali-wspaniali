@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { AddChildResult } from './ChildModalTypes';
+import { AddChildResult } from '../../graphql/types';
 
 
 export const initialValues: AddChildResult = {

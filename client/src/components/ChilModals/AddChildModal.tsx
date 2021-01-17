@@ -3,9 +3,9 @@ import { useFormik } from 'formik';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { ChildInput } from '../../graphql/types';
+import { ChildInput, AddChildResult } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
-import { AddChildResult, AddChildModalProps } from './ChildModalTypes';
+import { AddChildModalProps } from './ChildModalTypes';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
 import { initialValues, validationSchema } from './utils';
