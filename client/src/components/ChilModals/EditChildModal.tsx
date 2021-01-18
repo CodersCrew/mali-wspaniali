@@ -10,21 +10,10 @@ import BoyAvatar from '../../assets/boy.png';
 import GirlAvatar from '../../assets/girl.png';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
-import { initialValues, validationSchema } from './utils';
+import { initialValues, validationSchema, normalizeChild } from './utils';
 import { EditChildModalProps } from './ChildModalTypes';
 
 type EditChildType = Omit<Child, 'results' | 'currentParams'>;
-
-export const normalizeChild = (child: AddChildResult): ChildInput => {
-    return {
-        firstname: child.firstname,
-        lastname: child.lastname,
-        birthYear: parseInt(child['birth-date'], 10),
-        birthQuarter: parseInt(child['birth-quarter'], 10),
-        sex: child.sex,
-        kindergartenId: child.kindergarten,
-    };
-};
 
 const AdminSettingsEditModal = ({
     onClose,

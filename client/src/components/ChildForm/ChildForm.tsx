@@ -79,7 +79,6 @@ export const ChildForm = ({ kindergartens, formik }: KindergardenProp) => {
                             name="birth-date"
                             onChange={(name: string, value: string) => {
                                 formik.setFieldValue(name, value);
-                                console.log(typeof value);
                             }}
                         />
                     </Grid>

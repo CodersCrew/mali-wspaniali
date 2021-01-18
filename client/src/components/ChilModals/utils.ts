@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { AddChildResult } from '../../graphql/types';
+import { AddChildResult, ChildInput } from '../../graphql/types';
 
 export const initialValues: AddChildResult = {
     firstname: '',
@@ -19,3 +19,14 @@ export const validationSchema = yup.object({
     'birth-quarter': yup.string().required(),
     kindergarten: yup.string().required(),
 });
+
+export const normalizeChild = (child: AddChildResult): ChildInput => {
+    return {
+        firstname: child.firstname,
+        lastname: child.lastname,
+        birthYear: parseInt(child['birth-date'], 10),
+        birthQuarter: parseInt(child['birth-quarter'], 10),
+        sex: child.sex,
+        kindergartenId: child.kindergarten,
+    };
+};

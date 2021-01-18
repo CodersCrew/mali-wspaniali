@@ -125,7 +125,6 @@ export interface Kindergarten {
     children?: Child[];
 }
 
-
 export interface AddKindergartenInput {
     name: string;
     number: number;

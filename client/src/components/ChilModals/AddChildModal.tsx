@@ -3,26 +3,15 @@ import { useFormik } from 'formik';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { ChildInput, AddChildResult } from '../../graphql/types';
+import { ChildInput } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
 import { AddChildModalProps } from './ChildModalTypes';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
-import { initialValues, validationSchema } from './utils';
+import { initialValues, validationSchema, normalizeChild } from './utils';
 
 export const openAddChildModal = (options: AddChildModalProps) => {
     return openDialog<AddChildModalProps, { child: ChildInput }>(AddChildModal, options);
-};
-
-export const normalizeChild = (child: AddChildResult): ChildInput => {
-    return {
-        firstname: child.firstname,
-        lastname: child.lastname,
-        birthYear: parseInt(child['birth-date'], 10),
-        birthQuarter: parseInt(child['birth-quarter'], 10),
-        sex: child.sex,
-        kindergartenId: child.kindergarten,
-    };
 };
 
 export function AddChildModal({
