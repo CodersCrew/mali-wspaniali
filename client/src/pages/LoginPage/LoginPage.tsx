@@ -1,10 +1,11 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, makeStyles, createStyles, Link, Typography } from '@material-ui/core/';
+import { TextField, makeStyles, createStyles, Typography, Box, Divider } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
 import { ButtonSecondary } from '../../components/Button';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 const initialError: Error = {
     name: '',
@@ -24,6 +25,7 @@ export default function LoginPage() {
         },
         (error) => setLoginError(error),
     );
+    const { isDesktop } = useIsDevice();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -37,21 +39,48 @@ export default function LoginPage() {
                 <Typography variant="h3" className={classes.loginHeader}>
                     {t('login-page.login-header')}
                 </Typography>
-                <TextField
-                    required
-                    onChange={({ target: { value } }) => setEmail(value)}
-                    value={email}
-                    id="email"
-                    label={t('e-mail')}
-                    variant="outlined"
-                    error={loginError.name === 'auth/user-not-found'}
-                    helperText={
-                        loginError.name === 'auth/user-not-found'
-                            ? t('login-page.login-notfound')
-                            : t('login-page.e-mail-helper-text')
-                    }
-                    className={classes.formItem}
-                />
+                {isDesktop ? (
+                    <Box mb={6} />
+                ) : (
+                    <>
+                        <Typography className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</Typography>
+                        <Box mb={5} />
+                    </>
+                )}
+                {isDesktop ? (
+                    <TextField
+                        required
+                        onChange={({ target: { value } }) => setEmail(value)}
+                        value={email}
+                        id="email"
+                        label={t('e-mail')}
+                        variant="outlined"
+                        error={loginError.name === 'auth/user-not-found'}
+                        helperText={
+                            loginError.name === 'auth/user-not-found'
+                                ? t('login-page.login-notfound')
+                                : t('login-page.e-mail-helper-text')
+                        }
+                        className={classes.formItem}
+                    />
+                ) : (
+                    <TextField
+                        required
+                        onChange={({ target: { value } }) => setEmail(value)}
+                        value={email}
+                        id="email"
+                        label={t('e-mail')}
+                        variant="outlined"
+                        error={loginError.name === 'auth/user-not-found'}
+                        helperText={
+                            loginError.name === 'auth/user-not-found'
+                                ? t('login-page.login-notfound')
+                                : t('login-page.e-mail-helper-text-mobile')
+                        }
+                        className={classes.formItem}
+                    />
+                )}
+                <Box mb={2} />
                 <TextField
                     required
                     onChange={({ target: { value } }) => setPassword(value)}
@@ -64,6 +93,7 @@ export default function LoginPage() {
                     helperText={loginError.name ? t('login-page.login-error') : ''}
                     className={classes.formItem}
                 />
+                <Box mb={6} />
                 <div className={classes.submitWrapper}>
                     <ButtonSecondary
                         variant="text"
@@ -78,14 +108,29 @@ export default function LoginPage() {
                         innerText={t('login-page.login')}
                     />
                 </div>
+                {isDesktop ? (
+                    <>
+                        <Box mb={7} />
+                        <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
+                        <Box mb={7} />
+                    </>
+                ) : (
+                    <>
+                        <Box mb={4.5} />
+                        <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
+                        <Box mb={4} />
+                    </>
+                )}
             </form>
             <div className={classes.registerWrapper}>
-                <div>{t('login-page.no-account')} </div>
-                <div>
-                    <Link className={classes.registerLink} href="/register" underline="always">
-                        {t('registration-page.register')}
-                    </Link>
-                </div>
+                <Typography>{t('login-page.no-account')} </Typography>
+                <Box mb={3.5} />
+                <ButtonSecondary
+                    variant="text"
+                    href="/register"
+                    innerText={t('registration-page.register')}
+                    className={classes.forgotPasswordButton}
+                />
             </div>
         </div>
     );
@@ -98,7 +143,16 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '100%',
+            minHeight: '100vh',
+            padding: `0px ${theme.spacing(2)}px`,
+            [theme.breakpoints.down('md')]: {
+                justifyContent: 'start',
+            },
+        },
+        innerContainer: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         form: {
             display: 'flex',
@@ -106,42 +160,38 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             justifyContent: 'center',
             width: '80%',
-            minHeight: '90vh',
-
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 minHeight: 'auto',
                 width: '100%',
-                margin: '0 15px',
+                marginTop: theme.spacing(8),
             },
         },
         formItem: {
-            margin: '20px',
             width: '100%',
+            maxWidth: 500,
+            minWidth: 328,
+            [theme.breakpoints.down('md')]: {
+                margin: 0,
+            },
         },
         loginHeader: {
-            marginBottom: theme.spacing(3),
-
-            [theme.breakpoints.down('sm')]: {
-                marginTop: '40px',
+            [theme.breakpoints.down('md')]: {
+                marginTop: theme.spacing(4),
             },
         },
         submitWrapper: {
-            marginTop: '20px',
             width: '100%',
+            maxWidth: 500,
+            minWidth: 328,
             display: 'flex',
             marginDown: 'auto',
             alignItems: 'center',
             justifyContent: 'space-between',
-
-            [theme.breakpoints.down('sm')]: {
-                margin: '0 0 20px 0',
-            },
         },
         registerWrapper: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
+            maxWidth: 500,
+            minWidth: 328,
+            textAlign: 'center',
         },
         registerLink: {
             marginLeft: '5px',
@@ -150,6 +200,14 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
             whiteSpace: 'normal',
             fontSize: '12px',
+        },
+        welcomeText: {
+            marginTop: theme.spacing(3),
+            textAlign: 'center',
+            minWidth: 328,
+        },
+        divider: {
+            width: '100%',
         },
     }),
 );
