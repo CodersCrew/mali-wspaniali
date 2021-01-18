@@ -11,10 +11,10 @@ import {
     createStyles,
     Theme,
     Typography,
+    TableFooter,
+    TablePagination,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
 import { NotificationPageListItem } from './NotificationPageListItem';
 import { Notification } from '../../graphql/types';
 import { useNotificationContent } from './useNotificationContent';
