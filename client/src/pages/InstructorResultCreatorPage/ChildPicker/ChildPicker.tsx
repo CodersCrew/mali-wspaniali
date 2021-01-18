@@ -6,7 +6,6 @@ import { Child, Kindergarten } from '../../../graphql/types';
 import { ChildItem } from './ChildItem';
 import { SelectList } from '../../../components/SelectList';
 import { SearchChildField } from '../../../components/SearchChildField';
-import { useIsDevice } from '../../../queries/useBreakpoints';
 
 interface Props {
     childList: Child[];
@@ -30,7 +29,6 @@ export function ChildPicker({
     const classes = useStyles();
     const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
-    const device = useIsDevice();
 
     return (
         <CustomContainer
@@ -88,7 +86,7 @@ export function ChildPicker({
                     </List>
                 </>
             }
-            disableShadow={device.isSmallMobile}
+            disableShadow
         />
     );
 
