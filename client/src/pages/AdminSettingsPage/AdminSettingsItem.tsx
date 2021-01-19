@@ -107,6 +107,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     parentEmailColumn: {
         width: '20%',
+        [theme.breakpoints.down('xs')]: {
+            padding: theme.spacing(0, 0, 0, 0.6),
+        },
     },
     secondColumn: {
         display: 'flex',
