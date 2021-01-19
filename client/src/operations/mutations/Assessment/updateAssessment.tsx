@@ -47,7 +47,7 @@ export const UPDATE_ASSESSMENT = gql`
     }
 `;
 
-export function useUpdateAssessment(id: string | null): UpdateAssessment {
+export function useUpdateAssessment(id?: string): UpdateAssessment {
     const [updateAssessment, { loading }] = useMutation(UPDATE_ASSESSMENT);
 
     return {

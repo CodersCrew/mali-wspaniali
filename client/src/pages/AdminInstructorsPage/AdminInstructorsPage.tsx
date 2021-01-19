@@ -17,13 +17,11 @@ import { PageContainer } from '../../components/PageContainer';
 interface InstructorModalStatus {
     isOpen: boolean;
     instructor: InstructorWithKindergartens | null;
-    assessment: Assessment | null;
 }
 
 const initialInstructorModalStatus = {
     isOpen: false,
     instructor: null,
-    assessment: null,
 };
 
 export default function AdminInstructorsPage() {
@@ -61,7 +59,6 @@ export default function AdminInstructorsPage() {
         setAssignInstructorModalStatus({
             isOpen: true,
             instructor,
-            assessment: selectedAssessment,
         });
     };
 
@@ -98,15 +95,16 @@ export default function AdminInstructorsPage() {
                         key={instructor._id}
                         instructor={instructor}
                         onAssignInstructorClick={onAssignInstructorClick}
+                        assessment={selectedAssessment}
                     />
                 ))}
             </InstructorsTableContainer>
-            {assignInstructorModalStatus.isOpen && (
+            {selectedAssessment && assignInstructorModalStatus.isOpen && assignInstructorModalStatus.instructor &&(
                 <AssignInstructorModal
                     onClose={() => setAssignInstructorModalStatus(initialInstructorModalStatus)}
                     kindergartens={unassignedKindergartens || []}
                     instructor={assignInstructorModalStatus.instructor}
-                    assessment={assignInstructorModalStatus.assessment}
+                    assessment={selectedAssessment}
                 />
             )}
         </PageContainer>

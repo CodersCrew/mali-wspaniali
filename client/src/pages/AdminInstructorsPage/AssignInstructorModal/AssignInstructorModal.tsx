@@ -40,9 +40,7 @@ export const AssignInstructorModal = ({
         setSelectedKindergartens(kindergartenIds);
     };
 
-    const selectedAssmentId = (assessment && assessment._id) || null;
-
-    const { updateAssessment } = useUpdateAssessment(selectedAssmentId);
+    const { updateAssessment } = useUpdateAssessment(assessment?._id);
 
     const onSubmitAssignInstructor = (updatedAssessment: Partial<UpdatedAssessmentInput>) => {
         updateAssessment(updatedAssessment);
@@ -52,13 +50,10 @@ export const AssignInstructorModal = ({
     const instructorId = (selectedInstructor && selectedInstructor._id) || null;
 
     const exsistingKindergartemAssignements =
-        (assessment &&
-            assessment.kindergartens
-                .filter(({ instructor }) => instructor)
-                .map(({ kindergarten, instructor }) => ({
-                    kindergartenId: kindergarten._id,
-                    instructorId: instructor?._id,
-                }))) ||
+        (assessment?.kindergartens.filter(({ instructor }) => instructor).map(({ kindergarten, instructor }) => ({
+            kindergartenId: kindergarten._id,
+            instructorId: instructor?._id,
+        }))) ||
         [];
     const newKindergartenAssignment = selectedKindergartens.map((kindergartenId) => ({ kindergartenId, instructorId }));
 
