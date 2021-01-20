@@ -3,11 +3,11 @@ import { useFormik } from 'formik';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
-import { useSelectOptions } from '../../../components/AddChildModal/useSelectValues';
+import { useSelectOptions } from '../../../components/ChildForm/useSelectValues';
 import { Child, Kindergarten } from '../../../graphql/types';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
-import { Input } from '../../../components/AddChildModal/Input';
-import { Select } from '../../../components/AddChildModal/Select';
+import { Input } from '../../../components/ChildForm/Input';
+import { Select } from '../../../components/ChildForm/Select';
 import { ButtonSecondary } from '../../../components/Button';
 
 interface ChildFormProps {
