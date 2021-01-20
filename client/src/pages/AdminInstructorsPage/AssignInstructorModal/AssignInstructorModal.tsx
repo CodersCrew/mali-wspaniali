@@ -9,8 +9,6 @@ import {
     MenuItem,
     Select,
 } from '@material-ui/core';
-// import * as Yup from 'yup';
-// import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 import type { UpdatedAssessmentInput } from '../../../operations/mutations/Assessment/updateAssessment';
@@ -23,7 +21,7 @@ interface Props {
     onClose: () => void;
     kindergartens: Kindergarten[];
     instructor: InstructorWithKindergartens | null;
-    assessment: Assessment | null;
+    assessment: Assessment;
 }
 
 export const AssignInstructorModal = ({
@@ -40,21 +38,22 @@ export const AssignInstructorModal = ({
         setSelectedKindergartens(kindergartenIds);
     };
 
-    const { updateAssessment } = useUpdateAssessment(assessment?._id);
+    const { updateAssessment } = useUpdateAssessment();
 
     const onSubmitAssignInstructor = (updatedAssessment: Partial<UpdatedAssessmentInput>) => {
-        updateAssessment(updatedAssessment);
+        updateAssessment(assessment._id, updatedAssessment);
         onClose();
     };
 
     const instructorId = (selectedInstructor && selectedInstructor._id) || null;
 
     const exsistingKindergartemAssignements =
-        (assessment?.kindergartens.filter(({ instructor }) => instructor).map(({ kindergarten, instructor }) => ({
-            kindergartenId: kindergarten._id,
-            instructorId: instructor?._id,
-        }))) ||
-        [];
+        assessment.kindergartens
+            .filter(({ instructor }) => instructor)
+            .map(({ kindergarten, instructor }) => ({
+                kindergartenId: kindergarten._id,
+                instructorId: instructor?._id,
+            })) || [];
     const newKindergartenAssignment = selectedKindergartens.map((kindergartenId) => ({ kindergartenId, instructorId }));
 
     return (

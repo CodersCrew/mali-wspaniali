@@ -12,7 +12,10 @@ export type UpdatedAssessmentInput = {
 };
 
 interface UpdateAssessment {
-    updateAssessment: (assessment: Partial<UpdatedAssessmentInput>) => Promise<FetchResult<AssessmentResponse>>;
+    updateAssessment: (
+        id: string,
+        assessment: Partial<UpdatedAssessmentInput>,
+    ) => Promise<FetchResult<AssessmentResponse>>;
     isUpdatePending: boolean;
 }
 
@@ -47,11 +50,11 @@ export const UPDATE_ASSESSMENT = gql`
     }
 `;
 
-export function useUpdateAssessment(id?: string): UpdateAssessment {
+export function useUpdateAssessment(): UpdateAssessment {
     const [updateAssessment, { loading }] = useMutation(UPDATE_ASSESSMENT);
 
     return {
-        updateAssessment: (updatedAssessment) => {
+        updateAssessment: (id: string, updatedAssessment) => {
             return updateAssessment({
                 variables: { id, assessment: updatedAssessment },
             });
