@@ -5,10 +5,11 @@ import { PrivilegedUser } from '../../graphql/types';
 interface Props {
     label: string;
     options: PrivilegedUser[];
-    value?: string;
+    value: PrivilegedUser | null;
+    onChange: (value: string) => void;
 }
 
-export const InstructorsSelect = ({ label, options, value }: Props) => {
+export const InstructorsSelect = ({ label, options, value, onChange }: Props) => {
     return (
         <FormControl variant="outlined" fullWidth>
             <InputLabel id="instructor-select-label">{label}</InputLabel>
@@ -16,7 +17,8 @@ export const InstructorsSelect = ({ label, options, value }: Props) => {
                 labelId="instructor-select-label"
                 id="instructor-select"
                 label={label}
-                value={value}
+                value={value?._id || ''}
+                onChange={(e) => onChange(e.target.value as string)}
                 MenuProps={{
                     getContentAnchorEl: null,
                     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
