@@ -22,7 +22,7 @@ const AlertDialog = ({ type, title, description, onClose }: AlertDialogProps & A
     const titleText = title || t(`alert-dialog.${type}`);
 
     return (
-        <Dialog open onClose={onClose}>
+        <Dialog open={true} onClose={onClose}>
             <DialogTitle>{titleText}</DialogTitle>
             <DialogContent>{description}</DialogContent>
             <DialogActions>

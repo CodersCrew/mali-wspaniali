@@ -14,7 +14,8 @@
         "forgot-password": "Forgot password?",
         "login-notfound": "We cannot find your account in the system",
         "login-wrong-password": "Entered password is incorrect",
-        "no-account": "You don't have an account?"
+        "no-account": "You don't have an account?",
+        "register": "Register"
     },
     "login-wrapper": {
         "welcome-text": "Welcome to Mali Wspaniali's world!",
@@ -23,17 +24,19 @@
         "partners": "Strategic partners:"
     },
     "registration-page": {
+        "register-header": "Registration",
         "already-have-account": "Already have an account?",
         "password-mismatch": "Passwords do not match",
         "register-success": "Account created. Please login.",
         "password-confirm": "Repeat password",
-        "register": "Register",
+        "register": "Registration",
         "password-not-strong": "Password not strong enough",
         "agreements-and-regulations": "Agreements and regulations",
         "create-password": "Create password",
         "confirmation": "Confirmation",
         "create-password-text": "Create a password to Mali Wspaniali platform that will serve you for future logins.",
         "go-to-homepage": "Go to homepage",
+        "go-to-loginpage": "Go to loginpage",
         "enter-code": "Enter code",
         "enter-code-text": "Please enter the code provided by Mali Wspaniali foundation. Thanks to this code, your data will be secure.",
         "no-code": "Don't have a code?",

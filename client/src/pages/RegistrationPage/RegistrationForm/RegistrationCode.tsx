@@ -25,7 +25,7 @@ export const RegistrationCode = ({
 
     return (
         <>
-            <Typography>{t('registration-page.enter-code-text')}</Typography>
+            <Typography variant="body1">{t('registration-page.enter-code-text')}</Typography>
             <TextField
                 required
                 onChange={handleChange}

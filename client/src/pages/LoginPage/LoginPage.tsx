@@ -128,7 +128,7 @@ export default function LoginPage() {
                 <ButtonSecondary
                     variant="text"
                     href="/register"
-                    innerText={t('registration-page.register')}
+                    innerText={t('login-page.register')}
                     className={classes.forgotPasswordButton}
                 />
             </div>
@@ -144,7 +144,7 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             alignItems: 'center',
             minHeight: '100vh',
-            padding: `0px ${theme.spacing(2)}px`,
+            padding: theme.spacing(0, 2),
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'start',
             },

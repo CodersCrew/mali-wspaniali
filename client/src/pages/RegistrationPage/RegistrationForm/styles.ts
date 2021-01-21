@@ -4,6 +4,7 @@ import { secondaryColor, mainColor, textColor, white } from '../../../colors';
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
+            /*
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -12,8 +13,19 @@ export const useStyles = makeStyles((theme: Theme) =>
             '&.agreements': {
                 padding: '36px 0 40px 0',
             },
+*/
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'start',
+            alignItems: 'center',
+            minHeight: '100vh',
+            padding: theme.spacing(0, 2),
+            [theme.breakpoints.down('md')]: {
+                justifyContent: 'start',
+            },
         },
         form: {
+            /*
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -26,6 +38,7 @@ export const useStyles = makeStyles((theme: Theme) =>
                 width: '100%',
                 margin: '0 15px',
             },
+*/
         },
         headerContainer: {
             display: 'flex',
@@ -47,9 +60,10 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
         },
         stepper: {
-            [theme.breakpoints.down('sm')]: {
-                marginTop: 15,
-            },
+            // [theme.breakpoints.down('sm')]: {
+            //     marginTop: 15,
+            // },
+            backgroundColor: theme.palette.background.default,
         },
         registrationHeader: {
             textAlign: 'center',
@@ -188,5 +202,18 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginTop: '20px',
         },
         loginHeader: {},
+
+        header: {
+            [theme.breakpoints.down('md')]: {
+                marginTop: theme.spacing(4),
+            },
+        },
+        footer: {
+            // display: 'flex',
+            // alignItems: 'center',
+            // height: '100%',
+            // width: '100%',
+            // backgroundColor: 'yellow',
+        },
     }),
 );

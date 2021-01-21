@@ -2,7 +2,7 @@
     "home-page": {
         "go-to-login-page": "Strona logowania",
         "log-out": "Wyloguj",
-        "go-to-registration-page": "Rejestracja",
+        "go-to-registration-page": "Utwórz konto",
         "go-to-parent-children-page": "Moje dzieci"
     },
     "login-page": {
@@ -14,7 +14,8 @@
         "forgot-password": "Nie pamiętasz hasła?",
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
         "login-wrong-password": "Podane hasło jest nieprawidłowe",
-        "no-account": "Pierwszy raz na platformie Mali Wspaniali?"
+        "no-account": "Pierwszy raz na platformie Mali Wspaniali?",
+        "register": "Utwórz konto"
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
@@ -23,21 +24,23 @@
         "partners": "Partnerzy strategiczni:"
     },
     "registration-page": {
+        "register-header": "Rejestracja",
         "already-have-account": "Masz już konto?",
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success": "Konto zostało utworzone. Możesz się zalogować.",
         "password-confirm": "Powtórz hasło",
-        "register": "Utwórz konto",
+        "register": "Rejestracja",
         "password-not-strong": "Hasło za słabe",
         "agreements-and-regulations": "Zgody i regulaminy",
-        "create-password": "Stwórz hasło",
+        "create-password": "Hasło",
         "confirmation": "Potwierdzenie",
         "create-password-text": "Stwórz hasło do platformy Mali Wspaniali, które będzie ci służyło podczas następnych logowań.",
         "go-to-homepage": "Przejdź do strony głównej",
-        "enter-code": "Wpisz kod",
-        "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu, twoje dane będą bezpieczniejsze.",
+        "go-to-loginpage": "Wróć do logowania",
+        "enter-code": "Kod",
+        "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu Twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
-        "no-code-desc": "Takie sytuacje też się zdarzają, nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie by pracownicy mogli wygenerować dla ciebie nowy kod. Napisz maila na adres biuro@mali-wspaniali.pl",
+        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres biuro@mali-wspaniali.pl",
         "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go jeszcze raz.",
         "length": "8 znaków",
         "capital": "Duża litera",
