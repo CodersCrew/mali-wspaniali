@@ -388,17 +388,25 @@
         }
     },
     "parent-settings": {
-        "header": "Usuwanie kont rodziców",
+        "header": "Ustawienia kont rodziców",
         "header-title-1": "Adres email rodzica",
         "header-title-2": "Dzieci",
         "button-icon-edit-tooltip": "Edytuj",
         "button-icon-delete-tooltip": "Usuń",
         "button-icon-change-tooltip": "Zmień przedszkole",
         "modal-delete-account": {
+            "header": "Usuń konto rodzica",
             "first-button": "Anuluj",
             "second-button": "Usuń",
-            "first-description": "Czy na pewno chcesz usunąć rodzica",
+            "first-description": "Are you sure you want to delete the parent",
             "second-description": "Spowoduje to anonimizację wyników dziecka: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
+        },
+        "modal-edit-account": {
+            "header": "Edytuj dane",
+            "button": "Zatwierdź",
+            "subtitle": "Aby edytować dane rodzica i dziecka uzupełnij poniższe pola",
+            "success-message": "Edycja profilu dziecka przebiegła pomyślnie",
+            "label": " E-mail rodzica"
         },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
@@ -558,7 +566,8 @@
             "done": "Zakończony",
             "planned": "Zaplanowany",
             "not-planned": "Niezaplanowany",
-            "see-results": "Przejdź do tabeli wyników"
+            "see-results": "Przejdź do tabeli wyników",
+            "search": "Szukaj"
         },
         "test-trials": {
             "title": "Próby testu"
@@ -695,6 +704,15 @@
         },
         "snackbars": {
             "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+        },
+        "modal": {
+            "cancel": "Anuluj",
+            "assign": "Przydziel",
+            "assign-to-kindergarten": "Przydziel do przedszkola",
+            "select-test": "Wybierz test",
+            "select-instructor": "Wybierz instruktora",
+            "assigned-kindergartens": "Przydzielone przedszkola",
+            "add-unassigned-kindergarten": "Dodaj nieprzydzielone przedszkole"
         }
     },
     "add-results-page": {

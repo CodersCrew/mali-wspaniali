@@ -389,17 +389,25 @@
         }
     },
     "parent-settings": {
-        "header": "Delete parent's account",
+        "header": "Settings parent's account",
         "header-title-1": "Parent's email adress",
         "header-title-2": "Children",
         "button-icon-edit-tooltip": "Edit",
         "button-icon-delete-tooltip": "Delete",
         "button-icon-change-tooltip": "Change kindergarden",
         "modal-delete-account": {
+            "header": "Delete parent's account",
             "first-button": "Cancel",
             "second-button": "Delete",
             "first-description": "Are you sure you want to delete the parent",
             "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
+        },
+        "modal-edit-account": {
+            "header": "Edit data",
+            "button": "Submit",
+            "subtitle": "To edit the data of the parent and child, complete the fields below",
+            "success-message": "You have successfully edited your child's profile",
+            "label": " Parent's email"
         },
         "success-message": "Removed (Anonymized) parent"
     },
@@ -555,7 +563,8 @@
             "done": "Done",
             "planned": "Planned",
             "not-planned": "Not planned",
-            "see-results": "See results"
+            "see-results": "See results",
+            "search": "Search"
         },
         "test-trials": {
             "title": "Test trials information"
@@ -693,6 +702,15 @@
         },
         "snackbars": {
             "info": "To add unassigned kindergarten, select the instructor and assign him/her to selected kindergarten"
+        },
+        "modal": {
+            "cancel": "Cancel",
+            "assign": "Assign",
+            "assign-to-kindergarten": "Assign to kindergarten",
+            "select-test": "Select test",
+            "select-instructor": "Select instructor",
+            "assigned-kindergartens": "Assigned kindergartens",
+            "add-unassigned-kindergarten": "Add unassigned kindergarten"
         }
     },
     "add-results-page": {

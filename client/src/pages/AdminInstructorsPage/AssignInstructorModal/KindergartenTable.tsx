@@ -38,7 +38,7 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
         <>
             <TextField
                 id="search"
-                label="Szukaj"
+                label={t('add-test-view.basic-information-form.search')}
                 variant="outlined"
                 fullWidth
                 autoComplete="off"

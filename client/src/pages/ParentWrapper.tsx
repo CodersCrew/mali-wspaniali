@@ -1,7 +1,7 @@
 import React, { FC, useRef } from 'react';
 import { useMe } from '../utils/useMe';
 import { useKindergartens } from '../operations/queries/Kindergartens/getKindergartens';
-import { openAddChildModal } from '../components/AddChildModal/AddChildModal';
+import { openAddChildModal } from '../components/ChilModals/AddChildModal';
 import { useAddChild } from '../operations/mutations/User/addChild';
 
 export const ParentWrapper: FC = ({ children }) => {
