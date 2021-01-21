@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles, Theme, Typography, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+
 import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
 import Maker from '../../assets/authTemplateLogos/maker/maker.png';
@@ -27,7 +28,7 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                             <div className={classes.partnersContainer}>
                                 <div className={classes.maker}>
                                     <div className={classes.partnersHeader}>
-                                        <Typography variant="subtitle1">{t('login-wrapper.made-by')}</Typography>{' '}
+                                        <Typography variant="subtitle1">{t('login-wrapper.made-by')}</Typography>
                                     </div>
                                     <div className={classes.partnersLogos}>
                                         <img src={Maker} alt="maker_logo" className={classes.makerPartnersLogo} />
@@ -35,7 +36,7 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                                 </div>
                                 <div className={classes.partners}>
                                     <div className={classes.partnersHeader}>
-                                        <Typography variant="subtitle1">{t('login-wrapper.partners')}</Typography>{' '}
+                                        <Typography variant="subtitle1">{t('login-wrapper.partners')}</Typography>
                                     </div>
                                     <div className={classes.partnersLogos}>
                                         <Typography variant="subtitle1">Logos</Typography>
@@ -71,7 +72,6 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         containerMobile: {
-            // boxShadow: 'none',
             borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
         appBar: {
@@ -148,10 +148,9 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         logo: {
-            width: '327.04px',
+            width: '327.04',
             [theme.breakpoints.down('md')]: {
                 width: 109,
-                // maxWidth: 200,x
                 margin: 'auto',
             },
         },

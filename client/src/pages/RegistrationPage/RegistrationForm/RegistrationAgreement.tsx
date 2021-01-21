@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { Checkbox, Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core/';
+import { Checkbox, Accordion, AccordionSummary, AccordionDetails, Typography, Box, Link } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
+
 import { AgreementModal } from './AgreementModal';
 import { ButtonSecondary } from '../../../components/Button';
-import { Agreement } from '../../../graphql/types';
+import { Agreement as AgreementOld } from '../../../graphql/types';
+import { useStyles } from './styles';
+
+interface Agreement extends AgreementOld {
+    extraContent?: string;
+    isRequired?: boolean;
+}
 
 const T_PREFIX = 'registration-page.agreements';
 
@@ -47,6 +54,8 @@ export const RegistrationAgreement = ({
     checkboxContent,
 }: Props) => {
     const { t } = useTranslation();
+    const classes = useStyles();
+
     const [isMoreContent, setIsMoreContent] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -58,19 +67,27 @@ export const RegistrationAgreement = ({
     return (
         <>
             <div className={agreementContainer}>
-                <h3 className={agreementHeader}>{t(`${T_PREFIX}.main-title`)}</h3>
-                <p>
-                    <b>{t(`${T_PREFIX}.clausule-header`)}</b>
-                </p>
-                <span>{t(`${T_PREFIX}.clausule`)}</span>
-                <ButtonSecondary
-                    className={agreementMoreBtn}
-                    onClick={toggleModal}
-                    variant="text"
-                    innerText={t(`${T_PREFIX}.show-more-content-modal`)}
-                />
-                <p className={agreementCheckboxHeader}>{t(`${T_PREFIX}.sub-title`)}</p>
-                <span>{t(`${T_PREFIX}.sub-title-description`)}</span>
+                <Typography variant="h4">{t(`${T_PREFIX}.main-title`)}</Typography>
+                <Box mb={1.5} />
+                <Typography variant="subtitle2">{t(`${T_PREFIX}.clausule-header`)}</Typography>
+                <Box mb={1} />
+                <Typography variant="body2">{t(`${T_PREFIX}.clausule`)}</Typography>
+                <Box mb={2} />
+                <Link href="#" onClick={toggleModal}>
+                    <Typography variant="body2">{t(`${T_PREFIX}.show-more-content-modal`)}</Typography>
+                </Link>
+                <Box mb={3} />
+                <Typography variant="h4">{t(`${T_PREFIX}.sub-title`)}</Typography>
+                <Box mb={1.5} />
+                <Typography variant="body2">{t(`${T_PREFIX}.sub-title-description`)}</Typography>
+                <Box mb={1.5} />
+                <div className={classes.agreementRequired}>
+                    <Typography variant="body2" className={classes.agreementRequiredAsterix}>
+                        *&nbsp;
+                    </Typography>
+                    <Typography variant="caption">{t('registration-page.agreements.required-agreements')}</Typography>
+                </div>
+                <Box mb={3} />
                 {agreements.map((agreement, idx) => (
                     <div
                         key={agreement._id}
@@ -81,25 +98,42 @@ export const RegistrationAgreement = ({
                                 color="default"
                                 className={agreementCheckbox}
                                 inputProps={{ 'aria-label': 'checkbox with default color' }}
+                                checked={agreement.isRequired}
+                                disabled={agreement.isRequired}
                             />
-                            <p className={agreementText}>{(agreement as any).title}</p>
+                            {agreement.isRequired && (
+                                <div className={classes.agreementRequired}>
+                                    <Typography variant="body2" className={classes.agreementRequiredAsterix}>
+                                        *&nbsp;
+                                    </Typography>
+                                </div>
+                            )}
+                            <Typography variant="body2" className={classes.agreementText}>
+                                {(agreement as any).text}
+                            </Typography>
                         </div>
-                        {idx !== 0 && (
-                            <Accordion className={agreementPanel} onClick={handleMoreContent}>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header"
-                                >
-                                    <Typography className={agreementMoreBtn}>{expansionText}</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography>{agreement.text}</Typography>
-                                </AccordionDetails>
-                            </Accordion>
+                        <Box mb={2} />
+                        {/* {idx !== 0 && ( */}
+                        {agreement.extraContent && (
+                            <>
+                                <Accordion className={agreementPanel} onClick={handleMoreContent}>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                    >
+                                        <Typography className={agreementMoreBtn}>{expansionText}</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <Typography>{agreement.extraContent}</Typography>
+                                    </AccordionDetails>
+                                </Accordion>
+                                <Box mb={2} />
+                            </>
                         )}
                     </div>
                 ))}
+                {/*
                 <div className={checkboxContent}>
                     <Checkbox
                         className={agreementCheckbox}
@@ -114,6 +148,7 @@ export const RegistrationAgreement = ({
                         <span>{t(`${T_PREFIX}.required-field`)} </span>
                     </div>
                 </div>
+*/}
             </div>
             <div className={classButton}>
                 <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />

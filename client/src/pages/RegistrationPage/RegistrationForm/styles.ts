@@ -116,13 +116,21 @@ export const useStyles = makeStyles((theme: Theme) =>
             paddingRight: 15,
             display: 'flex',
             flexDirection: 'column',
-            maxHeight: 600,
-            overflowY: 'scroll',
+            // maxHeight: 600,
+            // overflowY: 'scroll',
         },
         agreementHeader: {
             fontSize: 21,
             fontWeight: 'normal',
             margin: '12px 0 0 0',
+        },
+        agreementRequired: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'start',
+        },
+        agreementRequiredAsterix: {
+            color: theme.palette.secondary.main,
         },
         agreementMoreBtn: {
             color: mainColor,
@@ -130,23 +138,35 @@ export const useStyles = makeStyles((theme: Theme) =>
             fontSize: 16,
             paddingLeft: 0,
         },
+        agreementCheckbox: {
+            padding: 0,
+            marginRight: theme.spacing(1),
+        },
         agreementCheckboxHeader: {
-            margin: '10px 0 12px 0',
+            // margin: '10px 0 12px 0',
             fontSize: 21,
             fontWeight: 500,
         },
         agreementCheckboxWrapper: {
-            marginTop: 17,
+            // marginTop: 17,
             display: 'flex',
             flexDirection: 'column',
 
             '&.lastAgreement': {
-                margin: 0,
-                borderBottom: '1px solid #C4C4C4',
+                // margin: 0,
+                // borderBottom: '1px solid #C4C4C4',
             },
         },
+        checkboxContent: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'start',
+            alignItems: 'start',
+            // marginTop: '20px',
+        },
         agreementText: {
-            margin: '0 0 7px 0',
+            // margin: '0 0 7px 0',
+            marginTop: theme.spacing(0.5),
         },
         agreementLink: {
             color: mainColor,
@@ -164,14 +184,6 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         agreementPanel: {
             margin: '0 0 10px 34px',
-        },
-        agreementCheckbox: {
-            paddingTop: 0,
-        },
-        checkboxContent: {
-            display: 'flex',
-            alignItems: 'end',
-            marginTop: '20px',
         },
         loginHeader: {},
 

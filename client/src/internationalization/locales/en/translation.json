@@ -57,7 +57,8 @@
             "sub-title-description": "Zgoda na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych nie są obowiązkowai nie skutkują one brakiem możliwości brania udziału w zajęciach.",
             "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
             "privacy-policy": "Regulaminu, Polityki prywatności.",
-            "required-field": "*pole obowiązkowe do wypełnienia"
+            "required-field": "*pole obowiązkowe do wypełnienia",
+            "required-agreements": "*Required consents and agreements"
         }
     },
     "forgot-password-page": {

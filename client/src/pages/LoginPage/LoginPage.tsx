@@ -2,8 +2,9 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles, Typography, Box, Divider } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '../../theme/types';
+
 import { ButtonSecondary } from '../../components/Button';
+import { Theme } from '../../theme/types';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
@@ -194,7 +195,7 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
         },
         registerLink: {
-            marginLeft: '5px',
+            marginLeft: 5,
         },
         forgotPasswordButton: {
             textAlign: 'center',
