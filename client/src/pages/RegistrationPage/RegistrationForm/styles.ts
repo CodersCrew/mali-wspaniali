@@ -4,16 +4,6 @@ import { secondaryColor, mainColor, textColor, white } from '../../../colors';
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            /*
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100%',
-
-            '&.agreements': {
-                padding: '36px 0 40px 0',
-            },
-*/
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'start',
@@ -24,22 +14,7 @@ export const useStyles = makeStyles((theme: Theme) =>
                 justifyContent: 'start',
             },
         },
-        form: {
-            /*
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '80%',
-            minHeight: '90vh',
-
-            [theme.breakpoints.down('sm')]: {
-                minHeight: 'auto',
-                width: '100%',
-                margin: '0 15px',
-            },
-*/
-        },
+        form: {},
         headerContainer: {
             display: 'flex',
             marginBottom: '25px',
@@ -60,9 +35,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
         },
         stepper: {
-            // [theme.breakpoints.down('sm')]: {
-            //     marginTop: 15,
-            // },
             backgroundColor: theme.palette.background.default,
         },
         registrationHeader: {
@@ -208,12 +180,6 @@ export const useStyles = makeStyles((theme: Theme) =>
                 marginTop: theme.spacing(4),
             },
         },
-        footer: {
-            // display: 'flex',
-            // alignItems: 'center',
-            // height: '100%',
-            // width: '100%',
-            // backgroundColor: 'yellow',
-        },
+        footer: {},
     }),
 );

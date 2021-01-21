@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { Stepper, Step, StepLabel, StepContent, Typography, Container, Box } from '@material-ui/core/';
+import { Stepper, Step, StepLabel, StepContent, Typography, Box } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { openAlertDialog } from '../../../components/AlertDialog';
@@ -12,7 +12,6 @@ import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationPassword } from './RegistrationPassword';
 import { RegistrationFeedback } from './RegistrationFeedback';
 import { RegistrationCode } from './RegistrationCode';
-import { LanguageSelector } from './LanguageSelector';
 
 import { RegisterForm } from './types';
 import { Agreement } from '../../../graphql/types';
@@ -154,56 +153,29 @@ export const RegistrationForm = () => {
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
 
-    const getNew = true;
-
     return (
-        <>
-            {getNew ? (
-                <div className={classes.container}>
-                    <Box mb={7} />
-                    <Typography variant="h3" className={classes.header}>
-                        {t('registration-page.register-header')}
-                    </Typography>
-                    <Box mb={3} />
-                    <Typography className={classes.header}>{t('login-wrapper.subheading')}</Typography> <Box mb={2.5} />
-                    <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                        <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
-                            {steps.map((step, idx) => (
-                                <Step key={step} style={{ border: 'none' }}>
-                                    <StepLabel>
-                                        <Typography variant="body2">{step}</Typography>
-                                    </StepLabel>
-                                    <StepContent>{getStepContent(idx)}</StepContent>
-                                </Step>
-                            ))}
-                        </Stepper>{' '}
-                    </form>
-                    <div className={classes.footer}>
-                        <ButtonSecondary href="/login" innerText={t('registration-page.go-to-loginpage')} />
-                    </div>
-                </div>
-            ) : (
-                <div className={clsx({ [classes.container]: true, agreements: activeStep === 2 })}>
-                    <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                        {activeStep !== 4 && (
-                            <Container className={classes.headerContainer}>
-                                <Typography variant="h4">
-                                    <div className={classes.registrationHeader}>{t('registration-page.register')}</div>
-                                </Typography>
-                                <LanguageSelector />
-                            </Container>
-                        )}
-                        <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
-                            {steps.map((step, idx) => (
-                                <Step key={step} style={{ border: 'none' }}>
-                                    <StepLabel>{step}</StepLabel>
-                                    <StepContent>{getStepContent(idx)}</StepContent>
-                                </Step>
-                            ))}
-                        </Stepper>
-                    </form>
-                </div>
-            )}
-        </>
+        <div className={classes.container}>
+            <Box mb={7} />
+            <Typography variant="h3" className={classes.header}>
+                {t('registration-page.register-header')}
+            </Typography>
+            <Box mb={3} />
+            <Typography className={classes.header}>{t('login-wrapper.subheading')}</Typography> <Box mb={2.5} />
+            <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
+                <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
+                    {steps.map((step, idx) => (
+                        <Step key={step} style={{ border: 'none' }}>
+                            <StepLabel>
+                                <Typography variant="body2">{step}</Typography>
+                            </StepLabel>
+                            <StepContent>{getStepContent(idx)}</StepContent>
+                        </Step>
+                    ))}
+                </Stepper>{' '}
+            </form>
+            <div className={classes.footer}>
+                <ButtonSecondary href="/login" innerText={t('registration-page.go-to-loginpage')} />
+            </div>
+        </div>
     );
 };
