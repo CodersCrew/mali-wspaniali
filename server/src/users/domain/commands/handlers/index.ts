@@ -7,6 +7,7 @@ import { ResetPasswordHandler } from './reset_password_handler';
 import { ChangeUserAgreementHandler } from './change_user_agreement_handler';
 import { EditChildHandler } from './edit_child_handler';
 import { CreateAssessmentResultHandler } from './create_assessment_result_handler';
+import { UpdateAssessmentResultHandler } from './update_assessment_result_handler';
 
 export const CommandHandlers = [
   CreateUserHandler,
@@ -15,6 +16,7 @@ export const CommandHandlers = [
   EditChildHandler,
   AddChildResultHandler,
   CreateAssessmentResultHandler,
+  UpdateAssessmentResultHandler,
   ChangePasswordHandler,
   ResetPasswordHandler,
   ChangeUserAgreementHandler,

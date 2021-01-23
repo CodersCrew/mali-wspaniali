@@ -28,6 +28,20 @@ export class ChildAssessmentResultRepository {
 
     return result.toObject();
   }
+
+  async update(updatedInput: PartialUpdateChildResultInput): Promise<void> {
+    const {
+      _id,
+      childId,
+      kindergartenId,
+      assessmentId,
+      ...rest
+    } = updatedInput;
+    const foundResult = await this.childResultModel.findById(updatedInput._id);
+
+    await foundResult.update(rest).exec();
+  }
+
   async getByKindergarten(
     kindergartenId: string,
     assessmentId: string,

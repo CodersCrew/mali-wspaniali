@@ -245,6 +245,7 @@ type Mutation {
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
   addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!
+  updateAssessmentResult(result: PartialUpdateChildResultInput!): PartialChildResult!
   createKeyCode(target: String!): CreateKeyCodeDTO!
   createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createAgreement(agreement: String!): ReturnedStatusDTO!
