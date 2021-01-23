@@ -8,7 +8,7 @@ interface Props {
     onClose: () => void;
     device: Device;
     open: boolean;
-    children: JSX.Element;
+    children: React.ReactNode;
 }
 
 export function MenuDrawer({ device, onClose, children, open }: Props) {

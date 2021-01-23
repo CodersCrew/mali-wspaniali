@@ -46,7 +46,7 @@ interface MenuItemFactoryProps {
     name: string;
     t: TFunction;
     active: string[];
-    rightIcon?: JSX.Element;
+    rightIcon?: React.ReactNode;
 }
 
 interface CollapsibleMenuItemFactoryProps {

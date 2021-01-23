@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
 import { Me } from '../../graphql/types';
 
-export interface ExpansionPanelItem {
+export interface Props {
     user: Me;
     name: string;
     onTogglePanelExpansion: (name: string) => void;
@@ -13,7 +13,7 @@ export interface ExpansionPanelItem {
     panel: FC<{ user: Me; onToggle: (name: string) => void; name: string }>;
 }
 
-export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expanded, title, panel }: ExpansionPanelItem) {
+export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expanded, title, panel }: Props) {
     const { t } = useTranslation();
 
     const Panel = panel;

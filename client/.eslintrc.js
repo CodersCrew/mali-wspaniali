@@ -23,6 +23,7 @@ module.exports = {
     },
     rules: {
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+        'react/react-in-jsx-scope': 'off',
         'no-useless-constructor': 'off',
         'import/prefer-default-export': 'off',
         'no-use-before-define': 'off',
