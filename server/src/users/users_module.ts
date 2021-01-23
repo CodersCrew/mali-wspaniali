@@ -27,8 +27,9 @@ import { UserChangePasswordJWT } from './schemas/user_change_password_jwt_schema
 import { UserChangePasswordRepository } from './domain/repositories/user_change_password_jwt_repository';
 import { UserChangePasswordCronService } from './user_change_password_cron_service';
 import { AgreementsModule } from '../agreements/agreements_module';
-import { KindergartenRepository } from '../kindergartens/domain/repositories/kindergarten_repository';
 import { KindergartenModule } from '../kindergartens/kindergarten_module';
+import { ChildAssessmentResultRepository } from './domain/repositories/child_assessment_result_repository';
+import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_schema';
 
 @Module({
   imports: [
@@ -40,6 +41,9 @@ import { KindergartenModule } from '../kindergartens/kindergarten_module';
     ConfigModule.forRoot(),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     MongooseModule.forFeature([{ name: 'Child', schema: ChildSchema }]),
+    MongooseModule.forFeature([
+      { name: 'ChildAssessmentResult', schema: ChildAssessmentResultSchema },
+    ]),
     MongooseModule.forFeature([
       { name: 'ChildResult', schema: ChildResultSchema },
     ]),
@@ -60,6 +64,7 @@ import { KindergartenModule } from '../kindergartens/kindergarten_module';
     UserRepository,
     ChildRepository,
     ChildResultRepository,
+    ChildAssessmentResultRepository,
     UserChangePasswordRepository,
     SendMail,
     NodemailerProvider,
