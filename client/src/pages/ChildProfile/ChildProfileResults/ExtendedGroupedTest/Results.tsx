@@ -1,15 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
+import BoyAvatarSmall from '../../../../assets/boy_small.png';
 
 const Results = () => {
     const mockedData = {
         v1: 17,
-        v2: 14,
+        v2: 15,
         v3: 9,
         v4: 7,
         v5: 5,
         unit: 's',
-        result: 12,
+        result: 8,
     };
 
     const { v1, v2, v3, v4, v5, unit, result } = mockedData;
@@ -23,7 +24,7 @@ const Results = () => {
     const rangeYellow = calculatePercent(v2 - v3);
     const rangeLightGreen = calculatePercent(v3 - v4);
     const rangeGreen = calculatePercent(v4 - v5);
-    const resultMarkShift = calculatePercent(result - v5);
+    const resultMarkShift = calculatePercent(v1 - result);
 
     const classes = useStyles(resultMarkShift);
 
@@ -90,44 +91,40 @@ const Results = () => {
                     <line x1="440" y1="0.5" x2="-4.37114e-08" y2="0.499962" stroke="#616161" strokeDasharray="10 10" />
                 </svg>
             </div>
-            <div className={classes.result}>
-                <svg width="8" height="80" viewBox="0 0 8 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="8" height="80" rx="4" fill="#212121" />
-                </svg>
-            </div>
             <div className={classes.mark} style={{ left: '0' }}>
-                <svg width="1" height="80" viewBox="0 0 1 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <text x="-0" y="100" fill="black">{`${v1} ${unit}`}</text>
                 </svg>
-                {`${v1} ${unit}`}
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed}%` }}>
-                <svg width="1" height="80" viewBox="0 0 1 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <text x="-0" y="100" fill="black">{`${v2} ${unit}`}</text>
                 </svg>
-                {`${v2} ${unit}`}
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow}%` }}>
-                <svg width="1" height="80" viewBox="0 0 1 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <text x="-0" y="100" fill="black">{`${v3} ${unit}`}</text>
                 </svg>
-                {`${v3} ${unit}`}
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow + rangeLightGreen}%` }}>
-                <svg width="1" height="80" viewBox="0 0 1 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <text x="-0" y="100" fill="black">{`${v4} ${unit}`}</text>
                 </svg>
-                {`${v4} ${unit}`}
-            </div>
-            <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow + rangeLightGreen + rangeGreen}%` }}>
-                <svg width="1" height="80" viewBox="0 0 1 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                </svg>
-                {`${v5} ${unit}`}
             </div>
             <div className={classes.mark} style={{ left: '100%' }}>
-                <svg width="1" height="80" viewBox="0 0 1 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <text x="-0" y="100" fill="black">{`${v5} ${unit}`}</text>
+                </svg>
+            </div>
+            <div className={classes.result}>
+                <svg width="24" height="120" viewBox="0 0 24 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <image href={BoyAvatarSmall} height="24" width="24" />
+                    <rect width="8" height="80" rx="4" x="8" y="32" fill="#212121" />
                 </svg>
             </div>
         </div>
@@ -137,7 +134,7 @@ const Results = () => {
 const useStyles = makeStyles({
     wrapper: {
         position: 'relative',
-        margin: '12px 0',
+        margin: '48px 0 24px',
     },
     rectangles: {
         display: 'flex',
@@ -150,13 +147,10 @@ const useStyles = makeStyles({
         width: '100%',
     },
     result: (resultMarkShift) => ({
-        backgroundColor: 'black',
-        height: 80,
-        width: 8,
-        borderRadius: 4,
         position: 'absolute',
-        top: -12,
+        top: -44,
         left: `${resultMarkShift}%`,
+        transform: 'translateX(-12px)',
     }),
     mark: {
         display: 'flex',
