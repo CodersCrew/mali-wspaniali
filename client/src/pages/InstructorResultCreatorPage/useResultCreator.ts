@@ -56,7 +56,36 @@ export function useResultCreator({
 
     useEffect(() => {
         setValues(getResultValue());
-    }, [assessmentId, kindergartenId, childId, measurement, kindergartenResults]);
+
+        function getResultValue() {
+            const childResult = kindergartenResults.find((r) => r.childId === childId);
+
+            if (!childResult) {
+                return {
+                    run: 0,
+                    pendelumRun: 0,
+                    throw: 0,
+                    jump: 0,
+                };
+            }
+
+            if (measurement === 'first') {
+                return {
+                    run: childResult.firstMeasurementRunResult || 0,
+                    pendelumRun: childResult.firstMeasurementPendelumRunResult || 0,
+                    throw: childResult.firstMeasurementThrowResult || 0,
+                    jump: childResult.firstMeasurementJumpResult || 0,
+                };
+            }
+
+            return {
+                run: childResult.lastMeasurementRunResult || 0,
+                pendelumRun: childResult.lastMeasurementPendelumRunResult || 0,
+                throw: childResult.lastMeasurementThrowResult || 0,
+                jump: childResult.lastMeasurementJumpResult || 0,
+            };
+        }
+    }, [assessmentId, kindergartenId, childId, measurement, kindergartenResults, setValues]);
 
     const { selectedAssessment, selectedKindergarten, selectedChild } = getSelected({
         assessments,
@@ -120,35 +149,6 @@ export function useResultCreator({
             localStorage.setItem('edited', name);
         },
     };
-
-    function getResultValue() {
-        const childResult = kindergartenResults.find((r) => r.childId === childId);
-
-        if (!childResult) {
-            return {
-                run: 0,
-                pendelumRun: 0,
-                throw: 0,
-                jump: 0,
-            };
-        }
-
-        if (measurement === 'first') {
-            return {
-                run: childResult.firstMeasurementRunResult || 0,
-                pendelumRun: childResult.firstMeasurementPendelumRunResult || 0,
-                throw: childResult.firstMeasurementThrowResult || 0,
-                jump: childResult.firstMeasurementJumpResult || 0,
-            };
-        }
-
-        return {
-            run: childResult.lastMeasurementRunResult || 0,
-            pendelumRun: childResult.lastMeasurementPendelumRunResult || 0,
-            throw: childResult.lastMeasurementThrowResult || 0,
-            jump: childResult.lastMeasurementJumpResult || 0,
-        };
-    }
 }
 
 function getSelected({
