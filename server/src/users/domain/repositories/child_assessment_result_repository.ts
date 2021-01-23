@@ -28,4 +28,18 @@ export class ChildAssessmentResultRepository {
 
     return result.toObject();
   }
+  async getByKindergarten(
+    kindergartenId: string,
+    assessmentId: string,
+  ): Promise<PartialChildResult[]> {
+    const result = await this.childResultModel
+      .find({
+        assessmentId,
+        kindergartenId,
+      })
+      .lean()
+      .exec();
+
+    return result;
+  }
 }

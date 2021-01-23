@@ -122,4 +122,15 @@ export class ChildResolver {
 
     return created;
   }
+  @Query(() => [PartialChildResult])
+  async kindergartenResults(
+    @Args('assessmentId') assessmentId: string,
+    @Args('kindergartenId') kindergartenId: string,
+  ) {
+    const results: PartialChildResult[] = await this.queryBus.execute(
+      new GetKindergartenResults(assessmentId, kindergartenId),
+    );
+
+    return results;
+  }
 }

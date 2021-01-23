@@ -222,6 +222,7 @@ type Query {
   user(id: String!): UserDTO!
   users(role: String): [UserDTO!]!
   allChildren: [ChildDTO!]!
+  kindergartenResults(kindergartenId: String!, assessmentId: String!): [PartialChildResult!]!
   keyCodes(series: String!): [CreateKeyCodeDTO!]!
   keyCodeSeries: [KeyCodeSeriesDTO!]!
   agreements: [AgreementDTO!]!
