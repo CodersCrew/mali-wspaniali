@@ -19,7 +19,12 @@ import { LoggedUser } from './params/current_user_param';
 import { ChildDTO } from './dto/children_dto';
 import { ResultInput } from './inputs/result_input';
 import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
-import { AddChildCommand, AddChildResultCommand } from './domain/commands/impl';
+import {
+  AddChildCommand,
+  AddChildResultCommand,
+  CreateAssessmentResultCommand,
+  UpdateAssessmentResultCommand,
+} from './domain/commands/impl';
 import { ChildWithKindergarten } from './domain/queries/handlers/get_all_children_handler';
 import { EditChildCommand } from './domain/commands/impl/edit_child_command';
 import { ChildMapper } from './domain/mappers/child_mapper';
@@ -28,6 +33,12 @@ import { GetKindergartenQuery } from '../kindergartens/domain/queries/impl/get_k
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
 import { ChildCurrentParamsDTO } from './dto/child_current_params_dto';
 import { countParams } from '../shared/utils/count_params';
+import {
+  PartialChildResult,
+  PartialChildResultInput,
+  PartialUpdateChildResultInput,
+} from './inputs/child_result_input';
+import { GetKindergartenResults } from './domain/queries/impl';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildDTO)
@@ -99,5 +110,37 @@ export class ChildResolver {
     );
 
     return { status: !!created };
+  }
+
+  @Mutation(() => PartialChildResult)
+  async createAssessmentResult(
+    @Args('result') result: PartialChildResultInput,
+  ): Promise<PartialChildResult> {
+    const created: PartialChildResult = await this.commandBus.execute(
+      new CreateAssessmentResultCommand(result),
+    );
+
+    return created;
+  }
+
+  @Mutation(() => PartialChildResult)
+  async updateAssessmentResult(
+    @Args('result') result: PartialUpdateChildResultInput,
+  ): Promise<PartialChildResult> {
+    await this.commandBus.execute(new UpdateAssessmentResultCommand(result));
+
+    return {} as any;
+  }
+
+  @Query(() => [PartialChildResult])
+  async kindergartenResults(
+    @Args('assessmentId') assessmentId: string,
+    @Args('kindergartenId') kindergartenId: string,
+  ) {
+    const results: PartialChildResult[] = await this.queryBus.execute(
+      new GetKindergartenResults(assessmentId, kindergartenId),
+    );
+
+    return results;
   }
 }
