@@ -15,7 +15,7 @@
         "apollo-boost": "^0.4.9",
         "apollo-link-http": "^1.5.17",
         "clsx": "^1.1.0",
-        "dayjs": "^1.10.3",
+        "dayjs": "^1.10.4",
         "formik": "^2.1.5",
         "graphql": "^15.1.0",
         "html-react-parser": "^0.10.3",
