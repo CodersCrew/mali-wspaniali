@@ -4,14 +4,17 @@ import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 
-import { AgreementModal } from './AgreementModal';
 import { ButtonSecondary } from '../../../components/Button';
-import { Agreement as AgreementOld } from '../../../graphql/types';
+import { Agreement } from '../../../graphql/types';
+
+import { AgreementModal } from './AgreementModal';
 import { useStyles } from './styles';
 
-interface Agreement extends AgreementOld {
+// TODO: remove after determine schema
+interface AgreementExtended extends Agreement {
     extraContent?: string;
     isRequired?: boolean;
+    checked?: boolean;
 }
 
 const T_PREFIX = 'registration-page.agreements';
@@ -21,7 +24,7 @@ export interface Props {
     handleNext(): void;
     classButton: string;
     classNextBtn: string;
-    agreements: Agreement[];
+    agreements: AgreementExtended[];
     agreementMoreBtn: string;
     agreementContainer: string;
     agreementCheckboxHeader: string;
@@ -58,11 +61,36 @@ export const RegistrationAgreement = ({
 
     const [isMoreContent, setIsMoreContent] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [boxChecked, setBoxChecked] = useState(new Array(agreements.length));
 
     const expansionText = isMoreContent ? t(`${T_PREFIX}.show-less`) : t(`${T_PREFIX}.show-more`);
 
     const handleMoreContent = () => setIsMoreContent(!isMoreContent);
     const toggleModal = () => setIsOpen(!isOpen);
+
+    const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, checked } = target;
+        console.log('event.target.id:', id);
+        console.log('event.target.value:', checked);
+        if (id === '0' && checked) {
+            console.log('jestem');
+            const checks = new Array(agreements.length);
+            boxChecked.map((item, key) => {
+                checks[key] = true;
+
+                return item;
+            });
+            setBoxChecked(checks);
+        }
+    };
+
+    /*
+    useEffect(() => {
+        const checks = new Array(agreements.length);
+        agreements.map((agreement, key) => (checks[key] = agreement.checked));
+        setBoxChecked(checks);
+    }, []);
+*/
 
     return (
         <>
@@ -96,10 +124,15 @@ export const RegistrationAgreement = ({
                         <div className={checkboxContent}>
                             <Checkbox
                                 color="default"
+                                id={`${idx}`}
                                 className={agreementCheckbox}
                                 inputProps={{ 'aria-label': 'checkbox with default color' }}
+                                /*
                                 checked={agreement.isRequired}
                                 disabled={agreement.isRequired}
+*/
+                                checked={boxChecked[idx]}
+                                onChange={handleChange}
                             />
                             {agreement.isRequired && (
                                 <div className={classes.agreementRequired}>
