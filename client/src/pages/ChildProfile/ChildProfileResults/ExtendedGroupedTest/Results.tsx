@@ -1,16 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
+import { useTranslation } from 'react-i18next';
 import BoyAvatarSmall from '../../../../assets/boy_small.png';
 
 const Results = () => {
+    const { t } = useTranslation();
     const mockedData = {
         v1: 17,
-        v2: 15,
+        v2: 12,
         v3: 9,
-        v4: 7,
+        v4: 8,
         v5: 5,
         unit: 's',
-        result: 8,
+        result: 16,
     };
 
     const { v1, v2, v3, v4, v5, unit, result } = mockedData;
@@ -122,9 +124,11 @@ const Results = () => {
                 </svg>
             </div>
             <div className={classes.result}>
-                <svg width="24" height="120" viewBox="0 0 24 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <image href={BoyAvatarSmall} height="24" width="24" />
-                    <rect width="8" height="80" rx="4" x="8" y="32" fill="#212121" />
+                <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <image href={BoyAvatarSmall} x="90" height="24" width="24" />
+                    <text x="100" y="42" fill="black" dominantBaseline="middle" textAnchor="middle">{t('child-profile.your-child-result-1')}</text>
+                    <text x="100" y="56" fill="black" dominantBaseline="middle" textAnchor="middle">{t('child-profile.your-child-result-2')}</text>
+                    <rect width="8" height="80" rx="4" x="98" y="72" fill="#212121" />
                 </svg>
             </div>
         </div>
@@ -134,7 +138,7 @@ const Results = () => {
 const useStyles = makeStyles({
     wrapper: {
         position: 'relative',
-        margin: '48px 0 24px',
+        margin: '80px 0 50px',
     },
     rectangles: {
         display: 'flex',
@@ -148,9 +152,9 @@ const useStyles = makeStyles({
     },
     result: (resultMarkShift) => ({
         position: 'absolute',
-        top: -44,
+        top: -78,
         left: `${resultMarkShift}%`,
-        transform: 'translateX(-12px)',
+        transform: 'translateX(-102px)',
     }),
     mark: {
         display: 'flex',
