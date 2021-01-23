@@ -25,6 +25,7 @@ module.exports = {
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         'no-useless-constructor': 'off',
         'import/prefer-default-export': 'off',
+        'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
         '@typescript-eslint/no-useless-constructor': 'error',
         'import/extensions': [
@@ -46,6 +47,8 @@ module.exports = {
         'consistent-return': 'off',
         'no-underscore-dangle': 'off',
         'react/display-name': 'off',
-        'no-use-before-define': 'off',
+        '@typescript-eslint/ban-types': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
     },
 };
