@@ -51,5 +51,13 @@ module.exports = {
         '@typescript-eslint/ban-types': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-non-null-asserted-optional-chain': 'off',
+        camelcase: 'off',
+        '@typescript-eslint/camelcase': 'off',
+        'arrow-body-style': 'off',
+        'prefer-arrow-callback': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        'no-console': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
     },
 };

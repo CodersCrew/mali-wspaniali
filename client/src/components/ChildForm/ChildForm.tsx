@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, Grid } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FormikProps } from 'formik';
 
@@ -110,7 +110,7 @@ export const ChildForm = ({ kindergartens, formik }: KindergardenProp) => {
     );
 };
 
-export const useStyles = makeStyles((theme: Theme) => ({
+export const useStyles = makeStyles(() => ({
     container: {
         maxWidth: 640,
     },

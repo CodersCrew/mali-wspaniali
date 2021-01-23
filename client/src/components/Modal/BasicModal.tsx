@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles, Theme } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonPrimary, ButtonSecondary, ButtonDefault } from '../Button';
@@ -8,7 +8,7 @@ interface Props {
     isOpen: boolean;
     actionName: string;
     onAction: () => void;
-    onClose?: (e: any) => void;
+    onClose?: (e: unknown) => void;
     closeButtonText?: string;
     isCancelButtonVisible?: boolean;
     isActionButtonSecondary?: boolean;
@@ -48,7 +48,7 @@ export const BasicModal: FC<Props> = ({
     );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
     dialogPaper: {
         maxHeight: '80vh',
     },

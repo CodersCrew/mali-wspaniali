@@ -86,10 +86,7 @@ export default function AdminManageSingleAssessmentPage() {
                             <Grid container direction="column" spacing={2}>
                                 <Grid item sm={12}>
                                     {isViewOnly ? (
-                                        <BasicInformationForm
-                                            assessment={assessemnt}
-                                            onClick={() => console.log('click')}
-                                        />
+                                        <BasicInformationForm assessment={assessemnt} onClick={() => null} />
                                     ) : (
                                         <EditableBasicInformationForm
                                             isDisabled={isViewOnly}

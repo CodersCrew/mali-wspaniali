@@ -6,7 +6,7 @@ interface Props {
     value: string;
     name: string;
     error: string | undefined;
-    touched: any;
+    touched?: boolean;
     multiline?: boolean;
     rows?: number;
     disabled?: boolean;
