@@ -34,7 +34,7 @@ const AdminSettingsDeleteParent = ({
             dialogProps={{ maxWidth: 'xs' }}
         >
             <Typography variant="h4" className={classes.header}>
-                {t('parent-settings.header')}
+                {t('parent-settings.modal-delete-account.header')}
             </Typography>
             <Typography variant="body1">{t('parent-settings.modal-delete-account.first-description')}</Typography>
             <Typography variant="body1">

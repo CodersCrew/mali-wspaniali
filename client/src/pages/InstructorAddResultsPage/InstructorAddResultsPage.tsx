@@ -16,6 +16,8 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 import { ChildListCompactContainer } from './ChildListCompactContainer';
 import { AssessmentSubheader } from './AssessmentSubheader';
 import { parseDateToAge } from '../../utils/parseDateToAge';
+import { useCreateAssessmentResult } from '../../operations/mutations/Results/createAssessmentResult';
+import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
 
 export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
@@ -27,6 +29,8 @@ export default function InstructorAddResultsPage() {
     const { t } = useTranslation();
     const history = useHistory();
     const device = useIsDevice();
+    const { createAssessmentResult } = useCreateAssessmentResult();
+    const { kindergartenResults } = useAssessmentResults(selectedKindergarten, selectedAssessment);
 
     const currentAssessment = assessments.find((a) => a._id === selectedAssessment);
 
@@ -76,6 +80,7 @@ export default function InstructorAddResultsPage() {
                         container={
                             <ChildListContainer
                                 assessment={currentAssessment}
+                                results={kindergartenResults}
                                 childList={getFiltredAndSortedChildList()}
                                 onClick={handleClick}
                                 fullNameSortType={fullNameSortType}
@@ -150,11 +155,35 @@ export default function InstructorAddResultsPage() {
         }
 
         if (type === 'add-first-assessment-note') {
-            openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: '' });
+            openAddNoteDialog({
+                title: t('add-results-page.note-first-measurement'),
+                note: getFirstMeasurementNote(value),
+            }).then((decision) => {
+                if (decision.close) return;
+
+                createAssessmentResult({
+                    childId: value,
+                    kindergartenId: selectedKindergarten,
+                    assessmentId: selectedAssessment,
+                    firstMeasurementNote: (decision?.decision as any).note,
+                });
+            });
         }
 
         if (type === 'add-last-assessment-note') {
-            openAddNoteDialog({ title: t('add-results-page.note-last-measurement'), note: '' });
+            openAddNoteDialog({
+                title: t('add-results-page.note-last-measurement'),
+                note: getLastMeasurementNote(value),
+            }).then((decision) => {
+                if (decision.close) return;
+
+                createAssessmentResult({
+                    childId: value,
+                    kindergartenId: selectedKindergarten,
+                    assessmentId: selectedAssessment,
+                    lastMeasurementNote: (decision?.decision as any).note,
+                });
+            });
         }
 
         if (type === 'full-name') {
@@ -206,5 +235,13 @@ export default function InstructorAddResultsPage() {
         }
 
         return filtredChildList;
+    }
+
+    function getFirstMeasurementNote(childId: string) {
+        return kindergartenResults.find((r) => r.childId === childId)?.firstMeasurementNote || '';
+    }
+
+    function getLastMeasurementNote(childId: string) {
+        return kindergartenResults.find((r) => r.childId === childId)?.lastMeasurementNote || '';
     }
 }

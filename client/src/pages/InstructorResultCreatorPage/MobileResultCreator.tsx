@@ -50,6 +50,10 @@ export function MobileResultCreator({ value: resultCreator, measurement, onClick
                         values={resultCreator.values}
                         points={resultCreator.points}
                         edited={resultCreator.edited}
+                        measurement={measurement}
+                        result={resultCreator.kindergartenResults.find(
+                            (r) => r.childId === resultCreator.selectedChild._id,
+                        )}
                         onChange={resultCreator.onChange}
                         onEditClick={resultCreator.edit}
                     />

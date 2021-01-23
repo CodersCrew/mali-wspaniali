@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useParents } from '../../operations/queries/Users/getUsersByRole';
 import { AdminSettingsItem } from './AdminSettingsItem';
+import { User } from '../../graphql/types';
 
 export const AdminSettingsListContainers = () => {
     const { parents } = useParents();
@@ -18,7 +19,7 @@ export const AdminSettingsListContainers = () => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {parents.map((parent) => {
+                {parents.map((parent: User) => {
                     return <AdminSettingsItem parent={parent} key={parent.mail} />;
                 })}
             </TableBody>
