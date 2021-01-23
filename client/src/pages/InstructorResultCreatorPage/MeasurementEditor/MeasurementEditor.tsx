@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { MeasurementPoint } from './MeasurementPoint';
 import { Child, AssessmentResult } from '../../../graphql/types';
@@ -172,7 +172,7 @@ export function MeasurementEditor({
     }
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             padding: '10px 24px',

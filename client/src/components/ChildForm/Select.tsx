@@ -17,9 +17,9 @@ interface Props {
     value: string;
     options: Option[];
     name: string;
-    disabled?: boolean;
     error: string | undefined;
-    touched: any;
+    disabled?: boolean;
+    touched?: boolean;
     onChange: (name: string, value: string) => void;
 }
 

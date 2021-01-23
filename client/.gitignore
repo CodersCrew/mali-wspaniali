@@ -27,7 +27,3 @@ debug.log
 
 # webstorm files
 .idea
-
-# cypress videos
-cypress/videos
-

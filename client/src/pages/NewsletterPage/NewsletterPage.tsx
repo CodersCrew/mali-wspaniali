@@ -31,6 +31,7 @@ export default function NewsletterPage() {
         },
         validate,
         onSubmit: (values) => {
+            // eslint-disable-next-line
             console.log(values);
         },
     });

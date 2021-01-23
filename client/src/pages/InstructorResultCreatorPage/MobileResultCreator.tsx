@@ -73,7 +73,7 @@ export function MobileResultCreator({ value: resultCreator, measurement, onClick
                             </Grid>
                             <Grid item>
                                 <ActionMenuButtonSecondary
-                                    label={t(`add-result-page.save-and-next`)}
+                                    label={t('add-result-page.save-and-next')}
                                     onClick={() => onClick('save-and-next', '')}
                                     options={[
                                         <MenuItem

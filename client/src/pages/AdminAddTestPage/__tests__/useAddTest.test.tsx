@@ -91,7 +91,7 @@ describe('useAddTest', () => {
                 await awaitForHookResponse();
 
                 expect(onSubmit).toHaveBeenCalledWith(
-                    jasmine.objectContaining({ errors: translationOf('add-test-view.errors.name-too-short') }),
+                    expect.objectContaining({ errors: translationOf('add-test-view.errors.name-too-short') }),
                 );
             });
         });

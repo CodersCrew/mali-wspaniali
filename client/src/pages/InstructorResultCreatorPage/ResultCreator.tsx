@@ -81,7 +81,7 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
                                 </Grid>
                                 <Grid item>
                                     <ActionMenuButtonSecondary
-                                        label={t(`add-result-page.save-and-next`)}
+                                        label={t('add-result-page.save-and-next')}
                                         onClick={() => onClick('save-and-next', '')}
                                         options={[
                                             <MenuItem

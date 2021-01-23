@@ -8,7 +8,6 @@ import {
     OutlinedInput,
     createStyles,
     makeStyles,
-    Theme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
@@ -58,7 +57,7 @@ export const FormControlOldPassword = (props: ChangePasswordPanelComponentsProps
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         form: { display: 'block', marginBottom: '15px', width: '100%' },
     }),
