@@ -95,31 +95,31 @@ const Results = () => {
             </div>
             <div className={classes.mark} style={{ left: '0' }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
                     <text x="-0" y="100" fill="black">{`${v1} ${unit}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
                     <text x="-0" y="100" fill="black">{`${v2} ${unit}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
                     <text x="-0" y="100" fill="black">{`${v3} ${unit}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow + rangeLightGreen}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
                     <text x="-0" y="100" fill="black">{`${v4} ${unit}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: '100%' }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0.5" y1="2.18557e-08" x2="0.499997" y2="80" stroke="#616161" strokeDasharray="10 10" />
+                    <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
                     <text x="-0" y="100" fill="black">{`${v5} ${unit}`}</text>
                 </svg>
             </div>
@@ -161,6 +161,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         position: 'absolute',
         top: -8,
+        transform: 'translateX(-10px)',
     },
 });
 
