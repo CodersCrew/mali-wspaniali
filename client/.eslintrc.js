@@ -13,7 +13,6 @@ module.exports = {
         'prettier',
         'prettier/@typescript-eslint',
         'plugin:react/recommended',
-        'plugin:cypress/recommended',
     ],
     root: true,
     env: {
@@ -21,7 +20,6 @@ module.exports = {
         jest: true,
         jasmine: true,
         browser: true,
-        'cypress/globals': true,
     },
     rules: {
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
