@@ -2,10 +2,19 @@ import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
-import { ResultCreatorErrorReturnProps, ResultCreatorReturnProps, useResultCreator } from './useResultCreator';
+import {
+    ResultCreatorErrorReturnProps,
+    ResultCreatorReturnProps,
+    useResultCreator,
+    AssessmentValues,
+} from './useResultCreator';
 import { ResultCreator } from './ResultCreator';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { MobileResultCreator } from './MobileResultCreator';
+import {
+    CreatedAssessmentInput,
+    useCreateAssessmentResult,
+} from '../../operations/mutations/Results/createAssessmentResult';
 
 interface PageParams {
     assessmentId: string;
@@ -16,6 +25,7 @@ interface PageParams {
 
 export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
+    const { createAssessmentResult } = useCreateAssessmentResult();
 
     const history = useHistory();
     const device = useIsDevice();
@@ -87,12 +97,28 @@ export default function InstructorResultCreatorPage() {
 
             const foundNextChild = resultCreator.selectedKindergarten.children![currentChildIndex + 1];
 
+            createAssessmentResult({ childId, assessmentId, kindergartenId, ...mapValuesToResult(resultCreator) });
+
             if (foundNextChild) {
                 history.push(
                     `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
                 );
             }
         }
+    }
+
+    function mapValuesToResult(results: ResultCreatorReturnProps): Partial<CreatedAssessmentInput> {
+        const result: Partial<CreatedAssessmentInput> = {};
+
+        (result as any)[
+            `${measurement}Measurement${results.edited[0].toUpperCase()}${results.edited.substr(1)}Result`
+        ] = results.values[results.edited as keyof Partial<AssessmentValues>];
+
+        (result as any)[
+            `${measurement}Measurement${results.edited[0].toUpperCase()}${results.edited.substr(1)}Date`
+        ] = new Date();
+
+        return result;
     }
 }
 

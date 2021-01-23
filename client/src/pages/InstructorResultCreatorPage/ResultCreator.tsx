@@ -28,7 +28,7 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
         <Paper>
             <Grid container className={classes.container}>
                 <Grid item xs={4} className={classes.childPickerContainer}>
-                    <Paper className={classes.childPickerPaper}>
+                    <Paper>
                         <ChildPicker
                             header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
                             selectedKindergarten={selectedKindergarten}
@@ -55,10 +55,14 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
                         </Grid>
                         <Grid item className={classes.editor}>
                             <MeasurementEditor
+                                measurement={measurement}
                                 child={resultCreator.selectedChild}
                                 values={resultCreator.values}
                                 points={resultCreator.points}
                                 edited={resultCreator.edited}
+                                result={resultCreator.kindergartenResults.find(
+                                    (r) => r.childId === resultCreator.selectedChild._id,
+                                )}
                                 onChange={resultCreator.onChange}
                                 onEditClick={resultCreator.edit}
                             />
@@ -127,9 +131,6 @@ const useStyles = makeStyles(() =>
             overflowY: 'auto',
             height: '100%',
             paddingRight: 2,
-        },
-        childPickerPaper: {
-            height: '100%',
         },
         editorContainer: {
             height: '100%',
