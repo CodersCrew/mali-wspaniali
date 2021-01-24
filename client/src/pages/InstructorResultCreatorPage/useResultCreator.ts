@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { Assessment, Kindergarten, Child, AssessmentResult } from '../../graphql/types';
 import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
@@ -54,39 +54,6 @@ export function useResultCreator({
     });
     const [edited, setEdited] = useState(() => localStorage.getItem('edited') || '');
 
-    useEffect(() => {
-        setValues(getResultValue());
-
-        function getResultValue() {
-            const childResult = kindergartenResults.find((r) => r.childId === childId);
-
-            if (!childResult) {
-                return {
-                    run: 0,
-                    pendelumRun: 0,
-                    throw: 0,
-                    jump: 0,
-                };
-            }
-
-            if (measurement === 'first') {
-                return {
-                    run: childResult.firstMeasurementRunResult || 0,
-                    pendelumRun: childResult.firstMeasurementPendelumRunResult || 0,
-                    throw: childResult.firstMeasurementThrowResult || 0,
-                    jump: childResult.firstMeasurementJumpResult || 0,
-                };
-            }
-
-            return {
-                run: childResult.lastMeasurementRunResult || 0,
-                pendelumRun: childResult.lastMeasurementPendelumRunResult || 0,
-                throw: childResult.lastMeasurementThrowResult || 0,
-                jump: childResult.lastMeasurementJumpResult || 0,
-            };
-        }
-    }, [assessmentId, kindergartenId, childId, measurement, kindergartenResults, setValues]);
-
     const { selectedAssessment, selectedKindergarten, selectedChild } = getSelected({
         assessments,
         assessmentId,
@@ -135,12 +102,12 @@ export function useResultCreator({
 
     return {
         assessments,
-        values,
+        values: getResultValue(values),
         points,
         selectedAssessment,
         selectedKindergarten,
         selectedChild,
-        onChange: (value: any) => setValues(value),
+        onChange: (value: AssessmentValues) => setValues(getResultValue(value)),
         error: null,
         edited,
         kindergartenResults,
@@ -149,6 +116,35 @@ export function useResultCreator({
             localStorage.setItem('edited', name);
         },
     };
+
+    function getResultValue(options?: AssessmentValues) {
+        const childResult = kindergartenResults.find((r) => r.childId === childId);
+
+        if (!childResult) {
+            return {
+                run: 0,
+                pendelumRun: 0,
+                throw: 0,
+                jump: 0,
+            };
+        }
+
+        if (measurement === 'first') {
+            return {
+                run: options?.run || childResult.firstMeasurementRunResult || 0,
+                pendelumRun: options?.pendelumRun || childResult.firstMeasurementPendelumRunResult || 0,
+                throw: options?.throw || childResult.firstMeasurementThrowResult || 0,
+                jump: options?.jump || childResult.firstMeasurementJumpResult || 0,
+            };
+        }
+
+        return {
+            run: options?.run || childResult.lastMeasurementRunResult || 0,
+            pendelumRun: options?.pendelumRun || childResult.lastMeasurementPendelumRunResult || 0,
+            throw: options?.throw || childResult.lastMeasurementThrowResult || 0,
+            jump: options?.jump || childResult.lastMeasurementJumpResult || 0,
+        };
+    }
 }
 
 function getSelected({

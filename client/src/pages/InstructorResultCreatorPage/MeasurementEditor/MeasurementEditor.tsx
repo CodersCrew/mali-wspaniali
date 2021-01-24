@@ -46,7 +46,7 @@ export function MeasurementEditor({
         <Grid container justify="space-between" direction="column" spacing={1} className={classes.container}>
             <Grid item>
                 <MeasurementPoint
-                    isEmpty={values.pendelumRun === 0}
+                    isEmpty={values.pendelumRun === 0 && edited !== 'pendelumRun'}
                     step={0.1}
                     maxValue={pendelumRun.lowerLimitPoints}
                     lowerLimit={pendelumRun.lowerLimit}
@@ -63,14 +63,14 @@ export function MeasurementEditor({
             </Grid>
             <Grid item>
                 <MeasurementPoint
-                    isEmpty={values.jump === 0}
+                    isEmpty={values.jump === 0 && edited !== 'jump'}
                     step={1}
                     maxValue={jump.upperLimitPoints}
                     lowerLimit={jump.lowerLimit}
                     upperLimit={jump.upperLimit}
                     points={points.jump}
                     value={values.jump}
-                    changeDate={getRunMeasurementDate()}
+                    changeDate={getJumpMeasurementDate()}
                     unit="cm"
                     name={t('add-result-page.power')}
                     disabled={edited === 'jump'}
@@ -80,7 +80,7 @@ export function MeasurementEditor({
             </Grid>
             <Grid item>
                 <MeasurementPoint
-                    isEmpty={values.throw === 0}
+                    isEmpty={values.throw === 0 && edited !== 'throwBall'}
                     step={10}
                     maxValue={throwBall.upperLimitPoints}
                     lowerLimit={throwBall.lowerLimit}
@@ -97,14 +97,14 @@ export function MeasurementEditor({
             </Grid>
             <Grid item>
                 <MeasurementPoint
-                    isEmpty={values.run === 0}
+                    isEmpty={values.run === 0 && edited !== 'run'}
                     step={0.1}
                     maxValue={run.lowerLimitPoints}
                     lowerLimit={run.lowerLimit}
                     upperLimit={run.upperLimit}
                     points={points.run}
                     value={values.run}
-                    changeDate={getJumpMeasurementDate()}
+                    changeDate={getRunMeasurementDate()}
                     unit="s"
                     name={t('add-result-page.velocity')}
                     disabled={edited === 'run'}

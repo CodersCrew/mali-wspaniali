@@ -12,6 +12,10 @@ import { ResultCreator } from './ResultCreator';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { MobileResultCreator } from './MobileResultCreator';
 import {
+    useUpdateAssessmentResult,
+    UpdatedAssessmentInput,
+} from '../../operations/mutations/Results/updateAssessmentResult';
+import {
     CreatedAssessmentInput,
     useCreateAssessmentResult,
 } from '../../operations/mutations/Results/createAssessmentResult';
@@ -26,6 +30,7 @@ interface PageParams {
 export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
     const { createAssessmentResult } = useCreateAssessmentResult();
+    const { updateAssessmentResult } = useUpdateAssessmentResult();
 
     const history = useHistory();
     const device = useIsDevice();
@@ -97,7 +102,10 @@ export default function InstructorResultCreatorPage() {
 
             const foundNextChild = resultCreator.selectedKindergarten.children![currentChildIndex + 1];
 
-            createAssessmentResult({ childId, assessmentId, kindergartenId, ...mapValuesToResult(resultCreator) });
+            createOrUpdateResult(
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(resultCreator) },
+                resultCreator,
+            );
 
             if (foundNextChild) {
                 history.push(
@@ -110,15 +118,27 @@ export default function InstructorResultCreatorPage() {
     function mapValuesToResult(results: ResultCreatorReturnProps): Partial<CreatedAssessmentInput> {
         const result: Partial<CreatedAssessmentInput> = {};
 
-        (result as any)[
-            `${measurement}Measurement${results.edited[0].toUpperCase()}${results.edited.substr(1)}Result`
-        ] = results.values[results.edited as keyof Partial<AssessmentValues>];
+        const measurementName = results.edited === 'throwBall' ? 'throw' : results.edited;
 
         (result as any)[
-            `${measurement}Measurement${results.edited[0].toUpperCase()}${results.edited.substr(1)}Date`
-        ] = new Date();
+            `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Result`
+        ] = results.values[measurementName as keyof Partial<AssessmentValues>];
+
+        (result as any)[
+            `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Date`
+        ] = new Date().toISOString();
 
         return result;
+    }
+
+    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>, results: ResultCreatorReturnProps) {
+        const childResult = results.kindergartenResults.find((r) => r.childId === update.childId);
+
+        if (childResult) {
+            updateAssessmentResult({ _id: childResult._id, ...update });
+        } else {
+            createAssessmentResult(update);
+        }
     }
 }
 
