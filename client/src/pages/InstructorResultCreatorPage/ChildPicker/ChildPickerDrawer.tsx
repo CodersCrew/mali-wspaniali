@@ -66,7 +66,7 @@ export function ChildPickerDrawer(props: Props) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         drawer: {
-            zIndex: '2000 !important' as any,
+            zIndex: '1300 !important' as any,
         },
         paper: {
             width: '90%',
