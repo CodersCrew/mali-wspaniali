@@ -75,6 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
         header: {
             display: 'flex',
             alignItems: 'center',
+            cursor: 'pointer',
         },
         icon: {
             color: theme.palette.text.secondary,
