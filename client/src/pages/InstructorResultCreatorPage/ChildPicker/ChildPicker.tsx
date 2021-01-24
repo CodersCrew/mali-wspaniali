@@ -36,7 +36,7 @@ export function ChildPicker({
             container={
                 <>
                     <Grid container className={classes.container} spacing={2} direction="column">
-                        <Grid item>
+                        <Grid item className={classes.fullWidth}>
                             <SelectList
                                 value={selectedKindergarten}
                                 label={t('add-results-page.test-name')}
@@ -99,6 +99,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             padding: theme.spacing(2, 2, 0, 2),
+        },
+        fullWidth: {
+            width: '100%',
         },
     }),
 );
