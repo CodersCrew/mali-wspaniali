@@ -5,7 +5,7 @@ import { useMe } from '../../utils/useMe';
 import { useReadNotification } from '../../operations/mutations/Notification/readNotification';
 import { PageContainer } from '../../components/PageContainer';
 
-export const NotificationsPage = () => {
+export default function NotificationsPage() {
     const user = useMe();
     const { readNotification } = useReadNotification();
 
@@ -20,4 +20,4 @@ export const NotificationsPage = () => {
             <NotificationPageList onClick={(id) => readNotification(id)} notifications={user.notifications} />
         </PageContainer>
     );
-};
+}

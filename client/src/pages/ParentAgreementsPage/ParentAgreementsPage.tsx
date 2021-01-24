@@ -3,7 +3,7 @@ import { activePage } from '../../apollo_client';
 import { Agreements } from './Agreements';
 import { useMe } from '../../utils/useMe';
 
-export function ParentAgreementsPage() {
+export default function ParentAgreementsPage() {
     const user = useMe();
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export function ParentAgreementsPage() {
 
     if (!user) return null;
 
-    const sortedAgreements = [...user.agreements].sort((a, b) => {
+    const sortedAgreements = [...user.agreements].sort((a) => {
         return a.text === 'Marketing' ? -1 : 1;
     });
 

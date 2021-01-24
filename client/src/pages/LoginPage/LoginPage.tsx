@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, makeStyles, createStyles } from '@material-ui/core/';
+import { TextField, makeStyles, createStyles, Link, Typography } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
@@ -11,7 +11,7 @@ const initialError: Error = {
     message: '',
 };
 
-export const LoginPage = () => {
+export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(initialError);
@@ -34,7 +34,9 @@ export const LoginPage = () => {
     return (
         <div className={classes.container}>
             <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                <div className={classes.loginHeader}>{t('login-page.login-header')}</div>
+                <Typography variant="h3" className={classes.loginHeader}>
+                    {t('login-page.login-header')}
+                </Typography>
                 <TextField
                     required
                     onChange={({ target: { value } }) => setEmail(value)}
@@ -77,14 +79,23 @@ export const LoginPage = () => {
                     />
                 </div>
             </form>
+            <div className={classes.registerWrapper}>
+                <div>{t('login-page.no-account')} </div>
+                <div>
+                    <Link className={classes.registerLink} href="/register" underline="always">
+                        {t('registration-page.register')}
+                    </Link>
+                </div>
+            </div>
         </div>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%',
@@ -108,12 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
         },
         loginHeader: {
-            textAlign: 'center',
-            fontFamily: 'Montserrat',
-            fontSize: '21px',
-            fontWeight: 'bold',
-            marginBottom: '25px',
-            textTransform: 'uppercase',
+            marginBottom: theme.spacing(3),
 
             [theme.breakpoints.down('sm')]: {
                 marginTop: '40px',
@@ -123,12 +129,22 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '20px',
             width: '100%',
             display: 'flex',
+            marginDown: 'auto',
             alignItems: 'center',
             justifyContent: 'space-between',
 
             [theme.breakpoints.down('sm')]: {
                 margin: '0 0 20px 0',
             },
+        },
+        registerWrapper: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        registerLink: {
+            marginLeft: '5px',
         },
         forgotPasswordButton: {
             textAlign: 'center',

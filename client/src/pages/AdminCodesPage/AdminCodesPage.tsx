@@ -5,7 +5,7 @@ import { activePage } from '../../apollo_client';
 import { KeyCodes } from './KeyCodes/KeyCodes';
 import { PageContainer } from '../../components/PageContainer';
 
-export function AdminCodesPage() {
+export default function AdminCodesPage() {
     const classes = useStyles();
 
     useEffect(() => {

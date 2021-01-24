@@ -20,10 +20,10 @@ export function useAuthorizeMe(onAuthorized: (user: Me) => void, onError: (error
     const { refetch } = useGetMe();
 
     return {
-        authorizeMe: (email: string, password: string) => {
+        authorizeMe: (mail: string, password: string) => {
             authorizeUser({
-                variables: { user: { mail: email, password } },
-                update: (cache, { data: { login } }) => {
+                variables: { user: { mail: normalize(mail), password } },
+                update: (_, { data: { login } }) => {
                     localStorage.setItem('token', login.token);
 
                     refetch()
@@ -37,4 +37,8 @@ export function useAuthorizeMe(onAuthorized: (user: Me) => void, onError: (error
             }).catch((error) => onError(error));
         },
     };
+}
+
+function normalize(value: string) {
+    return value.replace(/\s/g, '').toLowerCase();
 }

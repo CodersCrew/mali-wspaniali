@@ -19,7 +19,9 @@ export function AssessmentHistoryList({ assessments, onTestClick }: Props) {
                 <TableHead>
                     <TableRow>
                         <TableCell>{t('manage-test-view.test-list.name')}</TableCell>
+                        <TableCell />
                         <TableCell>{t('manage-test-view.test-list.first-assessment')}</TableCell>
+                        <TableCell />
                         <TableCell>{t('manage-test-view.test-list.last-assessment')}</TableCell>
                         <TableCell align="center">{t('manage-test-view.test-list.status')}</TableCell>
                     </TableRow>

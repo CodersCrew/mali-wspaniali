@@ -20,6 +20,9 @@ export const GET_ASSESSMENT = gql`
             title
             startDate
             endDate
+            status
+            firstMeasurementStatus
+            lastMeasurementStatus
             kindergartens {
                 kindergarten {
                     _id
@@ -29,6 +32,10 @@ export const GET_ASSESSMENT = gql`
                     _id
                 }
             }
+            firstMeasurementStartDate
+            firstMeasurementEndDate
+            lastMeasurementStartDate
+            lastMeasurementEndDate
         }
     }
 `;

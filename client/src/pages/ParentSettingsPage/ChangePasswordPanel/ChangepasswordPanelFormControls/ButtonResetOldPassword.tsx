@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ButtonSecondary } from '../../../../components/Button';
 import { Me } from '../../../../graphql/types';
@@ -42,6 +42,7 @@ export const ButtonResetOldPassword = (props: Props) => {
             })
             .catch((reason) => {
                 dispatch({ type: PASSWORD_RESET_EMAIL_SENT });
+                // eslint-disable-next-line
                 console.log(reason.message);
             });
     };

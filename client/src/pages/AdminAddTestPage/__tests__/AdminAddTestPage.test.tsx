@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import { MockedResponse } from '@apollo/client/testing';
 
-import { AdminManageSingleAssessmentPage } from '../AdminManageSingleAssessmentPage';
+import AdminManageSingleAssessmentPage from '../AdminManageSingleAssessmentPage';
 import * as OpenSnackbar from '../../../components/Snackbar/openSnackbar';
 import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/createAssessment';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
@@ -12,6 +12,7 @@ import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { formatDate } from '../../../utils/formatDate';
 import { renderWithMock } from '../../../utils/testing/renderWithMockedProvider';
+import { GET_ALL_ASSESSMENTS } from '../../../operations/queries/Assessment/getAllAssessments';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 
@@ -30,7 +31,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('AdminAddTestPage', () => {
-    let openSnackbar: jasmine.Spy;
+    let openSnackbar: jest.SpyInstance;
 
     describe('basic test information', () => {
         beforeEach(async () => {
@@ -38,7 +39,7 @@ describe('AdminAddTestPage', () => {
 
             await awaitForRenderResponse();
 
-            openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
+            openSnackbar = jest.spyOn(OpenSnackbar, 'openSnackbar');
         });
 
         it('renders test name input', async () => {
@@ -223,9 +224,9 @@ describe('AdminAddTestPage', () => {
 
                 await awaitForRenderResponse();
 
-                openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
+                openSnackbar = jest.spyOn(OpenSnackbar, 'openSnackbar');
 
-                openSnackbar.and.returnValue(Promise.resolve({ close: true }));
+                openSnackbar.mockReturnValue(Promise.resolve({ close: true }));
             });
 
             it('renders confirmation', async () => {
@@ -248,7 +249,7 @@ describe('AdminAddTestPage', () => {
 
                 await awaitForRenderResponse();
 
-                openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
+                openSnackbar = jest.spyOn(OpenSnackbar, 'openSnackbar');
             });
 
             it('disables submit button', async () => {
@@ -281,15 +282,61 @@ const mocks = [
         request: {
             query: CREATE_ASSESSMENT,
             variables: {
-                title: 'new-test',
-                startDate: formatDate(startDate),
-                endDate: formatDate(endDate),
-                kindergartenIds: [],
+                assessment: {
+                    title: 'new-test',
+                    startDate: formatDate(startDate),
+                    endDate: formatDate(endDate),
+                    firstMeasurementStartDate: formatDate(startDate),
+                    firstMeasurementEndDate: formatDate(endDate),
+                    lastMeasurementStartDate: formatDate(startDate),
+                    lastMeasurementEndDate: formatDate(endDate),
+                    kindergartenIds: [],
+                },
             },
         },
         result: {
             data: {
                 createAssessment: { status: true },
+            },
+        },
+    },
+    {
+        request: {
+            query: GET_ALL_ASSESSMENTS,
+            variables: {},
+        },
+        result: {
+            data: {
+                assessments: [
+                    {
+                        _id: '1',
+                        isOutdated: false,
+                        isDeleted: false,
+                        title: 'test-assessment1',
+                        startDate: '2000-01-01',
+                        endDate: '2000-01-31',
+                        firstMeasurementStartDate: '2000-01-01',
+                        firstMeasurementEndDate: '2000-01-31',
+                        lastMeasurementStartDate: '2000-01-01',
+                        lastMeasurementEndDate: '2000-01-31',
+                        status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
+                        kindergartens: [
+                            {
+                                kindergarten: {
+                                    _id: '1',
+                                    name: 'test-kindergarten1',
+                                    number: 1,
+                                },
+                                instructor: {
+                                    _id: '1',
+                                    mail: 'test-instructor1@gmail.com',
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
         },
     },
@@ -326,6 +373,46 @@ const mockedKindergartens = [
                         number: 2,
                         address: 'my-street',
                         city: 'my-city',
+                    },
+                ],
+            },
+        },
+    },
+    {
+        request: {
+            query: GET_ALL_ASSESSMENTS,
+            variables: {},
+        },
+        result: {
+            data: {
+                assessments: [
+                    {
+                        _id: '1',
+                        isOutdated: false,
+                        isDeleted: false,
+                        title: 'test-assessment1',
+                        startDate: '2000-01-01',
+                        endDate: '2000-01-31',
+                        firstMeasurementStartDate: '2000-01-01',
+                        firstMeasurementEndDate: '2000-01-31',
+                        lastMeasurementStartDate: '2000-01-01',
+                        lastMeasurementEndDate: '2000-01-31',
+                        status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
+                        kindergartens: [
+                            {
+                                kindergarten: {
+                                    _id: '1',
+                                    name: 'test-kindergarten1',
+                                    number: 1,
+                                },
+                                instructor: {
+                                    _id: '1',
+                                    mail: 'test-instructor1@gmail.com',
+                                },
+                            },
+                        ],
                     },
                 ],
             },

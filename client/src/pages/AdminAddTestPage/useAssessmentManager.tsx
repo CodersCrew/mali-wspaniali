@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
-import { useCreateAssessment } from '../../operations/mutations/Assessment/createAssessment';
+import { CreatedAssessmentInput, useCreateAssessment } from '../../operations/mutations/Assessment/createAssessment';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { formatDate } from '../../utils/formatDate';
 import { useAssessment } from '../../operations/queries/Assessment/getAssessment';
@@ -29,6 +29,13 @@ export interface AssessmentManagerState {
     endDate: string;
     isOutdated: boolean;
     isDeleted: boolean;
+    status: string;
+    firstMeasurementStatus: string;
+    lastMeasurementStatus: string;
+    firstMeasurementStartDate: string;
+    firstMeasurementEndDate: string;
+    lastMeasurementStartDate: string;
+    lastMeasurementEndDate: string;
     kindergartenIds: string[];
 }
 
@@ -38,10 +45,20 @@ const defaultAssessment: AssessmentManagerState = {
     endDate: formatDate(defaultEndDate),
     isOutdated: false,
     isDeleted: false,
+    status: 'active',
+    firstMeasurementStatus: 'active',
+    lastMeasurementStatus: 'active',
+    firstMeasurementStartDate: formatDate(defaultStartDate),
+    firstMeasurementEndDate: formatDate(defaultEndDate),
+    lastMeasurementStartDate: formatDate(defaultStartDate),
+    lastMeasurementEndDate: formatDate(defaultEndDate),
     kindergartenIds: [],
 };
 
-export function useAssessmentManager(testId: string | undefined, onSubmit: (state: SuccessState | ErrorState) => void) {
+export function useAssessmentManager(
+    assessmentId: string | undefined,
+    onSubmit: (state: SuccessState | ErrorState) => void,
+) {
     const [updatedLocalAssessment, setUpdateLocalAssessment] = useState(defaultAssessment);
     const [reasonForBeingDisabled, setReasonForBeingDisabled] = useState<string | undefined>(undefined);
     const { kindergartenList } = useKindergartens();
@@ -49,9 +66,9 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
     const { assessments } = useAssessments();
     const { createAssessment: createTest, error, isCreationPending } = useCreateAssessment();
     const state = updatedLocalAssessment;
-    const { updateAssessment, isUpdatePending } = useUpdateAssessment(testId!);
+    const { updateAssessment, isUpdatePending } = useUpdateAssessment();
 
-    const { assessment } = useAssessment(testId!);
+    const { assessment } = useAssessment(assessmentId!);
 
     useEffect(() => {
         if (!assessment) return;
@@ -60,6 +77,13 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
             title: assessment.title,
             startDate: assessment.startDate,
             endDate: assessment.endDate,
+            status: assessment.status,
+            firstMeasurementStatus: assessment.firstMeasurementStatus,
+            lastMeasurementStatus: assessment.lastMeasurementStatus,
+            firstMeasurementStartDate: assessment.firstMeasurementStartDate,
+            firstMeasurementEndDate: assessment.firstMeasurementEndDate,
+            lastMeasurementStartDate: assessment.lastMeasurementStartDate,
+            lastMeasurementEndDate: assessment.lastMeasurementEndDate,
             isOutdated: assessment.isOutdated,
             isDeleted: assessment.isDeleted,
             kindergartenIds: assessment.kindergartens.map((k) => k.kindergarten._id),
@@ -71,7 +95,7 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
             .then(() => {
                 const assessmentWithUsedName = assessments.find((a) => a.title === state.title);
 
-                if (assessmentWithUsedName && assessmentWithUsedName._id !== testId) {
+                if (assessmentWithUsedName && assessmentWithUsedName._id !== assessmentId) {
                     return setReasonForBeingDisabled(t('add-test-view.errors.test-already-exists'));
                 }
 
@@ -82,25 +106,28 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
                     setReasonForBeingDisabled(e.errors[0]);
                 }
             });
-    }, [updatedLocalAssessment, state, assessments, t, testId]);
+    }, [updatedLocalAssessment, state, assessments, t, assessmentId]);
 
     function submit(update: AssessmentManagerState) {
-        if (testId) return updatedAssessment(update);
+        if (assessmentId) return submitUpdatedAssessment(update);
 
         createAssessment();
     }
 
-    function updatedAssessment(update: AssessmentManagerState) {
+    function submitUpdatedAssessment(update: AssessmentManagerState) {
         const valid = validate(update || updatedLocalAssessment);
 
         const parsedKindergarten = getKindergartenUpdateInput();
 
         valid.then((result) => {
             if (result) {
+                // eslint-disable-next-line
                 const { kindergartenIds, ...validAssessment } = result as AssessmentManagerState;
                 const updatedAssessmentInput = { ...validAssessment, kindergartens: parsedKindergarten };
 
-                updateAssessment(updatedAssessmentInput)
+                if (!assessmentId) return;
+
+                updateAssessment(assessmentId, updatedAssessmentInput)
                     .then(() => {
                         setReasonForBeingDisabled('add-test-view.errors.test-already-updated');
                         onSubmit({ assessment: state, message: t('add-test-view.assessment-updated') });
@@ -115,7 +142,7 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
 
         valid
             .then(() => {
-                createTest(updatedLocalAssessment).then(() => {
+                createTest(mapToCreatedAssessment(updatedLocalAssessment)).then(() => {
                     if (!error) {
                         setReasonForBeingDisabled('add-test-view.errors.test-already-created');
                         onSubmit({ assessment: state, message: t('add-test-view.assessment-created') });
@@ -125,6 +152,19 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
             .catch((e) => {
                 onSubmit({ errors: t(e.message) });
             });
+    }
+
+    function mapToCreatedAssessment(assessmentState: AssessmentManagerState): CreatedAssessmentInput {
+        return {
+            title: assessmentState.title,
+            startDate: assessmentState.startDate,
+            endDate: assessmentState.endDate,
+            firstMeasurementStartDate: assessmentState.firstMeasurementStartDate,
+            firstMeasurementEndDate: assessmentState.firstMeasurementEndDate,
+            lastMeasurementStartDate: assessmentState.lastMeasurementStartDate,
+            lastMeasurementEndDate: assessmentState.lastMeasurementEndDate,
+            kindergartenIds: assessmentState.kindergartenIds,
+        };
     }
 
     function getKindergartenUpdateInput() {

@@ -9,14 +9,17 @@
         "login": "Login",
         "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
         "login-header": "Log in",
-        "e-mail-helper-text": "Type in e-mail address provided to Mali Wspaniali's foundation",
+        "e-mail-helper-text": "Log in with e-mail provided to the foundation or used by registration.",
         "forgot-password": "Forgot password?",
         "login-notfound": "We cannot find your account in the system",
-        "login-wrong-password": "Entered password is incorrect"
+        "login-wrong-password": "Entered password is incorrect",
+        "no-account": "You don't have an account?"
     },
     "login-wrapper": {
         "welcome-text": "Welcome to Mali Wspaniali's world!",
-        "subheading": "Join the community of conscious parents"
+        "subheading": "Join the community of conscious parents",
+        "made-by": "Made by:",
+        "partners": "Strategic partners:"
     },
     "registration-page": {
         "already-have-account": "Already have an account?",
@@ -384,6 +387,29 @@
             "file-error": "File error"
         }
     },
+    "parent-settings": {
+        "header": "Settings parent's account",
+        "header-title-1": "Parent's email adress",
+        "header-title-2": "Children",
+        "button-icon-edit-tooltip": "Edit",
+        "button-icon-delete-tooltip": "Delete",
+        "button-icon-change-tooltip": "Change kindergarden",
+        "modal-delete-account": {
+            "header": "Delete parent's account",
+            "first-button": "Cancel",
+            "second-button": "Delete",
+            "first-description": "Are you sure you want to delete the parent",
+            "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
+        },
+        "modal-edit-account": {
+            "header": "Edit data",
+            "button": "Submit",
+            "subtitle": "To edit the data of the parent and child, complete the fields below",
+            "success-message": "You have successfully edited your child's profile",
+            "label": " Parent's email"
+        },
+        "success-message": "Removed (Anonymized) parent"
+    },
     "single-article": {
         "blog": "blog",
         "length": "length",
@@ -421,7 +447,11 @@
     },
     "admin-menu": {
         "home": "Home",
-        "settings": "Settings",
+        "settings": {
+            "title": "Settings",
+            "parents-settings": "Parent's accounts placings",
+            "change-password": "Change password"
+        },
         "notifications": "Notifications",
         "newsletter": {
             "title": "Newsletter",
@@ -446,7 +476,7 @@
     },
     "instructor-menu": {
         "add-results": "Add results",
-        "notifications": "Notifications", 
+        "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Logout"
     },
@@ -510,6 +540,8 @@
             "status": "Status",
             "active": "Active",
             "done": "Done",
+            "planned": "Planned",
+            "not-planned": "Not planned",
             "details": "See details",
             "delete": "Delete",
             "edit": "Edit"
@@ -519,12 +551,19 @@
         "basic-information-form": {
             "title": "Basic information",
             "description": "Please fill in test information",
+            "measurement-amount": "Measurement amount",
             "test-name": "Test name",
             "status": "Status",
-            "first-assessment": "First assessment",
-            "last-assessment": "Last assessment",
+            "first-measurement": "First measurement",
+            "last-measurement": "Last measurement",
+            "start-date": "Start date",
+            "end-date": "End date",
             "active": "Active",
-            "done": "Done"
+            "done": "Done",
+            "planned": "Planned",
+            "not-planned": "Not planned",
+            "see-results": "See results",
+            "search": "Search"
         },
         "test-trials": {
             "title": "Test trials information"
@@ -662,15 +701,25 @@
         },
         "snackbars": {
             "info": "To add unassigned kindergarten, select the instructor and assign him/her to selected kindergarten"
+        },
+        "modal": {
+            "cancel": "Cancel",
+            "assign": "Assign",
+            "assign-to-kindergarten": "Assign to kindergarten",
+            "select-test": "Select test",
+            "select-instructor": "Select instructor",
+            "assigned-kindergartens": "Assigned kindergartens",
+            "add-unassigned-kindergarten": "Add unassigned kindergarten"
         }
     },
     "add-results-page": {
-        "test-name":"Test name",
+        "test-name": "Test name",
         "kindergarten-name": "Kindergarten",
-        "search-by-child-firstname": "Search by child's first name", 
+        "search-by-child-firstname": "Search by child's first name",
         "firstname": "First name",
         "lastname": "Last name",
-        "birth-year": "Birth year",
+        "full-name": "Full name",
+        "age": "Age",
         "birth-quarter": "Birth quarter",
         "first-assessment": "First test",
         "last-assessment": "Last test",
@@ -696,7 +745,7 @@
             "go-to-articles": "Go to articles"
         },
         "child-list": "Child list",
-        "edit": "Edytuj"  
+        "edit": "Edytuj"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -704,15 +753,19 @@
         "first": "First",
         "last": "Last",
         "no-result": "No result",
-        "received-points":"Received points",
+        "received-points": "Received points",
         "points": "pts",
         "title-first-measurement": "INITIAL TEST EFFICIENCY",
         "title-last-measurement": "FINAL TRIAL EFFICIENCY",
-        "back-to-table": "Back to table",
+        "back-to-table": "Back",
         "child-list": "Child list",
         "strength": "STRENGTH",
         "dexterity": "DEXTERITY",
         "power": "POWER",
-        "velocity": "VELOCITY"
+        "velocity": "VELOCITY",
+        "back-to-results": "Back to results",
+        "save-and-next": "Save and next",
+        "save-and-back-to-table": "Save and back to table",
+        "select-child": "Select a child"
     }
 }

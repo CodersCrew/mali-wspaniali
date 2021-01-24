@@ -1,31 +1,42 @@
-import React from 'react';
-import { List, Typography, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
+import React, { useState } from 'react';
+import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Child, Kindergarten } from '../../../graphql/types';
 import { ChildItem } from './ChildItem';
 import { SelectList } from '../../../components/SelectList';
+import { SearchChildField } from '../../../components/SearchChildField';
 
 interface Props {
     childList: Child[];
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
     measurement: string;
+    header: React.ReactNode;
     onClick: (type: string, value: string) => void;
     selected?: string;
 }
 
-export function ChildPicker({ childList, kindergartens, selectedKindergarten, selected, measurement, onClick }: Props) {
+export function ChildPicker({
+    childList,
+    kindergartens,
+    selectedKindergarten,
+    selected,
+    measurement,
+    header,
+    onClick,
+}: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
+    const [searchTerm, setSearchTerm] = useState('');
 
     return (
         <CustomContainer
-            header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
+            header={header}
             container={
-                <div>
-                    <Grid container className={classes.displayOptions} spacing={2} direction="column">
-                        <Grid item>
+                <>
+                    <Grid container className={classes.container} spacing={2} direction="column">
+                        <Grid item className={classes.fullWidth}>
                             <SelectList
                                 value={selectedKindergarten}
                                 label={t('add-results-page.test-name')}
@@ -52,38 +63,45 @@ export function ChildPicker({ childList, kindergartens, selectedKindergarten, se
                                 onSelect={(value) => onClick('measurement', value)}
                             />
                         </Grid>
+                        <Grid item>
+                            <SearchChildField
+                                isCompact
+                                onChange={(value) => setSearchTerm(value)}
+                                searchTerm={searchTerm}
+                            />
+                        </Grid>
                     </Grid>
-                    <div>
-                        <div className={classes.listHeader}>
-                            <Typography variant="subtitle1">{t(`add-result-page.child-list`)}</Typography>
-                        </div>
-                        <List>
-                            <Divider />
-                            {childList.map((c) => {
-                                return (
-                                    <ChildItem
-                                        key={c._id}
-                                        child={c}
-                                        selected={c._id === selected}
-                                        onClick={(value) => onClick('child', c._id)}
-                                    />
-                                );
-                            })}
-                        </List>
-                    </div>
-                </div>
+                    <List disablePadding>
+                        <Divider />
+                        {getFilteredChildrenByName().map((c) => {
+                            return (
+                                <ChildItem
+                                    key={c._id}
+                                    child={c}
+                                    selected={c._id === selected}
+                                    onClick={() => onClick('child', c._id)}
+                                />
+                            );
+                        })}
+                    </List>
+                </>
             }
+            disableShadow
         />
     );
+
+    function getFilteredChildrenByName() {
+        return childList.filter((c) => c.firstname.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        displayOptions: {
-            padding: theme.spacing(2),
+        container: {
+            padding: theme.spacing(2, 2, 0, 2),
         },
-        listHeader: {
-            paddingLeft: theme.spacing(2),
+        fullWidth: {
+            width: '100%',
         },
     }),
 );

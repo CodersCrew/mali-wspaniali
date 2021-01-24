@@ -1,7 +1,10 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import i18next from 'i18next';
-import 'moment/locale/pl';
+import 'dayjs/locale/pl';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
-moment.defineLocale(i18next.language, {});
+dayjs.extend(relativeTime);
 
-export default moment;
+dayjs.locale(i18next.language);
+
+export default dayjs;

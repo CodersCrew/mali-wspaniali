@@ -12,20 +12,25 @@ import {
     makeStyles,
     IconButton,
 } from '@material-ui/core';
-import { Assessment, BarChart, EventNote, ExpandLess, ExpandMore } from '@material-ui/icons';
+import { Assessment as AssessmentIcon, BarChart, EventNote, ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Child } from '../../graphql/types';
-import { parseBirthQuarter } from '../../utils/parseBirthQuarter';
+import { Assessment, Child } from '../../graphql/types';
+import { parseDateToAge } from '../../utils/parseDateToAge';
+import { Clickable } from '../../components/Clickable';
 
 interface Props {
     childList: Child[];
+    assessment: Assessment;
     onClick: (type: string, value: string) => void;
 }
 
-export function ChildListCompactContainer({ childList, onClick }: Props) {
+export function ChildListCompactContainer({ childList, assessment, onClick }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
     const [selectedChild, setSelectedChild] = useState(childList[0]?._id);
+    const isFirstMeasurementDisabled = assessment.firstMeasurementStatus !== 'active';
+    const isLastMeasurementDisabled = assessment.lastMeasurementStatus !== 'active';
+    const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;
 
     return (
         <List>
@@ -37,16 +42,18 @@ export function ChildListCompactContainer({ childList, onClick }: Props) {
                         <ListItem divider key={c._id}>
                             <Grid container direction="column">
                                 <Grid item onClick={() => setSelectedChild((prev) => (prev !== c._id ? c._id : ''))}>
-                                    <Grid container>
-                                        <Grid item>
-                                            <Box mr={2}>{isOpen ? <ExpandLess /> : <ExpandMore />}</Box>
+                                    <Clickable>
+                                        <Grid container>
+                                            <Grid item>
+                                                <Box mr={2}>{isOpen ? <ExpandLess /> : <ExpandMore />}</Box>
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography variant="body2">
+                                                    {c.firstname} {c.lastname}
+                                                </Typography>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item>
-                                            <Typography variant="body2">
-                                                {c.firstname} {c.lastname}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
+                                    </Clickable>
                                 </Grid>
                                 {isOpen && (
                                     <Grid container>
@@ -57,22 +64,12 @@ export function ChildListCompactContainer({ childList, onClick }: Props) {
                                                         <TableRow>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <Typography variant="subtitle2">
-                                                                    {t('add-results-page.birth-year')}
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell classes={{ root: classes.cell }}>
-                                                                <Typography variant="body2">{c.birthYear}</Typography>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell classes={{ root: classes.cell }}>
-                                                                <Typography variant="subtitle2">
-                                                                    {t('add-results-page.birth-quarter')}
+                                                                    {t('add-results-page.age')}
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <Typography variant="body2">
-                                                                    {parseBirthQuarter(c.birthQuarter)}
+                                                                    {parseDateToAge(c.birthYear, c.birthQuarter)}
                                                                 </Typography>
                                                             </TableCell>
                                                         </TableRow>
@@ -84,6 +81,7 @@ export function ChildListCompactContainer({ childList, onClick }: Props) {
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <IconButton
+                                                                    disabled={isFirstMeasurementDisabled}
                                                                     classes={{ root: classes.iconButton }}
                                                                     onClick={() =>
                                                                         onClick('add-first-assessment-result', c._id)
@@ -98,6 +96,7 @@ export function ChildListCompactContainer({ childList, onClick }: Props) {
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <IconButton
+                                                                    disabled={isFirstMeasurementDisabled}
                                                                     classes={{ root: classes.iconButton }}
                                                                     onClick={() =>
                                                                         onClick('add-first-assessment-note', c._id)
@@ -117,6 +116,7 @@ export function ChildListCompactContainer({ childList, onClick }: Props) {
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <IconButton
+                                                                    disabled={isLastMeasurementDisabled}
                                                                     classes={{ root: classes.iconButton }}
                                                                     onClick={() =>
                                                                         onClick('add-last-assessment-result', c._id)
@@ -131,6 +131,7 @@ export function ChildListCompactContainer({ childList, onClick }: Props) {
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <IconButton
+                                                                    disabled={isLastMeasurementDisabled}
                                                                     classes={{ root: classes.iconButton }}
                                                                     onClick={() =>
                                                                         onClick('add-last-assessment-note', c._id)
@@ -150,10 +151,11 @@ export function ChildListCompactContainer({ childList, onClick }: Props) {
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <IconButton
+                                                                    disabled={isResultDisabled}
                                                                     classes={{ root: classes.iconButton }}
                                                                     onClick={() => onClick('see-results', c._id)}
                                                                 >
-                                                                    <Assessment
+                                                                    <AssessmentIcon
                                                                         titleAccess={t('add-results-page.see-results')}
                                                                     />
                                                                 </IconButton>

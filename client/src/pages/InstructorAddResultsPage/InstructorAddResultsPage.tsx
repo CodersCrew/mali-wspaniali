@@ -15,15 +15,22 @@ import { SecondaryFab } from '../../components/SecondaryFab';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { ChildListCompactContainer } from './ChildListCompactContainer';
 import { AssessmentSubheader } from './AssessmentSubheader';
+import { parseDateToAge } from '../../utils/parseDateToAge';
+import { useCreateAssessmentResult } from '../../operations/mutations/Results/createAssessmentResult';
+import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
 
-export function InstructorAddResultsPage() {
+export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
     const [selectedAssessment, setSelectedAssessment] = useState('');
     const [selectedKindergarten, setSelectedKindergarten] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const [fullNameSortType, setFullNameSortType] = useState('asc');
+    const [ageSortType, setAgeSortType] = useState('');
     const { t } = useTranslation();
     const history = useHistory();
     const device = useIsDevice();
+    const { createAssessmentResult } = useCreateAssessmentResult();
+    const { kindergartenResults } = useAssessmentResults(selectedKindergarten, selectedAssessment);
 
     const currentAssessment = assessments.find((a) => a._id === selectedAssessment);
 
@@ -55,53 +62,9 @@ export function InstructorAddResultsPage() {
         );
     }
 
-    function onFilterChanged(type: string, value: string) {
-        if (type === 'assessment') {
-            setSelectedAssessment(value);
-
-            return;
-        }
-
-        if (type === 'searchTerm') {
-            setSearchTerm(value);
-
-            return;
-        }
-
-        setSelectedKindergarten(value);
-    }
-
-    function onChildClicked(type: string, value: string) {
-        if (type === 'add-first-assessment-result') {
-            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`);
-        }
-
-        if (type === 'add-last-assessment-result') {
-            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`);
-        }
-
-        if (type === 'add-first-assessment-note') {
-            openAddNoteDialog({ title: t('add-results-page.note-first-measurement'), note: '' });
-        }
-
-        if (type === 'add-last-assessment-note') {
-            openAddNoteDialog({ title: t('add-results-page.note-last-measurement'), note: '' });
-        }
-    }
-
-    function onFabClick() {
-        history.push(
-            `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${currentChildren[0]._id}`,
-        );
-    }
-
-    const filtredChildList = currentChildren.filter((c) =>
-        c.firstname.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-
     return (
         <PageContainer>
-            {device.isDesktop || device.isTablet ? (
+            {!device.isSmallMobile ? (
                 <>
                     <CustomContainer
                         header={
@@ -110,11 +73,20 @@ export function InstructorAddResultsPage() {
                                 selectedAssessment={selectedAssessment}
                                 selectedKindergarten={selectedKindergarten}
                                 searchTerm={searchTerm}
-                                onChange={onFilterChanged}
+                                onChange={handleFilterChanged}
                             />
                         }
                         subheader={<AssessmentSubheader assessment={currentAssessment} />}
-                        container={<ChildListContainer childList={filtredChildList} onClick={onChildClicked} />}
+                        container={
+                            <ChildListContainer
+                                assessment={currentAssessment}
+                                results={kindergartenResults}
+                                childList={getFiltredAndSortedChildList()}
+                                onClick={handleClick}
+                                fullNameSortType={fullNameSortType}
+                                ageSortType={ageSortType}
+                            />
+                        }
                     />
                     {currentChildren[0] && (
                         <SecondaryFab
@@ -133,11 +105,17 @@ export function InstructorAddResultsPage() {
                                 selectedAssessment={selectedAssessment}
                                 selectedKindergarten={selectedKindergarten}
                                 searchTerm={searchTerm}
-                                onChange={onFilterChanged}
+                                onChange={handleFilterChanged}
                                 compact
                             />
                         }
-                        container={<ChildListCompactContainer childList={filtredChildList} onClick={onChildClicked} />}
+                        container={
+                            <ChildListCompactContainer
+                                assessment={currentAssessment}
+                                childList={getFiltredAndSortedChildList()}
+                                onClick={handleClick}
+                            />
+                        }
                     />
                     {currentChildren[0] && (
                         <SecondaryFab
@@ -150,4 +128,120 @@ export function InstructorAddResultsPage() {
             )}
         </PageContainer>
     );
+
+    function handleFilterChanged(type: string, value: string) {
+        if (type === 'assessment') {
+            setSelectedAssessment(value);
+
+            return;
+        }
+
+        if (type === 'searchTerm') {
+            setSearchTerm(value);
+
+            return;
+        }
+
+        setSelectedKindergarten(value);
+    }
+
+    function handleClick(type: string, value: string) {
+        if (type === 'add-first-assessment-result') {
+            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`);
+        }
+
+        if (type === 'add-last-assessment-result') {
+            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`);
+        }
+
+        if (type === 'add-first-assessment-note') {
+            openAddNoteDialog({
+                title: t('add-results-page.note-first-measurement'),
+                note: getFirstMeasurementNote(value),
+            }).then((decision) => {
+                if (decision.close) return;
+
+                createAssessmentResult({
+                    childId: value,
+                    kindergartenId: selectedKindergarten,
+                    assessmentId: selectedAssessment,
+                    firstMeasurementNote: (decision?.decision as any).note,
+                });
+            });
+        }
+
+        if (type === 'add-last-assessment-note') {
+            openAddNoteDialog({
+                title: t('add-results-page.note-last-measurement'),
+                note: getLastMeasurementNote(value),
+            }).then((decision) => {
+                if (decision.close) return;
+
+                createAssessmentResult({
+                    childId: value,
+                    kindergartenId: selectedKindergarten,
+                    assessmentId: selectedAssessment,
+                    lastMeasurementNote: (decision?.decision as any).note,
+                });
+            });
+        }
+
+        if (type === 'full-name') {
+            setFullNameSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
+            setAgeSortType('');
+        }
+
+        if (type === 'age') {
+            setAgeSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
+            setFullNameSortType('');
+        }
+    }
+
+    function onFabClick() {
+        history.push(
+            `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${currentChildren[0]._id}`,
+        );
+    }
+
+    function getFiltredAndSortedChildList() {
+        const filtredChildList = currentChildren.filter((c) =>
+            c.firstname.toLowerCase().includes(searchTerm.toLowerCase()),
+        );
+
+        if (fullNameSortType !== '') {
+            filtredChildList.sort((a, b) => {
+                const fullNameA = `${a.firstname} ${a.lastname}`;
+                const fullNameB = `${b.firstname} ${b.lastname}`;
+
+                if (fullNameSortType === 'asc') {
+                    return fullNameA > fullNameB ? 1 : -1;
+                }
+
+                return fullNameA > fullNameB ? -1 : 1;
+            });
+        }
+
+        if (ageSortType !== '') {
+            filtredChildList.sort((a, b) => {
+                const childAgeA = parseDateToAge(a.birthYear, a.birthQuarter);
+                const childAgeB = parseDateToAge(b.birthYear, b.birthQuarter);
+
+                if (ageSortType === 'asc') {
+                    return childAgeA - childAgeB;
+                }
+
+                return childAgeB - childAgeA;
+            });
+        }
+
+        return filtredChildList;
+    }
+
+    function getFirstMeasurementNote(childId: string) {
+        return kindergartenResults.find((r) => r.childId === childId)?.firstMeasurementNote || '';
+    }
+
+    function getLastMeasurementNote(childId: string) {
+        return kindergartenResults.find((r) => r.childId === childId)?.lastMeasurementNote || '';
+    }
 }

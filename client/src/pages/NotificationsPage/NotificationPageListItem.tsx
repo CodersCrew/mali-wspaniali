@@ -2,8 +2,7 @@ import React from 'react';
 import { TableRow, TableCell, makeStyles, Theme, Typography, IconButton } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons/';
 import clsx from 'clsx';
-
-import moment from '../../localizedMoment';
+import dayjs from '../../localizedMoment';
 
 interface Props {
     id: string;
@@ -37,6 +36,8 @@ export const NotificationPageListItem = ({ text, date, id, isRead, onClick }: Pr
             </TableCell>
             <TableCell align="right" classes={{ root: classes.calendarCell }}>
                 <Typography variant="caption">{moment(date).calendar()}</Typography>
+            <TableCell classes={{ root: classes.calendarCell }}>
+                <Typography variant="caption">{dayjs(date).fromNow()}</Typography>
             </TableCell>
         </TableRow>
     );

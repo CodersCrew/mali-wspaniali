@@ -9,28 +9,34 @@ export interface Test {
     status: string;
 }
 
+export interface CreatedAssessmentInput {
+    title: string;
+    startDate: string;
+    endDate: string;
+    firstMeasurementStartDate: string;
+    firstMeasurementEndDate: string;
+    lastMeasurementStartDate: string;
+    lastMeasurementEndDate: string;
+    kindergartenIds: string[];
+}
+
 interface CreateAssessmentResponse {
     createAssessment: Test;
 }
 
-interface AssessmentInput {
-    title: string;
-    startDate: string;
-    endDate: string;
-    kindergartenIds: string[];
-}
-
 export const CREATE_ASSESSMENT = gql`
-    mutation createAssessment($title: String!, $startDate: String!, $endDate: String!, $kindergartenIds: [String!]!) {
-        createAssessment(
-            assessment: { title: $title, startDate: $startDate, endDate: $endDate, kindergartenIds: $kindergartenIds }
-        ) {
+    mutation createAssessment($assessment: AssessmentInput!) {
+        createAssessment(assessment: $assessment) {
             _id
             isOutdated
             isDeleted
             title
             startDate
             endDate
+            firstMeasurementStartDate
+            firstMeasurementEndDate
+            lastMeasurementStartDate
+            lastMeasurementEndDate
             kindergartens {
                 kindergarten {
                     _id
@@ -50,14 +56,9 @@ export function useCreateAssessment() {
     const [mutate, { data, error, loading }] = useMutation<CreateAssessmentResponse>(CREATE_ASSESSMENT);
 
     return {
-        createAssessment: ({ title, startDate, endDate, kindergartenIds }: AssessmentInput) => {
+        createAssessment: (assessment: CreatedAssessmentInput) => {
             return mutate({
-                variables: {
-                    title,
-                    startDate,
-                    endDate,
-                    kindergartenIds,
-                },
+                variables: { assessment },
             }).then((result) => {
                 const cachedAssessments = client.readQuery<GetAllAssessmentsResponse>({
                     query: GET_ALL_ASSESSMENTS,

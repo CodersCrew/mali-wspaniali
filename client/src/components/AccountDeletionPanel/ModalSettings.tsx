@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { Typography, Box, Grid, makeStyles } from '@material-ui/core';
 
-import { Select } from '../AddChildModal/Select';
-import { Input } from '../AddChildModal/Input';
+import { Select } from '../ChildForm/Select';
+import { Input } from '../ChildForm/Input';
 import { useParentsSelectOptions } from './useParentsSelectOption';
 import { BasicModal } from '../Modal/BasicModal';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
@@ -62,7 +62,6 @@ const SettingsMessageModal = ({
             isOpen={true}
             actionName={t('settings-modal.button')}
             onAction={formik.handleSubmit}
-            isColor={true}
             onClose={() => {
                 if (!preventClose) {
                     onClose();
