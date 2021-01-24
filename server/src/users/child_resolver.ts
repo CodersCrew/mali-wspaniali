@@ -124,12 +124,10 @@ export class ChildResolver {
   }
 
   @Mutation(() => PartialChildResult)
-  async updateAssessmentResult(
+  updateAssessmentResult(
     @Args('result') result: PartialUpdateChildResultInput,
   ): Promise<PartialChildResult> {
-    await this.commandBus.execute(new UpdateAssessmentResultCommand(result));
-
-    return {} as any;
+    return this.commandBus.execute(new UpdateAssessmentResultCommand(result));
   }
 
   @Query(() => [PartialChildResult])

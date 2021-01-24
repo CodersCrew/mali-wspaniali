@@ -29,7 +29,9 @@ export class ChildAssessmentResultRepository {
     return result.toObject();
   }
 
-  async update(updatedInput: PartialUpdateChildResultInput): Promise<void> {
+  async update(
+    updatedInput: PartialUpdateChildResultInput,
+  ): Promise<PartialChildResult> {
     const {
       _id,
       childId,
@@ -40,6 +42,8 @@ export class ChildAssessmentResultRepository {
     const foundResult = await this.childResultModel.findById(updatedInput._id);
 
     await foundResult.update(rest).exec();
+
+    return this.childResultModel.findById(updatedInput._id);
   }
 
   async getByKindergarten(
