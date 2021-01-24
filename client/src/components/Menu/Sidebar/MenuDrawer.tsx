@@ -21,6 +21,7 @@ export function MenuDrawer({ device, onClose, children, open }: Props) {
                 variant="permanent"
                 anchor="left"
                 classes={{
+                    root: classes.drawerRoot,
                     paper: classes.paper,
                 }}
                 open
@@ -35,6 +36,7 @@ export function MenuDrawer({ device, onClose, children, open }: Props) {
             variant="temporary"
             anchor="left"
             classes={{
+                root: classes.drawerRoot,
                 paper: classes.paper,
             }}
             open={open}
@@ -53,6 +55,10 @@ const useStyles = makeStyles((theme: Theme) =>
         paper: {
             paddingTop: theme.spacing(8),
             width: ({ width }: { width: number }) => width,
+            zIndex: '900 !important' as any,
+        },
+        drawerRoot: {
+            zIndex: '900 !important' as any,
         },
     }),
 );
