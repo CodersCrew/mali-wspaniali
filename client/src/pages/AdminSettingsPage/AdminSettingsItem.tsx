@@ -56,13 +56,7 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={changeIconTooltip}>
-                        <IconButton
-                            aria-label="edit"
-                            className={classes.editButton}
-                            onClick={() => {
-                                console.log('edit');
-                            }}
-                        >
+                        <IconButton aria-label="edit" className={classes.editButton} onClick={() => null}>
                             <ForwardIcon />
                         </IconButton>
                     </Tooltip>

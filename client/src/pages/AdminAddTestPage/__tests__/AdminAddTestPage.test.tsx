@@ -31,7 +31,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('AdminAddTestPage', () => {
-    let openSnackbar: jasmine.Spy;
+    let openSnackbar: jest.SpyInstance;
 
     describe('basic test information', () => {
         beforeEach(async () => {
@@ -39,7 +39,7 @@ describe('AdminAddTestPage', () => {
 
             await awaitForRenderResponse();
 
-            openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
+            openSnackbar = jest.spyOn(OpenSnackbar, 'openSnackbar');
         });
 
         it('renders test name input', async () => {
@@ -224,9 +224,9 @@ describe('AdminAddTestPage', () => {
 
                 await awaitForRenderResponse();
 
-                openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
+                openSnackbar = jest.spyOn(OpenSnackbar, 'openSnackbar');
 
-                openSnackbar.and.returnValue(Promise.resolve({ close: true }));
+                openSnackbar.mockReturnValue(Promise.resolve({ close: true }));
             });
 
             it('renders confirmation', async () => {
@@ -249,7 +249,7 @@ describe('AdminAddTestPage', () => {
 
                 await awaitForRenderResponse();
 
-                openSnackbar = spyOn(OpenSnackbar, 'openSnackbar');
+                openSnackbar = jest.spyOn(OpenSnackbar, 'openSnackbar');
             });
 
             it('disables submit button', async () => {

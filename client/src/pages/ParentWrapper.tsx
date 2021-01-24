@@ -1,12 +1,12 @@
-import React, { FC, useRef } from 'react';
+import React from 'react';
 import { useMe } from '../utils/useMe';
 import { useKindergartens } from '../operations/queries/Kindergartens/getKindergartens';
 import { openAddChildModal } from '../components/ChilModals/AddChildModal';
 import { useAddChild } from '../operations/mutations/User/addChild';
 
-export const ParentWrapper: FC = ({ children }) => {
+export const ParentWrapper: React.FC = ({ children }) => {
     const user = useMe();
-    const modalInstanceExists = useRef(false);
+    const modalInstanceExists = React.useRef(false);
     const { kindergartenList } = useKindergartens();
     const { addChild } = useAddChild();
 

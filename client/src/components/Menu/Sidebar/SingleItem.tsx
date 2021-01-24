@@ -4,9 +4,9 @@ import clsx from 'clsx';
 
 export interface SingleItemProps {
     name: string;
-    icon: JSX.Element;
+    icon: React.ReactNode;
     link?: string;
-    rightIcon?: JSX.Element;
+    rightIcon?: React.ReactNode;
     active?: boolean;
 }
 

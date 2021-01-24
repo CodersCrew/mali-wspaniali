@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { activePage } from '../../apollo_client';
 
 export default function AdminHomePage() {
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.home']);
     }, []);
 

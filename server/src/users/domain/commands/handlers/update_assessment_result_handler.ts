@@ -11,9 +11,11 @@ export class UpdateAssessmentResultHandler
     private readonly resultRepository: ChildAssessmentResultRepository,
   ) {}
 
-  async execute({ result }: UpdateAssessmentResultCommand): Promise<void> {
+  async execute({
+    result,
+  }: UpdateAssessmentResultCommand): Promise<PartialChildResult> {
     const createdResult = await this.resultRepository.update(result);
 
-    // return createdResult;
+    return createdResult;
   }
 }

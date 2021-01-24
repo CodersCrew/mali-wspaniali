@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, createStyles, Grid, makeStyles, SwipeableDrawer, Theme, Typography } from '@material-ui/core';
+import { Box, createStyles, Divider, Grid, makeStyles, SwipeableDrawer, Theme, Typography } from '@material-ui/core';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { Child, Kindergarten } from '../../../graphql/types';
@@ -59,6 +59,7 @@ export function ChildPickerDrawer(props: Props) {
                     </ButtonSecondary>
                 </Grid>
             </Grid>
+            <Divider />
         </>
     );
 }
@@ -66,7 +67,7 @@ export function ChildPickerDrawer(props: Props) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         drawer: {
-            zIndex: '2000 !important' as any,
+            zIndex: '1300 !important' as any,
         },
         paper: {
             width: '90%',
@@ -74,12 +75,13 @@ const useStyles = makeStyles((theme: Theme) =>
         header: {
             display: 'flex',
             alignItems: 'center',
+            cursor: 'pointer',
         },
         icon: {
             color: theme.palette.text.secondary,
         },
         backButtonContainer: {
-            marginTop: -35,
+            padding: theme.spacing(1, 2),
         },
     }),
 );

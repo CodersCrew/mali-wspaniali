@@ -6,12 +6,13 @@
 // https://github.com/cssinjs/jss/blob/4e6a05dd3f7b6572fdd3ab216861d9e446c20331/src/utils/createGenerateClassName.js
 //
 // Copied from material-ui due to issue https://github.com/callemall/material-ui/issues/8223
-
 // This counter is moved outside from `createGenerateClassName` to solve the issue
+import { StylesOptions } from '@material-ui/styles';
+
 let ruleCounter = 0;
 
-export default function createGenerateClassName() {
-    return (rule: any, sheet: any) => {
+export default function createGenerateClassName(): StylesOptions['generateClassName'] {
+    return (rule, sheet) => {
         ruleCounter += 1;
 
         if (process.env.NODE_ENV === 'production') {

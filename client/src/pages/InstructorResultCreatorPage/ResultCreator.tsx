@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, createStyles, Divider, Grid, makeStyles, MenuItem, Paper, Typography } from '@material-ui/core';
+import { Box, createStyles, Divider, Grid, makeStyles, MenuItem, Paper, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ChildPicker } from './ChildPicker/ChildPicker';
 import { ResultCreatorReturnProps } from './useResultCreator';
@@ -81,7 +81,7 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
                                 </Grid>
                                 <Grid item>
                                     <ActionMenuButtonSecondary
-                                        label={t(`add-result-page.save-and-next`)}
+                                        label={t('add-result-page.save-and-next')}
                                         onClick={() => onClick('save-and-next', '')}
                                         options={[
                                             <MenuItem
@@ -114,7 +114,7 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
     }
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         editor: {
             flex: '1 1 auto',
@@ -139,6 +139,7 @@ const useStyles = makeStyles(() =>
             display: 'flex',
             alignItems: 'center',
             height: 56,
+            padding: theme.spacing(1),
         },
     }),
 );

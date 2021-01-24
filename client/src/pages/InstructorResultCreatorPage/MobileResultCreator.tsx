@@ -73,7 +73,7 @@ export function MobileResultCreator({ value: resultCreator, measurement, onClick
                             </Grid>
                             <Grid item>
                                 <ActionMenuButtonSecondary
-                                    label={t(`add-result-page.save-and-next`)}
+                                    label={t('add-result-page.save-and-next')}
                                     onClick={() => onClick('save-and-next', '')}
                                     options={[
                                         <MenuItem
@@ -126,7 +126,7 @@ const useStyles = makeStyles(() =>
             position: 'absolute',
             bottom: 0,
             right: 0,
-            zIndex: 3000,
+            zIndex: 1300,
         },
         footerPaper: {
             display: 'flex',
