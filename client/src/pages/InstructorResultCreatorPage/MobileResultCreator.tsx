@@ -126,7 +126,7 @@ const useStyles = makeStyles(() =>
             position: 'absolute',
             bottom: 0,
             right: 0,
-            zIndex: 3000,
+            zIndex: 1300,
         },
         footerPaper: {
             display: 'flex',
