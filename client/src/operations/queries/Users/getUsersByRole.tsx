@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+
 import { PrivilegedUser, User } from '../../../graphql/types';
 
 interface UsersListReponse {

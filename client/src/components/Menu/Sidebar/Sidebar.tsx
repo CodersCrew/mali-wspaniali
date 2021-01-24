@@ -1,9 +1,10 @@
 import React from 'react';
 
+import { Me } from '../../../graphql/types';
+
 import { AdminSidebar } from './AdminSidebar';
 import { InstructorSidebar } from './InstructorSidebar';
 import { ParentSidebar } from './ParentSidebar';
-import { Me } from '../../../graphql/types';
 
 interface Props {
     user: Me;

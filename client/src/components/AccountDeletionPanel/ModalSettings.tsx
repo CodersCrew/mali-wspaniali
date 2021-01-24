@@ -6,9 +6,10 @@ import { Typography, Box, Grid, makeStyles } from '@material-ui/core';
 
 import { Select } from '../ChildForm/Select';
 import { Input } from '../ChildForm/Input';
-import { useParentsSelectOptions } from './useParentsSelectOption';
 import { BasicModal } from '../Modal/BasicModal';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
+
+import { useParentsSelectOptions } from './useParentsSelectOption';
 import { FormValues, SettingsMessageModalProps } from './types';
 
 const useStyles = makeStyles((theme) => ({

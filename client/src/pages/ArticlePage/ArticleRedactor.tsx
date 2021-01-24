@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
 import clsx from 'clsx';
+
 import { Redactor } from '../../graphql/types';
 import { useIsDevice } from '../../queries/useBreakpoints';
 

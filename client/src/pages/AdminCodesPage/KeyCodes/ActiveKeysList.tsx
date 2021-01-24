@@ -16,8 +16,9 @@ import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { KeyCodeSeries } from '../../../graphql/types';
-import { FilenameButton } from './FilenameButton';
 import dayjs from '../../../localizedMoment';
+
+import { FilenameButton } from './FilenameButton';
 
 interface Props {
     keyCodeSeries: KeyCodeSeries[];

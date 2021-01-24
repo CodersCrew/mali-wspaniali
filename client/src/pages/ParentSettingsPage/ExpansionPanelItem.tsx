@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
+
 import { Me } from '../../graphql/types';
 
 export interface Props {

@@ -1,9 +1,11 @@
 import React from 'react';
 import { TextField, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { RegistrationCodeProps } from './types';
+
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { ButtonSecondary } from '../../../components/Button';
+
+import { RegistrationCodeProps } from './types';
 
 export const RegistrationCode = ({
     handleChange,

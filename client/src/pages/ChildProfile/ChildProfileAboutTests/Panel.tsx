@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { makeStyles, Accordion, AccordionDetails } from '@material-ui/core';
+
 import { PanelSummary } from './PanelSummary';
 
 interface Props {

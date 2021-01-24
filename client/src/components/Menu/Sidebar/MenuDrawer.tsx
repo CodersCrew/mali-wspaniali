@@ -1,8 +1,9 @@
 import React from 'react';
 import { Drawer, makeStyles, Theme, createStyles } from '@material-ui/core';
 
-import { getMenuWidth } from './getMenuWidth';
 import { Device } from '../../../queries/useBreakpoints';
+
+import { getMenuWidth } from './getMenuWidth';
 
 interface Props {
     onClose: () => void;

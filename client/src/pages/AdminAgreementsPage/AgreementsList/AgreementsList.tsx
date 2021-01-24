@@ -1,7 +1,9 @@
 import React from 'react';
 import { TableContainer, Paper, Table, TableHead, TableBody, makeStyles, createStyles, Theme } from '@material-ui/core';
-import { ChildrenFromKindergartenList } from './ChildrenFromKindergartenList';
+
 import { KindergartenWithUsers } from '../../../graphql/types';
+
+import { ChildrenFromKindergartenList } from './ChildrenFromKindergartenList';
 import { SortableHeader } from './SortableHeader';
 import { ChildrenFromKindergartenListLoading } from './ChildrenFromKindergartenListLoading';
 

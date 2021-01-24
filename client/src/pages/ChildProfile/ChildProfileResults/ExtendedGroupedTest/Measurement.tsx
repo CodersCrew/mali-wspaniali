@@ -2,10 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
+
 import { CircleChart } from '../../../../components/CircleChart';
+import { white } from '../../../../colors';
+
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
-import { white } from '../../../../colors';
 
 interface Props {
     valueInUnitOfMeasure: number;

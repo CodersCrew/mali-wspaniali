@@ -1,7 +1,9 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { categories } from './BlogCategories';
+
 import { blogCategoryColors } from '../../colors';
 import { ArticleCategory } from '../../graphql/types';
+
+import { categories } from './BlogCategories';
 
 type Props = {
     articleCategory: ArticleCategory;

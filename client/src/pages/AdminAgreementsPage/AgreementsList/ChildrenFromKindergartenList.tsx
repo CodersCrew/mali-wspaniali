@@ -16,8 +16,9 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 import { KindergartenWithUsers, User } from '../../../graphql/types';
 import { ArrowTooltip } from '../../../components/Tooltip/ArrowTooltip';
-import { KindergartenAgreementsList, Parent } from './KindergartenAgreementsList';
 import { Status } from '../../../components/Icons/Status';
+
+import { KindergartenAgreementsList, Parent } from './KindergartenAgreementsList';
 
 interface Props {
     kindergarten: KindergartenWithUsers;

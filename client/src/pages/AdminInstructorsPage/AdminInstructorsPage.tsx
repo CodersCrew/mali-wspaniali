@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { activePage } from '../../apollo_client';
+import { Loader } from '../../components/Loader';
+import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
+import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
+import { Assessment, PrivilegedUser } from '../../graphql/types';
+import { PageContainer } from '../../components/PageContainer';
+
 import { InstructorWithKindergartens } from './types';
 import { Toolbar } from './Toolbar';
 import { InstructorsSelect } from './InstructorsSelect';
@@ -7,12 +15,6 @@ import { AssessmentsSelect } from './AssessmentsSelect';
 import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableContainer';
 import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
-import { activePage } from '../../apollo_client';
-import { Loader } from '../../components/Loader';
-import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
-import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
-import { Assessment, PrivilegedUser } from '../../graphql/types';
-import { PageContainer } from '../../components/PageContainer';
 
 interface InstructorModalStatus {
     isOpen: boolean;

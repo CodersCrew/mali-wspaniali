@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import { GroupedTests } from './GroupedTest';
 import { Child, TestResult } from '../../../graphql/types';
+
+import { GroupedTests } from './GroupedTest';
 
 interface Props {
     onNoResultClick(): void;

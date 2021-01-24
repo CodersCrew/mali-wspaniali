@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+
 import { Kindergarten } from '../../../graphql/types';
 
 interface Props {

@@ -7,6 +7,7 @@ import { ButtonSecondary } from '../../components/Button';
 import { Theme } from '../../theme/types';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
 
 const initialError: Error = {
     name: '',
@@ -36,102 +37,107 @@ export default function LoginPage() {
 
     return (
         <div className={classes.container}>
-            <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
-                <Typography variant="h3" className={classes.loginHeader}>
-                    {t('login-page.login-header')}
-                </Typography>
-                {isDesktop ? (
+            <div className={classes.topHeader}>
+                <LanguageSelector />
+            </div>
+            <div className={classes.innerContainer}>
+                <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
+                    <Typography variant="h3" className={classes.loginHeader}>
+                        {t('login-page.login-header')}
+                    </Typography>
+                    {isDesktop ? (
+                        <Box mb={6} />
+                    ) : (
+                        <>
+                            <Typography className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</Typography>
+                            <Box mb={5} />
+                        </>
+                    )}
+                    {isDesktop ? (
+                        <TextField
+                            required
+                            onChange={({ target: { value } }) => setEmail(value)}
+                            value={email}
+                            id="email"
+                            label={t('e-mail')}
+                            variant="outlined"
+                            error={loginError.name === 'auth/user-not-found'}
+                            helperText={
+                                loginError.name === 'auth/user-not-found'
+                                    ? t('login-page.login-notfound')
+                                    : t('login-page.e-mail-helper-text')
+                            }
+                            className={classes.formItem}
+                        />
+                    ) : (
+                        <TextField
+                            required
+                            onChange={({ target: { value } }) => setEmail(value)}
+                            value={email}
+                            id="email"
+                            label={t('e-mail')}
+                            variant="outlined"
+                            error={loginError.name === 'auth/user-not-found'}
+                            helperText={
+                                loginError.name === 'auth/user-not-found'
+                                    ? t('login-page.login-notfound')
+                                    : t('login-page.e-mail-helper-text-mobile')
+                            }
+                            className={classes.formItem}
+                        />
+                    )}
+                    <Box mb={2} />
+                    <TextField
+                        required
+                        onChange={({ target: { value } }) => setPassword(value)}
+                        value={password}
+                        id="password"
+                        label={t('password')}
+                        type="password"
+                        variant="outlined"
+                        error={Boolean(loginError.name)}
+                        helperText={loginError.name ? t('login-page.login-error') : ''}
+                        className={classes.formItem}
+                    />
                     <Box mb={6} />
-                ) : (
-                    <>
-                        <Typography className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</Typography>
-                        <Box mb={5} />
-                    </>
-                )}
-                {isDesktop ? (
-                    <TextField
-                        required
-                        onChange={({ target: { value } }) => setEmail(value)}
-                        value={email}
-                        id="email"
-                        label={t('e-mail')}
-                        variant="outlined"
-                        error={loginError.name === 'auth/user-not-found'}
-                        helperText={
-                            loginError.name === 'auth/user-not-found'
-                                ? t('login-page.login-notfound')
-                                : t('login-page.e-mail-helper-text')
-                        }
-                        className={classes.formItem}
-                    />
-                ) : (
-                    <TextField
-                        required
-                        onChange={({ target: { value } }) => setEmail(value)}
-                        value={email}
-                        id="email"
-                        label={t('e-mail')}
-                        variant="outlined"
-                        error={loginError.name === 'auth/user-not-found'}
-                        helperText={
-                            loginError.name === 'auth/user-not-found'
-                                ? t('login-page.login-notfound')
-                                : t('login-page.e-mail-helper-text-mobile')
-                        }
-                        className={classes.formItem}
-                    />
-                )}
-                <Box mb={2} />
-                <TextField
-                    required
-                    onChange={({ target: { value } }) => setPassword(value)}
-                    value={password}
-                    id="password"
-                    label={t('password')}
-                    type="password"
-                    variant="outlined"
-                    error={Boolean(loginError.name)}
-                    helperText={loginError.name ? t('login-page.login-error') : ''}
-                    className={classes.formItem}
-                />
-                <Box mb={6} />
-                <div className={classes.submitWrapper}>
+                    <div className={classes.submitWrapper}>
+                        <ButtonSecondary
+                            variant="text"
+                            href="/forgot-password"
+                            innerText={t('login-page.forgot-password')}
+                            className={classes.forgotPasswordButton}
+                        />
+                        <ButtonSecondary
+                            variant="contained"
+                            type="submit"
+                            disabled={!email || !password}
+                            innerText={t('login-page.login')}
+                        />
+                    </div>
+                    {isDesktop ? (
+                        <>
+                            <Box mb={7} />
+                            <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
+                            <Box mb={7} />
+                        </>
+                    ) : (
+                        <>
+                            <Box mb={4.5} />
+                            <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
+                            <Box mb={4} />
+                        </>
+                    )}
+                </form>
+                <div className={classes.registerWrapper}>
+                    <Typography>{t('login-page.no-account')} </Typography>
+                    <Box mb={3.5} />
                     <ButtonSecondary
                         variant="text"
-                        href="/forgot-password"
-                        innerText={t('login-page.forgot-password')}
+                        href="/register"
+                        innerText={t('login-page.register')}
                         className={classes.forgotPasswordButton}
                     />
-                    <ButtonSecondary
-                        variant="contained"
-                        type="submit"
-                        disabled={!email || !password}
-                        innerText={t('login-page.login')}
-                    />
                 </div>
-                {isDesktop ? (
-                    <>
-                        <Box mb={7} />
-                        <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
-                        <Box mb={7} />
-                    </>
-                ) : (
-                    <>
-                        <Box mb={4.5} />
-                        <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
-                        <Box mb={4} />
-                    </>
-                )}
-            </form>
-            <div className={classes.registerWrapper}>
-                <Typography>{t('login-page.no-account')} </Typography>
-                <Box mb={3.5} />
-                <ButtonSecondary
-                    variant="text"
-                    href="/register"
-                    innerText={t('login-page.register')}
-                    className={classes.forgotPasswordButton}
-                />
             </div>
         </div>
     );
@@ -144,14 +150,25 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            minHeight: '100vh',
+            // minHeight: '100vh',
             padding: theme.spacing(0, 2),
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'start',
             },
         },
+        topHeader: {
+            width: '100%',
+            height: 56,
+            minHeight: 56,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'end',
+            alignItems: 'center',
+        },
         innerContainer: {
             display: 'flex',
+            flexDirection: 'column',
+            height: 'calc(100vh - 112px)',
             justifyContent: 'center',
             alignItems: 'center',
         },

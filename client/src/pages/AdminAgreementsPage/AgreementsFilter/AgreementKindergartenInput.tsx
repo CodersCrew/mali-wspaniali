@@ -12,8 +12,9 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { FilterMenuProps } from './FilterMenuProps';
 import { AgreementKindergartenFilter } from '../../../models/AgreementKindergartenFilters';
+
+import { FilterMenuProps } from './FilterMenuProps';
 
 interface Props {
     values: AgreementKindergartenFilter[];

@@ -1,6 +1,8 @@
 import React from 'react';
-import { RegistrationForm } from './RegistrationForm';
+
 import { AuthTemplate } from '../AuthTemplate/AuthTemplate';
+
+import { RegistrationForm } from './RegistrationForm';
 
 export default function RegistrationPage() {
     return (

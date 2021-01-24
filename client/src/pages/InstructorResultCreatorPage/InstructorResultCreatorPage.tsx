@@ -1,16 +1,9 @@
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
-import {
-    ResultCreatorErrorReturnProps,
-    ResultCreatorReturnProps,
-    useResultCreator,
-    AssessmentValues,
-} from './useResultCreator';
-import { ResultCreator } from './ResultCreator';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { MobileResultCreator } from './MobileResultCreator';
 import {
     useUpdateAssessmentResult,
     UpdatedAssessmentInput,
@@ -19,6 +12,16 @@ import {
     CreatedAssessmentInput,
     useCreateAssessmentResult,
 } from '../../operations/mutations/Results/createAssessmentResult';
+
+import {
+    ResultCreatorErrorReturnProps,
+    ResultCreatorReturnProps,
+    useResultCreator,
+    AssessmentValues,
+} from './useResultCreator';
+import { ResultCreator } from './ResultCreator';
+import { MobileResultCreator } from './MobileResultCreator';
+
 
 interface PageParams {
     assessmentId: string;

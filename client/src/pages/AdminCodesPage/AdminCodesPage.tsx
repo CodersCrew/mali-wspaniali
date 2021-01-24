@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
 
 import { activePage } from '../../apollo_client';
-import { KeyCodes } from './KeyCodes/KeyCodes';
 import { PageContainer } from '../../components/PageContainer';
+
+import { KeyCodes } from './KeyCodes/KeyCodes';
 
 export default function AdminCodesPage() {
     const classes = useStyles();

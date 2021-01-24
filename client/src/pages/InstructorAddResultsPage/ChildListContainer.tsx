@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton, Table, TableBody, TableCell, TableHead, TableRow, Box } from '@material-ui/core';
 import { ArrowUpward, ArrowDownward, Assessment as AssessmentIcon, BarChart, EventNote } from '@material-ui/icons';
+
 import { Assessment, Child, AssessmentResult } from '../../graphql/types';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { Clickable } from '../../components/Clickable';

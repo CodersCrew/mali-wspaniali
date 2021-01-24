@@ -2,10 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import { TestResult } from '../../../../graphql/types';
+
 import { resultKey, TESTS } from './constants';
 import { Measurement } from './Measurement';
 import { NoResultsBlock } from './emptyViews/NoResultsBlock';
-import { TestResult } from '../../../../graphql/types';
 
 export interface Props {
     result: TestResult;

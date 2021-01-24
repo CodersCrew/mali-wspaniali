@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloLink, concat, InMemoryCache, HttpLink, makeVar } from '@apollo/client';
+
 import { AgreementTypeFilter, AgreementTypeFilters } from './models/AgreementTypeFilters';
 import { AgreementStatusFilters, AgreementStatusFilter } from './models/AgreementStatusFilter';
 import { AgreementKindergartenFilter, AgreementKindergartenFilters } from './models/AgreementKindergartenFilters';

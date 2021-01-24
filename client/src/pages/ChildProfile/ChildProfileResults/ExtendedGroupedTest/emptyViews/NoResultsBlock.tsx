@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { useTranslation } from 'react-i18next';
+
 import { darkGray } from '../../../../../colors';
 
 export const NoResultsBlock = ({ translationKey }: { translationKey: string }) => {

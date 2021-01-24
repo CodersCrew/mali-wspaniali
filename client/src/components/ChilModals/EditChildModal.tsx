@@ -10,6 +10,7 @@ import BoyAvatar from '../../assets/boy.png';
 import GirlAvatar from '../../assets/girl.png';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
+
 import { initialValues, validationSchema, normalizeChild } from './utils';
 import { EditChildModalProps } from './ChildModalTypes';
 

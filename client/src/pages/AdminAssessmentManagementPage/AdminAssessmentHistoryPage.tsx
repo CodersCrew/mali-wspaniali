@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
-import { AssessmentHistoryList } from './AssessmentHistoryList/AssessmentHistoryList';
 import { ButtonSecondary } from '../../components/Button';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { PageContainer } from '../../components/PageContainer';
 import { CustomContainer } from '../../components/CustomContainer';
+
+import { AssessmentHistoryList } from './AssessmentHistoryList/AssessmentHistoryList';
 
 export default function AdminAssessmentHistoryPage() {
     const { t } = useTranslation();

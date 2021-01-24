@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+
 import {
     ChangePasswordPanelComponentsProps,
     CHANGE_OLD_PASSWORD,

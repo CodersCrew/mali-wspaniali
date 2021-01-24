@@ -1,4 +1,5 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/';
+
 import { secondaryColor, mainColor, textColor, white } from '../../../colors';
 
 export const useStyles = makeStyles((theme: Theme) =>
@@ -9,6 +10,8 @@ export const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'start',
             alignItems: 'center',
             minHeight: '100vh',
+            height: '100vh',
+            overflowY: 'auto',
             padding: theme.spacing(0, 2),
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'start',
@@ -193,5 +196,14 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
         },
         footer: {},
+        topHeader: {
+            width: '100%',
+            height: 56,
+            minHeight: 56,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'end',
+            alignItems: 'center',
+        },
     }),
 );

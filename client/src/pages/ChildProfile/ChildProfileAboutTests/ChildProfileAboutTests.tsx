@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { About } from './panels/About';
 import { Conditions } from './panels/Conditions';
 import { Results } from './panels/Results';

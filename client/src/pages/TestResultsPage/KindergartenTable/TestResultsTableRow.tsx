@@ -6,8 +6,10 @@ import {
     KeyboardArrowDown as KeyboardArrowDownIcon,
     KeyboardArrowUp as KeyboardArrowUpIcon,
 } from '@material-ui/icons';
-import { KindergartenChildrenTable } from './KindergartenChildrenTable';
+
 import { Kindergarten } from '../../../graphql/types';
+
+import { KindergartenChildrenTable } from './KindergartenChildrenTable';
 
 interface Props {
     kindergarten: Kindergarten;

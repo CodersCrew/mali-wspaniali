@@ -1,9 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { TestSummary } from './TestSummary';
+
 import { gray } from '../../../../colors';
-import { TestDetails } from './TestDetails';
 import { TestResult } from '../../../../graphql/types';
+
+import { TestSummary } from './TestSummary';
+import { TestDetails } from './TestDetails';
+
 
 interface Props {
     result: TestResult;

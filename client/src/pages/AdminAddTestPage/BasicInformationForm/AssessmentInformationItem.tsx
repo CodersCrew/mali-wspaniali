@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, ListItem, Typography, Link, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
+
 import { ProgressBar } from '../../../components/ProgressBar';
 import { StatusChip } from '../../../components/StatusChip';
 

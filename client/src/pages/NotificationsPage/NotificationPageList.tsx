@@ -13,8 +13,10 @@ import {
     Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { NotificationPageListItem } from './NotificationPageListItem';
+
 import { Notification } from '../../graphql/types';
+
+import { NotificationPageListItem } from './NotificationPageListItem';
 import { useNotificationContent } from './useNotificationContent';
 
 interface Props {

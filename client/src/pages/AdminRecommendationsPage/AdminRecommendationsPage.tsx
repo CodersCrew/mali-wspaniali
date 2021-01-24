@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { activePage } from '../../apollo_client';
 
 export default function AdminRecommendationsPage() {

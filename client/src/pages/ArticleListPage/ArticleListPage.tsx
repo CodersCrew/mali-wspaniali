@@ -4,7 +4,6 @@ import { useParams, useHistory } from 'react-router-dom';
 import { createStyles } from '@material-ui/styles';
 import { useQuery } from '@apollo/client';
 
-import { categoriesList } from './BlogCategories';
 import { Article, PaginatedArticles } from '../../graphql/types';
 import { Theme } from '../../theme/types';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
@@ -13,6 +12,8 @@ import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository'
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { Pagination } from '../../components/Blog/Pagination';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
+
+import { categoriesList } from './BlogCategories';
 
 const ARTICLES_PER_PAGE = 6;
 

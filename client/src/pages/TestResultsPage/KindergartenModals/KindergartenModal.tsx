@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, Grid, makeStyles, createStyles, Typography, Theme } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
+
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, AddKindergartenInput } from '../../../graphql/types';

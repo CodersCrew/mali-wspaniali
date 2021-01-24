@@ -2,12 +2,14 @@ import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
-import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
-import { ResultComparison } from './ExtendedGroupedTest/ResultComparison';
 import { gray } from '../../../colors';
-import { SingleTest } from './ExtendedGroupedTest/SingleTest';
 import { TestResult } from '../../../graphql/types';
 import { countSumOfPoints } from '../../../utils/countSumOfPoints';
+
+import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
+import { ResultComparison } from './ExtendedGroupedTest/ResultComparison';
+import { SingleTest } from './ExtendedGroupedTest/SingleTest';
+
 
 interface Props {
     isExpanded: boolean;

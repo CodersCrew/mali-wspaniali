@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core/';
-import { NoResults } from './NoResults';
-import { ResultsActions } from './ResultsActions';
-import { TestResultsTable } from './KindergartenTable/TestResultsTable';
-import { KindergartenModal } from './KindergartenModals/KindergartenModal';
-import { ChangeLogModal } from './KindergartenModals/ChangeLogModal';
-import { KindergartenDeleteModal } from './KindergartenModals/KindergartenDeleteModal';
+
 import { activePage } from '../../apollo_client';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useCreateKindergarten } from '../../operations/mutations/Kindergartens/createKindergarten';
@@ -14,6 +9,13 @@ import { useDeleteKindergarten } from '../../operations/mutations/Kindergartens/
 import { useUpdateKindergarten } from '../../operations/mutations/Kindergartens/updateKindergarten';
 import { Kindergarten, AddKindergartenInput } from '../../graphql/types';
 import { PageContainer } from '../../components/PageContainer';
+
+import { KindergartenDeleteModal } from './KindergartenModals/KindergartenDeleteModal';
+import { ChangeLogModal } from './KindergartenModals/ChangeLogModal';
+import { KindergartenModal } from './KindergartenModals/KindergartenModal';
+import { TestResultsTable } from './KindergartenTable/TestResultsTable';
+import { ResultsActions } from './ResultsActions';
+import { NoResults } from './NoResults';
 
 export default function TestResultsPage() {
     const { t } = useTranslation();

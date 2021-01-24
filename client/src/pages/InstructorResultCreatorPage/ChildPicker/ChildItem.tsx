@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStyles, fade, ListItem, makeStyles, Theme, Typography } from '@material-ui/core';
 import { BarChart, KeyboardArrowRight } from '@material-ui/icons';
+
 import { Child } from '../../../graphql/types';
 
 interface Props {

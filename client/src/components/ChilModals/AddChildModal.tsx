@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import { ChildInput } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
-import { AddChildModalProps } from './ChildModalTypes';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
+
+import { AddChildModalProps } from './ChildModalTypes';
 import { initialValues, validationSchema, normalizeChild } from './utils';
 
 export const openAddChildModal = (options: AddChildModalProps) => {

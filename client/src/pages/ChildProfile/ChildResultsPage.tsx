@@ -2,16 +2,19 @@ import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
-import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
+
 import { activePage } from '../../apollo_client';
 import { useBreakpoints } from '../../queries/useBreakpoints';
-import { childProfileCategoriesList } from './ChildProfileCategory';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
+import { useMe } from '../../utils/useMe';
+import { PageContainer } from '../../components/PageContainer';
+
+import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
+import { childProfileCategoriesList } from './ChildProfileCategory';
 import { ChildRecommendations } from './ChildRecommendations/ChildRecommendations';
 import { ChildProfileAboutTests } from './ChildProfileAboutTests/ChildProfileAboutTests';
 import { ChildDetails } from './Details/ChildDetails';
-import { useMe } from '../../utils/useMe';
-import { PageContainer } from '../../components/PageContainer';
+
 
 export default function ChildResultsPage() {
     const { t } = useTranslation();

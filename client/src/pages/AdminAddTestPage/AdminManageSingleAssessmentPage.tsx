@@ -4,17 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { ButtonSecondary } from '../../components/Button';
+import { openQuestionDialog } from '../../components/QuestionDialog';
+import { PageContainer } from '../../components/PageContainer';
+
 import { BasicInformationForm } from './BasicInformationForm/BasicInformationForm';
 import { KindergartenPicker } from './KindergartenPicker';
 import { TestInformation } from './TestInformation';
 import { useAssessmentManager, SuccessState, ErrorState } from './useAssessmentManager';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-import { ButtonSecondary } from '../../components/Button';
 import { ActionButton } from './ActionButton';
 import { EditableBasicInformationForm } from './EditableBasicInformationForm';
 import { KindergartenList } from './KindergartenList';
-import { openQuestionDialog } from '../../components/QuestionDialog';
-import { PageContainer } from '../../components/PageContainer';
+
 
 export default function AdminManageSingleAssessmentPage() {
     const { t } = useTranslation();

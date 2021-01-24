@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
-import { SearchInput } from './SearchInput';
+
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
+
+import { SearchInput } from './SearchInput';
 
 interface Props {
     onAddKindergartenClick: () => void;

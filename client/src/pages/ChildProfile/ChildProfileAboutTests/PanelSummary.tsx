@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles, AccordionSummary, Typography } from '@material-ui/core';
+
 import { panelTextColor } from '../../../colors';
 
 export const PanelSummary: FC = ({ children }) => {

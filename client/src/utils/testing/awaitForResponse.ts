@@ -6,9 +6,11 @@ export function awaitForResponse(): Promise<void> {
 }
 
 export async function awaitForRenderResponse(): Promise<void> {
+    // eslint-disable-next-line no-return-await
     return await actRender(async () => await awaitForResponse());
 }
 
 export async function awaitForHookResponse(): Promise<void> {
+    // eslint-disable-next-line no-return-await
     return await actHook(async () => await awaitForResponse());
 }

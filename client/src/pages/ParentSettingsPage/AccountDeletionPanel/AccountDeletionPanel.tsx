@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useGetMe } from '../../../operations/mutations/User/useGetMe';
 
+import { useGetMe } from '../../../operations/mutations/User/useGetMe';
 import { ButtonSendMessage } from '../ChangePasswordPanel/ChangepasswordPanelFormControls/ButtonSendMessage';
 import { openSettingsModal } from '../../../components/AccountDeletionPanel/ModalSettings';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';

@@ -1,16 +1,17 @@
 import React, { useState, useRef } from 'react';
-
 import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-import { NotificationsPanel } from './NotificationsPanel';
+
 import { Notification } from '../../../graphql/types';
 import { Device } from '../../../queries/useBreakpoints';
 import { LanguageSelector } from '../../LanguageSelector';
 import { AppLogo } from '../../AppLogo';
 import { useOnClickOutside } from '../../../utils/useOnClickOutside';
 import { useReadNotification } from '../../../operations/mutations/Notification/readNotification';
+
+import { NotificationsPanel } from './NotificationsPanel';
 
 interface Props {
     device: Device;

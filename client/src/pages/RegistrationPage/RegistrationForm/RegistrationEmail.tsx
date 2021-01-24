@@ -1,9 +1,11 @@
 import React from 'react';
 import { TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { RegistrationEmailProps } from './types';
+
 import { emailTest } from '../emailTest';
 import { ButtonSecondary } from '../../../components/Button';
+
+import { RegistrationEmailProps } from './types';
 
 export const RegistrationEmail = ({
     handleChange,

@@ -3,8 +3,6 @@ import { makeStyles, Grid, createStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
-import { HomePageArticles } from './HomePageArticles';
 import { Theme } from '../../theme/types';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
@@ -13,6 +11,9 @@ import { useKindergartens } from '../../operations/queries/Kindergartens/getKind
 import { useAddChild } from '../../operations/mutations/User/addChild';
 import { PageContainer } from '../../components/PageContainer';
 import { useIsDevice } from '../../queries/useBreakpoints';
+
+import { HomePageArticles } from './HomePageArticles';
+import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageInfo } from './HomePageTopSection/HomePageInfo';
 
 export default function ParentHomePage() {

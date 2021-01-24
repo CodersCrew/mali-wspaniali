@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { useStyles } from './EmptyResultStyles';
 
 interface Props {

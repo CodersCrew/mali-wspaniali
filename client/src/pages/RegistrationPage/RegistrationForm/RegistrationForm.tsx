@@ -18,6 +18,7 @@ import { RegistrationFeedback } from './RegistrationFeedback';
 import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
+import { LanguageSelector } from './LanguageSelector';
 
 interface AgreementExtended extends Agreement {
     extraContent?: string;
@@ -224,7 +225,9 @@ export const RegistrationForm = () => {
 
     return (
         <div className={classes.container}>
-            <Box mb={7} />
+            <div className={classes.topHeader}>
+                <LanguageSelector />
+            </div>
             <Typography variant="h3" className={classes.header}>
                 {t('registration-page.register-header')}
             </Typography>
@@ -244,6 +247,7 @@ export const RegistrationForm = () => {
             </form>
             <div className={classes.footer}>
                 <ButtonSecondary href="/login" innerText={t('registration-page.go-to-loginpage')} />
+                <Box mb={3} />
             </div>
         </div>
     );

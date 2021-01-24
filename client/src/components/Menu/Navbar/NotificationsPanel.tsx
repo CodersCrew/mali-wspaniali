@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { MenuList, Paper, createStyles, makeStyles, Theme, Typography } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
 
-import { NotificationItem } from './NotificationItem';
 import { Notification } from '../../../graphql/types';
 import { useNotificationContent } from '../../../pages/NotificationsPage/useNotificationContent';
+
+import { NotificationItem } from './NotificationItem';
 
 export type NotificationListProps = {
     notifications: Notification[];

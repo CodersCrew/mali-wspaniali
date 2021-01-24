@@ -6,10 +6,11 @@ import ForwardIcon from '@material-ui/icons/Forward';
 import { useTranslation } from 'react-i18next';
 
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
 import { openAdminSettingsEditModal } from '../../components/ChilModals/EditChildModal';
 import { User } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
+
+import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
 
 interface AdminSettingsItemProps {
     parent: User;

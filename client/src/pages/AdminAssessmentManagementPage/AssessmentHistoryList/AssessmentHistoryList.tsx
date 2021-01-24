@@ -2,8 +2,9 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { AssessmentItem } from './AssessmentItem';
 import { Assessment } from '../../../graphql/types';
+
+import { AssessmentItem } from './AssessmentItem';
 
 interface Props {
     assessments: Assessment[];

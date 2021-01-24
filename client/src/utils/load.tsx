@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
+
 import { Loader } from '../components/Loader';
 
 let activeLoaders = 0;
