@@ -39,7 +39,6 @@ module.exports = {
                 tsx: 'never',
             },
         ],
-
         '@typescript-eslint/explicit-function-return-type': 'off',
         semi: ['warn', 'always'],
         quotes: ['warn', 'single', 'avoid-escape'],
