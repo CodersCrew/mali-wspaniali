@@ -1,5 +1,4 @@
 import { gql, useMutation, FetchResult } from '@apollo/client';
-
 import { AssessmentResponse } from '../../queries/Assessment/getAssessment';
 
 export type UpdatedAssessmentInput = {

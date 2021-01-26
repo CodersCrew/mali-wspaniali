@@ -1,6 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 export const DELETE_KINDERGARTEN = gql`

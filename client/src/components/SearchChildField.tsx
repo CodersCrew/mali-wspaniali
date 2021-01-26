@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, Grid, IconButton, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Search as SearchIcon } from '@material-ui/icons';
-
 import { OutlinedTextField } from './OutlinedTextField';
 
 interface SearchChildFieldProps {

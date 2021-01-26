@@ -1,10 +1,8 @@
 import { gql, useMutation } from '@apollo/client';
-
 import { Child, UpdatedChildInput, Kindergarten } from '../../../graphql/types';
 import { client } from '../../../apollo_client';
-import { useKindergartens } from '../../queries/Kindergartens/getKindergartens';
-
 import { GET_ME, useGetMe } from './useGetMe';
+import { useKindergartens } from '../../queries/Kindergartens/getKindergartens';
 
 export interface EditChildResponse {
     status: boolean;

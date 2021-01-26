@@ -1,7 +1,6 @@
 import { gql, FetchResult, ApolloQueryResult } from '@apollo/client';
 
 import { client } from '../apollo_client';
-
 import { ReturnedStatus, UserInput, User, Child } from './types';
 
 export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>> {

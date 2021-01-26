@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-
 import { AgreementKindergartenFilter } from '../../../models/AgreementKindergartenFilters';
 
 export interface GetAgreementsKindergartenFilterQuery {

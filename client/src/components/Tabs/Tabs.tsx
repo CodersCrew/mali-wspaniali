@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tabs as MuiTabs, makeStyles, createStyles, TabsProps } from '@material-ui/core';
-
 import { Tab } from './Tab';
 
 type ContentType = {

@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-
 import { parseBirthQuarter } from '../../utils/parseBirthQuarter';
 
 export interface Option {

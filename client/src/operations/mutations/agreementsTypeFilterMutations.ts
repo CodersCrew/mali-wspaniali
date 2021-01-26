@@ -4,7 +4,6 @@ import {
     agreementKindergartenFilterVar,
     agreementSortStatusVar,
 } from '../../apollo_client';
-
 import { createSetAgreementTypeFilter } from './Agreements/setAgreementTypeFilter';
 import { createSetAgreementStatusFilter } from './Agreements/setAgreementStatusFilter';
 import { createSetAgreementKindergartenFilter } from './Agreements/setAgreementKindergartenFilter';

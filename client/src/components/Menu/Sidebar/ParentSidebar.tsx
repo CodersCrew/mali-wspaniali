@@ -3,13 +3,12 @@ import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Me } from '../../../graphql/types';
-import { SecondaryLabel } from '../../Label';
-import { useBreakpoints } from '../../../queries/useBreakpoints';
-
 import { CollapsibleList } from './CollapsibleList';
 import { getParentMenuItemFactory, getChildMenuItemFactory, getBlogMenuItemFactory } from './menuItemFactory';
 import { SingleItem } from './SingleItem';
+import { SecondaryLabel } from '../../Label';
 import { MenuDrawer } from './MenuDrawer';
+import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { getMenuWidth } from './getMenuWidth';
 import { LabeledHeader } from './LabeledHeader';
 

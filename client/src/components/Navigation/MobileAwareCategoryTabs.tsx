@@ -2,11 +2,10 @@ import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
 import { Device } from '../../queries/useBreakpoints';
-import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
-import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
-
 import { CategoryTabsMobile } from './CategoryTabsMobile';
 import { CategoryTabs } from './CategoryTabs';
+import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
+import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     device: Device;

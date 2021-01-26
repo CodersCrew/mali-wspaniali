@@ -1,5 +1,4 @@
 import { gql, useLazyQuery } from '@apollo/client';
-
 import { KeyCode } from '../../../graphql/types';
 
 interface KeyCodeResponse {

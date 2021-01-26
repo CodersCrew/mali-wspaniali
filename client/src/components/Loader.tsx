@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles, Backdrop, CircularProgress } from '@material-ui/core';
-
 import { white } from '../colors';
 
 export const Loader = () => {

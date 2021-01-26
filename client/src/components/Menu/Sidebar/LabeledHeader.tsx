@@ -1,6 +1,5 @@
 import React from 'react';
 import { Divider, createStyles, makeStyles } from '@material-ui/core';
-
 import { AppLogo } from '../../AppLogo';
 import { Theme } from '../../../theme/types';
 

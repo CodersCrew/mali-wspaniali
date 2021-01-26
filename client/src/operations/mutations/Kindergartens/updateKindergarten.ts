@@ -1,6 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-
 import { AddKindergartenInput } from '../../../graphql/types';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 

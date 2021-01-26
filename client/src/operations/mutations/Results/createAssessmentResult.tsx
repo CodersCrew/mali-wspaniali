@@ -1,5 +1,4 @@
 import { ApolloCache, gql, useMutation } from '@apollo/client';
-
 import { AssessmentResult } from '../../../graphql/types';
 import { AssessmentResponse, GET_ASSESSMENT_RESULTS } from '../../queries/Results/getAssessmentResults';
 

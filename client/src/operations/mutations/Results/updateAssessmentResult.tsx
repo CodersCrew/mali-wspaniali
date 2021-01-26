@@ -1,5 +1,4 @@
 import { gql, useMutation } from '@apollo/client';
-
 import { AssessmentResult } from '../../../graphql/types';
 
 export interface Test {
