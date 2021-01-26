@@ -1,6 +1,5 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-
 import { ThemeProvider } from '../theme/ThemeProvider';
 
 export type Decision<T = {}> = {
