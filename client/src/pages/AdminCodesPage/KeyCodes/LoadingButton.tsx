@@ -1,6 +1,5 @@
 import { CircularProgress, createStyles, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
-
 import { ButtonSecondary } from '../../../components/Button';
 
 interface Props {

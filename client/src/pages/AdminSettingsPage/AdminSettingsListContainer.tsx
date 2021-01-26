@@ -3,9 +3,8 @@ import { TableBody, TableCell, Table, TableHead, TableRow } from '@material-ui/c
 import { useTranslation } from 'react-i18next';
 
 import { useParents } from '../../operations/queries/Users/getUsersByRole';
-import { User } from '../../graphql/types';
-
 import { AdminSettingsItem } from './AdminSettingsItem';
+import { User } from '../../graphql/types';
 
 export const AdminSettingsListContainers = () => {
     const { parents } = useParents();

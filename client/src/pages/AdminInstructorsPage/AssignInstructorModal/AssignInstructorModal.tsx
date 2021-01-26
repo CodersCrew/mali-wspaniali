@@ -10,13 +10,11 @@ import {
     Select,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 import type { UpdatedAssessmentInput } from '../../../operations/mutations/Assessment/updateAssessment';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, Assessment } from '../../../graphql/types';
 import { InstructorWithKindergartens } from '../types';
-
 import { KindergartenTable } from './KindergartenTable';
 
 interface Props {

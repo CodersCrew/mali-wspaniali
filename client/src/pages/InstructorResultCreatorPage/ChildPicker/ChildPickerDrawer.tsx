@@ -2,11 +2,9 @@ import React from 'react';
 import { Box, createStyles, Divider, Grid, makeStyles, SwipeableDrawer, Theme, Typography } from '@material-ui/core';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-
 import { Child, Kindergarten } from '../../../graphql/types';
-import { ButtonSecondary } from '../../../components/Button';
-
 import { ChildPicker } from './ChildPicker';
+import { ButtonSecondary } from '../../../components/Button';
 
 interface Props {
     childList: Child[];

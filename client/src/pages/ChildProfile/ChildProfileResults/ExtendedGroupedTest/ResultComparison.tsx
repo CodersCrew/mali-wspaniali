@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { Card, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
-
+import { getResultColorAndLabel } from './calculateResult';
+import { MAX_OVERALL_POINTS } from './constants';
 import { gray } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { BasicModal } from '../../../../components/Modal/BasicModal';
-
-import { MAX_OVERALL_POINTS } from './constants';
-import { getResultColorAndLabel } from './calculateResult';
 
 interface Props {
     firstResultPoints: number;

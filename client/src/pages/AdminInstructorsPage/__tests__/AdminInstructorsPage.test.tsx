@@ -2,7 +2,6 @@ import React from 'react';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MockedResponse } from '@apollo/client/testing';
-
 import AdminInstructorsPage from '../AdminInstructorsPage';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';

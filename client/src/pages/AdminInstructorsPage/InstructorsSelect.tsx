@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-
 import { PrivilegedUser } from '../../graphql/types';
 
 interface Props {

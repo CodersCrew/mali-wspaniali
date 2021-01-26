@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
 import { CircleChart } from '../../../../components/CircleChart';
+import { getResultColorAndLabel } from './calculateResult';
 import { gray } from '../../../../colors';
+import { MAX_OVERALL_POINTS } from './constants';
 import { ButtonSecondary } from '../../../../components/Button';
 import { TestResult } from '../../../../graphql/types';
 import { BasicModal } from '../../../../components/Modal/BasicModal';
 import dayjs from '../../../../localizedMoment';
-
-import { MAX_OVERALL_POINTS } from './constants';
-import { getResultColorAndLabel } from './calculateResult';
 
 export interface Props {
     result: TestResult;

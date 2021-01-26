@@ -1,11 +1,9 @@
 import React from 'react';
 import { createStyles, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
+import { MeasurementPoint } from './MeasurementPoint';
 import { Child, AssessmentResult } from '../../../graphql/types';
 import dayjs from '../../../localizedMoment';
-
-import { MeasurementPoint } from './MeasurementPoint';
 
 interface MeasurementValues {
     run: number;

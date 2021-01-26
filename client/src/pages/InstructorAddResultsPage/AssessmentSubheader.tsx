@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
 import { Assessment } from '../../graphql/types';
 import { StatusChip } from '../../components/StatusChip';
 import dayjs from '../../localizedMoment';

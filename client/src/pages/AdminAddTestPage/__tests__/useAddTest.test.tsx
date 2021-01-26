@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-
 import { useAssessmentManager } from '../useAssessmentManager';
 import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/createAssessment';
 import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';

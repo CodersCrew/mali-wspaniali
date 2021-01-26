@@ -1,14 +1,12 @@
 import React from 'react';
 import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
-import { ButtonSecondary } from '../../components/Button';
-import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
-
 import { ResultCreatorReturnProps } from './useResultCreator';
 import { ChildPickerDrawer } from './ChildPicker/ChildPickerDrawer';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
+import { ButtonSecondary } from '../../components/Button';
+import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
 
 interface Props {
     value: ResultCreatorReturnProps;

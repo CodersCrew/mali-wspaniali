@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Grid, TextField, createStyles, makeStyles, Theme, MenuItem, Typography } from '@material-ui/core';
 
 import { LabeledContainer } from '../../components/LabeledContainer';
+import { AssessmentManagerState } from './useAssessmentManager';
 import { SelectList } from '../../components/SelectList';
 import { OutlinedDateField } from '../../components/OutlinedDateField';
-
-import { AssessmentManagerState } from './useAssessmentManager';
 
 interface Props {
     isDisabled: boolean;

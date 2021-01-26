@@ -2,9 +2,8 @@ import React from 'react';
 import { createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { AgreementStatusFilters } from '../../../models/AgreementStatusFilter';
-
 import { FilterMenuProps } from './FilterMenuProps';
+import { AgreementStatusFilters } from '../../../models/AgreementStatusFilter';
 
 interface Props {
     value: string;

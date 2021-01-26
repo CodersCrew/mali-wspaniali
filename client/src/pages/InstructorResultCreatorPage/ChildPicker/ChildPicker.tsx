@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Child, Kindergarten } from '../../../graphql/types';
+import { ChildItem } from './ChildItem';
 import { SelectList } from '../../../components/SelectList';
 import { SearchChildField } from '../../../components/SearchChildField';
-
-import { ChildItem } from './ChildItem';
 
 interface Props {
     childList: Child[];

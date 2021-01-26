@@ -3,6 +3,7 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 
 import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';
 import { KINDERGARTEN_WITH_USERS } from '../../graphql/kindergartensRepository';
+import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
 import {
@@ -23,8 +24,6 @@ import { AgreementStatusFilters } from '../../models/AgreementStatusFilter';
 import { agreementSortStatusVar } from '../../apollo_client';
 import { AgreementSortStatus } from '../../models/AgreementSortStatus';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
-
-import { AdminAgreementsPage } from './AdminAgreementsPage';
 
 export default function AdminAgreementsPageContainer() {
     const { kindergartenList, isKindergartenListLoading } = useKindergartens();

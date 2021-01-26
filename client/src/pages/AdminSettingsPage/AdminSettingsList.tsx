@@ -3,7 +3,6 @@ import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { CustomContainer } from '../../components/CustomContainer';
-
 import { AdminSettingsListContainers } from './AdminSettingsListContainer';
 
 export const AdminSettingsList = () => {

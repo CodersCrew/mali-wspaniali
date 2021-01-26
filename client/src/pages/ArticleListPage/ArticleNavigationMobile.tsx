@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles, Theme, createStyles, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
-
 import { ButtonDefault } from '../../components/Button/ButtonDefault';
 
 interface Props {

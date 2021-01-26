@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Grid, Typography, List } from '@material-ui/core';
 
 import { AssessmentManagerState } from '../useAssessmentManager';
-import { CustomContainer } from '../../../components/CustomContainer';
-
 import { AssessmentInformationItem } from './AssessmentInformationItem';
+import { CustomContainer } from '../../../components/CustomContainer';
 
 interface Props {
     assessment: AssessmentManagerState;

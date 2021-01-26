@@ -15,14 +15,13 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 
 import { KindergartenWithUsers } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
+import { AgreementsList } from './AgreementsList/AgreementsList';
+import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
 import { AgreementStatusFilter } from '../../models/AgreementStatusFilter';
 import { AgreementTypeFilter } from '../../models/AgreementTypeFilters';
 import { AgreementKindergartenFilter } from '../../models/AgreementKindergartenFilters';
 import { AgreementSortType } from '../../models/AgreementSortStatus';
 import { PageContainer } from '../../components/PageContainer';
-
-import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
-import { AgreementsList } from './AgreementsList/AgreementsList';
 
 interface Props {
     kindergartens: KindergartenWithUsers[];

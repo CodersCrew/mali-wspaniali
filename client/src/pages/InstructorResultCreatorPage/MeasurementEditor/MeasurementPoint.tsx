@@ -13,7 +13,6 @@ import {
 } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-
 import { theme } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';

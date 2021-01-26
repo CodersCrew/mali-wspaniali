@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 import { Typography, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
-import { useCreateKeyCodes } from '../../../operations/mutations/KeyCodes/createKeyCodes';
-import { useKeyCodeSeries } from '../../../operations/queries/KeyCodes/getKeyCodesSeries';
-
 import { RoleToggleButton } from './RoleToggleButton';
 import { ActiveKeysList } from './ActiveKeysList';
 import { KeyCodesToGenerateTextfield } from './KeyCodesToGenerateTextfield';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 import { FilenameButton } from './FilenameButton';
 import { LoadingButton } from './LoadingButton';
+import { useCreateKeyCodes } from '../../../operations/mutations/KeyCodes/createKeyCodes';
 import { useGenerateExcel } from './useGenerateExcel';
-
+import { useKeyCodeSeries } from '../../../operations/queries/KeyCodes/getKeyCodesSeries';
 
 export function KeyCodes() {
     const { t } = useTranslation();

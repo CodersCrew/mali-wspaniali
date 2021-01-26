@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography } from '@material-ui/core';
-
 import { Panel } from '../Panel';
 import { panelTextColor } from '../../../../colors';
 

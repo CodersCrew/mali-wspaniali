@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tab, createStyles, makeStyles, Theme } from '@material-ui/core';
-
 import { blogCategoryColors } from '../../colors';
 
 type StyledTabProps = {

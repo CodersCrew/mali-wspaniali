@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Typography, IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { InfoOutlined as InfoIcon } from '@material-ui/icons';
-
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 interface Props {

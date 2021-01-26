@@ -3,7 +3,6 @@ import { TableCell, TableRow, Theme, makeStyles, createStyles, IconButton } from
 import clsx from 'clsx';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-
 import { AgreementSortStatus } from '../../../models/AgreementSortStatus';
 
 interface Props {

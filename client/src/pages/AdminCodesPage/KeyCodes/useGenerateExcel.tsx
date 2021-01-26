@@ -1,8 +1,7 @@
 import { writeFile } from 'xlsx';
 
-import { useKeyCodes } from '../../../operations/queries/KeyCodes/getKeyCodes';
-
 import { getKeyCodesWorkbook } from './getKeyCodesWorkbook';
+import { useKeyCodes } from '../../../operations/queries/KeyCodes/getKeyCodes';
 
 export function useGenerateExcel(onCreate: (filename: string) => void) {
     const { getKeyCodes, keyCodes } = useKeyCodes();

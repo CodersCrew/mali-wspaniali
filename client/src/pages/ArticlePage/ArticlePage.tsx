@@ -3,19 +3,17 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Theme, CardMedia, Divider } from '@material-ui/core';
 import clsx from 'clsx';
-
+import { ArticleContent } from './ArticleContent';
+import { ArticleVideo } from './ArticleVideo';
+import { ArticleRedactor } from './ArticleRedactor';
 import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
 import { activePage } from '../../apollo_client';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { ButtonDefault } from '../../components/Button';
-import { calculateReadingTime } from '../../utils/calculateReadingTime';
-import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
-
 import { ReadingTime } from './ReadingTime';
 import { TagList } from './TagList';
-import { ArticleRedactor } from './ArticleRedactor';
-import { ArticleVideo } from './ArticleVideo';
-import { ArticleContent } from './ArticleContent';
+import { calculateReadingTime } from '../../utils/calculateReadingTime';
+import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
 
 export default function ArticlePage() {
     const { t } = useTranslation();
