@@ -218,11 +218,6 @@ export const RegistrationForm = () => {
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
 
-    // TODO: remove this!
-    useEffect(() => {
-        setActiveStep(2);
-    }, []);
-
     return (
         <div className={classes.container}>
             <div className={classes.topHeader}>

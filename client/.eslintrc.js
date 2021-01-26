@@ -39,17 +39,7 @@ module.exports = {
                 tsx: 'never',
             },
         ],
-        'import/order': [
-            'error',
-            {
-                groups: [
-                    ['external', 'builtin'],
-                    ['parent', 'internal'],
-                    ['index', 'sibling'],
-                ],
-                'newlines-between': 'always',
-            },
-        ],
+
         '@typescript-eslint/explicit-function-return-type': 'off',
         semi: ['warn', 'always'],
         quotes: ['warn', 'single', 'avoid-escape'],

@@ -70,8 +70,6 @@ export const RegistrationAgreement = ({
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { id, checked } = target;
-        console.log('event.target.id:', id);
-        console.log('event.target.value:', checked);
         if (id === '0' && checked) {
             console.log('jestem');
             const checks = new Array(agreements.length);
