@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Typography, InputAdornment, FormControl, InputLabel, OutlinedInput, IconButton } from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-
+import { RegistrationPasswordProps, PasswordValidation } from './types';
+import { PasswordStrengthChips } from './PasswordStrengthChips';
 import {
     passwordLengthTest,
     passwordSpecialTest,
@@ -10,9 +11,6 @@ import {
     passwordCapitalTest,
 } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
-
-import { RegistrationPasswordProps, PasswordValidation } from './types';
-import { PasswordStrengthChips } from './PasswordStrengthChips';
 
 const initialPasswordValidation: PasswordValidation = {
     length: false,

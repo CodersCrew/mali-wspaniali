@@ -4,7 +4,6 @@ import CheckIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-
 import { useStyles } from './styles';
 import { PasswordValidation } from './types';
 

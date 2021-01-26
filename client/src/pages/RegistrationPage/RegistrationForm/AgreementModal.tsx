@@ -1,10 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-
-import { BasicModal } from '../../../components/Modal/BasicModal';
-
 import { AgreementModalProps } from './types';
+import { BasicModal } from '../../../components/Modal/BasicModal';
 
 const T_PREFIX = 'registration-page.agreements';
 
