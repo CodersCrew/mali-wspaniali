@@ -2,10 +2,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
-
-import { Theme } from '../../theme';
-
 import { modules, formats } from './workspaceConfig';
+import { Theme } from '../../theme';
 
 interface Props {
     value: string;

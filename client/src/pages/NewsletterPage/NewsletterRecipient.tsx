@@ -2,15 +2,12 @@ import React, { FocusEvent } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
-
-import { Kindergarten } from '../../graphql/types';
-import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
-
 import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
+import { Kindergarten } from '../../graphql/types';
 import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
-
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 const setLabel = (
     generalType: GeneralRecipient | '',

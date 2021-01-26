@@ -3,13 +3,11 @@ import clsx from 'clsx';
 import { Typography, makeStyles, createStyles, Theme, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik, FormikErrors, FormikTouched } from 'formik';
-
-import { ButtonSecondary } from '../../components/Button';
-import { activePage } from '../../apollo_client';
-
 import { NewsletterFormValues, SpecificRecipient } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
+import { ButtonSecondary } from '../../components/Button';
+import { activePage } from '../../apollo_client';
 
 export default function NewsletterPage() {
     const classes = useStyles();

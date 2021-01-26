@@ -1,12 +1,10 @@
 import React, { useReducer } from 'react';
 import { createStyles, Theme, makeStyles, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
 import { useBreakpoints } from '../../../queries/useBreakpoints';
-import { useMe } from '../../../utils/useMe';
-
 import { FormControlOldPassword } from './ChangepasswordPanelFormControls/FormControlOldPassword';
 import { ChangePasswordPanelReducer, ChangePasswordPanelInitialState } from './ChangePasswordPanelReducer';
+import { useMe } from '../../../utils/useMe';
 import { ButtonResetOldPassword } from './ChangepasswordPanelFormControls/ButtonResetOldPassword';
 import { ButtonSendMessage } from './ChangepasswordPanelFormControls/ButtonSendMessage';
 

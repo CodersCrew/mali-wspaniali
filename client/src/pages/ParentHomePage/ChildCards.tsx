@@ -1,17 +1,15 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
-
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { ChildCard } from '../../components/ChildCard/ChildCard';
 import BoyAvatar from '../../assets/boy.png';
 import GirlAvatar from '../../assets/girl.png';
 import { Child, ChildInput } from '../../graphql/types';
+import { HomePageAddChildButton } from './HomePageTopSection/HomePageAddChildButton/HomePageAddChildButton';
 import { openAddChildModal } from '../../components/ChilModals/AddChildModal';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useIsDevice } from '../../queries/useBreakpoints';
-
-import { HomePageAddChildButton } from './HomePageTopSection/HomePageAddChildButton/HomePageAddChildButton';
 
 interface Props {
     childrenList: Child[];
