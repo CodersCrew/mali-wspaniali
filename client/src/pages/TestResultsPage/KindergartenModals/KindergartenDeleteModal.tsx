@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
-
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten } from '../../../graphql/types';
 

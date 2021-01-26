@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useMe } from '../utils/useMe';
 import { useKindergartens } from '../operations/queries/Kindergartens/getKindergartens';
 import { openAddChildModal } from '../components/ChilModals/AddChildModal';

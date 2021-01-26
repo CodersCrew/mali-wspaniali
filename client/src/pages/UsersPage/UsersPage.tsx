@@ -10,13 +10,11 @@ import {
     TableRow,
     TableBody,
 } from '@material-ui/core';
-
-import { getAllUsers } from '../../graphql/userRepository';
-import { User } from '../../graphql/types';
-
 import { UsersTableRow } from './UsersTableRow';
 import { UserPagePagination } from './UserPagePagination';
 import { NoResults } from './NoResults';
+import { getAllUsers } from '../../graphql/userRepository';
+import { User } from '../../graphql/types';
 
 export default function UsersPage() {
     const [users, setUsers] = useState<User[]>([]);
