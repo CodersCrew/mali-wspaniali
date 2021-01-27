@@ -2,7 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Typography } from '@material-ui/core';
 import { Panel } from '../Panel';
-import { panelTextColor, mainColor } from '../../../../colors';
+import { panelTextColor } from '../../../../colors';
+import aboutImage from "../../../../assets/testInformation/About/testInformationAbout.png";
 
 const T_PREFIX = 'child-profile.tests-informations.about';
 
@@ -22,7 +23,7 @@ export const About = () => {
                         {t(`${T_PREFIX}.text2-2`)}
                     </Typography>
                 </Box>
-                <img className={classes.image} src="https://via.placeholder.com/257x141" alt="placeholder" />
+                <img className={classes.image} src={aboutImage} alt="placeholder" />
             </Box>
         </Panel>
     );
@@ -43,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
     },
     image: {
         marginLeft: theme.spacing(6),
-        width: 257,
-        height: 141,
+        width: 195,
+        height: 242,
 
         [theme.breakpoints.down('md')]: {
             display: 'none',
@@ -52,6 +53,6 @@ const useStyles = makeStyles((theme) => ({
     },
     strong: {
         fontWeight: 'bold',
-        color: mainColor,
+        color: "#1D1D1D",
     },
 }));
