@@ -2,18 +2,22 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import BoyAvatarSmall from '../../../../assets/boy_small.png';
+import GirlAvatarSmall from '../../../../assets/girl_small.png';
 
 const Results = () => {
     const { t } = useTranslation();
     const mockedData = {
         v1: 17,
-        v2: 12,
-        v3: 9,
+        v2: 14,
+        v3: 12,
         v4: 8,
         v5: 5,
         unit: 's',
-        result: 16,
+        result: 9,
     };
+
+    const sex = 'male';
+    const avatar = sex === 'male' ? BoyAvatarSmall : GirlAvatarSmall;
 
     const { v1, v2, v3, v4, v5, unit, result } = mockedData;
     const range = v1 - v5;
@@ -125,7 +129,7 @@ const Results = () => {
             </div>
             <div className={classes.result}>
                 <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <image href={BoyAvatarSmall} x="90" height="24" width="24" />
+                    <image href={avatar} x="90" height="24" width="24" />
                     <text x="100" y="42" fill="black" dominantBaseline="middle" textAnchor="middle">{t('child-profile.your-child-result-1')}</text>
                     <text x="100" y="56" fill="black" dominantBaseline="middle" textAnchor="middle">{t('child-profile.your-child-result-2')}</text>
                     <rect width="8" height="80" rx="4" x="98" y="72" fill="#212121" />
@@ -138,7 +142,7 @@ const Results = () => {
 const useStyles = makeStyles({
     wrapper: {
         position: 'relative',
-        margin: '80px 0 50px',
+        margin: '80px 20px 50px',
     },
     rectangles: {
         display: 'flex',
