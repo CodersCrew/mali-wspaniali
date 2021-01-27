@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Typography } from '@material-ui/core';
 import { Panel } from '../Panel';
 import { panelTextColor } from '../../../../colors';
-import aboutImage from "../../../../assets/testInformation/About/testInformationAbout.png";
+import aboutImage from '../../../../assets/testInformation/About/testInformationAbout.png';
 
 const T_PREFIX = 'child-profile.tests-informations.about';
 
@@ -53,6 +53,6 @@ const useStyles = makeStyles((theme) => ({
     },
     strong: {
         fontWeight: 'bold',
-        color: "#1D1D1D",
+        color: '#1D1D1D',
     },
 }));

@@ -49,7 +49,7 @@ export const Conditions = () => {
                 {tests.map(({ name, image, imageAlt, description }) => (
                     <Box key={name} display="grid">
                         <Box className={classes.testImageContainer}>
-                            <img src={image} alt={imageAlt}/>
+                            <img src={image} alt={imageAlt} />
                         </Box>
                         <Box>
                             <Typography className={classes.testName}>{name}</Typography>

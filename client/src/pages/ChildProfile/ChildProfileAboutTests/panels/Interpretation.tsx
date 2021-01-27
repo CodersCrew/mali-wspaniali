@@ -17,18 +17,36 @@ export const Interpretation = () => {
                 <Box>
                     <Typography className={classes.title}>{t(`${T_PREFIX}.title1`)}</Typography>
                     <ul className={classes.ul}>
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography></li>
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography></li>
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text3`)}</Typography></li>
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text4`)}</Typography></li>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
+                        </li>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography>
+                        </li>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text3`)}</Typography>
+                        </li>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text4`)}</Typography>
+                        </li>
                     </ul>
                     <Typography className={classes.title}>{t(`${T_PREFIX}.title2`)}</Typography>
-                    <ul className={classes.ul}> 
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text5`)}</Typography></li>
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text6`)}</Typography></li>
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text7`)}</Typography></li>
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text8`)}</Typography></li>
-                        <li><Typography className={classes.text}>{t(`${T_PREFIX}.text9`)}</Typography></li>
+                    <ul className={classes.ul}>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text5`)}</Typography>
+                        </li>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text6`)}</Typography>
+                        </li>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text7`)}</Typography>
+                        </li>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text8`)}</Typography>
+                        </li>
+                        <li>
+                            <Typography className={classes.text}>{t(`${T_PREFIX}.text9`)}</Typography>
+                        </li>
                     </ul>
                 </Box>
                 <Box>
