@@ -13,7 +13,7 @@ const Results = () => {
         v4: 8,
         v5: 5,
         unit: 's',
-        result: 9,
+        result: 11,
     };
 
     const sex = 'male';
@@ -31,6 +31,10 @@ const Results = () => {
     const rangeLightGreen = calculatePercent(v3 - v4);
     const rangeGreen = calculatePercent(v4 - v5);
     const resultMarkShift = calculatePercent(v1 - result);
+
+    const shiftFirstScoreRange = rangeRed / 2 - 5;
+    const shiftSecondScoreRange = rangeRed + (rangeYellow + rangeLightGreen) / 2 - 5;
+    const shiftThirdScoreRange = rangeRed + rangeYellow + rangeLightGreen + rangeGreen / 2 - 5;
 
     const classes = useStyles(resultMarkShift);
 
@@ -87,14 +91,19 @@ const Results = () => {
             </div>
             <div className={classes.horizontalLine}>
                 <svg
-                    width="100%"
-                    height="1"
-                    viewBox="0 0 440 1"
+                    width="105%"
+                    height="9"
+                    viewBox="0 0 445 9"
                     preserveAspectRatio="none"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                 >
-                    <line x1="440" y1="0.5" x2="-4.37114e-08" y2="0.499962" stroke="#616161" strokeDasharray="10 10" />
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M440 4V0L445 4.5L440 9V5L435 5V4L440 4ZM425 4L415 4V5L425 5V4ZM405 4L395 4V5L405 5V4ZM385 4L375 3.99999V4.99999L385 5V4ZM365 3.99999L355 3.99999V4.99999L365 4.99999V3.99999ZM345 3.99999L335 3.99999V4.99999L345 4.99999V3.99999ZM325 3.99999L315 3.99999V4.99999L325 4.99999V3.99999ZM305 3.99999L295 3.99999V4.99999L305 4.99999V3.99999ZM285 3.99999L275 3.99999V4.99999L285 4.99999V3.99999ZM265 3.99998L255 3.99998V4.99998L265 4.99998V3.99998ZM245 3.99998L235 3.99998V4.99998L245 4.99998V3.99998ZM225 3.99998L215 3.99998V4.99998L225 4.99998V3.99998ZM205 3.99998L195 3.99998V4.99998L205 4.99998V3.99998ZM185 3.99998L175 3.99998V4.99998L185 4.99998V3.99998ZM165 3.99998L155 3.99997V4.99998L165 4.99998V3.99998ZM145 3.99997L135 3.99997V4.99997L145 4.99997V3.99997ZM125 3.99997L115 3.99997V4.99997L125 4.99997V3.99997ZM105 3.99997L95 3.99997V4.99997L105 4.99997V3.99997ZM85 3.99997L75 3.99997V4.99997L85 4.99997V3.99997ZM65 3.99997L55 3.99997V4.99997L65 4.99997V3.99997ZM45 3.99997L35 3.99996V4.99996L45 4.99997V3.99997ZM25 3.99996L15 3.99996V4.99996L25 4.99996V3.99996ZM5 3.99996L0 3.99996V4.99996L5 4.99996V3.99996Z"
+                        fill="#616161"
+                    />
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: '0' }}>
@@ -107,12 +116,6 @@ const Results = () => {
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
                     <text x="-0" y="100" fill="black">{`${v2} ${unit}`}</text>
-                </svg>
-            </div>
-            <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow}%` }}>
-                <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v3} ${unit}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow + rangeLightGreen}%` }}>
@@ -129,10 +132,27 @@ const Results = () => {
             </div>
             <div className={classes.result}>
                 <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <image href={avatar} x="90" height="24" width="24" />
-                    <text x="100" y="42" fill="black" dominantBaseline="middle" textAnchor="middle">{t('child-profile.your-child-result-1')}</text>
-                    <text x="100" y="56" fill="black" dominantBaseline="middle" textAnchor="middle">{t('child-profile.your-child-result-2')}</text>
-                    <rect width="8" height="80" rx="4" x="98" y="72" fill="#212121" />
+                    <image href={avatar} x="84" height="36" width="36" />
+                    <text x="100" y="42" fill="black" dominantBaseline="middle" textAnchor="middle">
+                        {t('child-profile.your-child-result-1')}
+                    </text>
+                    <text x="100" y="56" fill="black" dominantBaseline="middle" textAnchor="middle">
+                        {t('child-profile.your-child-result-2')}
+                    </text>
+                    <rect width="8" height="80" rx="4" x="98" y="68" fill="#212121" />
+                </svg>
+            </div>
+            <div className={classes.scoring}>
+                <svg width="100%" height="30" viewBox="0 0 100% 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x={`${shiftFirstScoreRange}%`} y="20" fill="black">
+                        (21 pkt)
+                    </text>
+                    <text x={`${shiftSecondScoreRange}%`} y="20" fill="black">
+                        (22-78 pkt)
+                    </text>
+                    <text x={`${shiftThirdScoreRange}%`} y="20" fill="black">
+                        (22-79 pkt)
+                    </text>
                 </svg>
             </div>
         </div>
@@ -142,7 +162,7 @@ const Results = () => {
 const useStyles = makeStyles({
     wrapper: {
         position: 'relative',
-        margin: '80px 20px 50px',
+        margin: '80px 20px 100px',
     },
     rectangles: {
         display: 'flex',
@@ -152,7 +172,8 @@ const useStyles = makeStyles({
         position: 'absolute',
         display: 'flex',
         top: '50%',
-        width: '100%',
+        width: '102%',
+        transform: 'translatey(-4px)',
     },
     result: (resultMarkShift) => ({
         position: 'absolute',
@@ -166,6 +187,11 @@ const useStyles = makeStyles({
         position: 'absolute',
         top: -8,
         transform: 'translateX(-10px)',
+    },
+    scoring: {
+        position: 'absolute',
+        top: '100px',
+        width: '100%',
     },
 });
 
