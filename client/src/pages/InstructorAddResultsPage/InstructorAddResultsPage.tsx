@@ -18,6 +18,7 @@ import { AssessmentSubheader } from './AssessmentSubheader';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { useCreateAssessmentResult } from '../../operations/mutations/Results/createAssessmentResult';
 import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
@@ -145,7 +146,7 @@ export default function InstructorAddResultsPage() {
         setSelectedKindergarten(value);
     }
 
-    function handleClick(type: string, value: string) {
+    async function handleClick(type: string, value: string) {
         if (type === 'add-first-assessment-result') {
             history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`);
         }
@@ -155,34 +156,56 @@ export default function InstructorAddResultsPage() {
         }
 
         if (type === 'add-first-assessment-note') {
-            openAddNoteDialog({
+            const currentChild = currentChildren.find((c) => c._id === value);
+
+            if (!currentChild) return;
+
+            const response = await openAddNoteDialog({
                 title: t('add-results-page.note-first-measurement'),
                 note: getFirstMeasurementNote(value),
-            }).then((decision) => {
-                if (decision.close) return;
+            });
 
-                createAssessmentResult({
-                    childId: value,
-                    kindergartenId: selectedKindergarten,
-                    assessmentId: selectedAssessment,
-                    firstMeasurementNote: (decision?.decision as any).note,
-                });
+            if (!response || response.close) return;
+
+            await createAssessmentResult({
+                childId: value,
+                kindergartenId: selectedKindergarten,
+                assessmentId: selectedAssessment,
+                firstMeasurementNote: response.decision!.note,
+            });
+
+            await openSnackbar({
+                text: t('add-results-page.added-first-note-for', {
+                    name: `${currentChild.firstname}${currentChild.lastname}`,
+                }),
+                severity: 'success',
             });
         }
 
         if (type === 'add-last-assessment-note') {
-            openAddNoteDialog({
+            const currentChild = currentChildren.find((c) => c._id === value);
+
+            if (!currentChild) return;
+
+            const response = await openAddNoteDialog({
                 title: t('add-results-page.note-last-measurement'),
                 note: getLastMeasurementNote(value),
-            }).then((decision) => {
-                if (decision.close) return;
+            });
 
-                createAssessmentResult({
-                    childId: value,
-                    kindergartenId: selectedKindergarten,
-                    assessmentId: selectedAssessment,
-                    lastMeasurementNote: (decision?.decision as any).note,
-                });
+            if (response.close) return;
+
+            await createAssessmentResult({
+                childId: value,
+                kindergartenId: selectedKindergarten,
+                assessmentId: selectedAssessment,
+                lastMeasurementNote: response.decision!.note,
+            });
+
+            await openSnackbar({
+                text: t('add-results-page.added-last-note-for', {
+                    name: `${currentChild.firstname}${currentChild.lastname}`,
+                }),
+                severity: 'success',
             });
         }
 

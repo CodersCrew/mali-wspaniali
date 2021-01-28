@@ -747,10 +747,12 @@
             "go-to-articles": "Przejdź do artykułów"
         },
         "child-list": "Lista dzieci",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "added-first-note-for": "Dodano notatkę próby początkowej dla {{name}}",
+        "added-last-note-for": "Dodano notatkę próby końcowej dla {{name}}"
     },
     "add-result-page": {
-        "kindergarten": "Kindergarten",
+        "kindergarten": "Przedszkole",
         "select-measurement": "Wybierz pomiar",
         "first": "Początkowy",
         "last": "Końcowy",
