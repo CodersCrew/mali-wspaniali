@@ -17,18 +17,18 @@ import { theme } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { useIsDevice } from '../../../queries/useBreakpoints';
+import { AssessmentParam } from '../../../graphql/types';
 
 interface Props {
-    name: string;
+    label: string;
     value: number;
     unit: string;
     step: number;
     maxValue: number;
-    lowerLimit: number;
-    upperLimit: number;
     points: number;
     isEmpty: boolean;
     disabled: boolean;
+    param: AssessmentParam;
     changeDate?: string;
     onChange: (value: number) => void;
     onClick: () => void;
@@ -44,7 +44,7 @@ export function MeasurementPoint(props: Props) {
             <Grid item>
                 <Grid container spacing={1} justify={device.isSmallMobile ? 'space-between' : 'flex-start'}>
                     <Grid item className={classes.editMeasurementButton}>
-                        <Typography variant="subtitle1">{props.name}</Typography>&nbsp;
+                        <Typography variant="subtitle1">{props.label}</Typography>&nbsp;
                         {props.changeDate && <Typography variant="overline">({props.changeDate})</Typography>}
                     </Grid>
                     <Grid item>
@@ -65,9 +65,9 @@ export function MeasurementPoint(props: Props) {
                             aria-labelledby="discrete-slider-restrict"
                             step={props.step}
                             valueLabelDisplay="auto"
-                            min={Math.floor(props.lowerLimit - 0.25 * props.lowerLimit)}
+                            min={Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit)}
                             value={props.value}
-                            max={Math.floor(props.upperLimit + 0.25 * props.upperLimit)}
+                            max={Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit)}
                             onChange={(_, v) => props.onChange(v as number)}
                             marks={getMarks()}
                             classes={{
@@ -144,20 +144,20 @@ export function MeasurementPoint(props: Props) {
     function getMarks() {
         const marks = [
             {
-                value: Math.floor(props.lowerLimit - 0.25 * props.lowerLimit),
-                label: Math.floor(props.lowerLimit - 0.25 * props.lowerLimit),
+                value: Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit),
+                label: Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit),
             },
             {
-                value: props.lowerLimit,
-                label: props.lowerLimit,
+                value: props.param.lowerLimit,
+                label: props.param.lowerLimit,
             },
             {
-                value: props.upperLimit,
-                label: props.upperLimit,
+                value: props.param.upperLimit,
+                label: props.param.upperLimit,
             },
             {
-                value: Math.floor(props.upperLimit + 0.25 * props.upperLimit),
-                label: Math.floor(props.upperLimit + 0.25 * props.upperLimit),
+                value: Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit),
+                label: Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit),
             },
         ];
 
