@@ -21,7 +21,13 @@ export const Pagination = ({ disabled, hidden, count, maxCount, onClick }: Props
             <div className={classes.innerContainer}>
                 <div className={classes.counter}>{t('blog-pagination.counter', { from: count, to: maxCount })}</div>
                 <div>
-                    <Button variant="outlined" color="secondary" disabled={disabled} onClick={onClick}>
+                    <Button
+                        className={classes.buttonShowMore}
+                        variant="outlined"
+                        color="secondary"
+                        disabled={disabled}
+                        onClick={onClick}
+                    >
                         {t('blog-pagination.show-more')}
                     </Button>
                 </div>
@@ -46,6 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2),
             userSelect: 'none',
             cursor: 'default',
+        },
+        buttonShowMore: {
+            marginBottom: theme.spacing(4),
         },
     }),
 );
