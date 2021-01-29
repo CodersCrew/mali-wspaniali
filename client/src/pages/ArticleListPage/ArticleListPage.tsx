@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: '0 4%',
         },
         gridBackground: {
-            backgroundColor: theme.palette.primary.contrastText,
+            backgroundColor: theme.palette.background.default,
             borderRadius: '20px',
         },
         container: {
