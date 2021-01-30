@@ -765,9 +765,9 @@
         "dexterity": "DEXTERITY",
         "power": "POWER",
         "velocity": "VELOCITY",
-        "back-to-results": "Back to results",
         "save-and-next": "Save and next",
         "save-and-back-to-table": "Save and back to table",
-        "select-child": "Select a child"
+        "select-child": "Select a child",
+        "note": "Note"
     }
 }
