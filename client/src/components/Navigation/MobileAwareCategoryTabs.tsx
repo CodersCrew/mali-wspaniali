@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         navigation: {
             backgroundColor: theme.palette.primary.contrastText,
-            padding: `0 ${theme.spacing(3)}px`,
+            padding: theme.spacing(0),
             borderBottom: `1px solid ${theme.palette.grey[400]}`,
         },
         navigationMobile: {

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
             opacity: '1',
             whiteSpace: 'nowrap',
             color: theme.palette.text.secondary,
-            textTransform: 'none',
+            textTransform: 'uppercase',
             fontWeight: theme.typography.button.fontWeight,
         },
         wrapper: {
