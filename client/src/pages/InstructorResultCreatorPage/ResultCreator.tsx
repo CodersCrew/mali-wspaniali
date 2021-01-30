@@ -66,7 +66,7 @@ function EditorPanel(props: EditorPanelProps) {
 
     React.useEffect(() => {
         setLocalResult(props.resultCreator.values);
-        setLocalNote(getCurrentNote());
+        setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 
     const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
