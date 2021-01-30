@@ -29,12 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
             opacity: '1',
             whiteSpace: 'nowrap',
             color: theme.palette.primary.contrastText,
-            textTransform: 'none',
             flexShrink: 2,
             fontWeight: theme.typography.button.fontWeight,
         },
         wrapper: {
-            margin: '0 10px',
+            margin: '0 10px 0 0',
         },
         selected: {
             height: '45px',
