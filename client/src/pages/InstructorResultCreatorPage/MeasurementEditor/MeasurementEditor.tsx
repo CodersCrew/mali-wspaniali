@@ -1,10 +1,20 @@
 import React from 'react';
-import { Box, createStyles, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
+import {
+    Box,
+    createStyles,
+    Grid,
+    makeStyles,
+    SimplePaletteColorOptions,
+    TextField,
+    Typography,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { MeasurementPoint } from './MeasurementPoint';
 import dayjs from '../../../localizedMoment';
 import { countPoints, countInvertedPoints } from '../countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from '../useResultCreator';
+import { AssessmentParam } from '../../../graphql/types';
+import { theme } from '../../../theme/theme';
 
 interface MeasurementValues {
     run: number;
@@ -50,6 +60,7 @@ export function MeasurementEditor(props: Props) {
                     maxValue={pendelumRun.lowerLimitPoints}
                     param={pendelumRun}
                     points={countPoints(props.value.pendelumRun, pendelumRun)}
+                    color={getInvertedColor(props.value.pendelumRun, pendelumRun)}
                     value={props.value.pendelumRun}
                     changeDate={getPendelumRunMeasurementDate()}
                     unit="s"
@@ -66,6 +77,7 @@ export function MeasurementEditor(props: Props) {
                     maxValue={jump.upperLimitPoints}
                     param={jump}
                     points={countInvertedPoints(props.value.jump, jump)}
+                    color={getColor(props.value.jump, jump)}
                     value={props.value.jump}
                     changeDate={getJumpMeasurementDate()}
                     unit="cm"
@@ -82,6 +94,7 @@ export function MeasurementEditor(props: Props) {
                     maxValue={throwBall.upperLimitPoints}
                     param={throwBall}
                     points={countInvertedPoints(props.value.throw, throwBall)}
+                    color={getColor(props.value.throw, throwBall)}
                     value={props.value.throw}
                     changeDate={getThrowMeasurementDate()}
                     unit="cm"
@@ -98,6 +111,7 @@ export function MeasurementEditor(props: Props) {
                     maxValue={run.lowerLimitPoints}
                     param={run}
                     points={countPoints(props.value.run, run)}
+                    color={getInvertedColor(props.value.run, run)}
                     value={props.value.run}
                     changeDate={getRunMeasurementDate()}
                     unit="s"
@@ -116,7 +130,7 @@ export function MeasurementEditor(props: Props) {
                     multiline
                     variant="outlined"
                     rows={7}
-                    value={props.note}
+                    value={props.note || ''}
                     onChange={({ currentTarget: { value } }) => props.onNoteChange(value)}
                 />
             </Grid>
@@ -177,6 +191,30 @@ export function MeasurementEditor(props: Props) {
         if (!date) return;
 
         return dayjs(date).fromNow();
+    }
+
+    function getColor(value: number, param: AssessmentParam) {
+        if (value <= param.weakStageLimit) return (theme.palette?.error as SimplePaletteColorOptions).main || 'red';
+
+        if (value <= param.middleStageLimit)
+            return (theme.palette?.warning as SimplePaletteColorOptions).main || 'yellow';
+
+        if (value <= param.goodStageLimit)
+            return (theme.palette?.success as SimplePaletteColorOptions).light || 'green';
+
+        return (theme.palette?.success as SimplePaletteColorOptions).main || 'green';
+    }
+
+    function getInvertedColor(value: number, param: AssessmentParam) {
+        if (value >= param.weakStageLimit) return (theme.palette?.error as SimplePaletteColorOptions).main || 'red';
+
+        if (value >= param.middleStageLimit)
+            return (theme.palette?.warning as SimplePaletteColorOptions).main || 'yellow';
+
+        if (value >= param.goodStageLimit)
+            return (theme.palette?.warning as SimplePaletteColorOptions).light || 'green';
+
+        return (theme.palette?.success as SimplePaletteColorOptions).main || 'green';
     }
 }
 

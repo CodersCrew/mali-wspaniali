@@ -80,6 +80,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             pendelumRun {
                                 a
@@ -88,6 +93,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             jump {
                                 a
@@ -96,6 +106,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             throw {
                                 a
@@ -104,6 +119,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                         }
                     }
