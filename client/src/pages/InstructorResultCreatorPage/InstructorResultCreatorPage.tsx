@@ -54,9 +54,13 @@ export default function InstructorResultCreatorPage() {
         <>
             <PageContainer>
                 {device.isSmallMobile ? (
-                    <MobileResultCreator value={resultCreator} measurement={measurement} onClick={handleClick} />
+                    <MobileResultCreator
+                        resultCreator={resultCreator}
+                        measurement={measurement}
+                        onClick={handleClick}
+                    />
                 ) : (
-                    <ResultCreator value={resultCreator} measurement={measurement} onClick={handleClick} />
+                    <ResultCreator resultCreator={resultCreator} measurement={measurement} onClick={handleClick} />
                 )}
             </PageContainer>
         </>

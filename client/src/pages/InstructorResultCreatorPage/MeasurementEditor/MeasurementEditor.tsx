@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, createStyles, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { MeasurementPoint } from './MeasurementPoint';
 import dayjs from '../../../localizedMoment';
@@ -17,7 +17,9 @@ interface Props {
     resultCreator: ResultCreatorReturnProps;
     measurement: string;
     value: AssessmentValues;
+    note: string;
     onChange: (value: MeasurementValues) => void;
+    onNoteChange: (value: string) => void;
     onEditClick: (name: string) => void;
 }
 
@@ -84,9 +86,9 @@ export function MeasurementEditor(props: Props) {
                     changeDate={getThrowMeasurementDate()}
                     unit="cm"
                     label={t('add-result-page.strength')}
-                    disabled={props.resultCreator.edited === 'throwBall'}
+                    disabled={props.resultCreator.edited === 'throw'}
                     onChange={(value) => props.onChange({ ...props.value, throw: value })}
-                    onClick={() => props.onEditClick('throwBall')}
+                    onClick={() => props.onEditClick('throw')}
                 />
             </Grid>
             <Grid item>
@@ -103,6 +105,19 @@ export function MeasurementEditor(props: Props) {
                     disabled={props.resultCreator.edited === 'run'}
                     onChange={(value) => props.onChange({ ...props.value, run: value })}
                     onClick={() => props.onEditClick('run')}
+                />
+            </Grid>
+            <Grid item>
+                <Box mb={2}>
+                    <Typography variant="subtitle2">{t('add-result-page.note')}</Typography>
+                </Box>
+                <TextField
+                    fullWidth
+                    multiline
+                    variant="outlined"
+                    rows={7}
+                    value={props.note}
+                    onChange={({ currentTarget: { value } }) => props.onNoteChange(value)}
                 />
             </Grid>
         </Grid>

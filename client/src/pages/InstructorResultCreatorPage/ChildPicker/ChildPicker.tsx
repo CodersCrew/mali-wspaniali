@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CustomContainer } from '../../../components/CustomContainer';
-import { Child, Kindergarten } from '../../../graphql/types';
+import { Assessment, Child, Kindergarten } from '../../../graphql/types';
 import { ChildItem } from './ChildItem';
 import { SelectList } from '../../../components/SelectList';
 import { SearchChildField } from '../../../components/SearchChildField';
@@ -13,6 +13,7 @@ interface Props {
     selectedKindergarten: string;
     measurement: string;
     header: React.ReactNode;
+    assessment: Assessment;
     onClick: (type: string, value: string) => void;
     selected?: string;
 }
@@ -24,6 +25,7 @@ export function ChildPicker({
     selected,
     measurement,
     header,
+    assessment,
     onClick,
 }: Props) {
     const classes = useStyles();
@@ -51,6 +53,7 @@ export function ChildPicker({
                         <Grid item>
                             <SelectList
                                 value={measurement}
+                                disabled={isAssessmentDisabled()}
                                 label={t('add-result-page.select-measurement')}
                                 items={[
                                     <MenuItem key="first" value="first">
@@ -92,6 +95,10 @@ export function ChildPicker({
 
     function getFilteredChildrenByName() {
         return childList.filter((c) => c.firstname.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+
+    function isAssessmentDisabled() {
+        return assessment.firstMeasurementStatus !== 'active' || assessment.lastMeasurementStatus !== 'active';
     }
 }
 

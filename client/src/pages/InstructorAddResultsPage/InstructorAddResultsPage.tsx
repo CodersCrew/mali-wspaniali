@@ -19,6 +19,10 @@ import { parseDateToAge } from '../../utils/parseDateToAge';
 import { useCreateAssessmentResult } from '../../operations/mutations/Results/createAssessmentResult';
 import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import {
+    useUpdateAssessmentResult,
+    UpdatedAssessmentInput,
+} from '../../operations/mutations/Results/updateAssessmentResult';
 
 export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
@@ -31,6 +35,7 @@ export default function InstructorAddResultsPage() {
     const history = useHistory();
     const device = useIsDevice();
     const { createAssessmentResult } = useCreateAssessmentResult();
+    const { updateAssessmentResult } = useUpdateAssessmentResult();
     const { kindergartenResults } = useAssessmentResults(selectedKindergarten, selectedAssessment);
 
     const currentAssessment = assessments.find((a) => a._id === selectedAssessment);
@@ -52,6 +57,9 @@ export default function InstructorAddResultsPage() {
             setSelectedKindergarten(assessment.kindergartens[0]?.kindergarten._id);
         }
     }, [assessments]);
+
+    const childList = getFiltredAndSortedChildList();
+    const maxResults = childList.length * 4;
 
     if (areAssessmentsLoading) return null;
 
@@ -77,12 +85,18 @@ export default function InstructorAddResultsPage() {
                                 onChange={handleFilterChanged}
                             />
                         }
-                        subheader={<AssessmentSubheader assessment={currentAssessment} />}
+                        subheader={
+                            <AssessmentSubheader
+                                results={kindergartenResults}
+                                max={maxResults}
+                                assessment={currentAssessment}
+                            />
+                        }
                         container={
                             <ChildListContainer
                                 assessment={currentAssessment}
                                 results={kindergartenResults}
-                                childList={getFiltredAndSortedChildList()}
+                                childList={childList}
                                 onClick={handleClick}
                                 fullNameSortType={fullNameSortType}
                                 ageSortType={ageSortType}
@@ -113,7 +127,7 @@ export default function InstructorAddResultsPage() {
                         container={
                             <ChildListCompactContainer
                                 assessment={currentAssessment}
-                                childList={getFiltredAndSortedChildList()}
+                                childList={childList}
                                 onClick={handleClick}
                             />
                         }
@@ -167,7 +181,7 @@ export default function InstructorAddResultsPage() {
 
             if (!response || response.close) return;
 
-            await createAssessmentResult({
+            await createOrUpdateResult({
                 childId: value,
                 kindergartenId: selectedKindergarten,
                 assessmentId: selectedAssessment,
@@ -176,7 +190,7 @@ export default function InstructorAddResultsPage() {
 
             await openSnackbar({
                 text: t('add-results-page.added-first-note-for', {
-                    name: `${currentChild.firstname}${currentChild.lastname}`,
+                    name: `${currentChild.firstname} ${currentChild.lastname}`,
                 }),
                 severity: 'success',
             });
@@ -194,7 +208,7 @@ export default function InstructorAddResultsPage() {
 
             if (response.close) return;
 
-            await createAssessmentResult({
+            await createOrUpdateResult({
                 childId: value,
                 kindergartenId: selectedKindergarten,
                 assessmentId: selectedAssessment,
@@ -203,7 +217,7 @@ export default function InstructorAddResultsPage() {
 
             await openSnackbar({
                 text: t('add-results-page.added-last-note-for', {
-                    name: `${currentChild.firstname}${currentChild.lastname}`,
+                    name: `${currentChild.firstname} ${currentChild.lastname}`,
                 }),
                 severity: 'success',
             });
@@ -258,6 +272,16 @@ export default function InstructorAddResultsPage() {
         }
 
         return filtredChildList;
+    }
+
+    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
+        const childResult = kindergartenResults.find((r) => r.childId === update.childId);
+
+        if (childResult) {
+            updateAssessmentResult({ _id: childResult._id, ...update });
+        } else {
+            createAssessmentResult(update);
+        }
     }
 
     function getFirstMeasurementNote(childId: string) {

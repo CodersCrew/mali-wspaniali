@@ -10,12 +10,12 @@ import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuBut
 import { countCurrentPoints } from './countPoints';
 
 interface Props {
-    value: ResultCreatorReturnProps;
+    resultCreator: ResultCreatorReturnProps;
     measurement: string;
     onClick: (type: string, value: string | AssessmentValues) => void;
 }
 
-export function ResultCreator({ value: resultCreator, measurement, onClick }: Props) {
+export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -36,6 +36,7 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
                             selected={selectedChild}
                             measurement={measurement}
                             childList={childList}
+                            assessment={resultCreator.selectedAssessment}
                             onClick={onClick}
                         />
                     </Paper>
@@ -61,10 +62,12 @@ function EditorPanel(props: EditorPanelProps) {
     const { selectedChild: child } = props.resultCreator;
 
     const [localResult, setLocalResult] = React.useState(props.resultCreator.values);
+    const [localNote, setLocalNote] = React.useState(getCurrentNote());
 
     React.useEffect(() => {
         setLocalResult(props.resultCreator.values);
-    }, [props.resultCreator.values]);
+        setLocalNote(getCurrentNote());
+    }, [props.resultCreator.values, getCurrentNote()]);
 
     const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
 
@@ -86,12 +89,14 @@ function EditorPanel(props: EditorPanelProps) {
                     measurement={props.measurement}
                     resultCreator={props.resultCreator}
                     value={localResult}
+                    note={localNote}
                     onChange={(value) => {
                         setLocalResult((prev) => ({
                             ...prev,
                             ...value,
                         }));
                     }}
+                    onNoteChange={setLocalNote}
                     onEditClick={props.resultCreator.edit}
                 />
             </Grid>
@@ -136,6 +141,22 @@ function EditorPanel(props: EditorPanelProps) {
 
             return acc + v.upperLimitPoints;
         }, 0);
+    }
+
+    function getCurrentNote() {
+        const currentResult = getCurrentResult();
+
+        if (!currentResult) return '';
+
+        if (props.measurement === 'first') {
+            return currentResult.firstMeasurementNote;
+        }
+
+        return currentResult.lastMeasurementNote;
+    }
+
+    function getCurrentResult() {
+        return props.resultCreator.kindergartenResults.find((r) => r.childId === props.resultCreator.selectedChild._id);
     }
 }
 
