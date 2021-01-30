@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         gridContainer: {
             maxWidth: '92%',
-            margin: '0 4%',
+            margin: '0 0.1%',
         },
         gridBackground: {
             backgroundColor: theme.palette.background.default,
