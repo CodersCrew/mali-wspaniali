@@ -63,9 +63,9 @@ export default function ArticleListPage() {
                 device={device}
             />
             <div className={classes.gridBackground}>
-                <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
+                <Grid container justify="space-around" className={classes.gridContainer}>
                     {articles.map((article: Article) => (
-                        <Grid key={article._id} item xs={4} zeroMinWidth>
+                        <Grid key={article._id} item xs={4} zeroMinWidth className={classes.blogArticleCardGrid}>
                             <BlogArticleCard
                                 title={article.title}
                                 pictureUrl={article.pictureUrl}
@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         gridContainer: {
             maxWidth: '92%',
-            margin: '0 0.1%',
+            margin: '0 2%',
         },
         gridBackground: {
             backgroundColor: theme.palette.background.default,
@@ -124,6 +124,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         container: {
             margin: `0 ${theme.spacing(3)}px`,
+        },
+        blogArticleCardGrid: {
+            paddingRight: theme.spacing(3),
         },
     }),
 );
