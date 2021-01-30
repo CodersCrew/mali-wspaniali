@@ -1,6 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, Table, TableBody, TableCell, TableHead, TableRow, Box, Grid } from '@material-ui/core';
+import {
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Box,
+    Grid,
+    makeStyles,
+    createStyles,
+    Theme,
+} from '@material-ui/core';
 import {
     ArrowUpward,
     ArrowDownward,
@@ -59,7 +71,7 @@ export function ChildListContainer(props: Props) {
                             </TableCell>
                             <TableCell align="center">{parseDateToAge(c.birthYear, c.birthQuarter)}</TableCell>
                             <TableCell align="center">
-                                <Grid container alignItems="center">
+                                <Grid container alignItems="center" justify="space-around">
                                     <Grid item xs={3}>
                                         <Box display="flex" alignItems="center">
                                             <IconButton
@@ -73,7 +85,7 @@ export function ChildListContainer(props: Props) {
                                             <InfoIcon value={firstMeasurementResultCount} />
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={9}>
+                                    <Grid item xs={3}>
                                         <Box display="flex" alignItems="center" justifyContent="center">
                                             <CustomIconButton
                                                 color={firstNote ? 'success' : 'default'}
@@ -86,7 +98,7 @@ export function ChildListContainer(props: Props) {
                                 </Grid>
                             </TableCell>
                             <TableCell align="center">
-                                <Grid container>
+                                <Grid container justify="space-around">
                                     <Grid item xs={3}>
                                         <Box display="flex" alignItems="center">
                                             <CustomIconButton
@@ -102,7 +114,7 @@ export function ChildListContainer(props: Props) {
                                             <InfoIcon value={lastMeasurementResultCount} />
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={9}>
+                                    <Grid item xs={3}>
                                         <CustomIconButton
                                             color={lastNote ? 'success' : 'default'}
                                             onClick={() => props.onClick('add-last-assessment-note', c._id)}
@@ -216,14 +228,24 @@ function ArrowItem({ type }: { type: string }) {
 }
 
 function InfoIcon({ value }: { value: number }) {
+    const classes = useStyles();
+
     if (value === 0) return null;
 
     if (value === 4)
         return (
             <span>
-                <Done fontSize="small" />
+                <Done fontSize="small" className={classes.icon} />
             </span>
         );
 
     return <CustomTypography variant="body2" color="success" text={`${value}/4`} />;
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        icon: {
+            color: theme.palette.success.dark,
+        },
+    }),
+);
