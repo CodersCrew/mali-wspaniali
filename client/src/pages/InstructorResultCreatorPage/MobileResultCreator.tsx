@@ -22,11 +22,11 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
     const { selectedChild: child } = resultCreator;
 
     const [localResult, setLocalResult] = React.useState(resultCreator.values);
-    const [localNote, setLocalNote] = React.useState(getCurrentNote());
+    const [localNote, setLocalNote] = React.useState(getCurrentNote() || '');
 
     React.useEffect(() => {
         setLocalResult(resultCreator.values);
-    }, [resultCreator.values]);
+    }, [resultCreator.values, getCurrentNote()]);
 
     const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
 

@@ -9,11 +9,9 @@ import {
     Checkbox,
     Typography,
     FormControlLabel,
-    SimplePaletteColorOptions,
 } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { theme } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { useIsDevice } from '../../../queries/useBreakpoints';
@@ -26,6 +24,7 @@ interface Props {
     step: number;
     maxValue: number;
     points: number;
+    color: string;
     isEmpty: boolean;
     disabled: boolean;
     param: AssessmentParam;
@@ -109,7 +108,7 @@ export function MeasurementPoint(props: Props) {
                             {!device.isSmallMobile && (
                                 <Grid item xs={3}>
                                     <CircleChart
-                                        color={(theme.palette!.success as SimplePaletteColorOptions).main}
+                                        color={props.color}
                                         maxValue={props.maxValue}
                                         value={props.points}
                                         disable={props.isEmpty}
