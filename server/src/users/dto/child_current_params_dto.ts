@@ -25,6 +25,21 @@ class ParamsDTO {
 
   @Field(() => Float)
   readonly upperLimitPoints: number;
+
+  @Field(() => Float)
+  readonly badStageLimit: number;
+
+  @Field(() => Float)
+  readonly weakStageLimit: number;
+
+  @Field(() => Float)
+  readonly middleStageLimit: number;
+
+  @Field(() => Float)
+  readonly goodStageLimit: number;
+
+  @Field(() => Float)
+  readonly veryGoodStageLimit: number;
 }
 
 @ObjectType()
