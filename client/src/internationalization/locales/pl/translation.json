@@ -752,10 +752,12 @@
             "go-to-articles": "Przejdź do artykułów"
         },
         "child-list": "Lista dzieci",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "added-first-note-for": "Dodano notatkę próby początkowej dla {{name}}",
+        "added-last-note-for": "Dodano notatkę próby końcowej dla {{name}}"
     },
     "add-result-page": {
-        "kindergarten": "Kindergarten",
+        "kindergarten": "Przedszkole",
         "select-measurement": "Wybierz pomiar",
         "first": "Początkowy",
         "last": "Końcowy",
@@ -770,9 +772,9 @@
         "dexterity": "ZRĘCZNOŚĆ",
         "power": "MOC",
         "velocity": "SZYBKOŚĆ",
-        "back-to-results": "Back to results",
         "save-and-next": "Zapisz i następny",
         "save-and-back-to-table": "Zapisz i wróć do tabeli",
-        "select-child": "Select a child"
+        "select-child": "Wybierz dziecko",
+        "note": "Notatka"
     }
 }

@@ -2,19 +2,20 @@ import React from 'react';
 import { Box, createStyles, Divider, Grid, makeStyles, MenuItem, Paper, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ChildPicker } from './ChildPicker/ChildPicker';
-import { ResultCreatorReturnProps } from './useResultCreator';
+import { ResultCreatorReturnProps, AssessmentValues } from './useResultCreator';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
 import { ButtonSecondary } from '../../components/Button';
 import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
+import { countCurrentPoints } from './countPoints';
 
 interface Props {
-    value: ResultCreatorReturnProps;
+    resultCreator: ResultCreatorReturnProps;
     measurement: string;
-    onClick: (type: string, value: string) => void;
+    onClick: (type: string, value: string | AssessmentValues) => void;
 }
 
-export function ResultCreator({ value: resultCreator, measurement, onClick }: Props) {
+export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -22,7 +23,6 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
     const childList = resultCreator.selectedKindergarten.children || [];
     const selectedKindergarten = resultCreator.selectedKindergarten._id || '';
     const selectedChild = resultCreator.selectedChild._id;
-    const points = Object.values(resultCreator.points).reduce((acc, v) => acc + v, 0);
 
     return (
         <Paper>
@@ -36,73 +36,103 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
                             selected={selectedChild}
                             measurement={measurement}
                             childList={childList}
+                            assessment={resultCreator.selectedAssessment}
                             onClick={onClick}
                         />
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
-                    <Grid container direction="column" className={classes.editorContainer}>
-                        <Grid item>
-                            <ChildHeader
-                                description={t(`add-result-page.title-${measurement}-measurement`)}
-                                selectedChild={resultCreator.selectedChild}
-                                points={points}
-                                maxPoints={countMaxPoints()}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Divider />
-                        </Grid>
-                        <Grid item className={classes.editor}>
-                            <MeasurementEditor
-                                measurement={measurement}
-                                child={resultCreator.selectedChild}
-                                values={resultCreator.values}
-                                points={resultCreator.points}
-                                edited={resultCreator.edited}
-                                result={resultCreator.kindergartenResults.find(
-                                    (r) => r.childId === resultCreator.selectedChild._id,
-                                )}
-                                onChange={resultCreator.onChange}
-                                onEditClick={resultCreator.edit}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Divider />
-                        </Grid>
-                        <Grid item className={classes.footerContainer}>
-                            <Grid container justify="flex-end">
-                                <Grid item>
-                                    <Box mr={2}>
-                                        <ButtonSecondary onClick={() => onClick('back-to-table', '')} variant="text">
-                                            {t('add-result-page.back-to-table')}
-                                        </ButtonSecondary>
-                                    </Box>
-                                </Grid>
-                                <Grid item>
-                                    <ActionMenuButtonSecondary
-                                        label={t('add-result-page.save-and-next')}
-                                        onClick={() => onClick('save-and-next', '')}
-                                        options={[
-                                            <MenuItem
-                                                onClick={() => onClick('back-to-table', '')}
-                                                key="add-result-page.save-and-back-to-table"
-                                            >
-                                                {t('add-result-page.save-and-back-to-table')}
-                                            </MenuItem>,
-                                        ]}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    <EditorPanel measurement={measurement} onClick={onClick} resultCreator={resultCreator} />
                 </Grid>
             </Grid>
         </Paper>
     );
+}
+
+interface EditorPanelProps {
+    measurement: string;
+    resultCreator: ResultCreatorReturnProps;
+    onClick: (type: string, value: string | AssessmentValues) => void;
+}
+
+function EditorPanel(props: EditorPanelProps) {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    const { selectedChild: child } = props.resultCreator;
+
+    const [localResult, setLocalResult] = React.useState(props.resultCreator.values);
+    const [localNote, setLocalNote] = React.useState(getCurrentNote());
+
+    React.useEffect(() => {
+        setLocalResult(props.resultCreator.values);
+        setLocalNote(getCurrentNote() || '');
+    }, [props.resultCreator.values, getCurrentNote()]);
+
+    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
+
+    return (
+        <Grid container direction="column" className={classes.editorContainer}>
+            <Grid item>
+                <ChildHeader
+                    description={t(`add-result-page.title-${props.measurement}-measurement`)}
+                    selectedChild={props.resultCreator.selectedChild}
+                    points={pointSum}
+                    maxPoints={countMaxPoints()}
+                />
+            </Grid>
+            <Grid item>
+                <Divider />
+            </Grid>
+            <Grid item className={classes.editor}>
+                <MeasurementEditor
+                    measurement={props.measurement}
+                    resultCreator={props.resultCreator}
+                    value={localResult}
+                    note={localNote}
+                    onChange={(value) => {
+                        setLocalResult((prev) => ({
+                            ...prev,
+                            ...value,
+                        }));
+                    }}
+                    onNoteChange={setLocalNote}
+                    onEditClick={props.resultCreator.edit}
+                />
+            </Grid>
+            <Grid item>
+                <Divider />
+            </Grid>
+            <Grid item className={classes.footerContainer}>
+                <Grid container justify="flex-end">
+                    <Grid item>
+                        <Box mr={2}>
+                            <ButtonSecondary onClick={() => props.onClick('back-to-table', '')} variant="text">
+                                {t('add-result-page.back-to-table')}
+                            </ButtonSecondary>
+                        </Box>
+                    </Grid>
+                    <Grid item>
+                        <ActionMenuButtonSecondary
+                            label={t('add-result-page.save-and-next')}
+                            onClick={() => props.onClick('save-and-next', localResult)}
+                            options={[
+                                <MenuItem
+                                    onClick={() => props.onClick('back-to-table', localResult)}
+                                    key="add-result-page.save-and-back-to-table"
+                                >
+                                    {t('add-result-page.save-and-back-to-table')}
+                                </MenuItem>,
+                            ]}
+                        />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    );
 
     function countMaxPoints() {
-        return Object.values(resultCreator.selectedChild!.currentParams!).reduce((acc, v) => {
+        return Object.values(props.resultCreator.selectedChild!.currentParams!).reduce((acc, v) => {
             if (!v || !v.lowerLimitPoints || !v.upperLimitPoints) return acc;
 
             if (v.lowerLimitPoints > v.upperLimitPoints) {
@@ -111,6 +141,22 @@ export function ResultCreator({ value: resultCreator, measurement, onClick }: Pr
 
             return acc + v.upperLimitPoints;
         }, 0);
+    }
+
+    function getCurrentNote() {
+        const currentResult = getCurrentResult();
+
+        if (!currentResult) return '';
+
+        if (props.measurement === 'first') {
+            return currentResult.firstMeasurementNote;
+        }
+
+        return currentResult.lastMeasurementNote;
+    }
+
+    function getCurrentResult() {
+        return props.resultCreator.kindergartenResults.find((r) => r.childId === props.resultCreator.selectedChild._id);
     }
 }
 

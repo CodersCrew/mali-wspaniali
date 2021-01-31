@@ -18,6 +18,11 @@ import { AssessmentSubheader } from './AssessmentSubheader';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { useCreateAssessmentResult } from '../../operations/mutations/Results/createAssessmentResult';
 import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import {
+    useUpdateAssessmentResult,
+    UpdatedAssessmentInput,
+} from '../../operations/mutations/Results/updateAssessmentResult';
 
 export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
@@ -30,6 +35,7 @@ export default function InstructorAddResultsPage() {
     const history = useHistory();
     const device = useIsDevice();
     const { createAssessmentResult } = useCreateAssessmentResult();
+    const { updateAssessmentResult } = useUpdateAssessmentResult();
     const { kindergartenResults } = useAssessmentResults(selectedKindergarten, selectedAssessment);
 
     const currentAssessment = assessments.find((a) => a._id === selectedAssessment);
@@ -51,6 +57,9 @@ export default function InstructorAddResultsPage() {
             setSelectedKindergarten(assessment.kindergartens[0]?.kindergarten._id);
         }
     }, [assessments]);
+
+    const childList = getFiltredAndSortedChildList();
+    const maxResults = childList.length * 4;
 
     if (areAssessmentsLoading) return null;
 
@@ -76,12 +85,18 @@ export default function InstructorAddResultsPage() {
                                 onChange={handleFilterChanged}
                             />
                         }
-                        subheader={<AssessmentSubheader assessment={currentAssessment} />}
+                        subheader={
+                            <AssessmentSubheader
+                                results={kindergartenResults}
+                                max={maxResults}
+                                assessment={currentAssessment}
+                            />
+                        }
                         container={
                             <ChildListContainer
                                 assessment={currentAssessment}
                                 results={kindergartenResults}
-                                childList={getFiltredAndSortedChildList()}
+                                childList={childList}
                                 onClick={handleClick}
                                 fullNameSortType={fullNameSortType}
                                 ageSortType={ageSortType}
@@ -112,7 +127,7 @@ export default function InstructorAddResultsPage() {
                         container={
                             <ChildListCompactContainer
                                 assessment={currentAssessment}
-                                childList={getFiltredAndSortedChildList()}
+                                childList={childList}
                                 onClick={handleClick}
                             />
                         }
@@ -145,7 +160,7 @@ export default function InstructorAddResultsPage() {
         setSelectedKindergarten(value);
     }
 
-    function handleClick(type: string, value: string) {
+    async function handleClick(type: string, value: string) {
         if (type === 'add-first-assessment-result') {
             history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`);
         }
@@ -155,34 +170,56 @@ export default function InstructorAddResultsPage() {
         }
 
         if (type === 'add-first-assessment-note') {
-            openAddNoteDialog({
+            const currentChild = currentChildren.find((c) => c._id === value);
+
+            if (!currentChild) return;
+
+            const response = await openAddNoteDialog({
                 title: t('add-results-page.note-first-measurement'),
                 note: getFirstMeasurementNote(value),
-            }).then((decision) => {
-                if (decision.close) return;
+            });
 
-                createAssessmentResult({
-                    childId: value,
-                    kindergartenId: selectedKindergarten,
-                    assessmentId: selectedAssessment,
-                    firstMeasurementNote: (decision?.decision as any).note,
-                });
+            if (!response || response.close) return;
+
+            await createOrUpdateResult({
+                childId: value,
+                kindergartenId: selectedKindergarten,
+                assessmentId: selectedAssessment,
+                firstMeasurementNote: response.decision!.note,
+            });
+
+            await openSnackbar({
+                text: t('add-results-page.added-first-note-for', {
+                    name: `${currentChild.firstname} ${currentChild.lastname}`,
+                }),
+                severity: 'success',
             });
         }
 
         if (type === 'add-last-assessment-note') {
-            openAddNoteDialog({
+            const currentChild = currentChildren.find((c) => c._id === value);
+
+            if (!currentChild) return;
+
+            const response = await openAddNoteDialog({
                 title: t('add-results-page.note-last-measurement'),
                 note: getLastMeasurementNote(value),
-            }).then((decision) => {
-                if (decision.close) return;
+            });
 
-                createAssessmentResult({
-                    childId: value,
-                    kindergartenId: selectedKindergarten,
-                    assessmentId: selectedAssessment,
-                    lastMeasurementNote: (decision?.decision as any).note,
-                });
+            if (response.close) return;
+
+            await createOrUpdateResult({
+                childId: value,
+                kindergartenId: selectedKindergarten,
+                assessmentId: selectedAssessment,
+                lastMeasurementNote: response.decision!.note,
+            });
+
+            await openSnackbar({
+                text: t('add-results-page.added-last-note-for', {
+                    name: `${currentChild.firstname} ${currentChild.lastname}`,
+                }),
+                severity: 'success',
             });
         }
 
@@ -235,6 +272,16 @@ export default function InstructorAddResultsPage() {
         }
 
         return filtredChildList;
+    }
+
+    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
+        const childResult = kindergartenResults.find((r) => r.childId === update.childId);
+
+        if (childResult) {
+            updateAssessmentResult({ _id: childResult._id, ...update });
+        } else {
+            createAssessmentResult(update);
+        }
     }
 
     function getFirstMeasurementNote(childId: string) {

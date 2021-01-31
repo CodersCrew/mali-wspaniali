@@ -5,12 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { Child, Kindergarten } from '../../../graphql/types';
 import { ChildPicker } from './ChildPicker';
 import { ButtonSecondary } from '../../../components/Button';
+import { ResultCreatorReturnProps } from '../useResultCreator';
 
 interface Props {
     childList: Child[];
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
     measurement: string;
+    resultCreator: ResultCreatorReturnProps;
     onClick: (type: string, value: string) => void;
     selected?: string;
 }
@@ -32,6 +34,7 @@ export function ChildPickerDrawer(props: Props) {
                 classes={{ root: classes.drawer, paper: classes.paper }}
             >
                 <ChildPicker
+                    assessment={props.resultCreator.selectedAssessment}
                     header={
                         <span className={classes.header} onClick={() => setIsDrawerOpen(false)}>
                             <Box mr={1}>

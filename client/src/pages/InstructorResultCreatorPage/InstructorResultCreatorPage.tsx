@@ -54,15 +54,19 @@ export default function InstructorResultCreatorPage() {
         <>
             <PageContainer>
                 {device.isSmallMobile ? (
-                    <MobileResultCreator value={resultCreator} measurement={measurement} onClick={handleClick} />
+                    <MobileResultCreator
+                        resultCreator={resultCreator}
+                        measurement={measurement}
+                        onClick={handleClick}
+                    />
                 ) : (
-                    <ResultCreator value={resultCreator} measurement={measurement} onClick={handleClick} />
+                    <ResultCreator resultCreator={resultCreator} measurement={measurement} onClick={handleClick} />
                 )}
             </PageContainer>
         </>
     );
 
-    function handleClick(type: string, value: string) {
+    function handleClick(type: string, value: string | AssessmentValues) {
         if (isResultCreatorErrorReturnProps(resultCreator)) {
             return;
         }
@@ -91,38 +95,36 @@ export default function InstructorResultCreatorPage() {
         }
 
         if (type === 'back-to-table') {
-            history.push('/instructor');
+            redirectToResultTable();
         }
 
         if (type === 'save-and-next') {
-            const currentChildIndex =
-                resultCreator.selectedKindergarten.children?.findIndex(
-                    (c) => c._id === resultCreator.selectedChild._id,
-                ) || 0;
-
-            const foundNextChild = resultCreator.selectedKindergarten.children![currentChildIndex + 1];
-
             createOrUpdateResult(
-                { childId, assessmentId, kindergartenId, ...mapValuesToResult(resultCreator) },
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
                 resultCreator,
             );
 
-            if (foundNextChild) {
-                history.push(
-                    `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
-                );
-            }
+            redirectToNextChild();
+        }
+
+        if (type === 'save-and-back-to-table') {
+            createOrUpdateResult(
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                resultCreator,
+            );
+
+            redirectToResultTable();
         }
     }
 
-    function mapValuesToResult(results: ResultCreatorReturnProps): Partial<CreatedAssessmentInput> {
+    function mapValuesToResult(results: AssessmentValues): Partial<CreatedAssessmentInput> {
         const result: Partial<CreatedAssessmentInput> = {};
 
-        const measurementName = results.edited === 'throwBall' ? 'throw' : results.edited;
+        const measurementName = (resultCreator as ResultCreatorReturnProps).edited;
 
         (result as any)[
             `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Result`
-        ] = results.values[measurementName as keyof Partial<AssessmentValues>];
+        ] = results[measurementName as keyof AssessmentValues];
 
         (result as any)[
             `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Date`
@@ -138,6 +140,28 @@ export default function InstructorResultCreatorPage() {
             updateAssessmentResult({ _id: childResult._id, ...update });
         } else {
             createAssessmentResult(update);
+        }
+    }
+
+    function redirectToResultTable() {
+        history.push('/instructor');
+    }
+
+    function redirectToNextChild() {
+        if (!resultCreator.selectedKindergarten || !resultCreator.selectedChild || !resultCreator.selectedAssessment) {
+            return;
+        }
+
+        const currentChildIndex =
+            resultCreator.selectedKindergarten.children?.findIndex((c) => c._id === resultCreator.selectedChild!._id) ||
+            0;
+
+        const foundNextChild = resultCreator.selectedKindergarten.children![currentChildIndex + 1];
+
+        if (foundNextChild) {
+            history.push(
+                `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
+            );
         }
     }
 }
