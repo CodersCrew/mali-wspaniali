@@ -35,6 +35,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
                             kindergartens={kindergartens}
                             selected={selectedChild}
                             measurement={measurement}
+                            results={resultCreator.kindergartenResults}
                             childList={childList}
                             assessment={resultCreator.selectedAssessment}
                             onClick={onClick}
