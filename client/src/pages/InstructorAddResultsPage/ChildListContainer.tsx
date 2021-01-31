@@ -155,56 +155,10 @@ export function ChildListContainer(props: Props) {
         return props.results.find((r) => r.childId === childId)?.lastMeasurementNote;
     }
 
-    function countFirstMeasurementResults(childId: string) {
-        let count = 0;
-
+    function countMeasurementResults(measurement: string, childId: string) {
         const childResult = props.results.find((r) => r.childId === childId);
 
-        if (!childResult) return 0;
-
-        if (childResult.firstMeasurementJumpResult) {
-            count += 1;
-        }
-
-        if (childResult.firstMeasurementPendelumRunResult) {
-            count += 1;
-        }
-
-        if (childResult.firstMeasurementRunResult) {
-            count += 1;
-        }
-
-        if (childResult.firstMeasurementThrowResult) {
-            count += 1;
-        }
-
-        return count;
-    }
-
-    function countLastMeasurementResults(childId: string) {
-        let count = 0;
-
-        const childResult = props.results.find((r) => r.childId === childId);
-
-        if (!childResult) return 0;
-
-        if (childResult.lastMeasurementJumpResult) {
-            count += 1;
-        }
-
-        if (childResult.lastMeasurementPendelumRunResult) {
-            count += 1;
-        }
-
-        if (childResult.lastMeasurementRunResult) {
-            count += 1;
-        }
-
-        if (childResult.lastMeasurementThrowResult) {
-            count += 1;
-        }
-
-        return count;
+        return childResult ? countProgress(measurement, childResult) : 0;
     }
 }
 
