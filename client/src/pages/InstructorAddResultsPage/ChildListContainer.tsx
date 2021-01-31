@@ -1,31 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Box,
-    Grid,
-    makeStyles,
-    createStyles,
-    Theme,
-} from '@material-ui/core';
-import {
-    ArrowUpward,
-    ArrowDownward,
-    Assessment as AssessmentIcon,
-    BarChart,
-    EventNote,
-    Done,
-} from '@material-ui/icons';
+import { IconButton, Table, TableBody, TableCell, TableHead, TableRow, Box, Grid } from '@material-ui/core';
+import { ArrowUpward, ArrowDownward, Assessment as AssessmentIcon, BarChart, EventNote } from '@material-ui/icons';
 import { Assessment, Child, AssessmentResult } from '../../graphql/types';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { Clickable } from '../../components/Clickable';
 import { CustomIconButton } from '../../components/Button/CustomIconButton';
-import { CustomTypography } from '../../components/CustomTypography';
+import { CountIcon } from '../../components/CountIcon';
+import { countProgress } from '../InstructorResultCreatorPage/countProgress';
 
 interface Props {
     childList: Child[];
@@ -61,8 +43,8 @@ export function ChildListContainer(props: Props) {
                 {props.childList.map((c) => {
                     const firstNote = getFirstNote(c._id);
                     const lastNote = getLastNote(c._id);
-                    const firstMeasurementResultCount = countFirstMeasurementResults(c._id);
-                    const lastMeasurementResultCount = countLastMeasurementResults(c._id);
+                    const firstMeasurementResultCount = countMeasurementResults('first', c._id);
+                    const lastMeasurementResultCount = countMeasurementResults('last', c._id);
 
                     return (
                         <TableRow key={c._id} hover>
@@ -71,18 +53,30 @@ export function ChildListContainer(props: Props) {
                             </TableCell>
                             <TableCell align="center">{parseDateToAge(c.birthYear, c.birthQuarter)}</TableCell>
                             <TableCell align="center">
-                                <Grid container alignItems="center" justify="space-around">
+                                <Grid container alignItems="center" justify="space-evenly">
                                     <Grid item xs={3}>
                                         <Box display="flex" alignItems="center">
-                                            <IconButton
-                                                onClick={() => props.onClick('add-first-assessment-result', c._id)}
-                                                disabled={isFirstMeasurementDisabled}
-                                            >
-                                                <BarChart
-                                                    titleAccess={t('add-results-page.add-first-assessment-result')}
-                                                />
-                                            </IconButton>
-                                            <InfoIcon value={firstMeasurementResultCount} />
+                                            <Grid container alignItems="center">
+                                                <Grid item sm={12} md={8}>
+                                                    <CustomIconButton
+                                                        color={matchResultWithColor(firstMeasurementResultCount)}
+                                                        onClick={() =>
+                                                            props.onClick('add-first-assessment-result', c._id)
+                                                        }
+                                                        disabled={isFirstMeasurementDisabled}
+                                                        icon={
+                                                            <BarChart
+                                                                titleAccess={t(
+                                                                    'add-results-page.add-first-assessment-result',
+                                                                )}
+                                                            />
+                                                        }
+                                                    />
+                                                </Grid>
+                                                <Grid item sm={12} md={4}>
+                                                    <CountIcon value={firstMeasurementResultCount} max={4} />
+                                                </Grid>
+                                            </Grid>
                                         </Box>
                                     </Grid>
                                     <Grid item xs={3}>
@@ -98,23 +92,33 @@ export function ChildListContainer(props: Props) {
                                 </Grid>
                             </TableCell>
                             <TableCell align="center">
-                                <Grid container justify="space-around">
-                                    <Grid item xs={3}>
+                                <Grid container justify="space-evenly">
+                                    <Grid item sm={6} md={4}>
                                         <Box display="flex" alignItems="center">
-                                            <CustomIconButton
-                                                color={matchResultWithColor(lastMeasurementResultCount)}
-                                                onClick={() => props.onClick('add-last-assessment-result', c._id)}
-                                                disabled={isLastMeasurementDisabled}
-                                                icon={
-                                                    <BarChart
-                                                        titleAccess={t('add-results-page.add-last-assessment-result')}
+                                            <Grid container alignItems="center">
+                                                <Grid item sm={12} md={8}>
+                                                    <CustomIconButton
+                                                        color={matchResultWithColor(lastMeasurementResultCount)}
+                                                        onClick={() =>
+                                                            props.onClick('add-last-assessment-result', c._id)
+                                                        }
+                                                        disabled={isLastMeasurementDisabled}
+                                                        icon={
+                                                            <BarChart
+                                                                titleAccess={t(
+                                                                    'add-results-page.add-last-assessment-result',
+                                                                )}
+                                                            />
+                                                        }
                                                     />
-                                                }
-                                            />
-                                            <InfoIcon value={lastMeasurementResultCount} />
+                                                </Grid>
+                                                <Grid item sm={12} md={4}>
+                                                    <CountIcon value={lastMeasurementResultCount} max={4} />
+                                                </Grid>
+                                            </Grid>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={3}>
+                                    <Grid item sm={6} md={4}>
                                         <CustomIconButton
                                             color={lastNote ? 'success' : 'default'}
                                             onClick={() => props.onClick('add-last-assessment-note', c._id)}
@@ -155,56 +159,10 @@ export function ChildListContainer(props: Props) {
         return props.results.find((r) => r.childId === childId)?.lastMeasurementNote;
     }
 
-    function countFirstMeasurementResults(childId: string) {
-        let count = 0;
-
+    function countMeasurementResults(measurement: string, childId: string) {
         const childResult = props.results.find((r) => r.childId === childId);
 
-        if (!childResult) return 0;
-
-        if (childResult.firstMeasurementJumpResult) {
-            count += 1;
-        }
-
-        if (childResult.firstMeasurementPendelumRunResult) {
-            count += 1;
-        }
-
-        if (childResult.firstMeasurementRunResult) {
-            count += 1;
-        }
-
-        if (childResult.firstMeasurementThrowResult) {
-            count += 1;
-        }
-
-        return count;
-    }
-
-    function countLastMeasurementResults(childId: string) {
-        let count = 0;
-
-        const childResult = props.results.find((r) => r.childId === childId);
-
-        if (!childResult) return 0;
-
-        if (childResult.lastMeasurementJumpResult) {
-            count += 1;
-        }
-
-        if (childResult.lastMeasurementPendelumRunResult) {
-            count += 1;
-        }
-
-        if (childResult.lastMeasurementRunResult) {
-            count += 1;
-        }
-
-        if (childResult.lastMeasurementThrowResult) {
-            count += 1;
-        }
-
-        return count;
+        return childResult ? countProgress(measurement, childResult) : 0;
     }
 }
 
@@ -226,26 +184,3 @@ function ArrowItem({ type }: { type: string }) {
 
     return <ArrowDownward />;
 }
-
-function InfoIcon({ value }: { value: number }) {
-    const classes = useStyles();
-
-    if (value === 0) return null;
-
-    if (value === 4)
-        return (
-            <span>
-                <Done fontSize="small" className={classes.icon} />
-            </span>
-        );
-
-    return <CustomTypography variant="body2" color="success" text={`${value}/4`} />;
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        icon: {
-            color: theme.palette.success.dark,
-        },
-    }),
-);

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Assessment, AssessmentResult } from '../../graphql/types';
 import { StatusChip } from '../../components/StatusChip';
 import dayjs from '../../localizedMoment';
+import { countProgress } from '../InstructorResultCreatorPage/countProgress';
 
 interface Props {
     max: number;
@@ -15,6 +16,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
     const currentMeasurement = getMostRecentMeasurement();
+    const currentProgress = countProgressFromResults();
 
     return (
         <Grid container>
@@ -68,7 +70,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                             <Box width="85%" mr={2}>
                                 <LinearProgress
                                     variant="determinate"
-                                    value={Math.ceil((4 * 100) / max)}
+                                    value={Math.floor((currentProgress * 100) / max)}
                                     classes={{
                                         root: classes.progressBar,
                                         bar: classes.progressBarDark,
@@ -77,7 +79,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                 />
                             </Box>
                             <Box>
-                                <Typography variant="h4">{Math.ceil((4 * 100) / max)}%</Typography>
+                                <Typography variant="h4">{Math.floor((currentProgress * 100) / max)}%</Typography>
                             </Box>
                         </Box>
                     </Grid>
@@ -104,6 +106,12 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
             endDate: assessment.lastMeasurementEndDate,
             measurement: 'last',
         };
+    }
+
+    function countProgressFromResults() {
+        return results.reduce((acc, result) => {
+            return acc + countProgress(currentMeasurement.measurement, result);
+        }, 0);
     }
 }
 

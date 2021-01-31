@@ -128,6 +128,7 @@ export default function InstructorAddResultsPage() {
                             <ChildListCompactContainer
                                 assessment={currentAssessment}
                                 childList={childList}
+                                results={kindergartenResults}
                                 onClick={handleClick}
                             />
                         }
