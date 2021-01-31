@@ -41,9 +41,9 @@ export class KindergartenResolver {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   @ResolveField(() => [ChildDTO])
-  async children(@Parent() a: any) {
+  async children(@Parent() kindergarten: KindergartenDTO) {
     const children = await this.queryBus.execute(
-      new GetChildrenFromKindergartenQuery(a._id),
+      new GetChildrenFromKindergartenQuery(kindergarten._id),
     );
 
     return children;
