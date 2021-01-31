@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
-import BoyAvatarSmall from '../../../../assets/boy_small.png';
-import GirlAvatarSmall from '../../../../assets/girl_small.png';
+import Girl from '../../../../assets/girl.svg';
+import Boy from '../../../../assets/boy.svg';
 
 const Results = () => {
     const { t } = useTranslation();
@@ -17,7 +17,7 @@ const Results = () => {
     };
 
     const sex = 'male';
-    const avatar = sex === 'male' ? BoyAvatarSmall : GirlAvatarSmall;
+    const avatar = sex !== 'male' ? Boy : Girl;
 
     const { v1, v2, v3, v4, v5, unit, result } = mockedData;
     const range = v1 - v5;
@@ -132,7 +132,7 @@ const Results = () => {
             </div>
             <div className={classes.result}>
                 <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <image href={avatar} x="84" height="36" width="36" />
+                    <image href={avatar} x="88" height="28" width="28" />
                     <text x="100" y="42" fill="black" dominantBaseline="middle" textAnchor="middle">
                         {t('child-profile.your-child-result-1')}
                     </text>
