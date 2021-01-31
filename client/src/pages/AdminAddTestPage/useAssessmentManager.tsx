@@ -122,7 +122,7 @@ export function useAssessmentManager(
         valid.then((result) => {
             if (result) {
                 // eslint-disable-next-line
-                const { kindergartenIds, ...validAssessment } = result as AssessmentManagerState;
+                const { kindergartenIds, ...validAssessment } = result;
                 const updatedAssessmentInput = { ...validAssessment, kindergartens: parsedKindergarten };
 
                 if (!assessmentId) return;
