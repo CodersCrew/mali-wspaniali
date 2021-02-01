@@ -19,7 +19,10 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: theme.typography.button.fontWeight,
         },
         wrapper: {
-            margin: '0 10px',
+            marginRight: '10px',
+            '&:hover': {
+                color: theme.palette.secondary.dark,
+            },
         },
         selected: {
             color: theme.palette.secondary.light,
