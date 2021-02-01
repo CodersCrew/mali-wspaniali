@@ -55,7 +55,10 @@ const defaultAssessment: AssessmentManagerState = {
     kindergartenIds: [],
 };
 
-export function useAssessmentManager(testId: string | undefined, onSubmit: (state: SuccessState | ErrorState) => void) {
+export function useAssessmentManager(
+    assessmentId: string | undefined,
+    onSubmit: (state: SuccessState | ErrorState) => void,
+) {
     const [updatedLocalAssessment, setUpdateLocalAssessment] = useState(defaultAssessment);
     const [reasonForBeingDisabled, setReasonForBeingDisabled] = useState<string | undefined>(undefined);
     const { kindergartenList } = useKindergartens();
@@ -63,9 +66,9 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
     const { assessments } = useAssessments();
     const { createAssessment: createTest, error, isCreationPending } = useCreateAssessment();
     const state = updatedLocalAssessment;
-    const { updateAssessment, isUpdatePending } = useUpdateAssessment(testId!);
+    const { updateAssessment, isUpdatePending } = useUpdateAssessment();
 
-    const { assessment } = useAssessment(testId!);
+    const { assessment } = useAssessment(assessmentId!);
 
     useEffect(() => {
         if (!assessment) return;
@@ -92,7 +95,7 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
             .then(() => {
                 const assessmentWithUsedName = assessments.find((a) => a.title === state.title);
 
-                if (assessmentWithUsedName && assessmentWithUsedName._id !== testId) {
+                if (assessmentWithUsedName && assessmentWithUsedName._id !== assessmentId) {
                     return setReasonForBeingDisabled(t('add-test-view.errors.test-already-exists'));
                 }
 
@@ -103,25 +106,28 @@ export function useAssessmentManager(testId: string | undefined, onSubmit: (stat
                     setReasonForBeingDisabled(e.errors[0]);
                 }
             });
-    }, [updatedLocalAssessment, state, assessments, t, testId]);
+    }, [updatedLocalAssessment, state, assessments, t, assessmentId]);
 
     function submit(update: AssessmentManagerState) {
-        if (testId) return updatedAssessment(update);
+        if (assessmentId) return submitUpdatedAssessment(update);
 
         createAssessment();
     }
 
-    function updatedAssessment(update: AssessmentManagerState) {
+    function submitUpdatedAssessment(update: AssessmentManagerState) {
         const valid = validate(update || updatedLocalAssessment);
 
         const parsedKindergarten = getKindergartenUpdateInput();
 
         valid.then((result) => {
             if (result) {
-                const { kindergartenIds, ...validAssessment } = result as AssessmentManagerState;
+                // eslint-disable-next-line
+                const { kindergartenIds, ...validAssessment } = result;
                 const updatedAssessmentInput = { ...validAssessment, kindergartens: parsedKindergarten };
 
-                updateAssessment(updatedAssessmentInput)
+                if (!assessmentId) return;
+
+                updateAssessment(assessmentId, updatedAssessmentInput)
                     .then(() => {
                         setReasonForBeingDisabled('add-test-view.errors.test-already-updated');
                         onSubmit({ assessment: state, message: t('add-test-view.assessment-updated') });

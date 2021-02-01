@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 export const PageContainer: FC = ({ children }) => {
@@ -10,6 +10,7 @@ export const PageContainer: FC = ({ children }) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
+            flex: 1,
             margin: theme.spacing(3),
             [theme.breakpoints.down('xs')]: {
                 margin: theme.spacing(3, 2),

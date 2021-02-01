@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { IconButton, createStyles, makeStyles } from '@material-ui/core';
 
 import PlFlag from '../assets/pl.png';
 import EnFlag from '../assets/en.png';
@@ -23,7 +23,7 @@ export const LanguageSelector = ({ language, onClick }: Props) => {
     return <div>{language === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}</div>;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         flag: {
             borderRadius: '50%',

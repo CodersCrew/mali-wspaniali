@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { activePage } from '../../apollo_client';
 
 export default function AdminRecommendationsPage() {
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.results.title', 'admin-menu.results.advice-and-recommendations']);
     }, []);
 

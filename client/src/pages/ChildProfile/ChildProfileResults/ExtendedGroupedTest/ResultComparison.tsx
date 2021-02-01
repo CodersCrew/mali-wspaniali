@@ -14,7 +14,7 @@ interface Props {
     childAge: number;
 }
 
-export const ResultComparison = ({ firstResultPoints, lastResultPoints, childAge }: Props) => {
+export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useTranslation();
     const { color } = getResultColorAndLabel(lastResultPoints, MAX_OVERALL_POINTS);

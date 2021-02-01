@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogProps } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonPrimary, ButtonSecondary, ButtonDefault } from '../Button';
@@ -8,7 +8,7 @@ interface Props {
     isOpen: boolean;
     actionName: string;
     onAction: () => void;
-    onClose?: (e: any) => void;
+    onClose?: (e: unknown) => void;
     closeButtonText?: string;
     isCancelButtonVisible?: boolean;
     isActionButtonSecondary?: boolean;
@@ -29,10 +29,11 @@ export const BasicModal: FC<Props> = ({
     const { t } = useTranslation();
 
     const ActionButton = isActionButtonSecondary ? ButtonSecondary : ButtonPrimary;
+    const classes = useStyles();
 
     return (
-        <Dialog maxWidth="md" open={isOpen} onClose={onClose} {...dialogProps}>
-            <DialogContent>{children}</DialogContent>
+        <Dialog maxWidth="md" open={isOpen} classes={{ paper: classes.dialogPaper }} onClose={onClose} {...dialogProps}>
+            <DialogContent className={classes.contentScrollbar}>{children}</DialogContent>
             <DialogActions>
                 {isCancelButtonVisible && (
                     <ButtonDefault variant="text" onClick={onClose} color="inherit">
@@ -46,3 +47,12 @@ export const BasicModal: FC<Props> = ({
         </Dialog>
     );
 };
+
+const useStyles = makeStyles(() => ({
+    dialogPaper: {
+        maxHeight: '80vh',
+    },
+    contentScrollbar: {
+        overflowY: 'unset',
+    },
+}));

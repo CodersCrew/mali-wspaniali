@@ -49,6 +49,7 @@ export function useEditChild() {
 }
 
 function updateEditedChild(cachedChild: Child, kindergarten: Kindergarten, update: UpdatedChildInput) {
+    // eslint-disable-next-line
     const { childId, kindergartenId, ...updatedChild } = update;
 
     if (cachedChild._id === childId) {

@@ -7,7 +7,7 @@ import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
 import { Child, ChildInput } from '../../../../graphql/types';
 import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
-import { openAddChildModal } from '../../../../components/AddChildModal/AddChildModal';
+import { openAddChildModal } from '../../../../components/ChilModals/AddChildModal';
 import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
 

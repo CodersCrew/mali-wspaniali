@@ -1,18 +1,22 @@
 import React from 'react';
 import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
-import { Assessment } from '../../graphql/types';
+import { Assessment, AssessmentResult } from '../../graphql/types';
 import { StatusChip } from '../../components/StatusChip';
+import dayjs from '../../localizedMoment';
+import { countProgress } from '../InstructorResultCreatorPage/countProgress';
 
 interface Props {
+    max: number;
     assessment: Assessment;
+    results: AssessmentResult[];
 }
 
-export function AssessmentSubheader({ assessment }: Props) {
+export function AssessmentSubheader({ results, max, assessment }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
     const currentMeasurement = getMostRecentMeasurement();
+    const currentProgress = countProgressFromResults();
 
     return (
         <Grid container>
@@ -41,7 +45,7 @@ export function AssessmentSubheader({ assessment }: Props) {
                             </Grid>
                             <Grid item>
                                 <Typography variant="subtitle2">
-                                    ({moment(currentMeasurement.endDate).fromNow()})
+                                    ({dayjs(currentMeasurement.endDate).fromNow()})
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -57,14 +61,16 @@ export function AssessmentSubheader({ assessment }: Props) {
                     spacing={1}
                 >
                     <Grid item>
-                        <Typography variant="body2">{t('add-results-page.first-assessment-progress')}</Typography>
+                        <Typography variant="body2">
+                            {t(`add-results-page.${currentMeasurement.measurement}-assessment-progress`)}
+                        </Typography>
                     </Grid>
                     <Grid item>
                         <Box display="flex" alignItems="flex-end">
                             <Box width="85%" mr={2}>
                                 <LinearProgress
                                     variant="determinate"
-                                    value={40}
+                                    value={Math.floor((currentProgress * 100) / max)}
                                     classes={{
                                         root: classes.progressBar,
                                         bar: classes.progressBarDark,
@@ -73,7 +79,7 @@ export function AssessmentSubheader({ assessment }: Props) {
                                 />
                             </Box>
                             <Box>
-                                <Typography variant="h4">40%</Typography>
+                                <Typography variant="h4">{Math.floor((currentProgress * 100) / max)}%</Typography>
                             </Box>
                         </Box>
                     </Grid>
@@ -89,6 +95,7 @@ export function AssessmentSubheader({ assessment }: Props) {
                 status: assessment.firstMeasurementStatus,
                 startDate: assessment.firstMeasurementStartDate,
                 endDate: assessment.firstMeasurementEndDate,
+                measurement: 'first',
             };
         }
 
@@ -97,7 +104,14 @@ export function AssessmentSubheader({ assessment }: Props) {
             status: assessment.lastMeasurementStatus,
             startDate: assessment.lastMeasurementStartDate,
             endDate: assessment.lastMeasurementEndDate,
+            measurement: 'last',
         };
+    }
+
+    function countProgressFromResults() {
+        return results.reduce((acc, result) => {
+            return acc + countProgress(currentMeasurement.measurement, result);
+        }, 0);
     }
 }
 

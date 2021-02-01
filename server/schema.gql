@@ -41,6 +41,35 @@ type PaginatedArticlesDTO {
   hasNext: Boolean!
 }
 
+type PartialChildResult {
+  _id: ID
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+}
+
 type NotificationDTO {
   _id: ID!
   date: DateTime!
@@ -116,6 +145,11 @@ type ParamsDTO {
   lowerLimitPoints: Float!
   upperLimit: Float!
   upperLimitPoints: Float!
+  badStageLimit: Float!
+  weakStageLimit: Float!
+  middleStageLimit: Float!
+  goodStageLimit: Float!
+  veryGoodStageLimit: Float!
 }
 
 type ChildCurrentParamsDTO {
@@ -193,6 +227,7 @@ type Query {
   user(id: String!): UserDTO!
   users(role: String): [UserDTO!]!
   allChildren: [ChildDTO!]!
+  kindergartenResults(kindergartenId: String!, assessmentId: String!): [PartialChildResult!]!
   keyCodes(series: String!): [CreateKeyCodeDTO!]!
   keyCodeSeries: [KeyCodeSeriesDTO!]!
   agreements: [AgreementDTO!]!
@@ -214,6 +249,8 @@ type Mutation {
   addChild(child: ChildInput!): ChildDTO!
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
   addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
+  createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!
+  updateAssessmentResult(result: PartialUpdateChildResultInput!): PartialChildResult!
   createKeyCode(target: String!): CreateKeyCodeDTO!
   createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createAgreement(agreement: String!): ReturnedStatusDTO!
@@ -292,6 +329,63 @@ input ResultInput {
   strengthCentimeters: Int!
   strengthPoints: Int!
   testPeriod: String!
+}
+
+input PartialChildResultInput {
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+}
+
+input PartialUpdateChildResultInput {
+  _id: ID
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
 }
 
 input KindergartenInput {

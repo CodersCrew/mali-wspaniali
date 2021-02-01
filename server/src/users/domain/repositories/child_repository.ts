@@ -6,6 +6,7 @@ import { ChildDocument } from '../../schemas/child_schema';
 import { Child, ChildProps } from '../models/child_model';
 import * as mongoose from 'mongoose';
 import { ChildMapper } from '../mappers/child_mapper';
+import { parseDateToAge } from '../../../shared/utils/parse_date_to_age';
 
 @Injectable()
 export class ChildRepository {
@@ -42,7 +43,16 @@ export class ChildRepository {
   }
 
   async getByKindergarten(id: string): Promise<ChildProps[]> {
-    return await this.childModel.find({ kindergarten: id }).exec();
+    const results = await this.childModel
+      .find({ kindergarten: id })
+      .lean()
+      .exec();
+
+    return results.filter(c => {
+      const age = parseDateToAge(c.birthYear, c.birthQuarter);
+
+      return age >= 3 && age <= 7;
+    });
   }
 
   async getAll(): Promise<Child[]> {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, makeStyles, TextField, Theme } from '@material-ui/core/';
+import { createStyles, makeStyles, TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -30,7 +30,7 @@ export function KeyCodesToGenerateTextfield({ value, onChange }: Props) {
     );
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         keyCodeTextfield: {
             width: 200,

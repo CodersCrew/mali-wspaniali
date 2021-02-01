@@ -9,7 +9,7 @@
         "login": "Login",
         "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
         "login-header": "Log in",
-        "e-mail-helper-text": "Type in e-mail address provided to Mali Wspaniali's foundation",
+        "e-mail-helper-text": "Log in with e-mail provided to the foundation or used by registration.",
         "forgot-password": "Forgot password?",
         "login-notfound": "We cannot find your account in the system",
         "login-wrong-password": "Entered password is incorrect",
@@ -17,7 +17,9 @@
     },
     "login-wrapper": {
         "welcome-text": "Welcome to Mali Wspaniali's world!",
-        "subheading": "Join the community of conscious parents"
+        "subheading": "Join the community of conscious parents",
+        "made-by": "Made by:",
+        "partners": "Strategic partners:"
     },
     "registration-page": {
         "already-have-account": "Already have an account?",
@@ -388,17 +390,25 @@
         }
     },
     "parent-settings": {
-        "header": "Delete parent's account",
+        "header": "Settings parent's account",
         "header-title-1": "Parent's email adress",
         "header-title-2": "Children",
         "button-icon-edit-tooltip": "Edit",
         "button-icon-delete-tooltip": "Delete",
         "button-icon-change-tooltip": "Change kindergarden",
         "modal-delete-account": {
+            "header": "Delete parent's account",
             "first-button": "Cancel",
             "second-button": "Delete",
             "first-description": "Are you sure you want to delete the parent",
             "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
+        },
+        "modal-edit-account": {
+            "header": "Edit data",
+            "button": "Submit",
+            "subtitle": "To edit the data of the parent and child, complete the fields below",
+            "success-message": "You have successfully edited your child's profile",
+            "label": " Parent's email"
         },
         "success-message": "Removed (Anonymized) parent"
     },
@@ -554,7 +564,8 @@
             "done": "Done",
             "planned": "Planned",
             "not-planned": "Not planned",
-            "see-results": "See results"
+            "see-results": "See results",
+            "search": "Search"
         },
         "test-trials": {
             "title": "Test trials information"
@@ -692,6 +703,15 @@
         },
         "snackbars": {
             "info": "To add unassigned kindergarten, select the instructor and assign him/her to selected kindergarten"
+        },
+        "modal": {
+            "cancel": "Cancel",
+            "assign": "Assign",
+            "assign-to-kindergarten": "Assign to kindergarten",
+            "select-test": "Select test",
+            "select-instructor": "Select instructor",
+            "assigned-kindergartens": "Assigned kindergartens",
+            "add-unassigned-kindergarten": "Add unassigned kindergarten"
         }
     },
     "add-results-page": {
@@ -700,7 +720,8 @@
         "search-by-child-firstname": "Search by child's first name",
         "firstname": "First name",
         "lastname": "Last name",
-        "birth-year": "Birth year",
+        "full-name": "Full name",
+        "age": "Age",
         "birth-quarter": "Birth quarter",
         "first-assessment": "First test",
         "last-assessment": "Last test",
@@ -726,7 +747,10 @@
             "go-to-articles": "Go to articles"
         },
         "child-list": "Child list",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "added-first-note-for": "A first measurement note for {{name}} has been added",
+        "added-last-note-for": "A last measurement note for {{name}} has been added",
+        "years": "years"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -738,13 +762,15 @@
         "points": "pts",
         "title-first-measurement": "INITIAL TEST EFFICIENCY",
         "title-last-measurement": "FINAL TRIAL EFFICIENCY",
-        "back-to-table": "Back to table",
+        "back-to-table": "Back",
         "child-list": "Child list",
         "strength": "STRENGTH",
         "dexterity": "DEXTERITY",
         "power": "POWER",
         "velocity": "VELOCITY",
-        "back-to-results": "Back to results",
-        "select-child": "Select a child"
+        "save-and-next": "Save and next",
+        "save-and-back-to-table": "Save and back to table",
+        "select-child": "Select a child",
+        "note": "Note"
     }
 }

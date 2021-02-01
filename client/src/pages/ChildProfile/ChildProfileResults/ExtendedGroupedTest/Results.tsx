@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import Girl from '../../../../assets/girl.svg';
