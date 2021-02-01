@@ -24,8 +24,5 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src",
-    "functions/src/database/utils.ts"
-  ]
+  "include": ["src", "functions/src/database/utils.ts", "src/custom.d.ts"]
 }

@@ -302,7 +302,9 @@
             "page": "Dane dziecka",
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
             "button": "Zapisz"
-        }
+        },
+        "your-child-result-1": "WYNIK",
+        "your-child-result-2": "TWOJEGO DZIECKA" 
     },
     "parent-profile": {
         "parent": "Rodzic",

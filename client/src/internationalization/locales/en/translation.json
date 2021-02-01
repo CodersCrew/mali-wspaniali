@@ -252,7 +252,9 @@
             "page": "Child's details",
             "form": "Edit your child's details if necessary.",
             "button": "Save"
-        }
+        },
+        "your-child-result-1": "YOUR CHILD'S",
+        "your-child-result-2": "RESULT" 
     },
     "parent-profile": {
         "parent": "Parent",
