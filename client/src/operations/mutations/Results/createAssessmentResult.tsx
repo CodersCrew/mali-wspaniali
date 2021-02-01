@@ -1,6 +1,5 @@
-import { ApolloCache, gql, useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { AssessmentResult } from '../../../graphql/types';
-import { AssessmentResponse, GET_ASSESSMENT_RESULTS } from '../../queries/Results/getAssessmentResults';
 
 export interface Test {
     title: string;
@@ -78,9 +77,16 @@ export function useCreateAssessmentResult() {
             return mutate({
                 variables: { result },
                 update: (cache, response) => {
-                    const addedResult = response.data?.createAssessmentResult!;
-
-                    addAssessmentResult(cache, addedResult);
+                    cache.modify({
+                        fields: {
+                            kindergartenResults(existingResults = []) {
+                                return [
+                                    ...existingResults,
+                                    { ____ref: `PartialChildResult:${response.data?.createAssessmentResult._id}` },
+                                ];
+                            },
+                        },
+                    });
                 },
             });
         },
@@ -88,25 +94,4 @@ export function useCreateAssessmentResult() {
         data,
         error,
     };
-}
-
-function addAssessmentResult(cache: ApolloCache<CreateAssessmentResponse>, result: AssessmentResult) {
-    const results = getAssessmentResult(cache, result);
-
-    cache.writeQuery<AssessmentResponse>({
-        query: GET_ASSESSMENT_RESULTS,
-        variables: { kindergartenId: result.kindergartenId, assessmentId: result.assessmentId },
-        data: {
-            kindergartenResults: [...results, result],
-        },
-    });
-}
-
-function getAssessmentResult(cache: ApolloCache<CreateAssessmentResponse>, result: AssessmentResult) {
-    const results = cache.readQuery<AssessmentResponse>({
-        query: GET_ASSESSMENT_RESULTS,
-        variables: { kindergartenId: result.kindergartenId, assessmentId: result.kindergartenId },
-    });
-
-    return results?.kindergartenResults || [];
 }

@@ -145,6 +145,11 @@ type ParamsDTO {
   lowerLimitPoints: Float!
   upperLimit: Float!
   upperLimitPoints: Float!
+  badStageLimit: Float!
+  weakStageLimit: Float!
+  middleStageLimit: Float!
+  goodStageLimit: Float!
+  veryGoodStageLimit: Float!
 }
 
 type ChildCurrentParamsDTO {
