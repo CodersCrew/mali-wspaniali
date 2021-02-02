@@ -390,6 +390,8 @@
     },
     "parent-settings": {
         "header": "Settings parent's account",
+        "input-label": "Search",
+        "search-label": "Search for kindergarten",
         "header-title-1": "Parent's email adress",
         "header-title-2": "Children",
         "button-icon-edit-tooltip": "Edit",
@@ -408,6 +410,14 @@
             "subtitle": "To edit the data of the parent and child, complete the fields below",
             "success-message": "You have successfully edited your child's profile",
             "label": " Parent's email"
+        },
+        "modal-change-kindergarden": {
+            "header": "Move the child to another kindergarten",
+            "subtitle": "Select the kindergarten you want to move the child to from the list",
+            "main-label": "The current kindergarten",
+            "label": "Select kindergarten",
+            "checkbox-option": "Move to the same kindergarten",
+            "success-message": "sThe change of kindergartens was the construction process"
         },
         "success-message": "Removed (Anonymized) parent"
     },

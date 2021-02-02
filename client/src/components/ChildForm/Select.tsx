@@ -14,12 +14,12 @@ import { Option } from './useSelectValues';
 
 interface Props {
     label: string;
-    value: string;
+    value?: string;
     options: Option[];
     name: string;
     disabled?: boolean;
-    error: string | undefined;
-    touched: any;
+    error?: string | undefined;
+    touched?: any;
     onChange: (name: string, value: string) => void;
 }
 

@@ -11,7 +11,7 @@ import GirlAvatar from '../../assets/girl.png';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
 import { initialValues, validationSchema, normalizeChild } from './utils';
-import { EditChildModalProps } from './ChildModalTypes';
+import { ChildModalProps } from './ChildModalTypes';
 
 type EditChildType = Omit<Child, 'results' | 'currentParams'>;
 
@@ -22,7 +22,7 @@ const AdminSettingsEditModal = ({
     parent,
     preventClose,
     isCancelButtonVisible,
-}: EditChildModalProps & ActionDialog<{ child: ChildInput }>) => {
+}: ChildModalProps & ActionDialog<{ child: ChildInput }>) => {
     const [updateInitialChildValues, setInitialValues] = useState<AddChildResult>(initialValues);
     const [selectedChild, setSelectedChild] = useState<{ childIndex: number; isSelected: boolean }>({
         childIndex: 0,
@@ -123,6 +123,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export const openAdminSettingsEditModal = (props: EditChildModalProps) => {
-    return openDialog<EditChildModalProps>(AdminSettingsEditModal, props);
+export const openAdminSettingsEditModal = (props: ChildModalProps) => {
+    return openDialog<ChildModalProps>(AdminSettingsEditModal, props);
 };
