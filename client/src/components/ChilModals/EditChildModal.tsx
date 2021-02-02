@@ -20,7 +20,6 @@ const AdminSettingsEditModal = ({
     makeDecision,
     kindergartens,
     parent,
-    preventClose,
     isCancelButtonVisible,
 }: ChildModalProps & ActionDialog<{ child: ChildInput }>) => {
     const [updateInitialChildValues, setInitialValues] = useState<AddChildResult>(initialValues);

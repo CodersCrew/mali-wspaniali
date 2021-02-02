@@ -16,7 +16,6 @@ const AdminSettingsDeleteParent = ({
     onClose,
     makeDecision,
     parent,
-    preventClose,
     isCancelButtonVisible,
 }: SettingsMessageModalProps & ActionDialog<{ parent: User }>) => {
     const { t } = useTranslation();

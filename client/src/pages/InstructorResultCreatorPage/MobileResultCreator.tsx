@@ -1,24 +1,34 @@
 import React from 'react';
 import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ResultCreatorReturnProps } from './useResultCreator';
+import { ResultCreatorReturnProps, AssessmentValues } from './useResultCreator';
 import { ChildPickerDrawer } from './ChildPicker/ChildPickerDrawer';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
 import { ButtonSecondary } from '../../components/Button';
 import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
+import { countCurrentPoints } from './countPoints';
 
 interface Props {
-    value: ResultCreatorReturnProps;
+    resultCreator: ResultCreatorReturnProps;
     measurement: string;
-    onClick: (type: string, value: string) => void;
+    onClick: (type: string, value: string | AssessmentValues) => void;
 }
 
-export function MobileResultCreator({ value: resultCreator, measurement, onClick }: Props) {
+export function MobileResultCreator({ resultCreator, measurement, onClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const points = Object.values(resultCreator.points).reduce((acc, v) => acc + v, 0);
+    const { selectedChild: child } = resultCreator;
+
+    const [localResult, setLocalResult] = React.useState(resultCreator.values);
+    const [localNote, setLocalNote] = React.useState(getCurrentNote() || '');
+
+    React.useEffect(() => {
+        setLocalResult(resultCreator.values);
+    }, [resultCreator.values, getCurrentNote()]);
+
+    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
 
     return (
         <Paper>
@@ -27,17 +37,18 @@ export function MobileResultCreator({ value: resultCreator, measurement, onClick
                     <ChildPickerDrawer
                         selectedKindergarten={resultCreator.selectedKindergarten._id || ''}
                         kindergartens={resultCreator.selectedAssessment.kindergartens.map((k) => k.kindergarten) || []}
-                        selected={resultCreator.selectedChild._id}
+                        selected={child._id}
                         measurement={measurement}
                         childList={resultCreator.selectedKindergarten.children || []}
+                        resultCreator={resultCreator}
                         onClick={onClick}
                     />
                 </Grid>
                 <Grid item>
                     <ChildHeader
                         description={t(`add-result-page.title-${measurement}-measurement`)}
-                        selectedChild={resultCreator.selectedChild}
-                        points={points}
+                        selectedChild={child}
+                        points={pointSum}
                         maxPoints={countMaxPoints()}
                     />
                 </Grid>
@@ -46,11 +57,17 @@ export function MobileResultCreator({ value: resultCreator, measurement, onClick
                 </Grid>
                 <Grid item className={classes.editor}>
                     <MeasurementEditor
-                        child={resultCreator.selectedChild}
-                        values={resultCreator.values}
-                        points={resultCreator.points}
-                        edited={resultCreator.edited}
-                        onChange={resultCreator.onChange}
+                        note={localNote}
+                        value={localResult}
+                        resultCreator={resultCreator}
+                        measurement={measurement}
+                        onChange={(value) => {
+                            setLocalResult((prev) => ({
+                                ...prev,
+                                ...value,
+                            }));
+                        }}
+                        onNoteChange={setLocalNote}
                         onEditClick={resultCreator.edit}
                     />
                 </Grid>
@@ -69,12 +86,12 @@ export function MobileResultCreator({ value: resultCreator, measurement, onClick
                             </Grid>
                             <Grid item>
                                 <ActionMenuButtonSecondary
-                                    label={t(`add-result-page.save-and-next`)}
-                                    onClick={() => onClick('save-and-next', '')}
+                                    label={t('add-result-page.save-and-next')}
+                                    onClick={() => onClick('save-and-next', localResult)}
                                     options={[
                                         <MenuItem
                                             key="add-result-page.save-and-back-to-table"
-                                            onClick={() => onClick('back-to-table', '')}
+                                            onClick={() => onClick('save-and-back-to-table', localResult)}
                                         >
                                             {t('add-result-page.save-and-back-to-table')}
                                         </MenuItem>,
@@ -99,6 +116,22 @@ export function MobileResultCreator({ value: resultCreator, measurement, onClick
             return acc + v.upperLimitPoints;
         }, 0);
     }
+
+    function getCurrentNote() {
+        const currentResult = getCurrentResult();
+
+        if (!currentResult) return '';
+
+        if (measurement === 'first') {
+            return currentResult.firstMeasurementNote;
+        }
+
+        return currentResult.lastMeasurementNote;
+    }
+
+    function getCurrentResult() {
+        return resultCreator.kindergartenResults.find((r) => r.childId === resultCreator.selectedChild._id);
+    }
 }
 
 const useStyles = makeStyles(() =>
@@ -122,7 +155,7 @@ const useStyles = makeStyles(() =>
             position: 'absolute',
             bottom: 0,
             right: 0,
-            zIndex: 3000,
+            zIndex: 1300,
         },
         footerPaper: {
             display: 'flex',

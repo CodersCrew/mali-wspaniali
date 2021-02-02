@@ -253,7 +253,9 @@
             "page": "Child's details",
             "form": "Edit your child's details if necessary.",
             "button": "Save"
-        }
+        },
+        "your-child-result-1": "YOUR CHILD'S",
+        "your-child-result-2": "RESULT" 
     },
     "parent-profile": {
         "parent": "Parent",
@@ -756,7 +758,10 @@
             "go-to-articles": "Go to articles"
         },
         "child-list": "Child list",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "added-first-note-for": "A first measurement note for {{name}} has been added",
+        "added-last-note-for": "A last measurement note for {{name}} has been added",
+        "years": "years"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -768,15 +773,15 @@
         "points": "pts",
         "title-first-measurement": "INITIAL TEST EFFICIENCY",
         "title-last-measurement": "FINAL TRIAL EFFICIENCY",
-        "back-to-table": "Back to table",
+        "back-to-table": "Back",
         "child-list": "Child list",
         "strength": "STRENGTH",
         "dexterity": "DEXTERITY",
         "power": "POWER",
         "velocity": "VELOCITY",
-        "back-to-results": "Back to results",
         "save-and-next": "Save and next",
         "save-and-back-to-table": "Save and back to table",
-        "select-child": "Select a child"
+        "select-child": "Select a child",
+        "note": "Note"
     }
 }

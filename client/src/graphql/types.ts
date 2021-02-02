@@ -95,6 +95,11 @@ export interface AssessmentParam {
     lowerLimitPoints: number;
     upperLimit: number;
     upperLimitPoints: number;
+    badStageLimit: number;
+    weakStageLimit: number;
+    middleStageLimit: number;
+    goodStageLimit: number;
+    veryGoodStageLimit: number;
 }
 
 export interface Child {
@@ -209,6 +214,31 @@ export interface Assessment {
         instructor: User | null;
         kindergarten: Kindergarten;
     }[];
+}
+
+export interface AssessmentResult {
+    _id: string;
+    childId: string;
+    kindergartenId: string;
+    assessmentId: string;
+    firstMeasurementNote: string;
+    lastMeasurementNote: string;
+    firstMeasurementRunResult: number;
+    lastMeasurementRunResult: number;
+    firstMeasurementPendelumRunResult: number;
+    lastMeasurementPendelumRunResult: number;
+    firstMeasurementThrowResult: number;
+    lastMeasurementThrowResult: number;
+    firstMeasurementJumpResult: number;
+    lastMeasurementJumpResult: number;
+    firstMeasurementRunDate: Date;
+    lastMeasurementRunDate: Date;
+    firstMeasurementPendelumRunDate: Date;
+    lastMeasurementPendelumRunDate: Date;
+    firstMeasurementThrowDate: Date;
+    lastMeasurementThrowDate: Date;
+    firstMeasurementJumpDate: Date;
+    lastMeasurementJumpDate: Date;
 }
 
 export interface ReturnedStatusDTO {

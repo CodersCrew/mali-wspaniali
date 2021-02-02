@@ -2,10 +2,23 @@ import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
-import { ResultCreatorErrorReturnProps, ResultCreatorReturnProps, useResultCreator } from './useResultCreator';
+import {
+    ResultCreatorErrorReturnProps,
+    ResultCreatorReturnProps,
+    useResultCreator,
+    AssessmentValues,
+} from './useResultCreator';
 import { ResultCreator } from './ResultCreator';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { MobileResultCreator } from './MobileResultCreator';
+import {
+    useUpdateAssessmentResult,
+    UpdatedAssessmentInput,
+} from '../../operations/mutations/Results/updateAssessmentResult';
+import {
+    CreatedAssessmentInput,
+    useCreateAssessmentResult,
+} from '../../operations/mutations/Results/createAssessmentResult';
 
 interface PageParams {
     assessmentId: string;
@@ -16,6 +29,8 @@ interface PageParams {
 
 export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
+    const { createAssessmentResult } = useCreateAssessmentResult();
+    const { updateAssessmentResult } = useUpdateAssessmentResult();
 
     const history = useHistory();
     const device = useIsDevice();
@@ -39,15 +54,19 @@ export default function InstructorResultCreatorPage() {
         <>
             <PageContainer>
                 {device.isSmallMobile ? (
-                    <MobileResultCreator value={resultCreator} measurement={measurement} onClick={handleClick} />
+                    <MobileResultCreator
+                        resultCreator={resultCreator}
+                        measurement={measurement}
+                        onClick={handleClick}
+                    />
                 ) : (
-                    <ResultCreator value={resultCreator} measurement={measurement} onClick={handleClick} />
+                    <ResultCreator resultCreator={resultCreator} measurement={measurement} onClick={handleClick} />
                 )}
             </PageContainer>
         </>
     );
 
-    function handleClick(type: string, value: string) {
+    function handleClick(type: string, value: string | AssessmentValues) {
         if (isResultCreatorErrorReturnProps(resultCreator)) {
             return;
         }
@@ -76,22 +95,73 @@ export default function InstructorResultCreatorPage() {
         }
 
         if (type === 'back-to-table') {
-            history.push('/instructor');
+            redirectToResultTable();
         }
 
         if (type === 'save-and-next') {
-            const currentChildIndex =
-                resultCreator.selectedKindergarten.children?.findIndex(
-                    (c) => c._id === resultCreator.selectedChild._id,
-                ) || 0;
+            createOrUpdateResult(
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                resultCreator,
+            );
 
-            const foundNextChild = resultCreator.selectedKindergarten.children![currentChildIndex + 1];
+            redirectToNextChild();
+        }
 
-            if (foundNextChild) {
-                history.push(
-                    `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
-                );
-            }
+        if (type === 'save-and-back-to-table') {
+            createOrUpdateResult(
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                resultCreator,
+            );
+
+            redirectToResultTable();
+        }
+    }
+
+    function mapValuesToResult(results: AssessmentValues): Partial<CreatedAssessmentInput> {
+        const result: Partial<CreatedAssessmentInput> = {};
+
+        const measurementName = (resultCreator as ResultCreatorReturnProps).edited;
+
+        (result as any)[
+            `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Result`
+        ] = results[measurementName as keyof AssessmentValues];
+
+        (result as any)[
+            `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Date`
+        ] = new Date().toISOString();
+
+        return result;
+    }
+
+    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>, results: ResultCreatorReturnProps) {
+        const childResult = results.kindergartenResults.find((r) => r.childId === update.childId);
+
+        if (childResult) {
+            updateAssessmentResult({ _id: childResult._id, ...update });
+        } else {
+            createAssessmentResult(update);
+        }
+    }
+
+    function redirectToResultTable() {
+        history.push('/instructor');
+    }
+
+    function redirectToNextChild() {
+        if (!resultCreator.selectedKindergarten || !resultCreator.selectedChild || !resultCreator.selectedAssessment) {
+            return;
+        }
+
+        const currentChildIndex =
+            resultCreator.selectedKindergarten.children?.findIndex((c) => c._id === resultCreator.selectedChild!._id) ||
+            0;
+
+        const foundNextChild = resultCreator.selectedKindergarten.children![currentChildIndex + 1];
+
+        if (foundNextChild) {
+            history.push(
+                `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
+            );
         }
     }
 }

@@ -10,7 +10,7 @@ type AddNoteDialogProps = {
 };
 
 export function openAddNoteDialog(props: AddNoteDialogProps) {
-    return openDialog<AddNoteDialogProps>(AddNoteDialog, props);
+    return openDialog<AddNoteDialogProps, { note: string }>(AddNoteDialog, props);
 }
 
 function AddNoteDialog({
@@ -18,7 +18,7 @@ function AddNoteDialog({
     note: initialNote,
     makeDecision,
     onClose,
-}: AddNoteDialogProps & ActionDialog<{ note?: string }>) {
+}: AddNoteDialogProps & ActionDialog<{ note: string }>) {
     const { t } = useTranslation();
     const [note, setNote] = useState(initialNote);
     const LENGTH_LIMIT = 500;
@@ -43,7 +43,6 @@ function AddNoteDialog({
                     </Grid>
                     <Grid item>
                         <TextField
-                            id="outlined-textarea"
                             placeholder={t('add-results-page.add-note-modal.placeholder')}
                             multiline
                             variant="outlined"
@@ -74,6 +73,7 @@ function AddNoteDialog({
                 />
                 <ButtonPrimary
                     onClick={onAccepted}
+                    disabled={note.length < 3}
                     variant="text"
                     innerText={t('add-results-page.add-note-modal.save')}
                 />

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getUserById } from '../../graphql/userRepository';
 import { User } from '../../graphql/types';
 
 export default function ParentProfilePage() {
-    const [parent, setParent] = useState<User | null>(null);
+    const [parent, setParent] = React.useState<User | null>(null);
     const { id } = useParams<{ id: string }>();
     const { t } = useTranslation();
 
-    useEffect(() => {
+    React.useEffect(() => {
         getUserById(id).then(({ data }) => setParent(data!.user));
     }, [id]);
 

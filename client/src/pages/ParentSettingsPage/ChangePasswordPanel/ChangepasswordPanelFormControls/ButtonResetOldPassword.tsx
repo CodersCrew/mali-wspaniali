@@ -42,6 +42,7 @@ export const ButtonResetOldPassword = (props: Props) => {
             })
             .catch((reason) => {
                 dispatch({ type: PASSWORD_RESET_EMAIL_SENT });
+                // eslint-disable-next-line
                 console.log(reason.message);
             });
     };

@@ -9,7 +9,6 @@ import {
     TableHead,
     TableRow,
     TextField,
-    Theme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -64,7 +63,7 @@ export function KindergartenList({ kindergartens }: Props) {
     );
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         table: {
             height: 295,

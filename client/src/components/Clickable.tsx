@@ -1,7 +1,7 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core';
 
-export const Clickable: FC = ({ children }: { children?: ReactNode }) => {
+export const Clickable: FC = ({ children }: { children?: React.ReactNode }) => {
     const classes = useStyles();
 
     return <span className={classes.container}>{children}</span>;
