@@ -46,6 +46,7 @@ export function ChildPickerDrawer(props: Props) {
                     selectedKindergarten={props.selectedKindergarten}
                     kindergartens={props.kindergartens}
                     selected={props.selected}
+                    results={props.resultCreator.kindergartenResults}
                     measurement={props.measurement}
                     childList={props.childList}
                     onClick={(type, value) => {

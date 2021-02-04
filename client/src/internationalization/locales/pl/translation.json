@@ -307,7 +307,9 @@
             "page": "Dane dziecka",
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
             "button": "Zapisz"
-        }
+        },
+        "your-child-result-1": "WYNIK",
+        "your-child-result-2": "TWOJEGO DZIECKA" 
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -754,7 +756,9 @@
         "child-list": "Lista dzieci",
         "edit": "Edytuj",
         "added-first-note-for": "Dodano notatkę próby początkowej dla {{name}}",
-        "added-last-note-for": "Dodano notatkę próby końcowej dla {{name}}"
+        "added-last-note-for": "Dodano notatkę próby końcowej dla {{name}}",
+        "years_1": "lata",
+        "years_2": "lat"
     },
     "add-result-page": {
         "kindergarten": "Przedszkole",
