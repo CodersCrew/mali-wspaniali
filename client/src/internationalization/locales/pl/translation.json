@@ -7,7 +7,7 @@
     },
     "login-page": {
         "login": "Zaloguj",
-        "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany",
+        "login-error": "Email lub hasło są nieprawidłowe",
         "login-header": "Logowanie",
         "e-mail-helper-text-mobile": "Wpisz adres e-mail podany Fundacji",
         "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail podanego fundacji lub użytego do rejestracji.",
@@ -309,7 +309,7 @@
             "button": "Zapisz"
         },
         "your-child-result-1": "WYNIK",
-        "your-child-result-2": "TWOJEGO DZIECKA" 
+        "your-child-result-2": "TWOJEGO DZIECKA"
     },
     "parent-profile": {
         "parent": "Rodzic",

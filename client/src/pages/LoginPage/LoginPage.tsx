@@ -8,6 +8,7 @@ import { Theme } from '../../theme/types';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 const initialError: Error = {
     name: '',
@@ -25,7 +26,10 @@ export default function LoginPage() {
         (user) => {
             history.push(`/${user.role}`);
         },
-        (error) => setLoginError(error),
+        (error) => {
+            setLoginError(error);
+            showLoginErrorMessage();
+        },
     );
     const { isDesktop } = useIsDevice();
 
@@ -33,6 +37,14 @@ export default function LoginPage() {
         event.preventDefault();
 
         authorizeMe(email, password);
+    };
+
+    const showLoginErrorMessage = () => {
+        openSnackbar({
+            text: t('login-page.login-error'),
+            severity: 'error',
+            anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
+        });
     };
 
     return (
@@ -53,39 +65,17 @@ export default function LoginPage() {
                             <Box mb={5} />
                         </>
                     )}
-                    {isDesktop ? (
-                        <TextField
-                            required
-                            onChange={({ target: { value } }) => setEmail(value)}
-                            value={email}
-                            id="email"
-                            label={t('e-mail')}
-                            variant="outlined"
-                            error={loginError.name === 'auth/user-not-found'}
-                            helperText={
-                                loginError.name === 'auth/user-not-found'
-                                    ? t('login-page.login-notfound')
-                                    : t('login-page.e-mail-helper-text')
-                            }
-                            className={classes.formItem}
-                        />
-                    ) : (
-                        <TextField
-                            required
-                            onChange={({ target: { value } }) => setEmail(value)}
-                            value={email}
-                            id="email"
-                            label={t('e-mail')}
-                            variant="outlined"
-                            error={loginError.name === 'auth/user-not-found'}
-                            helperText={
-                                loginError.name === 'auth/user-not-found'
-                                    ? t('login-page.login-notfound')
-                                    : t('login-page.e-mail-helper-text-mobile')
-                            }
-                            className={classes.formItem}
-                        />
-                    )}
+                    <TextField
+                        required
+                        onChange={({ target: { value } }) => setEmail(value)}
+                        value={email}
+                        id="email"
+                        label={t('e-mail')}
+                        variant="outlined"
+                        error={!!loginError.message}
+                        helperText={t('login-page.e-mail-helper-text')}
+                        className={classes.formItem}
+                    />
                     <Box mb={2} />
                     <TextField
                         required
@@ -95,8 +85,7 @@ export default function LoginPage() {
                         label={t('password')}
                         type="password"
                         variant="outlined"
-                        error={Boolean(loginError.name)}
-                        helperText={loginError.name ? t('login-page.login-error') : ''}
+                        error={!!loginError.message}
                         className={classes.formItem}
                     />
                     <Box mb={6} />
@@ -114,19 +103,12 @@ export default function LoginPage() {
                             innerText={t('login-page.login')}
                         />
                     </div>
-                    {isDesktop ? (
-                        <>
-                            <Box mb={7} />
-                            <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
-                            <Box mb={7} />
-                        </>
-                    ) : (
-                        <>
-                            <Box mb={4.5} />
-                            <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
-                            <Box mb={4} />
-                        </>
-                    )}
+
+                    <>
+                        <Box mb={isDesktop ? 7 : 4.5} />
+                        <Divider className={classes.divider} orientation="horizontal" variant="fullWidth" />
+                        <Box mb={isDesktop ? 7 : 4} />
+                    </>
                 </form>
                 <div className={classes.registerWrapper}>
                     <Typography>{t('login-page.no-account')} </Typography>
@@ -150,7 +132,6 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            // minHeight: '100vh',
             padding: theme.spacing(0, 2),
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'start',
@@ -162,7 +143,7 @@ const useStyles = makeStyles((theme: Theme) =>
             minHeight: 56,
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'end',
+            justifyContent: 'flex-end',
             alignItems: 'center',
         },
         innerContainer: {

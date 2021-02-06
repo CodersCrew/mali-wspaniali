@@ -1,12 +1,12 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme, Typography, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
 
 import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
 import Maker from '../../assets/authTemplateLogos/maker/maker.png';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
 
 type AuthTemplateType = 'login' | 'register';
 
@@ -50,18 +50,14 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
             ) : (
                 <>
                     <Box zIndex="appBar">
-                        <AppBar
-                            className={classes.appBar}
-                            position="fixed"
-                            classes={{
-                                root: clsx({
-                                    [classes.containerMobile]: !isDesktop,
-                                }),
-                            }}
-                        >
+                        <AppBar className={classes.appBar} position="fixed">
+                            <div className={classes.appBarLanguageSelector} />
                             <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
+                            <div className={classes.appBarLanguageSelector}>
+                                <LanguageSelector />
+                            </div>
                         </AppBar>
-                    </Box>{' '}
+                    </Box>
                     <div className={classes.formContainer}>{children}</div>
                 </>
             )}
@@ -71,13 +67,19 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        containerMobile: {
-            borderBottom: `1px solid ${theme.palette.primary.main}`,
-        },
         appBar: {
             height: 64,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
-
+        appBarLanguageSelector: {
+            height: 24,
+            width: 24,
+            marginRight: theme.spacing(3),
+        },
         background: {
             backgroundColor: mainColor,
             minHeight: '100vh',
