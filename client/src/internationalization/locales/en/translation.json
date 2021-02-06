@@ -391,6 +391,8 @@
     },
     "parent-settings": {
         "header": "Settings parent's account",
+        "input-label": "Search",
+        "search-label": "Search for kindergarten",
         "header-title-1": "Parent's email adress",
         "header-title-2": "Children",
         "button-icon-edit-tooltip": "Edit",
