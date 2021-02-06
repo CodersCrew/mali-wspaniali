@@ -121,7 +121,6 @@ export function useAssessmentManager(
 
         valid.then((result) => {
             if (result) {
-                // eslint-disable-next-line
                 const { kindergartenIds, ...validAssessment } = result;
                 const updatedAssessmentInput = { ...validAssessment, kindergartens: parsedKindergarten };
 
@@ -226,6 +225,7 @@ async function validate(state: AssessmentManagerState) {
         title: yup.string().min(5, 'add-test-view.errors.name-too-short'),
         startDate: yup.string().required(),
         endDate: yup.string().required(),
+        kindergartenIds: yup.array(),
     });
 
     return newTestSchema.validateSync(state);
