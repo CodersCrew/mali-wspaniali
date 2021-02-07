@@ -35,8 +35,6 @@ export const NotificationPageListItem = ({ text, date, id, isRead, onClick }: Pr
                 </span>
             </TableCell>
             <TableCell align="right" classes={{ root: classes.calendarCell }}>
-                <Typography variant="caption">{moment(date).calendar()}</Typography>
-            <TableCell classes={{ root: classes.calendarCell }}>
                 <Typography variant="caption">{dayjs(date).fromNow()}</Typography>
             </TableCell>
         </TableRow>
