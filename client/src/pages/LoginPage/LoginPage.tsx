@@ -152,6 +152,10 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 'calc(100vh - 112px)',
             justifyContent: 'center',
             alignItems: 'center',
+            width: '100%',
+            [theme.breakpoints.down('md')]: {
+                justifyContent: 'flex-start',
+            },
         },
         form: {
             display: 'flex',
