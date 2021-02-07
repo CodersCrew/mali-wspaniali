@@ -72,6 +72,13 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         display: 'flex',
+
+        [theme.breakpoints.down('md')]: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(1, 1fr)',
+            gridGap: theme.spacing(1.5),
+            margin: theme.spacing(4, 'auto'),
+        },
     },
     ul: {
         paddingLeft: 14,

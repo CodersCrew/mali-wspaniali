@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Typography } from '@material-ui/core';
 import { Panel } from '../Panel';
-import { panelTextColor, lightTextColor } from '../../../../colors';
+import { panelTextColor } from '../../../../colors';
 import ConditionsImage1 from '../../../../assets/testInformation/Conditions/testInformationConditions1.png';
 import ConditionsImage2 from '../../../../assets/testInformation/Conditions/testInformationConditions2.png';
 import ConditionsImage3 from '../../../../assets/testInformation/Conditions/testInformationConditions3.png';
@@ -53,7 +53,7 @@ export const Conditions = () => {
                         </Box>
                         <Box>
                             <Typography className={classes.testName}>{name}</Typography>
-                            <Typography className={classes.testText}>{description}</Typography>
+                            <Typography className={classes.text}>{description}</Typography>
                         </Box>
                     </Box>
                 ))}
@@ -99,12 +99,6 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: '18px',
         color: panelTextColor,
         textTransform: 'uppercase',
-    },
-    testText: {
-        marginTop: theme.spacing(1.25),
-        fontSize: 14,
-        lineHeight: '14.4px',
-        color: lightTextColor,
     },
     testImageContainer: {
         height: 152,
