@@ -53,6 +53,6 @@ const useStyles = makeStyles((theme) => ({
     },
     strong: {
         fontWeight: 'bold',
-        color: '#1D1D1D',
+        color: panelTextColor,
     },
 }));

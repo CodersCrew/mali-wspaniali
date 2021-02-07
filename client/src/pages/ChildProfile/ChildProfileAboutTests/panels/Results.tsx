@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 21,
         fontWeight: 500,
         lineHeight: '29.4px',
-        color: '#FF3D00',
+        color: panelTextColor,
     },
     text: {
         marginTop: theme.spacing(2),

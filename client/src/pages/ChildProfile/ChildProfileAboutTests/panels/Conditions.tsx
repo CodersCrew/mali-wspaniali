@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 14,
         fontWeight: 500,
         lineHeight: '18px',
-        color: '#1D1D1D',
+        color: panelTextColor,
         textTransform: 'uppercase',
     },
     testText: {
