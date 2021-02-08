@@ -23,7 +23,6 @@ export function CategoryTabs<T extends CategoryItem | ChildProfileCategoryItem>(
                 value: category.key,
             }))}
             indicator={theme.palette!.secondary as string}
-            variant="fullWidth"
         />
     );
 }

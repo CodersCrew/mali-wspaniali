@@ -23,6 +23,9 @@ export const GET_ALL_ASSESSMENTS = gql`
             title
             startDate
             endDate
+            status
+            firstMeasurementStatus
+            lastMeasurementStatus
             kindergartens {
                 kindergarten {
                     _id
@@ -34,6 +37,10 @@ export const GET_ALL_ASSESSMENTS = gql`
                     mail
                 }
             }
+            firstMeasurementStartDate
+            firstMeasurementEndDate
+            lastMeasurementStartDate
+            lastMeasurementEndDate
         }
     }
 `;
@@ -47,6 +54,13 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
             title
             startDate
             endDate
+            firstMeasurementStartDate
+            firstMeasurementEndDate
+            lastMeasurementStartDate
+            lastMeasurementEndDate
+            status
+            firstMeasurementStatus
+            lastMeasurementStatus
             kindergartens {
                 kindergarten {
                     _id
@@ -66,6 +80,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             pendelumRun {
                                 a
@@ -74,6 +93,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             jump {
                                 a
@@ -82,6 +106,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             throw {
                                 a
@@ -90,6 +119,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                         }
                     }

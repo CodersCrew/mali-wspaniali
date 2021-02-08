@@ -153,16 +153,16 @@ export class UsersResolver {
     return { status: true };
   }
 
-  @Mutation(() => ReturnedStatusDTO)
+  @Mutation(() => AgreementDTO)
   @UseGuards(GqlAuthGuard)
   async signAgreement(
     @CurrentUser() user: LoggedUser,
     @Args('agreementId') agreementId: string,
-  ): Promise<{ status: boolean }> {
+  ): Promise<AgreementProps> {
     const created: AgreementProps = await this.commandBus.execute(
       new ChangeUserAgreementCommand(user.userId, agreementId),
     );
 
-    return { status: !!created };
+    return created;
   }
 }

@@ -18,13 +18,15 @@ import {
     AddCircle as AddIcon,
 } from '@material-ui/icons';
 import { InstructorWithKindergartens } from '../types';
+import { Assessment } from '../../../graphql/types';
 
 interface Props {
     instructor: InstructorWithKindergartens;
     onAssignInstructorClick: (instructor: InstructorWithKindergartens) => void;
+    assessment: Assessment | null;
 }
 
-export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Props) => {
+export const InstructorsTableRow = ({ instructor, onAssignInstructorClick, assessment }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -50,23 +52,25 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick }: Pro
                 <TableCell>{mail}</TableCell>
                 <TableCell data-testid="instructor-mail">{mail}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
-                    <Fade in={showAddButton} mountOnEnter unmountOnExit timeout={500}>
-                        <div className={classes.iconButtonContainer}>
-                            <Tooltip
-                                title={t('admin-instructors-page.table.tooltip') as string}
-                                aria-label={t('admin-instructors-page.table.tooltip')}
-                                placement="top"
-                                arrow
-                            >
-                                <IconButton
-                                    onClick={() => onAssignInstructorClick(instructor)}
-                                    aria-label="assign instructor"
+                    {assessment && (
+                        <Fade in={showAddButton} mountOnEnter unmountOnExit timeout={500}>
+                            <div className={classes.iconButtonContainer}>
+                                <Tooltip
+                                    title={t('admin-instructors-page.table.tooltip') as string}
+                                    aria-label={t('admin-instructors-page.table.tooltip')}
+                                    placement="top"
+                                    arrow
                                 >
-                                    <AddIcon />
-                                </IconButton>
-                            </Tooltip>
-                        </div>
-                    </Fade>
+                                    <IconButton
+                                        onClick={() => onAssignInstructorClick(instructor)}
+                                        aria-label="assign instructor"
+                                    >
+                                        <AddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
+                        </Fade>
+                    )}
                     {instructor.kindergartens?.length}
                 </TableCell>
             </TableRow>

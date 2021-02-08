@@ -15,7 +15,7 @@ import { PageContainer } from '../../components/PageContainer';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { HomePageInfo } from './HomePageTopSection/HomePageInfo';
 
-export const ParentHomePage = () => {
+export default function ParentHomePage() {
     const user = useMe();
     const { addChild } = useAddChild();
     const { articles } = useLastArticles(6);
@@ -70,7 +70,7 @@ export const ParentHomePage = () => {
             </Grid>
         </PageContainer>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

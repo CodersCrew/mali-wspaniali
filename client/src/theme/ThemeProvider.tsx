@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { CssBaseline } from '@material-ui/core';
 import { enUS, Localization, plPL } from '@material-ui/core/locale';
-import { ThemeProvider as MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider as MuiThemeProvider, createMuiTheme, CssBaseline } from '@material-ui/core';
 import { ThemeObject } from './types';
 import { theme } from './theme';
 

@@ -6,9 +6,9 @@ import { ButtonPrimary } from '../Button/ButtonPrimary';
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    upperButtonOnClick: (event: any) => void;
+    upperButtonOnClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     upperButtonText: string;
-    lowerButtonOnClick: (event: any) => void;
+    lowerButtonOnClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     lowerButtonText: string;
 }
 

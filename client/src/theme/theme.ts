@@ -128,6 +128,6 @@ export const theme: ThemeObject = {
         },
     },
     zIndex: {
-        appBar: 1500,
+        appBar: 1100,
     },
 };

@@ -13,7 +13,7 @@ import { ChildDetails } from './Details/ChildDetails';
 import { useMe } from '../../utils/useMe';
 import { PageContainer } from '../../components/PageContainer';
 
-export const ChildResultsPage = () => {
+export default function ChildResultsPage() {
     const { t } = useTranslation();
     const { childId, category } = useParams<{
         childId: string;
@@ -73,7 +73,7 @@ export const ChildResultsPage = () => {
             </PageContainer>
         </>
     );
-};
+}
 
 function EmptyProfile() {
     const { t } = useTranslation();

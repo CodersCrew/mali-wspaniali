@@ -4,9 +4,8 @@ import clsx from 'clsx';
 
 export type CustomButtonProps = ButtonProps & {
     innerText?: string;
-    icon?: JSX.Element;
+    icon?: React.ReactNode;
     variant?: string;
-    isColor?: boolean;
 };
 
 export const ButtonBase: FC<CustomButtonProps> = ({ innerText, icon, className, children, ...props }) => {

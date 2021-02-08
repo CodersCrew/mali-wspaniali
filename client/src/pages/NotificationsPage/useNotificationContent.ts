@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { useTranslation } from 'react-i18next';
 
 export function useNotificationContent(): { getNotification: (name: string, values: string[]) => string } {

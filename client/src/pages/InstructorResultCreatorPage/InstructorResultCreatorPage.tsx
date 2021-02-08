@@ -1,14 +1,24 @@
 import React, { useEffect } from 'react';
-import { createStyles, Grid, makeStyles, Divider, Paper } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { ChildPicker } from './ChildPicker/ChildPicker';
-import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
 import { activePage } from '../../apollo_client';
-import { ChildHeader } from './MeasurementEditor/ChildHeader';
-import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 import { PageContainer } from '../../components/PageContainer';
-import { ResultCreatorErrorReturnProps, ResultCreatorReturnProps, useResultCreator } from './useResultCreator';
+import {
+    ResultCreatorErrorReturnProps,
+    ResultCreatorReturnProps,
+    useResultCreator,
+    AssessmentValues,
+} from './useResultCreator';
+import { ResultCreator } from './ResultCreator';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { MobileResultCreator } from './MobileResultCreator';
+import {
+    useUpdateAssessmentResult,
+    UpdatedAssessmentInput,
+} from '../../operations/mutations/Results/updateAssessmentResult';
+import {
+    CreatedAssessmentInput,
+    useCreateAssessmentResult,
+} from '../../operations/mutations/Results/createAssessmentResult';
 
 interface PageParams {
     assessmentId: string;
@@ -17,12 +27,13 @@ interface PageParams {
     measurement: string;
 }
 
-export function InstructorResultCreatorPage() {
+export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
+    const { createAssessmentResult } = useCreateAssessmentResult();
+    const { updateAssessmentResult } = useUpdateAssessmentResult();
 
     const history = useHistory();
-    const classes = useStyles();
-    const { t } = useTranslation();
+    const device = useIsDevice();
 
     useEffect(() => {
         activePage(['instructor-menu.add-results']);
@@ -39,7 +50,23 @@ export function InstructorResultCreatorPage() {
         return null;
     }
 
-    function onChildClicked(type: string, value: string) {
+    return (
+        <>
+            <PageContainer>
+                {device.isSmallMobile ? (
+                    <MobileResultCreator
+                        resultCreator={resultCreator}
+                        measurement={measurement}
+                        onClick={handleClick}
+                    />
+                ) : (
+                    <ResultCreator resultCreator={resultCreator} measurement={measurement} onClick={handleClick} />
+                )}
+            </PageContainer>
+        </>
+    );
+
+    function handleClick(type: string, value: string | AssessmentValues) {
         if (isResultCreatorErrorReturnProps(resultCreator)) {
             return;
         }
@@ -66,86 +93,78 @@ export function InstructorResultCreatorPage() {
                 );
             }
         }
+
+        if (type === 'back-to-table') {
+            redirectToResultTable();
+        }
+
+        if (type === 'save-and-next') {
+            createOrUpdateResult(
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                resultCreator,
+            );
+
+            redirectToNextChild();
+        }
+
+        if (type === 'save-and-back-to-table') {
+            createOrUpdateResult(
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                resultCreator,
+            );
+
+            redirectToResultTable();
+        }
     }
 
-    return (
-        <PageContainer>
-            <Paper>
-                <Grid container>
-                    <Grid item xs={4}>
-                        <ChildPicker
-                            selectedKindergarten={resultCreator.selectedKindergarten._id || ''}
-                            kindergartens={
-                                resultCreator.selectedAssessment.kindergartens.map((k) => k.kindergarten) || []
-                            }
-                            selected={resultCreator.selectedChild._id}
-                            measurement={measurement}
-                            childList={resultCreator.selectedKindergarten.children || []}
-                            onClick={onChildClicked}
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Grid container direction="column">
-                            <Grid item>
-                                <ChildHeader
-                                    description={t(`add-result-page.title-${measurement}-measurement`)}
-                                    selectedChild={resultCreator.selectedChild}
-                                    points={Object.values(resultCreator.points).reduce((acc, v) => acc + v, 0)}
-                                    maxPoints={Object.values(resultCreator.selectedChild!.currentParams!).reduce(
-                                        (acc, v) => {
-                                            if (!v || !v.lowerLimitPoints || !v.upperLimitPoints) return acc;
+    function mapValuesToResult(results: AssessmentValues): Partial<CreatedAssessmentInput> {
+        const result: Partial<CreatedAssessmentInput> = {};
 
-                                            if (v.lowerLimitPoints > v.upperLimitPoints) {
-                                                return acc + v.lowerLimitPoints;
-                                            }
+        const measurementName = (resultCreator as ResultCreatorReturnProps).edited;
 
-                                            return acc + v.upperLimitPoints;
-                                        },
-                                        0,
-                                    )}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Divider />
-                            </Grid>
-                            <Grid item className={classes.editor}>
-                                <MeasurementEditor
-                                    child={resultCreator.selectedChild}
-                                    values={resultCreator.values}
-                                    points={resultCreator.points}
-                                    edited={resultCreator.edited}
-                                    onChange={resultCreator.onChange}
-                                    onEditClick={resultCreator.edit}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Divider />
-                            </Grid>
-                            <Grid item>
-                                <Grid container justify="flex-end">
-                                    <Grid item>
-                                        <ButtonSecondary variant="text">
-                                            {t(`add-result-page.back-to-table`)}
-                                        </ButtonSecondary>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Paper>
-        </PageContainer>
-    );
+        (result as any)[
+            `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Result`
+        ] = results[measurementName as keyof AssessmentValues];
+
+        (result as any)[
+            `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Date`
+        ] = new Date().toISOString();
+
+        return result;
+    }
+
+    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>, results: ResultCreatorReturnProps) {
+        const childResult = results.kindergartenResults.find((r) => r.childId === update.childId);
+
+        if (childResult) {
+            updateAssessmentResult({ _id: childResult._id, ...update });
+        } else {
+            createAssessmentResult(update);
+        }
+    }
+
+    function redirectToResultTable() {
+        history.push('/instructor');
+    }
+
+    function redirectToNextChild() {
+        if (!resultCreator.selectedKindergarten || !resultCreator.selectedChild || !resultCreator.selectedAssessment) {
+            return;
+        }
+
+        const currentChildIndex =
+            resultCreator.selectedKindergarten.children?.findIndex((c) => c._id === resultCreator.selectedChild!._id) ||
+            0;
+
+        const foundNextChild = resultCreator.selectedKindergarten.children![currentChildIndex + 1];
+
+        if (foundNextChild) {
+            history.push(
+                `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
+            );
+        }
+    }
 }
-
-const useStyles = makeStyles(() =>
-    createStyles({
-        editor: {
-            maxHeight: '63vh',
-            overflowY: 'auto',
-        },
-    }),
-);
 
 function isResultCreatorErrorReturnProps(
     value: ResultCreatorReturnProps | ResultCreatorErrorReturnProps,

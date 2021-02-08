@@ -6,17 +6,20 @@
         "go-to-parent-children-page": "Moje dzieci"
     },
     "login-page": {
-        "login": "Zaloguj się",
+        "login": "Zaloguj",
         "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany",
         "login-header": "Logowanie",
-        "e-mail-helper-text": "Wpisz adres e-mail podany fundacji Mali Wspaniali",
-        "forgot-password": "Zapomniałeś hasła?",
+        "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail podanego fundacji lub użytego do rejestracji.",
+        "forgot-password": "Nie pamiętasz hasła?",
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
-        "login-wrong-password": "Podane hasło jest nieprawidłowe"
+        "login-wrong-password": "Podane hasło jest nieprawidłowe",
+        "no-account": "Pierwszy raz na platformie Mali Wspaniali?"
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
-        "subheading": "Dołącz do społeczności świadomych rodziców"
+        "subheading": "Dołącz do społeczności świadomych rodziców",
+        "made-by": "Stworzone przez:",
+        "partners": "Partnerzy strategiczni:"
     },
     "registration-page": {
         "already-have-account": "Masz już konto?",
@@ -334,7 +337,9 @@
             "page": "Dane dziecka",
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
             "button": "Zapisz"
-        }
+        },
+        "your-child-result-1": "WYNIK",
+        "your-child-result-2": "TWOJEGO DZIECKA"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -418,6 +423,30 @@
             "file-error": "Nieprawidłowy format pliku"
         }
     },
+    "parent-settings": {
+        "header": "Ustawienia kont rodziców",
+        "header-title-1": "Adres email rodzica",
+        "header-title-2": "Dzieci",
+        "button-icon-edit-tooltip": "Edytuj",
+        "button-icon-delete-tooltip": "Usuń",
+        "button-icon-change-tooltip": "Zmień przedszkole",
+        "modal-delete-account": {
+            "header": "Usuń konto rodzica",
+            "first-button": "Anuluj",
+            "second-button": "Usuń",
+            "first-description": "Are you sure you want to delete the parent",
+            "second-description": "Spowoduje to anonimizację wyników dziecka: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
+        },
+        "modal-edit-account": {
+            "header": "Edytuj dane",
+            "button": "Zatwierdź",
+            "subtitle": "Aby edytować dane rodzica i dziecka uzupełnij poniższe pola",
+            "success-message": "Edycja profilu dziecka przebiegła pomyślnie",
+            "label": " E-mail rodzica"
+        },
+        "success-message": "Usunięto (Zaanonimozowano) rodzica"
+    },
+
     "single-article": {
         "blog": "blog",
         "length": "długość",
@@ -462,7 +491,11 @@
         "results-list": "Lista wyników",
         "notifications": "Powiadomienia",
         "test-management": "Testy",
-        "settings": "Ustawienia",
+        "settings": {
+            "title": "Ustawienia",
+            "parents-settings": "Usawienie kont rodziców",
+            "change-password": "Zmiana hasła"
+        },
         "logout": "Wyloguj"
     },
     "parent-menu": {
@@ -547,6 +580,8 @@
             "status": "Status",
             "active": "Aktywny",
             "done": "Zakończony",
+            "planned": "Zaplanowany",
+            "not-planned": "Niezaplanowany",
             "details": "Zobacz szczegóły",
             "delete": "Skasuj",
             "edit": "Edytuj dane"
@@ -556,12 +591,19 @@
         "basic-information-form": {
             "title": "Podstawowe informacje",
             "description": "Uzupełnij podstawowe informacje dotyczące testu przedszkolaka",
+            "measurement-amount": "Ilość przeprowadzonych prób",
             "test-name": "Nazwa testu",
             "status": "Status",
-            "first-assessment": "Próba początkowa",
-            "last-assessment": "Próba końcowa",
+            "first-measurement": "Próba początkowa",
+            "last-measurement": "Próba końcowa",
+            "start-date": "Data rozpoczęcia",
+            "end-date": "Data zakończenia",
             "active": "Aktywny",
-            "done": "Zakończony"
+            "done": "Zakończony",
+            "planned": "Zaplanowany",
+            "not-planned": "Niezaplanowany",
+            "see-results": "Przejdź do tabeli wyników",
+            "search": "Szukaj"
         },
         "test-trials": {
             "title": "Próby testu"
@@ -698,6 +740,15 @@
         },
         "snackbars": {
             "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+        },
+        "modal": {
+            "cancel": "Anuluj",
+            "assign": "Przydziel",
+            "assign-to-kindergarten": "Przydziel do przedszkola",
+            "select-test": "Wybierz test",
+            "select-instructor": "Wybierz instruktora",
+            "assigned-kindergartens": "Przydzielone przedszkola",
+            "add-unassigned-kindergarten": "Dodaj nieprzydzielone przedszkole"
         }
     },
     "add-results-page": {
@@ -706,8 +757,9 @@
         "search-by-child-firstname": "Szukaj po imieniu dziecka",
         "firstname": "Imie",
         "lastname": "Nazwisko",
-        "birth-year": "Rok urodzenia",
+        "full-name": "Imie i nazwisko",
         "birth-quarter": "Kwartał urodzenia",
+        "age": "Wiek dziecka",
         "first-assessment": "Próba początkowa",
         "last-assessment": "Próba końcowa",
         "first-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze początkowym",
@@ -731,11 +783,15 @@
             "description": "Fundacja nie przydzieliła ci jeszcze przedszkola, w którym móglbyś dodać wyniki testu. Usiądź wygodnie i wykorzystaj tę chwilę by zapoznać się z artykułami przygotgotowanymi przez ekspertów od zdrowego żywienia i sprawności fizycznej",
             "go-to-articles": "Przejdź do artykułów"
         },
-        "child-list": "Child list",
-        "edit": "Edytuj"
+        "child-list": "Lista dzieci",
+        "edit": "Edytuj",
+        "added-first-note-for": "Dodano notatkę próby początkowej dla {{name}}",
+        "added-last-note-for": "Dodano notatkę próby końcowej dla {{name}}",
+        "years_1": "lata",
+        "years_2": "lat"
     },
     "add-result-page": {
-        "kindergarten": "Kindergarten",
+        "kindergarten": "Przedszkole",
         "select-measurement": "Wybierz pomiar",
         "first": "Początkowy",
         "last": "Końcowy",
@@ -744,11 +800,15 @@
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
-        "back-to-table": "Wróć do tabeli",
+        "back-to-table": "Wróć",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",
         "dexterity": "ZRĘCZNOŚĆ",
         "power": "MOC",
-        "velocity": "SZYBKOŚĆ"
+        "velocity": "SZYBKOŚĆ",
+        "save-and-next": "Zapisz i następny",
+        "save-and-back-to-table": "Zapisz i wróć do tabeli",
+        "select-child": "Wybierz dziecko",
+        "note": "Notatka"
     }
 }

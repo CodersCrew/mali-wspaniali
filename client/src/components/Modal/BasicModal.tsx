@@ -1,16 +1,18 @@
 import React, { FC } from 'react';
-import { Dialog, DialogActions, DialogContent } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ButtonPrimary } from '../Button';
+
+import { ButtonPrimary, ButtonSecondary, ButtonDefault } from '../Button';
 
 interface Props {
     isOpen: boolean;
     actionName: string;
     onAction: () => void;
-    onClose?: (e: any) => void;
+    onClose?: (e: unknown) => void;
     closeButtonText?: string;
     isCancelButtonVisible?: boolean;
-    isColor?: boolean;
+    isActionButtonSecondary?: boolean;
+    dialogProps?: Partial<DialogProps>;
 }
 
 export const BasicModal: FC<Props> = ({
@@ -21,23 +23,36 @@ export const BasicModal: FC<Props> = ({
     children,
     closeButtonText,
     isCancelButtonVisible,
-    isColor,
+    isActionButtonSecondary,
+    dialogProps,
 }) => {
     const { t } = useTranslation();
 
+    const ActionButton = isActionButtonSecondary ? ButtonSecondary : ButtonPrimary;
+    const classes = useStyles();
+
     return (
-        <Dialog maxWidth="md" open={isOpen} onClose={onClose}>
-            <DialogContent>{children}</DialogContent>
+        <Dialog maxWidth="md" open={isOpen} classes={{ paper: classes.dialogPaper }} onClose={onClose} {...dialogProps}>
+            <DialogContent className={classes.contentScrollbar}>{children}</DialogContent>
             <DialogActions>
                 {isCancelButtonVisible && (
-                    <ButtonPrimary variant="text" onClick={onClose} isColor={isColor}>
+                    <ButtonDefault variant="text" onClick={onClose} color="inherit">
                         {closeButtonText || t('add-child-modal.cancel')}
-                    </ButtonPrimary>
+                    </ButtonDefault>
                 )}
-                <ButtonPrimary variant="text" onClick={onAction}>
+                <ActionButton variant="text" onClick={onAction}>
                     {actionName}
-                </ButtonPrimary>
+                </ActionButton>
             </DialogActions>
         </Dialog>
     );
 };
+
+const useStyles = makeStyles(() => ({
+    dialogPaper: {
+        maxHeight: '80vh',
+    },
+    contentScrollbar: {
+        overflowY: 'unset',
+    },
+}));

@@ -41,6 +41,35 @@ type PaginatedArticlesDTO {
   hasNext: Boolean!
 }
 
+type PartialChildResult {
+  _id: ID
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+}
+
 type NotificationDTO {
   _id: ID!
   date: DateTime!
@@ -116,6 +145,11 @@ type ParamsDTO {
   lowerLimitPoints: Float!
   upperLimit: Float!
   upperLimitPoints: Float!
+  badStageLimit: Float!
+  weakStageLimit: Float!
+  middleStageLimit: Float!
+  goodStageLimit: Float!
+  veryGoodStageLimit: Float!
 }
 
 type ChildCurrentParamsDTO {
@@ -175,6 +209,13 @@ type AssessmentDTO {
   title: String!
   startDate: String!
   endDate: String!
+  firstMeasurementStartDate: String!
+  firstMeasurementEndDate: String!
+  lastMeasurementStartDate: String!
+  lastMeasurementEndDate: String!
+  status: String!
+  firstMeasurementStatus: String!
+  lastMeasurementStatus: String!
   kindergartens: [KindergartenWithInstructorDTO!]!
 }
 
@@ -186,6 +227,7 @@ type Query {
   user(id: String!): UserDTO!
   users(role: String): [UserDTO!]!
   allChildren: [ChildDTO!]!
+  kindergartenResults(kindergartenId: String!, assessmentId: String!): [PartialChildResult!]!
   keyCodes(series: String!): [CreateKeyCodeDTO!]!
   keyCodeSeries: [KeyCodeSeriesDTO!]!
   agreements: [AgreementDTO!]!
@@ -203,10 +245,12 @@ type Mutation {
   login(user: LoginInput!): ReturnedTokenDTO!
   resetPassword(mail: String!): ReturnedStatusDTO!
   changePassword(password: String!, jwt: String!): ReturnedStatusDTO!
-  signAgreement(agreementId: String!): ReturnedStatusDTO!
+  signAgreement(agreementId: String!): AgreementDTO!
   addChild(child: ChildInput!): ChildDTO!
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
   addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
+  createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!
+  updateAssessmentResult(result: PartialUpdateChildResultInput!): PartialChildResult!
   createKeyCode(target: String!): CreateKeyCodeDTO!
   createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createAgreement(agreement: String!): ReturnedStatusDTO!
@@ -287,6 +331,63 @@ input ResultInput {
   testPeriod: String!
 }
 
+input PartialChildResultInput {
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+}
+
+input PartialUpdateChildResultInput {
+  _id: ID
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+}
+
 input KindergartenInput {
   number: Int!
   name: String!
@@ -319,6 +420,10 @@ input AssessmentInput {
   title: String!
   startDate: String!
   endDate: String!
+  firstMeasurementStartDate: String!
+  firstMeasurementEndDate: String!
+  lastMeasurementStartDate: String!
+  lastMeasurementEndDate: String!
   kindergartenIds: [String!]!
 }
 
@@ -326,7 +431,14 @@ input UpdatedAssessmentInput {
   title: String
   startDate: String
   endDate: String
+  firstMeasurementStartDate: String
+  firstMeasurementEndDate: String
+  lastMeasurementStartDate: String
+  lastMeasurementEndDate: String
   kindergartens: [JSONObject!]
   isOutdated: Boolean
   isDeleted: Boolean
+  status: String
+  firstMeasurementStatus: String
+  lastMeasurementStatus: String
 }

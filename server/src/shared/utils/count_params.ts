@@ -4,6 +4,22 @@ interface UserDetails {
   sex: string;
 }
 
+interface AssessmentParam {
+  a: number;
+  b: number;
+  lowerLimit: number;
+  lowerLimitPoints: number;
+  upperLimit: number;
+  upperLimitPoints: number;
+  sex: string;
+  age: number;
+  badStageLimit: number;
+  weakStageLimit: number;
+  middleStageLimit: number;
+  goodStageLimit: number;
+  veryGoodStageLimit: number;
+}
+
 export function countParams(details: UserDetails) {
   const currentDate = new Date().getFullYear();
   const age = currentDate - details.birthYear;
@@ -16,23 +32,35 @@ export function countParams(details: UserDetails) {
   };
 }
 
-function getRunParams(age: number, details: UserDetails) {
+function getRunParams(
+  age: number,
+  details: UserDetails,
+): AssessmentParam | undefined {
   return pointsRun.find(p => p.age === age && p.sex === details.sex);
 }
 
-function getRunPendelumParams(age: number, details: UserDetails) {
+function getRunPendelumParams(
+  age: number,
+  details: UserDetails,
+): AssessmentParam | undefined {
   return pointsPendulumRun.find(p => p.age === age && p.sex === details.sex);
 }
 
-function getThrowParams(age: number, details: UserDetails) {
+function getThrowParams(
+  age: number,
+  details: UserDetails,
+): AssessmentParam | undefined {
   return pointsThrow.find(p => p.age === age && p.sex === details.sex);
 }
 
-function getJumpParams(age: number, details: UserDetails) {
+function getJumpParams(
+  age: number,
+  details: UserDetails,
+): AssessmentParam | undefined {
   return pointsJump.find(p => p.age === age && p.sex === details.sex);
 }
 
-const pointsRun = [
+const pointsRun: AssessmentParam[] = [
   {
     sex: 'female',
     age: 3,
@@ -42,6 +70,11 @@ const pointsRun = [
     lowerLimitPoints: 74,
     upperLimit: 9.1,
     upperLimitPoints: 24,
+    badStageLimit: 9.1,
+    weakStageLimit: 8.1,
+    middleStageLimit: 7.4,
+    goodStageLimit: 6.7,
+    veryGoodStageLimit: 3.7,
   },
   {
     sex: 'female',
@@ -52,6 +85,11 @@ const pointsRun = [
     lowerLimitPoints: 68,
     upperLimit: 8.6,
     upperLimitPoints: 12,
+    badStageLimit: 9.1,
+    weakStageLimit: 7,
+    middleStageLimit: 6.4,
+    goodStageLimit: 5.9,
+    veryGoodStageLimit: 3.7,
   },
   {
     sex: 'female',
@@ -62,6 +100,11 @@ const pointsRun = [
     lowerLimitPoints: 75,
     upperLimit: 8,
     upperLimitPoints: 9,
+    badStageLimit: 9.1,
+    weakStageLimit: 6.3,
+    middleStageLimit: 5.7,
+    goodStageLimit: 5.2,
+    veryGoodStageLimit: 3.7,
   },
   {
     sex: 'female',
@@ -72,6 +115,11 @@ const pointsRun = [
     lowerLimitPoints: 75,
     upperLimit: 6.7,
     upperLimitPoints: 20,
+    badStageLimit: 9.1,
+    weakStageLimit: 5.7,
+    middleStageLimit: 5.2,
+    goodStageLimit: 4.7,
+    veryGoodStageLimit: 3.7,
   },
   {
     sex: 'female',
@@ -82,6 +130,11 @@ const pointsRun = [
     lowerLimitPoints: 77,
     upperLimit: 6.2,
     upperLimitPoints: 19,
+    badStageLimit: 9.1,
+    weakStageLimit: 5.4,
+    middleStageLimit: 5,
+    goodStageLimit: 4.5,
+    veryGoodStageLimit: 3.7,
   },
   {
     sex: 'male',
@@ -92,6 +145,11 @@ const pointsRun = [
     lowerLimitPoints: 73,
     upperLimit: 8.3,
     upperLimitPoints: 30,
+    badStageLimit: 8.4,
+    weakStageLimit: 7.6,
+    middleStageLimit: 6.9,
+    goodStageLimit: 6.2,
+    veryGoodStageLimit: 3.6,
   },
   {
     sex: 'male',
@@ -102,6 +160,11 @@ const pointsRun = [
     lowerLimitPoints: 77,
     upperLimit: 7.6,
     upperLimitPoints: 21,
+    badStageLimit: 8.4,
+    weakStageLimit: 6.6,
+    middleStageLimit: 6.1,
+    goodStageLimit: 5.5,
+    veryGoodStageLimit: 3.6,
   },
   {
     sex: 'male',
@@ -112,6 +175,11 @@ const pointsRun = [
     lowerLimitPoints: 79,
     upperLimit: 7.2,
     upperLimitPoints: 20,
+    badStageLimit: 8.4,
+    weakStageLimit: 6.2,
+    middleStageLimit: 5.6,
+    goodStageLimit: 5.1,
+    veryGoodStageLimit: 3.6,
   },
   {
     sex: 'male',
@@ -122,6 +190,11 @@ const pointsRun = [
     lowerLimitPoints: 78,
     upperLimit: 6.7,
     upperLimitPoints: 17,
+    badStageLimit: 8.4,
+    weakStageLimit: 5.7,
+    middleStageLimit: 5.2,
+    goodStageLimit: 4.7,
+    veryGoodStageLimit: 3.6,
   },
   {
     sex: 'male',
@@ -132,10 +205,15 @@ const pointsRun = [
     lowerLimitPoints: 78,
     upperLimit: 6.2,
     upperLimitPoints: 18,
+    badStageLimit: 8.4,
+    weakStageLimit: 5.2,
+    middleStageLimit: 4.7,
+    goodStageLimit: 4.3,
+    veryGoodStageLimit: 3.6,
   },
 ];
 
-const pointsPendulumRun = [
+const pointsPendulumRun: AssessmentParam[] = [
   {
     sex: 'female',
     age: 3,
@@ -145,6 +223,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 75,
     upperLimit: 16.5,
     upperLimitPoints: 30,
+    badStageLimit: 17.1,
+    weakStageLimit: 15.6,
+    middleStageLimit: 14.3,
+    goodStageLimit: 13.1,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'female',
@@ -155,6 +238,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 74,
     upperLimit: 16.1,
     upperLimitPoints: 16,
+    badStageLimit: 17.1,
+    weakStageLimit: 13.2,
+    middleStageLimit: 12,
+    goodStageLimit: 10.7,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'female',
@@ -165,6 +253,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 74,
     upperLimit: 14.5,
     upperLimitPoints: 16,
+    badStageLimit: 17.1,
+    weakStageLimit: 11.9,
+    middleStageLimit: 10.9,
+    goodStageLimit: 9.8,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'female',
@@ -175,6 +268,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 73,
     upperLimit: 12.7,
     upperLimitPoints: 18,
+    badStageLimit: 17.1,
+    weakStageLimit: 10.8,
+    middleStageLimit: 9.8,
+    goodStageLimit: 8.9,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'female',
@@ -185,6 +283,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 73,
     upperLimit: 12.1,
     upperLimitPoints: 19,
+    badStageLimit: 17.1,
+    weakStageLimit: 10.4,
+    middleStageLimit: 9.5,
+    goodStageLimit: 8.6,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'male',
@@ -195,6 +298,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 79,
     upperLimit: 16.8,
     upperLimitPoints: 22,
+    badStageLimit: 17.1,
+    weakStageLimit: 14.8,
+    middleStageLimit: 13.7,
+    goodStageLimit: 12.6,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'male',
@@ -205,6 +313,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 79,
     upperLimit: 14.8,
     upperLimitPoints: 21,
+    badStageLimit: 17.1,
+    weakStageLimit: 12.7,
+    middleStageLimit: 11.5,
+    goodStageLimit: 10.4,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'male',
@@ -215,6 +328,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 79,
     upperLimit: 14.2,
     upperLimitPoints: 21,
+    badStageLimit: 17.1,
+    weakStageLimit: 12,
+    middleStageLimit: 10.8,
+    goodStageLimit: 9.6,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'male',
@@ -225,6 +343,11 @@ const pointsPendulumRun = [
     lowerLimitPoints: 75,
     upperLimit: 12.8,
     upperLimitPoints: 20,
+    badStageLimit: 17.1,
+    weakStageLimit: 11,
+    middleStageLimit: 10,
+    goodStageLimit: 9,
+    veryGoodStageLimit: 7.2,
   },
   {
     sex: 'male',
@@ -235,10 +358,15 @@ const pointsPendulumRun = [
     lowerLimitPoints: 75,
     upperLimit: 12.2,
     upperLimitPoints: 12,
+    badStageLimit: 17.1,
+    weakStageLimit: 10,
+    middleStageLimit: 9.2,
+    goodStageLimit: 8.4,
+    veryGoodStageLimit: 7.2,
   },
 ];
 
-const pointsThrow = [
+const pointsThrow: AssessmentParam[] = [
   {
     sex: 'female',
     age: 3,
@@ -248,6 +376,11 @@ const pointsThrow = [
     lowerLimitPoints: 25,
     upperLimit: 180,
     upperLimitPoints: 82,
+    badStageLimit: 70,
+    weakStageLimit: 100,
+    middleStageLimit: 120,
+    goodStageLimit: 130,
+    veryGoodStageLimit: 500,
   },
   {
     sex: 'female',
@@ -258,6 +391,11 @@ const pointsThrow = [
     lowerLimitPoints: 27,
     upperLimit: 300,
     upperLimitPoints: 93,
+    badStageLimit: 70,
+    weakStageLimit: 120,
+    middleStageLimit: 160,
+    goodStageLimit: 190,
+    veryGoodStageLimit: 500,
   },
   {
     sex: 'female',
@@ -268,6 +406,11 @@ const pointsThrow = [
     lowerLimitPoints: 19,
     upperLimit: 310,
     upperLimitPoints: 84,
+    badStageLimit: 70,
+    weakStageLimit: 160,
+    middleStageLimit: 200,
+    goodStageLimit: 230,
+    veryGoodStageLimit: 500,
   },
   {
     sex: 'female',
@@ -278,6 +421,11 @@ const pointsThrow = [
     lowerLimitPoints: 28,
     upperLimit: 380,
     upperLimitPoints: 81,
+    badStageLimit: 70,
+    weakStageLimit: 210,
+    middleStageLimit: 250,
+    goodStageLimit: 290,
+    veryGoodStageLimit: 500,
   },
   {
     sex: 'female',
@@ -288,6 +436,11 @@ const pointsThrow = [
     lowerLimitPoints: 21,
     upperLimit: 470,
     upperLimitPoints: 81,
+    badStageLimit: 70,
+    weakStageLimit: 240,
+    middleStageLimit: 290,
+    goodStageLimit: 350,
+    veryGoodStageLimit: 500,
   },
   {
     sex: 'male',
@@ -298,6 +451,11 @@ const pointsThrow = [
     lowerLimitPoints: 29,
     upperLimit: 220,
     upperLimitPoints: 79,
+    badStageLimit: 70,
+    weakStageLimit: 110,
+    middleStageLimit: 140,
+    goodStageLimit: 160,
+    veryGoodStageLimit: 540,
   },
   {
     sex: 'male',
@@ -308,6 +466,11 @@ const pointsThrow = [
     lowerLimitPoints: 27,
     upperLimit: 310,
     upperLimitPoints: 88,
+    badStageLimit: 70,
+    weakStageLimit: 140,
+    middleStageLimit: 180,
+    goodStageLimit: 210,
+    veryGoodStageLimit: 540,
   },
   {
     sex: 'male',
@@ -318,6 +481,11 @@ const pointsThrow = [
     lowerLimitPoints: 27,
     upperLimit: 370,
     upperLimitPoints: 86,
+    badStageLimit: 70,
+    weakStageLimit: 180,
+    middleStageLimit: 220,
+    goodStageLimit: 260,
+    veryGoodStageLimit: 540,
   },
   {
     sex: 'male',
@@ -328,6 +496,11 @@ const pointsThrow = [
     lowerLimitPoints: 28,
     upperLimit: 370,
     upperLimitPoints: 68,
+    badStageLimit: 70,
+    weakStageLimit: 220,
+    middleStageLimit: 270,
+    goodStageLimit: 330,
+    veryGoodStageLimit: 540,
   },
   {
     sex: 'male',
@@ -338,10 +511,15 @@ const pointsThrow = [
     lowerLimitPoints: 26,
     upperLimit: 540,
     upperLimitPoints: 81,
+    badStageLimit: 70,
+    weakStageLimit: 280,
+    middleStageLimit: 340,
+    goodStageLimit: 400,
+    veryGoodStageLimit: 540,
   },
 ];
 
-const pointsJump = [
+const pointsJump: AssessmentParam[] = [
   {
     sex: 'female',
     age: 3,
@@ -351,6 +529,11 @@ const pointsJump = [
     lowerLimitPoints: 28,
     upperLimit: 91,
     upperLimitPoints: 88,
+    badStageLimit: 21,
+    weakStageLimit: 35,
+    middleStageLimit: 46,
+    goodStageLimit: 58,
+    veryGoodStageLimit: 165,
   },
   {
     sex: 'female',
@@ -361,6 +544,11 @@ const pointsJump = [
     lowerLimitPoints: 24,
     upperLimit: 122,
     upperLimitPoints: 84,
+    badStageLimit: 21,
+    weakStageLimit: 53,
+    middleStageLimit: 68,
+    goodStageLimit: 83,
+    veryGoodStageLimit: 165,
   },
   {
     sex: 'female',
@@ -371,6 +559,11 @@ const pointsJump = [
     lowerLimitPoints: 22,
     upperLimit: 136,
     upperLimitPoints: 81,
+    badStageLimit: 21,
+    weakStageLimit: 70,
+    middleStageLimit: 86,
+    goodStageLimit: 102,
+    veryGoodStageLimit: 165,
   },
   {
     sex: 'female',
@@ -381,6 +574,11 @@ const pointsJump = [
     lowerLimitPoints: 19,
     upperLimit: 151,
     upperLimitPoints: 85,
+    badStageLimit: 21,
+    weakStageLimit: 89,
+    middleStageLimit: 103,
+    goodStageLimit: 118,
+    veryGoodStageLimit: 165,
   },
   {
     sex: 'female',
@@ -391,6 +589,11 @@ const pointsJump = [
     lowerLimitPoints: 18,
     upperLimit: 161,
     upperLimitPoints: 80,
+    badStageLimit: 21,
+    weakStageLimit: 96,
+    middleStageLimit: 113,
+    goodStageLimit: 131,
+    veryGoodStageLimit: 165,
   },
   {
     sex: 'male',
@@ -401,6 +604,11 @@ const pointsJump = [
     lowerLimitPoints: 27,
     upperLimit: 101,
     upperLimitPoints: 86,
+    badStageLimit: 21,
+    weakStageLimit: 39,
+    middleStageLimit: 52,
+    goodStageLimit: 66,
+    veryGoodStageLimit: 170,
   },
   {
     sex: 'male',
@@ -411,6 +619,11 @@ const pointsJump = [
     lowerLimitPoints: 23,
     upperLimit: 131,
     upperLimitPoints: 87,
+    badStageLimit: 21,
+    weakStageLimit: 60,
+    middleStageLimit: 75,
+    goodStageLimit: 90,
+    veryGoodStageLimit: 170,
   },
   {
     sex: 'male',
@@ -421,6 +634,11 @@ const pointsJump = [
     lowerLimitPoints: 22,
     upperLimit: 136,
     upperLimitPoints: 81,
+    badStageLimit: 21,
+    weakStageLimit: 73,
+    middleStageLimit: 89,
+    goodStageLimit: 105,
+    veryGoodStageLimit: 170,
   },
   {
     sex: 'male',
@@ -431,6 +649,11 @@ const pointsJump = [
     lowerLimitPoints: 23,
     upperLimit: 161,
     upperLimitPoints: 85,
+    badStageLimit: 21,
+    weakStageLimit: 90,
+    middleStageLimit: 106,
+    goodStageLimit: 122,
+    veryGoodStageLimit: 170,
   },
   {
     sex: 'male',
@@ -441,5 +664,10 @@ const pointsJump = [
     lowerLimitPoints: 22,
     upperLimit: 161,
     upperLimitPoints: 75,
+    badStageLimit: 21,
+    weakStageLimit: 104,
+    middleStageLimit: 121,
+    goodStageLimit: 138,
+    veryGoodStageLimit: 170,
   },
 ];

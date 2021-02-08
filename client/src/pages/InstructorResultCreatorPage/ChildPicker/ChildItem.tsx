@@ -1,15 +1,18 @@
 import React from 'react';
-import { createStyles, fade, ListItem, makeStyles, Theme, Typography } from '@material-ui/core';
+import { Box, createStyles, fade, Grid, ListItem, makeStyles, Theme, Typography } from '@material-ui/core';
 import { BarChart, KeyboardArrowRight } from '@material-ui/icons';
+import clsx from 'clsx';
 import { Child } from '../../../graphql/types';
+import { CountIcon } from '../../../components/CountIcon';
 
 interface Props {
     child: Child;
+    progress: number;
     selected: boolean;
     onClick: (value: string) => void;
 }
 
-export function ChildItem({ child, selected, onClick }: Props) {
+export function ChildItem({ child, progress, selected, onClick }: Props) {
     const classes = useStyles();
 
     return (
@@ -23,13 +26,32 @@ export function ChildItem({ child, selected, onClick }: Props) {
             onClick={() => onClick(child._id)}
             selected={selected}
         >
-            <BarChart className={classes.chartIcon} />{' '}
-            <span className={classes.childButton}>
-                <Typography variant="body2">
-                    {child.firstname} {child.lastname}
-                </Typography>
-            </span>
-            <KeyboardArrowRight className={classes.arrowIcon} />
+            <Grid container alignItems="center">
+                <Grid item xs={2} sm={3} md={2}>
+                    <Box display="flex" alignItems="center">
+                        <Grid container alignItems="center">
+                            <Grid item xs={6} sm={6}>
+                                <BarChart
+                                    className={clsx({ [classes.chartIcon]: true, [classes.active]: progress !== 0 })}
+                                />
+                            </Grid>
+                            <Grid item xs={6} sm={6}>
+                                <CountIcon value={progress} max={4} />
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Grid>
+                <Grid item xs={9} sm={8} md={9}>
+                    <Box display="flex" alignItems="center">
+                        <Typography variant="body2">
+                            {child.firstname} {child.lastname}
+                        </Typography>
+                    </Box>
+                </Grid>
+                <Grid item xs={1}>
+                    <KeyboardArrowRight className={classes.arrowIcon} />
+                </Grid>
+            </Grid>
         </ListItem>
     );
 }
@@ -37,14 +59,13 @@ export function ChildItem({ child, selected, onClick }: Props) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         chartIcon: {
-            marginRight: theme.spacing(3),
             color: theme.palette.text.secondary,
+        },
+        active: {
+            color: theme.palette.success.main,
         },
         arrowIcon: {
             color: theme.palette.text.secondary,
-        },
-        childButton: {
-            flex: 1,
         },
         listItemRoot: {
             '&:hover': {

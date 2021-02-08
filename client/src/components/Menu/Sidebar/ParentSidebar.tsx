@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, List, Grid } from '@material-ui/core';
+import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Me } from '../../../graphql/types';
@@ -92,7 +92,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             display: 'flex',

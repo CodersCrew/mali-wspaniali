@@ -46,7 +46,6 @@ export interface UserInput {
 }
 
 export type Role = 'parent' | 'admin' | 'instructor';
-
 export interface ChildInput {
     firstname: string;
     lastname: string;
@@ -64,6 +63,15 @@ export interface UpdatedChildInput {
     birthQuarter: number;
     sex: string;
     kindergartenId: string;
+}
+
+export interface AddChildResult {
+    firstname: string;
+    lastname: string;
+    sex: string;
+    'birth-date': string;
+    'birth-quarter': string;
+    kindergarten: string;
 }
 
 export type User = Omit<Me, 'notifications'>;
@@ -87,6 +95,11 @@ export interface AssessmentParam {
     lowerLimitPoints: number;
     upperLimit: number;
     upperLimitPoints: number;
+    badStageLimit: number;
+    weakStageLimit: number;
+    middleStageLimit: number;
+    goodStageLimit: number;
+    veryGoodStageLimit: number;
 }
 
 export interface Child {
@@ -190,10 +203,42 @@ export interface Assessment {
     title: string;
     startDate: string;
     endDate: string;
+    status: string;
+    firstMeasurementStatus: string;
+    lastMeasurementStatus: string;
+    firstMeasurementStartDate: string;
+    firstMeasurementEndDate: string;
+    lastMeasurementStartDate: string;
+    lastMeasurementEndDate: string;
     kindergartens: {
         instructor: User | null;
         kindergarten: Kindergarten;
     }[];
+}
+
+export interface AssessmentResult {
+    _id: string;
+    childId: string;
+    kindergartenId: string;
+    assessmentId: string;
+    firstMeasurementNote: string;
+    lastMeasurementNote: string;
+    firstMeasurementRunResult: number;
+    lastMeasurementRunResult: number;
+    firstMeasurementPendelumRunResult: number;
+    lastMeasurementPendelumRunResult: number;
+    firstMeasurementThrowResult: number;
+    lastMeasurementThrowResult: number;
+    firstMeasurementJumpResult: number;
+    lastMeasurementJumpResult: number;
+    firstMeasurementRunDate: Date;
+    lastMeasurementRunDate: Date;
+    firstMeasurementPendelumRunDate: Date;
+    lastMeasurementPendelumRunDate: Date;
+    firstMeasurementThrowDate: Date;
+    lastMeasurementThrowDate: Date;
+    firstMeasurementJumpDate: Date;
+    lastMeasurementJumpDate: Date;
 }
 
 export interface ReturnedStatusDTO {

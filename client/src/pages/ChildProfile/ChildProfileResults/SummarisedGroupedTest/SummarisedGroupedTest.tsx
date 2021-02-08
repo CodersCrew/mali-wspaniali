@@ -1,10 +1,10 @@
 import React from 'react';
 import { makeStyles, Typography, Grid, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import { lightTextColor } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { useBreakpoints } from '../../../../queries/useBreakpoints';
+import dayjs from '../../../../localizedMoment';
 
 interface Props {
     onClose: () => void;
@@ -41,7 +41,7 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, da
                 </Grid>
                 <Grid item>
                     <Typography className={classes.updatedAt}>
-                        {t('child-profile.last-update-date')}: <span>{moment(date).format('L')}</span>
+                        {t('child-profile.last-update-date')}: {dayjs(date).format('L')}</span>
                     </Typography>
                 </Grid>{' '}
             </Grid>

@@ -13,7 +13,7 @@ import {
 import { AssessmentDTO } from './dto/assessment_dto';
 import { GetAllAssessmentsQuery } from './domain/queries/impl/get_all_assessments_query';
 import { Assessment, AssessmentDto } from './domain/models/assessment_model';
-import { EditAssessmentCommand } from './domain/commands/impl/edit_assessment_command';
+import { UpdateAssessmentCommand } from './domain/commands/impl/update_assessment_command';
 import { AssessmentMapper } from './domain/mappers/assessment_mapper';
 import {
   GetAllAssessmentsAssignedToInstructorQuery,
@@ -45,7 +45,7 @@ export class AssessmentResolver {
     @Args('assessment') assessment: UpdatedAssessmentInput,
   ): Promise<AssessmentDto> {
     const updated: Assessment = await this.commandBus.execute(
-      new EditAssessmentCommand(id, assessment),
+      new UpdateAssessmentCommand(id, assessment),
     );
 
     return AssessmentMapper.toPersist(updated);

@@ -16,7 +16,7 @@ export function ChildAvatar({ sex }: { sex: Sex }) {
     );
 }
 
-export function Icon({ icon }: { icon: JSX.Element }) {
+export function Icon({ icon }: { icon: React.ReactNode }) {
     const classes = useStyles();
 
     return <div className={classes.avatarWrapper}>{icon}</div>;

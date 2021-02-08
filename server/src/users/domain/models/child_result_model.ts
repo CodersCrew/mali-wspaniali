@@ -20,3 +20,9 @@ export interface ChildResultProps {
   };
   readonly rootResultId?: string | mongoose.Schema.Types.ObjectId;
 }
+
+export interface ChildAssessmentResultProps {
+  readonly _id: string;
+  readonly date: Date;
+  readonly childId: string;
+}

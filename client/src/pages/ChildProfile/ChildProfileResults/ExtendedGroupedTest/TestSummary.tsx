@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, createStyles, DialogContent, DialogTitle, Grid, IconButton, Theme, Typography } from '@material-ui/core';
 // import { AgeDescriptionModal } from './modals/AgeDescriptionModal';
-import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { CircleChart } from '../../../../components/CircleChart';
@@ -13,6 +12,7 @@ import { ButtonSecondary } from '../../../../components/Button';
 import { TestResult } from '../../../../graphql/types';
 import { BasicModal } from '../../../../components/Modal/BasicModal';
 import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
+import dayjs from '../../../../localizedMoment';
 
 const T_GROUP_PREFIX = 'child-profile.age-group-description';
 export interface Props {
@@ -38,8 +38,8 @@ export const TestSummary = ({ result }: Props) => {
                     <Typography variant="h4" className={classes.testDescription}>
                         {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
                     </Typography>
-                    <Typography variant="caption">
-                        {t('child-profile.carries-out-on')} {moment(result.date).format('L')}
+                    <Typography variant="subtitle1">
+                        {t('child-profile.carries-out-on')} {dayjs(result.date).format('L')}
                     </Typography>
                 </div>
                 <div className={classes.cardMiddle}>

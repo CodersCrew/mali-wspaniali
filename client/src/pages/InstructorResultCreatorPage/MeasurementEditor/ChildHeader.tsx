@@ -1,8 +1,8 @@
 import React from 'react';
-import { createStyles, Grid, makeStyles, SimplePaletteColorOptions, Theme, Typography } from '@material-ui/core';
+import { Box, createStyles, Grid, makeStyles, SimplePaletteColorOptions, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../../graphql/types';
-import { theme as theme1 } from '../../../theme/theme';
+import { theme as customTheme } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
 
 interface Props {
@@ -17,8 +17,8 @@ export function ChildHeader({ description, selectedChild, points, maxPoints }: P
     const { t } = useTranslation();
 
     return (
-        <Grid container justify="space-between" className={classes.container}>
-            <Grid item>
+        <Grid container className={classes.container}>
+            <Grid item xs={8}>
                 <Grid container direction="column" justify="space-between" className={classes.childPersonalInformation}>
                     <Grid item>
                         <Typography variant="h4">
@@ -30,18 +30,30 @@ export function ChildHeader({ description, selectedChild, points, maxPoints }: P
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item>
-                <div className={classes.pieContainer}>
-                    <CircleChart
-                        color={(theme1.palette!.success as SimplePaletteColorOptions).main}
-                        maxValue={maxPoints}
-                        value={points}
-                        label={`${Math.ceil(points)} ${t('add-result-page.points')}`}
-                    />
-                </div>
+            <Grid item xs={4}>
+                <Box display="flex" justifyContent="flex-end">
+                    <div className={classes.pieContainer}>
+                        <CircleChart
+                            color={getColorFromCumulatedPoints()}
+                            maxValue={maxPoints}
+                            value={points}
+                            label={`${Math.ceil(points)} ${t('add-result-page.points')}`}
+                        />
+                    </div>
+                </Box>
             </Grid>
         </Grid>
     );
+
+    function getColorFromCumulatedPoints() {
+        if (points <= 159) return (customTheme.palette?.error as SimplePaletteColorOptions).main || 'red';
+
+        if (points <= 199) return (customTheme.palette?.warning as SimplePaletteColorOptions).main || 'yellow';
+
+        if (points <= 239) return (customTheme.palette?.success as SimplePaletteColorOptions).light || 'green';
+
+        return (customTheme.palette?.success as SimplePaletteColorOptions).main || 'green';
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

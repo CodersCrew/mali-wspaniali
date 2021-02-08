@@ -2,7 +2,7 @@ import React from 'react';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MockedResponse } from '@apollo/client/testing';
-import { AdminInstructorsPage } from '../AdminInstructorsPage';
+import AdminInstructorsPage from '../AdminInstructorsPage';
 import { awaitForRenderResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { INSTRUCTORS } from '../../../operations/queries/Users/getUsersByRole';
@@ -47,6 +47,13 @@ const populatedMockedResponse: MockedResponse[] = [
                         title: 'test-assessment1',
                         startDate: '2000-01-01',
                         endDate: '2000-01-31',
+                        firstMeasurementStartDate: '2000-01-01',
+                        firstMeasurementEndDate: '2000-01-31',
+                        lastMeasurementStartDate: '2000-01-01',
+                        lastMeasurementEndDate: '2000-01-31',
+                        status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
                         kindergartens: [
                             {
                                 kindergarten: {
@@ -68,6 +75,13 @@ const populatedMockedResponse: MockedResponse[] = [
                         title: 'test-assessment2',
                         startDate: '2000-01-01',
                         endDate: '2000-01-31',
+                        firstMeasurementStartDate: '2000-01-01',
+                        firstMeasurementEndDate: '2000-01-31',
+                        lastMeasurementStartDate: '2000-01-01',
+                        lastMeasurementEndDate: '2000-01-31',
+                        status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
                         kindergartens: [
                             {
                                 kindergarten: {
