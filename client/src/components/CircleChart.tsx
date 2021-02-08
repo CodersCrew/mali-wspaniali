@@ -31,7 +31,7 @@ export function CircleChart({ color, value, maxValue, label, enableInfoIcon, lab
                     return labelSuffix ? `${label} ${labelSuffix}` : label;
                 }}
                 labelPosition={0}
-                labelStyle={{ fontSize: '20px' }}
+                labelStyle={{ fontSize: '20px', fontWeight: 'bold' }}
                 background="rgba(0, 0, 0, 0.04)"
                 startAngle={270}
             />

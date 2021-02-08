@@ -4,7 +4,6 @@ import clsx from 'clsx';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
 import { ResultComparison } from './ExtendedGroupedTest/ResultComparison';
-import { gray } from '../../../colors';
 import { SingleTest } from './ExtendedGroupedTest/SingleTest';
 import { TestResult } from '../../../graphql/types';
 import { countSumOfPoints } from '../../../utils/countSumOfPoints';
@@ -70,7 +69,6 @@ const useStyles = makeStyles({
     },
     expansionPanelSummaryExpanded: {
         cursor: 'default',
-        borderBottom: `1px solid ${gray}`,
     },
     expansionPanelDetails: {
         flexDirection: 'column',

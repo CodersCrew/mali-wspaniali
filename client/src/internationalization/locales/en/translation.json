@@ -118,22 +118,31 @@
         "marketing-description": "Optional agreement that allows us to send you emails with current informations about the Mali Wspaniali program.",
         "image-label": "Permission to use the image",
         "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
-        "kindergartener-test": "Kindergartener test",
+        "kindergartener-test": "Kindergartener fitness test",
         "last-update-date": "Last update",
         "details": "Details",
         "collapse-details": "Collapse details",
         "info-about-test": "Information about test",
         "carries-out-on": "carries out on",
-        "age-group": "On the day of test, the child was assigned to the age group",
-        "fitness-level": "Fitness level",
+        "age-group": "Child age",
+        "age-group-description": "",
+        "age-group-description-title": "",
+        "initial-fitness-level": "Summarised result from initial test",
+        "final-fitness-level": "Summarised result from final test",
         "advice": "Advice",
         "initial-test": "Initial test",
         "final-test": "Final test",
         "result-description": {
-            "bad": "TBD",
-            "medium": "You are doing well but it can always be better",
-            "good": "Good!",
-            "very-good": "Very good!"
+            "bad": "LOW FITNESS LEVEL",
+            "medium": "MEDIUM FITNESS LEVEL",
+            "good": "GOOD FITNESS LEVEL",
+            "very-good": "VERY GOOD FITNESS LEVEL"
+        },
+        "result-levels": {
+            "bad": "badi",
+            "medium": "medium",
+            "good": "good",
+            "very-good": "very good"
         },
         "tests": {
             "strength": "Strength",
@@ -152,7 +161,7 @@
         "received-points": "Received points",
         "pts": "pts",
         "final-test-title": "Results of particular tests with comparison of results from the initial test",
-        "initial-test-title": "Results of particular tests",
+        "initial-test-title": "Results of particular tests included into initial test",
         "difference": {
             "progress": "Get better",
             "regress": "Get worse",
@@ -446,7 +455,7 @@
     },
     "instructor-menu": {
         "add-results": "Add results",
-        "notifications": "Notifications", 
+        "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Logout"
     },
@@ -665,9 +674,9 @@
         }
     },
     "add-results-page": {
-        "test-name":"Test name",
+        "test-name": "Test name",
         "kindergarten-name": "Kindergarten",
-        "search-by-child-firstname": "Search by child's first name", 
+        "search-by-child-firstname": "Search by child's first name",
         "firstname": "First name",
         "lastname": "Last name",
         "birth-year": "Birth year",
@@ -696,7 +705,7 @@
             "go-to-articles": "Go to articles"
         },
         "child-list": "Child list",
-        "edit": "Edytuj"  
+        "edit": "Edytuj"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -704,7 +713,7 @@
         "first": "First",
         "last": "Last",
         "no-result": "No result",
-        "received-points":"Received points",
+        "received-points": "Received points",
         "points": "pts",
         "title-first-measurement": "INITIAL TEST EFFICIENCY",
         "title-last-measurement": "FINAL TRIAL EFFICIENCY",

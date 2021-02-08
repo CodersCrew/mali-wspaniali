@@ -168,22 +168,57 @@
         "marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
         "image-label": "Zgoda na rozpowszechnianie wizerunku.",
         "image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji.",
-        "kindergartener-test": "Test przedszkolaka",
+        "kindergartener-test": "Test sprawności przedszkolaka",
         "last-update-date": "Data ostatniej zmiany",
         "details": "Szczegóły",
         "collapse-details": "Zwiń szczegóły",
         "info-about-test": "Informacje o pomiarze",
         "carries-out-on": "przeprowadzony dnia",
-        "age-group": "W dniu pomiaru, dziecko przypisane zostało do grupy wiekowej",
-        "fitness-level": "Poziom sprawności",
+        "age-group": "Wiek dziecka",
+
+        "age-group-description": {
+            "title": "W jaki sposób przypisujemy dziecko do danej grupy wiekowej",
+            "subtitle": "Przypisując dziecko do grupy wiekowej obliczamy w dniu testów jego wiek metrykalny (z dokładnością do jednego miesiąca).",
+            "text-1": "Jeśli dziecko ma np. 4 lata i 10 miesięcy to kwalifikujemy je jako 5-latka. Do grupy ",
+            "age-1": "dzieci w wieku 5 lat",
+            "text-2": " zalicza się wszystkie dzieci, które w dniu badania miały ukończone ",
+            "age-2": "4 lata i 6 miesięcy,",
+            "text-3": " ale nie przekroczyły ",
+            "age-3": "5 lat i 5 miesięcy.",
+            "text-4": " Podobna zasada obowiązuje w kwalifikacji dzieci do innych grup wiekowych."
+        },
+        "age-group-description-title": "",
+        "initial-fitness-level": "Łączny wynik z pomiaru początkowego",
+        "final-fitness-level": "Łączny wynik z pomiaru końcowego",
         "advice": "Porada",
+        "advice-modal": {
+            "title": {
+                "bad": "Porada - Niski poziom sprawności",
+                "medium": "Porada - Średni poziom sprawnośc",
+                "good": "Porada - Dobry poziom sprawnośc",
+                "very-good": "Porada - Bardzo dobry poziom sprawnośc"
+            },
+            "subtitle": {
+                "bad": "Coś poszło nie tak!",
+                "medium": "Mamy nad czym pracować!",
+                "good": "Masz wiele powodów do zadowolenia!",
+                "very-good": "Bądź dumny ze swojego dziecka!"
+            }
+        },
         "initial-test": "Pomiar początkowy",
         "final-test": "Pomiar końcowy",
+        "result-level": "Poziom cechy",
         "result-description": {
-            "bad": "TBD",
-            "medium": "Dobrze ci idzie, ale zawsze może być lepiej",
-            "good": "Dobrze!",
-            "very-good": "Bardzo dobrze!"
+            "bad": "NISKI POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "medium": "ŚREDNI POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "good": "DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "very-good": "BARDZO DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ"
+        },
+        "result-levels": {
+            "bad": "niski",
+            "medium": "średni",
+            "good": "dobry",
+            "very-good": "bardzo dobry"
         },
         "tests": {
             "strength": "Siła",
@@ -202,7 +237,7 @@
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
         "final-test-title": "Wyniki poszczególnych prób wraz z porównaniem wyników z pomiaru początkowego",
-        "initial-test-title": "Wyniki poszczególnych prób",
+        "initial-test-title": "Wyniki poszczególnych prób wchodzących w skład pomiaru początkowego",
         "difference": {
             "progress": "Poprawił się",
             "regress": "Pogorszył się",
@@ -236,16 +271,16 @@
                 "text1": "Składa się z dwóch prób: próba początkowa (pomiar na przełomie października i listopada) oraz próba końcowa (pomiar na przełomie kwietnia i maja). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
                 "text2": "Do opisanych powyżej prób wystarczy ok 7 metrów wolnej przestrzeni, piłka wagowa 1 kilogramowa, stoper lub miara (w zależności od testu), a do próby szybkościowej potrzebny jest tor do biegu 25 metrów w linii prostej oraz stoper.",
                 "test1-name": "Siła",
-                "test1-description": "Rzut  piłką lekarską zza głowy",
+                "test-strength-description": "Rzut  piłką lekarską znad głowy",
                 "test1-scale": "Skala: 0 cm - 80 cm",
                 "test2-name": "Moc",
-                "test2-description": "Skok w dal obunóż z miejsca",
+                "test-power-description": "Skok w dal obunóż z miejsca",
                 "test2-scale": "Skala: 0 cm - 80 cm",
                 "test3-name": "Szybkość",
-                "test3-description": "Bieg na odległość 20 metrów",
+                "test-speed-description": "Bieg na odległość 20 metrów",
                 "test3-scale": "Skala: 0 s - 80 s",
                 "test4-name": "Zwinność",
-                "test4-description": "Bieg wahadłowy 4x5 m z przenoszeniem klocka",
+                "test-agility-description": "Bieg wahadłowy 4x5 m",
                 "test4-scale": "Skala: 0 s - 80 s"
             },
             "results": {
@@ -666,9 +701,9 @@
         }
     },
     "add-results-page": {
-        "test-name":"Nazwa testu",
+        "test-name": "Nazwa testu",
         "kindergarten-name": "Przedszkole",
-        "search-by-child-firstname": "Szukaj po imieniu dziecka", 
+        "search-by-child-firstname": "Szukaj po imieniu dziecka",
         "firstname": "Imie",
         "lastname": "Nazwisko",
         "birth-year": "Rok urodzenia",
@@ -697,7 +732,7 @@
             "go-to-articles": "Przejdź do artykułów"
         },
         "child-list": "Child list",
-        "edit": "Edytuj" 
+        "edit": "Edytuj"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
@@ -705,7 +740,7 @@
         "first": "Początkowy",
         "last": "Końcowy",
         "no-result": "Brak wyniku",
-        "received-points":"Otrzymane punkty",
+        "received-points": "Otrzymane punkty",
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",

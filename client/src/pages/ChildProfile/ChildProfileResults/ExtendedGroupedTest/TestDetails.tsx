@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Typography } from '@material-ui/core';
+import { createStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { resultKey, TESTS } from './constants';
 import { Measurement } from './Measurement';
@@ -19,7 +19,7 @@ export const TestDetails = ({ result }: Props) => {
 
     return (
         <div className={classes.wrapper}>
-            <Typography variant="body2">
+            <Typography variant="subtitle2">
                 {result.test.testPeriod === 'START'
                     ? t('child-profile.initial-test-title')
                     : t('child-profile.final-test-title')}
@@ -51,14 +51,16 @@ function getTestUnavailableReason(result: TestResult) {
     ));
 }
 
-const useStyles = makeStyles({
-    wrapper: {
-        width: '100%',
-        margin: '0 30px',
-    },
-    chartsWrapper: {
-        width: '100%',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-    },
-});
+export const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        wrapper: {
+            width: '100%',
+            // margin: theme.spacing(3),
+        },
+        chartsWrapper: {
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+        },
+    }),
+);
