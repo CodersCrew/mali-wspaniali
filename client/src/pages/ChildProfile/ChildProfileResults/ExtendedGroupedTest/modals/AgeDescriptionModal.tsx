@@ -18,7 +18,7 @@
 //     onClose,
 
 //     isCancelButtonVisible,
-// }: AgeDescriptionModalProps<{}>) => {
+// }: AgeDescriptionModalProps & ActionDialog<{}>) => {
 //     const { t } = useTranslation();
 //     // const classes = useStyles();
 
@@ -54,67 +54,53 @@
 //     return openDialog<AgeDescriptionModalProps>(AgeDescriptionModal, props);
 // };
 
-// import React, { useState } from 'react';
-// import { makeStyles, Theme, Typography, Grid } from '@material-ui/core';
-// import { useTranslation } from 'react-i18next';
-// import { useFormik } from 'formik';
+import { DialogTitle, Typography } from '@material-ui/core';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { BasicModal } from '../../../../../components/Modal/BasicModal';
+import { ChildInput } from '../../../../../graphql/types';
+import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
 
-// import { ChildInput, Child, AddChildResult } from '../../graphql/types';
-// import { BasicModal } from '../Modal/BasicModal';
-// // import { ChildCard } from '../ChildCard/ChildCard';
-// // import BoyAvatar from '../../assets/boy.png';
-// // import GirlAvatar from '../../assets/girl.png';
-// // import { openDialog, ActionDialog } from '../../utils/openDialog';
-// // import { ChildForm } from '../ChildForm/ChildForm';
-// // import { initialValues, validationSchema, normalizeChild } from './utils';
-// // import { EditChildModalProps } from './ChildModalTypes';
+// import { EditChildModalProps } from './ChildModalTypes';
 
-// // type EditChildType = Omit<Child, 'results' | 'currentParams'>;
+const T_GROUP_PREFIX = 'child-profile.age-group-description';
 
-// // const AgeDescriptionModalModal = ({
-// //     onClose,
-// //     makeDecision,
-// //     kindergartens,
-// //     parent,
-// //     isCancelButtonVisible,
-// // }: AgeDescriptionModalProps & ActionDialog<{ child: ChildInput }>) => {
-// //     const [updateInitialChildValues, setInitialValues] = useState<AddChildResult>(initialValues);
-// //     const [selectedChild, setSelectedChild] = useState<{ childIndex: number; isSelected: boolean }>({
-// //         childIndex: 0,
-// //         isSelected: false,
-// //     });
+// type EditChildType = Omit<Child, 'results' | 'currentParams'>;
+type AgeDescriptionModalProps = {
+    preventClose: boolean;
+    isCancelButtonVisible: boolean;
+};
 
-// //     const formik = useFormik({
-// //         enableReinitialize: true,
-// //         initialValues: updateInitialChildValues,
-// //         validationSchema,
-// //         onSubmit: (values) => {
-// //             makeDecision({ accepted: true, child: normalizeChild(values) });
-// //         },
-// //     });
-// //     const { t } = useTranslation();
-// //     const classes = useStyles();
+const AgeDescriptionModal = ({
+    onClose,
+    makeDecision,
+}: // kindergartens,
+// parent,
+// isCancelButtonVisible,
+AgeDescriptionModalProps & ActionDialog<{ child: ChildInput }>) => {
+    const { t } = useTranslation();
+    // const classes = useStyles();
 
-//     return (
-//         // <BasicModal
-//         //     actionName={t('parent-settings.modal-edit-account.button')}
-//         //     isOpen={true}
-//         //     onAction={formik.handleSubmit}
-//         //     onClose={onClose}
-//         //     isCancelButtonVisible={isCancelButtonVisible}
-//         //     dialogProps={{ maxWidth: 'sm' }}
-//         // >
-//         //     <DialogTitle>{t('child-profile.age-group-description.title')}</DialogTitle>
-//         //     <Typography gutterBottom>{t('child-profile.age-group-description.subtitle')}</Typography>
-//         //     <Typography gutterBottom>
-//         //         {t(`${T_GROUP_PREFIX}.text-1`)} <strong>{t(`${T_GROUP_PREFIX}.age-1`)} </strong>{' '}
-//         //         {t(`${T_GROUP_PREFIX}.text-2`)} <strong>{t(`${T_GROUP_PREFIX}.age-2`)} </strong>{' '}
-//         //         {t(`${T_GROUP_PREFIX}.text-3`)} <strong>{t(`${T_GROUP_PREFIX}.age-3`)} </strong>{' '}
-//         //         {t(`${T_GROUP_PREFIX}.text-4`)}
-//         //     </Typography>
-//         // </BasicModal>
-//     );
-// };
+    return (
+        <BasicModal
+            actionName={t('parent-settings.modal-edit-account.button')}
+            isOpen={true}
+            onAction={() => console.log('')}
+            onClose={onClose}
+            isCancelButtonVisible={false}
+            dialogProps={{ maxWidth: 'sm' }}
+        >
+            <DialogTitle>{t('child-profile.age-group-description.title')}</DialogTitle>
+            <Typography gutterBottom>{t('child-profile.age-group-description.subtitle')}</Typography>
+            <Typography gutterBottom>
+                {t(`${T_GROUP_PREFIX}.text-1`)} <strong>{t(`${T_GROUP_PREFIX}.age-1`)} </strong>{' '}
+                {t(`${T_GROUP_PREFIX}.text-2`)} <strong>{t(`${T_GROUP_PREFIX}.age-2`)} </strong>{' '}
+                {t(`${T_GROUP_PREFIX}.text-3`)} <strong>{t(`${T_GROUP_PREFIX}.age-3`)} </strong>{' '}
+                {t(`${T_GROUP_PREFIX}.text-4`)}
+            </Typography>
+        </BasicModal>
+    );
+};
 
 // const useStyles = makeStyles((theme: Theme) => ({
 //     header: { marginBottom: theme.spacing(2) },
@@ -135,6 +121,6 @@
 //     },
 // }));
 
-// export const openAgeDescriptionModal = (props: AgeDescriptionModalProps) => {
-//     return openDialog<AgeDescriptionModalProps>(AgeDescriptionModal, props);
-// };
+export const openAgeDescriptionModal = (props: AgeDescriptionModalProps) => {
+    return openDialog<AgeDescriptionModalProps>(AgeDescriptionModal, props);
+};
