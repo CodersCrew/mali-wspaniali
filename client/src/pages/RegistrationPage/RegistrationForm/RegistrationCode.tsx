@@ -1,9 +1,12 @@
 import React from 'react';
-import { TextField, Typography } from '@material-ui/core/';
+import { createStyles, makeStyles, TextField, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { RegistrationCodeProps } from './types';
+
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { ButtonSecondary } from '../../../components/Button';
+import { Theme } from '../../../theme';
+
+import { RegistrationCodeProps } from './types';
 
 export const RegistrationCode = ({
     handleChange,
@@ -12,14 +15,18 @@ export const RegistrationCode = ({
     classForm,
     classButton,
     classNextBtn,
+    error,
 }: RegistrationCodeProps) => {
     const { t } = useTranslation();
+    const classes = useStyles();
 
     const handleClick = () => {
         openAlertDialog({
             type: 'info',
             title: t('registration-page.no-code'),
-            description: t('registration-page.no-code-desc'),
+            description: `${t('registration-page.no-code-desc')} <span class="${classes.strong}">${t(
+                'registration-page.no-code-desc-email',
+            )}</span>`,
         });
     };
 
@@ -36,9 +43,10 @@ export const RegistrationCode = ({
                 variant="outlined"
                 inputProps={{ 'data-testid': 'code' }}
                 className={classForm}
+                error={error}
+                helperText={error && t('registration-page.invalid-code')}
             />
             <div className={classButton}>
-                <ButtonSecondary variant="text" onClick={handleClick} innerText={t('registration-page.no-code')} />
                 <ButtonSecondary
                     variant="contained"
                     onClick={handleNext}
@@ -47,7 +55,16 @@ export const RegistrationCode = ({
                     data-testid="code-next"
                     innerText={t('next')}
                 />
+                <ButtonSecondary variant="text" onClick={handleClick} innerText={t('registration-page.no-code')} />
             </div>
         </>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        strong: {
+            fontWeight: theme.typography.fontWeightMedium,
+        },
+    }),
+);

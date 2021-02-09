@@ -17,7 +17,9 @@ export const useStyles = makeStyles((theme: Theme) =>
                 justifyContent: 'start',
             },
         },
-        form: {},
+        form: {
+            width: '100%',
+        },
         headerContainer: {
             display: 'flex',
             marginBottom: '25px',
@@ -56,6 +58,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         buttonWrapper: {
             width: '100%',
             display: 'flex',
+            flexDirection: 'row-reverse',
             alignItems: 'center',
             justifyContent: 'space-between',
             maxHeight: 33,
@@ -204,6 +207,10 @@ export const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'row',
             justifyContent: 'end',
             alignItems: 'center',
+        },
+        accordionSummary: {
+            backgroundColor: theme.palette.background.default,
+            border: 0,
         },
     }),
 );

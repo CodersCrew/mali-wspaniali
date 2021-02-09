@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
-import { Checkbox, Accordion, AccordionSummary, AccordionDetails, Typography, Box, Link } from '@material-ui/core/';
+import {
+    Checkbox,
+    AccordionDetails,
+    Typography,
+    Box,
+    Link,
+    Divider,
+    withStyles,
+    createStyles,
+} from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
+import MuiAccordion from '@material-ui/core/Accordion';
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 
 import { ButtonSecondary } from '../../../components/Button';
 import { Agreement } from '../../../graphql/types';
+import { Theme } from '../../../theme';
 
 import { AgreementModal } from './AgreementModal';
 import { useStyles } from './styles';
@@ -38,6 +50,50 @@ export interface Props {
     checkboxContent: string;
 }
 
+const Accordion = withStyles(() =>
+    createStyles({
+        root: {
+            boxShadow: 'none',
+            '&:before': {
+                top: 0,
+            },
+            '&$expanded': {
+                marginTop: 0,
+            },
+        },
+        expanded: {},
+    }),
+)(MuiAccordion);
+
+const AccordionSummary = withStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            backgroundColor: theme.palette.background.default,
+            padding: 0,
+            minHeight: 0,
+            justifyContent: 'flex-start',
+            '&$expanded': {
+                minHeight: 0,
+            },
+        },
+        content: {
+            margin: 0,
+            flexGrow: 0,
+            '&$expanded': {
+                margin: 0,
+            },
+        },
+        expandIcon: {
+            padding: 0,
+            color: theme.palette.primary.main,
+        },
+        expanded: {
+            margin: 0,
+            minHeight: 0,
+        },
+    }),
+)(MuiAccordionSummary);
+
 export const RegistrationAgreement = ({
     handleBack,
     handleNext,
@@ -47,10 +103,10 @@ export const RegistrationAgreement = ({
     agreementMoreBtn,
     agreementContainer,
     agreementHeader,
-    agreementCheckboxHeader,
+    // agreementCheckboxHeader,
     agreementCheckboxWrapper,
-    agreementText,
-    agreementLink,
+    // agreementText,
+    // agreementLink,
     agreementModal,
     agreementPanel,
     agreementCheckbox,
@@ -59,14 +115,17 @@ export const RegistrationAgreement = ({
     const { t } = useTranslation();
     const classes = useStyles();
 
-    const [isMoreContent, setIsMoreContent] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [boxChecked, setBoxChecked] = useState(new Array(agreements.length));
+    const [expanded, setExpanded] = useState('panel1');
 
-    const expansionText = isMoreContent ? t(`${T_PREFIX}.show-less`) : t(`${T_PREFIX}.show-more`);
-
-    const handleMoreContent = () => setIsMoreContent(!isMoreContent);
     const toggleModal = () => setIsOpen(!isOpen);
+    const handleMoreContent = (panel: string) => (
+        event: React.ChangeEvent<Record<string, unknown>>,
+        newExpanded: boolean,
+    ) => {
+        setExpanded(newExpanded ? panel : '');
+    };
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { id, checked } = target;
@@ -115,54 +174,69 @@ export const RegistrationAgreement = ({
                 </div>
                 <Box mb={3} />
                 {agreements.map((agreement, idx) => (
-                    <div
-                        key={agreement._id}
-                        className={clsx({ [agreementCheckboxWrapper]: true, lastAgreement: idx === 2 })}
-                    >
-                        <div className={checkboxContent}>
-                            <Checkbox
-                                color="default"
-                                id={`${idx}`}
-                                className={agreementCheckbox}
-                                inputProps={{ 'aria-label': 'checkbox with default color' }}
-                                /*
-                                checked={agreement.isRequired}
-                                disabled={agreement.isRequired}
-*/
-                                checked={boxChecked[idx]}
-                                onChange={handleChange}
-                            />
-                            {agreement.isRequired && (
-                                <div className={classes.agreementRequired}>
-                                    <Typography variant="body2" className={classes.agreementRequiredAsterix}>
-                                        *&nbsp;
-                                    </Typography>
-                                </div>
-                            )}
-                            <Typography variant="body2" className={classes.agreementText}>
-                                {(agreement as any).text}
-                            </Typography>
-                        </div>
-                        <Box mb={2} />
-                        {/* {idx !== 0 && ( */}
-                        {agreement.extraContent && (
+                    <>
+                        {idx === 1 && (
                             <>
-                                <Accordion className={agreementPanel} onClick={handleMoreContent}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                    >
-                                        <Typography className={agreementMoreBtn}>{expansionText}</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Typography>{agreement.extraContent}</Typography>
-                                    </AccordionDetails>
-                                </Accordion>
+                                <Divider />
                                 <Box mb={2} />
                             </>
                         )}
-                    </div>
+                        <div
+                            key={agreement._id}
+                            className={clsx({ [agreementCheckboxWrapper]: true, lastAgreement: idx === 2 })}
+                        >
+                            <div className={checkboxContent}>
+                                <Checkbox
+                                    color="default"
+                                    id={`${idx}`}
+                                    className={agreementCheckbox}
+                                    inputProps={{ 'aria-label': 'checkbox with default color' }}
+                                    /*
+                                checked={agreement.isRequired}
+                                disabled={agreement.isRequired}
+*/
+                                    checked={boxChecked[idx]}
+                                    onChange={handleChange}
+                                />
+                                {agreement.isRequired && (
+                                    <div className={classes.agreementRequired}>
+                                        <Typography variant="body2" className={classes.agreementRequiredAsterix}>
+                                            *&nbsp;
+                                        </Typography>
+                                    </div>
+                                )}
+                                <Typography variant="body2" className={classes.agreementText}>
+                                    {agreement.text}
+                                </Typography>
+                            </div>
+                            <Box mb={2} />
+                            {agreement.extraContent && (
+                                <>
+                                    <Accordion
+                                        className={agreementPanel}
+                                        expanded={expanded === `panel${idx}`}
+                                        onChange={handleMoreContent(`panel${idx}`)}
+                                    >
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls={`panel${idx}-content`}
+                                            id={`panel${idx}-header`}
+                                        >
+                                            <Typography className={agreementMoreBtn}>
+                                                {expanded === `panel${idx}`
+                                                    ? t(`${T_PREFIX}.show-less`)
+                                                    : t(`${T_PREFIX}.show-more`)}
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography>{agreement.extraContent}</Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    <Box mb={2} />
+                                </>
+                            )}
+                        </div>
+                    </>
                 ))}
                 {/*
                 <div className={checkboxContent}>
@@ -182,13 +256,13 @@ export const RegistrationAgreement = ({
 */}
             </div>
             <div className={classButton}>
-                <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />
                 <ButtonSecondary
                     onClick={handleNext}
                     variant="contained"
                     className={classNextBtn}
                     innerText={t('next')}
                 />
+                <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />
             </div>
             <AgreementModal
                 open={isOpen}

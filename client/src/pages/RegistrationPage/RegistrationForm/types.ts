@@ -21,6 +21,7 @@ export interface RegistrationCodeProps {
     classForm: string;
     classButton: string;
     classNextBtn: string;
+    error: boolean;
 }
 
 export interface RegistrationEmailProps {
@@ -32,6 +33,7 @@ export interface RegistrationEmailProps {
     classForm: string;
     classButton: string;
     classNextBtn: string;
+    error: boolean;
 }
 
 export type RegistrationPasswordProps = {
