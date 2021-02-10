@@ -719,7 +719,8 @@
             "lastName": "Nazwisko",
             "email": "Adres e-mail",
             "kindergarten-count": "Liczba przedszkoli",
-            "tooltip": "Przydziel do przedszkola"
+            "tooltip": "Przydziel do przedszkola",
+            "delete": "Usuń instruktora"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",
@@ -732,6 +733,9 @@
         "modal": {
             "cancel": "Anuluj",
             "assign": "Przydziel",
+            "delete": "Usuń",
+            "delete-instructor": "Usuń instruktora",
+            "delete-instructor-subtitle": "Czy na pewno chcesz usunąć instruktora",
             "assign-to-kindergarten": "Przydziel do przedszkola",
             "select-test": "Wybierz test",
             "select-instructor": "Wybierz instruktora",

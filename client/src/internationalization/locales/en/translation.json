@@ -718,7 +718,8 @@
             "lastName": "Last name",
             "email": "E-mail address",
             "kindergarten-count": "Kindergarten count",
-            "tooltip": "Assign to kindergarten"
+            "tooltip": "Assign to kindergarten",
+            "delete": "Delete instructor"
         },
         "table-toolbar": {
             "select-test": "Select test",
@@ -731,6 +732,9 @@
         "modal": {
             "cancel": "Cancel",
             "assign": "Assign",
+            "delete": "Delete",
+            "delete-instructor": "Delete instructor",
+            "delete-instructor-subtitle": "Are you sure you want to delete instructor",
             "assign-to-kindergarten": "Assign to kindergarten",
             "select-test": "Select test",
             "select-instructor": "Select instructor",

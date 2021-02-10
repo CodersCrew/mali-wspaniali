@@ -7,6 +7,7 @@ import { AssessmentsSelect } from './AssessmentsSelect';
 import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableContainer';
 import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
+import { DeleteInstructorModal } from './DeleteInstructorModal/DeleteInstructorModal';
 import { activePage } from '../../apollo_client';
 import { Loader } from '../../components/Loader';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
@@ -39,6 +40,9 @@ export default function AdminInstructorsPage() {
     const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
         initialInstructorModalStatus,
     );
+    const [deleteInstructorModalStatus, setDeleteInstructorModalStatus] = useState<InstructorModalStatus>(
+        initialInstructorModalStatus,
+    );
 
     useEffect(() => {
         if (assessments.length > 0) {
@@ -53,6 +57,8 @@ export default function AdminInstructorsPage() {
                 .filter((kindergarten) => kindergarten.instructor?._id === instructor._id)
                 .map((kind) => kind.kindergarten) || null,
     }));
+
+    console.log({ instructorsWithKindergartens });
 
     const onAssessmentSelectChange = (assessmentId: string) => {
         const foundAssessment = assessments.find((assessment) => assessment._id === assessmentId);
@@ -72,6 +78,13 @@ export default function AdminInstructorsPage() {
 
     const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
         setAssignInstructorModalStatus({
+            isOpen: true,
+            instructor,
+        });
+    };
+
+    const onDeleteInstructorClick = (instructor: InstructorWithKindergartens) => {
+        setDeleteInstructorModalStatus({
             isOpen: true,
             instructor,
         });
@@ -116,6 +129,7 @@ export default function AdminInstructorsPage() {
                         key={instructor._id}
                         instructor={instructor}
                         onAssignInstructorClick={onAssignInstructorClick}
+                        onDeleteInstructorClick={onDeleteInstructorClick}
                         assessment={selectedAssessment}
                     />
                 ))}
@@ -125,6 +139,13 @@ export default function AdminInstructorsPage() {
                     onClose={() => setAssignInstructorModalStatus(initialInstructorModalStatus)}
                     kindergartens={unassignedKindergartens || []}
                     instructor={assignInstructorModalStatus.instructor}
+                    assessment={selectedAssessment}
+                />
+            )}
+            {selectedAssessment && deleteInstructorModalStatus.isOpen && deleteInstructorModalStatus.instructor && (
+                <DeleteInstructorModal
+                    onClose={() => setDeleteInstructorModalStatus(initialInstructorModalStatus)}
+                    instructor={deleteInstructorModalStatus.instructor}
                     assessment={selectedAssessment}
                 />
             )}

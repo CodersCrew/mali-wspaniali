@@ -16,6 +16,7 @@ import {
     KeyboardArrowDown as KeyboardArrowDownIcon,
     KeyboardArrowUp as KeyboardArrowUpIcon,
     AddCircle as AddIcon,
+    Delete as DeleteIcon,
 } from '@material-ui/icons';
 import { InstructorWithKindergartens } from '../types';
 import { Assessment } from '../../../graphql/types';
@@ -23,10 +24,16 @@ import { Assessment } from '../../../graphql/types';
 interface Props {
     instructor: InstructorWithKindergartens;
     onAssignInstructorClick: (instructor: InstructorWithKindergartens) => void;
+    onDeleteInstructorClick: (instructor: InstructorWithKindergartens) => void;
     assessment: Assessment | null;
 }
 
-export const InstructorsTableRow = ({ instructor, onAssignInstructorClick, assessment }: Props) => {
+export const InstructorsTableRow = ({
+    instructor,
+    onAssignInstructorClick,
+    onDeleteInstructorClick,
+    assessment,
+}: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -66,6 +73,19 @@ export const InstructorsTableRow = ({ instructor, onAssignInstructorClick, asses
                                         aria-label="assign instructor"
                                     >
                                         <AddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip
+                                    title={t('admin-instructors-page.table.delete') as string}
+                                    aria-label={t('admin-instructors-page.table.delete')}
+                                    placement="top"
+                                    arrow
+                                >
+                                    <IconButton
+                                        onClick={() => onDeleteInstructorClick(instructor)}
+                                        aria-label="delete instructor"
+                                    >
+                                        <DeleteIcon />
                                     </IconButton>
                                 </Tooltip>
                             </div>
