@@ -58,8 +58,6 @@ export default function AdminInstructorsPage() {
                 .map((kind) => kind.kindergarten) || null,
     }));
 
-    console.log({ instructorsWithKindergartens });
-
     const onAssessmentSelectChange = (assessmentId: string) => {
         const foundAssessment = assessments.find((assessment) => assessment._id === assessmentId);
 
