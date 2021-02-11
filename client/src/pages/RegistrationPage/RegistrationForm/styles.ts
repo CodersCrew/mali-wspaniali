@@ -151,7 +151,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         agreementMoreBtn: {
             color: mainColor,
             justifyContent: 'flex-start',
-            fontSize: 16,
+            fontSize: '14px',
             paddingLeft: 0,
         },
         agreementCheckbox: {
@@ -194,6 +194,10 @@ export const useStyles = makeStyles((theme: Theme) =>
         agreementPanel: {
             margin: '0 0 10px 34px',
         },
+        agreementExtraContent: {
+            backgroundColor: theme.palette.background.default,
+        },
+
         loginHeader: {},
 
         header: {

@@ -103,10 +103,7 @@ export const RegistrationAgreement = ({
     agreementMoreBtn,
     agreementContainer,
     agreementHeader,
-    // agreementCheckboxHeader,
     agreementCheckboxWrapper,
-    // agreementText,
-    // agreementLink,
     agreementModal,
     agreementPanel,
     agreementCheckbox,
@@ -140,14 +137,6 @@ export const RegistrationAgreement = ({
             setBoxChecked(checks);
         }
     };
-
-    /*
-    useEffect(() => {
-        const checks = new Array(agreements.length);
-        agreements.map((agreement, key) => (checks[key] = agreement.checked));
-        setBoxChecked(checks);
-    }, []);
-*/
 
     return (
         <>
@@ -191,10 +180,6 @@ export const RegistrationAgreement = ({
                                     id={`${idx}`}
                                     className={agreementCheckbox}
                                     inputProps={{ 'aria-label': 'checkbox with default color' }}
-                                    /*
-                                checked={agreement.isRequired}
-                                disabled={agreement.isRequired}
-*/
                                     checked={boxChecked[idx]}
                                     onChange={handleChange}
                                 />
@@ -228,8 +213,8 @@ export const RegistrationAgreement = ({
                                                     : t(`${T_PREFIX}.show-more`)}
                                             </Typography>
                                         </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Typography>{agreement.extraContent}</Typography>
+                                        <AccordionDetails className={classes.agreementExtraContent}>
+                                            <Typography variant="body2">{agreement.extraContent}</Typography>
                                         </AccordionDetails>
                                     </Accordion>
                                     <Box mb={2} />
@@ -238,22 +223,6 @@ export const RegistrationAgreement = ({
                         </div>
                     </>
                 ))}
-                {/*
-                <div className={checkboxContent}>
-                    <Checkbox
-                        className={agreementCheckbox}
-                        color="default"
-                        inputProps={{ 'aria-label': 'checkbox with default color' }}
-                    />
-                    <div>
-                        <p>
-                            {t(`${T_PREFIX}.statement`)}{' '}
-                            <span className={agreementLink}>{t(`${T_PREFIX}.privacy-policy`)} </span>
-                        </p>
-                        <span>{t(`${T_PREFIX}.required-field`)} </span>
-                    </div>
-                </div>
-*/}
             </div>
             <div className={classButton}>
                 <ButtonSecondary
