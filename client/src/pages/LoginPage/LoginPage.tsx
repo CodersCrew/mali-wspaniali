@@ -166,7 +166,7 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('md')]: {
                 minHeight: 'auto',
                 width: '100%',
-                marginTop: theme.spacing(8),
+                marginTop: theme.spacing(2),
             },
         },
         formItem: {

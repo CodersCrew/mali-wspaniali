@@ -10,6 +10,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'start',
             alignItems: 'center',
             minHeight: '100vh',
+            minWidth: 360,
             height: '100vh',
             overflowY: 'auto',
             padding: theme.spacing(0, 2),
@@ -26,21 +27,32 @@ export const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             alignItems: 'center',
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 marginTop: '40px',
                 marginBottom: '5px',
             },
         },
         formItem: {
-            margin: '10px 0',
+            margin: theme.spacing(2, 0),
             width: '100%',
-
-            [theme.breakpoints.down('sm')]: {
-                margin: '10px 0',
-            },
         },
         stepper: {
             backgroundColor: theme.palette.background.default,
+            [theme.breakpoints.down('md')]: {
+                padding: 0,
+            },
+        },
+        stepperContent: {
+            [theme.breakpoints.down('md')]: {
+                padding: 0,
+                border: 0,
+                marginLeft: 0,
+            },
+        },
+        divider: {
+            width: '100%',
+            height: '1px',
+            margin: theme.spacing(0.5, 0, 1.5),
         },
         registrationHeader: {
             textAlign: 'center',
@@ -49,7 +61,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             textTransform: 'uppercase',
             color: textColor,
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 '&.confirmation': {
                     marginTop: 0,
                 },
@@ -68,7 +80,7 @@ export const useStyles = makeStyles((theme: Theme) =>
                 justifyContent: 'flex-end',
             },
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 margin: '10px 0 20px 0',
             },
         },
@@ -81,7 +93,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginTop: '30px',
         },
         nextButton: {
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 '& span': {
                     maxHeight: 17,
                 },
@@ -122,8 +134,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             paddingRight: 15,
             display: 'flex',
             flexDirection: 'column',
-            // maxHeight: 600,
-            // overflowY: 'scroll',
         },
         agreementHeader: {
             fontSize: 21,
@@ -149,29 +159,22 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(1),
         },
         agreementCheckboxHeader: {
-            // margin: '10px 0 12px 0',
             fontSize: 21,
             fontWeight: 500,
         },
         agreementCheckboxWrapper: {
-            // marginTop: 17,
             display: 'flex',
             flexDirection: 'column',
 
-            '&.lastAgreement': {
-                // margin: 0,
-                // borderBottom: '1px solid #C4C4C4',
-            },
+            '&.lastAgreement': {},
         },
         checkboxContent: {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'start',
             alignItems: 'start',
-            // marginTop: '20px',
         },
         agreementText: {
-            // margin: '0 0 7px 0',
             marginTop: theme.spacing(0.5),
         },
         agreementLink: {
@@ -194,11 +197,20 @@ export const useStyles = makeStyles((theme: Theme) =>
         loginHeader: {},
 
         header: {
+            textAlign: 'center',
             [theme.breakpoints.down('md')]: {
-                marginTop: theme.spacing(4),
+                marginTop: theme.spacing(5),
             },
         },
-        footer: {},
+        subHeader: {
+            textAlign: 'center',
+        },
+        footer: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            height: '100%',
+        },
         topHeader: {
             width: '100%',
             height: 56,

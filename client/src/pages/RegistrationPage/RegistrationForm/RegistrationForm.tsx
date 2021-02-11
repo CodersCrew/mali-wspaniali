@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { Stepper, Step, StepLabel, StepContent, Typography, Box } from '@material-ui/core/';
+import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector, Divider } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -10,6 +10,7 @@ import { openAlertDialog } from '../../../components/AlertDialog';
 import { passwordStrengthTest } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
 import { Agreement } from '../../../graphql/types';
+import { useIsDevice } from '../../../queries/useBreakpoints';
 
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationCode } from './RegistrationCode';
@@ -41,6 +42,7 @@ export const RegistrationForm = () => {
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
+    const { isDesktop } = useIsDevice();
 
     useEffect(() => {
         getAgreements()
@@ -251,19 +253,25 @@ export const RegistrationForm = () => {
             <Typography variant="h3" className={classes.header}>
                 {t('registration-page.register-header')}
             </Typography>
-            <Box mb={3} />
-            <Typography className={classes.header}>{t('login-wrapper.subheading')}</Typography> <Box mb={2.5} />
+            <Box mb={isDesktop ? 3 : 2} />
+            <Typography className={classes.subHeader}>{t('login-wrapper.subheading')}</Typography>
+            <Box mb={isDesktop ? 2.5 : 2} />
             <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
+                <Stepper
+                    activeStep={activeStep}
+                    orientation="vertical"
+                    className={classes.stepper}
+                    connector={isDesktop ? <StepConnector /> : <Divider className={classes.divider} />}
+                >
                     {steps.map((step, idx) => (
                         <Step key={step} style={{ border: 'none' }}>
                             <StepLabel>
                                 <Typography variant="body2">{step}</Typography>
                             </StepLabel>
-                            <StepContent>{getStepContent(idx)}</StepContent>
+                            <StepContent className={classes.stepperContent}>{getStepContent(idx)}</StepContent>
                         </Step>
                     ))}
-                </Stepper>{' '}
+                </Stepper>
             </form>
             <div className={classes.footer}>
                 <ButtonSecondary href="/login" innerText={t('registration-page.go-to-loginpage')} />
