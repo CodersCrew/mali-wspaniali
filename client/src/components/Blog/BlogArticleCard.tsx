@@ -13,7 +13,6 @@ interface Props {
 
 export const BlogArticleCard = ({ pictureUrl, title, description, link, category }: Props) => {
     const classes = useStyles();
-    // const { t } = useTranslation();
 
     return (
         <Card className={classes.card} elevation={0}>
@@ -56,10 +55,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginBottom: theme.spacing(2),
     },
     cardContent: {
-        padding: '0 16px',
+        padding: '0 16px 0 16px',
         height: '125px',
         wordBreak: 'break-word',
-        paddingBottom: 0,
     },
     articleBadgeContainer: {
         width: '100%',
