@@ -1,7 +1,5 @@
 import React from 'react';
 import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
-import { useTranslation } from 'react-i18next';
 import { ArticleCategory } from '../../graphql/types';
 import { ButtonSecondary } from '../Button/ButtonSecondary';
 
@@ -15,32 +13,28 @@ interface Props {
 
 export const BlogArticleCard = ({ pictureUrl, title, description, link, category }: Props) => {
     const classes = useStyles();
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     return (
         <Card className={classes.card} elevation={0}>
             <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
-            <ButtonSecondary
-                variant="contained"
-                disableElevation
-                innerText={category}
-                className={classes.articleBadge}
-            />
+            <div className={classes.articleBadgeContainer}>
+                <ButtonSecondary
+                    variant="contained"
+                    disableElevation
+                    innerText={category}
+                    className={classes.articleBadge}
+                />
+            </div>
 
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="subtitle1" className={classes.articleTitle}>
                     {title}
                 </Typography>
-                <Typography variant="body2">{description}</Typography>
+                <Typography variant="body2" className={classes.cardDescription}>
+                    {description}
+                </Typography>
             </CardContent>
-            <ButtonSecondary
-                href={link}
-                variant="contained"
-                startIcon={<SendIcon />}
-                className={classes.readMoreButton}
-                disableElevation
-                innerText={t('blog-article-card.read-more')}
-            />
         </Card>
     );
 };
@@ -48,42 +42,44 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link, category
 const useStyles = makeStyles((theme: Theme) => ({
     card: {
         position: 'relative',
-        height: '400px',
-        overflow: 'visible',
+        height: '312px',
+        maxWidth: '330px',
+        overflow: 'hidden',
         backgroundColor: theme.palette.grey[300],
+        display: 'flex',
+        alignItems: 'center',
+        flexFlow: 'column wrap',
         marginTop: '54px',
-        boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
     },
     cardImage: {
-        maxHeight: '200px',
-        padding: `0 ${theme.spacing(2)}px`,
-        position: 'relative',
-        bottom: '30px',
+        maxHeight: '140px',
+        marginBottom: theme.spacing(2),
     },
     cardContent: {
-        position: 'relative',
-        bottom: '20px',
-        paddingBottom: 0,
-        height: '120px',
+        padding: '0 16px',
+        height: '125px',
         wordBreak: 'break-word',
+        paddingBottom: 0,
+    },
+    articleBadgeContainer: {
+        width: '100%',
     },
     articleBadge: {
         borderRadius: theme.spacing(2),
         height: '21.76px',
         padding: `3px ${theme.spacing(1)}px`,
-        margin: `-18px 0 ${theme.spacing(2)}px 20px`,
+        marginBottom: theme.spacing(1),
         textTransform: 'capitalize',
         cursor: 'default',
+        marginLeft: theme.spacing(2),
     },
     articleTitle: {
-        position: 'relative',
-        bottom: '10px',
+        margin: 0,
     },
-    readMoreButton: {
-        fontSize: '13px',
-        position: 'absolute',
-        right: theme.spacing(2),
-        bottom: theme.spacing(2),
-        marginTop: '10px',
+    cardDescription: {
+        width: '100%',
+        overflow: 'hidden',
+        textOverflow: 'clip',
+        height: '9vh',
     },
 }));
