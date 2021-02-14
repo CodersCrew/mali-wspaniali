@@ -1,7 +1,8 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@material-ui/core';
-import { ArticleCategory } from '../../graphql/types';
 import { ButtonSecondary } from '../Button/ButtonSecondary';
+import { ArticleCategory } from '../../graphql/types';
 
 interface Props {
     pictureUrl: string;
@@ -16,7 +17,9 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link, category
 
     return (
         <Card className={classes.card} elevation={0}>
-            <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
+            <NavLink to={link}>
+                <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
+            </NavLink>
             <div className={classes.articleBadgeContainer}>
                 <ButtonSecondary
                     variant="contained"
@@ -55,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginBottom: theme.spacing(2),
     },
     cardContent: {
-        padding: '0 16px 0 16px',
+        padding: `0 ${theme.spacing(2)}px`,
         height: '125px',
         wordBreak: 'break-word',
     },
@@ -72,12 +75,12 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginLeft: theme.spacing(2),
     },
     articleTitle: {
-        margin: 0,
+        marginBottom: theme.spacing(1),
     },
     cardDescription: {
         width: '100%',
         overflow: 'hidden',
         textOverflow: 'clip',
-        height: '9vh',
+        height: '4vw',
     },
 }));
