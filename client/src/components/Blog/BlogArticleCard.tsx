@@ -13,14 +13,14 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link }: Props)
 
     return (
         <Card className={classes.card}>
-            <CardActionArea href={link} className={classes.actionArea}>
+            <CardActionArea href={link} >
                 <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
                 <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
                         {title}
                     </Typography>
                     <Typography className={classes.cardDescription} variant="body2" color="textSecondary" component="p">
-                        {description}
+                    {description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -30,32 +30,19 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link }: Props)
 
 const useStyles = makeStyles((theme: Theme) => ({
     card: {
-        height: '40vh',
+        height: 'auto',
+        minHeight: '100%',
         boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
-        [theme.breakpoints.down('xs')]: {
-            height: '60vh',
-            width: '90vw',
-            marginBottom: theme.spacing(2),
-        },
-        [theme.breakpoints.only('sm')]: {
-            height: '50vh',
-            width: '44vw',
-            marginBottom: theme.spacing(2),
-        },
-        [theme.breakpoints.only('md')]: {
-            height: '62vh',
-            width: '28vw',
-            marginBottom: theme.spacing(2),
-        },
-    },
-    actionArea: {
-        height: '100%',
     },
     cardImage: {
-        height: '45%',
+        [theme.breakpoints.down('xs')]: {
+            height: '25vh',
+        },
+        [theme.breakpoints.up('sm')]: {
+            height: '20vh',
+        },
     },
     cardContent: {
-        height: '50%',
         wordBreak: 'break-word',
         overflow: 'hidden',
     },
