@@ -16,6 +16,7 @@ import { useBreakpoints } from '../../queries/useBreakpoints';
 import { Pagination } from '../../components/Blog/Pagination';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
 
+
 const ARTICLES_PER_PAGE = 6;
 
 export default function ArticleListPage() {

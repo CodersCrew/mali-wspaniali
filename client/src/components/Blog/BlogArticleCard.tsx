@@ -33,6 +33,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: 'auto',
         minHeight: '100%',
         boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
+        borderRadius: '2%',
+        "&:hover": {
+            boxShadow: '1px 1px 7px 0 rgba(0, 0, 0, 0.4)',
+        },
     },
     cardImage: {
         [theme.breakpoints.down('xs')]: {
