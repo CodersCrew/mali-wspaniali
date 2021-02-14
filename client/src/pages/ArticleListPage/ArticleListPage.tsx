@@ -71,7 +71,7 @@ export default function ArticleListPage() {
             </Typography>
             <Grid container justify="center" spacing={isSmall ? 2 : 4} className={classes.gridContainer}>
                 {articles.map((article: Article) => (
-                    <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth >
+                    <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
                         <BlogArticleCard
                             title={article.title}
                             pictureUrl={article.pictureUrl}
