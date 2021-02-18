@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         alignItems: 'center',
         flexFlow: 'column wrap',
-        marginTop: '54px',
+        marginBottom: theme.spacing(3),
     },
     cardImage: {
         maxHeight: '140px',

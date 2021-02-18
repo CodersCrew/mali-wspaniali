@@ -13,6 +13,7 @@ import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository'
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { Pagination } from '../../components/Blog/Pagination';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
+import { BlogMainHeader } from '../../components/Blog/BlogMainHeader';
 
 const ARTICLES_PER_PAGE = 6;
 
@@ -63,6 +64,7 @@ export default function ArticleListPage() {
                 device={device}
             />
             <div className={classes.gridBackground}>
+                <BlogMainHeader />
                 <Grid container justify="space-around" className={classes.gridContainer}>
                     {articles.map((article: Article) => (
                         <Grid key={article._id} item xs={4} zeroMinWidth className={classes.blogArticleCardGrid}>
@@ -117,7 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         gridContainer: {
             maxWidth: '92%',
-            margin: '0 2%',
+            margin: `${theme.spacing(3)}px ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`,
         },
         gridBackground: {
             backgroundColor: theme.palette.background.default,

@@ -254,7 +254,7 @@
             "button": "Save"
         },
         "your-child-result-1": "YOUR CHILD'S",
-        "your-child-result-2": "RESULT" 
+        "your-child-result-2": "RESULT"
     },
     "parent-profile": {
         "parent": "Parent",
@@ -498,7 +498,7 @@
     },
     "blog-main-page": {
         "header-bar": "Blog",
-        "header": "Here you will find out, how to take care of your child's development"
+        "header": "Find out how to improve your child's development"
     },
     "blog-pagination": {
         "show-more": "Show more",
@@ -677,7 +677,6 @@
         "text-field-title-id": "message",
         "text-field-title-label": "Message content",
         "text-field-title-placeholder": "Message content",
-
         "select-options": {
             "select-label": "Message subject",
             "1": "Password change",

@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
         },
         counter: {
-            padding: theme.spacing(2),
+            paddingBottom: theme.spacing(3),
             userSelect: 'none',
             cursor: 'default',
         },
