@@ -26,6 +26,7 @@ export const HomePageArticles = ({ articles }: Props) => {
                         pictureUrl={article.pictureUrl}
                         description={article.description}
                         link={`/parent/article/${article._id}`}
+                        category={article.category}
                     />
                 </Grid>
             );
