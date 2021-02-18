@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Typography, Grid } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 import { useTranslation } from 'react-i18next';
+
 import { Article } from '../../../graphql/types';
 import { BlogArticleCard } from '../../../components/Blog/BlogArticleCard';
 import { getChunks } from '../../../utils/chunkArray';
