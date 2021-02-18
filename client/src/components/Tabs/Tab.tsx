@@ -17,9 +17,11 @@ const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.text.secondary,
             textTransform: 'uppercase',
             fontWeight: theme.typography.button.fontWeight,
+            padding: 0,
+            minWidth: 'fit-content',
         },
         wrapper: {
-            marginRight: '10px',
+            margin: '12px',
             '&:hover': {
                 color: theme.palette.secondary.dark,
             },
