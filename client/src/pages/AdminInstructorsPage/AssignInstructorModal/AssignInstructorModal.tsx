@@ -49,7 +49,7 @@ export const AssignInstructorModal = ({
 
     const exsistingKindergartemAssignements =
         assessment.kindergartens
-            .filter(({ kindergarten }) => !selectedKindergartens.includes(kindergarten._id)) //filter out selected kindergartend that will be updated on save
+            .filter(({ kindergarten }) => !selectedKindergartens.includes(kindergarten._id)) // filter out selected kindergartend that will be updated on save
             .map(({ kindergarten, instructor }) => ({
                 kindergartenId: kindergarten._id,
                 instructorId: instructor?._id,
