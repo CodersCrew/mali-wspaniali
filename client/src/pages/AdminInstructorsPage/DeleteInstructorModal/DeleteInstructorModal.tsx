@@ -21,19 +21,15 @@ export const DeleteInstructorModal = ({ onClose, instructor: selectedInstructor,
     const { updateAssessment } = useUpdateAssessment();
 
     const onSubmitAssignInstructor = (updatedAssessment: Partial<UpdatedAssessmentInput>) => {
-        console.log(updatedAssessment);
         updateAssessment(assessment._id, updatedAssessment);
         onClose();
     };
 
     const updatedKindergartenAssignements =
-        assessment.kindergartens
-            .filter(({ instructor }) => instructor?._id !== selectedInstructor?._id)
-            .map(({ kindergarten, instructor }) => ({
-                kindergartenId: kindergarten._id,
-                instructorId: instructor?._id,
-            })) || [];
-    console.log({ assessment, selectedInstructor, updatedKindergartenAssignements });
+        assessment.kindergartens.map(({ kindergarten, instructor }) => ({
+            kindergartenId: kindergarten._id,
+            instructorId: instructor?._id === selectedInstructor?._id ? null : instructor?._id,
+        })) || [];
 
     return (
         <TwoActionsModal
