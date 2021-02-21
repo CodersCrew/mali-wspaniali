@@ -122,7 +122,7 @@ export default function LoginPage() {
                     />
                 </div>
                 <Box mb={3} />
-                <PartnerLogotypeContainer />
+                {!isDesktop && <PartnerLogotypeContainer />}
             </div>
         </div>
     );
