@@ -20,11 +20,11 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
             <div className={classes.headerBox}>
                 <div className={classes.headerMaker}>
                     <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>{t('login-wrapper.made-by')}</Typography>
-                    <Box mb={isDesktop ? 3 : 0} />
+                    <Box mb={isDesktop ? 3 : 1} />
                 </div>
                 <div className={classes.headerPartners}>
                     <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>{t('login-wrapper.partners')}</Typography>
-                    <Box mb={isDesktop ? 3 : 0} />
+                    <Box mb={isDesktop ? 3 : 1} />
                 </div>
             </div>
             <div className={classes.makerBox}>
@@ -76,19 +76,27 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         imageBox: {
+            minWidth: `calc(100% / 4 - 3 * ${theme.spacing(3)}px / 4)`,
+            height: '70px',
+            minHeight: '70px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             padding: theme.spacing(0.5),
             backgroundColor: theme.palette.background.paper,
             borderRadius: 4,
+            [theme.breakpoints.down('md')]: {
+                minWidth: `calc(25% - 3 / 4 * ${theme.spacing(1)}px)`,
+                height: '40px',
+                minHeight: '40px',
+                padding: theme.spacing(0.25),
+            },
         },
         image: {
-            width: '100%',
-            maxWidth: `calc(170px - 2 * ${theme.spacing(0.5)}px)`,
+            maxWidth: `calc(100% - 2 * ${theme.spacing(0.5)}px)`,
             maxHeight: `calc(70px - 2 * ${theme.spacing(0.5)}px)`,
-            borderRadius: 4,
             [theme.breakpoints.down('md')]: {
+                maxWidth: `calc(100% - 2 * ${theme.spacing(0.5)}px)`,
                 maxHeight: `calc(40px - 2 * ${theme.spacing(0.5)}px)`,
             },
         },
