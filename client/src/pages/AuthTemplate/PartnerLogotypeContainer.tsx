@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import Maker from '../../assets/authTemplateLogos/maker/maker.png';
@@ -16,24 +16,24 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
     return (
         <div className={classes.partnersContainer}>
             <div className={classes.makerBox}>
-                <div className={classes.header}>
+                <div className={classes.headerMaker}>
                     <Typography variant="subtitle1">{t('login-wrapper.made-by')}</Typography>
+                    <Box mb={3} />
                 </div>
                 <div className={classes.imageBox}>
                     <img src={Maker} alt="maker_logo" className={classes.image} />
                 </div>
             </div>
             <div className={classes.partnersBox}>
-                <div className={classes.header}>
+                <div className={classes.headerPartners}>
                     <Typography variant="subtitle1">{t('login-wrapper.partners')}</Typography>
+                    <Box mb={3} />
                 </div>
-                <div className={classes.partnersBoxWrapper}>
-                    {partners.map((logo, key) => (
-                        <div className={classes.imageBox} key={key}>
-                            <img src={partners[key]} alt={`maker_logo_${key}`} className={classes.image} />
-                        </div>
-                    ))}
-                </div>
+                {partners.map((logo, key) => (
+                    <div className={classes.imageBox} key={key}>
+                        <img src={partners[key]} alt={`maker_logo_${key}`} className={classes.image} />
+                    </div>
+                ))}
             </div>
         </div>
     );
@@ -43,36 +43,27 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         partnersContainer: {
             width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'start',
+            display: 'grid',
+            gridTemplateColumns: '1fr 3fr',
+            columnGap: theme.spacing(3),
         },
-        header: {
-            marginBottom: theme.spacing(3),
+        headerMaker: {},
+        headerPartners: {
+            gridColumnStart: 'span 3',
         },
-        makerBox: {
-            width: 176,
-            marginRight: theme.spacing(3),
-        },
-        partnersBoxWrapper: {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-        },
+        makerBox: {},
         partnersBox: {
             width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr',
+            columnGap: theme.spacing(3),
         },
         imageBox: {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: theme.palette.background.paper,
-            width: 170,
-            height: 70,
             padding: theme.spacing(0.5),
+            backgroundColor: theme.palette.background.paper,
             borderRadius: 4,
         },
         image: {
