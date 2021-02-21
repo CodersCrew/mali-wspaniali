@@ -152,12 +152,13 @@ const useStyles = makeStyles((theme: Theme) =>
         innerContainer: {
             display: 'flex',
             flexDirection: 'column',
-            // height: 'calc(100vh - 112px)',
+            height: 'calc(100vh - 112px)',
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'flex-start',
+                height: 'auto',
             },
         },
         form: {
