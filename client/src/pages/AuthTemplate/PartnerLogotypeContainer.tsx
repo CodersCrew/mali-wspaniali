@@ -6,29 +6,33 @@ import Maker from '../../assets/authTemplateLogos/maker/maker.png';
 import Ecm from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
 import Wroclaw from '../../assets/authTemplateLogos/partners/wroclaw.png';
 import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu.png';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 export const PartnerLogotypeContainer = (): JSX.Element => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { isDesktop } = useIsDevice();
 
     const partners = [Ecm, Wroclaw, MinisterstwoSportu];
 
     return (
         <div className={classes.partnersContainer}>
-            <div className={classes.makerBox}>
+            <div className={classes.headerBox}>
                 <div className={classes.headerMaker}>
-                    <Typography variant="subtitle1">{t('login-wrapper.made-by')}</Typography>
-                    <Box mb={3} />
+                    <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>{t('login-wrapper.made-by')}</Typography>
+                    <Box mb={isDesktop ? 3 : 0} />
                 </div>
+                <div className={classes.headerPartners}>
+                    <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>{t('login-wrapper.partners')}</Typography>
+                    <Box mb={isDesktop ? 3 : 0} />
+                </div>
+            </div>
+            <div className={classes.makerBox}>
                 <div className={classes.imageBox}>
                     <img src={Maker} alt="maker_logo" className={classes.image} />
                 </div>
             </div>
             <div className={classes.partnersBox}>
-                <div className={classes.headerPartners}>
-                    <Typography variant="subtitle1">{t('login-wrapper.partners')}</Typography>
-                    <Box mb={3} />
-                </div>
                 {partners.map((logo, key) => (
                     <div className={classes.imageBox} key={key}>
                         <img src={partners[key]} alt={`maker_logo_${key}`} className={classes.image} />
@@ -44,8 +48,17 @@ const useStyles = makeStyles((theme: Theme) =>
         partnersContainer: {
             width: '100%',
             display: 'grid',
-            gridTemplateColumns: '1fr 3fr',
+            gridTemplateColumns: '1fr 1fr 1fr 1fr',
             columnGap: theme.spacing(3),
+            [theme.breakpoints.down('md')]: {
+                columnGap: theme.spacing(1),
+            },
+        },
+        headerBox: {
+            width: '100%',
+            gridColumnStart: 'span 4',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr 1fr',
         },
         headerMaker: {},
         headerPartners: {
@@ -54,9 +67,13 @@ const useStyles = makeStyles((theme: Theme) =>
         makerBox: {},
         partnersBox: {
             width: '100%',
+            gridColumnStart: 'span 3',
             display: 'grid',
             gridTemplateColumns: '1fr 1fr 1fr',
             columnGap: theme.spacing(3),
+            [theme.breakpoints.down('md')]: {
+                columnGap: theme.spacing(1),
+            },
         },
         imageBox: {
             display: 'flex',
@@ -67,10 +84,13 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: 4,
         },
         image: {
-            margin: 'auto',
+            width: '100%',
             maxWidth: `calc(170px - 2 * ${theme.spacing(0.5)}px)`,
             maxHeight: `calc(70px - 2 * ${theme.spacing(0.5)}px)`,
             borderRadius: 4,
+            [theme.breakpoints.down('md')]: {
+                maxHeight: `calc(40px - 2 * ${theme.spacing(0.5)}px)`,
+            },
         },
     }),
 );

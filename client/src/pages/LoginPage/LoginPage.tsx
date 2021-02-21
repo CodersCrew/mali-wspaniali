@@ -9,6 +9,7 @@ import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { PartnerLogotypeContainer } from '../AuthTemplate/PartnerLogotypeContainer';
 
 const initialError: Error = {
     name: '',
@@ -120,6 +121,8 @@ export default function LoginPage() {
                         className={classes.forgotPasswordButton}
                     />
                 </div>
+                <Box mb={3} />
+                <PartnerLogotypeContainer />
             </div>
         </div>
     );
@@ -149,7 +152,7 @@ const useStyles = makeStyles((theme: Theme) =>
         innerContainer: {
             display: 'flex',
             flexDirection: 'column',
-            height: 'calc(100vh - 112px)',
+            // height: 'calc(100vh - 112px)',
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
