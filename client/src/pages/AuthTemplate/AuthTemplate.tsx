@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
         logoContainer: {
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'end',
+            justifyContent: 'flex-end',
             flex: '4 0 0',
             flexDirection: 'column',
             padding: theme.spacing(3),

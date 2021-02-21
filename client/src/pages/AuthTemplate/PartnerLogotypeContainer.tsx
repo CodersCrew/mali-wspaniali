@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import Maker from '../../assets/authTemplateLogos/maker/maker.png';
 import Ecm from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
-import Wroclaw from '../../assets/authTemplateLogos/partners/wroclaw.png';
 import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu.png';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
@@ -13,7 +12,7 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
-    const partners = [Ecm, Wroclaw, MinisterstwoSportu];
+    const partners = [Ecm, MinisterstwoSportu];
 
     return (
         <div className={classes.partnersContainer}>
@@ -48,35 +47,35 @@ const useStyles = makeStyles((theme: Theme) =>
         partnersContainer: {
             width: '100%',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr 1fr',
-            columnGap: theme.spacing(3),
+            gridTemplateColumns: '1fr 1fr 1fr',
+            columnGap: theme.spacing(2),
             [theme.breakpoints.down('md')]: {
                 columnGap: theme.spacing(1),
             },
         },
         headerBox: {
             width: '100%',
-            gridColumnStart: 'span 4',
+            gridColumnStart: 'span 3',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr 1fr',
+            gridTemplateColumns: '1fr 1fr 1fr',
         },
         headerMaker: {},
         headerPartners: {
-            gridColumnStart: 'span 3',
+            gridColumnStart: 'span 2',
         },
         makerBox: {},
         partnersBox: {
             width: '100%',
-            gridColumnStart: 'span 3',
+            gridColumnStart: 'span 2',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
-            columnGap: theme.spacing(3),
+            gridTemplateColumns: '1fr 1fr',
+            columnGap: theme.spacing(2),
             [theme.breakpoints.down('md')]: {
                 columnGap: theme.spacing(1),
             },
         },
         imageBox: {
-            minWidth: `calc(100% / 4 - 3 * ${theme.spacing(3)}px / 4)`,
+            minWidth: `calc(100% / 3 - 2 * ${theme.spacing(3)}px / 3)`,
             height: '70px',
             minHeight: '70px',
             display: 'flex',
@@ -86,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.paper,
             borderRadius: 4,
             [theme.breakpoints.down('md')]: {
-                minWidth: `calc(25% - 3 / 4 * ${theme.spacing(1)}px)`,
+                minWidth: `calc(100% / 3 - 3 / 3 * ${theme.spacing(1)}px)`,
                 height: '40px',
                 minHeight: '40px',
                 padding: theme.spacing(0.25),

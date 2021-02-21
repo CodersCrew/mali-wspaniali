@@ -137,7 +137,7 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             padding: theme.spacing(0, 2),
             [theme.breakpoints.down('md')]: {
-                justifyContent: 'start',
+                justifyContent: 'flex-start',
             },
         },
         topHeader: {

@@ -7,7 +7,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         container: {
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'start',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             minHeight: '100vh',
             minWidth: 360,
@@ -15,7 +15,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             overflowY: 'auto',
             padding: theme.spacing(0, 2),
             [theme.breakpoints.down('md')]: {
-                justifyContent: 'start',
+                justifyContent: 'flex-start',
             },
         },
         form: {
@@ -143,7 +143,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         agreementRequired: {
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'start',
+            justifyContent: 'flex-start',
         },
         agreementRequiredAsterix: {
             color: theme.palette.secondary.main,
@@ -171,7 +171,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         checkboxContent: {
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'start',
+            justifyContent: 'flex-start',
             alignItems: 'start',
         },
         agreementText: {
@@ -221,7 +221,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             minHeight: 56,
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'end',
+            justifyContent: 'flex-end',
             alignItems: 'center',
         },
         accordionSummary: {
