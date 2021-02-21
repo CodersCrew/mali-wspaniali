@@ -16,4 +16,8 @@ export const UserSchema: Schema = new Schema({
   },
   children: [Schema.Types.ObjectId],
   agreements: [Schema.Types.ObjectId],
+  confirmed: {
+    type: Boolean,
+    default: false,
+  },
 });

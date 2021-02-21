@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
         kindergartenInfoContainer: {
             display: 'flex',
             alignItems: 'center',
+            marginLeft: 'auto',
         },
         kindergartenInfoText: {
             textTransform: 'uppercase',
