@@ -28,7 +28,7 @@ export default function AdminInstructorsPage() {
     const { t } = useTranslation();
 
     useEffect(() => {
-        activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
+        activePage(['admin-menu.tests.instructors']);
     }, []);
 
     const { instructors, isInstructorsListLoading } = useInstructors();
@@ -39,10 +39,6 @@ export default function AdminInstructorsPage() {
     const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
         initialInstructorModalStatus,
     );
-
-    useEffect(() => {
-        activePage(['admin-menu.access.title', 'admin-menu.access.instructors']);
-    }, []);
 
     useEffect(() => {
         if (assessments.length > 0) {

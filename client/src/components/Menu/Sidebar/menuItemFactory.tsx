@@ -18,13 +18,12 @@ import {
     ViewModule,
     Archive,
     Message,
-    AccessAlarm,
-    Ballot,
-    DynamicFeed,
     Email,
     PeopleAlt,
-    PersonAdd,
-    Security,
+    HorizontalSplit,
+    Dashboard,
+    VerticalSplit,
+    School,
 } from '@material-ui/icons';
 
 import { Child } from '../../../graphql/types';
@@ -116,15 +115,6 @@ export function getNewsletterMenuItemFactory({
 }: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
     return {
         create: () => getNewsletterMenuItem({ active, t }),
-    };
-}
-
-export function getAccessMenuItemFactory({
-    active,
-    t,
-}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
-    return {
-        create: () => getAccessMenuItem({ active, t }),
     };
 }
 
@@ -262,24 +252,30 @@ function getParentMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps)
 
 function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
     const mainItem = {
-        icon: <Icon icon={<Assessment />} />,
-        name: t('admin-menu.results.title'),
+        icon: <Icon icon={<VerticalSplit />} />,
+        name: t('admin-menu.tests.title'),
         link: '/admin/tests',
         active: active.includes('admin-menu.results.title'),
     };
 
     const subItems: SingleItemProps[] = [
         {
-            icon: <Icon icon={<Ballot />} />,
-            name: t('admin-menu.results.table'),
+            icon: <Icon icon={<Assessment />} />,
+            name: t('admin-menu.tests.results'),
             link: '/admin/tests',
             active: active.includes('admin-menu.results.table'),
         },
         {
-            icon: <Icon icon={<DynamicFeed />} />,
-            name: t('admin-menu.results.advice-and-recommendations'),
-            link: '/admin/recommendations',
-            active: active.includes('admin-menu.results.advice-and-recommendations'),
+            icon: <Icon icon={<Dashboard />} />,
+            name: t('admin-menu.tests.manage-tests'),
+            link: '/admin/test-management',
+            active: active.includes('admin-menu.test-management'),
+        },
+        {
+            icon: <Icon icon={<PeopleAlt />} />,
+            name: t('admin-menu.tests.instructors'),
+            link: '/admin/instructors',
+            active: active.includes('admin-menu.instructors'),
         },
     ];
 
@@ -312,39 +308,7 @@ function getNewsletterMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): 
     return { mainItem, subItems };
 }
 
-function getAccessMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
-    const mainItem = {
-        icon: <Icon icon={<PeopleAlt />} />,
-        name: t('admin-menu.access.title'),
-        link: '/admin/instructors',
-        active: active.includes('admin-menu.access.title'),
-    };
-
-    const subItems: SingleItemProps[] = [
-        {
-            icon: <Icon icon={<PersonAdd />} />,
-            name: t('admin-menu.access.instructors'),
-            link: '/admin/instructors',
-            active: active.includes('admin-menu.access.instructors'),
-        },
-        {
-            icon: <Icon icon={<Security />} />,
-            name: t('admin-menu.access.keycodes'),
-            link: '/admin/keycodes',
-            active: active.includes('admin-menu.access.keycodes'),
-        },
-    ];
-
-    return { mainItem, subItems };
-}
-
 function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
-    const MainPageItem = {
-        name: 'admin-menu.home',
-        link: '/admin',
-        icon: <Icon icon={<Home />} />,
-    };
-
     const ResultsItem = {
         name: 'admin-menu.results',
         link: '/admin/tests',
@@ -395,20 +359,26 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         icon: <Icon icon={<Message />} />,
     };
 
-    const TestItem = {
-        name: 'admin-menu.test-management',
-        link: '/admin/test-management',
-        icon: <Icon icon={<AccessAlarm />} />,
+    const KindergartensItem = {
+        name: 'admin-menu.kindergartens.title',
+        link: '/admin/kindergartens',
+        icon: <Icon icon={<School />} />,
+    };
+
+    const CodeItem = {
+        name: 'admin-menu.keycodes',
+        link: '/admin/keycodes',
+        icon: <Icon icon={<HorizontalSplit />} />,
     };
 
     const options: { [index: string]: SingleItemProps } = {
-        'main-page': MainPageItem,
         notifications: NotificationsItem,
         settings: SettingsItem,
         'create-blog-article': CreateBlogArticleItem,
         archive: ArchiveItem,
         newsletter: NewsletterItem,
-        tests: TestItem,
+        keycodes: CodeItem,
+        kindergartens: KindergartensItem,
         logout: LogoutItem,
         agreements: AgreementsItem,
         results: ResultsItem,

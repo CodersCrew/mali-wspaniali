@@ -40,6 +40,7 @@ const InstructorResultCreatorPage = React.lazy(
 );
 const ForgotPasswordPage = React.lazy(() => import('./ForgotPasswordPage/ForgotPasswordPage'));
 const TestResultsPage = React.lazy(() => import('./TestResultsPage/TestResultsPage'));
+const AdminKindergartensPage = React.lazy(() => import('./AdminKindergartensPage/AdminKindergartensPage'));
 
 const generateClassName = createGenerateClassName();
 
@@ -93,6 +94,7 @@ export function Root() {
                                         />
                                         <Route path="/admin/test-management" component={AdminAssessmentHistoryPage} />
                                         <Route path="/admin/recommendations" component={AdminRecommendationsPage} />
+                                        <Route path="/admin/kindergartens" component={AdminKindergartensPage} />
                                         <Route path="/admin/keycodes" component={AdminCodesPage} />
                                         <Route path="/admin/instructors" component={AdminInstructorsPage} />
                                         <Route path="/admin/settings" component={AdminSettingsPage} />
