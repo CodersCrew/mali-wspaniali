@@ -1,12 +1,13 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme, Typography, AppBar, Box } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
-import Maker from '../../assets/authTemplateLogos/maker/maker.png';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
+
+import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
 type AuthTemplateType = 'login' | 'register';
 
@@ -24,26 +25,7 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                             <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
                             <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
                         </div>
-                        {type === 'login' && (
-                            <div className={classes.partnersContainer}>
-                                <div className={classes.maker}>
-                                    <div className={classes.partnersHeader}>
-                                        <Typography variant="subtitle1">{t('login-wrapper.made-by')}</Typography>
-                                    </div>
-                                    <div className={classes.partnersLogos}>
-                                        <img src={Maker} alt="maker_logo" className={classes.makerPartnersLogo} />
-                                    </div>
-                                </div>
-                                <div className={classes.partners}>
-                                    <div className={classes.partnersHeader}>
-                                        <Typography variant="subtitle1">{t('login-wrapper.partners')}</Typography>
-                                    </div>
-                                    <div className={classes.partnersLogos}>
-                                        <Typography variant="subtitle1">Logos</Typography>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                        {type === 'login' && <PartnerLogotypeContainer />}
                     </div>
                     <div className={classes.formContainer}>{children}</div>
                 </div>
@@ -67,19 +49,6 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        appBar: {
-            height: 64,
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderBottom: `1px solid ${theme.palette.primary.main}`,
-        },
-        appBarLanguageSelector: {
-            height: 24,
-            width: 24,
-            marginRight: theme.spacing(3),
-        },
         background: {
             backgroundColor: mainColor,
             minHeight: '100vh',
@@ -110,14 +79,11 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             height: '100%',
         },
-        formContainer: {
-            backgroundColor,
-            minHeight: '100vh',
-            height: '100%',
-            flex: '3 0 0',
-
+        logo: {
+            width: '327.04',
             [theme.breakpoints.down('md')]: {
-                minHeight: 'auto',
+                width: 109,
+                margin: 'auto',
             },
         },
         welcomeText: {
@@ -139,46 +105,28 @@ const useStyles = makeStyles((theme: Theme) =>
                 lineHeight: 26,
             },
         },
-        subheading: {
-            marginTop: theme.spacing(2.5),
-            fontSize: '21px',
-            lineHeight: 26,
-            color: backgroundColor,
+        formContainer: {
+            backgroundColor,
+            minHeight: '100vh',
+            height: '100%',
+            flex: '3 0 0',
 
-            [theme.breakpoints.down('sm')]: {
-                display: 'none',
-            },
-        },
-        logo: {
-            width: '327.04',
             [theme.breakpoints.down('md')]: {
-                width: 109,
-                margin: 'auto',
+                minHeight: 'auto',
             },
         },
-        partnersContainer: {
-            width: '100%',
+        appBar: {
+            height: 64,
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'start',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
-        partnersHeader: {
-            marginBottom: theme.spacing(3),
-        },
-        partnersLogos: {
-            height: 70,
-        },
-        maker: {
-            width: 176,
+        appBarLanguageSelector: {
+            height: 24,
+            width: 24,
             marginRight: theme.spacing(3),
-        },
-        partners: {
-            width: '100%',
-        },
-        makerPartnersLogo: {
-            width: 170,
-            height: 70,
-            borderRadius: 4,
         },
     }),
 );
