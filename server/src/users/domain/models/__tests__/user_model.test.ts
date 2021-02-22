@@ -3,7 +3,7 @@ import { User, UserProps } from '../user_model';
 
 jest.mock('../../events/impl');
 
-describe.only('UserModel', () => {
+describe('UserModel', () => {
   let user: User;
 
   describe('when created with correct data', () => {

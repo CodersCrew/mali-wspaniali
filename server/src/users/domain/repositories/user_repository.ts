@@ -93,6 +93,7 @@ export class UserRepository {
     createUserDTO: {
       mail: string;
       password: string;
+      agreements?: string[];
     },
     keyCode: KeyCodeProps,
   ): Promise<User> {
@@ -102,9 +103,15 @@ export class UserRepository {
       ...user.getProps(),
       role: keyCode.target,
     });
-    const rawUser = await createdUser.save();
+    const rawUser = await (await createdUser.save()).toObject();
 
-    return User.create(rawUser, keyCode.keyCode);
+    return User.create(
+      {
+        ...rawUser,
+        agreements: rawUser.agreements.map(agreement => agreement.toString()),
+      },
+      keyCode.keyCode,
+    );
   }
 
   async addChild(childId: ObjectId, userId: string): Promise<void> {
