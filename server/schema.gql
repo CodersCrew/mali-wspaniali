@@ -290,6 +290,7 @@ input UserInput {
   mail: String!
   password: String!
   keyCode: String!
+  agreements: [String!]
 }
 
 input LoginInput {
