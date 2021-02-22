@@ -763,7 +763,7 @@
             "unassigned-kindergartens": "Nieprzydzielone przedszkola"
         },
         "snackbars": {
-            "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+            "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola."
         },
         "modal": {
             "cancel": "Anuluj",
