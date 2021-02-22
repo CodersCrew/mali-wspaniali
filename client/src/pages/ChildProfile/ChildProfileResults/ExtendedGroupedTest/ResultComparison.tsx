@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Typography } from '@material-ui/core';
+import { Card, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/styles';
+import { createStyles, makeStyles } from '@material-ui/styles';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_OVERALL_POINTS } from './constants';
 import { gray } from '../../../../colors';
@@ -66,45 +66,47 @@ function getDifferenceKey(firstValue: number, lastValue: number) {
     return 'constant';
 }
 
-const useStyles = makeStyles({
-    wrapper: {
-        width: '100%',
-        display: 'flex',
-        padding: '10px 0',
-    },
-    card: {
-        width: '25%',
-        display: 'flex',
-        padding: '16px',
-        flexDirection: 'column',
-    },
-    cardTop: {
-        borderBottom: `1px solid ${gray}`,
-        paddingBottom: '10px',
-    },
-    cardBottom: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        paddingTop: '15px',
-    },
-    cardBottomText: {
-        textAlign: 'center',
-    },
-    difference: {
-        fontFamily: 'Montserrat',
-        fontSize: '14px',
-        textTransform: 'uppercase',
-        marginBottom: '20px',
-        marginTop: '20px',
-        fontWeight: 'bold',
-        color: ({ color }: { color: string }) => color,
-    },
-    rightWrapper: {
-        width: '100%',
-        margin: '0 30px',
-    },
-    title: {
-        paddingTop: '10px',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        wrapper: {
+            width: '100%',
+            display: 'flex',
+            padding: '10px 0',
+        },
+        card: {
+            width: '25%',
+            display: 'flex',
+            padding: '16px',
+            flexDirection: 'column',
+        },
+        cardTop: {
+            borderBottom: `1px solid ${gray}`,
+            paddingBottom: '10px',
+        },
+        cardBottom: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            paddingTop: '15px',
+        },
+        cardBottomText: {
+            textAlign: 'center',
+        },
+        difference: {
+            fontFamily: 'Montserrat',
+            fontSize: '14px',
+            textTransform: 'uppercase',
+            marginBottom: '20px',
+            marginTop: '20px',
+            fontWeight: 'bold',
+            color: ({ color }: { color: string }) => color,
+        },
+        rightWrapper: {
+            width: '100%',
+            margin: '0 30px',
+        },
+        title: {
+            paddingTop: '10px',
+        },
+    }),
+);

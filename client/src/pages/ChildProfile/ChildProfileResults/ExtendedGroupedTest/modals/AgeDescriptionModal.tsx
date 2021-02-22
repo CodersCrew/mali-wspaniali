@@ -1,71 +1,12 @@
-// import React from 'react';
-// import { DialogTitle, Typography } from '@material-ui/core';
-// import { useTranslation } from 'react-i18next';
-
-// // import { User } from '../../../../../graphql/types';
-// import { openDialog } from '../../../../../utils/openDialog';
-// import { BasicModal } from '../../../../../components/Modal/BasicModal';
-// // import { User } from '../../graphql/types';
-
-// const T_GROUP_PREFIX = 'child-profile.age-group-description';
-
-// export interface AgeDescriptionModalProps {
-//     preventClose: boolean;
-//     isCancelButtonVisible: boolean;
-// }
-
-// const AgeDescriptionModal = ({
-//     onClose,
-
-//     isCancelButtonVisible,
-// }: AgeDescriptionModalProps & ActionDialog<{}>) => {
-//     const { t } = useTranslation();
-//     // const classes = useStyles();
-
-//     return (
-//         <BasicModal
-//             closeButtonText={t('parent-settings.modal-delete-account.first-button')}
-//             actionName={t('parent-settings.modal-delete-account.second-button')}
-//             isOpen={true}
-//             onAction={() => console.log('')}
-//             onClose={onClose}
-//             isCancelButtonVisible={isCancelButtonVisible}
-//             // isActionButtonSecondary
-//             // dialogProps={{ maxWidth: 'xs' }}
-//         >
-//             <DialogTitle>{t('child-profile.age-group-description.title')}</DialogTitle>
-//             <Typography gutterBottom>{t('child-profile.age-group-description.subtitle')}</Typography>
-//             <Typography gutterBottom>
-//                 {t(`${T_GROUP_PREFIX}.text-1`)} <strong>{t(`${T_GROUP_PREFIX}.age-1`)} </strong>{' '}
-//                 {t(`${T_GROUP_PREFIX}.text-2`)} <strong>{t(`${T_GROUP_PREFIX}.age-2`)} </strong>{' '}
-//                 {t(`${T_GROUP_PREFIX}.text-3`)} <strong>{t(`${T_GROUP_PREFIX}.age-3`)} </strong>{' '}
-//                 {t(`${T_GROUP_PREFIX}.text-4`)}
-//             </Typography>
-//         </BasicModal>
-//     );
-// };
-
-// // const useStyles = makeStyles((theme: Theme) => ({
-// //     header: { marginBottom: theme.spacing(2) },
-// //     mail: { marginTop: theme.spacing(2) },
-// // }));
-
-// export const openAgeDescriptionModal = (props: AgeDescriptionModalProps) => {
-//     return openDialog<AgeDescriptionModalProps>(AgeDescriptionModal, props);
-// };
-
-import { DialogTitle, Typography } from '@material-ui/core';
 import React from 'react';
+import { DialogContent, DialogTitle, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
 
-// import { EditChildModalProps } from './ChildModalTypes';
-
 const T_GROUP_PREFIX = 'child-profile.age-group-description';
 
-// type EditChildType = Omit<Child, 'results' | 'currentParams'>;
 type AgeDescriptionModalProps = {
     preventClose: boolean;
     isCancelButtonVisible: boolean;
@@ -74,52 +15,31 @@ type AgeDescriptionModalProps = {
 const AgeDescriptionModal = ({
     onClose,
     makeDecision,
-}: // kindergartens,
-// parent,
-// isCancelButtonVisible,
-AgeDescriptionModalProps & ActionDialog<{ child: ChildInput }>) => {
+}: AgeDescriptionModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
-    // const classes = useStyles();
 
     return (
         <BasicModal
-            actionName={t('parent-settings.modal-edit-account.button')}
+            actionName={t('close')}
             isOpen={true}
             onAction={() => console.log('')}
             onClose={onClose}
             isCancelButtonVisible={false}
             dialogProps={{ maxWidth: 'sm' }}
         >
-            <DialogTitle>{t('child-profile.age-group-description.title')}</DialogTitle>
-            <Typography gutterBottom>{t('child-profile.age-group-description.subtitle')}</Typography>
-            <Typography gutterBottom>
-                {t(`${T_GROUP_PREFIX}.text-1`)} <strong>{t(`${T_GROUP_PREFIX}.age-1`)} </strong>{' '}
-                {t(`${T_GROUP_PREFIX}.text-2`)} <strong>{t(`${T_GROUP_PREFIX}.age-2`)} </strong>{' '}
-                {t(`${T_GROUP_PREFIX}.text-3`)} <strong>{t(`${T_GROUP_PREFIX}.age-3`)} </strong>{' '}
-                {t(`${T_GROUP_PREFIX}.text-4`)}
-            </Typography>
+            <DialogTitle>{t(`${T_GROUP_PREFIX}.title`)}</DialogTitle>
+            <DialogContent>
+                <Typography gutterBottom>{t(`${T_GROUP_PREFIX}.subtitle`)}</Typography>
+                <Typography gutterBottom>
+                    {t(`${T_GROUP_PREFIX}.text-1`)} <strong>{t(`${T_GROUP_PREFIX}.age-1`)} </strong>{' '}
+                    {t(`${T_GROUP_PREFIX}.text-2`)} <strong>{t(`${T_GROUP_PREFIX}.age-2`)} </strong>{' '}
+                    {t(`${T_GROUP_PREFIX}.text-3`)} <strong>{t(`${T_GROUP_PREFIX}.age-3`)} </strong>{' '}
+                    {t(`${T_GROUP_PREFIX}.text-4`)}
+                </Typography>
+            </DialogContent>
         </BasicModal>
     );
 };
-
-// const useStyles = makeStyles((theme: Theme) => ({
-//     header: { marginBottom: theme.spacing(2) },
-//     mail: { margin: theme.spacing(0.5, 0, 1.5) },
-//     childAvatar: {
-//         width: '100%',
-//         objectFit: 'contain',
-//         margin: '5px',
-//     },
-//     childrenWrapper: {
-//         display: 'flex',
-//         flexDirection: 'row',
-//         flexWrap: 'wrap',
-//         justifyContent: 'space-between',
-//     },
-//     chilCard: {
-//         marginBottom: theme.spacing(2),
-//     },
-// }));
 
 export const openAgeDescriptionModal = (props: AgeDescriptionModalProps) => {
     return openDialog<AgeDescriptionModalProps>(AgeDescriptionModal, props);

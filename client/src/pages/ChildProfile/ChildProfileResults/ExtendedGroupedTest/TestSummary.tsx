@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, createStyles, DialogContent, DialogTitle, Grid, IconButton, Theme, Typography } from '@material-ui/core';
-// import { AgeDescriptionModal } from './modals/AgeDescriptionModal';
+import { Card, createStyles, Grid, IconButton, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { CircleChart } from '../../../../components/CircleChart';
@@ -10,18 +9,16 @@ import { gray } from '../../../../colors';
 import { MAX_OVERALL_POINTS } from './constants';
 import { ButtonSecondary } from '../../../../components/Button';
 import { TestResult } from '../../../../graphql/types';
-import { BasicModal } from '../../../../components/Modal/BasicModal';
 import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
 import dayjs from '../../../../localizedMoment';
+import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+import { openAdviceModal } from './modals/AdviceModal';
 
-const T_GROUP_PREFIX = 'child-profile.age-group-description';
 export interface Props {
     result: TestResult;
 }
 
 export const TestSummary = ({ result }: Props) => {
-    const [isAdviceModalOpen, setIsAdviceModalOpen] = useState(false);
-    const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
     const { t } = useTranslation();
 
     const { agilityPoints, powerPoints, speedPoints, strengthPoints, childAge, testPeriod } = result.test;
@@ -59,6 +56,11 @@ export const TestSummary = ({ result }: Props) => {
                                     openAgeDescriptionModal({
                                         preventClose: false,
                                         isCancelButtonVisible: true,
+                                    }).then((res) => {
+                                        if (!res.close)
+                                            openSnackbar({
+                                                text: t('parent-settings.modal-edit-account.success-message'),
+                                            });
                                     });
                                 }}
                             >
@@ -87,40 +89,22 @@ export const TestSummary = ({ result }: Props) => {
                     <div className={classes.resultDescription}>{t(`child-profile.result-description.${key}`)}</div>
                     <ButtonSecondary
                         variant="contained"
-                        onClick={() => setIsAdviceModalOpen((prev) => !prev)}
+                        onClick={() => {
+                            openAdviceModal({
+                                preventClose: false,
+                                isCancelButtonVisible: true,
+                                resultKey: key,
+                            }).then((res) => {
+                                if (!res.close)
+                                    openSnackbar({
+                                        text: t('parent-settings.modal-edit-account.success-message'),
+                                    });
+                            });
+                        }}
                         innerText={t('child-profile.advice')}
                     />
                 </div>
             </Card>
-            <BasicModal
-                isOpen={isAdviceModalOpen}
-                onClose={() => setIsAdviceModalOpen((prev) => !prev)}
-                onAction={() => setIsAdviceModalOpen((prev) => !prev)}
-                actionName={t('close')}
-            >
-                {t(`child-profile.result-description.${key}`)}
-            </BasicModal>
-            {/* <AgeDescriptionModal
-                isOpen={isAdviceModalOpen}
-                onClose={() => setIsAdviceModalOpen((prev) => !prev)}
-            ></AgeDescriptionModal> */}
-            <BasicModal
-                isOpen={isInfoModalOpen}
-                onClose={() => setIsInfoModalOpen((prev) => !prev)}
-                onAction={() => setIsInfoModalOpen((prev) => !prev)}
-                actionName={t('close')}
-            >
-                <DialogTitle>{t('child-profile.age-group-description.title')}</DialogTitle>
-                <DialogContent>
-                    <Typography gutterBottom>{t('child-profile.age-group-description.subtitle')}</Typography>
-                    <Typography gutterBottom>
-                        {t(`${T_GROUP_PREFIX}.text-1`)} <strong>{t(`${T_GROUP_PREFIX}.age-1`)} </strong>{' '}
-                        {t(`${T_GROUP_PREFIX}.text-2`)} <strong>{t(`${T_GROUP_PREFIX}.age-2`)} </strong>{' '}
-                        {t(`${T_GROUP_PREFIX}.text-3`)} <strong>{t(`${T_GROUP_PREFIX}.age-3`)} </strong>{' '}
-                        {t(`${T_GROUP_PREFIX}.text-4`)}
-                    </Typography>
-                </DialogContent>
-            </BasicModal>
         </>
     );
 };
@@ -168,6 +152,7 @@ const useStyles = makeStyles((theme: Theme) =>
             textTransform: 'uppercase',
             marginBottom: '15px',
             fontWeight: 'bold',
+            color: ({ color }: { color: string }) => color,
         },
         fitnessLevelLabel: {
             textAlign: 'center',
