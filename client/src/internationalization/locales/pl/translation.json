@@ -644,6 +644,7 @@
         "by-kindergarten": "Filtruj po przedszkolu"
     },
     "settings-page": {
+        "password-change-message": "Link do zmiany hasła został pomyślnie wysłany. Sprawdź pocztę e-mail, by dokończyć proces.",
         "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
         "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
         "change-password-problems-message-button": "Napisz wiadomość",

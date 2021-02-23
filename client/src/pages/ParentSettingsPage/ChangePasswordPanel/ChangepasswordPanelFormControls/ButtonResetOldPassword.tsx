@@ -24,12 +24,11 @@ export const ButtonResetOldPassword = (props: Props) => {
     const { resetPassword } = useResetPassword(
         () =>
             resetPasswordOnSuccess(
-                `${t('forgot-password-page.email-sent')} ${t('forgot-password-page.when-received')}`,
+                `${t('settings-page.password-change-message')}`,
             ),
         () => resetPasswordOnError,
     );
     const { t } = useTranslation();
-
     const resetPasswordOnSuccess = (text: string) => {
         openSnackbar({
             text,
