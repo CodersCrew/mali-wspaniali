@@ -12,13 +12,14 @@ const Results = () => {
         v4: 8,
         v5: 5,
         unit: 's',
-        result: 11,
+        result: 8,
+        resultStart: 13,
     };
 
     const sex = 'male';
     const avatar = sex !== 'male' ? Boy : Girl;
 
-    const { v1, v2, v3, v4, v5, unit, result } = mockedData;
+    const { v1, v2, v3, v4, v5, unit, result, resultStart } = mockedData;
     const range = v1 - v5;
 
     const calculatePercent = (value: number) => {
@@ -30,12 +31,16 @@ const Results = () => {
     const rangeLightGreen = calculatePercent(v3 - v4);
     const rangeGreen = calculatePercent(v4 - v5);
     const resultMarkShift = calculatePercent(v1 - result);
+    const resultStartShift = calculatePercent(v1 - resultStart);
 
     const shiftFirstScoreRange = rangeRed / 2 - 5;
     const shiftSecondScoreRange = rangeRed + (rangeYellow + rangeLightGreen) / 2 - 5;
     const shiftThirdScoreRange = rangeRed + rangeYellow + rangeLightGreen + rangeGreen / 2 - 5;
 
-    const classes = useStyles(resultMarkShift);
+    const classes = useStyles({
+        resultMarkShift,
+        resultStartShift,
+    });
 
     return (
         <div className={classes.wrapper}>
@@ -141,6 +146,11 @@ const Results = () => {
                     <rect width="8" height="80" rx="4" x="98" y="68" fill="#212121" />
                 </svg>
             </div>
+            <div className={classes.resultStart}>
+                <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="8" height="80" rx="4" x="98" y="68" fill="#9E9E9E" />
+                </svg>
+            </div>
             <div className={classes.scoring}>
                 <svg width="100%" height="30" viewBox="0 0 100% 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <text x={`${shiftFirstScoreRange}%`} y="20" fill="black">
@@ -158,6 +168,11 @@ const Results = () => {
     );
 };
 
+interface IStyleProps {
+    resultMarkShift: number;
+    resultStartShift: number;
+}
+
 const useStyles = makeStyles({
     wrapper: {
         position: 'relative',
@@ -174,10 +189,16 @@ const useStyles = makeStyles({
         width: '102%',
         transform: 'translatey(-4px)',
     },
-    result: (resultMarkShift) => ({
+    result: (props: IStyleProps) => ({
         position: 'absolute',
         top: -78,
-        left: `${resultMarkShift}%`,
+        left: `${props.resultMarkShift}%`,
+        transform: 'translateX(-102px)',
+    }),
+    resultStart: (props: IStyleProps) => ({
+        position: 'absolute',
+        top: -78,
+        left: `${props.resultStartShift}%`,
         transform: 'translateX(-102px)',
     }),
     mark: {
