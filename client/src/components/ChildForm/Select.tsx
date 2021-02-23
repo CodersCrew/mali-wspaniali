@@ -19,7 +19,7 @@ interface Props {
     name: string;
     disabled?: boolean;
     error?: string | undefined;
-    touched?: any;
+    touched?: boolean;
     onChange: (name: string, value: string) => void;
 }
 

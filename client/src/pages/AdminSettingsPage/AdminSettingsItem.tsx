@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
 import { openAdminSettingsEditModal } from '../../components/ChilModals/EditChildModal';
-import { openChanageChildrenKindergarden } from '../../components/ChilModals/ChangeCildrenKindergarden';
+import { openChanageChildrenKindergarten } from '../../components/ChilModals/ChangeCildrenKindergarten';
 import { User } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
@@ -61,7 +61,7 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
                             aria-label="edit"
                             className={classes.editButton}
                             onClick={() => {
-                                openChanageChildrenKindergarden({
+                                openChanageChildrenKindergarten({
                                     preventClose: false,
                                     isCancelButtonVisible: true,
                                     parent,

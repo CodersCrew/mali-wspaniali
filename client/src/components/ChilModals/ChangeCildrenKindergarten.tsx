@@ -9,7 +9,7 @@ import { ChildModalProps } from './ChildModalTypes';
 import { Child } from '../../graphql/types';
 import { ChangeKindergartenModal } from '../ChildForm/ChangeKindergartenForm';
 
-interface TinitialObjestType {
+interface TInitialObjectType {
     firstname: string;
     lastname: string;
     id: string;
@@ -17,7 +17,7 @@ interface TinitialObjestType {
     kindergardenName: string;
 }
 
-const normalizeTransformKindergarden = (child: Child) => {
+const normalizeTransformKindergarten = (child: Child) => {
     const kindergarden = child.kindergarten._id;
     const id = child._id;
     const kindergardenName = child.kindergarten.name;
@@ -33,10 +33,10 @@ const AdminSettingsEditModal = ({
     parent,
     preventClose,
     isCancelButtonVisible,
-}: ChildModalProps & ActionDialog<{ childData: TinitialObjestType[] }>) => {
+}: ChildModalProps & ActionDialog<{ childData: TInitialObjectType[] }>) => {
     const { t } = useTranslation();
 
-    const newObjectChild = parent.children.map(normalizeTransformKindergarden);
+    const newObjectChild = parent.children.map(normalizeTransformKindergarten);
 
     const initialValues = {
         childData: newObjectChild,
@@ -76,6 +76,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     selectKindergardenInput: { color: theme.palette.text.secondary, margin: theme.spacing(4, 0) },
 }));
 
-export const openChanageChildrenKindergarden = (props: ChildModalProps) => {
+export const openChanageChildrenKindergarten = (props: ChildModalProps) => {
     return openDialog<ChildModalProps>(AdminSettingsEditModal, props);
 };

@@ -19,12 +19,12 @@ interface ChildData {
     childData: TinitialObjestType[];
 }
 
-interface ChangeKinderenProps {
+interface ChangeKindergartenProps {
     kindergartens: Kindergarten[];
     formik: FormikProps<ChildData>;
 }
 
-export const ChangeKindergartenModal = ({ formik, kindergartens }: ChangeKinderenProps) => {
+export const ChangeKindergartenModal = ({ formik, kindergartens }: ChangeKindergartenProps) => {
     const { t } = useTranslation();
     const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
 
