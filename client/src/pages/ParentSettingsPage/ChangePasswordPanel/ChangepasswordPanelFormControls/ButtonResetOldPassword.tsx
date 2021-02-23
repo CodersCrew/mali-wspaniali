@@ -22,10 +22,7 @@ export const ButtonResetOldPassword = (props: Props) => {
     const { state, dispatch, user } = props;
     const { resetPasswordButtonDisabled } = state;
     const { resetPassword } = useResetPassword(
-        () =>
-            resetPasswordOnSuccess(
-                `${t('settings-page.password-change-message')}`,
-            ),
+        () => resetPasswordOnSuccess(`${t('settings-page.password-change-message')}`),
         () => resetPasswordOnError,
     );
     const { t } = useTranslation();
