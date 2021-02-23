@@ -66,8 +66,6 @@
         "contact": "Skontaktuj się z fundacją by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail podany fundacji",
         "back-to-login": "Wróć do logowania",
-        "email-sent": "Na twój adres email wysłaliśmy maila.",
-        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło.",
         "avatar": "Małgosia"
     },
     "users-page": {
@@ -644,6 +642,7 @@
         "by-kindergarten": "Filtruj po przedszkolu"
     },
     "settings-page": {
+        "password-change-message": "Link do zmiany hasła został pomyślnie wysłany. Sprawdź pocztę e-mail, by dokończyć proces.",
         "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
         "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
         "change-password-problems-message-button": "Napisz wiadomość",
