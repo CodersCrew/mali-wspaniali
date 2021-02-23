@@ -21,7 +21,7 @@ export const passwordDigitTest = (text: string) => {
 };
 
 export const passwordSpecialTest = (text: string) => {
-    const regex = new RegExp('(?=.*?[#?!@$%^&*-])');
+    const regex = new RegExp('(?=.*?[#?!@$%^&*-.,])');
 
     return regex.test(text);
 };
