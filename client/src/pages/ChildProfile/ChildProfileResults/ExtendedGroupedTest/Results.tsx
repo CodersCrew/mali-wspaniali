@@ -13,7 +13,7 @@ const Results = () => {
         v5: 5,
         unit: 's',
         result: 8,
-        resultStart: 13,
+        resultStart: 8,
     };
 
     const sex = 'male';
@@ -134,6 +134,11 @@ const Results = () => {
                     <text x="-0" y="100" fill="black">{`${v5} ${unit}`}</text>
                 </svg>
             </div>
+            <div className={classes.resultStart}>
+                <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="8" height="80" rx="4" x="98" y="68" fill="#9E9E9E" />
+                </svg>
+            </div>
             <div className={classes.result}>
                 <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <image href={avatar} x="88" height="28" width="28" />
@@ -144,11 +149,6 @@ const Results = () => {
                         {t('child-profile.your-child-result-2')}
                     </text>
                     <rect width="8" height="80" rx="4" x="98" y="68" fill="#212121" />
-                </svg>
-            </div>
-            <div className={classes.resultStart}>
-                <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="8" height="80" rx="4" x="98" y="68" fill="#9E9E9E" />
                 </svg>
             </div>
             <div className={classes.scoring}>
