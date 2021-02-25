@@ -302,7 +302,7 @@
             "button": "Zapisz"
         },
         "your-child-result-1": "WYNIK",
-        "your-child-result-2": "TWOJEGO DZIECKA" 
+        "your-child-result-2": "TWOJEGO DZIECKA"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -388,6 +388,8 @@
     },
     "parent-settings": {
         "header": "Ustawienia kont rodziców",
+        "search-label": "Szukaj po przedszkolu",
+        "input-label": "Szukaj",
         "header-title-1": "Adres email rodzica",
         "header-title-2": "Dzieci",
         "button-icon-edit-tooltip": "Edytuj",
@@ -406,6 +408,14 @@
             "subtitle": "Aby edytować dane rodzica i dziecka uzupełnij poniższe pola",
             "success-message": "Edycja profilu dziecka przebiegła pomyślnie",
             "label": " E-mail rodzica"
+        },
+        "modal-change-kindergarden": {
+            "header": "Przenieś dziecko do innego przedszkola",
+            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieśc dziecko",
+            "main-label": "Obecne przedszkole",
+            "label": "Wybierz przedszkole",
+            "checkbox-option": "Przeniesienie do tego samego przedszkola",
+            "success-message": "Zmiana przedszkoli przebiegła pomyślnie"
         },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
