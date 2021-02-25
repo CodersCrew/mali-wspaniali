@@ -36,7 +36,7 @@ export const TestSummary = ({ result }: Props) => {
                         {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
                     </Typography>
                     <Typography variant="subtitle1">
-                        {t('child-profile.carries-out-on')} {dayjs(result.date).format('L')}
+                        {t('child-profile.carries-out-on')} {dayjs(result.date).fromNow()}
                     </Typography>
                 </div>
                 <div className={classes.cardMiddle}>

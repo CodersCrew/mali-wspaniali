@@ -42,7 +42,7 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, da
                 <Grid item>
                     <Typography className={classes.updatedAt}>
                         <span>
-                            {t('child-profile.last-update-date')}: {dayjs(date).format('L')}
+                            {t('child-profile.last-update-date')}: {dayjs(date).fromNow()}
                         </span>
                     </Typography>
                 </Grid>{' '}

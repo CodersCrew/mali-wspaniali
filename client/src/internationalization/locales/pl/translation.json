@@ -221,15 +221,45 @@
                 "text-1": "Twoje dziecko dobrze rozwija się pod względem sprawności fizycznej. Teraz przed nami praca do wykonania, by wspiąć się na poziom bardzo dobry. Już niewiele brakuje!",
                 "text-2": "Pamiętaj o czasie na codzienną aktywność fizyczną zarezerwowanym dla Twojego dziecka. Pomoże Ci w tym ",
                 "text-2-1": "artykuł",
-                "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!",
-                "text-3": ""
+                "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
             },
             "very-good": {
                 "text-1": "Jest bardzo sprawne fizycznie i może być przykładem dla rówieśników. Podziękowania należą się także Tobie za dbanie o zdrowie i prawidłowy rozwój twojego dziecka – tak trzymajcie! ",
                 "text-2": "Koniecznie zobacz ",
                 "text-2-1": "artykuł",
-                "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!",
-                "text-3": ""
+                "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
+            }
+        },
+        "results-modal-content": {
+            "progress": {
+                "title": "Jest postęp! Brawo!",
+                "subtitle": "Brawo, widać, że dbasz o aktywność swojego dziecka.",
+                "text-1": "Jesteś na dobrej drodze do jego zdrowia i dobrego samopoczucia. Trzymaj tak dalej!",
+                "text-2": "Koniecznie zobacz porady przygotowane przez naszych ekspertów w zakładce ",
+                "text-2-1": " rekomendacje",
+                "text-2-2": ", by stać się jeszcze bardziej świadomym rodzicem."
+            },
+            "constant": {
+                "title": "Uwaga! brak poprawy",
+                "subtitle": "Od ostatniego testu nie nastąpił wzrost wyników w przeprowadzonych próbach u Twojego dziecka.",
+                "text-1": "Musimy cos z tym zrobić. Warto zastanowic się, dlaczego tak się stało. Sprawdź zakładkę ",
+                "text-1-1": "informacje o teście",
+                "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu sprawności.",
+                "text-2": "To nie wszystko co dla Ciebie przygotowaliśmy. Sprawdź co jescze możesz zrobić, by poprawić sprawność swojego dziecka. Pomogą Ci w tym stworone przez naszych ekspertów",
+                "text-2-1": "rekomendacje",
+                "text-2-2": " lub ",
+                "text-2-3": "artykuły."
+            },
+            "regress": {
+                "title": "Uwaga! Pogorszenie!",
+                "subtitle": "Od ostatniego testu Twoje dziecko gorzej radzi sobie z badanymi przez nas cechami. Dlatego trzeba działać!",
+                "text-1": "Musimy zastanowić się dlaczego tak się stało, by zadbac o prawidłowy Twojego dziecka. Sprawdź zakładkę ",
+                "text-1-1": "informacje o teście",
+                "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu.",
+                "text-2": "Już dziś zacznij realizować zalecenia przygotowane przez nas w zakładce ",
+                "text-2-1": "rekomendacje",
+                "text-3": "Sprawdź co jescze możesz zrobić by poprawić sprawności swojego dziecka. pomoże Ci w tym stworzony przez naszych ekspertów ",
+                "text-3-1": "artykuł."
             }
         },
         "initial-test": "Pomiar początkowy",
@@ -263,17 +293,17 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
-        "final-test-title": "Wyniki poszczególnych prób wraz z porównaniem wyników z pomiaru początkowego",
-        "initial-test-title": "Wyniki poszczególnych prób wchodzących w skład pomiaru początkowego",
+        "final-test-title": "Wyniki wchodzących w skład pomiaru początkowego",
+        "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
             "progress": "Poprawił się",
             "regress": "Pogorszył się",
             "constant": "Nie zmienił się"
         },
-        "summary-info": "Informacje podsumowujące",
+        "summary-info": "Informacje o pomiarze",
         "test-result": "Wynik testu",
-        "comparison-label": "Porównując oba pomiary, poziom sprawności Twojego dziecka",
-        "comparison-right-title": "Zobacz, w jakiej formie jest Twoje dziecko. Wykres przedstawia jak zmieniały się wyniki dziecka na przestrzeni 2 pomiarów",
+        "comparison-label": "Na podstawie dwóch pomiarów Twojego dziecka jesteśmy w stanie stwierdzić, że:",
+        "comparison-right-title": "Zobacz na wykresie jak zmienił się ogólny poziom sprawności Twojego dziecka:",
         "comparison-button": "Co mogę zrobić?",
         "no-results-title": "Brak wyników",
         "no-results-text": "Wyniki nie zostały jeszcze wprowadzone, ponieważ pomiar początkowy jeszcze się nie odbył lub wyniki są w opracowaniu.",

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { getResultColorAndLabel } from './calculateResult';
-import { MAX_OVERALL_POINTS } from './constants';
-import { gray } from '../../../../colors';
+// import { getResultColorAndLabel } from './calculateResult';
+// import { MAX_OVERALL_POINTS } from './constants';
+import { gray, resultColors } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
-import { BasicModal } from '../../../../components/Modal/BasicModal';
+import { openResultsModal } from './modals/ResultsModal';
+import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
 
 interface Props {
     firstResultPoints: number;
@@ -15,11 +16,11 @@ interface Props {
 }
 
 export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useTranslation();
-    const { color } = getResultColorAndLabel(lastResultPoints, MAX_OVERALL_POINTS);
-    const classes = useStyles({ color });
+    // const { color } = getResultColorAndLabel(lastResultPoints, MAX_OVERALL_POINTS);
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);
+    const differenceColor = getDifferenceColor(key);
+    const classes = useStyles({ differenceColor });
 
     return (
         <>
@@ -36,7 +37,18 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                         <div className={classes.difference}>{t(`child-profile.difference.${key}`)}</div>
                         <ButtonSecondary
                             variant="contained"
-                            onClick={() => setIsModalOpen((prev) => !prev)}
+                            onClick={() => {
+                                openResultsModal({
+                                    preventClose: false,
+                                    isCancelButtonVisible: true,
+                                    progressKey: key,
+                                }).then((res) => {
+                                    if (!res.close)
+                                        openSnackbar({
+                                            text: t('parent-settings.modal-edit-account.success-message'),
+                                        });
+                                });
+                            }}
                             innerText={t('child-profile.comparison-button')}
                         />
                     </div>
@@ -47,14 +59,6 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                     </Typography>
                 </div>
             </div>
-            <BasicModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen((prev) => !prev)}
-                onAction={() => setIsModalOpen((prev) => !prev)}
-                actionName={t('close')}
-            >
-                {t(`child-profile.difference.${key}`)}
-            </BasicModal>
         </>
     );
 };
@@ -64,6 +68,13 @@ function getDifferenceKey(firstValue: number, lastValue: number) {
     if (firstValue < lastValue) return 'progress';
 
     return 'constant';
+}
+
+function getDifferenceColor(key: string) {
+    if (key === 'progress') return resultColors.green;
+    if (key === 'constant') return resultColors.yellow;
+
+    return resultColors.red;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -78,6 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             padding: '16px',
             flexDirection: 'column',
+            boxShadow: 'none',
         },
         cardTop: {
             borderBottom: `1px solid ${gray}`,
@@ -99,7 +111,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '20px',
             marginTop: '20px',
             fontWeight: 'bold',
-            color: ({ color }: { color: string }) => color,
+            color: ({ differenceColor }: { differenceColor: string }) => differenceColor,
         },
         rightWrapper: {
             width: '100%',
