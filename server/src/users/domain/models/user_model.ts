@@ -15,7 +15,7 @@ export interface UserProps {
   readonly role: string;
   notifications: NotificationProps[];
   children: string[] | mongoose.Schema.Types.ObjectId[] | ChildProps[];
-  agreements: string[] | mongoose.Schema.Types.ObjectId[] | AgreementProps[];
+  agreements: string[];
   confirmed: boolean;
 }
 
@@ -37,6 +37,10 @@ export class User extends AggregateRoot {
 
   get mail(): string {
     return this.props.mail;
+  }
+
+  get agreements(): string[] {
+    return (this.props as UserProps).agreements;
   }
 
   get confirmed(): boolean {

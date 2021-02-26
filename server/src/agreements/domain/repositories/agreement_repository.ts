@@ -14,25 +14,33 @@ export class AgreementRepository {
     private readonly model: Model<AgreementDocument>,
   ) {}
 
-  async get(id: string): Promise<AgreementProps> {
-    return await this.model
+  get(id: string): Promise<AgreementProps> {
+    return this.model
       .findById(id)
-      .lean()
-      .exec();
+      .exec()
+      .then(agreement => agreement.toObject());
   }
 
-  async getAll(): Promise<AgreementProps[]> {
-    return await this.model
+  getAll(): Promise<AgreementProps[]> {
+    return this.model
       .find({}, {}, { sort: { date: -1 } })
       .exec()
-      .then(agreements => agreements.map(agreement => agreement.toObject()));
+      .then(agreements =>
+        agreements.map(agreement => {
+          const parsedAgreement = agreement.toObject();
+
+          return { ...parsedAgreement, _id: parsedAgreement._id.toString() };
+        }),
+      );
   }
 
-  async create(createAgreementDTO: { text: string }): Promise<AgreementProps> {
+  create(createAgreementDTO: { text: string }): Promise<AgreementProps> {
     const createdAgreement = new this.model(createAgreementDTO);
 
-    return await createdAgreement
-      .save()
-      .then(agreement => agreement.toObject());
+    return createdAgreement.save().then(agreement => {
+      const parsedAgreement = agreement.toObject();
+
+      return { ...parsedAgreement, _id: agreement._id.toString() };
+    });
   }
 }

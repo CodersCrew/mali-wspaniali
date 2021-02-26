@@ -15,7 +15,7 @@ export class GetValidAgreementsHandler
     const validAgreements = agreements
       .filter(agreement => !agreement.isOutdated)
       .map(agreement => {
-        const isSigned = signed.includes(agreement._id.toString());
+        const isSigned = signed.includes(agreement._id);
 
         return {
           ...agreement,
