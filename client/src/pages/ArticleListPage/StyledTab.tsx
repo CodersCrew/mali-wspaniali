@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: theme.typography.button.fontWeight,
         },
         wrapper: {
-            margin: '0 10px 0 0',
+            marginRight: '10px',
         },
         selected: {
             height: '45px',
