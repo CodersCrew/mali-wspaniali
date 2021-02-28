@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
 import { openAdminSettingsEditModal } from '../../components/ChilModals/EditChildModal';
+import { openChanageChildrenKindergarten } from '../../components/ChilModals/ChangeCildrenKindergarten';
 import { User } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
@@ -56,7 +57,24 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={changeIconTooltip}>
-                        <IconButton aria-label="edit" className={classes.editButton} onClick={() => null}>
+                        <IconButton
+                            aria-label="edit"
+                            className={classes.editButton}
+                            onClick={() => {
+                                openChanageChildrenKindergarten({
+                                    preventClose: false,
+                                    isCancelButtonVisible: true,
+                                    parent,
+                                    kindergartens: kindergartenList,
+                                }).then((result) => {
+                                    if (!result.close) {
+                                        openSnackbar({
+                                            text: t('parent-settings.modal-change-kindergarden.success-message'),
+                                        });
+                                    }
+                                });
+                            }}
+                        >
                             <ForwardIcon />
                         </IconButton>
                     </Tooltip>

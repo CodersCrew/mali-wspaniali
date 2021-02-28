@@ -1,7 +1,5 @@
+import { UserInput } from '../../../inputs/user_input';
+
 export class CreateUserCommand {
-  constructor(
-    public readonly mail: string,
-    public readonly password: string,
-    public readonly keyCode: string,
-  ) {}
+  constructor(public readonly userInput: UserInput) {}
 }

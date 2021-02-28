@@ -1,7 +1,7 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import * as mongoose from 'mongoose';
 
-import { UserCreatedEvent } from '../events/impl';
+import { UserConfirmedEvent, UserCreatedEvent } from '../events/impl';
 import { Mail } from '../../../shared/domain/mail';
 import { NotificationProps } from '../../../notifications/domain/models/notification_model';
 import { ChildProps } from './child_model';
@@ -15,7 +15,8 @@ export interface UserProps {
   readonly role: string;
   notifications: NotificationProps[];
   children: string[] | mongoose.Schema.Types.ObjectId[] | ChildProps[];
-  agreements: string[] | mongoose.Schema.Types.ObjectId[] | AgreementProps[];
+  agreements: string[];
+  confirmed: boolean;
 }
 
 export interface UserBeforeSaveProps {
@@ -30,8 +31,32 @@ export class User extends AggregateRoot {
     this.props.mail = Mail.create(props.mail).getValue().value;
   }
 
-  get id() {
+  get id(): string {
     return (this.props as UserProps)._id;
+  }
+
+  get mail(): string {
+    return this.props.mail;
+  }
+
+  get agreements(): string[] {
+    return (this.props as UserProps).agreements;
+  }
+
+  get confirmed(): boolean {
+    if (isUserProps(this.props)) {
+      return this.props.confirmed;
+    }
+
+    return false;
+  }
+
+  confirm(): void {
+    if (isUserProps(this.props)) {
+      this.props.confirmed = true;
+
+      this.apply(new UserConfirmedEvent(this.props._id));
+    }
   }
 
   static create(props: UserProps, keyCode: string): User {
