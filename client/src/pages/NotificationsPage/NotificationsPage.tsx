@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { NotificationPageList } from './NotificationPageList';
 import { Pagination } from '../ArticleListPage/Pagination';
 import { activePage } from '../../apollo_client';

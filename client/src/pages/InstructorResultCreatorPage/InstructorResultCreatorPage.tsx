@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableRow, TableCell, IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';

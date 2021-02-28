@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tab as MuiTab, makeStyles, createStyles, Theme, TabProps } from '@material-ui/core/';
 
 export const Tab = (props: TabProps) => {

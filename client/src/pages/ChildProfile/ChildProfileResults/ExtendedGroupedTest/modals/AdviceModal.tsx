@@ -1,4 +1,3 @@
-import React from 'react';
 import { DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ButtonPrimary } from '../../../../../components/Button';

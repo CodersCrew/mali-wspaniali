@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { activePage } from '../../apollo_client';
 import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
 import { useMe } from '../../utils/useMe';
