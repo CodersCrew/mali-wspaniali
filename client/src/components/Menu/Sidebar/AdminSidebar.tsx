@@ -41,7 +41,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
     });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
-    const CreateBlogArticleItem = ItemFactory.create({ name: 'create-blog-article' });
+    const ArticlesItem = ItemFactory.create({ name: 'articles' });
     const KindergartensItem = ItemFactory.create({ name: 'kindergartens' });
     const CodeItem = ItemFactory.create({ name: 'keycodes' });
     const AgreementsItem = ItemFactory.create({ name: 'agreements' });
@@ -59,7 +59,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
                     <CollapsibleList mainItem={ResultsMainItem} subItems={ResultsSubItems} onClick={onClick} />
                     <CollapsibleList mainItem={NewsletterMainItem} subItems={NewsletterSubItems} onClick={onClick} />
                     <SingleItem item={AgreementsItem} onClick={onClick} />
-                    <SingleItem item={CreateBlogArticleItem} onClick={onClick} />
+                    <SingleItem item={ArticlesItem} onClick={onClick} />
                     <SingleItem item={KindergartensItem} onClick={onClick} />
                     <SingleItem item={CodeItem} onClick={onClick} />
                     <SingleItem item={NotificationsItem} onClick={onClick} />

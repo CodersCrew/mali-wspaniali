@@ -323,9 +323,9 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         rightIcon,
     };
 
-    const CreateBlogArticleItem = {
-        name: 'admin-menu.create-blog-article',
-        link: '/admin/article/create',
+    const ArticlesItem = {
+        name: 'admin-menu.articles.title',
+        link: '/admin/articles',
         icon: <Icon icon={<LibraryBooks />} />,
     };
 
@@ -374,7 +374,7 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
     const options: { [index: string]: SingleItemProps } = {
         notifications: NotificationsItem,
         settings: SettingsItem,
-        'create-blog-article': CreateBlogArticleItem,
+        articles: ArticlesItem,
         archive: ArchiveItem,
         newsletter: NewsletterItem,
         keycodes: CodeItem,

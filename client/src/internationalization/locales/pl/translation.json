@@ -451,6 +451,9 @@
             "table": "Tabela wyników",
             "advice-and-recommendations": "Porady i rekomendacje"
         },
+        "articles": {
+            "title": "Artykuły"
+        },
         "keycodes": "Kody",
         "kindergartens": {
             "title": "Przedszkola",
@@ -467,6 +470,10 @@
             "change-password": "Zmiana hasła"
         },
         "logout": "Wyloguj"
+    },
+    "admin-articles": {
+        "title": "Wybierz artykuł albo dodaj nowy",
+        "add-article": "Dodaj artykuł"
     },
     "parent-menu": {
         "home": "Strona Główna",
