@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { createStyles, makeStyles, Theme, Typography, Grid, Box } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, Typography, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
 import { ARTICLES } from '../../graphql/articleRepository';
@@ -42,15 +42,13 @@ export default function AdminArticlesPage() {
 
     return (
         <PageContainer>
-            <Box className={classes.wrapper}>
-                <Typography variant="h3">{t('admin-articles.title')}</Typography>
-                <Link to="/admin/articles/create" className={classes.link}>
-                    <ButtonSecondary variant="contained">
-                        <AddIcon className={classes.addIcon} />
-                        {t('admin-articles.add-article')}
-                    </ButtonSecondary>
-                </Link>
-            </Box>
+            <Typography variant="h3">{t('admin-articles.title')}</Typography>
+            <Link to="/admin/articles/create" className={classes.link}>
+                <ButtonSecondary variant="contained" className={classes.addButton}>
+                    <AddIcon className={classes.addIcon} />
+                    {t('admin-articles.add-article')}
+                </ButtonSecondary>
+            </Link>
             <div>
                 <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
                     {articles.map((article: Article) => (
@@ -103,11 +101,6 @@ export default function AdminArticlesPage() {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        wrapper: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-        },
         innerContainer: {
             padding: theme.spacing(2),
         },
@@ -116,6 +109,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         link: {
             textDecoration: 'none',
+            position: 'fixed',
+            bottom: theme.spacing(3),
+            right: theme.spacing(3),
+            zIndex: 99,
+        },
+        addButton: {
+            borderRadius: '24px',
         },
         gridContainer: {
             maxWidth: '92%',
