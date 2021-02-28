@@ -30,21 +30,10 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link }: Props)
 
 const useStyles = makeStyles((theme: Theme) => ({
     card: {
-        height: 'auto',
         minHeight: '100%',
-        boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
-        borderRadius: '2%',
-        "&:hover": {
-            boxShadow: '1px 1px 7px 0 rgba(0, 0, 0, 0.4)',
-        },
     },
     cardImage: {
-        [theme.breakpoints.down('xs')]: {
-            height: '25vh',
-        },
-        [theme.breakpoints.up('sm')]: {
-            height: '20vh',
-        },
+        height: 140,
     },
     cardContent: {
         wordBreak: 'break-word',

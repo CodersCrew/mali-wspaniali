@@ -120,16 +120,14 @@ export default function ArticleListPage() {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        gridContainer: {
-            maxWidth: '92%',
-            margin: '0 4%',
-        },
         container: {
             margin: `0 ${theme.spacing(3)}px`,
         },
         headerText: {
-            marginLeft: theme.spacing(3),
-            marginTop: theme.spacing(3),
+            marginBottom: theme.spacing(3),
+        },
+        paginationContainer: {
+            marginBottom: theme.spacing(3),
         },
     }),
 );

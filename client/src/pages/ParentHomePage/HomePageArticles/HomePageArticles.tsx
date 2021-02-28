@@ -56,8 +56,9 @@ export const HomePageArticles = ({ articles }: Props) => {
     );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
     articleHeader: {
         textTransform: 'uppercase',
+        marginBottom: theme.spacing(3),
     },
-});
+}));
