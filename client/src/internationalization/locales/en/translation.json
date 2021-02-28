@@ -478,6 +478,9 @@
             "table": "Results table",
             "advice-and-recommendations": "Advice and recommendations"
         },
+        "articles": {
+            "title": "Articles"
+        },
         "keycodes": "Keycodes",
         "kindergartens": {
             "title": "Kindergartens",
@@ -488,6 +491,10 @@
         "agreements": "Agreements",
         "test-management": "Tests",
         "logout": "Log out"
+    },
+    "admin-articles": {
+        "title": "Select article or create new article",
+        "add-article": "Add article"
     },
     "instructor-menu": {
         "add-results": "Add results",
