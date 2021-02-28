@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Grid, Typography, createStyles } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
-import { createStyles } from '@material-ui/styles';
 import { useQuery } from '@apollo/client';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-
 import { useTranslation } from 'react-i18next';
+
 import { categoriesList } from './BlogCategories';
-import { Article, PaginatedArticles } from '../../graphql/types';
+import { PaginatedArticles } from '../../graphql/types';
 import { Theme } from '../../theme/types';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
 import { activePage } from '../../apollo_client';
 import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
-import { useBreakpoints } from '../../queries/useBreakpoints';
+import { useIsDevice } from '../../queries/useBreakpoints';
 import { Pagination } from '../../components/Blog/Pagination';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
-
+import { PageContainer } from '../../components/PageContainer';
 
 const ARTICLES_PER_PAGE = 6;
 
@@ -23,9 +21,8 @@ export default function ArticleListPage() {
     const classes = useStyles();
     const params = useParams<{ category: string }>();
     const history = useHistory();
-    const device = useBreakpoints();
     const { t } = useTranslation();
-    const isSmall = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+    const { isSmallMobile } = useIsDevice();
 
     const [currentPage, setCurrentPage] = useState(1);
     const { data, fetchMore } = useQuery<{
@@ -47,73 +44,71 @@ export default function ArticleListPage() {
         history.push(`/parent/blog/${value}`);
     }
 
-    if (!data)
-        return (
-            <MobileAwareCategoryTabs
-                onTabChange={onTabChange}
-                category={params.category}
-                values={categoriesList}
-                device={device}
-            />
-        );
+    if (!data) {
+        return <MobileAwareCategoryTabs onTabChange={onTabChange} category={params.category} values={categoriesList} />;
+    }
 
     const { articles, count, hasNext } = data.paginatedArticles;
 
     return (
         <>
-            <MobileAwareCategoryTabs
-                onTabChange={onTabChange}
-                category={params.category}
-                values={categoriesList}
-                device={device}
-            />
-            <Typography className={classes.headerText} variant="h3">
-                {t('blog-main-page.header')}
-            </Typography>
-            <Grid container justify="center" spacing={isSmall ? 2 : 4} className={classes.gridContainer}>
-                {articles.map((article: Article) => (
-                    <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth >
-                        <BlogArticleCard
-                            title={article.title}
-                            pictureUrl={article.pictureUrl}
-                            description={article.description}
-                            link={`/parent/article/${article._id}`}
-                        />
-                    </Grid>
-                ))}
-            </Grid>
-            <Pagination
-                count={articles.length}
-                maxCount={count}
-                disabled={!hasNext}
-                hidden={articles.length < ARTICLES_PER_PAGE}
-                onClick={() => {
-                    const { scrollY } = window;
+            <MobileAwareCategoryTabs onTabChange={onTabChange} category={params.category} values={categoriesList} />
+            <PageContainer>
+                <Typography className={classes.headerText} variant="h3">
+                    {t('blog-main-page.header')}
+                </Typography>
+                <Grid container justify="center" spacing={isSmallMobile ? 2 : 4}>
+                    {articles.map((article) => (
+                        <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
+                            <BlogArticleCard
+                                title={article.title}
+                                pictureUrl={article.pictureUrl}
+                                description={article.description}
+                                link={`/parent/article/${article._id}`}
+                                category={t(`single-article.${article.category}`)}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+                <div className={classes.paginationContainer}>
+                    <Pagination
+                        count={articles.length}
+                        maxCount={count}
+                        disabled={!hasNext}
+                        hidden={articles.length < ARTICLES_PER_PAGE}
+                        onClick={() => {
+                            const { scrollY } = window;
 
-                    fetchMore({
-                        variables: { page: currentPage + 1, perPage: ARTICLES_PER_PAGE, category: params.category },
-                        updateQuery: (prev, { fetchMoreResult }) => {
-                            setCurrentPage((prevPage) => prevPage + 1);
-
-                            if (!fetchMoreResult) return prev;
-
-                            return {
-                                ...prev,
-                                paginatedArticles: {
-                                    ...prev.paginatedArticles,
-                                    ...fetchMoreResult!.paginatedArticles,
-                                    articles: [
-                                        ...prev.paginatedArticles.articles,
-                                        ...fetchMoreResult!.paginatedArticles.articles,
-                                    ],
+                            fetchMore({
+                                variables: {
+                                    page: currentPage + 1,
+                                    perPage: ARTICLES_PER_PAGE,
+                                    category: params.category,
                                 },
-                            };
-                        },
-                    }).then(() => {
-                        window.scroll(0, scrollY);
-                    });
-                }}
-            />
+                                updateQuery: (prev, { fetchMoreResult }) => {
+                                    setCurrentPage((prevPage) => prevPage + 1);
+
+                                    if (!fetchMoreResult) return prev;
+
+                                    return {
+                                        ...prev,
+                                        paginatedArticles: {
+                                            ...prev.paginatedArticles,
+                                            ...fetchMoreResult!.paginatedArticles,
+                                            articles: [
+                                                ...prev.paginatedArticles.articles,
+                                                ...fetchMoreResult!.paginatedArticles.articles,
+                                            ],
+                                        },
+                                    };
+                                },
+                            }).then(() => {
+                                window.scroll(0, scrollY);
+                            });
+                        }}
+                    />
+                </div>
+            </PageContainer>
         </>
     );
 }

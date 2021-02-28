@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { activePage } from '../../apollo_client';
-import { useBreakpoints } from '../../queries/useBreakpoints';
 import { childProfileCategoriesList } from './ChildProfileCategory';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
 import { ChildRecommendations } from './ChildRecommendations/ChildRecommendations';
@@ -19,7 +18,6 @@ export default function ChildResultsPage() {
         childId: string;
         category: string;
     }>();
-    const device = useBreakpoints();
     const history = useHistory();
     const classes = useStyles();
     const user = useMe();
@@ -43,7 +41,6 @@ export default function ChildResultsPage() {
                     onTabChange={onTabChange}
                     category={category}
                     values={childProfileCategoriesList}
-                    device={device}
                 />
                 <EmptyProfile />
             </>
@@ -56,7 +53,6 @@ export default function ChildResultsPage() {
                 onTabChange={onTabChange}
                 category={category}
                 values={childProfileCategoriesList}
-                device={device}
             />
             <PageContainer>
                 {category === 'results' && (
