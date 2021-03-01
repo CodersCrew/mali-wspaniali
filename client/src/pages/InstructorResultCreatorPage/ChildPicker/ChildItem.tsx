@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, createStyles, fade, Grid, ListItem, makeStyles, Theme, Typography } from '@material-ui/core';
 import { BarChart, KeyboardArrowRight } from '@material-ui/icons';
 import clsx from 'clsx';

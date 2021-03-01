@@ -1,72 +1,55 @@
-import React from 'react';
-import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
-import { useTranslation } from 'react-i18next';
-import { ButtonSecondary } from '../Button';
+import { Card, CardMedia, CardActionArea, CardContent, Typography, makeStyles, Theme, Chip } from '@material-ui/core';
 
 interface Props {
     pictureUrl: string;
     title: string;
     description: string;
     link: string;
+    category: string;
 }
 
-export const BlogArticleCard = ({ pictureUrl, title, description, link }: Props) => {
+export const BlogArticleCard = ({ pictureUrl, title, description, link, category }: Props) => {
     const classes = useStyles();
-    const { t } = useTranslation();
 
     return (
-        <Card className={classes.card} elevation={0}>
-            <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
-            <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="subtitle1" className={classes.articleTitle}>
-                    {title}
-                </Typography>
-                <Typography variant="body2">{description}</Typography>
-            </CardContent>
-            <ButtonSecondary
-                href={link}
-                variant="contained"
-                startIcon={<SendIcon />}
-                className={classes.readMoreButton}
-                disableElevation
-                innerText={t('blog-article-card.read-more')}
-            />
+        <Card className={classes.card}>
+            <CardActionArea href={link}>
+                <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
+                <CardContent className={classes.cardContent}>
+                    <div className={classes.tagContainer}>
+                        <Chip color="secondary" size="small" label={category} />
+                    </div>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {title}
+                    </Typography>
+                    <Typography className={classes.cardDescription} variant="body2" color="textSecondary" component="p">
+                        {description}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
         </Card>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+    tagContainer: {
+        marginBottom: theme.spacing(1),
+        textTransform: 'capitalize',
+    },
     card: {
-        position: 'relative',
-        height: '400px',
-        overflow: 'visible',
-        backgroundColor: theme.palette.grey[300],
-        marginTop: '20%',
-        boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
+        minHeight: '100%',
     },
     cardImage: {
-        maxHeight: '200px',
-        padding: '0 16px',
-        position: 'relative',
-        bottom: '30px',
+        height: 140,
     },
     cardContent: {
-        position: 'relative',
-        bottom: '20px',
-        paddingBottom: 0,
-        height: '120px',
         wordBreak: 'break-word',
+        overflow: 'hidden',
     },
-    articleTitle: {
-        position: 'relative',
-        bottom: '10px',
-    },
-    readMoreButton: {
-        fontSize: '13px',
-        position: 'absolute',
-        right: '16px',
-        bottom: '16px',
-        marginTop: '10px',
+    cardDescription: {
+        overflow: 'hidden',
+        display: '-webkit-box',
+        '-webkit-line-clamp': 4,
+        '-webkit-box-orient': 'vertical',
     },
 }));

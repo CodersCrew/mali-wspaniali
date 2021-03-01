@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 

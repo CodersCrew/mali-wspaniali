@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableCell, TableRow, Theme, makeStyles, createStyles, IconButton } from '@material-ui/core';
 import clsx from 'clsx';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';

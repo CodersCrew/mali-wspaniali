@@ -425,7 +425,7 @@
         "length": "długość",
         "emotions": "emocje",
         "activity": "aktywność",
-        "food": "żywność",
+        "food": "żywienie",
         "other": "inne",
         "reading-time": "min czytania",
         "go-to-previous-page": "poprzednia",
@@ -496,7 +496,7 @@
     },
     "blog-main-page": {
         "header-bar": "Blog",
-        "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
+        "header": "Sprawdź jak zadbać o rozwój swojego dziecka"
     },
     "blog-pagination": {
         "previous": "Poprzednia",

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, Box } from '@material-ui/core';
 import { Panel } from '../Panel';

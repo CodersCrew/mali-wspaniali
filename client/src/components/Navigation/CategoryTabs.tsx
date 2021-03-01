@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { Tabs } from '../Tabs/Tabs';
 import { theme } from '../../theme/theme';

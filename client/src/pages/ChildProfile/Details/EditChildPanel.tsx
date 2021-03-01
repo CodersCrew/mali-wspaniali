@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormik } from 'formik';
 import { makeStyles, createStyles, Grid, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';

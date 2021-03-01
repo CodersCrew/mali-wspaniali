@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextField, Typography, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';

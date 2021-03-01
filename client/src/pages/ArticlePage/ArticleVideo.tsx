@@ -1,4 +1,3 @@
-import React from 'react';
 import { CardMedia, createStyles, makeStyles } from '@material-ui/core';
 
 interface Props {
