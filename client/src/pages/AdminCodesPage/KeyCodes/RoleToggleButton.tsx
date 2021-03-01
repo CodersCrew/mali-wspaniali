@@ -1,4 +1,3 @@
-import React from 'react';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 

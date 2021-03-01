@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { enUS, Localization, plPL } from '@material-ui/core/locale';
 import { ThemeProvider as MuiThemeProvider, createMuiTheme, CssBaseline } from '@material-ui/core';
 import { ThemeObject } from './types';

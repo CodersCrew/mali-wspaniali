@@ -1,5 +1,4 @@
-import React from 'react';
-import { makeStyles, Typography, Grid } from '@material-ui/core';
+import { makeStyles, Typography, Grid, Theme } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 import { useTranslation } from 'react-i18next';
 
@@ -14,18 +13,19 @@ interface Props {
 
 export const HomePageArticles = ({ articles }: Props) => {
     const classes = useStyles();
-    const { isMobile } = useIsDevice();
+    const { isSmallMobile } = useIsDevice();
     const { t } = useTranslation();
 
     const renderArticles = (articlesArray: Article[]) => {
         return articlesArray.map((article) => {
             return (
-                <Grid item key={article._id} xs={isMobile ? 12 : 4}>
+                <Grid item key={article._id} xs={12} sm={6} md={4}>
                     <BlogArticleCard
                         title={article.title}
                         pictureUrl={article.pictureUrl}
                         description={article.description}
                         link={`/parent/article/${article._id}`}
+                        category={t(`single-article.${article.category}`)}
                     />
                 </Grid>
             );
@@ -42,7 +42,13 @@ export const HomePageArticles = ({ articles }: Props) => {
             {articles.length > 4 ? (
                 <Carousel autoPlay={false} animation="slide" timeout={300}>
                     {grouped.map((articlesArray, groupIndex) => (
-                        <Grid container direction={isMobile ? 'column' : 'row'} spacing={3} key={groupIndex}>
+                        <Grid
+                            container
+                            direction={isSmallMobile ? 'column' : 'row'}
+                            spacing={3}
+                            key={groupIndex}
+                            justify="center"
+                        >
                             {renderArticles(articlesArray)}
                         </Grid>
                     ))}
@@ -56,8 +62,9 @@ export const HomePageArticles = ({ articles }: Props) => {
     );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
     articleHeader: {
         textTransform: 'uppercase',
+        marginBottom: theme.spacing(3),
     },
-});
+}));

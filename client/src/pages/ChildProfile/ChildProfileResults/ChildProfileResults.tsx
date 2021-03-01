@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { GroupedTests } from './GroupedTest';
 import { Child, TestResult } from '../../../graphql/types';

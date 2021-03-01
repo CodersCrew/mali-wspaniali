@@ -66,8 +66,6 @@
         "contact": "Skontaktuj się z fundacją by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail podany fundacji",
         "back-to-login": "Wróć do logowania",
-        "email-sent": "Na twój adres email wysłaliśmy maila.",
-        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło.",
         "avatar": "Małgosia"
     },
     "users-page": {
@@ -390,6 +388,8 @@
     },
     "parent-settings": {
         "header": "Ustawienia kont rodziców",
+        "search-label": "Szukaj po przedszkolu",
+        "input-label": "Szukaj",
         "header-title-1": "Adres email rodzica",
         "header-title-2": "Dzieci",
         "button-icon-edit-tooltip": "Edytuj",
@@ -409,6 +409,14 @@
             "success-message": "Edycja profilu dziecka przebiegła pomyślnie",
             "label": " E-mail rodzica"
         },
+        "modal-change-kindergarden": {
+            "header": "Przenieś dziecko do innego przedszkola",
+            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieśc dziecko",
+            "main-label": "Obecne przedszkole",
+            "label": "Wybierz przedszkole",
+            "checkbox-option": "Przeniesienie do tego samego przedszkola",
+            "success-message": "Zmiana przedszkoli przebiegła pomyślnie"
+        },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
 
@@ -417,7 +425,7 @@
         "length": "długość",
         "emotions": "emocje",
         "activity": "aktywność",
-        "food": "żywność",
+        "food": "żywienie",
         "other": "inne",
         "reading-time": "min czytania",
         "go-to-previous-page": "poprzednia",
@@ -500,7 +508,7 @@
     },
     "blog-main-page": {
         "header-bar": "Blog",
-        "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
+        "header": "Sprawdź jak zadbać o rozwój swojego dziecka"
     },
     "blog-pagination": {
         "previous": "Poprzednia",
@@ -656,6 +664,7 @@
         "by-kindergarten": "Filtruj po przedszkolu"
     },
     "settings-page": {
+        "password-change-message": "Link do zmiany hasła został pomyślnie wysłany. Sprawdź pocztę e-mail, by dokończyć proces.",
         "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
         "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
         "change-password-problems-message-button": "Napisz wiadomość",
@@ -716,7 +725,7 @@
             "unassigned-kindergartens": "Nieprzydzielone przedszkola"
         },
         "snackbars": {
-            "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+            "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola."
         },
         "modal": {
             "cancel": "Anuluj",

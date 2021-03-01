@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, makeStyles, Snackbar } from '@material-ui/core';
 import { Alert, AlertProps } from '@material-ui/lab';
 

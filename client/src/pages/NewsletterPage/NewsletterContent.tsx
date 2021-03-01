@@ -1,4 +1,4 @@
-import React, { FocusEvent } from 'react';
+import { FocusEvent } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';

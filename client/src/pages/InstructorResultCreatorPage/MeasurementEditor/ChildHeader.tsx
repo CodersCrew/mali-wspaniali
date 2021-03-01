@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, createStyles, Grid, makeStyles, SimplePaletteColorOptions, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../../graphql/types';

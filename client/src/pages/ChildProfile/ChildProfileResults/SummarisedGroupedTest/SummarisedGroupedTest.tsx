@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { lightTextColor } from '../../../../colors';
@@ -22,7 +21,7 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, da
                 {t('child-profile.kindergartener-test')}: {getSchoolYearLabel(schoolYearStart)}
             </Typography>
             <Typography className={classes.updatedAt}>
-                {t('child-profile.last-update-date')}:{' '}
+                {t('child-profile.last-update-date')}:
                 <span className={classes.updatedAtDate}>{dayjs(date).format('L')}</span>
             </Typography>
             <ButtonSecondary

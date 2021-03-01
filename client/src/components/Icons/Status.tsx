@@ -1,4 +1,3 @@
-import React from 'react';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
