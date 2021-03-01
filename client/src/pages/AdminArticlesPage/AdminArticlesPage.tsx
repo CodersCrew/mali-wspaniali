@@ -7,18 +7,20 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { ARTICLES } from '../../graphql/articleRepository';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
-import { PaginatedArticles, Article } from '../../graphql/types';
+import { PaginatedArticles } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 import { Loader } from '../../components/Loader';
 import { Pagination } from '../../components/Blog/Pagination';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 const ARTICLES_PER_PAGE = 6;
 
 export default function AdminArticlesPage() {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { isSmallMobile } = useIsDevice();
 
     const [currentPage, setCurrentPage] = useState(1);
     const { data, loading, fetchMore } = useQuery<{
@@ -42,26 +44,29 @@ export default function AdminArticlesPage() {
 
     return (
         <PageContainer>
-            <Typography variant="h3">{t('admin-articles.title')}</Typography>
+            <Typography className={classes.headerText} variant="h3">
+                {t('admin-articles.title')}
+            </Typography>
             <Link to="/admin/articles/create" className={classes.link}>
                 <ButtonSecondary variant="contained" className={classes.addButton}>
                     <AddIcon className={classes.addIcon} />
                     {t('admin-articles.add-article')}
                 </ButtonSecondary>
             </Link>
-            <div>
-                <Grid container justify="space-around" spacing={6} className={classes.gridContainer}>
-                    {articles.map((article: Article) => (
-                        <Grid key={article._id} item xs={4} zeroMinWidth>
-                            <BlogArticleCard
-                                title={article.title}
-                                pictureUrl={article.pictureUrl}
-                                description={article.description}
-                                link={`/admin/article/${article._id}`}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
+            <Grid container justify="center" spacing={isSmallMobile ? 2 : 4}>
+                {articles.map((article) => (
+                    <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
+                        <BlogArticleCard
+                            title={article.title}
+                            pictureUrl={article.pictureUrl}
+                            description={article.description}
+                            link={`/parent/article/${article._id}`}
+                            category={t(`single-article.${article.category}`)}
+                        />
+                    </Grid>
+                ))}
+            </Grid>
+            <div className={classes.paginationContainer}>
                 <Pagination
                     count={articles.length}
                     maxCount={count}
@@ -71,7 +76,10 @@ export default function AdminArticlesPage() {
                         const { scrollY } = window;
 
                         fetchMore({
-                            variables: { page: currentPage + 1, perPage: ARTICLES_PER_PAGE },
+                            variables: {
+                                page: currentPage + 1,
+                                perPage: ARTICLES_PER_PAGE,
+                            },
                             updateQuery: (prev, { fetchMoreResult }) => {
                                 setCurrentPage((prevPage) => prevPage + 1);
 
@@ -101,9 +109,6 @@ export default function AdminArticlesPage() {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        innerContainer: {
-            padding: theme.spacing(2),
-        },
         addIcon: {
             marginRight: theme.spacing(1),
         },
@@ -115,14 +120,14 @@ const useStyles = makeStyles((theme: Theme) =>
             zIndex: 99,
         },
         addButton: {
-            borderRadius: '24px',
+            borderRadius: theme.spacing(3),
+            padding: theme.spacing(1.5),
         },
-        gridContainer: {
-            maxWidth: '92%',
-            margin: '0 4%',
+        headerText: {
+            marginBottom: theme.spacing(3),
         },
-        container: {
-            margin: `0 ${theme.spacing(3)}px`,
+        paginationContainer: {
+            marginBottom: theme.spacing(3),
         },
     }),
 );
