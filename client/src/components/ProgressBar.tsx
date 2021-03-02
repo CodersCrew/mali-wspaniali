@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, LinearProgress, makeStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 

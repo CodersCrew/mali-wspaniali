@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, createStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { mainColor, backgroundColor } from '../../colors';

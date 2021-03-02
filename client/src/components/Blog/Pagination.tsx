@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -13,7 +12,6 @@ interface Props {
 export const Pagination = ({ disabled, hidden, count, maxCount, onClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
-
     if (hidden) return null;
 
     return (
@@ -21,13 +19,7 @@ export const Pagination = ({ disabled, hidden, count, maxCount, onClick }: Props
             <div className={classes.innerContainer}>
                 <div className={classes.counter}>{t('blog-pagination.counter', { from: count, to: maxCount })}</div>
                 <div>
-                    <Button
-                        className={classes.buttonShowMore}
-                        variant="outlined"
-                        color="secondary"
-                        disabled={disabled}
-                        onClick={onClick}
-                    >
+                    <Button variant="outlined" color="secondary" disabled={disabled} onClick={onClick}>
                         {t('blog-pagination.show-more')}
                     </Button>
                 </div>
@@ -49,12 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
         },
         counter: {
-            paddingBottom: theme.spacing(3),
+            padding: theme.spacing(2),
             userSelect: 'none',
             cursor: 'default',
-        },
-        buttonShowMore: {
-            marginBottom: theme.spacing(4),
         },
     }),
 );

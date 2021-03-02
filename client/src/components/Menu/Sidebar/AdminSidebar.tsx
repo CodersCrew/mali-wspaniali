@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Me } from '../../../graphql/types';

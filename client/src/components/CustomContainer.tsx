@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { createStyles, Divider, makeStyles, Paper, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 
