@@ -1,7 +1,7 @@
-import React from 'react';
 import { Card, CardMedia, CardContent, Typography, makeStyles, Theme } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useTranslation } from 'react-i18next';
+
 import { ButtonSecondary } from '../Button/ButtonSecondary';
 import { ArticleCategory } from '../../graphql/types';
 
