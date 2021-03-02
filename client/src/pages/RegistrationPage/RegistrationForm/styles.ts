@@ -54,6 +54,9 @@ export const useStyles = makeStyles((theme: Theme) =>
             height: '1px',
             margin: theme.spacing(0.5, 0, 1.5),
         },
+        dividerCompleted: {
+            backgroundColor: theme.palette.primary.main,
+        },
         registrationHeader: {
             textAlign: 'center',
             fontSize: '21px',
@@ -90,7 +93,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            marginTop: '30px',
+            padding: theme.spacing(0, 3),
         },
         nextButton: {
             [theme.breakpoints.down('md')]: {

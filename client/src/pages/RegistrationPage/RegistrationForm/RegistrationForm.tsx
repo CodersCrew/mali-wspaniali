@@ -37,7 +37,7 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     // TODO: turn back to 0
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(2);
     const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
@@ -232,10 +232,14 @@ export const RegistrationForm = () => {
                     handleNext();
                 })
                 .catch((err) => {
+                    // TODO: re-modify this!
+                    handleNext();
+                    /*
                     openAlertDialog({
                         type: 'error',
                         description: err.message,
                     });
+*/
                 });
         }
     };
@@ -256,23 +260,38 @@ export const RegistrationForm = () => {
             <Box mb={isDesktop ? 3 : 2} />
             <Typography className={classes.subHeader}>{t('login-wrapper.subheading')}</Typography>
             <Box mb={isDesktop ? 2.5 : 2} />
+
             <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
                 <Stepper
                     activeStep={activeStep}
                     orientation="vertical"
                     className={classes.stepper}
+                    /*
                     connector={isDesktop ? <StepConnector /> : <Divider className={classes.divider} />}
+*/
+                    connector={isDesktop ? <StepConnector /> : <></>}
                 >
                     {steps.map((step, idx) => (
                         <Step key={step} style={{ border: 'none' }}>
                             <StepLabel>
                                 <Typography variant="body2">{step}</Typography>
                             </StepLabel>
-                            <StepContent className={classes.stepperContent}>{getStepContent(idx)}</StepContent>
+                            <StepContent className={classes.stepperContent}>
+                                {idx !== 4 ? getStepContent(idx) : null}
+                            </StepContent>
+                            {idx !== steps.length - 1 && (
+                                <Divider
+                                    className={clsx({
+                                        [classes.divider]: true,
+                                        [classes.dividerCompleted]: activeStep > idx,
+                                    })}
+                                />
+                            )}
                         </Step>
                     ))}
                 </Stepper>
             </form>
+            {activeStep === 4 && getStepContent(activeStep)}
             <div className={classes.footer}>
                 <ButtonSecondary href="/login" innerText={t('registration-page.go-to-loginpage')} />
                 <Box mb={3} />

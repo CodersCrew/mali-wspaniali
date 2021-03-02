@@ -113,7 +113,8 @@ export const RegistrationAgreement = ({
     const classes = useStyles();
 
     const [isOpen, setIsOpen] = useState(false);
-    const [boxChecked, setBoxChecked] = useState(new Array(agreements.length));
+    // const [boxChecked, setBoxChecked] = useState<boolean[]>(new Array(agreements.length));
+    const [boxChecked, setBoxChecked] = useState([false, false, false, false, false]);
     const [expanded, setExpanded] = useState('panel1');
 
     const toggleModal = () => setIsOpen(!isOpen);
@@ -126,16 +127,14 @@ export const RegistrationAgreement = ({
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { id, checked } = target;
-        if (id === '0' && checked) {
-            console.log('jestem');
-            const checks = new Array(agreements.length);
-            boxChecked.map((item, key) => {
-                checks[key] = true;
-
-                return item;
-            });
-            setBoxChecked(checks);
+        const checks = [...boxChecked];
+        checks[parseInt(id, 10)] = checked;
+        if (id === '0') {
+            for (let i = 0; i < checks.length; i += 1) {
+                checks[i] = checked;
+            }
         }
+        setBoxChecked(() => checks);
     };
 
     return (
@@ -230,6 +229,7 @@ export const RegistrationAgreement = ({
                     variant="contained"
                     className={classNextBtn}
                     innerText={t('next')}
+                    disabled={!boxChecked[1] || !boxChecked[2]}
                 />
                 <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />
             </div>

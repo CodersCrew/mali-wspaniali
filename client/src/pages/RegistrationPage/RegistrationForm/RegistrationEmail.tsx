@@ -9,6 +9,7 @@ import { RegistrationEmailProps } from './types';
 
 export const RegistrationEmail = ({
     handleChange,
+    handleBack,
     handleNext,
     email,
     classForm,
@@ -41,6 +42,7 @@ export const RegistrationEmail = ({
                     disabled={!emailTest(email)}
                     innerText={t('next')}
                 />
+                <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />
             </div>
         </>
     );

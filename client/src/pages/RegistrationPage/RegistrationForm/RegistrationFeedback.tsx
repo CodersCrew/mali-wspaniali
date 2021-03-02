@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography } from '@material-ui/core/';
-import { Link } from 'react-router-dom';
+import { Box, Typography } from '@material-ui/core/';
+// import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { RegistrationFeedbackProps } from './types';
@@ -10,11 +10,11 @@ export const RegistrationFeedback = ({ classLink, classHeader, classWrapper }: R
 
     return (
         <div className={classWrapper}>
-            <div className={classHeader}>{t('registration-page.register-success')}</div>
-            <Typography>{t('registration-page.register-success-text')}</Typography>
-            <Link className={classLink} to="/">
-                {t('registration-page.go-to-homepage')}
-            </Link>
+            <Typography variant="h3">{t('registration-page.register-success-title')}</Typography>
+            <Box mb={2.5} />
+            <Typography variant="body1">{t('registration-page.register-success-content')}</Typography>
+            <Box mb={1} />
+            <Typography variant="body1">{t('registration-page.register-success-spam')}</Typography>
         </div>
     );
 };
