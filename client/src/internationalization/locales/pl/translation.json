@@ -442,7 +442,12 @@
         "logged-as": "Zalogowany jako:"
     },
     "admin-menu": {
-        "home": "Strona Główna",
+        "tests": {
+            "title": "Testy",
+            "results": "Wyniki",
+            "manage-tests": "Zarządzaj testami",
+            "instructors": "Zarządzaj instruktorami"
+        },
         "agreements": "Zgody",
         "newsletter": {
             "title": "Newsletter",
@@ -454,12 +459,12 @@
             "table": "Tabela wyników",
             "advice-and-recommendations": "Porady i rekomendacje"
         },
-        "access": {
-            "title": "Zarządzanie dostępami",
-            "instructors": "Zarządzaj instruktorami",
-            "keycodes": "Generowanie kodów"
+        "keycodes": "Kody",
+        "kindergartens": {
+            "title": "Przedszkola",
+            "list": "Lista przedszkoli"
         },
-        "create-blog-article": "Blog",
+        "create-blog-article": "Artykuły",
         "archive": "Archiwum",
         "results-list": "Lista wyników",
         "notifications": "Powiadomienia",

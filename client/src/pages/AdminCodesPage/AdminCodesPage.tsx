@@ -9,7 +9,7 @@ export default function AdminCodesPage() {
     const classes = useStyles();
 
     useEffect(() => {
-        activePage(['admin-menu.access.title', 'admin-menu.access.keycodes']);
+        activePage(['admin-menu.keycodes']);
     }, []);
 
     return (

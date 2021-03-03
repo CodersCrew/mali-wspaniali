@@ -456,7 +456,12 @@
         "logout": "Log out"
     },
     "admin-menu": {
-        "home": "Home",
+        "tests": {
+            "title": "Tests",
+            "results": "Results",
+            "manage-tests": "Manage tests",
+            "instructors": "Manage instructors"
+        },
         "settings": {
             "title": "Settings",
             "parents-settings": "Parent's accounts placings",
@@ -473,12 +478,12 @@
             "table": "Results table",
             "advice-and-recommendations": "Advice and recommendations"
         },
-        "access": {
-            "title": "Access management",
-            "instructors": "Manage instructors",
-            "keycodes": "Generate keycodes"
+        "keycodes": "Keycodes",
+        "kindergartens": {
+            "title": "Kindergartens",
+            "list": "List of kindergartens"
         },
-        "create-blog-article": "Blog",
+        "create-blog-article": "Articles",
         "archive": "Archive",
         "agreements": "Agreements",
         "test-management": "Tests",
