@@ -1,4 +1,5 @@
-import { TextField, Typography, makeStyles, createStyles } from '@material-ui/core';
+import React from 'react';
+import { TextField, Typography, makeStyles, createStyles, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../theme/types';
 import { backgroundColor, secondaryColor, white } from '../../colors';
@@ -19,12 +20,19 @@ export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Pro
 
     return (
         <>
-            <Typography className={classes.subtitle}>{t(`${tPrefix}.its-ok`)}</Typography>
+            <Typography className={classes.subtitle}>
+                <Box fontWeight='fontWeightMedium'>
+                    {t(`${tPrefix}.its-ok`)}
+                </Box>
+            </Typography>
             <Typography className={`${classes.subtitle} ${classes.subtitleThin}`}>
-                {t(`${tPrefix}.receive-link`)}
+                <Box fontWeight='fontWeightMedium'>
+                    {t(`${tPrefix}.receive-link`)}
+                </Box>
             </Typography>
             <TextField
                 required
+                fullWidth
                 value={email}
                 id="email"
                 label={t('e-mail')}
@@ -38,12 +46,8 @@ export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Pro
                     disabled={isDisabled}
                     className={classes.createPasswordButton}
                     onClick={onSubmit}
-                    innerText={t('forgot-password-page.new-password')}
+                    innerText={t('forgot-password-page.continue')}
                 />
-            </div>
-            <div className={classes.underlinedText}>
-                <Typography variant="caption">{t(`${tPrefix}.problem`)}</Typography>
-                <Typography variant="caption">{t(`${tPrefix}.contact`)}</Typography>
             </div>
         </>
     );
@@ -85,25 +89,6 @@ const useStyles = makeStyles((theme: Theme) =>
         subtitleThin: {
             marginBottom: '20px',
             width: '320px',
-        },
-        underlinedText: {
-            textAlign: 'center',
-            position: 'relative',
-            marginBottom: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-
-            '&::after': {
-                position: 'absolute',
-                content: '""',
-                height: '1px',
-                margin: '0 auto',
-                left: '0',
-                bottom: '-2px',
-                right: '0',
-                width: '100%',
-                background: 'black',
-            },
         },
         createPasswordButton: {
             marginBottom: '20px',
