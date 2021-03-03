@@ -21,14 +21,10 @@ export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Pro
     return (
         <>
             <Typography className={classes.subtitle}>
-                <Box fontWeight='fontWeightMedium'>
-                    {t(`${tPrefix}.its-ok`)}
-                </Box>
+                <Box fontWeight="fontWeightMedium">{t(`${tPrefix}.its-ok`)}</Box>
             </Typography>
             <Typography className={`${classes.subtitle} ${classes.subtitleThin}`}>
-                <Box fontWeight='fontWeightMedium'>
-                    {t(`${tPrefix}.receive-link`)}
-                </Box>
+                <Box fontWeight="fontWeightMedium">{t(`${tPrefix}.receive-link`)}</Box>
             </Typography>
             <TextField
                 required

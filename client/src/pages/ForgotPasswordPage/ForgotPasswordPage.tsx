@@ -76,10 +76,8 @@ export default function ForgotPasswordPage() {
                     alt={t('forgot-password-page.avatar')}
                 />
                 <Typography variant="h3" className={classes.title}>
-                    <Box fontWeight='fontWeightMedium'>
-                        {t('forgot-password-page.forgot-password')}
-                    </Box>
-                </Typography>                
+                    <Box fontWeight="fontWeightMedium">{t('forgot-password-page.forgot-password')}</Box>
+                </Typography>
                 {resetPasswordState === 'FORM' ? (
                     <ResetPasswordForm
                         onChange={handleInputChange}
@@ -94,22 +92,16 @@ export default function ForgotPasswordPage() {
             <div className={classes.footer}>
                 <div className={classes.underlinedText}>
                     <Typography variant="caption">
-                        <Box fontWeight='fontWeightMedium'>
-                            {t('forgot-password-page.problem')}
-                        </Box>
+                        <Box fontWeight="fontWeightMedium">{t('forgot-password-page.problem')}</Box>
                     </Typography>
                     <Typography variant="caption">
-                        <Box fontWeight='fontWeightMedium'>
-                            {t('forgot-password-page.contact')}
-                        </Box>
+                        <Box fontWeight="fontWeightMedium">{t('forgot-password-page.contact')}</Box>
                     </Typography>
                 </div>
-                <ButtonSecondary variant='text' href='/'>
-                    <Typography variant='subtitle1' >
-                        <Box fontWeight='fontWeightMedium'>
-                            {t('forgot-password-page.back-to-login')}
-                        </Box>
-                    </Typography> 
+                <ButtonSecondary variant="text" href="/">
+                    <Typography variant="subtitle1">
+                        <Box fontWeight="fontWeightMedium">{t('forgot-password-page.back-to-login')}</Box>
+                    </Typography>
                 </ButtonSecondary>
             </div>
         </div>
