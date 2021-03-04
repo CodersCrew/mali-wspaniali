@@ -57,6 +57,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         dividerCompleted: {
             backgroundColor: theme.palette.primary.main,
         },
+        stepConnectorCompleted: {
+            borderLeftColor: theme.palette.primary.main,
+        },
         registrationHeader: {
             textAlign: 'center',
             fontSize: '21px',
@@ -94,6 +97,10 @@ export const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             textAlign: 'center',
             padding: theme.spacing(0, 3),
+            width: '75%',
+            [theme.breakpoints.down('md')]: {
+                width: 'auto',
+            },
         },
         nextButton: {
             [theme.breakpoints.down('md')]: {
@@ -148,7 +155,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'row',
             justifyContent: 'flex-start',
         },
-        agreementRequiredAsterix: {
+        agreementRequiredAsterisk: {
             color: theme.palette.secondary.main,
         },
         agreementMoreBtn: {

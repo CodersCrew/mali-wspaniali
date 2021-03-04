@@ -9,7 +9,6 @@ import { load } from '../../../utils/load';
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { passwordStrengthTest } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
-import { Agreement } from '../../../graphql/types';
 import { useIsDevice } from '../../../queries/useBreakpoints';
 
 import { RegistrationAgreement } from './RegistrationAgreement';
@@ -20,12 +19,8 @@ import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
 import { LanguageSelector } from './LanguageSelector';
-
-interface AgreementExtended extends Agreement {
-    extraContent?: string;
-    isRequired?: boolean;
-    checked?: boolean;
-}
+import { AgreementExtended } from '../types';
+import { AGREEMENTS } from '../agreements';
 
 const initialState: RegisterForm = {
     code: '',
@@ -47,71 +42,14 @@ export const RegistrationForm = () => {
     useEffect(() => {
         getAgreements()
             .then(({ data }) => {
-                // TODO: is this exclamation mark necessary? ESlint doesn't like it
-                // (@typescript-eslint/no-non-null-assertion): setAgreements(data!.agreements);
-                setAgreements(data.agreements);
-                // TODO: remove this mock!
-                setAgreements([
-                    {
-                        _id: '0',
-                        date: '2021-01-21',
-                        isSigned: false,
-                        text: 'Zaznacz wszystkie zgody',
-                    },
-                    {
-                        _id: '1',
-                        date: '2021-01-21',
-                        isSigned: false,
-                        text:
-                            'Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia Regulaminu, ' +
-                            'Polityki prywatności',
-                        isRequired: true,
-                    },
-                    {
-                        _id: '2',
-                        date: '2021-01-21',
-                        isSigned: false,
-                        text:
-                            'Wyrażam chęć udziału mojego dziecka w zajęciach ogólnorozwojowych z elementami karate ' +
-                            'w ramach programu Mali Wspaniali.',
-                        isRequired: true,
-                    },
-                    {
-                        _id: '3',
-                        date: '2021-01-21',
-                        isSigned: false,
-                        text:
-                            'Wyrażam zgodę na otrzymywanie informacji marketingowych na podany adres e-mail. (dzięki ' +
-                            'niej od czasu do czasu będziemy mogli pochwalić się naszymi sukcesami).',
-                        extraContent:
-                            'Wyrażam zgodę na przetwarzanie mojego adresu e-mail przez Fundację Mali Wspaniali, ' +
-                            'z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych ' +
-                            'oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi ' +
-                            'informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się ' +
-                            'naszymi sukcesami.',
-                    },
-                    {
-                        _id: '4',
-                        date: '2021-01-21',
-                        isSigned: false,
-                        text:
-                            'Wyrażam zgodę na nieodpłatne przetwarzanie wizerunku mojego dziecka przez Fundację Mali ' +
-                            'Wspaniali. (Dzięki niej będzie miał/a Pani/Pan okazję zobaczyć swoją pociechę na ' +
-                            'zdjęciach, filmach z zajęć publikowanych przez fundację).',
-                        extraContent:
-                            'Wyrażam zgodę na nieodpłatne przetwarzanie  wizerunku mojego dziecka przez Fundację ' +
-                            'Mali Wspaniali,  z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach ' +
-                            'prowadzonej działalności.\n' +
-                            'Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować ' +
-                            'naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć ' +
-                            'oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach ' +
-                            'internetowych administrowanych przez Fundację. Ta zgoda da Panu/Pani możliwosć do ' +
-                            'zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. Zgoda ' +
-                            'nie dotyczy przetwarzania wizerunku  dziecka/ci na zdjęciach grupowych. Mamy prawo ' +
-                            'przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/' +
-                            'filmowanej grupy.  ',
-                    },
-                ]);
+                const agreementList = AGREEMENTS.map((item) => {
+                    const id = data.agreements.filter((dataItem) => dataItem.text === item.type)[0]?._id;
+
+                    return { ...item, _id: id === undefined ? '' : id };
+                });
+                // console.log('agreementList:', agreementList);
+
+                setAgreements(agreementList);
             })
             .catch((error) => {
                 console.log('Error: ', error.message);
@@ -200,11 +138,14 @@ export const RegistrationForm = () => {
 
         if (step === 4) {
             return (
-                <RegistrationFeedback
-                    classLink={classes.goToHomepageLink}
-                    classHeader={clsx({ [classes.loginHeader]: true, confirmation: activeStep === 3 })}
-                    classWrapper={classes.confirmWrapper}
-                />
+                <>
+                    <Box mb={6} />
+                    <RegistrationFeedback
+                        classLink={classes.goToHomepageLink}
+                        classHeader={clsx({ [classes.loginHeader]: true, confirmation: activeStep === 3 })}
+                        classWrapper={classes.confirmWrapper}
+                    />
+                </>
             );
         }
 
@@ -269,7 +210,7 @@ export const RegistrationForm = () => {
                     /*
                     connector={isDesktop ? <StepConnector /> : <Divider className={classes.divider} />}
 */
-                    connector={isDesktop ? <StepConnector /> : <></>}
+                    connector={isDesktop ? <StepConnector classes={{ line: classes.stepConnectorCompleted }} /> : <></>}
                 >
                     {steps.map((step, idx) => (
                         <Step key={step} style={{ border: 'none' }}>
@@ -279,14 +220,18 @@ export const RegistrationForm = () => {
                             <StepContent className={classes.stepperContent}>
                                 {idx !== 4 ? getStepContent(idx) : null}
                             </StepContent>
-                            {idx !== steps.length - 1 && (
-                                <Divider
-                                    className={clsx({
-                                        [classes.divider]: true,
-                                        [classes.dividerCompleted]: activeStep > idx,
-                                    })}
-                                />
-                            )}
+
+                            {() => {
+                                if (!isDesktop && idx !== steps.length - 1)
+                                    return (
+                                        <Divider
+                                            className={clsx({
+                                                [classes.divider]: true,
+                                                [classes.dividerCompleted]: activeStep > idx,
+                                            })}
+                                        />
+                                    );
+                            }}
                         </Step>
                     ))}
                 </Stepper>

@@ -16,18 +16,11 @@ import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 
 import { ButtonSecondary } from '../../../components/Button';
-import { Agreement } from '../../../graphql/types';
 import { Theme } from '../../../theme';
 
 import { AgreementModal } from './AgreementModal';
 import { useStyles } from './styles';
-
-// TODO: remove after determine schema
-interface AgreementExtended extends Agreement {
-    extraContent?: string;
-    isRequired?: boolean;
-    checked?: boolean;
-}
+import { AgreementExtended } from '../types';
 
 const T_PREFIX = 'registration-page.agreements';
 
@@ -112,10 +105,11 @@ export const RegistrationAgreement = ({
     const { t } = useTranslation();
     const classes = useStyles();
 
-    const [isOpen, setIsOpen] = useState(false);
-    // const [boxChecked, setBoxChecked] = useState<boolean[]>(new Array(agreements.length));
+    // TODO: length of initialState should follow the length of agreements; hardcoded '5' is only a temporary solution
     const [boxChecked, setBoxChecked] = useState([false, false, false, false, false]);
+    const [isOpen, setIsOpen] = useState(false);
     const [expanded, setExpanded] = useState('panel1');
+    const [allRequiredChecked, setAllRequiredChecked] = useState(false);
 
     const toggleModal = () => setIsOpen(!isOpen);
     const handleMoreContent = (panel: string) => (
@@ -135,6 +129,14 @@ export const RegistrationAgreement = ({
             }
         }
         setBoxChecked(() => checks);
+        let allChecked = true;
+        // eslint-disable-next-line array-callback-return
+        checks.map((check, key) => {
+            if (agreements[key].isRequired) {
+                allChecked = allChecked && check;
+            }
+        });
+        setAllRequiredChecked(() => allChecked);
     };
 
     return (
@@ -155,24 +157,23 @@ export const RegistrationAgreement = ({
                 <Typography variant="body2">{t(`${T_PREFIX}.sub-title-description`)}</Typography>
                 <Box mb={1.5} />
                 <div className={classes.agreementRequired}>
-                    <Typography variant="body2" className={classes.agreementRequiredAsterix}>
+                    <Typography variant="body2" className={classes.agreementRequiredAsterisk}>
                         *&nbsp;
                     </Typography>
                     <Typography variant="caption">{t('registration-page.agreements.required-agreements')}</Typography>
                 </div>
                 <Box mb={3} />
                 {agreements.map((agreement, idx) => (
-                    <>
+                    <div key={idx}>
                         {idx === 1 && (
                             <>
                                 <Divider />
+
                                 <Box mb={2} />
                             </>
                         )}
-                        <div
-                            key={agreement._id}
-                            className={clsx({ [agreementCheckboxWrapper]: true, lastAgreement: idx === 2 })}
-                        >
+
+                        <div key={idx} className={clsx({ [agreementCheckboxWrapper]: true, lastAgreement: idx === 2 })}>
                             <div className={checkboxContent}>
                                 <Checkbox
                                     color="default"
@@ -182,13 +183,15 @@ export const RegistrationAgreement = ({
                                     checked={boxChecked[idx]}
                                     onChange={handleChange}
                                 />
+
                                 {agreement.isRequired && (
                                     <div className={classes.agreementRequired}>
-                                        <Typography variant="body2" className={classes.agreementRequiredAsterix}>
+                                        <Typography variant="body2" className={classes.agreementRequiredAsterisk}>
                                             *&nbsp;
                                         </Typography>
                                     </div>
                                 )}
+
                                 <Typography variant="body2" className={classes.agreementText}>
                                     {agreement.text}
                                 </Typography>
@@ -220,7 +223,7 @@ export const RegistrationAgreement = ({
                                 </>
                             )}
                         </div>
-                    </>
+                    </div>
                 ))}
             </div>
             <div className={classButton}>
@@ -229,7 +232,7 @@ export const RegistrationAgreement = ({
                     variant="contained"
                     className={classNextBtn}
                     innerText={t('next')}
-                    disabled={!boxChecked[1] || !boxChecked[2]}
+                    disabled={!allRequiredChecked}
                 />
                 <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />
             </div>
