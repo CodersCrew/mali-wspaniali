@@ -57,7 +57,7 @@ export default function ArticleListPage() {
                 <Typography className={classes.headerText} variant="h3">
                     {t('blog-main-page.header')}
                 </Typography>
-                <Grid container justify="center" spacing={isSmallMobile ? 2 : 4}>
+                <Grid container justify="flex-start" spacing={isSmallMobile ? 2 : 3}>
                     {articles.map((article) => (
                         <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
                             <BlogArticleCard
