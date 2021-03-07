@@ -38,9 +38,9 @@ export default function ChildResultsPage() {
         return (
             <>
                 <MobileAwareCategoryTabs
-                    onTabChange={onTabChange}
-                    category={category}
-                    values={childProfileCategoriesList}
+                    onChange={onTabChange}
+                    activeCategory={category}
+                    categories={childProfileCategoriesList}
                 />
                 <EmptyProfile />
             </>
@@ -50,9 +50,9 @@ export default function ChildResultsPage() {
     return (
         <>
             <MobileAwareCategoryTabs
-                onTabChange={onTabChange}
-                category={category}
-                values={childProfileCategoriesList}
+                onChange={onTabChange}
+                activeCategory={category}
+                categories={childProfileCategoriesList}
             />
             <PageContainer>
                 {category === 'results' && (

@@ -12,6 +12,7 @@ interface Props {
 export const Pagination = ({ disabled, hidden, count, maxCount, onClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
+
     if (hidden) return null;
 
     return (

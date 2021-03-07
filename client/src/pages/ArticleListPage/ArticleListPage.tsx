@@ -3,6 +3,7 @@ import { makeStyles, Grid, Typography, createStyles, Theme } from '@material-ui/
 import { useParams, useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 import { categoriesList } from './BlogCategories';
 import { PaginatedArticles } from '../../graphql/types';
@@ -44,16 +45,29 @@ export default function ArticleListPage() {
     }
 
     if (!data) {
-        return <MobileAwareCategoryTabs onTabChange={onTabChange} category={params.category} values={categoriesList} />;
+        return (
+            <MobileAwareCategoryTabs
+                onChange={onTabChange}
+                activeCategory={params.category}
+                categories={categoriesList}
+            />
+        );
     }
 
     const { articles, count, hasNext } = data.paginatedArticles;
 
     return (
         <>
-            <MobileAwareCategoryTabs onTabChange={onTabChange} category={params.category} values={categoriesList} />
+            <MobileAwareCategoryTabs
+                onChange={onTabChange}
+                activeCategory={params.category}
+                categories={categoriesList}
+            />
             <PageContainer>
-                <Typography className={classes.headerText} variant="h3">
+                <Typography
+                    className={clsx({ [classes.headerText]: true, [classes.mobileHeaderText]: isSmallMobile })}
+                    variant="h3"
+                >
                     {t('blog-main-page.header')}
                 </Typography>
                 <Grid container justify="flex-start" spacing={isSmallMobile ? 2 : 3}>
@@ -119,6 +133,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         headerText: {
             marginBottom: theme.spacing(3),
+        },
+        mobileHeaderText: {
+            textAlign: 'center',
         },
         paginationContainer: {
             marginBottom: theme.spacing(3),

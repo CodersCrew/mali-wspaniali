@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             display: 'flex',
             alignItems: 'center',
-            padding: `0 ${theme.spacing(3)}px`,
+            padding: `12px ${theme.spacing(3)}px`,
             height: theme.spacing(6),
             backgroundColor: theme.palette.primary.main,
         },

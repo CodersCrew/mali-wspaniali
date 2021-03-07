@@ -1,37 +1,25 @@
-import React from 'react';
-import { Tabs as MuiTabs, makeStyles, createStyles, TabsProps } from '@material-ui/core';
+import { Tabs as MuiTabs, makeStyles, createStyles, TabsProps, Theme } from '@material-ui/core';
 import { Tab } from './Tab';
-import { Theme } from '../../theme/types';
 
-type ContentType = {
+type Category = {
     label: string;
     value?: string;
 };
 
 interface Props extends TabsProps {
-    values: ContentType[];
+    categories: Category[];
     onTabsChange: (value: string) => void;
-    value?: string;
+    currentCategory?: string;
     indicator: string;
 }
 
-export const Tabs = ({ value, onTabsChange, values, indicator, ...props }: Props) => {
+export const Tabs = ({ currentCategory, onTabsChange, categories, indicator, ...props }: Props) => {
     const classes = useStyles({ indicator });
 
     return (
-        <MuiTabs
-            classes={{
-                flexContainer: classes.flexContainer,
-                indicator: classes.indicator,
-            }}
-            value={value}
-            onChange={(_e: React.ChangeEvent<{}>, v: string) => {
-                onTabsChange(v);
-            }}
-            {...props}
-        >
-            {values.map(({ label, value: v }) => (
-                <Tab key={label} value={v} label={label} />
+        <MuiTabs classes={classes} value={currentCategory} onChange={(_, v: string) => onTabsChange(v)} {...props}>
+            {categories.map((category) => (
+                <Tab key={category.label} {...category} />
             ))}
         </MuiTabs>
     );

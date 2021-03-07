@@ -1,9 +1,12 @@
 import { Tab as MuiTab, makeStyles, createStyles, Theme, TabProps } from '@material-ui/core/';
 
-export const Tab = (props: TabProps) => {
-    const classes = useStyles();
+import { useIsDevice } from '../../queries/useBreakpoints';
 
-    return <MuiTab classes={{ root: classes.root, wrapper: classes.wrapper, selected: classes.selected }} {...props} />;
+export const Tab = (props: TabProps) => {
+    const { isMobile } = useIsDevice();
+    const classes = useStyles({ isMobile });
+
+    return <MuiTab classes={classes} {...props} />;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,12 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         wrapper: {
             margin: '12px',
-            '&:hover': {
-                color: theme.palette.secondary.dark,
-            },
         },
         selected: {
-            color: theme.palette.secondary.light,
+            color: (props: { isMobile: boolean }) => (props.isMobile ? '#212121' : theme.palette.secondary.light),
         },
     }),
 );
