@@ -494,7 +494,27 @@
     },
     "admin-articles": {
         "title": "Select article or create new article",
-        "add-article": "Add article"
+        "add-article": "Add article",
+        "article-added": "Article was added",
+        "article-information": "Information about article",
+        "article-content": "Article content",
+        "article-title": "Title of the article",
+        "title-validation": "Title of the article must have min. 10 and max. 100 characters",
+        "category": "Category",
+        "description": "Article description",
+        "description-validation": "Article description must have min. 30 and max. 300 characters",
+        "picture": "Picture link",
+        "author-information": "Information about author",
+        "author-first-name": "First name",
+        "author-last-name": "Last name",
+        "author-profession": "Profession",
+        "author-biography": "Information about author",
+        "category-food": "Food",
+        "category-activity": "Activity",
+        "category-emotions": "Emotions",
+        "category-other": "Other",
+        "publish": "Publish",
+        "cancel": "Cancel"
     },
     "instructor-menu": {
         "add-results": "Add results",
