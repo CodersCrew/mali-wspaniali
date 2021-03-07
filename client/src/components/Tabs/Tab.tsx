@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: theme.typography.button.fontWeight,
             padding: 0,
             minWidth: 'fit-content',
+            '&:hover': {
+                color: '#B22A00',
+            },
         },
         wrapper: {
             margin: '12px',
