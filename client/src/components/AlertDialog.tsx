@@ -1,4 +1,3 @@
-import React from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import parse from 'html-react-parser';

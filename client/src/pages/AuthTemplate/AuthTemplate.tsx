@@ -84,7 +84,6 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('md')]: {
                 width: 109,
                 margin: 'auto',
-            },
         },
         welcomeText: {
             marginTop: theme.spacing(5),
@@ -105,6 +104,16 @@ const useStyles = makeStyles((theme: Theme) =>
                 lineHeight: 26,
             },
         },
+/*
+            formContainer: {
+                backgroundColor,
+                flex: '3 0 0',
+                display: 'flex',
+                flexDirection: 'column',
+                [theme.breakpoints.down('sm')]: {
+                    minHeight: 'auto',
+                },
+*/
         formContainer: {
             backgroundColor,
             minHeight: '100vh',

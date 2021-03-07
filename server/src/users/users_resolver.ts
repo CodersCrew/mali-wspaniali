@@ -13,7 +13,7 @@ import * as mongoose from 'mongoose';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
-import { UserProps } from './domain/models/user_model';
+import { UserProps, User } from './domain/models/user_model';
 import { UserDTO } from './dto/user_dto';
 import { UserInput } from './inputs/user_input';
 import { ReturnedStatusDTO } from '../shared/returned_status';
@@ -73,9 +73,7 @@ export class UsersResolver {
   async agreements(@Parent() user: UserProps): Promise<AgreementDTO[]> {
     return await this.queryBus.execute(
       new GetValidAgreementsQuery(
-        (
-          (user.agreements as mongoose.Schema.Types.ObjectId[]) || []
-        ).map(agreement => agreement.toString()),
+        user.agreements.map(agreement => agreement.toString()),
       ),
     );
   }
@@ -108,11 +106,13 @@ export class UsersResolver {
   async createUser(
     @Args('user') user: UserInput,
   ): Promise<{ status: boolean }> {
-    const created: UserProps = await this.commandBus.execute(
-      new CreateUserCommand(user.mail, user.password, user.keyCode),
+    const createdUser: User = await this.commandBus.execute(
+      new CreateUserCommand(user),
     );
 
-    return { status: !!created };
+    createdUser.commit();
+
+    return { status: !!createdUser };
   }
 
   @Mutation(() => ReturnedTokenDTO)

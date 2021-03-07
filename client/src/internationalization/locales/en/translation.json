@@ -66,17 +66,15 @@
         }
     },
     "forgot-password-page": {
-        "forgot-password": "Forgot password",
+        "forgot-password": "Forgot the password?",
         "its-ok": "Don't worry. Type in your email address.",
         "receive-link": "You will receive a link to create a new password.",
         "insert-email": "Type in e-mail address provided to the foundation",
-        "new-password": "Create new password",
+        "continue": "Continue",
         "problem": "Stumbled upon a problem?",
         "contact": "Please contact the foundation to resolve it",
-        "email-helper-text": "Type in e-mail address provided to the foundation",
+        "email-helper-text": "Type in an e-mail address used during registration",
         "back-to-login": "Back to login",
-        "email-sent": "We have sent you an email.",
-        "when-received": "Once you receive it, click a link to create a new password.",
         "avatar": "Małgosia"
     },
     "users-page": {
@@ -400,6 +398,8 @@
     },
     "parent-settings": {
         "header": "Settings parent's account",
+        "input-label": "Search",
+        "search-label": "Search for kindergarten",
         "header-title-1": "Parent's email adress",
         "header-title-2": "Children",
         "button-icon-edit-tooltip": "Edit",
@@ -418,6 +418,14 @@
             "subtitle": "To edit the data of the parent and child, complete the fields below",
             "success-message": "You have successfully edited your child's profile",
             "label": " Parent's email"
+        },
+        "modal-change-kindergarden": {
+            "header": "Move the child to another kindergarten",
+            "subtitle": "Select the kindergarten you want to move the child to from the list",
+            "main-label": "The current kindergarten",
+            "label": "Select kindergarten",
+            "checkbox-option": "Move to the same kindergarten",
+            "success-message": "sThe change of kindergartens was the construction process"
         },
         "success-message": "Removed (Anonymized) parent"
     },
@@ -457,7 +465,12 @@
         "logout": "Log out"
     },
     "admin-menu": {
-        "home": "Home",
+        "tests": {
+            "title": "Tests",
+            "results": "Results",
+            "manage-tests": "Manage tests",
+            "instructors": "Manage instructors"
+        },
         "settings": {
             "title": "Settings",
             "parents-settings": "Parent's accounts placings",
@@ -474,16 +487,23 @@
             "table": "Results table",
             "advice-and-recommendations": "Advice and recommendations"
         },
-        "access": {
-            "title": "Access management",
-            "instructors": "Manage instructors",
-            "keycodes": "Generate keycodes"
+        "articles": {
+            "title": "Articles"
         },
-        "create-blog-article": "Blog",
+        "keycodes": "Keycodes",
+        "kindergartens": {
+            "title": "Kindergartens",
+            "list": "List of kindergartens"
+        },
+        "create-blog-article": "Articles",
         "archive": "Archive",
         "agreements": "Agreements",
         "test-management": "Tests",
         "logout": "Log out"
+    },
+    "admin-articles": {
+        "title": "Select article or create new article",
+        "add-article": "Add article"
     },
     "instructor-menu": {
         "add-results": "Add results",
@@ -507,7 +527,7 @@
     },
     "blog-main-page": {
         "header-bar": "Blog",
-        "header": "Here you will find out, how to take care of your child's development"
+        "header": "Find out how to improve your child's development"
     },
     "blog-pagination": {
         "show-more": "Show more",
@@ -653,6 +673,7 @@
         "by-kindergarten": "Filter by kindergarten"
     },
     "settings-page": {
+        "password-change-message": "A link to change your password has been sent. Check your e-mail to complete the password changing process.",
         "change-password-problems": "Have difficulties changing your password?",
         "change-password-problems-hint": "No worries! Contact the Foundation to fix the problem.",
         "change-password-problems-message-button": "Send message",
@@ -686,7 +707,6 @@
         "text-field-title-id": "message",
         "text-field-title-label": "Message content",
         "text-field-title-placeholder": "Message content",
-
         "select-options": {
             "select-label": "Message subject",
             "1": "Password change",
@@ -711,7 +731,7 @@
             "unassigned-kindergartens": "Unassigned kidnergartens"
         },
         "snackbars": {
-            "info": "To add unassigned kindergarten, select the instructor and assign him/her to selected kindergarten"
+            "info": "To add unassigned kindergarten: 1. Select the test, 2. Select the instructor and press the button to assign him/her to selected kindergarten."
         },
         "modal": {
             "cancel": "Cancel",

@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -10,7 +9,7 @@ interface Props {
 export function ReadingTime({ readingTime, date }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const options: { [index: string]: 'numeric' } = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
     return (
         <span className={classes.container}>

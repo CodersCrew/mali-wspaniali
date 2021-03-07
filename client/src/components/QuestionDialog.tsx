@@ -1,4 +1,3 @@
-import React from 'react';
 import { Dialog, DialogContent, DialogActions, DialogTitle, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { openDialog, ActionDialog } from '../utils/openDialog';

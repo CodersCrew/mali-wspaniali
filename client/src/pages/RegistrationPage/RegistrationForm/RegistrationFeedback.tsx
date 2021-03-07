@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core/';
 // import { Link } from 'react-router-dom';
+// import { Typography } from '@material-ui/core/';
+// import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { RegistrationFeedbackProps } from './types';

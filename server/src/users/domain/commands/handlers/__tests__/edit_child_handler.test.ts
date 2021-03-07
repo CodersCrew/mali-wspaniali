@@ -167,15 +167,13 @@ describe('EditChildHandler', () => {
       .get(CreateKeyCodeHandler)
       .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
 
-    const parent = await module
-      .get(CreateUserHandler)
-      .execute(
-        new CreateUserCommand(
-          'my-mail@mail.com',
-          'my-password',
-          keyCode.keyCode,
-        ),
-      );
+    const parent = await module.get(CreateUserHandler).execute(
+      new CreateUserCommand({
+        mail: 'my-mail@mail.com',
+        password: 'my-password',
+        keyCode: keyCode.keyCode,
+      }),
+    );
 
     return parent;
   }

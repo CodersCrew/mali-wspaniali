@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ButtonSecondary } from '../../../../components/Button';
@@ -22,14 +21,10 @@ export const ButtonResetOldPassword = (props: Props) => {
     const { state, dispatch, user } = props;
     const { resetPasswordButtonDisabled } = state;
     const { resetPassword } = useResetPassword(
-        () =>
-            resetPasswordOnSuccess(
-                `${t('forgot-password-page.email-sent')} ${t('forgot-password-page.when-received')}`,
-            ),
+        () => resetPasswordOnSuccess(`${t('settings-page.password-change-message')}`),
         () => resetPasswordOnError,
     );
     const { t } = useTranslation();
-
     const resetPasswordOnSuccess = (text: string) => {
         openSnackbar({
             text,

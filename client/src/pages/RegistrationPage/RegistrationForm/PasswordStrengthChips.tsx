@@ -1,4 +1,3 @@
-import React from 'react';
 import { Chip } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';

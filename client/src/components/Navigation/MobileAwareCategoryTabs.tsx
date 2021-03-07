@@ -1,34 +1,32 @@
-import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
-import { Device } from '../../queries/useBreakpoints';
+import { useIsDevice } from '../../queries/useBreakpoints';
 import { CategoryTabsMobile } from './CategoryTabsMobile';
 import { CategoryTabs } from './CategoryTabs';
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
-    device: Device;
-    category: string;
-    values: T[];
-    onTabChange: (value: string) => void;
+    activeCategory: string;
+    categories: T[];
+    onChange: (value: string) => void;
 }
 
 export function MobileAwareCategoryTabs<T extends CategoryItem | ChildProfileCategoryItem>({
-    device,
-    category,
-    values,
-    onTabChange,
+    activeCategory: category,
+    categories,
+    onChange,
 }: Props<T>) {
     const classes = useStyles();
+    const { isMobile } = useIsDevice();
 
-    return device === 'MOBILE' ? (
+    return isMobile ? (
         <div className={classes.navigationMobile}>
-            <CategoryTabsMobile values={values} active={category} onClick={onTabChange} />
+            <CategoryTabsMobile categories={categories} currentCategory={category} onChange={onChange} />
         </div>
     ) : (
         <div className={classes.navigation}>
-            <CategoryTabs values={values} active={category} onClick={onTabChange} />
+            <CategoryTabs categories={categories} currentCategory={category} onChange={onChange} />
         </div>
     );
 }
