@@ -481,7 +481,27 @@
     },
     "admin-articles": {
         "title": "Wybierz artykuł albo dodaj nowy",
-        "add-article": "Dodaj artykuł"
+        "add-article": "Dodaj artykuł",
+        "article-added": "Artykuł został dodany",
+        "article-information": "Informacje o artykule",
+        "article-content": "Treść artykułu",
+        "article-title": "Tytuł artukułu",
+        "title-validation": "Tytuł artykułu musi mieć min. 10 i max. 100 znaków",
+        "category": "Kategoria",
+        "description": "Opis artykułu",
+        "description-validation": "Opis artykułu musi mieć min. 30 i max. 300 znaków",
+        "picture": "Link do zdjęcia",
+        "author-information": "Informacje o autorze",
+        "author-first-name": "Imię autora",
+        "author-last-name": "Nazwisko autora",
+        "author-profession": "Specjalizacja",
+        "author-biography": "Informacje o autorze",
+        "category-food": "Żywność",
+        "category-activity": "Aktywność",
+        "category-emotions": "Emocje",
+        "category-other": "Inna",
+        "publish": "Opublikuj",
+        "cancel": "Anuluj"
     },
     "parent-menu": {
         "home": "Strona Główna",

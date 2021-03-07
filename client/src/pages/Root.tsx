@@ -94,7 +94,11 @@ export function Root() {
                                         />
                                         <Route path="/admin/test-management" component={AdminAssessmentHistoryPage} />
                                         <Route path="/admin/recommendations" component={AdminRecommendationsPage} />
-                                        <Route exact path="/admin/articles" component={AdminArticlesPage} />
+                                        <Route
+                                            exact
+                                            path="/admin/articles/categories/:category"
+                                            component={AdminArticlesPage}
+                                        />
                                         <Route exact path="/admin/articles/create" component={AdminCreateArticlePage} />
                                         {/* TODO: add ArticlePage compomonent for Admin, currently we display the same component as for Parent */}
                                         <Route exact path="/admin/article/:articleId" component={ArticlePage} />

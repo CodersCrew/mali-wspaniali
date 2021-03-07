@@ -1,4 +1,17 @@
-import { Card, CardMedia, CardActionArea, CardContent, Typography, makeStyles, Theme, Chip } from '@material-ui/core';
+import {
+    Card,
+    CardMedia,
+    CardActionArea,
+    CardActions,
+    IconButton,
+    CardContent,
+    Typography,
+    makeStyles,
+    Theme,
+    Chip,
+} from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 interface Props {
     pictureUrl: string;
@@ -6,9 +19,11 @@ interface Props {
     description: string;
     link: string;
     category: string;
+    onEdit?: () => void;
+    onDelete?: () => void;
 }
 
-export const BlogArticleCard = ({ pictureUrl, title, description, link, category }: Props) => {
+export const BlogArticleCard = ({ pictureUrl, title, description, link, category, onEdit, onDelete }: Props) => {
     const classes = useStyles();
 
     return (
@@ -27,6 +42,16 @@ export const BlogArticleCard = ({ pictureUrl, title, description, link, category
                     </Typography>
                 </CardContent>
             </CardActionArea>
+            {onEdit && onDelete && (
+                <CardActions className={classes.icons}>
+                    <IconButton onClick={onEdit}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton onClick={onDelete}>
+                        <DeleteIcon />
+                    </IconButton>
+                </CardActions>
+            )}
         </Card>
     );
 };
@@ -38,6 +63,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     card: {
         minHeight: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     },
     cardImage: {
         height: 140,
@@ -51,5 +79,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: '-webkit-box',
         '-webkit-line-clamp': 4,
         '-webkit-box-orient': 'vertical',
+    },
+    icons: {
+        justifyContent: 'flex-end',
     },
 }));

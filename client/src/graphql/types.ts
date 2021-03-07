@@ -15,6 +15,20 @@ export interface Article {
     date: string;
 }
 
+export interface ArticleInput {
+    category: string;
+    contentHTML: string;
+    description: string;
+    header: string;
+    pictureUrl: string;
+    readingTime: number;
+    redactor: Redactor;
+    subtitle: string;
+    tags: string[];
+    title: string;
+    videoUrl: string;
+}
+
 export interface Redactor {
     avatarUrl: string;
     firstName: string;
