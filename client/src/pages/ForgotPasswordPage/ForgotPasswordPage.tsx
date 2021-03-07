@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Typography, createStyles, Box } from '@material-ui/core';
+import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
 import { ResetPasswordForm } from './ResetPasswordForm';
 import { ResetPasswordConfirmation } from './ResetPasswordConfirmation';
 import { isValidEmail } from './isValidEmail';
@@ -12,6 +12,7 @@ import { useResetPassword } from '../../operations/mutations/User/resetPassword'
 import { ButtonSecondary } from '../../components/Button';
 import { LanguageSelector } from '../../components/LanguageSelector';
 import dayjs from '../../localizedMoment';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 type ImageState = 'DEFAULT' | 'ERROR' | 'SUCCESS';
 
@@ -27,6 +28,7 @@ export default function ForgotPasswordPage() {
         () => setImageState('SUCCESS'),
         () => setImageState('ERROR'),
     );
+    const { isMobile } = useIsDevice();
 
     const handleLanguageChange = (lng: string) => {
         dayjs.locale(lng);
@@ -69,41 +71,46 @@ export default function ForgotPasswordPage() {
             <div className={classes.header}>
                 <LanguageSelector language={language} onClick={handleLanguageChange} />
             </div>
-            <div className={classes.layout}>
-                <img
-                    className={classes.image}
-                    src={getImageSource(imageState)}
-                    alt={t('forgot-password-page.avatar')}
-                />
-                <Typography variant="h3" className={classes.title}>
-                    <Box fontWeight="fontWeightMedium">{t('forgot-password-page.forgot-password')}</Box>
-                </Typography>
-                {resetPasswordState === 'FORM' ? (
-                    <ResetPasswordForm
-                        onChange={handleInputChange}
-                        onSubmit={handleCreateNewPassword}
-                        isDisabled={!isValidEmail(email)}
-                        email={email}
+            <Box
+                display="flex"
+                justifyContent="space-around"
+                alignItems="center"
+                flexDirection="column"
+                width={isMobile ? '90%' : '80%'}
+                flex={1}
+            >
+                <div className={classes.layout}>
+                    <img
+                        className={classes.image}
+                        src={getImageSource(imageState)}
+                        alt={t('forgot-password-page.avatar')}
                     />
-                ) : (
-                    <ResetPasswordConfirmation />
-                )}
-            </div>
-            <div className={classes.footer}>
-                <div className={classes.underlinedText}>
-                    <Typography variant="caption">
-                        <Box fontWeight="fontWeightMedium">{t('forgot-password-page.problem')}</Box>
+                    <Typography variant="h4" className={classes.title}>
+                        {t('forgot-password-page.forgot-password')}
                     </Typography>
-                    <Typography variant="caption">
-                        <Box fontWeight="fontWeightMedium">{t('forgot-password-page.contact')}</Box>
-                    </Typography>
+                    {resetPasswordState === 'FORM' ? (
+                        <ResetPasswordForm
+                            onChange={handleInputChange}
+                            onSubmit={handleCreateNewPassword}
+                            isDisabled={!isValidEmail(email)}
+                            email={email}
+                        />
+                    ) : (
+                        <ResetPasswordConfirmation />
+                    )}
                 </div>
-                <ButtonSecondary variant="text" href="/">
-                    <Typography variant="subtitle1">
-                        <Box fontWeight="fontWeightMedium">{t('forgot-password-page.back-to-login')}</Box>
-                    </Typography>
-                </ButtonSecondary>
-            </div>
+                <div className={classes.footer}>
+                    <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
+                    <Link underline="always" color="textPrimary">
+                        {t('forgot-password-page.contact')}
+                    </Link>
+                    <Box mt={7}>
+                        <ButtonSecondary variant="text" href="/">
+                            {t('forgot-password-page.back-to-login')}
+                        </ButtonSecondary>
+                    </Box>
+                </div>
+            </Box>
         </div>
     );
 }
@@ -113,9 +120,9 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            minHeight: '100vh',
+            flex: 1,
         },
         header: {
             marginLeft: 'auto',
@@ -124,10 +131,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            alignSelf: 'center',
-            justifyContent: 'center',
             width: '80%',
-            minHeight: '85vh',
 
             [theme.breakpoints.down('sm')]: {
                 width: '90%',
@@ -149,32 +153,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginTop: '40px',
             },
         },
-        underlinedText: {
-            textAlign: 'center',
-            position: 'relative',
-            marginBottom: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-
-            '&::after': {
-                position: 'absolute',
-                content: '""',
-                height: '1px',
-                margin: '0 auto',
-                left: '0',
-                bottom: '-2px',
-                right: '0',
-                width: '100%',
-                background: 'black',
-            },
-        },
         footer: {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 'auto',
-            marginBottom: theme.spacing(4),
         },
     }),
 );

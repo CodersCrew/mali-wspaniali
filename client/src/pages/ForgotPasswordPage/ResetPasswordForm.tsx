@@ -1,8 +1,5 @@
-import React from 'react';
-import { TextField, Typography, makeStyles, createStyles, Box } from '@material-ui/core';
+import { TextField, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '../../theme/types';
-import { backgroundColor, secondaryColor, white } from '../../colors';
 import { ButtonSecondary } from '../../components/Button';
 
 const tPrefix = 'forgot-password-page';
@@ -16,16 +13,17 @@ type Props = {
 
 export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Props) {
     const { t } = useTranslation();
-    const classes = useStyles();
 
     return (
         <>
-            <Typography className={classes.subtitle}>
-                <Box fontWeight="fontWeightMedium">{t(`${tPrefix}.its-ok`)}</Box>
-            </Typography>
-            <Typography className={`${classes.subtitle} ${classes.subtitleThin}`}>
-                <Box fontWeight="fontWeightMedium">{t(`${tPrefix}.receive-link`)}</Box>
-            </Typography>
+            <Box mb={3}>
+                <Typography variant="subtitle1" align="center">
+                    {t(`${tPrefix}.its-ok`)}
+                </Typography>
+                <Typography variant="subtitle1" align="center">
+                    {t(`${tPrefix}.receive-link`)}
+                </Typography>
+            </Box>
             <TextField
                 required
                 fullWidth
@@ -36,64 +34,14 @@ export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Pro
                 helperText={t(`${tPrefix}.email-helper-text`)}
                 onChange={({ target: { value } }) => onChange(value)}
             />
-            <div className={classes.buttonWrapper}>
+            <Box mt={3} display="flex" justifyContent="flex-end" width="100%" justifyItems="flex-end">
                 <ButtonSecondary
                     variant="contained"
                     disabled={isDisabled}
-                    className={classes.createPasswordButton}
                     onClick={onSubmit}
                     innerText={t('forgot-password-page.continue')}
                 />
-            </div>
+            </Box>
         </>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        loginLinkWrapper: {
-            marginBottom: '20px',
-            marginTop: '40px',
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            color: white,
-            textDecoration: 'none',
-        },
-        subtitle: {
-            textAlign: 'center',
-        },
-        buttonWrapper: {
-            display: 'flex',
-            width: '100%',
-            justifyContent: 'flex-end',
-        },
-        button: {
-            color: backgroundColor,
-            fontWeight: 'bold',
-            marginBottom: '20px',
-            marginTop: '20px',
-
-            [theme.breakpoints.down('sm')]: {
-                marginBottom: '44px',
-                marginTop: '30px',
-            },
-
-            '&disbled': {
-                color: secondaryColor,
-            },
-        },
-        subtitleThin: {
-            marginBottom: '20px',
-            width: '320px',
-        },
-        createPasswordButton: {
-            marginBottom: '20px',
-            marginTop: '20px',
-
-            [theme.breakpoints.down('sm')]: {
-                marginBottom: '44px',
-                marginTop: '30px',
-            },
-        },
-    }),
-);
