@@ -24,10 +24,9 @@ export default function AdminKindergartensPage() {
     const { kindergartenList } = useKindergartens();
 
     const [kindergartenModalStatus, setKindergartenModalStatus] = useState<{
-        isOpen: boolean;
+        isOpen?: boolean;
         kindergarten: Kindergarten | null;
     }>({
-        isOpen: false,
         kindergarten: null,
     });
     const [deleteModalStatus, setDeleteModalStatus] = useState<{ kindergarten: Kindergarten | null }>({
@@ -52,7 +51,7 @@ export default function AdminKindergartensPage() {
     };
 
     const onKindergartenModalClose = () => {
-        setKindergartenModalStatus({ isOpen: false, kindergarten: null });
+        setKindergartenModalStatus({ kindergarten: null });
     };
 
     const handleAddOrEditKindergarten = (values: AddKindergartenInput) => {
@@ -61,7 +60,7 @@ export default function AdminKindergartensPage() {
         } else {
             createKindergarten(values);
         }
-        setKindergartenModalStatus({ isOpen: false, kindergarten: null });
+        setKindergartenModalStatus({ kindergarten: null });
     };
 
     return (
