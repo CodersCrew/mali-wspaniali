@@ -419,7 +419,6 @@
         },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
-
     "single-article": {
         "blog": "blog",
         "length": "długość",
@@ -504,8 +503,8 @@
         "header": "Sprawdź jak zadbać o rozwój swojego dziecka"
     },
     "blog-pagination": {
-        "previous": "Poprzednia",
-        "next": "Następna",
+        "previous": "Poprzedni",
+        "next": "Następny",
         "show-more": "Rozwiń więcej",
         "counter": "Pokazuje {{from}} z {{to}} artykułów"
     },
@@ -693,7 +692,6 @@
         "text-field-title-id": "wiadomość",
         "text-field-title-label": "Treść wiadomości",
         "text-field-title-placeholder": "Treść wiadomości",
-
         "select-options": {
             "select-label": "Temat wiadomości",
             "1": "zmiana hasła",
