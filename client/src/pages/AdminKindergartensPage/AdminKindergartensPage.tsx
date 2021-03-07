@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, Box, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import { NoResults } from './NoResults';
@@ -52,7 +52,7 @@ export default function AdminKindergartensPage() {
     };
 
     const onKindergartenModalClose = () => {
-        setKindergartenModalStatus({ isOpen: false, kindergarten: null  });
+        setKindergartenModalStatus({ isOpen: false, kindergarten: null });
     };
 
     const handleAddOrEditKindergarten = (values: AddKindergartenInput) => {
