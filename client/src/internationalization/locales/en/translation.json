@@ -77,7 +77,9 @@
         "contact": "Please contact the foundation to resolve it",
         "email-helper-text": "Type in an e-mail address used during registration",
         "back-to-login": "Back to login",
-        "avatar": "Małgosia"
+        "avatar": "Małgosia",
+        "email-sent": "The email has been sent.",
+        "when-received": "Input code you received."
     },
     "users-page": {
         "agreements": "Agreements",
