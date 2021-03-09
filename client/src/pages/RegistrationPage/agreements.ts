@@ -25,7 +25,6 @@ export const AGREEMENTS = [
             'Wyrażam chęć udziału mojego dziecka w zajęciach ogólnorozwojowych z elementami karate ' +
             'w ramach programu Mali Wspaniali.',
         isRequired: true,
-        type: 'Image',
     },
     {
         _id: '',
@@ -64,5 +63,6 @@ export const AGREEMENTS = [
             'nie dotyczy przetwarzania wizerunku  dziecka/ci na zdjęciach grupowych. Mamy prawo ' +
             'przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/' +
             'filmowanej grupy.  ',
+        type: 'Image',
     },
 ];

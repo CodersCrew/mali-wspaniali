@@ -1,7 +1,7 @@
 import { TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-
 import React from 'react';
+
 import { emailTest } from '../emailTest';
 import { ButtonSecondary } from '../../../components/Button';
 

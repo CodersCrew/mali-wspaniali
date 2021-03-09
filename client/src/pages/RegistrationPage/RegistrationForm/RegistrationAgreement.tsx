@@ -18,10 +18,10 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 
 import { ButtonSecondary } from '../../../components/Button';
 import { Theme } from '../../../theme';
+import { AgreementExtended } from '../types';
 
 import { AgreementModal } from './AgreementModal';
 import { useStyles } from './styles';
-import { AgreementExtended } from '../types';
 
 const T_PREFIX = 'registration-page.agreements';
 
@@ -31,6 +31,7 @@ export interface Props {
     classButton: string;
     classNextBtn: string;
     agreements: AgreementExtended[];
+    setAgreements: React.Dispatch<React.SetStateAction<AgreementExtended[]>>;
     agreementMoreBtn: string;
     agreementContainer: string;
     agreementCheckboxHeader: string;
@@ -97,6 +98,7 @@ export const RegistrationAgreement = ({
     classButton,
     classNextBtn,
     agreements,
+    setAgreements,
     agreementMoreBtn,
     agreementContainer,
     agreementHeader,
@@ -126,13 +128,19 @@ export const RegistrationAgreement = ({
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { id, checked } = target;
         const checks = [...boxChecked];
+        const agreementState = [...agreements];
         checks[parseInt(id, 10)] = checked;
+        agreementState[parseInt(id, 10)].isSigned = checked;
         if (id === '0') {
             for (let i = 0; i < checks.length; i += 1) {
                 checks[i] = checked;
+                agreementState[i].isSigned = checked;
             }
         }
         setBoxChecked(() => checks);
+        setAgreements(() => agreementState);
+        // console.log('state:', agreementState);
+
         let allChecked = true;
         // eslint-disable-next-line array-callback-return
         checks.map((check, key) => {

@@ -10,6 +10,8 @@ import { openAlertDialog } from '../../../components/AlertDialog';
 import { passwordStrengthTest } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
 import { useIsDevice } from '../../../queries/useBreakpoints';
+import { AgreementExtended } from '../types';
+import { AGREEMENTS } from '../agreements';
 
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationCode } from './RegistrationCode';
@@ -19,8 +21,6 @@ import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
 import { LanguageSelector } from './LanguageSelector';
-import { AgreementExtended } from '../types';
-import { AGREEMENTS } from '../agreements';
 
 const initialState: RegisterForm = {
     code: '',
@@ -51,7 +51,7 @@ export const RegistrationForm = () => {
                 });
                 // console.log('agreementList:', agreementList);
 
-                setAgreements(agreementList);
+                setAgreements(() => agreementList);
             })
             .catch((error) => {
                 console.log('Error: ', error.message);
@@ -118,6 +118,7 @@ export const RegistrationForm = () => {
                     agreementCheckbox={classes.agreementCheckbox}
                     checkboxContent={classes.checkboxContent}
                     agreements={agreements}
+                    setAgreements={setAgreements}
                 />
             );
         }
@@ -171,8 +172,21 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-mismatch'),
             });
         } else {
-            console.log({ mail: email, password, keyCode: code });
-            load(createUser({ mail: email, password, keyCode: code }))
+            // console.log(agreements);
+            // console.log(
+            //     agreements.filter((agreement) => !!agreement._id && agreement.isSigned).map((item) => item._id),
+            // );
+            // console.log({ mail: email, password, keyCode: code });
+            load(
+                createUser({
+                    mail: email,
+                    password,
+                    keyCode: code,
+                    agreements: agreements
+                        .filter((agreement) => !!agreement._id && agreement.isSigned)
+                        .map((item) => item._id),
+                }),
+            )
                 .then(() => {
                     handleNext();
                 })
@@ -182,6 +196,7 @@ export const RegistrationForm = () => {
                         setSkip(() => false);
                         handleNext();
                     } else {
+                        console.log(err.message);
                         openAlertDialog({
                             type: 'error',
                             title: t('registration-page.register-failure'),
@@ -196,6 +211,13 @@ export const RegistrationForm = () => {
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
+
+    // useEffect(() => {
+    //     console.log(
+    //         'effect:',
+    //         agreements.filter((agreement) => !!agreement._id && agreement.isSigned).map((item) => item._id),
+    //     );
+    // }, [agreements]);
 
     return (
         <div className={classes.container}>

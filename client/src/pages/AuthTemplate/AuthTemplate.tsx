@@ -6,6 +6,7 @@ import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
+
 import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
 type AuthTemplateType = 'login' | 'register';

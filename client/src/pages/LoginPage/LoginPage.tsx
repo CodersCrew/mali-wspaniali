@@ -1,7 +1,5 @@
 import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles, Typography, Box, Divider } from '@material-ui/core/';
-// import { FormEvent, useState } from 'react';
-// import { TextField, makeStyles, createStyles, Link, Typography } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
