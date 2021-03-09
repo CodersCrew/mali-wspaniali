@@ -43,6 +43,7 @@ export interface UserInput {
     mail: string;
     password: string;
     keyCode: string;
+    agreements: string[];
 }
 
 export type Role = 'parent' | 'admin' | 'instructor';
