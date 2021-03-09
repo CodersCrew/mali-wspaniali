@@ -6,7 +6,6 @@ import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
-
 import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
 type AuthTemplateType = 'login' | 'register';
@@ -84,6 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('md')]: {
                 width: 109,
                 margin: 'auto',
+            },
         },
         welcomeText: {
             marginTop: theme.spacing(5),
@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 lineHeight: 26,
             },
         },
-/*
+        /*
             formContainer: {
                 backgroundColor,
                 flex: '3 0 0',
