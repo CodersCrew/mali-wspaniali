@@ -1,7 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
-// import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-// import { Stepper, Step, StepLabel, StepContent, Typography, Container } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -34,7 +32,7 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     // TODO: turn back to 0
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(0);
     const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
