@@ -1,6 +1,4 @@
-import React from 'react';
 import { createStyles, makeStyles, Snackbar, SnackbarOrigin } from '@material-ui/core';
-// import { createStyles, makeStyles, Snackbar } from '@material-ui/core';
 import { Alert, AlertProps } from '@material-ui/lab';
 
 import { ActionDialog, DialogResult, openDialog } from '../../utils/openDialog';
