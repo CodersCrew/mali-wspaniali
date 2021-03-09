@@ -222,6 +222,8 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         agreementExtraContent: {
             backgroundColor: theme.palette.background.default,
+            paddingLeft: 0,
+            paddingRight: 0,
         },
 
         loginHeader: {},

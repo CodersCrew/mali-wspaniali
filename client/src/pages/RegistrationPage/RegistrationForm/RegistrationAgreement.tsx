@@ -52,10 +52,13 @@ const Accordion = withStyles(() =>
                 top: 0,
             },
             '&$expanded': {
+                margin: '0 0 10px 34px',
                 marginTop: 0,
             },
         },
-        expanded: {},
+        expanded: {
+            // margin: '0 0 10px 34px',
+        },
     }),
 )(MuiAccordion);
 
