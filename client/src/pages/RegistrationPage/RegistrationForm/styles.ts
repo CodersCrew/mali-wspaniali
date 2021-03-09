@@ -50,15 +50,31 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
         },
         divider: {
+            backgroundColor: theme.palette.grey[400],
             width: '100%',
-            height: '1px',
             margin: theme.spacing(0.5, 0, 1.5),
+            padding: 0,
+            '& :nth-child(1)': {
+                border: 0,
+                minHeight: 0,
+                height: '1px',
+            },
         },
         dividerCompleted: {
             backgroundColor: theme.palette.primary.main,
+            width: '100%',
+            margin: theme.spacing(0.5, 0, 1.5),
+            padding: 0,
+            '& :nth-child(1)': {
+                border: 0,
+                minHeight: 0,
+                height: '1px',
+            },
         },
         stepConnectorCompleted: {
-            borderLeftColor: theme.palette.primary.main,
+            '& :nth-child(1)': {
+                borderLeftColor: theme.palette.primary.main,
+            },
         },
         registrationHeader: {
             textAlign: 'center',

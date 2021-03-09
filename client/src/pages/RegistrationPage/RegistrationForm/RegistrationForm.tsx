@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector, Divider } from '@material-ui/core/';
+import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 // import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 // import { Stepper, Step, StepLabel, StepContent, Typography, Container } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +34,7 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     // TODO: turn back to 0
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(2);
     const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
@@ -208,10 +208,24 @@ export const RegistrationForm = () => {
                     activeStep={activeStep}
                     orientation="vertical"
                     className={classes.stepper}
-                    /*
-                    connector={isDesktop ? <StepConnector /> : <Divider className={classes.divider} />}
-*/
-                    connector={isDesktop ? <StepConnector classes={{ line: classes.stepConnectorCompleted }} /> : <></>}
+                    connector={
+                        isDesktop ? (
+                            <StepConnector
+                                classes={{
+                                    completed: classes.stepConnectorCompleted,
+                                    active: classes.stepConnectorCompleted,
+                                }}
+                            />
+                        ) : (
+                            <StepConnector
+                                classes={{
+                                    root: classes.divider,
+                                    completed: classes.dividerCompleted,
+                                    active: classes.dividerCompleted,
+                                }}
+                            />
+                        )
+                    }
                 >
                     {steps.map((step, idx) => (
                         <Step key={step} style={{ border: 'none' }}>
@@ -221,18 +235,6 @@ export const RegistrationForm = () => {
                             <StepContent className={classes.stepperContent}>
                                 {idx !== 4 ? getStepContent(idx) : null}
                             </StepContent>
-
-                            {() => {
-                                if (!isDesktop && idx !== steps.length - 1)
-                                    return (
-                                        <Divider
-                                            className={clsx({
-                                                [classes.divider]: true,
-                                                [classes.dividerCompleted]: activeStep > idx,
-                                            })}
-                                        />
-                                    );
-                            }}
                         </Step>
                     ))}
                 </Stepper>
