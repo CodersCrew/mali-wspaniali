@@ -1,13 +1,14 @@
 import React from 'react';
-import { Card, Theme, Typography } from '@material-ui/core';
+import { Card, Grid, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
-// import { getResultColorAndLabel } from './calculateResult';
-// import { MAX_OVERALL_POINTS } from './constants';
 import { gray, resultColors } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { openResultsModal } from './modals/ResultsModal';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+
+import Results from './Results';
+import { ChartLegend } from './ChartLegend';
 
 interface Props {
     firstResultPoints: number;
@@ -19,6 +20,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
     const { t } = useTranslation();
     // const { color } = getResultColorAndLabel(lastResultPoints, MAX_OVERALL_POINTS);
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);
+    const difference = Math.abs(firstResultPoints - lastResultPoints);
     const differenceColor = getDifferenceColor(key);
     const classes = useStyles({ differenceColor });
 
@@ -54,9 +56,28 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                     </div>
                 </Card>
                 <div className={classes.rightWrapper}>
-                    <Typography variant="body2" className={classes.title}>
+                    <Typography variant="body1" className={classes.title}>
                         {t('child-profile.comparison-right-title')}
                     </Typography>
+                    <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
+                        <Grid item xs={12} lg={8} className={classes.ruller}>
+                            <Results
+                                v1={60}
+                                v2={120}
+                                v3={150}
+                                v4={180}
+                                v5={240}
+                                unit="pkt"
+                                result={lastResultPoints}
+                                resultStart={firstResultPoints}
+                                hasScoreRangeLabels={false}
+                                sex="male"
+                            />
+                        </Grid>
+                        <Grid item xs={12} lg={4}>
+                            <ChartLegend resultKey={key} color={differenceColor} difference={difference} />
+                        </Grid>
+                    </Grid>
                 </div>
             </div>
         </>
@@ -113,6 +134,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 'bold',
             color: ({ differenceColor }: { differenceColor: string }) => differenceColor,
         },
+
         rightWrapper: {
             width: '100%',
             margin: '0 30px',
@@ -120,5 +142,6 @@ const useStyles = makeStyles((theme: Theme) =>
         title: {
             paddingTop: '10px',
         },
+        ruller: {},
     }),
 );

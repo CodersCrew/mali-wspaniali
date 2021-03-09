@@ -4,19 +4,31 @@ import { useTranslation } from 'react-i18next';
 import { lightTextColor } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { useBreakpoints } from '../../../../queries/useBreakpoints';
-import dayjs from '../../../../localizedMoment';
+// import { useAssessment } from '../../../../operations/queries/Assessment/getAssessment';
 
 interface Props {
     onClose: () => void;
     isExpanded: boolean;
     schoolYearStart: number;
     date: Date;
+    childId: string;
 }
 
-export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, date }: Props) => {
+// interface PageParams {
+//     assessmentId: string;
+//     kindergartenId: string;
+//     childId: string;
+//     measurement: string;
+// }
+
+export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, childId }: Props) => {
     const device = useBreakpoints();
     const classes = useStyles();
     const { t } = useTranslation();
+    // const params = useParams<PageParams>();
+
+    // const assessmentId = params.assessmentId;
+    // const assesment = useAssessment(assessmentId);
 
     return (
         <Grid
@@ -35,16 +47,12 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, da
                 lg={6}
             >
                 <Grid item>
-                    <Typography className={classes.title}>
+                    <Typography className={classes.title} variant="subtitle2">
                         {t('child-profile.kindergartener-test')}: {getSchoolYearLabel(schoolYearStart)}
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Typography className={classes.updatedAt}>
-                        <span>
-                            {t('child-profile.last-update-date')}: {dayjs(date).fromNow()}
-                        </span>
-                    </Typography>
+                    <Typography className={classes.updatedAt}>aaaaaaaaaaaaaa</Typography>
                 </Grid>{' '}
             </Grid>
             <Grid item>
@@ -76,7 +84,6 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(0, 2),
         },
         title: {
-            fontWeight: 'bold',
             marginRight: '40px',
         },
         updatedAt: {

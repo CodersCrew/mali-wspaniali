@@ -14,7 +14,7 @@ type AgeDescriptionModalProps = {
 
 const AgeDescriptionModal = ({
     onClose,
-    makeDecision,
+    preventClose,
 }: AgeDescriptionModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
 
@@ -22,8 +22,11 @@ const AgeDescriptionModal = ({
         <BasicModal
             actionName={t('close')}
             isOpen={true}
-            onAction={() => console.log('')}
-            onClose={onClose}
+            onClose={() => {
+                if (!preventClose) {
+                    onClose();
+                }
+            }}
             isCancelButtonVisible={false}
             dialogProps={{ maxWidth: 'sm' }}
         >

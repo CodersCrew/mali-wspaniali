@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, DialogContent, DialogTitle, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, DialogContent, DialogTitle, Link, makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
@@ -12,9 +12,15 @@ type AdviceModalProps = {
     preventClose: boolean;
     isCancelButtonVisible: boolean;
     resultKey: string;
+    childId?: string;
 };
 
-const AdviceModal = ({ onClose, makeDecision, resultKey }: AdviceModalProps & ActionDialog<{ child: ChildInput }>) => {
+const AdviceModal = ({
+    onClose,
+    preventClose,
+    resultKey,
+    childId,
+}: AdviceModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -22,10 +28,15 @@ const AdviceModal = ({ onClose, makeDecision, resultKey }: AdviceModalProps & Ac
         <BasicModal
             actionName={t('close')}
             isOpen={true}
-            onAction={() => console.log('')}
-            onClose={onClose}
-            isCancelButtonVisible={false}
+            onClose={() => {
+                if (!preventClose) {
+                    onClose();
+                }
+            }}
+            isCancelButtonVisible={true}
             dialogProps={{ maxWidth: 'sm' }}
+            closeButtonText={'zamknij'}
+            isActionButtonSecondary={false}
         >
             <DialogTitle>{t(`${T_ADVICE_PREFIX}.${resultKey}.title`)}</DialogTitle>
             <DialogContent>
@@ -35,7 +46,9 @@ const AdviceModal = ({ onClose, makeDecision, resultKey }: AdviceModalProps & Ac
                 </Typography>
                 <Typography gutterBottom variant={resultKey === 'medium' ? 'subtitle2' : 'body2'}>
                     {t(`${T_ADVICE_PREFIX}.${resultKey}.text-2`)}{' '}
-                    <strong className={classes.link}>{t(`${T_ADVICE_PREFIX}.${resultKey}.text-2-1`)} </strong>{' '}
+                    <Link className={classes.link} href={`/parent/child/${childId}/tests-information`} underline="none">
+                        {t(`${T_ADVICE_PREFIX}.${resultKey}.text-2-1`)}{' '}
+                    </Link>
                     {t(`${T_ADVICE_PREFIX}.${resultKey}.text-2-2`)}
                 </Typography>
                 {(resultKey === 'bad' || resultKey === 'medium') && (
@@ -55,20 +68,6 @@ export const openAdviceModal = (props: AdviceModalProps) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        // card: {
-        //     width: '25%',
-        //     display: 'flex',
-        //     padding: '0px 8px 20px 8px',
-        //     flexDirection: 'column',
-
-        // resultDescription: {
-        //     textAlign: 'center',
-        //     fontFamily: 'Montserrat',
-        //     fontSize: '14px',
-        //     textTransform: 'uppercase',
-        //     marginBottom: '15px',
-        //     fontWeight: 'bold',
-        // },
         link: {
             color: mainColor,
         },

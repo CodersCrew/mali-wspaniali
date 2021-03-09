@@ -33,6 +33,7 @@ export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props
                     onClose={onClose}
                     isExpanded={isExpanded}
                     date={date}
+                    childId={tests[0]._id}
                 />
             </AccordionSummary>
             <AccordionDetails className={classes.expansionPanelDetails}>{getTestSections(tests)}</AccordionDetails>

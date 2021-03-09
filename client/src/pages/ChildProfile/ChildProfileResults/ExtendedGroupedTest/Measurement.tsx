@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '30px',
         },
         chartWrapper: {
-            width: '50%',
+            width: theme.spacing(13.75),
             position: 'relative',
         },
         testName: {

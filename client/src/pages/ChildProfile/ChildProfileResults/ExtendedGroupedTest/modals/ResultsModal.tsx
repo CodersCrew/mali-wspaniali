@@ -16,7 +16,7 @@ type ResultsModalProps = {
 
 const ResultsModal = ({
     onClose,
-    makeDecision,
+    preventClose,
     progressKey,
 }: ResultsModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
@@ -26,8 +26,11 @@ const ResultsModal = ({
         <BasicModal
             actionName={t('close')}
             isOpen={true}
-            onAction={() => console.log('')}
-            onClose={onClose}
+            onClose={() => {
+                if (!preventClose) {
+                    onClose();
+                }
+            }}
             isCancelButtonVisible={false}
             dialogProps={{ maxWidth: 'sm' }}
         >

@@ -23,7 +23,6 @@ export default function ChildResultsPage() {
     const history = useHistory();
     const classes = useStyles();
     const user = useMe();
-
     const child = user?.children.find((_child) => _child._id === childId);
 
     useEffect(() => {

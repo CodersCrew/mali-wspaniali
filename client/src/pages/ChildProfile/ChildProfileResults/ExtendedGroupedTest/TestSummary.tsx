@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, createStyles, Grid, IconButton, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -26,6 +27,9 @@ export const TestSummary = ({ result }: Props) => {
     const sumOfPoints = agilityPoints + powerPoints + speedPoints + strengthPoints;
     const { color, key } = getResultColorAndLabel(sumOfPoints, MAX_OVERALL_POINTS);
     const classes = useStyles({ color });
+    const { childId } = useParams<{
+        childId: string;
+    }>();
 
     return (
         <>
@@ -94,6 +98,7 @@ export const TestSummary = ({ result }: Props) => {
                                 preventClose: false,
                                 isCancelButtonVisible: true,
                                 resultKey: key,
+                                childId,
                             }).then((res) => {
                                 if (!res.close)
                                     openSnackbar({
