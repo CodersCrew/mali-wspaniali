@@ -419,7 +419,6 @@
         },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
-
     "single-article": {
         "blog": "blog",
         "length": "długość",
@@ -466,7 +465,7 @@
         },
         "create-blog-article": "Artykuły",
         "archive": "Archiwum",
-        "results-list": "Lista wyników",
+        "results-list": "Wyniki testów",
         "notifications": "Powiadomienia",
         "test-management": "Testy",
         "settings": {
@@ -479,9 +478,9 @@
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
-            "results": "Lista wyników",
+            "results": "Wyniki testów",
             "recommendations": "Rekomendacje",
-            "tests-information": "Informacje o testach",
+            "tests-information": "Opis testów",
             "details": "Dane dziecka"
         },
         "blog": "Aktualności",
@@ -514,7 +513,7 @@
         "food": "Żywienie",
         "activity": "Aktywność fizyczna",
         "emotions": "Emocje",
-        "other": "Inne"
+        "other": "Inne kategorie"
     },
     "blog-navigation": {
         "back": "Wstecz"
@@ -693,7 +692,6 @@
         "text-field-title-id": "wiadomość",
         "text-field-title-label": "Treść wiadomości",
         "text-field-title-placeholder": "Treść wiadomości",
-
         "select-options": {
             "select-label": "Temat wiadomości",
             "1": "zmiana hasła",
