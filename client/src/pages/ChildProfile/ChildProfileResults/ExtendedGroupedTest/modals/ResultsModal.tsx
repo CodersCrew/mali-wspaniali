@@ -47,7 +47,6 @@ const ResultsModal = ({
                         {t(`${RESULTS_PREFIX}.${progressKey}.text-1-2`)}
                     </Typography>
                 )}
-
                 <Typography gutterBottom variant={progressKey === 'regress' ? 'subtitle2' : 'body2'}>
                     {t(`${RESULTS_PREFIX}.${progressKey}.text-2`)}{' '}
                     <a href="/recommendations">
