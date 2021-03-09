@@ -1,13 +1,7 @@
-import React from 'react';
 import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Me } from '../../../graphql/types';
-import {
-    getAccessMenuItemFactory,
-    getAdminMenuItemFactory,
-    getNewsletterMenuItemFactory,
-    getResultsMenuItemFactory,
-} from './menuItemFactory';
+import { getAdminMenuItemFactory, getNewsletterMenuItemFactory, getResultsMenuItemFactory } from './menuItemFactory';
 import { SingleItem } from './SingleItem';
 import { SecondaryLabel } from '../../Label';
 import { MenuDrawer } from './MenuDrawer';
@@ -37,20 +31,18 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
     const ItemFactory = getAdminMenuItemFactory({ active, t });
     const ResultsItemFactory = getResultsMenuItemFactory({ active, t });
     const NewsletterItemFactory = getNewsletterMenuItemFactory({ active, t });
-    const AccessItemFactory = getAccessMenuItemFactory({ active, t });
 
-    const MainPageItem = ItemFactory.create({ name: 'main-page' });
     const { mainItem: ResultsMainItem, subItems: ResultsSubItems } = ResultsItemFactory.create({ active, t });
     const { mainItem: NewsletterMainItem, subItems: NewsletterSubItems } = NewsletterItemFactory.create({ active, t });
-    const { mainItem: AccessMainItem, subItems: AccessSubItems } = AccessItemFactory.create({ active, t });
     const NotificationsItem = ItemFactory.create({
         name: 'notifications',
         rightIcon: unreadedNotificationsCount > 0 ? <SecondaryLabel label={unreadedNotificationsCount} /> : undefined,
     });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
-    const CreateBlogArticleItem = ItemFactory.create({ name: 'create-blog-article' });
-    const TestsItem = ItemFactory.create({ name: 'tests' });
+    const ArticlesItem = ItemFactory.create({ name: 'articles' });
+    const KindergartensItem = ItemFactory.create({ name: 'kindergartens' });
+    const CodeItem = ItemFactory.create({ name: 'keycodes' });
     const AgreementsItem = ItemFactory.create({ name: 'agreements' });
 
     const drawer = (
@@ -63,14 +55,13 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
             <Grid item>
                 <List>
                     <LoggedAsItem name={user.mail} />
-                    <SingleItem item={MainPageItem} onClick={onClick} />
                     <CollapsibleList mainItem={ResultsMainItem} subItems={ResultsSubItems} onClick={onClick} />
                     <CollapsibleList mainItem={NewsletterMainItem} subItems={NewsletterSubItems} onClick={onClick} />
-                    <CollapsibleList mainItem={AccessMainItem} subItems={AccessSubItems} onClick={onClick} />
                     <SingleItem item={AgreementsItem} onClick={onClick} />
-                    <SingleItem item={CreateBlogArticleItem} onClick={onClick} />
+                    <SingleItem item={ArticlesItem} onClick={onClick} />
+                    <SingleItem item={KindergartensItem} onClick={onClick} />
+                    <SingleItem item={CodeItem} onClick={onClick} />
                     <SingleItem item={NotificationsItem} onClick={onClick} />
-                    <SingleItem item={TestsItem} onClick={onClick} />
                     <SingleItem item={SettingsItem} onClick={onClick} />
                 </List>
             </Grid>

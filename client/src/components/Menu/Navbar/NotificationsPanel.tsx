@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuList, Paper, createStyles, makeStyles, Theme, Typography } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';

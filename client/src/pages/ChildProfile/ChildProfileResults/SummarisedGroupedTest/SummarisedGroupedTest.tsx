@@ -14,21 +14,10 @@ interface Props {
     childId: string;
 }
 
-// interface PageParams {
-//     assessmentId: string;
-//     kindergartenId: string;
-//     childId: string;
-//     measurement: string;
-// }
-
 export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, childId }: Props) => {
     const device = useBreakpoints();
     const classes = useStyles();
     const { t } = useTranslation();
-    // const params = useParams<PageParams>();
-
-    // const assessmentId = params.assessmentId;
-    // const assesment = useAssessment(assessmentId);
 
     return (
         <Grid

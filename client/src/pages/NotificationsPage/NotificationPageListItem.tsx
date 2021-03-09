@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableRow, TableCell, makeStyles, Theme, Typography, IconButton } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons/';
 import clsx from 'clsx';

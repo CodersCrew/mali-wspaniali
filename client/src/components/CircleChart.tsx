@@ -1,4 +1,3 @@
-import React from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import { DataEntry } from 'react-minimal-pie-chart/types/commonTypes';
 import InfoIcon from '@material-ui/icons/Info';

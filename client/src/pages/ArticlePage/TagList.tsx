@@ -1,5 +1,4 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import React from 'react';
 import clsx from 'clsx';
 
 import { ButtonPrimary } from '../../components/Button';

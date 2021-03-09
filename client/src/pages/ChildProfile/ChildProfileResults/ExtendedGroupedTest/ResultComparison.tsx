@@ -6,7 +6,6 @@ import { gray, resultColors } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { openResultsModal } from './modals/ResultsModal';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
-
 import Results from './Results';
 import { ChartLegend } from './ChartLegend';
 
@@ -18,7 +17,6 @@ interface Props {
 
 export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props) => {
     const { t } = useTranslation();
-    // const { color } = getResultColorAndLabel(lastResultPoints, MAX_OVERALL_POINTS);
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);
     const difference = Math.abs(firstResultPoints - lastResultPoints);
     const differenceColor = getDifferenceColor(key);

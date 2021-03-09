@@ -57,14 +57,14 @@
         }
     },
     "forgot-password-page": {
-        "forgot-password": "Forgot password",
+        "forgot-password": "Forgot the password?",
         "its-ok": "Don't worry. Type in your email address.",
         "receive-link": "You will receive a link to create a new password.",
         "insert-email": "Type in e-mail address provided to the foundation",
-        "new-password": "Create new password",
+        "continue": "Continue",
         "problem": "Stumbled upon a problem?",
         "contact": "Please contact the foundation to resolve it",
-        "email-helper-text": "Type in e-mail address provided to the foundation",
+        "email-helper-text": "Type in an e-mail address used during registration",
         "back-to-login": "Back to login",
         "avatar": "Małgosia"
     },
@@ -472,7 +472,12 @@
         "logout": "Log out"
     },
     "admin-menu": {
-        "home": "Home",
+        "tests": {
+            "title": "Tests",
+            "results": "Results",
+            "manage-tests": "Manage tests",
+            "instructors": "Manage instructors"
+        },
         "settings": {
             "title": "Settings",
             "parents-settings": "Parent's accounts placings",
@@ -489,16 +494,23 @@
             "table": "Results table",
             "advice-and-recommendations": "Advice and recommendations"
         },
-        "access": {
-            "title": "Access management",
-            "instructors": "Manage instructors",
-            "keycodes": "Generate keycodes"
+        "articles": {
+            "title": "Articles"
         },
-        "create-blog-article": "Blog",
+        "keycodes": "Keycodes",
+        "kindergartens": {
+            "title": "Kindergartens",
+            "list": "List of kindergartens"
+        },
+        "create-blog-article": "Articles",
         "archive": "Archive",
         "agreements": "Agreements",
         "test-management": "Tests",
         "logout": "Log out"
+    },
+    "admin-articles": {
+        "title": "Select article or create new article",
+        "add-article": "Add article"
     },
     "instructor-menu": {
         "add-results": "Add results",
@@ -522,7 +534,7 @@
     },
     "blog-main-page": {
         "header-bar": "Blog",
-        "header": "Here you will find out, how to take care of your child's development"
+        "header": "Find out how to improve your child's development"
     },
     "blog-pagination": {
         "show-more": "Show more",
@@ -702,7 +714,6 @@
         "text-field-title-id": "message",
         "text-field-title-label": "Message content",
         "text-field-title-placeholder": "Message content",
-
         "select-options": {
             "select-label": "Message subject",
             "1": "Password change",

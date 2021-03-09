@@ -57,14 +57,14 @@
         }
     },
     "forgot-password-page": {
-        "forgot-password": "Nie pamietasz hasła",
+        "forgot-password": "Nie pamietasz hasła?",
         "its-ok": "Nic się nie stało. Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
-        "new-password": "Stwórz nowe hasło",
+        "continue": "Kontynuuj",
         "problem": "Masz problem?",
         "contact": "Skontaktuj się z fundacją by go rozwiązać",
-        "email-helper-text": "Wpisz adres e-mail podany fundacji",
+        "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
         "back-to-login": "Wróć do logowania",
         "avatar": "Małgosia"
     },
@@ -515,13 +515,12 @@
         },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
-
     "single-article": {
         "blog": "blog",
         "length": "długość",
         "emotions": "emocje",
         "activity": "aktywność",
-        "food": "żywność",
+        "food": "żywienie",
         "other": "inne",
         "reading-time": "min czytania",
         "go-to-previous-page": "poprzednia",
@@ -538,7 +537,12 @@
         "logged-as": "Zalogowany jako:"
     },
     "admin-menu": {
-        "home": "Strona Główna",
+        "tests": {
+            "title": "Testy",
+            "results": "Wyniki",
+            "manage-tests": "Zarządzaj testami",
+            "instructors": "Zarządzaj instruktorami"
+        },
         "agreements": "Zgody",
         "newsletter": {
             "title": "Newsletter",
@@ -550,12 +554,15 @@
             "table": "Tabela wyników",
             "advice-and-recommendations": "Porady i rekomendacje"
         },
-        "access": {
-            "title": "Zarządzanie dostępami",
-            "instructors": "Zarządzaj instruktorami",
-            "keycodes": "Generowanie kodów"
+        "articles": {
+            "title": "Artykuły"
         },
-        "create-blog-article": "Blog",
+        "keycodes": "Kody",
+        "kindergartens": {
+            "title": "Przedszkola",
+            "list": "Lista przedszkoli"
+        },
+        "create-blog-article": "Artykuły",
         "archive": "Archiwum",
         "results-list": "Lista wyników",
         "notifications": "Powiadomienia",
@@ -566,6 +573,10 @@
             "change-password": "Zmiana hasła"
         },
         "logout": "Wyloguj"
+    },
+    "admin-articles": {
+        "title": "Wybierz artykuł albo dodaj nowy",
+        "add-article": "Dodaj artykuł"
     },
     "parent-menu": {
         "home": "Strona Główna",
@@ -592,11 +603,11 @@
     },
     "blog-main-page": {
         "header-bar": "Blog",
-        "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
+        "header": "Sprawdź jak zadbać o rozwój swojego dziecka"
     },
     "blog-pagination": {
-        "previous": "Poprzednia",
-        "next": "Następna",
+        "previous": "Poprzedni",
+        "next": "Następny",
         "show-more": "Rozwiń więcej",
         "counter": "Pokazuje {{from}} z {{to}} artykułów"
     },
@@ -784,7 +795,6 @@
         "text-field-title-id": "wiadomość",
         "text-field-title-label": "Treść wiadomości",
         "text-field-title-placeholder": "Treść wiadomości",
-
         "select-options": {
             "select-label": "Temat wiadomości",
             "1": "zmiana hasła",

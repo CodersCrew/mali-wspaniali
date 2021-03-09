@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
