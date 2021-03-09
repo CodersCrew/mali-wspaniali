@@ -179,7 +179,8 @@ export const RegistrationForm = () => {
                     // handleNext();
                     openAlertDialog({
                         type: 'error',
-                        description: err.message,
+                        title: t('registration-page.register-failure'),
+                        description: t('registration-page.register-failure-description'),
                     });
                 });
         }
