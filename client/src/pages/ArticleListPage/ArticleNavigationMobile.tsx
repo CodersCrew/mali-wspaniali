@@ -1,6 +1,7 @@
 import { makeStyles, Theme, createStyles, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
+
 import { ButtonDefault } from '../../components/Button/ButtonDefault';
 
 interface Props {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             display: 'flex',
             alignItems: 'center',
-            padding: `0 ${theme.spacing(3)}px`,
+            padding: `12px ${theme.spacing(3)}px`,
             height: theme.spacing(6),
             backgroundColor: theme.palette.primary.main,
         },
