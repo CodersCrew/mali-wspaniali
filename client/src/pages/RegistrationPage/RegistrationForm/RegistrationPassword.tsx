@@ -30,6 +30,7 @@ export const RegistrationPassword = ({
     classButton,
     classNextBtn,
     classFormItem,
+    skip,
 }: RegistrationPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
@@ -46,6 +47,12 @@ export const RegistrationPassword = ({
     }, [password]);
 
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (event.ctrlKey) {
+            if (skip) skip(() => true);
+        }
+    };
 
     return (
         <>
@@ -71,6 +78,7 @@ export const RegistrationPassword = ({
                     }
                     labelWidth={70}
                     data-testid="password"
+                    autoFocus
                 />
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
@@ -103,6 +111,7 @@ export const RegistrationPassword = ({
                     type="submit"
                     className={classNextBtn}
                     innerText={t('registration-page.create-password')}
+                    onClick={handleClick}
                 />
                 <ButtonSecondary
                     variant="text"

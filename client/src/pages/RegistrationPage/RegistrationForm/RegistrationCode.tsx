@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStyles, makeStyles, TextField, Typography } from '@material-ui/core/';
-// import { TextField, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
 import { openAlertDialog } from '../../../components/AlertDialog';
@@ -21,6 +20,8 @@ export const RegistrationCode = ({
     const { t } = useTranslation();
     const classes = useStyles();
 
+    // const inputRef = useRef();
+
     const handleClick = () => {
         openAlertDialog({
             type: 'info',
@@ -31,6 +32,19 @@ export const RegistrationCode = ({
         });
     };
 
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            if (code.length >= 9) handleNext();
+        }
+    };
+
+    /*
+    useEffect(() => {
+        if (inputRef.current !== undefined) inputRef.current.focus();
+    }, []);
+
+*/
     return (
         <>
             <Typography variant="body1">{t('registration-page.enter-code-text')}</Typography>
@@ -46,6 +60,8 @@ export const RegistrationCode = ({
                 className={classForm}
                 error={error}
                 helperText={error && t('registration-page.invalid-code')}
+                onKeyPress={handleKeyPress}
+                autoFocus
             />
             <div className={classButton}>
                 <ButtonSecondary

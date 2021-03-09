@@ -32,7 +32,9 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     // TODO: turn back to 0
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(3);
+    const [skip, setSkip] = useState(false);
+
     const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
@@ -132,6 +134,7 @@ export const RegistrationForm = () => {
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
                     classFormItem={classes.formItem}
+                    skip={setSkip}
                 />
             );
         }
@@ -168,18 +171,23 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-mismatch'),
             });
         } else {
+            console.log({ mail: email, password, keyCode: code });
             load(createUser({ mail: email, password, keyCode: code }))
                 .then(() => {
                     handleNext();
                 })
                 .catch((err) => {
                     // TODO: re-modify this!
-                    // handleNext();
-                    openAlertDialog({
-                        type: 'error',
-                        title: t('registration-page.register-failure'),
-                        description: t('registration-page.register-failure-description'),
-                    });
+                    if (skip) {
+                        setSkip(() => false);
+                        handleNext();
+                    } else {
+                        openAlertDialog({
+                            type: 'error',
+                            title: t('registration-page.register-failure'),
+                            description: t('registration-page.register-failure-description'),
+                        });
+                    }
                 });
         }
     };
@@ -198,9 +206,12 @@ export const RegistrationForm = () => {
                 {t('registration-page.register-header')}
             </Typography>
             <Box mb={isDesktop ? 3 : 2} />
-            <Typography className={classes.subHeader}>{t('login-wrapper.subheading')}</Typography>
-            <Box mb={isDesktop ? 2.5 : 2} />
-
+            {activeStep === 0 && (
+                <>
+                    <Typography className={classes.subHeader}>{t('login-wrapper.subheading')}</Typography>
+                    <Box mb={isDesktop ? 2.5 : 2} />
+                </>
+            )}
             <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
                 <Stepper
                     activeStep={activeStep}

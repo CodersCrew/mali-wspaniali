@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 export type RegisterForm = {
     code: string;
@@ -46,6 +46,8 @@ export type RegistrationPasswordProps = {
     classButton: string;
     classNextBtn: string;
     classFormItem: string;
+    // TODO: get rid with this!!!
+    skip?: Dispatch<SetStateAction<boolean>>;
 };
 
 export type RegistrationFeedbackProps = {
