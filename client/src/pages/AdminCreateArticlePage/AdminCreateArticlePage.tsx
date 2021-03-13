@@ -130,7 +130,6 @@ export default function CreateArticlePage() {
                         onSelect={onChangeCategory}
                         size="small"
                     />
-
                     <TextField
                         name="pictureUrl"
                         className={classes.input}
@@ -173,6 +172,16 @@ export default function CreateArticlePage() {
                         formats={formats}
                         placeholder={t('admin-articles.article-content')}
                     />
+                    <TextField
+                        name="videoUrl"
+                        className={classes.input}
+                        variant="outlined"
+                        label={t('admin-articles.video')}
+                        fullWidth
+                        value={article.videoUrl}
+                        onChange={(e) => onChange(e)}
+                        size="small"
+                    />
                 </Box>
             </Paper>
             <Paper elevation={1} className={classes.paper}>
@@ -209,6 +218,16 @@ export default function CreateArticlePage() {
                         label={t('admin-articles.author-profession')}
                         fullWidth
                         value={article.redactor.profession}
+                        onChange={(e) => onChangeAuthor(e)}
+                        size="small"
+                    />
+                    <TextField
+                        name="avatarUrl"
+                        className={classes.input}
+                        variant="outlined"
+                        label={t('admin-articles.avatar')}
+                        fullWidth
+                        value={article.redactor.avatarUrl}
                         onChange={(e) => onChangeAuthor(e)}
                         size="small"
                     />
@@ -272,6 +291,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(2),
         },
         workspace: {
+            marginBottom: theme.spacing(2),
             borderRadius: '4',
             '& .ql-container': {
                 minHeight: 170,
