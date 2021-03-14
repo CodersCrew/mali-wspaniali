@@ -56,14 +56,14 @@ export default function AdminArticlesPage() {
 
     if (loading && !data) return <Loader />;
     if (!data) {
-        return <MobileAwareCategoryTabs onTabChange={onTabChange} category={params.category} values={categoriesList} />;
+        return <MobileAwareCategoryTabs onChange={onTabChange} activeCategory={params.category} categories={categoriesList} />;
     }
 
     const { articles, count, hasNext } = data.paginatedArticles;
 
     return (
         <>
-            <MobileAwareCategoryTabs onTabChange={onTabChange} category={params.category} values={categoriesList} />
+            <MobileAwareCategoryTabs onChange={onTabChange} activeCategory={params.category} categories={categoriesList} />
             <PageContainer>
                 <Typography className={classes.headerText} variant="h3">
                     {t('admin-articles.title')}

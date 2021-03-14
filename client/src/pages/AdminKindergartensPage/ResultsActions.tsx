@@ -1,6 +1,5 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 // import { SearchInput } from './SearchInput';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
@@ -27,7 +26,7 @@ export const ResultsActions = ({ onAddKindergartenClick }: Props) => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             // display: 'grid',

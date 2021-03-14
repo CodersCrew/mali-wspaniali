@@ -1,4 +1,5 @@
 import { Tab, createStyles, makeStyles, Theme } from '@material-ui/core';
+
 import { blogCategoryColors } from '../../colors';
 
 type StyledTabProps = {
@@ -28,12 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
             opacity: '1',
             whiteSpace: 'nowrap',
             color: theme.palette.primary.contrastText,
-            textTransform: 'none',
             flexShrink: 2,
             fontWeight: theme.typography.button.fontWeight,
         },
         wrapper: {
-            margin: '0 10px',
+            marginRight: '10px',
         },
         selected: {
             height: '45px',

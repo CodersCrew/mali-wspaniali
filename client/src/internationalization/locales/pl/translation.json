@@ -57,14 +57,14 @@
         }
     },
     "forgot-password-page": {
-        "forgot-password": "Nie pamietasz hasła",
+        "forgot-password": "Nie pamietasz hasła?",
         "its-ok": "Nic się nie stało. Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
-        "new-password": "Stwórz nowe hasło",
+        "continue": "Kontynuuj",
         "problem": "Masz problem?",
         "contact": "Skontaktuj się z fundacją by go rozwiązać",
-        "email-helper-text": "Wpisz adres e-mail podany fundacji",
+        "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
         "back-to-login": "Wróć do logowania",
         "avatar": "Małgosia"
     },
@@ -419,7 +419,6 @@
         },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
-
     "single-article": {
         "blog": "blog",
         "length": "długość",
@@ -533,8 +532,8 @@
         "header": "Sprawdź jak zadbać o rozwój swojego dziecka"
     },
     "blog-pagination": {
-        "previous": "Poprzednia",
-        "next": "Następna",
+        "previous": "Poprzedni",
+        "next": "Następny",
         "show-more": "Rozwiń więcej",
         "counter": "Pokazuje {{from}} z {{to}} artykułów"
     },
@@ -722,7 +721,6 @@
         "text-field-title-id": "wiadomość",
         "text-field-title-label": "Treść wiadomości",
         "text-field-title-placeholder": "Treść wiadomości",
-
         "select-options": {
             "select-label": "Temat wiadomości",
             "1": "zmiana hasła",

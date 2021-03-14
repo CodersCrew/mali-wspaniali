@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, Box, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import { NoResults } from './NoResults';
@@ -24,10 +24,9 @@ export default function AdminKindergartensPage() {
     const { kindergartenList } = useKindergartens();
 
     const [kindergartenModalStatus, setKindergartenModalStatus] = useState<{
-        isOpen: boolean;
+        isOpen?: boolean;
         kindergarten: Kindergarten | null;
     }>({
-        isOpen: false,
         kindergarten: null,
     });
     const [deleteModalStatus, setDeleteModalStatus] = useState<{ kindergarten: Kindergarten | null }>({
@@ -61,7 +60,7 @@ export default function AdminKindergartensPage() {
         } else {
             createKindergarten(values);
         }
-        setKindergartenModalStatus({ isOpen: false, kindergarten: null });
+        setKindergartenModalStatus({ kindergarten: null });
     };
 
     return (

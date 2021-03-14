@@ -76,10 +76,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         formContainer: {
             backgroundColor,
-            minHeight: '100vh',
-            height: '100%',
             flex: '3 0 0',
-
+            display: 'flex',
+            flexDirection: 'column',
             [theme.breakpoints.down('sm')]: {
                 minHeight: 'auto',
             },

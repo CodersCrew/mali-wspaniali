@@ -9,7 +9,7 @@ export const BlogMainHeader = () => {
     return (
         <div>
             <div className={classes.subtitleContainer}>
-                <Typography variant="h4" gutterBottom className={classes.subtitle}>
+                <Typography variant="h3" gutterBottom className={classes.subtitle}>
                     {t('blog-main-page.header')}
                 </Typography>
             </div>
@@ -19,18 +19,8 @@ export const BlogMainHeader = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        title: {
-            color: theme.palette.primary.contrastText,
-            fontSize: theme.typography.h4.fontSize,
-            textTransform: 'uppercase',
-            cursor: 'default',
-            userSelect: 'none',
-        },
         subtitle: {
-            fontSize: theme.typography.h2.fontSize,
-            zIndex: 10,
-            width: '60vw',
-
+            margin: 0,
             [theme.breakpoints.down('sm')]: {
                 fontSize: theme.typography.subtitle1.fontSize,
                 fontWeight: theme.typography.subtitle1.fontWeight,
@@ -41,8 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
         subtitleContainer: {
             display: 'flex',
-            marginTop: '20px',
-            zIndex: 10,
+            marginTop: theme.spacing(3),
+            marginLeft: theme.spacing(3),
 
             [theme.breakpoints.down('sm')]: {
                 justifyContent: 'center',
