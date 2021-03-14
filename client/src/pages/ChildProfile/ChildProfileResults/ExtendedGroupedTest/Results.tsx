@@ -2,21 +2,14 @@ import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import Girl from '../../../../assets/girl.svg';
 import Boy from '../../../../assets/boy.svg';
+import { ResultsData } from './types';
 
 export interface Props {
-    v1: number;
-    v2: number;
-    v3: number;
-    v4: number;
-    v5: number;
-    unit: string;
-    result: number;
-    resultStart: number;
-    hasScoreRangeLabels: boolean;
-    sex: string;
+    resultsData: ResultsData;
 }
 
-const Results = ({ v1, v2, v3, v4, v5, unit, result, resultStart, hasScoreRangeLabels, sex }: Props) => {
+const Results = ({ resultsData }: Props) => {
+    const { v1, v2, v3, v4, v5, unit, result, resultStart, hasScoreRangeLabels, sex } = resultsData;
     const { t } = useTranslation();
     const avatar = sex !== 'male' ? Boy : Girl;
     const range = v1 - v5;

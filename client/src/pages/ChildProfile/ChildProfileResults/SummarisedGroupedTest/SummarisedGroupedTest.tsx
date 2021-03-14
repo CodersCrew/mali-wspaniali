@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { lightTextColor } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { useBreakpoints } from '../../../../queries/useBreakpoints';
-// import { useAssessment } from '../../../../operations/queries/Assessment/getAssessment';
 
 interface Props {
     onClose: () => void;

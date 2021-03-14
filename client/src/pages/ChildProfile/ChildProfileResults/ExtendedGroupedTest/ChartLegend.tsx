@@ -37,7 +37,7 @@ export const ChartLegend = ({ resultKey, color, difference }: Props) => {
                             xmlns="http://www.w3.org/2000/svg"
                         >
                             <rect width="160" height="80" rx="40" x="10" y="80" fill="#9E9E9E" />
-                        </svg>{' '}
+                        </svg>
                     </Grid>
                     <Grid item lg={10}>
                         <Typography variant="body2">{t(`child-profile.comparison-legend.initial-result`)}</Typography>
@@ -66,7 +66,6 @@ export const ChartLegend = ({ resultKey, color, difference }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        ruller: {},
         legendPoints: {
             color: ({ color }: { color: string }) => color,
         },

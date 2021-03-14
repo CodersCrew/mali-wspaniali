@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
-import { mainColor } from '../../../../../colors';
 
 const RESULTS_PREFIX = 'child-profile.results-modal-content';
 
@@ -75,22 +74,8 @@ export const openResultsModal = (props: ResultsModalProps) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        // card: {
-        //     width: '25%',
-        //     display: 'flex',
-        //     padding: '0px 8px 20px 8px',
-        //     flexDirection: 'column',
-
-        // resultDescription: {
-        //     textAlign: 'center',
-        //     fontFamily: 'Montserrat',
-        //     fontSize: '14px',
-        //     textTransform: 'uppercase',
-        //     marginBottom: '15px',
-        //     fontWeight: 'bold',
-        // },
         link: {
-            color: mainColor,
+            color: theme.palette.primary.main,
         },
     }),
 );

@@ -54,18 +54,7 @@ export const Measurement = ({
             <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>
-            <ButtonSecondary
-                // onClick={(event) => {
-                //     if (isExpanded) {
-                //         event.stopPropagation();
-                //     }
-
-                //     onClose();
-                // }}
-                variant="text"
-                className={classes.detailsButton}
-                innerText={t('child-profile.details')}
-            />
+            <ButtonSecondary variant="text" className={classes.detailsButton} innerText={t('child-profile.details')} />
         </div>
     );
 };

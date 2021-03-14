@@ -21,6 +21,18 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
     const difference = Math.abs(firstResultPoints - lastResultPoints);
     const differenceColor = getDifferenceColor(key);
     const classes = useStyles({ differenceColor });
+    const resultsData = {
+        v1: 60,
+        v2: 120,
+        v3: 150,
+        v4: 180,
+        v5: 240,
+        unit: 'pkt',
+        result: lastResultPoints,
+        resultStart: firstResultPoints,
+        hasScoreRangeLabels: false,
+        sex: 'male',
+    };
 
     return (
         <>
@@ -59,18 +71,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                     </Typography>
                     <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
                         <Grid item xs={12} lg={8} className={classes.ruller}>
-                            <Results
-                                v1={60}
-                                v2={120}
-                                v3={150}
-                                v4={180}
-                                v5={240}
-                                unit="pkt"
-                                result={lastResultPoints}
-                                resultStart={firstResultPoints}
-                                hasScoreRangeLabels={false}
-                                sex="male"
-                            />
+                            <Results resultsData={resultsData} />
                         </Grid>
                         <Grid item xs={12} lg={4}>
                             <ChartLegend resultKey={key} color={differenceColor} difference={difference} />

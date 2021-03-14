@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
-import { mainColor } from '../../../../../colors';
 
 const T_ADVICE_PREFIX = 'child-profile.advice-modal-content';
 
@@ -69,7 +68,7 @@ export const openAdviceModal = (props: AdviceModalProps) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         link: {
-            color: mainColor,
+            color: theme.palette.primary.main,
         },
     }),
 );

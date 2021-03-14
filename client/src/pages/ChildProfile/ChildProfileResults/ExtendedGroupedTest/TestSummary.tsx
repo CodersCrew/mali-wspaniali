@@ -127,7 +127,6 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             borderBottom: `1px solid ${gray}`,
             paddingBottom: '15px',
-            // fontSize: theme.typography.h2.fontSize,
         },
         cardMiddle: {
             borderBottom: `1px solid ${gray}`,
