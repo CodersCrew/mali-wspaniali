@@ -1,5 +1,4 @@
-
-export type ResultsData {
+export type ResultsData = {
     v1: number;
     v2: number;
     v3: number;
@@ -10,4 +9,4 @@ export type ResultsData {
     resultStart: number;
     hasScoreRangeLabels: boolean;
     sex: string;
-}
+};
