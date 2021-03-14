@@ -41,20 +41,20 @@ export const Measurement = ({
                 />
             </div>
             <div className={classes.testName}>{t(`child-profile.tests-in-block.${translationKey}`)}</div>
-            <Typography variant="subtitle2" className={classes.description}>
+            <Typography variant='subtitle2' className={classes.description}>
                 {t(`child-profile.tests-informations.conditions.test-${translationKey}-description`)}
             </Typography>
-            <Typography variant="subtitle2" className={classes.levelLabel}>
+            <Typography variant='subtitle2' className={classes.levelLabel}>
                 {t(`child-profile.result-level`)}
             </Typography>
-            <Typography variant="subtitle2" className={classes.level}>
+            <Typography variant='subtitle2' className={classes.level}>
                 {t(`child-profile.result-levels.${key}`)}
             </Typography>
-            <Typography variant="subtitle2">{t('child-profile.received-points')}:</Typography>
+            <Typography variant='subtitle2'>{t('child-profile.received-points')}:</Typography>
             <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>
-            <ButtonSecondary variant="text" className={classes.detailsButton} innerText={t('child-profile.details')} />
+            <ButtonSecondary variant='text' className={classes.detailsButton} innerText={t('child-profile.details')} />
         </div>
     );
 };
