@@ -100,7 +100,11 @@ export const Agreements = ({ agreements }: Props) => {
                                         secondary={
                                             <span>
                                                 <Typography variant="body1" component="span">
-                                                    {t(`child-profile.agreements.${agreement.text}-description`)}
+                                                    {t(`child-profile.agreements.${agreement.text}-description-1`)}
+                                                    <b>
+                                                        {t(`child-profile.agreements.${agreement.text}-description-2`)}
+                                                    </b>
+                                                    {t(`child-profile.agreements.${agreement.text}-description-3`)}
                                                 </Typography>
                                             </span>
                                         }
@@ -128,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         button: {
-            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2),
             marginLeft: theme.spacing(8),
 
             [theme.breakpoints.down('md')]: {
@@ -137,13 +141,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         card: {
             padding: theme.spacing(2),
-            marginTop: theme.spacing(4),
+            marginTop: theme.spacing(2),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
         },
         title: {
-            marginBottom: theme.spacing(3),
+            marginBottom: theme.spacing(2),
         },
         listItem: {
             padding: theme.spacing(1, 0),
