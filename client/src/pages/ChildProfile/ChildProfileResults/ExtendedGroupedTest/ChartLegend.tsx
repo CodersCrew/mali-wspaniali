@@ -40,7 +40,7 @@ export const ChartLegend = ({ resultKey, color, difference }: Props) => {
                         </svg>
                     </Grid>
                     <Grid item lg={10}>
-                        <Typography variant="body2">{t(`child-profile.comparison-legend.initial-result`)}</Typography>
+                        <Typography variant="body2">{t('child-profile.comparison-legend.initial-result')}</Typography>
                     </Grid>
                 </Grid>
                 <Grid container direction="row" justify="flex-start" alignItems="center">
@@ -56,7 +56,7 @@ export const ChartLegend = ({ resultKey, color, difference }: Props) => {
                         </svg>
                     </Grid>
                     <Grid item lg={10}>
-                        <Typography variant="body2">{t(`child-profile.comparison-legend.final-result`)}</Typography>
+                        <Typography variant="body2">{t('child-profile.comparison-legend.final-result')}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

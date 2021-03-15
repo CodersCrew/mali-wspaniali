@@ -45,7 +45,7 @@ export const Measurement = ({
                 {t(`child-profile.tests-informations.conditions.test-${translationKey}-description`)}
             </Typography>
             <Typography variant="subtitle2" className={classes.levelLabel}>
-                {t(`child-profile.result-level`)}
+                {t('child-profile.result-level')}
             </Typography>
             <Typography variant="subtitle2" className={classes.level}>
                 {t(`child-profile.result-levels.${key}`)}
