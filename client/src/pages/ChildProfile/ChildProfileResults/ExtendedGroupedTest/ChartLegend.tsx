@@ -23,7 +23,7 @@ export const ChartLegend = ({ resultKey, color, difference }: Props) => {
                 <Typography variant="h4" className={classes.legendPoints}>
                     {resultKey === 'progress' ? <TrendingUpIcon /> : <TrendingDownIcon />}
                     {difference}
-                    {t(`child-profile.pts`)}
+                    {t('child-profile.pts')}
                 </Typography>
             )}
             <Grid item>
