@@ -1,8 +1,8 @@
-import { makeStyles } from '@material-ui/styles';
-import { TestSummary } from './TestSummary';
-import { gray } from '../../../../colors';
-import { TestDetails } from './TestDetails';
-import { TestResult } from '../../../../graphql/types';
+import {makeStyles} from '@material-ui/styles';
+import {createStyles, Theme} from '@material-ui/core';
+import {TestSummary} from './TestSummary';
+import {TestDetails} from './TestDetails';
+import {TestResult} from '../../../../graphql/types';
 
 interface Props {
     result: TestResult;
@@ -19,10 +19,17 @@ export const SingleTest = ({ result }: Props) => {
     );
 };
 
-const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        padding: '10px 0',
-        borderBottom: `1px solid ${gray}`,
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            display: 'flex',
+            padding: `${theme.spacing(2)}px 0`,
+            [theme.breakpoints.down('sm')]: {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                maxWidth: '100vw'
+            }
+        },
+    })
+);

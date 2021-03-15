@@ -1,4 +1,5 @@
-import { Accordion, AccordionSummary, AccordionDetails, makeStyles } from '@material-ui/core';
+import React from 'react';
+import {Accordion, AccordionSummary, AccordionDetails, makeStyles, Theme, createStyles} from '@material-ui/core';
 import clsx from 'clsx';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
@@ -60,17 +61,23 @@ function getTestSections(tests: TestResult[]) {
     );
 }
 
-const useStyles = makeStyles({
-    expansionPanel: {
-        marginTop: 0,
-    },
-    expansionPanelSummary: {
-        padding: 0,
-    },
-    expansionPanelSummaryExpanded: {
-        cursor: 'default',
-    },
-    expansionPanelDetails: {
-        flexDirection: 'column',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        expansionPanel: {
+            marginTop: 0,
+        },
+        expansionPanelSummary: {
+            padding: 0,
+        },
+        expansionPanelSummaryExpanded: {
+            cursor: 'default',
+        },
+        expansionPanelDetails: {
+            flexDirection: 'column',
+            [theme.breakpoints.down('xs')]: {
+                display: 'flex',
+                alignItems: 'center',
+            }
+        },
+    }),
+);
