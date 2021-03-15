@@ -1,9 +1,10 @@
 import React from 'react';
-import { makeStyles, Typography, Grid, Theme, createStyles } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { lightTextColor } from '../../../../colors';
-import { ButtonSecondary } from '../../../../components/Button';
-import { useBreakpoints } from '../../../../queries/useBreakpoints';
+import {useTranslation} from 'react-i18next';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {AccordionSummary, createStyles, Grid, makeStyles, Theme, Typography} from '@material-ui/core';
+import {ButtonSecondary} from '../../../../components/Button';
+import {useBreakpoints} from '../../../../queries/useBreakpoints';
+import {lightTextColor} from "../../../../colors";
 
 interface Props {
     onClose: () => void;
@@ -13,26 +14,50 @@ interface Props {
     childId: string;
 }
 
-export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, childId }: Props) => {
+export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart }: Props) => {
     const device = useBreakpoints();
     const classes = useStyles();
     const { t } = useTranslation();
 
+    const onDetailsBtnClick = (event: React.MouseEvent<SVGSVGElement | HTMLButtonElement>) => {
+        if (isExpanded) {
+            event.stopPropagation();
+        }
+        onClose();
+    };
+
+    const  getDetailsBtn = (): JSX.Element => {
+        if (device === 'MOBILE') {
+            return  (
+                <AccordionSummary expandIcon={<ExpandMoreIcon onClick={(event) => onDetailsBtnClick(event)}/>}>
+                </AccordionSummary>);
+        }
+
+        return (
+            <ButtonSecondary
+                onClick={(event) => onDetailsBtnClick(event)}
+                variant={isExpanded ? 'outlined' : 'contained'}
+                className={classes.detailsButton}
+                innerText={isExpanded ? t('child-profile.collapse-details') : t('child-profile.details')}
+            />
+        );
+    };
+
     return (
         <Grid
-            direction={device === 'DESKTOP' ? 'row' : 'column'}
+            direction="row"
             justify="space-between"
             alignItems="center"
             className={classes.wrapper}
             container
         >
             <Grid
-                direction={device === 'DESKTOP' ? 'row' : 'column'}
+                direction="row"
                 justify="flex-start"
                 alignItems="center"
                 item
+                xs={8}
                 container
-                lg={6}
             >
                 <Grid item>
                     <Typography className={classes.title} variant="subtitle2">
@@ -40,22 +65,11 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart, ch
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Typography className={classes.updatedAt}>aaaaaaaaaaaaaa</Typography>
-                </Grid>{' '}
+                    <Typography variant="body2" className={classes.updatedAt}>aaaaaaaaaaaaaa</Typography>
+                </Grid>
             </Grid>
-            <Grid item>
-                <ButtonSecondary
-                    onClick={(event) => {
-                        if (isExpanded) {
-                            event.stopPropagation();
-                        }
-
-                        onClose();
-                    }}
-                    variant={isExpanded ? 'outlined' : 'contained'}
-                    className={classes.detailsButton}
-                    innerText={isExpanded ? t('child-profile.collapse-details') : t('child-profile.details')}
-                />
+            <Grid  item>
+                {getDetailsBtn()}
             </Grid>
         </Grid>
     );
@@ -68,11 +82,10 @@ function getSchoolYearLabel(schoolYearStart: number) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         wrapper: {
-            fontSize: '15px',
             padding: theme.spacing(0, 2),
         },
         title: {
-            marginRight: '40px',
+            marginRight: theme.spacing(5),
         },
         updatedAt: {
             color: lightTextColor,
