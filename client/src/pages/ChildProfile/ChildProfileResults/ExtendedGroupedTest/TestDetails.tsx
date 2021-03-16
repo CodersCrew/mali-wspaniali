@@ -1,3 +1,4 @@
+import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { createStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +27,15 @@ export const TestDetails = ({ result }: Props) => {
             </Typography>
             <div className={classes.chartsWrapper}>
                 {TESTS.map((test) => (
-                    <Measurement result={result} test={test} isDetailsButtonVisible={true} />
+                    <Measurement
+                        valueInUnitOfMeasure={result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number}
+                        valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
+                        unitOfMeasure={test.unitOfMeasure}
+                        scaleFrom={test.scaleFrom}
+                        scaleTo={test.scaleTo}
+                        translationKey={test.translationKey}
+                        key={test.translationKey}
+                    />
                 ))}
             </div>
             <div>{getTestUnavailableReason(result)}</div>
@@ -46,6 +55,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         wrapper: {
             width: '100%',
+            // margin: theme.spacing(3),
         },
         chartsWrapper: {
             width: '100%',

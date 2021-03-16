@@ -6,24 +6,25 @@ import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
 import { white } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
-import { TestResult } from '../../../../graphql/types';
 
 interface Props {
-    result: any;
-    test: any;
-    isDetailsButtonVisible: boolean;
+    valueInUnitOfMeasure: number;
+    valueInPoints: number;
+    unitOfMeasure: string;
+    scaleFrom: number;
+    scaleTo: number;
+    translationKey: string;
 }
 
-export const Measurement = ({ result, test, isDetailsButtonVisible }: Props) => {
+export const Measurement = ({
+    valueInUnitOfMeasure,
+    valueInPoints,
+    unitOfMeasure,
+    scaleFrom,
+    scaleTo,
+    translationKey,
+}: Props) => {
     const { t } = useTranslation();
-
-    const valueInUnitOfMeasure = result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number;
-    const valueInPoints = result.test[test.pointsKey as keyof TestResult['test']] as number;
-    const unitOfMeasure = test.unitOfMeasure;
-    const scaleFrom = test.scaleFrom;
-    const scaleTo = test.scaleTo;
-    const translationKey = test.translationKey;
-
     const { color, key } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
 
     const classes = useStyles({ color });
@@ -53,13 +54,7 @@ export const Measurement = ({ result, test, isDetailsButtonVisible }: Props) => 
             <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>
-            {isDetailsButtonVisible && (
-                <ButtonSecondary
-                    variant="text"
-                    className={classes.detailsButton}
-                    innerText={t('child-profile.details')}
-                />
-            )}
+            <ButtonSecondary variant="text" className={classes.detailsButton} innerText={t('child-profile.details')} />
         </div>
     );
 };
