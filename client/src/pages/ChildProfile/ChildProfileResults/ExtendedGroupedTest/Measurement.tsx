@@ -6,25 +6,26 @@ import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
 import { white } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
+import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+import { openDetailsModal } from './modals/DetailsModal';
+import { TestResult } from '../../../../graphql/types';
 
 interface Props {
-    valueInUnitOfMeasure: number;
-    valueInPoints: number;
-    unitOfMeasure: string;
-    scaleFrom: number;
-    scaleTo: number;
-    translationKey: string;
+    result: any;
+    test: any;
+    isDetailsButtonVisible: boolean;
 }
 
-export const Measurement = ({
-    valueInUnitOfMeasure,
-    valueInPoints,
-    unitOfMeasure,
-    scaleFrom,
-    scaleTo,
-    translationKey,
-}: Props) => {
+export const Measurement = ({ result, test, isDetailsButtonVisible }: Props) => {
     const { t } = useTranslation();
+
+    const valueInUnitOfMeasure = result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number;
+    const valueInPoints = result.test[test.pointsKey as keyof TestResult['test']] as number;
+    const unitOfMeasure = test.unitOfMeasure;
+    const scaleFrom = test.scaleFrom;
+    const scaleTo = test.scaleTo;
+    const translationKey = test.translationKey;
+
     const { color, key } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
 
     const classes = useStyles({ color });
@@ -54,7 +55,24 @@ export const Measurement = ({
             <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>
-            <ButtonSecondary variant="text" className={classes.detailsButton} innerText={t('child-profile.details')} />
+            {isDetailsButtonVisible && (
+                <ButtonSecondary
+                    variant="text"
+                    className={classes.detailsButton}
+                    innerText={t('child-profile.details')}
+                    onClick={() => {
+                        openDetailsModal({
+                            result: result,
+                            test: test,
+                        }).then((res) => {
+                            if (!res.close)
+                                openSnackbar({
+                                    text: t('parent-settings.modal-edit-account.success-message'),
+                                });
+                        });
+                    }}
+                />
+            )}
         </div>
     );
 };

@@ -26,15 +26,7 @@ export const TestDetails = ({ result }: Props) => {
             </Typography>
             <div className={classes.chartsWrapper}>
                 {TESTS.map((test) => (
-                    <Measurement
-                        valueInUnitOfMeasure={result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number}
-                        valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
-                        unitOfMeasure={test.unitOfMeasure}
-                        scaleFrom={test.scaleFrom}
-                        scaleTo={test.scaleTo}
-                        translationKey={test.translationKey}
-                        key={test.translationKey}
-                    />
+                    <Measurement result={result} test={test} isDetailsButtonVisible={true} />
                 ))}
             </div>
             <div>{getTestUnavailableReason(result)}</div>
@@ -54,7 +46,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         wrapper: {
             width: '100%',
-            // margin: theme.spacing(3),
         },
         chartsWrapper: {
             width: '100%',
