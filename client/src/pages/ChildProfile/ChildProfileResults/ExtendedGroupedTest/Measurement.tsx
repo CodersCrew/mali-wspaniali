@@ -6,8 +6,6 @@ import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
 import { white } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
-import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
-import { openDetailsModal } from './modals/DetailsModal';
 import { TestResult } from '../../../../graphql/types';
 
 interface Props {
@@ -60,17 +58,6 @@ export const Measurement = ({ result, test, isDetailsButtonVisible }: Props) => 
                     variant="text"
                     className={classes.detailsButton}
                     innerText={t('child-profile.details')}
-                    onClick={() => {
-                        openDetailsModal({
-                            result: result,
-                            test: test,
-                        }).then((res) => {
-                            if (!res.close)
-                                openSnackbar({
-                                    text: t('parent-settings.modal-edit-account.success-message'),
-                                });
-                        });
-                    }}
                 />
             )}
         </div>
