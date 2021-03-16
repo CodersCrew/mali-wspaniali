@@ -1,5 +1,5 @@
-import { FormEvent, useState } from 'react';
-import { TextField, makeStyles, createStyles, Typography, Box, Divider } from '@material-ui/core/';
+import React, { FormEvent, useState } from 'react';
+import { TextField, makeStyles, createStyles, Typography, Box, Divider, CircularProgress } from '@material-ui/core/';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -20,14 +20,17 @@ export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(initialError);
+    const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();
     const { authorizeMe } = useAuthorizeMe(
         (user) => {
+            setLoading(() => false);
             history.push(`/${user.role}`);
         },
         (error) => {
+            setLoading(() => false);
             setLoginError(error);
             showLoginErrorMessage();
         },
@@ -36,7 +39,7 @@ export default function LoginPage() {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-
+        setLoading(() => true);
         authorizeMe(email, password);
     };
 
@@ -68,7 +71,12 @@ export default function LoginPage() {
                     )}
                     <TextField
                         required
-                        onChange={({ target: { value } }) => setEmail(value)}
+                        onChange={({ target: { value } }) => {
+                            setEmail(value);
+                            setLoginError((prevState) => {
+                                return { ...prevState, message: '' };
+                            });
+                        }}
                         value={email}
                         id="email"
                         label={t('e-mail')}
@@ -80,7 +88,12 @@ export default function LoginPage() {
                     <Box mb={2} />
                     <TextField
                         required
-                        onChange={({ target: { value } }) => setPassword(value)}
+                        onChange={({ target: { value } }) => {
+                            setPassword(value);
+                            setLoginError((prevState) => {
+                                return { ...prevState, message: '' };
+                            });
+                        }}
                         value={password}
                         id="password"
                         label={t('password')}
@@ -97,12 +110,16 @@ export default function LoginPage() {
                             innerText={t('login-page.forgot-password')}
                             className={classes.forgotPasswordButton}
                         />
-                        <ButtonSecondary
-                            variant="contained"
-                            type="submit"
-                            disabled={!email || !password}
-                            innerText={t('login-page.login')}
-                        />
+                        <div className={classes.buttonWrapper}>
+                            <ButtonSecondary
+                                variant="contained"
+                                type="submit"
+                                disabled={!email || !password || loading}
+                                innerText={t('login-page.login')}
+                                classes={loading ? { label: classes.buttonProgressText } : {}}
+                            />
+                            {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+                        </div>
                     </div>
 
                     <>
@@ -215,6 +232,21 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         divider: {
             width: '100%',
+        },
+        buttonWrapper: {
+            position: 'relative',
+        },
+        buttonProgress: {
+            color: theme.palette.secondary.main,
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: -12,
+            marginLeft: -12,
+            zIndex: 1000,
+        },
+        buttonProgressText: {
+            color: theme.palette.action.hover,
         },
     }),
 );

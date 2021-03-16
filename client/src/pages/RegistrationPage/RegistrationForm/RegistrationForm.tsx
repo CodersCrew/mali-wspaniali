@@ -34,6 +34,7 @@ export const RegistrationForm = () => {
     // TODO: turn back to 0
     const [activeStep, setActiveStep] = useState(0);
     const [skip, setSkip] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
     const { code, email, password, passwordConfirm } = form;
@@ -49,7 +50,6 @@ export const RegistrationForm = () => {
 
                     return { ...item, _id: id === undefined ? '' : id };
                 });
-                // console.log('agreementList:', agreementList);
 
                 setAgreements(() => agreementList);
             })
@@ -136,6 +136,7 @@ export const RegistrationForm = () => {
                     classNextBtn={classes.nextButton}
                     classFormItem={classes.formItem}
                     skip={setSkip}
+                    loading={loading}
                 />
             );
         }
@@ -161,22 +162,20 @@ export const RegistrationForm = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
+        setLoading(() => true);
         if (!passwordStrengthTest(password)) {
             openAlertDialog({
                 type: 'error',
                 description: t('registration-page.password-not-strong'),
             });
+            setLoading(() => false);
         } else if (password !== passwordConfirm) {
             openAlertDialog({
                 type: 'error',
                 description: t('registration-page.password-mismatch'),
             });
+            setLoading(() => false);
         } else {
-            // console.log(agreements);
-            // console.log(
-            //     agreements.filter((agreement) => !!agreement._id && agreement.isSigned).map((item) => item._id),
-            // );
-            // console.log({ mail: email, password, keyCode: code });
             load(
                 createUser({
                     mail: email,
@@ -188,10 +187,12 @@ export const RegistrationForm = () => {
                 }),
             )
                 .then(() => {
+                    setLoading(() => false);
                     handleNext();
                 })
                 .catch((err) => {
                     // TODO: re-modify this!
+                    setLoading(() => false);
                     if (skip) {
                         setSkip(() => false);
                         handleNext();
@@ -211,13 +212,6 @@ export const RegistrationForm = () => {
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
-
-    // useEffect(() => {
-    //     console.log(
-    //         'effect:',
-    //         agreements.filter((agreement) => !!agreement._id && agreement.isSigned).map((item) => item._id),
-    //     );
-    // }, [agreements]);
 
     return (
         <div className={classes.container}>

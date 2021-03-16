@@ -1,5 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Typography, InputAdornment, FormControl, InputLabel, OutlinedInput, IconButton } from '@material-ui/core/';
+import React, { useState, useEffect } from 'react';
+import {
+    Typography,
+    InputAdornment,
+    FormControl,
+    InputLabel,
+    OutlinedInput,
+    IconButton,
+    makeStyles,
+    createStyles,
+} from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +22,7 @@ import { ButtonSecondary } from '../../../components/Button';
 
 import { RegistrationPasswordProps, PasswordValidation } from './types';
 import { PasswordStrengthChips } from './PasswordStrengthChips';
+import { Theme } from '../../../theme';
 
 const initialPasswordValidation: PasswordValidation = {
     length: false,
@@ -31,10 +41,12 @@ export const RegistrationPassword = ({
     classNextBtn,
     classFormItem,
     skip,
+    loading,
 }: RegistrationPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
+    const classes = useStyles();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -106,13 +118,17 @@ export const RegistrationPassword = ({
                 />
             </FormControl>
             <div className={classButton}>
-                <ButtonSecondary
-                    variant="contained"
-                    type="submit"
-                    className={classNextBtn}
-                    innerText={t('registration-page.create-password')}
-                    onClick={handleClick}
-                />
+                <div className={classes.buttonWrapper}>
+                    <ButtonSecondary
+                        variant="contained"
+                        type="submit"
+                        className={classNextBtn}
+                        innerText={t('registration-page.create-password')}
+                        onClick={handleClick}
+                        disabled={loading}
+                        classes={loading ? { label: classes.buttonProgressText } : {}}
+                    />
+                </div>
                 <ButtonSecondary
                     variant="text"
                     disabled={activeStep === 0}
@@ -123,3 +139,23 @@ export const RegistrationPassword = ({
         </>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        buttonWrapper: {
+            position: 'relative',
+        },
+        buttonProgress: {
+            color: theme.palette.secondary.main,
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: -12,
+            marginLeft: -12,
+            zIndex: 1000,
+        },
+        buttonProgressText: {
+            color: theme.palette.action.hover,
+        },
+    }),
+);

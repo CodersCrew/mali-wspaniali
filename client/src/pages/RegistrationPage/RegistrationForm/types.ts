@@ -46,8 +46,9 @@ export type RegistrationPasswordProps = {
     classButton: string;
     classNextBtn: string;
     classFormItem: string;
-    // TODO: get rid with this!!!
+    // TODO: get rid with next line!!!
     skip?: Dispatch<SetStateAction<boolean>>;
+    loading: boolean;
 };
 
 export type RegistrationFeedbackProps = {
