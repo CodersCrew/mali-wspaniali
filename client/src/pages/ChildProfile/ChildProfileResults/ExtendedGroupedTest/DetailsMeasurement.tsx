@@ -5,18 +5,14 @@ import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
 import { white } from '../../../../colors';
-import { ButtonSecondary } from '../../../../components/Button';
-import { openDetailsModal } from './modals/DetailsModal';
-import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+import { MeasurementProps } from './types';
 
 interface Props {
-    valueInUnitOfMeasure: number;
-    valueInPoints: number;
-    unitOfMeasure: string;
-    translationKey: string;
+    measurmentProps: MeasurementProps;
 }
 
-export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure, translationKey }: Props) => {
+export const DetailsMeasurement = ({ measurmentProps }: Props) => {
+    const { valueInUnitOfMeasure, valueInPoints, unitOfMeasure, translationKey } = measurmentProps;
     const { t } = useTranslation();
     const { color, key } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
 
@@ -47,27 +43,6 @@ export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure
             <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>
-            <ButtonSecondary
-                variant="text"
-                className={classes.detailsButton}
-                innerText={t('child-profile.details')}
-                onClick={() => {
-                    openDetailsModal({
-                        isCancelButtonVisible: true,
-                        measurementProps: {
-                            valueInUnitOfMeasure,
-                            valueInPoints,
-                            unitOfMeasure,
-                            translationKey,
-                        },
-                    }).then((res) => {
-                        if (!res.close)
-                            openSnackbar({
-                                text: t('parent-settings.modal-edit-account.success-message'),
-                            });
-                    });
-                }}
-            />
         </div>
     );
 };

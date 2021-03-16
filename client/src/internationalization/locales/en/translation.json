@@ -283,6 +283,9 @@
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
     },
+    "details-modal": {
+        "next-assesment-time": "Następny pomiar próby"
+    },
     "test-results": {
         "search-result": "Search Result",
         "no-results": "No Results",
