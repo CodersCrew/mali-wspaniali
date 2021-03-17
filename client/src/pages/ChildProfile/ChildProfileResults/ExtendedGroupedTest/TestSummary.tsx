@@ -1,23 +1,19 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
-import {useTranslation} from 'react-i18next';
-import {Card, createStyles, Grid, IconButton, Theme, Typography} from '@material-ui/core';
-import {makeStyles} from '@material-ui/styles';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Card, createStyles, Grid, IconButton, Theme, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import {CircleChart} from '../../../../components/CircleChart';
-import {getResultColorAndLabel} from './calculateResult';
-<<<<<<< HEAD
-import {gray} from '../../../../colors';
-=======
-import {gray, lightTextColor} from '../../../../colors';
->>>>>>> 247eb35581311a154dc2582ce320e98db2d17c36
-import {MAX_OVERALL_POINTS} from './constants';
-import {ButtonSecondary} from '../../../../components/Button';
-import {TestResult} from '../../../../graphql/types';
-import {openAgeDescriptionModal} from './modals/AgeDescriptionModal';
+import { CircleChart } from '../../../../components/CircleChart';
+import { getResultColorAndLabel } from './calculateResult';
+import { gray, lightTextColor } from '../../../../colors';
+import { MAX_OVERALL_POINTS } from './constants';
+import { ButtonSecondary } from '../../../../components/Button';
+import { TestResult } from '../../../../graphql/types';
+import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
 import dayjs from '../../../../localizedMoment';
-import {openSnackbar} from '../../../../components/Snackbar/openSnackbar';
-import {openAdviceModal} from './modals/AdviceModal';
+import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+import { openAdviceModal } from './modals/AdviceModal';
 
 export interface Props {
     result: TestResult;
@@ -94,7 +90,9 @@ export const TestSummary = ({ result }: Props) => {
                             enableInfoIcon
                         />
                     </div>
-                    <Typography variant="subtitle2" className={classes.resultDescription}>{t(`child-profile.result-description.${key}`)}</Typography>
+                    <Typography variant="subtitle2" className={classes.resultDescription}>
+                        {t(`child-profile.result-description.${key}`)}
+                    </Typography>
                     <ButtonSecondary
                         variant="contained"
                         onClick={() => {
@@ -128,22 +126,16 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             [theme.breakpoints.down('lg')]: {
                 minWidth: theme.spacing(34),
-            }
+            },
         },
         cardTop: {
             display: 'flex',
             flexDirection: 'column',
             borderBottom: `1px solid ${gray}`,
             paddingBottom: theme.spacing(2),
-            '& > p' : {
-<<<<<<< HEAD
-                color: theme.palette.secondary.dark,
-            }
-
-=======
+            '& > p': {
                 color: lightTextColor,
-            }
->>>>>>> 247eb35581311a154dc2582ce320e98db2d17c36
+            },
         },
         cardMiddle: {
             borderBottom: `1px solid ${gray}`,
@@ -161,7 +153,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         chart: {
             marginTop: theme.spacing(2),
-            marginBottom:theme.spacing(0.5),
+            marginBottom: theme.spacing(0.5),
             width: theme.spacing(13.5),
         },
         resultDescription: {
