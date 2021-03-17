@@ -4,6 +4,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {AccordionSummary, createStyles, Grid, makeStyles, Theme, Typography} from '@material-ui/core';
 import {ButtonSecondary} from '../../../../components/Button';
 import {useBreakpoints} from '../../../../queries/useBreakpoints';
+<<<<<<< HEAD
+=======
+import {lightTextColor} from "../../../../colors";
+>>>>>>> 247eb35581311a154dc2582ce320e98db2d17c36
 
 interface Props {
     onClose: () => void;

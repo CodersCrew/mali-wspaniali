@@ -8,7 +8,7 @@ import { openResultsModal } from './modals/ResultsModal';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
 import Results from './Results';
 import { ChartLegend } from './ChartLegend';
-import {useIsDevice} from '../../../../queries/useBreakpoints';
+import { useIsDevice } from '../../../../queries/useBreakpoints';
 
 interface Props {
     firstResultPoints: number;
@@ -41,14 +41,20 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
             <div className={classes.wrapper}>
                 <Card className={classes.card}>
                     <div className={classes.cardTop}>
-                        <Typography variant="caption"  className={classes.cardTopSubtitle}>{t('child-profile.summary-info')}</Typography>
-                        <Typography variant="h4" className={classes.cardTopTitle}>{t('child-profile.test-result')}</Typography>
+                        <Typography variant="caption" className={classes.cardTopSubtitle}>
+                            {t('child-profile.summary-info')}
+                        </Typography>
+                        <Typography variant="h4" className={classes.cardTopTitle}>
+                            {t('child-profile.test-result')}
+                        </Typography>
                     </div>
                     <div className={classes.cardBottom}>
                         <Typography className={classes.cardBottomText} variant="body1">
                             {t('child-profile.comparison-label')}
                         </Typography>
-                        <Typography variant="subtitle2" className={classes.difference}>{t(`child-profile.difference.${key}`)}</Typography>
+                        <Typography variant="subtitle2" className={classes.difference}>
+                            {t(`child-profile.difference.${key}`)}
+                        </Typography>
                         <ButtonSecondary
                             variant="contained"
                             onClick={() => {
@@ -71,8 +77,13 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                     <Typography variant="body1" className={classes.title}>
                         {t('child-profile.comparison-right-title')}
                     </Typography>
-                    <Grid container direction={isSmallMobile ? 'column-reverse': 'row'} justify="flex-start" 
-                        alignItems={isSmallMobile ? 'flex-start': 'center'} spacing={5}>
+                    <Grid
+                        container
+                        direction={isSmallMobile ? 'column-reverse' : 'row'}
+                        justify="flex-start"
+                        alignItems={isSmallMobile ? 'flex-start' : 'center'}
+                        spacing={5}
+                    >
                         <Grid item xs={12} sm={8} lg={8} className={classes.ruller}>
                             <Results resultsData={resultsData} />
                         </Grid>
@@ -106,29 +117,27 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             display: 'flex',
             padding: `${theme.spacing(1)}px 0`,
-            justifyContent:'center',
+            justifyContent: 'center',
             [theme.breakpoints.down('sm')]: {
                 flexWrap: 'wrap',
             },
-
         },
         card: {
             width: '25%',
             display: 'flex',
-            padding:  theme.spacing(2),
+            padding: theme.spacing(2),
             flexDirection: 'column',
             boxShadow: 'none',
             [theme.breakpoints.down('lg')]: {
                 minWidth: theme.spacing(34),
-            }
+            },
         },
         cardTop: {
             borderBottom: `1px solid ${gray}`,
             paddingBottom: `${theme.spacing(1)}px`,
-
         },
         cardTopSubtitle: {
-            color: theme.palette.secondary.dark,
+            color: lightTextColor,
         },
         cardTopTitle: {
             fontWeight: 500,
@@ -137,7 +146,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            paddingTop:  theme.spacing(2),
+            paddingTop: theme.spacing(2),
         },
         cardBottomText: {
             textAlign: 'left',
@@ -158,12 +167,11 @@ const useStyles = makeStyles((theme: Theme) =>
         title: {
             paddingTop: theme.spacing(1),
         },
-        ruller: {
-        },
+        ruller: {},
         info: {
             [theme.breakpoints.down('xs')]: {
-                marginTop: theme.spacing(4)
+                marginTop: theme.spacing(4),
             },
-        }
+        },
     }),
 );

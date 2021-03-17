@@ -6,7 +6,11 @@ import {makeStyles} from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import {CircleChart} from '../../../../components/CircleChart';
 import {getResultColorAndLabel} from './calculateResult';
+<<<<<<< HEAD
 import {gray} from '../../../../colors';
+=======
+import {gray, lightTextColor} from '../../../../colors';
+>>>>>>> 247eb35581311a154dc2582ce320e98db2d17c36
 import {MAX_OVERALL_POINTS} from './constants';
 import {ButtonSecondary} from '../../../../components/Button';
 import {TestResult} from '../../../../graphql/types';
@@ -132,9 +136,14 @@ const useStyles = makeStyles((theme: Theme) =>
             borderBottom: `1px solid ${gray}`,
             paddingBottom: theme.spacing(2),
             '& > p' : {
+<<<<<<< HEAD
                 color: theme.palette.secondary.dark,
             }
 
+=======
+                color: lightTextColor,
+            }
+>>>>>>> 247eb35581311a154dc2582ce320e98db2d17c36
         },
         cardMiddle: {
             borderBottom: `1px solid ${gray}`,
