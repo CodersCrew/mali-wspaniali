@@ -51,6 +51,8 @@ export default function NewsletterPage() {
 
     const secondStepError = isSecondStepError(touched, errors);
 
+    const thirdStepCompleted = isThirdStepCompleted(errors);
+
     return (
         <div className={classes.container}>
             <Typography variant="h3" className={classes.description}>
@@ -86,17 +88,20 @@ export default function NewsletterPage() {
                         <StepLabel className={classes.stepLabel} error={secondStepError}>
                             {t(setSecondStepLabel(firstStepCompleted, secondStepCompleted))}
                         </StepLabel>
-                        <StepContent className={classes.stepContent}>
-                            <NewsletterContent
-                                onChange={(name, value) => setFieldValue(name, value)}
-                                onBlur={handleBlur}
-                                type={type}
-                                topic={topic}
-                                message={message}
-                                errors={errors}
-                                touched={touched}
-                            />
-                        </StepContent>
+
+                        <Step expanded className={classes.step} completed={thirdStepCompleted}>
+                            <StepContent className={classes.stepContent}>
+                                <NewsletterContent
+                                    onChange={(name, value) => setFieldValue(name, value)}
+                                    onBlur={handleBlur}
+                                    type={type}
+                                    topic={topic}
+                                    message={message}
+                                    errors={errors}
+                                    touched={touched}
+                                />
+                            </StepContent>
+                        </Step>
                     </Step>
                 </Stepper>
                 <div className={classes.formButtonWrapper}>
@@ -122,6 +127,8 @@ const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
 
 const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.topic;
 
+const isThirdStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.message;
+
 const isFirstStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
     (!!touched.generalRecipientType && !!errors.generalRecipientType) ||
     (!!touched.specificRecipientType && !!errors.specificRecipientType) ||
@@ -144,7 +151,7 @@ const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: bo
 const validate = (values: NewsletterFormValues) => {
     const errors: FormikErrors<NewsletterFormValues> = {};
 
-    const { generalRecipientType, specificRecipientType, recipients, type, topic } = values;
+    const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = values;
 
     if (!generalRecipientType) {
         errors.generalRecipientType = 'newsletter.general-recipient-helper-text';
@@ -164,6 +171,10 @@ const validate = (values: NewsletterFormValues) => {
 
     if (!topic) {
         errors.topic = 'newsletter.topic-helper-text';
+    }
+
+    if (!message) {
+        errors.message = 'no message';
     }
 
     // TODO:
