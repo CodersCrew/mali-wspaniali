@@ -111,7 +111,7 @@
         "no-child": "Sorry, there is no child with this id",
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
         "results-list": "Results list",
-        "tests-information": "Tests information",
+        "tests-information": "Tests description",
         "your-agreements": "Your agreements",
         "participation-label": "Permission to participate in the Mali Wspaniali program",
         "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
@@ -264,12 +264,16 @@
             "heading": "Manage consents granted to the Mali Wspaniali Foundation. Have full control over the security of your personal data, being able to increase or limit the rights granted at any time.",
             "title": "Below you can check and edit the signed agreements.",
             "save": "Save",
-            "Image-title": "Consent to disseminate the image.",
-            "Image-description": "Optional consent, but it allows us to use materials collected during the course, such as photos for promotional purposes, to encourage other parents to particopate in the program.",
-            "Marketing-title": "Consent to receive marketing information to the provided e-mail address.",
-            "Marketing-description": "Optional consent, but thanks to this consent, we will be able to send you an e-mail with current information about the Mali Wspaniali program. We will inform you about our achievements from time to time.",
-            "general-title": "Consent to participate in the Mali Wspaniali program.",
-            "general-description": "It is a compulsory consent, which is necessary for the child to participate in the activities conducted by Mali Wspaniali - it is impossible to uncheck it."
+            "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
+            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+            "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
+            "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
+            "Marketing-description-3": "Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "general-title": "Zgoda na udział w programie Mali Wspaniali.",
+            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: biuro@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Child's details",
@@ -471,7 +475,7 @@
         "child": {
             "results": "Results",
             "recommendations": "Recommendations",
-            "tests-information": "Tests information",
+            "tests-information": "Tests description",
             "details": "Child details"
         },
         "blog": "Blog",
@@ -554,7 +558,7 @@
         "food": "Food",
         "activity": "Physical activity",
         "emotions": "Emotions",
-        "other": "Other"
+        "other": "Other categories"
     },
     "blog-navigation": {
         "back": "Back"
