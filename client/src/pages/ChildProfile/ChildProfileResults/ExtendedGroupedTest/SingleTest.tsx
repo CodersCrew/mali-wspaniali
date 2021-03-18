@@ -1,8 +1,8 @@
-import { makeStyles } from '@material-ui/styles';
-import { createStyles, Theme } from '@material-ui/core';
-import { TestSummary } from './TestSummary';
-import { TestDetails } from './TestDetails';
-import { TestResult } from '../../../../graphql/types';
+import {makeStyles} from '@material-ui/styles';
+import {createStyles, Theme} from '@material-ui/core';
+import {TestSummary} from './TestSummary';
+import {TestDetails} from './TestDetails';
+import {TestResult} from '../../../../graphql/types';
 
 interface Props {
     result: TestResult;
@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                maxWidth: '100vw',
-            },
+                maxWidth: '100vw'
+            }
         },
-    }),
+    })
 );
