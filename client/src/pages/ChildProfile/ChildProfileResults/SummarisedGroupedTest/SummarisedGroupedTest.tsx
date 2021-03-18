@@ -1,9 +1,13 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { AccordionSummary, createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
-import { ButtonSecondary } from '../../../../components/Button';
-import { useBreakpoints } from '../../../../queries/useBreakpoints';
+import {AccordionSummary, createStyles, Grid, makeStyles, Theme, Typography} from '@material-ui/core';
+import {ButtonSecondary} from '../../../../components/Button';
+import {useBreakpoints} from '../../../../queries/useBreakpoints';
+<<<<<<< HEAD
+=======
+import {lightTextColor} from "../../../../colors";
+>>>>>>> 247eb35581311a154dc2582ce320e98db2d17c36
 
 interface Props {
     onClose: () => void;
@@ -25,13 +29,11 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart }: 
         onClose();
     };
 
-    const getDetailsBtn = (): JSX.Element => {
+    const  getDetailsBtn = (): JSX.Element => {
         if (device === 'MOBILE') {
-            return (
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon onClick={(event) => onDetailsBtnClick(event)} />}
-                ></AccordionSummary>
-            );
+            return  (
+                <AccordionSummary expandIcon={<ExpandMoreIcon onClick={(event) => onDetailsBtnClick(event)}/>}>
+                </AccordionSummary>);
         }
 
         return (
@@ -45,18 +47,33 @@ export const SummarisedGroupedTest = ({ onClose, isExpanded, schoolYearStart }: 
     };
 
     return (
-        <Grid direction="row" justify="space-between" alignItems="center" className={classes.wrapper} container>
-            <Grid direction="row" justify="flex-start" alignItems="center" item xs={8} container>
+        <Grid
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            className={classes.wrapper}
+            container
+        >
+            <Grid
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+                item
+                xs={8}
+                container
+            >
                 <Grid item>
                     <Typography className={classes.title} variant="subtitle2">
                         {t('child-profile.kindergartener-test')}: {getSchoolYearLabel(schoolYearStart)}
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Typography variant="body2">aaaaaaaaaaaaaa</Typography>
+                    <Typography variant="body2" className={classes.updatedAt}>aaaaaaaaaaaaaa</Typography>
                 </Grid>
             </Grid>
-            <Grid item>{getDetailsBtn()}</Grid>
+            <Grid  item>
+                {getDetailsBtn()}
+            </Grid>
         </Grid>
     );
 };
@@ -72,6 +89,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         title: {
             marginRight: theme.spacing(5),
+        },
+        updatedAt: {
+            color: theme.palette.secondary.dark,
         },
         detailsButton: {
             marginLeft: 'auto',

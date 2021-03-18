@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Grid, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { gray, lightTextColor, resultColors } from '../../../../colors';
+import { gray, resultColors } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { openResultsModal } from './modals/ResultsModal';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
