@@ -1,5 +1,5 @@
 import React from 'react';
-import {Accordion, AccordionSummary, AccordionDetails, makeStyles, Theme, createStyles} from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, makeStyles, Theme, createStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('xs')]: {
                 display: 'flex',
                 alignItems: 'center',
-            }
+            },
         },
     }),
 );
