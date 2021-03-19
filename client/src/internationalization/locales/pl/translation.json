@@ -357,6 +357,7 @@
         "topic-input-label-filled": "Temat",
         "topic-helper-text": "Wpisz temat wiadomości byś mógł ją wysłać",
         "kindergarten-number": "Przedszkole nr",
+        "message-helper-text": "Wpisz wiadomośc byś mógł ją wysłać",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success-modal": {
             "title": "Gotowe",

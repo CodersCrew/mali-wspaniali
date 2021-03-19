@@ -357,6 +357,7 @@
         "topic-input-label": "Select topic",
         "topic-input-label-filled": "Topic",
         "topic-helper-text": "Type message topic so You can send it",
+        "message-helper-text": "Type message so You can send it",
         "kindergarten-number": "Kindergarten no.",
         "sending-error": "An error ocurred during sending the message.",
         "sending-success-modal": {

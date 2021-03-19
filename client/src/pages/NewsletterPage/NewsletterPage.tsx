@@ -47,11 +47,11 @@ export default function NewsletterPage() {
 
     const secondStepCompleted = isSecondStepCompleted(errors);
 
+    const thirdStepCompleted = isThirdStepCompleted(errors);
+
     const firstStepError = isFirstStepError(touched, errors);
 
     const secondStepError = isSecondStepError(touched, errors);
-
-    const thirdStepCompleted = isThirdStepCompleted(errors);
 
     return (
         <div className={classes.container}>
@@ -173,7 +173,7 @@ const validate = (values: NewsletterFormValues) => {
     }
 
     if (!message) {
-        errors.message = 'no message';
+        errors.message = 'newsletter.message-helper-text';
     }
 
     // TODO:
