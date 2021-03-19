@@ -111,7 +111,7 @@
         "no-child": "Sorry, there is no child with this id",
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
         "results-list": "Results list",
-        "tests-information": "Tests information",
+        "tests-information": "Tests description",
         "your-agreements": "Your agreements",
         "participation-label": "Permission to participate in the Mali Wspaniali program",
         "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
@@ -451,7 +451,7 @@
         "child": {
             "results": "Results",
             "recommendations": "Recommendations",
-            "tests-information": "Tests information",
+            "tests-information": "Tests description",
             "details": "Child details"
         },
         "blog": "Blog",
@@ -534,7 +534,7 @@
         "food": "Food",
         "activity": "Physical activity",
         "emotions": "Emotions",
-        "other": "Other"
+        "other": "Other categories"
     },
     "blog-navigation": {
         "back": "Back"

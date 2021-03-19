@@ -51,7 +51,7 @@ export default function AdminKindergartensPage() {
     };
 
     const onKindergartenModalClose = () => {
-        setKindergartenModalStatus({ kindergarten: null });
+        setKindergartenModalStatus({ isOpen: false, kindergarten: null });
     };
 
     const handleAddOrEditKindergarten = (values: AddKindergartenInput) => {
