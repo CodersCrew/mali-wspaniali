@@ -299,15 +299,19 @@
             "subtitle4": "Śpij na zdrowie!"
         },
         "agreements": {
-            "heading": "Zarządzaj zgodami udzielonymi fundacji Mali Wspaniali. Miej pełną kontrolę nad bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia.",
+            "heading": "Zarządzaj bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia",
             "title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
             "save": "Zapisz",
-            "Image-title": "Zgoda na rozpowszechnianie wizerunku.",
-            "Image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do udziału w programie.",
+            "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
+            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
             "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
-            "Marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+            "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
+            "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
+            "Marketing-description-3": "Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
             "general-title": "Zgoda na udział w programie Mali Wspaniali.",
-            "general-description": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe."
+            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: biuro@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Dane dziecka",
@@ -481,7 +485,7 @@
         },
         "create-blog-article": "Artykuły",
         "archive": "Archiwum",
-        "results-list": "Lista wyników",
+        "results-list": "Wyniki testów",
         "notifications": "Powiadomienia",
         "test-management": "Testy",
         "settings": {
@@ -498,9 +502,9 @@
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
-            "results": "Lista wyników",
+            "results": "Wyniki testów",
             "recommendations": "Rekomendacje",
-            "tests-information": "Informacje o testach",
+            "tests-information": "Opis testów",
             "details": "Dane dziecka"
         },
         "blog": "Aktualności",
@@ -533,7 +537,7 @@
         "food": "Żywienie",
         "activity": "Aktywność fizyczna",
         "emotions": "Emocje",
-        "other": "Inne"
+        "other": "Inne kategorie"
     },
     "blog-navigation": {
         "back": "Wstecz"
