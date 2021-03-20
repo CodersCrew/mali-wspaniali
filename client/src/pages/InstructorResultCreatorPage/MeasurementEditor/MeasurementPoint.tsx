@@ -49,7 +49,7 @@ export function MeasurementPoint(props: Props) {
                         {!props.disabled && (
                             <ButtonSecondary variant="text" onClick={props.onClick}>
                                 <Edit className={classes.editIcon} />
-                                {t('add-results-page.edit')}
+                                {props.isEmpty ? t('add-results-page.add') : t('add-results-page.edit')}
                             </ButtonSecondary>
                         )}
                     </Grid>
@@ -118,7 +118,8 @@ export function MeasurementPoint(props: Props) {
                                 <Typography variant="body2">
                                     {t('add-result-page.received-points')}{' '}
                                     <strong className={classes.points}>
-                                        {props.isEmpty ? '-' : Math.ceil(props.points)} {t('add-result-page.points')}
+                                        {props.isEmpty || Number.isNaN(props.points) ? '-' : Math.ceil(props.points)}{' '}
+                                        {t('add-result-page.points')}
                                     </strong>
                                 </Typography>
                             </Grid>
