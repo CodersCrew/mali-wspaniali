@@ -12,8 +12,9 @@ export const AGREEMENTS = [
         date: '2021-01-21',
         isSigned: false,
         text:
-            'Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia Regulaminu, ' +
-            'Polityki prywatności',
+            'Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia ' +
+            '<a style="color: #00acc1; text-decoration: none;" href="#">Regulaminu</a>, ' +
+            '<a style="color: #00acc1; text-decoration: none;" href="#">Polityki prywatności</a>',
         isRequired: true,
     },
     {
@@ -32,14 +33,15 @@ export const AGREEMENTS = [
         date: '2021-01-21',
         isSigned: false,
         text:
-            'Wyrażam zgodę na otrzymywanie informacji marketingowych na podany adres e-mail. (dzięki ' +
-            'niej od czasu do czasu będziemy mogli pochwalić się naszymi sukcesami).',
+            'Wyrażam zgodę na otrzymywanie informacji marketingowych na podany adres e-mail. ' +
+            '<span style="color: rgba(0, 0, 0, 0.54)">(Dzięki ' +
+            'niej od czasu do czasu będziemy mogli pochwalić się naszymi sukcesami).</span>',
         extraContent:
             'Wyrażam zgodę na przetwarzanie mojego adresu e-mail przez Fundację Mali Wspaniali, ' +
             'z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych ' +
-            'oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi ' +
-            'informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się ' +
-            'naszymi sukcesami.',
+            'oraz handlowych. <span style="color: rgba(0, 0, 0, 0.54)">(Dzięki tej zgodzie będziemy mogli ' +
+            'wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ' +
+            'Od czasu do czasu pochwalimy się naszymi sukcesami).</span>>',
         type: 'Marketing',
     },
     {

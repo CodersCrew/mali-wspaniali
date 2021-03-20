@@ -32,7 +32,7 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     // TODO: turn back to 0
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(2);
     const [skip, setSkip] = useState(false);
     const [loading, setLoading] = useState(false);
 

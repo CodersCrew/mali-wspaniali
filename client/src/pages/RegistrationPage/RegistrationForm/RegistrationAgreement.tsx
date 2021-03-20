@@ -9,12 +9,12 @@ import {
     withStyles,
     createStyles,
 } from '@material-ui/core/';
-// import { Checkbox, Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
+import parse from 'html-react-parser';
 
 import { ButtonSecondary } from '../../../components/Button';
 import { Theme } from '../../../theme';
@@ -56,9 +56,6 @@ const Accordion = withStyles(() =>
                 margin: '0 0 10px 34px',
                 marginTop: 0,
             },
-        },
-        expanded: {
-            // margin: '0 0 10px 34px',
         },
     }),
 )(MuiAccordion);
@@ -205,7 +202,7 @@ export const RegistrationAgreement = ({
                                 )}
 
                                 <Typography variant="body2" className={classes.agreementText}>
-                                    {agreement.text}
+                                    {parse(agreement.text)}
                                 </Typography>
                             </div>
                             <Box mb={2} />

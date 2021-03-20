@@ -20,8 +20,6 @@ export const RegistrationCode = ({
     const { t } = useTranslation();
     const classes = useStyles();
 
-    // const inputRef = useRef();
-
     const handleClick = () => {
         openAlertDialog({
             type: 'info',
@@ -39,12 +37,6 @@ export const RegistrationCode = ({
         }
     };
 
-    /*
-    useEffect(() => {
-        if (inputRef.current !== undefined) inputRef.current.focus();
-    }, []);
-
-*/
     return (
         <>
             <Typography variant="body1">{t('registration-page.enter-code-text')}</Typography>
