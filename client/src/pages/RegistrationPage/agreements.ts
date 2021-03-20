@@ -37,11 +37,10 @@ export const AGREEMENTS = [
             '<span style="color: rgba(0, 0, 0, 0.54)">(Dzięki ' +
             'niej od czasu do czasu będziemy mogli pochwalić się naszymi sukcesami).</span>',
         extraContent:
-            'Wyrażam zgodę na przetwarzanie mojego adresu e-mail przez Fundację Mali Wspaniali, ' +
-            'z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych ' +
-            'oraz handlowych. <span style="color: rgba(0, 0, 0, 0.54)">(Dzięki tej zgodzie będziemy mogli ' +
-            'wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ' +
-            'Od czasu do czasu pochwalimy się naszymi sukcesami).</span>>',
+            'Informujemy, że zgoda jest dobrowolna i może być w&nbsp;każdej chwili odwołana poprzez wycofanie jej ' +
+            'w&nbsp;zakładce ze zgodami. <br><br>Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail ' +
+            'z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się ' +
+            'naszymi sukcesami.',
         type: 'Marketing',
     },
     {
@@ -51,20 +50,23 @@ export const AGREEMENTS = [
         isSigned: false,
         text:
             'Wyrażam zgodę na nieodpłatne przetwarzanie wizerunku mojego dziecka przez Fundację Mali ' +
-            'Wspaniali. (Dzięki niej będzie miał/a Pani/Pan okazję zobaczyć swoją pociechę na ' +
-            'zdjęciach, filmach z zajęć publikowanych przez fundację).',
+            'Wspaniali. <span style="color: rgba(0, 0, 0, 0.54)">(Dzięki niej będzie miał/a Pani/Pan okazję ' +
+            'zobaczyć swoją pociechę na zdjęciach, filmach z zajęć publikowanych przez Fundację).<span>',
         extraContent:
-            'Wyrażam zgodę na nieodpłatne przetwarzanie  wizerunku mojego dziecka przez Fundację ' +
-            'Mali Wspaniali,  z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach ' +
-            'prowadzonej działalności.\n' +
-            'Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować ' +
-            'naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć ' +
-            'oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach ' +
-            'internetowych administrowanych przez Fundację. Ta zgoda da Panu/Pani możliwosć do ' +
-            'zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. Zgoda ' +
-            'nie dotyczy przetwarzania wizerunku  dziecka/ci na zdjęciach grupowych. Mamy prawo ' +
-            'przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/' +
-            'filmowanej grupy.  ',
+            'Informujemy, że zgoda jest dobrowolna i może być w&nbsp;każdej chwili odwołana poprzez wycofanie jej ' +
+            'w&nbsp;zakładce ze zgodami. <br><br>' +
+            'Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz ' +
+            'promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć ' +
+            'oraz filmów: <ul>' +
+            '<li>w fotorelacjach w mediach (prasie i telewizji),</li>' +
+            '<li>na portalach i stronach internetowych administrowanych przez Fundację ' +
+            '(<a style="color: #00acc1; text-decoration: none;" href="#">mali-wspaniali.pl</a>, ' +
+            '<a style="color: #00acc1; text-decoration: none;" href="#">facebook</a>, ' +
+            '<a style="color: #00acc1; text-decoration: none;" href="#">youtube</a>)</li></ul> ' +
+            'Ta zgoda da Panu/Pani możliwość do zobaczenia swojej pociechy na materiałach z zajęć publikowanych ' +
+            'przez Fundację. Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. ' +
+            'Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/filmowanej ' +
+            'grupy.',
         type: 'Image',
     },
 ];

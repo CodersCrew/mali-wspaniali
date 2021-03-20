@@ -57,6 +57,9 @@ const Accordion = withStyles(() =>
                 marginTop: 0,
             },
         },
+        expanded: {
+            margin: '0 0 10px 34px',
+        },
     }),
 )(MuiAccordion);
 
@@ -225,7 +228,7 @@ export const RegistrationAgreement = ({
                                             </Typography>
                                         </AccordionSummary>
                                         <AccordionDetails className={classes.agreementExtraContent}>
-                                            <Typography variant="body2">{agreement.extraContent}</Typography>
+                                            <Typography variant="body2">{parse(agreement.extraContent)}</Typography>
                                         </AccordionDetails>
                                     </Accordion>
                                     <Box mb={2} />
