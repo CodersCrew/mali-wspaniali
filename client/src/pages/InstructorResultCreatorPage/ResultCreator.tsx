@@ -70,7 +70,11 @@ function EditorPanel(props: EditorPanelProps) {
         setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 
-    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
+    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => {
+        if (Number.isNaN(v)) return acc;
+
+        return acc + v;
+    }, 0);
 
     return (
         <Grid container direction="column" className={classes.editorContainer}>
