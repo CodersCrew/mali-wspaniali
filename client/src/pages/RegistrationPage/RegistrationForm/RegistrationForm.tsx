@@ -197,7 +197,6 @@ export const RegistrationForm = () => {
                         setSkip(() => false);
                         handleNext();
                     } else {
-                        console.log(err.message);
                         openAlertDialog({
                             type: 'error',
                             title: t('registration-page.register-failure'),

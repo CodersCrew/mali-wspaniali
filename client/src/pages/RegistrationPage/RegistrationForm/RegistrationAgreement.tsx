@@ -136,10 +136,10 @@ export const RegistrationAgreement = ({
                 checks[i] = checked;
                 agreementState[i].isSigned = checked;
             }
-        }
+        } else if (!checked) checks[0] = false;
+
         setBoxChecked(() => checks);
         setAgreements(() => agreementState);
-        // console.log('state:', agreementState);
 
         let allChecked = true;
         // eslint-disable-next-line array-callback-return

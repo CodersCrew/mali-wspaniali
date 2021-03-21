@@ -33,7 +33,7 @@ export const RegistrationCode = ({
     const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            if (code.length >= 9) handleNext();
+            if (code.length >= 10) handleNext();
         }
     };
 
