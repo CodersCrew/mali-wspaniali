@@ -3,7 +3,6 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import {
   UserConfirmedEvent,
   UserCreatedEvent,
-  UserDeletedEvent,
   UserSignedAgreementEvent,
   UserUnsignedAgreementEvent,
   UserUpdatedEvent,
