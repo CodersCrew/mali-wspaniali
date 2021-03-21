@@ -59,6 +59,7 @@ function createUser(user: Partial<UserProps> = {}) {
     password: '',
     role: '',
     confirmed: false,
+    deleted: false,
     ...user,
   };
 

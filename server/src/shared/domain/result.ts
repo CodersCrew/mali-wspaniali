@@ -50,7 +50,7 @@ export class Result<T> {
     return new Result<U>(false, error);
   }
 
-  public static combine(results: Result<any>[]): Result<any> {
+  public static combine<T>(results: Result<T>[]): Result<T> {
     for (let result of results) {
       if (result.isFailure) return result;
     }

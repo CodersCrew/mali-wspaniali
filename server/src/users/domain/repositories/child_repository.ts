@@ -42,16 +42,17 @@ export class ChildRepository {
       .then(childList => childList.map(child => ChildMapper.toDomain(child)));
   }
 
-  async getByKindergarten(id: string): Promise<ChildProps[]> {
+  async getByKindergarten(id: string): Promise<Child[]> {
     const results = await this.childModel
       .find({ kindergarten: id })
       .lean()
-      .exec();
+      .exec()
+      .then(childList => childList.map(c => ChildMapper.toDomain(c)));
 
     return results.filter(c => {
-      const age = parseDateToAge(c.birthYear, c.birthQuarter);
+      const age = parseDateToAge(c.birthYear.value, c.birthQuarter.value);
 
-      return age >= 3 && age <= 7;
+      return age >= 3 && age <= 7 && !c.isDeleted;
     });
   }
 
@@ -65,7 +66,7 @@ export class ChildRepository {
 
   async updateChild(
     id: string,
-    update: { [index: string]: string | number },
+    update: { [index: string]: string | number | boolean },
   ): Promise<Child> {
     const [child] = await this.get([id]);
 

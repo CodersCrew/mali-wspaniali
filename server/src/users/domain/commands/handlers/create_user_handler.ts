@@ -65,7 +65,6 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
 
     return possibleAgreements.every(possibleAgreement =>
       allAgreements.find(agreement => {
-
         return agreement._id.toString() === possibleAgreement.toString();
       }),
     );

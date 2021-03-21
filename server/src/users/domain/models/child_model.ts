@@ -8,8 +8,7 @@ import { Sex } from './sex_value_object';
 import { BirthYear } from './birth_year_value_object';
 import { ObjectId } from './object_id_value_object';
 import { Result } from '../../../shared/domain/result';
-import { ChildDeletedEvent } from '../events/impl/child_deleted_event';
-import { ChildCreatedEvent } from '../events/impl';
+import { ChildCreatedEvent, ChildUpdatedEvent } from '../events/impl';
 import { KindergartenProps } from '../../../kindergartens/domain/models/kindergarten_model';
 import { BirthQuarter } from './birth_quarter_value_object';
 
@@ -22,13 +21,16 @@ export interface ChildProps {
   birthQuarter: number;
   isDeleted: boolean;
   date: Date;
-  results?: mongoose.Schema.Types.ObjectId[] | ChildResultProps[];
+  results: string[];
   kindergarten: string;
 }
 
+export type NotCreatedChildProps = Omit<ChildProps, '_id' | 'date'>;
+
 export interface ChildWithKindergartenProps
-  extends Omit<ChildProps, 'kindergarten'> {
+  extends Omit<ChildProps, 'kindergarten' | 'results'> {
   kindergarten: KindergartenProps;
+  results: ChildResultProps[];
 }
 
 interface Props {
@@ -41,6 +43,7 @@ interface Props {
   date: Date;
   kindergarten: ObjectId;
   isDeleted: boolean;
+  results: ObjectId[];
 }
 
 export class Child extends AggregateRoot {
@@ -84,10 +87,23 @@ export class Child extends AggregateRoot {
     return this.props.date;
   }
 
+  get results(): ObjectId[] {
+    return this.props.results;
+  }
+
   delete() {
     this.props.isDeleted = true;
 
-    this.apply(new ChildDeletedEvent(this.id, this.id));
+    this.props.firstname = Firstname.create('anonymized').getValue();
+    this.props.lastname = Lastname.create('anonymized').getValue();
+
+    this.apply(
+      new ChildUpdatedEvent(this.id.toString(), {
+        firstname: 'anonymized',
+        lastname: 'anonymized',
+        isDeleted: true,
+      }),
+    );
   }
 
   static recreate(props: Props): Child {

@@ -1,1 +1,3 @@
-export class GetAllChildrenQuery {}
+export class GetAllChildrenQuery {
+  constructor() {}
+}
