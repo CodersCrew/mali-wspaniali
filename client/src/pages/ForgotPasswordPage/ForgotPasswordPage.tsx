@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
 import { ResetPasswordForm } from './ResetPasswordForm';
-import { ResetPasswordConfirmation } from './ResetPasswordConfirmation';
+// import { ResetPasswordConfirmation } from './ResetPasswordConfirmation';
 import { isValidEmail } from './isValidEmail';
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
@@ -11,6 +11,7 @@ import { Theme } from '../../theme/types';
 import { useResetPassword } from '../../operations/mutations/User/resetPassword';
 import { ButtonSecondary } from '../../components/Button';
 import { LanguageSelector } from '../../components/LanguageSelector';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import dayjs from '../../localizedMoment';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
@@ -23,7 +24,6 @@ export default function ForgotPasswordPage() {
     const [imageState, setImageState] = useState<ImageState>('ERROR');
     const { i18n } = useTranslation();
     const language = localStorage.getItem('i18nextLng')!;
-    const [resetPasswordState, setResetPasswordState] = useState<'FORM' | 'CONFIRMATION'>('FORM');
     const { resetPassword } = useResetPassword(
         () => setImageState('SUCCESS'),
         () => setImageState('ERROR'),
@@ -51,9 +51,12 @@ export default function ForgotPasswordPage() {
     };
 
     const handleCreateNewPassword = () => {
-        setResetPasswordState('CONFIRMATION');
-
+        onPasswordChange(t('settings-page.password-change-message'));
         resetPassword(email);
+    };
+
+    const onPasswordChange = (text: string) => {
+        openSnackbar({ text });
     };
 
     const getImageSource = (state: ImageState) => {
@@ -88,16 +91,12 @@ export default function ForgotPasswordPage() {
                     <Typography variant="h4" className={classes.title}>
                         {t('forgot-password-page.forgot-password')}
                     </Typography>
-                    {resetPasswordState === 'FORM' ? (
-                        <ResetPasswordForm
-                            onChange={handleInputChange}
-                            onSubmit={handleCreateNewPassword}
-                            isDisabled={!isValidEmail(email)}
-                            email={email}
-                        />
-                    ) : (
-                        <ResetPasswordConfirmation />
-                    )}
+                    <ResetPasswordForm
+                        onChange={handleInputChange}
+                        onSubmit={handleCreateNewPassword}
+                        isDisabled={!isValidEmail(email)}
+                        email={email}
+                    />
                 </div>
                 <div className={classes.footer}>
                     <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>

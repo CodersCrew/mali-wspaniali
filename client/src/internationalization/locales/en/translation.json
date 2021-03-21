@@ -81,6 +81,18 @@
         "email-sent": "The email has been sent.",
         "when-received": "Input code you received."
     },
+    "password-change-page": {
+        "new-password-title": "New password",
+        "new-password-subtitle": "Create new password for Mali Wspaniali platform.",
+        "create-new-password": "Create new password",
+        "new-password": "New password",
+        "repeat-password": "Repeat password"
+    },
+    "password-change-success-page": {
+        "password-change-success-title": "Password changing process resolved successfully",
+        "password-change-success-subtitle": "Log in with your new password to once again access the Mali Wspaniali platform.",
+        "login": "Login"
+    },
     "users-page": {
         "agreements": "Agreements",
         "users-list": "Users List"

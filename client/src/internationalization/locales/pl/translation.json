@@ -81,6 +81,18 @@
         "email-sent": "Na Twój adres e-mail wysłaliśmy maila.",
         "when-received": "Wprowadź otrzymany kod."
     },
+    "password-change-page": {
+        "new-password-title": "Nowe hasło",
+        "new-password-subtitle": "Stwórz swoje nowe hasło do platformy Mali Wspaniali",
+        "create-new-password": "Stwórz nowe hasło",
+        "new-password": "Nowe hasło",
+        "repeat-password": "Powtórz hasło"
+    },
+    "password-change-success-page": {
+        "password-change-success-title": "Zmiana hasła zakończona pomyślnie",
+        "password-change-success-subtitle": "Zaloguj się swoim nowym hasłem, aby móc znowu korzystać z platformy Mali Wspaniali.",
+        "login": "Zaloguj"
+    },
     "users-page": {
         "agreements": "Zgody",
         "users-list": "Lista użytkowników"
