@@ -76,16 +76,21 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                 </Grid>
                 <Grid item className={classes.footer}>
                     <Paper className={classes.footerPaper}>
-                        <Grid container justify="flex-end">
+                        <Grid container spacing={1} justify="center">
                             <Grid item>
                                 <Box mr={2}>
-                                    <ButtonSecondary variant="text" onClick={() => onClick('back-to-table', '')}>
+                                    <ButtonSecondary
+                                        size="small"
+                                        variant="text"
+                                        onClick={() => onClick('back-to-table', '')}
+                                    >
                                         {t('add-result-page.back-to-table')}
                                     </ButtonSecondary>
                                 </Box>
                             </Grid>
                             <Grid item>
                                 <ActionMenuButtonSecondary
+                                    size="small"
                                     label={t('add-result-page.save-and-next')}
                                     onClick={() => onClick('save-and-next', localResult)}
                                     options={[
@@ -162,7 +167,7 @@ const useStyles = makeStyles(() =>
             alignItems: 'center',
             width: '100%',
             height: '100%',
-            paddingRight: 16,
+            padding: '4px 8px',
         },
     }),
 );
