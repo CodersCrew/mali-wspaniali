@@ -6,3 +6,4 @@ export * from './change_password_command';
 export * from './reset_password_command';
 export * from './create_assessment_result_command';
 export * from './update_assessment_result_command';
+export * from './anonymize_user_command';
