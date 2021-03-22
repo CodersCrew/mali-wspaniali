@@ -4,6 +4,7 @@ import { KindergartenTitle } from './kindergarten_title_value_object';
 import { Document } from 'mongoose';
 import { IsDeleted } from './is_deleted_value_object';
 import { KindergartenCreatedEvent } from '../events/impl';
+import { KindergartenUpdatedEvent } from '../events/impl/kindergarten_updated_event';
 
 export interface KindergartenProps {
   _id: string;
@@ -58,6 +59,16 @@ export class Kindergarten extends AggregateRoot {
 
   get isDeleted(): IsDeleted {
     return this.props.isDeleted;
+  }
+
+  delete() {
+    this.props.isDeleted = IsDeleted.create(true).getValue();
+
+    this.apply(
+      new KindergartenUpdatedEvent(this.id.toString(), {
+        isDeleted: true,
+      }),
+    );
   }
 
   static create(value: Props) {

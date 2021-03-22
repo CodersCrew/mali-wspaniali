@@ -1,13 +1,13 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { GetChildrenQuery } from '../impl/get_children_query';
 import { ChildRepository } from '../../repositories/child_repository';
-import { Child, ChildProps } from '../../models/child_model';
 import { ChildResultRepository } from '../../repositories/child_result_repository';
+import { KindergartenMapper } from '../../../../kindergartens/domain/mappers/kindergarten_mapper';
+import { Child, ChildWithKindergartenProps } from '../../models/child_model';
+import { ChildProps } from '@users/domain/models/child_model';
+import { GetChildrenQuery } from '../impl/get_children_query';
 import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
 import { ChildMapper } from '../../mappers/child_mapper';
-import { ChildWithKindergartenProps } from '../../../../users/domain/models/child_model';
-import { KindergartenMapper } from '../../../../kindergartens/domain/mappers/kindergarten_mapper';
 
 @QueryHandler(GetChildrenQuery)
 export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
@@ -26,7 +26,11 @@ export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
   }): Promise<ChildWithKindergartenProps[]> {
     const children = await this.childRepository.get(ids);
 
-    return await Promise.all(children.map(this.mapChildWithKindergarten));
+    const childWithKindergarten: ChildWithKindergartenProps[] = await Promise.all(
+      children.map(this.mapChildWithKindergarten),
+    );
+
+    return childWithKindergarten.filter(this.removeDeletedChildren);
   }
 
   async mapChildWithKindergarten(child: Child) {
@@ -36,9 +40,13 @@ export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
     );
 
     return {
-      ...ChildMapper.toPersistence(child),
+      ...(ChildMapper.toPersistence(child) as ChildProps),
       results,
       kindergarten: KindergartenMapper.toRaw(kindergarten),
     };
+  }
+
+  removeDeletedChildren(child: ChildWithKindergartenProps) {
+    return !child.isDeleted;
   }
 }

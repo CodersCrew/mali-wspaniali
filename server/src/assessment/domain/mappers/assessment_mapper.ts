@@ -67,7 +67,7 @@ export class AssessmentMapper {
 
     const results = Result.combine([startDate, endDate]);
 
-    if (results.isFailure) throw new Error(results.error);
+    if (results.isFailure) throw new Error(results.error as string);
 
     const createAssessment =
       options && options.isNew ? Assessment.create : Assessment.recreate;

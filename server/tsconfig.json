@@ -11,6 +11,11 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@users/*": ["src/users/*"],
+      "@kindergartens/*": ["src/kindergartens/*"],
+      "@keyCodes/*": ["src/key_codes/*"]
+    }
   }
 }
