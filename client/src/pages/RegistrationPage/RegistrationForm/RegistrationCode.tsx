@@ -8,6 +8,8 @@ import { Theme } from '../../../theme';
 
 import { RegistrationCodeProps } from './types';
 
+const MIN_CODE_LENGTH = 10;
+
 export const RegistrationCode = ({
     handleChange,
     handleNext,
@@ -33,7 +35,7 @@ export const RegistrationCode = ({
     const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            if (code.length >= 10) handleNext();
+            if (code.length >= MIN_CODE_LENGTH) handleNext();
         }
     };
 
@@ -60,7 +62,7 @@ export const RegistrationCode = ({
                     variant="contained"
                     onClick={handleNext}
                     className={classNextBtn}
-                    disabled={code.length < 9}
+                    disabled={code.length < MIN_CODE_LENGTH}
                     data-testid="code-next"
                     innerText={t('next')}
                 />
