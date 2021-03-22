@@ -60,7 +60,7 @@ export function AddChildModal({
 
 export const useStyles = makeStyles((theme: Theme) => ({
     innerContent: {
-        maxHeight: 400,
+        minHeight: 400,
     },
     description: { marginBottom: theme.spacing(2) },
     title: { marginBottom: theme.spacing(3) },
