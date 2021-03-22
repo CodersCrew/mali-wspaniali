@@ -29,6 +29,7 @@ export default function NewsletterPage() {
             recipients: t('newsletter.recipient-helper-text'),
             type: t('newsletter.type-helper-text'),
             topic: t('newsletter.topic-helper-text'),
+            message: t('newsletter.message-helper-text'),
         },
         validate,
         onSubmit: (values) => {
@@ -47,8 +48,6 @@ export default function NewsletterPage() {
     const firstStepCompleted = isFirstStepCompleted(errors);
 
     const secondStepCompleted = isSecondStepCompleted(errors);
-
-    const thirdStepCompleted = isThirdStepCompleted(errors);
 
     const firstStepError = isFirstStepError(touched, errors);
 
@@ -89,7 +88,7 @@ export default function NewsletterPage() {
                         <StepLabel className={classes.stepLabel} error={secondStepError}>
                             {t(setSecondStepLabel(firstStepCompleted, secondStepCompleted))}
                         </StepLabel>
-                        <Step expanded className={classes.step} completed={thirdStepCompleted}>
+                        <Step expanded className={classes.step}>
                             <StepContent className={classes.stepContent}>
                                 <NewsletterContent
                                     onChange={(name, value) => setFieldValue(name, value)}
@@ -125,9 +124,8 @@ const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) => O
 const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
     !errors.generalRecipientType && !errors.specificRecipientType && !errors.recipients;
 
-const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.topic;
-
-const isThirdStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.message;
+const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
+    !errors.type && !errors.topic && !errors.message;
 
 const isFirstStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
     (!!touched.generalRecipientType && !!errors.generalRecipientType) ||
@@ -135,7 +133,7 @@ const isFirstStepError = (touched: FormikTouched<NewsletterFormValues>, errors: 
     (!!touched.recipients && !!errors.recipients);
 
 const isSecondStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
-    (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic);
+    (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic) || (!!touched.message && !!errors.message);
 
 const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: boolean) => {
     if (!firstStepCompleted) {
@@ -173,7 +171,7 @@ const validate = (values: NewsletterFormValues) => {
         errors.topic = 'newsletter.topic-helper-text';
     }
 
-    if (!message) {
+    if (!message.replaceAll(/<[^>]+>/g, '')) {
         errors.message = 'newsletter.message-helper-text';
     }
 
