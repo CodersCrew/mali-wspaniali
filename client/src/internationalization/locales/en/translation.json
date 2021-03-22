@@ -356,8 +356,8 @@
         "type-helper-text": "Type of message not selected. Select type from dropdown.",
         "topic-input-label": "Select topic",
         "topic-input-label-filled": "Topic",
-        "topic-helper-text": "Type message topic so You can send it",
-        "message-helper-text": "Type message so You can send it",
+        "topic-helper-text": "Please, type the message topic so you can send it",
+        "message-helper-text": "Please, type the message so you can send it",
         "kindergarten-number": "Kindergarten no.",
         "sending-error": "An error ocurred during sending the message.",
         "sending-success-modal": {
