@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
 import { ResetPasswordForm } from './ResetPasswordForm';
-// import { ResetPasswordConfirmation } from './ResetPasswordConfirmation';
 import { isValidEmail } from './isValidEmail';
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
