@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
             minHeight: theme.spacing(8),
         },
         containerMobile: {
-            boxShadow: 'none',
+            // boxShadow: 'none',
             borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
         toolbar: theme.mixins.toolbar,
