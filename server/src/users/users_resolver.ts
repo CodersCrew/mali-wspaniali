@@ -9,7 +9,6 @@ import {
 } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
-import * as mongoose from 'mongoose';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
@@ -39,6 +38,7 @@ import {
 } from './domain/commands/impl';
 import { ReadNotificationCommand } from '../notifications/domain/commands/impl/read_notifiaction_command';
 import { NotificationProps } from '../notifications/domain/models/notification_model';
+import { AnonymizeUserCommand } from './domain/commands/impl/anonymize_user_command';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -48,7 +48,11 @@ export class UsersResolver {
   @Query(() => UserDTO)
   @UseGuards(GqlAuthGuard)
   async me(@CurrentUser() user: LoggedUser): Promise<UserProps> {
-    return await this.queryBus.execute(new GetUserQuery(user.userId));
+    const currentUser: User = await this.queryBus.execute(
+      new GetUserQuery(user.userId),
+    );
+
+    return currentUser.getProps() as UserProps;
   }
 
   @ResolveField()
@@ -60,21 +64,13 @@ export class UsersResolver {
 
   @ResolveField()
   async children(@Parent() user: UserProps): Promise<ChildDTO[]> {
-    return await this.queryBus.execute(
-      new GetChildrenQuery(
-        (user.children as mongoose.Schema.Types.ObjectId[]).map(c =>
-          c.toString(),
-        ),
-      ),
-    );
+    return await this.queryBus.execute(new GetChildrenQuery(user.children));
   }
 
   @ResolveField()
   async agreements(@Parent() user: UserProps): Promise<AgreementDTO[]> {
     return await this.queryBus.execute(
-      new GetValidAgreementsQuery(
-        user.agreements.map(agreement => agreement.toString()),
-      ),
+      new GetValidAgreementsQuery(user.agreements),
     );
   }
 
@@ -88,8 +84,22 @@ export class UsersResolver {
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async users(
     @Args('role', { nullable: true }) role: string,
-  ): Promise<UserProps> {
-    return await this.queryBus.execute(new GetAllUsersQuery(role));
+  ): Promise<UserProps[]> {
+    const users: User[] = await this.queryBus.execute(
+      new GetAllUsersQuery(role),
+    );
+
+    return users.map(user => user.getProps()) as UserProps[];
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(GqlAuthGuard)
+  async anonymizeUser(@Args('id') id: string) {
+    const user: User = await this.commandBus.execute(
+      new AnonymizeUserCommand(id),
+    );
+
+    return { status: true };
   }
 
   @Mutation(() => NotificationDTO)
