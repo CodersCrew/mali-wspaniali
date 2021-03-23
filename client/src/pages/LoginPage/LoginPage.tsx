@@ -53,9 +53,8 @@ export default function LoginPage() {
 
     return (
         <div className={classes.container}>
-            <div className={classes.topHeader}>
-                <LanguageSelector />
-            </div>
+            <div className={classes.topHeader}>{isDesktop && <LanguageSelector />}</div>
+
             <div className={classes.innerContainer}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
                     <Typography variant="h3" className={classes.loginHeader}>
@@ -132,7 +131,7 @@ export default function LoginPage() {
                     <Typography>{t('login-page.no-account')} </Typography>
                     <Box mb={3.5} />
                     <ButtonSecondary
-                        variant="text"
+                        variant="outlined"
                         href="/register"
                         innerText={t('login-page.register')}
                         className={classes.forgotPasswordButton}
@@ -173,6 +172,7 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
+            paddingBottom: theme.spacing(2),
             [theme.breakpoints.down('md')]: {
                 justifyContent: 'flex-start',
                 height: 'auto',
