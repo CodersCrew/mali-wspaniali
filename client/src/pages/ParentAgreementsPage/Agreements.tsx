@@ -18,6 +18,7 @@ import { ButtonSecondary } from '../../components/Button';
 import { Agreement } from '../../graphql/types';
 import { useUpdateAgreements } from '../../operations/mutations/Agreements/useUpdateAgreements';
 import { PageContainer } from '../../components/PageContainer';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 interface Props {
     agreements: Agreement[];
@@ -45,6 +46,7 @@ export const Agreements = ({ agreements }: Props) => {
 
     const save = () => {
         agreementIds.forEach((agreementId) => updateAgreements({ agreementId }));
+        openSnackbar({text: t('child-profile.agreements.snackbar-text'), subtext: t('child-profile,agreements.snackbar-subtext')})
     };
 
     return (
