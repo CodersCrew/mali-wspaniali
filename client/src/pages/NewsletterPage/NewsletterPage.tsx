@@ -175,8 +175,6 @@ const validate = (values: NewsletterFormValues) => {
         errors.message = 'newsletter.message-helper-text';
     }
 
-    // TODO:
-    // validate message field
     return errors;
 };
 
