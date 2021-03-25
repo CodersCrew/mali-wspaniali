@@ -129,7 +129,7 @@ export default function LoginPage() {
                 </form>
                 <div className={classes.registerWrapper}>
                     <Typography>{t('login-page.no-account')} </Typography>
-                    <Box mb={3.5} />
+                    <Box mb={3} />
                     <ButtonSecondary
                         variant="outlined"
                         href="/register"

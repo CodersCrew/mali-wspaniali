@@ -256,5 +256,10 @@ export const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             border: 0,
         },
+        backToLoginButton: {
+            textAlign: 'center',
+            whiteSpace: 'normal',
+            fontSize: '12px',
+        },
     }),
 );
