@@ -1,4 +1,3 @@
-import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, makeStyles, Theme, createStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
