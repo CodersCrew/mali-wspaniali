@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 5,
 
             [theme.breakpoints.down('xs')]: {
-                padding: `${theme.spacing(0)}px ${theme.spacing(3)}px`,
+                padding: theme.spacing(0, 3),
                 marginTop: theme.spacing(1),
             },
             '& *': {
@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 'bold',
             color: white,
             width: 'fit-content',
-            padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
+            padding: theme.spacing(0.5, 1),
             backgroundColor: ({ color }: { color: string }) => color,
         },
         description: {

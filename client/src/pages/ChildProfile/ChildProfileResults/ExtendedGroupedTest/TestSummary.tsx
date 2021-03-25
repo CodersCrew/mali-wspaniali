@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '25%',
             height: theme.spacing(58),
             display: 'flex',
-            padding: `0 ${theme.spacing(1)}px ${theme.spacing(2.5)}px ${theme.spacing(1)}px`,
+            padding: theme.spacing(0, 1, 2.5, 1),
             flexDirection: 'column',
             [theme.breakpoints.down('lg')]: {
                 minWidth: theme.spacing(34),
@@ -138,7 +138,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         cardMiddle: {
-            borderBottom: `1px solid ${gray}`,
+            borderBottom: `1px solid ${theme.palette.grey}`,
             lineHeight: 2,
         },
         age: {
@@ -168,7 +168,7 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
         },
         testDescription: {
-            padding: `${theme.spacing(1)}px 0`,
+            padding: theme.spacing(1, 0),
         },
     }),
 );
