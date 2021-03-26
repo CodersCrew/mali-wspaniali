@@ -24,16 +24,16 @@ export function openSnackbar({ text, subtext, variant, severity, anchor }: Props
                     onClose={onClose}
                     classes={{ root: classes.container }}
                 >
-                    {subtext ?
-                    <Alert onClose={onClose} severity={severity || 'success'} variant={variant || 'filled'}>
-                        <Typography variant="h6">{text}</Typography>
-                        <Typography variant="subtitle1">{subtext}</Typography>
-                    </Alert>
-                    :
-                    <Alert onClose={onClose} severity={severity || 'success'} variant={variant || 'filled'}>
-                        {text}
-                    </Alert>
-                    }
+                    {subtext ? (
+                        <Alert onClose={onClose} severity={severity || 'success'} variant={variant || 'filled'}>
+                            <Typography variant="h6">{text}</Typography>
+                            <Typography variant="subtitle1">{subtext}</Typography>
+                        </Alert>
+                    ) : (
+                        <Alert onClose={onClose} severity={severity || 'success'} variant={variant || 'filled'}>
+                            {text}
+                        </Alert>
+                    )}
                 </Snackbar>
             </div>
         );

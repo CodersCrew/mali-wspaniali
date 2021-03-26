@@ -46,7 +46,10 @@ export const Agreements = ({ agreements }: Props) => {
 
     const save = () => {
         agreementIds.forEach((agreementId) => updateAgreements({ agreementId }));
-        openSnackbar({text: t('child-profile.agreements.snackbar-text'), subtext: t('child-profile,agreements.snackbar-subtext')})
+        openSnackbar({
+            text: t('child-profile.agreements.snackbar-text'),
+            subtext: t('child-profile.agreements.snackbar-subtext'),
+        });
     };
 
     return (
