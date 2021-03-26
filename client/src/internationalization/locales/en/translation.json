@@ -132,22 +132,40 @@
         "marketing-description": "Optional agreement that allows us to send you emails with current informations about the Mali Wspaniali program.",
         "image-label": "Permission to use the image",
         "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
-        "kindergartener-test": "Kindergartener test",
+        "kindergartener-test": "Kindergartener fitness test",
         "last-update-date": "Last update",
         "details": "Details",
         "collapse-details": "Collapse details",
         "info-about-test": "Information about test",
         "carries-out-on": "carries out on",
-        "age-group": "On the day of test, the child was assigned to the age group",
-        "fitness-level": "Fitness level",
+        "age-group": "Child age",
+        "age-group-description": {
+            "title": "How we assign child to age group",
+            "subtitle": "When assigning a child to an age group, we calculate the child's metric age on the day of testing (to the nearest month).",
+            "text-1": "If a child is, for example, 4 years and 10 months old we classify him/her as a 5 year old. To the group ",
+            "age-1": "children aged 5 years",
+            "text-2": " includes all children who on the day of the survey had completed ",
+            "age-2": "4 years and 6 months,",
+            "text-3": " but no more than ",
+            "age-3": "5 years and 5 months.",
+            "text-4": " A similar principle applies to the qualification of children in other age groups."
+        },
+        "initial-fitness-level": "Summarised result from initial test",
+        "final-fitness-level": "Summarised result from final test",
         "advice": "Advice",
         "initial-test": "Initial test",
         "final-test": "Final test",
         "result-description": {
-            "bad": "TBD",
-            "medium": "You are doing well but it can always be better",
-            "good": "Good!",
-            "very-good": "Very good!"
+            "bad": "LOW FITNESS LEVEL",
+            "medium": "MEDIUM FITNESS LEVEL",
+            "good": "GOOD FITNESS LEVEL",
+            "very-good": "VERY GOOD FITNESS LEVEL"
+        },
+        "result-levels": {
+            "bad": "bad",
+            "medium": "medium",
+            "good": "good",
+            "very-good": "very good"
         },
         "tests": {
             "strength": "Strength",
@@ -166,16 +184,23 @@
         "received-points": "Received points",
         "pts": "pts",
         "final-test-title": "Results of particular tests with comparison of results from the initial test",
-        "initial-test-title": "Results of particular tests",
+        "initial-test-title": "Results of particular tests included into initial test",
         "difference": {
             "progress": "Get better",
             "regress": "Get worse",
             "constant": "Is the same"
         },
-        "summary-info": "Summary information",
+        "summary-info": "Measurement informations",
         "test-result": "Test result",
         "comparison-label": "By comparing both tests, your child's fitness level",
         "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
+        "comparison-legend": {
+            "title": "Chart information",
+            "progress": "Physical level progress:",
+            "regress": "Physical level regress",
+            "initial-result": "Initial result",
+            "final-result": "Final result"
+        },
         "comparison-button": "What can I do?",
         "no-results-title": "No results",
         "no-results-text": "The results have not yet been entered because the initial test has not yet taken place, or the results are under development.",
