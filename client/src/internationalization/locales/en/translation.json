@@ -391,21 +391,32 @@
             "file-error": "File error"
         }
     },
-    "parent-settings": {
-        "header": "Settings parent's account",
+    "user-settings": {
+        "header": "Account settings",
+        "parent-option": "Parent",
+        "instructor-option": "Instructor",
+        "role-select": "Account type",
         "input-label": "Search",
         "search-label": "Search for kindergarten",
-        "header-title-1": "Parent's email adress",
-        "header-title-2": "Children",
+        "header-title-parent": "Parent's email adress",
+        "header-title-instructor": "Instructor's email adress",
+        "header-title-children": "Children",
         "button-icon-edit-tooltip": "Edit",
         "button-icon-delete-tooltip": "Delete",
         "button-icon-change-tooltip": "Change kindergarden",
-        "modal-delete-account": {
+        "modal-delete-parent-account": {
             "header": "Delete parent's account",
             "first-button": "Cancel",
             "second-button": "Delete",
             "first-description": "Are you sure you want to delete the parent",
             "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
+        },
+        "modal-delete-instructor-account": {
+            "header": "Delete instructor's account",
+            "first-button": "Cancel",
+            "second-button": "Delete",
+            "first-description": "Are you sure you want to delete the instructor",
+            "second-description": "This will anonymize the instructor's results: The Foundation will only have access to the test results, but without information about personal data."
         },
         "modal-edit-account": {
             "header": "Edit data",
@@ -719,15 +730,16 @@
             "email": "E-mail address",
             "kindergarten-count": "Kindergarten count",
             "tooltip": "Assign to kindergarten",
-            "delete": "Delete instructor"
+            "kindergartens-count": "{{count}} kindergartens"
         },
         "table-toolbar": {
             "select-test": "Select test",
             "instructor-search": "Search for instructor",
-            "unassigned-kindergartens": "Unassigned kidnergartens"
+            "unassigned-kindergartens": "Unassigned kidnergartens: {{count}}"
         },
         "snackbars": {
-            "info": "To add unassigned kindergarten: 1. Select the test, 2. Select the instructor and press the button to assign him/her to selected kindergarten."
+            "info": "To add unassigned kindergarten: 1. Select the test, 2. Select the instructor and press the button to assign him/her to selected kindergarten.",
+            "assessment-updated": "Changed kindergartens for {{name}}"
         },
         "modal": {
             "cancel": "Cancel",
@@ -737,9 +749,7 @@
             "delete-instructor-subtitle": "Are you sure you want to delete instructor",
             "assign-to-kindergarten": "Assign to kindergarten",
             "select-test": "Select test",
-            "select-instructor": "Select instructor",
-            "assigned-kindergartens": "Assigned kindergartens",
-            "add-unassigned-kindergarten": "Add unassigned kindergarten"
+            "select-instructor": "Select instructor"
         }
     },
     "add-results-page": {

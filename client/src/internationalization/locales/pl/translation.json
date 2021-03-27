@@ -390,21 +390,32 @@
             "file-error": "Nieprawidłowy format pliku"
         }
     },
-    "parent-settings": {
-        "header": "Ustawienia kont rodziców",
+    "user-settings": {
+        "header": "Ustawienia kont",
+        "parent-option": "Rodzic",
+        "instructor-option": "Instruktor",
+        "role-select": "Rodzaj konta",
         "search-label": "Szukaj po przedszkolu",
         "input-label": "Szukaj",
-        "header-title-1": "Adres email rodzica",
-        "header-title-2": "Dzieci",
+        "header-title-parent": "Adres email rodzica",
+                "header-title-instructor": "Adres email instruktora",
+        "header-title-children": "Dzieci",
         "button-icon-edit-tooltip": "Edytuj",
         "button-icon-delete-tooltip": "Usuń",
         "button-icon-change-tooltip": "Zmień przedszkole",
-        "modal-delete-account": {
-            "header": "Usuń konto rodzica",
+        "modal-delete-parent-account": {
+            "header": "Usuwanie kont rodziców",
             "first-button": "Anuluj",
             "second-button": "Usuń",
-            "first-description": "Are you sure you want to delete the parent",
+            "first-description": "Czy na pewno chcesz usunąć rodzica",
             "second-description": "Spowoduje to anonimizację wyników dziecka: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
+        },
+        "modal-delete-instructor-account": {
+            "header": "Usuwanie kont instruktora",
+            "first-button": "Anuluj",
+            "second-button": "Usuń",
+            "first-description": "Czy na pewno chcesz usunąć instruktora",
+            "second-description": "Spowoduje to anonimizację wyników instruktora: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
         },
         "modal-edit-account": {
             "header": "Edytuj dane",
@@ -711,7 +722,8 @@
             "4": "usunięcie konta",
             "5": "inny"
         },
-        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail."
+        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail.",
+        "assessment-updated": "Zmieniono przedszkola {{name}}"
     },
     "admin-instructors-page": {
         "table": {
@@ -720,12 +732,12 @@
             "email": "Adres e-mail",
             "kindergarten-count": "Liczba przedszkoli",
             "tooltip": "Przydziel do przedszkola",
-            "delete": "Usuń instruktora"
+            "kindergartens-count": "{{count}} przedszkola"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",
             "instructor-search": "Szukaj instruktora",
-            "unassigned-kindergartens": "Nieprzydzielone przedszkola"
+            "unassigned-kindergartens": "Nieprzydzielone przedszkola: {{count}}"
         },
         "snackbars": {
             "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola."
@@ -738,9 +750,7 @@
             "delete-instructor-subtitle": "Czy na pewno chcesz usunąć instruktora",
             "assign-to-kindergarten": "Przydziel do przedszkola",
             "select-test": "Wybierz test",
-            "select-instructor": "Wybierz instruktora",
-            "assigned-kindergartens": "Przydzielone przedszkola",
-            "add-unassigned-kindergarten": "Dodaj nieprzydzielone przedszkole"
+            "select-instructor": "Wybierz instruktora"
         }
     },
     "add-results-page": {
