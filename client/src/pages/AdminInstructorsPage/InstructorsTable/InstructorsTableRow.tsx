@@ -11,36 +11,32 @@ import {
     makeStyles,
     createStyles,
     Theme,
+    Chip,
 } from '@material-ui/core';
 import {
     KeyboardArrowDown as KeyboardArrowDownIcon,
     KeyboardArrowUp as KeyboardArrowUpIcon,
     AddCircle as AddIcon,
-    Delete as DeleteIcon,
 } from '@material-ui/icons';
-import { InstructorWithKindergartens } from '../types';
+import { InstructorRelation } from '../types';
 import { Assessment } from '../../../graphql/types';
 
-interface Props {
-    instructor: InstructorWithKindergartens;
-    onAssignInstructorClick: (instructor: InstructorWithKindergartens) => void;
-    onDeleteInstructorClick: (instructor: InstructorWithKindergartens) => void;
+interface InstructorRowProps {
+    relation: InstructorRelation;
+    onAssignInstructorClick: (id: InstructorRelation) => void;
     assessment: Assessment | null;
 }
 
-export const InstructorsTableRow = ({
-    instructor,
-    onAssignInstructorClick,
-    onDeleteInstructorClick,
-    assessment,
-}: Props) => {
+const T_PREFIX = 'admin-instructors-page.table';
+
+export function InstructorsTableRow(props: InstructorRowProps) {
     const classes = useStyles();
     const { t } = useTranslation();
 
     const [open, setOpen] = useState(false);
     const [showAddButton, setShowAddButton] = useState(false);
 
-    const { mail } = instructor;
+    const { mail } = props.relation.instructor;
 
     return (
         <>
@@ -51,59 +47,56 @@ export const InstructorsTableRow = ({
                 data-testid="instructor-item"
             >
                 <TableCell>
-                    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
+                    {props.relation.kindergartens.length > 0 && (
+                        <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+                            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </IconButton>
+                    )}
                 </TableCell>
                 <TableCell>{mail}</TableCell>
                 <TableCell>{mail}</TableCell>
                 <TableCell data-testid="instructor-mail">{mail}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
-                    {assessment && (
+                    {props.assessment && (
                         <Fade in={showAddButton} mountOnEnter unmountOnExit timeout={500}>
                             <div className={classes.iconButtonContainer}>
                                 <Tooltip
-                                    title={t('admin-instructors-page.table.tooltip') as string}
-                                    aria-label={t('admin-instructors-page.table.tooltip')}
+                                    title={t(`${T_PREFIX}.tooltip`).toString()}
+                                    aria-label={t(`${T_PREFIX}.tooltip`)}
                                     placement="top"
                                     arrow
                                 >
                                     <IconButton
-                                        onClick={() => onAssignInstructorClick(instructor)}
+                                        onClick={() => props.onAssignInstructorClick(props.relation)}
                                         aria-label="assign instructor"
                                     >
                                         <AddIcon />
                                     </IconButton>
                                 </Tooltip>
-                                <Tooltip
-                                    title={t('admin-instructors-page.table.delete') as string}
-                                    aria-label={t('admin-instructors-page.table.delete')}
-                                    placement="top"
-                                    arrow
-                                >
-                                    <IconButton
-                                        onClick={() => onDeleteInstructorClick(instructor)}
-                                        aria-label="delete instructor"
-                                    >
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </Tooltip>
                             </div>
                         </Fade>
                     )}
-                    {instructor.kindergartens?.length}
+                    {props.relation.kindergartens.length}
                 </TableCell>
             </TableRow>
             <TableRow>
+                <TableCell></TableCell>
                 <TableCell className={classes.collapseCell} colSpan={5}>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box margin={1}>Some content</Box>
+                    <Collapse in={open && props.relation.kindergartens.length > 0} timeout="auto" unmountOnExit>
+                        <Box display="flex" alignItems="center" flexWrap="wrap">
+                            {t(`${T_PREFIX}.kindergartens-count`, { count: props.relation.kindergartens.length })}
+                            {props.relation.kindergartens.map((kindergarten) => (
+                                <Box m={1} ml={2} mb={1} key={kindergarten._id}>
+                                    <Chip label={`${kindergarten.number}/${kindergarten.name}`} />
+                                </Box>
+                            ))}
+                        </Box>
                     </Collapse>
                 </TableCell>
             </TableRow>
         </>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
