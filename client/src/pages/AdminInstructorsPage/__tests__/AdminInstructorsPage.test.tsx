@@ -159,7 +159,7 @@ describe('AdminInstructorsPage', () => {
             const unassignedKindergartensText = screen.getByTestId('unassigned-kindergartens');
 
             expect(unassignedKindergartensText).toHaveTextContent(
-                `${translationOf('admin-instructors-page.table-toolbar.unassigned-kindergartens')}: 0`,
+                `${translationOf('admin-instructors-page.table-toolbar.unassigned-kindergartens', { count: 0 })}`,
             );
 
             const assessmentsSelect = screen.getByLabelText(
@@ -171,7 +171,7 @@ describe('AdminInstructorsPage', () => {
             userEvent.click(assessmentsSelectOptions[1]);
 
             expect(unassignedKindergartensText).toHaveTextContent(
-                `${translationOf('admin-instructors-page.table-toolbar.unassigned-kindergartens')}: 1`,
+                `${translationOf('admin-instructors-page.table-toolbar.unassigned-kindergartens', { count: 1 })}`,
             );
         });
     });

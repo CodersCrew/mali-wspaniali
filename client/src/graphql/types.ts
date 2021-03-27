@@ -213,7 +213,7 @@ export interface Assessment {
     lastMeasurementEndDate: string;
     kindergartens: {
         instructor: User | null;
-        kindergarten: Kindergarten;
+        kindergarten: Kindergarten | null;
     }[];
 }
 

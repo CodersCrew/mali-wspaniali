@@ -32,7 +32,7 @@ export interface ResultCreatorReturnProps {
 export interface ResultCreatorErrorReturnProps {
     error: string;
     selectedAssessment?: Assessment;
-    selectedKindergarten?: Kindergarten;
+    selectedKindergarten?: Kindergarten | null;
     selectedChild?: Child;
 }
 
@@ -119,7 +119,7 @@ function getSelected({
     childId: string;
 }) {
     const selectedAssessment = assessments.find((a) => a._id === assessmentId);
-    const selectedKindergarten = selectedAssessment?.kindergartens.find((k) => k.kindergarten._id === kindergartenId)
+    const selectedKindergarten = selectedAssessment?.kindergartens.find((k) => k.kindergarten?._id === kindergartenId)
         ?.kindergarten;
     const selectedChild = selectedKindergarten?.children?.find((c) => c._id === childId);
 

@@ -8,7 +8,7 @@ export type UpdatedAssessmentInput = {
     status: string;
     isOutdated: boolean;
     isDeleted: boolean;
-    kindergartens: Array<{ kindergartenId: string; instructorId?: string | null }>;
+    kindergartens: Array<{ kindergartenId?: string; instructorId?: string }>;
 };
 
 interface UpdateAssessment {

@@ -1,28 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { InstructorWithKindergartens } from './types';
+import { InstructorRelation } from './types';
 import { Toolbar } from './Toolbar';
 import { InstructorsSelect } from './InstructorsSelect';
 import { AssessmentsSelect } from './AssessmentsSelect';
 import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableContainer';
 import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
-import { AssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
+import { openAssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
 import { activePage } from '../../apollo_client';
 import { Loader } from '../../components/Loader';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
-import { Assessment, PrivilegedUser } from '../../graphql/types';
+import { PrivilegedUser, Kindergarten } from '../../graphql/types';
 import { PageContainer } from '../../components/PageContainer';
+import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
-interface InstructorModalStatus {
-    isOpen: boolean;
-    instructor: InstructorWithKindergartens | null;
-}
-
-const initialInstructorModalStatus = {
-    isOpen: false,
-    instructor: null,
-};
+const T_PREFIX = 'admin-instructors-page.table-toolbar';
+const T_PREFIX_SNACKBAR = 'admin-instructors-page.snackbars';
 
 export default function AdminInstructorsPage() {
     const { t } = useTranslation();
@@ -32,102 +27,145 @@ export default function AdminInstructorsPage() {
     }, []);
 
     const { instructors, isInstructorsListLoading } = useInstructors();
-    const { assessments, areAssessmentsLoading } = useAssessments();
+    const { assessments, areAssessmentsLoading, refetchAssessments } = useAssessments();
+    const { updateAssessment } = useUpdateAssessment();
 
-    const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
-    const [selectedInstructor, setSelectedInstructor] = useState<PrivilegedUser | null>(null);
-    const [assignInstructorModalStatus, setAssignInstructorModalStatus] = useState<InstructorModalStatus>(
-        initialInstructorModalStatus,
-    );
+    const [selectedAssessment, setSelectedAssessment] = useState<string | null>(null);
+    const [selectedInstructor, setSelectedInstructor] = useState<PrivilegedUser[]>([]);
 
     useEffect(() => {
         if (assessments.length > 0) {
-            setSelectedAssessment(assessments[0]);
+            setSelectedAssessment(getAvailableAssessments()[0]._id);
         }
-    }, [assessments, setSelectedAssessment]);
-
-    const instructorsWithKindergartens: InstructorWithKindergartens[] = instructors.map((instructor) => ({
-        ...instructor,
-        kindergartens:
-            selectedAssessment?.kindergartens
-                .filter((kindergarten) => kindergarten.instructor?._id === instructor._id)
-                .map((kind) => kind.kindergarten) || null,
-    }));
-
-    const onAssessmentSelectChange = (assessmentId: string) => {
-        const foundAssessment = assessments.find((assessment) => assessment._id === assessmentId);
-
-        if (foundAssessment) {
-            setSelectedAssessment(foundAssessment);
-        }
-    };
-
-    const onInstructorSelectChange = (instructorId: string) => {
-        const foundInstructor = instructors.find((instructor) => instructor._id === instructorId);
-
-        if (foundInstructor) {
-            setSelectedInstructor(foundInstructor);
-        }
-    };
-
-    const onAssignInstructorClick = (instructor: InstructorWithKindergartens) => {
-        setAssignInstructorModalStatus({
-            isOpen: true,
-            instructor,
-        });
-    };
-
-    const unassignedKindergartens = selectedAssessment?.kindergartens
-        .filter((kindergarten) => kindergarten.instructor === null)
-        .map((kind) => kind.kindergarten);
+    }, [assessments.length]);
 
     if (isInstructorsListLoading || areAssessmentsLoading) {
         return <Loader />;
     }
 
-    if (!selectedAssessment) {
+    if (!getSelectedAssessment()) {
         return null;
     }
 
     return (
         <PageContainer>
             <Toolbar
-                assessmentsSelect={
+                AssessmentsSelect={
                     <AssessmentsSelect
-                        label={t('admin-instructors-page.table-toolbar.select-test')}
-                        options={assessments.filter((assessment) => assessment.kindergartens.length !== 0)}
-                        value={selectedAssessment}
-                        onChange={onAssessmentSelectChange}
+                        label={t(`${T_PREFIX}.select-test`)}
+                        options={getAvailableAssessments()}
+                        value={getSelectedAssessment()}
+                        onChange={onAssessmentChange}
                     />
                 }
-                instructorsSelect={
+                InstructorsSelect={
                     <InstructorsSelect
-                        label={t('admin-instructors-page.table-toolbar.instructor-search')}
+                        label={t(`${T_PREFIX}.instructor-search`)}
                         options={instructors}
-                        value={selectedInstructor}
-                        onChange={onInstructorSelectChange}
+                        values={selectedInstructor}
+                        onChange={onInstructorChange}
                     />
                 }
-                unassignedKindergartensCount={unassignedKindergartens?.length || 0}
+                count={countUnassigned()}
             />
             <InstructorsTableContainer>
-                {instructorsWithKindergartens.map((instructor) => (
+                {getInstructorsRelations().map((relation) => (
                     <InstructorsTableRow
-                        key={instructor._id}
-                        instructor={instructor}
-                        onAssignInstructorClick={onAssignInstructorClick}
-                        assessment={selectedAssessment}
+                        key={relation.instructor._id}
+                        relation={relation}
+                        onAssignInstructorClick={onAssignClick}
+                        assessment={getSelectedAssessment()}
                     />
                 ))}
             </InstructorsTableContainer>
-            {selectedAssessment && assignInstructorModalStatus.isOpen && assignInstructorModalStatus.instructor && (
-                <AssignInstructorModal
-                    onClose={() => setAssignInstructorModalStatus(initialInstructorModalStatus)}
-                    kindergartens={unassignedKindergartens || []}
-                    instructor={assignInstructorModalStatus.instructor}
-                    assessment={selectedAssessment}
-                />
-            )}
         </PageContainer>
     );
+
+    function onAssessmentChange(title: string) {
+        const selected = assessments.find((assessment) => assessment.title === title);
+
+        if (selected) {
+            setSelectedAssessment(selected._id);
+        }
+    }
+
+    function onInstructorChange(mailList: string[]) {
+        const selected = mailList
+            .map((mail) => instructors.find((instructor) => instructor.mail === mail))
+            .filter((instructor) => !!instructor);
+
+        setSelectedInstructor(selected as PrivilegedUser[]);
+    }
+
+    async function onAssignClick(instructor: InstructorRelation) {
+        if (!selectedAssessment) return;
+
+        const result = await openAssignInstructorModal({
+            kindergartens: getKindergartens(),
+            instructorId: instructor.instructor._id,
+            relations: getInstructorsRelations(),
+            assessment: getSelectedAssessment(),
+        });
+
+        if (result.decision) {
+            updateAssessment(getSelectedAssessment()._id, result.decision.updates).then((e) => {
+                refetchAssessments();
+                openSnackbar({
+                    text: t(`${T_PREFIX_SNACKBAR}.assessment-updated`, { name: instructor.instructor.mail }),
+                });
+            });
+        }
+    }
+
+    function countUnassigned() {
+        return getSelectedAssessment().kindergartens.filter((kindergarten) => !kindergarten.instructor).length || 0;
+    }
+
+    function getKindergartens() {
+        return (
+            (getSelectedAssessment()
+                .kindergartens.filter((kindergarten) => !!kindergarten)
+                .map((kind) => kind.kindergarten) as Kindergarten[]) || []
+        );
+    }
+
+    function getSelectedAssessment() {
+        return getAvailableAssessments().find((assessment) => assessment._id === selectedAssessment)!;
+    }
+
+    function getAvailableAssessments() {
+        return assessments.filter((assessment) => assessment.kindergartens.length > 0);
+    }
+
+    function getInstructorsRelations() {
+        if (!selectedAssessment) {
+            return [];
+        }
+
+        const relations = getSelectedAssessment().kindergartens;
+
+        return instructors
+            .filter((instructor) => {
+                if (selectedInstructor.length > 0) {
+                    return selectedInstructor.find((selected) => selected._id === instructor._id);
+                }
+
+                return true;
+            })
+            .map((instructor) => {
+                const kindergartens = relations
+                    .filter((r) => {
+                        if (!r.instructor) return false;
+
+                        return r.instructor._id === instructor._id && r.kindergarten;
+                    })
+                    .map((r) => r.kindergarten)
+                    .filter((k) => !!k) as Kindergarten[];
+
+                return {
+                    instructor,
+                    kindergartens,
+                };
+            });
+    }
 }
