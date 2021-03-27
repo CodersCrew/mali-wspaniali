@@ -35,11 +35,15 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
             <Grid container className={classes.container} direction="column">
                 <Grid item>
                     <ChildPickerDrawer
-                        selectedKindergarten={resultCreator.selectedKindergarten._id || ''}
-                        kindergartens={resultCreator.selectedAssessment.kindergartens.map((k) => k.kindergarten) || []}
+                        selectedKindergarten={resultCreator.selectedKindergarten?._id || ''}
+                        kindergartens={
+                            resultCreator.selectedAssessment.kindergartens
+                                .filter((k) => !!k.kindergarten)
+                                .map((k) => k.kindergarten!) || []
+                        }
                         selected={child._id}
                         measurement={measurement}
-                        childList={resultCreator.selectedKindergarten.children || []}
+                        childList={resultCreator.selectedKindergarten?.children || []}
                         resultCreator={resultCreator}
                         onClick={onClick}
                     />
