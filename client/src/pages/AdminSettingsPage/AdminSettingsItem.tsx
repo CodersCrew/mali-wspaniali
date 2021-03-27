@@ -1,7 +1,5 @@
 import { TableRow, TableCell, IconButton, makeStyles, Theme, Typography, fade, Tooltip } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Edit from '@material-ui/icons/Edit';
-import ForwardIcon from '@material-ui/icons/Forward';
+import { Delete as DeleteIcon, Edit as EditIcon, Forward as ForwardIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
@@ -10,26 +8,28 @@ import { openAdminSettingsEditModal } from '../../components/ChilModals/EditChil
 import { openChanageChildrenKindergarten } from '../../components/ChilModals/ChangeCildrenKindergarten';
 import { User } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
+import { useAnonymizeUser } from '../../operations/mutations/User/anonymizeUser';
 
 interface AdminSettingsItemProps {
-    parent: User;
+    user: User;
 }
 
-export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
+export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
     const classes = useStyles();
 
     const { t } = useTranslation();
     const { kindergartenList } = useKindergartens();
-    const childrenData = parent.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
+    const { anonymizeUser } = useAnonymizeUser();
+    const childrenData = user.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
-    const editIconTooltip = t('parent-settings.button-icon-edit-tooltip');
-    const changeIconTooltip = t('parent-settings.button-icon-change-tooltip');
-    const deleteIconTooltip = t('parent-settings.button-icon-delete-tooltip');
+    const editIconTooltip = t('user-settings.button-icon-edit-tooltip');
+    const changeIconTooltip = t('user-settings.button-icon-change-tooltip');
+    const deleteIconTooltip = t('user-settings.button-icon-delete-tooltip');
 
     return (
         <TableRow>
             <TableCell className={classes.parentEmailColumn}>
-                <Typography variant="body1">{parent.mail}</Typography>
+                <Typography variant="body1">{user.mail}</Typography>
             </TableCell>
             <TableCell className={classes.secondColumn}>
                 <Typography variant="body1">{childrenData}</Typography>
@@ -42,41 +42,44 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
                                 openAdminSettingsEditModal({
                                     preventClose: false,
                                     isCancelButtonVisible: true,
-                                    parent,
-                                    kindergartens: kindergartenList,
-                                }).then((result) => {
-                                    if (!result.close)
-                                        openSnackbar({
-                                            text: t('parent-settings.modal-edit-account.success-message'),
-                                        });
-                                });
-                            }}
-                        >
-                            <Edit />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title={changeIconTooltip}>
-                        <IconButton
-                            aria-label="edit"
-                            className={classes.editButton}
-                            onClick={() => {
-                                openChanageChildrenKindergarten({
-                                    preventClose: false,
-                                    isCancelButtonVisible: true,
-                                    parent,
+                                    user,
                                     kindergartens: kindergartenList,
                                 }).then((result) => {
                                     if (!result.close) {
                                         openSnackbar({
-                                            text: t('parent-settings.modal-change-kindergarden.success-message'),
+                                            text: t('user-settings.modal-edit-account.success-message'),
                                         });
                                     }
                                 });
                             }}
                         >
-                            <ForwardIcon />
+                            <EditIcon />
                         </IconButton>
                     </Tooltip>
+                    {user.role === 'parent' && (
+                        <Tooltip title={changeIconTooltip}>
+                            <IconButton
+                                aria-label="edit"
+                                className={classes.editButton}
+                                onClick={() => {
+                                    openChanageChildrenKindergarten({
+                                        preventClose: false,
+                                        isCancelButtonVisible: true,
+                                        user,
+                                        kindergartens: kindergartenList,
+                                    }).then((result) => {
+                                        if (!result.close) {
+                                            openSnackbar({
+                                                text: t('user-settings.modal-change-kindergarden.success-message'),
+                                            });
+                                        }
+                                    });
+                                }}
+                            >
+                                <ForwardIcon />
+                            </IconButton>
+                        </Tooltip>
+                    )}
                     <Tooltip title={deleteIconTooltip}>
                         <IconButton
                             aria-label="delete"
@@ -85,12 +88,15 @@ export function AdminSettingsItem({ parent }: AdminSettingsItemProps) {
                                 openAdminSettingsDeleteParent({
                                     preventClose: false,
                                     isCancelButtonVisible: true,
-                                    parent,
+                                    user,
                                 }).then((result) => {
-                                    if (!result.close)
+                                    if (!result.close) {
                                         openSnackbar({
-                                            text: t('parent-settings.success-message', parent.mail),
+                                            text: t('user-settings.success-message', user.mail),
                                         });
+
+                                        anonymizeUser(user._id);
+                                    }
                                 });
                             }}
                         >

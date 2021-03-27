@@ -8,13 +8,13 @@ import { User } from '../../graphql/types';
 export interface SettingsMessageModalProps {
     preventClose: boolean;
     isCancelButtonVisible: boolean;
-    parent: User;
+    user: User;
 }
 
 const AdminSettingsDeleteParent = ({
     onClose,
     makeDecision,
-    parent,
+    user,
     isCancelButtonVisible,
 }: SettingsMessageModalProps & ActionDialog<{ parent: User }>) => {
     const { t } = useTranslation();
@@ -22,24 +22,26 @@ const AdminSettingsDeleteParent = ({
 
     return (
         <BasicModal
-            closeButtonText={t('parent-settings.modal-delete-account.first-button')}
-            actionName={t('parent-settings.modal-delete-account.second-button')}
+            closeButtonText={t(`parent-settings.modal-delete-${user.role}-account.first-button`)}
+            actionName={t(`parent-settings.modal-delete-${user.role}-account.second-button`)}
             isOpen={true}
-            onAction={() => makeDecision({ accepted: true, parent })}
+            onAction={() => makeDecision({ accepted: true, parent: user })}
             onClose={onClose}
             isCancelButtonVisible={isCancelButtonVisible}
             isActionButtonSecondary
             dialogProps={{ maxWidth: 'xs' }}
         >
             <Typography variant="h4" className={classes.header}>
-                {t('parent-settings.modal-delete-account.header')}
+                {t(`parent-settings.modal-delete-${user.role}-account.header`)}
             </Typography>
-            <Typography variant="body1">{t('parent-settings.modal-delete-account.first-description')}</Typography>
             <Typography variant="body1">
-                <strong>{parent.mail}</strong> ?
+                {t(`parent-settings.modal-delete-${user.role}-account.first-description`)}
+            </Typography>
+            <Typography variant="body1">
+                <strong>{user.mail}</strong> ?
             </Typography>
             <Typography variant="body1" className={classes.mail}>
-                {t('parent-settings.modal-delete-account.second-description')}
+                {t(`parent-settings.modal-delete-${user.role}-account.second-description`)}
             </Typography>
         </BasicModal>
     );
