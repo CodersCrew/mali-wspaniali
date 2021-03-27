@@ -38,7 +38,11 @@ export class UserRepository {
   }
 
   async getAll(role?: string): Promise<User[]> {
-    let query: { [index: string]: string | boolean } = { deleted: false };
+    let query: { [index: string]: string | boolean | unknown } = {
+      deleted: {
+        $in: [false, undefined],
+      },
+    };
 
     if (role) {
       query.role = role;
