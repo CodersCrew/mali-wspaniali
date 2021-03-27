@@ -86,7 +86,7 @@ export function useAssessmentManager(
             lastMeasurementEndDate: assessment.lastMeasurementEndDate,
             isOutdated: assessment.isOutdated,
             isDeleted: assessment.isDeleted,
-            kindergartenIds: assessment.kindergartens.map((k) => k.kindergarten._id),
+            kindergartenIds: assessment.kindergartens.filter((k) => !!k.kindergarten).map((k) => k.kindergarten!._id),
         });
     }, [assessment]);
 
@@ -170,7 +170,7 @@ export function useAssessmentManager(
         const parsedKindergarten =
             assessment?.kindergartens
                 .map((k) => ({
-                    kindergartenId: k.kindergarten._id,
+                    kindergartenId: k.kindergarten!._id,
                     instructorId: k.instructor?._id,
                 }))
                 .filter((k) => {

@@ -45,18 +45,14 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
         props.onClose();
     };
 
-    // const instructorId = props.relations.instructor._id;
-
     if (!currentRelation) return null;
 
     const currentInstructor = currentRelation.instructor;
 
-    const exsistingKindergartemAssignements = props.assessment.kindergartens
-        // .filter(({ kindergarten }) => !selectedKindergartens.includes(kindergarten?._id)) // filter out selected kindergartend that will be updated on save
-        .map(({ kindergarten, instructor }) => ({
-            kindergartenId: kindergarten?._id,
-            instructorId: instructor?._id,
-        }));
+    const exsistingKindergartemAssignements = props.assessment.kindergartens.map(({ kindergarten, instructor }) => ({
+        kindergartenId: kindergarten?._id,
+        instructorId: instructor?._id,
+    }));
 
     return (
         <TwoActionsModal
