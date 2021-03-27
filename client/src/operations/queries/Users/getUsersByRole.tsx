@@ -23,6 +23,11 @@ interface UseParentsReturnType {
     isParentsListLoading: boolean;
 }
 
+interface UseUsersReturnType {
+    users: User[];
+    isUserListLoading: boolean;
+}
+
 export const INSTRUCTORS = gql`
     query Users {
         users(role: "instructor") {
@@ -109,4 +114,17 @@ export function useParents(): UseParentsReturnType {
         parents: data?.users || [],
         isParentsListLoading: loading,
     };
+}
+
+export function useUsers(role: string): UseUsersReturnType {
+    const { data, loading } = useQuery<ParentsListResponse>(role === 'parent' ? PARENTS : INSTRUCTORS);
+
+    return {
+        users: data?.users.map(normalizeUser) || [],
+        isUserListLoading: loading,
+    };
+}
+
+function normalizeUser(user: User) {
+    return { ...user, children: user.children || [] };
 }
