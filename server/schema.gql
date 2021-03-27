@@ -20,11 +20,9 @@ type ArticleDTO {
   contentHTML: String!
   date: DateTime!
   description: String!
-  header: String!
   pictureUrl: String!
   readingTime: Int!
   redactor: RedactorDTO!
-  subtitle: String!
   tags: [String!]!
   title: String!
   videoUrl: String
@@ -269,11 +267,9 @@ input ArticleInput {
   category: String!
   contentHTML: String!
   description: String!
-  header: String!
   pictureUrl: String!
   readingTime: Int!
   redactor: RedactorInput!
-  subtitle: String!
   tags: [String!]!
   title: String!
   videoUrl: String

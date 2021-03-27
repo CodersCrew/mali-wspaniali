@@ -2,10 +2,8 @@ export type ArticleCategory = 'food' | 'activity' | 'emotions' | 'other';
 
 export interface Article {
     _id: string;
-    header: string;
     pictureUrl: string;
     title: string;
-    subtitle: string;
     contentHTML: string;
     tags: string[];
     category: ArticleCategory;

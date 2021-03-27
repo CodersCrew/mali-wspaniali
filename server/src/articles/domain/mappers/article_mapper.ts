@@ -19,8 +19,6 @@ export class ArticleMapper {
       readingTime: props.readingTime.value,
       tags: props.tags.value,
       description: props.description.value,
-      header: props.header.value,
-      subtitle: props.subtitle.value,
       title: props.title.value,
       redactor: RedactorMapper.toPersistence(props.redactor),
     };
@@ -40,18 +38,6 @@ export class ArticleMapper {
       300,
       30,
     ).getValue();
-    const header = TextLength.create(
-      props.header,
-      'header',
-      200,
-      20,
-    ).getValue();
-    const subtitle = TextLength.create(
-      props.subtitle,
-      'subtitle',
-      100,
-      10,
-    ).getValue();
     const title = TextLength.create(props.title, 'title', 100, 10).getValue();
     const redactor = RedactorMapper.toDomain(props.redactor).getValue();
 
@@ -63,8 +49,6 @@ export class ArticleMapper {
       readingTime,
       tags,
       description,
-      header,
-      subtitle,
       title,
       redactor,
     };
