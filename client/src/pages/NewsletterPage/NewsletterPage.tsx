@@ -3,11 +3,14 @@ import clsx from 'clsx';
 import { Typography, makeStyles, createStyles, Theme, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik, FormikErrors, FormikTouched } from 'formik';
+
 import { NewsletterFormValues, SpecificRecipient } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
+
+const parser = new DOMParser();
 
 export default function NewsletterPage() {
     const classes = useStyles();
@@ -28,6 +31,7 @@ export default function NewsletterPage() {
             recipients: t('newsletter.recipient-helper-text'),
             type: t('newsletter.type-helper-text'),
             topic: t('newsletter.topic-helper-text'),
+            message: t('newsletter.message-helper-text'),
         },
         validate,
         onSubmit: (values) => {
@@ -86,17 +90,19 @@ export default function NewsletterPage() {
                         <StepLabel className={classes.stepLabel} error={secondStepError}>
                             {t(setSecondStepLabel(firstStepCompleted, secondStepCompleted))}
                         </StepLabel>
-                        <StepContent className={classes.stepContent}>
-                            <NewsletterContent
-                                onChange={(name, value) => setFieldValue(name, value)}
-                                onBlur={handleBlur}
-                                type={type}
-                                topic={topic}
-                                message={message}
-                                errors={errors}
-                                touched={touched}
-                            />
-                        </StepContent>
+                        <Step expanded className={classes.step}>
+                            <StepContent className={classes.stepContent}>
+                                <NewsletterContent
+                                    onChange={(name, value) => setFieldValue(name, value)}
+                                    onBlur={handleBlur}
+                                    type={type}
+                                    topic={topic}
+                                    message={message}
+                                    errors={errors}
+                                    touched={touched}
+                                />
+                            </StepContent>
+                        </Step>
                     </Step>
                 </Stepper>
                 <div className={classes.formButtonWrapper}>
@@ -120,7 +126,8 @@ const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) => O
 const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
     !errors.generalRecipientType && !errors.specificRecipientType && !errors.recipients;
 
-const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) => !errors.type && !errors.topic;
+const isSecondStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
+    !errors.type && !errors.topic && !errors.message;
 
 const isFirstStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
     (!!touched.generalRecipientType && !!errors.generalRecipientType) ||
@@ -128,7 +135,7 @@ const isFirstStepError = (touched: FormikTouched<NewsletterFormValues>, errors: 
     (!!touched.recipients && !!errors.recipients);
 
 const isSecondStepError = (touched: FormikTouched<NewsletterFormValues>, errors: FormikErrors<NewsletterFormValues>) =>
-    (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic);
+    (!!touched.type && !!errors.type) || (!!touched.topic && !!errors.topic) || (!!touched.message && !!errors.message);
 
 const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: boolean) => {
     if (!firstStepCompleted) {
@@ -144,7 +151,7 @@ const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: bo
 const validate = (values: NewsletterFormValues) => {
     const errors: FormikErrors<NewsletterFormValues> = {};
 
-    const { generalRecipientType, specificRecipientType, recipients, type, topic } = values;
+    const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = values;
 
     if (!generalRecipientType) {
         errors.generalRecipientType = 'newsletter.general-recipient-helper-text';
@@ -166,10 +173,19 @@ const validate = (values: NewsletterFormValues) => {
         errors.topic = 'newsletter.topic-helper-text';
     }
 
-    // TODO:
-    // validate message field
+    if (isEmptyMessage(message)) {
+        errors.message = 'newsletter.message-helper-text';
+    }
+
     return errors;
 };
+
+// Given message is a stringify DOM element.
+function isEmptyMessage(message: string) {
+    const parsedMessage = parser.parseFromString(message, 'text/html');
+
+    return parsedMessage.documentElement.textContent?.length === 0;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
