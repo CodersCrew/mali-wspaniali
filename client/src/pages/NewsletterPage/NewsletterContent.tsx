@@ -69,7 +69,7 @@ export const NewsletterContent = ({ onChange, onBlur, type, topic, message, erro
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Workspace value={message} onChange={onChange} />
+                        <Workspace value={message} onChange={onChange} error={errors.message} />
                     </Grid>
                 </Grid>
             </CardContent>

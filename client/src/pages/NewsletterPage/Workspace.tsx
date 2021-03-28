@@ -1,30 +1,39 @@
+import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles } from '@material-ui/core';
+import { makeStyles, createStyles, FormControl, FormHelperText } from '@material-ui/core';
 
 import { modules, formats } from './workspaceConfig';
 import { Theme } from '../../theme';
 
 interface Props {
     value: string;
+    error?: string;
     onChange: (name: string, value: string) => void;
 }
 
-export const Workspace = ({ value, onChange }: Props) => {
+export const Workspace = ({ value, error, onChange }: Props) => {
     const { t } = useTranslation();
+    const [isTouched, setIsTouched] = React.useState(false);
     const classes = useStyles();
 
     return (
-        <ReactQuill
-            className={classes.workspace}
-            value={value}
-            onChange={(content) => onChange('message', content)}
-            theme="snow"
-            modules={modules}
-            formats={formats}
-            placeholder={t('newsletter.placeholder')}
-        />
+        <FormControl error={!!error} hiddenLabel={!!error} fullWidth>
+            <ReactQuill
+                className={classes.workspace}
+                value={value}
+                onChange={(content) => onChange('message', content)}
+                theme="snow"
+                modules={modules}
+                formats={formats}
+                placeholder={t('newsletter.placeholder')}
+                onFocus={() => setIsTouched(true)}
+            />
+            {!!error && isTouched && (
+                <FormHelperText classes={{ root: classes.errorMessage }}>{t(error)}</FormHelperText>
+            )}
+        </FormControl>
     );
 };
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,6 +54,9 @@ const useStyles = makeStyles((theme: Theme) =>
                 height: 'unset',
                 flex: 1,
             },
+        },
+        errorMessage: {
+            margin: '3px 14px 0',
         },
     }),
 );
