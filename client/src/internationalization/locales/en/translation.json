@@ -823,7 +823,8 @@
             "go-to-articles": "Go to articles"
         },
         "child-list": "Child list",
-        "edit": "Edytuj",
+        "edit": "Edit",
+        "add": "Add",
         "added-first-note-for": "A first measurement note for {{name}} has been added",
         "added-last-note-for": "A last measurement note for {{name}} has been added",
         "years": "years"

@@ -28,7 +28,11 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
         setLocalResult(resultCreator.values);
     }, [resultCreator.values, getCurrentNote()]);
 
-    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
+    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => {
+        if (Number.isNaN(v)) return acc;
+
+        return acc + v;
+    }, 0);
 
     return (
         <Paper>
@@ -79,31 +83,34 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                     <Divider />
                 </Grid>
                 <Grid item className={classes.footer}>
-                    <Paper className={classes.footerPaper}>
-                        <Grid container justify="flex-end">
-                            <Grid item>
-                                <Box mr={2}>
-                                    <ButtonSecondary variant="text" onClick={() => onClick('back-to-table', '')}>
-                                        {t('add-result-page.back-to-table')}
-                                    </ButtonSecondary>
-                                </Box>
-                            </Grid>
-                            <Grid item>
-                                <ActionMenuButtonSecondary
-                                    label={t('add-result-page.save-and-next')}
-                                    onClick={() => onClick('save-and-next', localResult)}
-                                    options={[
-                                        <MenuItem
-                                            key="add-result-page.save-and-back-to-table"
-                                            onClick={() => onClick('save-and-back-to-table', localResult)}
-                                        >
-                                            {t('add-result-page.save-and-back-to-table')}
-                                        </MenuItem>,
-                                    ]}
-                                />
-                            </Grid>
+                    <Grid container spacing={1} justify="center">
+                        <Grid item>
+                            <Box mr={2}>
+                                <ButtonSecondary
+                                    size="small"
+                                    variant="text"
+                                    onClick={() => onClick('back-to-table', '')}
+                                >
+                                    {t('add-result-page.back-to-table')}
+                                </ButtonSecondary>
+                            </Box>
                         </Grid>
-                    </Paper>
+                        <Grid item>
+                            <ActionMenuButtonSecondary
+                                size="small"
+                                label={t('add-result-page.save-and-next')}
+                                onClick={() => onClick('save-and-next', localResult)}
+                                options={[
+                                    <MenuItem
+                                        key="add-result-page.save-and-back-to-table"
+                                        onClick={() => onClick('save-and-back-to-table', localResult)}
+                                    >
+                                        {t('add-result-page.save-and-back-to-table')}
+                                    </MenuItem>,
+                                ]}
+                            />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Paper>
@@ -138,7 +145,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
     }
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
     createStyles({
         editor: {
             flex: '1 1 auto',
@@ -154,19 +161,15 @@ const useStyles = makeStyles(() =>
         footer: {
             display: 'flex',
             alignItems: 'center',
-            height: 56,
+            minHeight: 56,
+            height: 'auto',
             width: '100%',
             position: 'absolute',
             bottom: 0,
             right: 0,
             zIndex: 1300,
-        },
-        footerPaper: {
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            height: '100%',
-            paddingRight: 16,
+            padding: theme.spacing(0.5, 1),
+            backgroundColor: theme.palette.primary.contrastText,
         },
     }),
 );
