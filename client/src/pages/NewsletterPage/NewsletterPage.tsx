@@ -10,6 +10,8 @@ import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
 
+const parser = new DOMParser();
+
 export default function NewsletterPage() {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -171,12 +173,19 @@ const validate = (values: NewsletterFormValues) => {
         errors.topic = 'newsletter.topic-helper-text';
     }
 
-    if (!message.replaceAll(/<[^>]+>/g, '')) {
+    if (isEmptyMessage(message)) {
         errors.message = 'newsletter.message-helper-text';
     }
 
     return errors;
 };
+
+// Given message is a stringify DOM element.
+function isEmptyMessage(message: string) {
+    const parsedMessage = parser.parseFromString(message, 'text/html');
+
+    return parsedMessage.documentElement.textContent?.length === 0;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
