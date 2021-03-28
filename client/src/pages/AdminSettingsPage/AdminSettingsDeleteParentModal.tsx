@@ -22,26 +22,27 @@ const AdminSettingsDeleteParent = ({
 
     return (
         <BasicModal
-            closeButtonText={t(`parent-settings.modal-delete-${user.role}-account.first-button`)}
-            actionName={t(`parent-settings.modal-delete-${user.role}-account.second-button`)}
+            closeButtonText={t(`user-settings.modal-delete-${user.role}-account.first-button`)}
+            actionName={t(`user-settings.modal-delete-${user.role}-account.second-button`)}
             isOpen={true}
             onAction={() => makeDecision({ accepted: true, parent: user })}
             onClose={onClose}
+            isActionButtonVisible
             isCancelButtonVisible={isCancelButtonVisible}
             isActionButtonSecondary
             dialogProps={{ maxWidth: 'xs' }}
         >
             <Typography variant="h4" className={classes.header}>
-                {t(`parent-settings.modal-delete-${user.role}-account.header`)}
+                {t(`user-settings.modal-delete-${user.role}-account.header`)}
             </Typography>
             <Typography variant="body1">
-                {t(`parent-settings.modal-delete-${user.role}-account.first-description`)}
+                {t(`user-settings.modal-delete-${user.role}-account.first-description`)}
             </Typography>
             <Typography variant="body1">
                 <strong>{user.mail}</strong> ?
             </Typography>
             <Typography variant="body1" className={classes.mail}>
-                {t(`parent-settings.modal-delete-${user.role}-account.second-description`)}
+                {t(`user-settings.modal-delete-${user.role}-account.second-description`)}
             </Typography>
         </BasicModal>
     );

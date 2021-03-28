@@ -64,7 +64,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                                 }).then((res) => {
                                     if (!res.close)
                                         openSnackbar({
-                                            text: t('parent-settings.modal-edit-account.success-message'),
+                                            text: t('user-settings.modal-edit-account.success-message'),
                                         });
                                 });
                             }}
