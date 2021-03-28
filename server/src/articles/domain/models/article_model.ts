@@ -17,11 +17,9 @@ export interface ArticleProps {
   readonly contentHTML: string;
   readonly date?: Date;
   description: TextLengthProps;
-  header: TextLengthProps;
   pictureUrl: UrlProps;
   readingTime: number;
   readonly redactor: RedactorProps;
-  subtitle: TextLengthProps;
   tags: TagsProps;
   title: TextLengthProps;
   videoUrl?: UrlProps;
@@ -33,11 +31,9 @@ interface ArticleInnerProps {
   readonly contentHTML: string;
   readonly date?: Date;
   description: TextLength;
-  header: TextLength;
   pictureUrl: Url;
   readingTime: ReadingTime;
   readonly redactor: Redactor;
-  subtitle: TextLength;
   tags: Tags;
   title: TextLength;
   videoUrl?: Url;

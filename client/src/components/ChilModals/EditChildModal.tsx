@@ -19,7 +19,7 @@ const AdminSettingsEditModal = ({
     onClose,
     makeDecision,
     kindergartens,
-    parent,
+    user,
     preventClose,
     isCancelButtonVisible,
 }: ChildModalProps & ActionDialog<{ child: ChildInput }>) => {
@@ -42,7 +42,7 @@ const AdminSettingsEditModal = ({
 
     return (
         <BasicModal
-            actionName={t('parent-settings.modal-edit-account.button')}
+            actionName={t('user-settings.modal-edit-account.button')}
             isOpen={true}
             onAction={formik.handleSubmit}
             onClose={onClose}
@@ -51,17 +51,17 @@ const AdminSettingsEditModal = ({
         >
             <form onSubmit={formik.handleSubmit}>
                 <Typography variant="h4" className={classes.header}>
-                    {t('parent-settings.modal-edit-account.header')}
+                    {t('user-settings.modal-edit-account.header')}
                 </Typography>
                 <Typography variant="body1" className={classes.header}>
-                    {t('parent-settings.modal-edit-account.subtitle')}
+                    {t('user-settings.modal-edit-account.subtitle')}
                 </Typography>
-                <Typography variant="subtitle2">{t('parent-settings.modal-edit-account.label')}</Typography>
+                <Typography variant="subtitle2">{t('user-settings.modal-edit-account.label')}</Typography>
                 <Typography variant="body1" className={classes.mail}>
-                    {parent.mail}
+                    {user.mail}
                 </Typography>
                 <Grid container spacing={3} className={classes.chilCard}>
-                    {parent.children.map(
+                    {user.children.map(
                         (
                             { firstname, lastname, sex, birthYear, birthQuarter, kindergarten }: EditChildType,
                             index: number,

@@ -73,7 +73,7 @@ export default function InstructorResultCreatorPage() {
 
         if (type === 'child') {
             history.push(
-                `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${value}`,
+                `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${value}`,
             );
         }
 
@@ -83,7 +83,7 @@ export default function InstructorResultCreatorPage() {
 
         if (type === 'kindergarten') {
             const currentSelectedKindergarten = resultCreator.selectedAssessment?.kindergartens.find(
-                (k) => k.kindergarten._id === value,
+                (k) => k.kindergarten?._id === value,
             )?.kindergarten;
             const firstChildren = currentSelectedKindergarten?.children![0];
 

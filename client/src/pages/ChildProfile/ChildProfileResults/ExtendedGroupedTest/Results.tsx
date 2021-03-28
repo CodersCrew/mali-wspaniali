@@ -2,26 +2,17 @@ import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import Girl from '../../../../assets/girl.svg';
 import Boy from '../../../../assets/boy.svg';
+import { ResultsData } from './types';
 
-const Results = () => {
+export interface Props {
+    resultsData: ResultsData;
+}
+
+const Results = ({ resultsData }: Props) => {
+    const { v1, v2, v3, v4, v5, unit, result, resultStart, hasScoreRangeLabels, sex } = resultsData;
     const { t } = useTranslation();
-    const mockedData = {
-        v1: 17,
-        v2: 14,
-        v3: 12,
-        v4: 8,
-        v5: 5,
-        unit: 's',
-        result: 8,
-        resultStart: 8,
-    };
-
-    const sex = 'male';
     const avatar = sex !== 'male' ? Boy : Girl;
-
-    const { v1, v2, v3, v4, v5, unit, result, resultStart } = mockedData;
     const range = v1 - v5;
-
     const calculatePercent = (value: number) => {
         return (value / range) * 100;
     };
@@ -151,19 +142,21 @@ const Results = () => {
                     <rect width="8" height="80" rx="4" x="98" y="68" fill="#212121" />
                 </svg>
             </div>
-            <div className={classes.scoring}>
-                <svg width="100%" height="30" viewBox="0 0 100% 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <text x={`${shiftFirstScoreRange}%`} y="20" fill="black">
-                        (21 pkt)
-                    </text>
-                    <text x={`${shiftSecondScoreRange}%`} y="20" fill="black">
-                        (22-78 pkt)
-                    </text>
-                    <text x={`${shiftThirdScoreRange}%`} y="20" fill="black">
-                        (22-79 pkt)
-                    </text>
-                </svg>
-            </div>
+            {hasScoreRangeLabels && (
+                <div className={classes.scoring}>
+                    <svg width="100%" height="30" viewBox="0 0 100% 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text x={`${shiftFirstScoreRange}%`} y="20" fill="black">
+                            (21 pkt)
+                        </text>
+                        <text x={`${shiftSecondScoreRange}%`} y="20" fill="black">
+                            (22-78 pkt)
+                        </text>
+                        <text x={`${shiftThirdScoreRange}%`} y="20" fill="black">
+                            (22-79 pkt)
+                        </text>
+                    </svg>
+                </div>
+            )}
         </div>
     );
 };

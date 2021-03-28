@@ -8,6 +8,7 @@ import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
 import { ButtonSecondary } from '../../components/Button';
 import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
 import { countCurrentPoints } from './countPoints';
+import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     resultCreator: ResultCreatorReturnProps;
@@ -20,8 +21,8 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
     const { t } = useTranslation();
 
     const kindergartens = resultCreator.selectedAssessment.kindergartens.map((k) => k.kindergarten) || [];
-    const childList = resultCreator.selectedKindergarten.children || [];
-    const selectedKindergarten = resultCreator.selectedKindergarten._id || '';
+    const childList = resultCreator.selectedKindergarten.children ?? [];
+    const selectedKindergarten = resultCreator.selectedKindergarten._id;
     const selectedChild = resultCreator.selectedChild._id;
 
     return (
@@ -32,7 +33,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
                         <ChildPicker
                             header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
                             selectedKindergarten={selectedKindergarten}
-                            kindergartens={kindergartens}
+                            kindergartens={kindergartens.filter((k) => !!k) as Kindergarten[]}
                             selected={selectedChild}
                             measurement={measurement}
                             results={resultCreator.kindergartenResults}
@@ -70,7 +71,11 @@ function EditorPanel(props: EditorPanelProps) {
         setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 
-    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
+    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => {
+        if (Number.isNaN(v)) return acc;
+
+        return acc + v;
+    }, 0);
 
     return (
         <Grid container direction="column" className={classes.editorContainer}>

@@ -3,6 +3,7 @@ import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+
 import { openDialog } from '../../utils/openDialog';
 import { HelpModal } from './HelpModal';
 import { Workspace } from './Workspace';
@@ -68,7 +69,7 @@ export const NewsletterContent = ({ onChange, onBlur, type, topic, message, erro
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Workspace value={message} onChange={onChange} />
+                        <Workspace value={message} onChange={onChange} error={errors.message} />
                     </Grid>
                 </Grid>
             </CardContent>

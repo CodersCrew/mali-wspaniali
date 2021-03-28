@@ -9,7 +9,7 @@ export const SearchInput = () => {
         <TextField
             variant="outlined"
             id="search"
-            label={t('parent-settings.input-label')}
+            label={t('user-settings.input-label')}
             fullWidth
             InputProps={
                 <InputAdornment position="end">
