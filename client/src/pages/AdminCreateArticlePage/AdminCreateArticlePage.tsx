@@ -27,7 +27,6 @@ export default function CreateArticlePage() {
         category: '',
         contentHTML: '',
         description: '',
-        header: '',
         pictureUrl: '',
         readingTime: 0,
         redactor: {
@@ -37,7 +36,6 @@ export default function CreateArticlePage() {
             profession: '',
             biography: '',
         },
-        subtitle: '',
         tags: [],
         title: '',
         videoUrl: '',
