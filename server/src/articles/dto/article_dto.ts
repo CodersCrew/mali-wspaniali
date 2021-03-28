@@ -19,9 +19,6 @@ export class ArticleDTO {
   readonly description: string;
 
   @Field()
-  readonly header: string;
-
-  @Field()
   readonly pictureUrl: string;
 
   @Field(() => Int)
@@ -29,9 +26,6 @@ export class ArticleDTO {
 
   @Field()
   readonly redactor: RedactorDTO;
-
-  @Field()
-  readonly subtitle: string;
 
   @Field(() => [String])
   tags: string[];

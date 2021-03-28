@@ -7,8 +7,6 @@ const ARTICLE_BY_ID = gql`
             _id
             title
             description
-            subtitle
-            header
             category
             pictureUrl
             contentHTML

@@ -15,9 +15,6 @@ export class ArticleInput {
   readonly description: string;
 
   @Field()
-  readonly header: string;
-
-  @Field()
   readonly pictureUrl: string;
 
   @Field(() => Int)
@@ -25,9 +22,6 @@ export class ArticleInput {
 
   @Field()
   readonly redactor: RedactorInput;
-
-  @Field()
-  readonly subtitle: string;
 
   @Field(() => [String])
   readonly tags: string[];

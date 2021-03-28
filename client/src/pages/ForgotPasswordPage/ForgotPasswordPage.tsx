@@ -102,9 +102,9 @@ export default function ForgotPasswordPage() {
                 <div className={classes.footer}>
                     <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
                     <Link underline="always" color="textPrimary">
-                        {t('forgot-password-page.contact')}
+                        <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
                     </Link>
-                    <Box mt={7}>
+                    <Box mt={3}>
                         <ButtonSecondary variant="text" href="/">
                             {t('forgot-password-page.back-to-login')}
                         </ButtonSecondary>
@@ -120,9 +120,10 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             flex: 1,
+            minHeight: '100vh',
         },
         header: {
             marginLeft: 'auto',

@@ -58,6 +58,6 @@ export class GetAllChildrenHandler
       };
     });
 
-    return childrenWithKindergartens;
+    return childrenWithKindergartens.filter(child => !child.child.isDeleted);
   }
 }
