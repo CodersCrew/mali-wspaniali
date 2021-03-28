@@ -60,7 +60,7 @@ export default function CreateArticlePage() {
     };
 
     const onCancel = () => {
-        history.push(`/admin/articles/categories/all`);
+        history.push('/admin/articles/categories/all');
     };
 
     const onSubmit = () => {
@@ -292,7 +292,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         workspace: {
             marginBottom: theme.spacing(2),
-            borderRadius: '4',
             '& .ql-container': {
                 minHeight: 170,
                 borderRadius: '0 0 4px 4px',

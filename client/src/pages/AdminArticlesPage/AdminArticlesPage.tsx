@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme, Typography, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
 import { categoriesList } from '../ArticleListPage/BlogCategories';
-import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
+import { useArticles } from '../../operations/queries/Articles/getArticles';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
-import { PaginatedArticles } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
@@ -27,15 +25,7 @@ export default function AdminArticlesPage() {
     const { isSmallMobile } = useIsDevice();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, loading, fetchMore } = useQuery<{
-        paginatedArticles: PaginatedArticles;
-    }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
-        variables: {
-            page: currentPage,
-            perPage: ARTICLES_PER_PAGE,
-            category: params.category === 'all' ? undefined : params.category,
-        },
-    });
+    const { data, loading, fetchMore } = useArticles({ page: currentPage, perPage: ARTICLES_PER_PAGE, category: params.category});
 
     useEffect(() => {
         activePage(['admin-menu.articles.title']);
