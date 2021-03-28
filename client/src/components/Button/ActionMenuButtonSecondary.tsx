@@ -12,7 +12,6 @@ interface ActionMenuButtonSecondaryProps {
 export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps) {
     const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
     const anchorRef = useRef<HTMLDivElement>(null);
-    console.log(props.size);
 
     return (
         <Grid container direction="column" alignItems="center">
