@@ -90,11 +90,7 @@ export default function ForgotPasswordPage() {
                     <Typography variant="h4" className={classes.title}>
                         {t('forgot-password-page.forgot-password')}
                     </Typography>
-                    <ResetPasswordForm
-                        onChange={handleInputChange}
-                        onSubmit={handleCreateNewPassword}
-                        email={email}
-                    />
+                    <ResetPasswordForm onChange={handleInputChange} onSubmit={handleCreateNewPassword} email={email} />
                 </div>
                 <div className={classes.footer}>
                     <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>

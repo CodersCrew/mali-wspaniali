@@ -18,12 +18,12 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     const [isError, setIsError] = useState(false);
 
     const handleSubmit = () => {
-        if(isValidEmail(inputValue)){
-            setIsError(false)
+        if (isValidEmail(inputValue)) {
+            setIsError(false);
             onSubmit();
         } else {
             setIsError(true);
-        };
+        }
     };
 
     const handleChange = (value: string) => {
