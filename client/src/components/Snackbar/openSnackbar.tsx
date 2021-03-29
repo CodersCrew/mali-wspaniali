@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Snackbar, SnackbarOrigin } from '@material-ui/core';
+import { createStyles, makeStyles, Snackbar, SnackbarOrigin, Typography } from '@material-ui/core';
 import { Alert, AlertProps, AlertTitle } from '@material-ui/lab';
 
 import { ActionDialog, DialogResult, openDialog } from '../../utils/openDialog';
@@ -25,8 +25,12 @@ export function openSnackbar({ text, subtext, variant, severity, anchor }: Props
                     classes={{ root: classes.container }}
                 >
                     <Alert onClose={onClose} severity={severity || 'success'} variant={variant || 'filled'}>
-                        {subtext && <AlertTitle>{text}</AlertTitle>}
-                        {subtext || text}
+                        {subtext && (
+                            <AlertTitle>
+                                <Typography variant="subtitle1">{text}</Typography>
+                            </AlertTitle>
+                        )}
+                        {subtext ? <Typography variant="body2">{subtext}</Typography> : text}
                     </Alert>
                 </Snackbar>
             </div>
