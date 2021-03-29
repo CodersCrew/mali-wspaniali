@@ -1,5 +1,7 @@
 import { TextField, Typography, Box } from '@material-ui/core';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isValidEmail } from './isValidEmail';
 import { ButtonSecondary } from '../../components/Button';
 
 const tPrefix = 'forgot-password-page';
@@ -7,12 +9,27 @@ const tPrefix = 'forgot-password-page';
 type Props = {
     onChange: (value: string) => void;
     onSubmit: () => void;
-    isDisabled: boolean;
     email: string;
 };
 
-export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Props) {
+export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     const { t } = useTranslation();
+    const [inputValue, setInputValue] = useState('');
+    const [isError, setIsError] = useState(false);
+
+    const handleSubmit = () => {
+        if(isValidEmail(inputValue)){
+            setIsError(false)
+            onSubmit();
+        } else {
+            setIsError(true);
+        };
+    };
+
+    const handleChange = (value: string) => {
+        setInputValue(value);
+        onChange(value);
+    };
 
     return (
         <>
@@ -25,20 +42,19 @@ export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Pro
                 </Typography>
             </Box>
             <TextField
-                required
+                error={isError}
                 fullWidth
                 value={email}
                 id="email"
                 label={t('e-mail')}
                 variant="outlined"
-                helperText={t(`${tPrefix}.email-helper-text`)}
-                onChange={({ target: { value } }) => onChange(value)}
+                helperText={isError ? t(`${tPrefix}.incorrect-email-helper-text`) : t(`${tPrefix}.email-helper-text`)}
+                onChange={({ target: { value } }) => handleChange(value)}
             />
             <Box mt={3} display="flex" justifyContent="flex-end" width="100%" justifyItems="flex-end">
                 <ButtonSecondary
                     variant="contained"
-                    disabled={isDisabled}
-                    onClick={onSubmit}
+                    onClick={handleSubmit}
                     innerText={t('forgot-password-page.continue')}
                 />
             </Box>

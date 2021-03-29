@@ -3,7 +3,6 @@ import { Chip, makeStyles, createStyles, Theme } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import clsx from 'clsx';
-import { mainColor } from '../../colors';
 
 const T_PREFIX = 'registration-page';
 
@@ -51,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
             border: 0,
 
             '&.checked': {
-                color: mainColor,
+                color: theme.palette.primary.main,
             },
         },
     }),

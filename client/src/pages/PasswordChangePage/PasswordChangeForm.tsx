@@ -100,7 +100,8 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             justifyContent: 'space-between',
             maxHeight: 33,
-            margin: '20px 0',
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2),
 
             '&.emailContent': {
                 justifyContent: 'flex-end',

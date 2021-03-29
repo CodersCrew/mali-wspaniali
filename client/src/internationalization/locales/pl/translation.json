@@ -76,6 +76,7 @@
         "problem": "Napotkałeś problem?",
         "contact": "Skontaktuj się z fundacją, by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
+        "incorrect-email-helper-text": "Niepoprawny adres e-mail",
         "back-to-login": "Wróć do logowania",
         "avatar": "Małgosia",
         "email-sent": "Na Twój adres e-mail wysłaliśmy maila.",

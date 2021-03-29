@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         image: {
             borderRadius: '50%',
-            width: '214px',
+            width: theme.spacing(27),
             [theme.breakpoints.down('sm')]: {
                 width: '150px',
                 marginTop: '40px',
@@ -164,18 +164,18 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         successTitle: {
             textAlign: 'center',
-            width: '500px',
+            width: theme.spacing(57),
             marginBottom: theme.spacing(8),
         },
         successSubtitle: {
-            width: '450px',
+            width: theme.spacing(55),
             textAlign: 'center',
             marginBottom: theme.spacing(8),
         },
         title: {
             textAlign: 'center',
-            marginBottom: '20px',
-            marginTop: '20px',
+            marginBottom: theme.spacing(2),
+            marginTop: theme.spacing(2),
             textTransform: 'uppercase',
         },
         footer: {

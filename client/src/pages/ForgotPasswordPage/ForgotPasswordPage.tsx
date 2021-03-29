@@ -93,7 +93,6 @@ export default function ForgotPasswordPage() {
                     <ResetPasswordForm
                         onChange={handleInputChange}
                         onSubmit={handleCreateNewPassword}
-                        isDisabled={!isValidEmail(email)}
                         email={email}
                     />
                 </div>

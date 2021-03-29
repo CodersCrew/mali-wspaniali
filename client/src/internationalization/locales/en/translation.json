@@ -76,6 +76,7 @@
         "problem": "Stumbled upon a problem?",
         "contact": "Please contact the foundation to resolve it",
         "email-helper-text": "Type in an e-mail address used during registration",
+        "incorrect-email-helper-text": "Incorrect email address",
         "back-to-login": "Back to login",
         "avatar": "Małgosia",
         "email-sent": "The email has been sent.",
