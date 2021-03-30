@@ -19,10 +19,10 @@ import {
     passwordCapitalTest,
 } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
+import { Theme } from '../../../theme';
 
 import { RegistrationPasswordProps, PasswordValidation } from './types';
 import { PasswordStrengthChips } from './PasswordStrengthChips';
-import { Theme } from '../../../theme';
 
 const initialPasswordValidation: PasswordValidation = {
     length: false,

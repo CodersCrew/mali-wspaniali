@@ -66,7 +66,12 @@ export const RegistrationCode = ({
                     data-testid="code-next"
                     innerText={t('next')}
                 />
-                <ButtonSecondary variant="text" onClick={handleClick} innerText={t('registration-page.no-code')} />
+                <ButtonSecondary
+                    variant="text"
+                    onClick={handleClick}
+                    className={classes.noCodeButton}
+                    innerText={t('registration-page.no-code')}
+                />
             </div>
         </>
     );
@@ -76,6 +81,11 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         strong: {
             fontWeight: theme.typography.fontWeightMedium,
+        },
+        noCodeButton: {
+            textAlign: 'center',
+            whiteSpace: 'normal',
+            fontSize: theme.typography.caption.fontSize,
         },
     }),
 );
