@@ -259,7 +259,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         backToLoginButton: {
             textAlign: 'center',
             whiteSpace: 'normal',
-            fontSize: '12px',
+            fontSize: theme.typography.caption.fontSize,
         },
     }),
 );

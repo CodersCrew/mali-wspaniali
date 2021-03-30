@@ -72,9 +72,7 @@ export default function LoginPage() {
                         required
                         onChange={({ target: { value } }) => {
                             setEmail(value);
-                            setLoginError((prevState) => {
-                                return { ...prevState, message: '' };
-                            });
+                            setLoginError((prevState) => ({ ...prevState, message: '' }));
                         }}
                         value={email}
                         id="email"

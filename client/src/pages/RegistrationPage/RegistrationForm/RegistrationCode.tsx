@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
         noCodeButton: {
             textAlign: 'center',
             whiteSpace: 'normal',
-            fontSize: '12px',
+            fontSize: theme.typography.caption.fontSize,
         },
     }),
 );
