@@ -77,6 +77,12 @@ export default function NewsletterPage() {
                                 touched={touched}
                             />
                         </StepContent>
+                        <StepConnector
+                            classes={{
+                                root: classes.root,
+                                lineVertical: classes.lineVertical,
+                            }}
+                        />
                     </Step>
                     <Step
                         expanded
