@@ -1,6 +1,16 @@
 import { useEffect } from 'react';
 import clsx from 'clsx';
-import { Typography, makeStyles, createStyles, Theme, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
+import {
+    Typography,
+    makeStyles,
+    createStyles,
+    Theme,
+    Stepper,
+    Step,
+    StepLabel,
+    StepContent,
+    StepConnector,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik, FormikErrors, FormikTouched } from 'formik';
 
@@ -234,19 +244,6 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             width: '100%',
             marginTop: theme.spacing(3),
-
-            '& .MuiStepConnector-alternativeLabel': {
-                top: '-177px',
-                left: '46.5px',
-                height: '200px',
-                width: '1px',
-                padding: 0,
-                margin: 0,
-
-                '& .MuiStepConnector-lineVertical': {
-                    height: '167px',
-                },
-            },
         },
 
         stepLong: {
@@ -256,6 +253,19 @@ const useStyles = makeStyles((theme: Theme) =>
                     height: '239px',
                 },
             },
+        },
+        connectorActive: {
+            '& $connectorLine': {
+                borderColor: 'red',
+            },
+        },
+        root: {
+            top: '70px',
+            left: '46.5px',
+            margin: 0,
+        },
+        lineVertical: {
+            height: '170px',
         },
     }),
 );
