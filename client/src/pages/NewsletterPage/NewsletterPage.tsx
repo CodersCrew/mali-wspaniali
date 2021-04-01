@@ -10,6 +10,7 @@ import {
     StepLabel,
     StepContent,
     StepConnector,
+    createMuiTheme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik, FormikErrors, FormikTouched } from 'formik';
@@ -89,7 +90,7 @@ export default function NewsletterPage() {
                         </StepContent>
                         <StepConnector
                             classes={{
-                                root: classes.root,
+                                root: classes.rootConnecter,
                                 lineVertical: classes.lineVertical,
                             }}
                         />
@@ -98,7 +99,6 @@ export default function NewsletterPage() {
                         expanded
                         className={clsx({
                             [classes.step]: true,
-                            [classes.stepLong]: areSpecificRecipientsRequired(specificRecipientType),
                         })}
                         active={firstStepCompleted}
                         completed={secondStepCompleted}
@@ -203,6 +203,18 @@ function isEmptyMessage(message: string) {
     return parsedMessage.documentElement.textContent?.length === 0;
 }
 
+const customBreakpoints = createMuiTheme({
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 280,
+            md: 320,
+            lg: 360,
+            xl: 768,
+        },
+    },
+});
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
@@ -245,27 +257,25 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             marginTop: theme.spacing(3),
         },
-
-        stepLong: {
-            '& .MuiStepConnector-alternativeLabel': {
-                top: '-249px',
-                '& .MuiStepConnector-lineVertical': {
-                    height: '239px',
-                },
-            },
-        },
-        connectorActive: {
-            '& $connectorLine': {
-                borderColor: 'red',
-            },
-        },
-        root: {
+        rootConnecter: {
             top: '70px',
             left: '46.5px',
             margin: 0,
         },
         lineVertical: {
-            height: '170px',
+            height: theme.spacing(21),
+
+            [customBreakpoints.breakpoints.only('lg')]: {
+                height: theme.spacing(24),
+            },
+
+            [customBreakpoints.breakpoints.only('md')]: {
+                height: theme.spacing(27),
+            },
+
+            [customBreakpoints.breakpoints.only('sm')]: {
+                height: theme.spacing(30),
+            },
         },
     }),
 );
