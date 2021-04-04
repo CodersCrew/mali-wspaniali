@@ -1,6 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Typography, Box, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@material-ui/core';
+import {
+    makeStyles,
+    createStyles,
+    Typography,
+    Box,
+    FormControl,
+    InputLabel,
+    OutlinedInput,
+    InputAdornment,
+    IconButton,
+} from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { Theme } from '../../theme/types';
 import { PasswordChangeProps, PasswordValidation } from './types';
