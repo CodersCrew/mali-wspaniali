@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            flex: 1,
+            height: '100vh',
         },
         header: {
             marginLeft: 'auto',
@@ -135,13 +135,14 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
+            marginTop: theme.spacing(5),
         },
         successLayout: {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '70%',
+            height: '80%',
         },
         form: {
             display: 'flex',
@@ -177,6 +178,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginTop: theme.spacing(4),
         },
     }),
 );
