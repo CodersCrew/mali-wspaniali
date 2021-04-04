@@ -42,12 +42,12 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         chipsContainer: {
             display: 'grid',
-            gridTemplateColumns: 'auto auto auto auto',
-            justifyContent: 'space-around',
+            gridTemplateColumns: 'repeat(2,1fr)',
+            justifyItems: 'start',
+            marginTop: theme.spacing(2),
         },
         chip: {
             marginBottom: theme.spacing(1),
-            border: 0,
 
             '&.checked': {
                 color: theme.palette.primary.main,

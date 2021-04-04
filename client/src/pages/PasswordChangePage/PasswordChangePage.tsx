@@ -64,12 +64,13 @@ export default function PasswordChangePage() {
             </div>
             {onSuccess ? (
                 <div className={classes.successLayout}>
-                    <Typography variant="h2" className={classes.successTitle}>
+                    <img className={classes.image} src={SuccessImage} alt={t('forgot-password-page.avatar')} />
+                    <Typography variant="h3" className={classes.successTitle}>
                         <Box fontWeight="fontWeightRegular">
                             {t('password-change-success-page.password-change-success-title')}
                         </Box>
                     </Typography>
-                    <Typography variant="h5" align="center" className={classes.successSubtitle}>
+                    <Typography variant="subtitle1" align="center" className={classes.successSubtitle}>
                         {t('password-change-success-page.password-change-success-subtitle')}
                     </Typography>
                     <ButtonSecondary
@@ -134,12 +135,6 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
-
-            [theme.breakpoints.down('sm')]: {
-                width: '90%',
-                maxWidth: '480px',
-                margin: '0 15px',
-            },
         },
         successLayout: {
             display: 'flex',
@@ -158,19 +153,19 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '50%',
             width: theme.spacing(27),
             [theme.breakpoints.down('sm')]: {
-                width: '150px',
-                marginTop: '40px',
+                width: theme.spacing(14),
             },
         },
         successTitle: {
             textAlign: 'center',
-            width: theme.spacing(57),
-            marginBottom: theme.spacing(8),
+            width: theme.spacing(35),
+            marginTop: theme.spacing(4),
+            marginBottom: theme.spacing(2),
         },
         successSubtitle: {
-            width: theme.spacing(55),
+            width: theme.spacing(45),
             textAlign: 'center',
-            marginBottom: theme.spacing(8),
+            marginBottom: theme.spacing(5),
         },
         title: {
             textAlign: 'center',

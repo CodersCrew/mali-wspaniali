@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Typography, Box, FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
+import { makeStyles, createStyles, Typography, Box, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { Theme } from '../../theme/types';
 import { PasswordChangeProps, PasswordValidation } from './types';
 import { PasswordStrengthChips } from './PasswordStrengthChips';
@@ -22,6 +23,7 @@ const initialPasswordValidation: PasswordValidation = {
 export function PasswordChangeForm({ handleChange, password, passwordConfirm }: PasswordChangeProps) {
     const { t } = useTranslation();
     const classes = useStyles();
+    const [showPassword, setShowPassword] = useState(false);
     const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
     useEffect(() => {
@@ -33,6 +35,8 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
         });
     }, [password]);
 
+    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
     return (
         <Box className={classes.container}>
             <Typography variant="subtitle1" align="center" className={classes.subtitle}>
@@ -43,9 +47,20 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
                 <OutlinedInput
                     required
                     id="password"
-                    type={'password'}
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={handleChange}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={togglePasswordVisibility}
+                                edge="end"
+                            >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
                     data-testid="password"
                     label={t('password-change-page.new-password')}
                 />
@@ -56,9 +71,20 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
                 <OutlinedInput
                     required
                     id="passwordConfirm"
-                    type={'password'}
+                    type={showPassword ? 'text' : 'password'}
                     value={passwordConfirm}
                     onChange={handleChange}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={togglePasswordVisibility}
+                                edge="end"
+                            >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
                     data-testid="confirmPassword"
                     label={t('password-change-page.repeat-password')}
                 />
@@ -89,9 +115,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         formItem: {
             width: '100%',
+            margin: theme.spacing(2, 0),
 
             [theme.breakpoints.down('sm')]: {
-                margin: '10px 0',
+                margin: theme.spacing(2, 0),
             },
         },
         buttonWrapper: {
@@ -108,7 +135,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
 
             [theme.breakpoints.down('sm')]: {
-                margin: '10px 0 20px 0',
+                margin: theme.spacing(2, 0, 6, 0),
             },
         },
         createPasswordButton: {
