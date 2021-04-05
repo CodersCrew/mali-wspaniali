@@ -6,7 +6,7 @@ import { ArticlesResolver } from './articles_resolver';
 import { ArticleSchema } from './schemas/articles.schema';
 import { ArticlesRepository } from './domain/repositories/article_repository';
 import { CommandHandlers } from './domain/commands/handlers';
-import { EventHandlers } from './domain/events/handlers/index';
+import { EventHandlers } from './domain/events/handlers';
 import { QueryHandlers } from './domain/queries/handlers';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { UsersModule } from '../users/users_module';

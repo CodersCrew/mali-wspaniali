@@ -2,33 +2,31 @@ import { InputType, Field, Int } from '@nestjs/graphql';
 
 import { RedactorInput } from './redactor_input';
 import { CategoryProps } from '../domain/models/category';
+import { ArticleProps } from '../../articles/domain/models/article_model';
 
 @InputType()
 export class ArticleInput {
   @Field(() => String)
-  readonly category: CategoryProps;
+  category: CategoryProps;
 
   @Field()
-  readonly contentHTML: string;
+  contentHTML: string;
 
   @Field()
-  readonly description: string;
+  description: string;
 
   @Field()
-  readonly pictureUrl: string;
-
-  @Field(() => Int)
-  readonly readingTime: number;
+  pictureUrl: string;
 
   @Field()
-  readonly redactor: RedactorInput;
+  redactor: RedactorInput;
 
   @Field(() => [String])
-  readonly tags: string[];
+  tags: string[];
 
   @Field()
-  readonly title: string;
+  title: string;
 
   @Field({ nullable: true })
-  readonly videoUrl?: string;
+  videoUrl?: string;
 }

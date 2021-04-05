@@ -3,7 +3,7 @@ import waitForExpect from 'wait-for-expect';
 import { CreateKindergartenCommand } from '../../impl';
 import { CreateKindergartenHandler } from '../create_kindergarten_handler';
 import { KindergartenModule } from '../../../../kindergarten_module';
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { Kindergarten } from '../../../models/kindergarten_model';
 import { ObjectId } from '../../../../../users/domain/models/object_id_value_object';
 import { KindergartenTitle } from '../../../models/kindergarten_title_value_object';

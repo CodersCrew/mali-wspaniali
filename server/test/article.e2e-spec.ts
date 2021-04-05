@@ -132,8 +132,7 @@ mutation {
                 avatarUrl: "https://mali-wspaniali.netlify.app/"
               },
               tags: ["life-style"],
-              title: "my title lorem ipsum",
-              readingTime: 15    
+              title: "my title lorem ipsum"
             }) {
               status
             }
@@ -165,7 +164,6 @@ mutation {
               }
               tags
               title
-              readingTime
               }
             }
           }
@@ -191,7 +189,6 @@ mutation {
               },
               tags: ['life-style'],
               title: 'my title lorem ipsum',
-              readingTime: 15,
             }),
           );
         });
@@ -248,8 +245,7 @@ mutation {
               avatarUrl: "https://mali-wspaniali.netlify.app/"
             },
             tags: ["life-style"],
-            title: "my title lorem ipsum",
-            readingTime: 15    
+            title: "my title lorem ipsum"
           }) {
             status
           }
