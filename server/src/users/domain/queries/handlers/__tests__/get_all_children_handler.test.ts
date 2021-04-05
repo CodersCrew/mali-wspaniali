@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
 
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { KeyCodesModule } from '@keyCodes/key_codes_module';
 import { CreateKeyCodeHandler } from '@keyCodes/domain/commands/handlers';
 import { AgreementsModule } from '../../../../../agreements/agreements_module';
