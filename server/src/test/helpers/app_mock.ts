@@ -20,6 +20,15 @@ import { CreateKindergartenCommand } from '../../kindergartens/domain/commands/i
 import { GetAllChildrenHandler } from '../../users/domain/queries/handlers/get_all_children_handler';
 import { GetKindergartenHandler } from '../../kindergartens/domain/queries/handlers/get_kindergarten_handler';
 import { GetKindergartenQuery } from '../../kindergartens/domain/queries/impl/get_kindergarten_query';
+import { NotificationsModule } from '../../notifications/notifications.module';
+import { GetNotificationsByUserHandler } from '../../notifications/domain/queries/handlers/get_notifications_by_user_handler';
+import { GetNotificationsByUserQuery } from '../../notifications/domain/queries/impl/get_notifications_by_user_query';
+import { ArticlesModule } from '../../articles/articles_module';
+import { GetAllUsersHandler } from '../../users/domain/queries/handlers/get_all_users_handler';
+import { GetAllUsersQuery } from '../../users/domain/queries/impl/get_all_users_query';
+import waitForExpect from 'wait-for-expect';
+import { GetAllArticlesHandler } from '../../articles/domain/queries/handlers/get_all_articles_handler';
+import { GetAllArticlesQuery } from '../../articles/domain/queries/impl/get_all_articles_query';
 
 let app: TestingModule;
 
@@ -32,6 +41,8 @@ export async function setupTestApp() {
       AgreementsModule,
       KeyCodesModule,
       KindergartenModule,
+      NotificationsModule,
+      ArticlesModule,
     ],
     providers: [CreateKeyCodeHandler, CreateUserHandler],
   }).compile();
@@ -50,7 +61,7 @@ export async function createParent(
     await setupTestApp();
   }
 
-  const keyCode = await app
+  const keyCodeResult = await app
     .get(CreateKeyCodeHandler)
     .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
 
@@ -58,7 +69,7 @@ export async function createParent(
     new CreateUserCommand({
       mail: 'my-mail@mail.com',
       password: 'my-password',
-      keyCode: keyCode.keyCode,
+      keyCode: keyCodeResult.keyCode,
       ...options,
     }),
   );
@@ -141,5 +152,35 @@ export async function getAllChildren() {
 
   return app.resolve(GetAllChildrenHandler).then(handler => {
     return handler.execute();
+  });
+}
+
+export async function getNotificationsForUser(user: string) {
+  if (!app) {
+    await setupTestApp();
+  }
+
+  return app.resolve(GetNotificationsByUserHandler).then(handler => {
+    return handler.execute(new GetNotificationsByUserQuery(user));
+  });
+}
+
+export async function getUsers(role: string = 'parent') {
+  if (!app) {
+    await setupTestApp();
+  }
+
+  return app.resolve(GetAllUsersHandler).then(handler => {
+    return handler.execute(new GetAllUsersQuery(role));
+  });
+}
+
+export async function getAllArticles(page: number = 1, perPage: number = 6) {
+  if (!app) {
+    await setupTestApp();
+  }
+
+  return app.resolve(GetAllArticlesHandler).then(handler => {
+    return handler.execute(new GetAllArticlesQuery(page, perPage));
   });
 }
