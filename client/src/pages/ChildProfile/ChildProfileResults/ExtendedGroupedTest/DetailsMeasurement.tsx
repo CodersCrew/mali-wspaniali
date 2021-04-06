@@ -34,7 +34,7 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
                 {t(`child-profile.tests-informations.conditions.test-${translationKey}-description`)}
             </Typography>
             <Typography variant="subtitle2" className={classes.levelLabel}>
-                {t('hild-profile.result-level')}
+                {t('child-profile.result-level')}
             </Typography>
             <Typography variant="subtitle2" className={classes.level}>
                 {t(`child-profile.result-levels.${key}`)}
@@ -50,8 +50,8 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            padding: '10px 20px',
-            marginTop: '30px',
+            padding: theme.spacing(0),
+            marginTop: theme.spacing(1),
         },
         chartWrapper: {
             width: theme.spacing(13.75),
