@@ -9,7 +9,7 @@ import {
     Typography,
     FormControlLabel,
 } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { Edit, AddCircle as Add } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { CircleChart } from '../../../components/CircleChart';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
@@ -37,6 +37,8 @@ export function MeasurementPoint(props: Props) {
     const { t } = useTranslation();
     const device = useIsDevice();
 
+    const SelectButton = props.isEmpty ? AddButton : EditButton;
+
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
@@ -45,14 +47,7 @@ export function MeasurementPoint(props: Props) {
                         <Typography variant="subtitle1">{props.label}</Typography>&nbsp;
                         {props.changeDate && <Typography variant="overline">({props.changeDate})</Typography>}
                     </Grid>
-                    <Grid item>
-                        {!props.disabled && (
-                            <ButtonSecondary variant="text" onClick={props.onClick}>
-                                <Edit className={classes.editIcon} />
-                                {t('add-results-page.edit')}
-                            </ButtonSecondary>
-                        )}
-                    </Grid>
+                    <Grid item>{<SelectButton disabled={props.disabled} onClick={props.onClick} />}</Grid>
                 </Grid>
             </Grid>
             <Grid item>
@@ -118,7 +113,8 @@ export function MeasurementPoint(props: Props) {
                                 <Typography variant="body2">
                                     {t('add-result-page.received-points')}{' '}
                                     <strong className={classes.points}>
-                                        {props.isEmpty ? '-' : Math.ceil(props.points)} {t('add-result-page.points')}
+                                        {props.isEmpty || Number.isNaN(props.points) ? '-' : Math.ceil(props.points)}{' '}
+                                        {t('add-result-page.points')}
                                     </strong>
                                 </Typography>
                             </Grid>
@@ -163,6 +159,35 @@ export function MeasurementPoint(props: Props) {
     }
 }
 
+interface SelectButtonProps {
+    disabled: boolean;
+    onClick: () => void;
+}
+
+function AddButton(props: SelectButtonProps) {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    return (
+        <ButtonSecondary disabled={props.disabled} variant="text" onClick={props.onClick}>
+            <Add className={classes.editIcon} />
+            {t('add-results-page.add')}
+        </ButtonSecondary>
+    );
+}
+
+function EditButton(props: SelectButtonProps) {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    return (
+        <ButtonSecondary disabled={props.disabled} variant="text" onClick={props.onClick}>
+            <Edit className={classes.editIcon} />
+            {t('add-results-page.edit')}
+        </ButtonSecondary>
+    );
+}
+
 const useStyles = makeStyles((_theme: Theme) =>
     createStyles({
         pieContainer: {
@@ -205,6 +230,8 @@ const useStyles = makeStyles((_theme: Theme) =>
         editMeasurementButton: {
             display: 'flex',
             alignItems: 'center',
+            cursor: 'default',
+            userSelect: 'none',
         },
         editIcon: {
             width: 18,

@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 
 import { KindergartenRepository } from '../../repositories/kindergarten_repository';
 import { DeleteKindergartenCommand } from '../impl';
@@ -10,9 +10,10 @@ export class DeleteKindergartenHandler
   constructor(
     private readonly repository: KindergartenRepository,
     private readonly childRepository: ChildRepository,
+    private readonly publisher: EventPublisher,
   ) {}
 
-  async execute(command: DeleteKindergartenCommand): Promise<boolean> {
+  async execute(command: DeleteKindergartenCommand): Promise<void> {
     const { id } = command;
 
     const foundChildren = await this.childRepository.getByKindergarten(id);
@@ -20,7 +21,13 @@ export class DeleteKindergartenHandler
     if (foundChildren.length > 0) {
       throw new Error('KINDERGARTEN_NOT_EMPTY');
     } else {
-      return !!(await this.repository.removeKindergarten(id));
+      const kindergarten = this.publisher.mergeObjectContext(
+        await this.repository.get(id),
+      );
+
+      await kindergarten.delete();
+
+      await kindergarten.commit();
     }
   }
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, createStyles, Grid, IconButton, Theme, Typography } from '@material-ui/core';
@@ -6,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
-import { gray } from '../../../../colors';
+import { gray, lightTextColor } from '../../../../colors';
 import { MAX_OVERALL_POINTS } from './constants';
 import { ButtonSecondary } from '../../../../components/Button';
 import { TestResult } from '../../../../graphql/types';
@@ -35,18 +34,18 @@ export const TestSummary = ({ result }: Props) => {
         <>
             <Card className={classes.card} elevation={0}>
                 <div className={classes.cardTop}>
-                    <Typography variant="caption">{t('child-profile.info-about-test')}</Typography>
+                    <Typography variant="body2">{t('child-profile.info-about-test')}</Typography>
                     <Typography variant="h4" className={classes.testDescription}>
                         {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
                     </Typography>
-                    <Typography variant="subtitle1">
+                    <Typography variant="body2">
                         {t('child-profile.carries-out-on')} {dayjs(result.date).fromNow()}
                     </Typography>
                 </div>
                 <div className={classes.cardMiddle}>
                     <Grid direction="row" justify="flex-start" alignItems="center" container>
                         <Grid item>
-                            <Typography variant="subtitle2">
+                            <Typography variant="body1">
                                 {t('child-profile.age-group')}:{' '}
                                 <span className={classes.age}>
                                     {childAge} {t('years', { count: childAge })}
@@ -63,7 +62,7 @@ export const TestSummary = ({ result }: Props) => {
                                     }).then((res) => {
                                         if (!res.close)
                                             openSnackbar({
-                                                text: t('parent-settings.modal-edit-account.success-message'),
+                                                text: t('user-settings.modal-edit-account.success-message'),
                                             });
                                     });
                                 }}
@@ -74,7 +73,7 @@ export const TestSummary = ({ result }: Props) => {
                     </Grid>
                 </div>
                 <div className={classes.cardBottom}>
-                    <Typography variant="subtitle2" className={classes.fitnessLevelLabel}>
+                    <Typography variant="body1" className={classes.fitnessLevelLabel}>
                         {testPeriod === 'START'
                             ? t('child-profile.initial-fitness-level')
                             : t('child-profile.final-fitness-level')}
@@ -90,7 +89,9 @@ export const TestSummary = ({ result }: Props) => {
                             enableInfoIcon
                         />
                     </div>
-                    <div className={classes.resultDescription}>{t(`child-profile.result-description.${key}`)}</div>
+                    <Typography variant="subtitle2" className={classes.resultDescription}>
+                        {t(`child-profile.result-description.${key}`)}
+                    </Typography>
                     <ButtonSecondary
                         variant="contained"
                         onClick={() => {
@@ -102,7 +103,7 @@ export const TestSummary = ({ result }: Props) => {
                             }).then((res) => {
                                 if (!res.close)
                                     openSnackbar({
-                                        text: t('parent-settings.modal-edit-account.success-message'),
+                                        text: t('user-settings.modal-edit-account.success-message'),
                                     });
                             });
                         }}
@@ -118,19 +119,25 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         card: {
             width: '25%',
+            height: theme.spacing(58),
             display: 'flex',
-            padding: '0px 8px 20px 8px',
+            padding: theme.spacing(0, 1, 2.5, 1),
             flexDirection: 'column',
+            [theme.breakpoints.down('lg')]: {
+                minWidth: theme.spacing(34),
+            },
         },
         cardTop: {
             display: 'flex',
             flexDirection: 'column',
             borderBottom: `1px solid ${gray}`,
-            paddingBottom: '15px',
+            paddingBottom: theme.spacing(2),
+            '& > p': {
+                color: lightTextColor,
+            },
         },
         cardMiddle: {
-            borderBottom: `1px solid ${gray}`,
-            fontSize: '15px',
+            borderBottom: `1px solid ${theme.palette.grey}`,
             lineHeight: 2,
         },
         age: {
@@ -140,29 +147,27 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            fontSize: '15px',
-            paddingTop: '15px',
+            paddingTop: theme.spacing(2),
             lineHeight: 2,
         },
         chart: {
-            marginTop: '15px',
-            marginBottom: '5px',
-            width: '80px',
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(0.5),
+            width: theme.spacing(13.5),
         },
         resultDescription: {
             textAlign: 'center',
             fontFamily: 'Montserrat',
-            fontSize: '14px',
             textTransform: 'uppercase',
-            marginBottom: '15px',
-            fontWeight: 'bold',
+            marginBottom: theme.spacing(2),
+            marginTop: theme.spacing(1),
             color: ({ color }: { color: string }) => color,
         },
         fitnessLevelLabel: {
             textAlign: 'center',
         },
         testDescription: {
-            padding: '8px 0px',
+            padding: theme.spacing(1, 0),
         },
     }),
 );

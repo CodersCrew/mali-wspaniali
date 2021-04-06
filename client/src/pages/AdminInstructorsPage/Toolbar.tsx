@@ -4,35 +4,33 @@ import { Typography, IconButton, createStyles, makeStyles, Theme } from '@materi
 import { InfoOutlined as InfoIcon } from '@material-ui/icons';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
-interface Props {
-    assessmentsSelect: React.ReactNode;
-    instructorsSelect: React.ReactNode;
-    unassignedKindergartensCount: number;
+interface ToolbarProps {
+    AssessmentsSelect: React.ReactNode;
+    InstructorsSelect: React.ReactNode;
+    count: number;
 }
 
-export const Toolbar = ({ assessmentsSelect, instructorsSelect, unassignedKindergartensCount }: Props) => {
+const T_PREFIX = 'admin-instructors-page';
+
+export function Toolbar(props: ToolbarProps) {
     const classes = useStyles();
-
     const { t } = useTranslation();
-
-    const handleClick = () => openSnackbar({ text: t('admin-instructors-page.snackbars.info'), severity: 'info' });
 
     return (
         <div className={classes.container}>
-            <div className={classes.input}>{assessmentsSelect}</div>
-            <div className={classes.input}>{instructorsSelect}</div>
+            <div className={classes.input}>{props.AssessmentsSelect}</div>
+            <div className={classes.input}>{props.InstructorsSelect}</div>
             <div className={classes.kindergartenInfoContainer}>
                 <Typography
                     variant="subtitle2"
                     color="secondary"
                     component="p"
-                    className={clsx({
-                        [classes.kindergartenInfoText]: true,
-                        [classes.kindergartenInfoTextSuccess]: unassignedKindergartensCount === 0,
-                    })}
+                    className={toolbarCounterClassName()}
                     data-testid="unassigned-kindergartens"
                 >
-                    {t('admin-instructors-page.table-toolbar.unassigned-kindergartens')}: {unassignedKindergartensCount}
+                    {t(`${T_PREFIX}.table-toolbar.unassigned-kindergartens`, {
+                        count: props.count,
+                    })}
                 </Typography>
                 <IconButton onClick={handleClick} aria-label="info">
                     <InfoIcon />
@@ -40,7 +38,20 @@ export const Toolbar = ({ assessmentsSelect, instructorsSelect, unassignedKinder
             </div>
         </div>
     );
-};
+
+    function handleClick() {
+        const text = t(`${T_PREFIX}.snackbars.info`);
+
+        openSnackbar({ text, severity: 'info' });
+    }
+
+    function toolbarCounterClassName() {
+        return clsx({
+            [classes.kindergartenInfoText]: true,
+            [classes.kindergartenInfoTextSuccess]: props.count === 0,
+        });
+    }
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

@@ -2,18 +2,20 @@
     "home-page": {
         "go-to-login-page": "Strona logowania",
         "log-out": "Wyloguj",
-        "go-to-registration-page": "Rejestracja",
+        "go-to-registration-page": "Utwórz konto",
         "go-to-parent-children-page": "Moje dzieci"
     },
     "login-page": {
         "login": "Zaloguj",
-        "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany",
+        "login-error": "Email lub hasło są nieprawidłowe",
         "login-header": "Logowanie",
-        "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail podanego fundacji lub użytego do rejestracji.",
+        "e-mail-helper-text-mobile": "Zaloguj się za pomocą adresu e-mail użytego przy rejestracji",
+        "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail użytego przy rejestracji",
         "forgot-password": "Nie pamiętasz hasła?",
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
         "login-wrong-password": "Podane hasło jest nieprawidłowe",
-        "no-account": "Pierwszy raz na platformie Mali Wspaniali?"
+        "no-account": "Pierwszy raz na platformie Mali Wspaniali?",
+        "register": "Utwórz konto"
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
@@ -22,22 +24,30 @@
         "partners": "Partnerzy strategiczni:"
     },
     "registration-page": {
+        "register-header": "Rejestracja",
         "already-have-account": "Masz już konto?",
+        "register-failure": "Rejestracja nie powiodła się",
+        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>biuro@mali-wspaniali.pl</strong>",
         "password-mismatch": "Podane hasła nie są takie same",
-        "register-success": "Konto zostało utworzone. Możesz się zalogować.",
+        "register-success-title": "To już ostatni krok!",
+        "register-success-content": "Wysłaliśmy na Twoją skrzynkę mailową wiadomość z linkiem aktywacyjnym. Skorzystaj z niego, aby potwierdzić swój adres e-mail i zakończyć rejestrację.",
+        "register-success-spam": "",
         "password-confirm": "Powtórz hasło",
-        "register": "Zarejestruj się",
+        "register": "Rejestracja",
         "password-not-strong": "Hasło za słabe",
         "agreements-and-regulations": "Zgody i regulaminy",
-        "create-password": "Stwórz hasło",
+        "create-password": "Zarejestruj się",
         "confirmation": "Potwierdzenie",
         "create-password-text": "Stwórz hasło do platformy Mali Wspaniali, które będzie ci służyło podczas następnych logowań.",
         "go-to-homepage": "Przejdź do strony głównej",
-        "enter-code": "Wpisz kod",
-        "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu, twoje dane będą bezpieczniejsze.",
+        "go-to-loginpage": "Wróć do logowania",
+        "enter-code": "Kod",
+        "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu Twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
-        "no-code-desc": "Takie sytuacje też się zdarzają, nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie by pracownicy mogli wygenerować dla ciebie nowy kod. Napisz maila na adres biuro@mali-wspaniali.pl",
-        "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go jeszcze raz.",
+        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: ",
+        "no-code-desc-email": "biuro@mali-wspaniali.pl",
+        "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go ponownie",
+        "invalid-email": "Niepoprawny adres e-mail.",
         "length": "8 znaków",
         "capital": "Duża litera",
         "digit": "Cyfra",
@@ -50,23 +60,26 @@
             "show-less": "Zwiń",
             "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
             "sub-title": "Zgody",
-            "sub-title-description": "Zgoda na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych nie są obowiązkowai nie skutkują one brakiem możliwości brania udziału w zajęciach.",
+            "sub-title-description": "Zgodę na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych może Pani/Pan w dowolnej chwili wycofać z poziomu platformy w zakładce 'Zgody'.",
             "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
             "privacy-policy": "Regulaminu, Polityki prywatności.",
-            "required-field": "*pole obowiązkowe do wypełnienia"
+            "required-field": "*pole obowiązkowe do wypełnienia",
+            "required-agreements": "Wymagane zgody lub oświadczenia"
         }
     },
     "forgot-password-page": {
-        "forgot-password": "Nie pamietasz hasła?",
+        "forgot-password": "Nie pamiętasz hasła?",
         "its-ok": "Nic się nie stało. Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
         "continue": "Kontynuuj",
-        "problem": "Masz problem?",
-        "contact": "Skontaktuj się z fundacją by go rozwiązać",
+        "problem": "Napotkałeś problem?",
+        "contact": "Skontaktuj się z fundacją, by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
         "back-to-login": "Wróć do logowania",
-        "avatar": "Małgosia"
+        "avatar": "Małgosia",
+        "email-sent": "Na Twój adres e-mail wysłaliśmy maila.",
+        "when-received": "Wprowadź otrzymany kod."
     },
     "users-page": {
         "agreements": "Zgody",
@@ -410,15 +423,19 @@
             "subtitle4": "Śpij na zdrowie!"
         },
         "agreements": {
-            "heading": "Zarządzaj zgodami udzielonymi fundacji Mali Wspaniali. Miej pełną kontrolę nad bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia.",
+            "heading": "Zarządzaj bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia",
             "title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
             "save": "Zapisz",
-            "Image-title": "Zgoda na rozpowszechnianie wizerunku.",
-            "Image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do udziału w programie.",
+            "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
+            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
             "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
-            "Marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+            "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
+            "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
+            "Marketing-description-3": "Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
             "general-title": "Zgoda na udział w programie Mali Wspaniali.",
-            "general-description": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe."
+            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: biuro@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Dane dziecka",
@@ -477,6 +494,7 @@
         "topic-input-label-filled": "Temat",
         "topic-helper-text": "Wpisz temat wiadomości byś mógł ją wysłać",
         "kindergarten-number": "Przedszkole nr",
+        "message-helper-text": "Wpisz wiadomość, byś mógł ją wysłać",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success-modal": {
             "title": "Gotowe",
@@ -510,21 +528,32 @@
             "file-error": "Nieprawidłowy format pliku"
         }
     },
-    "parent-settings": {
-        "header": "Ustawienia kont rodziców",
+    "user-settings": {
+        "header": "Ustawienia kont",
+        "parent-option": "Rodzic",
+        "instructor-option": "Instruktor",
+        "role-select": "Rodzaj konta",
         "search-label": "Szukaj po przedszkolu",
         "input-label": "Szukaj",
-        "header-title-1": "Adres email rodzica",
-        "header-title-2": "Dzieci",
+        "header-title-parent": "Adres email rodzica",
+                "header-title-instructor": "Adres email instruktora",
+        "header-title-children": "Dzieci",
         "button-icon-edit-tooltip": "Edytuj",
         "button-icon-delete-tooltip": "Usuń",
         "button-icon-change-tooltip": "Zmień przedszkole",
-        "modal-delete-account": {
-            "header": "Usuń konto rodzica",
+        "modal-delete-parent-account": {
+            "header": "Usuwanie kont rodziców",
             "first-button": "Anuluj",
             "second-button": "Usuń",
-            "first-description": "Are you sure you want to delete the parent",
+            "first-description": "Czy na pewno chcesz usunąć rodzica",
             "second-description": "Spowoduje to anonimizację wyników dziecka: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
+        },
+        "modal-delete-instructor-account": {
+            "header": "Usuwanie kont instruktora",
+            "first-button": "Anuluj",
+            "second-button": "Usuń",
+            "first-description": "Czy na pewno chcesz usunąć instruktora",
+            "second-description": "Spowoduje to anonimizację wyników instruktora: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
         },
         "modal-edit-account": {
             "header": "Edytuj dane",
@@ -592,7 +621,7 @@
         },
         "create-blog-article": "Artykuły",
         "archive": "Archiwum",
-        "results-list": "Lista wyników",
+        "results-list": "Wyniki testów",
         "notifications": "Powiadomienia",
         "test-management": "Testy",
         "settings": {
@@ -609,9 +638,9 @@
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
-            "results": "Lista wyników",
+            "results": "Wyniki testów",
             "recommendations": "Rekomendacje",
-            "tests-information": "Informacje o testach",
+            "tests-information": "Opis testów",
             "details": "Dane dziecka"
         },
         "blog": "Aktualności",
@@ -644,7 +673,7 @@
         "food": "Żywienie",
         "activity": "Aktywność fizyczna",
         "emotions": "Emocje",
-        "other": "Inne"
+        "other": "Inne kategorie"
     },
     "blog-navigation": {
         "back": "Wstecz"
@@ -831,7 +860,8 @@
             "4": "usunięcie konta",
             "5": "inny"
         },
-        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail."
+        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail.",
+        "assessment-updated": "Zmieniono przedszkola {{name}}"
     },
     "admin-instructors-page": {
         "table": {
@@ -839,12 +869,13 @@
             "lastName": "Nazwisko",
             "email": "Adres e-mail",
             "kindergarten-count": "Liczba przedszkoli",
-            "tooltip": "Przydziel do przedszkola"
+            "tooltip": "Przydziel do przedszkola",
+            "kindergartens-count": "{{count}} przedszkola"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",
             "instructor-search": "Szukaj instruktora",
-            "unassigned-kindergartens": "Nieprzydzielone przedszkola"
+            "unassigned-kindergartens": "Nieprzydzielone przedszkola: {{count}}"
         },
         "snackbars": {
             "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola."
@@ -852,11 +883,12 @@
         "modal": {
             "cancel": "Anuluj",
             "assign": "Przydziel",
+            "delete": "Usuń",
+            "delete-instructor": "Usuń instruktora",
+            "delete-instructor-subtitle": "Czy na pewno chcesz usunąć instruktora",
             "assign-to-kindergarten": "Przydziel do przedszkola",
             "select-test": "Wybierz test",
-            "select-instructor": "Wybierz instruktora",
-            "assigned-kindergartens": "Przydzielone przedszkola",
-            "add-unassigned-kindergarten": "Dodaj nieprzydzielone przedszkole"
+            "select-instructor": "Wybierz instruktora"
         }
     },
     "add-results-page": {
@@ -893,6 +925,7 @@
         },
         "child-list": "Lista dzieci",
         "edit": "Edytuj",
+        "add": "Dodaj",
         "added-first-note-for": "Dodano notatkę próby początkowej dla {{name}}",
         "added-last-note-for": "Dodano notatkę próby końcowej dla {{name}}",
         "years_1": "lata",
@@ -911,7 +944,7 @@
         "back-to-table": "Wróć",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",
-        "dexterity": "ZRĘCZNOŚĆ",
+        "dexterity": "ZWINNOŚĆ",
         "power": "MOC",
         "velocity": "SZYBKOŚĆ",
         "save-and-next": "Zapisz i następny",

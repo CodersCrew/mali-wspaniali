@@ -19,19 +19,10 @@ export class ArticleDTO {
   readonly description: string;
 
   @Field()
-  readonly header: string;
-
-  @Field()
   readonly pictureUrl: string;
-
-  @Field(() => Int)
-  readonly readingTime: number;
 
   @Field()
   readonly redactor: RedactorDTO;
-
-  @Field()
-  readonly subtitle: string;
 
   @Field(() => [String])
   tags: string[];

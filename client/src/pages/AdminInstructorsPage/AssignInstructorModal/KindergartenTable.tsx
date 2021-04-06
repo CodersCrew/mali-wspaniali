@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
     TextField,
     InputAdornment,
@@ -18,20 +18,14 @@ import { useTranslation } from 'react-i18next';
 import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
-    kindergartens: Kindergarten[];
+    defaultKindergartens: Array<{ kindergarten: Kindergarten; selected: boolean; disabled: boolean }>;
+    selected: string[];
     onSelect: (id: string[]) => void;
 }
 
-export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
+export const KindergartenTable = ({ defaultKindergartens, selected, onSelect }: Props) => {
     const { t } = useTranslation();
     const [searchPhrase, setSearchPhrase] = useState('');
-    const [selected, setSelected] = useState<string[]>([]);
-    const [selectedAll, setSelectedAll] = useState(false);
-
-    useEffect(() => {
-        onSelect(selected);
-    }, [onSelect, selected]);
-
     const classes = useStyles();
 
     return (
@@ -56,60 +50,43 @@ export const KindergartenTable = ({ kindergartens, onSelect }: Props) => {
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell padding="checkbox">
-                                <Checkbox
-                                    checked={selectedAll}
-                                    onClick={() => {
-                                        if (selectedAll) {
-                                            setSelected([]);
-                                        } else {
-                                            setSelected(kindergartens.map((kindergarten) => kindergarten._id));
-                                        }
-
-                                        setSelectedAll((prev) => !prev);
-                                    }}
-                                    data-testid="select-all"
-                                    color="default"
-                                />
-                            </TableCell>
+                            <TableCell padding="checkbox"></TableCell>
                             <TableCell>{t('add-test-view.kindergartens.kindergarten-name')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {kindergartens
-                            .filter((kindergarten) => {
+                        {defaultKindergartens
+                            .filter(({ kindergarten }) => {
                                 if (searchPhrase.length === 0) return true;
 
                                 return kindergarten.name.toLowerCase().includes(searchPhrase);
                             })
-                            .map((kindergarten) => (
-                                <TableRow
-                                    key={kindergarten._id}
-                                    hover
-                                    role="row"
-                                    onClick={() => {
-                                        setSelected((prev) => {
-                                            if (prev.includes(kindergarten._id)) {
-                                                return prev.filter((selectedId) => selectedId !== kindergarten._id);
-                                            }
+                            .map((kindergartenItem) => {
+                                const isSelected = selected.includes(kindergartenItem.kindergarten._id);
 
-                                            return [...prev, kindergarten._id];
-                                        });
-                                    }}
-                                >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox checked={selected.includes(kindergarten._id)} color="default" />
-                                    </TableCell>
-                                    <TableCell classes={{ root: classes.kindergartenItem }}>
-                                        {kindergarten.number}/{kindergarten.name}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                                return (
+                                    <KindergartenItem
+                                        key={kindergartenItem.kindergarten._id}
+                                        disabled={kindergartenItem.disabled}
+                                        selected={isSelected}
+                                        kindergarten={kindergartenItem.kindergarten}
+                                        onClick={onItemSelect}
+                                    />
+                                );
+                            })}
                     </TableBody>
                 </Table>
             </TableContainer>
         </>
     );
+
+    function onItemSelect(id: string) {
+        const calculatedSelection = selected.includes(id)
+            ? selected.filter((kindergartenId) => kindergartenId !== id)
+            : [...selected, id];
+
+        onSelect(calculatedSelection);
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -120,6 +97,48 @@ const useStyles = makeStyles((theme: Theme) =>
         searchFieldContainer: {
             margin: theme.spacing(3, 0, 2),
         },
+    }),
+);
+
+interface KindergartenItemProps {
+    disabled: boolean;
+    selected: boolean;
+    kindergarten: Kindergarten;
+    onClick: (id: string) => void;
+}
+
+function KindergartenItem(props: KindergartenItemProps) {
+    const classes = useItemStyles();
+
+    const kindergartenNameclasses: { root?: string } = {};
+
+    if (!props.disabled) {
+        kindergartenNameclasses.root = classes.kindergartenItem;
+    }
+
+    return (
+        <TableRow
+            key={props.kindergarten._id}
+            hover
+            role="row"
+            onClick={() => {
+                if (props.disabled) return;
+
+                props.onClick(props.kindergarten._id);
+            }}
+        >
+            <TableCell padding="checkbox">
+                <Checkbox checked={props.selected} disabled={props.disabled} color="default" />
+            </TableCell>
+            <TableCell classes={kindergartenNameclasses} title={'already used'}>
+                {props.kindergarten.number}/{props.kindergarten.name}
+            </TableCell>
+        </TableRow>
+    );
+}
+
+const useItemStyles = makeStyles((theme: Theme) =>
+    createStyles({
         kindergartenItem: {
             cursor: 'pointer',
         },

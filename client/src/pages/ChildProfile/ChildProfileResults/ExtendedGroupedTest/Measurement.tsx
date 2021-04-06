@@ -33,8 +33,10 @@ export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure
                     labelSuffix={unitOfMeasure}
                 />
             </div>
-            <div className={classes.testName}>{t(`child-profile.tests-in-block.${translationKey}`)}</div>
-            <Typography variant="subtitle2" className={classes.description}>
+            <Typography variant="h4" className={classes.testName}>
+                {t(`child-profile.tests-in-block.${translationKey}`)}
+            </Typography>
+            <Typography variant="body2" className={classes.description}>
                 {t(`child-profile.tests-informations.conditions.test-${translationKey}-description`)}
             </Typography>
             <Typography variant="subtitle2" className={classes.levelLabel}>
@@ -43,7 +45,9 @@ export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure
             <Typography variant="subtitle2" className={classes.level}>
                 {t(`child-profile.result-levels.${key}`)}
             </Typography>
-            <Typography variant="subtitle2">{t('child-profile.received-points')}:</Typography>
+            <Typography variant="subtitle1" className={classes.pointsHeader}>
+                {t('child-profile.received-points')}:
+            </Typography>
             <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>
@@ -75,48 +79,66 @@ export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            padding: '10px 20px',
-            marginTop: '30px',
+            marginTop: theme.spacing(1),
+            height: ' 100%',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: 5,
+
+            [theme.breakpoints.down('xs')]: {
+                padding: theme.spacing(0, 3),
+                marginTop: theme.spacing(1),
+            },
+            '& *': {
+                flexGrow: 1,
+            },
         },
         chartWrapper: {
             width: theme.spacing(13.75),
             position: 'relative',
         },
         testName: {
-            fontFamily: 'Montserrat',
-            fontSize: '15px',
             textTransform: 'uppercase',
-            marginTop: '15px',
-            marginBottom: '10px',
-            fontWeight: 'bold',
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(1),
+            lineHeight: 1.3,
+            width: theme.spacing(15),
+        },
+        pointsHeader: {
+            marginBottom: theme.spacing(0.5),
         },
         points: {
+            display: 'flex',
+            alignItems: 'center',
             fontFamily: 'Montserrat',
-            fontSize: '14px',
-            borderRadius: '16px',
+            fontSize: 14,
+            borderRadius: 16,
             textTransform: 'uppercase',
             fontWeight: 'bold',
             color: white,
             width: 'fit-content',
-            padding: '3px 10px',
-            marginTop: '15px',
+            padding: theme.spacing(0.5, 1),
             backgroundColor: ({ color }: { color: string }) => color,
         },
         description: {
-            paddingBottom: '7px',
+            paddingBottom: theme.spacing(2),
         },
         level: {
-            paddingBottom: '7px',
+            paddingBottom: theme.spacing(2),
             textTransform: 'uppercase',
             color: ({ color }: { color: string }) => color,
         },
         levelLabel: {
-            paddingBottom: '7px',
+            paddingBottom: theme.spacing(0.5),
         },
         detailsButton: {
             marginLeft: 'auto',
             marginRight: 'auto',
             width: '100%',
+            marginTop: theme.spacing(1),
+            [theme.breakpoints.down('sm')]: {
+                marginTop: theme.spacing(3),
+            },
         },
     }),
 );

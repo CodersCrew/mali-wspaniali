@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Agreement } from '../models/agreement';
+import { AgreementMapper } from '../mappers/agreement_mapper';
 
 import {
   AgreementDocument,
@@ -14,11 +16,10 @@ export class AgreementRepository {
     private readonly model: Model<AgreementDocument>,
   ) {}
 
-  get(id: string): Promise<AgreementProps> {
-    return this.model
-      .findById(id)
-      .exec()
-      .then(agreement => agreement.toObject());
+  async get(id: string): Promise<Agreement | undefined> {
+    const rawAgreement = await this.model.findById(id).lean();
+
+    if (rawAgreement) return AgreementMapper.toDomain(rawAgreement);
   }
 
   getAll(): Promise<AgreementProps[]> {

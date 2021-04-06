@@ -1,4 +1,11 @@
-import { Child, ChildProps, Firstname, Lastname, Sex } from '../models';
+import {
+  Child,
+  ChildProps,
+  NotCreatedChildProps,
+  Firstname,
+  Lastname,
+  Sex,
+} from '../models';
 import { Result } from '../../../shared/domain/result';
 import { BirthYear } from '../models/birth_year_value_object';
 import { ObjectId } from '../models/object_id_value_object';
@@ -9,9 +16,17 @@ interface DomainMapperOptions {
   isNew: boolean;
 }
 
+type ChildTypes =
+  | Firstname
+  | Lastname
+  | Sex
+  | BirthYear
+  | BirthQuarter
+  | ObjectId;
+
 export class ChildMapper {
   static toDomain(
-    props: ChildProps | Omit<ChildProps, '_id' | 'date'>,
+    props: ChildProps | NotCreatedChildProps,
     options?: DomainMapperOptions,
   ): Child {
     const _id = '_id' in props ? ObjectId.create(props._id) : ObjectId.create();
@@ -21,8 +36,13 @@ export class ChildMapper {
     const birthYear = BirthYear.create(props.birthYear);
     const birthQuarter = BirthQuarter.create(props.birthQuarter);
     const kindergarten = ObjectId.create(props.kindergarten);
+    const results = props.results.map(result => ObjectId.create(result));
 
-    const result = Result.combine([
+    const areChildResultsValid = (Result.combine(
+      props.results.map(result => ObjectId.create(result)),
+    ) as unknown) as Result<Result<ObjectId>[]>;
+
+    const result = Result.combine<ChildTypes>([
       _id,
       firstname,
       lastname,
@@ -32,7 +52,7 @@ export class ChildMapper {
       kindergarten,
     ]);
 
-    if (result.isSuccess) {
+    if (result.isSuccess && areChildResultsValid.isSuccess) {
       const createChild = options?.isNew ? Child.create : Child.recreate;
 
       return createChild({
@@ -47,15 +67,14 @@ export class ChildMapper {
           : ((props as ChildProps).date as Date),
         birthQuarter: birthQuarter.getValue(),
         kindergarten: kindergarten.getValue(),
+        results: results.map(result => result.getValue()),
       });
     } else {
-      throw new Error(result.error);
+      throw new Error(result.error as string);
     }
   }
 
-  static toPersistence(
-    child: Child,
-  ): ChildProps | Omit<ChildProps, '_id' | 'date'> {
+  static toPersistence(child: Child): ChildProps | NotCreatedChildProps {
     if (child.id.isEmpty()) {
       return {
         firstname: child.firstname.value,
@@ -65,6 +84,7 @@ export class ChildMapper {
         birthYear: child.birthYear.value,
         birthQuarter: child.birthQuarter.value,
         kindergarten: child.kindergarten.value,
+        results: child.results.map(result => result.value),
       };
     }
 
@@ -78,6 +98,7 @@ export class ChildMapper {
       birthQuarter: child.birthQuarter.value,
       date: child.date,
       kindergarten: child.kindergarten.value,
+      results: child.results.map(result => result.value),
     };
   }
 
@@ -92,7 +113,7 @@ export class ChildMapper {
       birthQuarter: child.birthQuarter.value,
       date: child.date,
       kindergarten: child.kindergarten.value,
-      results: [], // TODO: get results id
+      results: child.results.map(result => result.value),
     };
   }
 }

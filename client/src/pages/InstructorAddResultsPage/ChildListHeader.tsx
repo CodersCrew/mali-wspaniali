@@ -64,8 +64,8 @@ export function ChildListHeader({
                         }}
                     >
                         {kindergartens.map((k) => (
-                            <MenuItem value={k.kindergarten._id} key={k.kindergarten._id}>
-                                {k.kindergarten.number}/{k.kindergarten.name}
+                            <MenuItem value={k.kindergarten?._id} key={k.kindergarten?._id}>
+                                {k.kindergarten?.number}/{k.kindergarten?.name}
                             </MenuItem>
                         ))}
                     </TextField>

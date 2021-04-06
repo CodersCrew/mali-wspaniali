@@ -9,11 +9,13 @@
         "login": "Login",
         "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
         "login-header": "Log in",
-        "e-mail-helper-text": "Log in with e-mail provided to the foundation or used by registration.",
+        "e-mail-helper-text-mobile": "Enter e-mail used by registration",
+        "e-mail-helper-text": "Enter e-mail used by registration",
         "forgot-password": "Forgot password?",
         "login-notfound": "We cannot find your account in the system",
         "login-wrong-password": "Entered password is incorrect",
-        "no-account": "You don't have an account?"
+        "no-account": "You don't have an account?",
+        "register": "Register"
     },
     "login-wrapper": {
         "welcome-text": "Welcome to Mali Wspaniali's world!",
@@ -22,22 +24,30 @@
         "partners": "Strategic partners:"
     },
     "registration-page": {
+        "register-header": "Registration",
         "already-have-account": "Already have an account?",
+        "register-failure": "Registration failed",
+        "register-failure-description": "Something went wrong. It happens if you mistyped the code you received from the Foundation or you try to use it for the second time. Maybe you provided an other email than you hand over to the Foundation. Please, check it out again and contuct us as a last resort.",
         "password-mismatch": "Passwords do not match",
-        "register-success": "Account created. Please login.",
+        "register-success-title": "And now it is the time for the last step!",
+        "register-success-content": "An email with the activation link was sent to you. Use it to confirm you have provided the correct email address that will finish the registration process.",
+        "register-success-spam": "",
         "password-confirm": "Repeat password",
-        "register": "Register",
+        "register": "Registration",
         "password-not-strong": "Password not strong enough",
         "agreements-and-regulations": "Agreements and regulations",
-        "create-password": "Create password",
+        "create-password": "Register account",
         "confirmation": "Confirmation",
         "create-password-text": "Create a password to Mali Wspaniali platform that will serve you for future logins.",
-        "go-to-homepage": "Go to homepage",
+        "go-to-homepage": "Go to home page",
+        "go-to-loginpage": "Go to login page",
         "enter-code": "Enter code",
         "enter-code-text": "Please enter the code provided by Mali Wspaniali foundation. Thanks to this code, your data will be secure.",
         "no-code": "Don't have a code?",
-        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to biuro@mali-wspaniali.pl",
+        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to: ",
+        "no-code-desc-email": "biuro@mali-wspaniali.pl",
         "invalid-code": "Code is invalid, please try again.",
+        "invalid-email": "Invalid email address",
         "length": "8 chars",
         "capital": "Capital letter",
         "digit": "Digit",
@@ -50,10 +60,11 @@
             "show-less": "Zwiń",
             "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
             "sub-title": "Zgody",
-            "sub-title-description": "Zgoda na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych nie są obowiązkowai nie skutkują one brakiem możliwości brania udziału w zajęciach.",
+            "sub-title-description": "Zgodę na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych może Pani/Pan w dowolnej chwili wycofać z poziomu platformy w zakładce 'Zgody'.",
             "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
             "privacy-policy": "Regulaminu, Polityki prywatności.",
-            "required-field": "*pole obowiązkowe do wypełnienia"
+            "required-field": "*pole obowiązkowe do wypełnienia",
+            "required-agreements": "*Required consents and agreements"
         }
     },
     "forgot-password-page": {
@@ -66,7 +77,9 @@
         "contact": "Please contact the foundation to resolve it",
         "email-helper-text": "Type in an e-mail address used during registration",
         "back-to-login": "Back to login",
-        "avatar": "Małgosia"
+        "avatar": "Małgosia",
+        "email-sent": "The email has been sent.",
+        "when-received": "Input code you received."
     },
     "users-page": {
         "agreements": "Agreements",
@@ -111,7 +124,7 @@
         "no-child": "Sorry, there is no child with this id",
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
         "results-list": "Results list",
-        "tests-information": "Tests information",
+        "tests-information": "Tests description",
         "your-agreements": "Your agreements",
         "participation-label": "Permission to participate in the Mali Wspaniali program",
         "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
@@ -264,12 +277,16 @@
             "heading": "Manage consents granted to the Mali Wspaniali Foundation. Have full control over the security of your personal data, being able to increase or limit the rights granted at any time.",
             "title": "Below you can check and edit the signed agreements.",
             "save": "Save",
-            "Image-title": "Consent to disseminate the image.",
-            "Image-description": "Optional consent, but it allows us to use materials collected during the course, such as photos for promotional purposes, to encourage other parents to particopate in the program.",
-            "Marketing-title": "Consent to receive marketing information to the provided e-mail address.",
-            "Marketing-description": "Optional consent, but thanks to this consent, we will be able to send you an e-mail with current information about the Mali Wspaniali program. We will inform you about our achievements from time to time.",
-            "general-title": "Consent to participate in the Mali Wspaniali program.",
-            "general-description": "It is a compulsory consent, which is necessary for the child to participate in the activities conducted by Mali Wspaniali - it is impossible to uncheck it."
+            "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
+            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+            "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
+            "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
+            "Marketing-description-3": "Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "general-title": "Zgoda na udział w programie Mali Wspaniali.",
+            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: biuro@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Child's details",
@@ -380,7 +397,8 @@
         "type-helper-text": "Type of message not selected. Select type from dropdown.",
         "topic-input-label": "Select topic",
         "topic-input-label-filled": "Topic",
-        "topic-helper-text": "Type message topic so You can send it",
+        "topic-helper-text": "Please, type the message topic so you can send it",
+        "message-helper-text": "Please, type the message so you can send it",
         "kindergarten-number": "Kindergarten no.",
         "sending-error": "An error ocurred during sending the message.",
         "sending-success-modal": {
@@ -415,21 +433,32 @@
             "file-error": "File error"
         }
     },
-    "parent-settings": {
-        "header": "Settings parent's account",
+    "user-settings": {
+        "header": "Account settings",
+        "parent-option": "Parent",
+        "instructor-option": "Instructor",
+        "role-select": "Account type",
         "input-label": "Search",
         "search-label": "Search for kindergarten",
-        "header-title-1": "Parent's email adress",
-        "header-title-2": "Children",
+        "header-title-parent": "Parent's email adress",
+        "header-title-instructor": "Instructor's email adress",
+        "header-title-children": "Children",
         "button-icon-edit-tooltip": "Edit",
         "button-icon-delete-tooltip": "Delete",
         "button-icon-change-tooltip": "Change kindergarden",
-        "modal-delete-account": {
+        "modal-delete-parent-account": {
             "header": "Delete parent's account",
             "first-button": "Cancel",
             "second-button": "Delete",
             "first-description": "Are you sure you want to delete the parent",
             "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
+        },
+        "modal-delete-instructor-account": {
+            "header": "Delete instructor's account",
+            "first-button": "Cancel",
+            "second-button": "Delete",
+            "first-description": "Are you sure you want to delete the instructor",
+            "second-description": "This will anonymize the instructor's results: The Foundation will only have access to the test results, but without information about personal data."
         },
         "modal-edit-account": {
             "header": "Edit data",
@@ -474,7 +503,7 @@
         "child": {
             "results": "Results",
             "recommendations": "Recommendations",
-            "tests-information": "Tests information",
+            "tests-information": "Tests description",
             "details": "Child details"
         },
         "blog": "Blog",
@@ -557,7 +586,7 @@
         "food": "Food",
         "activity": "Physical activity",
         "emotions": "Emotions",
-        "other": "Other"
+        "other": "Other categories"
     },
     "blog-navigation": {
         "back": "Back"
@@ -742,24 +771,27 @@
             "lastName": "Last name",
             "email": "E-mail address",
             "kindergarten-count": "Kindergarten count",
-            "tooltip": "Assign to kindergarten"
+            "tooltip": "Assign to kindergarten",
+            "kindergartens-count": "{{count}} kindergartens"
         },
         "table-toolbar": {
             "select-test": "Select test",
             "instructor-search": "Search for instructor",
-            "unassigned-kindergartens": "Unassigned kidnergartens"
+            "unassigned-kindergartens": "Unassigned kidnergartens: {{count}}"
         },
         "snackbars": {
-            "info": "To add unassigned kindergarten: 1. Select the test, 2. Select the instructor and press the button to assign him/her to selected kindergarten."
+            "info": "To add unassigned kindergarten: 1. Select the test, 2. Select the instructor and press the button to assign him/her to selected kindergarten.",
+            "assessment-updated": "Changed kindergartens for {{name}}"
         },
         "modal": {
             "cancel": "Cancel",
             "assign": "Assign",
+            "delete": "Delete",
+            "delete-instructor": "Delete instructor",
+            "delete-instructor-subtitle": "Are you sure you want to delete instructor",
             "assign-to-kindergarten": "Assign to kindergarten",
             "select-test": "Select test",
-            "select-instructor": "Select instructor",
-            "assigned-kindergartens": "Assigned kindergartens",
-            "add-unassigned-kindergarten": "Add unassigned kindergarten"
+            "select-instructor": "Select instructor"
         }
     },
     "add-results-page": {
@@ -795,7 +827,8 @@
             "go-to-articles": "Go to articles"
         },
         "child-list": "Child list",
-        "edit": "Edytuj",
+        "edit": "Edit",
+        "add": "Add",
         "added-first-note-for": "A first measurement note for {{name}} has been added",
         "added-last-note-for": "A last measurement note for {{name}} has been added",
         "years": "years"

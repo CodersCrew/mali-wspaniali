@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
+
 import PlFlag from '../../../assets/pl.png';
 import EnFlag from '../../../assets/en.png';
 import { white } from '../../../colors';
@@ -25,17 +26,22 @@ export const LanguageSelector: React.FC = () => {
     );
 };
 
-const useStyles = makeStyles({
-    img: {
-        '&:hover': {
-            cursor: 'pointer',
-            boxShadow: `0 0 2px 0px ${white}`,
-            transition: 'all 0.3s ease-in-out',
+const useStyles = makeStyles((theme) =>
+    createStyles({
+        img: {
+            height: 24,
+            width: 24,
+            borderRadius: '50%',
+            '&:hover': {
+                cursor: 'pointer',
+                boxShadow: `0 0 2px 0px ${white}`,
+                transition: 'all 0.3s ease-in-out',
+            },
         },
-    },
-    container: {
-        display: 'flex',
-        alignItems: 'center',
-        marginLeft: '32px',
-    },
-});
+        container: {
+            display: 'flex',
+            alignItems: 'center',
+            marginRight: theme.spacing(1),
+        },
+    }),
+);

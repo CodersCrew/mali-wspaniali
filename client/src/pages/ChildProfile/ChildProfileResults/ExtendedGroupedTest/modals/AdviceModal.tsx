@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, DialogContent, DialogTitle, Link, makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';

@@ -41,7 +41,7 @@ export const ChangeKindergartenModal = ({ formik, kindergartens }: ChangeKinderg
                                     className={classes.acctualKindergarden}
                                 >{`${child.firstname} ${child.lastname}`}</Typography>
                                 <Typography variant={'caption'}>
-                                    {t('parent-settings.modal-change-kindergarden.main-label')}
+                                    {t('user-settings.modal-change-kindergarden.main-label')}
                                 </Typography>
                                 <Typography variant={'caption'}>
                                     {formik.initialValues.childData[index].kindergardenName}
@@ -49,7 +49,7 @@ export const ChangeKindergartenModal = ({ formik, kindergartens }: ChangeKinderg
                             </Grid>
                             <Grid item xs={8}>
                                 <Select
-                                    label={t('parent-settings.modal-change-kindergarden.label')}
+                                    label={t('user-settings.modal-change-kindergarden.label')}
                                     value={formik.values.childData[index].kindergarden}
                                     options={kindergartenOptions}
                                     name={`childData[${index}]`}

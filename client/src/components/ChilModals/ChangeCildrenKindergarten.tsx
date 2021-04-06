@@ -29,13 +29,13 @@ const AdminSettingsEditModal = ({
     onClose,
     makeDecision,
     kindergartens,
-    parent,
+    user,
     preventClose,
     isCancelButtonVisible,
 }: ChildModalProps & ActionDialog<{ childData: TInitialObjectType[] }>) => {
     const { t } = useTranslation();
 
-    const newObjectChild = parent.children.map(normalizeTransformKindergarten);
+    const newObjectChild = user.children.map(normalizeTransformKindergarten);
 
     const initialValues = {
         childData: newObjectChild,
@@ -53,16 +53,16 @@ const AdminSettingsEditModal = ({
         >
             {(formik) => (
                 <BasicModal
-                    actionName={t('parent-settings.modal-edit-account.button')}
+                    actionName={t('user-settings.modal-edit-account.button')}
                     isOpen={true}
                     onAction={formik.handleSubmit}
                     onClose={onClose}
                     isCancelButtonVisible={isCancelButtonVisible}
                     dialogProps={{ maxWidth: 'sm' }}
                 >
-                    <Typography variant={'h4'}>{t('parent-settings.modal-change-kindergarden.header')}</Typography>
+                    <Typography variant={'h4'}>{t('user-settings.modal-change-kindergarden.header')}</Typography>
                     <Typography variant={'body1'} className={classes.selectKindergardenInput}>
-                        {t('parent-settings.modal-change-kindergarden.subtitle')}
+                        {t('user-settings.modal-change-kindergarden.subtitle')}
                     </Typography>
                     <ChangeKindergartenModal formik={formik} kindergartens={kindergartens} />
                 </BasicModal>

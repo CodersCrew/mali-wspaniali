@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 export type RegisterForm = {
     code: string;
@@ -21,6 +21,7 @@ export interface RegistrationCodeProps {
     classForm: string;
     classButton: string;
     classNextBtn: string;
+    error: boolean;
 }
 
 export interface RegistrationEmailProps {
@@ -32,6 +33,7 @@ export interface RegistrationEmailProps {
     classForm: string;
     classButton: string;
     classNextBtn: string;
+    error: boolean;
 }
 
 export type RegistrationPasswordProps = {
@@ -44,6 +46,9 @@ export type RegistrationPasswordProps = {
     classButton: string;
     classNextBtn: string;
     classFormItem: string;
+    // TODO: get rid with next line!!!
+    skip?: Dispatch<SetStateAction<boolean>>;
+    loading: boolean;
 };
 
 export type RegistrationFeedbackProps = {

@@ -17,13 +17,7 @@ export async function clearDatabase(): Promise<void> {
     useUnifiedTopology: true,
   });
 
-  const collections = await conn
-    .db((process as ExtendedProcess).mongoDbName)
-    .collections();
-
-  for (let collection of collections) {
-    await collection.deleteMany({});
-  }
+  return await conn.db((process as ExtendedProcess).mongoDbName).dropDatabase();
 }
 
 export async function connect(): Promise<void> {
