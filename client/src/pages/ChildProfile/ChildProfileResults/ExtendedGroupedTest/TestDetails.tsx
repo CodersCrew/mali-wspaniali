@@ -49,7 +49,17 @@ export const TestDetails = ({ result }: Props) => {
                 <DotGroup className={classes.dotGroup} showAsSelectedForCurrentSlideOnly />
             </CarouselProvider>
         ) : (
-            <div className={classes.chartsWrapper}></div>
+            <div className={classes.chartsWrapper}>
+                {TESTS.map((test) => (
+                    <Measurement
+                        valueInUnitOfMeasure={result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number}
+                        valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
+                        unitOfMeasure={test.unitOfMeasure}
+                        translationKey={test.translationKey}
+                        key={test.translationKey}
+                    />
+                ))}
+            </div>
         );
     };
 

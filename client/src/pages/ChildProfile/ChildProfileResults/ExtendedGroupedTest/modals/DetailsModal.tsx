@@ -1,4 +1,4 @@
-import { createStyles, DialogContent, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, DialogContent, Grid, Hidden, makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
@@ -46,21 +46,32 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
             <DialogContent>
                 <Grid container>
                     <Grid lg={4} md={4} xs={12} item container direction="row" justify="center">
-                        <Grid lg={4} md={4} xs={4} item container direction="column" justify="space-between">
+                        <Grid
+                            lg={8}
+                            md={6}
+                            xs={8}
+                            item
+                            container
+                            direction="column"
+                            justify="space-between"
+                            className={classes.measurement}
+                        >
                             <DetailsMeasurement measurmentProps={measurementProps} />
-                            <Grid item>
-                                {' '}
-                                <Typography variant="subtitle2">
-                                    {t(`${T_DETAILS_PREFIX}.next-assesment.title`)}
-                                </Typography>
-                                <Typography variant="body2">
-                                    {t(`${T_DETAILS_PREFIX}.next-assesment.text-1`)}6
-                                    {t(`${T_DETAILS_PREFIX}.next-assesment.text-2`)}
-                                </Typography>
-                            </Grid>
+                            <Hidden only="xs">
+                                <Grid item>
+                                    {' '}
+                                    <Typography variant="subtitle2">
+                                        {t(`${T_DETAILS_PREFIX}.next-assesment.title`)}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {t(`${T_DETAILS_PREFIX}.next-assesment.text-1`)}6
+                                        {t(`${T_DETAILS_PREFIX}.next-assesment.text-2`)}
+                                    </Typography>
+                                </Grid>
+                            </Hidden>
                         </Grid>
                     </Grid>
-                    <Grid lg={8} md={8} xs={12} item>
+                    <Grid lg={8} md={8} item>
                         <Typography className={classes.typographySpacing} variant="h4">
                             {t(`${T_DETAILS_PREFIX}.assesment-details`)}
                         </Typography>
@@ -135,6 +146,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         titleSpacing: {
             padding: theme.spacing(3, 0),
+        },
+        measurement: {
+            [theme.breakpoints.down('md')]: {
+                marginBottom: theme.spacing(3),
+            },
         },
     }),
 );
