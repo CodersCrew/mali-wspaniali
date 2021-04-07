@@ -6,7 +6,7 @@ import {
   getKindergarten,
 } from '../../../../../test/helpers/app_mock';
 import { Kindergarten } from '@kindergartens/domain/models';
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { KindergartenModule } from '@kindergartens/kindergarten_module';
 import { DeleteKindergartenHandler } from '../delete_kindergarten_handler';
 import { DeleteKindergartenCommand } from '../../impl';

@@ -23,10 +23,7 @@ export interface UserProps {
   deleted: boolean;
 }
 
-export interface UserBeforeSaveProps {
-  mail: string;
-  readonly password: string;
-}
+export type UserBeforeSaveProps = Pick<UserProps, 'mail' | 'password'>;
 
 export class User extends AggregateRoot {
   private constructor(private props: UserProps | UserBeforeSaveProps) {

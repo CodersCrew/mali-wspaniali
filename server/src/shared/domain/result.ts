@@ -38,8 +38,8 @@ export class Result<T> {
     return this._value;
   }
 
-  public errorValue(): T {
-    return this.error as T;
+  public errorValue(): string | T {
+    return this.error;
   }
 
   public static ok<U>(value?: U): Result<U> {
