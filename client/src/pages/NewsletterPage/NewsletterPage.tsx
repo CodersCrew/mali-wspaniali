@@ -10,7 +10,6 @@ import {
     StepLabel,
     StepContent,
     StepConnector,
-    createMuiTheme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik, FormikErrors, FormikTouched } from 'formik';
@@ -203,18 +202,6 @@ function isEmptyMessage(message: string) {
     return parsedMessage.documentElement.textContent?.length === 0;
 }
 
-const customBreakpoints = createMuiTheme({
-    breakpoints: {
-        values: {
-            xs: 0,
-            sm: 280,
-            md: 320,
-            lg: 360,
-            xl: 768,
-        },
-    },
-});
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
@@ -261,21 +248,10 @@ const useStyles = makeStyles((theme: Theme) =>
             top: '70px',
             left: '46.5px',
             margin: 0,
+            height: '83%',
         },
         lineVertical: {
-            height: theme.spacing(21),
-
-            [customBreakpoints.breakpoints.only('lg')]: {
-                height: theme.spacing(24),
-            },
-
-            [customBreakpoints.breakpoints.only('md')]: {
-                height: theme.spacing(27),
-            },
-
-            [customBreakpoints.breakpoints.only('sm')]: {
-                height: theme.spacing(30),
-            },
+            height: '100%',
         },
     }),
 );
