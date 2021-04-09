@@ -2,8 +2,8 @@ import { createStyles, makeStyles, Snackbar, SnackbarOrigin, Theme } from '@mate
 import { Alert, AlertProps } from '@material-ui/lab';
 import clsx from 'clsx';
 
-import { useBreakpoints } from '../../queries/useBreakpoints';
 import { ActionDialog, DialogResult, openDialog } from '../../utils/openDialog';
+import { useBreakpoints } from '../../queries/useBreakpoints';
 
 interface Props {
     text: string;
@@ -27,7 +27,7 @@ export function openSnackbar({ text, variant, severity, anchor }: Props): Promis
                     classes={{
                         root: clsx({
                             [classes.container]: true,
-                            [classes.customized]: device === 'MOBILE',
+                            [classes.mobile]: device === 'MOBILE',
                         }),
                     }}
                 >
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
             zIndex: 10000,
             width: theme.spacing(121),
         },
-        customized: {
+        mobile: {
             width: theme.spacing(41),
         },
     }),
