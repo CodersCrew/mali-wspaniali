@@ -30,8 +30,8 @@ export function ChildListContainer(props: Props) {
                     <TableCell onClick={() => props.onClick('full-name', '')}>
                         <SortableHeaderItem label={t('add-results-page.full-name')} type={props.fullNameSortType} />
                     </TableCell>
-                    <TableCell onClick={() => props.onClick('age', '')} align="center">
-                        <SortableHeaderItem label={t('add-results-page.age')} type={props.ageSortType} />
+                    <TableCell onClick={() => props.onClick('age', '')}>
+                        <SortableHeaderItem label={t('add-results-page.age')} type={props.ageSortType} center={true} />
                     </TableCell>
                     <TableCell align="center">{t('add-results-page.first-assessment')}</TableCell>
                     <TableCell align="center">{t('add-results-page.last-assessment')}</TableCell>
@@ -165,10 +165,10 @@ export function ChildListContainer(props: Props) {
     }
 }
 
-function SortableHeaderItem({ type, label }: { type: string; label: string }) {
+function SortableHeaderItem({ type, label, center }: { type: string; label: string; center?: boolean }) {
     return (
         <Clickable>
-            <Box display="flex" justifyItems="center">
+            <Box display="flex" justifyContent={center ? 'center' : 'left'}>
                 <Box mr={1}>{label}</Box>
                 <ArrowItem type={type} />
             </Box>
