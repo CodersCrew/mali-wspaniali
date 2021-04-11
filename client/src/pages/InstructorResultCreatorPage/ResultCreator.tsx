@@ -9,7 +9,7 @@ import { ButtonSecondary } from '../../components/Button';
 import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
 import { countCurrentPoints } from './countPoints';
 import { Kindergarten } from '../../graphql/types';
-
+//temporary comment
 interface Props {
     resultCreator: ResultCreatorReturnProps;
     measurement: string;
