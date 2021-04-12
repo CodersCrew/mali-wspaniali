@@ -177,7 +177,7 @@ function SortableHeaderItem({ type, label, center }: { type: string; label: stri
 }
 
 function ArrowItem({ type }: { type: string }) {
-    if (type === '') return <>-</>;
+    if (type === '') return <ArrowUpward color="disabled" />;
 
     if (type === 'asc') return <ArrowUpward />;
 
