@@ -1,117 +1,92 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles, Grid, createStyles } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { makeStyles, Grid, createStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
-import { useMutation } from '@apollo/client';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
-import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { Theme } from '../../theme/types';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 import { useLastArticles } from '../../operations/queries/Articles/getLastArticles';
-import { AddChildResult } from '../../components/AddChildModal/AddChildModal.types';
-import { ChildInput } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
+import { useAddChild } from '../../operations/mutations/User/addChild';
+import { PageContainer } from '../../components/PageContainer';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { HomePageInfo } from './HomePageTopSection/HomePageInfo';
 
-import { ADD_CHILD } from '../../graphql/userRepository';
-import { AddChildModal } from '../../components/AddChildModal/AddChildModal';
-
-export const ParentHomePage = () => {
+export default function ParentHomePage() {
     const user = useMe();
+    const { addChild } = useAddChild();
     const { articles } = useLastArticles(6);
     const { t } = useTranslation();
+    const history = useHistory();
+    const { isMobile } = useIsDevice();
     const classes = useStyles();
+    const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(
+        () => localStorage.getItem('infoNote') !== 'closed',
+    );
+
+    function toggleInfoComponent() {
+        setIsInfoComponentVisible((prev) => !prev);
+        localStorage.setItem('infoNote', 'closed');
+    }
 
     const { kindergartenList } = useKindergartens();
-    const [addChild] = useMutation(ADD_CHILD);
-
-    const [isCancelButtonVisible, setIsCancelButtonVisible] = useState(false);
-    const [modalOpen, setModalOpen] = useState(user ? user.role === 'parent' && user.children.length === 0 : false);
 
     useEffect(() => {
         activePage(['parent-menu.home']);
-        setIsCancelButtonVisible(false);
     }, []);
 
     if (!user || !kindergartenList) return null;
 
-    const handleModalReset = () => {
-        setModalOpen(false);
-    };
-
-    const handleModalSubmit = (child: AddChildResult) => {
-        const newChild: ChildInput = {
-            firstname: child.firstname,
-            lastname: child.lastname,
-            birthYear: parseInt(child['birth-date'], 10),
-            birthQuarter: parseInt(child['birth-quarter'], 10),
-            sex: child.sex,
-            kindergartenId: child.kindergarten,
-        };
-
-        setModalOpen(false);
-
-        addChild({
-            variables: {
-                child: newChild,
-            },
-        });
-    };
-
     return (
-        <>
+        <PageContainer>
             <Grid className={classes.container}>
                 <Grid item xs={12}>
-                    <PageTitle text={t('home-page-content.greeting')} />
+                    <Typography variant={isMobile ? 'h2' : 'h1'} align={isMobile ? 'center' : 'left'}>
+                        {t('home-page-content.greeting')}
+                    </Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <p className={classes.description}>
-                        <span>{t('home-page-content.check-children-activity')} </span>
-                        <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                        <Typography variant={isMobile ? 'subtitle1' : 'h3'} align={isMobile ? 'center' : 'left'}>
+                            {t('home-page-content.check-children-activity')}{' '}
+                            <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                        </Typography>
                     </p>
                 </Grid>
                 <HomePageChildren
                     childrenList={user.children}
-                    setModalOpen={setModalOpen}
-                    setIsCancelButtonVisible={setIsCancelButtonVisible}
+                    handleModalSubmit={addChild}
+                    onChildClick={(id) => {
+                        history.push(`parent/child/${id}/results`);
+                    }}
                 />
+                <div className={classes.infoContainer}>
+                    {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
+                </div>
                 <HomePageArticles articles={articles} />
             </Grid>
-            <AddChildModal
-                handleSubmit={handleModalSubmit}
-                handleReset={handleModalReset}
-                isOpen={modalOpen}
-                kindergartens={kindergartenList}
-                isCancelButtonVisible={isCancelButtonVisible}
-            />
-        </>
+        </PageContainer>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            margin: 16,
             padding: '0 0 54px 0',
-            fontFamily: 'Montserrat, sans-serif',
 
             [theme.breakpoints.down('md')]: {
                 padding: '0 0 5px 0',
-                textAlign: 'center',
             },
         },
         description: {
             margin: '20px 0 40px 0',
-            fontSize: 21,
-            lineHeight: '26px',
-            fontWeight: 500,
 
             [theme.breakpoints.down('sm')]: {
-                fontSize: 15,
                 display: 'flex',
                 flexDirection: 'column',
-                lineHeight: '18px',
                 margin: '15px 0 20px 0',
             },
         },
@@ -122,6 +97,18 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('sm')]: {
                 textTransform: 'uppercase',
                 lineHeight: '18px',
+            },
+        },
+        infoContainer: {
+            display: 'flex',
+            marginBottom: theme.spacing(5),
+            flexWrap: 'wrap',
+
+            [theme.breakpoints.down('md')]: {
+                flexDirection: 'column',
+                alignItems: 'center',
+                paddingRight: theme.spacing(0),
+                marginBottom: theme.spacing(4),
             },
         },
     }),

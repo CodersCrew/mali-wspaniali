@@ -1,4 +1,3 @@
-import React from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import { DataEntry } from 'react-minimal-pie-chart/types/commonTypes';
 import InfoIcon from '@material-ui/icons/Info';
@@ -8,14 +7,16 @@ interface Props {
     color: string;
     value: number;
     maxValue: number;
+    enableInfoIcon?: boolean;
     label?: string;
     labelSuffix?: string;
+    disable?: boolean;
 }
 
-export const CircleChart = ({ color, value, maxValue, label, labelSuffix }: Props) => {
+export function CircleChart({ color, value, maxValue, label, enableInfoIcon, labelSuffix, disable }: Props) {
     const classes = useStyles();
 
-    const dataEntry: DataEntry = { color, value };
+    const dataEntry: DataEntry = { color, value: disable ? 0 : value };
 
     return (
         <>
@@ -24,19 +25,19 @@ export const CircleChart = ({ color, value, maxValue, label, labelSuffix }: Prop
                 totalValue={maxValue}
                 data={[dataEntry]}
                 label={() => {
-                    if (!value) return '-';
+                    if (!value || disable) return '-';
 
                     return labelSuffix ? `${label} ${labelSuffix}` : label;
                 }}
                 labelPosition={0}
-                labelStyle={{ fontSize: '20px' }}
+                labelStyle={{ fontSize: '14px', fontFamily: 'Montserrat', fontWeight: 'bold' }}
                 background="rgba(0, 0, 0, 0.04)"
                 startAngle={270}
             />
-            {!value && <InfoIcon className={classes.icon} />}
+            {!value && enableInfoIcon && <InfoIcon className={classes.icon} />}
         </>
     );
-};
+}
 
 const useStyles = makeStyles({
     icon: {

@@ -17,7 +17,7 @@ export class ChildCreatedHandler implements IEventHandler<ChildCreatedEvent> {
 
     if (user) {
       await this.notificationRepository.create(
-        createChildNotification(user._id),
+        createChildNotification(user.id),
       );
     }
   }

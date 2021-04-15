@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Button, ButtonProps, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import clsx from 'clsx';
 
 export type CustomButtonProps = ButtonProps & {
     innerText?: string;
-    icon?: JSX.Element;
+    icon?: React.ReactNode;
     variant?: string;
 };
 

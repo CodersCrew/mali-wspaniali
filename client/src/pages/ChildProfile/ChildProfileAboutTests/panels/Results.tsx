@@ -1,8 +1,5 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Typography, Box } from '@material-ui/core';
 import { Panel } from '../Panel';
 import { CircleChart } from '../../../../components/CircleChart';
 import { panelTextColor, white, resultColors } from '../../../../colors';
@@ -48,7 +45,7 @@ export const Results = () => {
             <div className={classes.scores}>
                 {scores.map(({ color, description, label, value }) => (
                     <Box key={label} display="flex" flexDirection="column" alignItems="center">
-                        <CircleChart color={color} maxValue={100} value={value} label={label} />
+                        <CircleChart color={color} maxValue={100} value={value} label={label} enableInfoIcon />
                         <div className={classes.scoreDescription} style={{ backgroundColor: color }}>
                             {description}
                         </div>
@@ -59,7 +56,7 @@ export const Results = () => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 21,
         fontWeight: 500,

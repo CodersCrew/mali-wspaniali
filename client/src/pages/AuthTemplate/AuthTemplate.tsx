@@ -1,24 +1,49 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
+
+import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
 type AuthTemplateType = 'login' | 'register';
 
 export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, type }) => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { isDesktop } = useIsDevice();
 
     return (
-        <div className={classes.background}>
-            <div className={classes.logoContainer}>
-                <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
-                <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
-                {type === 'register' && <p className={classes.subheading}>{t('login-wrapper.subheading')}</p>}
-            </div>
-            <div className={classes.formContainer}>{children}</div>
-        </div>
+        <>
+            {isDesktop ? (
+                <div className={classes.background}>
+                    <div className={classes.logoContainer}>
+                        <div className={classes.logoInnerContainer}>
+                            <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
+                            <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
+                        </div>
+                        {type === 'login' && <PartnerLogotypeContainer />}
+                    </div>
+                    <div className={classes.formContainer}>{children}</div>
+                </div>
+            ) : (
+                <>
+                    <Box zIndex="appBar">
+                        <AppBar className={classes.appBar} position="fixed">
+                            <div className={classes.appBarLanguageSelector} />
+                            <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
+                            <div className={classes.appBarLanguageSelector}>
+                                <LanguageSelector />
+                            </div>
+                        </AppBar>
+                    </Box>
+                    <div className={classes.formContainer}>{children}</div>
+                </>
+            )}
+        </>
     );
 };
 
@@ -28,10 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: mainColor,
             minHeight: '100vh',
             height: '100%',
-            padding: '10px',
             display: 'flex',
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 flexDirection: 'column',
                 padding: 0,
             },
@@ -39,60 +63,80 @@ const useStyles = makeStyles((theme: Theme) =>
         logoContainer: {
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            flex: '2 0 0',
+            justifyContent: 'flex-end',
+            flex: '4 0 0',
             flexDirection: 'column',
-
-            [theme.breakpoints.down('sm')]: {
+            padding: theme.spacing(3),
+            [theme.breakpoints.down('md')]: {
                 flex: '0',
-                marginTop: '15px',
+                marginTop: 15,
             },
         },
-        formContainer: {
-            backgroundColor,
-            minHeight: 'calc(100vh - 20px)',
+        logoInnerContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
             height: '100%',
-            borderRadius: '10px',
-            flex: '1 0 0',
-
-            [theme.breakpoints.down('sm')]: {
-                minHeight: 'auto',
-                borderRadius: '10px 10px 0 0',
+        },
+        logo: {
+            width: '327.04',
+            [theme.breakpoints.down('md')]: {
+                width: 109,
+                margin: 'auto',
             },
         },
         welcomeText: {
-            marginTop: '50px',
-            width: '480px',
-            color: backgroundColor,
+            marginTop: theme.spacing(5),
+            width: 400,
+            color: theme.palette.text.primary,
             fontFamily: 'Montserrat',
             fontStyle: 'normal',
-            fontWeight: 'bold',
-            fontSize: '36px',
-            lineHeight: '44px',
+            fontWeight: theme.typography.fontWeightMedium,
+            fontSize: '34px',
+            lineHeight: '41.45px',
             textAlign: 'center',
-            textTransform: 'uppercase',
 
-            [theme.breakpoints.down('sm')]: {
-                margin: '15px 0 30px 0',
-                width: '280px',
+            [theme.breakpoints.down('md')]: {
+                marginTop: theme.spacing(2),
+                marginBottom: theme.spacing(4),
+                width: 280,
                 fontSize: '21px',
-                lineHeight: '26px',
+                lineHeight: 26,
             },
         },
-        subheading: {
-            marginTop: '20px',
-            fontSize: '21px',
-            lineHeight: '26px',
-            color: backgroundColor,
+        /*
+            formContainer: {
+                backgroundColor,
+                flex: '3 0 0',
+                display: 'flex',
+                flexDirection: 'column',
+                [theme.breakpoints.down('sm')]: {
+                    minHeight: 'auto',
+                },
+*/
+        formContainer: {
+            backgroundColor,
+            minHeight: '100vh',
+            height: '100%',
+            flex: '3 0 0',
 
-            [theme.breakpoints.down('sm')]: {
-                display: 'none',
+            [theme.breakpoints.down('md')]: {
+                minHeight: 'auto',
             },
         },
-        logo: {
-            [theme.breakpoints.down('sm')]: {
-                maxWidth: '200px',
-            },
+        appBar: {
+            height: 64,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderBottom: `1px solid ${theme.palette.primary.main}`,
+        },
+        appBarLanguageSelector: {
+            height: 24,
+            width: 24,
+            marginRight: theme.spacing(3),
         },
     }),
 );

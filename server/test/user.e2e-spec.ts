@@ -264,7 +264,7 @@ describe('User (e2e)', () => {
               sex: "male",
               kindergartenId: "${createdKindergartenId}",
           }) {
-            status
+            firstname
           }
         }
         `,

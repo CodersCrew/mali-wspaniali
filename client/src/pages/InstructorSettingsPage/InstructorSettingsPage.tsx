@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { activePage } from '../../apollo_client';
 
-export function InstructorSettingsPage() {
-    useEffect(() => {
+export default function InstructorSettingsPage() {
+    React.useEffect(() => {
         activePage(['instructor-menu.settings']);
     }, []);
 

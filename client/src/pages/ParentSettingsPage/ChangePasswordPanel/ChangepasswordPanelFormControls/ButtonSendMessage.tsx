@@ -1,15 +1,17 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { FC } from 'react';
+
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { ButtonSecondary } from '../../../../components/Button';
 
-export const ButtonSendMessage = () => {
+interface ButtonSendMessageProps {
+    handleClick?: () => void;
+}
+
+export const ButtonSendMessage: FC<ButtonSendMessageProps> = ({ handleClick }) => {
     const classes = useStyles();
     const { t } = useTranslation();
-
-    const handleClick = () => {
-        //
-    };
 
     return (
         <div className={classes.wrapper}>

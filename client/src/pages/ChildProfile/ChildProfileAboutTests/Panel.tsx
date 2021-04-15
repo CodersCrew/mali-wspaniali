@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
-import { Accordion, AccordionDetails } from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
+import { FC } from 'react';
+import { makeStyles, Accordion, AccordionDetails } from '@material-ui/core';
 import { PanelSummary } from './PanelSummary';
 
 interface Props {
@@ -18,7 +17,7 @@ export const Panel: FC<Props> = ({ title, children }) => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     panel: {
         '&:first-child': {
             marginTop: 0,

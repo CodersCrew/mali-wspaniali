@@ -1,24 +1,38 @@
-import { Schema, Document } from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 
-interface AssessmentProps {
-  _id: string;
+export interface KindergartenWithInstructorDocumentProps {
+  kindergartenId: Types.ObjectId;
+  instructorId: Types.ObjectId | null;
+}
+
+interface AssessmentDocumentProps {
+  _id: Types.ObjectId;
   date: Date;
   title: string;
   isOutdated: boolean;
+  isDeleted: boolean;
   isSigned: boolean;
   startDate: string;
   endDate: string;
-  kindergartens: Array<{
-    kindergartenId: string;
-    instructorId: string | null;
-  }>;
+  firstMeasurementStartDate: string;
+  firstMeasurementEndDate: string;
+  lastMeasurementStartDate: string;
+  lastMeasurementEndDate: string;
+  status: string;
+  firstMeasurementStatus: string;
+  lastMeasurementStatus: string;
+  kindergartens: Array<KindergartenWithInstructorDocumentProps>;
 }
 
-export type AssessmentDocument = AssessmentProps & Document;
+export type AssessmentDocument = AssessmentDocumentProps & Document;
 
 export const AssessmentSchema = new Schema({
   title: String,
   isOutdated: {
+    type: Boolean,
+    default: false,
+  },
+  isDeleted: {
     type: Boolean,
     default: false,
   },
@@ -32,6 +46,13 @@ export const AssessmentSchema = new Schema({
   },
   startDate: String,
   endDate: String,
+  firstMeasurementStartDate: String,
+  firstMeasurementEndDate: String,
+  lastMeasurementStartDate: String,
+  lastMeasurementEndDate: String,
+  status: String,
+  firstMeasurementStatus: String,
+  lastMeasurementStatus: String,
   kindergartens: {
     type: [
       {

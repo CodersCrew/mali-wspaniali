@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     Checkbox,
     createStyles,
@@ -30,10 +29,10 @@ export function AgreementKindergartenInput({ values: currentValues, onChange }: 
             <Select
                 multiple
                 label={t('agreements-filter.by-agreement-status')}
-                renderValue={selected => {
+                renderValue={(selected) => {
                     return (selected as string[])
-                        .map(e => {
-                            const option = currentValues.find(k => k.id === e);
+                        .map((e) => {
+                            const option = currentValues.find((k) => k.id === e);
 
                             if (!option) return e;
 
@@ -41,7 +40,7 @@ export function AgreementKindergartenInput({ values: currentValues, onChange }: 
                         })
                         .join(', ');
                 }}
-                value={currentValues.filter(e => e.selected).map(e => e.id)}
+                value={currentValues.filter((e) => e.selected).map((e) => e.id)}
                 onChange={({ target: { name, value } }) => onChange(name as string, value as string[])}
                 fullWidth
                 inputProps={{
@@ -50,7 +49,7 @@ export function AgreementKindergartenInput({ values: currentValues, onChange }: 
                 }}
                 MenuProps={FilterMenuProps}
             >
-                {currentValues.map(kindergarten => {
+                {currentValues.map((kindergarten) => {
                     return (
                         <MenuItem key={kindergarten.id} value={kindergarten.id}>
                             <Checkbox checked={kindergarten.selected} />

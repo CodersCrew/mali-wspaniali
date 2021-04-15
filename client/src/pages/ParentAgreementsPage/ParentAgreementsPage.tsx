@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { activePage } from '../../apollo_client';
 import { Agreements } from './Agreements';
 import { useMe } from '../../utils/useMe';
 
-export function ParentAgreementsPage() {
+export default function ParentAgreementsPage() {
     const user = useMe();
 
     useEffect(() => {
@@ -12,5 +12,9 @@ export function ParentAgreementsPage() {
 
     if (!user) return null;
 
-    return <Agreements agreements={user.agreements} />;
+    const sortedAgreements = [...user.agreements].sort((a) => {
+        return a.text === 'Marketing' ? -1 : 1;
+    });
+
+    return <Agreements agreements={sortedAgreements} />;
 }

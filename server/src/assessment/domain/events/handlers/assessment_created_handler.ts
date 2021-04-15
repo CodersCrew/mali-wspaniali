@@ -17,7 +17,7 @@ export class AssessmentCreatedHandler
 
     this.notificationRepository.create(
       createAssessmentCreatedNotification(
-        users.map(u => u._id),
+        users.map(u => u.id),
         [assessment.title.value],
       ),
     );

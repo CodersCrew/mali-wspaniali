@@ -16,14 +16,6 @@ export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>
     });
 }
 
-export const ADD_CHILD = gql`
-    mutation addChild($child: ChildInput!) {
-        addChild(child: $child) {
-            status
-        }
-    }
-`;
-
 export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User }>> {
     return client.query({
         query: gql`

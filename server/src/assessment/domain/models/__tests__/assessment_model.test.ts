@@ -119,8 +119,17 @@ function createAssessment(options?: {
   const assessment = create({
     _id: _id.getValue(),
     title: title.getValue(),
+    isOutdated: false,
+    isDeleted: false,
     startDate: startDate.getValue(),
     endDate: endDate.getValue(),
+    firstMeasurementStartDate: startDate.getValue(),
+    firstMeasurementEndDate: endDate.getValue(),
+    lastMeasurementStartDate: startDate.getValue(),
+    lastMeasurementEndDate: endDate.getValue(),
+    status: 'active',
+    firstMeasurementStatus: 'active',
+    lastMeasurementStatus: 'active',
     kindergartens: [],
   });
 

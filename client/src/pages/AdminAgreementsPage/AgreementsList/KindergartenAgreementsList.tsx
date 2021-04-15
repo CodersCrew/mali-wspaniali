@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     createStyles,
     makeStyles,
@@ -40,11 +39,11 @@ export function KindergartenAgreementsList({ parents }: Props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {parents.map(parent => (
+                    {parents.map((parent) => (
                         <TableRow key={parent.email}>
                             <TableCell>{parent.email}</TableCell>
                             <TableCell>
-                                {parent.children.map(child => (
+                                {parent.children.map((child) => (
                                     <div key={child}>{child}</div>
                                 ))}
                             </TableCell>

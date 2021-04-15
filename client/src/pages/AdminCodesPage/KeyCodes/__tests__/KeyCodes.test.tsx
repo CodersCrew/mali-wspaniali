@@ -42,7 +42,7 @@ describe('KeyCodes', () => {
             const item = screen.queryAllByTestId('keycode-item')[0];
 
             expect(item.querySelector('button')).toHaveTextContent('mw-keycodes-RwNxRTO8TV.clsx');
-            expect(within(item).getByTestId('keycode-item-target')).toHaveTextContent('instructor');
+            expect(within(item).getByTestId('keycode-item-target')).toHaveTextContent('Instructor');
             expect(within(item).getByTestId('keycode-item-count')).toHaveTextContent('1');
         });
     });

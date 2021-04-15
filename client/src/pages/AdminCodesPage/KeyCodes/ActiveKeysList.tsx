@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     createStyles,
     Divider,
@@ -14,10 +13,10 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-import moment from 'moment';
 
 import { KeyCodeSeries } from '../../../graphql/types';
 import { FilenameButton } from './FilenameButton';
+import dayjs from '../../../localizedMoment';
 
 interface Props {
     keyCodeSeries: KeyCodeSeries[];
@@ -61,7 +60,7 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                             {[...keyCodeSeries]
                                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                                 .map(({ series, count, target, date }) => {
-                                    const expirationDate = moment(date).add(7, 'days');
+                                    const expirationDate = dayjs(date).add(7, 'days');
 
                                     return (
                                         <TableRow key={series} data-testid="keycode-item">
@@ -78,7 +77,7 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                                                 classes={{ root: clsx(classes.targetCell, classes.cell) }}
                                                 data-testid="keycode-item-target"
                                             >
-                                                {target}
+                                                {t(`admin-setting-page.keycode-generation.role-${target}`)}
                                             </TableCell>
                                             <TableCell
                                                 classes={{ root: classes.cell }}

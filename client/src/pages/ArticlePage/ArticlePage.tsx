@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Theme, CardMedia, Divider } from '@material-ui/core';
@@ -15,7 +15,7 @@ import { TagList } from './TagList';
 import { calculateReadingTime } from '../../utils/calculateReadingTime';
 import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
 
-export const ArticlePage = () => {
+export default function ArticlePage() {
     const { t } = useTranslation();
     const { articleId } = useParams<{ articleId: string }>();
     const { isMobile, isTablet, isDesktop } = useIsDevice();
@@ -72,18 +72,18 @@ export const ArticlePage = () => {
                 </Grid>
                 <Grid container xs={12} justify="space-between">
                     <Grid item>
-                        <ButtonDefault variant="contained">{t(`single-article.go-to-previous-page`)}</ButtonDefault>
+                        <ButtonDefault variant="contained">{t('single-article.go-to-previous-page')}</ButtonDefault>
                     </Grid>
                     <Grid item>
                         <ButtonDefault variant="contained" color="secondary">
-                            {t(`single-article.go-to-next-page`)}
+                            {t('single-article.go-to-next-page')}
                         </ButtonDefault>
                     </Grid>
                 </Grid>
             </Grid>
         </>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

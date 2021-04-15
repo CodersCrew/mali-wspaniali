@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography, createStyles, makeStyles, Theme } from '@material-ui/core/';
+import { Typography } from '@material-ui/core/';
 import { NoResults } from './NoResults';
 import { ResultsActions } from './ResultsActions';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
@@ -13,10 +13,10 @@ import { useCreateKindergarten } from '../../operations/mutations/Kindergartens/
 import { useDeleteKindergarten } from '../../operations/mutations/Kindergartens/deleteKindergarten';
 import { useUpdateKindergarten } from '../../operations/mutations/Kindergartens/updateKindergarten';
 import { Kindergarten, AddKindergartenInput } from '../../graphql/types';
+import { PageContainer } from '../../components/PageContainer';
 
-export const TestResultsPage = () => {
+export default function TestResultsPage() {
     const { t } = useTranslation();
-    const classes = useStyles();
 
     const { createKindergarten } = useCreateKindergarten();
     const { deleteKindergarten } = useDeleteKindergarten();
@@ -65,7 +65,7 @@ export const TestResultsPage = () => {
     };
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <Typography variant="h3">{t('test-results.description')}</Typography>
             <ResultsActions
                 onAddKindergartenClick={() => setKindergartenModalStatus({ isOpen: true, kindergarten: null })}
@@ -90,17 +90,6 @@ export const TestResultsPage = () => {
                     kindergarten={deleteModalStatus.kindergarten}
                 />
             )}
-        </div>
+        </PageContainer>
     );
-};
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            padding: theme.spacing(3),
-            display: 'flex',
-            flexDirection: 'column',
-            gap: `${theme.spacing(4)}px`, // for some reason it doesn't work without 'px',
-        },
-    }),
-);
+}

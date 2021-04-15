@@ -1,12 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AddChildHandler } from '../add_child_handler';
-import { AddChildCommand, CreateUserCommand } from '../../impl';
-import * as dbHandler from '../../../../../db_handler';
-import { CreateUserHandler } from '../create_user_handler';
-import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
 import waitForExpect from 'wait-for-expect';
+import { AddChildHandler } from '../add_child_handler';
+import { AddChildCommand } from '../../impl';
+import * as dbHandler from '@app/db_handler';
+import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
 import { UsersModule } from '../../../../users_module';
-import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../../../users/domain/models/user_model';
 import { Child } from '../../../models/child_model';
 import { ObjectId } from '../../../models/object_id_value_object';
@@ -14,14 +12,17 @@ import { Sex } from '../../../models/sex_value_object';
 import { Firstname } from '../../../models/firstname_value_object';
 import { Lastname } from '../../../models/lastname_value_object';
 import { BirthYear } from '../../../models/birth_year_value_object';
-import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/commands/impl/create_bulk_key_code_command';
 import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
-import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
-import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
 import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import { BirthQuarter } from '../../../models/birth_quarter_value_object';
+import {
+  createKindergartenWith,
+  createParent,
+} from '../../../../../test/helpers/app_mock';
+
+jest.setTimeout(10000);
 
 describe('AddChildHandler', () => {
   let parent: User;
@@ -48,9 +49,13 @@ describe('AddChildHandler', () => {
 
     await dbHandler.clearDatabase();
 
+    await awaitForResponse();
+
     parent = await createParent();
 
-    kindergarten = await createKindergarten();
+    await awaitForResponse();
+
+    kindergarten = await createKindergartenWith();
 
     validChildOptions.kindergartenId = kindergarten.id.toString();
 
@@ -61,7 +66,6 @@ describe('AddChildHandler', () => {
     describe('with correct data', () => {
       beforeEach(async () => {
         addedChild = await addChildCommandWith(validChildOptions, parent.id);
-
         await awaitForResponse();
       });
 
@@ -88,16 +92,23 @@ describe('AddChildHandler', () => {
       });
 
       it('invokes child added notification', async () => {
-        await waitForExpect(async () => {
-          return expect(await getNotificationsForUser(parent.id)).toEqual(
-            jasmine.arrayContaining([
-              jasmine.objectContaining({
-                templateId: 'child_created',
-                user: parent.id,
-              }),
-            ]),
-          );
-        });
+        const parentId = parent.id;
+
+        await waitForExpect(
+          async () => {
+            await awaitForResponse();
+            const [notification, a, b] = await getNotificationsForUser(
+              parentId,
+            );
+
+            expect(notification).toBeDefined();
+
+            expect(notification.templateId).toBe('child_created');
+            expect(notification.user).toBe(parentId);
+          },
+          9000,
+          1000,
+        );
       });
     });
 
@@ -237,35 +248,6 @@ describe('AddChildHandler', () => {
         new AddChildCommand({ ...validChildOptions, ...options }, parentId),
       );
     });
-  }
-
-  async function createParent(): Promise<User> {
-    const keyCode = await app
-      .get(CreateKeyCodeHandler)
-      .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
-
-    const parent = await app
-      .get(CreateUserHandler)
-      .execute(
-        new CreateUserCommand(
-          'my-mail@mail.com',
-          'my-password',
-          keyCode.keyCode,
-        ),
-      );
-
-    return parent;
-  }
-
-  function createKindergarten() {
-    return app.get(CreateKindergartenHandler).execute(
-      new CreateKindergartenCommand({
-        number: 1,
-        name: 'my-name',
-        address: 'my-address',
-        city: 'my-city',
-      }),
-    );
   }
 
   function getNotificationsForUser(user: string) {

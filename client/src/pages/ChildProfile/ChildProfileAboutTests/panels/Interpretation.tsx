@@ -1,7 +1,5 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Typography } from '@material-ui/core';
 import { Panel } from '../Panel';
 import { panelTextColor } from '../../../../colors';
 
@@ -22,7 +20,7 @@ export const Interpretation = () => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 21,
         fontWeight: 500,

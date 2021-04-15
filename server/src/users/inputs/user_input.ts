@@ -10,4 +10,7 @@ export class UserInput {
 
   @Field()
   readonly keyCode: string;
+
+  @Field(() => [String], { nullable: true })
+  readonly agreements?: string[];
 }

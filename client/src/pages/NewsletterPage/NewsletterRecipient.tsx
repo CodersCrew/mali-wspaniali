@@ -1,12 +1,13 @@
-import React, { FocusEvent } from 'react';
+import { FocusEvent } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
+
 import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
+import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
 import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
 import { Kindergarten } from '../../graphql/types';
-import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 const setLabel = (
@@ -30,7 +31,7 @@ const setLabel = (
 };
 
 const generateKindergardenOptions = (kindergardens: Kindergarten[]): { value: string; label: string }[] => {
-    const values = kindergardens.map(kindergarden => {
+    const values = kindergardens.map((kindergarden) => {
         const { _id, number, name } = kindergarden;
 
         return {
@@ -69,8 +70,8 @@ export const NewsletterRecipent = ({
     const kidergartenInputValues = (selected: unknown) => {
         if (Array.isArray(selected)) {
             return selected
-                .map(id => {
-                    const obj = kindergardenOptionsValues.find(kindergarden => kindergarden.value === id);
+                .map((id) => {
+                    const obj = kindergardenOptionsValues.find((kindergarden) => kindergarden.value === id);
 
                     return obj ? obj.label : 'unknown label';
                 })

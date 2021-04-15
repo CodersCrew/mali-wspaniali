@@ -1,5 +1,5 @@
-import { gql, useLazyQuery } from "@apollo/client";
-import { KeyCode } from "../../../graphql/types";
+import { gql, useLazyQuery } from '@apollo/client';
+import { KeyCode } from '../../../graphql/types';
 
 interface KeyCodeResponse {
     keyCodes: KeyCode[];
@@ -16,9 +16,8 @@ const KEYCODES = gql`
     }
 `;
 
-
 export function useKeyCodes() {
-    const [getKeyCodeSeries, {data}] = useLazyQuery<KeyCodeResponse>(KEYCODES);
+    const [getKeyCodeSeries, { data }] = useLazyQuery<KeyCodeResponse>(KEYCODES);
 
     return {
         getKeyCodes: (series: string) => {
@@ -26,8 +25,8 @@ export function useKeyCodes() {
                 variables: {
                     series,
                 },
-})
+            });
         },
-        keyCodes: data?.keyCodes || []
-    }
+        keyCodes: data?.keyCodes || [],
+    };
 }

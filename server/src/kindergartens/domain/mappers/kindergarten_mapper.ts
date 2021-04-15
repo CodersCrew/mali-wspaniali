@@ -3,8 +3,8 @@ import { Kindergarten } from '../models/kindergarten_model';
 import { ObjectId } from '../../../users/domain/models/object_id_value_object';
 import { KindergartenTitle } from '../models/kindergarten_title_value_object';
 import { IsDeleted } from '../models/is_deleted_value_object';
+import { KindergartenInput } from '@kindergartens/inputs/kindergarten_input';
 import { Result } from '../../../shared/domain/result';
-import { KindergartenInput } from '../../inputs/kindergarten_input';
 
 interface DomainMapperOptions {
   isNew?: boolean;
@@ -22,7 +22,7 @@ export class KindergartenMapper {
       const kindergartenTitle = KindergartenTitle.create(props.name);
       const isDeleted = IsDeleted.create(props.isDeleted);
 
-      const result = Result.combine([_id, kindergartenTitle, isDeleted]);
+      const result = Result.combine([_id, kindergartenTitle, isDeleted as any]);
 
       if (result.isSuccess) {
         return create({
@@ -35,7 +35,7 @@ export class KindergartenMapper {
           isDeleted: isDeleted.getValue(),
         });
       } else {
-        throw new Error(result.error);
+        throw new Error(result.error as string);
       }
     } else {
       const _id = ObjectId.create();
@@ -55,7 +55,7 @@ export class KindergartenMapper {
           isDeleted: IsDeleted.create().getValue(),
         });
       } else {
-        throw new Error(result.error);
+        throw new Error(result.error as string);
       }
     }
   }
@@ -87,7 +87,7 @@ export class KindergartenMapper {
 
   static toRaw(kindergarten: Kindergarten): KindergartenProps {
     return {
-      _id: kindergarten.id.value,
+      _id: kindergarten.id.value.toString(),
       date: kindergarten.date,
       number: kindergarten.number,
       name: kindergarten.name.value,

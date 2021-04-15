@@ -1,21 +1,13 @@
 import React, { FC } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { useAddTest } from '../useAddTest';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { CREATE_NEW_TEST } from '../../../operations/mutations/Test/createNewTest';
+import { useAssessmentManager } from '../useAssessmentManager';
+import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/createAssessment';
 import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Kindergarten } from '../../../graphql/types';
-import { formatDate } from '../../../utils/formatDate';
-
-const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
-
-const startDate = new Date();
-const endDate = new Date(startDate.getTime() + TWO_MONTHS);
-
-const formatedStartDate = formatDate(startDate);
-const formatedEndDate = formatDate(endDate);
+import { GET_ALL_ASSESSMENTS } from '../../../operations/queries/Assessment/getAllAssessments';
 
 describe('useAddTest', () => {
     let onSubmit: jest.Mock;
@@ -27,13 +19,20 @@ describe('useAddTest', () => {
 
         describe('with valid data', () => {
             it('changes the state', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
+                    wrapper: renderPage(mocks),
+                });
 
                 act(() => {
-                    result.current.setTestInformation({
-                        testName: 'my-test',
-                        startDate: formatedStartDate,
-                        endDate: formatedEndDate,
+                    result.current.updateAssessment({
+                        title: 'my-test',
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
+                        firstMeasurementEndDate: '2021-7-3',
+                        firstMeasurementStartDate: '2021-6-1',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementEndDate: '2021-7-3',
+                        lastMeasurementStartDate: '2021-6-1',
                     });
                 });
 
@@ -46,27 +45,40 @@ describe('useAddTest', () => {
                 await awaitForHookResponse();
                 await awaitForHookResponse();
 
-                expect(onSubmit).toHaveBeenCalledWith(
-                    jasmine.objectContaining({
-                        testInformation: {
-                            testName: 'my-test',
-                            startDate: formatedStartDate,
-                            endDate: formatedEndDate,
-                        },
-                    }),
-                );
+                expect(onSubmit).toHaveBeenCalledWith({
+                    assessment: {
+                        title: 'my-test',
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
+                        status: 'active',
+                        firstMeasurementEndDate: '2021-7-3',
+                        firstMeasurementStartDate: '2021-6-1',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementEndDate: '2021-7-3',
+                        lastMeasurementStartDate: '2021-6-1',
+                        lastMeasurementStatus: 'active',
+                        kindergartenIds: [],
+                        isOutdated: false,
+                        isDeleted: false,
+                    },
+                    message: 'A new assesment has been created',
+                });
             });
         });
 
         describe('with invalid data', () => {
             it('changes the state', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
+                    wrapper: renderPage(mocks),
+                });
 
                 act(() => {
-                    result.current.setTestInformation({
-                        testName: 'my',
-                        startDate: formatedStartDate,
-                        endDate: formatedEndDate,
+                    result.current.updateAssessment({
+                        title: 'my',
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
+                        kindergartenIds: [],
+                        isOutdated: false,
                     });
                 });
 
@@ -79,7 +91,7 @@ describe('useAddTest', () => {
                 await awaitForHookResponse();
 
                 expect(onSubmit).toHaveBeenCalledWith(
-                    jasmine.objectContaining({ errors: translationOf('add-test-view.errors.name-too-short') }),
+                    expect.objectContaining({ errors: translationOf('add-test-view.errors.name-too-short') }),
                 );
             });
         });
@@ -95,10 +107,12 @@ describe('useAddTest', () => {
                 onSubmit = jest.fn();
             });
 
-            let kindergartens: Kindergarten[];
+            let kindergartens: Array<{ kindergarten: Kindergarten; selected: boolean }>;
 
             it('returns empty list', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), { wrapper: renderPage(mocks) });
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
+                    wrapper: renderPage(mocks),
+                });
 
                 await awaitForHookResponse();
 
@@ -111,10 +125,10 @@ describe('useAddTest', () => {
         });
 
         describe('when there are kindergartens', () => {
-            let kindergartens: Kindergarten[];
+            let kindergartens: Array<{ kindergarten: Kindergarten; selected: boolean }>;
 
             it('returns list', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), {
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
                     wrapper: renderPage(mockedKindergartens),
                 });
 
@@ -126,28 +140,34 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                 ]);
             });
         });
 
         describe('when kindergarten is selected', () => {
-            let kindergartens: Kindergarten[];
+            let kindergartens: Array<{ kindergarten: Kindergarten; selected: boolean }>;
 
             it('returns list', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), {
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
                     wrapper: renderPage(mockedKindergartens),
                 });
 
@@ -159,23 +179,29 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                 ]);
 
                 await act(async () => {
-                    result.current.selectKindergarten(['my-id-2']);
+                    result.current.updateAssessment({ kindergartenIds: ['my-id-2'] });
                 });
 
                 await awaitForHookResponse();
@@ -184,28 +210,34 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: true,
                     },
                 ]);
             });
         });
 
         describe('when kindergarten is selected twice', () => {
-            let kindergartens: Kindergarten[];
+            let kindergartens: Array<{ kindergarten: Kindergarten; selected: boolean }>;
 
             it('returns list', async () => {
-                const { result } = renderHook(() => useAddTest(onSubmit), {
+                const { result } = renderHook(() => useAssessmentManager(undefined, onSubmit), {
                     wrapper: renderPage(mockedKindergartens),
                 });
 
@@ -217,27 +249,33 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                 ]);
 
                 await act(async () => {
-                    result.current.selectKindergarten(['my-id-2']);
+                    result.current.updateAssessment({ kindergartenIds: ['my-id-2'] });
 
                     await awaitForHookResponse();
 
-                    result.current.selectKindergarten(['my-id-2']);
+                    result.current.updateAssessment({ kindergartenIds: ['my-id-2'] });
 
                     await awaitForHookResponse();
 
@@ -246,18 +284,24 @@ describe('useAddTest', () => {
 
                 expect(kindergartens).toEqual([
                     {
-                        _id: 'my-id-1',
-                        name: 'my-kindergarten',
-                        number: 1,
-                        address: 'unique-address',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-1',
+                            name: 'my-kindergarten',
+                            number: 1,
+                            address: 'unique-address',
+                            city: 'my-city',
+                        },
+                        selected: false,
                     },
                     {
-                        _id: 'my-id-2',
-                        name: 'happy-meal',
-                        number: 2,
-                        address: 'my-street',
-                        city: 'my-city',
+                        kindergarten: {
+                            _id: 'my-id-2',
+                            name: 'happy-meal',
+                            number: 2,
+                            address: 'my-street',
+                            city: 'my-city',
+                        },
+                        selected: true,
                     },
                 ]);
             });
@@ -276,20 +320,36 @@ const renderPage = (mocks: MockedResponse[]): FC => ({ children }) => {
 const mocks = [
     {
         request: {
-            query: CREATE_NEW_TEST,
+            query: CREATE_ASSESSMENT,
             variables: {
-                title: 'my-test',
-                startDate: formatedStartDate,
-                endDate: formatedEndDate,
-                kindergartens: [],
+                assessment: {
+                    title: 'my-test',
+                    startDate: '2021-6-1',
+                    endDate: '2021-7-3',
+                    firstMeasurementStartDate: '2021-6-1',
+                    firstMeasurementEndDate: '2021-7-3',
+                    lastMeasurementStartDate: '2021-6-1',
+                    lastMeasurementEndDate: '2021-7-3',
+                    kindergartenIds: [],
+                },
             },
         },
-        result: () => {
-            return {
-                data: {
-                    createAssessment: { status: true },
+        result: {
+            data: {
+                createAssessment: {
+                    _id: '1',
+                    isOutdated: false,
+                    isDeleted: false,
+                    title: 'my-test',
+                    startDate: '2021-6-1',
+                    endDate: '2021-7-3',
+                    firstMeasurementStartDate: '2021-6-1',
+                    firstMeasurementEndDate: '2021-7-3',
+                    lastMeasurementStartDate: '2021-6-1',
+                    lastMeasurementEndDate: '2021-7-3',
+                    kindergartens: [],
                 },
-            };
+            },
         },
     },
     {
@@ -299,6 +359,46 @@ const mocks = [
         result: {
             data: {
                 kindergartens: [],
+            },
+        },
+    },
+    {
+        request: {
+            query: GET_ALL_ASSESSMENTS,
+            variables: {},
+        },
+        result: {
+            data: {
+                assessments: [
+                    {
+                        _id: '1',
+                        isOutdated: false,
+                        isDeleted: false,
+                        title: 'test-assessment1',
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
+                        firstMeasurementEndDate: '2021-7-3',
+                        firstMeasurementStartDate: '2021-6-1',
+                        lastMeasurementEndDate: '2021-7-3',
+                        lastMeasurementStartDate: '2021-6-1',
+                        status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
+                        kindergartens: [
+                            {
+                                kindergarten: {
+                                    _id: '1',
+                                    name: 'test-kindergarten1',
+                                    number: 1,
+                                },
+                                instructor: {
+                                    _id: '1',
+                                    mail: 'test-instructor1@gmail.com',
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
         },
     },
@@ -325,6 +425,46 @@ const mockedKindergartens = [
                         number: 2,
                         address: 'my-street',
                         city: 'my-city',
+                    },
+                ],
+            },
+        },
+    },
+    {
+        request: {
+            query: GET_ALL_ASSESSMENTS,
+            variables: {},
+        },
+        result: {
+            data: {
+                assessments: [
+                    {
+                        _id: '1',
+                        isOutdated: false,
+                        isDeleted: false,
+                        title: 'test-assessment1',
+                        startDate: '2021-6-1',
+                        endDate: '2021-7-3',
+                        firstMeasurementEndDate: '2021-7-3',
+                        firstMeasurementStartDate: '2021-6-1',
+                        lastMeasurementEndDate: '2021-7-3',
+                        lastMeasurementStartDate: '2021-6-1',
+                        status: 'active',
+                        firstMeasurementStatus: 'active',
+                        lastMeasurementStatus: 'active',
+                        kindergartens: [
+                            {
+                                kindergarten: {
+                                    _id: '1',
+                                    name: 'test-kindergarten1',
+                                    number: 1,
+                                },
+                                instructor: {
+                                    _id: '1',
+                                    mail: 'test-instructor1@gmail.com',
+                                },
+                            },
+                        ],
                     },
                 ],
             },

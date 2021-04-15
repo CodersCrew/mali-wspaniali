@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Typography, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -17,10 +17,10 @@ export function KeyCodes() {
     const classes = useStyles();
     const { keyCodeSeries } = useKeyCodeSeries();
     const { createKeyCodes, created } = useCreateKeyCodes();
-    const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(1);
+    const [keyCodesToGenerate, setKeyCodesToGenerate] = useState<string>('1');
     const [target, setTarget] = useState('parent');
     const [isLoading, setIsLoading] = useState(false);
-    const { generateExcel } = useGenerateExcel(filename => {
+    const { generateExcel } = useGenerateExcel((filename) => {
         openSnackbar({ text: t('admin-setting-page.keycode-generation.download-alert', { filename }) });
     });
 
@@ -36,21 +36,26 @@ export function KeyCodes() {
                 <div className={classes.amountContainer}>
                     <KeyCodesToGenerateTextfield
                         value={keyCodesToGenerate}
-                        onChange={amount => setKeyCodesToGenerate(amount)}
+                        onChange={(amount) => setKeyCodesToGenerate(amount)}
                     />
                 </div>
                 <div className={classes.generateButtonContainer}>
                     <LoadingButton
                         data-testid="generate-keycodes-series"
                         isLoading={isLoading}
-                        isDisabled={isLoading || keyCodesToGenerate === 0 || keyCodesToGenerate > 1000}
+                        isDisabled={
+                            isLoading ||
+                            !keyCodesToGenerate ||
+                            !parseInt(keyCodesToGenerate, 10) ||
+                            parseInt(keyCodesToGenerate, 10) > 1000
+                        }
                         text={t('admin-setting-page.keycode-generation.generate')}
                         onClick={() => {
                             setIsLoading(true);
                             createKeyCodes({
                                 variables: {
                                     target,
-                                    amount: keyCodesToGenerate,
+                                    amount: parseInt(keyCodesToGenerate, 10),
                                 },
                             }).then(() => setIsLoading(false));
                         }}
@@ -68,7 +73,7 @@ export function KeyCodes() {
                 </div>
             </Grid>
             <div className={classes.fileListContainer}>
-                <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={series => generateExcel(series)} />
+                <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={(series) => generateExcel(series)} />
             </div>
         </div>
     );

@@ -1,6 +1,13 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
+import {
+    FormControl,
+    FormHelperText,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    createStyles,
+    makeStyles,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {
@@ -28,7 +35,7 @@ export const FormControlOldPassword = (props: ChangePasswordPanelComponentsProps
                 value={oldPassword}
                 error={oldPasswordError}
                 disabled={oldPasswordDisabled}
-                onChange={event => dispatch({ type: CHANGE_OLD_PASSWORD, payload: { value: event.target.value } })}
+                onChange={(event) => dispatch({ type: CHANGE_OLD_PASSWORD, payload: { value: event.target.value } })}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
@@ -49,7 +56,7 @@ export const FormControlOldPassword = (props: ChangePasswordPanelComponentsProps
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         form: { display: 'block', marginBottom: '15px', width: '100%' },
     }),

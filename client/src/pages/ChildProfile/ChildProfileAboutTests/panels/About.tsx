@@ -1,10 +1,6 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Box, Typography } from '@material-ui/core';
 import { Panel } from '../Panel';
-import { panelTextColor, mainColor } from '../../../../colors';
 
 const T_PREFIX = 'child-profile.tests-informations.about';
 
@@ -30,18 +26,18 @@ export const About = () => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 21,
         fontWeight: 500,
         lineHeight: '29.4px',
-        color: panelTextColor,
+        color: theme.palette.text.primary,
     },
     text: {
         marginTop: theme.spacing(2),
         fontSize: 15,
         lineHeight: '21px',
-        color: panelTextColor,
+        color: theme.palette.text.primary,
     },
     image: {
         marginLeft: theme.spacing(6),
@@ -54,6 +50,6 @@ const useStyles = makeStyles(theme => ({
     },
     strong: {
         fontWeight: 'bold',
-        color: mainColor,
+        color: theme.palette.text.primary,
     },
 }));

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Container,
@@ -16,7 +16,7 @@ import { NoResults } from './NoResults';
 import { getAllUsers } from '../../graphql/userRepository';
 import { User } from '../../graphql/types';
 
-export const UsersPage = () => {
+export default function UsersPage() {
     const [users, setUsers] = useState<User[]>([]);
     const { t } = useTranslation();
 
@@ -40,7 +40,7 @@ export const UsersPage = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.map(user => (
+                        {users.map((user) => (
                             <UsersTableRow key={user._id} user={user} />
                         ))}
                     </TableBody>
@@ -54,4 +54,4 @@ export const UsersPage = () => {
             />
         </Container>
     );
-};
+}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
@@ -10,6 +10,7 @@ import { Device } from '../../../queries/useBreakpoints';
 import { LanguageSelector } from '../../LanguageSelector';
 import { AppLogo } from '../../AppLogo';
 import { useOnClickOutside } from '../../../utils/useOnClickOutside';
+import { useReadNotification } from '../../../operations/mutations/Notification/readNotification';
 
 interface Props {
     device: Device;
@@ -22,13 +23,14 @@ interface Props {
 
 export function Navbar({ device, language, notifications, activePage, onSidebarToggle, onLanguageChange }: Props) {
     const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
+    const { readNotification } = useReadNotification();
     const classes = useStyles();
     const popupRef = useRef<HTMLElement | null>(null);
     useOnClickOutside(popupRef, () => setIsNotificationPopupOpen(false));
     const { t } = useTranslation();
 
     function handleNotificationPopupClick() {
-        setIsNotificationPopupOpen(prev => !prev);
+        setIsNotificationPopupOpen((prev) => !prev);
     }
 
     return (
@@ -57,14 +59,21 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
                         </Typography>
                         <div className={classes.menuSide}>
                             <LanguageSelector language={language} onClick={onLanguageChange} />
-                            <IconButton aria-label="notifications" onClick={handleNotificationPopupClick}>
-                                <Notifications />
-                            </IconButton>
-                            {isNotificationPopupOpen && (
-                                <span ref={popupRef}>
-                                    <NotificationsPanel notifications={notifications} />
-                                </span>
-                            )}
+                            <span ref={popupRef}>
+                                <IconButton
+                                    aria-label="notifications"
+                                    onClick={handleNotificationPopupClick}
+                                    color={notifications.find((n) => !n.isRead) ? 'secondary' : 'default'}
+                                >
+                                    <Notifications />
+                                </IconButton>
+                                {isNotificationPopupOpen && (
+                                    <NotificationsPanel
+                                        onClick={(id) => readNotification(id)}
+                                        notifications={notifications}
+                                    />
+                                )}
+                            </span>
                         </div>
                     </div>
                 </Toolbar>
@@ -79,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
             minHeight: theme.spacing(8),
         },
         containerMobile: {
-            boxShadow: 'none',
+            // boxShadow: 'none',
             borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
         toolbar: theme.mixins.toolbar,

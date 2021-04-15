@@ -23,11 +23,9 @@ export function useEditChild() {
 
     return {
         editChild: (update: UpdatedChildInput) => {
-    const updatedKindergarten =kindergartenList?.find(k => k._id === update.kindergartenId); 
+            const updatedKindergarten = kindergartenList?.find((k) => k._id === update.kindergartenId);
 
-    if (!updatedKindergarten) return;
-
-
+            if (!updatedKindergarten) return;
 
             editChild({
                 variables: {
@@ -41,7 +39,7 @@ export function useEditChild() {
                     data: {
                         me: {
                             ...user,
-                            children: user.children.map(c => updateEditedChild(c, updatedKindergarten, update)),
+                            children: user.children.map((c) => updateEditedChild(c, updatedKindergarten, update)),
                         },
                     },
                 });
@@ -51,11 +49,12 @@ export function useEditChild() {
 }
 
 function updateEditedChild(cachedChild: Child, kindergarten: Kindergarten, update: UpdatedChildInput) {
+    // eslint-disable-next-line
     const { childId, kindergartenId, ...updatedChild } = update;
 
     if (cachedChild._id === childId) {
-            return { ...cachedChild, ...updatedChild, kindergarten };
+        return { ...cachedChild, ...updatedChild, kindergarten };
     }
 
-    return cachedChild
+    return cachedChild;
 }

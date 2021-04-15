@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react';
 import { makeStyles, createStyles, Box } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import { useQuery } from '@apollo/client';
 
 import { Theme } from '../theme/types';
@@ -12,6 +11,7 @@ import { Navbar } from '../components/Menu/Navbar/Navbar';
 import { ACTIVE_PAGE } from '../graphql/localFields';
 import { Sidebar } from '../components/Menu/Sidebar/Sidebar';
 import { useGetMe } from '../operations/mutations/User/useGetMe';
+import dayjs from '../localizedMoment';
 
 export const UserContext = React.createContext<Me | null>(null);
 
@@ -27,7 +27,7 @@ export const AppWrapper: FC = ({ children }) => {
     const language = localStorage.getItem('i18nextLng')!;
 
     const handleLanguageChange = (lng: string) => {
-        moment.locale(lng);
+        dayjs.locale(lng);
 
         return i18n.changeLanguage(lng);
     };
@@ -45,7 +45,7 @@ export const AppWrapper: FC = ({ children }) => {
     }
 
     function handleSidebarToggle() {
-        setIsOpen(prev => !prev);
+        setIsOpen((prev) => !prev);
     }
 
     if (!user) return null;
@@ -84,7 +84,15 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             paddingTop: theme.spacing(8),
             maxWidth: '100%',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
         },
-        toolbar: theme.mixins.toolbar,
+        toolbar: {
+            ...theme.mixins.toolbar,
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+        },
     }),
 );

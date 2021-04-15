@@ -5,18 +5,20 @@ import { SimpleDate } from './simple_date_value_object';
 import { Title } from './title_value_object';
 import { KindergartenWithInstructor } from './kindergarten_with_instructor_value_object';
 
-export interface AssessmentInput {
-  title: string;
-  startDate: string;
-  endDate: string;
-  kindergartenIds: string[];
-}
-
 export interface AssessmentDto {
   _id?: string;
   title: string;
+  isOutdated: boolean;
+  isDeleted: boolean;
   startDate: string;
   endDate: string;
+  firstMeasurementStartDate: string;
+  firstMeasurementEndDate: string;
+  lastMeasurementStartDate: string;
+  lastMeasurementEndDate: string;
+  status: string;
+  firstMeasurementStatus: string;
+  lastMeasurementStatus: string;
   kindergartens: Array<{
     kindergartenId: string;
     instructorId: string | null;
@@ -26,8 +28,17 @@ export interface AssessmentDto {
 export interface AssessmentProps {
   _id: ObjectId;
   title: Title;
+  isOutdated: boolean;
+  isDeleted: boolean;
   startDate: SimpleDate;
   endDate: SimpleDate;
+  firstMeasurementStartDate: SimpleDate;
+  firstMeasurementEndDate: SimpleDate;
+  lastMeasurementStartDate: SimpleDate;
+  lastMeasurementEndDate: SimpleDate;
+  status: string;
+  firstMeasurementStatus: string;
+  lastMeasurementStatus: string;
   kindergartens: KindergartenWithInstructor[];
 }
 
@@ -42,12 +53,20 @@ export class Assessment extends AggregateRoot {
     this.data = initialData;
   }
 
-  get id() {
+  get id(): ObjectId {
     return this.data._id;
   }
 
   get title(): Title {
     return this.data.title;
+  }
+
+  get isOutdated(): boolean {
+    return this.data.isOutdated;
+  }
+
+  get isDeleted(): boolean {
+    return this.data.isDeleted || false;
   }
 
   get startDate(): SimpleDate {
@@ -56,6 +75,34 @@ export class Assessment extends AggregateRoot {
 
   get endDate(): SimpleDate {
     return this.data.endDate;
+  }
+
+  get firstMeasurementStartDate(): SimpleDate {
+    return this.data.firstMeasurementStartDate;
+  }
+
+  get firstMeasurementEndDate(): SimpleDate {
+    return this.data.firstMeasurementEndDate;
+  }
+
+  get lastMeasurementStartDate(): SimpleDate {
+    return this.data.lastMeasurementStartDate;
+  }
+
+  get lastMeasurementEndDate(): SimpleDate {
+    return this.data.lastMeasurementEndDate;
+  }
+
+  get status(): string {
+    return this.data.status;
+  }
+
+  get firstMeasurementStatus(): string {
+    return this.data.firstMeasurementStatus;
+  }
+
+  get lastMeasurementStatus(): string {
+    return this.data.lastMeasurementStatus;
   }
 
   get kindergartens(): AssessmentProps['kindergartens'] {
@@ -68,6 +115,8 @@ export class Assessment extends AggregateRoot {
     }
 
     this.data = { ...this.data, ...update };
+
+    this.guardAgainstStartDateSmallerThanEndDate(this.data);
   }
 
   static create(initialData: AssessmentProps): Assessment {

@@ -1,13 +1,6 @@
 import { load, getActiveLoadersCounter } from '../load';
-import * as Loader from '../../components/Loader';
 
 describe('load', () => {
-    let loaderSpy: jasmine.Spy;
-
-    beforeEach(() => {
-        loaderSpy = spyOn(Loader, 'Loader').and.callThrough();
-    });
-
     describe('when invoked', () => {
         it('attaches loader', () => {
             expect(getActiveLoadersCounter()).toEqual(0);
@@ -17,8 +10,6 @@ describe('load', () => {
             });
 
             expect(getActiveLoadersCounter()).toEqual(1);
-
-            expect(loaderSpy).toHaveBeenCalledTimes(1);
         });
     });
 
@@ -31,8 +22,6 @@ describe('load', () => {
             });
 
             expect(getActiveLoadersCounter()).toEqual(1);
-
-            expect(loaderSpy).toHaveBeenCalledTimes(1);
         });
     });
 
@@ -45,8 +34,6 @@ describe('load', () => {
             });
 
             expect(getActiveLoadersCounter()).toEqual(2);
-
-            expect(loaderSpy).toHaveBeenCalledTimes(1);
         });
     });
 });

@@ -1,8 +1,6 @@
-import React, { FC } from 'react';
-import { AccordionSummary } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
+import { FC } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, AccordionSummary, Typography } from '@material-ui/core';
 import { panelTextColor } from '../../../colors';
 
 export const PanelSummary: FC = ({ children }) => {
@@ -15,7 +13,7 @@ export const PanelSummary: FC = ({ children }) => {
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     summary: {
         paddingLeft: theme.spacing(5),
     },

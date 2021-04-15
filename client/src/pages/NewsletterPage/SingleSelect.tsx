@@ -1,4 +1,4 @@
-import React, { FocusEvent } from 'react';
+import { FocusEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@material-ui/core';
 
@@ -58,7 +58,7 @@ export const SingleSelect = ({
                 }}
                 error={touched && !!error}
             >
-                {optionsValues.map(item => {
+                {optionsValues.map((item) => {
                     const { value, label: selectLabel } = item;
 
                     return (

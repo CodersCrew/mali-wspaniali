@@ -1,7 +1,5 @@
-import React from 'react';
-import { makeStyles, createStyles, Theme, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, Typography, Paper } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { cardBackgroundColor } from '../../../../colors';
 
 type AddChildCardProps = {
     text: string;
@@ -12,12 +10,12 @@ export const HomePageAddChildCard = ({ text, onClick }: AddChildCardProps) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.container} onClick={onClick}>
+        <Paper className={classes.container} onClick={onClick}>
             <AddCircleIcon className={classes.icon} />
             <div>
                 <Typography variant="subtitle2">{text}</Typography>
             </div>
-        </div>
+        </Paper>
     );
 };
 
@@ -27,16 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            marginRight: theme.spacing(2),
-            marginBottom: theme.spacing(2),
-            background: cardBackgroundColor,
-            boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.15)',
-            borderRadius: '4px',
-            fontWeight: 'bold',
-            minWidth: '121px',
-            maxWidth: '121px',
-            maxHeight: '163px',
-            height: '163px',
+            height: '100%',
+            padding: 12,
 
             '&:hover': {
                 cursor: 'pointer',
@@ -44,28 +34,11 @@ const useStyles = makeStyles((theme: Theme) =>
                 boxShadow: '0 0 2px 0px #fff',
                 transition: 'all 0.3s ease-in-out',
             },
-
-            [theme.breakpoints.down('sm')]: {
-                marginRight: 0,
-                minWidth: '90px',
-                width: '90px',
-                maxWidth: '90px',
-                maxHeight: '120px',
-                height: '120px',
-            },
         },
         icon: {
             color: theme.palette.text.secondary,
             width: '75px',
             height: '126px',
-            objectFit: 'contain',
-            borderRadius: '4px 4px 0px 0px',
-
-            [theme.breakpoints.down('sm')]: {
-                width: '75px',
-                maxHeight: '90px',
-                height: '90px',
-            },
         },
     }),
 );

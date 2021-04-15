@@ -10,6 +10,7 @@ import { QueryHandlers } from './domain/queries/handlers';
 import { UserSchema } from './schemas/user_schema';
 import { UserRepository } from './domain/repositories/user_repository';
 import { UsersResolver } from './users_resolver';
+import { ChildResolver } from './child_resolver';
 import { KeyCodesModule } from '../key_codes/key_codes_module';
 import { EventHandlers } from './domain/events/handlers';
 import { GqlAuthGuard } from './guards/jwt_guard';
@@ -26,8 +27,9 @@ import { UserChangePasswordJWT } from './schemas/user_change_password_jwt_schema
 import { UserChangePasswordRepository } from './domain/repositories/user_change_password_jwt_repository';
 import { UserChangePasswordCronService } from './user_change_password_cron_service';
 import { AgreementsModule } from '../agreements/agreements_module';
-import { KindergartenRepository } from '../kindergartens/domain/repositories/kindergarten_repository';
 import { KindergartenModule } from '../kindergartens/kindergarten_module';
+import { ChildAssessmentResultRepository } from './domain/repositories/child_assessment_result_repository';
+import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_schema';
 
 @Module({
   imports: [
@@ -39,6 +41,9 @@ import { KindergartenModule } from '../kindergartens/kindergarten_module';
     ConfigModule.forRoot(),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     MongooseModule.forFeature([{ name: 'Child', schema: ChildSchema }]),
+    MongooseModule.forFeature([
+      { name: 'ChildAssessmentResult', schema: ChildAssessmentResultSchema },
+    ]),
     MongooseModule.forFeature([
       { name: 'ChildResult', schema: ChildResultSchema },
     ]),
@@ -55,9 +60,11 @@ import { KindergartenModule } from '../kindergartens/kindergarten_module';
     JwtStrategy,
     GqlAuthGuard,
     UsersResolver,
+    ChildResolver,
     UserRepository,
     ChildRepository,
     ChildResultRepository,
+    ChildAssessmentResultRepository,
     UserChangePasswordRepository,
     SendMail,
     NodemailerProvider,

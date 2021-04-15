@@ -1,32 +1,34 @@
-import React from 'react';
-
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { Tabs } from '../Tabs/Tabs';
 import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
 import { theme } from '../../theme/theme';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
-    onClick: (value: string) => void;
-    active: string;
-    values: T[];
+    onChange: (value: string) => void;
+    currentCategory: string;
+    categories: T[];
 }
 
-export function CategoryTabsMobile<
-    T extends CategoryItem | ChildProfileCategoryItem
->({ onClick, active, values }: Props<T>) {
+export function CategoryTabsMobile<T extends CategoryItem | ChildProfileCategoryItem>(props: Props<T>) {
     return (
         <Tabs
-            value={values.find((tab) => tab.key === active)?.key}
-            onTabsChange={(value) => {
-                onClick(value);
-            }}
-            values={values.map((category) => ({
-                label: category.name,
-                value: category.key,
-            }))}
+            currentCategory={getCurrentNormalizedCategory()}
+            onTabsChange={props.onChange}
+            categories={props.categories.map(normalizeCategory)}
             variant="scrollable"
             scrollButtons="on"
             indicator={theme.palette?.text?.primary!}
         />
     );
+
+    function normalizeCategory(category: CategoryItem | ChildProfileCategoryItem) {
+        return {
+            label: category.name,
+            value: category.key,
+        };
+    }
+
+    function getCurrentNormalizedCategory() {
+        return props.categories.find((tab) => tab.key === props.currentCategory)?.key;
+    }
 }

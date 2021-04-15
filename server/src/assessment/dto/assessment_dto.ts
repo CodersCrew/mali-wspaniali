@@ -10,6 +10,9 @@ export class AssessmentDTO {
   isOutdated: boolean;
 
   @Field()
+  isDeleted: boolean;
+
+  @Field()
   title: string;
 
   @Field()
@@ -17,6 +20,27 @@ export class AssessmentDTO {
 
   @Field()
   endDate: string;
+
+  @Field()
+  readonly firstMeasurementStartDate: string;
+
+  @Field()
+  readonly firstMeasurementEndDate: string;
+
+  @Field()
+  readonly lastMeasurementStartDate: string;
+
+  @Field()
+  readonly lastMeasurementEndDate: string;
+
+  @Field()
+  readonly status: string;
+
+  @Field()
+  readonly firstMeasurementStatus: string;
+
+  @Field()
+  readonly lastMeasurementStatus: string;
 
   @Field(() => [KindergartenWithInstructorDTO])
   kindergartens: any;

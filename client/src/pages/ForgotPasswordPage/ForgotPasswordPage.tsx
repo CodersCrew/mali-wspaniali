@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Typography, createStyles } from '@material-ui/core';
+import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
 import { ResetPasswordForm } from './ResetPasswordForm';
 import { ResetPasswordConfirmation } from './ResetPasswordConfirmation';
 import { isValidEmail } from './isValidEmail';
@@ -9,16 +9,32 @@ import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { Theme } from '../../theme/types';
 import { useResetPassword } from '../../operations/mutations/User/resetPassword';
+import { ButtonSecondary } from '../../components/Button';
+import { LanguageSelector } from '../../components/LanguageSelector';
+import dayjs from '../../localizedMoment';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 type ImageState = 'DEFAULT' | 'ERROR' | 'SUCCESS';
 
-export function ForgotPasswordPage() {
+export default function ForgotPasswordPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [imageState, setImageState] = useState<ImageState>('ERROR');
+    const { i18n } = useTranslation();
+    const language = localStorage.getItem('i18nextLng')!;
     const [resetPasswordState, setResetPasswordState] = useState<'FORM' | 'CONFIRMATION'>('FORM');
-    const { resetPassword } = useResetPassword(() => setImageState('SUCCESS'), () => setImageState('ERROR'));
+    const { resetPassword } = useResetPassword(
+        () => setImageState('SUCCESS'),
+        () => setImageState('ERROR'),
+    );
+    const { isMobile } = useIsDevice();
+
+    const handleLanguageChange = (lng: string) => {
+        dayjs.locale(lng);
+
+        return i18n.changeLanguage(lng);
+    };
 
     const handleInputChange = (value: string): void => {
         if (value === '') {
@@ -52,26 +68,49 @@ export function ForgotPasswordPage() {
 
     return (
         <div className={classes.container}>
-            <div className={classes.layout}>
-                <img
-                    className={classes.image}
-                    src={getImageSource(imageState)}
-                    alt={t('forgot-password-page.avatar')}
-                />
-                <Typography variant="h3" className={classes.title}>
-                    {t('forgot-password-page.forgot-password')}
-                </Typography>
-                {resetPasswordState === 'FORM' ? (
-                    <ResetPasswordForm
-                        onChange={handleInputChange}
-                        onSubmit={handleCreateNewPassword}
-                        isDisabled={!isValidEmail(email)}
-                        email={email}
-                    />
-                ) : (
-                    <ResetPasswordConfirmation />
-                )}
+            <div className={classes.header}>
+                <LanguageSelector language={language} onClick={handleLanguageChange} />
             </div>
+            <Box
+                display="flex"
+                justifyContent="space-around"
+                alignItems="center"
+                flexDirection="column"
+                width={isMobile ? '90%' : '80%'}
+                flex={1}
+            >
+                <div className={classes.layout}>
+                    <img
+                        className={classes.image}
+                        src={getImageSource(imageState)}
+                        alt={t('forgot-password-page.avatar')}
+                    />
+                    <Typography variant="h4" className={classes.title}>
+                        {t('forgot-password-page.forgot-password')}
+                    </Typography>
+                    {resetPasswordState === 'FORM' ? (
+                        <ResetPasswordForm
+                            onChange={handleInputChange}
+                            onSubmit={handleCreateNewPassword}
+                            isDisabled={!isValidEmail(email)}
+                            email={email}
+                        />
+                    ) : (
+                        <ResetPasswordConfirmation />
+                    )}
+                </div>
+                <div className={classes.footer}>
+                    <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
+                    <Link underline="always" color="textPrimary">
+                        <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
+                    </Link>
+                    <Box mt={3}>
+                        <ButtonSecondary variant="text" href="/" className={classes.backToLoginButton}>
+                            {t('forgot-password-page.back-to-login')}
+                        </ButtonSecondary>
+                    </Box>
+                </div>
+            </Box>
         </div>
     );
 }
@@ -80,20 +119,22 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
             alignItems: 'center',
-            minHeight: '100%',
+            flex: 1,
+            minHeight: '100vh',
+        },
+        header: {
+            marginLeft: 'auto',
         },
         layout: {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
-            width: '70%',
-            minHeight: '90vh',
+            width: '80%',
 
             [theme.breakpoints.down('sm')]: {
-                minHeight: 'auto',
                 width: '90%',
                 maxWidth: '480px',
                 margin: '0 15px',
@@ -109,9 +150,19 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '50%',
             width: '214px',
             [theme.breakpoints.down('sm')]: {
-                width: '100px',
+                width: '150px',
                 marginTop: '40px',
             },
+        },
+        footer: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
+        backToLoginButton: {
+            textAlign: 'center',
+            whiteSpace: 'normal',
+            fontSize: '12px',
         },
     }),
 );

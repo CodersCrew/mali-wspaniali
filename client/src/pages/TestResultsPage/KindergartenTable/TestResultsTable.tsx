@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { TestResultsTableRow } from './TestResultsTableRow';
@@ -25,7 +24,7 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {kindergartens.map(kindergarten => (
+                    {kindergartens.map((kindergarten) => (
                         <TestResultsTableRow
                             key={kindergarten._id}
                             kindergarten={kindergarten}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
     Checkbox,
     createStyles,
@@ -19,19 +19,15 @@ import { LabeledContainer } from '../../components/LabeledContainer';
 import { Kindergarten } from '../../graphql/types';
 
 interface Props {
-    kindergartens: Kindergarten[];
-    onSelect: (id: string[]) => void;
+    isDisabled: boolean;
+    kindergartens: { selected: boolean; kindergarten: Kindergarten }[];
+    onSelect: (id: string[], options?: { selectedAll?: boolean }) => void;
 }
 
-export function KindergartenPicker({ kindergartens, onSelect }: Props) {
+export function KindergartenPicker({ isDisabled, kindergartens, onSelect }: Props) {
     const { t } = useTranslation();
     const [searchPhrase, setSearchPhrase] = useState('');
-    const [selected, setSelected] = useState<string[]>([]);
     const [selectedAll, setSelectedAll] = useState(false);
-
-    useEffect(() => {
-        onSelect(selected);
-    }, [onSelect, selected]);
 
     const classes = useStyles();
 
@@ -57,15 +53,21 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
                             <TableRow>
                                 <TableCell padding="checkbox">
                                     <Checkbox
+                                        disabled={isDisabled}
                                         checked={selectedAll}
                                         onClick={() => {
+                                            if (isDisabled) return;
+
                                             if (selectedAll) {
-                                                setSelected([]);
+                                                onSelect([], { selectedAll: true });
                                             } else {
-                                                setSelected(kindergartens.map(kindergarten => kindergarten._id));
+                                                onSelect(
+                                                    kindergartens.map((kindergarten) => kindergarten.kindergarten._id),
+                                                    { selectedAll: true },
+                                                );
                                             }
 
-                                            setSelectedAll(prev => !prev);
+                                            setSelectedAll((prev) => !prev);
                                         }}
                                         data-testid="select-all"
                                         color="default"
@@ -76,31 +78,31 @@ export function KindergartenPicker({ kindergartens, onSelect }: Props) {
                         </TableHead>
                         <TableBody>
                             {kindergartens
-                                .filter(kindergarten => {
+                                .filter((kindergarten) => {
                                     if (searchPhrase.length <= 3) return true;
 
-                                    return kindergarten.name.includes(searchPhrase);
+                                    return kindergarten.kindergarten.name.includes(searchPhrase);
                                 })
-                                .map(kindergarten => (
+                                .map((kindergarten) => (
                                     <TableRow
-                                        key={kindergarten._id}
+                                        key={kindergarten.kindergarten._id}
                                         hover
                                         role="row"
                                         onClick={() => {
-                                            setSelected(prev => {
-                                                if (prev.includes(kindergarten._id)) {
-                                                    return prev.filter(selectedId => selectedId !== kindergarten._id);
-                                                }
+                                            if (isDisabled) return;
 
-                                                return [...prev, kindergarten._id];
-                                            });
+                                            onSelect([kindergarten.kindergarten._id]);
                                         }}
                                     >
                                         <TableCell padding="checkbox">
-                                            <Checkbox checked={selected.includes(kindergarten._id)} color="default" />
+                                            <Checkbox
+                                                disabled={isDisabled}
+                                                checked={kindergarten.selected}
+                                                color="default"
+                                            />
                                         </TableCell>
                                         <TableCell classes={{ root: classes.kindergartenItem }}>
-                                            {kindergarten.number}/{kindergarten.name}
+                                            {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
                                         </TableCell>
                                     </TableRow>
                                 ))}

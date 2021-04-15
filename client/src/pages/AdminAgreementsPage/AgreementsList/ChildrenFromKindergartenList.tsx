@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     TableRow,
     TableCell,
@@ -149,14 +149,14 @@ function countStatus(agreementResultA: AgreementResult, agreementResultB: Agreem
 }
 
 function mapUsersToAgreemetList(users: User[], kindergartenId: string): Parent[] {
-    return users.map(u => {
+    return users.map((u) => {
         return {
             email: u.mail,
             children: u.children
-                .filter(c => c.kindergarten._id === kindergartenId)
-                .map(c => `${c.firstname} ${c.lastname}`),
-            viewAgreement: u.agreements.find(a => a.text === 'Image')!.isSigned,
-            marketingAgreement: u.agreements.find(a => a.text === 'Marketing')!.isSigned,
+                .filter((c) => c.kindergarten._id === kindergartenId)
+                .map((c) => `${c.firstname} ${c.lastname}`),
+            viewAgreement: u.agreements.find((a) => a.text === 'Image')!.isSigned,
+            marketingAgreement: u.agreements.find((a) => a.text === 'Marketing')!.isSigned,
         };
     });
 }

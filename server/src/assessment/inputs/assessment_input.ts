@@ -12,6 +12,18 @@ export class AssessmentInput {
   @Field()
   readonly endDate: string;
 
+  @Field()
+  readonly firstMeasurementStartDate: string;
+
+  @Field()
+  readonly firstMeasurementEndDate: string;
+
+  @Field()
+  readonly lastMeasurementStartDate: string;
+
+  @Field()
+  readonly lastMeasurementEndDate: string;
+
   @Field(() => [String])
   readonly kindergartenIds: string[];
 }
@@ -20,6 +32,21 @@ export class AssessmentInput {
 class _UpdatedAssessmmentInput extends AssessmentInput {
   @Field(() => [GraphQLJSONObject])
   kindergartens: Array<{ kindergartenId: string; instructorId: string }>;
+
+  @Field()
+  readonly isOutdated: boolean;
+
+  @Field()
+  readonly isDeleted: boolean;
+
+  @Field()
+  readonly status: string;
+
+  @Field()
+  readonly firstMeasurementStatus: string;
+
+  @Field()
+  readonly lastMeasurementStatus: string;
 }
 
 @InputType()

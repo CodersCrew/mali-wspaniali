@@ -1,19 +1,20 @@
-import React from 'react';
-import { Dialog, DialogContent, DialogActions } from '@material-ui/core/';
+import { Dialog, DialogContent, DialogActions, DialogTitle, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { openDialog, ActionDialog } from '../utils/openDialog';
-import { ButtonPrimary } from './Button';
+import { ButtonDefault } from './Button';
 
 type QuestionDialogProps = {
-    question: string;
+    title: string;
+    description: string;
 };
 
 export const openQuestionDialog = (props: QuestionDialogProps) => {
     return openDialog<QuestionDialogProps>(QuestionDialog, props);
 };
 
-const QuestionDialog = ({ question, onClose, makeDecision }: QuestionDialogProps & ActionDialog) => {
+const QuestionDialog = ({ title, description, onClose, makeDecision }: QuestionDialogProps & ActionDialog) => {
     const { t } = useTranslation();
+    const classes = useStyles();
 
     const onAccepted = () => {
         makeDecision({ accepted: true });
@@ -25,16 +26,20 @@ const QuestionDialog = ({ question, onClose, makeDecision }: QuestionDialogProps
 
     return (
         <Dialog open onClose={onClose}>
-            <DialogContent>{question}</DialogContent>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogContent classes={{ root: classes.description }}>{description}</DialogContent>
             <DialogActions>
-                <ButtonPrimary
-                    onClick={onAccepted}
-                    variant="contained"
-                    autoFocus
-                    innerText={t('question-dialog.yes')}
-                />
-                <ButtonPrimary onClick={onDeclined} variant="text" autoFocus innerText={t('question-dialog.no')} />
+                <ButtonDefault onClick={onAccepted} variant="text" innerText={t('question-dialog.yes')} />
+                <ButtonDefault onClick={onDeclined} variant="text" innerText={t('question-dialog.no')} />
             </DialogActions>
         </Dialog>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        description: {
+            color: theme.palette.text.secondary,
+        },
+    }),
+);

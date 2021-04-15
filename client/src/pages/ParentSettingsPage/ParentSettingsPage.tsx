@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
-import { createStyles } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { useEffect } from 'react';
 import { activePage } from '../../apollo_client';
 import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
-import { Theme } from '../../theme';
 import { useMe } from '../../utils/useMe';
+import { PageContainer } from '../../components/PageContainer';
 
-export function ParentSettingsPage() {
+export default function ParentSettingsPage() {
     const user = useMe();
-    const classes = useStyles();
 
     useEffect(() => {
         activePage(['parent-menu.settings']);
@@ -17,16 +14,8 @@ export function ParentSettingsPage() {
     if (!user) return null;
 
     return (
-        <div className={classes.container}>
+        <PageContainer>
             <ParentSettingsExpansionPanel user={user} />
-        </div>
+        </PageContainer>
     );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            margin: theme.spacing(3),
-        },
-    }),
-);
