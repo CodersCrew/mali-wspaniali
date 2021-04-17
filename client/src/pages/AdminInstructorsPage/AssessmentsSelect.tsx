@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { Assessment } from '../../graphql/types';
 
@@ -6,7 +5,7 @@ interface Props {
     label: string;
     options: Assessment[];
     value: Assessment;
-    onChange: (assessmentId: string) => void;
+    onChange: (title: string) => void;
 }
 
 export const AssessmentsSelect = ({ label, options, onChange, value }: Props) => {
@@ -17,7 +16,7 @@ export const AssessmentsSelect = ({ label, options, onChange, value }: Props) =>
                 labelId="test-select-label"
                 id="test-select"
                 label={label}
-                value={value._id}
+                value={value.title}
                 onChange={(e) => onChange(e.target.value as string)}
                 MenuProps={{
                     getContentAnchorEl: null,
@@ -25,7 +24,7 @@ export const AssessmentsSelect = ({ label, options, onChange, value }: Props) =>
                 }}
             >
                 {options.map((assessment) => (
-                    <MenuItem key={assessment._id} value={assessment._id}>
+                    <MenuItem key={assessment._id} value={assessment.title}>
                         {assessment.title}
                     </MenuItem>
                 ))}

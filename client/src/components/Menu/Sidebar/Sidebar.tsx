@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { AdminSidebar } from './AdminSidebar';
 import { InstructorSidebar } from './InstructorSidebar';
 import { ParentSidebar } from './ParentSidebar';

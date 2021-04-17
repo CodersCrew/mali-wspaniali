@@ -30,6 +30,8 @@ import { KindergartenWithUsersDTO } from './dto/kindergarten_with_users_dto';
 import { KindergartenMapper } from './domain/mappers/kindergarten_mapper';
 import { ChildDTO } from '../users/dto/children_dto';
 import { GetChildrenFromKindergartenQuery } from '../users/domain/queries/impl/get_children_from_kindergarten_query';
+import { Child } from '../users/domain/models/child_model';
+import { ChildMapper } from '../users/domain/mappers/child_mapper';
 import {
   KindergartenInput,
   UpdatedKindergartenInput,
@@ -41,12 +43,12 @@ export class KindergartenResolver {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   @ResolveField(() => [ChildDTO])
-  async children(@Parent() a: any) {
-    const children = await this.queryBus.execute(
-      new GetChildrenFromKindergartenQuery(a._id),
+  async children(@Parent() kindergarten: KindergartenDTO) {
+    const children: Child[] = await this.queryBus.execute(
+      new GetChildrenFromKindergartenQuery(kindergarten._id),
     );
 
-    return children;
+    return children.map(child => ChildMapper.toDTO(child));
   }
 
   @Query(() => [KindergartenDTO])

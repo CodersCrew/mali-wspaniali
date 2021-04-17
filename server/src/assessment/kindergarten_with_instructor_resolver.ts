@@ -10,13 +10,14 @@ import { GetKindergartenQuery } from '../kindergartens/domain/queries/impl/get_k
 import { GetUserQuery } from '../users/domain/queries/impl/get_user_query';
 import { UserDTO } from '../users/dto/user_dto';
 import { KindergartenDTO } from '../kindergartens/dto/kindergarten_dto';
+import { User, UserProps } from '@users/domain/models';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => KindergartenWithInstructorDTO)
 export class KindergartenWithInstructorResolver {
   constructor(private queryBus: QueryBus) {}
 
-  @ResolveField(() => KindergartenWithInstructorDTO)
+  @ResolveField(() => KindergartenWithInstructorDTO, { nullable: true })
   async instructor(
     @Root()
     parent: {
@@ -26,14 +27,14 @@ export class KindergartenWithInstructorResolver {
   ): Promise<UserDTO> {
     if (!parent.instructorId) return null;
 
-    const instructor = await this.queryBus.execute(
+    const instructor: User = await this.queryBus.execute(
       new GetUserQuery(parent.instructorId),
     );
 
-    return instructor;
+    return instructor.getProps() as UserProps;
   }
 
-  @ResolveField(() => KindergartenWithInstructorDTO)
+  @ResolveField(() => KindergartenWithInstructorDTO, { nullable: true })
   async kindergarten(
     @Root()
     parent: {
@@ -47,6 +48,8 @@ export class KindergartenWithInstructorResolver {
       new GetKindergartenQuery(parent.kindergartenId),
     );
 
-    return KindergartenMapper.toRaw(kindergarten);
+    if (kindergarten) {
+      return KindergartenMapper.toRaw(kindergarten);
+    }
   }
 }

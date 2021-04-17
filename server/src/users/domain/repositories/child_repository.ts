@@ -6,6 +6,7 @@ import { ChildDocument } from '../../schemas/child_schema';
 import { Child, ChildProps } from '../models/child_model';
 import * as mongoose from 'mongoose';
 import { ChildMapper } from '../mappers/child_mapper';
+import { parseDateToAge } from '../../../shared/utils/parse_date_to_age';
 
 @Injectable()
 export class ChildRepository {
@@ -41,8 +42,18 @@ export class ChildRepository {
       .then(childList => childList.map(child => ChildMapper.toDomain(child)));
   }
 
-  async getByKindergarten(id: string): Promise<ChildProps[]> {
-    return await this.childModel.find({ kindergarten: id }).exec();
+  async getByKindergarten(id: string): Promise<Child[]> {
+    const results = await this.childModel
+      .find({ kindergarten: id })
+      .lean()
+      .exec()
+      .then(childList => childList.map(c => ChildMapper.toDomain(c)));
+
+    return results.filter(c => {
+      const age = parseDateToAge(c.birthYear.value, c.birthQuarter.value);
+
+      return age >= 3 && age <= 7 && !c.isDeleted;
+    });
   }
 
   async getAll(): Promise<Child[]> {
@@ -55,7 +66,7 @@ export class ChildRepository {
 
   async updateChild(
     id: string,
-    update: { [index: string]: string | number },
+    update: { [index: string]: string | number | boolean },
   ): Promise<Child> {
     const [child] = await this.get([id]);
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormik } from 'formik';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -61,7 +60,7 @@ export function AddChildModal({
 
 export const useStyles = makeStyles((theme: Theme) => ({
     innerContent: {
-        maxHeight: 400,
+        minHeight: 400,
     },
     description: { marginBottom: theme.spacing(2) },
     title: { marginBottom: theme.spacing(3) },

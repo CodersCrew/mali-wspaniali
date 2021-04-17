@@ -1,45 +1,49 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
-import Maker from '../../assets/authTemplateLogos/maker/maker.png';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
+
+import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
 type AuthTemplateType = 'login' | 'register';
 
 export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, type }) => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { isDesktop } = useIsDevice();
 
     return (
-        <div className={classes.background}>
-            <div className={classes.logoContainer}>
-                <div className={classes.logoInnerContainer}>
-                    <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
-                    <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
-                    {type === 'register' && <p className={classes.subheading}>{t('login-wrapper.subheading')}</p>}
-                </div>
-                <div className={classes.partnersContainer}>
-                    <div className={classes.maker}>
-                        <div className={classes.partnersHeader}>
-                            <Typography variant="subtitle1">{t('login-wrapper.made-by')}</Typography>{' '}
+        <>
+            {isDesktop ? (
+                <div className={classes.background}>
+                    <div className={classes.logoContainer}>
+                        <div className={classes.logoInnerContainer}>
+                            <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
+                            <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
                         </div>
-                        <div className={classes.partnersLogos}>
-                            <img src={Maker} alt="maker_logo" className={classes.makerPartnersLogo} />
-                        </div>
+                        {type === 'login' && <PartnerLogotypeContainer />}
                     </div>
-                    <div className={classes.partners}>
-                        <div className={classes.partnersHeader}>
-                            <Typography variant="subtitle1">{t('login-wrapper.partners')}</Typography>{' '}
-                        </div>
-                        <div className={classes.partnersLogos}>
-                            <Typography variant="subtitle1">Logos</Typography>
-                        </div>
-                    </div>
+                    <div className={classes.formContainer}>{children}</div>
                 </div>
-            </div>
-            <div className={classes.formContainer}>{children}</div>
-        </div>
+            ) : (
+                <>
+                    <Box zIndex="appBar">
+                        <AppBar className={classes.appBar} position="fixed">
+                            <div className={classes.appBarLanguageSelector} />
+                            <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
+                            <div className={classes.appBarLanguageSelector}>
+                                <LanguageSelector />
+                            </div>
+                        </AppBar>
+                    </Box>
+                    <div className={classes.formContainer}>{children}</div>
+                </>
+            )}
+        </>
     );
 };
 
@@ -51,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100%',
             display: 'flex',
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 flexDirection: 'column',
                 padding: 0,
             },
@@ -59,11 +63,11 @@ const useStyles = makeStyles((theme: Theme) =>
         logoContainer: {
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'end',
+            justifyContent: 'flex-end',
             flex: '4 0 0',
             flexDirection: 'column',
             padding: theme.spacing(3),
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 flex: '0',
                 marginTop: 15,
             },
@@ -75,14 +79,11 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             height: '100%',
         },
-        formContainer: {
-            backgroundColor,
-            minHeight: '100vh',
-            height: '100%',
-            flex: '3 0 0',
-
-            [theme.breakpoints.down('sm')]: {
-                minHeight: 'auto',
+        logo: {
+            width: '327.04',
+            [theme.breakpoints.down('md')]: {
+                width: 109,
+                margin: 'auto',
             },
         },
         welcomeText: {
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight: '41.45px',
             textAlign: 'center',
 
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
                 marginTop: theme.spacing(2),
                 marginBottom: theme.spacing(4),
                 width: 280,
@@ -104,45 +105,38 @@ const useStyles = makeStyles((theme: Theme) =>
                 lineHeight: 26,
             },
         },
-        subheading: {
-            marginTop: theme.spacing(2.5),
-            fontSize: '21px',
-            lineHeight: 26,
-            color: backgroundColor,
+        /*
+            formContainer: {
+                backgroundColor,
+                flex: '3 0 0',
+                display: 'flex',
+                flexDirection: 'column',
+                [theme.breakpoints.down('sm')]: {
+                    minHeight: 'auto',
+                },
+*/
+        formContainer: {
+            backgroundColor,
+            minHeight: '100vh',
+            height: '100%',
+            flex: '3 0 0',
 
-            [theme.breakpoints.down('sm')]: {
-                display: 'none',
+            [theme.breakpoints.down('md')]: {
+                minHeight: 'auto',
             },
         },
-        logo: {
-            width: '327.04px',
-            [theme.breakpoints.down('sm')]: {
-                maxWidth: 200,
-            },
-        },
-        partnersContainer: {
-            width: '100%',
+        appBar: {
+            height: 64,
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'start',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
-        partnersHeader: {
-            marginBottom: theme.spacing(3),
-        },
-        partnersLogos: {
-            height: 70,
-        },
-        maker: {
-            width: 176,
+        appBarLanguageSelector: {
+            height: 24,
+            width: 24,
             marginRight: theme.spacing(3),
-        },
-        partners: {
-            width: '100%',
-        },
-        makerPartnersLogo: {
-            width: 170,
-            height: 70,
-            borderRadius: 4,
         },
     }),
 );

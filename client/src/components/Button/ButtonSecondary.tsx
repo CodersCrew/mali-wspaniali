@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { ButtonBase, CustomButtonProps } from './ButtonBase';
 
 export const ButtonSecondary: FC<CustomButtonProps> = (props) => {

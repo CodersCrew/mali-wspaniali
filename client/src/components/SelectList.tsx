@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { TextField } from '@material-ui/core';
 
 interface Props {

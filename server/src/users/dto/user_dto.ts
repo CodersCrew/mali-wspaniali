@@ -18,11 +18,11 @@ export class UserDTO {
   readonly role: string;
 
   @Field(() => [NotificationDTO], { nullable: true })
-  readonly notifications: NotificationDTO[];
+  readonly notifications: string[];
 
   @Field(() => [ChildDTO], { nullable: true })
-  readonly children: ChildDTO[];
+  readonly children: string[];
 
   @Field(() => [AgreementDTO])
-  readonly agreements: AgreementDTO[];
+  readonly agreements: string[];
 }

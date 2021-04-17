@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -83,7 +82,6 @@ interface MobileCarouselProps {
 
 function MobileCarousel({ childList, onAddChildClick, onChildClick }: MobileCarouselProps) {
     const classes = useStyles();
-    console.log(classes);
     const { isSmallMobile } = useIsDevice();
 
     return (

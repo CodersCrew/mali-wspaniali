@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { makeStyles, Theme, Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
@@ -11,7 +11,7 @@ import GirlAvatar from '../../assets/girl.png';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
 import { initialValues, validationSchema, normalizeChild } from './utils';
-import { EditChildModalProps } from './ChildModalTypes';
+import { ChildModalProps } from './ChildModalTypes';
 
 type EditChildType = Omit<Child, 'results' | 'currentParams'>;
 
@@ -19,9 +19,10 @@ const AdminSettingsEditModal = ({
     onClose,
     makeDecision,
     kindergartens,
-    parent,
+    user,
+    preventClose,
     isCancelButtonVisible,
-}: EditChildModalProps & ActionDialog<{ child: ChildInput }>) => {
+}: ChildModalProps & ActionDialog<{ child: ChildInput }>) => {
     const [updateInitialChildValues, setInitialValues] = useState<AddChildResult>(initialValues);
     const [selectedChild, setSelectedChild] = useState<{ childIndex: number; isSelected: boolean }>({
         childIndex: 0,
@@ -41,7 +42,7 @@ const AdminSettingsEditModal = ({
 
     return (
         <BasicModal
-            actionName={t('parent-settings.modal-edit-account.button')}
+            actionName={t('user-settings.modal-edit-account.button')}
             isOpen={true}
             onAction={formik.handleSubmit}
             onClose={onClose}
@@ -50,17 +51,17 @@ const AdminSettingsEditModal = ({
         >
             <form onSubmit={formik.handleSubmit}>
                 <Typography variant="h4" className={classes.header}>
-                    {t('parent-settings.modal-edit-account.header')}
+                    {t('user-settings.modal-edit-account.header')}
                 </Typography>
                 <Typography variant="body1" className={classes.header}>
-                    {t('parent-settings.modal-edit-account.subtitle')}
+                    {t('user-settings.modal-edit-account.subtitle')}
                 </Typography>
-                <Typography variant="subtitle2">{t('parent-settings.modal-edit-account.label')}</Typography>
+                <Typography variant="subtitle2">{t('user-settings.modal-edit-account.label')}</Typography>
                 <Typography variant="body1" className={classes.mail}>
-                    {parent.mail}
+                    {user.mail}
                 </Typography>
                 <Grid container spacing={3} className={classes.chilCard}>
-                    {parent.children.map(
+                    {user.children.map(
                         (
                             { firstname, lastname, sex, birthYear, birthQuarter, kindergarten }: EditChildType,
                             index: number,
@@ -122,6 +123,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export const openAdminSettingsEditModal = (props: EditChildModalProps) => {
-    return openDialog<EditChildModalProps>(AdminSettingsEditModal, props);
+export const openAdminSettingsEditModal = (props: ChildModalProps) => {
+    return openDialog<ChildModalProps>(AdminSettingsEditModal, props);
 };

@@ -20,11 +20,9 @@ export interface AssessmentValues {
 export interface ResultCreatorReturnProps {
     assessments: Assessment[];
     values: AssessmentValues;
-    points: AssessmentValues;
     selectedAssessment: Assessment;
     selectedKindergarten: Kindergarten;
     selectedChild: Child;
-    onChange: (value: AssessmentValues) => void;
     error: null;
     edited: string;
     kindergartenResults: AssessmentResult[];
@@ -34,7 +32,7 @@ export interface ResultCreatorReturnProps {
 export interface ResultCreatorErrorReturnProps {
     error: string;
     selectedAssessment?: Assessment;
-    selectedKindergarten?: Kindergarten;
+    selectedKindergarten?: Kindergarten | null;
     selectedChild?: Child;
 }
 
@@ -46,12 +44,6 @@ export function useResultCreator({
 }: Props): ResultCreatorReturnProps | ResultCreatorErrorReturnProps {
     const { assessments } = useAssessments({ withChildren: true });
     const { kindergartenResults } = useAssessmentResults(kindergartenId, assessmentId);
-    const [values, setValues] = useState({
-        run: 0,
-        pendelumRun: 0,
-        throw: 0,
-        jump: 0,
-    });
     const [edited, setEdited] = useState(() => localStorage.getItem('edited') || '');
 
     const { selectedAssessment, selectedKindergarten, selectedChild } = getSelected({
@@ -70,44 +62,12 @@ export function useResultCreator({
         };
     }
 
-    const { run, pendelumRun, jump, throw: throwBall } = selectedChild.currentParams!;
-
-    let points = {
-        run: 0,
-        pendelumRun: 0,
-        throw: 0,
-        jump: 0,
-    };
-
-    if (run && pendelumRun && jump && throwBall) {
-        points = {
-            run: countPoints(values.run, run.a, run.b, run.lowerLimitPoints, run.upperLimitPoints),
-            pendelumRun: countPoints(
-                values.pendelumRun,
-                pendelumRun.a,
-                pendelumRun.b,
-                pendelumRun.lowerLimitPoints,
-                pendelumRun.upperLimitPoints,
-            ),
-            throw: countInvertedPoints(
-                values.throw,
-                throwBall.a,
-                throwBall.b,
-                throwBall.lowerLimitPoints,
-                throwBall.upperLimitPoints,
-            ),
-            jump: countInvertedPoints(values.jump, jump.a, jump.b, jump.lowerLimitPoints, jump.upperLimitPoints),
-        };
-    }
-
     return {
         assessments,
-        values: getResultValue(values),
-        points,
+        values: getResultValue(),
         selectedAssessment,
         selectedKindergarten,
         selectedChild,
-        onChange: (value: AssessmentValues) => setValues(getResultValue(value)),
         error: null,
         edited,
         kindergartenResults,
@@ -117,7 +77,7 @@ export function useResultCreator({
         },
     };
 
-    function getResultValue(options?: AssessmentValues) {
+    function getResultValue() {
         const childResult = kindergartenResults.find((r) => r.childId === childId);
 
         if (!childResult) {
@@ -131,18 +91,18 @@ export function useResultCreator({
 
         if (measurement === 'first') {
             return {
-                run: options?.run || childResult.firstMeasurementRunResult || 0,
-                pendelumRun: options?.pendelumRun || childResult.firstMeasurementPendelumRunResult || 0,
-                throw: options?.throw || childResult.firstMeasurementThrowResult || 0,
-                jump: options?.jump || childResult.firstMeasurementJumpResult || 0,
+                run: childResult.firstMeasurementRunResult || 0,
+                pendelumRun: childResult.firstMeasurementPendelumRunResult || 0,
+                throw: childResult.firstMeasurementThrowResult || 0,
+                jump: childResult.firstMeasurementJumpResult || 0,
             };
         }
 
         return {
-            run: options?.run || childResult.lastMeasurementRunResult || 0,
-            pendelumRun: options?.pendelumRun || childResult.lastMeasurementPendelumRunResult || 0,
-            throw: options?.throw || childResult.lastMeasurementThrowResult || 0,
-            jump: options?.jump || childResult.lastMeasurementJumpResult || 0,
+            run: childResult.lastMeasurementRunResult || 0,
+            pendelumRun: childResult.lastMeasurementPendelumRunResult || 0,
+            throw: childResult.lastMeasurementThrowResult || 0,
+            jump: childResult.lastMeasurementJumpResult || 0,
         };
     }
 }
@@ -159,7 +119,7 @@ function getSelected({
     childId: string;
 }) {
     const selectedAssessment = assessments.find((a) => a._id === assessmentId);
-    const selectedKindergarten = selectedAssessment?.kindergartens.find((k) => k.kindergarten._id === kindergartenId)
+    const selectedKindergarten = selectedAssessment?.kindergartens.find((k) => k.kindergarten?._id === kindergartenId)
         ?.kindergarten;
     const selectedChild = selectedKindergarten?.children?.find((c) => c._id === childId);
 
@@ -168,28 +128,4 @@ function getSelected({
         selectedKindergarten,
         selectedChild,
     };
-}
-
-function countPoints(value: number, a: number, b: number, min: number, max: number) {
-    if (value === 0) return 0;
-
-    const points = a * value + b;
-
-    if (points < max) return max;
-
-    if (points > min) return min;
-
-    return points;
-}
-
-function countInvertedPoints(value: number, a: number, b: number, min: number, max: number) {
-    if (value === 0) return 0;
-
-    const points = a * value + b;
-
-    if (points > max) return max;
-
-    if (points < min) return min;
-
-    return points;
 }

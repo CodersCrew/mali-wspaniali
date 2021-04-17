@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     createStyles,
     Divider,
@@ -78,7 +77,7 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                                                 classes={{ root: clsx(classes.targetCell, classes.cell) }}
                                                 data-testid="keycode-item-target"
                                             >
-                                                {target}
+                                                {t(`admin-setting-page.keycode-generation.role-${target}`)}
                                             </TableCell>
                                             <TableCell
                                                 classes={{ root: classes.cell }}

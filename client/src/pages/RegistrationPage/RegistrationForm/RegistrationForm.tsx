@@ -1,22 +1,26 @@
-import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { Stepper, Step, StepLabel, StepContent, Typography, Container } from '@material-ui/core/';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-import { openAlertDialog } from '../../../components/AlertDialog';
-import { load } from '../../../utils/load';
-import { createUser } from '../../../queries/userQueries';
-import { passwordStrengthTest } from '../passwordStrengthTest';
-import { useStyles } from './styles';
-import { RegistrationEmail } from './RegistrationEmail';
-import { RegistrationAgreement } from './RegistrationAgreement';
-import { RegistrationPassword } from './RegistrationPassword';
-import { RegistrationFeedback } from './RegistrationFeedback';
-import { RegistrationCode } from './RegistrationCode';
-import { LanguageSelector } from './LanguageSelector';
 
-import { RegisterForm } from './types';
-import { Agreement } from '../../../graphql/types';
+import { createUser } from '../../../queries/userQueries';
 import { getAgreements } from '../../../graphql/agreementRepository';
+import { load } from '../../../utils/load';
+import { openAlertDialog } from '../../../components/AlertDialog';
+import { passwordStrengthTest } from '../passwordStrengthTest';
+import { ButtonSecondary } from '../../../components/Button';
+import { useIsDevice } from '../../../queries/useBreakpoints';
+import { AgreementExtended } from '../types';
+import { AGREEMENTS } from '../agreements';
+
+import { RegistrationAgreement } from './RegistrationAgreement';
+import { RegistrationCode } from './RegistrationCode';
+import { RegistrationEmail } from './RegistrationEmail';
+import { RegistrationFeedback } from './RegistrationFeedback';
+import { RegistrationPassword } from './RegistrationPassword';
+import { RegisterForm } from './types';
+import { useStyles } from './styles';
+import { LanguageSelector } from './LanguageSelector';
 
 const initialState: RegisterForm = {
     code: '',
@@ -27,14 +31,31 @@ const initialState: RegisterForm = {
 
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
+    // TODO: turn back to 0
     const [activeStep, setActiveStep] = useState(0);
-    const [agreements, setAgreements] = useState<Agreement[]>([]);
+    const [skip, setSkip] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
     const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
+    const { isDesktop } = useIsDevice();
 
     useEffect(() => {
-        getAgreements().then(({ data }) => setAgreements(data!.agreements));
+        getAgreements()
+            .then(({ data }) => {
+                const agreementList = AGREEMENTS.map((item) => {
+                    const id = data.agreements.filter((dataItem) => dataItem.text === item.type)[0]?._id;
+
+                    return { ...item, _id: id === undefined ? '' : id };
+                });
+
+                setAgreements(() => agreementList);
+            })
+            .catch((error) => {
+                console.log('Error: ', error.message);
+            });
     }, []);
 
     const steps = [
@@ -55,6 +76,8 @@ export const RegistrationForm = () => {
                     classForm={classes.formItem}
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
+                    // TODO: code needs to be validated
+                    error={false}
                 />
             );
         }
@@ -70,6 +93,8 @@ export const RegistrationForm = () => {
                     classForm={classes.formItem}
                     classButton={clsx({ [classes.buttonWrapper]: true, emailContent: activeStep === 0 })}
                     classNextBtn={classes.nextButton}
+                    // TODO: email needs to be validated
+                    error={false}
                 />
             );
         }
@@ -93,6 +118,7 @@ export const RegistrationForm = () => {
                     agreementCheckbox={classes.agreementCheckbox}
                     checkboxContent={classes.checkboxContent}
                     agreements={agreements}
+                    setAgreements={setAgreements}
                 />
             );
         }
@@ -109,17 +135,22 @@ export const RegistrationForm = () => {
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
                     classFormItem={classes.formItem}
+                    skip={setSkip}
+                    loading={loading}
                 />
             );
         }
 
         if (step === 4) {
             return (
-                <RegistrationFeedback
-                    classLink={classes.goToHomepageLink}
-                    classHeader={clsx({ [classes.loginHeader]: true, confirmation: activeStep === 3 })}
-                    classWrapper={classes.confirmWrapper}
-                />
+                <>
+                    <Box mb={6} />
+                    <RegistrationFeedback
+                        classLink={classes.goToHomepageLink}
+                        classHeader={clsx({ [classes.loginHeader]: true, confirmation: activeStep === 3 })}
+                        classWrapper={classes.confirmWrapper}
+                    />
+                </>
             );
         }
 
@@ -131,26 +162,47 @@ export const RegistrationForm = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
+        setLoading(() => true);
         if (!passwordStrengthTest(password)) {
             openAlertDialog({
                 type: 'error',
                 description: t('registration-page.password-not-strong'),
             });
+            setLoading(() => false);
         } else if (password !== passwordConfirm) {
             openAlertDialog({
                 type: 'error',
                 description: t('registration-page.password-mismatch'),
             });
+            setLoading(() => false);
         } else {
-            load(createUser({ mail: email, password, keyCode: code }))
+            load(
+                createUser({
+                    mail: email,
+                    password,
+                    keyCode: code,
+                    agreements: agreements
+                        .filter((agreement) => !!agreement._id && agreement.isSigned)
+                        .map((item) => item._id),
+                }),
+            )
                 .then(() => {
+                    setLoading(() => false);
                     handleNext();
                 })
-                .catch((err) => {
-                    openAlertDialog({
-                        type: 'error',
-                        description: err.message,
-                    });
+                .catch(() => {
+                    // TODO: re-modify this!
+                    setLoading(() => false);
+                    if (skip) {
+                        setSkip(() => false);
+                        handleNext();
+                    } else {
+                        openAlertDialog({
+                            type: 'error',
+                            title: t('registration-page.register-failure'),
+                            description: t('registration-page.register-failure-description'),
+                        });
+                    }
                 });
         }
     };
@@ -161,25 +213,65 @@ export const RegistrationForm = () => {
     };
 
     return (
-        <div className={clsx({ [classes.container]: true, agreements: activeStep === 2 })}>
+        <div className={classes.container}>
+            <div className={classes.topHeader}>
+                <LanguageSelector />
+            </div>
+            <Typography variant="h3" className={classes.header}>
+                {t('registration-page.register-header')}
+            </Typography>
+            <Box mb={isDesktop ? 3 : 2} />
+            {activeStep === 0 && (
+                <>
+                    <Typography className={classes.subHeader}>{t('login-wrapper.subheading')}</Typography>
+                    <Box mb={isDesktop ? 2.5 : 2} />
+                </>
+            )}
             <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                {activeStep !== 4 && (
-                    <Container className={classes.headerContainer}>
-                        <Typography variant="h4">
-                            <div className={classes.registrationHeader}>{t('registration-page.register')}</div>
-                        </Typography>
-                        <LanguageSelector />
-                    </Container>
-                )}
-                <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
+                <Stepper
+                    activeStep={activeStep}
+                    orientation="vertical"
+                    className={classes.stepper}
+                    connector={
+                        isDesktop ? (
+                            <StepConnector
+                                classes={{
+                                    completed: classes.stepConnectorCompleted,
+                                    active: classes.stepConnectorCompleted,
+                                }}
+                            />
+                        ) : (
+                            <StepConnector
+                                classes={{
+                                    root: classes.divider,
+                                    completed: classes.dividerCompleted,
+                                    active: classes.dividerCompleted,
+                                }}
+                            />
+                        )
+                    }
+                >
                     {steps.map((step, idx) => (
                         <Step key={step} style={{ border: 'none' }}>
-                            <StepLabel>{step}</StepLabel>
-                            <StepContent>{getStepContent(idx)}</StepContent>
+                            <StepLabel>
+                                <Typography variant="body2">{step}</Typography>
+                            </StepLabel>
+                            <StepContent className={classes.stepperContent}>
+                                {idx !== 4 ? getStepContent(idx) : null}
+                            </StepContent>
                         </Step>
                     ))}
                 </Stepper>
             </form>
+            {activeStep === 4 && getStepContent(activeStep)}
+            <div className={classes.footer}>
+                <ButtonSecondary
+                    href="/login"
+                    className={classes.backToLoginButton}
+                    innerText={t('registration-page.go-to-loginpage')}
+                />
+                <Box mb={3} />
+            </div>
         </div>
     );
 };

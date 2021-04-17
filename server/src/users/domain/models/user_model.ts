@@ -1,11 +1,14 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import * as mongoose from 'mongoose';
 
-import { UserCreatedEvent } from '../events/impl';
+import {
+  UserConfirmedEvent,
+  UserCreatedEvent,
+  UserSignedAgreementEvent,
+  UserUnsignedAgreementEvent,
+  UserUpdatedEvent,
+} from '../events/impl';
 import { Mail } from '../../../shared/domain/mail';
-import { NotificationProps } from '../../../notifications/domain/models/notification_model';
-import { ChildProps } from './child_model';
-import { AgreementProps } from '../../../agreements/schemas/agreement_schema';
+import { UserAnonymizedEvent } from '../events/impl/user_anonymized_event';
 
 export interface UserProps {
   readonly _id: string;
@@ -13,25 +16,119 @@ export interface UserProps {
   mail: string;
   readonly password: string;
   readonly role: string;
-  notifications: NotificationProps[];
-  children: string[] | mongoose.Schema.Types.ObjectId[] | ChildProps[];
-  agreements: string[] | mongoose.Schema.Types.ObjectId[] | AgreementProps[];
+  notifications: string[];
+  children: string[];
+  agreements: string[];
+  confirmed: boolean;
+  deleted: boolean;
 }
 
-export interface UserBeforeSaveProps {
-  mail: string;
-  readonly password: string;
-}
+export type UserBeforeSaveProps = Pick<UserProps, 'mail' | 'password'>;
 
 export class User extends AggregateRoot {
-  private constructor(private readonly props: UserProps | UserBeforeSaveProps) {
+  private constructor(private props: UserProps | UserBeforeSaveProps) {
     super();
 
-    this.props.mail = Mail.create(props.mail).getValue().value;
+    if (isUserProps(this.props)) {
+      if (!this.props.deleted) {
+        this.props.mail = Mail.create(props.mail).getValue().value;
+      }
+    } else {
+      this.props.mail = Mail.create(props.mail).getValue().value;
+    }
   }
 
-  get id() {
+  get id(): string {
     return (this.props as UserProps)._id;
+  }
+
+  get mail(): string {
+    return this.props.mail;
+  }
+
+  get password(): string {
+    return this.props.password;
+  }
+
+  get children(): string[] {
+    return (this.props as UserProps).children;
+  }
+
+  get agreements(): string[] {
+    return (this.props as UserProps).agreements;
+  }
+
+  hasAgreement(potentialAgreementId): boolean {
+    return (this.props as UserProps).agreements.includes(potentialAgreementId);
+  }
+
+  private setAgreements(agreements: string[]) {
+    (this.props as UserProps).agreements = agreements;
+  }
+
+  get confirmed(): boolean {
+    if (isUserProps(this.props)) {
+      return this.props.confirmed;
+    }
+
+    return false;
+  }
+
+  get role(): string {
+    if (!('role' in this.props)) throw Error('Need created user');
+
+    return this.props.role;
+  }
+
+  confirm(): void {
+    if (isUserProps(this.props)) {
+      this.props.confirmed = true;
+
+      this.apply(new UserConfirmedEvent(this.props._id));
+    }
+  }
+
+  delete(): void {
+    const { props } = this;
+
+    if (isUserProps(props)) {
+      this.props = { ...props, deleted: true, mail: '', password: '' };
+
+      this.apply(
+        new UserUpdatedEvent(props._id, {
+          deleted: true,
+          mail: '',
+          password: '',
+        }),
+      );
+      this.apply(new UserAnonymizedEvent(this.id));
+    }
+  }
+
+  isDeleted(): boolean {
+    if (isUserProps(this.props)) {
+      return this.props.deleted;
+    }
+  }
+
+  signAgreement(potentialAgreementId: string) {
+    if (isUserProps(this.props)) {
+      this.setAgreements([...this.agreements, potentialAgreementId]);
+      this.apply(
+        new UserSignedAgreementEvent(this.props._id, potentialAgreementId),
+      );
+    }
+  }
+
+  unsignAgreement(potentialAgreementId: string) {
+    if (isUserProps(this.props)) {
+      this.setAgreements(
+        this.agreements.filter(agreement => agreement !== potentialAgreementId),
+      );
+      this.apply(
+        new UserUnsignedAgreementEvent(this.props._id, potentialAgreementId),
+      );
+    }
   }
 
   static create(props: UserProps, keyCode: string): User {
@@ -57,4 +154,13 @@ export class User extends AggregateRoot {
 
 function isUserProps(v: UserProps | UserBeforeSaveProps): v is UserProps {
   return !!(v as UserProps)._id;
+}
+
+function anonymizeUser(user: UserProps) {
+  return {
+    ...user,
+    delete: true,
+    mail: '',
+    password: '',
+  };
 }

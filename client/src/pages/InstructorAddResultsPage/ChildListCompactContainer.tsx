@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     Box,
     Grid,
@@ -14,17 +14,21 @@ import {
 } from '@material-ui/core';
 import { Assessment as AssessmentIcon, BarChart, EventNote, ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Assessment, Child } from '../../graphql/types';
+import { Assessment, Child, AssessmentResult } from '../../graphql/types';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { Clickable } from '../../components/Clickable';
+import { countProgress } from '../InstructorResultCreatorPage/countProgress';
+import { CountIcon } from '../../components/CountIcon';
+import { CustomIconButton } from '../../components/Button/CustomIconButton';
 
 interface Props {
     childList: Child[];
     assessment: Assessment;
+    results: AssessmentResult[];
     onClick: (type: string, value: string) => void;
 }
 
-export function ChildListCompactContainer({ childList, assessment, onClick }: Props) {
+export function ChildListCompactContainer({ results, childList, assessment, onClick }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
     const [selectedChild, setSelectedChild] = useState(childList[0]?._id);
@@ -35,7 +39,12 @@ export function ChildListCompactContainer({ childList, assessment, onClick }: Pr
     return (
         <List>
             {childList.map((c) => {
+                const firstNote = getFirstNote(c._id);
+                const lastNote = getLastNote(c._id);
                 const isOpen = selectedChild === c._id;
+                const age = parseDateToAge(c.birthYear, c.birthQuarter);
+                const firstMeasurementResultCount = countMeasurementResults('first', c._id);
+                const lastMeasurementResultCount = countMeasurementResults('last', c._id);
 
                 return (
                     <>
@@ -69,78 +78,96 @@ export function ChildListCompactContainer({ childList, assessment, onClick }: Pr
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <Typography variant="body2">
-                                                                    {parseDateToAge(c.birthYear, c.birthQuarter)}
+                                                                    {age} {t('add-results-page.years', { count: age })}
                                                                 </Typography>
                                                             </TableCell>
                                                         </TableRow>
                                                         <TableRow>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <Typography variant="subtitle2">
-                                                                    {t('add-results-page.first-assessment')}
+                                                                    <u>{t('add-results-page.first-assessment')}</u>
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
-                                                                <IconButton
-                                                                    disabled={isFirstMeasurementDisabled}
-                                                                    classes={{ root: classes.iconButton }}
+                                                                <CustomIconButton
+                                                                    color={matchResultWithColor(
+                                                                        firstMeasurementResultCount,
+                                                                    )}
                                                                     onClick={() =>
-                                                                        onClick('add-first-assessment-result', c._id)
+                                                                        onClick('add-fitst-assessment-result', c._id)
                                                                     }
-                                                                >
-                                                                    <BarChart
-                                                                        titleAccess={t(
-                                                                            'add-results-page.add-first-assessment-result',
-                                                                        )}
-                                                                    />
-                                                                </IconButton>
+                                                                    disabled={isFirstMeasurementDisabled}
+                                                                    icon={
+                                                                        <BarChart
+                                                                            titleAccess={t(
+                                                                                'add-results-page.add-first-assessment-result',
+                                                                            )}
+                                                                        />
+                                                                    }
+                                                                />
+                                                                <CountIcon
+                                                                    value={firstMeasurementResultCount}
+                                                                    max={4}
+                                                                />
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
-                                                                <IconButton
-                                                                    disabled={isFirstMeasurementDisabled}
-                                                                    classes={{ root: classes.iconButton }}
+                                                                <CustomIconButton
+                                                                    color={firstNote ? 'success' : 'default'}
                                                                     onClick={() =>
                                                                         onClick('add-first-assessment-note', c._id)
                                                                     }
-                                                                >
-                                                                    <EventNote
-                                                                        titleAccess={t('add-results-page.add-note')}
-                                                                    />
-                                                                </IconButton>
+                                                                    disabled={isFirstMeasurementDisabled}
+                                                                    icon={
+                                                                        <EventNote
+                                                                            titleAccess={t('add-results-page.add-note')}
+                                                                        />
+                                                                    }
+                                                                />
                                                             </TableCell>
                                                         </TableRow>
                                                         <TableRow>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <Typography variant="subtitle2">
-                                                                    {t('add-results-page.last-assessment')}
+                                                                    <u>{t('add-results-page.last-assessment')}</u>
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
-                                                                <IconButton
-                                                                    disabled={isLastMeasurementDisabled}
-                                                                    classes={{ root: classes.iconButton }}
-                                                                    onClick={() =>
-                                                                        onClick('add-last-assessment-result', c._id)
-                                                                    }
-                                                                >
-                                                                    <BarChart
-                                                                        titleAccess={t(
-                                                                            'add-results-page.add-last-assessment-result',
+                                                                <Box display="flex" alignItems="center">
+                                                                    <CustomIconButton
+                                                                        color={matchResultWithColor(
+                                                                            lastMeasurementResultCount,
                                                                         )}
+                                                                        onClick={() =>
+                                                                            onClick('add-last-assessment-result', c._id)
+                                                                        }
+                                                                        disabled={isLastMeasurementDisabled}
+                                                                        icon={
+                                                                            <BarChart
+                                                                                titleAccess={t(
+                                                                                    'add-results-page.add-last-assessment-result',
+                                                                                )}
+                                                                            />
+                                                                        }
                                                                     />
-                                                                </IconButton>
+                                                                    <CountIcon
+                                                                        value={lastMeasurementResultCount}
+                                                                        max={4}
+                                                                    />
+                                                                </Box>
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
-                                                                <IconButton
-                                                                    disabled={isLastMeasurementDisabled}
-                                                                    classes={{ root: classes.iconButton }}
+                                                                <CustomIconButton
+                                                                    color={lastNote ? 'success' : 'default'}
                                                                     onClick={() =>
                                                                         onClick('add-last-assessment-note', c._id)
                                                                     }
-                                                                >
-                                                                    <EventNote
-                                                                        titleAccess={t('add-results-page.add-note')}
-                                                                    />
-                                                                </IconButton>
+                                                                    disabled={isLastMeasurementDisabled}
+                                                                    icon={
+                                                                        <EventNote
+                                                                            titleAccess={t('add-results-page.add-note')}
+                                                                        />
+                                                                    }
+                                                                />
                                                             </TableCell>
                                                         </TableRow>
                                                         <TableRow>
@@ -174,6 +201,28 @@ export function ChildListCompactContainer({ childList, assessment, onClick }: Pr
             })}
         </List>
     );
+
+    function countMeasurementResults(measurement: string, childId: string) {
+        const childResult = results.find((r) => r.childId === childId);
+
+        return childResult ? countProgress(measurement, childResult) : 0;
+    }
+
+    function matchResultWithColor(result: number) {
+        if (result === 4) return 'success-dark';
+
+        if (result === 0) return 'default';
+
+        return 'success';
+    }
+
+    function getFirstNote(childId: string) {
+        return results.find((r) => r.childId === childId)?.firstMeasurementNote;
+    }
+
+    function getLastNote(childId: string) {
+        return results.find((r) => r.childId === childId)?.lastMeasurementNote;
+    }
 }
 
 const useStyles = makeStyles({

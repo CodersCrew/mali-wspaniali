@@ -1,8 +1,6 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Typography } from '@material-ui/core';
 import { Panel } from '../Panel';
-import { panelTextColor, mainColor } from '../../../../colors';
 
 const T_PREFIX = 'child-profile.tests-informations.about';
 
@@ -33,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 21,
         fontWeight: 500,
         lineHeight: '29.4px',
-        color: panelTextColor,
+        color: theme.palette.text.primary,
     },
     text: {
         marginTop: theme.spacing(2),
         fontSize: 15,
         lineHeight: '21px',
-        color: panelTextColor,
+        color: theme.palette.text.primary,
     },
     image: {
         marginLeft: theme.spacing(6),
@@ -52,6 +50,6 @@ const useStyles = makeStyles((theme) => ({
     },
     strong: {
         fontWeight: 'bold',
-        color: mainColor,
+        color: theme.palette.text.primary,
     },
 }));

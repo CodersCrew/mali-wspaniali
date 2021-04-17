@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconButton, createStyles, makeStyles } from '@material-ui/core';
 
 import PlFlag from '../assets/pl.png';

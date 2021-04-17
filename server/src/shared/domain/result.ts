@@ -38,8 +38,8 @@ export class Result<T> {
     return this._value;
   }
 
-  public errorValue(): T {
-    return this.error as T;
+  public errorValue(): string | T {
+    return this.error;
   }
 
   public static ok<U>(value?: U): Result<U> {
@@ -50,7 +50,7 @@ export class Result<T> {
     return new Result<U>(false, error);
   }
 
-  public static combine(results: Result<any>[]): Result<any> {
+  public static combine<T>(results: Result<T>[]): Result<T> {
     for (let result of results) {
       if (result.isFailure) return result;
     }

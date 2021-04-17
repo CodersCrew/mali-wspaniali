@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
 
 import { activePage } from '../../apollo_client';
@@ -9,7 +9,7 @@ export default function AdminCodesPage() {
     const classes = useStyles();
 
     useEffect(() => {
-        activePage(['admin-menu.access.title', 'admin-menu.access.keycodes']);
+        activePage(['admin-menu.keycodes']);
     }, []);
 
     return (

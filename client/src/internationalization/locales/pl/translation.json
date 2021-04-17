@@ -2,18 +2,20 @@
     "home-page": {
         "go-to-login-page": "Strona logowania",
         "log-out": "Wyloguj",
-        "go-to-registration-page": "Rejestracja",
+        "go-to-registration-page": "Utwórz konto",
         "go-to-parent-children-page": "Moje dzieci"
     },
     "login-page": {
         "login": "Zaloguj",
-        "login-error": "Przepraszamy, podałeś nieprawidłowe dane logowania lub nie zostałeś zarejestrowany",
+        "login-error": "Email lub hasło są nieprawidłowe",
         "login-header": "Logowanie",
-        "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail podanego fundacji lub użytego do rejestracji.",
+        "e-mail-helper-text-mobile": "Zaloguj się za pomocą adresu e-mail użytego przy rejestracji",
+        "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail użytego przy rejestracji",
         "forgot-password": "Nie pamiętasz hasła?",
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
         "login-wrong-password": "Podane hasło jest nieprawidłowe",
-        "no-account": "Pierwszy raz na platformie Mali Wspaniali?"
+        "no-account": "Pierwszy raz na platformie Mali Wspaniali?",
+        "register": "Utwórz konto"
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
@@ -22,22 +24,30 @@
         "partners": "Partnerzy strategiczni:"
     },
     "registration-page": {
+        "register-header": "Rejestracja",
         "already-have-account": "Masz już konto?",
+        "register-failure": "Rejestracja nie powiodła się",
+        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>biuro@mali-wspaniali.pl</strong>",
         "password-mismatch": "Podane hasła nie są takie same",
-        "register-success": "Konto zostało utworzone. Możesz się zalogować.",
+        "register-success-title": "To już ostatni krok!",
+        "register-success-content": "Wysłaliśmy na Twoją skrzynkę mailową wiadomość z linkiem aktywacyjnym. Skorzystaj z niego, aby potwierdzić swój adres e-mail i zakończyć rejestrację.",
+        "register-success-spam": "",
         "password-confirm": "Powtórz hasło",
-        "register": "Zarejestruj się",
+        "register": "Rejestracja",
         "password-not-strong": "Hasło za słabe",
         "agreements-and-regulations": "Zgody i regulaminy",
-        "create-password": "Stwórz hasło",
+        "create-password": "Zarejestruj się",
         "confirmation": "Potwierdzenie",
         "create-password-text": "Stwórz hasło do platformy Mali Wspaniali, które będzie ci służyło podczas następnych logowań.",
         "go-to-homepage": "Przejdź do strony głównej",
-        "enter-code": "Wpisz kod",
-        "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu, twoje dane będą bezpieczniejsze.",
+        "go-to-loginpage": "Wróć do logowania",
+        "enter-code": "Kod",
+        "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu Twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
-        "no-code-desc": "Takie sytuacje też się zdarzają, nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie by pracownicy mogli wygenerować dla ciebie nowy kod. Napisz maila na adres biuro@mali-wspaniali.pl",
-        "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go jeszcze raz.",
+        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: ",
+        "no-code-desc-email": "biuro@mali-wspaniali.pl",
+        "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go ponownie",
+        "invalid-email": "Niepoprawny adres e-mail.",
         "length": "8 znaków",
         "capital": "Duża litera",
         "digit": "Cyfra",
@@ -50,25 +60,26 @@
             "show-less": "Zwiń",
             "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
             "sub-title": "Zgody",
-            "sub-title-description": "Zgoda na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych nie są obowiązkowai nie skutkują one brakiem możliwości brania udziału w zajęciach.",
+            "sub-title-description": "Zgodę na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych może Pani/Pan w dowolnej chwili wycofać z poziomu platformy w zakładce 'Zgody'.",
             "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
             "privacy-policy": "Regulaminu, Polityki prywatności.",
-            "required-field": "*pole obowiązkowe do wypełnienia"
+            "required-field": "*pole obowiązkowe do wypełnienia",
+            "required-agreements": "Wymagane zgody lub oświadczenia"
         }
     },
     "forgot-password-page": {
-        "forgot-password": "Nie pamietasz hasła",
+        "forgot-password": "Nie pamiętasz hasła?",
         "its-ok": "Nic się nie stało. Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
-        "new-password": "Stwórz nowe hasło",
-        "problem": "Masz problem?",
-        "contact": "Skontaktuj się z fundacją by go rozwiązać",
-        "email-helper-text": "Wpisz adres e-mail podany fundacji",
+        "continue": "Kontynuuj",
+        "problem": "Napotkałeś problem?",
+        "contact": "Skontaktuj się z fundacją, by go rozwiązać",
+        "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
         "back-to-login": "Wróć do logowania",
-        "email-sent": "Na twój adres email wysłaliśmy maila.",
-        "when-received": "Kiedy go dostaniesz kliknij w link by ustawić nowe hasło.",
-        "avatar": "Małgosia"
+        "avatar": "Małgosia",
+        "email-sent": "Na Twój adres e-mail wysłaliśmy maila.",
+        "when-received": "Wprowadź otrzymany kod."
     },
     "users-page": {
         "agreements": "Zgody",
@@ -171,22 +182,110 @@
         "marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
         "image-label": "Zgoda na rozpowszechnianie wizerunku.",
         "image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji.",
-        "kindergartener-test": "Test przedszkolaka",
+        "kindergartener-test": "Test sprawności przedszkolaka",
         "last-update-date": "Data ostatniej zmiany",
         "details": "Szczegóły",
         "collapse-details": "Zwiń szczegóły",
         "info-about-test": "Informacje o pomiarze",
         "carries-out-on": "przeprowadzony dnia",
-        "age-group": "W dniu pomiaru, dziecko przypisane zostało do grupy wiekowej",
-        "fitness-level": "Poziom sprawności",
+        "age-group": "Wiek dziecka",
+
+        "age-group-description": {
+            "title": "W jaki sposób przypisujemy dziecko do danej grupy wiekowej?",
+            "subtitle": "Przypisując dziecko do grupy wiekowej obliczamy w dniu testów jego wiek metrykalny (z dokładnością do jednego miesiąca).",
+            "text-1": "Jeśli dziecko ma np. 4 lata i 10 miesięcy to kwalifikujemy je jako 5-latka. Do grupy ",
+            "age-1": "dzieci w wieku 5 lat",
+            "text-2": " zalicza się wszystkie dzieci, które w dniu badania miały ukończone ",
+            "age-2": "4 lata i 6 miesięcy,",
+            "text-3": " ale nie przekroczyły ",
+            "age-3": "5 lat i 5 miesięcy.",
+            "text-4": " Podobna zasada obowiązuje w kwalifikacji dzieci do innych grup wiekowych."
+        },
+        "initial-fitness-level": "Łączny wynik z pomiaru początkowego",
+        "final-fitness-level": "Łączny wynik z pomiaru końcowego",
         "advice": "Porada",
+        "advice-modal-content": {
+            "bad": {
+                "title": "Porada - Niski poziom sprawności",
+                "subtitle": "Coś poszło nie tak!",
+                "text-1": "Wynik testu sprawności fizycznej Twojego dziecka jest na niskim poziomie. Nie należy tego bagatelizować. ",
+                "text-2": "Mogły na to wpłynąć różne",
+                "text-2-1": "czynniki, ",
+                "text-2-2": "jednak warto sprawdzić przyczynę słabszego wyniku i pracować z dzieckiem nad poprawą sprawności ruchowej, by mogło się zdrowo rozwijać.",
+                "text-3": "Nasi eksperci służą pomocą. Przygotowali dla Ciebie wytyczne, które możesz zastosować już dziś dla dobra swojego dziecka! Możesz także skorzystać z naszego ",
+                "text-3-1": "zestawu ćwiczeń."
+            },
+            "medium": {
+                "title": "Porada - Średni poziom sprawnośc",
+                "subtitle": "Mamy nad czym pracować!",
+                "text-1": "Podstawy sprawności są, ale by Twoje dziecko mogło lepiej się rozwijać, trzeba popracować nad jej poprawą. Tu z pomocą przychodzimy my! ",
+                "text-2": "Przygotowane przez naszych ekspertów ",
+                "text-2-1": "ćwiczenia",
+                "text-2-2": "na pewno pomogą w poprawie sprawności Twojego dziecka.",
+                "text-3": "To nie wszystko co dla Ciebie przygotowaliśmy! Sprawdź co jeszcze możesz zrobić by poprawić sprawności Twojego dziecka dzięki przygotowanemu przez naszych ekspertów ",
+                "text-3-1": "artykułowi"
+            },
+            "good": {
+                "title": "Porada - Dobry poziom sprawnośc",
+                "subtitle": "Masz wiele powodów do zadowolenia!",
+                "text-1": "Twoje dziecko dobrze rozwija się pod względem sprawności fizycznej. Teraz przed nami praca do wykonania, by wspiąć się na poziom bardzo dobry. Już niewiele brakuje!",
+                "text-2": "Pamiętaj o czasie na codzienną aktywność fizyczną zarezerwowanym dla Twojego dziecka. Pomoże Ci w tym ",
+                "text-2-1": "artykuł",
+                "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
+            },
+            "very-good": {
+                "text-1": "Jest bardzo sprawne fizycznie i może być przykładem dla rówieśników. Podziękowania należą się także Tobie za dbanie o zdrowie i prawidłowy rozwój twojego dziecka – tak trzymajcie! ",
+                "text-2": "Koniecznie zobacz ",
+                "text-2-1": "artykuł",
+                "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
+            }
+        },
+        "results-modal-content": {
+            "progress": {
+                "title": "Jest postęp! Brawo!",
+                "subtitle": "Brawo, widać, że dbasz o aktywność swojego dziecka.",
+                "text-1": "Jesteś na dobrej drodze do jego zdrowia i dobrego samopoczucia. Trzymaj tak dalej!",
+                "text-2": "Koniecznie zobacz porady przygotowane przez naszych ekspertów w zakładce ",
+                "text-2-1": " rekomendacje",
+                "text-2-2": ", by stać się jeszcze bardziej świadomym rodzicem."
+            },
+            "constant": {
+                "title": "Uwaga! brak poprawy",
+                "subtitle": "Od ostatniego testu nie nastąpił wzrost wyników w przeprowadzonych próbach u Twojego dziecka.",
+                "text-1": "Musimy cos z tym zrobić. Warto zastanowic się, dlaczego tak się stało. Sprawdź zakładkę ",
+                "text-1-1": "informacje o teście",
+                "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu sprawności.",
+                "text-2": "To nie wszystko co dla Ciebie przygotowaliśmy. Sprawdź co jescze możesz zrobić, by poprawić sprawność swojego dziecka. Pomogą Ci w tym stworone przez naszych ekspertów",
+                "text-2-1": "rekomendacje",
+                "text-2-2": " lub ",
+                "text-2-3": "artykuły."
+            },
+            "regress": {
+                "title": "Uwaga! Pogorszenie!",
+                "subtitle": "Od ostatniego testu Twoje dziecko gorzej radzi sobie z badanymi przez nas cechami. Dlatego trzeba działać!",
+                "text-1": "Musimy zastanowić się dlaczego tak się stało, by zadbac o prawidłowy Twojego dziecka. Sprawdź zakładkę ",
+                "text-1-1": "informacje o teście",
+                "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu.",
+                "text-2": "Już dziś zacznij realizować zalecenia przygotowane przez nas w zakładce ",
+                "text-2-1": "rekomendacje",
+                "text-3": "Sprawdź co jescze możesz zrobić by poprawić sprawności swojego dziecka. pomoże Ci w tym stworzony przez naszych ekspertów ",
+                "text-3-1": "artykuł."
+            }
+        },
         "initial-test": "Pomiar początkowy",
         "final-test": "Pomiar końcowy",
+        "result-level": "Poziom cechy",
         "result-description": {
-            "bad": "TBD",
-            "medium": "Dobrze ci idzie, ale zawsze może być lepiej",
-            "good": "Dobrze!",
-            "very-good": "Bardzo dobrze!"
+            "bad": "NISKI POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "medium": "ŚREDNI POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "good": "DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "very-good": "BARDZO DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ"
+        },
+        "result-levels": {
+            "bad": "niski",
+            "medium": "średni",
+            "good": "dobry",
+            "very-good": "bardzo dobry"
         },
         "tests": {
             "strength": "Siła",
@@ -204,17 +303,24 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
-        "final-test-title": "Wyniki poszczególnych prób wraz z porównaniem wyników z pomiaru początkowego",
-        "initial-test-title": "Wyniki poszczególnych prób",
+        "final-test-title": "Wyniki wchodzących w skład pomiaru początkowego",
+        "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
             "progress": "Poprawił się",
             "regress": "Pogorszył się",
             "constant": "Nie zmienił się"
         },
-        "summary-info": "Informacje podsumowujące",
+        "summary-info": "Informacje o pomiarze",
         "test-result": "Wynik testu",
-        "comparison-label": "Porównując oba pomiary, poziom sprawności Twojego dziecka",
-        "comparison-right-title": "Zobacz, w jakiej formie jest Twoje dziecko. Wykres przedstawia jak zmieniały się wyniki dziecka na przestrzeni 2 pomiarów",
+        "comparison-label": "Na podstawie dwóch pomiarów Twojego dziecka jesteśmy w stanie stwierdzić, że:",
+        "comparison-right-title": "Zobacz na wykresie jak zmienił się ogólny poziom sprawności Twojego dziecka:",
+        "comparison-legend": {
+            "title": "Informacja na wykresie",
+            "progress": "Wzrost poziomu sprawności o:",
+            "regress": "Spadek poziomu sprawności o:",
+            "initial-result": "Wynik pomiaru początkowego",
+            "final-result": "Wynik pomiaru końcowego"
+        },
         "comparison-button": "Co mogę zrobić?",
         "no-results-title": "Brak wyników",
         "no-results-text": "Wyniki nie zostały jeszcze wprowadzone, ponieważ pomiar początkowy jeszcze się nie odbył lub wyniki są w opracowaniu.",
@@ -239,16 +345,16 @@
                 "text1": "Składa się z dwóch prób: próba początkowa (pomiar na przełomie października i listopada) oraz próba końcowa (pomiar na przełomie kwietnia i maja). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
                 "text2": "Do opisanych powyżej prób wystarczy ok 7 metrów wolnej przestrzeni, piłka wagowa 1 kilogramowa, stoper lub miara (w zależności od testu), a do próby szybkościowej potrzebny jest tor do biegu 25 metrów w linii prostej oraz stoper.",
                 "test1-name": "Siła",
-                "test1-description": "Rzut  piłką lekarską zza głowy",
+                "test-strength-description": "Rzut  piłką lekarską znad głowy",
                 "test1-scale": "Skala: 0 cm - 80 cm",
                 "test2-name": "Moc",
-                "test2-description": "Skok w dal obunóż z miejsca",
+                "test-power-description": "Skok w dal obunóż z miejsca",
                 "test2-scale": "Skala: 0 cm - 80 cm",
                 "test3-name": "Szybkość",
-                "test3-description": "Bieg na odległość 20 metrów",
+                "test-speed-description": "Bieg na odległość 20 metrów",
                 "test3-scale": "Skala: 0 s - 80 s",
                 "test4-name": "Zwinność",
-                "test4-description": "Bieg wahadłowy 4x5 m z przenoszeniem klocka",
+                "test-agility-description": "Bieg wahadłowy 4x5 m",
                 "test4-scale": "Skala: 0 s - 80 s"
             },
             "results": {
@@ -288,21 +394,27 @@
             "subtitle4": "Śpij na zdrowie!"
         },
         "agreements": {
-            "heading": "Zarządzaj zgodami udzielonymi fundacji Mali Wspaniali. Miej pełną kontrolę nad bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia.",
+            "heading": "Zarządzaj bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia",
             "title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
             "save": "Zapisz",
-            "Image-title": "Zgoda na rozpowszechnianie wizerunku.",
-            "Image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do udziału w programie.",
+            "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
+            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
             "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
-            "Marketing-description": "Zgoda opcjonalna, ale dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+            "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
+            "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
+            "Marketing-description-3": "Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
             "general-title": "Zgoda na udział w programie Mali Wspaniali.",
-            "general-description": "Jest to zgoda obowiązkowa, która jest konieczna, żeby dziecko mogło uczestniczyć w zajęciach prowadzonych przez Małych Wspaniałych - odznaczenie niemożliwe."
+            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: biuro@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Dane dziecka",
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
             "button": "Zapisz"
-        }
+        },
+        "your-child-result-1": "WYNIK",
+        "your-child-result-2": "TWOJEGO DZIECKA"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -353,6 +465,7 @@
         "topic-input-label-filled": "Temat",
         "topic-helper-text": "Wpisz temat wiadomości byś mógł ją wysłać",
         "kindergarten-number": "Przedszkole nr",
+        "message-helper-text": "Wpisz wiadomość, byś mógł ją wysłać",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success-modal": {
             "title": "Gotowe",
@@ -386,19 +499,32 @@
             "file-error": "Nieprawidłowy format pliku"
         }
     },
-    "parent-settings": {
-        "header": "Ustawienia kont rodziców",
-        "header-title-1": "Adres email rodzica",
-        "header-title-2": "Dzieci",
+    "user-settings": {
+        "header": "Ustawienia kont",
+        "parent-option": "Rodzic",
+        "instructor-option": "Instruktor",
+        "role-select": "Rodzaj konta",
+        "search-label": "Szukaj po przedszkolu",
+        "input-label": "Szukaj",
+        "header-title-parent": "Adres email rodzica",
+                "header-title-instructor": "Adres email instruktora",
+        "header-title-children": "Dzieci",
         "button-icon-edit-tooltip": "Edytuj",
         "button-icon-delete-tooltip": "Usuń",
         "button-icon-change-tooltip": "Zmień przedszkole",
-        "modal-delete-account": {
-            "header": "Usuń konto rodzica",
+        "modal-delete-parent-account": {
+            "header": "Usuwanie kont rodziców",
             "first-button": "Anuluj",
             "second-button": "Usuń",
-            "first-description": "Are you sure you want to delete the parent",
+            "first-description": "Czy na pewno chcesz usunąć rodzica",
             "second-description": "Spowoduje to anonimizację wyników dziecka: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
+        },
+        "modal-delete-instructor-account": {
+            "header": "Usuwanie kont instruktora",
+            "first-button": "Anuluj",
+            "second-button": "Usuń",
+            "first-description": "Czy na pewno chcesz usunąć instruktora",
+            "second-description": "Spowoduje to anonimizację wyników instruktora: Fundacja będzie miała dostęp jedynie do wyników testów, jednakże bez informacji o danych osobowych."
         },
         "modal-edit-account": {
             "header": "Edytuj dane",
@@ -407,15 +533,22 @@
             "success-message": "Edycja profilu dziecka przebiegła pomyślnie",
             "label": " E-mail rodzica"
         },
+        "modal-change-kindergarden": {
+            "header": "Przenieś dziecko do innego przedszkola",
+            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieśc dziecko",
+            "main-label": "Obecne przedszkole",
+            "label": "Wybierz przedszkole",
+            "checkbox-option": "Przeniesienie do tego samego przedszkola",
+            "success-message": "Zmiana przedszkoli przebiegła pomyślnie"
+        },
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
-
     "single-article": {
         "blog": "blog",
         "length": "długość",
         "emotions": "emocje",
         "activity": "aktywność",
-        "food": "żywność",
+        "food": "żywienie",
         "other": "inne",
         "reading-time": "min czytania",
         "go-to-previous-page": "poprzednia",
@@ -432,7 +565,12 @@
         "logged-as": "Zalogowany jako:"
     },
     "admin-menu": {
-        "home": "Strona Główna",
+        "tests": {
+            "title": "Testy",
+            "results": "Wyniki",
+            "manage-tests": "Zarządzaj testami",
+            "instructors": "Zarządzaj instruktorami"
+        },
         "agreements": "Zgody",
         "newsletter": {
             "title": "Newsletter",
@@ -444,14 +582,17 @@
             "table": "Tabela wyników",
             "advice-and-recommendations": "Porady i rekomendacje"
         },
-        "access": {
-            "title": "Zarządzanie dostępami",
-            "instructors": "Zarządzaj instruktorami",
-            "keycodes": "Generowanie kodów"
+        "articles": {
+            "title": "Artykuły"
         },
-        "create-blog-article": "Blog",
+        "keycodes": "Kody",
+        "kindergartens": {
+            "title": "Przedszkola",
+            "list": "Lista przedszkoli"
+        },
+        "create-blog-article": "Artykuły",
         "archive": "Archiwum",
-        "results-list": "Lista wyników",
+        "results-list": "Wyniki testów",
         "notifications": "Powiadomienia",
         "test-management": "Testy",
         "settings": {
@@ -461,12 +602,16 @@
         },
         "logout": "Wyloguj"
     },
+    "admin-articles": {
+        "title": "Wybierz artykuł albo dodaj nowy",
+        "add-article": "Dodaj artykuł"
+    },
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
-            "results": "Lista wyników",
+            "results": "Wyniki testów",
             "recommendations": "Rekomendacje",
-            "tests-information": "Informacje o testach",
+            "tests-information": "Opis testów",
             "details": "Dane dziecka"
         },
         "blog": "Aktualności",
@@ -486,11 +631,11 @@
     },
     "blog-main-page": {
         "header-bar": "Blog",
-        "header": "Tutaj dowiesz się jak zadbać o rozwój swojego dziecka"
+        "header": "Sprawdź jak zadbać o rozwój swojego dziecka"
     },
     "blog-pagination": {
-        "previous": "Poprzednia",
-        "next": "Następna",
+        "previous": "Poprzedni",
+        "next": "Następny",
         "show-more": "Rozwiń więcej",
         "counter": "Pokazuje {{from}} z {{to}} artykułów"
     },
@@ -499,7 +644,7 @@
         "food": "Żywienie",
         "activity": "Aktywność fizyczna",
         "emotions": "Emocje",
-        "other": "Inne"
+        "other": "Inne kategorie"
     },
     "blog-navigation": {
         "back": "Wstecz"
@@ -642,6 +787,7 @@
         "by-kindergarten": "Filtruj po przedszkolu"
     },
     "settings-page": {
+        "password-change-message": "Link do zmiany hasła został pomyślnie wysłany. Sprawdź pocztę e-mail, by dokończyć proces.",
         "change-password-problems": "Wystąpiły trudności podczas zmiany hasła?",
         "change-password-problems-hint": "Bez obaw! Skontaktuj się z fundacją, aby rozwiązać problem.",
         "change-password-problems-message-button": "Napisz wiadomość",
@@ -677,7 +823,6 @@
         "text-field-title-id": "wiadomość",
         "text-field-title-label": "Treść wiadomości",
         "text-field-title-placeholder": "Treść wiadomości",
-
         "select-options": {
             "select-label": "Temat wiadomości",
             "1": "zmiana hasła",
@@ -686,7 +831,8 @@
             "4": "usunięcie konta",
             "5": "inny"
         },
-        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail."
+        "snackBar-message": "Twoja wiadomość została wysłana poprawnie do Fundacji Mali Wspaniali. Odpowiedź otrzymasz na swój adres e-mail.",
+        "assessment-updated": "Zmieniono przedszkola {{name}}"
     },
     "admin-instructors-page": {
         "table": {
@@ -694,24 +840,26 @@
             "lastName": "Nazwisko",
             "email": "Adres e-mail",
             "kindergarten-count": "Liczba przedszkoli",
-            "tooltip": "Przydziel do przedszkola"
+            "tooltip": "Przydziel do przedszkola",
+            "kindergartens-count": "{{count}} przedszkola"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",
             "instructor-search": "Szukaj instruktora",
-            "unassigned-kindergartens": "Nieprzydzielone przedszkola"
+            "unassigned-kindergartens": "Nieprzydzielone przedszkola: {{count}}"
         },
         "snackbars": {
-            "info": "By dodać nieprzydzielone przedszkole, wybierz właściwego instruktora i przydziel do niego odpowiednie przedszkole."
+            "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola."
         },
         "modal": {
             "cancel": "Anuluj",
             "assign": "Przydziel",
+            "delete": "Usuń",
+            "delete-instructor": "Usuń instruktora",
+            "delete-instructor-subtitle": "Czy na pewno chcesz usunąć instruktora",
             "assign-to-kindergarten": "Przydziel do przedszkola",
             "select-test": "Wybierz test",
-            "select-instructor": "Wybierz instruktora",
-            "assigned-kindergartens": "Przydzielone przedszkola",
-            "add-unassigned-kindergarten": "Dodaj nieprzydzielone przedszkole"
+            "select-instructor": "Wybierz instruktora"
         }
     },
     "add-results-page": {
@@ -747,10 +895,15 @@
             "go-to-articles": "Przejdź do artykułów"
         },
         "child-list": "Lista dzieci",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "add": "Dodaj",
+        "added-first-note-for": "Dodano notatkę próby początkowej dla {{name}}",
+        "added-last-note-for": "Dodano notatkę próby końcowej dla {{name}}",
+        "years_1": "lata",
+        "years_2": "lat"
     },
     "add-result-page": {
-        "kindergarten": "Kindergarten",
+        "kindergarten": "Przedszkole",
         "select-measurement": "Wybierz pomiar",
         "first": "Początkowy",
         "last": "Końcowy",
@@ -762,12 +915,12 @@
         "back-to-table": "Wróć",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",
-        "dexterity": "ZRĘCZNOŚĆ",
+        "dexterity": "ZWINNOŚĆ",
         "power": "MOC",
         "velocity": "SZYBKOŚĆ",
-        "back-to-results": "Back to results",
         "save-and-next": "Zapisz i następny",
         "save-and-back-to-table": "Zapisz i wróć do tabeli",
-        "select-child": "Select a child"
+        "select-child": "Wybierz dziecko",
+        "note": "Notatka"
     }
 }

@@ -3,18 +3,18 @@ import waitForExpect from 'wait-for-expect';
 import { CreateKindergartenCommand } from '../../impl';
 import { CreateKindergartenHandler } from '../create_kindergarten_handler';
 import { KindergartenModule } from '../../../../kindergarten_module';
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { Kindergarten } from '../../../models/kindergarten_model';
 import { ObjectId } from '../../../../../users/domain/models/object_id_value_object';
 import { KindergartenTitle } from '../../../models/kindergarten_title_value_object';
 import { IsDeleted } from '../../../models/is_deleted_value_object';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import { UserRepository } from '../../../../../users/domain/repositories/user_repository';
-import { UserProps } from '../../../../../users/domain/models/user_model';
+import { User } from '../../../../../users/domain/models/user_model';
 
 describe('CreatKindergartenHandler', () => {
   let module: TestingModule;
-  let admin: UserProps;
+  let admin: User;
 
   const validKindergartenOptions = {
     number: 1,
@@ -57,7 +57,7 @@ describe('CreatKindergartenHandler', () => {
 
     it('invokes child added notification', async () => {
       await waitForExpect(async () => {
-        return expect(await getNotificationsForUser(admin._id)).toEqual(
+        return expect(await getNotificationsForUser(admin.id)).toEqual(
           jasmine.arrayContaining([
             jasmine.objectContaining({
               templateId: 'kindergarten_created',
