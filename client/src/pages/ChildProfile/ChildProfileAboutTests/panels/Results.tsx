@@ -15,7 +15,7 @@ export const Results = () => {
                 {t(`${T_PREFIX}.title`)}
             </Typography>
             {[...Array(4)].map((_, index) => (
-                <Typography key={index} variant="subtitle1" color="textPrimary" className={classes.text}>
+                <Typography key={index} variant="body1" color="textPrimary" className={classes.text}>
                     {t(`${T_PREFIX}.text${index + 1}`)}
                 </Typography>
             ))}

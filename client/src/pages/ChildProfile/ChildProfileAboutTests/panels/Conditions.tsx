@@ -51,7 +51,6 @@ export const Conditions = () => {
             <div className={classes.tests}>
                 {tests.map(({ name, image, imageAlt, description }) => (
                     <Box key={name} display="grid" className={classes.test}>
-                        {console.log(name, image, imageAlt)}
                         <Box className={classes.testImageContainer}>
                             <img src={image} alt={imageAlt} />
                         </Box>
@@ -59,7 +58,7 @@ export const Conditions = () => {
                             <Typography className={classes.testName} color="textPrimary" variant="subtitle2">
                                 {name}
                             </Typography>
-                            <Typography variant="subtitle1" color="textPrimary" className={classes.text}>
+                            <Typography variant="body2" color="textPrimary" className={classes.text}>
                                 {description}
                             </Typography>
                         </Box>
