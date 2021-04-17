@@ -1,3 +1,4 @@
+import { useState, ChangeEvent } from 'react';
 import {
     TableContainer,
     Table,
@@ -14,6 +15,7 @@ import {
     TablePagination,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { NotificationPageListItem } from './NotificationPageListItem';
 import { Notification } from '../../graphql/types';
 import { useNotificationContent } from './useNotificationContent';
@@ -29,19 +31,22 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
     const { t } = useTranslation();
     const { getNotification } = useNotificationContent();
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, notifications.length - page * rowsPerPage);
 
-    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    const handleChangePage = (newPage: number) => {
         setPage(newPage);
     };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
+    const NotificationTableListRows =
+        rowsPerPage > 0 ? notifications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : notifications;
 
     return (
         <TableContainer component={Paper}>
@@ -57,10 +62,7 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {(rowsPerPage > 0
-                        ? notifications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : notifications
-                    ).map((notification) => {
+                    {NotificationTableListRows.map((notification) => {
                         const { _id, values, templateId, date, isRead } = notification;
 
                         return (
@@ -92,7 +94,7 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
                                 inputProps: { 'aria-label': 'rows per page' },
                                 native: true,
                             }}
-                            onChangePage={handleChangePage}
+                            onChangePage={(_, pages) => handleChangePage(pages)}
                             onChangeRowsPerPage={handleChangeRowsPerPage}
                             ActionsComponent={TablePaginationActions}
                         />
