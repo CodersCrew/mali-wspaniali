@@ -1,7 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 import { textColor } from '../../colors';
 import { Theme } from '../../theme';
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';

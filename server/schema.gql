@@ -20,11 +20,8 @@ type ArticleDTO {
   contentHTML: String!
   date: DateTime!
   description: String!
-  header: String!
   pictureUrl: String!
-  readingTime: Int!
   redactor: RedactorDTO!
-  subtitle: String!
   tags: [String!]!
   title: String!
   videoUrl: String
@@ -145,6 +142,11 @@ type ParamsDTO {
   lowerLimitPoints: Float!
   upperLimit: Float!
   upperLimitPoints: Float!
+  badStageLimit: Float!
+  weakStageLimit: Float!
+  middleStageLimit: Float!
+  goodStageLimit: Float!
+  veryGoodStageLimit: Float!
 }
 
 type ChildCurrentParamsDTO {
@@ -235,6 +237,7 @@ type Query {
 
 type Mutation {
   createArticle(article: ArticleInput!): ReturnedStatusDTO!
+  anonymizeUser(id: String!): ReturnedStatusDTO!
   readNotification(id: String!): NotificationDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
   login(user: LoginInput!): ReturnedTokenDTO!
@@ -263,28 +266,27 @@ input ArticleInput {
   category: String!
   contentHTML: String!
   description: String!
-  header: String!
   pictureUrl: String!
-  readingTime: Int!
   redactor: RedactorInput!
-  subtitle: String!
   tags: [String!]!
   title: String!
   videoUrl: String
 }
 
 input RedactorInput {
-  avatarUrl: String
   firstName: String!
-  lastName: String
+  lastName: String!
+  avatarUrl: String
   profession: String
   biography: String
+  shortDescription: String
 }
 
 input UserInput {
   mail: String!
   password: String!
   keyCode: String!
+  agreements: [String!]
 }
 
 input LoginInput {

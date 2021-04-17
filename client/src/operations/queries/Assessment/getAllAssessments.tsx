@@ -1,4 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
+import { useEffect } from 'react';
+import { gql, useLazyQuery } from '@apollo/client';
 import { Assessment } from '../../../graphql/types';
 
 export interface GetAllAssessmentsResponse {
@@ -7,6 +8,7 @@ export interface GetAllAssessmentsResponse {
 
 interface UseAssessmentReturn {
     assessments: Assessment[];
+    refetchAssessments: () => void;
     areAssessmentsLoading: boolean;
 }
 
@@ -80,6 +82,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             pendelumRun {
                                 a
@@ -88,6 +95,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             jump {
                                 a
@@ -96,6 +108,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                             throw {
                                 a
@@ -104,6 +121,11 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 lowerLimitPoints
                                 upperLimit
                                 upperLimitPoints
+                                badStageLimit
+                                weakStageLimit
+                                middleStageLimit
+                                goodStageLimit
+                                veryGoodStageLimit
                             }
                         }
                     }
@@ -120,10 +142,15 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
 export function useAssessments(options?: Options): UseAssessmentReturn {
     const query = options?.withChildren ? GET_ALL_ASSESSMENTS_WITH_CHILDREN : GET_ALL_ASSESSMENTS;
 
-    const { data, loading } = useQuery<GetAllAssessmentsResponse>(query);
+    const [refetchAssessments, { data, loading }] = useLazyQuery<GetAllAssessmentsResponse>(query);
+
+    useEffect(() => {
+        refetchAssessments();
+    }, []);
 
     return {
         assessments: data?.assessments || [],
+        refetchAssessments,
         areAssessmentsLoading: loading,
     };
 }

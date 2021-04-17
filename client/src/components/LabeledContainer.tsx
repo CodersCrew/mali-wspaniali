@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { createStyles, Divider, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
 
 interface Props {

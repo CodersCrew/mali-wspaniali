@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/core';
 import parse from 'html-react-parser';
 

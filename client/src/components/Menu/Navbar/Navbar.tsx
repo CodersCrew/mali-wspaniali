@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
             minHeight: theme.spacing(8),
         },
         containerMobile: {
-            boxShadow: 'none',
+            // boxShadow: 'none',
             borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
         toolbar: theme.mixins.toolbar,

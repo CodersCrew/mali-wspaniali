@@ -24,13 +24,13 @@ export class ResetPasswordHandler
     if (user) {
       const payload = this.jwtService.sign(
         {
-          sub: user._id,
+          sub: user.id,
         },
         { secret: process.env.JWT_SECRET },
       );
 
       await this.userChangePasswordRepository.create({
-        userId: user._id.toString(),
+        userId: user.id.toString(),
         jwt: payload,
       });
 

@@ -2,10 +2,8 @@ export type ArticleCategory = 'food' | 'activity' | 'emotions' | 'other';
 
 export interface Article {
     _id: string;
-    header: string;
     pictureUrl: string;
     title: string;
-    subtitle: string;
     contentHTML: string;
     tags: string[];
     category: ArticleCategory;
@@ -43,6 +41,7 @@ export interface UserInput {
     mail: string;
     password: string;
     keyCode: string;
+    agreements: string[];
 }
 
 export type Role = 'parent' | 'admin' | 'instructor';
@@ -95,6 +94,11 @@ export interface AssessmentParam {
     lowerLimitPoints: number;
     upperLimit: number;
     upperLimitPoints: number;
+    badStageLimit: number;
+    weakStageLimit: number;
+    middleStageLimit: number;
+    goodStageLimit: number;
+    veryGoodStageLimit: number;
 }
 
 export interface Child {
@@ -207,7 +211,7 @@ export interface Assessment {
     lastMeasurementEndDate: string;
     kindergartens: {
         instructor: User | null;
-        kindergarten: Kindergarten;
+        kindergarten: Kindergarten | null;
     }[];
 }
 

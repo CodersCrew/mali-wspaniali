@@ -1,10 +1,9 @@
-import React from 'react';
 import { createStyles, makeStyles, TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
-    value: number;
-    onChange: (amount: number) => void;
+    value: string;
+    onChange: (amount: string) => void;
 }
 
 export function KeyCodesToGenerateTextfield({ value, onChange }: Props) {
@@ -16,9 +15,13 @@ export function KeyCodesToGenerateTextfield({ value, onChange }: Props) {
             data-testid="keycodes-count-input"
             type="number"
             value={value}
-            onChange={({ target: { value: amount } }) =>
-                !Number.isNaN(parseInt(amount, 10)) && onChange(parseInt(amount, 10))
-            }
+            onChange={({ target: { value: amount } }) => {
+                if (Number.isNaN(parseInt(amount, 10))) {
+                    onChange('');
+                } else {
+                    onChange(amount);
+                }
+            }}
             variant="outlined"
             classes={{ root: classes.keyCodeTextfield }}
             label={t('admin-setting-page.keycode-generation.keycode-amount')}

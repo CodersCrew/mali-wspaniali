@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     createStyles,
     Grid,
@@ -9,26 +8,25 @@ import {
     Checkbox,
     Typography,
     FormControlLabel,
-    SimplePaletteColorOptions,
 } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { Edit, AddCircle as Add } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { theme } from '../../../theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { useIsDevice } from '../../../queries/useBreakpoints';
+import { AssessmentParam } from '../../../graphql/types';
 
 interface Props {
-    name: string;
+    label: string;
     value: number;
     unit: string;
     step: number;
     maxValue: number;
-    lowerLimit: number;
-    upperLimit: number;
     points: number;
+    color: string;
     isEmpty: boolean;
     disabled: boolean;
+    param: AssessmentParam;
     changeDate?: string;
     onChange: (value: number) => void;
     onClick: () => void;
@@ -39,22 +37,17 @@ export function MeasurementPoint(props: Props) {
     const { t } = useTranslation();
     const device = useIsDevice();
 
+    const SelectButton = props.isEmpty ? AddButton : EditButton;
+
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
                 <Grid container spacing={1} justify={device.isSmallMobile ? 'space-between' : 'flex-start'}>
                     <Grid item className={classes.editMeasurementButton}>
-                        <Typography variant="subtitle1">{props.name}</Typography>&nbsp;
+                        <Typography variant="subtitle1">{props.label}</Typography>&nbsp;
                         {props.changeDate && <Typography variant="overline">({props.changeDate})</Typography>}
                     </Grid>
-                    <Grid item>
-                        {!props.disabled && (
-                            <ButtonSecondary variant="text" onClick={props.onClick}>
-                                <Edit className={classes.editIcon} />
-                                {t('add-results-page.edit')}
-                            </ButtonSecondary>
-                        )}
-                    </Grid>
+                    <Grid item>{<SelectButton disabled={props.disabled} onClick={props.onClick} />}</Grid>
                 </Grid>
             </Grid>
             <Grid item>
@@ -65,9 +58,9 @@ export function MeasurementPoint(props: Props) {
                             aria-labelledby="discrete-slider-restrict"
                             step={props.step}
                             valueLabelDisplay="auto"
-                            min={Math.floor(props.lowerLimit - 0.25 * props.lowerLimit)}
+                            min={Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit)}
                             value={props.value}
-                            max={Math.floor(props.upperLimit + 0.25 * props.upperLimit)}
+                            max={Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit)}
                             onChange={(_, v) => props.onChange(v as number)}
                             marks={getMarks()}
                             classes={{
@@ -109,7 +102,7 @@ export function MeasurementPoint(props: Props) {
                             {!device.isSmallMobile && (
                                 <Grid item xs={3}>
                                     <CircleChart
-                                        color={(theme.palette!.success as SimplePaletteColorOptions).main}
+                                        color={props.color}
                                         maxValue={props.maxValue}
                                         value={props.points}
                                         disable={props.isEmpty}
@@ -120,7 +113,8 @@ export function MeasurementPoint(props: Props) {
                                 <Typography variant="body2">
                                     {t('add-result-page.received-points')}{' '}
                                     <strong className={classes.points}>
-                                        {props.isEmpty ? '-' : Math.ceil(props.points)} {t('add-result-page.points')}
+                                        {props.isEmpty || Number.isNaN(props.points) ? '-' : Math.ceil(props.points)}{' '}
+                                        {t('add-result-page.points')}
                                     </strong>
                                 </Typography>
                             </Grid>
@@ -144,25 +138,54 @@ export function MeasurementPoint(props: Props) {
     function getMarks() {
         const marks = [
             {
-                value: Math.floor(props.lowerLimit - 0.25 * props.lowerLimit),
-                label: Math.floor(props.lowerLimit - 0.25 * props.lowerLimit),
+                value: Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit),
+                label: Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit),
             },
             {
-                value: props.lowerLimit,
-                label: props.lowerLimit,
+                value: props.param.lowerLimit,
+                label: props.param.lowerLimit,
             },
             {
-                value: props.upperLimit,
-                label: props.upperLimit,
+                value: props.param.upperLimit,
+                label: props.param.upperLimit,
             },
             {
-                value: Math.floor(props.upperLimit + 0.25 * props.upperLimit),
-                label: Math.floor(props.upperLimit + 0.25 * props.upperLimit),
+                value: Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit),
+                label: Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit),
             },
         ];
 
         return marks;
     }
+}
+
+interface SelectButtonProps {
+    disabled: boolean;
+    onClick: () => void;
+}
+
+function AddButton(props: SelectButtonProps) {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    return (
+        <ButtonSecondary disabled={props.disabled} variant="text" onClick={props.onClick}>
+            <Add className={classes.editIcon} />
+            {t('add-results-page.add')}
+        </ButtonSecondary>
+    );
+}
+
+function EditButton(props: SelectButtonProps) {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    return (
+        <ButtonSecondary disabled={props.disabled} variant="text" onClick={props.onClick}>
+            <Edit className={classes.editIcon} />
+            {t('add-results-page.edit')}
+        </ButtonSecondary>
+    );
 }
 
 const useStyles = makeStyles((_theme: Theme) =>
@@ -207,6 +230,8 @@ const useStyles = makeStyles((_theme: Theme) =>
         editMeasurementButton: {
             display: 'flex',
             alignItems: 'center',
+            cursor: 'default',
+            userSelect: 'none',
         },
         editIcon: {
             width: 18,

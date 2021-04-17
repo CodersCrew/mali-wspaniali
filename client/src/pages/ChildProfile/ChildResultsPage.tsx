@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { activePage } from '../../apollo_client';
-import { useBreakpoints } from '../../queries/useBreakpoints';
 import { childProfileCategoriesList } from './ChildProfileCategory';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
 import { ChildRecommendations } from './ChildRecommendations/ChildRecommendations';
@@ -19,11 +18,9 @@ export default function ChildResultsPage() {
         childId: string;
         category: string;
     }>();
-    const device = useBreakpoints();
     const history = useHistory();
     const classes = useStyles();
     const user = useMe();
-
     const child = user?.children.find((_child) => _child._id === childId);
 
     useEffect(() => {
@@ -40,10 +37,9 @@ export default function ChildResultsPage() {
         return (
             <>
                 <MobileAwareCategoryTabs
-                    onTabChange={onTabChange}
-                    category={category}
-                    values={childProfileCategoriesList}
-                    device={device}
+                    onChange={onTabChange}
+                    activeCategory={category}
+                    categories={childProfileCategoriesList}
                 />
                 <EmptyProfile />
             </>
@@ -53,10 +49,9 @@ export default function ChildResultsPage() {
     return (
         <>
             <MobileAwareCategoryTabs
-                onTabChange={onTabChange}
-                category={category}
-                values={childProfileCategoriesList}
-                device={device}
+                onChange={onTabChange}
+                activeCategory={category}
+                categories={childProfileCategoriesList}
             />
             <PageContainer>
                 {category === 'results' && (

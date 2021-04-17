@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, Theme, Tooltip, TooltipProps } from '@material-ui/core';
 
 export function ArrowTooltip(props: TooltipProps) {

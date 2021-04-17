@@ -1,8 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography } from '@material-ui/core';
+
 import { Panel } from '../Panel';
-import { panelTextColor } from '../../../../colors';
 
 const T_PREFIX = 'child-profile.tests-informations.results';
 
@@ -12,26 +11,20 @@ export const Results = () => {
 
     return (
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
-            <Typography className={classes.title}>{t(`${T_PREFIX}.title`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text3`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text4`)}</Typography>
+            <Typography color="textPrimary" variant="h4">
+                {t(`${T_PREFIX}.title`)}
+            </Typography>
+            {[...Array(4)].map((_, index) => (
+                <Typography key={index} variant="subtitle1" color="textPrimary" className={classes.text}>
+                    {t(`${T_PREFIX}.text${index + 1}`)}
+                </Typography>
+            ))}
         </Panel>
     );
 };
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        fontSize: 21,
-        fontWeight: 500,
-        lineHeight: '29.4px',
-        color: panelTextColor,
-    },
     text: {
         marginTop: theme.spacing(2),
-        fontSize: 15,
-        lineHeight: '21px',
-        color: panelTextColor,
     },
 }));

@@ -1,4 +1,4 @@
-import React, { FocusEvent, ReactNode } from 'react';
+import { FocusEvent, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, FormControl, InputLabel, Select, Checkbox, ListItemText, FormHelperText } from '@material-ui/core';
 

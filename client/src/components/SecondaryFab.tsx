@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { createStyles, makeStyles, Theme, Fab } from '@material-ui/core';
 
 interface Props {

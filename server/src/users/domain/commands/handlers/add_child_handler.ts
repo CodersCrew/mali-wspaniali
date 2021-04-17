@@ -48,6 +48,7 @@ export class AddChildHandler implements ICommandHandler<AddChildCommand> {
       _id: undefined,
       kindergarten: kindergartenId,
       isDeleted: false,
+      results: [],
     });
 
     const createdChild = this.publisher.mergeObjectContext(

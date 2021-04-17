@@ -23,7 +23,6 @@ const AdminHomePage = React.lazy(() => import('./AdminHomePage/AdminHomePage'));
 const ParentAgreementsPage = React.lazy(() => import('./ParentAgreementsPage/ParentAgreementsPage'));
 const ParentSettingsPage = React.lazy(() => import('./ParentSettingsPage/ParentSettingsPage'));
 const ArchivePage = React.lazy(() => import('./ArchivePage/ArchivePage'));
-const CreateArticlePage = React.lazy(() => import('./CreateArticlePage/CreateArticlePage'));
 const AdminCodesPage = React.lazy(() => import('./AdminCodesPage/AdminCodesPage'));
 const AdminInstructorsPage = React.lazy(() => import('./AdminInstructorsPage/AdminInstructorsPage'));
 const AdminAgreementsPageContainer = React.lazy(() => import('./AdminAgreementsPage/AdminAgreementsPageConatianer'));
@@ -33,6 +32,8 @@ const AdminAssessmentHistoryPage = React.lazy(
     () => import('./AdminAssessmentManagementPage/AdminAssessmentHistoryPage'),
 );
 const AdminRecommendationsPage = React.lazy(() => import('./AdminRecommendationsPage/AdminRecommendationsPage'));
+const AdminArticlesPage = React.lazy(() => import('./AdminArticlesPage/AdminArticlesPage'));
+const AdminCreateArticlePage = React.lazy(() => import('./AdminCreateArticlePage/AdminCreateArticlePage'));
 const AdminSettingsPage = React.lazy(() => import('./AdminSettingsPage/AdminSettingsPage'));
 const AdminManageSingleAssessmentPage = React.lazy(() => import('./AdminAddTestPage/AdminManageSingleAssessmentPage'));
 const InstructorResultCreatorPage = React.lazy(
@@ -40,6 +41,7 @@ const InstructorResultCreatorPage = React.lazy(
 );
 const ForgotPasswordPage = React.lazy(() => import('./ForgotPasswordPage/ForgotPasswordPage'));
 const TestResultsPage = React.lazy(() => import('./TestResultsPage/TestResultsPage'));
+const AdminKindergartensPage = React.lazy(() => import('./AdminKindergartensPage/AdminKindergartensPage'));
 
 const generateClassName = createGenerateClassName();
 
@@ -76,7 +78,6 @@ export function Root() {
                                         <Route path="/admin/parent/:id" component={ParentProfilePage} />
                                         <Route path="/admin/agreements" component={AdminAgreementsPageContainer} />
                                         <Route path="/admin/newsletter" component={NewsletterPage} />
-                                        <Route path="/admin/article/create" component={CreateArticlePage} />
                                         <Route path="/admin/archive" component={ArchivePage} />
                                         <Route path="/admin/notifications" component={NotificationsPage} />
                                         <Route
@@ -93,6 +94,11 @@ export function Root() {
                                         />
                                         <Route path="/admin/test-management" component={AdminAssessmentHistoryPage} />
                                         <Route path="/admin/recommendations" component={AdminRecommendationsPage} />
+                                        <Route exact path="/admin/articles" component={AdminArticlesPage} />
+                                        <Route exact path="/admin/articles/create" component={AdminCreateArticlePage} />
+                                        {/* TODO: add ArticlePage compomonent for Admin, currently we display the same component as for Parent */}
+                                        <Route exact path="/admin/article/:articleId" component={ArticlePage} />
+                                        <Route path="/admin/kindergartens" component={AdminKindergartensPage} />
                                         <Route path="/admin/keycodes" component={AdminCodesPage} />
                                         <Route path="/admin/instructors" component={AdminInstructorsPage} />
                                         <Route path="/admin/settings" component={AdminSettingsPage} />

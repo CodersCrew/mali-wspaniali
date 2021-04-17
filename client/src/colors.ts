@@ -7,6 +7,7 @@ export const secondaryColor = '#FF7149';
 export const gray = '#c4c4c4';
 export const darkGray = '#616161';
 export const panelTextColor = '#1d1d1d';
+export const black = '#0000000';
 export const SingleArticleColors = {
     title: '#656269',
     arrow: secondaryColor,

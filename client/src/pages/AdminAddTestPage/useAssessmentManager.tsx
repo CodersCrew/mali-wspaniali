@@ -86,7 +86,7 @@ export function useAssessmentManager(
             lastMeasurementEndDate: assessment.lastMeasurementEndDate,
             isOutdated: assessment.isOutdated,
             isDeleted: assessment.isDeleted,
-            kindergartenIds: assessment.kindergartens.map((k) => k.kindergarten._id),
+            kindergartenIds: assessment.kindergartens.filter((k) => !!k.kindergarten).map((k) => k.kindergarten!._id),
         });
     }, [assessment]);
 
@@ -121,8 +121,7 @@ export function useAssessmentManager(
 
         valid.then((result) => {
             if (result) {
-                // eslint-disable-next-line
-                const { kindergartenIds, ...validAssessment } = result as AssessmentManagerState;
+                const { kindergartenIds, ...validAssessment } = result;
                 const updatedAssessmentInput = { ...validAssessment, kindergartens: parsedKindergarten };
 
                 if (!assessmentId) return;
@@ -171,7 +170,7 @@ export function useAssessmentManager(
         const parsedKindergarten =
             assessment?.kindergartens
                 .map((k) => ({
-                    kindergartenId: k.kindergarten._id,
+                    kindergartenId: k.kindergarten!._id,
                     instructorId: k.instructor?._id,
                 }))
                 .filter((k) => {
@@ -226,6 +225,7 @@ async function validate(state: AssessmentManagerState) {
         title: yup.string().min(5, 'add-test-view.errors.name-too-short'),
         startDate: yup.string().required(),
         endDate: yup.string().required(),
+        kindergartenIds: yup.array(),
     });
 
     return newTestSchema.validateSync(state);

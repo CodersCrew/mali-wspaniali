@@ -1,8 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Typography } from '@material-ui/core';
+
 import { Panel } from '../Panel';
-import { panelTextColor } from '../../../../colors';
 import interpretationImage from '../../../../assets/testInformation/Interpretation/testInformationInterpretation.png';
 
 const T_PREFIX = 'child-profile.tests-informations.interpretation';
@@ -15,41 +14,30 @@ export const Interpretation = () => {
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
             <Box className={classes.container}>
                 <Box>
-                    <Typography className={classes.title}>{t(`${T_PREFIX}.title1`)}</Typography>
+                    <Typography variant="h4" color="textPrimary" className={classes.title}>
+                        {t(`${T_PREFIX}.title1`)}
+                    </Typography>
                     <ul className={classes.ul}>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
-                        </li>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography>
-                        </li>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text3`)}</Typography>
-                        </li>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text4`)}</Typography>
-                        </li>
+                        {[...Array(4)].map((_, index: number) => (
+                            <li key={index}>
+                                <Typography color="textPrimary" variant="body2">
+                                    {t(`${T_PREFIX}.text${index + 1}`)}
+                                </Typography>
+                            </li>
+                        ))}
                     </ul>
-                    <Typography className={classes.title}>{t(`${T_PREFIX}.title2`)}</Typography>
+                    <Typography color="textPrimary" variant="h4" className={classes.title}>
+                        {t(`${T_PREFIX}.title2`)}
+                    </Typography>
                     <ul className={classes.ul}>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text5`)}</Typography>
-                        </li>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text6`)}</Typography>
-                        </li>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text7`)}</Typography>
-                        </li>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text8`)}</Typography>
-                        </li>
-                        <li>
-                            <Typography className={classes.text}>{t(`${T_PREFIX}.text9`)}</Typography>
-                        </li>
+                        {[...Array(6)].map((_, index: number) => (
+                            <li key={index}>
+                                <Typography variant="body2">{t(`${T_PREFIX}.text${index + 5}`)}</Typography>
+                            </li>
+                        ))}
                     </ul>
                 </Box>
-                <Box>
+                <Box className={classes.image}>
                     <img src={interpretationImage}></img>
                 </Box>
             </Box>
@@ -59,25 +47,17 @@ export const Interpretation = () => {
 
 const useStyles = makeStyles((theme) => ({
     title: {
-        fontSize: 21,
-        fontWeight: 500,
-        lineHeight: '29.4px',
-        color: panelTextColor,
-        marginTop: theme.spacing(4),
         marginBottom: theme.spacing(3),
     },
-    text: {
-        fontSize: 15,
-        color: panelTextColor,
-    },
-    container: {
-        display: 'flex',
 
+    container: {
+        display: 'grid',
+        gridGap: theme.spacing(1.5),
+        gridTemplateColumns: '3fr 1fr',
+    },
+    image: {
         [theme.breakpoints.down('md')]: {
-            display: 'grid',
-            gridTemplateColumns: 'repeat(1, 1fr)',
-            gridGap: theme.spacing(1.5),
-            margin: theme.spacing(4, 'auto'),
+            display: 'none',
         },
     },
     ul: {

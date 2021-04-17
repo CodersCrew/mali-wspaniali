@@ -1,8 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Box, Typography } from '@material-ui/core';
+import { makeStyles, Box, Typography, Theme } from '@material-ui/core';
+
 import { Panel } from '../Panel';
-import { panelTextColor } from '../../../../colors';
 import aboutImage from '../../../../assets/testInformation/About/testInformationAbout.png';
 
 const T_PREFIX = 'child-profile.tests-informations.about';
@@ -13,13 +12,15 @@ export const About = () => {
 
     return (
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
-            <Box display="flex" alignItems="center">
+            <Box className={classes.container}>
                 <Box>
-                    <Typography className={classes.title}>{t(`${T_PREFIX}.title`)}</Typography>
-                    <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
-                    <Typography className={classes.text}>
-                        {t(`${T_PREFIX}.text2-1`)}{' '}
-                        <strong className={classes.strong}>{t(`${T_PREFIX}.text2-test-names`)}</strong>{' '}
+                    <Typography color="textPrimary">{t(`${T_PREFIX}.title`)}</Typography>
+                    <Typography variant="body1" color="textPrimary" className={classes.text}>
+                        {t(`${T_PREFIX}.text1`)}
+                    </Typography>
+                    <Typography variant="body1" color="textPrimary" className={classes.text}>
+                        {t(`${T_PREFIX}.text2-1`)}
+                        <strong className={classes.strong}>{t(`${T_PREFIX}.text2-test-names`)}</strong>
                         {t(`${T_PREFIX}.text2-2`)}
                     </Typography>
                 </Box>
@@ -29,19 +30,11 @@ export const About = () => {
     );
 };
 
-const useStyles = makeStyles((theme) => ({
-    title: {
-        fontSize: 21,
-        fontWeight: 500,
-        lineHeight: '29.4px',
-        color: panelTextColor,
-    },
+const useStyles = makeStyles((theme: Theme) => ({
     text: {
         marginTop: theme.spacing(2),
-        fontSize: 15,
-        lineHeight: '21px',
-        color: panelTextColor,
     },
+    container: { display: 'grid', alignItems: 'center', gridGap: theme.spacing(1.5), gridTemplateColumns: '3fr 1fr' },
     image: {
         marginLeft: theme.spacing(6),
         width: 195,
@@ -53,6 +46,6 @@ const useStyles = makeStyles((theme) => ({
     },
     strong: {
         fontWeight: 'bold',
-        color: panelTextColor,
+        color: theme.palette.text.primary,
     },
 }));

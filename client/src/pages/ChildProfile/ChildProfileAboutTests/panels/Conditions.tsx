@@ -1,8 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Typography } from '@material-ui/core';
+
 import { Panel } from '../Panel';
-import { panelTextColor } from '../../../../colors';
 import ConditionsImage1 from '../../../../assets/testInformation/Conditions/testInformationConditions1.png';
 import ConditionsImage2 from '../../../../assets/testInformation/Conditions/testInformationConditions2.png';
 import ConditionsImage3 from '../../../../assets/testInformation/Conditions/testInformationConditions3.png';
@@ -43,40 +42,45 @@ export const Conditions = () => {
 
     return (
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
-            <Typography className={classes.title}>{t(`${T_PREFIX}.title`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
+            <Typography variant="h4" color="textPrimary">
+                {t(`${T_PREFIX}.title`)}
+            </Typography>
+            <Typography variant="subtitle1" color="textPrimary" className={classes.text}>
+                {t(`${T_PREFIX}.text1`)}
+            </Typography>
             <div className={classes.tests}>
                 {tests.map(({ name, image, imageAlt, description }) => (
-                    <Box key={name} display="grid">
+                    <Box key={name} display="grid" className={classes.test}>
+                        {console.log(name, image, imageAlt)}
                         <Box className={classes.testImageContainer}>
                             <img src={image} alt={imageAlt} />
                         </Box>
                         <Box>
-                            <Typography className={classes.testName}>{name}</Typography>
-                            <Typography className={classes.text}>{description}</Typography>
+                            <Typography className={classes.testName} color="textPrimary" variant="subtitle2">
+                                {name}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textPrimary" className={classes.text}>
+                                {description}
+                            </Typography>
                         </Box>
                     </Box>
                 ))}
             </div>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text3`)}</Typography>
+            <Typography variant="subtitle1" color="textPrimary" className={classes.text}>
+                {t(`${T_PREFIX}.text2`)}
+            </Typography>
+            <Typography variant="subtitle1" color="textPrimary" className={classes.text}>
+                {t(`${T_PREFIX}.text3`)}
+            </Typography>
         </Panel>
     );
 };
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        fontSize: 21,
-        fontWeight: 500,
-        lineHeight: '29.4px',
-        color: panelTextColor,
-    },
     text: {
         marginTop: theme.spacing(2),
-        fontSize: 15,
-        lineHeight: '21px',
-        color: panelTextColor,
     },
+    test: { gridTemplateRows: 'repeat(2, 0.5fr)' },
     tests: {
         width: '80%',
         display: 'grid',
@@ -93,11 +97,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     testName: {
-        marginTop: theme.spacing(1.5),
-        fontSize: 14,
-        fontWeight: 500,
-        lineHeight: '18px',
-        color: panelTextColor,
+        marginTop: theme.spacing(5),
         textTransform: 'uppercase',
     },
     testImageContainer: {

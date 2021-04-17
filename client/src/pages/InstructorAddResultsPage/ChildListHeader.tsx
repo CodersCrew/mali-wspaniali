@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, MenuItem, TextField } from '@material-ui/core';
 import { Assessment } from '../../graphql/types';
@@ -65,8 +64,8 @@ export function ChildListHeader({
                         }}
                     >
                         {kindergartens.map((k) => (
-                            <MenuItem value={k.kindergarten._id} key={k.kindergarten._id}>
-                                {k.kindergarten.number}/{k.kindergarten.name}
+                            <MenuItem value={k.kindergarten?._id} key={k.kindergarten?._id}>
+                                {k.kindergarten?.number}/{k.kindergarten?.name}
                             </MenuItem>
                         ))}
                     </TextField>

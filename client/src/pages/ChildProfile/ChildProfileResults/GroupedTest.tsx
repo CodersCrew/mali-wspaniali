@@ -1,10 +1,8 @@
-import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, makeStyles } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, makeStyles, Theme, createStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
 import { ResultComparison } from './ExtendedGroupedTest/ResultComparison';
-import { gray } from '../../../colors';
 import { SingleTest } from './ExtendedGroupedTest/SingleTest';
 import { TestResult } from '../../../graphql/types';
 import { countSumOfPoints } from '../../../utils/countSumOfPoints';
@@ -34,6 +32,7 @@ export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props
                     onClose={onClose}
                     isExpanded={isExpanded}
                     date={date}
+                    childId={tests[0]._id}
                 />
             </AccordionSummary>
             <AccordionDetails className={classes.expansionPanelDetails}>{getTestSections(tests)}</AccordionDetails>
@@ -61,18 +60,23 @@ function getTestSections(tests: TestResult[]) {
     );
 }
 
-const useStyles = makeStyles({
-    expansionPanel: {
-        marginTop: 0,
-    },
-    expansionPanelSummary: {
-        padding: 0,
-    },
-    expansionPanelSummaryExpanded: {
-        cursor: 'default',
-        borderBottom: `1px solid ${gray}`,
-    },
-    expansionPanelDetails: {
-        flexDirection: 'column',
-    },
-});
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        expansionPanel: {
+            marginTop: 0,
+        },
+        expansionPanelSummary: {
+            padding: 0,
+        },
+        expansionPanelSummaryExpanded: {
+            cursor: 'default',
+        },
+        expansionPanelDetails: {
+            flexDirection: 'column',
+            [theme.breakpoints.down('xs')]: {
+                display: 'flex',
+                alignItems: 'center',
+            },
+        },
+    }),
+);
