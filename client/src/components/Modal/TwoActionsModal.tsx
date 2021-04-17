@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { Dialog, DialogActions, DialogContent, makeStyles, createStyles } from '@material-ui/core';
 
-import { ButtonDefault , ButtonPrimary } from '../Button';
-
+import { ButtonDefault, ButtonPrimary } from '../Button';
 
 interface Props {
     isOpen: boolean;
