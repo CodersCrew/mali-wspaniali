@@ -12,6 +12,7 @@ const KEYCODES = gql`
             date
             createdBy
             keyCode
+            target
         }
     }
 `;
