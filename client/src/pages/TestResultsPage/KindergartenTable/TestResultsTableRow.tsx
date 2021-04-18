@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell, IconButton, makeStyles, Theme, fade } from '@material-ui/core';
+import { TableRow, TableCell, IconButton, makeStyles, Theme, fade, Tooltip } from '@material-ui/core';
 import {
     Edit as EditIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -20,19 +20,22 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     const classes = useStyles();
 
     const { number, name, address, city } = kindergarten;
+    const editIconTooltip = t('test-results.button-icon-edit-tooltip');
+    const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
 
     return (
         <>
             <TableRow className={classes.root}>
                 <TableCell>
+                <Tooltip title={expandIconTooltip}>
                     <IconButton
                         className={classes.button}
                         aria-label="expand row"
-                        size="small"
                         onClick={() => setOpen(!open)}
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
+                </Tooltip>
                 </TableCell>
                 <TableCell component="th" scope="row">
                     {`${t('test-results.kindergarten-prefix')} ${number}`}
@@ -40,14 +43,15 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                 <TableCell>{name}</TableCell>
                 <TableCell>{`${address}, ${city}`}</TableCell>
                 <TableCell align="right">
+                <Tooltip title={editIconTooltip}>
                     <IconButton
                         className={classes.button}
                         aria-label="edit kindergarten"
-                        size="small"
                         onClick={() => onEditClick(kindergarten)}
                     >
                         <EditIcon />
                     </IconButton>
+                </Tooltip>
                 </TableCell>
             </TableRow>
             <KindergartenChildrenTable open={open} />

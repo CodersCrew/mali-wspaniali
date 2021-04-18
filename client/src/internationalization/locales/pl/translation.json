@@ -139,7 +139,10 @@
         "add-kindergarten-success": "Przedszkole zostało dodane pomyślnie",
         "update-kindergarten-success": "Dane przedszkola zostały zaktualizowane pomyślnie",
         "delete-kindergarten-success": "Przedszkole zostało usunięte pomyślnie",
-        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko"
+        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko",
+        "button-icon-edit-tooltip": "Edytuj",
+        "button-icon-expand-tooltip": "Rozwiń",
+        "button-icon-results-tooltip": "Wyniki"
     },
     "kindergarten-modal": {
         "city": "Miasto",

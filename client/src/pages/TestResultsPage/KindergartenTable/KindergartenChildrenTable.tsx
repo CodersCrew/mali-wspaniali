@@ -12,6 +12,7 @@ import {
     makeStyles,
     Theme,
     fade,
+    Tooltip,
 } from '@material-ui/core';
 import { Edit as EditIcon, InsertChart as InsertChartIcon } from '@material-ui/icons';
 
@@ -22,6 +23,9 @@ interface Props {
 export const KindergartenChildrenTable = ({ open }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
+
+    const editIconTooltip = t('test-results.button-icon-edit-tooltip');
+    const resultsIconTooltip = t('test-results.button-icon-results-tooltip');
 
     return (
         <TableRow>
@@ -43,12 +47,16 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                     </TableCell>
                                     <TableCell>Kasia Kowalska, Zbyszek Kowalski</TableCell>
                                     <TableCell align="right">
-                                        <IconButton className={classes.button} aria-label="edit child" size="small">
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton className={classes.button} aria-label="view results" size="small">
-                                            <InsertChartIcon />
-                                        </IconButton>
+                                        <Tooltip title={editIconTooltip}>
+                                            <IconButton className={classes.button} aria-label="edit child">
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title={resultsIconTooltip}>
+                                            <IconButton className={classes.button} aria-label="view results">
+                                                <InsertChartIcon />
+                                            </IconButton>
+                                        </Tooltip>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -57,12 +65,16 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                     </TableCell>
                                     <TableCell>Małgorzata Pilarczyk</TableCell>
                                     <TableCell align="right">
-                                        <IconButton className={classes.button} aria-label="edit child" size="small">
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton className={classes.button} aria-label="view results" size="small">
-                                            <InsertChartIcon />
-                                        </IconButton>
+                                        <Tooltip title={editIconTooltip}>
+                                            <IconButton className={classes.button} aria-label="edit child">
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title={resultsIconTooltip}>
+                                            <IconButton className={classes.button} aria-label="view results">
+                                                <InsertChartIcon />
+                                            </IconButton>
+                                        </Tooltip>
                                     </TableCell>
                                 </TableRow>
                             </TableBody>

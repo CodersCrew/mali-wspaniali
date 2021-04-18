@@ -342,7 +342,10 @@
         "add-kindergarten-success": "Kindergarten has been added successfully",
         "update-kindergarten-success": "Kindergarten has been updated successfully",
         "delete-kindergarten-success": "Kindergarten has been deleted successfully",
-        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it"
+        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it",
+        "button-icon-edit-tooltip": "Edit",
+        "button-icon-expand-tooltip": "Expand",
+        "button-icon-results-tooltip": "Results"
     },
     "kindergarten-modal": {
         "city": "City",
