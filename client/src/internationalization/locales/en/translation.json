@@ -597,7 +597,11 @@
         "header": "Notifications",
         "description": "Check all notifications on your account",
         "content": "Notification content",
-        "date": "Date"
+        "date": "Date",
+        "empty-list-message": {
+            "title": "You currently have no notifications.",
+            "description": "When they do appear, you'll find them in this section."
+        }
     },
     "notification-list": {
         "new-assessment": "A new test ({{name}}) has been added.",
