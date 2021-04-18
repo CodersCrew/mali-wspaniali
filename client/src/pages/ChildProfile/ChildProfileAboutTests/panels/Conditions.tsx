@@ -45,7 +45,7 @@ export const Conditions = () => {
             <Typography variant="h4" color="textPrimary">
                 {t(`${T_PREFIX}.title`)}
             </Typography>
-            <Typography variant="subtitle1" color="textPrimary" className={classes.text}>
+            <Typography variant="body1" className={classes.text}>
                 {t(`${T_PREFIX}.text1`)}
             </Typography>
             <div className={classes.tests}>
@@ -55,20 +55,20 @@ export const Conditions = () => {
                             <img src={image} alt={imageAlt} />
                         </Box>
                         <Box>
-                            <Typography className={classes.testName} color="textPrimary" variant="subtitle2">
+                            <Typography className={classes.testName} variant="subtitle2">
                                 {name}
                             </Typography>
-                            <Typography variant="body2" color="textPrimary" className={classes.text}>
+                            <Typography variant="body2" className={classes.text}>
                                 {description}
                             </Typography>
                         </Box>
                     </Box>
                 ))}
             </div>
-            <Typography variant="subtitle1" color="textPrimary" className={classes.text}>
+            <Typography variant="body1" className={classes.text}>
                 {t(`${T_PREFIX}.text2`)}
             </Typography>
-            <Typography variant="subtitle1" color="textPrimary" className={classes.text}>
+            <Typography variant="body1" className={classes.text}>
                 {t(`${T_PREFIX}.text3`)}
             </Typography>
         </Panel>

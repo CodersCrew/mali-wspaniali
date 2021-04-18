@@ -11,11 +11,9 @@ export const Results = () => {
 
     return (
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
-            <Typography color="textPrimary" variant="h4">
-                {t(`${T_PREFIX}.title`)}
-            </Typography>
+            <Typography variant="h4">{t(`${T_PREFIX}.title`)}</Typography>
             {[...Array(4)].map((_, index) => (
-                <Typography key={index} variant="body1" color="textPrimary" className={classes.text}>
+                <Typography key={index} variant="body1" className={classes.text}>
                     {t(`${T_PREFIX}.text${index + 1}`)}
                 </Typography>
             ))}
