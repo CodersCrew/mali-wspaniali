@@ -679,7 +679,11 @@
         "header": "Powiadomienia",
         "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
         "content": "Treść Powiadomienia",
-        "date": "Data"
+        "date": "Data",
+        "empty-list-message": {
+            "title": "Obecnie nie masz żadnych powiadomień.",
+            "description": "Gdy się pojawią, znajdziesz je w tej sekcji."
+        }
     },
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",
