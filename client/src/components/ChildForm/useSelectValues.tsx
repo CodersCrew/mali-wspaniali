@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+
 import { parseBirthQuarter } from '../../utils/parseBirthQuarter';
 
 export interface Option {
@@ -52,7 +53,7 @@ export function useSelectOptions(): { getOptions: (name: string) => Option[] } {
 }
 
 function generateDates() {
-    return new Array(7).fill(null).map((x, i) => {
+    return new Array(7).fill(null).map((_, i) => {
         const date = (new Date().getFullYear() - 2 - i).toString();
 
         return {
