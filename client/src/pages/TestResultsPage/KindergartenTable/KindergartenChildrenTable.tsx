@@ -11,6 +11,7 @@ import {
     createStyles,
     makeStyles,
     Theme,
+    fade,
 } from '@material-ui/core';
 import { Edit as EditIcon, InsertChart as InsertChartIcon } from '@material-ui/icons';
 
@@ -42,10 +43,10 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                     </TableCell>
                                     <TableCell>Kasia Kowalska, Zbyszek Kowalski</TableCell>
                                     <TableCell align="right">
-                                        <IconButton aria-label="edit child" size="small">
+                                        <IconButton className={classes.button} aria-label="edit child" size="small">
                                             <EditIcon />
                                         </IconButton>
-                                        <IconButton aria-label="view results" size="small">
+                                        <IconButton className={classes.button} aria-label="view results" size="small">
                                             <InsertChartIcon />
                                         </IconButton>
                                     </TableCell>
@@ -56,10 +57,10 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                     </TableCell>
                                     <TableCell>Małgorzata Pilarczyk</TableCell>
                                     <TableCell align="right">
-                                        <IconButton aria-label="edit child" size="small">
+                                        <IconButton className={classes.button} aria-label="edit child" size="small">
                                             <EditIcon />
                                         </IconButton>
-                                        <IconButton aria-label="view results" size="small">
+                                        <IconButton className={classes.button} aria-label="view results" size="small">
                                             <InsertChartIcon />
                                         </IconButton>
                                     </TableCell>
@@ -80,6 +81,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         collapseContainer: {
             margin: theme.spacing(0, 11),
+        },
+        button: {
+            '&:hover': {
+                color: theme.palette.primary.main,
+                backgroundColor: fade(theme.palette.primary.main, 0.2),
+            },
         },
     }),
 );

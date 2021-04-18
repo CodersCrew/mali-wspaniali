@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell, IconButton, makeStyles } from '@material-ui/core';
+import { TableRow, TableCell, IconButton, makeStyles, Theme, fade } from '@material-ui/core';
 import {
     Edit as EditIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -25,7 +25,12 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
         <>
             <TableRow className={classes.root}>
                 <TableCell>
-                    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+                    <IconButton
+                        className={classes.button}
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => setOpen(!open)}
+                    >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
@@ -35,7 +40,12 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                 <TableCell>{name}</TableCell>
                 <TableCell>{`${address}, ${city}`}</TableCell>
                 <TableCell align="right">
-                    <IconButton aria-label="edit kindergarten" size="small" onClick={() => onEditClick(kindergarten)}>
+                    <IconButton
+                        className={classes.button}
+                        aria-label="edit kindergarten"
+                        size="small"
+                        onClick={() => onEditClick(kindergarten)}
+                    >
                         <EditIcon />
                     </IconButton>
                 </TableCell>
@@ -45,10 +55,16 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
     root: {
         '& > *': {
             borderBottom: 'unset',
         },
     },
-});
+    button: {
+        '&:hover': {
+            color: theme.palette.primary.main,
+            backgroundColor: fade(theme.palette.primary.main, 0.2),
+        },
+    },
+}));
