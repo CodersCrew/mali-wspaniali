@@ -8,7 +8,7 @@ import { Theme } from '../../../theme';
 
 import { RegistrationCodeProps } from './types';
 
-const MIN_CODE_LENGTH = 10;
+const MIN_CODE_LENGTH = 12;
 
 export const RegistrationCode = ({
     handleChange,

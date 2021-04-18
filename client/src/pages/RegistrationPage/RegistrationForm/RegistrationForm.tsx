@@ -31,7 +31,6 @@ const initialState: RegisterForm = {
 
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
-    // TODO: turn back to 0
     const [activeStep, setActiveStep] = useState(0);
     const [skip, setSkip] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -76,7 +75,6 @@ export const RegistrationForm = () => {
                     classForm={classes.formItem}
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
-                    // TODO: code needs to be validated
                     error={false}
                 />
             );
@@ -93,7 +91,6 @@ export const RegistrationForm = () => {
                     classForm={classes.formItem}
                     classButton={clsx({ [classes.buttonWrapper]: true, emailContent: activeStep === 0 })}
                     classNextBtn={classes.nextButton}
-                    // TODO: email needs to be validated
                     error={false}
                 />
             );
@@ -157,8 +154,19 @@ export const RegistrationForm = () => {
         return null;
     };
 
-    const handleNext = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    const handleNext = () =>
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep === 1 && code.startsWith('I.')) return prevActiveStep + 2;
+
+            return prevActiveStep + 1;
+        });
+
+    const handleBack = () =>
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep === 3 && code.startsWith('I.')) return prevActiveStep - 2;
+
+            return prevActiveStep - 1;
+        });
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -180,7 +188,7 @@ export const RegistrationForm = () => {
                 createUser({
                     mail: email,
                     password,
-                    keyCode: code,
+                    keyCode: code.substr(2),
                     agreements: agreements
                         .filter((agreement) => !!agreement._id && agreement.isSigned)
                         .map((item) => item._id),
@@ -191,7 +199,6 @@ export const RegistrationForm = () => {
                     handleNext();
                 })
                 .catch(() => {
-                    // TODO: re-modify this!
                     setLoading(() => false);
                     if (skip) {
                         setSkip(() => false);

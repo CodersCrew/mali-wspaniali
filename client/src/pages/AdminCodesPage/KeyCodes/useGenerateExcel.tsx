@@ -10,16 +10,6 @@ export function useGenerateExcel(onCreate: (filename: string) => void) {
         generateExcel(series: string) {
             getKeyCodes(series);
 
-            // TODO: remove
-            console.log('series:', series);
-            console.log('keyCodes:', keyCodes);
-            // console.log(
-            //     'keyCodes:',
-            //     keyCodes.map((code) => {
-            //         return { ...code, keyCode: `${target === 'parent' ? 'P' : 'I'}.${code.keyCode}` };
-            //     }),
-            // );
-
             if (keyCodes.length > 0) {
                 const filename = `mw-keycodes-${series}.xlsx`;
                 // const workbook = getKeyCodesWorkbook(keyCodes);
