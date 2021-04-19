@@ -340,41 +340,51 @@
                 "text2-2": "Zdolności te wykorzystywane są w sporcie, ale również w czynnościach dnia codziennego w życiu dorosłym takich jak praca: fizyczna, noszenie zakupów, sprzątanie czy chociażby wyjęcie rzeczy z trudno dostępnego miejsca."
             },
             "conditions": {
-                "panelTitle": "Warunki i sprzęt potrzebny do wykonania testu",
+                "panelTitle": "W jaki sposób wykonujemy test przedszkolaka oraz obliczamy jego wyniki?",
                 "title": "Test sprawności przedszkolaka wykonywany jest raz w semestrze.",
                 "text1": "Składa się z dwóch prób: próba początkowa (pomiar na przełomie października i listopada) oraz próba końcowa (pomiar na przełomie kwietnia i maja). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
-                "text2": "Do opisanych powyżej prób wystarczy ok 7 metrów wolnej przestrzeni, piłka wagowa 1 kilogramowa, stoper lub miara (w zależności od testu), a do próby szybkościowej potrzebny jest tor do biegu 25 metrów w linii prostej oraz stoper.",
-                "test1-name": "Siła",
-                "test-strength-description": "Rzut  piłką lekarską znad głowy",
-                "test1-scale": "Skala: 0 cm - 80 cm",
+                "text2": "Za każdą z prób można otrzymać określoną liczbę punktów. Dzieci oceniane są według skali, przygotowanej przez międzynarodowych ekspertów z dziedziny sprawności ruchowej wśród dzieci, która pokazuje wynik minimalny i maksymalny obliczany dla danego wieku i płci. Dla prób siłowych (siła i moc), im większą odległość uzyskało dziecko podczas próby, tym więcej otrzyma punktów, z kolei w przypadku prób sprawnościowych (szybkość i zwinność) więcej punktów otrzyma dziecko, którego czas wykonania próby jest krótszy.",
+                "text3": "Suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka (niski, średni, dobry lub bardzo dobry). Wyniki pobierane są od dzieci, które w czasie prowadzenia zajęć Mali Wspaniali przez Instruktora są obecne w placówce i chętne do ćwiczenia. Brak wyniku danej próby może świadczyć o nieobecności dziecka w danym dniu lub o nieuczestniczeniu w danym ćwiczeniu. W takim przypadku otrzymują Państwo poszczególne wyniki prób, bez możliwości zobaczenia ogólnej sprawności dziecka.",
+                "test1-name": "Zwinność",
+                "test1-description": "Bieg wahadłowy 4x5 m z przenoszeniem klocka",
+                "test1-scale": "Skala: 0 s - 80 s",
                 "test2-name": "Moc",
-                "test-power-description": "Skok w dal obunóż z miejsca",
+                "test2-description": "Skok w dal obunóż z miejsca",
                 "test2-scale": "Skala: 0 cm - 80 cm",
-                "test3-name": "Szybkość",
-                "test-speed-description": "Bieg na odległość 20 metrów",
+                "test3-name": "Siła",
+                "test3-description": "Bieg na odległość 20 metrów",
                 "test3-scale": "Skala: 0 s - 80 s",
-                "test4-name": "Zwinność",
-                "test-agility-description": "Bieg wahadłowy 4x5 m",
+                "test4-name": "Szybkość",
+                "test4-description": "Bieg wahadłowy 4x5 m",
                 "test4-scale": "Skala: 0 s - 80 s"
             },
             "results": {
                 "to": "do",
-                "panelTitle": "Jak obliczamy wyniki testu",
+                "panelTitle": "Dlaczego wyniki testów są ważne?",
                 "score25": "Coś jest nie tak, postaraj się bardziej",
                 "score50": "Dobrze Ci idzie, ale zawsze może być lepiej!",
                 "score75": "Bardzo dobrze!",
                 "score100": "Świetnie! Tak trzymaj!",
-                "title": "Każdemu wynikowi liczbowemu przeprowadzonej próby, przypisana jest wartość punktowa w zależności od płci i wieku dziecka, na podstawie której określany jest poziom wykonania.",
-                "text1": "W przypadku uzyskania wyniku wszystkich czterech prób, wyprowadzana jest suma, która umożliwia przyporządkowanie do ogólnej grupy sprawnościowej dziecka.",
-                "text2": "Wyniki pobierane są od dzieci, które w czasie prowadzenia zajęć Mali Wspaniali przez Instruktora są obecne w placówce i chętne do ćwiczenia. Brak wyniku danej próby może świadczyć o nieobecności dziecka w danym dniu lub o nieuczestniczeniu w danym ćwiczeniu. W takim przypadku otrzymują Państwo poszczególne wyniki prób, bez możliwości przyporządkowania ogólnej sprawności dziecka."
-            },
-            "interpretation": {
-                "panelTitle": "Co oznaczają wyniki testu i dlaczego są ważne",
                 "title": "Prowadzone badania nie są diagnostyczne, a jedynie poglądowe.",
                 "text1": "Wynik dziecka każdego dnia może być różny. Ma na to wpływ szereg czynników fizycznych, jak i psychologicznych. Dlatego wyników nie należy traktować jako dokładne źródło wiedzy o sprawności dziecka, lecz nawet poglądowa kontrola rozwoju fizycznego jest niezwykle ważna ze względu na zdrowy i prawidłowy przebieg kształtowania się organizmu człowieka i jego przyszłe możliwości.",
-                "text2": "Gdy jest ono właściwie stymulowane oraz może się uczyć przez naśladownictwo i wielokrotne powtarzanie czynności osiąga coraz lepszy stopień wykonywania konkretnych umiejętności sprawdzanych w sposób ogólny jako zdolności motoryczne w Teście przedszkolaka.",
+                "text2": "Dzięki odpowiedniemu motywowaniu i uczeniu poprzez wielokrotne powtarzania ćwiczeń, dziecko osiąga coraz to wyższy poziom w wykonywaniu konkretnych umiejętności, sprawdzanych jako zdolności motoryczne w teście przedszkolaka.",
                 "text3": "Optymalne wyniki dziecka, a co za tym idzie zdrowy i harmonijny rozwój ruchowy, pozwala dziecku osiągać stopniowo własną niezależność i bezpieczeństwo, a co za tym idzie pewność siebie. To również może mieć wpływ na akceptację społeczną.",
                 "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
+            },
+            "interpretation": {
+                "panelTitle": "Jakie czynniki mogą mieć wpływ na niski wynik testu",
+                "title1": "Czynniki ogólne mogące wpłynąć na niski wynik testu:",
+                "title2": "Indywidualne czynniki mogące wpłynąć na niski wynik testu:",
+                "text1": "Brak motywacji u uczestników testu lub w otoczeniu",
+                "text2": "Warunki w placówce i poza nią (niekoniecznie niekorzystne)",
+                "text3": "Pora dnia (np. po posiłku, po leżakowaniu, innych zajęciach)",
+                "text4": "Zewnętrzne utrudnienia (np. zachowanie innych dzieci)",
+                "text5": "Choroba dziecka (np. przeziębienie, biegunka)",
+                "text6": "Uraz (np.: złamanie, skręcenie, stłuczenie) w ciągu ostatnich 30 dni",
+                "text7": "Poważna choroba dziecka wymagająca hospitalizacji w ciągu ostatnich 6 miesięcy",
+                "text8": "Choroba przewlekła (np.: astma oskrzelowa, alergia (atopowa))",
+                "text9": "Dziecko jest wcześniakiem",
+                "text10": "Bariery subiektywne ze strony dziecka (np.: inne fizyczne lub psychiczne)"
             }
         },
         "recommendations": {
@@ -507,7 +517,7 @@
         "search-label": "Szukaj po przedszkolu",
         "input-label": "Szukaj",
         "header-title-parent": "Adres email rodzica",
-                "header-title-instructor": "Adres email instruktora",
+        "header-title-instructor": "Adres email instruktora",
         "header-title-children": "Dzieci",
         "button-icon-edit-tooltip": "Edytuj",
         "button-icon-delete-tooltip": "Usuń",
@@ -669,7 +679,11 @@
         "header": "Powiadomienia",
         "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
         "content": "Treść Powiadomienia",
-        "date": "Data"
+        "date": "Data",
+        "empty-list-message": {
+            "title": "Obecnie nie masz żadnych powiadomień.",
+            "description": "Gdy się pojawią, znajdziesz je w tej sekcji."
+        }
     },
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",

@@ -1,7 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Typography } from '@material-ui/core';
+
 import { Panel } from '../Panel';
-import { panelTextColor, lightTextColor } from '../../../../colors';
+import ConditionsImage1 from '../../../../assets/testInformation/Conditions/testInformationConditions1.png';
+import ConditionsImage2 from '../../../../assets/testInformation/Conditions/testInformationConditions2.png';
+import ConditionsImage3 from '../../../../assets/testInformation/Conditions/testInformationConditions3.png';
+import ConditionsImage4 from '../../../../assets/testInformation/Conditions/testInformationConditions4.png';
 
 const T_PREFIX = 'child-profile.tests-informations.conditions';
 
@@ -12,73 +16,76 @@ export const Conditions = () => {
     const tests = [
         {
             name: t(`${T_PREFIX}.test1-name`),
-            image: 'https://via.placeholder.com/80x110',
-            imageAlt: 'placeholder',
+            image: ConditionsImage1,
+            imageAlt: 'ConditionsImage1',
             description: t(`${T_PREFIX}.test1-description`),
-            scale: t(`${T_PREFIX}.test1-scale`),
         },
         {
             name: t(`${T_PREFIX}.test2-name`),
-            image: 'https://via.placeholder.com/80x110',
-            imageAlt: 'placeholder',
+            image: ConditionsImage2,
+            imageAlt: 'ConditionsImage2',
             description: t(`${T_PREFIX}.test2-description`),
-            scale: t(`${T_PREFIX}.test2-scale`),
         },
         {
             name: t(`${T_PREFIX}.test3-name`),
-            image: 'https://via.placeholder.com/80x110',
-            imageAlt: 'placeholder',
+            image: ConditionsImage3,
+            imageAlt: 'ConditionsImage3',
             description: t(`${T_PREFIX}.test3-description`),
-            scale: t(`${T_PREFIX}.test3-scale`),
         },
         {
             name: t(`${T_PREFIX}.test4-name`),
-            image: 'https://via.placeholder.com/80x110',
-            imageAlt: 'placeholder',
+            image: ConditionsImage4,
+            imageAlt: 'ConditionsImage4',
             description: t(`${T_PREFIX}.test4-description`),
-            scale: t(`${T_PREFIX}.test4-scale`),
         },
     ];
 
     return (
         <Panel title={t(`${T_PREFIX}.panelTitle`)}>
-            <Typography className={classes.title}>{t(`${T_PREFIX}.title`)}</Typography>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text1`)}</Typography>
+            <Typography variant="h4" color="textPrimary">
+                {t(`${T_PREFIX}.title`)}
+            </Typography>
+            <Typography variant="body1" className={classes.text}>
+                {t(`${T_PREFIX}.text1`)}
+            </Typography>
             <div className={classes.tests}>
-                {tests.map(({ name, image, imageAlt, description, scale }) => (
-                    <Box key={name} display="flex" alignItems="flex-end">
-                        <img className={classes.testImage} src={image} alt={imageAlt} />
-                        <Box ml={1.25}>
-                            <Typography className={classes.testName}>{name}</Typography>
-                            <Typography className={classes.testText}>{description}</Typography>
-                            <Typography className={classes.testText}>{scale}</Typography>
+                {tests.map(({ name, image, imageAlt, description }) => (
+                    <Box key={name} display="grid" className={classes.test}>
+                        <Box className={classes.testImageContainer}>
+                            <img src={image} alt={imageAlt} />
+                        </Box>
+                        <Box>
+                            <Typography className={classes.testName} variant="subtitle2">
+                                {name}
+                            </Typography>
+                            <Typography variant="body2" className={classes.text}>
+                                {description}
+                            </Typography>
                         </Box>
                     </Box>
                 ))}
             </div>
-            <Typography className={classes.text}>{t(`${T_PREFIX}.text2`)}</Typography>
+            <Typography variant="body1" className={classes.text}>
+                {t(`${T_PREFIX}.text2`)}
+            </Typography>
+            <Typography variant="body1" className={classes.text}>
+                {t(`${T_PREFIX}.text3`)}
+            </Typography>
         </Panel>
     );
 };
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        fontSize: 21,
-        fontWeight: 500,
-        lineHeight: '29.4px',
-        color: panelTextColor,
-    },
     text: {
         marginTop: theme.spacing(2),
-        fontSize: 15,
-        lineHeight: '21px',
-        color: panelTextColor,
     },
+    test: { gridTemplateRows: 'repeat(2, 0.5fr)' },
     tests: {
+        width: '80%',
         display: 'grid',
-        gridGap: theme.spacing(5),
+        gridGap: theme.spacing(1.5),
         gridTemplateColumns: 'repeat(4, 1fr)',
-        margin: theme.spacing(4, 0),
+        margin: theme.spacing(4, 'auto'),
 
         [theme.breakpoints.down('md')]: {
             gridTemplateColumns: 'repeat(2, 1fr)',
@@ -89,20 +96,11 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     testName: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        lineHeight: '18px',
-        color: panelTextColor,
+        marginTop: theme.spacing(5),
         textTransform: 'uppercase',
     },
-    testText: {
-        marginTop: theme.spacing(1.25),
-        fontSize: 12,
-        lineHeight: '14.4px',
-        color: lightTextColor,
-    },
-    testImage: {
-        width: 80,
-        height: 110,
+    testImageContainer: {
+        height: 152,
+        textAlign: 'center',
     },
 }));
