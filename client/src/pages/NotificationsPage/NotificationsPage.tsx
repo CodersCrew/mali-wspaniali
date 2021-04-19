@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { NotificationPageList } from './NotificationPageList';
-import { Pagination } from '../ArticleListPage/Pagination';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 import { useReadNotification } from '../../operations/mutations/Notification/readNotification';
@@ -19,7 +18,6 @@ export default function NotificationsPage() {
     return (
         <PageContainer>
             <NotificationPageList onClick={(id) => readNotification(id)} notifications={user.notifications} />
-            <Pagination disabledPrevious={true} disabledNext={true} handleChange={() => true}></Pagination>
         </PageContainer>
     );
 }
