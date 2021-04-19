@@ -99,7 +99,9 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                     <Grid item>
                         <Grid container direction="row" spacing={1}>
                             <Grid item>
-                                <Typography variant="h4">{currentMeasurement.label}</Typography>
+                                <Typography className={classes.responsiveText} variant="h4">
+                                    {currentMeasurement.label}
+                                </Typography>
                             </Grid>
                             <Grid item>
                                 <StatusChip value={currentMeasurement.status} />
@@ -109,24 +111,22 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                     <Grid item>
                         <Grid container direction="row" spacing={1}>
                             <Grid item>
-                                <Typography variant="body2">
+                                <Typography className={classes.responsiveSubext1} variant="body2">
                                     {currentMeasurement.startDate.split('-').join('.')}&nbsp;-&nbsp;
                                     {currentMeasurement.endDate.split('-').join('.')}
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Typography variant="subtitle2">
+                                <Typography className={classes.responsiveSubext1} variant="subtitle2">
                                     ({dayjs(currentMeasurement.endDate).fromNow()})
                                 </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <Box className={classes.assessmentProgressText}>
-                            <Typography variant="body2">
-                                {t(`add-results-page.${currentMeasurement.measurement}-assessment-progress`)}
-                            </Typography>
-                        </Box>
+                        <Typography className={classes.responsiveSubext2} variant="body2">
+                            {t(`add-results-page.${currentMeasurement.measurement}-assessment-progress`)}
+                        </Typography>
                     </Grid>
                     <Grid item>
                         <Grid container direction="row" spacing={1}>
@@ -144,7 +144,9 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                 </Box>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h4">{Math.floor((currentProgress * 100) / max)}%</Typography>
+                                <Typography className={classes.responsiveText} variant="h4">
+                                    {Math.floor((currentProgress * 100) / max)}%
+                                </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -194,8 +196,14 @@ const useStyles = makeStyles((theme: Theme) =>
         progressBarLight: {
             background: theme.palette.success.light,
         },
-        assessmentProgressText: {
-            width: theme.spacing(40),
+        responsiveText: {
+            fontSize: '5.2vw',
+        },
+        responsiveSubext1: {
+            fontSize: '3.8vw',
+        },
+        responsiveSubext2: {
+            fontSize: '3.5vw',
         },
     }),
 );
