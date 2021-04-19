@@ -83,7 +83,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                     <Divider />
                 </Grid>
                 <Grid item className={classes.footer}>
-                    <Grid container spacing={1} justify="center">
+                    <Grid container direction="row" justify="space-around">
                         <Grid item>
                             <Box mr={2}>
                                 <ButtonSecondary
@@ -164,7 +164,7 @@ const useStyles = makeStyles((theme) =>
             minHeight: 56,
             height: 'auto',
             width: '100%',
-            position: 'absolute',
+            position: 'fixed',
             bottom: 0,
             right: 0,
             zIndex: 1300,
