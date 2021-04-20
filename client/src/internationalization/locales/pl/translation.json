@@ -697,8 +697,8 @@
         },
         "test-list": {
             "name": "Nazwa testu",
-            "first-assessment": "Próba początkowa",
-            "last-assessment": "Próba końcowa",
+            "first-assessment": "Pomiar początkowy",
+            "last-assessment": "Pomiar końcowy",
             "status": "Status",
             "active": "Aktywny",
             "done": "Zakończony",

@@ -29,7 +29,7 @@ export function AssessmentItem({ value, onClick }: Props) {
             <TableCell>
                 {value.lastMeasurementStartDate} - {value.lastMeasurementEndDate}
             </TableCell>
-            <TableCell classes={{ root: classes.statusCell }} align="center">
+            <TableCell align="center">
                 <div className={classes.itemRoot}>
                     <div className="actionButtons">
                         <IconButton size="small" onClick={handleEditClick}>
@@ -59,11 +59,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         row: {
             cursor: 'pointer',
-        },
-        icon: {
-            color: theme.palette.text.secondary,
-        },
-        statusCell: {
             '& .actionButtons': {
                 display: 'none',
             },
@@ -73,6 +68,10 @@ const useStyles = makeStyles((theme: Theme) =>
             '&:hover .actionButtons': {
                 display: 'block',
             },
+        },
+        icon: {
+            position: 'absolute',
+            color: theme.palette.text.secondary,
         },
         itemRoot: {
             minWidth: 100,
