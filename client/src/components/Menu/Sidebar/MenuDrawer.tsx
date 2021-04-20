@@ -1,5 +1,5 @@
-import React from 'react';
-import { Drawer, makeStyles, Theme, createStyles } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Drawer, SwipeableDrawer, makeStyles, Theme, createStyles } from '@material-ui/core';
 
 import { getMenuWidth } from './getMenuWidth';
 import { Device } from '../../../queries/useBreakpoints';
@@ -14,6 +14,25 @@ interface Props {
 export function MenuDrawer({ device, onClose, children, open }: Props) {
     const [width] = getMenuWidth(device);
     const classes = useStyles({ width });
+    const [state, setState] = useState(false);
+
+    useEffect(() => {
+        setState(open);
+    }, [open]);
+
+    const toggleDrawer = (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (
+            event &&
+            event.type === 'keydown' &&
+            ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
+        ) {
+            return;
+        }
+        setState(isOpen);
+        setTimeout(() => {
+            onClose();
+        }, 0);
+    };
 
     if (device === 'DESKTOP') {
         return (
@@ -32,21 +51,22 @@ export function MenuDrawer({ device, onClose, children, open }: Props) {
     }
 
     return (
-        <Drawer
+        <SwipeableDrawer
             variant="temporary"
             anchor="left"
             classes={{
                 root: classes.drawerRoot,
                 paper: classes.paper,
             }}
-            open={open}
+            open={state}
             ModalProps={{
                 keepMounted: true,
             }}
-            onClose={onClose}
+            onClose={toggleDrawer(false)}
+            onOpen={toggleDrawer(true)}
         >
             {children}
-        </Drawer>
+        </SwipeableDrawer>
     );
 }
 
