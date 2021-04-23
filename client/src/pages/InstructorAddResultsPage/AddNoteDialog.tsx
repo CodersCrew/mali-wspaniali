@@ -1,6 +1,19 @@
 import { useState } from 'react';
-import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography } from '@material-ui/core';
+import {
+    createStyles,
+    makeStyles,
+    Box,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Grid,
+    TextField,
+    Typography,
+    Theme,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ButtonDefault, ButtonPrimary } from '../../components/Button';
 
@@ -20,6 +33,7 @@ function AddNoteDialog({
     onClose,
 }: AddNoteDialogProps & ActionDialog<{ note: string }>) {
     const { t } = useTranslation();
+    const classes = useStyles();
     const [note, setNote] = useState(initialNote);
     const LENGTH_LIMIT = 500;
 
@@ -32,7 +46,7 @@ function AddNoteDialog({
     };
 
     return (
-        <Dialog open onClose={onClose} maxWidth="sm" fullWidth>
+        <Dialog classes={{ paper: classes.paper }} open onClose={onClose} maxWidth="sm" fullWidth>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent dividers>
                 <Grid container direction="column" spacing={3}>
@@ -81,3 +95,12 @@ function AddNoteDialog({
         </Dialog>
     );
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        paper: {
+            width: '100%',
+            margin: theme.spacing(2),
+        },
+    }),
+);
