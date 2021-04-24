@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { ChangeEvent, FormEvent, useState, useEffect, useRef } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -21,6 +21,7 @@ import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
 import { LanguageSelector } from './LanguageSelector';
+import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
 
 const initialState: RegisterForm = {
     code: '',
@@ -32,7 +33,9 @@ const initialState: RegisterForm = {
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
+
     const [skip, setSkip] = useState(false);
+
     const [loading, setLoading] = useState(false);
 
     const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
@@ -40,6 +43,8 @@ export const RegistrationForm = () => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
+
+    const roleBasedKeyCode = useRef<RoleBasedKeyCodeObject | undefined>();
 
     useEffect(() => {
         getAgreements()
@@ -76,6 +81,7 @@ export const RegistrationForm = () => {
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
                     error={false}
+                    roleBasedKeyCode={roleBasedKeyCode.current}
                 />
             );
         }
@@ -156,14 +162,14 @@ export const RegistrationForm = () => {
 
     const handleNext = () =>
         setActiveStep((prevActiveStep) => {
-            if (prevActiveStep === 1 && code.startsWith('I.')) return prevActiveStep + 2;
+            if (prevActiveStep === 1 && roleBasedKeyCode.current?.isInstructor()) return prevActiveStep + 2;
 
             return prevActiveStep + 1;
         });
 
     const handleBack = () =>
         setActiveStep((prevActiveStep) => {
-            if (prevActiveStep === 3 && code.startsWith('I.')) return prevActiveStep - 2;
+            if (prevActiveStep === 3 && roleBasedKeyCode.current?.isInstructor()) return prevActiveStep - 2;
 
             return prevActiveStep - 1;
         });
@@ -183,12 +189,18 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-mismatch'),
             });
             setLoading(() => false);
+        } else if (!roleBasedKeyCode.current?.isRoleBasedKeyCodeValid()) {
+            openAlertDialog({
+                type: 'error',
+                description: t('registration-page.register-failure-keycode'),
+            });
+            setLoading(() => false);
         } else {
             load(
                 createUser({
                     mail: email,
                     password,
-                    keyCode: code.substr(2),
+                    keyCode: roleBasedKeyCode.current?.parseToKeyCode() || '',
                     agreements: agreements
                         .filter((agreement) => !!agreement._id && agreement.isSigned)
                         .map((item) => item._id),
@@ -218,6 +230,12 @@ export const RegistrationForm = () => {
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
+
+    useEffect(() => {
+        if (activeStep === 0) {
+            roleBasedKeyCode.current = RoleBasedKeyCodeObject.from(code);
+        }
+    }, [form]);
 
     return (
         <div className={classes.container}>

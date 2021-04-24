@@ -8,8 +8,6 @@ import { Theme } from '../../../theme';
 
 import { RegistrationCodeProps } from './types';
 
-const MIN_CODE_LENGTH = 12;
-
 export const RegistrationCode = ({
     handleChange,
     handleNext,
@@ -18,6 +16,7 @@ export const RegistrationCode = ({
     classButton,
     classNextBtn,
     error,
+    roleBasedKeyCode,
 }: RegistrationCodeProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -35,7 +34,7 @@ export const RegistrationCode = ({
     const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            if (code.length >= MIN_CODE_LENGTH) handleNext();
+            if (roleBasedKeyCode?.isValid()) handleNext();
         }
     };
 
@@ -62,7 +61,7 @@ export const RegistrationCode = ({
                     variant="contained"
                     onClick={handleNext}
                     className={classNextBtn}
-                    disabled={code.length < MIN_CODE_LENGTH}
+                    disabled={!roleBasedKeyCode?.isValid()}
                     data-testid="code-next"
                     innerText={t('next')}
                 />
