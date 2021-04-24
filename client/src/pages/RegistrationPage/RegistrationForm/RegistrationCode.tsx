@@ -61,7 +61,7 @@ export const RegistrationCode = ({
                     variant="contained"
                     onClick={handleNext}
                     className={classNextBtn}
-                    disabled={!roleBasedKeyCode?.isValid()}
+                    disabled={!roleBasedKeyCode}
                     data-testid="code-next"
                     innerText={t('next')}
                 />

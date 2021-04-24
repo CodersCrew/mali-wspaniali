@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState, useEffect, useRef } from 'react';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -44,7 +44,7 @@ export const RegistrationForm = () => {
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
-    const roleBasedKeyCode = useRef<RoleBasedKeyCodeObject | undefined>();
+    const [roleBasedKeyCode, setRoleBasedKeyCode] = useState<RoleBasedKeyCodeObject | undefined>(undefined);
 
     useEffect(() => {
         getAgreements()
@@ -81,7 +81,7 @@ export const RegistrationForm = () => {
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
                     error={false}
-                    roleBasedKeyCode={roleBasedKeyCode.current}
+                    roleBasedKeyCode={roleBasedKeyCode}
                 />
             );
         }
@@ -162,14 +162,14 @@ export const RegistrationForm = () => {
 
     const handleNext = () =>
         setActiveStep((prevActiveStep) => {
-            if (prevActiveStep === 1 && roleBasedKeyCode.current?.isInstructor()) return prevActiveStep + 2;
+            if (prevActiveStep === 1 && roleBasedKeyCode?.isInstructor()) return prevActiveStep + 2;
 
             return prevActiveStep + 1;
         });
 
     const handleBack = () =>
         setActiveStep((prevActiveStep) => {
-            if (prevActiveStep === 3 && roleBasedKeyCode.current?.isInstructor()) return prevActiveStep - 2;
+            if (prevActiveStep === 3 && roleBasedKeyCode?.isInstructor()) return prevActiveStep - 2;
 
             return prevActiveStep - 1;
         });
@@ -189,18 +189,19 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-mismatch'),
             });
             setLoading(() => false);
-        } else if (!roleBasedKeyCode.current?.isRoleBasedKeyCodeValid()) {
+        } else if (!roleBasedKeyCode?.isValid()) {
             openAlertDialog({
                 type: 'error',
                 description: t('registration-page.register-failure-keycode'),
             });
+            setActiveStep(() => 0);
             setLoading(() => false);
         } else {
             load(
                 createUser({
                     mail: email,
                     password,
-                    keyCode: roleBasedKeyCode.current?.parseToKeyCode() || '',
+                    keyCode: roleBasedKeyCode?.parseToKeyCode() || '',
                     agreements: agreements
                         .filter((agreement) => !!agreement._id && agreement.isSigned)
                         .map((item) => item._id),
@@ -232,10 +233,8 @@ export const RegistrationForm = () => {
     };
 
     useEffect(() => {
-        if (activeStep === 0) {
-            roleBasedKeyCode.current = RoleBasedKeyCodeObject.from(code);
-        }
-    }, [form]);
+        setRoleBasedKeyCode(RoleBasedKeyCodeObject.from(code));
+    }, [code]);
 
     return (
         <div className={classes.container}>
