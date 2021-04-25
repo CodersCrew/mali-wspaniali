@@ -13,8 +13,10 @@ import {
     Theme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 import { openDialog, ActionDialog } from '../../utils/openDialog';
+import { useBreakpoints } from '../../queries/useBreakpoints';
 import { ButtonDefault, ButtonPrimary } from '../../components/Button';
 
 type AddNoteDialogProps = {
@@ -34,6 +36,7 @@ function AddNoteDialog({
 }: AddNoteDialogProps & ActionDialog<{ note: string }>) {
     const { t } = useTranslation();
     const classes = useStyles();
+    const device = useBreakpoints();
     const [note, setNote] = useState(initialNote);
     const LENGTH_LIMIT = 500;
 
@@ -46,7 +49,15 @@ function AddNoteDialog({
     };
 
     return (
-        <Dialog classes={{ paper: classes.paper }} open onClose={onClose} maxWidth="sm" fullWidth>
+        <Dialog
+            classes={{
+                paper: clsx({ [classes.paper]: device === 'MOBILE' }),
+            }}
+            open
+            onClose={onClose}
+            maxWidth="sm"
+            fullWidth
+        >
             <DialogTitle>{title}</DialogTitle>
             <DialogContent dividers>
                 <Grid container direction="column" spacing={3}>
@@ -100,6 +111,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             width: '100%',
+            minHeight: '95%',
             margin: theme.spacing(2),
         },
     }),
