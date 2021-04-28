@@ -139,7 +139,9 @@
         "add-kindergarten-success": "Przedszkole zostało dodane pomyślnie",
         "update-kindergarten-success": "Dane przedszkola zostały zaktualizowane pomyślnie",
         "delete-kindergarten-success": "Przedszkole zostało usunięte pomyślnie",
-        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko"
+        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko",
+        "rows-number": "Pokazuj w tabeli:"
+        
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -706,7 +708,8 @@
             "not-planned": "Niezaplanowany",
             "details": "Zobacz szczegóły",
             "delete": "Skasuj",
-            "edit": "Edytuj dane"
+            "edit": "Edytuj dane",
+            "rows-number": "Pokazuj w tabeli:"
         }
     },
     "add-test-view": {

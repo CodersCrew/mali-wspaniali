@@ -342,7 +342,8 @@
         "add-kindergarten-success": "Kindergarten has been added successfully",
         "update-kindergarten-success": "Kindergarten has been updated successfully",
         "delete-kindergarten-success": "Kindergarten has been deleted successfully",
-        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it"
+        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it",
+        "rows-number": "Rows per page:"
     },
     "kindergarten-modal": {
         "city": "City",
@@ -647,7 +648,8 @@
             "not-planned": "Not planned",
             "details": "See details",
             "delete": "Delete",
-            "edit": "Edit"
+            "edit": "Edit",
+            "rows-number": "Rows per page:"
         }
     },
     "add-test-view": {
