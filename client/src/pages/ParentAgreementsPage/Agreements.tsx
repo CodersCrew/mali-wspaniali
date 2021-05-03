@@ -48,7 +48,7 @@ export const Agreements = ({ agreements }: Props) => {
         agreementIds.forEach((agreementId) => updateAgreements({ agreementId }));
         openSnackbar({
             text: t('child-profile.agreements.snackbar-text'),
-            subtext: t('child-profile.agreements.snackbar-subtext'),
+            headerText: t('child-profile.agreements.snackbar-headerText'),
         });
     };
 
