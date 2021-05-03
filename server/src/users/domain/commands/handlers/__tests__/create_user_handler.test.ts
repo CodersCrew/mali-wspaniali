@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
 
 import { CreateUserCommand } from '../../impl';
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { CreateUserHandler } from '../create_user_handler';
 import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
 import { UsersModule } from '../../../../users_module';

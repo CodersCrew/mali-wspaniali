@@ -11,10 +11,14 @@ export class Tags extends ValueObject<TagsProps> {
   }
 
   public static create(tags: string[]): Result<Tags> {
-    if (new Set(tags).size !== tags.length) {
+    if (validIfTagsAreUnique(tags)) {
       return Result.fail('Tags must be valid.');
     } else {
       return Result.ok(new Tags({ value: tags }));
     }
   }
+}
+
+function validIfTagsAreUnique(tags: string[]) {
+  return new Set(tags).size !== tags.length;
 }

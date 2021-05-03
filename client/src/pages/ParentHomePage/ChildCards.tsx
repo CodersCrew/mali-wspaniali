@@ -82,7 +82,6 @@ interface MobileCarouselProps {
 
 function MobileCarousel({ childList, onAddChildClick, onChildClick }: MobileCarouselProps) {
     const classes = useStyles();
-    console.log(classes);
     const { isSmallMobile } = useIsDevice();
 
     return (

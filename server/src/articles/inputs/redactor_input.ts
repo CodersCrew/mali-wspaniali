@@ -1,19 +1,23 @@
 import { InputType, Field } from '@nestjs/graphql';
+import { RedactorProps } from '../../articles/domain/models/redactor';
 
 @InputType()
-export class RedactorInput {
-  @Field({ nullable: true })
-  readonly avatarUrl: string;
-
+export class RedactorInput implements RedactorProps {
   @Field()
   readonly firstName: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly lastName: string;
 
   @Field({ nullable: true })
-  readonly profession: string;
+  readonly avatarUrl?: string;
 
   @Field({ nullable: true })
-  readonly biography: string;
+  readonly profession?: string;
+
+  @Field({ nullable: true })
+  readonly biography?: string;
+
+  @Field({ nullable: true })
+  readonly shortDescription?: string;
 }

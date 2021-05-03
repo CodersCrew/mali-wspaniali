@@ -41,8 +41,9 @@ export default function InstructorAddResultsPage() {
     const currentAssessment = assessments.find((a) => a._id === selectedAssessment);
 
     const currentChildren =
-        currentAssessment?.kindergartens.find((k) => k.kindergarten._id === selectedKindergarten)?.kindergarten
-            .children || [];
+        currentAssessment?.kindergartens
+            .filter((k) => !!k.kindergarten)
+            .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || [];
 
     useEffect(() => {
         activePage(['instructor-menu.add-results']);
@@ -54,7 +55,7 @@ export default function InstructorAddResultsPage() {
         if (assessment) {
             setSelectedAssessment(assessment._id);
 
-            setSelectedKindergarten(assessment.kindergartens[0]?.kindergarten._id);
+            setSelectedKindergarten(assessment.kindergartens[0]?.kindergarten?._id!);
         }
     }, [assessments]);
 

@@ -190,7 +190,7 @@ export const RegistrationForm = () => {
                     setLoading(() => false);
                     handleNext();
                 })
-                .catch((err) => {
+                .catch(() => {
                     // TODO: re-modify this!
                     setLoading(() => false);
                     if (skip) {
@@ -265,7 +265,11 @@ export const RegistrationForm = () => {
             </form>
             {activeStep === 4 && getStepContent(activeStep)}
             <div className={classes.footer}>
-                <ButtonSecondary href="/login" innerText={t('registration-page.go-to-loginpage')} />
+                <ButtonSecondary
+                    href="/login"
+                    className={classes.backToLoginButton}
+                    innerText={t('registration-page.go-to-loginpage')}
+                />
                 <Box mb={3} />
             </div>
         </div>
