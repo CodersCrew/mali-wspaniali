@@ -58,6 +58,7 @@ export function AssessmentItem({ value, onClick }: Props) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         row: {
+            height: theme.spacing(8),
             cursor: 'pointer',
             '& .actionButtons': {
                 display: 'none',
@@ -70,7 +71,6 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         icon: {
-            position: 'absolute',
             color: theme.palette.text.secondary,
         },
         itemRoot: {
