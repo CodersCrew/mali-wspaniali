@@ -17,7 +17,6 @@ export function openSnackbar({ text, headerText, variant, severity, anchor }: Pr
     return openDialog(function OpenSnackbar({ onClose }: ActionDialog) {
         const classes = useStyles();
         const device = useBreakpoints();
-        console.log(device);
 
         return (
             <Snackbar
@@ -27,8 +26,8 @@ export function openSnackbar({ text, headerText, variant, severity, anchor }: Pr
                 onClose={onClose}
                 classes={{
                     root: clsx({
-                        [classes.container]: true,
-                        [classes.mobile]: device === 'MOBILE',
+                        [classes.container]: device !== 'MOBILE',
+                        [classes.containerMobile]: device === 'MOBILE',
                     }),
                 }}
             >
@@ -54,11 +53,12 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             zIndex: 10000,
-            width: theme.spacing(121),
-            marginTop: theme.spacing(7),
+            width: '70%',
+            marginTop: theme.spacing(6),
         },
-        mobile: {
-            width: '90%',
+        containerMobile: {
+            zIndex: 10000,
+            marginTop: theme.spacing(8),
         },
         alert: {
             width: '100%',
