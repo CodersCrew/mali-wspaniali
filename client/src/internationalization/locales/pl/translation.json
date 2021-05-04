@@ -140,9 +140,11 @@
         "update-kindergarten-success": "Dane przedszkola zostały zaktualizowane pomyślnie",
         "delete-kindergarten-success": "Przedszkole zostało usunięte pomyślnie",
         "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko",
+        "button-icon-edit-tooltip": "Edytuj",
+        "button-icon-expand-tooltip": "Rozwiń",
+        "button-icon-results-tooltip": "Wyniki",
         "rows-number": "Pokazuj w tabeli:",
         "edit": "Edytuj"
-        
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -410,6 +412,8 @@
             "heading": "Zarządzaj bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia",
             "title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
             "save": "Zapisz",
+            "snackbar-headerText": "Gotowe",
+            "snackbar-text": "Udzielone przez ciebie zgody zostały zapisane",
             "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
             "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
             "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",

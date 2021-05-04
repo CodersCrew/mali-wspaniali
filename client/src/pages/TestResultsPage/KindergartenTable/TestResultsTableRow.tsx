@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell, IconButton, makeStyles, Tooltip, Theme, createStyles, fade } from '@material-ui/core';
+import { TableRow, TableCell, IconButton, makeStyles, Tooltip, Theme, fade } from '@material-ui/core';
 import {
     Edit as EditIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -20,16 +20,18 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     const classes = useStyles();
 
     const { number, name, address, city } = kindergarten;
-
-    const editIconTooltip = t('test-results.edit');
+    const editIconTooltip = t('test-results.button-icon-edit-tooltip');
+    const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
 
     return (
         <>
             <TableRow className={classes.root}>
                 <TableCell>
-                    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
+                    <Tooltip title={expandIconTooltip}>
+                        <IconButton className={classes.button} aria-label="expand row" onClick={() => setOpen(!open)}>
+                            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </IconButton>
+                    </Tooltip>
                 </TableCell>
                 <TableCell component="th" scope="row">
                     {`${t('test-results.kindergarten-prefix')} ${number}`}
@@ -39,7 +41,8 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                 <TableCell align="right">
                     <Tooltip title={editIconTooltip}>
                         <IconButton
-                            className={classes.editButton}
+                            className={classes.button}
+                            aria-label="edit kindergarten"
                             size="medium"
                             onClick={() => onEditClick(kindergarten)}
                         >
@@ -53,18 +56,16 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            '& > *': {
-                borderBottom: 'unset',
-            },
+const useStyles = makeStyles((theme: Theme) => ({
+    root: {
+        '& > *': {
+            borderBottom: 'unset',
         },
-        editButton: {
-            '&:hover': {
-                color: theme.palette.primary.main,
-                backgroundColor: fade(theme.palette.primary.main, 0.2),
-            },
+    },
+    button: {
+        '&:hover': {
+            color: theme.palette.primary.main,
+            backgroundColor: fade(theme.palette.primary.main, 0.2),
         },
-    }),
-);
+    },
+}));

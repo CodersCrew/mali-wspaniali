@@ -300,6 +300,8 @@
             "heading": "Manage consents granted to the Mali Wspaniali Foundation. Have full control over the security of your personal data, being able to increase or limit the rights granted at any time.",
             "title": "Below you can check and edit the signed agreements.",
             "save": "Save",
+            "snackbar-headerText": "Done",
+            "snackbar-text": "Your argeements have been saved",
             "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
             "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
             "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
@@ -343,6 +345,9 @@
         "update-kindergarten-success": "Kindergarten has been updated successfully",
         "delete-kindergarten-success": "Kindergarten has been deleted successfully",
         "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it",
+        "button-icon-edit-tooltip": "Edit",
+        "button-icon-expand-tooltip": "Expand",
+        "button-icon-results-tooltip": "Results",
         "rows-number": "Rows per page:",
         "edit": "Edit"
     },
