@@ -35,7 +35,7 @@ export function AssessmentItem({ value, onClick }: Props) {
                 <div className={classes.itemRoot}>
                     <div className="actionButtons">
                         <Tooltip title={editIconTooltip}>
-                            <IconButton className={classes.editButton} size='medium' onClick={handleEditClick}>
+                            <IconButton className={classes.editButton} size="medium" onClick={handleEditClick}>
                                 <EditIcon />
                             </IconButton>
                         </Tooltip>
