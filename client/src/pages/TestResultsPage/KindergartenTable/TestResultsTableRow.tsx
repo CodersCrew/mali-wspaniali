@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell, IconButton, makeStyles } from '@material-ui/core';
+import { TableRow, TableCell, IconButton, makeStyles, Tooltip, Theme, createStyles, fade } from '@material-ui/core';
 import {
     Edit as EditIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -21,6 +21,8 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
 
     const { number, name, address, city } = kindergarten;
 
+    const editIconTooltip = t('test-results.edit');
+
     return (
         <>
             <TableRow className={classes.root}>
@@ -35,9 +37,15 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                 <TableCell>{name}</TableCell>
                 <TableCell>{`${address}, ${city}`}</TableCell>
                 <TableCell align="right">
-                    <IconButton aria-label="edit kindergarten" size="small" onClick={() => onEditClick(kindergarten)}>
-                        <EditIcon />
-                    </IconButton>
+                    <Tooltip title={editIconTooltip}>
+                        <IconButton
+                            className={classes.editButton}
+                            size="small"
+                            onClick={() => onEditClick(kindergarten)}
+                        >
+                            <EditIcon />
+                        </IconButton>
+                    </Tooltip>
                 </TableCell>
             </TableRow>
             <KindergartenChildrenTable open={open} />
@@ -45,10 +53,18 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     );
 };
 
-const useStyles = makeStyles({
-    root: {
-        '& > *': {
-            borderBottom: 'unset',
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            '& > *': {
+                borderBottom: 'unset',
+            },
         },
-    },
-});
+        editButton: {
+            '&:hover': {
+                color: theme.palette.primary.main,
+                backgroundColor: fade(theme.palette.primary.main, 0.2),
+            },
+        },
+    }),
+);

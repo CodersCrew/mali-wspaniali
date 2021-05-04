@@ -1,5 +1,5 @@
-import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme, fade, Tooltip } from '@material-ui/core';
+import { Edit as EditIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { StatusChip } from '../../../components/StatusChip';
@@ -13,6 +13,8 @@ interface Props {
 export function AssessmentItem({ value, onClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
+
+    const editIconTooltip = t('manage-test-view.test-list.edit-button');
 
     return (
         <TableRow key={value.title} hover onClick={handleRowClick} className={classes.row}>
@@ -32,9 +34,11 @@ export function AssessmentItem({ value, onClick }: Props) {
             <TableCell align="center">
                 <div className={classes.itemRoot}>
                     <div className="actionButtons">
-                        <IconButton size="small" onClick={handleEditClick}>
-                            <Edit classes={{ root: classes.icon }} titleAccess={t('manage-test-view.test-list.edit')} />
-                        </IconButton>
+                        <Tooltip title={editIconTooltip}>
+                            <IconButton className={classes.editButton} size="small" onClick={handleEditClick}>
+                                <EditIcon />
+                            </IconButton>
+                        </Tooltip>
                     </div>
                     <div className="status">
                         {value.status !== 'done' && <StatusChip value={value.lastMeasurementStatus} />}
@@ -70,8 +74,11 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: 'block',
             },
         },
-        icon: {
-            color: theme.palette.text.secondary,
+        editButton: {
+            '&:hover': {
+                color: theme.palette.primary.main,
+                backgroundColor: fade(theme.palette.primary.main, 0.2),
+            },
         },
         itemRoot: {
             minWidth: 100,

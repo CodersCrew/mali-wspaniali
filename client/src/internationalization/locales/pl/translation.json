@@ -140,7 +140,8 @@
         "update-kindergarten-success": "Dane przedszkola zostały zaktualizowane pomyślnie",
         "delete-kindergarten-success": "Przedszkole zostało usunięte pomyślnie",
         "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko",
-        "rows-number": "Pokazuj w tabeli:"
+        "rows-number": "Pokazuj w tabeli:",
+        "edit": "Edytuj"
         
     },
     "kindergarten-modal": {
@@ -709,7 +710,8 @@
             "details": "Zobacz szczegóły",
             "delete": "Skasuj",
             "edit": "Edytuj dane",
-            "rows-number": "Pokazuj w tabeli:"
+            "rows-number": "Pokazuj w tabeli:",
+            "edit-button": "Edytuj"
         }
     },
     "add-test-view": {
