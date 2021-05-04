@@ -40,7 +40,7 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                     <Tooltip title={editIconTooltip}>
                         <IconButton
                             className={classes.editButton}
-                            size="small"
+                            size="medium"
                             onClick={() => onEditClick(kindergarten)}
                         >
                             <EditIcon />

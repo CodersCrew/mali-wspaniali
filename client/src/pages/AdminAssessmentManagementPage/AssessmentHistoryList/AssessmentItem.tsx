@@ -35,7 +35,7 @@ export function AssessmentItem({ value, onClick }: Props) {
                 <div className={classes.itemRoot}>
                     <div className="actionButtons">
                         <Tooltip title={editIconTooltip}>
-                            <IconButton className={classes.editButton} size="small" onClick={handleEditClick}>
+                            <IconButton className={classes.editButton} size='medium' onClick={handleEditClick}>
                                 <EditIcon />
                             </IconButton>
                         </Tooltip>
@@ -62,7 +62,7 @@ export function AssessmentItem({ value, onClick }: Props) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         row: {
-            height: theme.spacing(8),
+            height: theme.spacing(10.1),
             cursor: 'pointer',
             '& .actionButtons': {
                 display: 'none',
