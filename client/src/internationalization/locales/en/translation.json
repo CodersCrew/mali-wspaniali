@@ -69,7 +69,8 @@
     },
     "forgot-password-page": {
         "forgot-password": "Forgot the password?",
-        "its-ok": "Don't worry. Type in your email address.",
+        "its-ok": "Don't worry.",
+        "input-email": "Type in your email address.",
         "receive-link": "You will receive a link to create a new password.",
         "insert-email": "Type in e-mail address provided to the foundation",
         "continue": "Continue",
