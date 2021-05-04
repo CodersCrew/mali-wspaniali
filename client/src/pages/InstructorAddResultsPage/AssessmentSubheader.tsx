@@ -1,5 +1,6 @@
 import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { Assessment, AssessmentResult } from '../../graphql/types';
 import { StatusChip } from '../../components/StatusChip';
 import dayjs from '../../localizedMoment';
@@ -24,11 +25,9 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
             {!device.isSmallMobile ? (
                 <Grid container>
                     <Grid item xs={4}>
-                        <Grid container direction="column" spacing={1}>
-                            <Grid item>
-                                <Typography variant="caption">{assessment.title}</Typography>
-                            </Grid>
-                            <Grid item>
+                        <Grid container direction="column">
+                            <Typography variant="caption">{assessment.title}</Typography>
+                            <Box mt={1} mb={0.5}>
                                 <Grid container spacing={1}>
                                     <Grid item>
                                         <Typography variant="h4">{currentMeasurement.label}</Typography>
@@ -37,7 +36,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                         <StatusChip value={currentMeasurement.status} />
                                     </Grid>
                                 </Grid>
-                            </Grid>
+                            </Box>
                             <Grid item>
                                 <Grid container spacing={1}>
                                     <Grid item>
@@ -56,13 +55,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                         </Grid>
                     </Grid>
                     <Grid item xs={8}>
-                        <Grid
-                            container
-                            direction="column"
-                            justify="flex-end"
-                            className={classes.progressBarContainer}
-                            spacing={1}
-                        >
+                        <Grid container direction="column" justify="flex-end" className={classes.progressBarContainer}>
                             <Grid item>
                                 <Typography variant="body2">
                                     {t(`add-results-page.${currentMeasurement.measurement}-assessment-progress`)}
@@ -95,20 +88,20 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                 <Grid container direction="column" spacing={1}>
                     <Grid item>
                         <Typography variant="caption">{assessment.title}</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Grid container direction="row" spacing={1}>
-                            <Grid item>
-                                <Typography className={classes.responsiveText} variant="h4">
-                                    {currentMeasurement.label}
-                                </Typography>
+                        <Box mt={1}>
+                            <Grid container spacing={1}>
+                                <Grid item>
+                                    <Typography className={classes.responsiveText} variant="h4">
+                                        {currentMeasurement.label}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <StatusChip value={currentMeasurement.status} />
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <StatusChip value={currentMeasurement.status} />
-                            </Grid>
-                        </Grid>
+                        </Box>
                     </Grid>
-                    <Grid item>
+                    <Grid item className={classes.dataContainer}>
                         <Grid container direction="row" spacing={1}>
                             <Grid item>
                                 <Typography className={classes.responsiveSubext1} variant="body2">
@@ -204,6 +197,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         responsiveSubext2: {
             fontSize: '3.5vw',
+        },
+        dataContainer: {
+            marginBottom: theme.spacing(2),
         },
     }),
 );
