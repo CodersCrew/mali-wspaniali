@@ -387,7 +387,9 @@
     },
     "question-dialog": {
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "cancel": "Cancel",
+        "delete": "Delete"
     },
     "parent-children": {
         "children": "Children",
