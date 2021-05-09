@@ -172,6 +172,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '1 1 auto',
             height: 0,
             overflowY: 'auto',
+            overflowX: 'hidden',
         },
         container: {
             maxHeight: '85vh',
@@ -180,7 +181,6 @@ const useStyles = makeStyles((theme: Theme) =>
         childPickerContainer: {
             display: 'flex',
             flexDirection: 'column',
-            overflowY: 'auto',
             height: '100%',
             paddingRight: 2,
         },
@@ -190,8 +190,7 @@ const useStyles = makeStyles((theme: Theme) =>
         footerContainer: {
             display: 'flex',
             alignItems: 'center',
-            height: 56,
-            padding: theme.spacing(1),
+            padding: theme.spacing(1, 2),
         },
     }),
 );
