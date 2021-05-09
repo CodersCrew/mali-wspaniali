@@ -94,7 +94,7 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
                                                                         firstMeasurementResultCount,
                                                                     )}
                                                                     onClick={() =>
-                                                                        onClick('add-fitst-assessment-result', c._id)
+                                                                        onClick('add-first-assessment-result', c._id)
                                                                     }
                                                                     disabled={isFirstMeasurementDisabled}
                                                                     icon={

@@ -163,7 +163,7 @@ const useStyles = makeStyles((theme) =>
             position: 'fixed',
             bottom: 0,
             right: 0,
-            zIndex: 1300,
+            zIndex: 800,
             padding: theme.spacing(1, 2),
             backgroundColor: theme.palette.primary.contrastText,
         },
