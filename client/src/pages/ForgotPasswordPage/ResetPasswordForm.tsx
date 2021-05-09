@@ -1,7 +1,7 @@
 import { TextField, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ButtonSecondary } from '../../components/Button';
-import { useBreakpoints } from '../../queries/useBreakpoints';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 const tPrefix = 'forgot-password-page';
 
@@ -14,25 +14,14 @@ type Props = {
 
 export function ResetPasswordForm({ onChange, onSubmit, isDisabled, email }: Props) {
     const { t } = useTranslation();
-    const device = useBreakpoints();
+    const device = useIsDevice();
 
     return (
         <>
             <Box mb={3}>
-                {device !== 'MOBILE' ? (
-                    <Typography variant="subtitle1" align="center">
-                        {t(`${tPrefix}.its-ok`)} {t(`${tPrefix}.input-email`)}
-                    </Typography>
-                ) : (
-                    <>
-                        <Typography variant="subtitle1" align="center">
-                            {t(`${tPrefix}.its-ok`)}
-                        </Typography>
-                        <Typography variant="subtitle1" align="center">
-                            {t(`${tPrefix}.input-email`)}
-                        </Typography>
-                    </>
-                )}
+                <Typography variant="subtitle1" align="center">
+                    {t(device.isDesktop ? `${tPrefix}.its-ok` : `${tPrefix}.its-ok-mobile`)}
+                </Typography>
                 <Typography variant="subtitle1" align="center">
                     {t(`${tPrefix}.receive-link`)}
                 </Typography>

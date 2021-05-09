@@ -69,8 +69,8 @@
     },
     "forgot-password-page": {
         "forgot-password": "Nie pamiętasz hasła?",
-        "its-ok": "Nic się nie stało.",
-        "input-email": "Wpisz swój adres email.",
+        "its-ok": "Nic się nie stało. Wpisz swój adres email.",
+        "its-ok-mobile": "Nic się nie stało.<br/>Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
         "continue": "Kontynuuj",
