@@ -167,7 +167,7 @@ const useStyles = makeStyles((theme) =>
             position: 'absolute',
             bottom: 0,
             right: 0,
-            zIndex: 1300,
+            zIndex: 800,
             padding: theme.spacing(0.5, 1),
             backgroundColor: theme.palette.primary.contrastText,
         },

@@ -11,23 +11,24 @@ import { LanguageSelector } from '../../LanguageSelector';
 import { AppLogo } from '../../AppLogo';
 import { useOnClickOutside } from '../../../utils/useOnClickOutside';
 import { useReadNotification } from '../../../operations/mutations/Notification/readNotification';
+import { useSidebarState } from '../../../utils/useSidebar';
 
 interface Props {
     device: Device;
     language: string;
     notifications: Notification[];
     activePage: string[];
-    onSidebarToggle: () => void;
     onLanguageChange: (language: string) => void;
 }
 
-export function Navbar({ device, language, notifications, activePage, onSidebarToggle, onLanguageChange }: Props) {
+export function Navbar({ device, language, notifications, activePage, onLanguageChange }: Props) {
     const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
     const { readNotification } = useReadNotification();
     const classes = useStyles();
     const popupRef = useRef<HTMLElement | null>(null);
     useOnClickOutside(popupRef, () => setIsNotificationPopupOpen(false));
     const { t } = useTranslation();
+    const sidebarState = useSidebarState();
 
     function handleNotificationPopupClick() {
         setIsNotificationPopupOpen((prev) => !prev);
@@ -49,7 +50,7 @@ export function Navbar({ device, language, notifications, activePage, onSidebarT
                             <AppLogo />
                         </span>
                     ) : (
-                        <IconButton onClick={onSidebarToggle}>
+                        <IconButton onClick={sidebarState.toggleSidebar}>
                             <MenuIcon />
                         </IconButton>
                     )}

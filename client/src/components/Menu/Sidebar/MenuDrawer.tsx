@@ -1,50 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Drawer, SwipeableDrawer, makeStyles, Theme, createStyles } from '@material-ui/core';
 
 import { getMenuWidth } from './getMenuWidth';
 import { Device } from '../../../queries/useBreakpoints';
+import { useSidebarState } from '../../../utils/useSidebar';
 
 interface Props {
-    onClose: () => void;
     device: Device;
-    open: boolean;
     children: React.ReactNode;
 }
 
-export function MenuDrawer({ device, onClose, children, open }: Props) {
+export function MenuDrawer({ device, children }: Props) {
     const [width] = getMenuWidth(device);
     const classes = useStyles({ width });
-    const [state, setState] = useState(false);
+    const sidebarState = useSidebarState();
 
-    useEffect(() => {
-        setState(open);
-    }, [open]);
-
-    const toggleDrawer = (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-        if (
-            event &&
-            event.type === 'keydown' &&
-            ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
-        ) {
-            return;
-        }
-        setState(isOpen);
-        setTimeout(() => {
-            onClose();
-        }, 0);
-    };
+    if (!sidebarState) return null;
 
     if (device === 'DESKTOP') {
         return (
-            <Drawer
-                variant="permanent"
-                anchor="left"
-                classes={{
-                    root: classes.drawerRoot,
-                    paper: classes.paper,
-                }}
-                open
-            >
+            <Drawer variant="permanent" anchor="left" classes={classes} open>
                 {children}
             </Drawer>
         );
@@ -54,16 +29,14 @@ export function MenuDrawer({ device, onClose, children, open }: Props) {
         <SwipeableDrawer
             variant="temporary"
             anchor="left"
-            classes={{
-                root: classes.drawerRoot,
-                paper: classes.paper,
-            }}
-            open={state}
+            classes={classes}
+            open={sidebarState.isOpen}
             ModalProps={{
                 keepMounted: true,
             }}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
+            disableSwipeToOpen={false}
+            onClose={sidebarState.closeSidebar}
+            onOpen={sidebarState.openSidebar}
         >
             {children}
         </SwipeableDrawer>
@@ -77,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: ({ width }: { width: number }) => width,
             zIndex: '900 !important' as any,
         },
-        drawerRoot: {
+        root: {
             zIndex: '900 !important' as any,
         },
     }),
