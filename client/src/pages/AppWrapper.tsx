@@ -1,24 +1,22 @@
-import React, { FC, useState } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Box } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@apollo/client';
 
 import { Theme } from '../theme/types';
-import { Me } from '../graphql/types';
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
 import { ACTIVE_PAGE } from '../graphql/localFields';
 import { Sidebar } from '../components/Menu/Sidebar/Sidebar';
 import { useGetMe } from '../operations/mutations/User/useGetMe';
 import dayjs from '../localizedMoment';
+import { UserContext } from '../utils/useMe';
+import { SidebarStateProvider } from '../utils/useSidebar';
 
-export const UserContext = React.createContext<Me | null>(null);
-
-export const AppWrapper: FC = ({ children }) => {
+export const AppWrapper: React.FC = ({ children }) => {
     const classes = useStyles();
     const { user } = useGetMe();
-    const [isOpen, setIsOpen] = useState(false);
     const { i18n } = useTranslation();
     const { data: ActivePageState } = useQuery(ACTIVE_PAGE);
     const device = useBreakpoints();
@@ -26,15 +24,36 @@ export const AppWrapper: FC = ({ children }) => {
     const history = useHistory();
     const language = localStorage.getItem('i18nextLng')!;
 
-    const handleLanguageChange = (lng: string) => {
+    if (!user) return null;
+
+    return (
+        <UserContext.Provider value={user}>
+            <SidebarStateProvider>
+                <Box display="flex">
+                    <Navbar
+                        device={device}
+                        activePage={ActivePageState.activePage}
+                        language={language}
+                        notifications={user.notifications}
+                        onLanguageChange={handleLanguageChange}
+                    />
+                    <Sidebar user={user} activePage={ActivePageState.activePage} onClick={handleClick} />
+
+                    <main className={classes.content}>
+                        <div className={classes.toolbar}>{children}</div>
+                    </main>
+                </Box>
+            </SidebarStateProvider>
+        </UserContext.Provider>
+    );
+
+    function handleLanguageChange(lng: string) {
         dayjs.locale(lng);
 
         return i18n.changeLanguage(lng);
-    };
+    }
 
     function handleClick(link?: string) {
-        setIsOpen(false);
-
         if (link === 'logout') {
             localStorage.removeItem('token');
 
@@ -43,38 +62,6 @@ export const AppWrapper: FC = ({ children }) => {
 
         if (link) return history.push(link);
     }
-
-    function handleSidebarToggle() {
-        setIsOpen((prev) => !prev);
-    }
-
-    if (!user) return null;
-
-    return (
-        <UserContext.Provider value={user}>
-            <Box display="flex">
-                <Navbar
-                    device={device}
-                    activePage={ActivePageState.activePage}
-                    language={language}
-                    notifications={user.notifications}
-                    onLanguageChange={handleLanguageChange}
-                    onSidebarToggle={handleSidebarToggle}
-                />
-                <Sidebar
-                    user={user}
-                    activePage={ActivePageState.activePage}
-                    isOpen={isOpen}
-                    onClick={handleClick}
-                    onSidebarClose={handleSidebarToggle}
-                />
-
-                <main className={classes.content}>
-                    <div className={classes.toolbar}>{children}</div>
-                </main>
-            </Box>
-        </UserContext.Provider>
-    );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
