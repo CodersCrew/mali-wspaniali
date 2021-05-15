@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { openDialog, ActionDialog } from '../../utils/openDialog';
-import { useBreakpoints } from '../../queries/useBreakpoints';
+import { useIsDevice } from '../../queries/useBreakpoints';
 import { ButtonDefault, ButtonPrimary } from '../../components/Button';
 
 type AddNoteDialogProps = {
@@ -36,7 +36,7 @@ function AddNoteDialog({
 }: AddNoteDialogProps & ActionDialog<{ note: string }>) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const device = useBreakpoints();
+    const device = useIsDevice();
     const [note, setNote] = useState(initialNote);
     const LENGTH_LIMIT = 500;
 
@@ -51,12 +51,12 @@ function AddNoteDialog({
     return (
         <Dialog
             classes={{
-                paper: clsx({ [classes.paper]: device === 'MOBILE' }),
+                container: clsx({ [classes.container]: device.isSmallMobile }),
             }}
             open
             onClose={onClose}
             maxWidth="sm"
-            fullWidth
+            fullScreen={device.isSmallMobile}
         >
             <DialogTitle>{title}</DialogTitle>
             <DialogContent dividers>
@@ -98,21 +98,23 @@ function AddNoteDialog({
                 />
                 <ButtonPrimary
                     onClick={onAccepted}
-                    disabled={note.length < 3}
+                    disabled={isSaveDisabled()}
                     variant="text"
                     innerText={t('add-results-page.add-note-modal.save')}
                 />
             </DialogActions>
         </Dialog>
     );
+
+    function isSaveDisabled() {
+        return note.length < 3 || note === initialNote;
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        paper: {
-            width: '100%',
-            minHeight: '95%',
-            margin: theme.spacing(2),
+        container: {
+            padding: theme.spacing(2),
         },
     }),
 );

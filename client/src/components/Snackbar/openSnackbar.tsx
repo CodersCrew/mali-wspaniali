@@ -3,7 +3,7 @@ import { Alert, AlertProps } from '@material-ui/lab';
 import clsx from 'clsx';
 
 import { ActionDialog, DialogResult, openDialog } from '../../utils/openDialog';
-import { useBreakpoints } from '../../queries/useBreakpoints';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     text: string;
@@ -15,7 +15,7 @@ interface Props {
 export function openSnackbar({ text, variant, severity, anchor }: Props): Promise<DialogResult> {
     return openDialog(function OpenSnackbar({ onClose }: ActionDialog) {
         const classes = useStyles();
-        const device = useBreakpoints();
+        const device = useIsDevice();
 
         return (
             <div>
@@ -27,8 +27,8 @@ export function openSnackbar({ text, variant, severity, anchor }: Props): Promis
                     classes={{
                         root: clsx({
                             [classes.laptop]: true,
-                            [classes.tablet]: device === 'TABLET',
-                            [classes.mobile]: device === 'MOBILE',
+                            [classes.tablet]: device.isTablet,
+                            [classes.mobile]: device.isMobile,
                         }),
                     }}
                 >
