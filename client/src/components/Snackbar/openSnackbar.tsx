@@ -3,7 +3,7 @@ import { Alert, AlertProps, AlertTitle } from '@material-ui/lab';
 import clsx from 'clsx';
 
 import { ActionDialog, DialogResult, openDialog } from '../../utils/openDialog';
-import { useBreakpoints } from '../../queries/useBreakpoints';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     text: string;
@@ -16,7 +16,7 @@ interface Props {
 export function openSnackbar({ text, headerText, variant, severity, anchor }: Props): Promise<DialogResult> {
     return openDialog(function OpenSnackbar({ onClose }: ActionDialog) {
         const classes = useStyles();
-        const device = useBreakpoints();
+        const device = useIsDevice();
 
         return (
             <Snackbar
@@ -26,8 +26,9 @@ export function openSnackbar({ text, headerText, variant, severity, anchor }: Pr
                 onClose={onClose}
                 classes={{
                     root: clsx({
-                        [classes.container]: device !== 'MOBILE',
-                        [classes.containerMobile]: device === 'MOBILE',
+                        [classes.laptop]: true,
+                        [classes.tablet]: device.isTablet,
+                        [classes.mobile]: device.isMobile,
                     }),
                 }}
             >
@@ -37,7 +38,7 @@ export function openSnackbar({ text, headerText, variant, severity, anchor }: Pr
                     severity={severity || 'success'}
                     variant={variant || 'filled'}
                 >
-                    {device === 'DESKTOP' && headerText && (
+                    {device.isDesktop && headerText && (
                         <AlertTitle>
                             <Typography variant="subtitle1">{headerText}</Typography>
                         </AlertTitle>
@@ -51,14 +52,16 @@ export function openSnackbar({ text, headerText, variant, severity, anchor }: Pr
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
+        laptop: {
             zIndex: 10000,
             width: '70%',
             marginTop: theme.spacing(6),
         },
-        containerMobile: {
-            zIndex: 10000,
-            marginTop: theme.spacing(8),
+        tablet: {
+            width: '702px',
+        },
+        mobile: {
+            width: theme.spacing(41),
         },
         alert: {
             width: '100%',
