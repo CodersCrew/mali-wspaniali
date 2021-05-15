@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
+import { Delete as DeleteIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -131,7 +132,8 @@ export default function AdminManageSingleAssessmentPage() {
                                         });
                                     }}
                                 >
-                                    {t('add-test-view.delete')}
+                                    <DeleteIcon />
+                                    &nbsp;{t('add-test-view.delete')}
                                 </ButtonSecondary>
                             )}
                         </Grid>
