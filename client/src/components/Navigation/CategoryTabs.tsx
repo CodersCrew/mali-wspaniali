@@ -26,7 +26,7 @@ export function CategoryTabs<T extends CategoryItem | ChildProfileCategoryItem>(
     function normalizeCategory(category: CategoryItem | ChildProfileCategoryItem) {
         return {
             label: t(`blog-categories.${category.key}`),
-            value: t(`blog-categories.${category.key}`),
+            value: category.key,
         };
     }
 
