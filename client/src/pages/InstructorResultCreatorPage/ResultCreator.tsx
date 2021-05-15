@@ -190,8 +190,7 @@ const useStyles = makeStyles((theme: Theme) =>
         footerContainer: {
             display: 'flex',
             alignItems: 'center',
-            height: 56,
-            padding: theme.spacing(1),
+            padding: theme.spacing(1, 2),
         },
     }),
 );

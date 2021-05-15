@@ -14,12 +14,10 @@ import { SecondaryLabel } from '../../Label';
 export interface Props {
     user: Me | null;
     onClick: (link?: string) => void;
-    onClose: () => void;
     active: string[];
-    open: boolean;
 }
 
-export const InstructorSidebar = ({ onClick, onClose, user, active, open }: Props) => {
+export const InstructorSidebar = ({ onClick, user, active }: Props) => {
     const device = useBreakpoints();
 
     const [, innerMargin] = getMenuWidth(device);
@@ -66,7 +64,7 @@ export const InstructorSidebar = ({ onClick, onClose, user, active, open }: Prop
 
     return (
         <div className={classes.drawer}>
-            <MenuDrawer device={device} onClose={onClose} open={open}>
+            <MenuDrawer device={device}>
                 <>
                     {device !== 'DESKTOP' && <LabeledHeader />}
                     {drawer}
