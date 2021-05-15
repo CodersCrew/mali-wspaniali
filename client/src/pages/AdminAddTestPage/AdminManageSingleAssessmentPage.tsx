@@ -123,6 +123,7 @@ export default function AdminManageSingleAssessmentPage() {
                                         openQuestionDialog({
                                             title: t('add-test-view.delete-test-dialog.title'),
                                             description: t('add-test-view.delete-test-dialog.description'),
+                                            primaryButtonLabel: t('question-dialog.delete'),
                                         }).then(({ decision }) => {
                                             if (decision?.accepted) {
                                                 submit({ isDeleted: true });
