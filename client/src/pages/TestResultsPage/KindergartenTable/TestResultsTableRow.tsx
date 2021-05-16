@@ -28,7 +28,7 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
             <TableRow className={classes.root}>
                 <TableCell>
                     <Tooltip title={expandIconTooltip}>
-                        <IconButton className={classes.button} aria-label="expand row" onClick={() => setOpen(!open)}>
+                        <IconButton size="small" aria-label="expand row" onClick={() => setOpen(!open)}>
                             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </IconButton>
                     </Tooltip>
@@ -43,7 +43,7 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                         <IconButton
                             className={classes.button}
                             aria-label="edit kindergarten"
-                            size="medium"
+                            size="small"
                             onClick={() => onEditClick(kindergarten)}
                         >
                             <EditIcon />
