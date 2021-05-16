@@ -125,6 +125,13 @@ export default function InstructorAddResultsPage() {
                                 compact
                             />
                         }
+                        subheader={
+                            <AssessmentSubheader
+                                results={kindergartenResults}
+                                max={maxResults}
+                                assessment={currentAssessment}
+                            />
+                        }
                         container={
                             <ChildListCompactContainer
                                 assessment={currentAssessment}

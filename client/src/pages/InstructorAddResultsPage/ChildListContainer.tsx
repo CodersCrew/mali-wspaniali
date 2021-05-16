@@ -19,19 +19,20 @@ interface Props {
 
 export function ChildListContainer(props: Props) {
     const { t } = useTranslation();
-    const isFirstMeasurementDisabled = props.assessment.firstMeasurementStatus !== 'active';
-    const isLastMeasurementDisabled = props.assessment.lastMeasurementStatus !== 'active';
+    const { childList, results, assessment, fullNameSortType, ageSortType, onClick } = props;
+    const isFirstMeasurementDisabled = assessment.firstMeasurementStatus !== 'active';
+    const isLastMeasurementDisabled = assessment.lastMeasurementStatus !== 'active';
     const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;
 
     return (
         <Table size="small">
             <TableHead>
                 <TableRow>
-                    <TableCell onClick={() => props.onClick('full-name', '')}>
-                        <SortableHeaderItem label={t('add-results-page.full-name')} type={props.fullNameSortType} />
+                    <TableCell onClick={() => onClick('full-name', '')}>
+                        <SortableHeaderItem label={t('add-results-page.full-name')} type={fullNameSortType} />
                     </TableCell>
-                    <TableCell onClick={() => props.onClick('age', '')} align="center">
-                        <SortableHeaderItem label={t('add-results-page.age')} type={props.ageSortType} />
+                    <TableCell onClick={() => onClick('age', '')}>
+                        <SortableHeaderItem label={t('add-results-page.age')} type={ageSortType} isCenter />
                     </TableCell>
                     <TableCell align="center">{t('add-results-page.first-assessment')}</TableCell>
                     <TableCell align="center">{t('add-results-page.last-assessment')}</TableCell>
@@ -39,7 +40,7 @@ export function ChildListContainer(props: Props) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {props.childList.map((c) => {
+                {childList.map((c) => {
                     const firstNote = getFirstNote(c._id);
                     const lastNote = getLastNote(c._id);
                     const firstMeasurementResultCount = countMeasurementResults('first', c._id);
@@ -59,9 +60,7 @@ export function ChildListContainer(props: Props) {
                                                 <Grid item sm={12} md={8}>
                                                     <CustomIconButton
                                                         color={matchResultWithColor(firstMeasurementResultCount)}
-                                                        onClick={() =>
-                                                            props.onClick('add-first-assessment-result', c._id)
-                                                        }
+                                                        onClick={() => onClick('add-first-assessment-result', c._id)}
                                                         disabled={isFirstMeasurementDisabled}
                                                         icon={
                                                             <BarChart
@@ -82,7 +81,7 @@ export function ChildListContainer(props: Props) {
                                         <Box display="flex" alignItems="center" justifyContent="center">
                                             <CustomIconButton
                                                 color={firstNote ? 'success' : 'default'}
-                                                onClick={() => props.onClick('add-first-assessment-note', c._id)}
+                                                onClick={() => onClick('add-first-assessment-note', c._id)}
                                                 disabled={isFirstMeasurementDisabled}
                                                 icon={<EventNote titleAccess={t('add-results-page.add-note')} />}
                                             />
@@ -98,9 +97,7 @@ export function ChildListContainer(props: Props) {
                                                 <Grid item sm={12} md={8}>
                                                     <CustomIconButton
                                                         color={matchResultWithColor(lastMeasurementResultCount)}
-                                                        onClick={() =>
-                                                            props.onClick('add-last-assessment-result', c._id)
-                                                        }
+                                                        onClick={() => onClick('add-last-assessment-result', c._id)}
                                                         disabled={isLastMeasurementDisabled}
                                                         icon={
                                                             <BarChart
@@ -120,7 +117,7 @@ export function ChildListContainer(props: Props) {
                                     <Grid item sm={6} md={4}>
                                         <CustomIconButton
                                             color={lastNote ? 'success' : 'default'}
-                                            onClick={() => props.onClick('add-last-assessment-note', c._id)}
+                                            onClick={() => onClick('add-last-assessment-note', c._id)}
                                             disabled={isLastMeasurementDisabled}
                                             icon={<EventNote titleAccess={t('add-results-page.add-note')} />}
                                         />
@@ -128,10 +125,7 @@ export function ChildListContainer(props: Props) {
                                 </Grid>
                             </TableCell>
                             <TableCell align="center">
-                                <IconButton
-                                    onClick={() => props.onClick('see-results', c._id)}
-                                    disabled={isResultDisabled}
-                                >
+                                <IconButton onClick={() => onClick('see-results', c._id)} disabled={isResultDisabled}>
                                     <AssessmentIcon titleAccess={t('add-results-page.see-results')} />
                                 </IconButton>
                             </TableCell>
@@ -151,24 +145,24 @@ export function ChildListContainer(props: Props) {
     }
 
     function getFirstNote(childId: string) {
-        return props.results.find((r) => r.childId === childId)?.firstMeasurementNote;
+        return results.find((r) => r.childId === childId)?.firstMeasurementNote;
     }
 
     function getLastNote(childId: string) {
-        return props.results.find((r) => r.childId === childId)?.lastMeasurementNote;
+        return results.find((r) => r.childId === childId)?.lastMeasurementNote;
     }
 
     function countMeasurementResults(measurement: string, childId: string) {
-        const childResult = props.results.find((r) => r.childId === childId);
+        const childResult = results.find((r) => r.childId === childId);
 
         return childResult ? countProgress(measurement, childResult) : 0;
     }
 }
 
-function SortableHeaderItem({ type, label }: { type: string; label: string }) {
+function SortableHeaderItem({ type, label, isCenter }: { type: string; label: string; isCenter?: boolean }) {
     return (
         <Clickable>
-            <Box display="flex" justifyItems="center">
+            <Box display="flex" justifyContent={isCenter ? 'center' : 'left'}>
                 <Box mr={1}>{label}</Box>
                 <ArrowItem type={type} />
             </Box>
@@ -177,7 +171,7 @@ function SortableHeaderItem({ type, label }: { type: string; label: string }) {
 }
 
 function ArrowItem({ type }: { type: string }) {
-    if (type === '') return <>-</>;
+    if (type === '') return <ArrowUpward color="disabled" />;
 
     if (type === 'asc') return <ArrowUpward />;
 

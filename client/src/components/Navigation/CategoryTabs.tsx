@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { Tabs } from '../Tabs/Tabs';
 import { theme } from '../../theme/theme';
@@ -10,6 +12,8 @@ interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
 }
 
 export function CategoryTabs<T extends CategoryItem | ChildProfileCategoryItem>(props: Props<T>) {
+    const { t } = useTranslation();
+
     return (
         <Tabs
             currentCategory={getCurrentNormalizedCategory()}
@@ -21,7 +25,7 @@ export function CategoryTabs<T extends CategoryItem | ChildProfileCategoryItem>(
 
     function normalizeCategory(category: CategoryItem | ChildProfileCategoryItem) {
         return {
-            label: category.name,
+            label: t(`blog-categories.${category.key}`),
             value: category.key,
         };
     }

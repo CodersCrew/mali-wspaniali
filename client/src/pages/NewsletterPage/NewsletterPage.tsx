@@ -1,6 +1,16 @@
 import { useEffect } from 'react';
 import clsx from 'clsx';
-import { Typography, makeStyles, createStyles, Theme, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
+import {
+    Typography,
+    makeStyles,
+    createStyles,
+    Theme,
+    Stepper,
+    Step,
+    StepLabel,
+    StepContent,
+    StepConnector,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik, FormikErrors, FormikTouched } from 'formik';
 
@@ -77,12 +87,17 @@ export default function NewsletterPage() {
                                 touched={touched}
                             />
                         </StepContent>
+                        <StepConnector
+                            classes={{
+                                root: classes.rootConnecter,
+                                lineVertical: classes.lineVertical,
+                            }}
+                        />
                     </Step>
                     <Step
                         expanded
                         className={clsx({
                             [classes.step]: true,
-                            [classes.stepLong]: areSpecificRecipientsRequired(specificRecipientType),
                         })}
                         active={firstStepCompleted}
                         completed={secondStepCompleted}
@@ -228,28 +243,15 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             width: '100%',
             marginTop: theme.spacing(3),
-
-            '& .MuiStepConnector-alternativeLabel': {
-                top: '-177px',
-                left: '46.5px',
-                height: '200px',
-                width: '1px',
-                padding: 0,
-                margin: 0,
-
-                '& .MuiStepConnector-lineVertical': {
-                    height: '167px',
-                },
-            },
         },
-
-        stepLong: {
-            '& .MuiStepConnector-alternativeLabel': {
-                top: '-249px',
-                '& .MuiStepConnector-lineVertical': {
-                    height: '239px',
-                },
-            },
+        rootConnecter: {
+            top: '70px',
+            left: '46.5px',
+            margin: 0,
+            height: '83%',
+        },
+        lineVertical: {
+            height: '100%',
         },
     }),
 );
