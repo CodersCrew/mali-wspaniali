@@ -53,8 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             zIndex: 10000,
-            width: '70%',
-            marginTop: theme.spacing(6),
+            width: '70%'          
         },
         containerMobile: {
             zIndex: 10000,
