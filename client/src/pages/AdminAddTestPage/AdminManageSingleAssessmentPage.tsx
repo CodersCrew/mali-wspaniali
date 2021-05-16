@@ -7,7 +7,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { BasicInformationForm } from './BasicInformationForm/BasicInformationForm';
 import { KindergartenPicker } from './KindergartenPicker';
-import { TestInformation } from './TestInformation';
 import { useAssessmentManager, SuccessState, ErrorState } from './useAssessmentManager';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { ButtonSecondary } from '../../components/Button';
@@ -95,9 +94,6 @@ export default function AdminManageSingleAssessmentPage() {
                                             onChange={updateAssessment}
                                         />
                                     )}
-                                </Grid>
-                                <Grid item sm={12}>
-                                    <TestInformation />
                                 </Grid>
                             </Grid>
                         </Grid>
