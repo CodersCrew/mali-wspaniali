@@ -1,5 +1,15 @@
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    TablePagination,
+} from '@material-ui/core';
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { Kindergarten } from '../../../graphql/types';
 
@@ -10,6 +20,8 @@ interface Props {
 
 export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
     const { t } = useTranslation();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     return (
         <TableContainer component={Paper}>
@@ -24,7 +36,10 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {kindergartens.map((kindergarten) => (
+                    {(rowsPerPage > 0
+                        ? kindergartens.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : kindergartens
+                    ).map((kindergarten) => (
                         <TestResultsTableRow
                             key={kindergarten._id}
                             kindergarten={kindergarten}
@@ -33,6 +48,29 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
                     ))}
                 </TableBody>
             </Table>
+            <TablePagination
+                rowsPerPageOptions={countRowsPerPageOptions()}
+                component="div"
+                labelRowsPerPage={t('test-results.rows-number')}
+                count={kindergartens.length}
+                page={page}
+                onChangePage={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
         </TableContainer>
     );
+
+    function handleChangePage(event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) {
+        setPage(newPage);
+    }
+
+    function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    }
+
+    function countRowsPerPageOptions() {
+        return [5, 10, 25].filter((v) => kindergartens.length >= v);
+    }
 };

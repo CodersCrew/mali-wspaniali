@@ -143,7 +143,9 @@
         "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko",
         "button-icon-edit-tooltip": "Edytuj",
         "button-icon-expand-tooltip": "Rozwiń",
-        "button-icon-results-tooltip": "Wyniki"
+        "button-icon-results-tooltip": "Wyniki",
+        "rows-number": "Pokazuj w tabeli:",
+        "edit": "Edytuj"
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -704,8 +706,8 @@
         },
         "test-list": {
             "name": "Nazwa testu",
-            "first-assessment": "Próba początkowa",
-            "last-assessment": "Próba końcowa",
+            "first-assessment": "Pomiar początkowy",
+            "last-assessment": "Pomiar końcowy",
             "status": "Status",
             "active": "Aktywny",
             "done": "Zakończony",
@@ -713,7 +715,9 @@
             "not-planned": "Niezaplanowany",
             "details": "Zobacz szczegóły",
             "delete": "Skasuj",
-            "edit": "Edytuj dane"
+            "edit": "Edytuj dane",
+            "rows-number": "Pokazuj w tabeli:",
+            "edit-button": "Edytuj"
         }
     },
     "add-test-view": {

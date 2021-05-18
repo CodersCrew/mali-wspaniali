@@ -15,6 +15,16 @@ export function StatusChip({ value }: { value: string }) {
         );
     }
 
+    if (value === 'planned') {
+        return (
+            <Chip
+                size="small"
+                label={t('manage-test-view.test-list.planned')}
+                classes={{ root: classes.plannedLabel }}
+            />
+        );
+    }
+
     if (value === 'done') {
         return <Chip size="small" label={t('manage-test-view.test-list.done')} classes={{ root: classes.doneLabel }} />;
     }
@@ -30,6 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         doneLabel: {
             background: theme.palette.grey[300],
+        },
+        plannedLabel: {
+            color: theme.palette.secondary.contrastText,
+            background: theme.palette.info.main,
         },
     }),
 );

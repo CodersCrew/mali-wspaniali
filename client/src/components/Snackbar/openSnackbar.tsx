@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
         laptop: {
             zIndex: 10000,
             width: '70%',
-            marginTop: theme.spacing(6),
         },
         tablet: {
             width: '702px',

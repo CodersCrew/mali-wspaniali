@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell, IconButton, makeStyles, Theme, fade, Tooltip } from '@material-ui/core';
+import { TableRow, TableCell, IconButton, makeStyles, Tooltip, Theme, fade } from '@material-ui/core';
 import {
     Edit as EditIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -16,7 +16,7 @@ interface Props {
 
 export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     const { t } = useTranslation();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
     const { number, name, address, city } = kindergarten;
@@ -25,10 +25,10 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
 
     return (
         <>
-            <TableRow className={classes.root}>
+            <TableRow className={classes.root} onClick={() => setOpen((prev) => !prev)}>
                 <TableCell>
                     <Tooltip title={expandIconTooltip}>
-                        <IconButton className={classes.button} aria-label="expand row" onClick={() => setOpen(!open)}>
+                        <IconButton size="small" aria-label="expand row">
                             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </IconButton>
                     </Tooltip>
@@ -43,7 +43,8 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                         <IconButton
                             className={classes.button}
                             aria-label="edit kindergarten"
-                            onClick={() => onEditClick(kindergarten)}
+                            size="small"
+                            onClick={onEditButtonClick}
                         >
                             <EditIcon />
                         </IconButton>
@@ -53,6 +54,12 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
             <KindergartenChildrenTable open={open} />
         </>
     );
+
+    function onEditButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+        e.stopPropagation();
+
+        onEditClick(kindergarten);
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -60,6 +67,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         '& > *': {
             borderBottom: 'unset',
         },
+        '&:hover': {
+            backgroundColor: theme.palette.background.default,
+        },
+        cursor: 'pointer',
     },
     button: {
         '&:hover': {

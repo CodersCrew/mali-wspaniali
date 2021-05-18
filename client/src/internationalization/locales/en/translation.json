@@ -348,7 +348,9 @@
         "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it",
         "button-icon-edit-tooltip": "Edit",
         "button-icon-expand-tooltip": "Expand",
-        "button-icon-results-tooltip": "Results"
+        "button-icon-results-tooltip": "Results",
+        "rows-number": "Rows per page:",
+        "edit": "Edit"
     },
     "kindergarten-modal": {
         "city": "City",
@@ -655,7 +657,9 @@
             "not-planned": "Not planned",
             "details": "See details",
             "delete": "Delete",
-            "edit": "Edit"
+            "edit": "Edit",
+            "rows-number": "Rows per page:",
+            "edit-button": "Edit"
         }
     },
     "add-test-view": {
