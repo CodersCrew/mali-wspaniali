@@ -39,11 +39,8 @@ export default function AdminManageSingleAssessmentPage() {
         if ('errors' in result) {
             openSnackbar({ text: t(result.errors), severity: 'error' });
         } else {
-            openSnackbar({ text: result.message! }).then((dialogResult) => {
-                if (dialogResult.close) {
-                    redirectIntoTestPage();
-                }
-            });
+            openSnackbar({ text: result.message! });
+            redirectIntoTestPage();
         }
     }
 

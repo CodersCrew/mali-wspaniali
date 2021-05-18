@@ -25,10 +25,10 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
 
     return (
         <>
-            <TableRow className={classes.root}>
+            <TableRow className={classes.root} onClick={() => setOpen(!open)}>
                 <TableCell>
                     <Tooltip title={expandIconTooltip}>
-                        <IconButton size="small" aria-label="expand row" onClick={() => setOpen(!open)}>
+                        <IconButton size="small" aria-label="expand row">
                             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </IconButton>
                     </Tooltip>
@@ -61,6 +61,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         '& > *': {
             borderBottom: 'unset',
         },
+        '&:hover': {
+            backgroundColor: theme.palette.background.default,
+        },
+        cursor: 'pointer',
     },
     button: {
         '&:hover': {
