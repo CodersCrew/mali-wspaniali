@@ -638,6 +638,7 @@
         "logout": "Wyloguj"
     },
     "instructor-menu": {
+        "results-table": "Tabela wyników",
         "add-results": "Dodaj wyniki",
         "notifications": "Powiadomienia",
         "settings": "Ustawienia",
@@ -933,7 +934,7 @@
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
-        "back-to-table": "Wróć",
+        "back-to-table": "Wróć do tabeli",
         "back-to-results": "Wróć do wpisywania wyniku",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",
