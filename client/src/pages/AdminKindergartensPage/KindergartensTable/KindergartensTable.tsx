@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Table,
@@ -20,17 +20,8 @@ interface Props {
 
 export const KindergartensTable = ({ kindergartens, onEditClick }: Props) => {
     const { t } = useTranslation();
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-
-    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     return (
         <TableContainer component={Box}>
@@ -57,7 +48,7 @@ export const KindergartensTable = ({ kindergartens, onEditClick }: Props) => {
                 </TableBody>
             </Table>
             <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={countRowsPerPageOptions()}
                 component="div"
                 labelRowsPerPage={t('test-results.rows-number')}
                 count={kindergartens.length}
@@ -68,4 +59,17 @@ export const KindergartensTable = ({ kindergartens, onEditClick }: Props) => {
             />
         </TableContainer>
     );
+
+    function handleChangePage(event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) {
+        setPage(newPage);
+    }
+
+    function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    }
+
+    function countRowsPerPageOptions() {
+        return [5, 10, 25].filter((v) => kindergartens.length >= v);
+    }
 };

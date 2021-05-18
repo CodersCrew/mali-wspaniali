@@ -14,8 +14,6 @@ export function AssessmentItem({ value, onClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const editIconTooltip = t('manage-test-view.test-list.edit-button');
-
     return (
         <TableRow key={value.title} hover onClick={handleRowClick} className={classes.row}>
             <TableCell component="th" scope="row">
@@ -34,7 +32,7 @@ export function AssessmentItem({ value, onClick }: Props) {
             <TableCell align="center">
                 <div className={classes.itemRoot}>
                     <div className="actionButtons">
-                        <Tooltip title={editIconTooltip}>
+                        <Tooltip title={<>{t('manage-test-view.test-list.edit-button')}</>}>
                             <IconButton className={classes.editButton} size="small" onClick={handleEditClick}>
                                 <EditIcon />
                             </IconButton>
@@ -48,7 +46,7 @@ export function AssessmentItem({ value, onClick }: Props) {
         </TableRow>
     );
 
-    function handleRowClick(e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) {
+    function handleRowClick() {
         onClick('details', value._id);
     }
 

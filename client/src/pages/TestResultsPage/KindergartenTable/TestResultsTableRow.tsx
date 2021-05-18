@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, makeStyles, Tooltip, Theme, fade } from '@material-ui/core';
 import {
@@ -16,7 +16,7 @@ interface Props {
 
 export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     const { t } = useTranslation();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
     const { number, name, address, city } = kindergarten;
@@ -25,7 +25,7 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
 
     return (
         <>
-            <TableRow className={classes.root} onClick={() => setOpen(!open)}>
+            <TableRow className={classes.root} onClick={() => setOpen((prev) => !prev)}>
                 <TableCell>
                     <Tooltip title={expandIconTooltip}>
                         <IconButton size="small" aria-label="expand row">
@@ -44,7 +44,7 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                             className={classes.button}
                             aria-label="edit kindergarten"
                             size="small"
-                            onClick={() => onEditClick(kindergarten)}
+                            onClick={onEditButtonClick}
                         >
                             <EditIcon />
                         </IconButton>
@@ -54,6 +54,12 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
             <KindergartenChildrenTable open={open} />
         </>
     );
+
+    function onEditButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+        e.stopPropagation();
+
+        onEditClick(kindergarten);
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
