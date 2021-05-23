@@ -80,13 +80,13 @@ export function ChildPicker({
                     <List disablePadding className={classes.list}>
                         <Divider />
                         {getFilteredChildrenByName().map((c) => {
-                            return ( 
+                            return (
                                 <ChildItem
-                                key={c._id}
-                                child={c}
-                                selected={c._id === selected}
-                                progress={countResultProgress(c._id)}
-                                onClick={() => onClick('child', c._id)}
+                                    key={c._id}
+                                    child={c}
+                                    selected={c._id === selected}
+                                    progress={countResultProgress(c._id)}
+                                    onClick={() => onClick('child', c._id)}
                                 />
                             );
                         })}
