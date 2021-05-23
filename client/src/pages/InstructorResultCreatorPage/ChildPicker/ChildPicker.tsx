@@ -77,16 +77,16 @@ export function ChildPicker({
                             />
                         </Grid>
                     </Grid>
-                    <List disablePadding>
+                    <List disablePadding className={classes.list}>
                         <Divider />
                         {getFilteredChildrenByName().map((c) => {
-                            return (
+                            return ( 
                                 <ChildItem
-                                    key={c._id}
-                                    child={c}
-                                    selected={c._id === selected}
-                                    progress={countResultProgress(c._id)}
-                                    onClick={() => onClick('child', c._id)}
+                                key={c._id}
+                                child={c}
+                                selected={c._id === selected}
+                                progress={countResultProgress(c._id)}
+                                onClick={() => onClick('child', c._id)}
                                 />
                             );
                         })}
@@ -118,7 +118,14 @@ export function ChildPicker({
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        list: {
+            // flex: '1 1 auto',
+            // backgroundColor: 'green',
+            // maxHeight: '100%',
+            // overflowX: 'hidden',
+        },
         container: {
+            // backgroundColor: 'red',
             padding: theme.spacing(2, 2, 0, 2),
         },
         fullWidth: {

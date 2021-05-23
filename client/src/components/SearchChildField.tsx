@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Grid, IconButton, Typography } from '@material-ui/core';
+import { Box, Grid, IconButton, Typography, Theme, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { OutlinedTextField } from './OutlinedTextField';
@@ -71,6 +71,7 @@ interface ExtendedSearchFieldProps {
 function ExtendedSearchField(props: ExtendedSearchFieldProps) {
     const { t } = useTranslation();
     const placeholder = t('add-results-page.search-by-child-firstname');
+    const classes = useStyles();
 
     return (
         <Grid container direction="column">
@@ -82,7 +83,7 @@ function ExtendedSearchField(props: ExtendedSearchFieldProps) {
                     }}
                 />
             </Grid>
-            <Grid item>
+            <Grid item className={classes.searchField}>
                 <Box mb={1}>
                     <OutlinedTextField
                         label={placeholder}
@@ -95,3 +96,11 @@ function ExtendedSearchField(props: ExtendedSearchFieldProps) {
         </Grid>
     );
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        searchField: {
+            marginTop: theme.spacing(2),
+        }
+    }),
+);
