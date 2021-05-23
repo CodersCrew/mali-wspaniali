@@ -29,16 +29,13 @@ export default function ChildResultsPage() {
         }
     }, [user, child, category]);
 
-    function onTabChange(value: string) {
-        history.push(`/parent/child/${child?._id}/${value}`);
-    }
-
     if (!user || !child) {
         return (
             <>
                 <MobileAwareCategoryTabs
                     onChange={onTabChange}
                     activeCategory={category}
+                    name="results"
                     categories={childProfileCategoriesList}
                 />
                 <EmptyProfile />
@@ -51,6 +48,7 @@ export default function ChildResultsPage() {
             <MobileAwareCategoryTabs
                 onChange={onTabChange}
                 activeCategory={category}
+                name="results"
                 categories={childProfileCategoriesList}
             />
             <PageContainer>
@@ -68,6 +66,10 @@ export default function ChildResultsPage() {
             </PageContainer>
         </>
     );
+
+    function onTabChange(value: string) {
+        history.push(`/parent/child/${child?._id}/${value}`);
+    }
 }
 
 function EmptyProfile() {

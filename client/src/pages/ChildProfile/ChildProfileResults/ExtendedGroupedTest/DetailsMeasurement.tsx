@@ -1,6 +1,5 @@
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, Box, createStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { createStyles, Theme, Typography } from '@material-ui/core';
 import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
@@ -19,7 +18,7 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
     const classes = useStyles({ color });
 
     return (
-        <div className={classes.container}>
+        <div>
             <div className={classes.chartWrapper}>
                 <CircleChart
                     color={color}
@@ -29,17 +28,19 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
                     labelSuffix={unitOfMeasure}
                 />
             </div>
-            <div className={classes.testName}>{t(`child-profile.tests-in-block.${translationKey}`)}</div>
-            <Typography variant="subtitle2" className={classes.description}>
-                {t(`child-profile.tests-informations.conditions.test-${translationKey}-description`)}
+            <Box mt={2} mb={1}>
+                <Typography variant="h4">{t(`child-profile.tests-in-block.${translationKey}`)}</Typography>
+            </Box>
+            <Typography variant="body2" className={classes.description}>
+                {t(`child-profile.test-description.${translationKey}`)}
             </Typography>
-            <Typography variant="subtitle2" className={classes.levelLabel}>
-                {t('child-profile.result-level')}
-            </Typography>
+            <Box mb={1}>
+                <Typography variant="subtitle1">{t('child-profile.result-level')}</Typography>
+            </Box>
             <Typography variant="subtitle2" className={classes.level}>
                 {t(`child-profile.result-levels.${key}`)}
             </Typography>
-            <Typography variant="subtitle2">{t('child-profile.received-points')}:</Typography>
+            <Typography variant="subtitle1">{t('child-profile.received-points')}:</Typography>
             <div className={classes.points}>
                 {valueInPoints} {t('child-profile.pts')}
             </div>
@@ -49,21 +50,9 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            padding: theme.spacing(0),
-            marginTop: theme.spacing(1),
-        },
         chartWrapper: {
             width: theme.spacing(13.75),
             position: 'relative',
-        },
-        testName: {
-            fontFamily: 'Montserrat',
-            fontSize: '15px',
-            textTransform: 'uppercase',
-            marginTop: '15px',
-            marginBottom: '10px',
-            fontWeight: 'bold',
         },
         points: {
             fontFamily: 'Montserrat',
@@ -84,9 +73,6 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingBottom: '7px',
             textTransform: 'uppercase',
             color: ({ color }: { color: string }) => color,
-        },
-        levelLabel: {
-            paddingBottom: '7px',
         },
         detailsButton: {
             marginLeft: 'auto',

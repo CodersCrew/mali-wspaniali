@@ -302,6 +302,12 @@
             "speed": "Próba szybkości",
             "agility": "Próba zwinności"
         },
+        "test-description": {
+            "agility": "Bieg wahadłowy 4x5 m",
+            "power": "Skok w dal obunóż z miejsca",
+            "strength": "Rzut piłką lekarską znad głowy",
+            "speed": "Bieg na odległość 20 metrów"
+        },
         "no-result-block-text": "nie odbyła się lub dziecko nie było w stanie uczestniczyć tego dnia w teście.",
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
@@ -384,10 +390,10 @@
                 "test2-description": "Skok w dal obunóż z miejsca",
                 "test2-scale": "Skala: 0 cm - 80 cm",
                 "test3-name": "Siła",
-                "test3-description": "Bieg na odległość 20 metrów",
+                "test3-description": "Rzut piłką lekarską zza głowy",
                 "test3-scale": "Skala: 0 s - 80 s",
                 "test4-name": "Szybkość",
-                "test4-description": "Bieg wahadłowy 4x5 m",
+                "test4-description": "Bieg na odległość 20 metrów",
                 "test4-scale": "Skala: 0 s - 80 s"
             },
             "results": {

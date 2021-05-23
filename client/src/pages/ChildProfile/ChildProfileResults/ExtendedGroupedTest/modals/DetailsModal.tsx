@@ -1,4 +1,4 @@
-import { createStyles, DialogContent, Grid, Hidden, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, DialogContent, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
@@ -6,6 +6,7 @@ import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
 import { DetailsMeasurement } from '../DetailsMeasurement';
 import Results from '../Results';
 import { MeasurementProps } from '../types';
+import { useIsDevice } from '../../../../../queries/useBreakpoints';
 
 const T_DETAILS_PREFIX = 'child-profile.details-modal';
 
@@ -16,6 +17,7 @@ type DetailsModalProps = {
 
 const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
+    const device = useIsDevice();
 
     const percentile = 36;
 
@@ -36,30 +38,23 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
     return (
         <BasicModal
             actionName={t('close')}
-            isOpen={true}
-            onClose={() => onClose()}
-            isCancelButtonVisible={true}
+            isOpen
+            onClose={onClose}
+            isCancelButtonVisible
             dialogProps={{ maxWidth: 'md' }}
             closeButtonText={t('close')}
-            isActionButtonSecondary={false}
         >
-            <DialogContent>
-                <Grid container>
-                    <Grid lg={4} md={4} xs={12} item container direction="row" justify="center">
-                        <Grid
-                            lg={8}
-                            md={6}
-                            xs={8}
-                            item
-                            container
-                            direction="column"
-                            justify="space-between"
-                            className={classes.measurement}
-                        >
+            <DialogContent classes={{ root: classes.content }}>
+                <Box
+                    display="flex"
+                    flexDirection={device.isSmallMobile ? 'column' : 'row'}
+                    alignItems={device.isSmallMobile && 'center'}
+                >
+                    <Box minWidth="176" p={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
+                        <Box display="flex" flexDirection="column" justifyContent="space-between">
                             <DetailsMeasurement measurmentProps={measurementProps} />
                             <Hidden only="xs">
                                 <Grid item>
-                                    {' '}
                                     <Typography variant="subtitle2">
                                         {t(`${T_DETAILS_PREFIX}.next-assesment.title`)}
                                     </Typography>
@@ -69,9 +64,9 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
                                     </Typography>
                                 </Grid>
                             </Hidden>
-                        </Grid>
-                    </Grid>
-                    <Grid lg={8} md={8} item>
+                        </Box>
+                    </Box>
+                    <Box display="flex" flex="1" flexDirection="column" p={2}>
                         <Typography className={classes.typographySpacing} variant="h4">
                             {t(`${T_DETAILS_PREFIX}.assesment-details`)}
                         </Typography>
@@ -81,7 +76,9 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
                         <Typography className={(classes.typographySpacing, classes.titleSpacing)} variant="h4">
                             {t(`${T_DETAILS_PREFIX}.result-details.title`)}
                         </Typography>
-                        <Results resultsData={resultsData} />
+                        <Box pl={4} pr={4} maxWidth="95%">
+                            <Results resultsData={resultsData} />
+                        </Box>
                         <Grid container>
                             <Grid item>
                                 <Typography className={classes.typographySpacing} variant="subtitle2">
@@ -128,8 +125,8 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
                             {resultsData.unit}
                             {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-3`)}
                         </Typography>
-                    </Grid>
-                </Grid>
+                    </Box>
+                </Box>
             </DialogContent>
         </BasicModal>
     );
@@ -151,6 +148,9 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('md')]: {
                 marginBottom: theme.spacing(3),
             },
+        },
+        content: {
+            padding: theme.spacing(1),
         },
     }),
 );

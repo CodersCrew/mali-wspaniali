@@ -16,9 +16,9 @@ interface Props {
     translationKey: string;
 }
 
-export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure, translationKey }: Props) => {
+export const Measurement = (props: Props) => {
     const { t } = useTranslation();
-    const { color, key } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
+    const { color, key } = getResultColorAndLabel(props.valueInPoints, MAX_POINTS_FOR_TEST);
 
     const classes = useStyles({ color });
 
@@ -27,20 +27,20 @@ export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure
             <div className={classes.chartWrapper}>
                 <CircleChart
                     color={color}
-                    value={valueInPoints}
+                    value={props.valueInPoints}
                     maxValue={MAX_POINTS_FOR_TEST}
-                    label={String(valueInUnitOfMeasure)}
-                    labelSuffix={unitOfMeasure}
+                    label={String(props.valueInUnitOfMeasure)}
+                    labelSuffix={props.unitOfMeasure}
                 />
             </div>
             <Typography variant="h4" className={classes.testName}>
-                {t(`child-profile.tests-in-block.${translationKey}`)}
+                {t(`child-profile.tests-in-block.${props.translationKey}`)}
             </Typography>
             <Typography variant="body2" className={classes.description}>
-                {t(`child-profile.tests-informations.conditions.test-${translationKey}-description`)}
+                {t(`child-profile.test-description.${props.translationKey}`)}
             </Typography>
             <Typography variant="subtitle2" className={classes.levelLabel}>
-                {t('hild-profile.result-level')}
+                {t('child-profile.result-level')}
             </Typography>
             <Typography variant="subtitle2" className={classes.level}>
                 {t(`child-profile.result-levels.${key}`)}
@@ -49,7 +49,7 @@ export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure
                 {t('child-profile.received-points')}:
             </Typography>
             <div className={classes.points}>
-                {valueInPoints} {t('child-profile.pts')}
+                {props.valueInPoints} {t('child-profile.pts')}
             </div>
             <ButtonSecondary
                 variant="text"
@@ -58,12 +58,7 @@ export const Measurement = ({ valueInUnitOfMeasure, valueInPoints, unitOfMeasure
                 onClick={() => {
                     openDetailsModal({
                         isCancelButtonVisible: true,
-                        measurementProps: {
-                            valueInUnitOfMeasure,
-                            valueInPoints,
-                            unitOfMeasure,
-                            translationKey,
-                        },
+                        measurementProps: props,
                     }).then((res) => {
                         if (!res.close)
                             openSnackbar({
