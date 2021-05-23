@@ -8,6 +8,7 @@ import { theme } from '../../theme/theme';
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     onChange: (value: string) => void;
     currentCategory: string;
+    name: string;
     categories: T[];
 }
 

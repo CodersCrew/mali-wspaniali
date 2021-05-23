@@ -10,3 +10,10 @@ export type ResultsData = {
     hasScoreRangeLabels: boolean;
     sex: string;
 };
+
+export type MeasurementProps = {
+    valueInUnitOfMeasure: number;
+    valueInPoints: number;
+    unitOfMeasure: string;
+    translationKey: string;
+};

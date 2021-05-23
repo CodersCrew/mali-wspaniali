@@ -169,6 +169,7 @@
         "advice": "Advice",
         "initial-test": "Initial test",
         "final-test": "Final test",
+        "result-level": "Feature level",
         "result-description": {
             "bad": "LOW FITNESS LEVEL",
             "medium": "MEDIUM FITNESS LEVEL",
@@ -192,6 +193,12 @@
             "power": "Power test",
             "speed": "Speed test",
             "agility": "Agility test"
+        },
+        "test-description": {
+            "agility": "4 x 5 m pendulum run",
+            "power": "Take both long jump from the spot",
+            "strength": "Medicine ball throw from behind the head",
+            "speed": "Run 20 meters"
         },
         "no-result-block-text": "did not take place or the child was unable to participate in the test that day.",
         "scale": "Scale",
@@ -246,10 +253,10 @@
                 "test2-description": "Take both long jump from the spot",
                 "test2-scale": "Scale: 0 cm - 80 cm",
                 "test3-name": "Force",
-                "test3-description": "Run 20 meters",
+                "test3-description": "Medicine ball throw from behind the head",
                 "test3-scale": "Scale: 0 s - 80 s",
                 "test4-name": "Speed",
-                "test4-description": "Pendulum run 4x5 m",
+                "test4-description": "Run 20 meters",
                 "test4-scale": "Scale: 0 s - 80 s"
             },
             "results": {
@@ -325,6 +332,9 @@
     "parent-profile": {
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
+    },
+    "details-modal": {
+        "next-assesment-time": "Następny pomiar próby"
     },
     "test-results": {
         "search-result": "Search Result",
