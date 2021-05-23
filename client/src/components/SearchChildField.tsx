@@ -101,6 +101,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         searchField: {
             marginTop: theme.spacing(2),
-        }
+        },
     }),
 );
