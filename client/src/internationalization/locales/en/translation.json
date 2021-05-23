@@ -37,6 +37,7 @@
         "register": "Registration",
         "password-not-strong": "Password not strong enough",
         "agreements-and-regulations": "Agreements and regulations",
+        "agreements-fetch-failed": "Fetching data failed. Try again later.",
         "create-password": "Register account",
         "confirmation": "Confirmation",
         "create-password-text": "Create a password to Mali Wspaniali platform that will serve you for future logins.",

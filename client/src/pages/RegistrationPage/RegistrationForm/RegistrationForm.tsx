@@ -52,13 +52,16 @@ export const RegistrationForm = () => {
                 const agreementList = AGREEMENTS.map((item) => {
                     const id = data.agreements.filter((dataItem) => dataItem.text === item.type)[0]?._id;
 
-                    return { ...item, _id: id === undefined ? '' : id };
+                    return { ...item, _id: id ?? '' };
                 });
 
                 setAgreements(() => agreementList);
             })
             .catch((error) => {
-                console.log('Error: ', error.message);
+                openAlertDialog({
+                    type: 'error',
+                    description: `${t('registration-page.agreements-fetch-failed')}<br><br>${error.message}`,
+                });
             });
     }, []);
 
