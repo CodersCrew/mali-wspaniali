@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell, IconButton, makeStyles } from '@material-ui/core';
+import { TableRow, TableCell, IconButton } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 import { Kindergarten } from '../../../graphql/types';
 
@@ -10,13 +10,12 @@ interface Props {
 
 export const KindergartensTableRow = ({ kindergarten, onEditClick }: Props) => {
     const { t } = useTranslation();
-    const classes = useStyles();
 
     const { number, name, address, city } = kindergarten;
 
     return (
         <>
-            <TableRow className={classes.root}>
+            <TableRow>
                 <TableCell component="th" scope="row">
                     {`${t('test-results.kindergarten-prefix')} ${number}`}
                 </TableCell>
@@ -31,11 +30,3 @@ export const KindergartensTableRow = ({ kindergarten, onEditClick }: Props) => {
         </>
     );
 };
-
-const useStyles = makeStyles({
-    root: {
-        '& > *': {
-            borderBottom: 'unset',
-        },
-    },
-});

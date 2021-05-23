@@ -1,5 +1,5 @@
-import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme, fade, Tooltip } from '@material-ui/core';
+import { Edit as EditIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { StatusChip } from '../../../components/StatusChip';
@@ -29,12 +29,14 @@ export function AssessmentItem({ value, onClick }: Props) {
             <TableCell>
                 {value.lastMeasurementStartDate} - {value.lastMeasurementEndDate}
             </TableCell>
-            <TableCell classes={{ root: classes.statusCell }} align="center">
+            <TableCell align="center">
                 <div className={classes.itemRoot}>
                     <div className="actionButtons">
-                        <IconButton size="small" onClick={handleEditClick}>
-                            <Edit classes={{ root: classes.icon }} titleAccess={t('manage-test-view.test-list.edit')} />
-                        </IconButton>
+                        <Tooltip title={<>{t('manage-test-view.test-list.edit-button')}</>}>
+                            <IconButton className={classes.editButton} size="small" onClick={handleEditClick}>
+                                <EditIcon />
+                            </IconButton>
+                        </Tooltip>
                     </div>
                     <div className="status">
                         {value.status !== 'done' && <StatusChip value={value.lastMeasurementStatus} />}
@@ -44,7 +46,7 @@ export function AssessmentItem({ value, onClick }: Props) {
         </TableRow>
     );
 
-    function handleRowClick(e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) {
+    function handleRowClick() {
         onClick('details', value._id);
     }
 
@@ -58,12 +60,8 @@ export function AssessmentItem({ value, onClick }: Props) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         row: {
+            height: theme.spacing(8),
             cursor: 'pointer',
-        },
-        icon: {
-            color: theme.palette.text.secondary,
-        },
-        statusCell: {
             '& .actionButtons': {
                 display: 'none',
             },
@@ -72,6 +70,12 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             '&:hover .actionButtons': {
                 display: 'block',
+            },
+        },
+        editButton: {
+            '&:hover': {
+                color: theme.palette.primary.main,
+                backgroundColor: fade(theme.palette.primary.main, 0.2),
             },
         },
         itemRoot: {

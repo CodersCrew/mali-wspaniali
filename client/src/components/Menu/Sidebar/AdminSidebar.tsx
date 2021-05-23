@@ -13,12 +13,10 @@ import { CollapsibleList } from './CollapsibleList';
 export interface Props {
     user: Me | null;
     onClick: (link?: string) => void;
-    onClose: () => void;
     active: string[];
-    open: boolean;
 }
 
-export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) => {
+export const AdminSidebar = ({ onClick, user, active }: Props) => {
     const { t } = useTranslation();
     const device = useBreakpoints();
     const [, innerMargin] = getMenuWidth(device);
@@ -73,9 +71,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
 
     return (
         <div className={classes.drawer}>
-            <MenuDrawer device={device} onClose={onClose} open={open}>
-                {drawer}
-            </MenuDrawer>
+            <MenuDrawer device={device}>{drawer}</MenuDrawer>
         </div>
     );
 };

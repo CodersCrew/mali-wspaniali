@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
+import { Delete as DeleteIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
 import { BasicInformationForm } from './BasicInformationForm/BasicInformationForm';
 import { KindergartenPicker } from './KindergartenPicker';
-import { TestInformation } from './TestInformation';
 import { useAssessmentManager, SuccessState, ErrorState } from './useAssessmentManager';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { ButtonSecondary } from '../../components/Button';
@@ -39,11 +39,8 @@ export default function AdminManageSingleAssessmentPage() {
         if ('errors' in result) {
             openSnackbar({ text: t(result.errors), severity: 'error' });
         } else {
-            openSnackbar({ text: result.message! }).then((dialogResult) => {
-                if (dialogResult.close) {
-                    redirectIntoTestPage();
-                }
-            });
+            openSnackbar({ text: result.message! });
+            redirectIntoTestPage();
         }
     }
 
@@ -95,9 +92,6 @@ export default function AdminManageSingleAssessmentPage() {
                                         />
                                     )}
                                 </Grid>
-                                <Grid item sm={12}>
-                                    <TestInformation />
-                                </Grid>
                             </Grid>
                         </Grid>
                         <Grid item xs={5}>
@@ -123,6 +117,7 @@ export default function AdminManageSingleAssessmentPage() {
                                         openQuestionDialog({
                                             title: t('add-test-view.delete-test-dialog.title'),
                                             description: t('add-test-view.delete-test-dialog.description'),
+                                            primaryButtonLabel: t('question-dialog.delete'),
                                         }).then(({ decision }) => {
                                             if (decision?.accepted) {
                                                 submit({ isDeleted: true });
@@ -130,7 +125,8 @@ export default function AdminManageSingleAssessmentPage() {
                                         });
                                     }}
                                 >
-                                    {t('add-test-view.delete')}
+                                    <DeleteIcon />
+                                    &nbsp;{t('add-test-view.delete')}
                                 </ButtonSecondary>
                             )}
                         </Grid>
