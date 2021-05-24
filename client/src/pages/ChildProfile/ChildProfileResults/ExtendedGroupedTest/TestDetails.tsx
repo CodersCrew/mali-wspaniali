@@ -40,8 +40,6 @@ export const TestDetails = ({ result }: Props) => {
                                 }
                                 valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
                                 unitOfMeasure={test.unitOfMeasure}
-                                scaleFrom={test.scaleFrom}
-                                scaleTo={test.scaleTo}
                                 translationKey={test.translationKey}
                                 key={test.translationKey}
                             />
@@ -57,8 +55,6 @@ export const TestDetails = ({ result }: Props) => {
                         valueInUnitOfMeasure={result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number}
                         valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
                         unitOfMeasure={test.unitOfMeasure}
-                        scaleFrom={test.scaleFrom}
-                        scaleTo={test.scaleTo}
                         translationKey={test.translationKey}
                         key={test.translationKey}
                     />
