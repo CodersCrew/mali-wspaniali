@@ -46,7 +46,7 @@ export default function InstructorAddResultsPage() {
             .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || [];
 
     useEffect(() => {
-        activePage(['instructor-menu.add-results']);
+        activePage(['instructor-menu.results-table']);
     }, []);
 
     useEffect(() => {
