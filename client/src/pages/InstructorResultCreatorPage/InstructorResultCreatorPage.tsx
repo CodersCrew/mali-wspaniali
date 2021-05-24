@@ -36,7 +36,7 @@ export default function InstructorResultCreatorPage() {
     const device = useIsDevice();
 
     useEffect(() => {
-        activePage(['instructor-menu.add-results']);
+        activePage(['instructor-menu.results-table']);
     }, []);
 
     const resultCreator = useResultCreator({
