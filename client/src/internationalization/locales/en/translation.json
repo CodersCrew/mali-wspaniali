@@ -70,6 +70,7 @@
     "forgot-password-page": {
         "forgot-password": "Forgot the password?",
         "its-ok": "Don't worry. Type in your email address.",
+        "its-ok-mobile": "Don't worry.<br/>Type in your email address.",
         "receive-link": "You will receive a link to create a new password.",
         "insert-email": "Type in e-mail address provided to the foundation",
         "continue": "Continue",
@@ -168,6 +169,7 @@
         "advice": "Advice",
         "initial-test": "Initial test",
         "final-test": "Final test",
+        "result-level": "Feature level",
         "result-description": {
             "bad": "LOW FITNESS LEVEL",
             "medium": "MEDIUM FITNESS LEVEL",
@@ -191,6 +193,12 @@
             "power": "Power test",
             "speed": "Speed test",
             "agility": "Agility test"
+        },
+        "test-description": {
+            "agility": "4 x 5 m pendulum run",
+            "power": "Take both long jump from the spot",
+            "strength": "Medicine ball throw from behind the head",
+            "speed": "Run 20 meters"
         },
         "no-result-block-text": "did not take place or the child was unable to participate in the test that day.",
         "scale": "Scale",
@@ -225,49 +233,59 @@
         "no-results-link": "Test Information tab",
         "tests-informations": {
             "about": {
-                "panelTitle": "panelTitle (placeholder)",
-                "title": "title (placeholder)",
-                "text1": "text1 (placeholder)",
-                "text2-1": "text2-1 (placeholder)",
-                "text2-test-names": "text2-test-names (placeholder)",
-                "text2-2": "text2-2 (placeholder)"
+                "panelTitle": "About the Wrocław Preschool Test - a few words in general",
+                "title": "The Preschooler Test is a very accessible fitness test for children aged between 3 and 7.",
+                "text1": "It is used to assess physical development. It is very simple to do in preschool settings. It does not require complicated and specialized measuring tools, rooms or devices.",
+                "text2-1": "It consists of four physical tests, which in their results take into account the basic and most important motor skills:",
+                "text2-test-names": "strength, speed, agility and power.",
+                "text2-2": "These abilities are used in sports, but also in everyday activities in adult life, such as work: physical, carrying shopping, cleaning or even taking things out of a hard-to-reach place."
             },
             "conditions": {
-                "panelTitle": "panelTitle (placeholder)",
-                "title": "title (placeholder)",
-                "text1": "text1 (placeholder)",
-                "text2": "text2 (placeholder)",
-                "test1-name": "test1-name (placeholder)",
-                "test1-description": "test1-description (placeholder)",
-                "test1-scale": "test1-scale (placeholder)",
-                "test2-name": "test2-name (placeholder)",
-                "test2-description": "test2-description (placeholder)",
-                "test2-scale": "test2-scale (placeholder)",
-                "test3-name": "test3-name (placeholder)",
-                "test3-description": "test3-description (placeholder)",
-                "test3-scale": "test3-scale (placeholder)",
-                "test4-name": "test4-name (placeholder)",
-                "test4-description": "test4-description (placeholder)",
-                "test4-scale": "test4-scale (placeholder)"
+                "panelTitle": "How do we perform the preschooler test and calculate its results?",
+                "title": "The preschooler's fitness test is performed once a semester.",
+                "text1": "It consists of two tests: the initial test (measurement at the turn of October and November) and the final test (measurement at the turn of April and May). Each sample has four components, the sum of which makes the total score. This result gives an indication of your child's fitness level.",
+                "text2": "You can get a certain number of points for each trial. Children are assessed according to a scale prepared by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength tests (strength and power), the greater the distance the child has during the test, the more points he will receive, while in the case of agility tests (speed and agility), more points will be awarded to the child whose test execution time is shorter.",
+                "text3": "The sum of the grades makes up the total score. This result indicates your child's fitness level (low, medium, good or very good). The results are collected from children who are present at the facility and willing to practice during the Mali Magnificent classes by the Instructor. The lack of a result of a given test may indicate the child's absence on a given day or a lack of participation in a given exercise. In this case, you receive individual test results without being able to see your child's overall fitness.",
+                "test1-name": "Agility",
+                "test1-description": "4 x 5 m pendulum run with a block transfer",
+                "test1-scale": "Scale: 0 s - 80 s",
+                "test2-name": "Power",
+                "test2-description": "Take both long jump from the spot",
+                "test2-scale": "Scale: 0 cm - 80 cm",
+                "test3-name": "Force",
+                "test3-description": "Medicine ball throw from behind the head",
+                "test3-scale": "Scale: 0 s - 80 s",
+                "test4-name": "Speed",
+                "test4-description": "Run 20 meters",
+                "test4-scale": "Scale: 0 s - 80 s"
             },
             "results": {
                 "to": "to",
-                "panelTitle": "panelTitle (placeholder)",
-                "score25": "score25 (placeholder)",
-                "score50": "score50 (placeholder)",
-                "score75": "score75 (placeholder)",
-                "score100": "score100 (placeholder)",
-                "title": "title (placeholder)",
-                "text1": "text1 (placeholder)",
-                "text2": "text2 (placeholder)"
+                "panelTitle": "Why are test results important?",
+                "score25": "Something's wrong, try harder",
+                "score50": "You're doing well, but it can always be better!",
+                "score75": "Very good!",
+                "score100": "Great! Keep it up!",
+                "title": "The conducted research is not diagnostic, but only illustrative.",
+                "text1": "Your baby's score may vary from day to day. It is influenced by a number of physical and psychological factors. Therefore, the results should not be treated as an accurate source of knowledge about the child's fitness, but even a visual control of physical development is extremely important due to the healthy and proper course of shaping the human body and its future possibilities.",
+                "text2": "Thanks to appropriate motivation and teaching through repeated repetition of exercises, the child achieves a higher and higher level of performing specific skills, checked as motor skills in the preschooler test.",
+                "text3": "The optimal results of the child, and thus a healthy and harmonious motor development, allows the child to gradually achieve its own independence and safety, and thus self-confidence. It can also have an impact on social acceptance.",
+                "text4": "Lack of movement can cause internal imbalances in the child's body, which can result in inappropriate behavior, tension or emotional resignation, and changes in mood. Physical fitness is not only helpful for sports and physical education, it is also a major factor in living a happy and fuller life."
             },
             "interpretation": {
-                "panelTitle": "panelTitle (placeholder)",
-                "title": "title (placeholder)",
-                "text1": "text1 (placeholder)",
-                "text2": "text2 (placeholder)",
-                "text3": "text3 (placeholder)",
-                "text4": "text4 (placeholder)"
+                "panelTitle": "What factors can contribute to a low test result",
+                "title1": "General factors that can contribute to a low test result:",
+                "title2": "Individual factors that can contribute to a low test result:",
+                "text1": "Lack of motivation in test participants or in the environment",
+                "text2": "Conditions inside and outside the facility (not necessarily unfavorable)",
+                "text3": "Time of day (e.g. after a meal, after resting, other activities)",
+                "text4": "External difficulties (e.g. behavior of other children)",
+                "text5": "Child's disease (e.g. cold, diarrhea)",
+                "text6": "Injury (e.g. fracture, sprain, contusion) within the last 30 days ",
+                "text7": "Serious illness of the child requiring hospitalization within the last 6 months",
+                "text8": "Chronic disease (e.g. bronchial asthma, allergy (atopic))",
+                "text9": "The baby is premature",
+                "text10": "Subjective barriers on the part of the child (e.g. other physical or mental ones)"
             }
         },
         "recommendations": {
@@ -290,6 +308,8 @@
             "heading": "Manage consents granted to the Mali Wspaniali Foundation. Have full control over the security of your personal data, being able to increase or limit the rights granted at any time.",
             "title": "Below you can check and edit the signed agreements.",
             "save": "Save",
+            "snackbar-headerText": "Done",
+            "snackbar-text": "Your argeements have been saved",
             "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
             "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
             "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
@@ -313,6 +333,9 @@
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
     },
+    "details-modal": {
+        "next-assesment-time": "Następny pomiar próby"
+    },
     "test-results": {
         "search-result": "Search Result",
         "no-results": "No Results",
@@ -332,7 +355,12 @@
         "add-kindergarten-success": "Kindergarten has been added successfully",
         "update-kindergarten-success": "Kindergarten has been updated successfully",
         "delete-kindergarten-success": "Kindergarten has been deleted successfully",
-        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it"
+        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it",
+        "button-icon-edit-tooltip": "Edit",
+        "button-icon-expand-tooltip": "Expand",
+        "button-icon-results-tooltip": "Results",
+        "rows-number": "Rows per page:",
+        "edit": "Edit"
     },
     "kindergarten-modal": {
         "city": "City",
@@ -372,7 +400,9 @@
     },
     "question-dialog": {
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "cancel": "Cancel",
+        "delete": "Delete"
     },
     "parent-children": {
         "children": "Children",
@@ -610,7 +640,11 @@
         "header": "Notifications",
         "description": "Check all notifications on your account",
         "content": "Notification content",
-        "date": "Date"
+        "date": "Date",
+        "empty-list-message": {
+            "title": "You currently have no notifications.",
+            "description": "When they do appear, you'll find them in this section."
+        }
     },
     "notification-list": {
         "new-assessment": "A new test ({{name}}) has been added.",
@@ -633,7 +667,9 @@
             "not-planned": "Not planned",
             "details": "See details",
             "delete": "Delete",
-            "edit": "Edit"
+            "edit": "Edit",
+            "rows-number": "Rows per page:",
+            "edit-button": "Edit"
         }
     },
     "add-test-view": {
@@ -813,8 +849,8 @@
         "full-name": "Full name",
         "age": "Age",
         "birth-quarter": "Birth quarter",
-        "first-assessment": "First test",
-        "last-assessment": "Last test",
+        "first-assessment": "First measurement",
+        "last-assessment": "Last measurement",
         "first-assessment-progress": "Trials performed by me in the initial measurement",
         "last-assessment-progress": "Trials performed by me in the last measurement",
         "see-results": "See results",
@@ -851,9 +887,10 @@
         "no-result": "No result",
         "received-points": "Received points",
         "points": "pts",
-        "title-first-measurement": "INITIAL TEST EFFICIENCY",
-        "title-last-measurement": "FINAL TRIAL EFFICIENCY",
+        "title-first-measurement": "FIRST MEASUREMENT EFFICIENCY LEVEL",
+        "title-last-measurement": "LAST MEASUREMENT EFFICIENCY LEVEL",
         "back-to-table": "Back",
+        "back-to-results": "Back to results",
         "child-list": "Child list",
         "strength": "STRENGTH",
         "dexterity": "DEXTERITY",

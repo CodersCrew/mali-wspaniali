@@ -23,6 +23,13 @@ export class ArticlesRepository {
       .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
+  update(id: string, updates: Partial<ArticleInput>) {
+    this.articleModel.findByIdAndUpdate(
+      id,
+      updates as Partial<ArticleDocument>,
+    );
+  }
+
   async getPage(
     page: number,
     perPage: number,

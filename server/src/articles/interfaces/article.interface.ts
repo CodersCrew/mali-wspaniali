@@ -9,7 +9,6 @@ export interface ArticleDocument extends Document {
   readonly date: Date;
   readonly description: string;
   readonly pictureUrl: string;
-  readonly readingTime: number;
   readonly redactor: Redactor;
   readonly tags: string[];
   readonly title: string;

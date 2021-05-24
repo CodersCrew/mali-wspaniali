@@ -83,7 +83,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                     <Divider />
                 </Grid>
                 <Grid item className={classes.footer}>
-                    <Grid container spacing={1} justify="center">
+                    <Grid container justify="space-between">
                         <Grid item>
                             <Box mr={2}>
                                 <ButtonSecondary
@@ -159,16 +159,12 @@ const useStyles = makeStyles((theme) =>
             marginTop: 10,
         },
         footer: {
-            display: 'flex',
-            alignItems: 'center',
-            minHeight: 56,
-            height: 'auto',
             width: '100%',
-            position: 'absolute',
+            position: 'fixed',
             bottom: 0,
             right: 0,
-            zIndex: 1300,
-            padding: theme.spacing(0.5, 1),
+            zIndex: 800,
+            padding: theme.spacing(1, 2),
             backgroundColor: theme.palette.primary.contrastText,
         },
     }),

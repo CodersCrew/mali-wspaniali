@@ -21,9 +21,6 @@ export class ArticleDTO {
   @Field()
   readonly pictureUrl: string;
 
-  @Field(() => Int)
-  readonly readingTime: number;
-
   @Field()
   readonly redactor: RedactorDTO;
 

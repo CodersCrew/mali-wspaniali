@@ -4,12 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
-import { openDialog } from '../../utils/openDialog';
-import { HelpModal } from './HelpModal';
 import { Workspace } from './Workspace';
 import { SingleSelect } from './SingleSelect';
 import { newsletterTypes } from './data';
 import { NewsletterType, NewsletterFormValues } from './types';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 interface Props {
     onChange: (name: string, value: string) => void;
@@ -24,8 +23,11 @@ interface Props {
 export const NewsletterContent = ({ onChange, onBlur, type, topic, message, errors, touched }: Props) => {
     const { t } = useTranslation();
 
-    const handleModalOpen = () => {
-        openDialog(HelpModal, null);
+    const handleSnackbarOpen = () => {
+        openSnackbar({
+            text: t('newsletter.help-modal.type-text'),
+            severity: 'info',
+        });
     };
 
     return (
@@ -34,7 +36,7 @@ export const NewsletterContent = ({ onChange, onBlur, type, topic, message, erro
                 title={t('newsletter.content-heading')}
                 titleTypographyProps={{ variant: 'h4' }}
                 action={
-                    <IconButton aria-label="info" onClick={handleModalOpen} color="primary">
+                    <IconButton aria-label="info" onClick={handleSnackbarOpen} color="primary">
                         <InfoOutlinedIcon />
                     </IconButton>
                 }

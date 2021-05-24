@@ -42,7 +42,7 @@
     "icg-json-to-xlsx": "^0.2.5",
     "module-alias": "^2.2.2",
     "mongoose": "5.10.1",
-    "nodemailer": "^6.4.10",
+    "nodemailer": "^6.4.16",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
@@ -106,12 +106,16 @@
     "moduleNameMapper": {
       "^@users/(.*)$": "<rootDir>/users/$1",
       "^@kindergartens/(.*)$": "<rootDir>/kindergartens/$1",
-      "^@keyCodes/(.*)$": "<rootDir>/key_codes/$1"
+      "^@keyCodes/(.*)$": "<rootDir>/key_codes/$1",
+      "^@articles/(.*)$": "<rootDir>/articles/$1",
+      "^@app/(.*)$": "<rootDir>/$1"
     }
   },
   "_moduleAliases": {
     "@users": "dist/users",
     "@kindergartens": "dist/kindergartens",
-    "@keyCodes": "dist/key_codes"
+    "@keyCodes": "dist/key_codes",
+    "@articles": "dist/articles",
+    "@app": "dist"
   }
 }

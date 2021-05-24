@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageArticles } from './HomePageArticles';
-import { Theme } from '../../theme/types';
+import { Theme } from '../../theme';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 import { useLastArticles } from '../../operations/queries/Articles/getLastArticles';

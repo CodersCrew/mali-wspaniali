@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { isValidEmail } from './isValidEmail';
 import { ButtonSecondary } from '../../components/Button';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 const tPrefix = 'forgot-password-page';
 
@@ -14,6 +15,7 @@ type Props = {
 
 export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     const { t } = useTranslation();
+    const device = useIsDevice();
     const [inputValue, setInputValue] = useState('');
     const [isError, setIsError] = useState(false);
 
@@ -35,7 +37,7 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
         <>
             <Box mb={3}>
                 <Typography variant="subtitle1" align="center">
-                    {t(`${tPrefix}.its-ok`)}
+                    {t(device.isDesktop ? `${tPrefix}.its-ok` : `${tPrefix}.its-ok-mobile`)}
                 </Typography>
                 <Typography variant="subtitle1" align="center">
                     {t(`${tPrefix}.receive-link`)}
