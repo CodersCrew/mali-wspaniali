@@ -1,6 +1,5 @@
-import { makeStyles } from '@material-ui/styles';
+import { createStyles, Theme, Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { createStyles, Theme, Typography } from '@material-ui/core';
 import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
@@ -24,7 +23,7 @@ export const Measurement = (props: Props) => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.chartWrapper}>
+            <Box width="110px" height="110px">
                 <CircleChart
                     color={color}
                     value={props.valueInPoints}
@@ -32,7 +31,7 @@ export const Measurement = (props: Props) => {
                     label={String(props.valueInUnitOfMeasure)}
                     labelSuffix={props.unitOfMeasure}
                 />
-            </div>
+            </Box>
             <Typography variant="h4" className={classes.testName}>
                 {t(`child-profile.tests-in-block.${props.translationKey}`)}
             </Typography>
@@ -87,10 +86,6 @@ const useStyles = makeStyles((theme: Theme) =>
             '& *': {
                 flexGrow: 1,
             },
-        },
-        chartWrapper: {
-            width: theme.spacing(13.75),
-            position: 'relative',
         },
         testName: {
             textTransform: 'uppercase',

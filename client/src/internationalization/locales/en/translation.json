@@ -596,7 +596,7 @@
         "add-article": "Add article"
     },
     "instructor-menu": {
-        "add-results": "Add results",
+        "results-table": "Results table",
         "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Logout"
@@ -891,7 +891,7 @@
         "points": "pts",
         "title-first-measurement": "FIRST MEASUREMENT EFFICIENCY LEVEL",
         "title-last-measurement": "LAST MEASUREMENT EFFICIENCY LEVEL",
-        "back-to-table": "Back",
+        "back-to-table": "Back to the table",
         "back-to-results": "Back to results",
         "child-list": "Child list",
         "strength": "STRENGTH",
