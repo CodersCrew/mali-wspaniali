@@ -19,7 +19,7 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
 
     return (
         <div>
-            <div className={classes.chartWrapper}>
+            <Box width="110px" height="110px">
                 <CircleChart
                     color={color}
                     value={valueInPoints}
@@ -27,7 +27,7 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
                     label={String(valueInUnitOfMeasure)}
                     labelSuffix={unitOfMeasure}
                 />
-            </div>
+            </Box>
             <Box mt={2} mb={1}>
                 <Typography variant="h4">{t(`child-profile.tests-in-block.${translationKey}`)}</Typography>
             </Box>
@@ -50,10 +50,6 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        chartWrapper: {
-            width: theme.spacing(13.75),
-            position: 'relative',
-        },
         points: {
             fontFamily: 'Montserrat',
             fontSize: '14px',

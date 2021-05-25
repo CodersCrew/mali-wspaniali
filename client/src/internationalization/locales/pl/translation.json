@@ -27,6 +27,7 @@
         "register-header": "Rejestracja",
         "already-have-account": "Masz już konto?",
         "register-failure": "Rejestracja nie powiodła się",
+        "register-failure-keycode": "Podany kod nie jest prawidłowy",
         "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>biuro@mali-wspaniali.pl</strong>",
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
@@ -36,6 +37,7 @@
         "register": "Rejestracja",
         "password-not-strong": "Hasło za słabe",
         "agreements-and-regulations": "Zgody i regulaminy",
+        "agreements-fetch-failed": "Nie udało się pobrać danych. Spróbuj ponownie później.",
         "create-password": "Zarejestruj się",
         "confirmation": "Potwierdzenie",
         "create-password-text": "Stwórz hasło do platformy Mali Wspaniali, które będzie ci służyło podczas następnych logowań.",
@@ -688,7 +690,7 @@
         "logout": "Wyloguj"
     },
     "instructor-menu": {
-        "add-results": "Dodaj wyniki",
+        "results-table": "Tabela wyników",
         "notifications": "Powiadomienia",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
@@ -985,7 +987,7 @@
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
-        "back-to-table": "Wróć",
+        "back-to-table": "Wróć do tabeli",
         "back-to-results": "Wróć do wpisywania wyniku",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",
