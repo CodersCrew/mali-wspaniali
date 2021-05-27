@@ -2,7 +2,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Box, Typography, Link } from '@material-ui/core/';
 
-import { Theme } from '../../theme/types';
+import { Theme } from '../../theme';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { LanguageSelector } from '../../components/LanguageSelector';
 import { openAlertDialog } from '../../components/AlertDialog';
@@ -65,23 +65,22 @@ export default function PasswordChangePage() {
                 <LanguageSelector language={language} onClick={handleLanguageChange} />
             </div>
             {onSuccess ? (
-                <div className={classes.successLayout}>
-                    <img className={classes.image} src={SuccessImage} alt={t('forgot-password-page.avatar')} />
-                    <Typography variant="h3" className={classes.successTitle}>
-                        <Box fontWeight="fontWeightRegular">
-                            {t('password-change-success-page.password-change-success-title')}
-                        </Box>
+                <Box mt={20.5} className={classes.successLayout}>
+                    <Typography variant="h2" className={classes.successTitle}>
+                        {t('password-change-success-page.password-change-success-title')}
                     </Typography>
-                    <Typography variant="subtitle1" align="center" className={classes.successSubtitle}>
+                    <Box mb={8} />
+                    <Typography variant="h3" className={classes.successSubtitle}>
                         {t('password-change-success-page.password-change-success-subtitle')}
                     </Typography>
+                    <Box mb={8} />
                     <ButtonSecondary
                         variant="contained"
                         type="button"
                         href="/login"
                         innerText={t('password-change-success-page.login')}
                     />
-                </div>
+                </Box>
             ) : (
                 <Box
                     display="flex"
@@ -143,7 +142,7 @@ const useStyles = makeStyles((theme: Theme) =>
         successLayout: {
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             height: '80%',
         },
@@ -162,14 +161,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         successTitle: {
             textAlign: 'center',
-            width: theme.spacing(35),
-            marginTop: theme.spacing(4),
-            marginBottom: theme.spacing(2),
+            fontWeight: theme.typography.fontWeightRegular,
         },
         successSubtitle: {
-            width: theme.spacing(45),
             textAlign: 'center',
-            marginBottom: theme.spacing(5),
+            padding: theme.spacing(0, 10.5),
         },
         title: {
             textAlign: 'center',
