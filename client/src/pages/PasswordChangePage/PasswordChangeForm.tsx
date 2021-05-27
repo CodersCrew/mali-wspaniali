@@ -12,10 +12,12 @@ import {
     IconButton,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+
 import { Theme } from '../../theme/types';
-import { PasswordChangeProps, PasswordValidation } from './types';
-import { PasswordStrengthChips } from './PasswordStrengthChips';
 import { ButtonSecondary } from '../../components/Button';
+import { PasswordStrengthChips } from '../RegistrationPage/RegistrationForm/PasswordStrengthChips';
+
+import { PasswordChangeProps, PasswordValidation } from './types';
 import {
     passwordLengthTest,
     passwordSpecialTest,
@@ -48,10 +50,12 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
     return (
-        <Box className={classes.container}>
-            <Typography variant="subtitle1" align="center" className={classes.subtitle}>
-                {t('password-change-page.new-password-subtitle')}
-            </Typography>
+        <div className={classes.container}>
+            <Box mb={4}>
+                <Typography variant="subtitle1" align="center" className={classes.subtitle}>
+                    {t('password-change-page.new-password-subtitle')}
+                </Typography>
+            </Box>
             <FormControl variant="outlined" className={classes.formItem}>
                 <InputLabel htmlFor="password">{t('password-change-page.new-password')}</InputLabel>
                 <OutlinedInput
@@ -76,6 +80,7 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
                 />
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
+            <Box mb={2} />
             <FormControl variant="outlined" className={classes.formItem}>
                 <InputLabel htmlFor="passwordConfirm">{t('password-change-page.repeat-password')}</InputLabel>
                 <OutlinedInput
@@ -99,15 +104,15 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
                     label={t('password-change-page.repeat-password')}
                 />
             </FormControl>
-            <div className={classes.buttonWrapper}>
+            <Box mt={5} className={classes.buttonWrapper}>
                 <ButtonSecondary
                     variant="contained"
                     type="submit"
                     className={classes.createPasswordButton}
                     innerText={t('password-change-page.create-new-password')}
                 />
-            </div>
-        </Box>
+            </Box>
+        </div>
     );
 }
 
@@ -120,12 +125,10 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '90%',
         },
         subtitle: {
-            marginBottom: theme.spacing(3),
             width: '350px',
         },
         formItem: {
             width: '100%',
-            margin: theme.spacing(2, 0),
 
             [theme.breakpoints.down('sm')]: {
                 margin: theme.spacing(2, 0),
@@ -137,8 +140,6 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             justifyContent: 'space-between',
             maxHeight: 33,
-            marginTop: theme.spacing(2),
-            marginBottom: theme.spacing(2),
 
             '&.emailContent': {
                 justifyContent: 'flex-end',

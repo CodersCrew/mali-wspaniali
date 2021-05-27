@@ -142,17 +142,16 @@ export const useStyles = makeStyles((theme: Theme) =>
             boxShadow: theme.shadows[5],
         },
         chipsContainer: {
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2,1fr)',
-            justifyItems: 'start',
-            marginTop: '10px',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
         },
         chip: {
             margin: '5px 0',
             border: 0,
 
             '&.checked': {
-                color: mainColor,
+                color: theme.palette.primary,
             },
         },
         agreementContainer: {

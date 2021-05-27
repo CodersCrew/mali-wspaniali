@@ -1,15 +1,17 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Box, Typography, Link } from '@material-ui/core/';
+
 import { Theme } from '../../theme/types';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { LanguageSelector } from '../../components/LanguageSelector';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { ButtonSecondary } from '../../components/Button';
-import { PasswordChangeForm } from './PasswordChangeForm';
-import { passwordStrengthTest } from './passwordStrengthTest';
 import dayjs from '../../localizedMoment';
 import { useIsDevice } from '../../queries/useBreakpoints';
+
+import { PasswordChangeForm } from './PasswordChangeForm';
+import { passwordStrengthTest } from './passwordStrengthTest';
 import { PassChangeForm } from './types';
 
 const initialState: PassChangeForm = {
@@ -104,8 +106,8 @@ export default function PasswordChangePage() {
                     </div>
                     <div className={classes.footer}>
                         <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
-                        <Link underline="always" color="textPrimary">
-                            {t('forgot-password-page.contact')}
+                        <Link href="#" underline="always" color="textPrimary">
+                            <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
                         </Link>
                         <Box mt={7}>
                             <ButtonSecondary variant="text" href="/">
@@ -126,6 +128,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             alignItems: 'center',
             height: '100vh',
+            overflowY: 'auto',
         },
         header: {
             marginLeft: 'auto',

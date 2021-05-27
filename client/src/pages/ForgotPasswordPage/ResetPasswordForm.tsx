@@ -1,9 +1,12 @@
 import { TextField, Typography, Box } from '@material-ui/core';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { isValidEmail } from './isValidEmail';
+
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { emailTest } from '../RegistrationPage/emailTest';
+
+import { isValidEmail } from './isValidEmail';
 
 const tPrefix = 'forgot-password-page';
 
@@ -29,8 +32,13 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     };
 
     const handleChange = (value: string) => {
+        setIsError(false);
         setInputValue(value);
         onChange(value);
+    };
+
+    const handleBlur = () => {
+        if (!emailTest(email)) setIsError(true);
     };
 
     return (
@@ -44,6 +52,7 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
                 </Typography>
             </Box>
             <TextField
+                autoFocus
                 error={isError}
                 fullWidth
                 value={email}
@@ -52,12 +61,14 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
                 variant="outlined"
                 helperText={isError ? t(`${tPrefix}.incorrect-email-helper-text`) : t(`${tPrefix}.email-helper-text`)}
                 onChange={({ target: { value } }) => handleChange(value)}
+                onBlur={handleBlur}
             />
             <Box mt={3} display="flex" justifyContent="flex-end" width="100%" justifyItems="flex-end">
                 <ButtonSecondary
                     variant="contained"
                     onClick={handleSubmit}
                     innerText={t('forgot-password-page.continue')}
+                    disabled={isError}
                 />
             </Box>
         </>
