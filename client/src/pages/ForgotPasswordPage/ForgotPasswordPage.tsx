@@ -6,7 +6,7 @@ import { isValidEmail } from './isValidEmail';
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
-import { Theme } from '../../theme/types';
+import { Theme } from '../../theme';
 import { useResetPassword } from '../../operations/mutations/User/resetPassword';
 import { ButtonSecondary } from '../../components/Button';
 import { LanguageSelector } from '../../components/LanguageSelector';

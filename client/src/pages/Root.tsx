@@ -5,7 +5,7 @@ import { CssBaseline, StylesProvider } from '@material-ui/core';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { AppWrapper } from './AppWrapper';
 import { ParentWrapper } from './ParentWrapper';
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 
