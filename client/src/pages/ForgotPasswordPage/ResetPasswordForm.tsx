@@ -6,8 +6,6 @@ import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { emailTest } from '../RegistrationPage/emailTest';
 
-import { isValidEmail } from './isValidEmail';
-
 const tPrefix = 'forgot-password-page';
 
 type Props = {
@@ -23,7 +21,7 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     const [isError, setIsError] = useState(false);
 
     const handleSubmit = () => {
-        if (isValidEmail(inputValue)) {
+        if (emailTest(inputValue)) {
             setIsError(false);
             onSubmit();
         } else {

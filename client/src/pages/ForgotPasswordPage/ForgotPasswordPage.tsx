@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
-import { ResetPasswordForm } from './ResetPasswordForm';
-import { isValidEmail } from './isValidEmail';
+
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
@@ -13,6 +12,9 @@ import { LanguageSelector } from '../../components/LanguageSelector';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import dayjs from '../../localizedMoment';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { emailTest } from '../RegistrationPage/emailTest';
+
+import { ResetPasswordForm } from './ResetPasswordForm';
 
 type ImageState = 'DEFAULT' | 'ERROR' | 'SUCCESS';
 
@@ -42,9 +44,7 @@ export default function ForgotPasswordPage() {
             return setImageState('ERROR');
         }
 
-        const validEmail = isValidEmail(value);
-
-        setImageState(validEmail ? 'SUCCESS' : 'DEFAULT');
+        setImageState(emailTest(value) ? 'SUCCESS' : 'DEFAULT');
 
         return setEmail(value);
     };
