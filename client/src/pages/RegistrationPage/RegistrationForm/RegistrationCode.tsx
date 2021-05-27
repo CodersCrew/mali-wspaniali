@@ -32,7 +32,6 @@ export const RegistrationCode = ({
     };
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        event.preventDefault();
         if (event.key === 'Enter' && roleBasedKeyCode?.isValid()) {
             handleNext();
         }
