@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
-import { Theme } from '../../theme/types';
+import { Theme } from '../../theme';
 import { ButtonSecondary } from '../../components/Button';
 import { PasswordStrengthChips } from '../RegistrationPage/RegistrationForm/PasswordStrengthChips';
 
