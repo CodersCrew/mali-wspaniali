@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     makeStyles,
@@ -10,6 +10,7 @@ import {
     OutlinedInput,
     InputAdornment,
     IconButton,
+    FormHelperText,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
@@ -32,7 +33,7 @@ const initialPasswordValidation: PasswordValidation = {
     special: false,
 };
 
-export function PasswordChangeForm({ handleChange, password, passwordConfirm }: PasswordChangeProps) {
+export function PasswordChangeForm({ handleChange, password, passwordConfirm, error, setError }: PasswordChangeProps) {
     const { t } = useTranslation();
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
@@ -48,6 +49,10 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
     }, [password]);
 
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
+    const handleClick = () => {
+        if (password !== passwordConfirm) setError(true);
+    };
 
     return (
         <div className={classes.container}>
@@ -75,6 +80,7 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
                     }
                     data-testid="password"
                     label={t('password-change-page.new-password')}
+                    error={error}
                 />
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
@@ -100,7 +106,9 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
                     }
                     data-testid="confirmPassword"
                     label={t('password-change-page.repeat-password')}
+                    error={error}
                 />
+                {error && <FormHelperText error={error}>{t('registration-page.password-mismatch')}</FormHelperText>}
             </FormControl>
             <Box mt={5} className={classes.buttonWrapper}>
                 <ButtonSecondary
@@ -108,6 +116,7 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
                     type="submit"
                     className={classes.createPasswordButton}
                     innerText={t('password-change-page.create-new-password')}
+                    onClick={handleClick}
                 />
             </Box>
         </div>

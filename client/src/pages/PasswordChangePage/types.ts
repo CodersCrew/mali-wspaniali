@@ -16,4 +16,6 @@ export type PasswordChangeProps = {
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     password: string;
     passwordConfirm: string;
+    error: boolean;
+    setError: React.Dispatch<React.SetStateAction<boolean>>;
 };

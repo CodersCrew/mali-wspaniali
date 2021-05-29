@@ -50,6 +50,8 @@ export type RegistrationPasswordProps = {
     classFormItem: string;
     skip?: Dispatch<SetStateAction<boolean>>;
     loading: boolean;
+    error: boolean;
+    setError: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type RegistrationFeedbackProps = {

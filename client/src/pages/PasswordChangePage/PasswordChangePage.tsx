@@ -24,6 +24,7 @@ export default function PasswordChangePage() {
     const classes = useStyles();
     const [form, setForm] = useState(initialState);
     const [onSuccess, setOnSuccess] = useState(false);
+    const [error, setError] = useState(false);
     const { password, passwordConfirm } = form;
     const { i18n } = useTranslation();
     const language = localStorage.getItem('i18nextLng')!;
@@ -37,24 +38,25 @@ export default function PasswordChangePage() {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
+
         if (!passwordStrengthTest(password)) {
             openAlertDialog({
                 type: 'error',
                 description: t('registration-page.password-not-strong'),
             });
-        } else if (password !== passwordConfirm) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.password-mismatch'),
-            });
-        } else {
-            // TODO: password change
 
-            setOnSuccess(true);
+            return;
         }
+
+        if (password !== passwordConfirm) return;
+
+        // TODO: implement password change
+
+        setOnSuccess(true);
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        setError(false);
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
@@ -93,6 +95,8 @@ export default function PasswordChangePage() {
                                 handleChange={handleChange}
                                 password={password}
                                 passwordConfirm={passwordConfirm}
+                                error={error}
+                                setError={setError}
                             />
                         </form>
                         <Box mb={5} />
@@ -156,6 +160,10 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'flex-start',
             alignItems: 'center',
             height: '80%',
+            [theme.breakpoints.down('sm')]: {
+                padding: theme.spacing(0, 6),
+                marginTop: theme.spacing(8),
+            },
         },
         form: {
             display: 'flex',
@@ -174,10 +182,21 @@ const useStyles = makeStyles((theme: Theme) =>
         successTitle: {
             textAlign: 'center',
             fontWeight: theme.typography.fontWeightRegular,
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '20px',
+                fontWeight: 500,
+                lineHeight: `${theme.spacing(3)}px`,
+            },
         },
         successSubtitle: {
             textAlign: 'center',
             padding: theme.spacing(0, 10.5),
+            [theme.breakpoints.down('sm')]: {
+                padding: 0,
+                fontSize: '16px',
+                fontWeight: 400,
+                lineHeight: `${theme.spacing(2.5)}px`,
+            },
         },
         title: {
             textAlign: 'center',

@@ -37,6 +37,7 @@ export const RegistrationForm = () => {
     const [skip, setSkip] = useState(false);
 
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
     const { code, email, password, passwordConfirm } = form;
@@ -57,10 +58,10 @@ export const RegistrationForm = () => {
 
                 setAgreements(() => agreementList);
             })
-            .catch((error) => {
+            .catch((err) => {
                 openAlertDialog({
                     type: 'error',
-                    description: `${t('registration-page.agreements-fetch-failed')}<br><br>${error.message}`,
+                    description: `${t('registration-page.agreements-fetch-failed')}<br><br>${err.message}`,
                 });
             });
     }, []);
@@ -143,6 +144,8 @@ export const RegistrationForm = () => {
                     classFormItem={classes.formItem}
                     skip={setSkip}
                     loading={loading}
+                    error={error}
+                    setError={setError}
                 />
             );
         }
@@ -180,57 +183,65 @@ export const RegistrationForm = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         setLoading(() => true);
+
         if (!passwordStrengthTest(password)) {
             openAlertDialog({
                 type: 'error',
                 description: t('registration-page.password-not-strong'),
             });
             setLoading(() => false);
-        } else if (password !== passwordConfirm) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.password-mismatch'),
-            });
+
+            return;
+        }
+
+        if (password !== passwordConfirm) {
             setLoading(() => false);
-        } else if (!roleBasedKeyCode?.isValid()) {
+
+            return;
+        }
+
+        if (!roleBasedKeyCode?.isValid()) {
             openAlertDialog({
                 type: 'error',
                 description: t('registration-page.register-failure-keycode'),
             });
             setActiveStep(() => 0);
             setLoading(() => false);
-        } else {
-            load(
-                createUser({
-                    mail: email,
-                    password,
-                    keyCode: roleBasedKeyCode?.parseToKeyCode() || '',
-                    agreements: agreements
-                        .filter((agreement) => !!agreement._id && agreement.isSigned)
-                        .map((item) => item._id),
-                }),
-            )
-                .then(() => {
-                    setLoading(() => false);
-                    handleNext();
-                })
-                .catch(() => {
-                    setLoading(() => false);
-                    if (skip) {
-                        setSkip(() => false);
-                        handleNext();
-                    } else {
-                        openAlertDialog({
-                            type: 'error',
-                            title: t('registration-page.register-failure'),
-                            description: t('registration-page.register-failure-description'),
-                        });
-                    }
-                });
+
+            return;
         }
+
+        load(
+            createUser({
+                mail: email,
+                password,
+                keyCode: roleBasedKeyCode?.parseToKeyCode() || '',
+                agreements: agreements
+                    .filter((agreement) => !!agreement._id && agreement.isSigned)
+                    .map((item) => item._id),
+            }),
+        )
+            .then(() => {
+                setLoading(() => false);
+                handleNext();
+            })
+            .catch(() => {
+                setLoading(() => false);
+                if (skip) {
+                    setSkip(() => false);
+                    handleNext();
+                } else {
+                    openAlertDialog({
+                        type: 'error',
+                        title: t('registration-page.register-failure'),
+                        description: t('registration-page.register-failure-description'),
+                    });
+                }
+            });
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        setError(false);
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
