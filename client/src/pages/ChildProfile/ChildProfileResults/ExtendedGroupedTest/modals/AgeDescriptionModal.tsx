@@ -26,7 +26,7 @@ const AgeDescriptionModal = ({
                     onClose();
                 }
             }}
-            isCancelButtonVisible={false}
+            isCancelButtonVisible
             dialogProps={{ maxWidth: 'sm' }}
         >
             <DialogTitle>{t(`${T_GROUP_PREFIX}.title`)}</DialogTitle>
