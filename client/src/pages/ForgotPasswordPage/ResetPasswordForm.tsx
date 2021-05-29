@@ -1,10 +1,12 @@
-import { TextField, Typography, Box } from '@material-ui/core';
+import { TextField, Typography, Box, makeStyles, createStyles } from '@material-ui/core';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import parse from 'html-react-parser';
 
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { emailTest } from '../RegistrationPage/emailTest';
+import { Theme } from '../../theme';
 
 const tPrefix = 'forgot-password-page';
 
@@ -15,6 +17,7 @@ type Props = {
 };
 
 export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
+    const classes = useStyles();
     const { t } = useTranslation();
     const device = useIsDevice();
     const [inputValue, setInputValue] = useState('');
@@ -42,10 +45,10 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     return (
         <>
             <Box mb={3}>
-                <Typography variant="subtitle1" align="center">
-                    {t(device.isDesktop ? `${tPrefix}.its-ok` : `${tPrefix}.its-ok-mobile`)}
+                <Typography variant="subtitle1" className={classes.subtitle}>
+                    {parse(t(device.isDesktop ? `${tPrefix}.its-ok` : `${tPrefix}.its-ok-mobile`))}
                 </Typography>
-                <Typography variant="subtitle1" align="center">
+                <Typography variant="subtitle1" className={classes.subtitle}>
                     {t(`${tPrefix}.receive-link`)}
                 </Typography>
             </Box>
@@ -61,7 +64,7 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
                 onChange={({ target: { value } }) => handleChange(value)}
                 onBlur={handleBlur}
             />
-            <Box mt={3} display="flex" justifyContent="flex-end" width="100%" justifyItems="flex-end">
+            <Box mt={3} className={classes.button}>
                 <ButtonSecondary
                     variant="contained"
                     onClick={handleSubmit}
@@ -72,3 +75,24 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
         </>
     );
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        subtitle: {
+            textAlign: 'center',
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '16px',
+                fontWeight: 500,
+            },
+        },
+        button: {
+            display: 'flex',
+            justifyContent: 'flex-end',
+            width: '100%',
+            justifyItem: 'flex-end',
+            [theme.breakpoints.down('sm')]: {
+                marginBottom: theme.spacing(5),
+            },
+        },
+    }),
+);

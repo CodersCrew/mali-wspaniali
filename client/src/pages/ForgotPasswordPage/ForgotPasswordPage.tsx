@@ -73,14 +73,7 @@ export default function ForgotPasswordPage() {
             <div className={classes.header}>
                 <LanguageSelector language={language} onClick={handleLanguageChange} />
             </div>
-            <Box
-                display="flex"
-                justifyContent="space-around"
-                alignItems="center"
-                flexDirection="column"
-                width={isMobile ? '90%' : '80%'}
-                flex={1}
-            >
+            <Box className={classes.wrapper} width={isMobile ? '90%' : '80%'}>
                 <div className={classes.layout}>
                     <img
                         className={classes.image}
@@ -120,6 +113,22 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         header: {
             marginLeft: 'auto',
+            [theme.breakpoints.down('sm')]: {
+                minHeight: 64,
+            },
+        },
+        wrapper: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flex: 1,
+            [theme.breakpoints.down('sm')]: {
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                marginTop: theme.spacing(4),
+            },
         },
         layout: {
             display: 'flex',
@@ -138,19 +147,27 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '20px',
             marginTop: '20px',
             textTransform: 'uppercase',
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '20px',
+                fontWeight: '500',
+                marginTop: theme.spacing(5),
+                marginBottom: theme.spacing(2),
+            },
         },
         image: {
             borderRadius: '50%',
             width: '214px',
             [theme.breakpoints.down('sm')]: {
-                width: '150px',
-                marginTop: '40px',
+                width: 100,
             },
         },
         footer: {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            [theme.breakpoints.down('sm')]: {
+                paddingBottom: theme.spacing(2),
+            },
         },
         backToLoginButton: {
             textAlign: 'center',

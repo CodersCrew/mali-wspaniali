@@ -51,11 +51,9 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
 
     return (
         <div className={classes.container}>
-            <Box mb={4}>
-                <Typography variant="subtitle1" align="center" className={classes.subtitle}>
-                    {t('password-change-page.new-password-subtitle')}
-                </Typography>
-            </Box>
+            <Typography variant="subtitle1" className={classes.subtitle}>
+                {t('password-change-page.new-password-subtitle')}
+            </Typography>
             <FormControl variant="outlined" className={classes.formItem}>
                 <InputLabel htmlFor="password">{t('password-change-page.new-password')}</InputLabel>
                 <OutlinedInput
@@ -80,7 +78,7 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm }: 
                 />
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
-            <Box mb={2} />
+            <Box className={classes.spacer} />
             <FormControl variant="outlined" className={classes.formItem}>
                 <InputLabel htmlFor="passwordConfirm">{t('password-change-page.repeat-password')}</InputLabel>
                 <OutlinedInput
@@ -126,12 +124,20 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         subtitle: {
             width: '350px',
+            textAlign: 'center',
+            marginBottom: theme.spacing(4),
+            [theme.breakpoints.down('sm')]: {
+                width: '100%',
+                fontSize: '16px',
+                fontWeight: 500,
+                marginBottom: 0,
+            },
         },
         formItem: {
             width: '100%',
 
             [theme.breakpoints.down('sm')]: {
-                margin: theme.spacing(2, 0),
+                marginTop: theme.spacing(2),
             },
         },
         buttonWrapper: {
@@ -146,7 +152,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
 
             [theme.breakpoints.down('sm')]: {
-                margin: theme.spacing(2, 0, 6, 0),
+                marginTop: theme.spacing(5),
             },
         },
         createPasswordButton: {
@@ -156,6 +162,12 @@ const useStyles = makeStyles((theme: Theme) =>
                 '& span': {
                     maxHeight: 17,
                 },
+            },
+        },
+        spacer: {
+            marginBottom: theme.spacing(2),
+            [theme.breakpoints.down('sm')]: {
+                marginBottom: 0,
             },
         },
     }),

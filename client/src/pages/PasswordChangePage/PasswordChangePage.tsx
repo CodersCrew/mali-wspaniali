@@ -82,14 +82,7 @@ export default function PasswordChangePage() {
                     />
                 </Box>
             ) : (
-                <Box
-                    display="flex"
-                    justifyContent="space-around"
-                    alignItems="center"
-                    flexDirection="column"
-                    width={isMobile ? '90%' : '80%'}
-                    flex={1}
-                >
+                <Box className={classes.wrapper} width={isMobile ? '90%' : '80%'}>
                     <div className={classes.layout}>
                         <img className={classes.image} src={SuccessImage} alt={t('forgot-password-page.avatar')} />
                         <Typography variant="h4" className={classes.title}>
@@ -102,17 +95,16 @@ export default function PasswordChangePage() {
                                 passwordConfirm={passwordConfirm}
                             />
                         </form>
-                    </div>
-                    <div className={classes.footer}>
+                        <Box mb={5} />
                         <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
                         <Link href="#" underline="always" color="textPrimary">
                             <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
                         </Link>
-                        <Box mt={7}>
-                            <ButtonSecondary variant="text" href="/">
-                                {t('forgot-password-page.back-to-login')}
-                            </ButtonSecondary>
-                        </Box>
+                    </div>
+                    <div className={classes.footer}>
+                        <ButtonSecondary variant="text" href="/">
+                            {t('forgot-password-page.back-to-login')}
+                        </ButtonSecondary>
                     </div>
                 </Box>
             )}
@@ -131,6 +123,22 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         header: {
             marginLeft: 'auto',
+            [theme.breakpoints.down('sm')]: {
+                minHeight: theme.spacing(8),
+            },
+        },
+        wrapper: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flex: 1,
+            [theme.breakpoints.down('sm')]: {
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                // marginTop: theme.spacing(4),
+            },
         },
         layout: {
             display: 'flex',
@@ -138,6 +146,9 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             width: '100%',
             marginTop: theme.spacing(5),
+            [theme.breakpoints.down('sm')]: {
+                marginTop: 0,
+            },
         },
         successLayout: {
             display: 'flex',
@@ -156,7 +167,8 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '50%',
             width: theme.spacing(27),
             [theme.breakpoints.down('sm')]: {
-                width: theme.spacing(14),
+                width: 100,
+                marginTop: theme.spacing(4),
             },
         },
         successTitle: {
@@ -172,12 +184,20 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(2),
             marginTop: theme.spacing(2),
             textTransform: 'uppercase',
+            [theme.breakpoints.down('sm')]: {
+                marginTop: theme.spacing(4),
+            },
         },
         footer: {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             marginTop: theme.spacing(4),
+            [theme.breakpoints.down('sm')]: {
+                marginTop: 0,
+                justifyContent: 'flex-end',
+                paddingBottom: theme.spacing(2),
+            },
         },
     }),
 );

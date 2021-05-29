@@ -145,13 +145,23 @@ export const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
+            [theme.breakpoints.down('sm')]: {
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                padding: theme.spacing(0, 3),
+            },
         },
         chip: {
             margin: '5px 0',
             border: 0,
+            justifySelf: 'start',
 
             '&.checked': {
                 color: theme.palette.primary,
+            },
+
+            [theme.breakpoints.down('sm')]: {
+                margin: 0,
             },
         },
         agreementContainer: {
