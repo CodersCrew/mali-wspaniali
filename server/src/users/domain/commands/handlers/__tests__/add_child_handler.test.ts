@@ -97,9 +97,7 @@ describe('AddChildHandler', () => {
         await waitForExpect(
           async () => {
             await awaitForResponse();
-            const [notification, a, b] = await getNotificationsForUser(
-              parentId,
-            );
+            const [notification] = await getNotificationsForUser(parentId);
 
             expect(notification).toBeDefined();
 

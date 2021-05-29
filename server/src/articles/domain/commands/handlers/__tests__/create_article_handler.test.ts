@@ -3,7 +3,7 @@ import * as dbHandler from '@app/db_handler';
 import { CreateArticleHandler } from '@articles/domain/commands/handlers/create_article_handler';
 import { CreateArticleCommand } from '@articles/domain/commands/impl';
 import { ArticlesModule } from '@articles/articles_module';
-import { ArticleInput } from '@articles/inputs/article_input';
+import { CreateArticleInput } from '@articles/inputs/article_input';
 import { Article } from '@app/articles/domain/models/article_model';
 import { TextLength } from '../../../../../shared/domain/text_length';
 import {
@@ -36,9 +36,8 @@ describe('CreateArticleHandler', () => {
 
         expect(article).toBeInstanceOf(Article);
         expect(article.id).toBeDefined();
-        expect(article.title).toBeInstanceOf(TextLength);
-        expect(article.title.value).toBe('my-title-title');
-        expect(article.date).toBeInstanceOf(Date);
+        expect(article.title).toBe('my-title-title');
+        expect(article.createdAt).toBeInstanceOf(Date);
         expect(article.contentHTML).toBe('<div>content</div>');
       });
 
@@ -49,14 +48,14 @@ describe('CreateArticleHandler', () => {
           const articles = await getAllArticles();
 
           expect(articles.length).toBe(1);
-          expect(articles[0].title.value).toBe('my-title-title');
+          expect(articles[0].title).toBe('my-title-title');
         });
       });
     });
   });
 
-  function createArticleWith(options: Partial<ArticleInput> = {}) {
-    const validArticleOptions: ArticleInput = {
+  function createArticleWith(options: Partial<CreateArticleInput> = {}) {
+    const validArticleOptions: CreateArticleInput = {
       title: 'my-title-title',
       category: 'food',
       contentHTML: '<div>content</div>',

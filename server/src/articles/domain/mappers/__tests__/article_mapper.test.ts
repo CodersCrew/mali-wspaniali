@@ -1,6 +1,6 @@
 import { ArticleMapper } from '../article_mapper';
 import { Article } from '../../models/article_model';
-import { RedactorMapper } from '../redactor_mapper';
+import { createValidationObject } from '@app/test/helpers/validation_object_with_message';
 
 describe('ArticleMapper', () => {
   describe('#doDomain', () => {
@@ -20,15 +20,15 @@ describe('ArticleMapper', () => {
         });
 
         expect(article).toBeInstanceOf(Article);
-        expect(article.category.value).toBe('food');
+        expect(article.category).toBe('food');
         expect(article.contentHTML).toBe('<div>my-content</div>');
-        expect(article.description.value).toBe(
+        expect(article.description).toBe(
           'my-description-30-characters-lorem-ipsum',
         );
-        expect(article.pictureUrl.value).toBe('http://some-page.com/image.png');
-        expect(article.tags.value).toEqual([]);
-        expect(article.title.value).toBe('my-title-10-characters');
-        expect(RedactorMapper.toPersistence(article.redactor)).toEqual({
+        expect(article.pictureUrl).toBe('http://some-page.com/image.png');
+        expect(article.tags).toEqual([]);
+        expect(article.title).toBe('my-title-10-characters');
+        expect(article.redactor).toEqual({
           firstName: 'Alice',
           lastName: 'Smith',
         });
@@ -41,10 +41,9 @@ describe('ArticleMapper', () => {
           ArticleMapper.toDomain({
             category: 'food',
             contentHTML: '<div>my-content</div>',
-            description: 'my-description-30-characters-lorem-ipsum',
+            description: 'my-description',
             pictureUrl: 'http://some-page.com/image.png',
             tags: ['behaviour'],
-            videoUrl: 'incorrect video url',
             title: 'my-title-10-characters',
             redactor: {
               firstName: 'Alice',
@@ -55,7 +54,14 @@ describe('ArticleMapper', () => {
               shortDescription: 'my-description',
             },
           }),
-        ).toThrowError('Url must be valid.');
+        ).toThrow(
+          jasmine.arrayContaining([
+            createValidationObject('description', {
+              length:
+                'description must be longer than or equal to 30 characters',
+            }),
+          ]),
+        );
       });
     });
 
@@ -79,17 +85,16 @@ describe('ArticleMapper', () => {
           },
         });
 
-        expect(article).toBeInstanceOf(Article);
-        expect(article.category.value).toBe('food');
+        expect(article.category).toBe('food');
         expect(article.contentHTML).toBe('<div>my-content</div>');
-        expect(article.description.value).toBe(
+        expect(article.description).toBe(
           'my-description-30-characters-lorem-ipsum',
         );
-        expect(article.pictureUrl.value).toBe('http://some-page.com/image.png');
-        expect(article.tags.value).toEqual(['behaviour']);
-        expect(article.videoUrl.value).toEqual('http://some-page.com/video');
-        expect(article.title.value).toBe('my-title-10-characters');
-        expect(RedactorMapper.toPersistence(article.redactor)).toEqual({
+        expect(article.pictureUrl).toBe('http://some-page.com/image.png');
+        expect(article.tags).toEqual(['behaviour']);
+        expect(article.videoUrl).toEqual('http://some-page.com/video');
+        expect(article.title).toBe('my-title-10-characters');
+        expect(article.redactor).toEqual({
           firstName: 'Alice',
           lastName: 'Smith',
           avatarUrl: 'http://some-page.com/me.png',
@@ -119,18 +124,20 @@ describe('ArticleMapper', () => {
 
         const articleProps = ArticleMapper.toRaw(article);
 
-        expect(articleProps).toEqual({
-          category: 'food',
-          contentHTML: '<div>my-content</div>',
-          description: 'my-description-30-characters-lorem-ipsum',
-          pictureUrl: 'http://some-page.com/image.png',
-          tags: [],
-          title: 'my-title-10-characters',
-          redactor: {
-            firstName: 'Alice',
-            lastName: 'Smith',
-          },
-        });
+        expect(articleProps).toEqual(
+          jasmine.objectContaining({
+            category: 'food',
+            contentHTML: '<div>my-content</div>',
+            description: 'my-description-30-characters-lorem-ipsum',
+            pictureUrl: 'http://some-page.com/image.png',
+            tags: [],
+            title: 'my-title-10-characters',
+            redactor: {
+              firstName: 'Alice',
+              lastName: 'Smith',
+            },
+          }),
+        );
       });
     });
 
@@ -156,50 +163,26 @@ describe('ArticleMapper', () => {
 
         const articleProps = ArticleMapper.toRaw(article);
 
-        expect(articleProps).toEqual({
-          category: 'food',
-          contentHTML: '<div>my-content</div>',
-          description: 'my-description-30-characters-lorem-ipsum',
-          pictureUrl: 'http://some-page.com/image.png',
-          tags: ['behaviour'],
-          videoUrl: 'http://some-page.com/video',
-          title: 'my-title-10-characters',
-          redactor: {
-            firstName: 'Alice',
-            lastName: 'Smith',
-            avatarUrl: 'http://some-page.com/me.png',
-            biography: 'beginning',
-            profession: 'my-profession',
-            shortDescription: 'my-description',
-          },
-        });
+        expect(articleProps).toEqual(
+          jasmine.objectContaining({
+            category: 'food',
+            contentHTML: '<div>my-content</div>',
+            description: 'my-description-30-characters-lorem-ipsum',
+            pictureUrl: 'http://some-page.com/image.png',
+            tags: ['behaviour'],
+            videoUrl: 'http://some-page.com/video',
+            title: 'my-title-10-characters',
+            redactor: {
+              firstName: 'Alice',
+              lastName: 'Smith',
+              avatarUrl: 'http://some-page.com/me.png',
+              biography: 'beginning',
+              profession: 'my-profession',
+              shortDescription: 'my-description',
+            },
+          }),
+        );
       });
-    });
-  });
-
-  describe('#toPartialDomain', () => {
-    it('creates partial domain props', () => {
-      const partialProps = ArticleMapper.toPartialDomain({
-        category: 'other',
-        contentHTML: '<div>updated</div>',
-        pictureUrl: 'http://some-page.com/image.png',
-        description: 'my-description-30-characters-lorem-ipsum',
-        tags: ['behaviour'],
-        videoUrl: 'http://some-page.com/video',
-        title: 'my-title-10-characters',
-      });
-
-      expect(partialProps.category.value).toBe('other');
-      expect(partialProps.contentHTML).toBe('<div>updated</div>');
-      expect(partialProps.pictureUrl.value).toBe(
-        'http://some-page.com/image.png',
-      );
-      expect(partialProps.description.value).toBe(
-        'my-description-30-characters-lorem-ipsum',
-      );
-      expect(partialProps.tags.value).toEqual(['behaviour']);
-      expect(partialProps.videoUrl.value).toBe('http://some-page.com/video');
-      expect(partialProps.title.value).toBe('my-title-10-characters');
     });
   });
 });
