@@ -4,6 +4,7 @@ import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typo
 import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { useLocation } from 'react-router-dom';
 import { NotificationsPanel } from './NotificationsPanel';
 import { Notification } from '../../../graphql/types';
 import { Device } from '../../../queries/useBreakpoints';
@@ -13,6 +14,7 @@ import { useOnClickOutside } from '../../../utils/useOnClickOutside';
 import { useReadNotification } from '../../../operations/mutations/Notification/readNotification';
 import { useSidebarState } from '../../../utils/useSidebar';
 
+
 interface Props {
     device: Device;
     language: string;
@@ -20,6 +22,10 @@ interface Props {
     activePage: string[];
     onLanguageChange: (language: string) => void;
 }
+
+const isChildPage = (url: string) => {
+    return url.includes('child');
+};
 
 export function Navbar({ device, language, notifications, activePage, onLanguageChange }: Props) {
     const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
@@ -29,10 +35,15 @@ export function Navbar({ device, language, notifications, activePage, onLanguage
     useOnClickOutside(popupRef, () => setIsNotificationPopupOpen(false));
     const { t } = useTranslation();
     const sidebarState = useSidebarState();
+    const location = useLocation();
+
 
     function handleNotificationPopupClick() {
         setIsNotificationPopupOpen((prev) => !prev);
     }
+
+    const containerMobileClass =  (isChildPage(location.pathname) ?
+        `${classes.containerMobileBoxShadowNone} ${classes.containerMobile}` : classes.containerMobile);
 
     return (
         <Box zIndex="appBar">
@@ -40,7 +51,7 @@ export function Navbar({ device, language, notifications, activePage, onLanguage
                 position="fixed"
                 classes={{
                     root: clsx({
-                        [classes.containerMobile]: device !== 'DESKTOP',
+                        [containerMobileClass]: device !== 'DESKTOP',
                     }),
                 }}
             >
@@ -89,8 +100,12 @@ const useStyles = makeStyles((theme: Theme) =>
             minHeight: theme.spacing(8),
         },
         containerMobile: {
-            // boxShadow: 'none',
             borderBottom: `1px solid ${theme.palette.primary.main}`,
+        },
+        containerMobileBoxShadowNone: {
+            [theme.breakpoints.down('sm')]: {
+                boxShadow: 'none',
+            }
         },
         toolbar: theme.mixins.toolbar,
         logo: {
