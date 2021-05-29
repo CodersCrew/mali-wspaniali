@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { CreateAssessmentResultCommand } from '../impl';
 import { ChildAssessmentResultRepository } from '../../repositories/child_assessment_result_repository';

@@ -1,5 +1,4 @@
 import { Result } from '../../../../shared/domain/result';
-import { Title } from '../title_value_object';
 import { KindergartenWithInstructor } from '../kindergarten_with_instructor_value_object';
 import { ObjectId } from '../../../../users/domain/models/object_id_value_object';
 

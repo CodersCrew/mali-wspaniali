@@ -218,5 +218,3 @@ function createExtendedUpdate(values: Partial<UpdateArticleInput>) {
 
   return options;
 }
-
-function extendToCreate(value: ArticleCore) {}
