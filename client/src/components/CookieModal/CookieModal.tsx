@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
@@ -13,18 +13,18 @@ const ModalProps = { zIndex: 'modal' };
 
 export const CookieModal = () => {
     const classes = useStyles();
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
     const { t } = useTranslation();
     const cookiesAccepted = () => getCookie('cookies');
     const link = t('cookies-popup.link');
     const content = t('cookies-popup.content').split(link);
 
-    useEffect(() => setIsOpen(!cookiesAccepted()), []);
+    React.useEffect(() => setIsOpen(!cookiesAccepted()), []);
 
     if (!isOpen) return null;
 
     return (
-        <Box className={classes.modal} zIndex={ModalProps.zIndex}>
+        <Box className={classes.modal} zIndex="modal">
             <div className={classes.wrapper}>
                 <InfoOutlinedIcon className={classes.modalIconInfo} />
                 <div className={classes.modalTextWrapper}>

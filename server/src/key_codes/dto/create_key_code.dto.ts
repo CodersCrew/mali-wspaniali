@@ -13,4 +13,10 @@ export class CreateKeyCodeDTO {
 
   @Field()
   readonly keyCode: string;
+
+  @Field()
+  readonly series: string;
+
+  @Field()
+  readonly target: string;
 }

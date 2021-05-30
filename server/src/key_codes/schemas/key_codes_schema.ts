@@ -6,8 +6,10 @@ export type KeyCodeDocument = KeyCodeProps & mongoose.Document;
 export const KeyCodeSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
-  createdBy: String, // mongoose.Schema.Types.ObjectId,
+  createdBy: String,
   keyCode: String,
+  series: String,
+  target: String,
 });

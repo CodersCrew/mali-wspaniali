@@ -1,13 +1,13 @@
-import * as mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { NotificationProps } from '../domain/models/notification_model';
 
-export type NotificationDocument = NotificationProps & mongoose.Document;
+export type NotificationDocument = NotificationProps & Document;
 
-export const NotificationSchema = new mongoose.Schema({
-  user: mongoose.Schema.Types.ObjectId,
+export const NotificationSchema = new Schema({
+  user: Schema.Types.ObjectId,
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   templateId: String,
   values: [String],

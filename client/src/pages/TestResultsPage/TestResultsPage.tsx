@@ -1,82 +1,95 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Typography, Table, TableBody } from '@material-ui/core/';
-import { useMutation, useQuery } from '@apollo/client';
-import { getAllChildren } from '../../graphql/userRepository';
-import { TestResultsTableRow } from './TestResultsTableRow';
+import { Typography } from '@material-ui/core/';
 import { NoResults } from './NoResults';
-import { Child } from '../../graphql/types';
-import { Pagination } from './Pagination';
+import { ResultsActions } from './ResultsActions';
+import { TestResultsTable } from './KindergartenTable/TestResultsTable';
+import { KindergartenModal } from './KindergartenModals/KindergartenModal';
+import { ChangeLogModal } from './KindergartenModals/ChangeLogModal';
+import { KindergartenDeleteModal } from './KindergartenModals/KindergartenDeleteModal';
 import { activePage } from '../../apollo_client';
-import { AddOrEditKindergartenModal } from './KindergartenModals/AddOrEditKindergartenModal';
-import {
-    CREATE_KINDERGARTEN,
-    AddKindergartenInput,
-    KINDERGARTENS,
-    KindergartenResponse,
-    UPDATE_KINDERGARTEN,
-    DELETE_KINDERGARTEN,
-} from '../../graphql/kindergartensRepository';
+import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
+import { useCreateKindergarten } from '../../operations/mutations/Kindergartens/createKindergarten';
+import { useDeleteKindergarten } from '../../operations/mutations/Kindergartens/deleteKindergarten';
+import { useUpdateKindergarten } from '../../operations/mutations/Kindergartens/updateKindergarten';
+import { Kindergarten, AddKindergartenInput } from '../../graphql/types';
+import { PageContainer } from '../../components/PageContainer';
 
-export const TestResultsPage = () => {
+export default function TestResultsPage() {
     const { t } = useTranslation();
-    const [children, setChildren] = useState<Child[]>([]);
-    const [createKindergarten] = useMutation<AddKindergartenInput>(CREATE_KINDERGARTEN);
-    const [updateKindergarten] = useMutation<AddKindergartenInput>(UPDATE_KINDERGARTEN);
-    const [deleteKindergarten] = useMutation<{ id: string }>(DELETE_KINDERGARTEN);
-    const { data: kindergartenData } = useQuery<KindergartenResponse>(KINDERGARTENS);
+
+    const { createKindergarten } = useCreateKindergarten();
+    const { deleteKindergarten } = useDeleteKindergarten();
+    const { updateKindergarten } = useUpdateKindergarten();
+    const { kindergartenList } = useKindergartens();
+
+    const [kindergartenModalStatus, setKindergartenModalStatus] = useState<{
+        isOpen?: boolean;
+        kindergarten: Kindergarten | null;
+    }>({
+        kindergarten: null,
+    });
+    const [isChangeLogModalOpen, setChangeLogModalOpen] = useState(false);
+    const [deleteModalStatus, setDeleteModalStatus] = useState<{ kindergarten: Kindergarten | null }>({
+        kindergarten: null,
+    });
 
     useEffect(() => {
-        activePage(['admin-menu.results']);
-        getAllChildren().then(({ data }) => setChildren(data!.allChildren));
+        activePage(['admin-menu.results.title', 'admin-menu.results.table']);
     }, []);
 
-    if (children.length === 0 || !kindergartenData) return <NoResults />;
+    if (!kindergartenList) {
+        return <NoResults />;
+    }
+
+    const onEditClick = (kindergarten: Kindergarten) => {
+        setKindergartenModalStatus({ isOpen: true, kindergarten });
+    };
+
+    const onDelete = (id: string) => {
+        deleteKindergarten(id);
+        setDeleteModalStatus({ kindergarten: null });
+    };
+
+    const onKindergartenModalClose = () => {
+        setKindergartenModalStatus({ kindergarten: null });
+    };
+
+    const handleAddOrEditKindergarten = (values: AddKindergartenInput) => {
+        if (kindergartenModalStatus.kindergarten) {
+            updateKindergarten(kindergartenModalStatus.kindergarten._id, values);
+        } else {
+            createKindergarten(values);
+        }
+        setKindergartenModalStatus({ kindergarten: null });
+    };
 
     return (
-        <Container>
-            <Typography variant="h2" align="center" gutterBottom>
-                {t('test-results.search-result')}
-            </Typography>
-            <AddOrEditKindergartenModal
-                onSubmit={(value: AddKindergartenInput) =>
-                    createKindergarten({
-                        variables: {
-                            kindergarten: value,
-                        },
-                    })
-                }
+        <PageContainer>
+            <Typography variant="h3">{t('test-results.description')}</Typography>
+            <ResultsActions
+                onAddKindergartenClick={() => setKindergartenModalStatus({ isOpen: true, kindergarten: null })}
+                onChangeLogClick={() => setChangeLogModalOpen(true)}
             />
-            <Table>
-                <TableBody>
-                    {children.map((child: Child) => (
-                        <TestResultsTableRow key={child._id} child={child} />
-                    ))}
-                    {kindergartenData.kindergartens.map(({ _id, city, name, address, number }) => (
-                        <div key={_id}>
-                            {name} {city}{' '}
-                            <AddOrEditKindergartenModal
-                                initialData={{ city, name, number, address }}
-                                kindergartenId={_id}
-                                onSubmit={v => {
-                                    updateKindergarten({
-                                        variables: {
-                                            id: _id,
-                                            kindergarten: v,
-                                        },
-                                    });
-                                }}
-                                onDelete={id => {
-                                    deleteKindergarten({
-                                        variables: { id },
-                                    });
-                                }}
-                            />
-                        </div>
-                    ))}
-                </TableBody>
-            </Table>
-            <Pagination page={1} pageChangeHandler={() => true} documentsCount={children.length} rowsPerPage={10} />
-        </Container>
+            <TestResultsTable kindergartens={kindergartenList} onEditClick={onEditClick} />
+            {kindergartenModalStatus.isOpen && (
+                <KindergartenModal
+                    onClose={onKindergartenModalClose}
+                    onSubmit={handleAddOrEditKindergarten}
+                    kindergarten={kindergartenModalStatus.kindergarten}
+                    onDelete={(kindergarten: Kindergarten) => {
+                        setDeleteModalStatus({ kindergarten });
+                    }}
+                />
+            )}
+            <ChangeLogModal isOpen={isChangeLogModalOpen} onClose={() => setChangeLogModalOpen(false)} />
+            {deleteModalStatus.kindergarten && (
+                <KindergartenDeleteModal
+                    onClose={() => setDeleteModalStatus({ kindergarten: null })}
+                    onDelete={(id: string) => onDelete(id)}
+                    kindergarten={deleteModalStatus.kindergarten}
+                />
+            )}
+        </PageContainer>
     );
-};
+}

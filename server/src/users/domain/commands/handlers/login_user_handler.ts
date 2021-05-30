@@ -24,7 +24,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
         const payload = this.jwtService.sign({
           role: user.role,
           mail: user.mail,
-          sub: user._id,
+          sub: user.id,
         });
 
         return payload;

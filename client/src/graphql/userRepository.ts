@@ -1,12 +1,7 @@
 import { gql, FetchResult, ApolloQueryResult } from '@apollo/client';
 
 import { client } from '../apollo_client';
-import { ReturnedStatus, UserInput, Me, User, Child } from './types';
-
-export interface LoginInput {
-    mail: string;
-    password: string;
-}
+import { ReturnedStatus, UserInput, User, Child } from './types';
 
 export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>> {
     return client.mutate({
@@ -18,100 +13,6 @@ export function createUser(user: UserInput): Promise<FetchResult<ReturnedStatus>
             }
         `,
         variables: { user },
-    });
-}
-
-export const AUTHORIZE_USER = gql`
-    mutation login($user: LoginInput!) {
-        login(user: $user) {
-            token
-        }
-    }
-`;
-
-export const GET_ME = gql`
-    {
-        me {
-            date
-            mail
-            children {
-                _id
-                firstname
-                lastname
-                sex
-                birthYear
-                results {
-                    _id
-                    date
-                    test
-                    rootResultId
-                }
-                kindergarten {
-                    _id
-                    name
-                    number
-                }
-            }
-            agreements {
-                _id
-                date
-                text
-                isSigned
-            }
-            role
-            notifications {
-                _id
-                date
-                values
-                templateId
-                isRead
-            }
-        }
-    }
-`;
-
-export function getUser(): Promise<ApolloQueryResult<{ me: Me }>> {
-    return client.query({
-        query: gql`
-            {
-                me {
-                    date
-                    mail
-                    children {
-                        _id
-                        firstname
-                        lastname
-                        sex
-                        birthYear
-                        results {
-                            _id
-                            date
-                            test
-                            rootResultId
-                        }
-                        kindergarten {
-                            _id
-                            name
-                            number
-                        }
-                    }
-                    agreements {
-                        _id
-                        date
-                        text
-                        isSigned
-                    }
-                    role
-                    notifications {
-                        _id
-                        date
-                        values
-                        templateId
-                        isRead
-                    }
-                }
-            }
-        `,
     });
 }
 
@@ -128,6 +29,7 @@ export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User 
                         lastname
                         sex
                         birthYear
+                        birthQuarter
                         results {
                             _id
                             date
@@ -168,6 +70,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                             lastname
                             sex
                             birthYear
+                            birthQuarter
                             results {
                                 _id
                                 date
@@ -206,6 +109,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                         lastname
                         sex
                         birthYear
+                        birthQuarter
                         results {
                             _id
                             date
@@ -241,6 +145,7 @@ export function getAllChildren(): Promise<ApolloQueryResult<{ allChildren: Child
                     lastname
                     sex
                     birthYear
+                    birthQuaarter
                     results {
                         _id
                         date

@@ -4,15 +4,15 @@ export interface Props<T> {
   value: T;
 }
 
-interface ValueObjectProps {
-  [index: string]: any;
-}
+export abstract class ValueObject<T> {
+  public readonly props: Props<T>;
 
-export abstract class ValueObject<T extends ValueObjectProps> {
-  public readonly props: T;
-
-  constructor(props: T) {
+  constructor(props: Props<T>) {
     this.props = Object.freeze(props);
+  }
+
+  get value() {
+    return this.props.value;
   }
 
   public equals(vo?: ValueObject<T>): boolean {

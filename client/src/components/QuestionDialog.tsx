@@ -1,40 +1,43 @@
-import React from 'react';
-import { Dialog, DialogContent, DialogActions } from '@material-ui/core/';
+import { Dialog, DialogContent, DialogActions, DialogTitle, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { openDialog, ActionDialog } from '../utils/openDialog';
-import { ButtonPrimary } from './Button';
+import { ButtonDefault } from './Button';
 
 type QuestionDialogProps = {
-    question: string;
+    title: string;
+    description: string;
+    primaryButtonLabel: string;
 };
 
 export const openQuestionDialog = (props: QuestionDialogProps) => {
     return openDialog<QuestionDialogProps>(QuestionDialog, props);
 };
 
-const QuestionDialog = ({ question, onClose, makeDecision }: QuestionDialogProps & ActionDialog) => {
+const QuestionDialog = (props: QuestionDialogProps & ActionDialog) => {
     const { t } = useTranslation();
 
-    const onAccepted = () => {
-        makeDecision({ accepted: true });
-    };
-
-    const onDeclined = () => {
-        makeDecision({ accepted: false });
-    };
-
     return (
-        <Dialog open onClose={onClose}>
-            <DialogContent>{question}</DialogContent>
+        <Dialog maxWidth="xs" open onClose={props.onClose}>
+            <DialogTitle>
+                <Typography variant="h4">{props.title}</Typography>
+            </DialogTitle>
+            <DialogContent>
+                <Typography variant="body1" color="textSecondary">
+                    {props.description}
+                </Typography>
+            </DialogContent>
             <DialogActions>
-                <ButtonPrimary
-                    onClick={onAccepted}
-                    variant="contained"
-                    autoFocus
-                    innerText={t('question-dialog.yes')}
-                />
-                <ButtonPrimary onClick={onDeclined} variant="text" autoFocus innerText={t('question-dialog.no')} />
+                <ButtonDefault onClick={onDeclined} variant="text" innerText={t('question-dialog.cancel')} />
+                <ButtonDefault onClick={onAccepted} variant="text" innerText={props.primaryButtonLabel} />
             </DialogActions>
         </Dialog>
     );
+
+    function onAccepted() {
+        props.makeDecision({ accepted: true });
+    }
+
+    function onDeclined() {
+        props.makeDecision({ accepted: false });
+    }
 };

@@ -11,3 +11,15 @@ export function useBreakpoints(): Device {
 
     return mobile || tablet || desktop || 'DESKTOP';
 }
+
+export function useIsDevice() {
+    const device = useBreakpoints();
+    const theme = useTheme();
+
+    return {
+        isDesktop: device === 'DESKTOP',
+        isMobile: device === 'MOBILE',
+        isSmallMobile: useMediaQuery(theme.breakpoints.down('xs')), // we treat small mobile as a subcategory of mobile
+        isTablet: device === 'TABLET',
+    };
+}

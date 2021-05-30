@@ -1,5 +1,4 @@
-import React from 'react';
-import { makeStyles, Theme, createStyles, List, Grid, Divider } from '@material-ui/core';
+import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Me } from '../../../graphql/types';
@@ -15,12 +14,10 @@ import { LabeledHeader } from './LabeledHeader';
 export interface Props {
     user: Me | null;
     onClick: (link?: string) => void;
-    onClose: () => void;
     active: string[];
-    open: boolean;
 }
 
-export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) => {
+export const ParentSidebar = ({ onClick, user, active }: Props) => {
     const device = useBreakpoints();
 
     const [, innerMargin] = getMenuWidth(device);
@@ -29,7 +26,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
 
     if (!user) return null;
 
-    const notificationsCount = user.notifications.length;
+    const unreadedNotificationsCount = user.notifications.filter((n) => !n.isRead).length;
 
     const ItemFactory = getParentMenuItemFactory({ active, t });
     const BlogItemFactory = getBlogMenuItemFactory({ active, t });
@@ -37,7 +34,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
     const MainPageItem = ItemFactory.create({ name: 'main-page' });
     const NotificationsItem = ItemFactory.create({
         name: 'notifications',
-        rightIcon: notificationsCount ? <SecondaryLabel label={notificationsCount} /> : undefined,
+        rightIcon: unreadedNotificationsCount ? <SecondaryLabel label={unreadedNotificationsCount} /> : undefined,
     });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
@@ -54,8 +51,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
             <Grid item>
                 <List>
                     <SingleItem item={MainPageItem} onClick={onClick} />
-                    <Divider />
-                    {user.children.map(child => {
+                    {user.children.map((child) => {
                         const ChildItemFactory = getChildMenuItemFactory({ active, t });
 
                         const { mainItem, subItems } = ChildItemFactory.create({ child });
@@ -83,7 +79,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
 
     return (
         <div className={classes.drawer}>
-            <MenuDrawer device={device} onClose={onClose} open={open}>
+            <MenuDrawer device={device}>
                 <>
                     {device !== 'DESKTOP' && <LabeledHeader />}
                     {drawer}
@@ -93,7 +89,7 @@ export const ParentSidebar = ({ onClick, onClose, user, active, open }: Props) =
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             display: 'flex',

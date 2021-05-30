@@ -1,27 +1,21 @@
-import React, { FC } from 'react';
-import { AccordionSummary } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
+import { FC } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { makeStyles } from '@material-ui/core/styles';
-import { panelTextColor } from '../../../colors';
+import { makeStyles, AccordionSummary, Typography } from '@material-ui/core';
 
 export const PanelSummary: FC = ({ children }) => {
     const classes = useStyles();
 
     return (
         <AccordionSummary className={classes.summary} expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.title}>{children}</Typography>
+            <Typography color="textPrimary" variant="subtitle2">
+                {children}
+            </Typography>
         </AccordionSummary>
     );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     summary: {
         paddingLeft: theme.spacing(5),
-    },
-    title: {
-        fontSize: 15,
-        lineHeight: '21px',
-        color: panelTextColor,
     },
 }));

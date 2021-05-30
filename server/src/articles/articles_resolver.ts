@@ -2,8 +2,8 @@ import { Query, Resolver, Mutation, Args, Int } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
-import { ArticleInput } from './inputs/article_input';
-import { Article, ArticleProps } from './domain/models/article_model';
+import { CreateArticleInput } from './inputs/article_input';
+import { Article } from './domain/models/article_model';
 import { CreateArticleCommand } from './domain/commands/impl/create_article_command';
 import { GetAllArticlesQuery } from './domain/queries/impl';
 import { GetArticleByIdQuery } from './domain/queries/impl/get_article_by_id_query';
@@ -21,7 +21,8 @@ import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { ArticleDTO } from './dto/article_dto';
 import { PaginatedArticlesDTO } from './dto/paginated_article_dto';
 import { GetArticlesCountQuery } from './domain/queries/impl/get_article_count_query';
-import { CategoryProps } from './domain/models/category';
+import { classToPlain } from 'class-transformer';
+import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
 
 const ARTICLE_PER_PAGE = 6;
 
@@ -36,12 +37,18 @@ export class ArticlesResolver {
   @Query(() => PaginatedArticlesDTO)
   @UseGuards(GqlAuthGuard)
   async paginatedArticles(
+    @CurrentUser() user: LoggedUser,
     @Args('page', { type: () => Int }) page: number,
-    @Args('category', { nullable: true }) category?: CategoryProps,
+    @Args('category', { nullable: true }) category?: string,
     @Args('perPage', { nullable: true, type: () => Int }) perPage?: number,
   ): Promise<PaginatedArticlesDTO> {
     const articles: Article[] = await this.queryBus.execute(
-      new GetAllArticlesQuery(page, perPage || ARTICLE_PER_PAGE, category),
+      new GetAllArticlesQuery(
+        page,
+        perPage || ARTICLE_PER_PAGE,
+        user,
+        category,
+      ),
     );
 
     const articleCount: number = await this.queryBus.execute(
@@ -63,7 +70,7 @@ export class ArticlesResolver {
   @UseGuards(GqlAuthGuard)
   async lastArticles(
     @Args('count', { type: () => Int }) count: number,
-  ): Promise<ArticleProps[]> {
+  ): Promise<Record<string, any>[]> {
     const articles: Article[] = await this.queryBus.execute(
       new GetLastArticlesQuery(count),
     );
@@ -73,12 +80,12 @@ export class ArticlesResolver {
 
   @Query(() => ArticleDTO)
   @UseGuards(GqlAuthGuard)
-  async article(@Args('id') id: string): Promise<ArticleProps> {
+  async article(@Args('id') id: string): Promise<Record<string, any>> {
     const article: Article = await this.queryBus.execute(
       new GetArticleByIdQuery(id),
     );
 
-    if (article.getProps()) {
+    if (classToPlain(article.getProps())) {
       return ArticleMapper.toRaw(article);
     }
 
@@ -88,7 +95,7 @@ export class ArticlesResolver {
   @Mutation(() => ReturnedStatusDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createArticle(
-    @Args('article') article: ArticleInput,
+    @Args('article') article: CreateArticleInput,
   ): Promise<{ status: boolean }> {
     const newArticle: Article = await this.commandBus.execute(
       new CreateArticleCommand(article),

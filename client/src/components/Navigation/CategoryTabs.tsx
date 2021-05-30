@@ -1,4 +1,4 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { Tabs } from '../Tabs/Tabs';
@@ -6,26 +6,33 @@ import { theme } from '../../theme/theme';
 import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
-    onClick: (value: string) => void;
-    active: string;
-    values: T[];
+    onChange: (value: string) => void;
+    currentCategory: string;
+    name: string;
+    categories: T[];
 }
 
-export function CategoryTabs<
-    T extends CategoryItem | ChildProfileCategoryItem
->({ onClick, active, values }: Props<T>) {
+export function CategoryTabs<T extends CategoryItem | ChildProfileCategoryItem>(props: Props<T>) {
+    const { t } = useTranslation();
+    const T_PREFIX = props.name === 'results' ? 'parent-menu.child' : 'blog-categories';
+
     return (
         <Tabs
-            value={values.find((tab) => tab.key === active)?.key}
-            onTabsChange={(value) => {
-                onClick(value);
-            }}
-            values={values.map((category) => ({
-                label: category.name,
-                value: category.key,
-            }))}
+            currentCategory={getCurrentNormalizedCategory()}
+            onTabsChange={props.onChange}
+            categories={props.categories.map(normalizeCategory)}
             indicator={theme.palette!.secondary as string}
-            variant="fullWidth"
         />
     );
+
+    function normalizeCategory(category: CategoryItem | ChildProfileCategoryItem) {
+        return {
+            label: t(`${T_PREFIX}.${category.key}`),
+            value: category.key,
+        };
+    }
+
+    function getCurrentNormalizedCategory() {
+        return props.categories.find((tab) => tab.key === props.currentCategory)?.key;
+    }
 }

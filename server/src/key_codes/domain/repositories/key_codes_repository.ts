@@ -13,12 +13,51 @@ export class KeyCodeRepository {
     private readonly keyCodeModel: Model<KeyCodeDocument>,
   ) {}
 
-  async getAll(): Promise<KeyCodeProps[]> {
-    return await this.keyCodeModel.find({}, {}, { sort: { date: -1 } }).exec();
+  async getAll(series: string): Promise<KeyCodeProps[]> {
+    return await this.keyCodeModel
+      .find({ series }, {}, { sort: { date: -1 } })
+      .exec();
   }
 
-  async create(createKeyCodeDTO: KeyCodeInput): Promise<KeyCodeProps> {
-    const createdKeyCode = new this.keyCodeModel(createKeyCodeDTO);
+  async getAllSeries(): Promise<string[]> {
+    return await this.keyCodeModel.distinct('series').exec();
+  }
+
+  async getOne({
+    series,
+    keyCode,
+  }: {
+    series?: string;
+    keyCode?: string;
+  }): Promise<KeyCodeProps> {
+    let query;
+
+    if (series) {
+      query = { series };
+    } else {
+      query = { keyCode };
+    }
+
+    return await this.keyCodeModel
+      .findOne(query)
+      .lean()
+      .exec();
+  }
+
+  async count(series: string): Promise<number> {
+    return await this.keyCodeModel.count({ series }).exec();
+  }
+
+  async create(
+    createKeyCodeDTO: KeyCodeInput,
+    series: string,
+    target: string,
+  ): Promise<KeyCodeProps> {
+    const createdKeyCode = new this.keyCodeModel({
+      ...createKeyCodeDTO,
+      series,
+      target,
+    });
 
     return await createdKeyCode.save();
   }

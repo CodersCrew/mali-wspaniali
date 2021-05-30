@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Collapse, List, Divider } from '@material-ui/core';
+import { useState } from 'react';
+import { Collapse, List, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { SingleItemProps, SingleItem } from './SingleItem';
 
@@ -11,9 +11,10 @@ interface Props {
 
 export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
     const [isOpen, setIsOpen] = useState(mainItem.active);
+    const classes = useStyles();
 
     return (
-        <>
+        <div className={classes.container}>
             <SingleItem
                 item={{
                     name: mainItem.name,
@@ -21,7 +22,8 @@ export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
                     rightIcon: isOpen ? <ExpandLess /> : <ExpandMore />,
                     active: mainItem.active,
                 }}
-                onClick={() => setIsOpen(prev => !prev)}
+                onClick={() => setIsOpen((prev) => !prev)}
+                grayed
             />
             <Collapse in={isOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
@@ -31,11 +33,17 @@ export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
                             item={{ name, icon, link, active }}
                             onClick={() => link && onClick(link)}
                             leftPadding
+                            grayed
                         />
                     ))}
                 </List>
             </Collapse>
-            <Divider />
-        </>
+        </div>
     );
 }
+
+const useStyles = makeStyles({
+    container: {
+        marginTop: 4,
+    },
+});

@@ -18,6 +18,12 @@ import {
     ViewModule,
     Archive,
     Message,
+    Email,
+    PeopleAlt,
+    HorizontalSplit,
+    Dashboard,
+    VerticalSplit,
+    School,
 } from '@material-ui/icons';
 
 import { Child } from '../../../graphql/types';
@@ -39,10 +45,10 @@ interface MenuItemFactoryProps {
     name: string;
     t: TFunction;
     active: string[];
-    rightIcon?: JSX.Element;
+    rightIcon?: React.ReactNode;
 }
 
-interface BlogMenuItemFactoryProps {
+interface CollapsibleMenuItemFactoryProps {
     t: TFunction;
     active: string[];
 }
@@ -71,6 +77,13 @@ export function getAdminMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps
     };
 }
 
+export function getInstructorMenuItemFactory({ active, t }: Pick<MenuItemFactoryProps, 'active' | 't'>): ItemFactory {
+    return {
+        create: ({ name, rightIcon }: Pick<MenuItemFactoryProps, 'name' | 'rightIcon'>) =>
+            getInstructorMenuItem({ active, t, name, rightIcon }),
+    };
+}
+
 export function getChildMenuItemFactory({
     active,
     t,
@@ -84,6 +97,24 @@ export function getBlogMenuItemFactory({
 }: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
     return {
         create: () => getBlogMenuItem({ active, t }),
+    };
+}
+
+export function getResultsMenuItemFactory({
+    active,
+    t,
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
+    return {
+        create: () => getResultsMenuItem({ active, t }),
+    };
+}
+
+export function getNewsletterMenuItemFactory({
+    active,
+    t,
+}: Pick<MenuItemFactoryProps, 'active' | 't'>): CollapsibleItemFactory<{}> {
+    return {
+        create: () => getNewsletterMenuItem({ active, t }),
     };
 }
 
@@ -105,9 +136,9 @@ function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): Menu
         },
         {
             icon: <Icon icon={<ThumbUp />} />,
-            name: t('parent-menu.child.recomendations'),
-            link: `/parent/child/${child._id}/recomendations`,
-            active: active.includes(`/parent/child/${child._id}/recomendations`),
+            name: t('parent-menu.child.recommendations'),
+            link: `/parent/child/${child._id}/recommendations`,
+            active: active.includes(`/parent/child/${child._id}/recommendations`),
         },
         {
             icon: <Icon icon={<Notes />} />,
@@ -126,7 +157,7 @@ function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): Menu
     return { mainItem, subItems };
 }
 
-function getBlogMenuItem({ active, t }: BlogMenuItemFactoryProps): MenuItemFactoryResult {
+function getBlogMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
     const mainItem = {
         icon: <Icon icon={<LibraryBooks />} />,
         name: t('parent-menu.blog'),
@@ -219,13 +250,65 @@ function getParentMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps)
     return item;
 }
 
-function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
-    const MainPageItem = {
-        name: 'admin-menu.home',
-        link: '/admin',
-        icon: <Icon icon={<Home />} />,
+function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
+    const mainItem = {
+        icon: <Icon icon={<VerticalSplit />} />,
+        name: t('admin-menu.tests.title'),
+        link: '/admin/tests',
+        active: active.includes('admin-menu.results.title'),
     };
 
+    const subItems: SingleItemProps[] = [
+        {
+            icon: <Icon icon={<Assessment />} />,
+            name: t('admin-menu.tests.results'),
+            link: '/admin/tests',
+            active: active.includes('admin-menu.results.table'),
+        },
+        {
+            icon: <Icon icon={<Dashboard />} />,
+            name: t('admin-menu.tests.manage-tests'),
+            link: '/admin/test-management',
+            active: active.includes('admin-menu.test-management'),
+        },
+        {
+            icon: <Icon icon={<PeopleAlt />} />,
+            name: t('admin-menu.tests.instructors'),
+            link: '/admin/instructors',
+            active: active.includes('admin-menu.instructors'),
+        },
+    ];
+
+    return { mainItem, subItems };
+}
+
+function getNewsletterMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuItemFactoryResult {
+    const mainItem = {
+        icon: <Icon icon={<Message />} />,
+        name: t('admin-menu.newsletter.title'),
+        link: '/admin/newsletter',
+        active: active.includes('admin-menu.newsletter.title'),
+    };
+
+    const subItems: SingleItemProps[] = [
+        {
+            icon: <Icon icon={<Email />} />,
+            name: t('admin-menu.newsletter.new-message'),
+            link: '/admin/newsletter',
+            active: active.includes('admin-menu.newsletter.new-message'),
+        },
+        {
+            icon: <Icon icon={<Archive />} />,
+            name: t('admin-menu.newsletter.archive'),
+            link: '/admin/archive',
+            active: active.includes('admin-menu.newsletter.archive'),
+        },
+    ];
+
+    return { mainItem, subItems };
+}
+
+function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
     const ResultsItem = {
         name: 'admin-menu.results',
         link: '/admin/tests',
@@ -240,14 +323,14 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         rightIcon,
     };
 
-    const CreateBlogArticleItem = {
-        name: 'admin-menu.create-blog-article',
-        link: '/admin/article/create',
+    const ArticlesItem = {
+        name: 'admin-menu.articles.title',
+        link: '/admin/articles',
         icon: <Icon icon={<LibraryBooks />} />,
     };
 
     const SettingsItem = {
-        name: 'admin-menu.settings',
+        name: 'admin-menu.settings.title',
         link: '/admin/settings',
         icon: <Icon icon={<Build />} />,
     };
@@ -276,17 +359,71 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         icon: <Icon icon={<Message />} />,
     };
 
+    const KindergartensItem = {
+        name: 'admin-menu.kindergartens.title',
+        link: '/admin/kindergartens',
+        icon: <Icon icon={<School />} />,
+    };
+
+    const CodeItem = {
+        name: 'admin-menu.keycodes',
+        link: '/admin/keycodes',
+        icon: <Icon icon={<HorizontalSplit />} />,
+    };
+
     const options: { [index: string]: SingleItemProps } = {
-        'main-page': MainPageItem,
         notifications: NotificationsItem,
         settings: SettingsItem,
-        'create-blog-article': CreateBlogArticleItem,
+        articles: ArticlesItem,
         archive: ArchiveItem,
         newsletter: NewsletterItem,
-
+        keycodes: CodeItem,
+        kindergartens: KindergartensItem,
         logout: LogoutItem,
         agreements: AgreementsItem,
         results: ResultsItem,
+    };
+
+    const item = options[name];
+
+    if (active.includes(item.name)) item.active = true;
+
+    item.name = t(item.name);
+
+    return item;
+}
+
+function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryProps): SingleItemProps {
+    const AddResultsItem = {
+        name: 'instructor-menu.results-table',
+        link: '/instructor',
+        icon: <Icon icon={<Assessment />} />,
+    };
+
+    const NotificationsItem = {
+        name: 'instructor-menu.notifications',
+        link: '/instructor/notifications',
+        icon: <Icon icon={<Notifications />} />,
+        rightIcon,
+    };
+
+    const SettingsItem = {
+        name: 'instructor-menu.settings',
+        link: '/instructor/settings',
+        icon: <Icon icon={<Build />} />,
+    };
+
+    const LogoutItem = {
+        name: 'instructor-menu.logout',
+        link: 'logout',
+        icon: <Icon icon={<PowerSettingsNew />} />,
+    };
+
+    const options: { [index: string]: SingleItemProps } = {
+        'add-results': AddResultsItem,
+        settings: SettingsItem,
+        notifications: NotificationsItem,
+        logout: LogoutItem,
     };
 
     const item = options[name];

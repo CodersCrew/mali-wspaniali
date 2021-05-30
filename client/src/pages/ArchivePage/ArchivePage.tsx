@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { activePage } from '../../apollo_client';
 
-export function ArchivePage() {
-    useEffect(() => {
-        activePage(['admin-menu.archive']);
+export default function ArchivePage() {
+    React.useEffect(() => {
+        activePage(['admin-menu.newsletter.title', 'admin-menu.newsletter.archive']);
     }, []);
 
     return <div>Archive Page</div>;

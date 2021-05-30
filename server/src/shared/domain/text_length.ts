@@ -5,13 +5,9 @@ export type TextLengthProps = string;
 
 export type TextLengthValue = Props<TextLengthProps>;
 
-export class TextLength extends ValueObject<TextLengthValue> {
+export class TextLength extends ValueObject<TextLengthProps> {
   private constructor(props: TextLengthValue) {
     super(props);
-  }
-
-  get value(): TextLengthProps {
-    return this.props.value;
   }
 
   public static create(

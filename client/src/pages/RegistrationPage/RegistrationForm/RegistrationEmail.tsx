@@ -1,20 +1,30 @@
-import React from 'react';
 import { TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { RegistrationEmailProps } from './types';
+import React from 'react';
+
 import { emailTest } from '../emailTest';
 import { ButtonSecondary } from '../../../components/Button';
 
+import { RegistrationEmailProps } from './types';
+
 export const RegistrationEmail = ({
     handleChange,
-    handleNext,
     handleBack,
+    handleNext,
     email,
     classForm,
     classButton,
     classNextBtn,
+    error,
 }: RegistrationEmailProps) => {
     const { t } = useTranslation();
+
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            if (emailTest(email)) handleNext();
+        }
+    };
 
     return (
         <>
@@ -28,10 +38,12 @@ export const RegistrationEmail = ({
                 variant="outlined"
                 inputProps={{ 'data-testid': 'email' }}
                 className={classForm}
-                helperText={t('login-page.e-mail-helper-text')}
+                error={error}
+                helperText={error && t('registration-page.invalid-email')}
+                onKeyPress={handleKeyPress}
+                autoFocus
             />
             <div className={classButton}>
-                <ButtonSecondary variant="text" onClick={handleBack} innerText={t('back')} />
                 <ButtonSecondary
                     variant="contained"
                     onClick={handleNext}
@@ -39,6 +51,7 @@ export const RegistrationEmail = ({
                     disabled={!emailTest(email)}
                     innerText={t('next')}
                 />
+                <ButtonSecondary onClick={handleBack} variant="text" innerText={t('back')} />
             </div>
         </>
     );

@@ -14,6 +14,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { NewslettersModule } from './newsletters/newsletters_module';
 import { AgreementsModule } from './agreements/agreements_module';
 import { KindergartenModule } from './kindergartens/kindergarten_module';
+import { AssessmentModule } from './assessment/assessment_module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { KindergartenModule } from './kindergartens/kindergarten_module';
     NewslettersModule,
     AgreementsModule,
     KindergartenModule,
+    AssessmentModule,
     ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       debug: !isProduction(),

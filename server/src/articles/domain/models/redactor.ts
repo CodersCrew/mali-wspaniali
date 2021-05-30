@@ -1,43 +1,41 @@
-import { ValueObject } from '../../../shared/domain/value_object';
+import { Expose } from 'class-transformer';
 import { Url } from '../../../shared/domain/url';
+import { Firstname, Lastname } from '../../../users/domain/models';
 
 export interface RedactorProps {
-  readonly avatarUrl?: string;
-  readonly firstName: string;
-  readonly lastName?: string;
-  readonly profession?: string;
-  readonly shortDescription?: string;
+  firstName: string;
+  lastName: string;
+  avatarUrl?: string;
+  profession?: string;
+  shortDescription?: string;
+  biography?: string;
 }
 
 export interface RedactorInnerProps {
-  readonly avatarUrl?: Url;
-  readonly firstName: string;
-  readonly lastName?: string;
-  readonly profession?: string;
-  readonly shortDescription?: string;
+  firstName: Firstname;
+  lastName: Lastname;
+  avatarUrl?: Url;
+  profession?: string;
+  shortDescription?: string;
+  biography?: string;
 }
 
-export class Redactor extends ValueObject<RedactorInnerProps> {
-  private constructor(props: RedactorInnerProps) {
-    super(props);
-  }
+export class Redactor {
+  @Expose()
+  firstName: string;
 
-  getValue(): RedactorProps {
-    const mappedProps = {
-      ...this.props,
-      avatarUrl: this.props.avatarUrl.value,
-    };
+  @Expose()
+  lastName: string;
 
-    return mappedProps;
-  }
+  @Expose()
+  avatarUrl?: string;
 
-  static create(props: RedactorProps): Redactor {
-    const avatarUrl = Url.create(props.avatarUrl).getValue();
+  @Expose()
+  profession?: string;
 
-    const mappedProps = {
-      ...props,
-      avatarUrl,
-    };
-    return new Redactor(mappedProps);
-  }
+  @Expose()
+  shortDescription?: string;
+
+  @Expose()
+  biography?: string;
 }

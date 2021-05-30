@@ -9,32 +9,47 @@
         "login": "Login",
         "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
         "login-header": "Log in",
-        "e-mail-helper-text": "Type in e-mail address provided to Mali Wspaniali's foundation",
+        "e-mail-helper-text-mobile": "Enter e-mail used by registration",
+        "e-mail-helper-text": "Enter e-mail used by registration",
         "forgot-password": "Forgot password?",
         "login-notfound": "We cannot find your account in the system",
-        "login-wrong-password": "Entered password is incorrect"
+        "login-wrong-password": "Entered password is incorrect",
+        "no-account": "You don't have an account?",
+        "register": "Register"
     },
     "login-wrapper": {
         "welcome-text": "Welcome to Mali Wspaniali's world!",
-        "subheading": "Join the community of conscious parents"
+        "subheading": "Join the community of conscious parents",
+        "made-by": "Made by:",
+        "partners": "Strategic partners:"
     },
     "registration-page": {
+        "register-header": "Registration",
         "already-have-account": "Already have an account?",
+        "register-failure": "Registration failed",
+        "register-failure-keycode": "Incorrect keycode provided",
+        "register-failure-description": "Something went wrong. It happens if you mistyped the code you received from the Foundation or you try to use it for the second time. Maybe you provided an other email than you hand over to the Foundation. Please, check it out again and contuct us as a last resort.",
         "password-mismatch": "Passwords do not match",
-        "register-success": "Account created. Please login.",
+        "register-success-title": "And now it is the time for the last step!",
+        "register-success-content": "An email with the activation link was sent to you. Use it to confirm you have provided the correct email address that will finish the registration process.",
+        "register-success-spam": "",
         "password-confirm": "Repeat password",
-        "register": "Register",
+        "register": "Registration",
         "password-not-strong": "Password not strong enough",
         "agreements-and-regulations": "Agreements and regulations",
-        "create-password": "Create password",
+        "agreements-fetch-failed": "Fetching data failed. Try again later.",
+        "create-password": "Register account",
         "confirmation": "Confirmation",
         "create-password-text": "Create a password to Mali Wspaniali platform that will serve you for future logins.",
-        "go-to-homepage": "Go to homepage",
+        "go-to-homepage": "Go to home page",
+        "go-to-loginpage": "Go to login page",
         "enter-code": "Enter code",
         "enter-code-text": "Please enter the code provided by Mali Wspaniali foundation. Thanks to this code, your data will be secure.",
         "no-code": "Don't have a code?",
-        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to biuro@mali-wspaniali.pl",
+        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to: ",
+        "no-code-desc-email": "biuro@mali-wspaniali.pl",
         "invalid-code": "Code is invalid, please try again.",
+        "invalid-email": "Invalid email address",
         "length": "8 chars",
         "capital": "Capital letter",
         "digit": "Digit",
@@ -47,25 +62,40 @@
             "show-less": "Zwiń",
             "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
             "sub-title": "Zgody",
-            "sub-title-description": "Zgoda na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych nie są obowiązkowai nie skutkują one brakiem możliwości brania udziału w zajęciach.",
+            "sub-title-description": "Zgodę na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych może Pani/Pan w dowolnej chwili wycofać z poziomu platformy w zakładce 'Zgody'.",
             "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
             "privacy-policy": "Regulaminu, Polityki prywatności.",
-            "required-field": "*pole obowiązkowe do wypełnienia"
+            "required-field": "*pole obowiązkowe do wypełnienia",
+            "required-agreements": "*Required consents and agreements"
         }
     },
     "forgot-password-page": {
-        "forgot-password": "Forgot password",
+        "forgot-password": "Forgot the password?",
         "its-ok": "Don't worry. Type in your email address.",
+        "its-ok-mobile": "Don't worry.<br/>Type in your email address.",
         "receive-link": "You will receive a link to create a new password.",
         "insert-email": "Type in e-mail address provided to the foundation",
-        "new-password": "Create new password",
+        "continue": "Continue",
         "problem": "Stumbled upon a problem?",
         "contact": "Please contact the foundation to resolve it",
-        "email-helper-text": "Type in e-mail address provided to the foundation",
+        "email-helper-text": "Type in an e-mail address used during registration",
+        "incorrect-email-helper-text": "Incorrect email address",
         "back-to-login": "Back to login",
-        "email-sent": "We have sent you an email.",
-        "when-received": "Once you receive it, click a link to create a new password.",
-        "avatar": "Małgosia"
+        "avatar": "Małgosia",
+        "email-sent": "The email has been sent.",
+        "when-received": "Input code you received."
+    },
+    "password-change-page": {
+        "new-password-title": "New password",
+        "new-password-subtitle": "Create new password for Mali Wspaniali platform.",
+        "create-new-password": "Create new password",
+        "new-password": "New password",
+        "repeat-password": "Repeat password"
+    },
+    "password-change-success-page": {
+        "password-change-success-title": "Password changing process resolved successfully",
+        "password-change-success-subtitle": "Login with your new password to once again access the Mali Wspaniali platform.",
+        "login": "Login"
     },
     "users-page": {
         "agreements": "Agreements",
@@ -78,6 +108,23 @@
         "agreements-all": "All agreements",
         "req": "* required"
     },
+    "admin-setting-page": {
+        "keycode-generation": {
+            "title": "KeyCode generate",
+            "description": "Choose for whom you want to generate registration codes and enter their number. After pressing “GENERATE” the codes will be exported to an .xlsx file. The keys will be active for 7 days. After this time, new keys should be generated.",
+            "role-parent": "Parent",
+            "role-instructor": "Instructor",
+            "filename": "Filename",
+            "target": "Target",
+            "expires-at": "Expires at",
+            "keycode-amount": "KeyCode amount",
+            "keycode-amount-total": "Total active keys ({{total}})",
+            "generate": "Generate",
+            "download-as": "Download as XLSX file.",
+            "download": "Download",
+            "download-alert": "The file {{filename}} has been downloaded."
+        }
+    },
     "e-mail": "E-Mail Address",
     "password": "Password",
     "no-results": "No Results",
@@ -89,28 +136,11 @@
         "pl": "Polish",
         "en": "English"
     },
-    "kindergarten-modal": {
-        "city": "city",
-        "address": "address",
-        "name": "name",
-        "number": "number"
-    },
-    "add-kindergarten-modal": {
-        "title": "Add kindergarten",
-        "add": "Add",
-        "close": "Close"
-    },
-    "edit-kindergarten-modal": {
-        "title": "Edit kindergarten",
-        "edit": "Update",
-        "close": "Close",
-        "delete": "Delete"
-    },
     "child-profile": {
         "no-child": "Sorry, there is no child with this id",
         "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
         "results-list": "Results list",
-        "tests-information": "Tests information",
+        "tests-information": "Tests description",
         "your-agreements": "Your agreements",
         "participation-label": "Permission to participate in the Mali Wspaniali program",
         "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
@@ -118,22 +148,41 @@
         "marketing-description": "Optional agreement that allows us to send you emails with current informations about the Mali Wspaniali program.",
         "image-label": "Permission to use the image",
         "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
-        "kindergartener-test": "Kindergartener test",
+        "kindergartener-test": "Kindergartener fitness test",
         "last-update-date": "Last update",
         "details": "Details",
         "collapse-details": "Collapse details",
         "info-about-test": "Information about test",
         "carries-out-on": "carries out on",
-        "age-group": "On the day of test, the child was assigned to the age group",
-        "fitness-level": "Fitness level",
+        "age-group": "Child age",
+        "age-group-description": {
+            "title": "How we assign child to age group",
+            "subtitle": "When assigning a child to an age group, we calculate the child's metric age on the day of testing (to the nearest month).",
+            "text-1": "If a child is, for example, 4 years and 10 months old we classify him/her as a 5 year old. To the group ",
+            "age-1": "children aged 5 years",
+            "text-2": " includes all children who on the day of the survey had completed ",
+            "age-2": "4 years and 6 months,",
+            "text-3": " but no more than ",
+            "age-3": "5 years and 5 months.",
+            "text-4": " A similar principle applies to the qualification of children in other age groups."
+        },
+        "initial-fitness-level": "Summarised result from initial test",
+        "final-fitness-level": "Summarised result from final test",
         "advice": "Advice",
         "initial-test": "Initial test",
         "final-test": "Final test",
+        "result-level": "Feature level",
         "result-description": {
-            "bad": "TBD",
-            "medium": "You are doing well but it can always be better",
-            "good": "Good!",
-            "very-good": "Very good!"
+            "bad": "LOW FITNESS LEVEL",
+            "medium": "MEDIUM FITNESS LEVEL",
+            "good": "GOOD FITNESS LEVEL",
+            "very-good": "VERY GOOD FITNESS LEVEL"
+        },
+        "result-levels": {
+            "bad": "bad",
+            "medium": "medium",
+            "good": "good",
+            "very-good": "very good"
         },
         "tests": {
             "strength": "Strength",
@@ -147,21 +196,34 @@
             "speed": "Speed test",
             "agility": "Agility test"
         },
+        "test-description": {
+            "agility": "4 x 5 m pendulum run",
+            "power": "Take both long jump from the spot",
+            "strength": "Medicine ball throw from behind the head",
+            "speed": "Run 20 meters"
+        },
         "no-result-block-text": "did not take place or the child was unable to participate in the test that day.",
         "scale": "Scale",
         "received-points": "Received points",
         "pts": "pts",
         "final-test-title": "Results of particular tests with comparison of results from the initial test",
-        "initial-test-title": "Results of particular tests",
+        "initial-test-title": "Results of particular tests included into initial test",
         "difference": {
             "progress": "Get better",
             "regress": "Get worse",
             "constant": "Is the same"
         },
-        "summary-info": "Summary information",
+        "summary-info": "Measurement informations",
         "test-result": "Test result",
         "comparison-label": "By comparing both tests, your child's fitness level",
         "comparison-right-title": "See what form your child is in. The chart shows how the child's results have changed over two tests",
+        "comparison-legend": {
+            "title": "Chart information",
+            "progress": "Physical level progress:",
+            "regress": "Physical level regress",
+            "initial-result": "Initial result",
+            "final-result": "Final result"
+        },
         "comparison-button": "What can I do?",
         "no-results-title": "No results",
         "no-results-text": "The results have not yet been entered because the initial test has not yet taken place, or the results are under development.",
@@ -173,62 +235,164 @@
         "no-results-link": "Test Information tab",
         "tests-informations": {
             "about": {
-                "panelTitle": "panelTitle (placeholder)",
-                "title": "title (placeholder)",
-                "text1": "text1 (placeholder)",
-                "text2-1": "text2-1 (placeholder)",
-                "text2-test-names": "text2-test-names (placeholder)",
-                "text2-2": "text2-2 (placeholder)"
+                "panelTitle": "About the Wrocław Preschool Test - a few words in general",
+                "title": "The Preschooler Test is a very accessible fitness test for children aged between 3 and 7.",
+                "text1": "It is used to assess physical development. It is very simple to do in preschool settings. It does not require complicated and specialized measuring tools, rooms or devices.",
+                "text2-1": "It consists of four physical tests, which in their results take into account the basic and most important motor skills:",
+                "text2-test-names": "strength, speed, agility and power.",
+                "text2-2": "These abilities are used in sports, but also in everyday activities in adult life, such as work: physical, carrying shopping, cleaning or even taking things out of a hard-to-reach place."
             },
             "conditions": {
-                "panelTitle": "panelTitle (placeholder)",
-                "title": "title (placeholder)",
-                "text1": "text1 (placeholder)",
-                "text2": "text2 (placeholder)",
-                "test1-name": "test1-name (placeholder)",
-                "test1-description": "test1-description (placeholder)",
-                "test1-scale": "test1-scale (placeholder)",
-                "test2-name": "test2-name (placeholder)",
-                "test2-description": "test2-description (placeholder)",
-                "test2-scale": "test2-scale (placeholder)",
-                "test3-name": "test3-name (placeholder)",
-                "test3-description": "test3-description (placeholder)",
-                "test3-scale": "test3-scale (placeholder)",
-                "test4-name": "test4-name (placeholder)",
-                "test4-description": "test4-description (placeholder)",
-                "test4-scale": "test4-scale (placeholder)"
+                "panelTitle": "How do we perform the preschooler test and calculate its results?",
+                "title": "The preschooler's fitness test is performed once a semester.",
+                "text1": "It consists of two tests: the initial test (measurement at the turn of October and November) and the final test (measurement at the turn of April and May). Each sample has four components, the sum of which makes the total score. This result gives an indication of your child's fitness level.",
+                "text2": "You can get a certain number of points for each trial. Children are assessed according to a scale prepared by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength tests (strength and power), the greater the distance the child has during the test, the more points he will receive, while in the case of agility tests (speed and agility), more points will be awarded to the child whose test execution time is shorter.",
+                "text3": "The sum of the grades makes up the total score. This result indicates your child's fitness level (low, medium, good or very good). The results are collected from children who are present at the facility and willing to practice during the Mali Magnificent classes by the Instructor. The lack of a result of a given test may indicate the child's absence on a given day or a lack of participation in a given exercise. In this case, you receive individual test results without being able to see your child's overall fitness.",
+                "test1-name": "Agility",
+                "test1-description": "4 x 5 m pendulum run with a block transfer",
+                "test1-scale": "Scale: 0 s - 80 s",
+                "test2-name": "Power",
+                "test2-description": "Take both long jump from the spot",
+                "test2-scale": "Scale: 0 cm - 80 cm",
+                "test3-name": "Force",
+                "test3-description": "Medicine ball throw from behind the head",
+                "test3-scale": "Scale: 0 s - 80 s",
+                "test4-name": "Speed",
+                "test4-description": "Run 20 meters",
+                "test4-scale": "Scale: 0 s - 80 s"
             },
             "results": {
                 "to": "to",
-                "panelTitle": "panelTitle (placeholder)",
-                "score25": "score25 (placeholder)",
-                "score50": "score50 (placeholder)",
-                "score75": "score75 (placeholder)",
-                "score100": "score100 (placeholder)",
-                "title": "title (placeholder)",
-                "text1": "text1 (placeholder)",
-                "text2": "text2 (placeholder)"
+                "panelTitle": "Why are test results important?",
+                "score25": "Something's wrong, try harder",
+                "score50": "You're doing well, but it can always be better!",
+                "score75": "Very good!",
+                "score100": "Great! Keep it up!",
+                "title": "The conducted research is not diagnostic, but only illustrative.",
+                "text1": "Your baby's score may vary from day to day. It is influenced by a number of physical and psychological factors. Therefore, the results should not be treated as an accurate source of knowledge about the child's fitness, but even a visual control of physical development is extremely important due to the healthy and proper course of shaping the human body and its future possibilities.",
+                "text2": "Thanks to appropriate motivation and teaching through repeated repetition of exercises, the child achieves a higher and higher level of performing specific skills, checked as motor skills in the preschooler test.",
+                "text3": "The optimal results of the child, and thus a healthy and harmonious motor development, allows the child to gradually achieve its own independence and safety, and thus self-confidence. It can also have an impact on social acceptance.",
+                "text4": "Lack of movement can cause internal imbalances in the child's body, which can result in inappropriate behavior, tension or emotional resignation, and changes in mood. Physical fitness is not only helpful for sports and physical education, it is also a major factor in living a happy and fuller life."
             },
             "interpretation": {
-                "panelTitle": "panelTitle (placeholder)",
-                "title": "title (placeholder)",
-                "text1": "text1 (placeholder)",
-                "text2": "text2 (placeholder)",
-                "text3": "text3 (placeholder)",
-                "text4": "text4 (placeholder)"
+                "panelTitle": "What factors can contribute to a low test result",
+                "title1": "General factors that can contribute to a low test result:",
+                "title2": "Individual factors that can contribute to a low test result:",
+                "text1": "Lack of motivation in test participants or in the environment",
+                "text2": "Conditions inside and outside the facility (not necessarily unfavorable)",
+                "text3": "Time of day (e.g. after a meal, after resting, other activities)",
+                "text4": "External difficulties (e.g. behavior of other children)",
+                "text5": "Child's disease (e.g. cold, diarrhea)",
+                "text6": "Injury (e.g. fracture, sprain, contusion) within the last 30 days ",
+                "text7": "Serious illness of the child requiring hospitalization within the last 6 months",
+                "text8": "Chronic disease (e.g. bronchial asthma, allergy (atopic))",
+                "text9": "The baby is premature",
+                "text10": "Subjective barriers on the part of the child (e.g. other physical or mental ones)"
             }
         },
-        "agreements-title": "Below you can check and edit the signed agreements.",
-        "recomendations": "Recomendations",
-        "child-details": "Child's details"
+        "recommendations": {
+            "recommendations": "Recommendations",
+            "panel-title": "Recommendation  - How to improve child's fitness",
+            "title": "Remember about daily activities",
+            "text1-1": "Children at the age of 3-4 years ",
+            "text1-2": "should do at least ",
+            "text1-3": "180 minutes of physical activities of any intensity spread throughout the day. ",
+            "text1-4": "a variety of activities and games in various environments (on the playground, at home, in the woods, in a gym, in the water) and activities developing motor skills (throwing, grabbing, jumping, running, climbing, bouncing, .. .).",
+            "subtitle1": "Either way is good for everyday joint activity!",
+            "text2": "Children 5-11 years old should play vigorously or be physically active for at least 60 minutes every day. At least 3 days a week, activity should include high-intensity play / exercise to strengthen muscles and bones.",
+            "subtitle2": "60 minutes a day - you can help your child achieve it!",
+            "text3": "The more daily physical activity, the greater the health benefits now and in the future.",
+            "subtitle3": "Sleep is key to health and development:",
+            "text4": "Preschoolers 3-5 years old should sleep 10 to 13 hours a day. Children 6-13 years old, from 9 to 11 hours.",
+            "subtitle4": "Sleep for health!"
+        },
+        "agreements": {
+            "heading": "Manage consents granted to the Mali Wspaniali Foundation. Have full control over the security of your personal data, being able to increase or limit the rights granted at any time.",
+            "title": "Below you can check and edit the signed agreements.",
+            "save": "Save",
+            "snackbar-headerText": "Done",
+            "snackbar-text": "Your argeements have been saved",
+            "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
+            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
+            "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
+            "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
+            "Marketing-description-3": "Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "general-title": "Zgoda na udział w programie Mali Wspaniali.",
+            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: biuro@mali-wspaniali.pl."
+        },
+        "child-details": {
+            "page": "Child's details",
+            "form": "Edit your child's details if necessary.",
+            "button": "Save"
+        },
+        "your-child-result-1": "YOUR CHILD'S",
+        "your-child-result-2": "RESULT"
     },
     "parent-profile": {
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
     },
+    "details-modal": {
+        "next-assesment-time": "Następny pomiar próby"
+    },
     "test-results": {
         "search-result": "Search Result",
-        "no-results": "No Results"
+        "no-results": "No Results",
+        "description": "Select kindergartens you need and work easily with tabs",
+        "add-kindergarten": "Add kindergarten",
+        "cancel": "cancel",
+        "delete": "delete",
+        "confirm": "confirm",
+        "change-log": "Change log",
+        "kindergarten-number": "Kindergarten no.",
+        "kindergarten-name": "Kindergarten name",
+        "kindergarten-address": "Kindergarten address",
+        "parents-email": "Parents' e-mail address",
+        "children": "Children",
+        "kindergarten-prefix": "Kindergarten no.",
+        "search": "Search",
+        "add-kindergarten-success": "Kindergarten has been added successfully",
+        "update-kindergarten-success": "Kindergarten has been updated successfully",
+        "delete-kindergarten-success": "Kindergarten has been deleted successfully",
+        "delete-kindergarten-fail": "Cannot delete kindergarten with at least one child assigned to it",
+        "button-icon-edit-tooltip": "Edit",
+        "button-icon-expand-tooltip": "Expand",
+        "button-icon-results-tooltip": "Results",
+        "rows-number": "Rows per page:",
+        "edit": "Edit"
+    },
+    "kindergarten-modal": {
+        "city": "City",
+        "address": "Address",
+        "name": "Name",
+        "number": "Number",
+        "provide-city": "Please provide kindergarten city",
+        "provide-address": "Please provide kindergarten address",
+        "provide-name": "Please provide kindergarten name",
+        "number-min-max": "Kindergarten no. must be a number between 1 and 1000",
+        "provide-number": "Please provide kindergarten number"
+    },
+    "add-kindergarten-modal": {
+        "title": "Add kindergarten",
+        "description": "Fill in the form to add kindergarten.",
+        "add": "Add",
+        "close": "Close",
+        "save": "Save"
+    },
+    "edit-kindergarten-modal": {
+        "title": "Edit kindergarten",
+        "description": "Fill in the form to edit kindergarten.",
+        "edit": "Update",
+        "close": "Close",
+        "delete": "Delete kindergarten",
+        "save": "Save"
+    },
+    "delete-kindergarten-modal": {
+        "title": "Kindergarten deletion",
+        "question": "Are you sure you want to delete {{prefix}} {{number}}, {{name}}, {{address}}, {{city}}?"
     },
     "alert-dialog": {
         "error": "Error",
@@ -238,11 +402,14 @@
     },
     "question-dialog": {
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "cancel": "Cancel",
+        "delete": "Delete"
     },
     "parent-children": {
         "children": "Children",
-        "no-children-has-been-found": "No children has been found"
+        "no-children-has-been-found": "No children has been found",
+        "add-child": "Add a child"
     },
     "newsletter": {
         "header": "New Message",
@@ -255,17 +422,16 @@
         "specific-recipient-label": "Specify recipient",
         "specific-recipient-value-labels": {
             "all-parents": "all parents",
-            "from-single-kindergarten": "from selected kindergarten",
-            "individual-message": "individual message",
+            "from-selected-kindergartens": "from selected kindergartens",
             "all-kindergartens": "all kindergartens",
-            "single-kindergarten": "single kindergarten"
+            "selected-kindergartens": "selected kindergartens"
         },
         "specific-recipient-helper-text": "Recipient not specified. Fill this field to send message to proper recipient.",
         "recipient-single-parent-label": "To sent message to single parent, select him from the list",
         "recipient-single-parent-label-filled": "Message will be sent to these children parents:",
-        "recipient-single-kindergarten-label": "Select kindergarten from list",
+        "recipient-single-kindergarten-label": "Select kindergartens from list",
         "recipient-single-kindergarten-label-filled": "Message will be sent to these kindergartens:",
-        "recipient-select-kindergarten-label": "Select kindergarten from list",
+        "recipient-select-kindergarten-label": "Select kindergartens from list",
         "recipient-select-kindergarten-label-filled": "Message will be sent to parents from these kindergartens:",
         "recipient-helper-text": "This field can't be empty. Specify recipients. If you wish to send message to all recipients change previous selection.",
         "type-input-label": "Select type",
@@ -273,8 +439,9 @@
         "type-helper-text": "Type of message not selected. Select type from dropdown.",
         "topic-input-label": "Select topic",
         "topic-input-label-filled": "Topic",
-        "topic-helper-text": "Type message topic so You can send it",
-        "kindergarten-number": "kindergarten no.",
+        "topic-helper-text": "Please, type the message topic so you can send it",
+        "message-helper-text": "Please, type the message so you can send it",
+        "kindergarten-number": "Kindergarten no.",
         "sending-error": "An error ocurred during sending the message.",
         "sending-success-modal": {
             "title": "Done",
@@ -308,13 +475,60 @@
             "file-error": "File error"
         }
     },
+    "user-settings": {
+        "header": "Account settings",
+        "parent-option": "Parent",
+        "instructor-option": "Instructor",
+        "role-select": "Account type",
+        "input-label": "Search",
+        "search-label": "Search for kindergarten",
+        "header-title-parent": "Parent's email adress",
+        "header-title-instructor": "Instructor's email adress",
+        "header-title-children": "Children",
+        "button-icon-edit-tooltip": "Edit",
+        "button-icon-delete-tooltip": "Delete",
+        "button-icon-change-tooltip": "Change kindergarden",
+        "modal-delete-parent-account": {
+            "header": "Delete parent's account",
+            "first-button": "Cancel",
+            "second-button": "Delete",
+            "first-description": "Are you sure you want to delete the parent",
+            "second-description": "This will anonymize the child's results: The Foundation will only have access to the test results, but without information about personal data."
+        },
+        "modal-delete-instructor-account": {
+            "header": "Delete instructor's account",
+            "first-button": "Cancel",
+            "second-button": "Delete",
+            "first-description": "Are you sure you want to delete the instructor",
+            "second-description": "This will anonymize the instructor's results: The Foundation will only have access to the test results, but without information about personal data."
+        },
+        "modal-edit-account": {
+            "header": "Edit data",
+            "button": "Submit",
+            "subtitle": "To edit the data of the parent and child, complete the fields below",
+            "success-message": "You have successfully edited your child's profile",
+            "label": " Parent's email"
+        },
+        "modal-change-kindergarden": {
+            "header": "Move the child to another kindergarten",
+            "subtitle": "Select the kindergarten you want to move the child to from the list",
+            "main-label": "The current kindergarten",
+            "label": "Select kindergarten",
+            "checkbox-option": "Move to the same kindergarten",
+            "success-message": "sThe change of kindergartens was the construction process"
+        },
+        "success-message": "Removed (Anonymized) parent"
+    },
     "single-article": {
         "blog": "blog",
         "length": "length",
         "emotions": "emotions",
         "activity": "activity",
         "food": "food",
-        "other": "other"
+        "other": "other",
+        "reading-time": "min of reading",
+        "go-to-previous-page": "previous",
+        "go-to-next-page": "next"
     },
     "database-backup": {
         "get-backup-json": "Get database as JSON"
@@ -323,12 +537,15 @@
         "choose-file": "Choose File",
         "upload-file": "Upload File"
     },
+    "menu": {
+        "logged-as": "Logged as:"
+    },
     "parent-menu": {
         "home": "Strona Główna",
         "child": {
             "results": "Results",
-            "recomendations": "Recomendations",
-            "tests-information": "Tests information",
+            "recommendations": "Recommendations",
+            "tests-information": "Tests description",
             "details": "Child details"
         },
         "blog": "Blog",
@@ -338,23 +555,60 @@
         "logout": "Log out"
     },
     "admin-menu": {
-        "home": "Home",
-        "settings": "Settings",
+        "tests": {
+            "title": "Tests",
+            "results": "Results",
+            "manage-tests": "Manage tests",
+            "instructors": "Manage instructors"
+        },
+        "settings": {
+            "title": "Settings",
+            "parents-settings": "Parent's accounts placings",
+            "change-password": "Change password"
+        },
         "notifications": "Notifications",
-        "newsletter": "Newsletter",
-        "create-blog-article": "Blog",
+        "newsletter": {
+            "title": "Newsletter",
+            "new-message": "New message",
+            "archive": "Archive"
+        },
+        "results": {
+            "title": "Results",
+            "table": "Results table",
+            "advice-and-recommendations": "Advice and recommendations"
+        },
+        "articles": {
+            "title": "Articles"
+        },
+        "keycodes": "Keycodes",
+        "kindergartens": {
+            "title": "Kindergartens",
+            "list": "List of kindergartens"
+        },
+        "create-blog-article": "Articles",
         "archive": "Archive",
         "agreements": "Agreements",
-        "results": "Results",
+        "test-management": "Tests",
         "logout": "Log out"
+    },
+    "admin-articles": {
+        "title": "Select article or create new article",
+        "add-article": "Add article"
+    },
+    "instructor-menu": {
+        "results-table": "Results table",
+        "notifications": "Notifications",
+        "settings": "Settings",
+        "logout": "Logout"
     },
     "home-page-content": {
         "greeting": "Good Afternoon!",
         "check-children-activity": "Check out the children activity in the programme",
         "mali-wspaniali": "Mali Wspaniali",
-        "foundation-header": "Foundation Header here",
-        "foundation-content": "Here will be a brief introduction from the Foundation. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and",
-        "recent-news": "Recent News",
+        "foundation-header": "Dear Parent!",
+        "foundation-content": "We are a foundation from Wrocław that coordinates general sports activities with elements of karate in your child's kindergarten. Instructors conducting trainings focus primarily on cheerful, safe and active play, and supporting the harmonious development of your child. An inseparable element of the 'Mali Wspaniali' program are also tests of children's fitness. On the platform you will find test results that your child achieved in subsequent attempts, you will learn further recommendations and you will receive information about the development of children aged 3-6 that may be of interest to you.",
+        "foundation-content-summary": "Welcome! Foundation Mali Wspaniali.",
+        "recent-news": "Recent articles",
         "read-more": "Read more",
         "read-less": "Less"
     },
@@ -363,7 +617,7 @@
     },
     "blog-main-page": {
         "header-bar": "Blog",
-        "header": "Here you will find out, how to take care of your child's development"
+        "header": "Find out how to improve your child's development"
     },
     "blog-pagination": {
         "show-more": "Show more",
@@ -374,23 +628,128 @@
         "food": "Food",
         "activity": "Physical activity",
         "emotions": "Emotions",
-        "other": "Other"
+        "other": "Other categories"
     },
     "blog-navigation": {
         "back": "Back"
     },
     "notification-panel": {
+        "title": "Notifications",
+        "empty-content": "Here you will find your notifications",
         "read-more": "Read more"
     },
     "notifications-page": {
         "header": "Notifications",
         "description": "Check all notifications on your account",
         "content": "Notification content",
-        "date": "Date"
+        "date": "Date",
+        "empty-list-message": {
+            "title": "You currently have no notifications.",
+            "description": "When they do appear, you'll find them in this section."
+        }
+    },
+    "notification-list": {
+        "new-assessment": "A new test ({{name}}) has been added.",
+        "new-user": "A new user ({{email}}) has been added.",
+        "child-created": "A child has been added.",
+        "kindergarten-created": "A new kindergarten ({{name}}) has been created."
+    },
+    "manage-test-view": {
+        "test-search": {
+            "create-test": "Create test"
+        },
+        "test-list": {
+            "name": "Name",
+            "first-assessment": "First assessment",
+            "last-assessment": "Last assessment",
+            "status": "Status",
+            "active": "Active",
+            "done": "Done",
+            "planned": "Planned",
+            "not-planned": "Not planned",
+            "details": "See details",
+            "delete": "Delete",
+            "edit": "Edit",
+            "rows-number": "Rows per page:",
+            "edit-button": "Edit"
+        }
+    },
+    "add-test-view": {
+        "basic-information-form": {
+            "title": "Basic information",
+            "description": "Please fill in test information",
+            "measurement-amount": "Measurement amount",
+            "test-name": "Test name",
+            "status": "Status",
+            "first-measurement": "First measurement",
+            "last-measurement": "Last measurement",
+            "start-date": "Start date",
+            "end-date": "End date",
+            "active": "Active",
+            "done": "Done",
+            "planned": "Planned",
+            "not-planned": "Not planned",
+            "see-results": "See results",
+            "search": "Search"
+        },
+        "test-trials": {
+            "title": "Test trials information"
+        },
+        "kindergartens": {
+            "title": "Kindergartens",
+            "description": "Select kindergartens participating in the kindergarten test",
+            "kindergarten-name": "Name",
+            "find-kindergarten": "Find kindergarten"
+        },
+        "delete-test-dialog": {
+            "title": "Delete test",
+            "description": "Are you sure you want to delete the selected test?"
+        },
+        "assessment-created": "A new assesment has been created",
+        "assessment-updated": "Assesment has been updated",
+        "create-test": "Create a new test",
+        "update-test": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "errors": {
+            "name-too-short": "Test name is too short.",
+            "test-already-created": "Test created",
+            "test-already-updated": "Test updated",
+            "test-already-exists": "The test with given name already exists"
+        }
+    },
+    "add-child-modal": {
+        "button": "Add",
+        "cancel": "Cancel",
+        "heading": "Welcome on the website Mali Wspaniali",
+        "description": "Enter your child's details before going to the home page.",
+        "inputs": {
+            "firstname": "First name",
+            "lastname": "Last name"
+        },
+        "select-options": {
+            "sex": {
+                "label": "Sex",
+                "male": "man",
+                "female": "woman"
+            },
+            "birth-date": {
+                "label": "Year of birth"
+            },
+            "birth-quarter": {
+                "label": "Birth quarter",
+                "1": "(january-march)",
+                "2": "(april-june)",
+                "3": "(july-september)",
+                "4": "(october-december)"
+            },
+            "kindergarten": {
+                "label": "Kindergarten"
+            }
+        }
     },
     "years_0": "year",
     "years_1": "years",
-    "close": "Close",
     "pagination": {
         "previous": "Previous",
         "next": "Next"
@@ -398,5 +757,154 @@
     "cookies-popup": {
         "link": "Privacy Policy",
         "content": "We use „cookies” to collect information on the use of the website. You can find this mechanism in the settings. Read more about our cookie practices in the Site's Privacy Policy."
+    },
+    "agreements": {
+        "show-all": "Show all",
+        "marketing": "Marketing agreements",
+        "image": "Image agreements",
+        "given": "Given agreements",
+        "not-given": "Not given agreements",
+        "email": "Parent's e-mail",
+        "children": "Children"
+    },
+    "agreements-filter": {
+        "by-agreement-type": "Filter by agreement type",
+        "by-agreement-status": "Filter by agreement status",
+        "by-kindergarten": "Filter by kindergarten"
+    },
+    "settings-page": {
+        "password-change-message": "A link to change your password has been sent. Check your e-mail to complete the password changing process.",
+        "change-password-problems": "Have difficulties changing your password?",
+        "change-password-problems-hint": "No worries! Contact the Foundation to fix the problem.",
+        "change-password-problems-message-button": "Send message",
+        "old-password": "Enter the old password",
+        "parent": {
+            "delete-account": {
+                "title": "Deletion of the account"
+            },
+            "legal-notes": {
+                "title": "Legal notes"
+            },
+            "password-change": {
+                "title": "Password change"
+            }
+        },
+        "reset-old-password": "Reset password",
+        "something-went-wrong": "Something went wrong. Contact your Administrator.",
+        "wrong-old-password": "Incorrect password",
+        "delete-account-header": "It is not possible to delete an account from the user level",
+        "delete-account-content": "To delete an account in the application, contact the foundation"
+    },
+    "settings-modal": {
+        "button": "Send message",
+        "modal-header": "Contact with us",
+        "modal-first-description": "If you have some problems or have any questions, don't hesitate to contact us!",
+        "modal-second-description": "We will dispel all doubts.",
+        "modal-close-button": "Cancel",
+        "text-field-email-id": "email",
+        "text-field-email-label": "Message sender",
+        "text-field-email-placeholder": "email",
+        "text-field-title-id": "message",
+        "text-field-title-label": "Message content",
+        "text-field-title-placeholder": "Message content",
+        "select-options": {
+            "select-label": "Message subject",
+            "1": "Password change",
+            "2": "Result of the test",
+            "3": "Classes in kirdengarden",
+            "4": "Delete account",
+            "5": "Other"
+        },
+        "snackBar-message": "Your message has been sent correctly to the Mali Magnificent Foundation. You will receive the answer to your e-mail address."
+    },
+    "admin-instructors-page": {
+        "table": {
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "E-mail address",
+            "kindergarten-count": "Kindergarten count",
+            "tooltip": "Assign to kindergarten",
+            "kindergartens-count": "{{count}} kindergartens"
+        },
+        "table-toolbar": {
+            "select-test": "Select test",
+            "instructor-search": "Search for instructor",
+            "unassigned-kindergartens": "Unassigned kidnergartens: {{count}}"
+        },
+        "snackbars": {
+            "info": "To add unassigned kindergarten: 1. Select the test, 2. Select the instructor and press the button to assign him/her to selected kindergarten.",
+            "assessment-updated": "Changed kindergartens for {{name}}"
+        },
+        "modal": {
+            "cancel": "Cancel",
+            "assign": "Assign",
+            "delete": "Delete",
+            "delete-instructor": "Delete instructor",
+            "delete-instructor-subtitle": "Are you sure you want to delete instructor",
+            "assign-to-kindergarten": "Assign to kindergarten",
+            "select-test": "Select test",
+            "select-instructor": "Select instructor"
+        }
+    },
+    "add-results-page": {
+        "test-name": "Test name",
+        "kindergarten-name": "Kindergarten",
+        "search-by-child-firstname": "Search by child's first name",
+        "firstname": "First name",
+        "lastname": "Last name",
+        "full-name": "Full name",
+        "age": "Age",
+        "birth-quarter": "Birth quarter",
+        "first-assessment": "First measurement",
+        "last-assessment": "Last measurement",
+        "first-assessment-progress": "Trials performed by me in the initial measurement",
+        "last-assessment-progress": "Trials performed by me in the last measurement",
+        "see-results": "See results",
+        "add-result": "Add test result",
+        "add-first-assessment-result": "Add first test result",
+        "add-last-assessment-result": "Add last test result",
+        "add-note": "Add note",
+        "note-first-measurement": "Note - First measurement",
+        "note-last-measurement": "Note - Last measurement",
+        "add-note-modal": {
+            "description": "Add and manage notes regarding important information about a specific child. Add information about past injuries, medications taken, or reasons for not taking the test.",
+            "placeholder": "Click here to start typing",
+            "cancel": "Cancel",
+            "save": "Save",
+            "text-limit": "{{characters}} characters left"
+        },
+        "no-assessments": {
+            "title": "Sorry, you cannot add results at this point",
+            "description": "The Foundation has not yet assigned you a kindergarten where you can add your test results. Sit back and use this moment to read the articles prepared by experts in healthy eating and fitness",
+            "go-to-articles": "Go to articles"
+        },
+        "child-list": "Child list",
+        "edit": "Edit",
+        "add": "Add",
+        "added-first-note-for": "A first measurement note for {{name}} has been added",
+        "added-last-note-for": "A last measurement note for {{name}} has been added",
+        "years": "years"
+    },
+    "add-result-page": {
+        "kindergarten": "Kindergarten",
+        "select-measurement": "Select measurement",
+        "first": "First",
+        "last": "Last",
+        "no-result": "No result",
+        "received-points": "Received points",
+        "points": "pts",
+        "title-first-measurement": "FIRST MEASUREMENT EFFICIENCY LEVEL",
+        "title-last-measurement": "LAST MEASUREMENT EFFICIENCY LEVEL",
+        "back-to-table": "Back to the table",
+        "back-to-results": "Back to results",
+        "child-list": "Child list",
+        "strength": "STRENGTH",
+        "dexterity": "DEXTERITY",
+        "power": "POWER",
+        "velocity": "VELOCITY",
+        "save-and-next": "Save and next",
+        "save-and-back-to-table": "Save and back to table",
+        "select-child": "Select a child",
+        "note": "Note"
     }
 }

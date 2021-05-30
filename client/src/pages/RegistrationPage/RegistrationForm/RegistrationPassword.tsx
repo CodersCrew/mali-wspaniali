@@ -6,11 +6,12 @@ import {
     InputLabel,
     OutlinedInput,
     IconButton,
+    makeStyles,
+    createStyles,
 } from '@material-ui/core/';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { RegistrationPasswordProps, PasswordValidation } from './types';
-import { PasswordStrengthChips } from './PasswordStrengthChips';
+
 import {
     passwordLengthTest,
     passwordSpecialTest,
@@ -18,6 +19,10 @@ import {
     passwordCapitalTest,
 } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
+import { Theme } from '../../../theme';
+
+import { RegistrationPasswordProps, PasswordValidation } from './types';
+import { PasswordStrengthChips } from './PasswordStrengthChips';
 
 const initialPasswordValidation: PasswordValidation = {
     length: false,
@@ -35,12 +40,13 @@ export const RegistrationPassword = ({
     classButton,
     classNextBtn,
     classFormItem,
+    skip,
+    loading,
 }: RegistrationPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
-    const [passwordValidation, setPasswordValidation] = useState(
-        initialPasswordValidation
-    );
+    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
+    const classes = useStyles();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -54,11 +60,15 @@ export const RegistrationPassword = ({
 
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (event.ctrlKey) {
+            if (skip) skip(() => true);
+        }
+    };
+
     return (
         <>
-            <Typography>
-                {t('registration-page.create-password-text')}
-            </Typography>
+            <Typography>{t('registration-page.create-password-text')}</Typography>
             <FormControl variant="outlined" className={classFormItem}>
                 <InputLabel htmlFor="password">{t('password')}</InputLabel>
                 <OutlinedInput
@@ -74,25 +84,18 @@ export const RegistrationPassword = ({
                                 onClick={togglePasswordVisibility}
                                 edge="end"
                             >
-                                {showPassword ? (
-                                    <Visibility />
-                                ) : (
-                                    <VisibilityOff />
-                                )}
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
                             </IconButton>
                         </InputAdornment>
                     }
                     labelWidth={70}
                     data-testid="password"
+                    autoFocus
                 />
-                <PasswordStrengthChips
-                    passwordValidation={passwordValidation}
-                />
+                <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
             <FormControl variant="outlined" className={classFormItem}>
-                <InputLabel htmlFor="passwordConfirm">
-                    {t('registration-page.password-confirm')}
-                </InputLabel>
+                <InputLabel htmlFor="passwordConfirm">{t('registration-page.password-confirm')}</InputLabel>
                 <OutlinedInput
                     required
                     id="passwordConfirm"
@@ -106,11 +109,7 @@ export const RegistrationPassword = ({
                                 onClick={togglePasswordVisibility}
                                 edge="end"
                             >
-                                {showPassword ? (
-                                    <Visibility />
-                                ) : (
-                                    <VisibilityOff />
-                                )}
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
                             </IconButton>
                         </InputAdornment>
                     }
@@ -119,19 +118,44 @@ export const RegistrationPassword = ({
                 />
             </FormControl>
             <div className={classButton}>
+                <div className={classes.buttonWrapper}>
+                    <ButtonSecondary
+                        variant="contained"
+                        type="submit"
+                        className={classNextBtn}
+                        innerText={t('registration-page.create-password')}
+                        onClick={handleClick}
+                        disabled={loading}
+                        classes={loading ? { label: classes.buttonProgressText } : {}}
+                    />
+                </div>
                 <ButtonSecondary
                     variant="text"
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     innerText={t('back')}
                 />
-                <ButtonSecondary
-                    variant="contained"
-                    type="submit"
-                    className={classNextBtn}
-                    innerText={t('registration-page.create-password')}
-                />
             </div>
         </>
     );
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        buttonWrapper: {
+            position: 'relative',
+        },
+        buttonProgress: {
+            color: theme.palette.secondary.main,
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: -12,
+            marginLeft: -12,
+            zIndex: 1000,
+        },
+        buttonProgressText: {
+            color: theme.palette.action.hover,
+        },
+    }),
+);

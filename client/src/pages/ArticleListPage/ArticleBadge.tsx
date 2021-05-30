@@ -1,5 +1,6 @@
-import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
 import { categories } from './BlogCategories';
 import { blogCategoryColors } from '../../colors';
 import { ArticleCategory } from '../../graphql/types';
@@ -9,12 +10,12 @@ type Props = {
 };
 
 export const ArticleBadge = ({ articleCategory }: Props) => {
-    const matchedColor = categories[articleCategory] || categories.other;
+    const { t } = useTranslation();
+    const { color } = categories[articleCategory] || categories.other;
 
-    const { color, name } = matchedColor;
     const classes = useStyles({ color });
 
-    return <span className={classes.badge}>{name}</span>;
+    return <span className={classes.badge}>{t(`blog-categories.${articleCategory}`)}</span>;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,8 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: 'white',
             fontSize: theme.typography.subtitle2.fontSize,
             fontFamily: theme.typography.fontFamily,
-            backgroundColor: ({ color }: { color: string }) =>
-                blogCategoryColors[color],
+            backgroundColor: ({ color }: { color: string }) => blogCategoryColors[color],
         },
     }),
 );

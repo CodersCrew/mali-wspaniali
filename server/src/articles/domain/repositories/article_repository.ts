@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ArticleInput } from '../../inputs/article_input';
+import { CreateArticleInput } from '../../inputs/article_input';
 import { Article } from '../models/article_model';
 import { ArticleDocument } from '../../interfaces/article.interface';
 import { ArticleMapper } from '../mappers/article_mapper';
-import { CategoryProps } from '../models/category';
+import { LoggedUser } from '../../../users/params/current_user_param';
 
 @Injectable()
 export class ArticlesRepository {
@@ -14,7 +14,7 @@ export class ArticlesRepository {
     private readonly articleModel: Model<ArticleDocument>,
   ) {}
 
-  async create(createArticleDTO: ArticleInput): Promise<Article> {
+  async create(createArticleDTO: CreateArticleInput): Promise<Article> {
     const article = ArticleMapper.toDomain(createArticleDTO);
     const createdArticle = new this.articleModel(ArticleMapper.toRaw(article));
 
@@ -23,12 +23,25 @@ export class ArticlesRepository {
       .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
+  update(id: string, updates: Partial<CreateArticleInput>) {
+    this.articleModel.findOneAndUpdate(
+      { _id: id },
+      updates as Partial<ArticleDocument>,
+    );
+  }
+
   async getPage(
     page: number,
     perPage: number,
+    user: LoggedUser,
     category?: string,
   ): Promise<Article[]> {
     const query: { [index: string]: unknown } = {};
+
+    if (['parent', 'instructor'].includes(user.role)) {
+      query.isPublished = true;
+      query.isDeleted = { $ne: true };
+    }
 
     if (category) query.category = category;
 
@@ -78,12 +91,12 @@ export class ArticlesRepository {
 
   async get(id: string): Promise<Article> {
     return await this.articleModel
-      .findById(id)
+      .findOne({ _id: id })
       .exec()
       .then(article => article && ArticleMapper.toDomain(article.toObject()));
   }
 
-  async countArticles(category?: CategoryProps): Promise<number> {
+  async countArticles(category?: string): Promise<number> {
     const query = category
       ? {
           category,

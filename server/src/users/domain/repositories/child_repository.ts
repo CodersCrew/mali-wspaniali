@@ -3,8 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { ChildDocument } from '../../schemas/child_schema';
-import { ChildProps } from '../models/child_model';
+import { Child, ChildProps } from '../models/child_model';
 import * as mongoose from 'mongoose';
+import { ChildMapper } from '../mappers/child_mapper';
+import { parseDateToAge } from '../../../shared/utils/parse_date_to_age';
 
 @Injectable()
 export class ChildRepository {
@@ -13,39 +15,75 @@ export class ChildRepository {
     private readonly childModel: Model<ChildDocument>,
   ) {}
 
-  async create(childDTO: Omit<ChildProps, '_id'>): Promise<ChildDocument> {
-    const createdChild = new this.childModel(childDTO);
+  async create(child: Child): Promise<Child> {
+    const persistencedChild = ChildMapper.toPersistence(child);
+    const createdChild = new this.childModel(persistencedChild);
 
-    return await createdChild.save();
+    const created = await createdChild.save();
+
+    return ChildMapper.toDomain(created, { isNew: true });
   }
 
-  async addResult(
-    childId: string,
-    resultId: mongoose.Schema.Types.ObjectId,
-  ): Promise<void> {
+  async addResult(childId: string, resultId: string): Promise<void> {
     await this.childModel.findByIdAndUpdate(childId, {
-      $addToSet: { results: resultId },
+      $addToSet: { results: new mongoose.Types.ObjectId(resultId) as any },
     });
   }
 
-  async get(
-    childIds: mongoose.Schema.Types.ObjectId[] | string[],
-  ): Promise<ChildProps[]> {
+  async get(childIds: string[]): Promise<Child[]> {
     return await this.childModel
-      .find({ _id: childIds })
+      .find({
+        _id: {
+          $in: childIds,
+        },
+      })
       .lean()
-      .exec();
+      .exec()
+      .then(childList => childList.map(child => ChildMapper.toDomain(child)));
   }
 
-  async getByKindergarten(id: string): Promise<ChildProps[]> {
-    return await this.childModel.find({ kindergarten: id }).exec();
+  async getByKindergarten(id: string): Promise<Child[]> {
+    const results = await this.childModel
+      .find({ kindergarten: id })
+      .lean()
+      .exec()
+      .then(childList => childList.map(c => ChildMapper.toDomain(c)));
+
+    return results.filter(c => {
+      const age = parseDateToAge(c.birthYear.value, c.birthQuarter.value);
+
+      return age >= 3 && age <= 7 && !c.isDeleted;
+    });
   }
 
-  async getAll(): Promise<ChildProps[]> {
+  async getAll(): Promise<Child[]> {
     return await this.childModel
       .find()
       .lean()
-      .exec();
+      .exec()
+      .then(childList => childList.map(child => ChildMapper.toDomain(child)));
+  }
+
+  async updateChild(
+    id: string,
+    update: { [index: string]: string | number | boolean },
+  ): Promise<Child> {
+    const [child] = await this.get([id]);
+
+    if (!child) {
+      throw new Error('Child not found');
+    }
+
+    ChildMapper.toDomain({
+      ...ChildMapper.toPersistence(child),
+      ...update,
+    });
+
+    const updated = await this.childModel.findByIdAndUpdate(id, update, {
+      new: true,
+    });
+
+    return ChildMapper.toDomain(updated);
   }
 
   // for e2e purpose only

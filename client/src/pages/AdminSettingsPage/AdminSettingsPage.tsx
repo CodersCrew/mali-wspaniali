@@ -1,10 +1,17 @@
-import React, { useEffect } from 'react';
-import { activePage } from '../../apollo_client';
+import { useEffect } from 'react';
 
-export function AdminSettingsPage() {
+import { activePage } from '../../apollo_client';
+import { AdminSettingsList } from './AdminSettingsList';
+import { PageContainer } from '../../components/PageContainer';
+
+export default function AdminSettingsPage() {
     useEffect(() => {
-        activePage(['admin-menu.settings']);
+        activePage(['admin-menu.settings.title']);
     }, []);
 
-    return <div>Admin Settings</div>;
+    return (
+        <PageContainer>
+            <AdminSettingsList />
+        </PageContainer>
+    );
 }

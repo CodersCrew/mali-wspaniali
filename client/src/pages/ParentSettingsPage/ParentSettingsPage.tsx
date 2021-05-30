@@ -1,10 +1,21 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { activePage } from '../../apollo_client';
+import { ParentSettingsExpansionPanel } from './ParentSettingsExpansionPanel';
+import { useMe } from '../../utils/useMe';
+import { PageContainer } from '../../components/PageContainer';
 
-export function ParentSettingsPage() {
+export default function ParentSettingsPage() {
+    const user = useMe();
+
     useEffect(() => {
         activePage(['parent-menu.settings']);
     }, []);
 
-    return <div>Settings</div>;
+    if (!user) return null;
+
+    return (
+        <PageContainer>
+            <ParentSettingsExpansionPanel user={user} />
+        </PageContainer>
+    );
 }

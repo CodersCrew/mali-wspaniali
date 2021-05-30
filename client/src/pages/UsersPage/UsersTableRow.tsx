@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import { User } from '../../graphql/types';
@@ -14,7 +13,7 @@ export const UsersTableRow = ({ user }: Props) => {
 
     const getAgreements = () => {
         if (agreements.length !== 0) {
-            return agreements.map(agreement => (
+            return agreements.map((agreement) => (
                 <TableCell key={`${_id}-${agreement._id}`}>
                     {agreement.text} {agreement.isSigned.toString()}
                 </TableCell>

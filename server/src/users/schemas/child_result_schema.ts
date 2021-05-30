@@ -1,15 +1,15 @@
-import * as mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { ChildResultProps } from '../domain/models/child_result_model';
 
-export type ChildResultDocument = ChildResultProps & mongoose.Document;
+export type ChildResultDocument = ChildResultProps & Document;
 
-export const ChildResultSchema = new mongoose.Schema({
+export const ChildResultSchema = new Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
-  childId: mongoose.Schema.Types.ObjectId,
+  childId: Schema.Types.ObjectId,
   type: String,
   test: Object,
-  rootResultId: mongoose.Schema.Types.ObjectId,
+  rootResultId: Schema.Types.ObjectId,
 });

@@ -1,12 +1,15 @@
-import * as mongoose from 'mongoose';
+import { Schema, Document, Types } from 'mongoose';
 import { UserProps } from '../domain/models/user_model';
 
-export type UserDocument = UserProps & mongoose.Document;
+export type UserDocument = Omit<UserProps, 'children' | 'agreements'> & {
+  children: Types.ObjectId[];
+  agreements: Types.ObjectId[];
+} & Document;
 
-export const UserSchema = new mongoose.Schema({
+export const UserSchema: Schema = new Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   mail: String,
   password: String,
@@ -14,6 +17,14 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     default: 'parent',
   },
-  children: [mongoose.Schema.Types.ObjectId],
-  agreements: [mongoose.Schema.Types.ObjectId],
+  children: [Schema.Types.ObjectId],
+  agreements: [Schema.Types.ObjectId],
+  confirmed: {
+    type: Boolean,
+    default: false,
+  },
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
 });

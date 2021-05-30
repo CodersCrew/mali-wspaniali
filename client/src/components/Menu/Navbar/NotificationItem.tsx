@@ -1,74 +1,78 @@
-import React from 'react';
 import clsx from 'clsx';
+import { ListItem, IconButton, Typography, createStyles, makeStyles, MenuItem, Theme } from '@material-ui/core/';
 import { Notifications } from '@material-ui/icons/';
-import { ListItem, Typography, createStyles, makeStyles, MenuItem } from '@material-ui/core/';
-import moment from '../../../localizedMoment';
-import { darkGrey, textColor, notificationReadColor, notificationCaptionColor, secondaryColor } from '../../../colors';
+import { darkGrey, notificationCaptionColor } from '../../../colors';
+import dayjs from '../../../localizedMoment';
 
 type notificationItemProps = {
     text: string;
     date: string;
     isRead: boolean;
     id: string;
+    onClick: (id: string) => void;
 };
 
-export const NotificationItem = ({ text, date, isRead }: notificationItemProps) => {
+export const NotificationItem = ({ text, date, isRead, id, onClick }: notificationItemProps) => {
     const classes = useStyles();
 
-    const setNotificationValue = () => {
-        // todo
-    };
-
     return (
-        <MenuItem className={classes.item}>
-            <ListItem className={clsx({ [classes.notificationItem]: true, read: isRead })}>
-                <Notifications className={clsx({ [classes.notificationIcon]: true, read: isRead })} />
-                <div onClick={setNotificationValue} className={classes.notificationText}>
-                    <Typography className={classes.notificationTitle} gutterBottom variant="body1">
-                        {text}
-                    </Typography>
-                    <Typography className={classes.notificationCaption} gutterBottom variant="caption">
-                        {moment(date).calendar()}
-                    </Typography>
+        <MenuItem classes={{ dense: classes.item }} onClick={() => !isRead && onClick(id)}>
+            <ListItem classes={{ root: clsx({ [classes.visited]: isRead, [classes.item]: true }) }}>
+                <IconButton
+                    size="small"
+                    onClick={() => !isRead && onClick(id)}
+                    classes={{ root: classes.iconButton }}
+                    disabled={isRead}
+                    color="secondary"
+                >
+                    <Notifications />
+                </IconButton>
+                <div className={classes.notificationText}>
+                    <div>
+                        <Typography gutterBottom variant="caption">
+                            {text}
+                        </Typography>
+                    </div>
+                    <div>
+                        <Typography className={classes.notificationCaption} gutterBottom variant="caption">
+                            {dayjs(date).fromNow()}
+                        </Typography>
+                    </div>
                 </div>
             </ListItem>
         </MenuItem>
     );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         item: {
             padding: 0,
         },
         notificationItem: {
             borderBottom: '1px solid notificationReadColor',
+            paddingRight: theme.spacing(2),
             '&.read': {
                 backgroundColor: darkGrey,
                 transition: 'backgroundColor .3s',
             },
         },
-        notificationTitle: {
-            height: '55px',
-            color: textColor,
-            marginBottom: '10px',
+        visited: {
+            background: theme.palette.background.default,
+            transition: 'backgroundColor .3s',
+            cursor: 'default',
         },
         notificationCaption: {
             width: '39px',
             height: '7px',
             color: notificationCaptionColor,
         },
-        notificationIcon: {
-            alignSelf: 'start',
-            marginRight: '20px',
-            color: secondaryColor,
-            '&.read': {
-                color: notificationReadColor,
-            },
-        },
+
         notificationText: {
-            width: '230px',
             whiteSpace: 'pre-wrap',
+        },
+        iconButton: {
+            margin: theme.spacing(1, 2),
         },
     }),
 );

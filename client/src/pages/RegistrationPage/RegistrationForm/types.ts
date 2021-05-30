@@ -1,4 +1,5 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
 
 export type RegisterForm = {
     code: string;
@@ -21,6 +22,8 @@ export interface RegistrationCodeProps {
     classForm: string;
     classButton: string;
     classNextBtn: string;
+    error: boolean;
+    roleBasedKeyCode?: RoleBasedKeyCodeObject;
 }
 
 export interface RegistrationEmailProps {
@@ -32,6 +35,7 @@ export interface RegistrationEmailProps {
     classForm: string;
     classButton: string;
     classNextBtn: string;
+    error: boolean;
 }
 
 export type RegistrationPasswordProps = {
@@ -44,6 +48,8 @@ export type RegistrationPasswordProps = {
     classButton: string;
     classNextBtn: string;
     classFormItem: string;
+    skip?: Dispatch<SetStateAction<boolean>>;
+    loading: boolean;
 };
 
 export type RegistrationFeedbackProps = {

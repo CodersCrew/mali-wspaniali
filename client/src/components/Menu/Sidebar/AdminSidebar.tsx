@@ -1,24 +1,22 @@
-import React from 'react';
 import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Me } from '../../../graphql/types';
-import { getAdminMenuItemFactory } from './menuItemFactory';
+import { getAdminMenuItemFactory, getNewsletterMenuItemFactory, getResultsMenuItemFactory } from './menuItemFactory';
 import { SingleItem } from './SingleItem';
 import { SecondaryLabel } from '../../Label';
 import { MenuDrawer } from './MenuDrawer';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { getMenuWidth } from './getMenuWidth';
-import { LabeledHeader } from './LabeledHeader';
+import { LoggedAsItem } from './LoggedAsItem';
+import { CollapsibleList } from './CollapsibleList';
 
 export interface Props {
     user: Me | null;
     onClick: (link?: string) => void;
-    onClose: () => void;
     active: string[];
-    open: boolean;
 }
 
-export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) => {
+export const AdminSidebar = ({ onClick, user, active }: Props) => {
     const { t } = useTranslation();
     const device = useBreakpoints();
     const [, innerMargin] = getMenuWidth(device);
@@ -26,21 +24,23 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
     const classes = useStyles({ width: innerMargin });
     if (!user) return null;
 
-    const notificationsCount = user.notifications.length;
+    const unreadedNotificationsCount = user.notifications.filter((n) => !n.isRead).length;
 
     const ItemFactory = getAdminMenuItemFactory({ active, t });
+    const ResultsItemFactory = getResultsMenuItemFactory({ active, t });
+    const NewsletterItemFactory = getNewsletterMenuItemFactory({ active, t });
 
-    const MainPageItem = ItemFactory.create({ name: 'main-page' });
-    const ResultsItem = ItemFactory.create({ name: 'results' });
+    const { mainItem: ResultsMainItem, subItems: ResultsSubItems } = ResultsItemFactory.create({ active, t });
+    const { mainItem: NewsletterMainItem, subItems: NewsletterSubItems } = NewsletterItemFactory.create({ active, t });
     const NotificationsItem = ItemFactory.create({
         name: 'notifications',
-        rightIcon: notificationsCount > 0 ? <SecondaryLabel label={notificationsCount} /> : undefined,
+        rightIcon: unreadedNotificationsCount > 0 ? <SecondaryLabel label={unreadedNotificationsCount} /> : undefined,
     });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
-    const CreateBlogArticleItem = ItemFactory.create({ name: 'create-blog-article' });
-    const NewsletterItem = ItemFactory.create({ name: 'newsletter' });
-    const ArchiveItem = ItemFactory.create({ name: 'archive' });
+    const ArticlesItem = ItemFactory.create({ name: 'articles' });
+    const KindergartensItem = ItemFactory.create({ name: 'kindergartens' });
+    const CodeItem = ItemFactory.create({ name: 'keycodes' });
     const AgreementsItem = ItemFactory.create({ name: 'agreements' });
 
     const drawer = (
@@ -52,12 +52,13 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
         >
             <Grid item>
                 <List>
-                    <SingleItem item={MainPageItem} onClick={onClick} />
-                    <SingleItem item={ResultsItem} onClick={onClick} />
+                    <LoggedAsItem name={user.mail} />
+                    <CollapsibleList mainItem={ResultsMainItem} subItems={ResultsSubItems} onClick={onClick} />
+                    <CollapsibleList mainItem={NewsletterMainItem} subItems={NewsletterSubItems} onClick={onClick} />
                     <SingleItem item={AgreementsItem} onClick={onClick} />
-                    <SingleItem item={NewsletterItem} onClick={onClick} />
-                    <SingleItem item={ArchiveItem} onClick={onClick} />
-                    <SingleItem item={CreateBlogArticleItem} onClick={onClick} />
+                    <SingleItem item={ArticlesItem} onClick={onClick} />
+                    <SingleItem item={KindergartensItem} onClick={onClick} />
+                    <SingleItem item={CodeItem} onClick={onClick} />
                     <SingleItem item={NotificationsItem} onClick={onClick} />
                     <SingleItem item={SettingsItem} onClick={onClick} />
                 </List>
@@ -70,12 +71,7 @@ export const AdminSidebar = ({ onClick, onClose, user, active, open }: Props) =>
 
     return (
         <div className={classes.drawer}>
-            <MenuDrawer device={device} onClose={onClose} open={open}>
-                <>
-                    {device !== 'DESKTOP' && <LabeledHeader />}
-                    {drawer}
-                </>
-            </MenuDrawer>
+            <MenuDrawer device={device}>{drawer}</MenuDrawer>
         </div>
     );
 };

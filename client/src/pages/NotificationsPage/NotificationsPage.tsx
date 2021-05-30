@@ -1,27 +1,23 @@
-import React, { useContext, useEffect } from 'react';
-import { Container } from '@material-ui/core';
-import { NotificationPageHeader } from './NotificationPageHeader';
+import { useEffect } from 'react';
 import { NotificationPageList } from './NotificationPageList';
-import { Pagination } from '../ArticleListPage/Pagination';
-import { UserContext } from '../AppWrapper';
 import { activePage } from '../../apollo_client';
+import { useMe } from '../../utils/useMe';
+import { useReadNotification } from '../../operations/mutations/Notification/readNotification';
+import { PageContainer } from '../../components/PageContainer';
 
-export const NotificationsPage = () => {
-    const user = useContext(UserContext);
+export default function NotificationsPage() {
+    const user = useMe();
+    const { readNotification } = useReadNotification();
 
     useEffect(() => {
-        activePage(['admin-menu.notifications', 'parent-menu.notifications']);
+        activePage(['admin-menu.notifications', 'parent-menu.notifications', 'instructor-menu.notifications']);
     }, []);
 
     if (!user) return null;
 
-    const { notifications } = user;
-
     return (
-        <Container maxWidth="xl">
-            <NotificationPageHeader />
-            <NotificationPageList notifications={notifications} />
-            <Pagination disabledPrevious={true} disabledNext={true} handleChange={() => true}></Pagination>
-        </Container>
+        <PageContainer>
+            <NotificationPageList onClick={(id) => readNotification(id)} notifications={user.notifications} />
+        </PageContainer>
     );
-};
+}

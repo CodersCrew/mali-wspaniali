@@ -5,20 +5,20 @@ export type TagsProps = string[];
 
 export type TagsValue = Props<TagsProps>;
 
-export class Tags extends ValueObject<TagsValue> {
+export class Tags extends ValueObject<TagsProps> {
   private constructor(props: TagsValue) {
     super(props);
   }
 
-  get value(): TagsProps {
-    return this.props.value;
-  }
-
   public static create(tags: string[]): Result<Tags> {
-    if (new Set(tags).size !== tags.length) {
+    if (validIfTagsAreUnique(tags)) {
       return Result.fail('Tags must be valid.');
     } else {
       return Result.ok(new Tags({ value: tags }));
     }
   }
+}
+
+function validIfTagsAreUnique(tags: string[]) {
+  return new Set(tags).size !== tags.length;
 }

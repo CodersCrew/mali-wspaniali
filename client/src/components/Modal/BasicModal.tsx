@@ -1,24 +1,83 @@
-import React, { FC } from 'react';
-import { Dialog, DialogActions, DialogContent } from '@material-ui/core';
+import { FC } from 'react';
+import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ButtonPrimary } from '../Button/ButtonPrimary';
+import clsx from 'clsx';
+
+import { ButtonPrimary, ButtonSecondary, ButtonDefault } from '../Button';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     isOpen: boolean;
-    onClose: () => void;
+    actionName: string;
+    onAction?: () => void;
+    onClose?: (e: unknown) => void;
+    closeButtonText?: string;
+    isCancelButtonVisible?: boolean;
+    isActionButtonSecondary?: boolean;
+    isActionButtonVisible?: boolean;
+    dialogProps?: Partial<DialogProps>;
 }
 
-export const BasicModal: FC<Props> = ({ isOpen, onClose, children }) => {
+export const BasicModal: FC<Props> = ({
+    isOpen,
+    actionName,
+    onAction,
+    onClose,
+    children,
+    closeButtonText,
+    isCancelButtonVisible,
+    isActionButtonSecondary,
+    isActionButtonVisible,
+    dialogProps,
+}) => {
     const { t } = useTranslation();
 
+    const ActionButton = isActionButtonSecondary ? ButtonSecondary : ButtonPrimary;
+    const classes = useStyles();
+    const device = useIsDevice();
+
     return (
-        <Dialog maxWidth="md" open={isOpen} onClose={onClose}>
-            <DialogContent>{children}</DialogContent>
+        <Dialog
+            maxWidth="md"
+            open={isOpen}
+            classes={{
+                paper: clsx({ [classes.dialogPaper]: !device.isSmallMobile }),
+                container: clsx({ [classes.container]: device.isSmallMobile }),
+            }}
+            fullScreen={device.isSmallMobile}
+            onClose={onClose}
+            {...dialogProps}
+        >
+            <DialogContent className={classes.contentScrollbar}>{children}</DialogContent>
             <DialogActions>
-                <ButtonPrimary variant="text" onClick={onClose}>
-                    {t('close')}
-                </ButtonPrimary>
+                {isCancelButtonVisible && (
+                    <ButtonDefault
+                        variant="text"
+                        onClick={onClose}
+                        color={isActionButtonVisible ? 'inherit' : 'primary'}
+                    >
+                        {closeButtonText || t('add-child-modal.cancel')}
+                    </ButtonDefault>
+                )}
+                {isActionButtonVisible && (
+                    <ActionButton variant="text" onClick={onAction}>
+                        {actionName}
+                    </ActionButton>
+                )}
             </DialogActions>
         </Dialog>
     );
 };
+
+const useStyles = makeStyles((theme) => ({
+    dialogPaper: {
+        maxHeight: '80vh',
+    },
+    contentScrollbar: {
+        overflowY: 'unset',
+        padding: 0,
+    },
+    container: {
+        padding: theme.spacing(2),
+    },
+}));

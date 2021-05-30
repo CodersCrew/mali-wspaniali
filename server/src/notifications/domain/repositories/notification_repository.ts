@@ -14,29 +14,44 @@ export class NotificationRepository {
     private readonly repository: Model<NotificationDocument>,
   ) {}
 
-  async getAll(
-    user: string | mongoose.Schema.Types.ObjectId,
-  ): Promise<NotificationProps[]> {
-    const query: { [index: string]: unknown } = {};
-
-    if (isObjectId(user)) {
-      query.user = user;
-    } else {
-      query.user = new mongoose.Schema.Types.ObjectId(user);
-    }
-
+  async getAll(userId: string): Promise<NotificationProps[]> {
     return await this.repository
-      .find(query, {}, { sort: { date: -1 } })
+      .find({ user: userId }, {}, { sort: { date: -1 } })
       .lean()
-      .exec();
+      .exec()
+      .then(results =>
+        results.map(result => ({
+          ...result,
+          user: result.user.toString(),
+          _id: result._id.toString(),
+        })),
+      );
   }
 
   async create(
     createNotificationDTO: CreateNotificationProps,
   ): Promise<NotificationDocument> {
-    const createdNotification = new this.repository(createNotificationDTO);
+    if (Array.isArray(createNotificationDTO.user)) {
+      this.repository.insertMany(
+        createNotificationDTO.user.map(u => {
+          return { ...createNotificationDTO, user: u };
+        }),
+      );
+    } else {
+      const createdNotification = new this.repository(createNotificationDTO);
 
-    return await createdNotification.save();
+      return await createdNotification.save();
+    }
+  }
+
+  async read(id: string): Promise<NotificationProps> {
+    return await this.repository.findByIdAndUpdate(
+      id,
+      {
+        isRead: true,
+      },
+      { new: true },
+    );
   }
 
   async removeOlderThan(days: number): Promise<void> {
@@ -51,10 +66,4 @@ export class NotificationRepository {
   async clearTable(): Promise<void> {
     await this.repository.deleteMany({});
   }
-}
-
-function isObjectId(
-  v: string | mongoose.Schema.Types.ObjectId,
-): v is mongoose.Schema.Types.ObjectId {
-  return typeof v !== 'string';
 }

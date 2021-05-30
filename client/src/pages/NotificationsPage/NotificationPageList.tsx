@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, ChangeEvent } from 'react';
 import {
     TableContainer,
     Table,
@@ -9,78 +9,121 @@ import {
     makeStyles,
     TableBody,
     createStyles,
+    Theme,
+    Typography,
+    TableFooter,
+    TablePagination,
+    Box,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { Notifications } from '@material-ui/icons/';
+
 import { NotificationPageListItem } from './NotificationPageListItem';
 import { Notification } from '../../graphql/types';
-import { white } from '../../colors';
-import { Theme } from '../../theme/types';
-import { getNotificationContent } from './notificationContent';
+import { TablePaginationActions } from './NotificationTablePaginationActions';
 
 interface Props {
     notifications: Notification[];
+    onClick: (id: string) => void;
 }
 
-export const NotificationPageList = ({ notifications }: Props) => {
+export const NotificationPageList = ({ notifications, onClick }: Props) => {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    return (
+        <TableContainer component={Paper}>
+            <Table aria-label="Notification table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell classes={{ root: classes.contentHeader }}>
+                            <Typography variant="subtitle2">{t('notifications-page.content')}</Typography>
+                        </TableCell>
+                        <TableCell align="right">
+                            <Typography variant="subtitle2">{t('notifications-page.date')}</Typography>
+                        </TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {notifications.length === 0 && <EmptyContent />}
+                    {notifications.map((notification) => (
+                        <NotificationPageListItem
+                            key={notification._id}
+                            notification={notification}
+                            onClick={onClick}
+                        />
+                    ))}
+                </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TablePagination
+                            rowsPerPageOptions={possiblePageOptions()}
+                            colSpan={3}
+                            count={notifications.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            SelectProps={{
+                                inputProps: { 'aria-label': 'rows per page' },
+                                native: true,
+                            }}
+                            onChangePage={(_, pages) => handleChangePage(pages)}
+                            onChangeRowsPerPage={handleChangeRowsPerPage}
+                            ActionsComponent={TablePaginationActions}
+                        />
+                    </TableRow>
+                </TableFooter>
+            </Table>
+        </TableContainer>
+    );
+
+    function possiblePageOptions() {
+        return [10, 20, 30].filter((option) => notifications.length > option);
+    }
+
+    function handleChangePage(newPage: number) {
+        setPage(newPage);
+    }
+
+    function handleChangeRowsPerPage(event: ChangeEvent<HTMLInputElement>) {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    }
+};
+
+function EmptyContent() {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
-        <TableContainer className={classes.list} component={Paper}>
-            <Table className={classes.table} aria-label="Notification table">
-                <TableHead>
-                    <TableRow className={classes.heading}>
-                        <TableCell className={classes.content}>{t('notifications-page.content')}</TableCell>
-                        <TableCell className={classes.date}>{t('notifications-page.date')}</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {notifications.map(notification => {
-                        const { _id, values, templateId, date, isRead } = notification;
-
-                        const text = getNotificationContent(templateId, values);
-
-                        return (
-                            <NotificationPageListItem
-                                key={_id}
-                                id={_id}
-                                text={text}
-                                date={new Date(date)}
-                                isRead={isRead}
-                                onClick={() => {
-                                    /* todo */
-                                }}
-                            />
-                        );
-                    })}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <TableRow>
+            <TableCell variant="body" width="100%">
+                <Box p={4} display="flex" justifyContent="center" alignItems="center" flexDirection="column" mr="-67px">
+                    <Notifications classes={{ root: classes.notificationIcon }} />
+                    <Box mb={3} mt={4}>
+                        <Typography variant="h4" color="textSecondary">
+                            {t('notifications-page.empty-list-message.title')}
+                        </Typography>
+                    </Box>
+                    <Typography variant="body1" color="textSecondary">
+                        {t('notifications-page.empty-list-message.description')}
+                    </Typography>
+                </Box>
+            </TableCell>
+        </TableRow>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        table: {
-            minWidth: 650,
+        contentHeader: {
+            paddingLeft: theme.spacing(6),
         },
-        list: {
-            marginTop: '100px',
-        },
-        heading: {
-            backgroundColor: theme.palette.primary.main,
-        },
-        content: {
-            paddingLeft: '100px',
-            color: white,
-            textTransform: 'uppercase',
-            fontWeight: 700,
-        },
-        date: {
-            color: white,
-            textTransform: 'uppercase',
-            fontWeight: 700,
-            width: '275px',
+        notificationIcon: {
+            fontSize: 60,
+            color: theme.palette.action.disabled,
         },
     }),
 );

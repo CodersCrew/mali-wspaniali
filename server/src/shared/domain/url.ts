@@ -5,13 +5,9 @@ export type UrlProps = string;
 
 export type UrlValue = Props<UrlProps>;
 
-export class Url extends ValueObject<UrlValue> {
+export class Url extends ValueObject<UrlProps> {
   private constructor(props: UrlValue) {
     super(props);
-  }
-
-  get value(): UrlProps {
-    return this.props.value;
   }
 
   public static create(url: string): Result<Url> {

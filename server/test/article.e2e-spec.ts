@@ -6,6 +6,7 @@ import { AppModule } from './../src/app.module';
 import { ArticlesRepository } from '../src/articles/domain/repositories/article_repository';
 import { UserRepository } from '../src/users/domain/repositories/user_repository';
 import * as bcrypt from 'bcrypt';
+import waitForExpect from 'wait-for-expect';
 
 jest.setTimeout(10000);
 
@@ -124,15 +125,14 @@ mutation {
               category: "activity",
               contentHTML: "<div>my_html</div>",
               description: "my description lorem ipsum my description lorem ipsum my description lorem ipsum",
-              header: "my header lorem ipsum  lorem ipsum",
               pictureUrl: "https://www.youtube.com/watch?v=rr0gvSS1OzE",
               redactor: {
-                firstName: "cool redactor"
+                firstName: "cool redactor",
+                lastName: "his-lastname",
+                avatarUrl: "https://mali-wspaniali.netlify.app/"
               },
               tags: ["life-style"],
-              title: "my title lorem ipsum",
-              subtitle: "my subtitle"
-              readingTime: 15    
+              title: "my title lorem ipsum"
             }) {
               status
             }
@@ -156,15 +156,14 @@ mutation {
               category,
               contentHTML
               description
-              header
               pictureUrl
               redactor {
                 firstName
+                lastName
+                avatarUrl
               }
               tags
               title
-              subtitle
-              readingTime
               }
             }
           }
@@ -182,15 +181,14 @@ mutation {
               contentHTML: '<div>my_html</div>',
               description:
                 'my description lorem ipsum my description lorem ipsum my description lorem ipsum',
-              header: 'my header lorem ipsum  lorem ipsum',
               pictureUrl: 'https://www.youtube.com/watch?v=rr0gvSS1OzE',
               redactor: {
                 firstName: 'cool redactor',
+                lastName: 'his-lastname',
+                avatarUrl: 'https://mali-wspaniali.netlify.app/',
               },
               tags: ['life-style'],
               title: 'my title lorem ipsum',
-              subtitle: 'my subtitle',
-              readingTime: 15,
             }),
           );
         });
@@ -240,15 +238,14 @@ mutation {
             category: "activity",
             contentHTML: "<div>my_html</div>",
             description: "my description lorem ipsum my description lorem ipsum my description lorem ipsum",
-            header: "my header lorem ipsum  lorem ipsum",
             pictureUrl: "https://www.youtube.com/watch?v=rr0gvSS1OzE",
             redactor: {
               firstName: "cool redactor"
+              lastName: "his-lastname",
+              avatarUrl: "https://mali-wspaniali.netlify.app/"
             },
             tags: ["life-style"],
-            title: "my title lorem ipsum",
-            subtitle: "my subtitle"
-            readingTime: 15    
+            title: "my title lorem ipsum"
           }) {
             status
           }
@@ -283,13 +280,14 @@ mutation {
     });
 
     it('returns article from second page', async () => {
-      await request(app.getHttpServer())
-        .post('/graphql')
-        .set('Authorization', authorizationToken)
-        .send({
-          operationName: null,
-          variables: {},
-          query: `
+      await waitForExpect(async () => {
+        const result = await request(app.getHttpServer())
+          .post('/graphql')
+          .set('Authorization', authorizationToken)
+          .send({
+            operationName: null,
+            variables: {},
+            query: `
     {
       paginatedArticles(page:2){
         articles {
@@ -298,12 +296,12 @@ mutation {
       }
     }
     `,
-        })
-        .expect(({ body }) => {
-          const { articles } = body.data.paginatedArticles;
+          });
 
-          expect(articles.length).toEqual(1);
-        });
+        const { articles } = result.body.data.paginatedArticles;
+
+        expect(articles.length).toBe(1);
+      });
     });
 
     describe('when need particular amount of articles', () => {
