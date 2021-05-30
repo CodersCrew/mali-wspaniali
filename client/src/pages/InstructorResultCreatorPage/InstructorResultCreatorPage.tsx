@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import {
     ResultCreatorErrorReturnProps,
     ResultCreatorReturnProps,
@@ -34,6 +36,7 @@ export default function InstructorResultCreatorPage() {
 
     const history = useHistory();
     const device = useIsDevice();
+    const { t } = useTranslation();
 
     useEffect(() => {
         activePage(['instructor-menu.results-table']);
@@ -103,6 +106,35 @@ export default function InstructorResultCreatorPage() {
                 { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
                 resultCreator,
             );
+
+            if (resultCreator.edited === 'pendelumRun') {
+                openSnackbar({
+                    text: `${t('add-result-page.result-saved-snackbar-1')}${t('add-result-page.dexterity')}${t(
+                        'add-result-page.result-saved-snackbar-2',
+                    )}${resultCreator.selectedChild.firstname} ${resultCreator.selectedChild?.lastname}`,
+                });
+            }
+            if (resultCreator.edited === 'jump') {
+                openSnackbar({
+                    text: `${t('add-result-page.result-saved-snackbar-1')}${t('add-result-page.power')}${t(
+                        'add-result-page.result-saved-snackbar-2',
+                    )}${resultCreator.selectedChild.firstname} ${resultCreator.selectedChild?.lastname}`,
+                });
+            }
+            if (resultCreator.edited === 'throw') {
+                openSnackbar({
+                    text: `${t('add-result-page.result-saved-snackbar-1')}${t('add-result-page.strength')}${t(
+                        'add-result-page.result-saved-snackbar-2',
+                    )}${resultCreator.selectedChild.firstname} ${resultCreator.selectedChild?.lastname}`,
+                });
+            }
+            if (resultCreator.edited === 'run') {
+                openSnackbar({
+                    text: `${t('add-result-page.result-saved-snackbar-1')}${t('add-result-page.velocity')}${t(
+                        'add-result-page.result-saved-snackbar-2',
+                    )}${resultCreator.selectedChild.firstname} ${resultCreator.selectedChild?.lastname}`,
+                });
+            }
 
             redirectToNextChild();
         }
