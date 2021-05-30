@@ -756,7 +756,7 @@
     },
     "cookies-popup": {
         "link": "Privacy Policy",
-        "content": "We use „cookies” to collect information on the use of the website. You can find this mechanism in the settings. Read more about our cookie practices in the Site's Privacy Policy."
+        "content": "We use „cookies” to collect information on the use of the website. You can find this mechanism in the settings. Read more about our cookie practices in the Site's <Link>Privacy Policy</Link>."
     },
     "agreements": {
         "show-all": "Show all",

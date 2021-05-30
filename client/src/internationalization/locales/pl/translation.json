@@ -836,8 +836,7 @@
     "years_2": "lat",
     "cookies-popup": {
         "link": "Polityce Prywatoności",
-        "content": "Używamy „ciasteczek” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu.  Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Przeczytaj więcej na temat naszych praktyk dotyczących “ciasteczek” w  Polityce Prywatoności serwisu.",
-        "contend-end": " serwisu."
+        "content": "Używamy „ciasteczek” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu.  Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Przeczytaj więcej na temat naszych praktyk dotyczących “ciasteczek” w  <Link>Polityce Prywatoności</Link> serwisu."
     },
     "agreements": {
         "show-all": "Wszystkie",

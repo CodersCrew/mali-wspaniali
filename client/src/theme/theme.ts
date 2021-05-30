@@ -55,12 +55,6 @@ export const theme: ThemeObject = {
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
             focus: 'rgba(0, 0, 0, 0.12)',
         },
-        cookiesModal: {
-            main: '#255071',
-            light: '#FFF',
-            dark: '#0D3C61',
-            contrastText: '#0D3C61',
-        },
         background: {
             default: '#F1F2F4',
         },
