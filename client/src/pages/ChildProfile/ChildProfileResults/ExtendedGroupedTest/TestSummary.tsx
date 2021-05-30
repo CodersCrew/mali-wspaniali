@@ -59,14 +59,12 @@ export const TestSummary = ({ result }: Props) => {
                         <IconButton
                             aria-label="notifications"
                             onClick={() => {
-                                openAgeDescriptionModal({
-                                    preventClose: false,
-                                    isCancelButtonVisible: true,
-                                }).then((res) => {
-                                    if (!res.close)
-                                        openSnackbar({
-                                            text: t('user-settings.modal-edit-account.success-message'),
-                                        });
+                                openAgeDescriptionModal().then((dialogResult) => {
+                                    if (dialogResult.close) return;
+
+                                    openSnackbar({
+                                        text: t('user-settings.modal-edit-account.success-message'),
+                                    });
                                 });
                             }}
                         >
