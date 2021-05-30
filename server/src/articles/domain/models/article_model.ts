@@ -1,47 +1,84 @@
 import { AggregateRoot } from '@nestjs/cqrs';
+import { v4 as uuidv4 } from 'uuid';
+import { Expose, Transform } from 'class-transformer';
+import {
+  Length,
+  IsUrl,
+  IsOptional,
+  IsIn,
+  ValidateNested,
+} from 'class-validator';
+import { transformAndValidateSync } from 'class-transformer-validator';
 
 import { ArticleCreatedEvent, ArticleUpdatedEvent } from '../events/impl';
-import { Category, CategoryProps } from './category';
-import { UrlProps, Url } from '../../../shared/domain/url';
-import { Tags, TagsProps } from './tags';
-import { Redactor, RedactorProps } from './redactor';
-import { ArticleInput } from '../../inputs/article_input';
+import { Redactor } from './redactor';
+import { UpdateArticleInput } from '../../inputs/article_input';
+import { ValueOrNull } from '../../../shared/utils/value_or_null';
 import { ArticleMapper } from '../mappers/article_mapper';
-import {
-  TextLength,
-  TextLengthProps,
-} from '../../../shared/domain/text_length';
 
-export interface ArticleProps {
-  _id?: string;
-  category: CategoryProps;
-  contentHTML: string;
-  date?: Date;
-  description: TextLengthProps;
-  pictureUrl: UrlProps;
-  redactor: RedactorProps;
-  tags: TagsProps;
-  title: TextLengthProps;
-  videoUrl?: UrlProps;
-}
+export class ArticleCore {
+  @Expose()
+  @Transform(value => value ?? uuidv4())
+  _id: string;
 
-export interface ArticleInnerProps {
-  _id?: string;
-  category: Category;
+  @Expose()
+  @Length(10, 100)
+  title: string;
+
+  @Expose()
+  @Length(30, 300)
+  description: string;
+
+  @Expose()
   contentHTML: string;
-  date?: Date;
-  description: TextLength;
-  pictureUrl: Url;
+
+  @Expose()
+  @IsIn(['food', 'activity', 'emotions', 'other'])
+  category: string;
+
+  @Expose()
+  tags: string[];
+
+  @Expose()
+  @IsOptional()
+  @ValueOrNull()
+  videoUrl: string | null;
+
+  @Expose()
+  @IsUrl()
+  pictureUrl: string;
+
+  @Expose()
+  @ValidateNested()
   redactor: Redactor;
-  tags: Tags;
-  title: TextLength;
-  videoUrl?: Url;
-}
 
-export type ArticleBeforeSaveProps = Omit<ArticleProps, '_id'>;
+  @Expose()
+  @Transform(value => value ?? false)
+  isDeleted: boolean;
+
+  @Expose()
+  @Transform(value => value ?? false)
+  isPublished: boolean;
+
+  @Expose()
+  @Transform(value => value ?? new Date())
+  createdAt: Date;
+
+  @Expose()
+  @ValueOrNull()
+  deletedAt: Date | null;
+
+  @Expose()
+  @ValueOrNull()
+  modifiedAt: Date | null;
+
+  @Expose()
+  @ValueOrNull()
+  publishedAt: Date | null;
+}
 
 export class Article extends AggregateRoot {
-  private constructor(private props: ArticleInnerProps) {
+  private constructor(private props: ArticleCore) {
     super();
   }
 
@@ -49,11 +86,11 @@ export class Article extends AggregateRoot {
     return this.props._id;
   }
 
-  get title(): TextLength {
+  get title(): string {
     return this.props.title;
   }
 
-  get category(): Category {
+  get category(): string {
     return this.props.category;
   }
 
@@ -61,19 +98,15 @@ export class Article extends AggregateRoot {
     return this.props.contentHTML;
   }
 
-  get date(): Date {
-    return this.props.date;
-  }
-
-  get description(): TextLength {
+  get description(): string {
     return this.props.description;
   }
 
-  get pictureUrl(): Url {
+  get pictureUrl(): string {
     return this.props.pictureUrl;
   }
 
-  get videoUrl(): Url {
+  get videoUrl(): string | null {
     return this.props.videoUrl;
   }
 
@@ -81,17 +114,45 @@ export class Article extends AggregateRoot {
     return this.props.redactor;
   }
 
-  get tags(): Tags {
+  get tags(): string[] {
     return this.props.tags;
   }
 
-  update(updates: Partial<ArticleInput>) {
+  get isDeleted(): boolean {
+    return this.props.isDeleted;
+  }
+
+  get isPublished(): boolean {
+    return this.props.isPublished;
+  }
+
+  get createdAt(): Date {
+    return this.props.createdAt;
+  }
+
+  get modifiedAt(): Date | null {
+    return this.props.modifiedAt;
+  }
+
+  get deletedAt(): Date | null {
+    return this.props.deletedAt;
+  }
+
+  get publishedAt(): Date | null {
+    return this.props.publishedAt;
+  }
+
+  getProps(): ArticleCore {
+    return this.props;
+  }
+
+  update(updates: Partial<UpdateArticleInput>) {
     this.props = updateArticle(this, updates);
 
     this.apply(new ArticleUpdatedEvent(this.id, updates));
   }
 
-  static create(props: ArticleInnerProps): Article {
+  static create(props: ArticleCore): Article {
     const article = new Article(props);
 
     article.apply(new ArticleCreatedEvent(article.id));
@@ -99,19 +160,61 @@ export class Article extends AggregateRoot {
     return article;
   }
 
-  static recreate(props: ArticleInnerProps): Article {
+  static recreate(props: ArticleCore): Article {
     return new Article(props);
-  }
-
-  getProps(): ArticleInnerProps {
-    return this.props;
   }
 }
 
-function updateArticle(article: Article, updates: Partial<ArticleInput>) {
+function updateArticle(article: Article, updates: Partial<UpdateArticleInput>) {
   const articleProps = ArticleMapper.toRaw(article);
 
-  const updatedArticleProps: ArticleProps = { ...articleProps, ...updates };
+  updatedReadOnlyFields(updates);
 
-  return ArticleMapper.toDomain(updatedArticleProps).getProps();
+  const extendedUpdate = createExtendedUpdate(updates);
+
+  return transformAndValidateSync(
+    ArticleCore,
+    {
+      ...articleProps,
+      ...extendedUpdate,
+    },
+    { validator: { validationError: { target: false, value: false } } },
+  );
+}
+
+function updatedReadOnlyFields(updates: Partial<UpdateArticleInput>) {
+  if (
+    Object.keys(updates).find(k =>
+      ['createdAt', 'deletedAt', 'modifiedAt', 'publishedAt'].includes(k),
+    )
+  ) {
+    throw new Error('Readonly fields cannot be modified');
+  }
+}
+
+function createExtendedUpdate(values: Partial<UpdateArticleInput>) {
+  let options: { [key: string]: unknown } = values;
+
+  if (values.isDeleted) {
+    options = {
+      ...options,
+      deletedAt: new Date(),
+    };
+  }
+
+  if (values.isPublished) {
+    options = {
+      ...options,
+      publishedAt: new Date(),
+    };
+  }
+
+  if (!values.isDeleted || !values.isPublished) {
+    options = {
+      ...options,
+      modifiedAt: new Date(),
+    };
+  }
+
+  return options;
 }

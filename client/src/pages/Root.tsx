@@ -8,6 +8,7 @@ import { ParentWrapper } from './ParentWrapper';
 import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
+import { CookieModal } from '../components/CookieModal/CookieModal';
 
 const LoginPage = React.lazy(() => import('./LoginPage/LoginPage'));
 const RegistrationPage = React.lazy(() => import('./RegistrationPage/RegistrationPage'));
@@ -57,6 +58,7 @@ export function Root() {
                 <CssBaseline />
                 <Suspense fallback={null}>
                     <Router>
+                        <CookieModal />
                         <Switch>
                             <Route exact path="/" render={() => <Redirect to="/login" />} />
                             <Route path={['/login']}>

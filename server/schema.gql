@@ -18,13 +18,18 @@ type ArticleDTO {
   _id: ID!
   category: String!
   contentHTML: String!
-  date: DateTime!
   description: String!
   pictureUrl: String!
   redactor: RedactorDTO!
   tags: [String!]!
   title: String!
+  isDeleted: Boolean
+  isPublished: Boolean
   videoUrl: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  modifiedAt: DateTime
+  publishedAt: DateTime
 }
 
 """
@@ -236,7 +241,7 @@ type Query {
 }
 
 type Mutation {
-  createArticle(article: ArticleInput!): ReturnedStatusDTO!
+  createArticle(article: CreateArticleInput!): ReturnedStatusDTO!
   anonymizeUser(id: String!): ReturnedStatusDTO!
   readNotification(id: String!): NotificationDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
@@ -262,7 +267,7 @@ type Mutation {
   updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): AssessmentDTO!
 }
 
-input ArticleInput {
+input CreateArticleInput {
   category: String!
   contentHTML: String!
   description: String!
