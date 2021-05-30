@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { emailTest } from '../RegistrationPage/emailTest';
+import { emailTest } from '../../utils/emailTest';
 import { Theme } from '../../theme';
 
 const tPrefix = 'forgot-password-page';

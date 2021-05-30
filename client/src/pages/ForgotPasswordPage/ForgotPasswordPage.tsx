@@ -12,7 +12,7 @@ import { LanguageSelector } from '../../components/LanguageSelector';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import dayjs from '../../localizedMoment';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { emailTest } from '../RegistrationPage/emailTest';
+import { emailTest } from '../../utils/emailTest';
 
 import { ResetPasswordForm } from './ResetPasswordForm';
 
