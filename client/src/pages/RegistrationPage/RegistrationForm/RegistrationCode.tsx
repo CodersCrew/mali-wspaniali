@@ -8,8 +8,6 @@ import { Theme } from '../../../theme';
 
 import { RegistrationCodeProps } from './types';
 
-const MIN_CODE_LENGTH = 10;
-
 export const RegistrationCode = ({
     handleChange,
     handleNext,
@@ -18,6 +16,7 @@ export const RegistrationCode = ({
     classButton,
     classNextBtn,
     error,
+    roleBasedKeyCode,
 }: RegistrationCodeProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -33,9 +32,8 @@ export const RegistrationCode = ({
     };
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            if (code.length >= MIN_CODE_LENGTH) handleNext();
+        if (event.key === 'Enter' && roleBasedKeyCode?.isValid()) {
+            handleNext();
         }
     };
 
@@ -62,11 +60,16 @@ export const RegistrationCode = ({
                     variant="contained"
                     onClick={handleNext}
                     className={classNextBtn}
-                    disabled={code.length < MIN_CODE_LENGTH}
+                    disabled={!roleBasedKeyCode}
                     data-testid="code-next"
                     innerText={t('next')}
                 />
-                <ButtonSecondary variant="text" onClick={handleClick} innerText={t('registration-page.no-code')} />
+                <ButtonSecondary
+                    variant="text"
+                    onClick={handleClick}
+                    className={classes.noCodeButton}
+                    innerText={t('registration-page.no-code')}
+                />
             </div>
         </>
     );
@@ -76,6 +79,11 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         strong: {
             fontWeight: theme.typography.fontWeightMedium,
+        },
+        noCodeButton: {
+            textAlign: 'center',
+            whiteSpace: 'normal',
+            fontSize: theme.typography.caption.fontSize,
         },
     }),
 );

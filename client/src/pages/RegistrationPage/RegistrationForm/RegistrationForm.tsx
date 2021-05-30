@@ -21,6 +21,7 @@ import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
 import { LanguageSelector } from './LanguageSelector';
+import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
 
 const initialState: RegisterForm = {
     code: '',
@@ -31,9 +32,10 @@ const initialState: RegisterForm = {
 
 export const RegistrationForm = () => {
     const [form, setForm] = useState(initialState);
-    // TODO: turn back to 0
     const [activeStep, setActiveStep] = useState(0);
+
     const [skip, setSkip] = useState(false);
+
     const [loading, setLoading] = useState(false);
 
     const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
@@ -42,19 +44,24 @@ export const RegistrationForm = () => {
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
+    const [roleBasedKeyCode, setRoleBasedKeyCode] = useState<RoleBasedKeyCodeObject | undefined>(undefined);
+
     useEffect(() => {
         getAgreements()
             .then(({ data }) => {
                 const agreementList = AGREEMENTS.map((item) => {
                     const id = data.agreements.filter((dataItem) => dataItem.text === item.type)[0]?._id;
 
-                    return { ...item, _id: id === undefined ? '' : id };
+                    return { ...item, _id: id ?? '' };
                 });
 
                 setAgreements(() => agreementList);
             })
             .catch((error) => {
-                console.log('Error: ', error.message);
+                openAlertDialog({
+                    type: 'error',
+                    description: `${t('registration-page.agreements-fetch-failed')}<br><br>${error.message}`,
+                });
             });
     }, []);
 
@@ -76,8 +83,8 @@ export const RegistrationForm = () => {
                     classForm={classes.formItem}
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
-                    // TODO: code needs to be validated
                     error={false}
+                    roleBasedKeyCode={roleBasedKeyCode}
                 />
             );
         }
@@ -93,7 +100,6 @@ export const RegistrationForm = () => {
                     classForm={classes.formItem}
                     classButton={clsx({ [classes.buttonWrapper]: true, emailContent: activeStep === 0 })}
                     classNextBtn={classes.nextButton}
-                    // TODO: email needs to be validated
                     error={false}
                 />
             );
@@ -157,8 +163,19 @@ export const RegistrationForm = () => {
         return null;
     };
 
-    const handleNext = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    const handleNext = () =>
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep === 1 && roleBasedKeyCode?.isInstructor()) return prevActiveStep + 2;
+
+            return prevActiveStep + 1;
+        });
+
+    const handleBack = () =>
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep === 3 && roleBasedKeyCode?.isInstructor()) return prevActiveStep - 2;
+
+            return prevActiveStep - 1;
+        });
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -175,12 +192,19 @@ export const RegistrationForm = () => {
                 description: t('registration-page.password-mismatch'),
             });
             setLoading(() => false);
+        } else if (!roleBasedKeyCode?.isValid()) {
+            openAlertDialog({
+                type: 'error',
+                description: t('registration-page.register-failure-keycode'),
+            });
+            setActiveStep(() => 0);
+            setLoading(() => false);
         } else {
             load(
                 createUser({
                     mail: email,
                     password,
-                    keyCode: code,
+                    keyCode: roleBasedKeyCode?.parseToKeyCode() || '',
                     agreements: agreements
                         .filter((agreement) => !!agreement._id && agreement.isSigned)
                         .map((item) => item._id),
@@ -190,8 +214,7 @@ export const RegistrationForm = () => {
                     setLoading(() => false);
                     handleNext();
                 })
-                .catch((err) => {
-                    // TODO: re-modify this!
+                .catch(() => {
                     setLoading(() => false);
                     if (skip) {
                         setSkip(() => false);
@@ -211,6 +234,10 @@ export const RegistrationForm = () => {
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
     };
+
+    useEffect(() => {
+        setRoleBasedKeyCode(RoleBasedKeyCodeObject.from(code));
+    }, [code]);
 
     return (
         <div className={classes.container}>
@@ -265,7 +292,11 @@ export const RegistrationForm = () => {
             </form>
             {activeStep === 4 && getStepContent(activeStep)}
             <div className={classes.footer}>
-                <ButtonSecondary href="/login" innerText={t('registration-page.go-to-loginpage')} />
+                <ButtonSecondary
+                    href="/login"
+                    className={classes.backToLoginButton}
+                    innerText={t('registration-page.go-to-loginpage')}
+                />
                 <Box mb={3} />
             </div>
         </div>

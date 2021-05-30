@@ -98,14 +98,13 @@ export default function AdminKindergartensPage() {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         wrapper: {
-            padding: theme.spacing(2),
             backgroundColor: theme.palette.primary.contrastText,
         },
         header: {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: theme.spacing(2),
+            padding: theme.spacing(2),
         },
     }),
 );

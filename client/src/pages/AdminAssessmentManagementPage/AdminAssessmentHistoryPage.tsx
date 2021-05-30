@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 
 import { activePage } from '../../apollo_client';
 import { AssessmentHistoryList } from './AssessmentHistoryList/AssessmentHistoryList';
@@ -39,7 +40,7 @@ export default function AdminAssessmentHistoryPage() {
                     </ButtonSecondary>
                 }
                 container={
-                    <div>
+                    <Box mb={3}>
                         <AssessmentHistoryList
                             assessments={assessments}
                             onTestClick={(type, id) => {
@@ -52,7 +53,7 @@ export default function AdminAssessmentHistoryPage() {
                                 }
                             }}
                         />
-                    </div>
+                    </Box>
                 }
             />
         </PageContainer>

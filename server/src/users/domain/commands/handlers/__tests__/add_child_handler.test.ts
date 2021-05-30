@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import waitForExpect from 'wait-for-expect';
 import { AddChildHandler } from '../add_child_handler';
 import { AddChildCommand } from '../../impl';
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
 import { UsersModule } from '../../../../users_module';
 import { User } from '../../../../../users/domain/models/user_model';
@@ -97,9 +97,7 @@ describe('AddChildHandler', () => {
         await waitForExpect(
           async () => {
             await awaitForResponse();
-            const [notification, a, b] = await getNotificationsForUser(
-              parentId,
-            );
+            const [notification] = await getNotificationsForUser(parentId);
 
             expect(notification).toBeDefined();
 

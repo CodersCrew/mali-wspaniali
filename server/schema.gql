@@ -18,14 +18,18 @@ type ArticleDTO {
   _id: ID!
   category: String!
   contentHTML: String!
-  date: DateTime!
   description: String!
   pictureUrl: String!
-  readingTime: Int!
   redactor: RedactorDTO!
   tags: [String!]!
   title: String!
+  isDeleted: Boolean
+  isPublished: Boolean
   videoUrl: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  modifiedAt: DateTime
+  publishedAt: DateTime
 }
 
 """
@@ -37,6 +41,35 @@ type PaginatedArticlesDTO {
   articles: [ArticleDTO!]!
   count: Int!
   hasNext: Boolean!
+}
+
+type PartialChildResult {
+  _id: ID
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
 }
 
 type NotificationDTO {
@@ -128,35 +161,6 @@ type ChildCurrentParamsDTO {
   jump: ParamsDTO
 }
 
-type PartialChildResult {
-  _id: ID
-  childId: ID
-  kindergartenId: ID
-  assessmentId: ID
-  firstMeasurementRunDate: DateTime
-  lastMeasurementRunDate: DateTime
-  firstMeasurementPendelumRunDate: DateTime
-  lastMeasurementPendelumRunDate: DateTime
-  firstMeasurementThrowDate: DateTime
-  lastMeasurementThrowDate: DateTime
-  firstMeasurementJumpDate: DateTime
-  lastMeasurementJumpDate: DateTime
-  firstMeasurementNote: String
-  lastMeasurementNote: String
-  firstMeasurementKindergarten: ID
-  lastMeasurementKindergarten: ID
-  firstMeasurementInstructor: ID
-  lastMeasurementInstructor: ID
-  firstMeasurementRunResult: Float
-  lastMeasurementRunResult: Float
-  firstMeasurementPendelumRunResult: Float
-  lastMeasurementPendelumRunResult: Float
-  firstMeasurementThrowResult: Float
-  lastMeasurementThrowResult: Float
-  firstMeasurementJumpResult: Float
-  lastMeasurementJumpResult: Float
-}
-
 type CreateKeyCodeDTO {
   id: ID!
   date: DateTime!
@@ -237,7 +241,7 @@ type Query {
 }
 
 type Mutation {
-  createArticle(article: ArticleInput!): ReturnedStatusDTO!
+  createArticle(article: CreateArticleInput!): ReturnedStatusDTO!
   anonymizeUser(id: String!): ReturnedStatusDTO!
   readNotification(id: String!): NotificationDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
@@ -263,12 +267,11 @@ type Mutation {
   updateAssessment(assessment: UpdatedAssessmentInput!, id: String!): AssessmentDTO!
 }
 
-input ArticleInput {
+input CreateArticleInput {
   category: String!
   contentHTML: String!
   description: String!
   pictureUrl: String!
-  readingTime: Int!
   redactor: RedactorInput!
   tags: [String!]!
   title: String!
@@ -276,11 +279,12 @@ input ArticleInput {
 }
 
 input RedactorInput {
-  avatarUrl: String
   firstName: String!
-  lastName: String
+  lastName: String!
+  avatarUrl: String
   profession: String
   biography: String
+  shortDescription: String
 }
 
 input UserInput {

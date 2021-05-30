@@ -46,7 +46,7 @@ export default function InstructorAddResultsPage() {
             .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || [];
 
     useEffect(() => {
-        activePage(['instructor-menu.add-results']);
+        activePage(['instructor-menu.results-table']);
     }, []);
 
     useEffect(() => {
@@ -60,7 +60,7 @@ export default function InstructorAddResultsPage() {
     }, [assessments]);
 
     const childList = getFiltredAndSortedChildList();
-    const maxResults = childList.length * 4;
+    const maxResults = currentChildren.length * 4;
 
     if (areAssessmentsLoading) return null;
 
@@ -123,6 +123,13 @@ export default function InstructorAddResultsPage() {
                                 searchTerm={searchTerm}
                                 onChange={handleFilterChanged}
                                 compact
+                            />
+                        }
+                        subheader={
+                            <AssessmentSubheader
+                                results={kindergartenResults}
+                                max={maxResults}
+                                assessment={currentAssessment}
                             />
                         }
                         container={

@@ -9,8 +9,8 @@
         "login": "Zaloguj",
         "login-error": "Email lub hasło są nieprawidłowe",
         "login-header": "Logowanie",
-        "e-mail-helper-text-mobile": "Wpisz adres e-mail podany Fundacji",
-        "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail podanego fundacji lub użytego do rejestracji.",
+        "e-mail-helper-text-mobile": "Zaloguj się za pomocą adresu e-mail użytego przy rejestracji",
+        "e-mail-helper-text": "Zaloguj się za pomocą adresu e-mail użytego przy rejestracji",
         "forgot-password": "Nie pamiętasz hasła?",
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
         "login-wrong-password": "Podane hasło jest nieprawidłowe",
@@ -27,6 +27,7 @@
         "register-header": "Rejestracja",
         "already-have-account": "Masz już konto?",
         "register-failure": "Rejestracja nie powiodła się",
+        "register-failure-keycode": "Podany kod nie jest prawidłowy",
         "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>biuro@mali-wspaniali.pl</strong>",
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
@@ -36,6 +37,7 @@
         "register": "Rejestracja",
         "password-not-strong": "Hasło za słabe",
         "agreements-and-regulations": "Zgody i regulaminy",
+        "agreements-fetch-failed": "Nie udało się pobrać danych. Spróbuj ponownie później.",
         "create-password": "Zarejestruj się",
         "confirmation": "Potwierdzenie",
         "create-password-text": "Stwórz hasło do platformy Mali Wspaniali, które będzie ci służyło podczas następnych logowań.",
@@ -70,6 +72,7 @@
     "forgot-password-page": {
         "forgot-password": "Nie pamiętasz hasła?",
         "its-ok": "Nic się nie stało. Wpisz swój adres email.",
+        "its-ok-mobile": "Nic się nie stało.<br/>Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
         "continue": "Kontynuuj",
@@ -139,7 +142,12 @@
         "add-kindergarten-success": "Przedszkole zostało dodane pomyślnie",
         "update-kindergarten-success": "Dane przedszkola zostały zaktualizowane pomyślnie",
         "delete-kindergarten-success": "Przedszkole zostało usunięte pomyślnie",
-        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko"
+        "delete-kindergarten-fail": "Nie można usunąć przedszkola, do którego przypisano co najmniej jedno dziecko",
+        "button-icon-edit-tooltip": "Edytuj",
+        "button-icon-expand-tooltip": "Rozwiń",
+        "button-icon-results-tooltip": "Wyniki",
+        "rows-number": "Pokazuj w tabeli:",
+        "edit": "Edytuj"
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -189,7 +197,6 @@
         "info-about-test": "Informacje o pomiarze",
         "carries-out-on": "przeprowadzony dnia",
         "age-group": "Wiek dziecka",
-
         "age-group-description": {
             "title": "W jaki sposób przypisujemy dziecko do danej grupy wiekowej?",
             "subtitle": "Przypisując dziecko do grupy wiekowej obliczamy w dniu testów jego wiek metrykalny (z dokładnością do jednego miesiąca).",
@@ -299,6 +306,12 @@
             "speed": "Próba szybkości",
             "agility": "Próba zwinności"
         },
+        "test-description": {
+            "agility": "Bieg wahadłowy 4x5 m",
+            "power": "Skok w dal obunóż z miejsca",
+            "strength": "Rzut piłką lekarską znad głowy",
+            "speed": "Bieg na odległość 20 metrów"
+        },
         "no-result-block-text": "nie odbyła się lub dziecko nie było w stanie uczestniczyć tego dnia w teście.",
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
@@ -330,6 +343,35 @@
         "no-results-list-3": "Twoje dziecko dołączyło do programu Mali Wspaniali po odbyciu pierwszego pomiaru. Kolejny pomiar sprawności odbędzie się na wiosnę.",
         "no-results-bottom": "Aby dowiedzieć się, jak wygląda test sprawności, odwiedź zakładkę",
         "no-results-link": "Informacje o testach",
+        "details-modal": {
+            "next-assesment": {
+                "title": "Następny pomiar próby",
+                "text-1": "Za około ",
+                "text-2": " miesięcy"
+            },
+            "assesment-details": "Opis próby",
+
+            "content": {
+                "strength": "Instruktor zaznacza wyraźną linię, z której dziecko będzie wykonywało rzuty. W odległości około 70-100 cm od linii początkowej ustawia się dwa krzesła, na ich oparciach zawiesza się taśmę. Dziecko staje w lekkim rozkroku, dosuwając palce do linii początkowej. Robi zamach piłką 1kg zza głowy wyrzuca piłkę najdalej jak potrafi ponad zawieszoną taśmą",
+                "speed": "Na terenie otwartym wyznacza się prosty odcinek liczący 25 m. Instruktor zaznacza wyraźną linię startową, w odległości 20 m od linii startu wyznacza się cienką, równoległą linię punktu pomiaru czasu, a 5 m dalej zaznacza się drugą wyraźną linię, oznaczającą „metę”.  Dziecko staje na linii i na sygnał stara się pobiec jak najszybciej do linii mety. ",
+                "power": "Dziecko staje na początku materaca, dosuwając palce stóp do narysowanej linii. Z tego miejsca wykonuje skok obunóż jak najdalej potrafi. Odległość skoku jest mierzona do pierwszego miejsca zetknięcia się ciała dziecka z podłożem. ",
+                "agility": "Płaski odcinek powierzchni długości 5 m oznacza się dwiema liniami. Na jednej linii ustawia się dwa klocki, przed drugą z oznaczonych linii ustawia się dziecko. Próba polega na pokonaniu przez dziecko 4 odległości po 5 metrów przenosząc pojedynczo klocki z jednej linii na drugą."
+            },
+            "result-details": {
+                "title": "Szczegóły wyniku",
+                "child-result": "Wynik dziecka: ",
+                "points": "Liczba punktów:  ",
+                "text-1": " możliwych",
+                "text-2": "Znaczenie wyniku na tle całej grupy wiekowej:",
+                "text-3": "dzieci uzyskało wynik równy lub lepszy od Twojego dziecka.",
+                "next-level": {
+                    "title": "Następny poziom cechy:",
+                    "text-1": " - od ",
+                    "text-2": " (zabrakło tylko ",
+                    "text-3": "!)"
+                }
+            }
+        },
         "tests-informations": {
             "about": {
                 "panelTitle": "O Wrocławskim Teście Przedszkolaka – parę słów ogólnie",
@@ -340,41 +382,51 @@
                 "text2-2": "Zdolności te wykorzystywane są w sporcie, ale również w czynnościach dnia codziennego w życiu dorosłym takich jak praca: fizyczna, noszenie zakupów, sprzątanie czy chociażby wyjęcie rzeczy z trudno dostępnego miejsca."
             },
             "conditions": {
-                "panelTitle": "Warunki i sprzęt potrzebny do wykonania testu",
+                "panelTitle": "W jaki sposób wykonujemy test przedszkolaka oraz obliczamy jego wyniki?",
                 "title": "Test sprawności przedszkolaka wykonywany jest raz w semestrze.",
                 "text1": "Składa się z dwóch prób: próba początkowa (pomiar na przełomie października i listopada) oraz próba końcowa (pomiar na przełomie kwietnia i maja). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
-                "text2": "Do opisanych powyżej prób wystarczy ok 7 metrów wolnej przestrzeni, piłka wagowa 1 kilogramowa, stoper lub miara (w zależności od testu), a do próby szybkościowej potrzebny jest tor do biegu 25 metrów w linii prostej oraz stoper.",
-                "test1-name": "Siła",
-                "test-strength-description": "Rzut  piłką lekarską znad głowy",
-                "test1-scale": "Skala: 0 cm - 80 cm",
+                "text2": "Za każdą z prób można otrzymać określoną liczbę punktów. Dzieci oceniane są według skali, przygotowanej przez międzynarodowych ekspertów z dziedziny sprawności ruchowej wśród dzieci, która pokazuje wynik minimalny i maksymalny obliczany dla danego wieku i płci. Dla prób siłowych (siła i moc), im większą odległość uzyskało dziecko podczas próby, tym więcej otrzyma punktów, z kolei w przypadku prób sprawnościowych (szybkość i zwinność) więcej punktów otrzyma dziecko, którego czas wykonania próby jest krótszy.",
+                "text3": "Suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka (niski, średni, dobry lub bardzo dobry). Wyniki pobierane są od dzieci, które w czasie prowadzenia zajęć Mali Wspaniali przez Instruktora są obecne w placówce i chętne do ćwiczenia. Brak wyniku danej próby może świadczyć o nieobecności dziecka w danym dniu lub o nieuczestniczeniu w danym ćwiczeniu. W takim przypadku otrzymują Państwo poszczególne wyniki prób, bez możliwości zobaczenia ogólnej sprawności dziecka.",
+                "test1-name": "Zwinność",
+                "test1-description": "Bieg wahadłowy 4x5 m z przenoszeniem klocka",
+                "test1-scale": "Skala: 0 s - 80 s",
                 "test2-name": "Moc",
-                "test-power-description": "Skok w dal obunóż z miejsca",
+                "test2-description": "Skok w dal obunóż z miejsca",
                 "test2-scale": "Skala: 0 cm - 80 cm",
-                "test3-name": "Szybkość",
-                "test-speed-description": "Bieg na odległość 20 metrów",
+                "test3-name": "Siła",
+                "test3-description": "Rzut piłką lekarską zza głowy",
                 "test3-scale": "Skala: 0 s - 80 s",
-                "test4-name": "Zwinność",
-                "test-agility-description": "Bieg wahadłowy 4x5 m",
+                "test4-name": "Szybkość",
+                "test4-description": "Bieg na odległość 20 metrów",
                 "test4-scale": "Skala: 0 s - 80 s"
             },
             "results": {
                 "to": "do",
-                "panelTitle": "Jak obliczamy wyniki testu",
+                "panelTitle": "Dlaczego wyniki testów są ważne?",
                 "score25": "Coś jest nie tak, postaraj się bardziej",
                 "score50": "Dobrze Ci idzie, ale zawsze może być lepiej!",
                 "score75": "Bardzo dobrze!",
                 "score100": "Świetnie! Tak trzymaj!",
-                "title": "Każdemu wynikowi liczbowemu przeprowadzonej próby, przypisana jest wartość punktowa w zależności od płci i wieku dziecka, na podstawie której określany jest poziom wykonania.",
-                "text1": "W przypadku uzyskania wyniku wszystkich czterech prób, wyprowadzana jest suma, która umożliwia przyporządkowanie do ogólnej grupy sprawnościowej dziecka.",
-                "text2": "Wyniki pobierane są od dzieci, które w czasie prowadzenia zajęć Mali Wspaniali przez Instruktora są obecne w placówce i chętne do ćwiczenia. Brak wyniku danej próby może świadczyć o nieobecności dziecka w danym dniu lub o nieuczestniczeniu w danym ćwiczeniu. W takim przypadku otrzymują Państwo poszczególne wyniki prób, bez możliwości przyporządkowania ogólnej sprawności dziecka."
-            },
-            "interpretation": {
-                "panelTitle": "Co oznaczają wyniki testu i dlaczego są ważne",
                 "title": "Prowadzone badania nie są diagnostyczne, a jedynie poglądowe.",
                 "text1": "Wynik dziecka każdego dnia może być różny. Ma na to wpływ szereg czynników fizycznych, jak i psychologicznych. Dlatego wyników nie należy traktować jako dokładne źródło wiedzy o sprawności dziecka, lecz nawet poglądowa kontrola rozwoju fizycznego jest niezwykle ważna ze względu na zdrowy i prawidłowy przebieg kształtowania się organizmu człowieka i jego przyszłe możliwości.",
-                "text2": "Gdy jest ono właściwie stymulowane oraz może się uczyć przez naśladownictwo i wielokrotne powtarzanie czynności osiąga coraz lepszy stopień wykonywania konkretnych umiejętności sprawdzanych w sposób ogólny jako zdolności motoryczne w Teście przedszkolaka.",
+                "text2": "Dzięki odpowiedniemu motywowaniu i uczeniu poprzez wielokrotne powtarzania ćwiczeń, dziecko osiąga coraz to wyższy poziom w wykonywaniu konkretnych umiejętności, sprawdzanych jako zdolności motoryczne w teście przedszkolaka.",
                 "text3": "Optymalne wyniki dziecka, a co za tym idzie zdrowy i harmonijny rozwój ruchowy, pozwala dziecku osiągać stopniowo własną niezależność i bezpieczeństwo, a co za tym idzie pewność siebie. To również może mieć wpływ na akceptację społeczną.",
                 "text4": "Niedobór ruchu może być przyczyną zaburzeń równowagi wewnętrznej w organizmie dziecka, skutkiem czego mogą być nieadekwatne zachowania, napięcie lub rezygnacja emocjonalna i zmiany nastroju. Sprawność fizyczna jest nie tylko pomocna w sporcie i wychowaniu fizycznym, jest to także główny czynnik w prowadzeniu szczęśliwego i pełniejszego życia."
+            },
+            "interpretation": {
+                "panelTitle": "Jakie czynniki mogą mieć wpływ na niski wynik testu",
+                "title1": "Czynniki ogólne mogące wpłynąć na niski wynik testu:",
+                "title2": "Indywidualne czynniki mogące wpłynąć na niski wynik testu:",
+                "text1": "Brak motywacji u uczestników testu lub w otoczeniu",
+                "text2": "Warunki w placówce i poza nią (niekoniecznie niekorzystne)",
+                "text3": "Pora dnia (np. po posiłku, po leżakowaniu, innych zajęciach)",
+                "text4": "Zewnętrzne utrudnienia (np. zachowanie innych dzieci)",
+                "text5": "Choroba dziecka (np. przeziębienie, biegunka)",
+                "text6": "Uraz (np.: złamanie, skręcenie, stłuczenie) w ciągu ostatnich 30 dni",
+                "text7": "Poważna choroba dziecka wymagająca hospitalizacji w ciągu ostatnich 6 miesięcy",
+                "text8": "Choroba przewlekła (np.: astma oskrzelowa, alergia (atopowa))",
+                "text9": "Dziecko jest wcześniakiem",
+                "text10": "Bariery subiektywne ze strony dziecka (np.: inne fizyczne lub psychiczne)"
             }
         },
         "recommendations": {
@@ -397,6 +449,8 @@
             "heading": "Zarządzaj bezpieczeństwem swoich danych osobowych, mogąc w każdej chwili zwiększyć lub ograniczyć udzielone uprawnienia",
             "title": "Poniżej możesz sprawdzić i edytować podpisane zgody.",
             "save": "Zapisz",
+            "snackbar-headerText": "Gotowe",
+            "snackbar-text": "Udzielone przez ciebie zgody zostały zapisane",
             "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
             "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
             "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
@@ -428,7 +482,9 @@
     },
     "question-dialog": {
         "yes": "Tak",
-        "no": "Nie"
+        "no": "Nie",
+        "cancel": "Anuluj",
+        "delete": "Usuń"
     },
     "parent-children": {
         "children": "Dzieci",
@@ -465,6 +521,7 @@
         "topic-input-label-filled": "Temat",
         "topic-helper-text": "Wpisz temat wiadomości byś mógł ją wysłać",
         "kindergarten-number": "Przedszkole nr",
+        "message-helper-text": "Wpisz wiadomość, byś mógł ją wysłać",
         "sending-error": "Podczas wysyłania wiadomości wystąpił błąd.",
         "sending-success-modal": {
             "title": "Gotowe",
@@ -506,7 +563,7 @@
         "search-label": "Szukaj po przedszkolu",
         "input-label": "Szukaj",
         "header-title-parent": "Adres email rodzica",
-                "header-title-instructor": "Adres email instruktora",
+        "header-title-instructor": "Adres email instruktora",
         "header-title-children": "Dzieci",
         "button-icon-edit-tooltip": "Edytuj",
         "button-icon-delete-tooltip": "Usuń",
@@ -593,7 +650,7 @@
         "archive": "Archiwum",
         "results-list": "Wyniki testów",
         "notifications": "Powiadomienia",
-        "test-management": "Testy",
+        "test-management": "Zarządzaj testami",
         "settings": {
             "title": "Ustawienia",
             "parents-settings": "Usawienie kont rodziców",
@@ -642,7 +699,7 @@
         "logout": "Wyloguj"
     },
     "instructor-menu": {
-        "add-results": "Dodaj wyniki",
+        "results-table": "Tabela wyników",
         "notifications": "Powiadomienia",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
@@ -690,7 +747,11 @@
         "header": "Powiadomienia",
         "description": "Sprawdź wszystkie powiadomienia jakie się pojawiły na twoim koncie",
         "content": "Treść Powiadomienia",
-        "date": "Data"
+        "date": "Data",
+        "empty-list-message": {
+            "title": "Obecnie nie masz żadnych powiadomień.",
+            "description": "Gdy się pojawią, znajdziesz je w tej sekcji."
+        }
     },
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",
@@ -704,8 +765,8 @@
         },
         "test-list": {
             "name": "Nazwa testu",
-            "first-assessment": "Próba początkowa",
-            "last-assessment": "Próba końcowa",
+            "first-assessment": "Pomiar początkowy",
+            "last-assessment": "Pomiar końcowy",
             "status": "Status",
             "active": "Aktywny",
             "done": "Zakończony",
@@ -713,7 +774,9 @@
             "not-planned": "Niezaplanowany",
             "details": "Zobacz szczegóły",
             "delete": "Skasuj",
-            "edit": "Edytuj dane"
+            "edit": "Edytuj dane",
+            "rows-number": "Pokazuj w tabeli:",
+            "edit-button": "Edytuj"
         }
     },
     "add-test-view": {
@@ -744,7 +807,7 @@
             "find-kindergarten": "Znajdź przedszkole"
         },
         "delete-test-dialog": {
-            "title": "Skasuj test",
+            "title": "Usuń test",
             "description": "Czy na pewno chcesz usunąć wybrany test przedszkolaka?"
         },
         "assessment-created": "Utworzono nowy test",
@@ -793,6 +856,10 @@
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
+    "cookies-popup": {
+        "link": "Polityce Prywatoności",
+        "content": "Używamy „ciasteczek” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu.  Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Przeczytaj więcej na temat naszych praktyk dotyczących “ciasteczek” w  <Link>Polityce Prywatoności</Link> serwisu."
+    },
     "agreements": {
         "show-all": "Wszystkie",
         "marketing": "Zgody marketingowe",
@@ -892,17 +959,17 @@
         "full-name": "Imie i nazwisko",
         "birth-quarter": "Kwartał urodzenia",
         "age": "Wiek dziecka",
-        "first-assessment": "Próba początkowa",
-        "last-assessment": "Próba końcowa",
+        "first-assessment": "Pomiar początkowy",
+        "last-assessment": "Pomiar końcowy",
         "first-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze początkowym",
         "last-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze końcowym",
         "see-results": "Zobacz wyniki",
         "add-result": "Dodaj wynik",
-        "add-first-assessment-result": "Dodaj wyniki próby początkowej",
-        "add-last-assessment-result": "Dodaj wyniki próby końcowej",
+        "add-first-assessment-result": "Dodaj wyniki pomiaru początkowego",
+        "add-last-assessment-result": "Dodaj wyniki pomiaru końcowego",
         "add-note": "Dodaj notatkę",
-        "note-first-measurement": "Notatka - Próba początkowa",
-        "note-last-measurement": "Notatka - Próba końcowa",
+        "note-first-measurement": "Notatka - Pomiar początkowy",
+        "note-last-measurement": "Notatka - Pomiar końcowy",
         "add-note-modal": {
             "description": "Dodawaj i zarządzaj notatkami, dotyczącymi ważnych informacji na temat konkretnego dziecka. Dodaj inforamcje dotyczące przebytych kontuzji, przyjmowanych lekarstw czy powodów niebrania udziału w teście.",
             "placeholder": "Kliknij by zacząć pisać",
@@ -917,8 +984,9 @@
         },
         "child-list": "Lista dzieci",
         "edit": "Edytuj",
-        "added-first-note-for": "Dodano notatkę próby początkowej dla {{name}}",
-        "added-last-note-for": "Dodano notatkę próby końcowej dla {{name}}",
+        "add": "Dodaj",
+        "added-first-note-for": "Dodano notatkę pomiaru początkowego dla {{name}}",
+        "added-last-note-for": "Dodano notatkę pomiaru końcowego dla {{name}}",
         "years_1": "lata",
         "years_2": "lat"
     },
@@ -932,10 +1000,11 @@
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
-        "back-to-table": "Wróć",
+        "back-to-table": "Wróć do tabeli",
+        "back-to-results": "Wróć do wpisywania wyniku",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",
-        "dexterity": "ZRĘCZNOŚĆ",
+        "dexterity": "ZWINNOŚĆ",
         "power": "MOC",
         "velocity": "SZYBKOŚĆ",
         "save-and-next": "Zapisz i następny",

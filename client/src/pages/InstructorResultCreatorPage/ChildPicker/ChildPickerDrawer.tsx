@@ -6,6 +6,7 @@ import { Child, Kindergarten } from '../../../graphql/types';
 import { ChildPicker } from './ChildPicker';
 import { ButtonSecondary } from '../../../components/Button';
 import { ResultCreatorReturnProps } from '../useResultCreator';
+import { useSidebarState } from '../../../utils/useSidebar';
 
 interface Props {
     childList: Child[];
@@ -21,11 +22,13 @@ export function ChildPickerDrawer(props: Props) {
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
+    const sidebarState = useSidebarState();
 
     return (
         <>
             <SwipeableDrawer
                 anchor="right"
+                disableSwipeToOpen={sidebarState.isOpen}
                 open={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}
                 onOpen={() => setIsDrawerOpen(true)}

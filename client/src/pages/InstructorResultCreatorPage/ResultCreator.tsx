@@ -71,7 +71,11 @@ function EditorPanel(props: EditorPanelProps) {
         setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 
-    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => acc + v, 0);
+    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => {
+        if (Number.isNaN(v)) return acc;
+
+        return acc + v;
+    }, 0);
 
     return (
         <Grid container direction="column" className={classes.editorContainer}>
@@ -168,6 +172,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '1 1 auto',
             height: 0,
             overflowY: 'auto',
+            overflowX: 'hidden',
         },
         container: {
             maxHeight: '85vh',
@@ -176,7 +181,6 @@ const useStyles = makeStyles((theme: Theme) =>
         childPickerContainer: {
             display: 'flex',
             flexDirection: 'column',
-            overflowY: 'auto',
             height: '100%',
             paddingRight: 2,
         },
@@ -186,8 +190,7 @@ const useStyles = makeStyles((theme: Theme) =>
         footerContainer: {
             display: 'flex',
             alignItems: 'center',
-            height: 56,
-            padding: theme.spacing(1),
+            padding: theme.spacing(1, 2),
         },
     }),
 );

@@ -395,7 +395,7 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
 
 function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryProps): SingleItemProps {
     const AddResultsItem = {
-        name: 'instructor-menu.add-results',
+        name: 'instructor-menu.results-table',
         link: '/instructor',
         icon: <Icon icon={<Assessment />} />,
     };

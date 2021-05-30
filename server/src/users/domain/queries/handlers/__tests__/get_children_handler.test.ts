@@ -8,7 +8,7 @@ import {
   createParent,
   anonymizeUser,
 } from '../../../../../test/helpers/app_mock';
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { KeyCodesModule } from '@keyCodes/key_codes_module';
 import { CreateKeyCodeHandler } from '@keyCodes/domain/commands/handlers';
 import { AgreementsModule } from '../../../../../agreements/agreements_module';

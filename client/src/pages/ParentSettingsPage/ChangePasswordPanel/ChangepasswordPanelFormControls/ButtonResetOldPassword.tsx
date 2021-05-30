@@ -1,5 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { ButtonSecondary } from '../../../../components/Button';
 import { Me } from '../../../../graphql/types';
 import { useAuthorizeMe } from '../../../../operations/mutations/User/authorizeMe';
@@ -32,7 +33,7 @@ export const ButtonResetOldPassword = (props: Props) => {
             .then((result) => {
                 if (result.close) {
                     dispatch({ type: PASSWORD_RESET_EMAIL_SENT });
-                    // TODO: Snackbar closed. Maybe Accordion should close automaticaly, aswell??;
+                    // TODO: Snackbar closed. Maybe Accordion should close automatically, as well??;
                 }
             })
             .catch((reason) => {

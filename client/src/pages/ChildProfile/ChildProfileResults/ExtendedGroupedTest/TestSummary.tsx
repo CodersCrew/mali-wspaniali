@@ -1,11 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Card, createStyles, Grid, IconButton, Theme, Typography } from '@material-ui/core';
+import { Card, createStyles, Grid, IconButton, Theme, Typography, Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
-import { gray, lightTextColor } from '../../../../colors';
 import { MAX_OVERALL_POINTS } from './constants';
 import { ButtonSecondary } from '../../../../components/Button';
 import { TestResult } from '../../../../graphql/types';
@@ -31,48 +30,50 @@ export const TestSummary = ({ result }: Props) => {
     }>();
 
     return (
-        <>
-            <Card className={classes.card} elevation={0}>
-                <div className={classes.cardTop}>
-                    <Typography variant="body2">{t('child-profile.info-about-test')}</Typography>
-                    <Typography variant="h4" className={classes.testDescription}>
-                        {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
+        <Card elevation={0}>
+            <Box p={2}>
+                <Box pb={2}>
+                    <Typography variant="caption" color="textSecondary">
+                        {t('child-profile.info-about-test')}
                     </Typography>
-                    <Typography variant="body2">
+                    <Box my={1}>
+                        <Typography variant="h4">
+                            {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
+                        </Typography>
+                    </Box>
+                    <Typography variant="caption" color="textSecondary">
                         {t('child-profile.carries-out-on')} {dayjs(result.date).fromNow()}
                     </Typography>
-                </div>
-                <div className={classes.cardMiddle}>
-                    <Grid direction="row" justify="flex-start" alignItems="center" container>
-                        <Grid item>
-                            <Typography variant="body1">
-                                {t('child-profile.age-group')}:{' '}
-                                <span className={classes.age}>
-                                    {childAge} {t('years', { count: childAge })}
-                                </span>
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <IconButton
-                                aria-label="notifications"
-                                onClick={() => {
-                                    openAgeDescriptionModal({
-                                        preventClose: false,
-                                        isCancelButtonVisible: true,
-                                    }).then((res) => {
-                                        if (!res.close)
-                                            openSnackbar({
-                                                text: t('parent-settings.modal-edit-account.success-message'),
-                                            });
-                                    });
-                                }}
-                            >
-                                <InfoOutlinedIcon />
-                            </IconButton>
-                        </Grid>
+                </Box>
+                <Divider />
+                <Grid direction="row" justify="flex-start" alignItems="center" container>
+                    <Grid item>
+                        <Typography variant="body1">
+                            {t('child-profile.age-group')}:&nbsp;
+                            <strong>
+                                {childAge} {t('years', { count: childAge })}
+                            </strong>
+                        </Typography>
                     </Grid>
-                </div>
-                <div className={classes.cardBottom}>
+                    <Grid item>
+                        <IconButton
+                            aria-label="notifications"
+                            onClick={() => {
+                                openAgeDescriptionModal().then((dialogResult) => {
+                                    if (dialogResult.close) return;
+
+                                    openSnackbar({
+                                        text: t('user-settings.modal-edit-account.success-message'),
+                                    });
+                                });
+                            }}
+                        >
+                            <InfoOutlinedIcon />
+                        </IconButton>
+                    </Grid>
+                </Grid>
+                <Divider />
+                <Box display="flex" flexDirection="column" alignItems="center" px={4} py={2}>
                     <Typography variant="body1" className={classes.fitnessLevelLabel}>
                         {testPeriod === 'START'
                             ? t('child-profile.initial-fitness-level')
@@ -103,53 +104,20 @@ export const TestSummary = ({ result }: Props) => {
                             }).then((res) => {
                                 if (!res.close)
                                     openSnackbar({
-                                        text: t('parent-settings.modal-edit-account.success-message'),
+                                        text: t('user-settings.modal-edit-account.success-message'),
                                     });
                             });
                         }}
                         innerText={t('child-profile.advice')}
                     />
-                </div>
-            </Card>
-        </>
+                </Box>
+            </Box>
+        </Card>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        card: {
-            width: '25%',
-            height: theme.spacing(58),
-            display: 'flex',
-            padding: theme.spacing(0, 1, 2.5, 1),
-            flexDirection: 'column',
-            [theme.breakpoints.down('lg')]: {
-                minWidth: theme.spacing(34),
-            },
-        },
-        cardTop: {
-            display: 'flex',
-            flexDirection: 'column',
-            borderBottom: `1px solid ${gray}`,
-            paddingBottom: theme.spacing(2),
-            '& > p': {
-                color: lightTextColor,
-            },
-        },
-        cardMiddle: {
-            borderBottom: `1px solid ${theme.palette.grey}`,
-            lineHeight: 2,
-        },
-        age: {
-            fontWeight: 'bold',
-        },
-        cardBottom: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            paddingTop: theme.spacing(2),
-            lineHeight: 2,
-        },
         chart: {
             marginTop: theme.spacing(2),
             marginBottom: theme.spacing(0.5),
@@ -165,9 +133,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         fitnessLevelLabel: {
             textAlign: 'center',
-        },
-        testDescription: {
-            padding: theme.spacing(1, 0),
         },
     }),
 );

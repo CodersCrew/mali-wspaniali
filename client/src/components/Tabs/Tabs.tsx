@@ -19,7 +19,7 @@ export const Tabs = ({ currentCategory, onTabsChange, categories, indicator, ...
     return (
         <MuiTabs classes={classes} value={currentCategory} onChange={(_, v: string) => onTabsChange(v)} {...props}>
             {categories.map((category) => (
-                <Tab key={category.label} {...category} />
+                <Tab key={category.value} {...category} />
             ))}
         </MuiTabs>
     );

@@ -8,6 +8,7 @@ import { ParentWrapper } from './ParentWrapper';
 import { ThemeProvider } from '../theme/ThemeProvider';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
+import { CookieModal } from '../components/CookieModal/CookieModal';
 
 const LoginPage = React.lazy(() => import('./LoginPage/LoginPage'));
 const RegistrationPage = React.lazy(() => import('./RegistrationPage/RegistrationPage'));
@@ -56,6 +57,7 @@ export function Root() {
                 <CssBaseline />
                 <Suspense fallback={null}>
                     <Router>
+                        <CookieModal />
                         <Switch>
                             <Route exact path="/" render={() => <Redirect to="/login" />} />
                             <Route path={['/login']}>
@@ -100,7 +102,7 @@ export function Root() {
                                             component={AdminArticlesPage}
                                         />
                                         <Route exact path="/admin/articles/create" component={AdminCreateArticlePage} />
-                                        {/* TODO: add ArticlePage compomonent for Admin, currently we display the same component as for Parent */}
+                                        {/* TODO: add ArticlePage component for Admin, currently we display the same component as for Parent */}
                                         <Route exact path="/admin/article/:articleId" component={ArticlePage} />
                                         <Route path="/admin/kindergartens" component={AdminKindergartensPage} />
                                         <Route path="/admin/keycodes" component={AdminCodesPage} />

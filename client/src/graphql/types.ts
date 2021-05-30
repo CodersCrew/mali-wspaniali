@@ -10,7 +10,12 @@ export interface Article {
     description: string;
     videoUrl: string;
     redactor: Redactor;
-    date: string;
+    isDeleted: boolean;
+    isPublished: boolean;
+    createdAt: string;
+    deletedAt: string;
+    modifiedAt: string;
+    publishedAt: string;
 }
 
 export interface ArticleInput {

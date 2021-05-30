@@ -2,33 +2,31 @@ import { AdminSidebar } from './AdminSidebar';
 import { InstructorSidebar } from './InstructorSidebar';
 import { ParentSidebar } from './ParentSidebar';
 import { Me } from '../../../graphql/types';
+import { useSidebarState } from '../../../utils/useSidebar';
 
 interface Props {
     user: Me;
     activePage: string[];
-    isOpen: boolean;
     onClick: (link?: string) => void;
-    onSidebarClose: () => void;
 }
 
-export function Sidebar({ user, isOpen, activePage, onClick, onSidebarClose }: Props) {
-    if (user.role === 'admin') {
-        return (
-            <AdminSidebar user={user} active={activePage} open={isOpen} onClose={onSidebarClose} onClick={onClick} />
-        );
+export function Sidebar({ user, activePage, onClick }: Props) {
+    const sidebarState = useSidebarState();
+    const RoleAwareSidebar = calculateSidebar();
+
+    return <RoleAwareSidebar user={user} active={activePage} onClick={onElementClick} />;
+
+    function onElementClick(link?: string) {
+        sidebarState.closeSidebar();
+
+        onClick(link);
     }
 
-    if (user.role === 'instructor') {
-        return (
-            <InstructorSidebar
-                user={user}
-                active={activePage}
-                open={isOpen}
-                onClose={onSidebarClose}
-                onClick={onClick}
-            />
-        );
-    }
+    function calculateSidebar() {
+        if (user.role === 'admin') return AdminSidebar;
 
-    return <ParentSidebar user={user} active={activePage} open={isOpen} onClose={onSidebarClose} onClick={onClick} />;
+        if (user.role === 'instructor') return InstructorSidebar;
+
+        return ParentSidebar;
+    }
 }

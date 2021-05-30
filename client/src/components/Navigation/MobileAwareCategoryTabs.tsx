@@ -9,12 +9,14 @@ import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileC
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     activeCategory: string;
     categories: T[];
+    name: string;
     onChange: (value: string) => void;
 }
 
 export function MobileAwareCategoryTabs<T extends CategoryItem | ChildProfileCategoryItem>({
     activeCategory: category,
     categories,
+    name,
     onChange,
 }: Props<T>) {
     const classes = useStyles();
@@ -22,11 +24,11 @@ export function MobileAwareCategoryTabs<T extends CategoryItem | ChildProfileCat
 
     return isMobile ? (
         <div className={classes.navigationMobile}>
-            <CategoryTabsMobile categories={categories} currentCategory={category} onChange={onChange} />
+            <CategoryTabsMobile name={name} categories={categories} currentCategory={category} onChange={onChange} />
         </div>
     ) : (
         <div className={classes.navigation}>
-            <CategoryTabs categories={categories} currentCategory={category} onChange={onChange} />
+            <CategoryTabs name={name} categories={categories} currentCategory={category} onChange={onChange} />
         </div>
     );
 }

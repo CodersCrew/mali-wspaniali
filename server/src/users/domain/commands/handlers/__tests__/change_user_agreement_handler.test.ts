@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
 
 import { CreateUserCommand } from '../../impl';
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { CreateUserHandler } from '../create_user_handler';
 import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
 import { UsersModule } from '../../../../users_module';
@@ -14,7 +14,6 @@ import { AgreementsModule } from '../../../../../agreements/agreements_module';
 import { CreateAgreementHandler } from '../../../../../agreements/domain/commands/handlers/create_agreement_handler';
 import { CreateAgreementCommand } from '../../../../../agreements/domain/commands/impl/create_agreement_command';
 import { UserInput } from '../../../../../users/inputs/user_input';
-import { Agreement } from '../../../../../agreements/domain/models/agreement';
 import { AgreementProps } from '../../../../../agreements/domain/models/agreement';
 import { ChangeUserAgreementCommand } from '../../impl/change_user_agreement_command';
 import { ChangeUserAgreementHandler } from '../change_user_agreement_handler';

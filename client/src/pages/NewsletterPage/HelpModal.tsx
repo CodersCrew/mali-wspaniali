@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+
 import { BasicModal } from '../../components/Modal/BasicModal';
 
 type ModalProps = {

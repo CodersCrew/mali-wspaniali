@@ -6,9 +6,10 @@ import { ResultsData } from './types';
 
 export interface Props {
     resultsData: ResultsData;
+    displayHistoricalResults?: boolean;
 }
 
-const Results = ({ resultsData }: Props) => {
+const Results = ({ resultsData, displayHistoricalResults }: Props) => {
     const { v1, v2, v3, v4, v5, unit, result, resultStart, hasScoreRangeLabels, sex } = resultsData;
     const { t } = useTranslation();
     const avatar = sex !== 'male' ? Boy : Girl;
@@ -125,11 +126,13 @@ const Results = ({ resultsData }: Props) => {
                     <text x="-0" y="100" fill="black">{`${v5} ${unit}`}</text>
                 </svg>
             </div>
-            <div className={classes.resultStart}>
-                <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="8" height="80" rx="4" x="98" y="68" fill="#9E9E9E" />
-                </svg>
-            </div>
+            {displayHistoricalResults && (
+                <div className={classes.resultStart}>
+                    <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="8" height="80" rx="4" x="98" y="68" fill="#9E9E9E" />
+                    </svg>
+                </div>
+            )}
             <div className={classes.result}>
                 <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <image href={avatar} x="88" height="28" width="28" />

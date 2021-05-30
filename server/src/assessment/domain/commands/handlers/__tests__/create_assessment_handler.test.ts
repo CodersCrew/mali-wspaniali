@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import * as dbHandler from '../../../../../db_handler';
+import * as dbHandler from '@app/db_handler';
 import { AssessmentModule } from '../../../../assessment_module';
 import { CreateAssessmentCommand } from '../../impl/create_assessment_command';
 import { CreateAssessmentHandler } from '../create_assessment_handler';

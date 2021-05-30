@@ -1,30 +1,41 @@
-import { ValueObject } from '../../../shared/domain/value_object';
+import { Expose } from 'class-transformer';
 import { Url } from '../../../shared/domain/url';
-import { Props } from '../../../shared/domain/value_object';
 import { Firstname, Lastname } from '../../../users/domain/models';
 
 export interface RedactorProps {
-  readonly avatarUrl?: string;
-  readonly firstName: string;
-  readonly lastName?: string;
-  readonly profession?: string;
-  readonly shortDescription?: string;
+  firstName: string;
+  lastName: string;
+  avatarUrl?: string;
+  profession?: string;
+  shortDescription?: string;
+  biography?: string;
 }
 
 export interface RedactorInnerProps {
-  readonly avatarUrl?: Url;
-  readonly firstName: Firstname;
-  readonly lastName?: Lastname;
-  readonly profession?: string;
-  readonly shortDescription?: string;
+  firstName: Firstname;
+  lastName: Lastname;
+  avatarUrl?: Url;
+  profession?: string;
+  shortDescription?: string;
+  biography?: string;
 }
 
-export class Redactor extends ValueObject<RedactorInnerProps> {
-  private constructor(props: Props<RedactorInnerProps>) {
-    super(props);
-  }
+export class Redactor {
+  @Expose()
+  firstName: string;
 
-  static create(props: RedactorInnerProps): Redactor {
-    return new Redactor({ value: props });
-  }
+  @Expose()
+  lastName: string;
+
+  @Expose()
+  avatarUrl?: string;
+
+  @Expose()
+  profession?: string;
+
+  @Expose()
+  shortDescription?: string;
+
+  @Expose()
+  biography?: string;
 }

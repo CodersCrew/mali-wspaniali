@@ -33,7 +33,7 @@ export default function ArticlePage() {
 
     if (!article) return null;
 
-    const { pictureUrl, date, title, description, contentHTML, tags, videoUrl, redactor } = article;
+    const { pictureUrl, createdAt, publishedAt, title, description, contentHTML, tags, videoUrl, redactor } = article;
 
     return (
         <>
@@ -52,7 +52,10 @@ export default function ArticlePage() {
                             [classes.readingTimeContainerDesktop]: isDesktop,
                         })}
                     >
-                        <ReadingTime date={new Date(date)} readingTime={calculateReadingTime(contentHTML)} />
+                        <ReadingTime
+                            date={new Date(publishedAt || createdAt)}
+                            readingTime={calculateReadingTime(contentHTML)}
+                        />
                     </div>
                     <ArticleContent title={title} description={description} contentHTML={contentHTML} />
                     <Grid item classes={{ root: classes.videoContainer }}>
