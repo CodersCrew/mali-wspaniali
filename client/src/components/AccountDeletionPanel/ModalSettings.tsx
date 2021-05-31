@@ -10,13 +10,6 @@ import { BasicModal } from '../Modal/BasicModal';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { FormValues, SettingsMessageModalProps } from './types';
 
-const useStyles = makeStyles((theme) => ({
-    header: { color: theme.palette.text.primary },
-    inputBox: {
-        margin: theme.spacing(2, 0),
-    },
-}));
-
 const validationSchema = yup.object({
     email: yup.string().required().email().label('Email'),
     messageTopic: yup.string().required().label('Message'),
@@ -67,9 +60,10 @@ const SettingsMessageModal = ({
                 }
             }}
             isCancelButtonVisible={isCancelButtonVisible}
+            isActionButtonVisible={true}
         >
             <form onSubmit={formik.handleSubmit}>
-                <Box>
+                <Box m={3}>
                     <Typography variant={'h4'} className={classes.header}>
                         {t('settings-modal.modal-header')}
                     </Typography>
@@ -123,3 +117,10 @@ const SettingsMessageModal = ({
 export const openSettingsModal = (props: SettingsMessageModalProps) => {
     return openDialog<SettingsMessageModalProps>(SettingsMessageModal, props);
 };
+
+const useStyles = makeStyles((theme) => ({
+    header: { color: theme.palette.text.primary },
+    inputBox: {
+        margin: theme.spacing(2, 0),
+    },
+}));
