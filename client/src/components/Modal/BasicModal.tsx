@@ -70,6 +70,11 @@ export const BasicModal: FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        '&:hover': {
+            color: theme.palette.primary.main,
+        },
+    },
     dialogPaper: {
         maxHeight: '80vh',
     },
