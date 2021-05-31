@@ -5,9 +5,10 @@ import { Typography, Box, Grid, makeStyles } from '@material-ui/core';
 
 import { Select } from '../ChildForm/Select';
 import { Input } from '../ChildForm/Input';
-import { useParentsSelectOptions } from './useParentsSelectOption';
 import { BasicModal } from '../Modal/BasicModal';
+
 import { openDialog, ActionDialog } from '../../utils/openDialog';
+import { useParentsSelectOptions } from './useParentsSelectOption';
 import { FormValues, SettingsMessageModalProps } from './types';
 
 const validationSchema = yup.object({
@@ -63,7 +64,7 @@ const SettingsMessageModal = ({
             isActionButtonVisible={true}
         >
             <form onSubmit={formik.handleSubmit}>
-                <Box m={3}>
+                <Box>
                     <Typography variant={'h4'} className={classes.header}>
                         {t('settings-modal.modal-header')}
                     </Typography>
