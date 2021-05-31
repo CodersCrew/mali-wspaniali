@@ -26,7 +26,7 @@ export function ChildItem({ child, progress, selected, onClick }: Props) {
             selected={selected}
         >
             <Grid container alignItems="center">
-                <Grid item xs={2} sm={3} md={2}>
+                <Grid item xs={3} sm={3} md={2}>
                     <Box display="flex" alignItems="center">
                         <Grid container alignItems="center">
                             <Grid item xs={6} sm={6}>
@@ -40,7 +40,7 @@ export function ChildItem({ child, progress, selected, onClick }: Props) {
                         </Grid>
                     </Box>
                 </Grid>
-                <Grid item xs={9} sm={8} md={9}>
+                <Grid item xs={8} sm={8} md={9}>
                     <Box display="flex" alignItems="center">
                         <Typography variant="body2">
                             {child.firstname} {child.lastname}

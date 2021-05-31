@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { CustomContainer } from '../../../components/CustomContainer';
-import { Assessment, Child, Kindergarten, AssessmentResult } from '../../../graphql/types';
-import { ChildItem } from './ChildItem';
 import { SelectList } from '../../../components/SelectList';
 import { SearchChildField } from '../../../components/SearchChildField';
+import { Assessment, Child, Kindergarten, AssessmentResult } from '../../../graphql/types';
 import { countProgress } from '../countProgress';
+import { ChildItem } from './ChildItem';
 
 interface Props {
     childList: Child[];
@@ -35,11 +36,27 @@ export function ChildPicker({
     const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
 
+    const getFilteredChildrenByName = () =>
+        childList.filter((child) => child.firstname.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    const isAssessmentDisabled = () =>
+        assessment.firstMeasurementStatus !== 'active' || assessment.lastMeasurementStatus !== 'active';
+
+    const countResultProgress = (childId: string) => {
+        const foundResult = results.find((result) => result.childId === childId);
+
+        if (foundResult) {
+            return countProgress(measurement, foundResult);
+        }
+
+        return 0;
+    };
+
     return (
         <CustomContainer
             header={header}
             container={
-                <>
+                <React.Fragment>
                     <Grid container className={classes.container} spacing={2} direction="column">
                         <Grid item className={classes.fullWidth}>
                             <SelectList
@@ -77,7 +94,7 @@ export function ChildPicker({
                             />
                         </Grid>
                     </Grid>
-                    <List disablePadding className={classes.list}>
+                    <List disablePadding>
                         <Divider />
                         {getFilteredChildrenByName().map((c) => {
                             return (
@@ -91,41 +108,16 @@ export function ChildPicker({
                             );
                         })}
                     </List>
-                </>
+                </React.Fragment>
             }
             disableShadow
         />
     );
-
-    function getFilteredChildrenByName() {
-        return childList.filter((c) => c.firstname.toLowerCase().includes(searchTerm.toLowerCase()));
-    }
-
-    function isAssessmentDisabled() {
-        return assessment.firstMeasurementStatus !== 'active' || assessment.lastMeasurementStatus !== 'active';
-    }
-
-    function countResultProgress(childId: string) {
-        const foundResult = results.find((r) => r.childId === childId);
-
-        if (foundResult) {
-            return countProgress(measurement, foundResult);
-        }
-
-        return 0;
-    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        list: {
-            // flex: '1 1 auto',
-            // backgroundColor: 'green',
-            // maxHeight: '100%',
-            // overflowX: 'hidden',
-        },
         container: {
-            // backgroundColor: 'red',
             padding: theme.spacing(2, 2, 0, 2),
         },
         fullWidth: {

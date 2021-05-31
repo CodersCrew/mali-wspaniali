@@ -1,5 +1,16 @@
 import React from 'react';
-import { Box, createStyles, Divider, Grid, makeStyles, SwipeableDrawer, Theme, Typography } from '@material-ui/core';
+import {
+    Box,
+    createStyles,
+    Divider,
+    Grid,
+    makeStyles,
+    SwipeableDrawer,
+    Theme,
+    Typography,
+    AppBar,
+    Toolbar,
+} from '@material-ui/core';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { Child, Kindergarten } from '../../../graphql/types';
@@ -39,12 +50,16 @@ export function ChildPickerDrawer(props: Props) {
                 <ChildPicker
                     assessment={props.resultCreator.selectedAssessment}
                     header={
-                        <span className={classes.header} onClick={() => setIsDrawerOpen(false)}>
-                            <Box mr={1}>
-                                <ArrowBack className={classes.icon} />
-                            </Box>
-                            <Typography variant="body2">{t('add-result-page.back-to-results')}</Typography>
-                        </span>
+                        <Box className={classes.header} onClick={() => setIsDrawerOpen(false)}>
+                            <AppBar position="fixed" classes={{ root: classes.appBar }}>
+                                <Toolbar>
+                                    <Box mr={1}>
+                                        <ArrowBack className={classes.icon} />
+                                    </Box>
+                                    <Typography variant="body2">{t('add-result-page.back-to-results')}</Typography>
+                                </Toolbar>
+                            </AppBar>
+                        </Box>
                     }
                     selectedKindergarten={props.selectedKindergarten}
                     kindergartens={props.kindergartens}
@@ -83,6 +98,12 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             alignItems: 'center',
             cursor: 'pointer',
+            marginBottom: theme.spacing(3),
+        },
+        appBar: {
+            width: '90%',
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.text.primary,
         },
         icon: {
             color: theme.palette.text.secondary,
