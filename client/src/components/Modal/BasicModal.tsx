@@ -60,7 +60,7 @@ export const BasicModal: FC<Props> = ({
                     </ButtonDefault>
                 )}
                 {isActionButtonVisible && (
-                    <ActionButton variant="text" onClick={onAction}>
+                    <ActionButton classes={{ root: classes.root }} variant="text" onClick={onAction}>
                         {actionName}
                     </ActionButton>
                 )}
