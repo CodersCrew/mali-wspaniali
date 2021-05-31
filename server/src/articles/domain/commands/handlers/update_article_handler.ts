@@ -7,14 +7,12 @@ import {
 
 import { GetArticleByIdQuery } from '../../queries/impl/get_article_by_id_query';
 import { UpdateArticleCommand } from '../impl';
-import { ArticlesRepository } from '../../repositories/article_repository';
 import { Article } from '../../models/article_model';
 
 @CommandHandler(UpdateArticleCommand)
 export class UpdateArticleHandler
   implements ICommandHandler<UpdateArticleCommand> {
   constructor(
-    private readonly repository: ArticlesRepository,
     private readonly commandBus: QueryBus,
     private readonly publisher: EventPublisher,
   ) {}

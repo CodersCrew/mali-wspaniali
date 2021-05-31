@@ -1,13 +1,11 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 import { RedactorInput } from './redactor_input';
-import { CategoryProps } from '../domain/models/category';
-import { ArticleProps } from '../../articles/domain/models/article_model';
 
 @InputType()
-export class ArticleInput {
+export class CreateArticleInput {
   @Field(() => String)
-  category: CategoryProps;
+  category: string;
 
   @Field()
   contentHTML: string;
@@ -29,4 +27,13 @@ export class ArticleInput {
 
   @Field({ nullable: true })
   videoUrl?: string;
+}
+
+@InputType()
+export class UpdateArticleInput extends CreateArticleInput {
+  @Field(() => Boolean)
+  isDeleted: boolean;
+
+  @Field(() => Boolean)
+  isPublished: boolean;
 }

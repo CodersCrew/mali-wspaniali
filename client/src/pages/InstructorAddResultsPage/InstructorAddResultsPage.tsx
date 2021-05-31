@@ -60,7 +60,7 @@ export default function InstructorAddResultsPage() {
     }, [assessments]);
 
     const childList = getFiltredAndSortedChildList();
-    const maxResults = childList.length * 4;
+    const maxResults = currentChildren.length * 4;
 
     if (areAssessmentsLoading) return null;
 

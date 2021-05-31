@@ -1,6 +1,5 @@
-import { ValueObject } from '../../../shared/domain/value_object';
+import { Expose } from 'class-transformer';
 import { Url } from '../../../shared/domain/url';
-import { Props } from '../../../shared/domain/value_object';
 import { Firstname, Lastname } from '../../../users/domain/models';
 
 export interface RedactorProps {
@@ -21,36 +20,22 @@ export interface RedactorInnerProps {
   biography?: string;
 }
 
-export class Redactor extends ValueObject<RedactorInnerProps> {
-  private constructor(props: Props<RedactorInnerProps>) {
-    super(props);
-  }
+export class Redactor {
+  @Expose()
+  firstName: string;
 
-  static create(props: RedactorInnerProps): Redactor {
-    return new Redactor({ value: props });
-  }
+  @Expose()
+  lastName: string;
 
-  get firstName(): Firstname {
-    return this.props.value.firstName;
-  }
+  @Expose()
+  avatarUrl?: string;
 
-  get lastName(): Lastname {
-    return this.props.value.lastName;
-  }
+  @Expose()
+  profession?: string;
 
-  get avatarUrl(): Url | undefined {
-    return this.props.value.avatarUrl;
-  }
+  @Expose()
+  shortDescription?: string;
 
-  get profession(): string | undefined {
-    return this.props.value.profession;
-  }
-
-  get shortDescription(): string | undefined {
-    return this.props.value.shortDescription;
-  }
-
-  get biography(): string | undefined {
-    return this.props.value.biography;
-  }
+  @Expose()
+  biography?: string;
 }

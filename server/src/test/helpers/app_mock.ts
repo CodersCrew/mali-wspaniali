@@ -181,6 +181,12 @@ export async function getAllArticles(page: number = 1, perPage: number = 6) {
   }
 
   return app.resolve(GetAllArticlesHandler).then(handler => {
-    return handler.execute(new GetAllArticlesQuery(page, perPage));
+    return handler.execute(
+      new GetAllArticlesQuery(page, perPage, {
+        mail: 'admin@admin.com',
+        role: 'admin',
+        userId: '',
+      }),
+    );
   });
 }
