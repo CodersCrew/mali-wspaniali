@@ -1,10 +1,11 @@
 import { Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useGetMe } from '../../../operations/mutations/User/useGetMe';
 
-import { ButtonSendMessage } from '../ChangePasswordPanel/ChangepasswordPanelFormControls/ButtonSendMessage';
+import { useGetMe } from '../../../operations/mutations/User/useGetMe';
 import { openSettingsModal } from '../../../components/AccountDeletionPanel/ModalSettings';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
+
+import { ButtonSendMessage } from '../ChangePasswordPanel/ChangepasswordPanelFormControls/ButtonSendMessage';
 
 const useStyles = makeStyles((theme) => ({
     header: { color: theme.palette.text.primary },
