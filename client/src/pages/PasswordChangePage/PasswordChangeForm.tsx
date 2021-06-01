@@ -89,6 +89,7 @@ export function PasswordChangeForm({
                     data-testid="password"
                     label={t('password-change-page.new-password')}
                     error={error}
+                    autoFocus
                 />
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
