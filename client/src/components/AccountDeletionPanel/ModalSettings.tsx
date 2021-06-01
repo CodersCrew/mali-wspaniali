@@ -9,7 +9,13 @@ import { BasicModal } from '../Modal/BasicModal';
 
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { useParentsSelectOptions } from './useParentsSelectOption';
-import { FormValues, SettingsMessageModalProps } from './types';
+import { Me } from '../../graphql/types';
+
+interface FormValues {
+    email: string;
+    messageTopic: string;
+    message: string;
+}
 
 const validationSchema = yup.object({
     email: yup.string().required().email().label('Email'),
@@ -25,13 +31,7 @@ const normalizeParent = (parent: FormValues) => {
     };
 };
 
-const SettingsMessageModal = ({
-    preventClose,
-    onClose,
-    isCancelButtonVisible,
-    user,
-    makeDecision,
-}: SettingsMessageModalProps & ActionDialog<{ parent: FormValues }>) => {
+const SettingsMessageModal = ({ onClose, user, makeDecision }: { user: Me } & ActionDialog<{ parent: FormValues }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const { getOptions } = useParentsSelectOptions();
@@ -55,13 +55,8 @@ const SettingsMessageModal = ({
             isOpen={true}
             actionName={t('settings-modal.button')}
             onAction={formik.handleSubmit}
-            onClose={() => {
-                if (!preventClose) {
-                    onClose();
-                }
-            }}
-            isCancelButtonVisible={isCancelButtonVisible}
-            isActionButtonVisible={true}
+            onClose={onClose}
+            isActionButtonVisible
         >
             <form onSubmit={formik.handleSubmit}>
                 <Box>
@@ -115,8 +110,8 @@ const SettingsMessageModal = ({
     );
 };
 
-export const openSettingsModal = (props: SettingsMessageModalProps) => {
-    return openDialog<SettingsMessageModalProps>(SettingsMessageModal, props);
+export const openSettingsModal = (props: { user: Me }) => {
+    return openDialog<{ user: Me }>(SettingsMessageModal, props);
 };
 
 const useStyles = makeStyles((theme) => ({

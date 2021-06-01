@@ -33,8 +33,6 @@ export const AccountDeletionPanel = () => {
             <ButtonSendMessage
                 handleClick={() => {
                     openSettingsModal({
-                        preventClose: false,
-                        isCancelButtonVisible: true,
                         user,
                     }).then((result) => {
                         if (!result.close) openSnackbar({ text: t('settings-modal.snackBar-message') });
