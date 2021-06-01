@@ -8,11 +8,11 @@ import { LanguageSelector } from '../../components/LanguageSelector';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { ButtonSecondary } from '../../components/Button';
 import dayjs from '../../localizedMoment';
-import PasswordChangeSuccess from '../../assets/forgotPassword/password-change-success.svg';
 
 import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
 import { PassChangeForm } from './types';
+import { PasswordSuccessfullyChanged } from './PasswordSuccessfullyChanged';
 
 const initialState: PassChangeForm = {
     password: '',
@@ -20,13 +20,15 @@ const initialState: PassChangeForm = {
 };
 
 export default function PasswordChangePage() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const classes = useStyles();
+
     const [form, setForm] = useState(initialState);
     const [onSuccess, setOnSuccess] = useState(false);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const { password, passwordConfirm } = form;
-    const { i18n } = useTranslation();
     const language = localStorage.getItem('i18nextLng')!;
 
     const handleLanguageChange = (lng: string) => {
@@ -50,8 +52,11 @@ export default function PasswordChangePage() {
         if (password !== passwordConfirm) return;
 
         // TODO: implement password change
-
-        setOnSuccess(true);
+        setLoading(true);
+        setTimeout(() => {
+            setOnSuccess(true);
+            setLoading(false);
+        }, 2000);
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -62,29 +67,12 @@ export default function PasswordChangePage() {
 
     return (
         <>
-            <div className={classes.header}>
-                <LanguageSelector language={language} onClick={handleLanguageChange} />
-            </div>
             <div className={classes.container}>
+                <div className={classes.header}>
+                    <LanguageSelector language={language} onClick={handleLanguageChange} />
+                </div>
                 {onSuccess ? (
-                    <div className={classes.successLayout}>
-                        <img src={PasswordChangeSuccess} alt="" className={classes.passwordChangeSuccessImage} />
-                        <Box mb={5} />
-                        <Typography variant="h3" className={classes.successTitle}>
-                            {t('password-change-success-page.password-change-success-title')}
-                        </Typography>
-                        <Box mb={2} />
-                        <Typography variant="subtitle1" className={classes.successSubtitle}>
-                            {t('password-change-success-page.password-change-success-subtitle')}
-                        </Typography>
-                        <Box mb={5} />
-                        <ButtonSecondary
-                            variant="contained"
-                            type="button"
-                            href="/login"
-                            innerText={t('password-change-success-page.login')}
-                        />
-                    </div>
+                    <PasswordSuccessfullyChanged />
                 ) : (
                     <>
                         <div className={classes.innerContainer}>
@@ -99,6 +87,7 @@ export default function PasswordChangePage() {
                                     passwordConfirm={passwordConfirm}
                                     error={error}
                                     setError={setError}
+                                    loading={loading}
                                 />
                             </form>
                             <Box className={classes.separator} />
@@ -122,6 +111,7 @@ export default function PasswordChangePage() {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         header: {
+            width: '100%',
             paddingRight: theme.spacing(1.5),
             paddingTop: theme.spacing(1.5),
             textAlign: 'right',
@@ -138,6 +128,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
 
         innerContainer: {
+            width: '100%',
+            padding: theme.spacing(0, 3),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -165,38 +157,6 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '3em',
         },
 
-        successLayout: {
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(0, 6),
-                marginTop: theme.spacing(8),
-            },
-        },
-        passwordChangeSuccessImage: {
-            height: 341,
-        },
-        successTitle: {
-            textAlign: 'center',
-            [theme.breakpoints.down('sm')]: {
-                fontSize: '20px',
-                fontWeight: 500,
-                lineHeight: `${theme.spacing(3)}px`,
-            },
-        },
-        successSubtitle: {
-            textAlign: 'center',
-            padding: theme.spacing(0, 10.5),
-            [theme.breakpoints.down('sm')]: {
-                padding: 0,
-                fontSize: '16px',
-                fontWeight: 400,
-                lineHeight: `${theme.spacing(2.5)}px`,
-            },
-        },
         title: {
             textAlign: 'center',
             marginBottom: theme.spacing(2),

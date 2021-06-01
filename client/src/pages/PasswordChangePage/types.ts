@@ -18,4 +18,5 @@ export type PasswordChangeProps = {
     passwordConfirm: string;
     error: boolean;
     setError: React.Dispatch<React.SetStateAction<boolean>>;
+    loading?: boolean;
 };

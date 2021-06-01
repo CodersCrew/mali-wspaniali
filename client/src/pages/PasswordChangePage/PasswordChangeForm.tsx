@@ -11,6 +11,7 @@ import {
     InputAdornment,
     IconButton,
     FormHelperText,
+    CircularProgress,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
@@ -33,7 +34,14 @@ const initialPasswordValidation: PasswordValidation = {
     special: false,
 };
 
-export function PasswordChangeForm({ handleChange, password, passwordConfirm, error, setError }: PasswordChangeProps) {
+export function PasswordChangeForm({
+    handleChange,
+    password,
+    passwordConfirm,
+    error,
+    setError,
+    loading = false,
+}: PasswordChangeProps) {
     const { t } = useTranslation();
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
@@ -111,12 +119,16 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm, er
                 {error && <FormHelperText error={error}>{t('registration-page.password-mismatch')}</FormHelperText>}
             </FormControl>
             <div className={classes.buttonWrapper}>
-                <ButtonSecondary
-                    variant="contained"
-                    type="submit"
-                    innerText={t('password-change-page.create-new-password')}
-                    onClick={handleClick}
-                />
+                <div className={classes.loadingWrapper}>
+                    <ButtonSecondary
+                        variant="contained"
+                        type="submit"
+                        innerText={t('password-change-page.create-new-password')}
+                        onClick={handleClick}
+                        classes={loading ? { label: classes.buttonProgressText } : {}}
+                    />
+                    {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+                </div>
             </div>
         </div>
     );
@@ -125,6 +137,8 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm, er
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
+            width: '100%',
+            maxWidth: 500,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -141,8 +155,6 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         formItem: {
-            // width: '100%',
-
             [theme.breakpoints.down('sm')]: {
                 marginTop: theme.spacing(2),
             },
@@ -159,6 +171,22 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginTop: theme.spacing(5),
             },
         },
+        loadingWrapper: {
+            position: 'relative',
+        },
+        buttonProgress: {
+            color: theme.palette.secondary.contrastText,
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: -12,
+            marginLeft: -12,
+            zIndex: 1000,
+        },
+        buttonProgressText: {
+            color: theme.palette.action.hover,
+        },
+
         separator: {
             marginBottom: theme.spacing(2),
             [theme.breakpoints.down('sm')]: {
