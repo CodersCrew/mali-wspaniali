@@ -60,7 +60,7 @@ export const BasicModal: FC<Props> = ({
                     </ButtonDefault>
                 )}
                 {isActionButtonVisible && (
-                    <ActionButton classes={{ root: classes.root }} variant="text" onClick={onAction}>
+                    <ActionButton variant="text" onClick={onAction}>
                         {actionName}
                     </ActionButton>
                 )}
@@ -70,11 +70,6 @@ export const BasicModal: FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        '&:hover': {
-            color: theme.palette.primary.main,
-        },
-    },
     dialogPaper: {
         maxHeight: '80vh',
     },

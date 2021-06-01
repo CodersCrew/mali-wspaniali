@@ -130,13 +130,4 @@ export const theme: ThemeObject = {
     zIndex: {
         appBar: 1100,
     },
-    overrides: {
-        MuiButton: {
-            text: {
-                '&:hover': {
-                    color: '#FF3D00',
-                },
-            },
-        },
-    },
 };
