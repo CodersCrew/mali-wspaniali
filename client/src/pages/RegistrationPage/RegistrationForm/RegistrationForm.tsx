@@ -31,21 +31,19 @@ const initialState: RegisterForm = {
 };
 
 export const RegistrationForm = () => {
-    const [form, setForm] = useState(initialState);
-    const [activeStep, setActiveStep] = useState(0);
-
-    const [skip, setSkip] = useState(false);
-
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-
-    const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
-    const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
+    const [form, setForm] = useState(initialState);
+    const [activeStep, setActiveStep] = useState(0);
+    const [skip, setSkip] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const [roleBasedKeyCode, setRoleBasedKeyCode] = useState<RoleBasedKeyCodeObject | undefined>(undefined);
+    const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
+
+    const { code, email, password, passwordConfirm } = form;
 
     useEffect(() => {
         getAgreements()

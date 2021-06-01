@@ -1,6 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, createStyles, Box, Typography, Link } from '@material-ui/core/';
+import { makeStyles, createStyles, Typography, Box, Link } from '@material-ui/core/';
 
 import { Theme } from '../../theme';
 import SuccessImage from '../../assets/forgotPassword/success.png';
@@ -8,7 +8,7 @@ import { LanguageSelector } from '../../components/LanguageSelector';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { ButtonSecondary } from '../../components/Button';
 import dayjs from '../../localizedMoment';
-import { useIsDevice } from '../../queries/useBreakpoints';
+import PasswordChangeSuccess from '../../assets/forgotPassword/password-change-success.svg';
 
 import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
@@ -28,7 +28,6 @@ export default function PasswordChangePage() {
     const { password, passwordConfirm } = form;
     const { i18n } = useTranslation();
     const language = localStorage.getItem('i18nextLng')!;
-    const { isMobile } = useIsDevice();
 
     const handleLanguageChange = (lng: string) => {
         dayjs.locale(lng);
@@ -62,114 +61,91 @@ export default function PasswordChangePage() {
     };
 
     return (
-        <div className={classes.container}>
+        <>
             <div className={classes.header}>
                 <LanguageSelector language={language} onClick={handleLanguageChange} />
             </div>
-            {onSuccess ? (
-                <Box mt={20.5} className={classes.successLayout}>
-                    <Typography variant="h2" className={classes.successTitle}>
-                        {t('password-change-success-page.password-change-success-title')}
-                    </Typography>
-                    <Box mb={8} />
-                    <Typography variant="h3" className={classes.successSubtitle}>
-                        {t('password-change-success-page.password-change-success-subtitle')}
-                    </Typography>
-                    <Box mb={8} />
-                    <ButtonSecondary
-                        variant="contained"
-                        type="button"
-                        href="/login"
-                        innerText={t('password-change-success-page.login')}
-                    />
-                </Box>
-            ) : (
-                <Box className={classes.wrapper} width={isMobile ? '90%' : '80%'}>
-                    <div className={classes.layout}>
-                        <img className={classes.image} src={SuccessImage} alt={t('forgot-password-page.avatar')} />
-                        <Typography variant="h4" className={classes.title}>
-                            {t('password-change-page.new-password-title')}
-                        </Typography>
-                        <form className={classes.form} onSubmit={handleSubmit}>
-                            <PasswordChangeForm
-                                handleChange={handleChange}
-                                password={password}
-                                passwordConfirm={passwordConfirm}
-                                error={error}
-                                setError={setError}
-                            />
-                        </form>
+            <div className={classes.container}>
+                {onSuccess ? (
+                    <div className={classes.successLayout}>
+                        <img src={PasswordChangeSuccess} alt="" className={classes.passwordChangeSuccessImage} />
                         <Box mb={5} />
-                        <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
-                        <Link href="#" underline="always" color="textPrimary">
-                            <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
-                        </Link>
+                        <Typography variant="h3" className={classes.successTitle}>
+                            {t('password-change-success-page.password-change-success-title')}
+                        </Typography>
+                        <Box mb={2} />
+                        <Typography variant="subtitle1" className={classes.successSubtitle}>
+                            {t('password-change-success-page.password-change-success-subtitle')}
+                        </Typography>
+                        <Box mb={5} />
+                        <ButtonSecondary
+                            variant="contained"
+                            type="button"
+                            href="/login"
+                            innerText={t('password-change-success-page.login')}
+                        />
                     </div>
-                    <div className={classes.footer}>
-                        <ButtonSecondary variant="text" href="/">
-                            {t('forgot-password-page.back-to-login')}
-                        </ButtonSecondary>
-                    </div>
-                </Box>
-            )}
-        </div>
+                ) : (
+                    <>
+                        <div className={classes.innerContainer}>
+                            <img className={classes.image} src={SuccessImage} alt={t('forgot-password-page.avatar')} />
+                            <Typography variant="h4" className={classes.title}>
+                                {t('password-change-page.new-password-title')}
+                            </Typography>
+                            <form className={classes.form} onSubmit={handleSubmit}>
+                                <PasswordChangeForm
+                                    handleChange={handleChange}
+                                    password={password}
+                                    passwordConfirm={passwordConfirm}
+                                    error={error}
+                                    setError={setError}
+                                />
+                            </form>
+                            <Box className={classes.separator} />
+                            <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
+                            <Link href="#" underline="always" color="textPrimary">
+                                <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
+                            </Link>
+                        </div>
+                        <div className={classes.footer}>
+                            <ButtonSecondary variant="text" href="/">
+                                {t('forgot-password-page.back-to-login')}
+                            </ButtonSecondary>
+                        </div>
+                    </>
+                )}
+            </div>
+        </>
     );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            height: '100vh',
-            overflowY: 'auto',
-        },
         header: {
-            marginLeft: 'auto',
+            paddingRight: theme.spacing(1.5),
+            paddingTop: theme.spacing(1.5),
+            textAlign: 'right',
             [theme.breakpoints.down('sm')]: {
                 minHeight: theme.spacing(8),
             },
         },
-        wrapper: {
+        container: {
+            height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            flex: 1,
+        },
+
+        innerContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             [theme.breakpoints.down('sm')]: {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                // marginTop: theme.spacing(4),
             },
-        },
-        layout: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-            marginTop: theme.spacing(5),
-            [theme.breakpoints.down('sm')]: {
-                marginTop: 0,
-            },
-        },
-        successLayout: {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            height: '80%',
-            [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(0, 6),
-                marginTop: theme.spacing(8),
-            },
-        },
-        form: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
         },
         image: {
             borderRadius: '50%',
@@ -179,9 +155,32 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginTop: theme.spacing(4),
             },
         },
+        form: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+        },
+        separator: {
+            marginBottom: '3em',
+        },
+
+        successLayout: {
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            [theme.breakpoints.down('sm')]: {
+                padding: theme.spacing(0, 6),
+                marginTop: theme.spacing(8),
+            },
+        },
+        passwordChangeSuccessImage: {
+            height: 341,
+        },
         successTitle: {
             textAlign: 'center',
-            fontWeight: theme.typography.fontWeightRegular,
             [theme.breakpoints.down('sm')]: {
                 fontSize: '20px',
                 fontWeight: 500,
@@ -207,11 +206,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginTop: theme.spacing(4),
             },
         },
+
         footer: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginTop: theme.spacing(4),
+            paddingTop: '1em',
+            paddingBottom: theme.spacing(3),
             [theme.breakpoints.down('sm')]: {
                 marginTop: 0,
                 justifyContent: 'flex-end',

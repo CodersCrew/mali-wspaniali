@@ -59,7 +59,7 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm, er
             <Typography variant="subtitle1" className={classes.subtitle}>
                 {t('password-change-page.new-password-subtitle')}
             </Typography>
-            <FormControl variant="outlined" className={classes.formItem}>
+            <FormControl variant="outlined" fullWidth className={classes.formItem}>
                 <InputLabel htmlFor="password">{t('password-change-page.new-password')}</InputLabel>
                 <OutlinedInput
                     required
@@ -84,8 +84,8 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm, er
                 />
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
-            <Box className={classes.spacer} />
-            <FormControl variant="outlined" className={classes.formItem}>
+            <Box className={classes.separator} />
+            <FormControl variant="outlined" fullWidth className={classes.formItem}>
                 <InputLabel htmlFor="passwordConfirm">{t('password-change-page.repeat-password')}</InputLabel>
                 <OutlinedInput
                     required
@@ -110,15 +110,14 @@ export function PasswordChangeForm({ handleChange, password, passwordConfirm, er
                 />
                 {error && <FormHelperText error={error}>{t('registration-page.password-mismatch')}</FormHelperText>}
             </FormControl>
-            <Box mt={5} className={classes.buttonWrapper}>
+            <div className={classes.buttonWrapper}>
                 <ButtonSecondary
                     variant="contained"
                     type="submit"
-                    className={classes.createPasswordButton}
                     innerText={t('password-change-page.create-new-password')}
                     onClick={handleClick}
                 />
-            </Box>
+            </div>
         </div>
     );
 }
@@ -129,7 +128,6 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            width: '90%',
         },
         subtitle: {
             width: '350px',
@@ -143,7 +141,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         formItem: {
-            width: '100%',
+            // width: '100%',
 
             [theme.breakpoints.down('sm')]: {
                 marginTop: theme.spacing(2),
@@ -151,29 +149,17 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         buttonWrapper: {
             width: '100%',
+            paddingTop: '2em',
             display: 'flex',
+            flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            maxHeight: 33,
-
-            '&.emailContent': {
-                justifyContent: 'flex-end',
-            },
+            justifyContent: 'flex-end',
 
             [theme.breakpoints.down('sm')]: {
                 marginTop: theme.spacing(5),
             },
         },
-        createPasswordButton: {
-            marginLeft: 'auto',
-            marginTop: theme.spacing(2),
-            [theme.breakpoints.down('sm')]: {
-                '& span': {
-                    maxHeight: 17,
-                },
-            },
-        },
-        spacer: {
+        separator: {
             marginBottom: theme.spacing(2),
             [theme.breakpoints.down('sm')]: {
                 marginBottom: 0,

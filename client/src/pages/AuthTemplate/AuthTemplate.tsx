@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '4 0 0',
             flexDirection: 'column',
             padding: theme.spacing(3),
+
             [theme.breakpoints.down('md')]: {
                 flex: '0',
                 marginTop: 15,
@@ -105,24 +106,24 @@ const useStyles = makeStyles((theme: Theme) =>
                 lineHeight: 26,
             },
         },
-        /*
-            formContainer: {
-                backgroundColor,
-                flex: '3 0 0',
-                display: 'flex',
-                flexDirection: 'column',
-                [theme.breakpoints.down('sm')]: {
-                    minHeight: 'auto',
-                },
-*/
         formContainer: {
             backgroundColor,
             minHeight: '100vh',
-            height: '100%',
+            maxHeight: '100vh',
             flex: '3 0 0',
+
+            display: 'flex',
+            flexDirection: 'column',
 
             [theme.breakpoints.down('md')]: {
                 minHeight: 'auto',
+            },
+
+            overflow: 'auto',
+            scrollbarWidth: 'none',
+            '-ms-overflow-style': 'none',
+            '&::-webkit-scrollbar': {
+                display: 'none',
             },
         },
         appBar: {
