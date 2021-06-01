@@ -27,7 +27,12 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                         </div>
                         {type === 'login' && <PartnerLogotypeContainer />}
                     </div>
-                    <div className={classes.formContainer}>{children}</div>
+                    <div className={classes.formContainer}>
+                        <div className={classes.headerLanguageSelector}>
+                            <LanguageSelector />
+                        </div>
+                        {children}
+                    </div>
                 </div>
             ) : (
                 <>
@@ -124,6 +129,13 @@ const useStyles = makeStyles((theme: Theme) =>
             '-ms-overflow-style': 'none',
             '&::-webkit-scrollbar': {
                 display: 'none',
+            },
+        },
+        headerLanguageSelector: {
+            paddingRight: theme.spacing(3),
+            paddingTop: theme.spacing(2.5),
+            [theme.breakpoints.down('sm')]: {
+                minHeight: theme.spacing(8),
             },
         },
         appBar: {

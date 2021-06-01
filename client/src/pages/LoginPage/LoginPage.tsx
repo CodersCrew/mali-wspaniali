@@ -4,10 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
-import { Theme } from '../../theme/types';
+import { Theme } from '../../theme';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { PartnerLogotypeContainer } from '../AuthTemplate/PartnerLogotypeContainer';
 
@@ -53,8 +52,6 @@ export default function LoginPage() {
 
     return (
         <div className={classes.container}>
-            <div className={classes.topHeader}>{isDesktop && <LanguageSelector />}</div>
-
             <div className={classes.innerContainer}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
                     <Typography variant="h3" className={classes.loginHeader}>

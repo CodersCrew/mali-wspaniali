@@ -4,10 +4,8 @@ import { makeStyles, createStyles, Typography, Box, Link } from '@material-ui/co
 
 import { Theme } from '../../theme';
 import SuccessImage from '../../assets/forgotPassword/success.png';
-import { LanguageSelector } from '../../components/LanguageSelector';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { ButtonSecondary } from '../../components/Button';
-import dayjs from '../../localizedMoment';
 
 import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
@@ -20,7 +18,7 @@ const initialState: PassChangeForm = {
 };
 
 export default function PasswordChangePage() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const classes = useStyles();
 
     const [form, setForm] = useState(initialState);
@@ -29,13 +27,6 @@ export default function PasswordChangePage() {
     const [loading, setLoading] = useState(false);
 
     const { password, passwordConfirm } = form;
-    const language = localStorage.getItem('i18nextLng')!;
-
-    const handleLanguageChange = (lng: string) => {
-        dayjs.locale(lng);
-
-        return i18n.changeLanguage(lng);
-    };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -68,9 +59,6 @@ export default function PasswordChangePage() {
     return (
         <>
             <div className={classes.container}>
-                <div className={classes.header}>
-                    <LanguageSelector language={language} onClick={handleLanguageChange} />
-                </div>
                 {onSuccess ? (
                     <PasswordSuccessfullyChanged />
                 ) : (
@@ -91,13 +79,13 @@ export default function PasswordChangePage() {
                                 />
                             </form>
                             <Box className={classes.separator} />
-                            <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
-                            <Link href="#" underline="always" color="textPrimary">
-                                <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
-                            </Link>
                         </div>
                         <div className={classes.footer}>
-                            <ButtonSecondary variant="text" href="/">
+                            <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
+                            <Link href="mailto:test@test.pl" underline="always" color="textPrimary">
+                                <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
+                            </Link>
+                            <ButtonSecondary variant="text" href="/" className={classes.backToLoginButton}>
                                 {t('forgot-password-page.back-to-login')}
                             </ButtonSecondary>
                         </div>
@@ -110,15 +98,6 @@ export default function PasswordChangePage() {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        header: {
-            width: '100%',
-            paddingRight: theme.spacing(1.5),
-            paddingTop: theme.spacing(1.5),
-            textAlign: 'right',
-            [theme.breakpoints.down('sm')]: {
-                minHeight: theme.spacing(8),
-            },
-        },
         container: {
             height: '100%',
             display: 'flex',
@@ -141,9 +120,18 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         image: {
             borderRadius: '50%',
-            width: theme.spacing(27),
+            width: theme.spacing(28),
             [theme.breakpoints.down('sm')]: {
                 width: 100,
+                marginTop: theme.spacing(4),
+            },
+        },
+        title: {
+            textAlign: 'center',
+            marginBottom: theme.spacing(2),
+            marginTop: theme.spacing(2),
+            textTransform: 'uppercase',
+            [theme.breakpoints.down('sm')]: {
                 marginTop: theme.spacing(4),
             },
         },
@@ -157,24 +145,20 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '3em',
         },
 
-        title: {
-            textAlign: 'center',
-            marginBottom: theme.spacing(2),
-            marginTop: theme.spacing(2),
-            textTransform: 'uppercase',
-            [theme.breakpoints.down('sm')]: {
-                marginTop: theme.spacing(4),
-            },
-        },
-
         footer: {
-            paddingTop: '1em',
-            paddingBottom: theme.spacing(3),
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
             [theme.breakpoints.down('sm')]: {
                 marginTop: 0,
                 justifyContent: 'flex-end',
                 paddingBottom: theme.spacing(2),
             },
+        },
+        backToLoginButton: {
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2.25),
         },
     }),
 );

@@ -8,10 +8,7 @@ import SuccessImage from '../../assets/forgotPassword/success.png';
 import { Theme } from '../../theme';
 import { useResetPassword } from '../../operations/mutations/User/resetPassword';
 import { ButtonSecondary } from '../../components/Button';
-import { LanguageSelector } from '../../components/LanguageSelector';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-import dayjs from '../../localizedMoment';
-import { useIsDevice } from '../../queries/useBreakpoints';
 import { emailTest } from '../../utils/emailTest';
 
 import { ResetPasswordForm } from './ResetPasswordForm';
@@ -23,19 +20,10 @@ export default function ForgotPasswordPage() {
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [imageState, setImageState] = useState<ImageState>('ERROR');
-    const { i18n } = useTranslation();
-    const language = localStorage.getItem('i18nextLng')!;
     const { resetPassword } = useResetPassword(
         () => setImageState('SUCCESS'),
         () => setImageState('ERROR'),
     );
-    const { isMobile } = useIsDevice();
-
-    const handleLanguageChange = (lng: string) => {
-        dayjs.locale(lng);
-
-        return i18n.changeLanguage(lng);
-    };
 
     const handleInputChange = (value: string): void => {
         if (value === '') {
@@ -70,33 +58,27 @@ export default function ForgotPasswordPage() {
 
     return (
         <div className={classes.container}>
-            <div className={classes.header}>
-                <LanguageSelector language={language} onClick={handleLanguageChange} />
+            <div className={classes.innerContainer}>
+                <img
+                    className={classes.image}
+                    src={getImageSource(imageState)}
+                    alt={t('forgot-password-page.avatar')}
+                />
+                <Typography variant="h4" className={classes.title}>
+                    {t('forgot-password-page.forgot-password')}
+                </Typography>
+                <ResetPasswordForm onChange={handleInputChange} onSubmit={handleCreateNewPassword} email={email} />
+                <Box className={classes.separator} />
             </div>
-            <Box className={classes.wrapper} width={isMobile ? '90%' : '80%'}>
-                <div className={classes.layout}>
-                    <img
-                        className={classes.image}
-                        src={getImageSource(imageState)}
-                        alt={t('forgot-password-page.avatar')}
-                    />
-                    <Typography variant="h4" className={classes.title}>
-                        {t('forgot-password-page.forgot-password')}
-                    </Typography>
-                    <ResetPasswordForm onChange={handleInputChange} onSubmit={handleCreateNewPassword} email={email} />
-                </div>
-                <div className={classes.footer}>
-                    <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
-                    <Link underline="always" color="textPrimary">
-                        <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
-                    </Link>
-                    <Box mt={3}>
-                        <ButtonSecondary variant="text" href="/" className={classes.backToLoginButton}>
-                            {t('forgot-password-page.back-to-login')}
-                        </ButtonSecondary>
-                    </Box>
-                </div>
-            </Box>
+            <div className={classes.footer}>
+                <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
+                <Link underline="always" color="textPrimary" href="mailto:test@test.pl">
+                    <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
+                </Link>
+                <ButtonSecondary variant="text" href="/" className={classes.backToLoginButton}>
+                    {t('forgot-password-page.back-to-login')}
+                </ButtonSecondary>
+            </div>
         </div>
     );
 }
@@ -104,42 +86,29 @@ export default function ForgotPasswordPage() {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
+            height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-start',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            flex: 1,
-            minHeight: '100vh',
         },
-        header: {
-            marginLeft: 'auto',
-            [theme.breakpoints.down('sm')]: {
-                minHeight: 64,
-            },
-        },
-        wrapper: {
+        innerContainer: {
+            width: '100%',
+            padding: theme.spacing(0, 3),
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-around',
             alignItems: 'center',
-            flex: 1,
             [theme.breakpoints.down('sm')]: {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                marginTop: theme.spacing(4),
             },
         },
-        layout: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '80%',
-
+        image: {
+            borderRadius: '50%',
+            width: theme.spacing(28),
             [theme.breakpoints.down('sm')]: {
-                width: '90%',
-                maxWidth: '480px',
-                margin: '0 15px',
+                width: 100,
             },
         },
         title: {
@@ -154,25 +123,23 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginBottom: theme.spacing(2),
             },
         },
-        image: {
-            borderRadius: '50%',
-            width: '214px',
-            [theme.breakpoints.down('sm')]: {
-                width: 100,
-            },
+        separator: {
+            marginBottom: '3em',
         },
         footer: {
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             [theme.breakpoints.down('sm')]: {
+                marginTop: 0,
+                justifyContent: 'flex-end',
                 paddingBottom: theme.spacing(2),
             },
         },
         backToLoginButton: {
-            textAlign: 'center',
-            whiteSpace: 'normal',
-            fontSize: '12px',
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2.25),
         },
     }),
 );

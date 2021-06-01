@@ -26,7 +26,7 @@ export const LanguageSelector: React.FC = () => {
     );
 };
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         img: {
             height: 24,
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) =>
         container: {
             display: 'flex',
             alignItems: 'center',
-            marginRight: theme.spacing(1),
+            justifyContent: 'flex-end',
         },
     }),
 );

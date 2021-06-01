@@ -43,7 +43,7 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     };
 
     return (
-        <>
+        <div className={classes.container}>
             <Box mb={3}>
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     {parse(t(device.isDesktop ? `${tPrefix}.its-ok` : `${tPrefix}.its-ok-mobile`))}
@@ -72,13 +72,21 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
                     disabled={isError}
                 />
             </Box>
-        </>
+        </div>
     );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        container: {
+            width: '100%',
+            maxWidth: 500,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
         subtitle: {
+            width: '350px',
             textAlign: 'center',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '16px',
