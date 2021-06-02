@@ -32,6 +32,13 @@ export function Select({ label, value, options, disabled, name, error, touched, 
                 {label}
             </InputLabel>
             <SelectField
+                MenuProps={{
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    },
+                    getContentAnchorEl: null,
+                }}
                 error={!!errorText}
                 id={name}
                 label={label}
