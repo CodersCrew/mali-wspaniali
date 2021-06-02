@@ -62,9 +62,7 @@ export const openSettingsModal = (props: { user: Me }) => {
             >
                 <form onSubmit={formik.handleSubmit}>
                     <Box>
-                        <Typography variant={'h4'} className={classes.header}>
-                            {t('settings-modal.modal-header')}
-                        </Typography>
+                        <Typography variant={'h4'}>{t('settings-modal.modal-header')}</Typography>
                         <Box mt={4} mb={2.5}>
                             <Typography variant={'body1'}>{t('settings-modal.modal-first-description')}</Typography>
                             <Typography variant={'body1'}>{t('settings-modal.modal-second-description')}</Typography>
@@ -114,7 +112,6 @@ export const openSettingsModal = (props: { user: Me }) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-    header: { color: theme.palette.text.primary },
     inputBox: {
         margin: theme.spacing(2, 0),
     },

@@ -1,4 +1,4 @@
-import { createStyles, DialogContent, DialogTitle, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
@@ -32,37 +32,41 @@ const ResultsModal = ({
             isCancelButtonVisible={false}
             dialogProps={{ maxWidth: 'sm' }}
         >
-            <DialogTitle>{t(`${RESULTS_PREFIX}.${progressKey}.title`)}</DialogTitle>
-            <DialogContent>
-                <Typography gutterBottom>{t(`${RESULTS_PREFIX}.${progressKey}.subtitle`)}</Typography>
+            <Box mb={2}>
+                <Typography variant="h4">{t(`${RESULTS_PREFIX}.${progressKey}.title`)}</Typography>
+            </Box>
+            <Box mb={2}>
+                <Typography variant="subtitle2">{t(`${RESULTS_PREFIX}.${progressKey}.subtitle`)}</Typography>
+            </Box>
+            <Box mb={2}>
                 <Typography gutterBottom variant={'body2'}>
                     {t(`${RESULTS_PREFIX}.${progressKey}.text-1`)}
                 </Typography>
-                {progressKey !== 'progress' && (
-                    <Typography gutterBottom variant="subtitle2">
-                        {' '}
-                        <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-1-1`)} </strong>{' '}
-                        {t(`${RESULTS_PREFIX}.${progressKey}.text-1-2`)}
-                    </Typography>
-                )}
-                <Typography gutterBottom variant={progressKey === 'regress' ? 'subtitle2' : 'body2'}>
-                    {t(`${RESULTS_PREFIX}.${progressKey}.text-2`)}{' '}
-                    <a href="/recommendations">
-                        <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-2-1`)} </strong>
-                    </a>{' '}
-                    {progressKey !== 'regress' && t(`${RESULTS_PREFIX}.${progressKey}.text-2-2`)}
-                    {progressKey === 'constant' && (
-                        <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-2-3`)} </strong>
-                    )}
+            </Box>
+            {progressKey !== 'progress' && (
+                <Typography gutterBottom variant="subtitle2">
+                    {' '}
+                    <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-1-1`)} </strong>{' '}
+                    {t(`${RESULTS_PREFIX}.${progressKey}.text-1-2`)}
                 </Typography>
-
-                {progressKey === 'regress' && (
-                    <Typography gutterBottom variant="subtitle2">
-                        {t(`${RESULTS_PREFIX}.${progressKey}.text-3`)}{' '}
-                        <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-3-1`)} </strong>{' '}
-                    </Typography>
+            )}
+            <Typography gutterBottom variant={progressKey === 'regress' ? 'subtitle2' : 'body2'}>
+                {t(`${RESULTS_PREFIX}.${progressKey}.text-2`)}{' '}
+                <a href="/recommendations">
+                    <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-2-1`)} </strong>
+                </a>{' '}
+                {progressKey !== 'regress' && t(`${RESULTS_PREFIX}.${progressKey}.text-2-2`)}
+                {progressKey === 'constant' && (
+                    <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-2-3`)} </strong>
                 )}
-            </DialogContent>
+            </Typography>
+
+            {progressKey === 'regress' && (
+                <Typography gutterBottom variant="subtitle2">
+                    {t(`${RESULTS_PREFIX}.${progressKey}.text-3`)}{' '}
+                    <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-3-1`)} </strong>{' '}
+                </Typography>
+            )}
         </BasicModal>
     );
 };

@@ -41,7 +41,11 @@ export const BasicModal: FC<Props> = ({
             maxWidth="md"
             open={isOpen}
             classes={{
-                paper: clsx({ [classes.dialogPaper]: !device.isSmallMobile }),
+                paper: clsx({
+                    [classes.dialogPaperMaxSize]: !device.isSmallMobile,
+                    [classes.paperContainer]: !device.isSmallMobile,
+                    [classes.paperContainerSmall]: device.isSmallMobile,
+                }),
                 container: clsx({ [classes.container]: device.isSmallMobile }),
             }}
             fullScreen={device.isSmallMobile}
@@ -70,12 +74,24 @@ export const BasicModal: FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-    dialogPaper: {
+    dialogPaperMaxSize: {
         maxHeight: '80vh',
+    },
+    paperContainer: {
+        padding: theme.spacing(3),
+    },
+    paperContainerSmall: {
+        padding: theme.spacing(3, 2),
+    },
+    smallDialogPaper: {
+        padding: theme.spacing(3, 2),
     },
     contentScrollbar: {
         overflowY: 'unset',
         padding: 0,
+        '&:first-child': {
+            paddingTop: 0,
+        },
     },
     container: {
         padding: theme.spacing(2),

@@ -1,4 +1,4 @@
-import { createStyles, DialogContent, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
+import { createStyles, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
@@ -44,90 +44,88 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
             dialogProps={{ maxWidth: 'md' }}
             closeButtonText={t('close')}
         >
-            <DialogContent classes={{ root: classes.content }}>
-                <Box
-                    display="flex"
-                    flexDirection={device.isSmallMobile ? 'column' : 'row'}
-                    alignItems={device.isSmallMobile && 'center'}
-                >
-                    <Box minWidth="176" p={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
-                        <Box display="flex" flexDirection="column" justifyContent="space-between">
-                            <DetailsMeasurement measurmentProps={measurementProps} />
-                            <Hidden only="xs">
-                                <Grid item>
-                                    <Typography variant="subtitle2">
-                                        {t(`${T_DETAILS_PREFIX}.next-assesment.title`)}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        {t(`${T_DETAILS_PREFIX}.next-assesment.text-1`)}6
-                                        {t(`${T_DETAILS_PREFIX}.next-assesment.text-2`)}
-                                    </Typography>
-                                </Grid>
-                            </Hidden>
-                        </Box>
-                    </Box>
-                    <Box display="flex" flex="1" flexDirection="column" p={2}>
-                        <Typography className={classes.typographySpacing} variant="h4">
-                            {t(`${T_DETAILS_PREFIX}.assesment-details`)}
-                        </Typography>
-                        <Typography className={classes.typographySpacing} variant="body2">
-                            {t(`${T_DETAILS_PREFIX}.content.${measurementProps.translationKey}`)}
-                        </Typography>
-                        <Typography className={(classes.typographySpacing, classes.titleSpacing)} variant="h4">
-                            {t(`${T_DETAILS_PREFIX}.result-details.title`)}
-                        </Typography>
-                        <Box pl={4} pr={4} maxWidth="95%">
-                            <Results resultsData={resultsData} />
-                        </Box>
-                        <Grid container>
+            <Box
+                display="flex"
+                flexDirection={device.isSmallMobile ? 'column' : 'row'}
+                alignItems={device.isSmallMobile && 'center'}
+            >
+                <Box minWidth="176" px={2} pb={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
+                    <Box display="flex" flexDirection="column" justifyContent="space-between">
+                        <DetailsMeasurement measurmentProps={measurementProps} />
+                        <Hidden only="xs">
                             <Grid item>
-                                <Typography className={classes.typographySpacing} variant="subtitle2">
-                                    {t(`${T_DETAILS_PREFIX}.result-details.child-result`)}
+                                <Typography variant="subtitle2">
+                                    {t(`${T_DETAILS_PREFIX}.next-assesment.title`)}
+                                </Typography>
+                                <Typography variant="body2">
+                                    {t(`${T_DETAILS_PREFIX}.next-assesment.text-1`)}6
+                                    {t(`${T_DETAILS_PREFIX}.next-assesment.text-2`)}
                                 </Typography>
                             </Grid>
-                            <Grid item>
-                                <Typography
-                                    className={classes.typographySpacing}
-                                    variant="body2"
-                                >{`${resultsData.result}  ${resultsData.unit}`}</Typography>
-                            </Grid>
-                        </Grid>
-                        <Grid container>
-                            <Grid item>
-                                <Typography className={classes.typographySpacing} variant="subtitle2">
-                                    {t(`${T_DETAILS_PREFIX}.result-details.points`)}
-                                </Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography className={classes.typographySpacing} variant="body2">
-                                    {`${resultsData.result}/${resultsData.result}`}
-                                    {t(`${T_DETAILS_PREFIX}.result-details.text-1`)}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                        <Typography className={classes.typographySpacing} variant="subtitle2">
-                            {t(`${T_DETAILS_PREFIX}.result-details.text-2`)}
-                        </Typography>
-                        <Typography className={classes.typographySpacing} variant="body2">
-                            {percentile} {t(`${T_DETAILS_PREFIX}.result-details.text-3`)}
-                        </Typography>
-                        <Typography className={classes.typographySpacing} variant="subtitle2">
-                            {t(`${T_DETAILS_PREFIX}.result-details.next-level.title`)}
-                        </Typography>
-                        <Typography variant="body2">
-                            {/* TBD: I want to check new backend response before adding logic to next level text */}
-                            Niski
-                            {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-1`)}
-                            {resultsData.result}
-                            {resultsData.unit}
-                            {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-2`)}
-                            {resultsData.v5 - resultsData.result}
-                            {resultsData.unit}
-                            {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-3`)}
-                        </Typography>
+                        </Hidden>
                     </Box>
                 </Box>
-            </DialogContent>
+                <Box display="flex" flex="1" flexDirection="column" py={2}>
+                    <Typography className={classes.typographySpacing} variant="h4">
+                        {t(`${T_DETAILS_PREFIX}.assesment-details`)}
+                    </Typography>
+                    <Typography className={classes.typographySpacing} variant="body2">
+                        {t(`${T_DETAILS_PREFIX}.content.${measurementProps.translationKey}`)}
+                    </Typography>
+                    <Typography className={(classes.typographySpacing, classes.titleSpacing)} variant="h4">
+                        {t(`${T_DETAILS_PREFIX}.result-details.title`)}
+                    </Typography>
+                    <Box pl={4} pr={4} maxWidth="95%">
+                        <Results resultsData={resultsData} />
+                    </Box>
+                    <Grid container>
+                        <Grid item>
+                            <Typography className={classes.typographySpacing} variant="subtitle2">
+                                {t(`${T_DETAILS_PREFIX}.result-details.child-result`)}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography
+                                className={classes.typographySpacing}
+                                variant="body2"
+                            >{`${resultsData.result}  ${resultsData.unit}`}</Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container>
+                        <Grid item>
+                            <Typography className={classes.typographySpacing} variant="subtitle2">
+                                {t(`${T_DETAILS_PREFIX}.result-details.points`)}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography className={classes.typographySpacing} variant="body2">
+                                {`${resultsData.result}/${resultsData.result}`}
+                                {t(`${T_DETAILS_PREFIX}.result-details.text-1`)}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Typography className={classes.typographySpacing} variant="subtitle2">
+                        {t(`${T_DETAILS_PREFIX}.result-details.text-2`)}
+                    </Typography>
+                    <Typography className={classes.typographySpacing} variant="body2">
+                        {percentile} {t(`${T_DETAILS_PREFIX}.result-details.text-3`)}
+                    </Typography>
+                    <Typography className={classes.typographySpacing} variant="subtitle2">
+                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.title`)}
+                    </Typography>
+                    <Typography variant="body2">
+                        {/* TBD: I want to check new backend response before adding logic to next level text */}
+                        Niski
+                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-1`)}
+                        {resultsData.result}
+                        {resultsData.unit}
+                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-2`)}
+                        {resultsData.v5 - resultsData.result}
+                        {resultsData.unit}
+                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-3`)}
+                    </Typography>
+                </Box>
+            </Box>
         </BasicModal>
     );
 };
