@@ -1,19 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-    makeStyles,
-    createStyles,
-    Typography,
-    Box,
-    FormControl,
-    InputLabel,
-    OutlinedInput,
-    InputAdornment,
-    IconButton,
-    FormHelperText,
-    CircularProgress,
-} from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { makeStyles, createStyles, Typography, Box, FormHelperText, CircularProgress } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { Theme } from '../../theme';
@@ -28,6 +15,7 @@ import {
     passwordDigitTest,
     passwordCapitalTest,
 } from './passwordStrengthTest';
+import { PasswordChangeFormInput } from './PasswordChangeFormInput';
 
 const initialPasswordValidation: PasswordValidation = {
     length: false,
@@ -48,7 +36,6 @@ export function PasswordChangeForm({
     const classes = useStyles();
     const { isDesktop } = useIsDevice();
 
-    const [showPassword, setShowPassword] = useState(false);
     const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
     useEffect(() => {
@@ -59,12 +46,6 @@ export function PasswordChangeForm({
             special: passwordSpecialTest(password),
         });
     }, [password]);
-
-    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
-
-    const handleClick = () => {
-        if (password !== passwordConfirm) setError(true);
-    };
 
     return (
         <div className={classes.container}>
@@ -77,63 +58,34 @@ export function PasswordChangeForm({
             >
                 {t('password-change-page.new-password-subtitle')}
             </Typography>
-            <FormControl variant="outlined" fullWidth className={classes.formItem}>
-                <InputLabel htmlFor="password">{t('password-change-page.new-password')}</InputLabel>
-                <OutlinedInput
-                    required
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={handleChange}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={togglePasswordVisibility}
-                                edge="end"
-                            >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    data-testid="password"
-                    label={t('password-change-page.new-password')}
-                    error={error}
-                    autoFocus
-                />
+
+            <PasswordChangeFormInput
+                value={password}
+                onChange={handleChange}
+                error={error}
+                id="password"
+                label={t('password-change-page.new-password')}
+            >
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
-            </FormControl>
+            </PasswordChangeFormInput>
+
             <Box
                 className={clsx({
                     [classes.separator]: isDesktop,
                     [classes.separatorMobile]: !isDesktop,
                 })}
             />
-            <FormControl variant="outlined" fullWidth className={clsx({ [classes.formItem]: !isDesktop })}>
-                <InputLabel htmlFor="passwordConfirm">{t('password-change-page.repeat-password')}</InputLabel>
-                <OutlinedInput
-                    required
-                    id="passwordConfirm"
-                    type={showPassword ? 'text' : 'password'}
-                    value={passwordConfirm}
-                    onChange={handleChange}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={togglePasswordVisibility}
-                                edge="end"
-                            >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    data-testid="confirmPassword"
-                    label={t('password-change-page.repeat-password')}
-                    error={error}
-                />
+
+            <PasswordChangeFormInput
+                value={passwordConfirm}
+                onChange={handleChange}
+                error={error}
+                id="passwordConfirm"
+                label={t('password-change-page.repeat-password')}
+            >
                 {error && <FormHelperText error={error}>{t('registration-page.password-mismatch')}</FormHelperText>}
-            </FormControl>
+            </PasswordChangeFormInput>
+
             <div
                 className={clsx({
                     [classes.buttonWrapper]: true,
@@ -153,6 +105,10 @@ export function PasswordChangeForm({
             </div>
         </div>
     );
+
+    function handleClick() {
+        if (password !== passwordConfirm) setError(true);
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -172,9 +128,6 @@ const useStyles = makeStyles((theme: Theme) =>
         subtitleMobile: {
             width: '100%',
             marginBottom: 0,
-        },
-        formItem: {
-            marginTop: theme.spacing(2),
         },
         buttonWrapper: {
             width: '100%',

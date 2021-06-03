@@ -13,7 +13,12 @@ export const PasswordSuccessfullyChanged = () => {
     const { isDesktop } = useIsDevice();
 
     return (
-        <div className={classes.successLayout}>
+        <div
+            className={clsx({
+                [classes.successLayout]: true,
+                [classes.successLayoutMobile]: !isDesktop,
+            })}
+        >
             <img
                 src={PasswordChangeSuccess}
                 alt=""
@@ -27,7 +32,13 @@ export const PasswordSuccessfullyChanged = () => {
                 {t('password-change-success-page.password-change-success-title')}
             </Typography>
             <Box mb={2} />
-            <Typography variant="subtitle1" className={classes.successSubtitle}>
+            <Typography
+                variant="subtitle1"
+                className={clsx({
+                    [classes.successSubtitle]: true,
+                    [classes.successSubtitleMobile]: !isDesktop,
+                })}
+            >
                 {t('password-change-success-page.password-change-success-subtitle')}
             </Typography>
             <Box mb={5} />
@@ -50,10 +61,10 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(0, 6),
-                marginTop: theme.spacing(8),
-            },
+        },
+        successLayoutMobile: {
+            padding: theme.spacing(0, 6),
+            marginTop: theme.spacing(8),
         },
         passwordChangeSuccessImage: {
             height: 341,
@@ -64,20 +75,16 @@ const useStyles = makeStyles((theme: Theme) =>
         successTitle: {
             textAlign: 'center',
             [theme.breakpoints.down('sm')]: {
-                fontSize: '20px',
-                fontWeight: 500,
                 lineHeight: `${theme.spacing(3)}px`,
             },
         },
         successSubtitle: {
             textAlign: 'center',
             padding: theme.spacing(0, 10.5),
-            [theme.breakpoints.down('sm')]: {
-                padding: 0,
-                fontSize: '16px',
-                fontWeight: 400,
-                lineHeight: `${theme.spacing(2.5)}px`,
-            },
+        },
+        successSubtitleMobile: {
+            padding: 0,
+            lineHeight: `${theme.spacing(2.5)}px`,
         },
     }),
 );
