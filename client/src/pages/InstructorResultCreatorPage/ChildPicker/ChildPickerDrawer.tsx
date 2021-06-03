@@ -7,17 +7,17 @@ import {
     makeStyles,
     SwipeableDrawer,
     Theme,
-    Typography,
     AppBar,
     Toolbar,
 } from '@material-ui/core';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Child, Kindergarten } from '../../../graphql/types';
-import { ChildPicker } from './ChildPicker';
+
 import { ButtonSecondary } from '../../../components/Button';
-import { ResultCreatorReturnProps } from '../useResultCreator';
+import { Child, Kindergarten } from '../../../graphql/types';
 import { useSidebarState } from '../../../utils/useSidebar';
+import { ResultCreatorReturnProps } from '../useResultCreator';
+import { ChildPicker } from './ChildPicker';
 
 interface Props {
     childList: Child[];
@@ -51,12 +51,12 @@ export function ChildPickerDrawer(props: Props) {
                     assessment={props.resultCreator.selectedAssessment}
                     header={
                         <Box className={classes.header} onClick={() => setIsDrawerOpen(false)}>
-                            <AppBar position="fixed" classes={{ root: classes.appBar }}>
+                            <AppBar elevation={0} classes={{ root: classes.appBar }}>
                                 <Toolbar>
                                     <Box mr={1}>
                                         <ArrowBack className={classes.icon} />
                                     </Box>
-                                    <Typography variant="body2">{t('add-result-page.back-to-results')}</Typography>
+                                    <Box fontWeight={500}>{t('add-result-page.back-to-results')}</Box>
                                 </Toolbar>
                             </AppBar>
                         </Box>
@@ -93,6 +93,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         paper: {
             width: '90%',
+            overflowX: 'hidden',
         },
         header: {
             display: 'flex',
@@ -101,12 +102,12 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(3),
         },
         appBar: {
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.secondary.main,
             width: '90%',
-            backgroundColor: theme.palette.background.default,
-            color: theme.palette.text.primary,
         },
         icon: {
-            color: theme.palette.text.secondary,
+            color: theme.palette.secondary.main,
         },
         backButtonContainer: {
             padding: theme.spacing(1, 2),

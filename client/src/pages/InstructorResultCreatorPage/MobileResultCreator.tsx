@@ -151,6 +151,7 @@ const useStyles = makeStyles((theme) =>
             flex: '1 1 auto',
             height: 0,
             overflowY: 'auto',
+            overflowX: 'hidden',
             paddingBottom: 56,
         },
         container: {
