@@ -61,7 +61,9 @@ export default function LoginPage() {
                         <Box mb={6} />
                     ) : (
                         <>
-                            <Typography className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</Typography>
+                            <Typography variant="subtitle1" className={classes.welcomeText}>
+                                {t('login-wrapper.welcome-text')}
+                            </Typography>
                             <Box mb={5} />
                         </>
                     )}

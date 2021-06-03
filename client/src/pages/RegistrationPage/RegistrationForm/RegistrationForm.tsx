@@ -255,7 +255,9 @@ export const RegistrationForm = () => {
             <Box mb={isDesktop ? 3 : 2} />
             {activeStep === 0 && (
                 <>
-                    <Typography className={classes.subHeader}>{t('login-wrapper.subheading')}</Typography>
+                    <Typography variant="subtitle1" className={classes.subHeader}>
+                        {t('login-wrapper.subheading')}
+                    </Typography>
                     <Box mb={isDesktop ? 2.5 : 2} />
                 </>
             )}

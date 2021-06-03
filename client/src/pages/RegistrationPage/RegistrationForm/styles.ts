@@ -243,6 +243,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
         },
         subHeader: {
+            width: 200,
             textAlign: 'center',
         },
         footer: {
