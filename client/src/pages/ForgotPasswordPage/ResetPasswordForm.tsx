@@ -24,25 +24,6 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     const [inputValue, setInputValue] = useState('');
     const [isError, setIsError] = useState(false);
 
-    const handleSubmit = () => {
-        if (emailTest(inputValue)) {
-            setIsError(false);
-            onSubmit();
-        } else {
-            setIsError(true);
-        }
-    };
-
-    const handleChange = (value: string) => {
-        setIsError(false);
-        setInputValue(value);
-        onChange(value);
-    };
-
-    const handleBlur = () => {
-        if (!emailTest(email)) setIsError(true);
-    };
-
     return (
         <div className={classes.container}>
             <Box mb={3}>
@@ -81,6 +62,25 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
             </Box>
         </div>
     );
+
+    function handleSubmit() {
+        if (emailTest(inputValue)) {
+            setIsError(false);
+            onSubmit();
+        } else {
+            setIsError(true);
+        }
+    }
+
+    function handleChange(value: string) {
+        setIsError(false);
+        setInputValue(value);
+        onChange(value);
+    }
+
+    function handleBlur() {
+        if (!emailTest(email)) setIsError(true);
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

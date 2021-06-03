@@ -46,11 +46,11 @@ export const RegistrationPassword = ({
     error,
     setError,
 }: RegistrationPasswordProps) => {
-    const [showPassword, setShowPassword] = useState(false);
-    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
-
     const classes = useStyles();
     const { t } = useTranslation();
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
     useEffect(() => {
         setPasswordValidation({
@@ -60,16 +60,6 @@ export const RegistrationPassword = ({
             special: passwordSpecialTest(password),
         });
     }, [password]);
-
-    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        if (password !== passwordConfirm) setError(true);
-
-        if (event.ctrlKey) {
-            if (skip) skip(() => true);
-        }
-    };
 
     return (
         <>
@@ -146,6 +136,18 @@ export const RegistrationPassword = ({
             </div>
         </>
     );
+
+    function togglePasswordVisibility() {
+        setShowPassword((prev) => !prev);
+    }
+
+    function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        if (password !== passwordConfirm) setError(true);
+
+        if (event.ctrlKey) {
+            if (skip) skip(() => true);
+        }
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) =>

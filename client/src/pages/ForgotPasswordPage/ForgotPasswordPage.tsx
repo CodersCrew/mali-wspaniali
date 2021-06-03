@@ -29,37 +29,6 @@ export default function ForgotPasswordPage() {
     const [email, setEmail] = useState('');
     const [imageState, setImageState] = useState<ImageState>('ERROR');
 
-    const handleInputChange = (value: string): void => {
-        if (value === '') {
-            setEmail('');
-
-            return setImageState('ERROR');
-        }
-
-        setImageState(emailTest(value) ? 'SUCCESS' : 'DEFAULT');
-
-        return setEmail(value);
-    };
-
-    const handleCreateNewPassword = () => {
-        onPasswordChange(t('settings-page.password-change-message'));
-        resetPassword(email);
-    };
-
-    const onPasswordChange = (text: string) => {
-        openSnackbar({ text });
-    };
-
-    const getImageSource = (state: ImageState) => {
-        const options = {
-            DEFAULT: DefaultImage,
-            SUCCESS: SuccessImage,
-            ERROR: ErrorImage,
-        };
-
-        return options[state];
-    };
-
     return (
         <div className={classes.container}>
             <div
@@ -104,6 +73,37 @@ export default function ForgotPasswordPage() {
             </div>
         </div>
     );
+
+    function handleInputChange(value: string): void {
+        if (value === '') {
+            setEmail('');
+
+            return setImageState('ERROR');
+        }
+
+        setImageState(emailTest(value) ? 'SUCCESS' : 'DEFAULT');
+
+        return setEmail(value);
+    }
+
+    function handleCreateNewPassword() {
+        onPasswordChange(t('settings-page.password-change-message'));
+        resetPassword(email);
+    }
+
+    function onPasswordChange(text: string) {
+        openSnackbar({ text });
+    }
+
+    function getImageSource(state: ImageState) {
+        const options = {
+            DEFAULT: DefaultImage,
+            SUCCESS: SuccessImage,
+            ERROR: ErrorImage,
+        };
+
+        return options[state];
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -31,34 +31,6 @@ export default function PasswordChangePage() {
 
     const { password, passwordConfirm } = form;
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-        event.preventDefault();
-
-        if (!passwordStrengthTest(password)) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.password-not-strong'),
-            });
-
-            return;
-        }
-
-        if (password !== passwordConfirm) return;
-
-        // TODO: implement password change
-        setLoading(true);
-        setTimeout(() => {
-            setOnSuccess(true);
-            setLoading(false);
-        }, 2000);
-    };
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        setError(false);
-        const { id, value } = event.target;
-        setForm((prevForm) => ({ ...prevForm, [id]: value }));
-    };
-
     return (
         <>
             <div className={classes.container}>
@@ -114,6 +86,34 @@ export default function PasswordChangePage() {
             </div>
         </>
     );
+
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
+
+        if (!passwordStrengthTest(password)) {
+            openAlertDialog({
+                type: 'error',
+                description: t('registration-page.password-not-strong'),
+            });
+
+            return;
+        }
+
+        if (password !== passwordConfirm) return;
+
+        // TODO: implement password change
+        setLoading(true);
+        setTimeout(() => {
+            setOnSuccess(true);
+            setLoading(false);
+        }, 2000);
+    }
+
+    function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+        setError(false);
+        const { id, value } = event.target;
+        setForm((prevForm) => ({ ...prevForm, [id]: value }));
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

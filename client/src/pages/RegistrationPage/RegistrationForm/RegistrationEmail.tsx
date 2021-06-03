@@ -19,13 +19,6 @@ export const RegistrationEmail = ({
 }: RegistrationEmailProps) => {
     const { t } = useTranslation();
 
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            if (emailTest(email)) handleNext();
-        }
-    };
-
     return (
         <>
             <TextField
@@ -55,4 +48,11 @@ export const RegistrationEmail = ({
             </div>
         </>
     );
+
+    function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            if (emailTest(email)) handleNext();
+        }
+    }
 };

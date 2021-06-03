@@ -21,20 +21,6 @@ export const RegistrationCode = ({
     const { t } = useTranslation();
     const classes = useStyles();
 
-    const handleClick = () => {
-        openAlertDialog({
-            type: 'info',
-            title: t('registration-page.no-code'),
-            description: <Trans i18nKey={'registration-page.no-code-desc'} />,
-        });
-    };
-
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === 'Enter' && roleBasedKeyCode?.isValid()) {
-            handleNext();
-        }
-    };
-
     return (
         <>
             <Typography variant="body1">{t('registration-page.enter-code-text')}</Typography>
@@ -71,6 +57,20 @@ export const RegistrationCode = ({
             </div>
         </>
     );
+
+    function handleClick() {
+        openAlertDialog({
+            type: 'info',
+            title: t('registration-page.no-code'),
+            description: <Trans i18nKey={'registration-page.no-code-desc'} />,
+        });
+    }
+
+    function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key === 'Enter' && roleBasedKeyCode?.isValid()) {
+            handleNext();
+        }
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) =>

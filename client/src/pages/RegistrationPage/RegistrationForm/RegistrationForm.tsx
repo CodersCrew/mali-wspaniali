@@ -44,6 +44,14 @@ export const RegistrationForm = () => {
 
     const { code, email, password, passwordConfirm } = form;
 
+    const steps = [
+        t('registration-page.enter-code'),
+        t('e-mail'),
+        t('registration-page.agreements-and-regulations'),
+        t('registration-page.create-password'),
+        t('registration-page.confirmation'),
+    ];
+
     useEffect(() => {
         getAgreements()
             .then(({ data }) => {
@@ -63,15 +71,73 @@ export const RegistrationForm = () => {
             });
     }, []);
 
-    const steps = [
-        t('registration-page.enter-code'),
-        t('e-mail'),
-        t('registration-page.agreements-and-regulations'),
-        t('registration-page.create-password'),
-        t('registration-page.confirmation'),
-    ];
+    useEffect(() => {
+        setRoleBasedKeyCode(RoleBasedKeyCodeObject.from(code));
+    }, [code]);
 
-    const getStepContent = (step: number) => {
+    return (
+        <div className={classes.container}>
+            <Typography variant="h3" className={classes.header}>
+                {t('registration-page.register-header')}
+            </Typography>
+            <Box mb={isDesktop ? 3 : 2} />
+            {activeStep === 0 && (
+                <>
+                    <Typography variant="subtitle1" className={classes.subHeader}>
+                        {t('login-wrapper.subheading')}
+                    </Typography>
+                    <Box mb={isDesktop ? 2.5 : 2} />
+                </>
+            )}
+            <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
+                <Stepper
+                    activeStep={activeStep}
+                    orientation="vertical"
+                    className={classes.stepper}
+                    connector={
+                        isDesktop ? (
+                            <StepConnector
+                                classes={{
+                                    completed: classes.stepConnectorCompleted,
+                                    active: classes.stepConnectorCompleted,
+                                }}
+                            />
+                        ) : (
+                            <StepConnector
+                                classes={{
+                                    root: classes.divider,
+                                    completed: classes.dividerCompleted,
+                                    active: classes.dividerCompleted,
+                                }}
+                            />
+                        )
+                    }
+                >
+                    {steps.map((step, idx) => (
+                        <Step key={step} style={{ border: 'none' }}>
+                            <StepLabel>
+                                <Typography variant="body2">{step}</Typography>
+                            </StepLabel>
+                            <StepContent className={classes.stepperContent}>
+                                {idx !== 4 ? getStepContent(idx) : null}
+                            </StepContent>
+                        </Step>
+                    ))}
+                </Stepper>
+            </form>
+            {activeStep === 4 && getStepContent(activeStep)}
+            <div className={classes.footer}>
+                <ButtonSecondary
+                    href="/login"
+                    className={classes.backToLoginButton}
+                    innerText={t('registration-page.go-to-loginpage')}
+                />
+                <Box mb={3} />
+            </div>
+        </div>
+    );
+
+    function getStepContent(step: number) {
         if (step === 0) {
             return (
                 <RegistrationCode
@@ -161,23 +227,25 @@ export const RegistrationForm = () => {
         }
 
         return null;
-    };
+    }
 
-    const handleNext = () =>
+    function handleNext() {
         setActiveStep((prevActiveStep) => {
             if (prevActiveStep === 1 && roleBasedKeyCode?.isInstructor()) return prevActiveStep + 2;
 
             return prevActiveStep + 1;
         });
+    }
 
-    const handleBack = () =>
+    function handleBack() {
         setActiveStep((prevActiveStep) => {
             if (prevActiveStep === 3 && roleBasedKeyCode?.isInstructor()) return prevActiveStep - 2;
 
             return prevActiveStep - 1;
         });
+    }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         setLoading(() => true);
 
@@ -235,77 +303,11 @@ export const RegistrationForm = () => {
                     });
                 }
             });
-    };
+    }
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    function handleChange(event: ChangeEvent<HTMLInputElement>): void {
         setError(false);
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
-    };
-
-    useEffect(() => {
-        setRoleBasedKeyCode(RoleBasedKeyCodeObject.from(code));
-    }, [code]);
-
-    return (
-        <div className={classes.container}>
-            <Typography variant="h3" className={classes.header}>
-                {t('registration-page.register-header')}
-            </Typography>
-            <Box mb={isDesktop ? 3 : 2} />
-            {activeStep === 0 && (
-                <>
-                    <Typography variant="subtitle1" className={classes.subHeader}>
-                        {t('login-wrapper.subheading')}
-                    </Typography>
-                    <Box mb={isDesktop ? 2.5 : 2} />
-                </>
-            )}
-            <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                <Stepper
-                    activeStep={activeStep}
-                    orientation="vertical"
-                    className={classes.stepper}
-                    connector={
-                        isDesktop ? (
-                            <StepConnector
-                                classes={{
-                                    completed: classes.stepConnectorCompleted,
-                                    active: classes.stepConnectorCompleted,
-                                }}
-                            />
-                        ) : (
-                            <StepConnector
-                                classes={{
-                                    root: classes.divider,
-                                    completed: classes.dividerCompleted,
-                                    active: classes.dividerCompleted,
-                                }}
-                            />
-                        )
-                    }
-                >
-                    {steps.map((step, idx) => (
-                        <Step key={step} style={{ border: 'none' }}>
-                            <StepLabel>
-                                <Typography variant="body2">{step}</Typography>
-                            </StepLabel>
-                            <StepContent className={classes.stepperContent}>
-                                {idx !== 4 ? getStepContent(idx) : null}
-                            </StepContent>
-                        </Step>
-                    ))}
-                </Stepper>
-            </form>
-            {activeStep === 4 && getStepContent(activeStep)}
-            <div className={classes.footer}>
-                <ButtonSecondary
-                    href="/login"
-                    className={classes.backToLoginButton}
-                    innerText={t('registration-page.go-to-loginpage')}
-                />
-                <Box mb={3} />
-            </div>
-        </div>
-    );
+    }
 };

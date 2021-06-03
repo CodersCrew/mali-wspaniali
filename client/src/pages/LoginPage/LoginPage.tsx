@@ -16,10 +16,6 @@ const initialError: Error = {
 };
 
 export default function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loginError, setLoginError] = useState(initialError);
-    const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();
@@ -36,19 +32,10 @@ export default function LoginPage() {
     );
     const { isDesktop } = useIsDevice();
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-        event.preventDefault();
-        setLoading(() => true);
-        authorizeMe(email, password);
-    };
-
-    const showLoginErrorMessage = () => {
-        openSnackbar({
-            text: t('login-page.login-error'),
-            severity: 'error',
-            anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
-        });
-    };
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState(initialError);
+    const [loading, setLoading] = useState(false);
 
     return (
         <div className={classes.container}>
@@ -139,6 +126,20 @@ export default function LoginPage() {
             </div>
         </div>
     );
+
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
+        setLoading(() => true);
+        authorizeMe(email, password);
+    }
+
+    function showLoginErrorMessage() {
+        openSnackbar({
+            text: t('login-page.login-error'),
+            severity: 'error',
+            anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
+        });
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

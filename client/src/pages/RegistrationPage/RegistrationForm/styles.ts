@@ -1,7 +1,5 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/';
 
-import { secondaryColor, mainColor, textColor, white } from '../../../colors';
-
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
@@ -80,7 +78,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             fontSize: '21px',
             fontWeight: 'bold',
             textTransform: 'uppercase',
-            color: textColor,
+            color: theme.palette.text.primary,
 
             [theme.breakpoints.down('md')]: {
                 '&.confirmation': {
@@ -132,8 +130,8 @@ export const useStyles = makeStyles((theme: Theme) =>
             lineHeight: '17px',
             textAlign: 'center',
             textTransform: 'uppercase',
-            color: white,
-            background: secondaryColor,
+            color: theme.palette.common.white,
+            background: theme.palette.secondary.main,
             textDecoration: 'none',
             borderRadius: '4px',
             padding: '4px 10px',
@@ -183,7 +181,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.secondary.main,
         },
         agreementMoreBtn: {
-            color: mainColor,
+            color: theme.palette.primary.main,
             justifyContent: 'flex-start',
             fontSize: '14px',
             paddingLeft: 0,
@@ -212,7 +210,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(0.5),
         },
         agreementLink: {
-            color: mainColor,
+            color: theme.palette.primary.main,
         },
         agreementModal: {
             position: 'absolute',
