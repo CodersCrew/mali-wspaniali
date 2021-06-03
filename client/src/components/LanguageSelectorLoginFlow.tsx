@@ -2,11 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/core';
 
-import PlFlag from '../../../assets/pl.png';
-import EnFlag from '../../../assets/en.png';
-import { white } from '../../../colors';
+import PlFlag from '../assets/pl.png';
+import EnFlag from '../assets/en.png';
+import { theme } from '../theme';
 
-export const LanguageSelector: React.FC = () => {
+export const LanguageSelectorLoginFlow: React.FC = () => {
     const { i18n } = useTranslation();
     const classes = useStyles();
     const localStorageLanguage = localStorage.getItem('i18nextLng');
@@ -34,7 +34,7 @@ const useStyles = makeStyles(() =>
             borderRadius: '50%',
             '&:hover': {
                 cursor: 'pointer',
-                boxShadow: `0 0 2px 0px ${white}`,
+                boxShadow: `0 0 2px 0px ${theme.palette?.common?.white}`,
                 transition: 'all 0.3s ease-in-out',
             },
         },

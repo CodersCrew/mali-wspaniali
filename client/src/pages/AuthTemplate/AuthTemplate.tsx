@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import Logo from '../../assets/MALWSP_logo.png';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
+import { LanguageSelectorLoginFlow as LanguageSelector } from '../../components/LanguageSelectorLoginFlow';
 
 import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
