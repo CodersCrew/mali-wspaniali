@@ -66,6 +66,7 @@ export function PasswordChangeForm({
                 id="password"
                 label={t('password-change-page.new-password')}
             >
+                {error && <FormHelperText error={error}>{t('registration-page.password-mismatch')}</FormHelperText>}
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </PasswordChangeFormInput>
 
