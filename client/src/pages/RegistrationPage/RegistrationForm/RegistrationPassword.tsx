@@ -88,6 +88,7 @@ export const RegistrationPassword = ({
                     autoFocus
                     error={error}
                 />
+                {error && <FormHelperText error={error}>{t('registration-page.password-mismatch')}</FormHelperText>}
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
             <FormControl variant="outlined" className={classFormItem}>
