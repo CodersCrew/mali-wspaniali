@@ -35,7 +35,7 @@
         "register-success-spam": "",
         "password-confirm": "Powtórz hasło",
         "register": "Rejestracja",
-        "password-not-strong": "Hasło za słabe",
+        "password-not-strong": "Hasło jest za słabe. Sprawdź, czy Twoje hasło posiada co najmniej osiem znaków, dużą literę, cyfrę i znak specjalny.",
         "agreements-and-regulations": "Zgody i regulaminy",
         "agreements-fetch-failed": "Nie udało się pobrać danych. Spróbuj ponownie później.",
         "create-password": "Zarejestruj się",

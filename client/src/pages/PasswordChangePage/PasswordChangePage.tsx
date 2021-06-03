@@ -5,7 +5,6 @@ import clsx from 'clsx';
 
 import { Theme } from '../../theme';
 import SuccessImage from '../../assets/forgotPassword/success.png';
-import { openAlertDialog } from '../../components/AlertDialog';
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
@@ -13,6 +12,7 @@ import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
 import { PassChangeForm } from './types';
 import { PasswordSuccessfullyChanged } from './PasswordSuccessfullyChanged';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 const initialState: PassChangeForm = {
     password: '',
@@ -91,9 +91,10 @@ export default function PasswordChangePage() {
         event.preventDefault();
 
         if (!passwordStrengthTest(password)) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.password-not-strong'),
+            openSnackbar({
+                text: t('registration-page.password-not-strong'),
+                severity: 'error',
+                anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
             });
 
             return;

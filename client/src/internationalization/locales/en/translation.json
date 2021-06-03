@@ -35,7 +35,7 @@
         "register-success-spam": "",
         "password-confirm": "Repeat password",
         "register": "Registration",
-        "password-not-strong": "Password not strong enough",
+        "password-not-strong": "Password is not strong enough. Check if it contains at least 8 characters, a capital letter, a number, and one of the special characters.",
         "agreements-and-regulations": "Agreements and regulations",
         "agreements-fetch-failed": "Fetching data failed. Try again later.",
         "create-password": "Register account",

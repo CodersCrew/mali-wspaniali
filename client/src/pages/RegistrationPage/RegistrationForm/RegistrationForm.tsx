@@ -21,6 +21,7 @@ import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
 import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 const initialState: RegisterForm = {
     code: '',
@@ -250,9 +251,10 @@ export const RegistrationForm = () => {
         setLoading(() => true);
 
         if (!passwordStrengthTest(password)) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.password-not-strong'),
+            openSnackbar({
+                text: t('registration-page.password-not-strong'),
+                severity: 'error',
+                anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
             });
             setLoading(() => false);
 
