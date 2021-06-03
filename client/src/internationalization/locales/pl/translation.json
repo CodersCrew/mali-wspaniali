@@ -27,6 +27,7 @@
         "register-header": "Rejestracja",
         "already-have-account": "Masz już konto?",
         "register-failure": "Rejestracja nie powiodła się",
+        "register-failure-keycode": "Podany kod nie jest prawidłowy",
         "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>biuro@mali-wspaniali.pl</strong>",
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
@@ -36,6 +37,7 @@
         "register": "Rejestracja",
         "password-not-strong": "Hasło za słabe",
         "agreements-and-regulations": "Zgody i regulaminy",
+        "agreements-fetch-failed": "Nie udało się pobrać danych. Spróbuj ponownie później.",
         "create-password": "Zarejestruj się",
         "confirmation": "Potwierdzenie",
         "create-password-text": "Stwórz hasło do platformy Mali Wspaniali, które będzie ci służyło podczas następnych logowań.",
@@ -304,6 +306,12 @@
             "speed": "Próba szybkości",
             "agility": "Próba zwinności"
         },
+        "test-description": {
+            "agility": "Bieg wahadłowy 4x5 m",
+            "power": "Skok w dal obunóż z miejsca",
+            "strength": "Rzut piłką lekarską znad głowy",
+            "speed": "Bieg na odległość 20 metrów"
+        },
         "no-result-block-text": "nie odbyła się lub dziecko nie było w stanie uczestniczyć tego dnia w teście.",
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
@@ -335,6 +343,35 @@
         "no-results-list-3": "Twoje dziecko dołączyło do programu Mali Wspaniali po odbyciu pierwszego pomiaru. Kolejny pomiar sprawności odbędzie się na wiosnę.",
         "no-results-bottom": "Aby dowiedzieć się, jak wygląda test sprawności, odwiedź zakładkę",
         "no-results-link": "Informacje o testach",
+        "details-modal": {
+            "next-assesment": {
+                "title": "Następny pomiar próby",
+                "text-1": "Za około ",
+                "text-2": " miesięcy"
+            },
+            "assesment-details": "Opis próby",
+
+            "content": {
+                "strength": "Instruktor zaznacza wyraźną linię, z której dziecko będzie wykonywało rzuty. W odległości około 70-100 cm od linii początkowej ustawia się dwa krzesła, na ich oparciach zawiesza się taśmę. Dziecko staje w lekkim rozkroku, dosuwając palce do linii początkowej. Robi zamach piłką 1kg zza głowy wyrzuca piłkę najdalej jak potrafi ponad zawieszoną taśmą",
+                "speed": "Na terenie otwartym wyznacza się prosty odcinek liczący 25 m. Instruktor zaznacza wyraźną linię startową, w odległości 20 m od linii startu wyznacza się cienką, równoległą linię punktu pomiaru czasu, a 5 m dalej zaznacza się drugą wyraźną linię, oznaczającą „metę”.  Dziecko staje na linii i na sygnał stara się pobiec jak najszybciej do linii mety. ",
+                "power": "Dziecko staje na początku materaca, dosuwając palce stóp do narysowanej linii. Z tego miejsca wykonuje skok obunóż jak najdalej potrafi. Odległość skoku jest mierzona do pierwszego miejsca zetknięcia się ciała dziecka z podłożem. ",
+                "agility": "Płaski odcinek powierzchni długości 5 m oznacza się dwiema liniami. Na jednej linii ustawia się dwa klocki, przed drugą z oznaczonych linii ustawia się dziecko. Próba polega na pokonaniu przez dziecko 4 odległości po 5 metrów przenosząc pojedynczo klocki z jednej linii na drugą."
+            },
+            "result-details": {
+                "title": "Szczegóły wyniku",
+                "child-result": "Wynik dziecka: ",
+                "points": "Liczba punktów:  ",
+                "text-1": " możliwych",
+                "text-2": "Znaczenie wyniku na tle całej grupy wiekowej:",
+                "text-3": "dzieci uzyskało wynik równy lub lepszy od Twojego dziecka.",
+                "next-level": {
+                    "title": "Następny poziom cechy:",
+                    "text-1": " - od ",
+                    "text-2": " (zabrakło tylko ",
+                    "text-3": "!)"
+                }
+            }
+        },
         "tests-informations": {
             "about": {
                 "panelTitle": "O Wrocławskim Teście Przedszkolaka – parę słów ogólnie",
@@ -357,10 +394,10 @@
                 "test2-description": "Skok w dal obunóż z miejsca",
                 "test2-scale": "Skala: 0 cm - 80 cm",
                 "test3-name": "Siła",
-                "test3-description": "Bieg na odległość 20 metrów",
+                "test3-description": "Rzut piłką lekarską zza głowy",
                 "test3-scale": "Skala: 0 s - 80 s",
                 "test4-name": "Szybkość",
-                "test4-description": "Bieg wahadłowy 4x5 m",
+                "test4-description": "Bieg na odległość 20 metrów",
                 "test4-scale": "Skala: 0 s - 80 s"
             },
             "results": {
@@ -640,7 +677,7 @@
         "logout": "Wyloguj"
     },
     "instructor-menu": {
-        "add-results": "Dodaj wyniki",
+        "results-table": "Tabela wyników",
         "notifications": "Powiadomienia",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
@@ -797,6 +834,10 @@
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
+    "cookies-popup": {
+        "link": "Polityce Prywatoności",
+        "content": "Używamy „ciasteczek” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu.  Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Przeczytaj więcej na temat naszych praktyk dotyczących “ciasteczek” w  <Link>Polityce Prywatoności</Link> serwisu."
+    },
     "agreements": {
         "show-all": "Wszystkie",
         "marketing": "Zgody marketingowe",
@@ -937,7 +978,7 @@
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
-        "back-to-table": "Wróć",
+        "back-to-table": "Wróć do tabeli",
         "back-to-results": "Wróć do wpisywania wyniku",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",

@@ -46,7 +46,7 @@ export default function InstructorAddResultsPage() {
             .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || [];
 
     useEffect(() => {
-        activePage(['instructor-menu.add-results']);
+        activePage(['instructor-menu.results-table']);
     }, []);
 
     useEffect(() => {
@@ -60,7 +60,7 @@ export default function InstructorAddResultsPage() {
     }, [assessments]);
 
     const childList = getFiltredAndSortedChildList();
-    const maxResults = childList.length * 4;
+    const maxResults = currentChildren.length * 4;
 
     if (areAssessmentsLoading) return null;
 

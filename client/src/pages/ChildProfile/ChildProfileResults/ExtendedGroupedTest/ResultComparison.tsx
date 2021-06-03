@@ -1,4 +1,4 @@
-import { Card, Grid, Theme, Typography } from '@material-ui/core';
+import { Card, Grid, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { gray, lightTextColor, resultColors } from '../../../../colors';
@@ -48,12 +48,12 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                         </Typography>
                     </div>
                     <div className={classes.cardBottom}>
-                        <Typography className={classes.cardBottomText} variant="body1">
-                            {t('child-profile.comparison-label')}
-                        </Typography>
-                        <Typography variant="subtitle2" className={classes.difference}>
-                            {t(`child-profile.difference.${key}`)}
-                        </Typography>
+                        <Typography variant="body1">{t('child-profile.comparison-label')}</Typography>
+                        <Box my={3}>
+                            <Typography variant="subtitle2" className={classes.difference}>
+                                {t(`child-profile.difference.${key}`)}
+                            </Typography>
+                        </Box>
                         <ButtonSecondary
                             variant="contained"
                             onClick={() => {
@@ -73,9 +73,9 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                     </div>
                 </Card>
                 <div className={classes.rightWrapper}>
-                    <Typography variant="body1" className={classes.title}>
-                        {t('child-profile.comparison-right-title')}
-                    </Typography>
+                    <Box my={1}>
+                        <Typography variant="body1">{t('child-profile.comparison-right-title')}</Typography>
+                    </Box>
                     <Grid
                         container
                         direction={isSmallMobile ? 'column-reverse' : 'row'}
@@ -84,7 +84,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                         spacing={5}
                     >
                         <Grid item xs={12} sm={8} lg={8} className={classes.ruller}>
-                            <Results resultsData={resultsData} />
+                            <Results resultsData={resultsData} displayHistoricalResults />
                         </Grid>
                         <Grid item xs={12} sm={4} lg={4} className={classes.info}>
                             <ChartLegend resultKey={key} color={differenceColor} difference={difference} />
@@ -147,24 +147,13 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             paddingTop: theme.spacing(2),
         },
-        cardBottomText: {
-            textAlign: 'left',
-        },
         difference: {
-            fontFamily: 'Montserrat',
-            fontSize: 14,
             textTransform: 'uppercase',
-            marginBottom: theme.spacing(3),
-            marginTop: theme.spacing(3),
-            fontWeight: 'bold',
             color: ({ differenceColor }: { differenceColor: string }) => differenceColor,
         },
         rightWrapper: {
             width: '100%',
             margin: `0 ${theme.spacing(4)}px`,
-        },
-        title: {
-            paddingTop: theme.spacing(1),
         },
         ruller: {},
         info: {

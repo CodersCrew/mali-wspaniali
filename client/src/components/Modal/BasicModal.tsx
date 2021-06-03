@@ -1,8 +1,10 @@
 import { FC } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 import { ButtonPrimary, ButtonSecondary, ButtonDefault } from '../Button';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     isOpen: boolean;
@@ -32,9 +34,24 @@ export const BasicModal: FC<Props> = ({
 
     const ActionButton = isActionButtonSecondary ? ButtonSecondary : ButtonPrimary;
     const classes = useStyles();
+    const device = useIsDevice();
 
     return (
-        <Dialog maxWidth="md" open={isOpen} classes={{ paper: classes.dialogPaper }} onClose={onClose} {...dialogProps}>
+        <Dialog
+            maxWidth="md"
+            open={isOpen}
+            classes={{
+                paper: clsx({
+                    [classes.dialogPaperMaxSize]: !device.isSmallMobile,
+                    [classes.paperContainer]: !device.isSmallMobile,
+                    [classes.paperContainerSmall]: device.isSmallMobile,
+                }),
+                container: clsx({ [classes.container]: device.isSmallMobile }),
+            }}
+            fullScreen={device.isSmallMobile}
+            onClose={onClose}
+            {...dialogProps}
+        >
             <DialogContent className={classes.contentScrollbar}>{children}</DialogContent>
             <DialogActions>
                 {isCancelButtonVisible && (
@@ -56,11 +73,27 @@ export const BasicModal: FC<Props> = ({
     );
 };
 
-const useStyles = makeStyles(() => ({
-    dialogPaper: {
+const useStyles = makeStyles((theme) => ({
+    dialogPaperMaxSize: {
         maxHeight: '80vh',
+    },
+    paperContainer: {
+        padding: theme.spacing(3),
+    },
+    paperContainerSmall: {
+        padding: theme.spacing(3, 2),
+    },
+    smallDialogPaper: {
+        padding: theme.spacing(3, 2),
     },
     contentScrollbar: {
         overflowY: 'unset',
+        padding: 0,
+        '&:first-child': {
+            paddingTop: 0,
+        },
+    },
+    container: {
+        padding: theme.spacing(2),
     },
 }));

@@ -125,7 +125,7 @@ function EditorPanel(props: EditorPanelProps) {
                             onClick={() => props.onClick('save-and-next', localResult)}
                             options={[
                                 <MenuItem
-                                    onClick={() => props.onClick('back-to-table', localResult)}
+                                    onClick={() => props.onClick('save-and-back-to-table', localResult)}
                                     key="add-result-page.save-and-back-to-table"
                                 >
                                     {t('add-result-page.save-and-back-to-table')}

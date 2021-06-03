@@ -50,6 +50,7 @@ export default function ArticleListPage() {
                 onChange={onTabChange}
                 activeCategory={params.category}
                 categories={categoriesList}
+                name="blog"
             />
         );
     }
@@ -62,6 +63,7 @@ export default function ArticleListPage() {
                 onChange={onTabChange}
                 activeCategory={params.category}
                 categories={categoriesList}
+                name="blog"
             />
             <PageContainer>
                 <Typography

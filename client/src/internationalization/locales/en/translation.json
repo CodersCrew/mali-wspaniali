@@ -27,6 +27,7 @@
         "register-header": "Registration",
         "already-have-account": "Already have an account?",
         "register-failure": "Registration failed",
+        "register-failure-keycode": "Incorrect keycode provided",
         "register-failure-description": "Something went wrong. It happens if you mistyped the code you received from the Foundation or you try to use it for the second time. Maybe you provided an other email than you hand over to the Foundation. Please, check it out again and contuct us as a last resort.",
         "password-mismatch": "Passwords do not match",
         "register-success-title": "And now it is the time for the last step!",
@@ -36,6 +37,7 @@
         "register": "Registration",
         "password-not-strong": "Password not strong enough",
         "agreements-and-regulations": "Agreements and regulations",
+        "agreements-fetch-failed": "Fetching data failed. Try again later.",
         "create-password": "Register account",
         "confirmation": "Confirmation",
         "create-password-text": "Create a password to Mali Wspaniali platform that will serve you for future logins.",
@@ -169,6 +171,7 @@
         "advice": "Advice",
         "initial-test": "Initial test",
         "final-test": "Final test",
+        "result-level": "Feature level",
         "result-description": {
             "bad": "LOW FITNESS LEVEL",
             "medium": "MEDIUM FITNESS LEVEL",
@@ -192,6 +195,12 @@
             "power": "Power test",
             "speed": "Speed test",
             "agility": "Agility test"
+        },
+        "test-description": {
+            "agility": "4 x 5 m pendulum run",
+            "power": "Take both long jump from the spot",
+            "strength": "Medicine ball throw from behind the head",
+            "speed": "Run 20 meters"
         },
         "no-result-block-text": "did not take place or the child was unable to participate in the test that day.",
         "scale": "Scale",
@@ -246,10 +255,10 @@
                 "test2-description": "Take both long jump from the spot",
                 "test2-scale": "Scale: 0 cm - 80 cm",
                 "test3-name": "Force",
-                "test3-description": "Run 20 meters",
+                "test3-description": "Medicine ball throw from behind the head",
                 "test3-scale": "Scale: 0 s - 80 s",
                 "test4-name": "Speed",
-                "test4-description": "Pendulum run 4x5 m",
+                "test4-description": "Run 20 meters",
                 "test4-scale": "Scale: 0 s - 80 s"
             },
             "results": {
@@ -325,6 +334,9 @@
     "parent-profile": {
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
+    },
+    "details-modal": {
+        "next-assesment-time": "Następny pomiar próby"
     },
     "test-results": {
         "search-result": "Search Result",
@@ -584,7 +596,7 @@
         "add-article": "Add article"
     },
     "instructor-menu": {
-        "add-results": "Add results",
+        "results-table": "Results table",
         "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Logout"
@@ -742,6 +754,10 @@
         "previous": "Previous",
         "next": "Next"
     },
+    "cookies-popup": {
+        "link": "Privacy Policy",
+        "content": "We use „cookies” to collect information on the use of the website. You can find this mechanism in the settings. Read more about our cookie practices in the Site's <Link>Privacy Policy</Link>."
+    },
     "agreements": {
         "show-all": "Show all",
         "marketing": "Marketing agreements",
@@ -879,7 +895,7 @@
         "points": "pts",
         "title-first-measurement": "FIRST MEASUREMENT EFFICIENCY LEVEL",
         "title-last-measurement": "LAST MEASUREMENT EFFICIENCY LEVEL",
-        "back-to-table": "Back",
+        "back-to-table": "Back to the table",
         "back-to-results": "Back to results",
         "child-list": "Child list",
         "strength": "STRENGTH",
