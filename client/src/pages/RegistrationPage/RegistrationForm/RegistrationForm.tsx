@@ -250,11 +250,23 @@ export const RegistrationForm = () => {
         event.preventDefault();
         setLoading(() => true);
 
+        if (!roleBasedKeyCode?.isValid()) {
+            openSnackbar({
+                text: t('registration-page.register-failure-keycode'),
+                severity: 'error',
+                anchor: { vertical: 'top', horizontal: 'center' },
+            });
+            setActiveStep(() => 0);
+            setLoading(() => false);
+
+            return;
+        }
+
         if (!passwordStrengthTest(password)) {
             openSnackbar({
                 text: t('registration-page.password-not-strong'),
                 severity: 'error',
-                anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
+                anchor: { vertical: 'top', horizontal: 'center' },
             });
             setLoading(() => false);
 
@@ -262,17 +274,6 @@ export const RegistrationForm = () => {
         }
 
         if (password !== passwordConfirm) {
-            setLoading(() => false);
-
-            return;
-        }
-
-        if (!roleBasedKeyCode?.isValid()) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.register-failure-keycode'),
-            });
-            setActiveStep(() => 0);
             setLoading(() => false);
 
             return;

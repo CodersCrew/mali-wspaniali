@@ -50,9 +50,10 @@ export const RegistrationEmail = ({
     );
 
     function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            if (emailTest(email)) handleNext();
-        }
+        if (event.key !== 'Enter') return;
+
+        event.preventDefault();
+
+        if (emailTest(email)) handleNext();
     }
 };
