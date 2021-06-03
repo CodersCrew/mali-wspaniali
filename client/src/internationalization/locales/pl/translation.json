@@ -46,8 +46,7 @@
         "enter-code": "Kod",
         "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu Twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
-        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: ",
-        "no-code-desc-email": "biuro@mali-wspaniali.pl",
+        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: <strong>biuro@mali-wspaniali.pl</strong>",
         "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go ponownie",
         "invalid-email": "Niepoprawny adres e-mail.",
         "length": "8 znaków",
@@ -72,7 +71,7 @@
     "forgot-password-page": {
         "forgot-password": "Nie pamiętasz hasła?",
         "its-ok": "Nic się nie stało. Wpisz swój adres email.",
-        "its-ok-mobile": "Nic się nie stało.<br>Wpisz swój adres email.",
+        "its-ok-mobile": "Nic się nie stało.<br/>Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
         "continue": "Kontynuuj",

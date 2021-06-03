@@ -20,7 +20,6 @@ import { RegistrationFeedback } from './RegistrationFeedback';
 import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
-import { LanguageSelector } from './LanguageSelector';
 import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
 
 const initialState: RegisterForm = {
@@ -250,9 +249,6 @@ export const RegistrationForm = () => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.topHeader}>
-                <LanguageSelector />
-            </div>
             <Typography variant="h3" className={classes.header}>
                 {t('registration-page.register-header')}
             </Typography>

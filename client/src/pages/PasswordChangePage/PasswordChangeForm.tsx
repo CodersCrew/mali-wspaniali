@@ -14,10 +14,12 @@ import {
     CircularProgress,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+import clsx from 'clsx';
 
 import { Theme } from '../../theme';
 import { ButtonSecondary } from '../../components/Button';
 import { PasswordStrengthChips } from '../RegistrationPage/RegistrationForm/PasswordStrengthChips';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 import { PasswordChangeProps, PasswordValidation } from './types';
 import {
@@ -44,6 +46,8 @@ export function PasswordChangeForm({
 }: PasswordChangeProps) {
     const { t } = useTranslation();
     const classes = useStyles();
+    const { isDesktop } = useIsDevice();
+
     const [showPassword, setShowPassword] = useState(false);
     const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
@@ -64,7 +68,13 @@ export function PasswordChangeForm({
 
     return (
         <div className={classes.container}>
-            <Typography variant="subtitle1" className={classes.subtitle}>
+            <Typography
+                variant="subtitle1"
+                className={clsx({
+                    [classes.subtitle]: true,
+                    [classes.subtitleMobile]: !isDesktop,
+                })}
+            >
                 {t('password-change-page.new-password-subtitle')}
             </Typography>
             <FormControl variant="outlined" fullWidth className={classes.formItem}>
@@ -93,8 +103,13 @@ export function PasswordChangeForm({
                 />
                 <PasswordStrengthChips passwordValidation={passwordValidation} />
             </FormControl>
-            <Box className={classes.separator} />
-            <FormControl variant="outlined" fullWidth className={classes.formItem}>
+            <Box
+                className={clsx({
+                    [classes.separator]: isDesktop,
+                    [classes.separatorMobile]: !isDesktop,
+                })}
+            />
+            <FormControl variant="outlined" fullWidth className={clsx({ [classes.formItem]: !isDesktop })}>
                 <InputLabel htmlFor="passwordConfirm">{t('password-change-page.repeat-password')}</InputLabel>
                 <OutlinedInput
                     required
@@ -119,7 +134,12 @@ export function PasswordChangeForm({
                 />
                 {error && <FormHelperText error={error}>{t('registration-page.password-mismatch')}</FormHelperText>}
             </FormControl>
-            <div className={classes.buttonWrapper}>
+            <div
+                className={clsx({
+                    [classes.buttonWrapper]: true,
+                    [classes.buttonWrapperMobile]: !isDesktop,
+                })}
+            >
                 <div className={classes.loadingWrapper}>
                     <ButtonSecondary
                         variant="contained"
@@ -148,17 +168,13 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '350px',
             textAlign: 'center',
             marginBottom: theme.spacing(4),
-            [theme.breakpoints.down('sm')]: {
-                width: '100%',
-                fontSize: '16px',
-                fontWeight: 500,
-                marginBottom: 0,
-            },
+        },
+        subtitleMobile: {
+            width: '100%',
+            marginBottom: 0,
         },
         formItem: {
-            [theme.breakpoints.down('sm')]: {
-                marginTop: theme.spacing(2),
-            },
+            marginTop: theme.spacing(2),
         },
         buttonWrapper: {
             width: '100%',
@@ -167,10 +183,9 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'flex-end',
-
-            [theme.breakpoints.down('sm')]: {
-                marginTop: theme.spacing(5),
-            },
+        },
+        buttonWrapperMobile: {
+            marginTop: theme.spacing(5),
         },
         loadingWrapper: {
             position: 'relative',
@@ -190,9 +205,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
         separator: {
             marginBottom: theme.spacing(2),
-            [theme.breakpoints.down('sm')]: {
-                marginBottom: 0,
-            },
+        },
+        separatorMobile: {
+            marginBottom: 0,
         },
     }),
 );

@@ -9,9 +9,8 @@ export const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            minHeight: '100vh',
             minWidth: 360,
-            height: '100vh',
+            height: '100%',
             overflowY: 'auto',
             padding: theme.spacing(0, 2),
             [theme.breakpoints.down('md')]: {

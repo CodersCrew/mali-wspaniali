@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, TextField, Typography } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { ButtonSecondary } from '../../../components/Button';
@@ -25,9 +25,7 @@ export const RegistrationCode = ({
         openAlertDialog({
             type: 'info',
             title: t('registration-page.no-code'),
-            description: `${t('registration-page.no-code-desc')} <span class="${classes.strong}">${t(
-                'registration-page.no-code-desc-email',
-            )}</span>`,
+            description: <Trans i18nKey={'registration-page.no-code-desc'} />,
         });
     };
 
@@ -77,9 +75,6 @@ export const RegistrationCode = ({
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        strong: {
-            fontWeight: theme.typography.fontWeightMedium,
-        },
         noCodeButton: {
             textAlign: 'center',
             whiteSpace: 'normal',

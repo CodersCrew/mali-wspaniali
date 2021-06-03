@@ -1,11 +1,13 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Box, Link } from '@material-ui/core/';
+import clsx from 'clsx';
 
 import { Theme } from '../../theme';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { openAlertDialog } from '../../components/AlertDialog';
 import { ButtonSecondary } from '../../components/Button';
+import { useIsDevice } from '../../queries/useBreakpoints';
 
 import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
@@ -20,6 +22,7 @@ const initialState: PassChangeForm = {
 export default function PasswordChangePage() {
     const { t } = useTranslation();
     const classes = useStyles();
+    const { isDesktop } = useIsDevice();
 
     const [form, setForm] = useState(initialState);
     const [onSuccess, setOnSuccess] = useState(false);
@@ -63,9 +66,21 @@ export default function PasswordChangePage() {
                     <PasswordSuccessfullyChanged />
                 ) : (
                     <>
-                        <div className={classes.innerContainer}>
-                            <img className={classes.image} src={SuccessImage} alt={t('forgot-password-page.avatar')} />
-                            <Typography variant="h4" className={classes.title}>
+                        <div
+                            className={clsx({
+                                [classes.innerContainer]: true,
+                                [classes.innerContainerMobile]: !isDesktop,
+                            })}
+                        >
+                            <img
+                                className={clsx({ [classes.image]: true, [classes.imageMobile]: !isDesktop })}
+                                src={SuccessImage}
+                                alt={t('forgot-password-page.avatar')}
+                            />
+                            <Typography
+                                variant="h4"
+                                className={clsx({ [classes.title]: true, [classes.titleMobile]: !isDesktop })}
+                            >
                                 {t('password-change-page.new-password-title')}
                             </Typography>
                             <form className={classes.form} onSubmit={handleSubmit}>
@@ -80,7 +95,12 @@ export default function PasswordChangePage() {
                             </form>
                             <Box className={classes.separator} />
                         </div>
-                        <div className={classes.footer}>
+                        <div
+                            className={clsx({
+                                [classes.footer]: true,
+                                [classes.footerMobile]: !isDesktop,
+                            })}
+                        >
                             <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
                             <Link href="mailto:test@test.pl" underline="always" color="textPrimary">
                                 <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
@@ -108,32 +128,31 @@ const useStyles = makeStyles((theme: Theme) =>
 
         innerContainer: {
             width: '100%',
+            minWidth: 'calc(328px + 2 * 24px)',
             padding: theme.spacing(0, 3),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            [theme.breakpoints.down('sm')]: {
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-            },
+        },
+        innerContainerMobile: {
+            justifyContent: 'space-between',
         },
         image: {
             borderRadius: '50%',
             width: theme.spacing(28),
-            [theme.breakpoints.down('sm')]: {
-                width: 100,
-                marginTop: theme.spacing(4),
-            },
+        },
+        imageMobile: {
+            width: 100,
+            marginTop: theme.spacing(4),
         },
         title: {
             textAlign: 'center',
             marginBottom: theme.spacing(2),
             marginTop: theme.spacing(2),
             textTransform: 'uppercase',
-            [theme.breakpoints.down('sm')]: {
-                marginTop: theme.spacing(4),
-            },
+        },
+        titleMobile: {
+            marginTop: theme.spacing(4),
         },
         form: {
             display: 'flex',
@@ -150,11 +169,11 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            [theme.breakpoints.down('sm')]: {
-                marginTop: 0,
-                justifyContent: 'flex-end',
-                paddingBottom: theme.spacing(2),
-            },
+        },
+        footerMobile: {
+            marginTop: 0,
+            justifyContent: 'flex-end',
+            paddingBottom: theme.spacing(2),
         },
         backToLoginButton: {
             marginTop: theme.spacing(2),

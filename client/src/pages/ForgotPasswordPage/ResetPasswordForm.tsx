@@ -1,7 +1,7 @@
 import { TextField, Typography, Box, makeStyles, createStyles } from '@material-ui/core';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import parse from 'html-react-parser';
+import { useTranslation, Trans } from 'react-i18next';
+import clsx from 'clsx';
 
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
@@ -19,7 +19,8 @@ type Props = {
 export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const device = useIsDevice();
+    const { isDesktop } = useIsDevice();
+
     const [inputValue, setInputValue] = useState('');
     const [isError, setIsError] = useState(false);
 
@@ -46,7 +47,7 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
         <div className={classes.container}>
             <Box mb={3}>
                 <Typography variant="subtitle1" className={classes.subtitle}>
-                    {parse(t(device.isDesktop ? `${tPrefix}.its-ok` : `${tPrefix}.its-ok-mobile`))}
+                    <Trans i18nKey={isDesktop ? `${tPrefix}.its-ok` : `${tPrefix}.its-ok-mobile`} />
                 </Typography>
                 <Typography variant="subtitle1" className={classes.subtitle}>
                     {t(`${tPrefix}.receive-link`)}
@@ -64,7 +65,13 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
                 onChange={({ target: { value } }) => handleChange(value)}
                 onBlur={handleBlur}
             />
-            <Box mt={3} className={classes.button}>
+            <Box
+                mt={3}
+                className={clsx({
+                    [classes.buttonContinue]: true,
+                    [classes.buttonContinueMobile]: !isDesktop,
+                })}
+            >
                 <ButtonSecondary
                     variant="contained"
                     onClick={handleSubmit}
@@ -88,19 +95,15 @@ const useStyles = makeStyles((theme: Theme) =>
         subtitle: {
             width: '350px',
             textAlign: 'center',
-            [theme.breakpoints.down('sm')]: {
-                fontSize: '16px',
-                fontWeight: 500,
-            },
         },
-        button: {
+        buttonContinue: {
             display: 'flex',
             justifyContent: 'flex-end',
             width: '100%',
             justifyItem: 'flex-end',
-            [theme.breakpoints.down('sm')]: {
-                marginBottom: theme.spacing(5),
-            },
+        },
+        buttonContinueMobile: {
+            marginBottom: theme.spacing(5),
         },
     }),
 );
