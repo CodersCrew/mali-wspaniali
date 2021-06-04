@@ -1,7 +1,5 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/';
 
-import { secondaryColor, mainColor, textColor, white } from '../../../colors';
-
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
@@ -9,9 +7,8 @@ export const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            minHeight: '100vh',
             minWidth: 360,
-            height: '100vh',
+            height: '100%',
             overflowY: 'auto',
             padding: theme.spacing(0, 2),
             [theme.breakpoints.down('md')]: {
@@ -81,7 +78,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             fontSize: '21px',
             fontWeight: 'bold',
             textTransform: 'uppercase',
-            color: textColor,
+            color: theme.palette.text.primary,
 
             [theme.breakpoints.down('md')]: {
                 '&.confirmation': {
@@ -133,8 +130,8 @@ export const useStyles = makeStyles((theme: Theme) =>
             lineHeight: '17px',
             textAlign: 'center',
             textTransform: 'uppercase',
-            color: white,
-            background: secondaryColor,
+            color: theme.palette.common.white,
+            background: theme.palette.secondary.main,
             textDecoration: 'none',
             borderRadius: '4px',
             padding: '4px 10px',
@@ -142,17 +139,26 @@ export const useStyles = makeStyles((theme: Theme) =>
             boxShadow: theme.shadows[5],
         },
         chipsContainer: {
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2,1fr)',
-            justifyItems: 'start',
-            marginTop: '10px',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            [theme.breakpoints.down('sm')]: {
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                padding: theme.spacing(0, 3),
+            },
         },
         chip: {
             margin: '5px 0',
             border: 0,
+            justifySelf: 'start',
 
             '&.checked': {
-                color: mainColor,
+                color: theme.palette.primary,
+            },
+
+            [theme.breakpoints.down('sm')]: {
+                margin: 0,
             },
         },
         agreementContainer: {
@@ -175,7 +181,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.secondary.main,
         },
         agreementMoreBtn: {
-            color: mainColor,
+            color: theme.palette.primary.main,
             justifyContent: 'flex-start',
             fontSize: '14px',
             paddingLeft: 0,
@@ -204,7 +210,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(0.5),
         },
         agreementLink: {
-            color: mainColor,
+            color: theme.palette.primary.main,
         },
         agreementModal: {
             position: 'absolute',
@@ -235,6 +241,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
         },
         subHeader: {
+            width: 200,
             textAlign: 'center',
         },
         footer: {

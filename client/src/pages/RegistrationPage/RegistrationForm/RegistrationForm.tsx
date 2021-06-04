@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';
 
 import { createUser } from '../../../queries/userQueries';
@@ -20,8 +20,8 @@ import { RegistrationFeedback } from './RegistrationFeedback';
 import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
-import { LanguageSelector } from './LanguageSelector';
 import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 const initialState: RegisterForm = {
     code: '',
@@ -31,20 +31,27 @@ const initialState: RegisterForm = {
 };
 
 export const RegistrationForm = () => {
-    const [form, setForm] = useState(initialState);
-    const [activeStep, setActiveStep] = useState(0);
-
-    const [skip, setSkip] = useState(false);
-
-    const [loading, setLoading] = useState(false);
-
-    const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
-    const { code, email, password, passwordConfirm } = form;
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
+    const [form, setForm] = useState(initialState);
+    const [activeStep, setActiveStep] = useState(0);
+    const [skip, setSkip] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const [roleBasedKeyCode, setRoleBasedKeyCode] = useState<RoleBasedKeyCodeObject | undefined>(undefined);
+    const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
+
+    const { code, email, password, passwordConfirm } = form;
+
+    const steps = [
+        t('registration-page.enter-code'),
+        t('e-mail'),
+        t('registration-page.agreements-and-regulations'),
+        t('registration-page.create-password'),
+        t('registration-page.confirmation'),
+    ];
 
     useEffect(() => {
         getAgreements()
@@ -57,23 +64,81 @@ export const RegistrationForm = () => {
 
                 setAgreements(() => agreementList);
             })
-            .catch((error) => {
+            .catch((err) => {
                 openAlertDialog({
                     type: 'error',
-                    description: `${t('registration-page.agreements-fetch-failed')}<br><br>${error.message}`,
+                    description: `${t('registration-page.agreements-fetch-failed')}<br><br>${err.message}`,
                 });
             });
     }, []);
 
-    const steps = [
-        t('registration-page.enter-code'),
-        t('e-mail'),
-        t('registration-page.agreements-and-regulations'),
-        t('registration-page.create-password'),
-        t('registration-page.confirmation'),
-    ];
+    useEffect(() => {
+        setRoleBasedKeyCode(RoleBasedKeyCodeObject.from(code));
+    }, [code]);
 
-    const getStepContent = (step: number) => {
+    return (
+        <div className={classes.container}>
+            <Typography variant="h3" className={classes.header}>
+                {t('registration-page.register-header')}
+            </Typography>
+            <Box mb={isDesktop ? 3 : 2} />
+            {activeStep === 0 && (
+                <>
+                    <Typography variant="subtitle1" className={classes.subHeader}>
+                        {t('login-wrapper.subheading')}
+                    </Typography>
+                    <Box mb={isDesktop ? 2.5 : 2} />
+                </>
+            )}
+            <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
+                <Stepper
+                    activeStep={activeStep}
+                    orientation="vertical"
+                    className={classes.stepper}
+                    connector={
+                        isDesktop ? (
+                            <StepConnector
+                                classes={{
+                                    completed: classes.stepConnectorCompleted,
+                                    active: classes.stepConnectorCompleted,
+                                }}
+                            />
+                        ) : (
+                            <StepConnector
+                                classes={{
+                                    root: classes.divider,
+                                    completed: classes.dividerCompleted,
+                                    active: classes.dividerCompleted,
+                                }}
+                            />
+                        )
+                    }
+                >
+                    {steps.map((step, idx) => (
+                        <Step key={step} style={{ border: 'none' }}>
+                            <StepLabel>
+                                <Typography variant="body2">{step}</Typography>
+                            </StepLabel>
+                            <StepContent className={classes.stepperContent}>
+                                {idx !== 4 ? getStepContent(idx) : null}
+                            </StepContent>
+                        </Step>
+                    ))}
+                </Stepper>
+            </form>
+            {activeStep === 4 && getStepContent(activeStep)}
+            <div className={classes.footer}>
+                <ButtonSecondary
+                    href="/login"
+                    className={classes.backToLoginButton}
+                    innerText={t('registration-page.go-to-loginpage')}
+                />
+                <Box mb={3} />
+            </div>
+        </div>
+    );
+
+    function getStepContent(step: number) {
         if (step === 0) {
             return (
                 <RegistrationCode
@@ -143,6 +208,8 @@ export const RegistrationForm = () => {
                     classFormItem={classes.formItem}
                     skip={setSkip}
                     loading={loading}
+                    error={error}
+                    setError={setError}
                 />
             );
         }
@@ -161,144 +228,89 @@ export const RegistrationForm = () => {
         }
 
         return null;
-    };
+    }
 
-    const handleNext = () =>
+    function handleNext() {
         setActiveStep((prevActiveStep) => {
             if (prevActiveStep === 1 && roleBasedKeyCode?.isInstructor()) return prevActiveStep + 2;
 
             return prevActiveStep + 1;
         });
+    }
 
-    const handleBack = () =>
+    function handleBack() {
         setActiveStep((prevActiveStep) => {
             if (prevActiveStep === 3 && roleBasedKeyCode?.isInstructor()) return prevActiveStep - 2;
 
             return prevActiveStep - 1;
         });
+    }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         setLoading(() => true);
-        if (!passwordStrengthTest(password)) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.password-not-strong'),
-            });
-            setLoading(() => false);
-        } else if (password !== passwordConfirm) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.password-mismatch'),
-            });
-            setLoading(() => false);
-        } else if (!roleBasedKeyCode?.isValid()) {
-            openAlertDialog({
-                type: 'error',
-                description: t('registration-page.register-failure-keycode'),
+
+        if (!roleBasedKeyCode?.isValid()) {
+            openSnackbar({
+                text: t('registration-page.register-failure-keycode'),
+                severity: 'error',
+                anchor: { vertical: 'top', horizontal: 'center' },
             });
             setActiveStep(() => 0);
             setLoading(() => false);
-        } else {
-            load(
-                createUser({
-                    mail: email,
-                    password,
-                    keyCode: roleBasedKeyCode?.parseToKeyCode() || '',
-                    agreements: agreements
-                        .filter((agreement) => !!agreement._id && agreement.isSigned)
-                        .map((item) => item._id),
-                }),
-            )
-                .then(() => {
-                    setLoading(() => false);
-                    handleNext();
-                })
-                .catch(() => {
-                    setLoading(() => false);
-                    if (skip) {
-                        setSkip(() => false);
-                        handleNext();
-                    } else {
-                        openAlertDialog({
-                            type: 'error',
-                            title: t('registration-page.register-failure'),
-                            description: t('registration-page.register-failure-description'),
-                        });
-                    }
-                });
-        }
-    };
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+            return;
+        }
+
+        if (!passwordStrengthTest(password)) {
+            openSnackbar({
+                text: t('registration-page.password-not-strong'),
+                severity: 'error',
+                anchor: { vertical: 'top', horizontal: 'center' },
+            });
+            setLoading(() => false);
+
+            return;
+        }
+
+        if (password !== passwordConfirm) {
+            setLoading(() => false);
+
+            return;
+        }
+
+        load(
+            createUser({
+                mail: email,
+                password,
+                keyCode: roleBasedKeyCode?.parseToKeyCode() || '',
+                agreements: agreements
+                    .filter((agreement) => !!agreement._id && agreement.isSigned)
+                    .map((item) => item._id),
+            }),
+        )
+            .then(() => {
+                setLoading(() => false);
+                handleNext();
+            })
+            .catch(() => {
+                setLoading(() => false);
+                if (skip) {
+                    setSkip(() => false);
+                    handleNext();
+                } else {
+                    openAlertDialog({
+                        type: 'error',
+                        title: t('registration-page.register-failure'),
+                        description: <Trans i18nKey={'registration-page.register-failure-description'} />,
+                    });
+                }
+            });
+    }
+
+    function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+        setError(false);
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));
-    };
-
-    useEffect(() => {
-        setRoleBasedKeyCode(RoleBasedKeyCodeObject.from(code));
-    }, [code]);
-
-    return (
-        <div className={classes.container}>
-            <div className={classes.topHeader}>
-                <LanguageSelector />
-            </div>
-            <Typography variant="h3" className={classes.header}>
-                {t('registration-page.register-header')}
-            </Typography>
-            <Box mb={isDesktop ? 3 : 2} />
-            {activeStep === 0 && (
-                <>
-                    <Typography className={classes.subHeader}>{t('login-wrapper.subheading')}</Typography>
-                    <Box mb={isDesktop ? 2.5 : 2} />
-                </>
-            )}
-            <form className={classes.form} autoComplete="off" onSubmit={handleSubmit}>
-                <Stepper
-                    activeStep={activeStep}
-                    orientation="vertical"
-                    className={classes.stepper}
-                    connector={
-                        isDesktop ? (
-                            <StepConnector
-                                classes={{
-                                    completed: classes.stepConnectorCompleted,
-                                    active: classes.stepConnectorCompleted,
-                                }}
-                            />
-                        ) : (
-                            <StepConnector
-                                classes={{
-                                    root: classes.divider,
-                                    completed: classes.dividerCompleted,
-                                    active: classes.dividerCompleted,
-                                }}
-                            />
-                        )
-                    }
-                >
-                    {steps.map((step, idx) => (
-                        <Step key={step} style={{ border: 'none' }}>
-                            <StepLabel>
-                                <Typography variant="body2">{step}</Typography>
-                            </StepLabel>
-                            <StepContent className={classes.stepperContent}>
-                                {idx !== 4 ? getStepContent(idx) : null}
-                            </StepContent>
-                        </Step>
-                    ))}
-                </Stepper>
-            </form>
-            {activeStep === 4 && getStepContent(activeStep)}
-            <div className={classes.footer}>
-                <ButtonSecondary
-                    href="/login"
-                    className={classes.backToLoginButton}
-                    innerText={t('registration-page.go-to-loginpage')}
-                />
-                <Box mb={3} />
-            </div>
-        </div>
-    );
+    }
 };

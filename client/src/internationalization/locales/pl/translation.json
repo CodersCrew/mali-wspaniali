@@ -35,7 +35,7 @@
         "register-success-spam": "",
         "password-confirm": "Powtórz hasło",
         "register": "Rejestracja",
-        "password-not-strong": "Hasło za słabe",
+        "password-not-strong": "Hasło jest za słabe. Sprawdź, czy Twoje hasło posiada co najmniej osiem znaków, dużą literę, cyfrę i znak specjalny.",
         "agreements-and-regulations": "Zgody i regulaminy",
         "agreements-fetch-failed": "Nie udało się pobrać danych. Spróbuj ponownie później.",
         "create-password": "Zarejestruj się",
@@ -46,8 +46,7 @@
         "enter-code": "Kod",
         "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu Twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
-        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: ",
-        "no-code-desc-email": "biuro@mali-wspaniali.pl",
+        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: <strong>biuro@mali-wspaniali.pl</strong>",
         "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go ponownie",
         "invalid-email": "Niepoprawny adres e-mail.",
         "length": "8 znaków",
@@ -79,10 +78,23 @@
         "problem": "Napotkałeś problem?",
         "contact": "Skontaktuj się z fundacją, by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
+        "incorrect-email-helper-text": "Niepoprawny adres e-mail",
         "back-to-login": "Wróć do logowania",
         "avatar": "Małgosia",
         "email-sent": "Na Twój adres e-mail wysłaliśmy maila.",
         "when-received": "Wprowadź otrzymany kod."
+    },
+    "password-change-page": {
+        "new-password-title": "Nowe hasło",
+        "new-password-subtitle": "Stwórz swoje nowe hasło do platformy Mali Wspaniali",
+        "create-new-password": "Stwórz nowe hasło",
+        "new-password": "Nowe hasło",
+        "repeat-password": "Powtórz hasło"
+    },
+    "password-change-success-page": {
+        "password-change-success-title": "Zmiana hasła zakończona pomyślnie",
+        "password-change-success-subtitle": "Zaloguj się swoim nowym hasłem, aby móc znowu korzystać z platformy Mali Wspaniali.",
+        "login": "Zaloguj"
     },
     "users-page": {
         "agreements": "Zgody",

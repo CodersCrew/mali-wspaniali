@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, TextField, Typography } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { ButtonSecondary } from '../../../components/Button';
@@ -20,22 +20,6 @@ export const RegistrationCode = ({
 }: RegistrationCodeProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
-
-    const handleClick = () => {
-        openAlertDialog({
-            type: 'info',
-            title: t('registration-page.no-code'),
-            description: `${t('registration-page.no-code-desc')} <span class="${classes.strong}">${t(
-                'registration-page.no-code-desc-email',
-            )}</span>`,
-        });
-    };
-
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === 'Enter' && roleBasedKeyCode?.isValid()) {
-            handleNext();
-        }
-    };
 
     return (
         <>
@@ -73,13 +57,26 @@ export const RegistrationCode = ({
             </div>
         </>
     );
+
+    function handleClick() {
+        openAlertDialog({
+            type: 'info',
+            title: t('registration-page.no-code'),
+            description: <Trans i18nKey={'registration-page.no-code-desc'} />,
+        });
+    }
+
+    function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key !== 'Enter') return;
+
+        event.preventDefault();
+
+        if (roleBasedKeyCode) handleNext();
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        strong: {
-            fontWeight: theme.typography.fontWeightMedium,
-        },
         noCodeButton: {
             textAlign: 'center',
             whiteSpace: 'normal',

@@ -1,7 +1,8 @@
 import { Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { white } from '../../colors';
-import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
+import { ButtonSecondary } from '../../components/Button';
 
 const tPrefix = 'forgot-password-page';
 
