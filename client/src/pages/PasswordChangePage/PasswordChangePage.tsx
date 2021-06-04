@@ -10,9 +10,13 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 
 import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
-import { PassChangeForm } from './types';
 import { PasswordSuccessfullyChanged } from './PasswordSuccessfullyChanged';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+
+type PassChangeForm = {
+    password: string;
+    passwordConfirm: string;
+};
 
 const initialState: PassChangeForm = {
     password: '',

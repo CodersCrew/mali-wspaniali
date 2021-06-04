@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Box, FormHelperText, CircularProgress } from '@material-ui/core';
 import clsx from 'clsx';
@@ -8,7 +8,7 @@ import { ButtonSecondary } from '../../components/Button';
 import { PasswordStrengthChips } from '../RegistrationPage/RegistrationForm/PasswordStrengthChips';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
-import { PasswordChangeProps, PasswordValidation } from './types';
+import { PasswordValidation } from './types';
 import {
     passwordLengthTest,
     passwordSpecialTest,
@@ -24,6 +24,15 @@ const initialPasswordValidation: PasswordValidation = {
     special: false,
 };
 
+interface PasswordChangeProps {
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    password: string;
+    passwordConfirm: string;
+    error: boolean;
+    setError: React.Dispatch<React.SetStateAction<boolean>>;
+    loading?: boolean;
+}
+
 export function PasswordChangeForm({
     handleChange,
     password,
@@ -36,9 +45,9 @@ export function PasswordChangeForm({
     const classes = useStyles();
     const { isDesktop } = useIsDevice();
 
-    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
+    const [passwordValidation, setPasswordValidation] = React.useState(initialPasswordValidation);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setPasswordValidation({
             length: passwordLengthTest(password),
             capital: passwordCapitalTest(password),

@@ -26,8 +26,8 @@ const useStyles = makeStyles(() =>
     createStyles({
         flag: {
             borderRadius: '50%',
-            width: 18,
-            height: 18,
+            width: 24,
+            height: 24,
         },
     }),
 );

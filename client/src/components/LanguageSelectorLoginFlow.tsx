@@ -1,47 +1,40 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { createStyles, makeStyles } from '@material-ui/core';
+import { makeStyles, IconButton } from '@material-ui/core';
 
 import PlFlag from '../assets/pl.png';
 import EnFlag from '../assets/en.png';
-import { theme } from '../theme';
 
-export const LanguageSelectorLoginFlow: React.FC = () => {
+export function LanguageSelectorLoginFlow() {
     const { i18n } = useTranslation();
     const classes = useStyles();
     const localStorageLanguage = localStorage.getItem('i18nextLng');
 
-    const changeLanguage = (lng: string) => {
-        return i18n.changeLanguage(lng);
-    };
-
-    const languageImage = (flag: string, language: string) => (
-        <img className={classes.img} src={flag} alt={language} onClick={() => changeLanguage(language)} />
-    );
-
     return (
         <div className={classes.container}>
-            {localStorageLanguage === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}
+            <IconButton>
+                {localStorageLanguage === 'pl' ? languageImage(EnFlag, 'en') : languageImage(PlFlag, 'pl')}
+            </IconButton>
         </div>
     );
-};
 
-const useStyles = makeStyles(() =>
-    createStyles({
-        img: {
-            height: 24,
-            width: 24,
-            borderRadius: '50%',
-            '&:hover': {
-                cursor: 'pointer',
-                boxShadow: `0 0 2px 0px ${theme.palette?.common?.white}`,
-                transition: 'all 0.3s ease-in-out',
-            },
-        },
-        container: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-        },
-    }),
-);
+    function languageImage(flag: string, language: string) {
+        return <img className={classes.img} src={flag} alt={language} onClick={() => changeLanguage(language)} />;
+    }
+
+    function changeLanguage(lng: string) {
+        return i18n.changeLanguage(lng);
+    }
+}
+
+const useStyles = makeStyles({
+    img: {
+        height: 24,
+        width: 24,
+        borderRadius: '50%',
+    },
+    container: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+    },
+});

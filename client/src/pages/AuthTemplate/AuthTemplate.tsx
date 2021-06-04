@@ -125,8 +125,6 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: 'auto',
         },
         appBarLanguageSelector: {
-            height: 24,
-            width: 24,
             marginRight: theme.spacing(3),
         },
     }),
