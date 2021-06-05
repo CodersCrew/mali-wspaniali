@@ -74,7 +74,8 @@ export function Root() {
                             </Route>
                             <Route path={['/password-change']}>
                                 <AuthTemplate type="login">
-                                    <Route path="/password-change" component={PasswordChangePage} />
+                                    <Route exact path="/password-change/:confirmation" component={PasswordChangePage} />
+                                    <Route exact path="/password-change" component={PasswordChangePage} />
                                 </AuthTemplate>
                             </Route>
                             <Route path={['/admin', '/parent', '/instructor']}>

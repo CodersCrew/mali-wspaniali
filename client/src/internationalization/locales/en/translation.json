@@ -89,7 +89,8 @@
         "new-password-subtitle": "Create new password for Mali Wspaniali platform.",
         "create-new-password": "Create new password",
         "new-password": "New password",
-        "repeat-password": "Repeat password"
+        "repeat-password": "Repeat password",
+        "password-change-failure": "Password change failed"
     },
     "password-change-success-page": {
         "password-change-success-title": "Password changing process resolved successfully",

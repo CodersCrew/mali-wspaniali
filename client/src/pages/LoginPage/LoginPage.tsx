@@ -137,7 +137,7 @@ export default function LoginPage() {
         openSnackbar({
             text: t('login-page.login-error'),
             severity: 'error',
-            anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
+            anchor: { vertical: 'top', horizontal: 'center' },
         });
     }
 }
