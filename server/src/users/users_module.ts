@@ -10,6 +10,7 @@ import { SendMail } from '../shared/services/send_mail/send_mail';
 import { NodemailerProvider } from '../shared/services/send_mail/nodemailer_provider';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { AgreementsModule } from '../agreements/agreements_module';
+import { KeyCodesModule } from '../key_codes/key_codes_module';
 
 import { KindergartenModule } from '@kindergartens/kindergarten_module';
 import { CommandHandlers } from './domain/commands/handlers';
@@ -18,7 +19,6 @@ import { UserSchema } from './schemas/user_schema';
 import { UserRepository } from './domain/repositories/user_repository';
 import { UsersResolver } from './users_resolver';
 import { ChildResolver } from './child_resolver';
-import { KeyCodesModule } from '@keyCodes/key_codes_module';
 import { EventHandlers } from './domain/events/handlers';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { JwtStrategy } from './strategy/jwt_strategy';

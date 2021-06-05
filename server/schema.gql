@@ -50,6 +50,24 @@ type AgreementDTO {
   isSigned: Boolean!
 }
 
+type CreateKeyCodeDTO {
+  id: ID!
+  date: DateTime!
+  createdBy: String!
+  keyCode: String!
+  series: String!
+  target: String!
+}
+
+type KeyCodeSeriesDTO {
+  date: DateTime!
+  createdBy: String!
+  keyCode: String!
+  series: String!
+  target: String!
+  count: Int!
+}
+
 type KindergartenDTO {
   _id: ID!
   date: DateTime!
@@ -171,24 +189,6 @@ type ChildCurrentParamsDTO {
   jump: ParamsDTO
 }
 
-type CreateKeyCodeDTO {
-  id: ID!
-  date: DateTime!
-  createdBy: String!
-  keyCode: String!
-  series: String!
-  target: String!
-}
-
-type KeyCodeSeriesDTO {
-  date: DateTime!
-  createdBy: String!
-  keyCode: String!
-  series: String!
-  target: String!
-  count: Int!
-}
-
 type NewsletterDTO {
   _id: ID!
   message: String!
@@ -226,6 +226,8 @@ type Query {
   lastArticles(count: Int!): [ArticleDTO!]!
   article(id: String!): ArticleDTO!
   agreements: [AgreementDTO!]!
+  keyCodes(series: String!): [CreateKeyCodeDTO!]!
+  keyCodeSeries: [KeyCodeSeriesDTO!]!
   kindergartens: [KindergartenDTO!]!
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   me: UserDTO!
@@ -233,8 +235,6 @@ type Query {
   users(role: String): [UserDTO!]!
   allChildren: [ChildDTO!]!
   kindergartenResults(kindergartenId: String!, assessmentId: String!): [PartialChildResult!]!
-  keyCodes(series: String!): [CreateKeyCodeDTO!]!
-  keyCodeSeries: [KeyCodeSeriesDTO!]!
   newsletters: [NewsletterDTO!]!
   assessments: [AssessmentDTO!]!
   assessment(id: String!): AssessmentDTO!
@@ -243,6 +243,8 @@ type Query {
 type Mutation {
   createArticle(article: CreateArticleInput!): ReturnedStatusDTO!
   createAgreement(agreement: String!): ReturnedStatusDTO!
+  createKeyCode(target: String!): CreateKeyCodeDTO!
+  createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createKindergarten(kindergarten: KindergartenInput!): KindergartenDTO!
   updateKindergarten(kindergarten: UpdatedKindergartenInput!, id: String!): KindergartenDTO!
   deleteKindergarten(id: String!): ReturnedStatusDTO!
@@ -258,8 +260,6 @@ type Mutation {
   addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!
   updateAssessmentResult(result: PartialUpdateChildResultInput!): PartialChildResult!
-  createKeyCode(target: String!): CreateKeyCodeDTO!
-  createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
