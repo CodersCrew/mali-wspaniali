@@ -12,7 +12,7 @@ import { NotificationsModule } from '../notifications/notifications.module';
 import { AgreementsModule } from '../agreements/agreements_module';
 import { KeyCodesModule } from '../key_codes/key_codes_module';
 
-import { KindergartenModule } from '@kindergartens/kindergarten_module';
+import { KindergartenModule } from '../kindergartens/kindergarten_module';
 import { CommandHandlers } from './domain/commands/handlers';
 import { QueryHandlers } from './domain/queries/handlers';
 import { UserSchema } from './schemas/user_schema';
@@ -32,8 +32,8 @@ import { UserChangePasswordRepository } from './domain/repositories/user_change_
 import { UserChangePasswordCronService } from './user_change_password_cron_service';
 import { ChildAssessmentResultRepository } from './domain/repositories/child_assessment_result_repository';
 import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_schema';
-import { SendGridProvider } from '@app/shared/services/send_mail/sendgrid_provider';
-import { SendGridMail } from '@app/shared/services/send_mail/sendgrid_mail';
+import { SendGridProvider } from '../shared/services/send_mail/sendgrid_provider';
+import { SendGridMail } from '../shared/services/send_mail/sendgrid_mail';
 
 @Module({
   imports: [

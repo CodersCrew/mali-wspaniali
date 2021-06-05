@@ -3,9 +3,9 @@ import { JwtService } from '@nestjs/jwt';
 
 import { ResetPasswordCommand } from '../impl';
 import { UserRepository } from '../../repositories/user_repository';
-import { SendMail } from '@app/shared/services/send_mail/send_mail';
+import { SendMail } from '../../../../shared/services/send_mail/send_mail';
 import { UserChangePasswordRepository } from '../../repositories/user_change_password_jwt_repository';
-import { SendGridMail } from '@app/shared/services/send_mail/sendgrid_mail';
+import { SendGridMail } from '../../../../shared/services/send_mail/sendgrid_mail';
 
 @CommandHandler(ResetPasswordCommand)
 export class ResetPasswordHandler

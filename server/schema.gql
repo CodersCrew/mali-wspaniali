@@ -133,6 +133,33 @@ type KindergartenWithUsersDTO {
   users: [UserDTO!]!
 }
 
+type ReturnedTokenDTO {
+  token: String!
+}
+
+type ParamsDTO {
+  sex: String!
+  age: Int!
+  a: Float!
+  b: Float!
+  lowerLimit: Float!
+  lowerLimitPoints: Float!
+  upperLimit: Float!
+  upperLimitPoints: Float!
+  badStageLimit: Float!
+  weakStageLimit: Float!
+  middleStageLimit: Float!
+  goodStageLimit: Float!
+  veryGoodStageLimit: Float!
+}
+
+type ChildCurrentParamsDTO {
+  run: ParamsDTO
+  pendelumRun: ParamsDTO
+  throw: ParamsDTO
+  jump: ParamsDTO
+}
+
 type PartialChildResult {
   _id: ID
   childId: ID
@@ -160,33 +187,6 @@ type PartialChildResult {
   lastMeasurementThrowResult: Float
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
-}
-
-type ReturnedTokenDTO {
-  token: String!
-}
-
-type ParamsDTO {
-  sex: String!
-  age: Int!
-  a: Float!
-  b: Float!
-  lowerLimit: Float!
-  lowerLimitPoints: Float!
-  upperLimit: Float!
-  upperLimitPoints: Float!
-  badStageLimit: Float!
-  weakStageLimit: Float!
-  middleStageLimit: Float!
-  goodStageLimit: Float!
-  veryGoodStageLimit: Float!
-}
-
-type ChildCurrentParamsDTO {
-  run: ParamsDTO
-  pendelumRun: ParamsDTO
-  throw: ParamsDTO
-  jump: ParamsDTO
 }
 
 type NewsletterDTO {

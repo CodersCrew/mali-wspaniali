@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SendGridProvider } from '@app/shared/services/send_mail/sendgrid_provider';
+import { SendGridProvider } from '../../../shared/services/send_mail/sendgrid_provider';
 
 export interface SendGridSendable {
   send(data: {
