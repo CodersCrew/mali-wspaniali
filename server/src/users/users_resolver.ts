@@ -89,7 +89,7 @@ export class UsersResolver {
       new GetAllUsersQuery(role),
     );
 
-    return users.map((user) => user.getProps()) as UserProps[];
+    return users.map(user => user.getProps()) as UserProps[];
   }
 
   @Mutation(() => ReturnedStatusDTO)
