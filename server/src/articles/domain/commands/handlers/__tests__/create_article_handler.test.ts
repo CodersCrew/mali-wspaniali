@@ -90,6 +90,6 @@ async function setup() {
   return module;
 }
 
-function awaitForResponse(timeout: number = 0): Promise<void> {
+function awaitForResponse(timeout = 0): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }

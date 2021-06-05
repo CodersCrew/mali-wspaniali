@@ -87,7 +87,7 @@ export class AssessmentMapper {
   }
 
   static toUpdated(value: UpdatedAssessmentInput): Partial<AssessmentProps> {
-    let updated: Partial<AssessmentProps> = {};
+    const updated: Partial<AssessmentProps> = {};
 
     if (value.title) {
       const title = Title.create(value.title);
@@ -200,7 +200,7 @@ export class AssessmentMapper {
   }
 
   static toPersist(assessment: Assessment): AssessmentDto {
-    let rawAssessment: AssessmentDto = {
+    const rawAssessment: AssessmentDto = {
       title: assessment.title.value,
       isOutdated: assessment.isOutdated,
       isDeleted: assessment.isDeleted,

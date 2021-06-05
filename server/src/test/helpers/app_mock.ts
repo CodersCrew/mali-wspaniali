@@ -165,7 +165,7 @@ export async function getNotificationsForUser(user: string) {
   });
 }
 
-export async function getUsers(role: string = 'parent') {
+export async function getUsers(role = 'parent') {
   if (!app) {
     await setupTestApp();
   }
@@ -175,7 +175,7 @@ export async function getUsers(role: string = 'parent') {
   });
 }
 
-export async function getAllArticles(page: number = 1, perPage: number = 6) {
+export async function getAllArticles(page = 1, perPage = 6) {
   if (!app) {
     await setupTestApp();
   }

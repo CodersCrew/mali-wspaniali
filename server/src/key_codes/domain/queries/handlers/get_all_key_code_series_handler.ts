@@ -13,7 +13,7 @@ export class GetAllKeyCodeSeriesHandler
     const series = await this.repository.getAllSeries();
     const foundKeycodes: KeyCodeSeriesProps[] = [];
 
-    for (let seriesId of series) {
+    for (const seriesId of series) {
       const keyCode = await this.repository.getOne({ series: seriesId });
       const count = await this.repository.count(seriesId);
 

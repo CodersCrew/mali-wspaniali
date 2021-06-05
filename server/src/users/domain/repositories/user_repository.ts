@@ -38,7 +38,7 @@ export class UserRepository {
   }
 
   async getAll(role?: string): Promise<User[]> {
-    let query: { [index: string]: string | boolean | unknown } = {
+    const query: { [index: string]: string | boolean | unknown } = {
       deleted: {
         $in: [false, undefined],
       },
@@ -162,7 +162,7 @@ export class UserRepository {
       Types.ObjectId(agreement),
     );
 
-    let updateObject: typeof updates & {
+    const updateObject: typeof updates & {
       children?: Types.ObjectId[];
       agreements?: Types.ObjectId[];
     } = updates;

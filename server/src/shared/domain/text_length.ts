@@ -14,7 +14,7 @@ export class TextLength extends ValueObject<TextLengthProps> {
     text: string,
     name: string,
     max: number,
-    min: number = 0,
+    min = 0,
   ): Result<TextLength> {
     if (text.length < min || text.length > max) {
       return Result.fail(
