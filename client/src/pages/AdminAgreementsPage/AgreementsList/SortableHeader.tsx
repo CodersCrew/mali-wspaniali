@@ -10,8 +10,6 @@ interface Props {
 }
 
 export function SortableHeader({ activeSortType, onSortChange }: Props) {
-    const classes = useStyles();
-
     return (
         <TableRow>
             <TableCell />
@@ -66,9 +64,6 @@ export function SortableHeader({ activeSortType, onSortChange }: Props) {
                     )
                 }
             />
-            <TableCell component="th" scope="row">
-                <span className={classes.cellContainer}>Statusy</span>
-            </TableCell>
         </TableRow>
     );
 }
@@ -84,8 +79,9 @@ function ArrowedCell({ text, isUpward, isActive, onClick }: ArrowedCellProps) {
     const classes = useStyles();
 
     return (
-        <TableCell component="th" scope="row">
-            <span className={classes.cellContainer} onClick={onClick}>
+        <TableCell className={classes.cellContainer} component="th" scope="row">
+            <span onClick={onClick}>
+                <span>{text}</span>
                 <IconButton>
                     {isUpward ? (
                         <ArrowUpwardIcon
@@ -97,7 +93,6 @@ function ArrowedCell({ text, isUpward, isActive, onClick }: ArrowedCellProps) {
                         />
                     )}
                 </IconButton>
-                <span>{text}</span>
             </span>
         </TableCell>
     );
@@ -106,16 +101,21 @@ function ArrowedCell({ text, isUpward, isActive, onClick }: ArrowedCellProps) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         cellContainer: {
-            display: 'flex',
-            alignItems: 'center',
-            userSelect: 'none',
+            '&:nth-of-type(2)': {
+                width: '40%',
+            },
+            '& span': {
+                display: 'flex',
+                alignItems: 'center',
+                userSelect: 'none',
+            },
         },
         arrow: {
             color: theme.palette.text.hint,
             cursor: 'pointer',
         },
         isActive: {
-            color: theme.palette.text.secondary,
+            color: theme.palette.text.primary,
         },
     }),
 );
