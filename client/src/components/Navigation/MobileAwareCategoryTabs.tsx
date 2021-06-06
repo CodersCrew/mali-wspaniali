@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.primary.main,
             padding: `0 ${theme.spacing(3)}px`,
             borderBottom: `1px solid ${theme.palette.grey[400]}`,
+            zIndex: 1200,
+            position: 'sticky',
+            top: '64px',
         },
     }),
 );
