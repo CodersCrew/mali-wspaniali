@@ -26,6 +26,7 @@ interface UseParentsReturnType {
 interface UseUsersReturnType {
     users: User[];
     isUserListLoading: boolean;
+    refetch: () => void;
 }
 
 export const INSTRUCTORS = gql`
@@ -117,11 +118,12 @@ export function useParents(): UseParentsReturnType {
 }
 
 export function useUsers(role: string): UseUsersReturnType {
-    const { data, loading } = useQuery<ParentsListResponse>(role === 'parent' ? PARENTS : INSTRUCTORS);
+    const { data, loading, refetch } = useQuery<ParentsListResponse>(role === 'parent' ? PARENTS : INSTRUCTORS);
 
     return {
         users: data?.users.map(normalizeUser) || [],
         isUserListLoading: loading,
+        refetch,
     };
 }
 
