@@ -27,7 +27,7 @@ export function useEditChild() {
 
             if (!updatedKindergarten) return;
 
-            editChild({
+            return editChild({
                 variables: {
                     child: update,
                 },
