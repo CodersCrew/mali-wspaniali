@@ -16,92 +16,93 @@ import { ChildModalProps } from './ChildModalTypes';
 
 type EditChildType = Omit<Child, 'results' | 'currentParams'>;
 
-const AdminSettingsEditModal = ({
-    onClose,
-    makeDecision,
-    kindergartens,
-    user,
-    isCancelButtonVisible,
-}: ChildModalProps & ActionDialog<{ child: ChildInput }>) => {
-    const [updateInitialChildValues, setInitialValues] = useState<AddChildResult>(initialValues);
-    const [selectedChild, setSelectedChild] = useState<{ childIndex: number; isSelected: boolean }>({
-        childIndex: 0,
-        isSelected: false,
-    });
+export const openAdminSettingsEditModal = (props: ChildModalProps) => {
+    return openDialog<ChildModalProps>(function AdminSettingsEditModal(
+        dialogProps: ChildModalProps & ActionDialog<{ child: ChildInput }>,
+    ) {
+        const [updateInitialChildValues, setInitialValues] = useState<AddChildResult>(initialValues);
+        const [selectedChild, setSelectedChild] = useState<{ childIndex: number; isSelected: boolean }>({
+            childIndex: 0,
+            isSelected: false,
+        });
 
-    const formik = useFormik({
-        enableReinitialize: true,
-        initialValues: updateInitialChildValues,
-        validationSchema,
-        onSubmit: (values) => {
-            makeDecision({ accepted: true, child: normalizeChild(values) });
-        },
-    });
-    const { t } = useTranslation();
-    const classes = useStyles();
+        const formik = useFormik({
+            enableReinitialize: true,
+            initialValues: updateInitialChildValues,
+            validationSchema,
+            onSubmit: (values) => {
+                dialogProps.makeDecision({ accepted: true, child: normalizeChild(values) });
+            },
+        });
+        const { t } = useTranslation();
+        const classes = useStyles();
 
-    return (
-        <BasicModal
-            actionName={t('user-settings.modal-edit-account.button')}
-            isOpen={true}
-            onAction={formik.handleSubmit}
-            onClose={onClose}
-            isCancelButtonVisible={isCancelButtonVisible}
-            dialogProps={{ maxWidth: 'sm' }}
-        >
-            <form onSubmit={formik.handleSubmit}>
-                <Typography variant="h4" className={classes.header}>
-                    {t('user-settings.modal-edit-account.header')}
-                </Typography>
-                <Typography variant="body1" className={classes.header}>
-                    {t('user-settings.modal-edit-account.subtitle')}
-                </Typography>
-                <Typography variant="subtitle2">{t('user-settings.modal-edit-account.label')}</Typography>
-                <Typography variant="body1" className={classes.mail}>
-                    {user.mail}
-                </Typography>
-                <Grid container spacing={3} className={classes.chilCard}>
-                    {user.children.map(
-                        (
-                            { firstname, lastname, sex, birthYear, birthQuarter, kindergarten }: EditChildType,
-                            index: number,
-                        ) => {
-                            return (
-                                <Grid item key={`${firstname}-${lastname}`} xs={6} sm={4}>
-                                    <ChildCard
-                                        firstName={firstname}
-                                        PictureComponent={
-                                            <img
-                                                className={classes.childAvatar}
-                                                alt="mali_wspaniali_child"
-                                                src={sex === 'male' ? BoyAvatar : GirlAvatar}
-                                            />
-                                        }
-                                        onClick={() => {
-                                            setSelectedChild({
-                                                childIndex: index,
-                                                isSelected: !selectedChild.isSelected,
-                                            });
-                                            setInitialValues({
-                                                firstname,
-                                                lastname,
-                                                sex,
-                                                'birth-date': birthYear.toString(),
-                                                'birth-quarter': birthQuarter.toString(),
-                                                kindergarten: kindergarten._id,
-                                            });
-                                        }}
-                                        isActive={selectedChild.childIndex === index && selectedChild.isSelected}
-                                    />
-                                </Grid>
-                            );
-                        },
+        return (
+            <BasicModal
+                actionName={t('user-settings.modal-edit-account.button')}
+                isOpen={true}
+                onAction={formik.handleSubmit}
+                onClose={dialogProps.onClose}
+                isCancelButtonVisible={dialogProps.isCancelButtonVisible}
+                dialogProps={{ maxWidth: 'sm' }}
+            >
+                <form onSubmit={formik.handleSubmit}>
+                    <Typography variant="h4" className={classes.header}>
+                        {t('user-settings.modal-edit-account.header')}
+                    </Typography>
+                    <Typography variant="body1" className={classes.header}>
+                        {t('user-settings.modal-edit-account.subtitle')}
+                    </Typography>
+                    <Typography variant="subtitle2">{t('user-settings.modal-edit-account.label')}</Typography>
+                    <Typography variant="body1" className={classes.mail}>
+                        {dialogProps.user.mail}
+                    </Typography>
+                    <Grid container spacing={3} className={classes.chilCard}>
+                        {dialogProps.user.children.map(
+                            (
+                                { firstname, lastname, sex, birthYear, birthQuarter, kindergarten }: EditChildType,
+                                index: number,
+                            ) => {
+                                return (
+                                    <Grid item key={`${firstname}-${lastname}`} xs={6} sm={4}>
+                                        <ChildCard
+                                            firstName={firstname}
+                                            PictureComponent={
+                                                <img
+                                                    className={classes.childAvatar}
+                                                    alt="mali_wspaniali_child"
+                                                    src={sex === 'male' ? BoyAvatar : GirlAvatar}
+                                                />
+                                            }
+                                            onClick={() => {
+                                                setSelectedChild({
+                                                    childIndex: index,
+                                                    isSelected: !selectedChild.isSelected,
+                                                });
+                                                setInitialValues({
+                                                    firstname,
+                                                    lastname,
+                                                    sex,
+                                                    'birth-date': birthYear.toString(),
+                                                    'birth-quarter': birthQuarter.toString(),
+                                                    kindergarten: kindergarten._id,
+                                                });
+                                            }}
+                                            isActive={selectedChild.childIndex === index && selectedChild.isSelected}
+                                        />
+                                    </Grid>
+                                );
+                            },
+                        )}
+                    </Grid>
+                    {selectedChild.isSelected && (
+                        <ChildForm kindergartens={dialogProps.kindergartens} formik={formik} />
                     )}
-                </Grid>
-                {selectedChild.isSelected && <ChildForm kindergartens={kindergartens} formik={formik} />}
-            </form>
-        </BasicModal>
-    );
+                </form>
+            </BasicModal>
+        );
+    },
+    props);
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -122,7 +123,3 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginBottom: theme.spacing(2),
     },
 }));
-
-export const openAdminSettingsEditModal = (props: ChildModalProps) => {
-    return openDialog<ChildModalProps>(AdminSettingsEditModal, props);
-};
