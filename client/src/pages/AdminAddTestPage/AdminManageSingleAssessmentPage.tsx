@@ -108,7 +108,7 @@ export default function AdminManageSingleAssessmentPage() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container justify="space-between">
+                    <Grid container justify="space-between" direction={isEditOnly ? 'row' : 'row-reverse'}>
                         <Grid item xs={6}>
                             {isEditOnly && (
                                 <ButtonSecondary
@@ -131,10 +131,10 @@ export default function AdminManageSingleAssessmentPage() {
                             )}
                         </Grid>
                         <Grid item xs={6}>
-                            <Grid container justify="flex-end" spacing={2}>
+                            <Grid container spacing={2}>
                                 <Grid item>
                                     <ButtonSecondary variant="text" onClick={redirectIntoTestPage}>
-                                        {t('add-test-view.cancel')}
+                                        {t('add-test-view.delete')}
                                     </ButtonSecondary>
                                 </Grid>
                                 {!isViewOnly && (
