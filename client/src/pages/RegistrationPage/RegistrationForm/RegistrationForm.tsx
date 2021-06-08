@@ -12,6 +12,7 @@ import { ButtonSecondary } from '../../../components/Button';
 import { useIsDevice } from '../../../queries/useBreakpoints';
 import { AgreementExtended } from '../types';
 import { AGREEMENTS } from '../agreements';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationCode } from './RegistrationCode';
@@ -21,7 +22,6 @@ import { RegistrationPassword } from './RegistrationPassword';
 import { RegisterForm } from './types';
 import { useStyles } from './styles';
 import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
-import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 const initialState: RegisterForm = {
     code: '',
