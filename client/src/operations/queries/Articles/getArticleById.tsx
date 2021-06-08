@@ -12,7 +12,6 @@ const ARTICLE_BY_ID = gql`
             contentHTML
             videoUrl
             tags
-            date
             redactor {
                 avatarUrl
                 firstName
@@ -20,6 +19,12 @@ const ARTICLE_BY_ID = gql`
                 profession
                 biography
             }
+            isDeleted
+            isPublished
+            createdAt
+            deletedAt
+            modifiedAt
+            publishedAt
         }
     }
 `;

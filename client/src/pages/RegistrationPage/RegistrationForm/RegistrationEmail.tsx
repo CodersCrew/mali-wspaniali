@@ -2,7 +2,7 @@ import { TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 
-import { emailTest } from '../emailTest';
+import { emailTest } from '../../../utils/emailTest';
 import { ButtonSecondary } from '../../../components/Button';
 
 import { RegistrationEmailProps } from './types';
@@ -18,13 +18,6 @@ export const RegistrationEmail = ({
     error,
 }: RegistrationEmailProps) => {
     const { t } = useTranslation();
-
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            if (emailTest(email)) handleNext();
-        }
-    };
 
     return (
         <>
@@ -55,4 +48,12 @@ export const RegistrationEmail = ({
             </div>
         </>
     );
+
+    function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key !== 'Enter') return;
+
+        event.preventDefault();
+
+        if (emailTest(email)) handleNext();
+    }
 };

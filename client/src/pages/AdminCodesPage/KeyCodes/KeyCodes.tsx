@@ -47,7 +47,8 @@ export function KeyCodes() {
                             isLoading ||
                             !keyCodesToGenerate ||
                             !parseInt(keyCodesToGenerate, 10) ||
-                            parseInt(keyCodesToGenerate, 10) > 1000
+                            parseInt(keyCodesToGenerate, 10) > 1000 ||
+                            parseInt(keyCodesToGenerate, 10) < 1
                         }
                         text={t('admin-setting-page.keycode-generation.generate')}
                         onClick={() => {

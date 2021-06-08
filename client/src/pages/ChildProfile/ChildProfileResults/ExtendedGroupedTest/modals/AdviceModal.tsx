@@ -1,4 +1,4 @@
-import { createStyles, DialogContent, DialogTitle, Link, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, Link, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
 import { ChildInput } from '../../../../../graphql/types';
@@ -36,26 +36,30 @@ const AdviceModal = ({
             closeButtonText={'zamknij'}
             isActionButtonSecondary={false}
         >
-            <DialogTitle>{t(`${T_ADVICE_PREFIX}.${resultKey}.title`)}</DialogTitle>
-            <DialogContent>
-                <Typography gutterBottom>{t(`${T_ADVICE_PREFIX}.${resultKey}.subtitle`)}</Typography>
-                <Typography gutterBottom variant={'body2'}>
-                    {t(`${T_ADVICE_PREFIX}.${resultKey}.text-1`)}
-                </Typography>
-                <Typography gutterBottom variant={resultKey === 'medium' ? 'subtitle2' : 'body2'}>
+            <Box mb={2}>
+                <Typography variant="h4">{t(`${T_ADVICE_PREFIX}.${resultKey}.title`)}</Typography>
+            </Box>
+            <Box mb={2}>
+                <Typography variant="subtitle2">{t(`${T_ADVICE_PREFIX}.${resultKey}.subtitle`)}</Typography>
+            </Box>
+            <Box mb={2}>
+                <Typography variant={'body2'}>{t(`${T_ADVICE_PREFIX}.${resultKey}.text-1`)}</Typography>
+            </Box>
+            <Box mb={2}>
+                <Typography variant={resultKey === 'medium' ? 'subtitle2' : 'body2'}>
                     {t(`${T_ADVICE_PREFIX}.${resultKey}.text-2`)}{' '}
                     <Link className={classes.link} href={`/parent/child/${childId}/tests-information`} underline="none">
                         {t(`${T_ADVICE_PREFIX}.${resultKey}.text-2-1`)}{' '}
                     </Link>
                     {t(`${T_ADVICE_PREFIX}.${resultKey}.text-2-2`)}
                 </Typography>
-                {(resultKey === 'bad' || resultKey === 'medium') && (
-                    <Typography gutterBottom variant={resultKey === 'bad' ? 'subtitle2' : 'body2'}>
-                        {t(`${T_ADVICE_PREFIX}.${resultKey}.text-3`)}{' '}
-                        <strong className={classes.link}>{t(`${T_ADVICE_PREFIX}.${resultKey}.text-3-1`)} </strong>{' '}
-                    </Typography>
-                )}
-            </DialogContent>
+            </Box>
+            {(resultKey === 'bad' || resultKey === 'medium') && (
+                <Typography variant={resultKey === 'bad' ? 'subtitle2' : 'body2'}>
+                    {t(`${T_ADVICE_PREFIX}.${resultKey}.text-3`)}{' '}
+                    <strong className={classes.link}>{t(`${T_ADVICE_PREFIX}.${resultKey}.text-3-1`)} </strong>{' '}
+                </Typography>
+            )}
         </BasicModal>
     );
 };

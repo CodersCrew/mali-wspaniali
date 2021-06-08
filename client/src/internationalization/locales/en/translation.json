@@ -27,6 +27,7 @@
         "register-header": "Registration",
         "already-have-account": "Already have an account?",
         "register-failure": "Registration failed",
+        "register-failure-keycode": "Incorrect keycode provided",
         "register-failure-description": "Something went wrong. It happens if you mistyped the code you received from the Foundation or you try to use it for the second time. Maybe you provided an other email than you hand over to the Foundation. Please, check it out again and contuct us as a last resort.",
         "password-mismatch": "Passwords do not match",
         "register-success-title": "And now it is the time for the last step!",
@@ -34,8 +35,9 @@
         "register-success-spam": "",
         "password-confirm": "Repeat password",
         "register": "Registration",
-        "password-not-strong": "Password not strong enough",
+        "password-not-strong": "Password is not strong enough. Check if it contains at least 8 characters, a capital letter, a number, and one of the special characters.",
         "agreements-and-regulations": "Agreements and regulations",
+        "agreements-fetch-failed": "Fetching data failed. Try again later.",
         "create-password": "Register account",
         "confirmation": "Confirmation",
         "create-password-text": "Create a password to Mali Wspaniali platform that will serve you for future logins.",
@@ -44,8 +46,7 @@
         "enter-code": "Enter code",
         "enter-code-text": "Please enter the code provided by Mali Wspaniali foundation. Thanks to this code, your data will be secure.",
         "no-code": "Don't have a code?",
-        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to: ",
-        "no-code-desc-email": "biuro@mali-wspaniali.pl",
+        "no-code-desc": "This kind of situations can happen, nothing's lost. Please let Mali Wspaniali foundation know about your problem so our employees can generate new code for you. Send an email to: <strong>biuro@mali-wspaniali.pl</strong>",
         "invalid-code": "Code is invalid, please try again.",
         "invalid-email": "Invalid email address",
         "length": "8 chars",
@@ -92,7 +93,7 @@
     },
     "password-change-success-page": {
         "password-change-success-title": "Password changing process resolved successfully",
-        "password-change-success-subtitle": "Login with your new password to once again access the Mali Wspaniali platform.",
+        "password-change-success-subtitle": "Log in with your new password to once again access the Mali Wspaniali platform.",
         "login": "Login"
     },
     "users-page": {
@@ -539,7 +540,7 @@
         "logged-as": "Logged as:"
     },
     "parent-menu": {
-        "home": "Strona Główna",
+        "home": "Main page",
         "child": {
             "results": "Results",
             "recommendations": "Recommendations",
@@ -751,6 +752,10 @@
     "pagination": {
         "previous": "Previous",
         "next": "Next"
+    },
+    "cookies-popup": {
+        "link": "Privacy Policy",
+        "content": "We use „cookies” to collect information on the use of the website. You can find this mechanism in the settings. Read more about our cookie practices in the Site's <Link>Privacy Policy</Link>."
     },
     "agreements": {
         "show-all": "Show all",

@@ -1,14 +1,12 @@
 import React from 'react';
 import { createStyles, makeStyles, TextField, Typography } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { ButtonSecondary } from '../../../components/Button';
 import { Theme } from '../../../theme';
 
 import { RegistrationCodeProps } from './types';
-
-const MIN_CODE_LENGTH = 10;
 
 export const RegistrationCode = ({
     handleChange,
@@ -18,26 +16,10 @@ export const RegistrationCode = ({
     classButton,
     classNextBtn,
     error,
+    roleBasedKeyCode,
 }: RegistrationCodeProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
-
-    const handleClick = () => {
-        openAlertDialog({
-            type: 'info',
-            title: t('registration-page.no-code'),
-            description: `${t('registration-page.no-code-desc')} <span class="${classes.strong}">${t(
-                'registration-page.no-code-desc-email',
-            )}</span>`,
-        });
-    };
-
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            if (code.length >= MIN_CODE_LENGTH) handleNext();
-        }
-    };
 
     return (
         <>
@@ -62,7 +44,7 @@ export const RegistrationCode = ({
                     variant="contained"
                     onClick={handleNext}
                     className={classNextBtn}
-                    disabled={code.length < MIN_CODE_LENGTH}
+                    disabled={!roleBasedKeyCode}
                     data-testid="code-next"
                     innerText={t('next')}
                 />
@@ -75,13 +57,26 @@ export const RegistrationCode = ({
             </div>
         </>
     );
+
+    function handleClick() {
+        openAlertDialog({
+            type: 'info',
+            title: t('registration-page.no-code'),
+            description: <Trans i18nKey={'registration-page.no-code-desc'} />,
+        });
+    }
+
+    function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key !== 'Enter') return;
+
+        event.preventDefault();
+
+        if (roleBasedKeyCode) handleNext();
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        strong: {
-            fontWeight: theme.typography.fontWeightMedium,
-        },
         noCodeButton: {
             textAlign: 'center',
             whiteSpace: 'normal',

@@ -5,9 +5,10 @@ import { CssBaseline, StylesProvider } from '@material-ui/core';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { AppWrapper } from './AppWrapper';
 import { ParentWrapper } from './ParentWrapper';
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
+import { CookieModal } from '../components/CookieModal/CookieModal';
 
 const LoginPage = React.lazy(() => import('./LoginPage/LoginPage'));
 const RegistrationPage = React.lazy(() => import('./RegistrationPage/RegistrationPage'));
@@ -40,6 +41,7 @@ const InstructorResultCreatorPage = React.lazy(
     () => import('./InstructorResultCreatorPage/InstructorResultCreatorPage'),
 );
 const ForgotPasswordPage = React.lazy(() => import('./ForgotPasswordPage/ForgotPasswordPage'));
+const PasswordChangePage = React.lazy(() => import('./PasswordChangePage/PasswordChangePage'));
 const TestResultsPage = React.lazy(() => import('./TestResultsPage/TestResultsPage'));
 const AdminKindergartensPage = React.lazy(() => import('./AdminKindergartensPage/AdminKindergartensPage'));
 
@@ -56,6 +58,7 @@ export function Root() {
                 <CssBaseline />
                 <Suspense fallback={null}>
                     <Router>
+                        <CookieModal />
                         <Switch>
                             <Route exact path="/" render={() => <Redirect to="/login" />} />
                             <Route path={['/login']}>
@@ -67,6 +70,11 @@ export function Root() {
                             <Route path={['/forgot-password']}>
                                 <AuthTemplate type="login">
                                     <Route path="/forgot-password" component={ForgotPasswordPage} />
+                                </AuthTemplate>
+                            </Route>
+                            <Route path={['/password-change']}>
+                                <AuthTemplate type="login">
+                                    <Route path="/password-change" component={PasswordChangePage} />
                                 </AuthTemplate>
                             </Route>
                             <Route path={['/admin', '/parent', '/instructor']}>
@@ -96,7 +104,7 @@ export function Root() {
                                         <Route path="/admin/recommendations" component={AdminRecommendationsPage} />
                                         <Route exact path="/admin/articles" component={AdminArticlesPage} />
                                         <Route exact path="/admin/articles/create" component={AdminCreateArticlePage} />
-                                        {/* TODO: add ArticlePage compomonent for Admin, currently we display the same component as for Parent */}
+                                        {/* TODO: add ArticlePage component for Admin, currently we display the same component as for Parent */}
                                         <Route exact path="/admin/article/:articleId" component={ArticlePage} />
                                         <Route path="/admin/kindergartens" component={AdminKindergartensPage} />
                                         <Route path="/admin/keycodes" component={AdminCodesPage} />

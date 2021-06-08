@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '../theme';
 
 export type Decision<T = {}> = {
     accepted: boolean;
@@ -17,7 +17,7 @@ export interface DialogResult<T = {}> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function openDialog<T, G = {}>(Dialog: React.FC<any>, options: T): Promise<DialogResult<G>> {
+export function openDialog<T, G = {}>(Dialog: React.FC<any>, options?: T): Promise<DialogResult<G>> {
     return new Promise((resolve) => {
         const dialogElement = document.createElement('div');
         const body = document.querySelector('body') as HTMLBodyElement;

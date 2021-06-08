@@ -67,9 +67,3 @@ export class NotificationRepository {
     await this.repository.deleteMany({});
   }
 }
-
-function isObjectId(
-  v: string | mongoose.Schema.Types.ObjectId,
-): v is mongoose.Schema.Types.ObjectId {
-  return typeof v !== 'string';
-}

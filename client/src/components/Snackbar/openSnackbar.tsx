@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '702px',
         },
         mobile: {
-            width: '95%',
+            width: `calc(100% - ${theme.spacing(2)}px)`,
         },
         alert: {
             width: '100%',

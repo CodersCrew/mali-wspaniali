@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { Tabs } from '../Tabs/Tabs';
 import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
-import { theme } from '../../theme/theme';
+import { theme } from '../../theme';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     onChange: (value: string) => void;
@@ -14,6 +14,7 @@ interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
 
 export function CategoryTabsMobile<T extends CategoryItem | ChildProfileCategoryItem>(props: Props<T>) {
     const { t } = useTranslation();
+    const T_PREFIX = props.name === 'results' ? 'parent-menu.child' : 'blog-categories';
 
     return (
         <Tabs
@@ -28,7 +29,7 @@ export function CategoryTabsMobile<T extends CategoryItem | ChildProfileCategory
 
     function normalizeCategory(category: CategoryItem | ChildProfileCategoryItem) {
         return {
-            label: t(`blog-categories.${category.key}`),
+            label: t(`${T_PREFIX}.${category.key}`),
             value: category.key,
         };
     }

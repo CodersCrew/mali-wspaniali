@@ -13,9 +13,6 @@ export class ArticleDTO {
   readonly contentHTML: string;
 
   @Field()
-  readonly date: Date;
-
-  @Field()
   readonly description: string;
 
   @Field()
@@ -31,5 +28,23 @@ export class ArticleDTO {
   readonly title: string;
 
   @Field({ nullable: true })
+  readonly isDeleted?: boolean;
+
+  @Field({ nullable: true })
+  readonly isPublished?: boolean;
+
+  @Field({ nullable: true })
   readonly videoUrl?: string;
+
+  @Field({ nullable: true })
+  readonly createdAt: Date;
+
+  @Field({ nullable: true })
+  readonly deletedAt: Date;
+
+  @Field({ nullable: true })
+  readonly modifiedAt: Date;
+
+  @Field({ nullable: true })
+  readonly publishedAt: Date;
 }
