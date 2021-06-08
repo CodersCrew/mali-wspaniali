@@ -901,6 +901,10 @@
         "select-child": "Select a child",
         "note": "Note",
         "result-saved-snackbar-1": "Result of ",
-        "result-saved-snackbar-2": " saved for child "
+        "result-saved-snackbar-2": " saved for child ",
+        "throw": "STRENGTH",
+        "pendelumRun": "DEXTERITY",
+        "jump": "POWER",
+        "run": "VELOCITY"
     }
 }

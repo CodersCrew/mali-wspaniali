@@ -1,18 +1,12 @@
 import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-import {
-    ResultCreatorErrorReturnProps,
-    ResultCreatorReturnProps,
-    useResultCreator,
-    AssessmentValues,
-} from './useResultCreator';
-import { ResultCreator } from './ResultCreator';
+
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { MobileResultCreator } from './MobileResultCreator';
 import {
     useUpdateAssessmentResult,
     UpdatedAssessmentInput,
@@ -21,6 +15,14 @@ import {
     CreatedAssessmentInput,
     useCreateAssessmentResult,
 } from '../../operations/mutations/Results/createAssessmentResult';
+import {
+    ResultCreatorErrorReturnProps,
+    ResultCreatorReturnProps,
+    useResultCreator,
+    AssessmentValues,
+} from './useResultCreator';
+import { ResultCreator } from './ResultCreator';
+import { MobileResultCreator } from './MobileResultCreator';
 
 interface PageParams {
     assessmentId: string;
@@ -107,34 +109,7 @@ export default function InstructorResultCreatorPage() {
                 resultCreator,
             );
 
-            if (resultCreator.edited === 'pendelumRun') {
-                openSnackbar({
-                    text: `${t('add-result-page.result-saved-snackbar-1')}${t('add-result-page.dexterity')}${t(
-                        'add-result-page.result-saved-snackbar-2',
-                    )}${resultCreator.selectedChild.firstname} ${resultCreator.selectedChild?.lastname}`,
-                });
-            }
-            if (resultCreator.edited === 'jump') {
-                openSnackbar({
-                    text: `${t('add-result-page.result-saved-snackbar-1')}${t('add-result-page.power')}${t(
-                        'add-result-page.result-saved-snackbar-2',
-                    )}${resultCreator.selectedChild.firstname} ${resultCreator.selectedChild?.lastname}`,
-                });
-            }
-            if (resultCreator.edited === 'throw') {
-                openSnackbar({
-                    text: `${t('add-result-page.result-saved-snackbar-1')}${t('add-result-page.strength')}${t(
-                        'add-result-page.result-saved-snackbar-2',
-                    )}${resultCreator.selectedChild.firstname} ${resultCreator.selectedChild?.lastname}`,
-                });
-            }
-            if (resultCreator.edited === 'run') {
-                openSnackbar({
-                    text: `${t('add-result-page.result-saved-snackbar-1')}${t('add-result-page.velocity')}${t(
-                        'add-result-page.result-saved-snackbar-2',
-                    )}${resultCreator.selectedChild.firstname} ${resultCreator.selectedChild?.lastname}`,
-                });
-            }
+            onSaveSnackbar(resultCreator);
 
             redirectToNextChild();
         }
@@ -145,8 +120,20 @@ export default function InstructorResultCreatorPage() {
                 resultCreator,
             );
 
+            onSaveSnackbar(resultCreator);
+
             redirectToResultTable();
         }
+    }
+
+    function onSaveSnackbar(results: ResultCreatorReturnProps) {
+        const { edited, selectedChild } = results;
+
+        openSnackbar({
+            text: `${t('add-result-page.result-saved-snackbar-1')}${t(`add-result-page.${edited}`)}${t(
+                'add-result-page.result-saved-snackbar-2',
+            )}${selectedChild.firstname} ${selectedChild?.lastname}`,
+        });
     }
 
     function mapValuesToResult(results: AssessmentValues): Partial<CreatedAssessmentInput> {
