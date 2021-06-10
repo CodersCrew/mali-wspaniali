@@ -5,16 +5,17 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
+import { ButtonSecondary } from '../../components/Button';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { openQuestionDialog } from '../../components/QuestionDialog';
+import { PageContainer } from '../../components/PageContainer';
+
 import { BasicInformationForm } from './BasicInformationForm/BasicInformationForm';
 import { KindergartenPicker } from './KindergartenPicker';
 import { useAssessmentManager, SuccessState, ErrorState } from './useAssessmentManager';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-import { ButtonSecondary } from '../../components/Button';
 import { ActionButton } from './ActionButton';
 import { EditableBasicInformationForm } from './EditableBasicInformationForm';
 import { KindergartenList } from './KindergartenList';
-import { openQuestionDialog } from '../../components/QuestionDialog';
-import { PageContainer } from '../../components/PageContainer';
 
 export default function AdminManageSingleAssessmentPage() {
     const { t } = useTranslation();
@@ -108,35 +109,9 @@ export default function AdminManageSingleAssessmentPage() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container justify="space-between" direction={isEditOnly ? 'row' : 'row-reverse'}>
-                        <Grid item xs={6}>
-                            {isEditOnly && (
-                                <ButtonSecondary
-                                    variant="text"
-                                    onClick={() => {
-                                        openQuestionDialog({
-                                            title: t('add-test-view.delete-test-dialog.title'),
-                                            description: t('add-test-view.delete-test-dialog.description'),
-                                            primaryButtonLabel: t('question-dialog.delete'),
-                                        }).then(({ decision }) => {
-                                            if (decision?.accepted) {
-                                                submit({ isDeleted: true });
-                                            }
-                                        });
-                                    }}
-                                >
-                                    <DeleteIcon />
-                                    &nbsp;{t('add-test-view.delete')}
-                                </ButtonSecondary>
-                            )}
-                        </Grid>
+                    <Grid container justify="space-between">
                         <Grid item xs={6}>
                             <Grid container spacing={2}>
-                                <Grid item>
-                                    <ButtonSecondary variant="text" onClick={redirectIntoTestPage}>
-                                        {t('add-test-view.delete')}
-                                    </ButtonSecondary>
-                                </Grid>
                                 {!isViewOnly && (
                                     <Grid item>
                                         <ActionButton
@@ -150,6 +125,27 @@ export default function AdminManageSingleAssessmentPage() {
                                         />
                                     </Grid>
                                 )}
+                                <Grid item xs={6}>
+                                    {
+                                        <ButtonSecondary
+                                            variant="text"
+                                            onClick={() => {
+                                                openQuestionDialog({
+                                                    title: t('add-test-view.delete-test-dialog.title'),
+                                                    description: t('add-test-view.delete-test-dialog.description'),
+                                                    primaryButtonLabel: t('question-dialog.delete'),
+                                                }).then(({ decision }) => {
+                                                    if (decision?.accepted) {
+                                                        submit({ isDeleted: true });
+                                                    }
+                                                });
+                                            }}
+                                        >
+                                            <DeleteIcon />
+                                            &nbsp;{t('add-test-view.delete')}
+                                        </ButtonSecondary>
+                                    }
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
