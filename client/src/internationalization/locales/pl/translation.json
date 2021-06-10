@@ -465,8 +465,8 @@
             "snackbar-text": "Udzielone przez ciebie zgody zostały zapisane",
             "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
             "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
-            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
-            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwość do zobaczenia swojej pociechy na materiałach z zajęć publikowanych przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uczestnictwa w programie.",
             "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
             "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
             "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
@@ -538,7 +538,7 @@
         "sending-success-modal": {
             "title": "Gotowe",
             "content": "Twoja wiadomość została wysłana do adresatów.",
-            "back-button": "Wróc do strony głównej",
+            "back-button": "Wróć do strony głównej",
             "next-msg-button": "Wyślij następną wiadomość"
         },
         "help-modal": {
@@ -603,7 +603,7 @@
         },
         "modal-change-kindergarden": {
             "header": "Przenieś dziecko do innego przedszkola",
-            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieśc dziecko",
+            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieść dziecko",
             "main-label": "Obecne przedszkole",
             "label": "Wybierz przedszkole",
             "checkbox-option": "Przeniesienie do tego samego przedszkola",
