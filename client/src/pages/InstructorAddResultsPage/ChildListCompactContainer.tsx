@@ -52,7 +52,7 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
                             <Grid container direction="column">
                                 <Grid item onClick={() => setSelectedChild((prev) => (prev !== c._id ? c._id : ''))}>
                                     <Clickable>
-                                        <Grid container>
+                                        <Grid container alignItems="center">
                                             <Grid item>
                                                 <Box mr={2}>{isOpen ? <ExpandLess /> : <ExpandMore />}</Box>
                                             </Grid>
@@ -65,7 +65,7 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
                                     </Clickable>
                                 </Grid>
                                 {isOpen && (
-                                    <Grid container>
+                                    <Grid container alignItems="center">
                                         <Grid item>
                                             <Box ml={3}>
                                                 <Table>
@@ -89,26 +89,31 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
-                                                                <CustomIconButton
-                                                                    color={matchResultWithColor(
-                                                                        firstMeasurementResultCount,
-                                                                    )}
-                                                                    onClick={() =>
-                                                                        onClick('add-first-assessment-result', c._id)
-                                                                    }
-                                                                    disabled={isFirstMeasurementDisabled}
-                                                                    icon={
-                                                                        <BarChart
-                                                                            titleAccess={t(
-                                                                                'add-results-page.add-first-assessment-result',
-                                                                            )}
-                                                                        />
-                                                                    }
-                                                                />
-                                                                <CountIcon
-                                                                    value={firstMeasurementResultCount}
-                                                                    max={4}
-                                                                />
+                                                                <Box display="flex" alignItems="center">
+                                                                    <CustomIconButton
+                                                                        color={matchResultWithColor(
+                                                                            firstMeasurementResultCount,
+                                                                        )}
+                                                                        onClick={() =>
+                                                                            onClick(
+                                                                                'add-first-assessment-result',
+                                                                                c._id,
+                                                                            )
+                                                                        }
+                                                                        disabled={isFirstMeasurementDisabled}
+                                                                        icon={
+                                                                            <BarChart
+                                                                                titleAccess={t(
+                                                                                    'add-results-page.add-first-assessment-result',
+                                                                                )}
+                                                                            />
+                                                                        }
+                                                                    />
+                                                                    <CountIcon
+                                                                        value={firstMeasurementResultCount}
+                                                                        max={4}
+                                                                    />
+                                                                </Box>
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
                                                                 <CustomIconButton
