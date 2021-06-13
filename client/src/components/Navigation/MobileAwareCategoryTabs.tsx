@@ -1,10 +1,11 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
-import { useIsDevice } from '../../queries/useBreakpoints';
+import { useBreakpoints, useIsDevice } from '../../queries/useBreakpoints';
 import { CategoryTabsMobile } from './CategoryTabsMobile';
 import { CategoryTabs } from './CategoryTabs';
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
+import { useSidebarState } from '../../utils/useSidebar';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     activeCategory: string;
@@ -21,6 +22,10 @@ export function MobileAwareCategoryTabs<T extends CategoryItem | ChildProfileCat
 }: Props<T>) {
     const classes = useStyles();
     const { isMobile } = useIsDevice();
+    const sidebarState = useSidebarState();
+    const device = useBreakpoints();
+
+    if (sidebarState.isOpen && device !== 'DESKTOP') return <> </>;
 
     return isMobile ? (
         <div className={`${classes.navigationMobile} ${classes.baseNavigation}`}>
