@@ -108,10 +108,44 @@ export default function AdminManageSingleAssessmentPage() {
                         </Grid>
                     </Grid>
                 </Grid>
+
                 <Grid item xs={12}>
                     <Grid container justify="space-between">
                         <Grid item xs={6}>
-                            <Grid container spacing={2}>
+                            {
+                                <ButtonSecondary
+                                    variant="text"
+                                    onClick={() => {
+                                        openQuestionDialog({
+                                            title: t('add-test-view.delete-test-dialog.title'),
+                                            description: t('add-test-view.delete-test-dialog.description'),
+                                            primaryButtonLabel: t('question-dialog.delete'),
+                                        }).then(({ decision }) => {
+                                            if (decision?.accepted) {
+                                                submit({ isDeleted: true });
+                                            }
+                                        });
+                                    }}
+                                >
+                                    <DeleteIcon />
+                                    &nbsp;{t('add-test-view.delete')}
+                                </ButtonSecondary>
+                            }
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Grid container justify="flex-end" spacing={2}>
+                                <Grid container justify="flex-end" spacing={3}>
+                                    <Grid item>
+                                        <ButtonSecondary variant="text" onClick={redirectIntoTestPage}>
+                                            {t('add-test-view.cancel')}
+                                        </ButtonSecondary>
+                                    </Grid>
+                                    <Grid item>
+                                        <ButtonSecondary variant="contained" onClick={redirectIntoTestPage}>
+                                            {t('add-test-view.update-test')}
+                                        </ButtonSecondary>
+                                    </Grid>
+                                </Grid>
                                 {!isViewOnly && (
                                     <Grid item>
                                         <ActionButton
@@ -125,27 +159,6 @@ export default function AdminManageSingleAssessmentPage() {
                                         />
                                     </Grid>
                                 )}
-                                <Grid item xs={6}>
-                                    {
-                                        <ButtonSecondary
-                                            variant="text"
-                                            onClick={() => {
-                                                openQuestionDialog({
-                                                    title: t('add-test-view.delete-test-dialog.title'),
-                                                    description: t('add-test-view.delete-test-dialog.description'),
-                                                    primaryButtonLabel: t('question-dialog.delete'),
-                                                }).then(({ decision }) => {
-                                                    if (decision?.accepted) {
-                                                        submit({ isDeleted: true });
-                                                    }
-                                                });
-                                            }}
-                                        >
-                                            <DeleteIcon />
-                                            &nbsp;{t('add-test-view.delete')}
-                                        </ButtonSecondary>
-                                    }
-                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
