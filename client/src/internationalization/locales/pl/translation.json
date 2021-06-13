@@ -659,7 +659,9 @@
         "logout": "Wyloguj"
     },
     "admin-articles": {
+        "mandatory": "pole obowiązkowe",
         "title": "Wybierz artykuł albo dodaj nowy",
+        "tags-field": "Wybierz lub wpisz tag",
         "add-article": "Dodaj artykuł",
         "article-added": "Artykuł został dodany",
         "article-information": "Informacje o artykule",
@@ -682,7 +684,52 @@
         "category-emotions": "Emocje",
         "category-other": "Inna",
         "publish": "Opublikuj",
-        "cancel": "Anuluj"
+        "cancel": "Anuluj",
+        "validation-label": {
+            "title": {
+                "min": "Tytuł artykułu musi zawierac co najmniej 10 znaków",
+                "max": "i max 100 znaków",
+                "require": "Tytuł jest wymagany"
+            },
+            "picture-url": {
+                "url": "Typ url jest nieprawidłowy",
+                "require": "Url zdjęcia jest wymagany"
+            },
+            "description": {
+                "min": "Opis powinien miec co najmniej 30 znaków",
+                "max": "i max 300",
+                "require": "Opis jest wymagany"
+            },
+            "article-content": {
+                "require": "Treść artykułu jest wymagana"
+            },
+            "tags": {
+                "require": "Tagi sa wymagane"
+            },
+            "redactor": {
+                "firstName": { "require": "Imie jest wymagane" },
+                "lastName": { "require": "Nazwisko jest wymagane" },
+                "profession": { "require": "Zawód jest wymagany" }
+            }
+        },
+        "previewView": {
+            "title": "Tu znajduje się przykładowy teskst pokazujacy strukturę artykułu",
+            "description": "Mało czynności wpływają na nasz stan zdrowia tak dobrze jak sport. Regularne uprawianie sportu poprawia naszą kondycje, spala tkankę tłuszczową a także ma zbawienny wpływ na nasze samopoczucie. Jednak czy istnieje granica, kiedy na sport jest za wcześnie i może zrazić do siebie na resztę życia?"
+        },
+        "html-content": {
+            "title": "Aktywność fizyczna - co i jak?",
+            "first-paragraph": "Aktywność fizyczna to każdy ruch, każda praca mięśni, podczas której wydatek energii jest większy niż gdy odpoczywamy - leżymy lub siedzimy.",
+            "second-paragraph": "lekka - bardzo niewielki wydatek energii - nawet się nie zasapiemy, a liczy się każdy krok, np. wolny spacer, chodzenie podczas przerwy w zajęciach, wykonywanie drobnych obowiązków domowych;",
+            "third-paragraph": "umiarkowana - średni wydatek energii, pobudzamy do pracy nasz układ krążenia i układ oddechowy, łapiemy lekką zadyszkę, np. intensywne prace w ogrodzie, rekreacyjne gry zespołowe, wolny bieg, jazda na rowerze, fachowcy taką aktywność nazywają - umiarkowana-do-intensywnej;",
+            "fourth-paragraph": "intensywna - trening, uprawianie sportu, szybkie gry i zabawy, wzmacniamy wtedy kości i mięśnie, podczas takiej aktywności na pewno spocimy się i nie będziemy mogli pogadać z kolegą, np. gry sportowe, bieganie, trening pływacki."
+        },
+        "tags": { "tag1": "sport", "tag2": "styl życia", "tag3": "hobby" },
+        "redactor": {
+            "firstName": "Hanna",
+            "lastName": "Nałęcz",
+            "profession": "Psycholog Dziecięcy",
+            "biography": "Hanna Nałęcz,   dr   n.   o   kulturze   fizycznej,   pedagog,   specjalista   zdrowia   pub-licznego.   Zastępca   kierownika  Zakładu   Zdrowia  Dzieci   i  Młodzieży  w   InstytucieMatki i Dziecka w Warszawie. Współautorka ponad 80 krajowych i międzynarodowych publikacji dotyczących  aktywności fizycznej dzieci i młodzieży.  Członek polskiego zespołu  The Active Healthy Kids Global Alliance. Redaktor tematyczny w  the Activity Health Kids Global Alliance. Mama dwóch córek"
+        }
     },
     "parent-menu": {
         "home": "Strona Główna",

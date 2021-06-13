@@ -34,6 +34,7 @@ export default function ArticleListPage() {
             category: params.category === 'all' ? undefined : params.category,
         },
     });
+    console.log('DATA', data);
 
     useEffect(() => {
         activePage([`blog-categories.${params.category}`, 'parent-menu.blog']);

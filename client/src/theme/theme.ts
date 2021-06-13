@@ -46,6 +46,7 @@ export const theme: ThemeObject = {
         text: {
             primary: 'rgba(29, 29, 29, 1.0)',
             secondary: 'rgba(0, 0, 0, 0.54)',
+            disabled: 'rgb(192,192,192)',
         },
         action: {
             active: 'rgba(0, 0, 0, 0.54)',

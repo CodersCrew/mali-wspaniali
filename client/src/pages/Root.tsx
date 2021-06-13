@@ -34,7 +34,10 @@ const AdminAssessmentHistoryPage = React.lazy(
 );
 const AdminRecommendationsPage = React.lazy(() => import('./AdminRecommendationsPage/AdminRecommendationsPage'));
 const AdminArticlesPage = React.lazy(() => import('./AdminArticlesPage/AdminArticlesPage'));
-const AdminCreateArticlePage = React.lazy(() => import('./AdminCreateArticlePage/AdminCreateArticlePage'));
+const AdminCreateArticlePage = React.lazy(() => import('./AdminCreateArticlePage/AdminCreateArticle'));
+const AdminCreateArticlePagePreview = React.lazy(
+    () => import('./AdminCreateArticlePage/AdminCreateArticlePagePreview'),
+);
 const AdminSettingsPage = React.lazy(() => import('./AdminSettingsPage/AdminSettingsPage'));
 const AdminManageSingleAssessmentPage = React.lazy(() => import('./AdminAddTestPage/AdminManageSingleAssessmentPage'));
 const InstructorResultCreatorPage = React.lazy(
@@ -102,7 +105,11 @@ export function Root() {
                                             component={AdminArticlesPage}
                                         />
                                         <Route exact path="/admin/articles/create" component={AdminCreateArticlePage} />
-                                        {/* TODO: add ArticlePage component for Admin, currently we display the same component as for Parent */}
+                                        <Route
+                                            exact
+                                            path="/admin/articles/create/preview"
+                                            component={AdminCreateArticlePagePreview}
+                                        />
                                         <Route exact path="/admin/article/:articleId" component={ArticlePage} />
                                         <Route path="/admin/kindergartens" component={AdminKindergartensPage} />
                                         <Route path="/admin/keycodes" component={AdminCodesPage} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme, Typography, Grid } from '@material-ui/core';
@@ -25,7 +25,11 @@ export default function AdminArticlesPage() {
     const { isSmallMobile } = useIsDevice();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, loading, fetchMore } = useArticles({ page: currentPage, perPage: ARTICLES_PER_PAGE, category: params.category});
+    const { data, loading, fetchMore } = useArticles({
+        page: currentPage,
+        perPage: ARTICLES_PER_PAGE,
+        category: params.category,
+    });
 
     useEffect(() => {
         activePage(['admin-menu.articles.title']);
@@ -46,14 +50,26 @@ export default function AdminArticlesPage() {
 
     if (loading && !data) return <Loader />;
     if (!data) {
-        return <MobileAwareCategoryTabs onChange={onTabChange} activeCategory={params.category} categories={categoriesList} />;
+        return (
+            <MobileAwareCategoryTabs
+                name="tets"
+                onChange={onTabChange}
+                activeCategory={params.category}
+                categories={categoriesList}
+            />
+        );
     }
 
     const { articles, count, hasNext } = data.paginatedArticles;
 
     return (
         <>
-            <MobileAwareCategoryTabs onChange={onTabChange} activeCategory={params.category} categories={categoriesList} />
+            <MobileAwareCategoryTabs
+                name="test"
+                onChange={onTabChange}
+                activeCategory={params.category}
+                categories={categoriesList}
+            />
             <PageContainer>
                 <Typography className={classes.headerText} variant="h3">
                     {t('admin-articles.title')}

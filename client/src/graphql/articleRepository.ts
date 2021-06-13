@@ -1,12 +1,12 @@
 import { gql, FetchResult } from '@apollo/client';
 
 import { client } from '../apollo_client';
-import { ReturnedStatus, ArticleInput } from './types';
+import { ReturnedStatus } from './types';
 
-export function createArticle(article: ArticleInput): Promise<FetchResult<ReturnedStatus>> {
+export function createArticle(article: any): Promise<FetchResult<ReturnedStatus>> {
     return client.mutate({
         mutation: gql`
-            mutation createArticle($article: ArticleInput!) {
+            mutation createArticle($article: CreateArticleInput!) {
                 createArticle(article: $article) {
                     status
                 }

@@ -615,7 +615,49 @@
         "category-emotions": "Emotions",
         "category-other": "Other",
         "publish": "Publish",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "validation-label": {
+            "title": {
+                "min": "The title of the article must be at least 10",
+                "max": "and max 100",
+                "require": "Title is require field",
+                "type": "Title should be a string"
+            },
+            "picture-url": {
+                "url": "Picture url type is invalid",
+                "require": "Picture url is require field",
+                "type": "Picture url should be a string"
+            },
+            "description": {
+                "min": "Description of the article must be at least 30",
+                "max": "and max 300",
+                "require": "Description is require field",
+                "type": "Description should be a string"
+            },
+            "article-content": {
+                "require": "Article content is require",
+                "type": "Article content should be a string"
+            },
+            "tags": {
+                "require": "Tags is require field"
+            },
+            "redactor": {
+                "firstName": { "require": "First name is require", "type": "First name should be a string" },
+                "lastName": { "require": "Last name is require", "type": "last name content should be a string" },
+                "profession": { "require": "Profession is require", "type": "Profession content should be a string" }
+            }
+        },
+        "previewView": {
+            "title": "Tu znajduje się przykładowy teskst pokazujacy strukturę artykułu",
+            "description": "Mało czynności wpływają na nasz stan zdrowia tak dobrze jak sport. Regularne uprawianie sportu poprawia naszą kondycje, spala tkankę tłuszczową a także ma zbawienny wpływ na nasze samopoczucie. Jednak czy istnieje granica, kiedy na sport jest za wcześnie i może zrazić do siebie na resztę życia?"
+        },
+        "html-content": {
+            "title": "Aktywność fizyczna - co i jak?",
+            "first-paragraph": "Aktywność fizyczna to każdy ruch, każda praca mięśni, podczas której wydatek energii jest większy niż gdy odpoczywamy - leżymy lub siedzimy.",
+            "second-paragraph": "lekka - bardzo niewielki wydatek energii - nawet się nie zasapiemy, a liczy się każdy krok, np. wolny spacer, chodzenie podczas przerwy w zajęciach, wykonywanie drobnych obowiązków domowych;",
+            "third-paragraph": "umiarkowana - średni wydatek energii, pobudzamy do pracy nasz układ krążenia i układ oddechowy, łapiemy lekką zadyszkę, np. intensywne prace w ogrodzie, rekreacyjne gry zespołowe, wolny bieg, jazda na rowerze, fachowcy taką aktywność nazywają - umiarkowana-do-intensywnej;",
+            "fourth-paragraph": "intensywna - trening, uprawianie sportu, szybkie gry i zabawy, wzmacniamy wtedy kości i mięśnie, podczas takiej aktywności na pewno spocimy się i nie będziemy mogli pogadać z kolegą, np. gry sportowe, bieganie, trening pływacki."
+        }
     },
     "instructor-menu": {
         "results-table": "Results table",

@@ -23,7 +23,6 @@ export interface ArticleInput {
     contentHTML: string;
     description: string;
     pictureUrl: string;
-    readingTime: number;
     redactor: Redactor;
     tags: string[];
     title: string;
