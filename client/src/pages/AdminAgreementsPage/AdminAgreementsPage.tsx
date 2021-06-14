@@ -69,7 +69,7 @@ export const AdminAgreementsPage = ({
                             <FilterListIcon />
                         </IconButton>
                     </Grid>
-                    <Collapse in={isFiltersListOpen} unmountOnExit>
+                    <Collapse in={isFiltersListOpen} unmountOnExit className={classes.filterSelection}>
                         <AgreementsFilter
                             agreementType={agreementsTypeFilter}
                             agreementStatus={agreementsStatusFilter}
@@ -107,5 +107,8 @@ const useStyles = makeStyles((theme: Theme) =>
         filterHeader: {
             paddingTop: 14,
         },
+        filterSelection: {
+            margin: '14px 0',
+        }
     }),
 );
