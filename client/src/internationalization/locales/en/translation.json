@@ -9,12 +9,12 @@
         "login": "Login",
         "login-error": "Sorry, you've provided wrong credentials or haven't been registered",
         "login-header": "Log in",
-        "e-mail-helper-text-mobile": "Enter the e-mail used during registration",
-        "e-mail-helper-text": "Enter the e-mail used during registration",
+        "e-mail-helper-text-mobile": "Enter the email used during registration",
+        "e-mail-helper-text": "Enter the email used during registration",
         "forgot-password": "Forgot password?",
         "login-notfound": "We cannot find your account in the system",
         "login-wrong-password": "Entered password is incorrect",
-        "no-account": "You don't have an account?",
+        "no-account": "Don't have an account?",
         "register": "Register"
     },
     "login-wrapper": {
@@ -31,7 +31,7 @@
         "register-failure-description": "Something went wrong. This may be caused by mistyping the code received from the Foundation or by reusing the code or by providing an email that was not provided to the Foundation. Please, check it out again and contact us as a last resort.",
         "password-mismatch": "Passwords do not match",
         "register-success-title": "And finally - the last step!",
-        "register-success-content": "An email has been sent to your email address containing an activation link. Use the link to confirm your email address and finish the registration process.",
+        "register-success-content": "An email containing an activation link has been sent to your email address. Use the link to confirm your email address and finish the registration process.",
         "register-success-spam": "",
         "password-confirm": "Repeat your password",
         "register": "Registration",
@@ -61,11 +61,11 @@
             "show-less": "Show less",
             "show-more-content-modal": "See the full text in a new tab",
             "sub-title": "Agreements",
-            "sub-title-description": "Consents for using your child's image and for receiving marketing information can be refused any time at the platform in 'Consents' tab.",
-            "statement": "*I declare that I have read and accepted the terms and conditions",
+            "sub-title-description": "Consents for using your child's image and for receiving marketing information can be refused at any time on the platform in 'Consents' tab.",
+            "statement": "I declare that I have read and accepted the terms and conditions",
             "privacy-policy": "Terms & Conditions, Privacy Policy.",
-            "required-field": "*mandatory field",
-            "required-agreements": "*Required agreements and declarations"
+            "required-field": "mandatory field",
+            "required-agreements": "Required agreements and declarations"
         }
     },
     "forgot-password-page": {
@@ -73,11 +73,11 @@
         "its-ok": "Don't worry. Type in your email address.",
         "its-ok-mobile": "Don't worry.<br/>Type in your email address.",
         "receive-link": "You will receive a link to create a new password.",
-        "insert-email": "Type in the e-mail address provided to the foundation",
+        "insert-email": "Type in the email address provided to the foundation",
         "continue": "Continue",
         "problem": "Encountered a problem?",
         "contact": "Please contact the foundation to resolve it",
-        "email-helper-text": "Type in the e-mail address used during registration",
+        "email-helper-text": "Type in the email address used during registration",
         "incorrect-email-helper-text": "Incorrect email address",
         "back-to-login": "Back to login",
         "avatar": "Małgosia",
@@ -93,7 +93,7 @@
     },
     "password-change-success-page": {
         "password-change-success-title": "Password changed successfully",
-        "password-change-success-subtitle": "Log in with your new password to access the Mali Wspaniali platform once again.",
+        "password-change-success-subtitle": "Log in with your new password to access the Mali Wspaniali platform again.",
         "login": "Login"
     },
     "users-page": {
@@ -109,12 +109,12 @@
     },
     "admin-setting-page": {
         "keycode-generation": {
-            "title": "Generate KeyCode",
+            "title": "Generate a KeyCode",
             "description": "Choose for whom you want to generate registration codes and enter their number. After pressing “GENERATE” the codes will be exported to an .xlsx file. The keys will be active for 7 days. After this time, new keys should be generated.",
             "role-parent": "Parent",
             "role-instructor": "Instructor",
             "filename": "Filename",
-            "target": "Target",
+            "target": "User type",
             "expires-at": "Expires at",
             "keycode-amount": "Number of KeyCodes",
             "keycode-amount-total": "Total active keys ({{total}})",
@@ -124,9 +124,9 @@
             "download-alert": "The file {{filename}} has been downloaded."
         }
     },
-    "e-mail": "E-Mail Address",
+    "e-mail": "Email address",
     "password": "Password",
-    "no-results": "No Results",
+    "no-results": "No results",
     "next": "Next",
     "back": "Back",
     "close": "Close",
@@ -143,7 +143,7 @@
         "your-agreements": "Your agreements",
         "participation-label": "Permission to participate in the Mali Wspaniali program",
         "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
-        "marketing-label": "Permission to receive marketing information on provided e-mail address",
+        "marketing-label": "Permission to receive marketing information on provided email address",
         "marketing-description": "Optional agreement that allows us to send you emails with current information about the Mali Wspaniali program.",
         "image-label": "Permission to use the image",
         "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
@@ -159,7 +159,7 @@
             "subtitle": "When assigning the child to the age group, we calculate the child's metric age on the day of testing (with an accuracy of one month).",
             "text-1": "If a child is, for example, 4 years and 10 months old we classify him/her as a 5 year old. To the group ",
             "age-1": "children aged 5 years",
-            "text-2": " includes all children who = on the day of the survey - were ",
+            "text-2": " includes all children who on the day of the survey were ",
             "age-2": "4 years and 6 months,",
             "text-3": " but no more than ",
             "age-3": "5 years and 5 months.",
@@ -248,7 +248,7 @@
                 "text2": "A certain number of points is assigned for each trial. Children are assessed according to a scale prepared by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength tests (strength and power), the greater the distance the child has covered during the test, the more points he/she will receive, while in the case of agility tests (speed and agility), more points will be awarded to the child with shorter execution time.",
                 "text3": "The sum of points makes up the total score. This result signifies your child's fitness level (low, medium, good or very good). The results are collected from children who are present at the facility and willing to participate in the Mali Wspaniali classes held by the Instructor. A missing trial result may be due to child's absence that day or to non-participation in a given exercise. In this case, you receive individual test results without insights into child's overall fitness.",
                 "test1-name": "Agility",
-                "test1-description": "4 x 5 m shuttle run while carrying a brick",
+                "test1-description": "4 x 5 m shuttle run while carrying a block",
                 "test1-scale": "Scale: 0 s - 80 s",
                 "test2-name": "Power",
                 "test2-description": "Standing long jump",
@@ -315,12 +315,12 @@
             "Image-description-1": "Consent for gratuitous processing of your child's image by the Mali Wspaniali Foundation, registered in Wrocław, at Ślężna Street 2-24, 53-302 Wrocław, as part of its operations. This consent will allow us to share our success stories and to promote our Foundation by publishing child's image by means of pictures and films: photo-coverage in media (press, TV), web portals, and sites administred by the Foundation. ",
             "Image-description-2": "This consent will enable you to see your kid in materials from classes published by the Foundation. ",
             "Image-description-3": "Consent does not affect processing of child's/ children's image during group classes. We have the right to use the image when a child is photographed/ filmed as part of the group. The consent is voluntary and participation in the program does not depend on it.",
-            "Marketing-title": "Consent for receiving marketing information at the e-mail address provided.",
-            "Marketing-description-1": "Consent to process your e-mail adress for marketing and commercial purposes by the Mali Wspaniali Foundation, registered in Wrocław, at Ślężna Street 2-24, 53-302 Wrocław. This consent will allow us to send you e-mails with up-to-date information about the Mali Wspaniali program.",
+            "Marketing-title": "Consent for receiving marketing information at the email address provided.",
+            "Marketing-description-1": "Consent to process your email adress for marketing and commercial purposes by the Mali Wspaniali Foundation, registered in Wrocław, at Ślężna Street 2-24, 53-302 Wrocław. This consent will allow us to send you emails with up-to-date information about the Mali Wspaniali program.",
             "Marketing-description-2": "Sometimes we will share our success stories. ",
             "Marketing-description-3": "Consent is voluntary and participation in the program does not depend on it.",
             "general-title": "Consent to participate in the Mali Wspaniali program.",
-            "general-description": "Consent for child's participation in general sports activities with elements of karate as part of the Mali Wspaniali program is obligatory. You can cancel your child's involvement in the Mali Wspaniali program any time. To this end, please contact the Foundation by sending the resignation to the e-mail address: biuro@mali-wspaniali.pl."
+            "general-description": "Consent for child's participation in general sports activities with elements of karate as part of the Mali Wspaniali program is obligatory. You can cancel your child's involvement in the Mali Wspaniali program any time. To this end, please contact the Foundation by sending the resignation to the email address: biuro@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Child's details",
@@ -349,7 +349,7 @@
         "kindergarten-number": "Kindergarten no.",
         "kindergarten-name": "Kindergarten name",
         "kindergarten-address": "Kindergarten address",
-        "parents-email": "Parents' e-mail address",
+        "parents-email": "Parents' email address",
         "children": "Children",
         "kindergarten-prefix": "Kindergarten no.",
         "search": "Search",
@@ -407,7 +407,7 @@
     },
     "parent-children": {
         "children": "Children",
-        "no-children-has-been-found": "No children have been found",
+        "no-children-has-been-found": "No child has been found",
         "add-child": "Add a child"
     },
     "newsletter": {
@@ -763,7 +763,7 @@
         "image": "Image agreements",
         "given": "Given agreements",
         "not-given": "Not given agreements",
-        "email": "Parent's e-mail",
+        "email": "Parent's email",
         "children": "Children"
     },
     "agreements-filter": {
@@ -772,7 +772,7 @@
         "by-kindergarten": "Filter by kindergarten"
     },
     "settings-page": {
-        "password-change-message": "A link for changing your password has been sent. Check your e-mail to complete the process.",
+        "password-change-message": "A link for changing your password has been sent. Check your email to complete the process.",
         "change-password-problems": "Difficulties while changing your password?",
         "change-password-problems-hint": "No worries! Contact the Foundation to fix the problem.",
         "change-password-problems-message-button": "Send a message",
@@ -814,13 +814,13 @@
             "4": "Delete the account",
             "5": "Other"
         },
-        "snackBar-message": "Your message has been sent to the Mali Wspaniali Foundation. The answer will be delievered to your e-mail address."
+        "snackBar-message": "Your message has been sent to the Mali Wspaniali Foundation. The answer will be delievered to your email address."
     },
     "admin-instructors-page": {
         "table": {
             "firstName": "First name",
             "lastName": "Last name",
-            "email": "E-mail address",
+            "email": "Email address",
             "kindergarten-count": "Kindergarten count",
             "tooltip": "Assign to a kindergarten",
             "kindergartens-count": "{{count}} kindergartens"
