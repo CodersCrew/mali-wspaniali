@@ -55,7 +55,7 @@ export function SortableHeader({ activeSortType, onSortChange }: Props) {
                     AgreementSortStatus.BY_MARKETING_RISING.id,
                     AgreementSortStatus.BY_MARKETING_FALLING.id,
                 ])}
-                text="Ilość zgód margetingowych"
+                text="Ilość zgód marketingowych"
                 onClick={() =>
                     onSortChange(
                         omitActiveStatus(

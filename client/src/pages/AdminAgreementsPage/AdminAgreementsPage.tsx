@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`,
         },
         filterHeader: {
-            paddingTop: 14,
+            padding: `14px 0 ${theme.spacing(1)}px`,
         },
     }),
 );
