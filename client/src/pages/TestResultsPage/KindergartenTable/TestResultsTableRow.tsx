@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell, IconButton, makeStyles, Tooltip, Theme, fade } from '@material-ui/core';
+import { TableRow, TableCell, IconButton, Tooltip, makeStyles, Theme, fade } from '@material-ui/core';
 import {
     Edit as EditIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -8,6 +8,7 @@ import {
 } from '@material-ui/icons';
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
 import { Kindergarten } from '../../../graphql/types';
+import { ProgressBar } from '../../../components/ProgressBar';
 
 interface Props {
     kindergarten: Kindergarten;
@@ -19,9 +20,11 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
-    const { number, name, address, city } = kindergarten;
+    const { name } = kindergarten;
     const editIconTooltip = t('test-results.button-icon-edit-tooltip');
     const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
+
+    console.log('gard', kindergarten);
 
     return (
         <>
@@ -33,11 +36,13 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                         </IconButton>
                     </Tooltip>
                 </TableCell>
-                <TableCell component="th" scope="row">
-                    {`${t('test-results.kindergarten-prefix')} ${number}`}
-                </TableCell>
                 <TableCell>{name}</TableCell>
-                <TableCell>{`${address}, ${city}`}</TableCell>
+                <TableCell>
+                    <div className={classes.progressBar}>
+                        <ProgressBar value={(200 / 300) * 100} />
+                        <span> 200 / 300</span>
+                    </div>
+                </TableCell>
                 <TableCell align="right">
                     <Tooltip title={editIconTooltip}>
                         <IconButton
@@ -77,5 +82,11 @@ const useStyles = makeStyles((theme: Theme) => ({
             color: theme.palette.primary.main,
             backgroundColor: fade(theme.palette.primary.main, 0.2),
         },
+    },
+    progressBar: {
+        display: 'blok',
+        flexDirection: 'row',
+        borderWidth: '2px',
+        borderColor: 'red',
     },
 }));

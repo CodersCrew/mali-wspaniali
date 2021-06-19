@@ -82,20 +82,15 @@ interface ArrowedCellProps {
 
 function ArrowedCell({ text, isUpward, isActive, onClick }: ArrowedCellProps) {
     const classes = useStyles();
+    const Arrow = isUpward ? ArrowUpwardIcon : ArrowDownwardIcon;
 
     return (
         <TableCell component="th" scope="row">
             <span className={classes.cellContainer} onClick={onClick}>
                 <IconButton>
-                    {isUpward ? (
-                        <ArrowUpwardIcon
-                            classes={{ root: clsx({ [classes.arrow]: true, [classes.isActive]: isActive }) }}
-                        />
-                    ) : (
-                        <ArrowDownwardIcon
-                            classes={{ root: clsx({ [classes.arrow]: true, [classes.isActive]: isActive }) }}
-                        />
-                    )}
+                    <IconButton>
+                        <Arrow classes={{ root: clsx({ [classes.arrow]: true, [classes.isActive]: isActive }) }} />
+                    </IconButton>
                 </IconButton>
                 <span>{text}</span>
             </span>

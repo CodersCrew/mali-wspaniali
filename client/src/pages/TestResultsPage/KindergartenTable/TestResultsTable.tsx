@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Table,
@@ -10,8 +9,13 @@ import {
     Paper,
     TablePagination,
 } from '@material-ui/core';
+import { useState } from 'react';
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { Kindergarten } from '../../../graphql/types';
+import ArrowedCell from '../../../components/ArrowedCell';
+
+const RESULT_CELL_NAME = 'resultCellName';
+const KINDERGARTEN_CELL_NAME = 'kindergartenCellName';
 
 interface Props {
     kindergartens: Kindergarten[];
@@ -20,8 +24,19 @@ interface Props {
 
 export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
     const { t } = useTranslation();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [selectedSortableCell, setSelectedSortableCell] = useState<string | undefined>(undefined);
+    const resultCell = {
+        name: RESULT_CELL_NAME,
+        changeActive: () =>
+            setSelectedSortableCell((prev) => (prev !== RESULT_CELL_NAME ? RESULT_CELL_NAME : undefined)),
+    };
+    const kindergartenCell = {
+        name: KINDERGARTEN_CELL_NAME,
+        changeActive: () =>
+            setSelectedSortableCell((prev) => (prev !== KINDERGARTEN_CELL_NAME ? KINDERGARTEN_CELL_NAME : undefined)),
+    };
 
     return (
         <TableContainer component={Paper}>
@@ -29,9 +44,18 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell />
-                        <TableCell>{t('test-results.kindergarten-number')}</TableCell>
-                        <TableCell>{t('test-results.kindergarten-name')}</TableCell>
-                        <TableCell>{t('test-results.kindergarten-address')}</TableCell>
+                        <ArrowedCell
+                            text={t('test-results.kindergarten-name')}
+                            selectedCellName={selectedSortableCell}
+                            cellName={kindergartenCell.name}
+                            onClick={kindergartenCell.changeActive}
+                        />
+                        <ArrowedCell
+                            text={t('test-results.kindergarten-results')}
+                            selectedCellName={selectedSortableCell}
+                            cellName={resultCell.name}
+                            onClick={resultCell.changeActive}
+                        />
                         <TableCell />
                     </TableRow>
                 </TableHead>
