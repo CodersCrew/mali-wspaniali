@@ -291,6 +291,7 @@
                 "text-3-1": "artykuł."
             }
         },
+        "last-change":"Data ostatniej zmiany:",
         "initial-test": "Pomiar początkowy",
         "final-test": "Pomiar końcowy",
         "result-level": "Poziom cechy",
@@ -328,7 +329,7 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
-        "final-test-title": "Wyniki wchodzących w skład pomiaru początkowego",
+        "final-test-title": "Wyniki wchodzących w skład pomiaru końcowego",
         "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
             "progress": "Poprawił się",

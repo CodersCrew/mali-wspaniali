@@ -18,12 +18,6 @@ import { EditChildHandler } from '../edit_child_handler';
 import { EditChildCommand } from '../../impl/edit_child_command';
 import { Child } from '../../../models/child_model';
 import { AddChildCommand } from '../../impl';
-import { Lastname } from '../../../models/lastname_value_object';
-import { Sex } from '../../../models/sex_value_object';
-import { Firstname } from '../../../models/firstname_value_object';
-import { ObjectId } from '../../../models/object_id_value_object';
-import { BirthYear } from '../../../models/birth_year_value_object';
-import { BirthQuarter } from '../../../models/birth_quarter_value_object';
 
 describe('EditChildHandler', () => {
   let module: TestingModule;
@@ -52,7 +46,7 @@ describe('EditChildHandler', () => {
     kindergarten = await createKindergarten();
     newKindergarten = await createKindergarten();
 
-    validChildOptions.kindergartenId = kindergarten.id.toString();
+    validChildOptions.kindergartenId = kindergarten.id;
   });
 
   afterEach(async () => {
@@ -65,11 +59,11 @@ describe('EditChildHandler', () => {
         createdChild = await addChildCommandWith(validChildOptions, parent.id);
         updatedChild = await editChildCommandWith(
           {
-            childId: createdChild.id.value,
+            childId: createdChild.id,
             birthYear: 2001,
             firstname: 'changed-name',
             sex: 'female',
-            kindergartenId: newKindergarten.id.toString(),
+            kindergartenId: newKindergarten.id,
           },
           parent.id,
         );
@@ -79,20 +73,13 @@ describe('EditChildHandler', () => {
 
       it('returns changed child instance', () => {
         expect(updatedChild).toBeInstanceOf(Child);
-        expect(updatedChild.kindergarten).toBeInstanceOf(ObjectId);
-        expect(updatedChild.kindergarten.toString()).toEqual(
-          newKindergarten.id.toString(),
-        );
-        expect(updatedChild.sex).toBeInstanceOf(Sex);
-        expect(updatedChild.sex.value).toEqual('female');
-        expect(updatedChild.firstname).toBeInstanceOf(Firstname);
-        expect(updatedChild.firstname.value).toEqual('changed-name');
-        expect(updatedChild.lastname).toBeInstanceOf(Lastname);
-        expect(updatedChild.lastname.value).toEqual('my-lastname');
-        expect(updatedChild.birthYear).toBeInstanceOf(BirthYear);
-        expect(updatedChild.birthYear.value).toEqual(2001);
-        expect(updatedChild.birthQuarter).toBeInstanceOf(BirthQuarter);
-        expect(updatedChild.birthQuarter.value).toEqual(1);
+        expect(typeof updatedChild.kindergarten).toBe('string');
+        expect(updatedChild.kindergarten).toEqual(newKindergarten.id);
+        expect(updatedChild.sex).toEqual('female');
+        expect(updatedChild.firstname).toEqual('changed-name');
+        expect(updatedChild.lastname).toEqual('my-lastname');
+        expect(updatedChild.birthYear).toEqual(2001);
+        expect(updatedChild.birthQuarter).toEqual(1);
       });
     });
 
@@ -111,9 +98,9 @@ describe('EditChildHandler', () => {
           await expect(() =>
             editChildCommandWith(
               {
-                childId: createdChild.id.value,
+                childId: createdChild.id,
                 birthYear: 2001,
-                kindergartenId: '5fa2f8882e75d3426f0621c1',
+                kindergartenId: 'wrong-id',
               },
               parent.id,
             ),
@@ -132,15 +119,17 @@ describe('EditChildHandler', () => {
         });
 
         it('throws an error', async () => {
-          await expect(() =>
+          await expect(
             editChildCommandWith(
               {
-                childId: createdChild.id.value,
+                childId: createdChild.id,
                 firstname: 'm',
               },
               parent.id,
             ),
-          ).rejects.toThrow('Firstname must be valid');
+          ).toHaveValidationError(
+            'firstname must be longer than or equal to 3 characters',
+          );
         });
       });
     });

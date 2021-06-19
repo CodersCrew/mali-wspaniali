@@ -1,15 +1,22 @@
 import { AggregateRoot } from '@nestjs/cqrs';
+import { Expose, Transform } from 'class-transformer';
+import { CoreModel } from '../../../shared/utils/core_model';
 
-export interface AgreementProps {
-  _id: string;
-  date: Date;
+export class AgreementCore extends CoreModel {
+  @Expose()
   text: string;
+
+  @Expose()
+  @Transform(value => value ?? false)
   isOutdated: boolean;
+
+  @Expose()
+  @Transform(value => value ?? false)
   isSigned: boolean;
 }
 
 export class Agreement extends AggregateRoot {
-  private constructor(private readonly props: AgreementProps) {
+  private constructor(private readonly props: AgreementCore) {
     super();
   }
 
@@ -21,11 +28,19 @@ export class Agreement extends AggregateRoot {
     return this.props.isSigned ?? false;
   }
 
-  toObject(): AgreementProps {
+  setIsSigned(value: boolean) {
+    this.props.isSigned = value;
+  }
+
+  isOutdated() {
+    return this.props.isOutdated;
+  }
+
+  getProps(): AgreementCore {
     return this.props;
   }
 
-  static create(value: AgreementProps) {
+  static create(value: AgreementCore) {
     return new Agreement(value);
   }
 }

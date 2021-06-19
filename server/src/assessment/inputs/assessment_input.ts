@@ -7,22 +7,25 @@ export class AssessmentInput {
   readonly title: string;
 
   @Field()
-  readonly startDate: string;
+  readonly firstMeasurementStartDate: Date;
 
   @Field()
-  readonly endDate: string;
+  readonly firstMeasurementEndDate: Date;
 
   @Field()
-  readonly firstMeasurementStartDate: string;
+  readonly lastMeasurementStartDate: Date;
 
   @Field()
-  readonly firstMeasurementEndDate: string;
+  readonly lastMeasurementEndDate: Date;
 
   @Field()
-  readonly lastMeasurementStartDate: string;
+  readonly status: string;
 
   @Field()
-  readonly lastMeasurementEndDate: string;
+  readonly firstMeasurementStatus: string;
+
+  @Field()
+  readonly lastMeasurementStatus: string;
 
   @Field(() => [String])
   readonly kindergartenIds: string[];
@@ -38,15 +41,6 @@ class _UpdatedAssessmmentInput extends AssessmentInput {
 
   @Field()
   readonly isDeleted: boolean;
-
-  @Field()
-  readonly status: string;
-
-  @Field()
-  readonly firstMeasurementStatus: string;
-
-  @Field()
-  readonly lastMeasurementStatus: string;
 }
 
 @InputType()

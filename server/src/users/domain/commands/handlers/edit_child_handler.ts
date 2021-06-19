@@ -30,7 +30,7 @@ export class EditChildHandler implements ICommandHandler<EditChildCommand> {
       kindergarten = await this.getKindergarten(command);
     }
 
-    if (!isObjectId(userId)) {
+    if (!userId) {
       throw new Error('Parent not found');
     }
 
@@ -59,7 +59,7 @@ export class EditChildHandler implements ICommandHandler<EditChildCommand> {
   }
 
   async getKindergarten({ child }: EditChildCommand) {
-    if (child.kindergartenId && !isObjectId(child.kindergartenId)) {
+    if (!child.kindergartenId) {
       throw new Error('Kindergarten not found');
     }
 

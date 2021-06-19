@@ -12,7 +12,7 @@ import { UseInterceptors, UseGuards } from '@nestjs/common';
 
 import { GetUserQuery } from './domain/queries/impl/get_user_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
-import { UserProps, User } from './domain/models/user_model';
+import { User, UserCore } from './domain/models/user_model';
 import { UserDTO } from './dto/user_dto';
 import { UserInput } from './inputs/user_input';
 import { ReturnedStatusDTO } from '../shared/returned_status';
@@ -28,7 +28,6 @@ import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { AgreementDTO } from '../agreements/dto/agreement_dto';
 import { GetValidAgreementsQuery } from '../agreements/domain/queries/impl/get_valid_agreements_query';
 import { ChangeUserAgreementCommand } from './domain/commands/impl/change_user_agreement_command';
-import { AgreementProps } from '../agreements/schemas/agreement_schema';
 import { GetAllUsersQuery } from './domain/queries/impl/get_all_users_query';
 import {
   ChangePasswordCommand,
@@ -37,8 +36,13 @@ import {
   ResetPasswordCommand,
 } from './domain/commands/impl';
 import { ReadNotificationCommand } from '../notifications/domain/commands/impl/read_notifiaction_command';
-import { NotificationProps } from '../notifications/domain/models/notification_model';
 import { AnonymizeUserCommand } from './domain/commands/impl/anonymize_user_command';
+import { AgreementMapper } from '../agreements/domain/mappers/agreement_mapper';
+import { NotificationCore } from '../notifications/domain/models/notification_model';
+import {
+  Agreement,
+  AgreementCore,
+} from '@app/agreements/domain/models/agreement';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -47,12 +51,12 @@ export class UsersResolver {
 
   @Query(() => UserDTO)
   @UseGuards(GqlAuthGuard)
-  async me(@CurrentUser() user: LoggedUser): Promise<UserProps> {
+  async me(@CurrentUser() user: LoggedUser): Promise<UserCore> {
     const currentUser: User = await this.queryBus.execute(
       new GetUserQuery(user.userId),
     );
 
-    return currentUser.getProps() as UserProps;
+    return currentUser.getProps();
   }
 
   @ResolveField()
@@ -63,20 +67,22 @@ export class UsersResolver {
   }
 
   @ResolveField()
-  async children(@Parent() user: UserProps): Promise<ChildDTO[]> {
+  async children(@Parent() user: UserCore): Promise<ChildDTO[]> {
     return await this.queryBus.execute(new GetChildrenQuery(user.children));
   }
 
   @ResolveField()
-  async agreements(@Parent() user: UserProps): Promise<AgreementDTO[]> {
-    return await this.queryBus.execute(
+  async agreements(@Parent() user: UserCore): Promise<AgreementDTO[]> {
+    const agreements = await this.queryBus.execute(
       new GetValidAgreementsQuery(user.agreements),
     );
+
+    return agreements.map(a => AgreementMapper.toRaw(a));
   }
 
   @Query(() => UserDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async user(@Args('id') id: string): Promise<UserProps> {
+  async user(@Args('id') id: string): Promise<UserCore> {
     return await this.queryBus.execute(new GetUserQuery(id));
   }
 
@@ -84,12 +90,12 @@ export class UsersResolver {
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async users(
     @Args('role', { nullable: true }) role: string,
-  ): Promise<UserProps[]> {
+  ): Promise<UserCore[]> {
     const users: User[] = await this.queryBus.execute(
       new GetAllUsersQuery(role),
     );
 
-    return users.map(user => user.getProps()) as UserProps[];
+    return users.map(user => user.getProps()) as UserCore[];
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -104,8 +110,8 @@ export class UsersResolver {
 
   @Mutation(() => NotificationDTO)
   @UseGuards(GqlAuthGuard)
-  async readNotification(@Args('id') id: string): Promise<NotificationProps> {
-    const notification: NotificationProps = await this.commandBus.execute(
+  async readNotification(@Args('id') id: string): Promise<NotificationCore> {
+    const notification: NotificationCore = await this.commandBus.execute(
       new ReadNotificationCommand(id),
     );
 
@@ -168,11 +174,11 @@ export class UsersResolver {
   async signAgreement(
     @CurrentUser() user: LoggedUser,
     @Args('agreementId') agreementId: string,
-  ): Promise<AgreementProps> {
-    const created: AgreementProps = await this.commandBus.execute(
+  ): Promise<AgreementCore> {
+    const agreement: Agreement = await this.commandBus.execute(
       new ChangeUserAgreementCommand(user.userId, agreementId),
     );
 
-    return created;
+    return agreement.getProps();
   }
 }

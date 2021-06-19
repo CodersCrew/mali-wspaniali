@@ -165,6 +165,7 @@
             "age-3": "5 years and 5 months.",
             "text-4": " A similar principle applies to the qualification of children in other age groups."
         },
+        "last-change":"Last change:",
         "initial-fitness-level": "Summarised result from initial test",
         "final-fitness-level": "Summarised result from final test",
         "advice": "Advice",
@@ -205,7 +206,7 @@
         "scale": "Scale",
         "received-points": "Received points",
         "pts": "pts",
-        "final-test-title": "Results of particular tests with comparison of results from the initial test",
+        "final-test-title": "Results of particular tests with comparison of results from the final test",
         "initial-test-title": "Results of particular tests included into initial test",
         "difference": {
             "progress": "Get better",

@@ -59,5 +59,6 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         'no-console': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
     },
 };

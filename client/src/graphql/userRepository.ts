@@ -44,7 +44,7 @@ export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User 
                     }
                     agreements {
                         _id
-                        date
+                        createdAt
                         text
                         isSigned
                     }
@@ -85,7 +85,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                         }
                         agreements {
                             _id
-                            date
+                            createdAt
                             text
                             isSigned
                         }
@@ -124,7 +124,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                     }
                     agreements {
                         _id
-                        date
+                        createdAt
                         text
                         isSigned
                     }

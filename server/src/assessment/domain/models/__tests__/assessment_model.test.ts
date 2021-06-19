@@ -1,8 +1,6 @@
-import { Title } from '../title_value_object';
 import { Assessment } from '../assessment_model';
-import { ObjectId } from '../../../../users/domain/models/object_id_value_object';
-import { SimpleDate } from '../simple_date_value_object';
 import { AssessmentCreatedEvent } from '../../events/impl/assessment_created_event';
+import { AssessmentMapper } from '../../mappers/assessment_mapper';
 
 describe('Assessment model', () => {
   describe('when recreated', () => {
@@ -16,30 +14,28 @@ describe('Assessment model', () => {
       expect(assessment.getUncommittedEvents()).toEqual([]);
     });
 
-    it('returns assessment with correct id', () => {
-      expect(assessment.id).toBeInstanceOf(ObjectId);
-      expect(assessment.id.value).toEqual('id');
-    });
-
-    it('returns assessment with correct title', () => {
-      expect(assessment.title).toBeInstanceOf(Title);
-      expect(assessment.title.value).toEqual('my-title');
-    });
-
-    it('returns assessment with correct start date', () => {
-      expect(assessment.startDate).toBeInstanceOf(SimpleDate);
-      expect(assessment.startDate.value).toEqual('2020-10-16');
-    });
-
-    it('returns assessment with correct end date', () => {
-      expect(assessment.endDate).toBeInstanceOf(SimpleDate);
-      expect(assessment.endDate.value).toEqual('2020-10-20');
+    it('returns assessment', () => {
+      expect(typeof assessment.id).toBe('string');
+      expect(assessment.title).toEqual('my-title');
+      expect(assessment.firstMeasurementStartDate).toEqual(
+        new Date('2020-10-16'),
+      );
+      expect(assessment.firstMeasurementEndDate).toEqual(
+        new Date('2020-10-20'),
+      );
+      expect(assessment.lastMeasurementStartDate).toEqual(
+        new Date('2020-10-16'),
+      );
+      expect(assessment.lastMeasurementEndDate).toEqual(new Date('2020-10-20'));
     });
 
     describe('with start date greater than end date', () => {
       it('throws an error', () => {
         expect(() =>
-          createAssessment({ startDate: '2020-10-20', endDate: '2020-10-15' }),
+          createAssessment({
+            startDate: new Date('2020-10-20'),
+            endDate: new Date('2020-10-15'),
+          }),
         ).toThrowError('The start date cannot be greater than the end date');
       });
     });
@@ -66,22 +62,22 @@ describe('Assessment model', () => {
     beforeEach(() => {
       assessment = createAssessment();
 
-      const updatedTitle = Title.create('updated-assessment');
-      const updatedStartDate = SimpleDate.create('2020-10-17');
-      const updatedEndDate = SimpleDate.create('2020-10-21');
+      const updatedTitle = 'updated-assessment';
+      // const updatedStartDate = new Date('2020-10-17');
+      // const updatedEndDate = new Date('2020-10-21');
 
       assessment.update({
-        title: updatedTitle.getValue(),
-        startDate: updatedStartDate.getValue(),
-        endDate: updatedEndDate.getValue(),
+        title: updatedTitle,
+        // startDate: updatedStartDate,
+        // endDate: updatedEndDate,
       });
     });
 
     it('returns updated assessment', () => {
-      expect(assessment.id.toString()).toEqual('id');
-      expect(assessment.title.value).toEqual('updated-assessment');
-      expect(assessment.startDate.value).toEqual('2020-10-17');
-      expect(assessment.endDate.value).toEqual('2020-10-21');
+      expect(typeof assessment.id).toBe('string');
+      expect(assessment.title).toBe('updated-assessment');
+      // expect(assessment.startDate).toEqual(new Date('2020-10-17'));
+      // expect(assessment.endDate).toEqual(new Date('2020-10-21'));
     });
   });
 
@@ -93,45 +89,38 @@ describe('Assessment model', () => {
     });
 
     it('throws an error', () => {
-      const updatedId = ObjectId.create('new-id');
-
       expect(() =>
         assessment.update({
-          _id: updatedId.getValue(),
+          _id: 'new-id',
         }),
       ).toThrowError('An id cannot be change');
     });
   });
 });
 
-function createAssessment(options?: {
-  isNew?: boolean;
-  startDate?: string;
-  endDate?: string;
-}) {
-  const _id = ObjectId.create('id');
-  const title = Title.create('my-title');
-  const startDate = SimpleDate.create(options?.startDate || '2020-10-16');
-  const endDate = SimpleDate.create(options?.endDate || '2020-10-20');
-
-  const create = options?.isNew ? Assessment.create : Assessment.recreate;
-
-  const assessment = create({
-    _id: _id.getValue(),
-    title: title.getValue(),
-    isOutdated: false,
-    isDeleted: false,
-    startDate: startDate.getValue(),
-    endDate: endDate.getValue(),
-    firstMeasurementStartDate: startDate.getValue(),
-    firstMeasurementEndDate: endDate.getValue(),
-    lastMeasurementStartDate: startDate.getValue(),
-    lastMeasurementEndDate: endDate.getValue(),
-    status: 'active',
-    firstMeasurementStatus: 'active',
-    lastMeasurementStatus: 'active',
-    kindergartens: [],
-  });
+function createAssessment(
+  options: {
+    isNew?: boolean;
+    startDate?: Date;
+    endDate?: Date;
+  } = {},
+) {
+  const assessment = AssessmentMapper.toDomain(
+    {
+      title: 'my-title',
+      isOutdated: false,
+      isDeleted: false,
+      firstMeasurementStartDate: options?.startDate || new Date('2020-10-16'),
+      firstMeasurementEndDate: options?.endDate || new Date('2020-10-20'),
+      lastMeasurementStartDate: options?.startDate || new Date('2020-10-16'),
+      lastMeasurementEndDate: options?.endDate || new Date('2020-10-20'),
+      status: 'active',
+      firstMeasurementStatus: 'active',
+      lastMeasurementStatus: 'active',
+      kindergartens: [],
+    },
+    { isNew: options.isNew },
+  );
 
   return assessment;
 }

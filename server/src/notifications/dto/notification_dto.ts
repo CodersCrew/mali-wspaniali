@@ -5,8 +5,8 @@ export class NotificationDTO {
   @Field(() => ID)
   _id: string;
 
-  @Field()
-  readonly date: Date;
+  @Field({ nullable: true })
+  readonly createdAt: Date;
 
   @Field()
   readonly user: string;

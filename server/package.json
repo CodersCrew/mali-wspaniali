@@ -112,7 +112,8 @@
       "^@keyCodes/(.*)$": "<rootDir>/key_codes/$1",
       "^@articles/(.*)$": "<rootDir>/articles/$1",
       "^@app/(.*)$": "<rootDir>/$1"
-    }
+    },
+    "setupFilesAfterEnv": ["<rootDir>/../setupTests.ts"]
   },
   "_moduleAliases": {
     "@users": "dist/users",

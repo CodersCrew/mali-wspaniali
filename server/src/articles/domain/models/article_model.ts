@@ -1,5 +1,4 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import { v4 as uuidv4 } from 'uuid';
 import { Expose, Transform } from 'class-transformer';
 import {
   Length,
@@ -15,12 +14,9 @@ import { Redactor } from './redactor';
 import { UpdateArticleInput } from '../../inputs/article_input';
 import { ValueOrNull } from '../../../shared/utils/value_or_null';
 import { ArticleMapper } from '../mappers/article_mapper';
+import { CoreModel } from '../../../shared/utils/core_model';
 
-export class ArticleCore {
-  @Expose()
-  @Transform(value => value ?? uuidv4())
-  _id: string;
-
+export class ArticleCore extends CoreModel {
   @Expose()
   @Length(10, 100)
   title: string;
@@ -59,18 +55,6 @@ export class ArticleCore {
   @Expose()
   @Transform(value => value ?? false)
   isPublished: boolean;
-
-  @Expose()
-  @Transform(value => value ?? new Date())
-  createdAt: Date;
-
-  @Expose()
-  @ValueOrNull()
-  deletedAt: Date | null;
-
-  @Expose()
-  @ValueOrNull()
-  modifiedAt: Date | null;
 
   @Expose()
   @ValueOrNull()

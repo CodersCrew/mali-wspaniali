@@ -9,7 +9,7 @@ export class UserDTO {
   _id: string;
 
   @Field()
-  readonly date: Date;
+  readonly createdAt: Date;
 
   @Field()
   readonly mail: string;

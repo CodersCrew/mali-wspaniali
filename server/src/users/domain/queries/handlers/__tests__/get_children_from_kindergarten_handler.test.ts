@@ -19,7 +19,7 @@ import {
   createKindergartenWith,
 } from '../../../../../test/helpers/app_mock';
 import { GetChildrenFromKindergartenQuery } from '../../impl';
-import { Child, ChildProps } from '../../../models/child_model';
+import { Child } from '../../../models/child_model';
 import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
 
 describe('GetChildrenFromKindergartenHandler', () => {
@@ -64,7 +64,7 @@ describe('GetChildrenFromKindergartenHandler', () => {
       await addChild(
         {
           firstname: 'child1',
-          kindergartenId: kindergarten1.id.toString(),
+          kindergartenId: kindergarten1.id,
           birthYear: 2004,
         },
         parent1.id,
@@ -72,7 +72,7 @@ describe('GetChildrenFromKindergartenHandler', () => {
       await addChild(
         {
           firstname: 'child2',
-          kindergartenId: kindergarten1.id.toString(),
+          kindergartenId: kindergarten1.id,
           birthYear: 2004,
         },
         parent1.id,
@@ -80,7 +80,7 @@ describe('GetChildrenFromKindergartenHandler', () => {
       await addChild(
         {
           firstname: 'child3',
-          kindergartenId: kindergarten2.id.toString(),
+          kindergartenId: kindergarten2.id,
           birthYear: 2005,
         },
         parent2.id,
@@ -88,7 +88,7 @@ describe('GetChildrenFromKindergartenHandler', () => {
       await addChild(
         {
           firstname: 'child4',
-          kindergartenId: kindergarten2.id.toString(),
+          kindergartenId: kindergarten2.id,
           birthYear: 2005,
         },
         parent2.id,
@@ -97,19 +97,21 @@ describe('GetChildrenFromKindergartenHandler', () => {
 
     it('returns children from kindergartens', async () => {
       childrenFromKindergarten1 = await getChildrenFromKindergarten(
-        kindergarten1.id.toString(),
+        kindergarten1.id,
       );
       childrenFromKindergarten2 = await getChildrenFromKindergarten(
-        kindergarten2.id.toString(),
+        kindergarten2.id,
       );
 
-      expect(
-        childrenFromKindergarten1.map(child => child.firstname.value),
-      ).toEqual(['child1', 'child2']);
+      expect(childrenFromKindergarten1.map(child => child.firstname)).toEqual([
+        'child1',
+        'child2',
+      ]);
 
-      expect(
-        childrenFromKindergarten2.map(child => child.firstname.value),
-      ).toEqual(['child3', 'child4']);
+      expect(childrenFromKindergarten2.map(child => child.firstname)).toEqual([
+        'child3',
+        'child4',
+      ]);
       expect(childrenFromKindergarten2.map(child => child.isDeleted)).toEqual([
         false,
         false,
@@ -126,7 +128,7 @@ describe('GetChildrenFromKindergartenHandler', () => {
       await addChild(
         {
           firstname: 'child5',
-          kindergartenId: kindergarten2.id.toString(),
+          kindergartenId: kindergarten2.id,
           birthYear: 2000,
         },
         parent2.id,
@@ -135,28 +137,27 @@ describe('GetChildrenFromKindergartenHandler', () => {
       await addChild(
         {
           firstname: 'child6',
-          kindergartenId: kindergarten2.id.toString(),
+          kindergartenId: kindergarten2.id,
           birthYear: 2001,
         },
         parent2.id,
       );
 
       childrenFromKindergarten2 = await getChildrenFromKindergarten(
-        kindergarten2.id.toString(),
+        kindergarten2.id,
       );
 
-      expect(
-        childrenFromKindergarten2.map(child => child.firstname.value),
-      ).toEqual(['child3', 'child4']);
+      expect(childrenFromKindergarten2.map(child => child.firstname)).toEqual([
+        'child3',
+        'child4',
+      ]);
     });
 
     it('returns not deleted children', async () => {
       await anonymizeUser(parent2.id);
 
       await waitForExpect(async () => {
-        const children = await getChildrenFromKindergarten(
-          kindergarten2.id.toString(),
-        );
+        const children = await getChildrenFromKindergarten(kindergarten2.id);
 
         expect(children.length).toBe(0);
       });

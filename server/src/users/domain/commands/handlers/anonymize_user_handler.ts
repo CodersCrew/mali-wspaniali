@@ -10,7 +10,7 @@ export class AnonymizeUserHandler
   constructor(
     private readonly userRepository: UserRepository,
     private readonly publisher: EventPublisher,
-  ) {}
+  ) { }
 
   async execute({ userId }: AnonymizeUserCommand): Promise<User> {
     const user = this.publisher.mergeObjectContext(
@@ -19,7 +19,7 @@ export class AnonymizeUserHandler
 
     user.delete();
 
-    await user.commit();
+    user.commit();
 
     return user;
   }

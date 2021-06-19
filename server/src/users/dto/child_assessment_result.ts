@@ -1,9 +1,16 @@
 import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
+import { AssessmentDTO } from '../../assessment/dto/assessment_dto';
 
 @ObjectType()
 export class ChildAssessmentResultDTO {
   @Field(() => ID)
   _id: string;
+
+  @Field(() => Date)
+  createdAt: Date;
+
+  @Field(() => Date, { nullable: true })
+  modifiedAt: Date;
 
   @Field(() => ID)
   childId: string;
@@ -13,6 +20,9 @@ export class ChildAssessmentResultDTO {
 
   @Field(() => ID)
   assessmentId: string;
+
+  // @Field(() => AssessmentDTO)
+  // assessment: string;
 
   @Field(() => Date, { nullable: true })
   readonly firstMeasurementRunDate: Date;

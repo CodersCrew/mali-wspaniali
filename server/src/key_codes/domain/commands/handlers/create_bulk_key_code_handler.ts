@@ -3,7 +3,8 @@ import ShortUniqueId from 'short-unique-id';
 
 import { CreateBulkKeyCodeCommand } from '../impl';
 import { KeyCodeRepository } from '../../repositories/key_codes_repository';
-import { KeyCodeProps } from '../../models/key_code_model';
+import { KeyCodeMapper } from '../../mappers/keycode_mapper';
+import { KeyCode } from '../../models/key_code_model';
 
 const uuid = new ShortUniqueId();
 
@@ -12,17 +13,15 @@ export class CreateBulkKeyCodeHandler
   implements ICommandHandler<CreateBulkKeyCodeCommand> {
   constructor(private readonly repository: KeyCodeRepository) {}
 
-  async execute(command: CreateBulkKeyCodeCommand): Promise<KeyCodeProps[]> {
+  async execute(command: CreateBulkKeyCodeCommand): Promise<KeyCode[]> {
     const { createdBy, amount, target } = command;
 
     const series = uuid.randomUUID(10);
 
     const keyCodes = new Array(amount)
       .fill(null)
-      .map(() => ({ createdBy, keyCode: uuid.randomUUID(10), series, target }));
+      .map(() => KeyCodeMapper.toDomain({ createdBy, target, series }));
 
-    const created = await this.repository.createBulk(keyCodes);
-
-    return created;
+    return await this.repository.createBulk(keyCodes);
   }
 }

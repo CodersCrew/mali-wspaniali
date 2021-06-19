@@ -5,7 +5,6 @@ import { UserRepository } from '../../repositories/user_repository';
 import { ChildRepository } from '../../repositories/child_repository';
 import { ChildMapper } from '../../mappers/child_mapper';
 import { Child } from '../../models/child_model';
-import { isObjectId } from '../../../../shared/utils/db_utils';
 import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
 
 @CommandHandler(AddChildCommand)
@@ -23,18 +22,10 @@ export class AddChildHandler implements ICommandHandler<AddChildCommand> {
       userId,
     } = command;
 
-    if (!isObjectId(kindergartenId)) {
-      throw new Error('Kindergarten not found');
-    }
-
     const kindergarten = await this.kindergartenRepository.get(kindergartenId);
 
     if (!kindergarten) {
       throw new Error('Kindergarten not found');
-    }
-
-    if (!isObjectId(userId)) {
-      throw new Error('Parent not found');
     }
 
     const parent = await this.userRepository.get(userId);
@@ -45,12 +36,8 @@ export class AddChildHandler implements ICommandHandler<AddChildCommand> {
 
     const child = ChildMapper.toDomain({
       ...rawChild,
-      _id: undefined,
       kindergarten: kindergartenId,
-      isDeleted: false,
-      results: [],
     });
-
     const createdChild = this.publisher.mergeObjectContext(
       await this.childRepository.create(child),
     );

@@ -4,13 +4,14 @@ import { UseInterceptors } from '@nestjs/common';
 
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructor_dto';
-import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model';
+import {
+  Kindergarten,
+  KindergartenCore,
+} from '../kindergartens/domain/models/kindergarten_model';
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
 import { GetKindergartenQuery } from '../kindergartens/domain/queries/impl/get_kindergarten_query';
 import { GetUserQuery } from '../users/domain/queries/impl/get_user_query';
-import { UserDTO } from '../users/dto/user_dto';
-import { KindergartenDTO } from '../kindergartens/dto/kindergarten_dto';
-import { User, UserProps } from '@users/domain/models';
+import { User, UserCore } from '@users/domain/models';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => KindergartenWithInstructorDTO)
@@ -24,14 +25,14 @@ export class KindergartenWithInstructorResolver {
       kindergartenId: string | null;
       instructorId: string | null;
     },
-  ): Promise<UserDTO> {
+  ): Promise<UserCore> {
     if (!parent.instructorId) return null;
 
     const instructor: User = await this.queryBus.execute(
       new GetUserQuery(parent.instructorId),
     );
 
-    return instructor.getProps() as UserProps;
+    return instructor.getProps();
   }
 
   @ResolveField(() => KindergartenWithInstructorDTO, { nullable: true })
@@ -41,7 +42,7 @@ export class KindergartenWithInstructorResolver {
       kindergartenId: string | null;
       instructorId: string | null;
     },
-  ): Promise<KindergartenDTO> {
+  ): Promise<KindergartenCore> {
     if (!parent.kindergartenId) return null;
 
     const kindergarten: Kindergarten = await this.queryBus.execute(

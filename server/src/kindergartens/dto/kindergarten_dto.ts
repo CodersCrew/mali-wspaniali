@@ -1,22 +1,30 @@
-import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+
+import { CoreModelDto } from '../../shared/utils/core_dto';
 
 @ObjectType()
-export class KindergartenDTO {
-  @Field(() => ID)
-  _id: string;
-
-  @Field()
-  readonly date: Date;
-
+export class KindergartenDTO extends CoreModelDto {
   @Field(() => Int)
-  readonly number: number;
+  number: number;
 
   @Field()
-  readonly name: string;
+  name: string;
 
   @Field()
-  readonly city: string;
+  city: string;
 
   @Field()
-  readonly address: string;
+  address: string;
+
+  @Field()
+  isDeleted: boolean;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  modifiedAt: Date;
+
+  @Field()
+  deletedAt: Date;
 }

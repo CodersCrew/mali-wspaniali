@@ -6,7 +6,7 @@ export class AgreementDTO {
   _id: string;
 
   @Field()
-  readonly date: Date;
+  readonly createdAt: Date;
 
   @Field()
   readonly text: string;

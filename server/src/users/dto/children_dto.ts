@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
-import { ChildResultDTO } from './child_result_dto';
 import { KindergartenDTO } from '../../kindergartens/dto/kindergarten_dto';
+import { ChildAssessmentResultDTO } from './child_assessment_result';
 
 @ObjectType()
 export class ChildDTO {
@@ -8,7 +8,7 @@ export class ChildDTO {
   _id: string;
 
   @Field()
-  readonly date: Date;
+  readonly createdAt: Date;
 
   @Field()
   readonly firstname: string;
@@ -25,7 +25,7 @@ export class ChildDTO {
   @Field()
   readonly sex: string;
 
-  @Field(() => [ChildResultDTO])
+  @Field(() => [ChildAssessmentResultDTO])
   readonly results: string[];
 
   @Field(() => KindergartenDTO)

@@ -6,17 +6,23 @@ export class CreateKeyCodeDTO {
   id: string;
 
   @Field()
-  readonly date: Date;
+  createdAt: Date;
 
   @Field()
-  readonly createdBy: string;
+  createdBy: string;
 
   @Field()
-  readonly keyCode: string;
+  keyCode: string;
 
   @Field()
-  readonly series: string;
+  series: string;
 
   @Field()
-  readonly target: string;
+  target: string;
+}
+
+@ObjectType()
+export class KeyCodeSeriesDTO extends CreateKeyCodeDTO {
+  @Field()
+  count: string;
 }

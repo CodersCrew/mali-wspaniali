@@ -1,5 +1,5 @@
 import * as UserEvents from '../../events/impl';
-import { User, UserProps } from '../user_model';
+import { User, UserCore } from '../user_model';
 
 jest.mock('../../events/impl');
 
@@ -48,18 +48,17 @@ describe('UserModel', () => {
   });
 });
 
-function createUser(user: Partial<UserProps> = {}) {
-  const userProps: UserProps = {
+function createUser(user: Partial<UserCore> = {}) {
+  const userProps = {
     _id: 'my-id',
     agreements: [],
     children: [],
-    date: new Date(),
     mail: 'my-email@email.com',
-    notifications: [],
     password: '',
     role: '',
-    confirmed: false,
-    deleted: false,
+    isConfirmed: false,
+    isDeleted: false,
+    createdAt: new Date(),
     ...user,
   };
 

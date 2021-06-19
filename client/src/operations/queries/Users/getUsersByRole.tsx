@@ -33,7 +33,7 @@ export const INSTRUCTORS = gql`
     query Users {
         users(role: "instructor") {
             _id
-            date
+            createdAt
             mail
             role
         }
@@ -44,7 +44,7 @@ export const ADMINS = gql`
     query Users {
         users(role: "admin") {
             _id
-            date
+            createdAt
             mail
             role
         }
@@ -55,7 +55,7 @@ export const PARENTS = gql`
     query Users {
         users(role: "parent") {
             _id
-            date
+            createdAt
             mail
             role
             children {
@@ -82,7 +82,7 @@ export const PARENTS = gql`
             }
             agreements {
                 _id
-                date
+                createdAt
                 text
                 isSigned
             }

@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateArticleInput } from '../../inputs/article_input';
+import {
+  CreateArticleInput,
+  UpdateArticleInput,
+} from '../../inputs/article_input';
 import { Article } from '../models/article_model';
 import { ArticleDocument } from '../../interfaces/article.interface';
 import { ArticleMapper } from '../mappers/article_mapper';
@@ -14,19 +17,20 @@ export class ArticlesRepository {
     private readonly articleModel: Model<ArticleDocument>,
   ) {}
 
-  async create(createArticleDTO: CreateArticleInput): Promise<Article> {
+  create(createArticleDTO: CreateArticleInput): Promise<Article> {
     const article = ArticleMapper.toDomain(createArticleDTO);
     const createdArticle = new this.articleModel(ArticleMapper.toRaw(article));
 
-    return await createdArticle
+    return createdArticle
       .save()
       .then(article => ArticleMapper.toDomain(article.toObject()));
   }
 
-  update(id: string, updates: Partial<CreateArticleInput>) {
+  update(id: string, updates: Partial<UpdateArticleInput>) {
     this.articleModel.findOneAndUpdate(
       { _id: id },
       updates as Partial<ArticleDocument>,
+      { useFindAndModify: false },
     );
   }
 
@@ -89,8 +93,8 @@ export class ArticlesRepository {
       });
   }
 
-  async get(id: string): Promise<Article> {
-    return await this.articleModel
+  get(id: string): Promise<Article> {
+    return this.articleModel
       .findOne({ _id: id })
       .exec()
       .then(article => article && ArticleMapper.toDomain(article.toObject()));

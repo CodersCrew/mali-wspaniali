@@ -1,55 +1,75 @@
 import { useState } from 'react';
+import { Typography, makeStyles } from '@material-ui/core/';
+import { useTranslation } from 'react-i18next';
 
 import { GroupedTests } from './GroupedTest';
-import { Child, TestResult } from '../../../graphql/types';
+import { AssessmentResult, Child } from '../../../graphql/types';
 
 interface Props {
-    onNoResultClick(): void;
     child: Child;
 }
 
-export const ChildProfileResults = ({ child }: Props) => {
+export function ChildProfileResults({ child }: Props) {
     const [active, setActive] = useState('');
 
-    const { results } = child;
-
-    const grouped = getGroupedTest(results);
-
-    if (results.length === 0) return getEmptyMessage();
+    if (child.results.length === 0)
+        return (
+            <>
+                <Descriptiom />
+                <EmptyPageMessage />
+            </>
+        );
 
     return (
         <div data-testid="grouped-tests">
-            {grouped.map((groupedTest) => {
-                const [startTest] = groupedTest;
-
+            <Descriptiom />
+            {child.results.map((test) => {
                 return (
                     <GroupedTests
-                        isExpanded={active === startTest._id}
-                        onOpen={() => setActive(startTest._id)}
+                        isExpanded={active === test._id}
+                        onOpen={() => setActive(test._id)}
                         onClose={() => setActive('')}
-                        key={startTest._id}
-                        date={new Date(startTest.date)}
-                        tests={groupedTest}
+                        key={test._id}
+                        test={test}
                     />
                 );
             })}
         </div>
     );
-};
+}
 
-function getEmptyMessage() {
+function EmptyPageMessage() {
     return <div data-testid="no-test-assigned">There is no test assigned to your child</div>;
 }
 
-// export for test purposes only
-export function getGroupedTest(results: TestResult[]) {
-    return results
-        .filter((result) => !result.rootResultId)
-        .map((result) => {
-            const endResult = results.find((lastResult) => lastResult.rootResultId === result._id);
+function Descriptiom() {
+    const { t } = useTranslation();
+    const classes = useStyles();
 
-            if (endResult) return [result, endResult];
-
-            return [result];
-        });
+    return (
+        <Typography variant="h3" className={classes.description}>
+            {t('child-profile.description')}
+        </Typography>
+    );
 }
+
+// export for test purposes only
+export function getGroupedTest(results: AssessmentResult[]) {
+    return (
+        results
+            // .filter((result) => !result.rootResultId)
+            .map((result) => {
+                // const endResult = results.find((lastResult) => lastResult.rootResultId === result._id);
+
+                // if (endResult) return [result, endResult];
+
+                return [result];
+            })
+    );
+}
+
+const useStyles = makeStyles({
+    description: {
+        marginBottom: 40,
+    },
+});

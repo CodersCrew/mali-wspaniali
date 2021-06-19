@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
+import { ObjectType, Field, ID, GraphQLISODateTime } from '@nestjs/graphql';
 import { KindergartenWithInstructorDTO } from './kindergarten_with_instructor_dto';
 
 @ObjectType()
@@ -15,23 +15,17 @@ export class AssessmentDTO {
   @Field()
   title: string;
 
-  @Field()
-  startDate: string;
+  @Field(() => GraphQLISODateTime)
+  readonly firstMeasurementStartDate: Date;
 
-  @Field()
-  endDate: string;
+  @Field(() => GraphQLISODateTime)
+  readonly firstMeasurementEndDate: Date;
 
-  @Field()
-  readonly firstMeasurementStartDate: string;
+  @Field(() => GraphQLISODateTime)
+  readonly lastMeasurementStartDate: Date;
 
-  @Field()
-  readonly firstMeasurementEndDate: string;
-
-  @Field()
-  readonly lastMeasurementStartDate: string;
-
-  @Field()
-  readonly lastMeasurementEndDate: string;
+  @Field(() => GraphQLISODateTime)
+  readonly lastMeasurementEndDate: Date;
 
   @Field()
   readonly status: string;

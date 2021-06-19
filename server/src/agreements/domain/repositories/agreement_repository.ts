@@ -4,10 +4,7 @@ import { Model } from 'mongoose';
 import { Agreement } from '../models/agreement';
 import { AgreementMapper } from '../mappers/agreement_mapper';
 
-import {
-  AgreementDocument,
-  AgreementProps,
-} from '../../schemas/agreement_schema';
+import { AgreementDocument } from '../../schemas/agreement_schema';
 
 @Injectable()
 export class AgreementRepository {
@@ -17,31 +14,27 @@ export class AgreementRepository {
   ) {}
 
   async get(id: string): Promise<Agreement | undefined> {
-    const rawAgreement = await this.model.findById(id).lean();
+    const agreement = await this.model.findOne({ _id: id }).lean();
 
-    if (rawAgreement) return AgreementMapper.toDomain(rawAgreement);
+    if (agreement) return AgreementMapper.toDomain(agreement);
   }
 
-  getAll(): Promise<AgreementProps[]> {
+  getAll(): Promise<Agreement[]> {
     return this.model
       .find({}, {}, { sort: { date: -1 } })
       .exec()
       .then(agreements =>
         agreements.map(agreement => {
-          const parsedAgreement = agreement.toObject();
-
-          return { ...parsedAgreement, _id: parsedAgreement._id.toString() };
+          return AgreementMapper.toDomain(agreement);
         }),
       );
   }
 
-  create(createAgreementDTO: { text: string }): Promise<AgreementProps> {
-    const createdAgreement = new this.model(createAgreementDTO);
+  async create(createAgreementDTO: { text: string }): Promise<Agreement> {
+    const agreement = AgreementMapper.toDomain(createAgreementDTO);
 
-    return createdAgreement.save().then(agreement => {
-      const parsedAgreement = agreement.toObject();
+    await new this.model(agreement.getProps()).save();
 
-      return { ...parsedAgreement, _id: agreement._id.toString() };
-    });
+    return agreement;
   }
 }

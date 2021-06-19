@@ -13,9 +13,9 @@ export class CreateKindergartenHandler
     private readonly publisher: EventPublisher,
   ) {}
 
-  async execute(command: CreateKindergartenCommand): Promise<Kindergarten> {
-    const { kindergarten } = command;
-
+  async execute({
+    kindergarten,
+  }: CreateKindergartenCommand): Promise<Kindergarten> {
     const createdKindergarten = KindergartenMapper.toDomainFrom(kindergarten);
 
     const created = this.publisher.mergeObjectContext(

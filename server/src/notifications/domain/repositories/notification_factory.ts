@@ -1,35 +1,35 @@
 interface NotificationFactoryResult {
-  user: string | string[];
+  userId: string | string[];
   templateId: string;
   values: string[];
 }
 
 export function createArticleCreatedNotification(
-  user: string,
+  userId: string,
 ): NotificationFactoryResult {
   return {
-    user,
+    userId,
     templateId: 'new_article',
     values: [],
   };
 }
 
 export function createUserCreatedNotification(
-  user: string,
+  userId: string,
   values: string[],
 ): NotificationFactoryResult {
   return {
-    user,
+    userId,
     templateId: 'new_user',
     values,
   };
 }
 
 export function createChildNotification(
-  user: string,
+  userId: string,
 ): NotificationFactoryResult {
   return {
-    user,
+    userId,
     templateId: 'child_created',
     values: [],
   };
@@ -40,18 +40,18 @@ export function createAssessmentCreatedNotification(
   values: string[],
 ): NotificationFactoryResult {
   return {
-    user: users,
+    userId: users,
     templateId: 'new_assessment',
     values,
   };
 }
 
 export function createKindergartenCreatedNotification(
-  user: string[],
+  userId: string[],
   name: string,
 ): NotificationFactoryResult {
   return {
-    user,
+    userId,
     templateId: 'kindergarten_created',
     values: [name],
   };

@@ -7,20 +7,15 @@ import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
 import { UsersModule } from '../../../../users_module';
 import { User } from '../../../../../users/domain/models/user_model';
 import { Child } from '../../../models/child_model';
-import { ObjectId } from '../../../models/object_id_value_object';
-import { Sex } from '../../../models/sex_value_object';
-import { Firstname } from '../../../models/firstname_value_object';
-import { Lastname } from '../../../models/lastname_value_object';
-import { BirthYear } from '../../../models/birth_year_value_object';
 import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
-import { BirthQuarter } from '../../../models/birth_quarter_value_object';
 import {
   createKindergartenWith,
   createParent,
 } from '../../../../../test/helpers/app_mock';
+import { ChildInput } from '../../../../inputs/child_input';
 
 jest.setTimeout(10000);
 
@@ -29,7 +24,7 @@ describe('AddChildHandler', () => {
   let kindergarten: Kindergarten;
   let addedChild: Child;
 
-  const validChildOptions = {
+  const validChildOptions: ChildInput = {
     birthYear: 2000,
     birthQuarter: 1,
     firstname: 'my-name',
@@ -57,7 +52,7 @@ describe('AddChildHandler', () => {
 
     kindergarten = await createKindergartenWith();
 
-    validChildOptions.kindergartenId = kindergarten.id.toString();
+    validChildOptions.kindergartenId = kindergarten.id;
 
     await awaitForResponse();
   });
@@ -71,24 +66,15 @@ describe('AddChildHandler', () => {
 
       it('returns child instance', async () => {
         expect(addedChild).toBeInstanceOf(Child);
-        expect(addedChild.id).toBeInstanceOf(ObjectId);
-        expect(addedChild.id.isEmpty()).toEqual(false);
+        expect(typeof addedChild.id).toBe('string');
         expect(addedChild.isDeleted).toEqual(false);
-        expect(addedChild.kindergarten).toBeInstanceOf(ObjectId);
-        expect(addedChild.kindergarten.isEmpty()).toEqual(false);
-        expect(addedChild.kindergarten.toString()).toEqual(
-          kindergarten.id.toString(),
-        );
-        expect(addedChild.sex).toBeInstanceOf(Sex);
-        expect(addedChild.sex.value).toEqual('male');
-        expect(addedChild.firstname).toBeInstanceOf(Firstname);
-        expect(addedChild.firstname.value).toEqual('my-name');
-        expect(addedChild.lastname).toBeInstanceOf(Lastname);
-        expect(addedChild.lastname.value).toEqual('my-lastname');
-        expect(addedChild.birthYear).toBeInstanceOf(BirthYear);
-        expect(addedChild.birthYear.value).toEqual(2000);
-        expect(addedChild.birthQuarter).toBeInstanceOf(BirthQuarter);
-        expect(addedChild.birthQuarter.value).toEqual(1);
+        expect(typeof addedChild.kindergarten).toBe('string');
+        expect(addedChild.kindergarten).toEqual(kindergarten.id);
+        expect(addedChild.sex).toEqual('male');
+        expect(addedChild.firstname).toEqual('my-name');
+        expect(addedChild.lastname).toEqual('my-lastname');
+        expect(addedChild.birthYear).toEqual(2000);
+        expect(addedChild.birthQuarter).toEqual(1);
       });
 
       it('invokes child added notification', async () => {
@@ -113,96 +99,109 @@ describe('AddChildHandler', () => {
     describe('with invalid', () => {
       describe('with invalid firstname', () => {
         it('throws an error', async () => {
-          await expect(() =>
+          await expect(
             addChildCommandWith({ firstname: 'my' }, parent.id),
-          ).rejects.toThrow('Firstname must be valid');
+          ).toHaveValidationError(
+            'firstname must be longer than or equal to 3 characters',
+          );
 
-          await expect(() =>
-            addChildCommandWith(
-              { firstname: new Array(41).fill(' ').join('') },
-              parent.id,
-            ),
-          ).rejects.toThrow('Firstname must be valid');
-
-          await expect(() =>
+          await expect(
             addChildCommandWith({ firstname: null }, parent.id),
-          ).rejects.toThrow('Firstname is null or undefined');
+          ).toHaveValidationError(
+            'firstname must be longer than or equal to 3 characters',
+          );
 
-          await expect(() =>
+          await expect(
             addChildCommandWith({ firstname: undefined }, parent.id),
-          ).rejects.toThrow('Firstname is null or undefined');
+          ).toHaveValidationError(
+            'firstname must be longer than or equal to 3 characters',
+          );
         });
       });
 
       describe('with invalid lastname', () => {
         it('throws an error', async () => {
-          await expect(() =>
+          await expect(
             addChildCommandWith({ lastname: 'my' }, parent.id),
-          ).rejects.toThrow('Lastname must be valid');
+          ).toHaveValidationError(
+            'lastname must be longer than or equal to 3 characters',
+          );
 
-          await expect(() =>
+          await expect(
             addChildCommandWith(
               { lastname: new Array(51).fill(' ').join('') },
               parent.id,
             ),
-          ).rejects.toThrow('Lastname must be valid');
+          ).toHaveValidationError(
+            'lastname must be shorter than or equal to 50 characters',
+          );
 
-          await expect(() =>
+          await expect(
             addChildCommandWith({ lastname: null }, parent.id),
-          ).rejects.toThrow('Lastname is null or undefined');
+          ).toHaveValidationError(
+            'lastname must be longer than or equal to 3 characters',
+          );
 
-          await expect(() =>
+          await expect(
             addChildCommandWith({ lastname: undefined }, parent.id),
-          ).rejects.toThrow('Lastname is null or undefined');
-        });
-      });
-
-      describe('with invalid birth year', () => {
-        it('throws an error', async () => {
-          await expect(() =>
-            addChildCommandWith({ birthYear: null }, parent.id),
-          ).rejects.toThrow('BirthYear must be valid, but got "null"');
-
-          await expect(() =>
-            addChildCommandWith({ birthYear: undefined }, parent.id),
-          ).rejects.toThrow('BirthYear must be valid, but got "undefined"');
+          ).toHaveValidationError(
+            'lastname must be longer than or equal to 3 characters',
+          );
         });
       });
 
       describe('with invalid birth quarter', () => {
         it('throws an error', async () => {
-          await expect(() =>
+          await expect(
             addChildCommandWith({ birthQuarter: 4 }, parent.id),
-          ).rejects.toThrow('BirthQuarter must be valid, but got "4"');
+          ).toHaveValidationError('birthQuarter must not be greater than 3');
 
           await expect(() =>
             addChildCommandWith({ birthQuarter: null }, parent.id),
-          ).rejects.toThrow('BirthQuarter must be valid, but got "null"');
+          ).rejects.toEqual(
+            jasmine.arrayContaining([
+              jasmine.objectContaining({
+                constraints: {
+                  max: 'birthQuarter must not be greater than 3',
+                  min: 'birthQuarter must not be less than 0',
+                },
+              }),
+            ]),
+          );
 
           await expect(() =>
             addChildCommandWith({ birthQuarter: undefined }, parent.id),
-          ).rejects.toThrow('BirthQuarter must be valid, but got "undefined"');
+          ).rejects.toEqual(
+            jasmine.arrayContaining([
+              jasmine.objectContaining({
+                constraints: {
+                  max: 'birthQuarter must not be greater than 3',
+                  min: 'birthQuarter must not be less than 0',
+                },
+              }),
+            ]),
+          );
         });
       });
 
       describe('with invalid sex', () => {
         it('throws an error', async () => {
-          await expect(() =>
+          await expect(
             addChildCommandWith({ sex: 'another' }, parent.id),
-          ).rejects.toThrow(
-            'Sex must be either "male" or "female", but got "another"',
+          ).toHaveValidationError(
+            'sex must be one of the following values: male,female',
           );
 
-          await expect(() =>
+          await expect(
             addChildCommandWith({ sex: null }, parent.id),
-          ).rejects.toThrow(
-            'Sex must be either "male" or "female", but got "null"',
+          ).toHaveValidationError(
+            'sex must be one of the following values: male,female',
           );
 
-          await expect(() =>
+          await expect(
             addChildCommandWith({ sex: undefined }, parent.id),
-          ).rejects.toThrow(
-            'Sex must be either "male" or "female", but got "undefined"',
+          ).toHaveValidationError(
+            'sex must be one of the following values: male,female',
           );
         });
       });
@@ -240,7 +239,10 @@ describe('AddChildHandler', () => {
     });
   });
 
-  function addChildCommandWith(options, parentId) {
+  async function addChildCommandWith(
+    options: Partial<ChildInput>,
+    parentId: string,
+  ) {
     return app.resolve(AddChildHandler).then(handler => {
       return handler.execute(
         new AddChildCommand({ ...validChildOptions, ...options }, parentId),

@@ -43,8 +43,43 @@ type PaginatedArticlesDTO {
   hasNext: Boolean!
 }
 
+type ChildAssessmentResultDTO {
+  _id: ID!
+  createdAt: DateTime!
+  modifiedAt: DateTime
+  childId: ID!
+  kindergartenId: ID!
+  assessmentId: ID!
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+  currentParams: ChildCurrentParamsDTO!
+  assessment: AssessmentDTO!
+}
+
 type PartialChildResult {
   _id: ID
+  createdAt: DateTime
+  modifiedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID
@@ -74,28 +109,19 @@ type PartialChildResult {
 
 type NotificationDTO {
   _id: ID!
-  date: DateTime!
+  createdAt: DateTime
   user: String!
   templateId: String!
   values: [String!]!
   isRead: Boolean!
 }
 
-type ChildResultDTO {
-  _id: ID!
-  date: DateTime!
-  test: JSONObject!
-  rootResultId: String
-}
-
-"""
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
 type KindergartenDTO {
   _id: ID!
-  date: DateTime!
+  isDeleted: Boolean!
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  modifiedAt: DateTime!
   number: Int!
   name: String!
   city: String!
@@ -105,13 +131,13 @@ type KindergartenDTO {
 
 type ChildDTO {
   _id: ID!
-  date: DateTime!
+  createdAt: DateTime!
   firstname: String!
   lastname: String!
   birthYear: Int!
   birthQuarter: Int!
   sex: String!
-  results: [ChildResultDTO!]!
+  results: [ChildAssessmentResultDTO!]!
   kindergarten: KindergartenDTO!
   isDeleted: Boolean!
   currentParams: ChildCurrentParamsDTO!
@@ -119,14 +145,14 @@ type ChildDTO {
 
 type AgreementDTO {
   _id: ID!
-  date: DateTime!
+  createdAt: DateTime!
   text: String!
   isSigned: Boolean!
 }
 
 type UserDTO {
   _id: ID!
-  date: DateTime!
+  createdAt: DateTime!
   mail: String!
   role: String!
   notifications: [NotificationDTO!]
@@ -163,7 +189,7 @@ type ChildCurrentParamsDTO {
 
 type CreateKeyCodeDTO {
   id: ID!
-  date: DateTime!
+  createdAt: DateTime!
   createdBy: String!
   keyCode: String!
   series: String!
@@ -171,32 +197,26 @@ type CreateKeyCodeDTO {
 }
 
 type KeyCodeSeriesDTO {
-  date: DateTime!
+  id: ID!
+  createdAt: DateTime!
   createdBy: String!
   keyCode: String!
   series: String!
   target: String!
-  count: Int!
+  count: String!
 }
 
 type KindergartenWithUsersDTO {
   _id: ID!
-  date: DateTime!
+  isDeleted: Boolean!
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  modifiedAt: DateTime!
   number: Int!
   name: String!
   city: String!
   address: String!
   users: [UserDTO!]!
-}
-
-type NewsletterDTO {
-  _id: ID!
-  message: String!
-  recipients: [String!]!
-  date: DateTime!
-  title: String!
-  type: String!
-  isDone: Boolean!
 }
 
 type KindergartenWithInstructorDTO {
@@ -209,16 +229,24 @@ type AssessmentDTO {
   isOutdated: Boolean!
   isDeleted: Boolean!
   title: String!
-  startDate: String!
-  endDate: String!
-  firstMeasurementStartDate: String!
-  firstMeasurementEndDate: String!
-  lastMeasurementStartDate: String!
-  lastMeasurementEndDate: String!
+  firstMeasurementStartDate: DateTime!
+  firstMeasurementEndDate: DateTime!
+  lastMeasurementStartDate: DateTime!
+  lastMeasurementEndDate: DateTime!
   status: String!
   firstMeasurementStatus: String!
   lastMeasurementStatus: String!
   kindergartens: [KindergartenWithInstructorDTO!]!
+}
+
+type NewsletterDTO {
+  _id: ID!
+  message: String!
+  recipients: [String!]!
+  date: DateTime!
+  title: String!
+  type: String!
+  isDone: Boolean!
 }
 
 type Query {
@@ -334,6 +362,8 @@ input ResultInput {
 }
 
 input PartialChildResultInput {
+  createdAt: DateTime
+  modifiedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID
@@ -363,6 +393,8 @@ input PartialChildResultInput {
 
 input PartialUpdateChildResultInput {
   _id: ID
+  createdAt: DateTime
+  modifiedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID
@@ -420,27 +452,31 @@ input NewsletterKindergartenInput {
 
 input AssessmentInput {
   title: String!
-  startDate: String!
-  endDate: String!
-  firstMeasurementStartDate: String!
-  firstMeasurementEndDate: String!
-  lastMeasurementStartDate: String!
-  lastMeasurementEndDate: String!
+  firstMeasurementStartDate: DateTime!
+  firstMeasurementEndDate: DateTime!
+  lastMeasurementStartDate: DateTime!
+  lastMeasurementEndDate: DateTime!
+  status: String!
+  firstMeasurementStatus: String!
+  lastMeasurementStatus: String!
   kindergartenIds: [String!]!
 }
 
 input UpdatedAssessmentInput {
   title: String
-  startDate: String
-  endDate: String
-  firstMeasurementStartDate: String
-  firstMeasurementEndDate: String
-  lastMeasurementStartDate: String
-  lastMeasurementEndDate: String
-  kindergartens: [JSONObject!]
-  isOutdated: Boolean
-  isDeleted: Boolean
+  firstMeasurementStartDate: DateTime
+  firstMeasurementEndDate: DateTime
+  lastMeasurementStartDate: DateTime
+  lastMeasurementEndDate: DateTime
   status: String
   firstMeasurementStatus: String
   lastMeasurementStatus: String
+  kindergartens: [JSONObject!]
+  isOutdated: Boolean
+  isDeleted: Boolean
 }
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")

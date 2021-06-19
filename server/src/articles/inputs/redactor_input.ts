@@ -1,8 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { RedactorProps } from '../../articles/domain/models/redactor';
 
 @InputType()
-export class RedactorInput implements RedactorProps {
+export class RedactorInput {
   @Field()
   readonly firstName: string;
 

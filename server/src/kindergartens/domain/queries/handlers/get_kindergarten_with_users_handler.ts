@@ -27,7 +27,7 @@ export class GetKindergartenWithUsersHandler
       const children = await this.childRepository.getByKindergarten(id);
 
       const parents = await this.userRepository.getByChildren(
-        children.map(c => c.id.toString()),
+        children.map(c => c.id),
       );
 
       const kindergartenWithUsers = {

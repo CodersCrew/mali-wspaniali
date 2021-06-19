@@ -35,15 +35,13 @@ describe('DeleteKindergartenHandler', () => {
     });
 
     it('returns anonymized kindergarten', async () => {
-      expect(kindergarten.isDeleted.value).toBe(false);
+      expect(kindergarten.isDeleted).toBe(false);
 
-      await anonymizeKindergarten(kindergarten.id.toString());
-      const anonymizedKindergarten = await getKindergarten(
-        kindergarten.id.toString(),
-      );
+      await anonymizeKindergarten(kindergarten.id);
+      const anonymizedKindergarten = await getKindergarten(kindergarten.id);
 
       expect(anonymizedKindergarten).toBeInstanceOf(Kindergarten);
-      expect(anonymizedKindergarten.isDeleted.value).toBe(true);
+      expect(anonymizedKindergarten.isDeleted).toBe(true);
     });
   });
 
@@ -57,7 +55,7 @@ describe('DeleteKindergartenHandler', () => {
       await addChild(
         {
           firstname: 'name-1',
-          kindergartenId: kindergarten.id.toString(),
+          kindergartenId: kindergarten.id,
           birthYear: 2004,
         },
         parent.id,
@@ -65,7 +63,7 @@ describe('DeleteKindergartenHandler', () => {
       await addChild(
         {
           firstname: 'name-2',
-          kindergartenId: kindergarten.id.toString(),
+          kindergartenId: kindergarten.id,
           birthYear: 2004,
         },
         parent.id,
@@ -74,7 +72,7 @@ describe('DeleteKindergartenHandler', () => {
 
     it('throws an error', async () => {
       await expect(async () => {
-        await anonymizeKindergarten(kindergarten.id.toString());
+        await anonymizeKindergarten(kindergarten.id);
       }).rejects.toThrow('KINDERGARTEN_NOT_EMPTY');
     });
   });

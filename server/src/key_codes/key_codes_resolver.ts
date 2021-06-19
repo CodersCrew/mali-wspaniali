@@ -3,12 +3,11 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
 
 import { KeyCodeRepository } from './domain/repositories/key_codes_repository';
-import { KeyCodeProps } from './domain/models/key_code_model';
 import {
   CreateBulkKeyCodeCommand,
   CreateKeyCodeCommand,
 } from './domain/commands/impl';
-import { CreateKeyCodeDTO } from './dto/create_key_code.dto';
+import { CreateKeyCodeDTO, KeyCodeSeriesDTO } from './dto/create_key_code.dto';
 import {
   GetAllKeyCodesQuery,
   GetAllKeyCodeSeriesQuery,
@@ -16,8 +15,8 @@ import {
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
-import { KeyCodeSeriesProps } from '../key_codes/domain/models/key_code_model';
-import { KeyCodeSeriesDTO } from './dto/key_code_series.dto';
+import { KeyCode, KeyCodeCore } from './domain/models/key_code_model';
+import { KeyCodeMapper } from './domain/mappers/keycode_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -30,22 +29,26 @@ export class KeyCodesResolver {
 
   @Query(() => [CreateKeyCodeDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async keyCodes(@Args('series') series: string): Promise<KeyCodeProps[]> {
-    const keyCodes: KeyCodeProps[] = await this.queryBus.execute(
+  async keyCodes(@Args('series') series: string): Promise<KeyCodeCore[]> {
+    const keyCodes: KeyCode[] = await this.queryBus.execute(
       new GetAllKeyCodesQuery(series),
     );
 
-    return keyCodes;
+    return KeyCodeMapper.toPlainMany(keyCodes);
   }
 
   @Query(() => [KeyCodeSeriesDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async keyCodeSeries(): Promise<KeyCodeSeriesProps[]> {
-    const keyCodes: KeyCodeSeriesProps[] = await this.queryBus.execute(
-      new GetAllKeyCodeSeriesQuery(),
-    );
+  async keyCodeSeries(): Promise<Array<KeyCodeCore & { count: number }>> {
+    const keyCodes: Array<{
+      keyCodeSeries: KeyCode;
+      count: number;
+    }> = await this.queryBus.execute(new GetAllKeyCodeSeriesQuery());
 
-    return keyCodes;
+    return keyCodes.map(keyCode => ({
+      ...KeyCodeMapper.toPlain(keyCode.keyCodeSeries),
+      count: keyCode.count,
+    }));
   }
 
   @Mutation(() => CreateKeyCodeDTO)
@@ -53,14 +56,14 @@ export class KeyCodesResolver {
   async createKeyCode(
     @CurrentUser() user: LoggedUser,
     @Args('target') target: string,
-  ): Promise<KeyCodeProps> {
+  ): Promise<KeyCodeCore> {
     const createdBy = user.userId;
 
-    const created: KeyCodeProps = await this.commandBus.execute(
+    const created: KeyCode = await this.commandBus.execute(
       new CreateKeyCodeCommand(createdBy, target),
     );
 
-    return created;
+    return KeyCodeMapper.toPlain(created);
   }
 
   @Mutation(() => [CreateKeyCodeDTO])
@@ -69,13 +72,13 @@ export class KeyCodesResolver {
     @CurrentUser() user: LoggedUser,
     @Args('target') target: string,
     @Args('amount', { type: () => Int }) amount: number,
-  ): Promise<KeyCodeProps> {
+  ): Promise<KeyCodeCore[]> {
     const createdBy = user.userId;
 
-    const created: KeyCodeProps = await this.commandBus.execute(
+    const keyCodes: KeyCode[] = await this.commandBus.execute(
       new CreateBulkKeyCodeCommand(createdBy, amount, target),
     );
 
-    return created;
+    return KeyCodeMapper.toPlainMany(keyCodes);
   }
 }

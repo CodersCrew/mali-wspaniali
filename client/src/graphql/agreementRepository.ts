@@ -10,7 +10,7 @@ export function getAgreements(): Promise<ApolloQueryResult<{ agreements: Agreeme
             {
                 agreements {
                     _id
-                    date
+                    createdAt
                     text
                 }
             }

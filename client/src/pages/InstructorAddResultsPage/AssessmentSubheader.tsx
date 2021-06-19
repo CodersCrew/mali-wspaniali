@@ -20,6 +20,8 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
     const currentProgress = countProgressFromResults();
     const device = useIsDevice();
 
+    const usage = max ? Math.floor((currentProgress * 100) / max) : 0;
+
     return (
         <div>
             {!device.isSmallMobile ? (
@@ -41,8 +43,8 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                 <Grid container spacing={1}>
                                     <Grid item>
                                         <Typography variant="body2">
-                                            {currentMeasurement.startDate.split('-').join('.')}&nbsp;-&nbsp;
-                                            {currentMeasurement.endDate.split('-').join('.')}
+                                            {dayjs(currentMeasurement.startDate).format('DD.MM')}&nbsp;-&nbsp;
+                                            {dayjs(currentMeasurement.endDate).format('DD.MM.YYYY')}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -66,7 +68,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                     <Box width="85%" mr={2}>
                                         <LinearProgress
                                             variant="determinate"
-                                            value={Math.floor((currentProgress * 100) / max)}
+                                            value={usage}
                                             classes={{
                                                 root: classes.progressBar,
                                                 bar: classes.progressBarDark,
@@ -75,9 +77,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                         />
                                     </Box>
                                     <Box>
-                                        <Typography variant="h4">
-                                            {Math.floor((currentProgress * 100) / max)}%
-                                        </Typography>
+                                        <Typography variant="h4">{usage}%</Typography>
                                     </Box>
                                 </Box>
                             </Grid>
@@ -105,8 +105,8 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                         <Grid container direction="row" spacing={1}>
                             <Grid item>
                                 <Typography className={classes.responsiveSubext1} variant="body2">
-                                    {currentMeasurement.startDate.split('-').join('.')}&nbsp;-&nbsp;
-                                    {currentMeasurement.endDate.split('-').join('.')}
+                                    {dayjs(currentMeasurement.startDate).format('DD.MM')}&nbsp;-&nbsp;
+                                    {dayjs(currentMeasurement.endDate).format('DD.MM.YYYY')}
                                 </Typography>
                             </Grid>
                             <Grid item>
@@ -127,7 +127,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                 <Box mt={1}>
                                     <LinearProgress
                                         variant="determinate"
-                                        value={Math.floor((currentProgress * 100) / max)}
+                                        value={usage}
                                         classes={{
                                             root: classes.progressBar,
                                             bar: classes.progressBarDark,
@@ -138,7 +138,7 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                             </Grid>
                             <Grid item xs={2}>
                                 <Typography className={classes.responsiveText} variant="h4">
-                                    {Math.floor((currentProgress * 100) / max)}%
+                                    {usage}%
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -153,8 +153,8 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
             return {
                 label: t('add-results-page.first-assessment'),
                 status: assessment.firstMeasurementStatus,
-                startDate: assessment.firstMeasurementStartDate,
-                endDate: assessment.firstMeasurementEndDate,
+                startDate: new Date(assessment.firstMeasurementStartDate),
+                endDate: new Date(assessment.firstMeasurementEndDate),
                 measurement: 'first',
             };
         }
@@ -162,8 +162,8 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
         return {
             label: t('add-results-page.last-assessment'),
             status: assessment.lastMeasurementStatus,
-            startDate: assessment.lastMeasurementStartDate,
-            endDate: assessment.lastMeasurementEndDate,
+            startDate: new Date(assessment.lastMeasurementStartDate),
+            endDate: new Date(assessment.lastMeasurementEndDate),
             measurement: 'last',
         };
     }

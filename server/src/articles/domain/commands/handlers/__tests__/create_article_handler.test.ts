@@ -5,13 +5,7 @@ import { CreateArticleCommand } from '@articles/domain/commands/impl';
 import { ArticlesModule } from '@articles/articles_module';
 import { CreateArticleInput } from '@articles/inputs/article_input';
 import { Article } from '@app/articles/domain/models/article_model';
-import { TextLength } from '../../../../../shared/domain/text_length';
-import {
-  createParent,
-  getAllArticles,
-  getNotificationsForUser,
-} from '@app/test/helpers/app_mock';
-import { User } from '@users/domain/models/user_model';
+import { getAllArticles } from '@app/test/helpers/app_mock';
 import waitForExpect from 'wait-for-expect';
 
 jest.setTimeout(10000);
@@ -88,8 +82,4 @@ async function setup() {
   await module.init();
 
   return module;
-}
-
-function awaitForResponse(timeout: number = 0): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, timeout));
 }
