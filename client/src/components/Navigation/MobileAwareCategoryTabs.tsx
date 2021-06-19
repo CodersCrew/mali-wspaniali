@@ -41,19 +41,18 @@ export function MobileAwareCategoryTabs<T extends CategoryItem | ChildProfileCat
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         baseNavigation: {
-            zIndex: 1200,
             position: 'sticky',
             top: '64px',
+            borderBottom: `1px solid ${theme.palette.grey[400]}`,
+            zIndex: 700,
         },
         navigation: {
             backgroundColor: theme.palette.primary.contrastText,
             padding: theme.spacing(0),
-            borderBottom: `1px solid ${theme.palette.grey[400]}`,
         },
         navigationMobile: {
             backgroundColor: theme.palette.primary.main,
-            padding: `0 ${theme.spacing(3)}px`,
-            borderBottom: `1px solid ${theme.palette.grey[400]}`,
+            padding: `0 ${theme.spacing(1)}px`,
         },
     }),
 );

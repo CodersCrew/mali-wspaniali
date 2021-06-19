@@ -1,4 +1,5 @@
 import { Tabs as MuiTabs, makeStyles, createStyles, TabsProps, Theme } from '@material-ui/core';
+import { useIsDevice } from '../../queries/useBreakpoints';
 import { Tab } from './Tab';
 
 type Category = {
@@ -14,7 +15,8 @@ interface Props extends TabsProps {
 }
 
 export const Tabs = ({ currentCategory, onTabsChange, categories, indicator, ...props }: Props) => {
-    const classes = useStyles({ indicator });
+    const { isMobile } = useIsDevice();
+    const classes = useStyles({ indicator, isMobile });
 
     return (
         <MuiTabs classes={classes} value={currentCategory} onChange={(_, v: string) => onTabsChange(v)} {...props}>
@@ -25,15 +27,22 @@ export const Tabs = ({ currentCategory, onTabsChange, categories, indicator, ...
     );
 };
 
+type propStyle = {
+    isMobile: boolean;
+    indicator: string;
+};
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         flexContainer: {
             alignItems: 'flex-end',
             backgroundColor: 'theme.palette.primary.contrastText',
-            marginLeft: theme.spacing(3),
+            marginLeft: ({ isMobile }: propStyle) => (isMobile ? theme.spacing(0) : theme.spacing(3)),
         },
         indicator: {
-            backgroundColor: ({ indicator }: { indicator: string }) => indicator,
+            backgroundColor: ({ indicator }: propStyle) => indicator,
+        },
+        scrollButtons: {
+            width: '20px',
         },
     }),
 );
