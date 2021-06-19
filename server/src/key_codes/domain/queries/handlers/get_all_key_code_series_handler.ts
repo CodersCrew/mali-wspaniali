@@ -7,7 +7,7 @@ import { KeyCode } from '../../models/key_code_model';
 @QueryHandler(GetAllKeyCodeSeriesQuery)
 export class GetAllKeyCodeSeriesHandler
   implements IQueryHandler<GetAllKeyCodeSeriesQuery> {
-  constructor(private readonly repository: KeyCodeRepository) {}
+  constructor(private repository: KeyCodeRepository) {}
 
   async execute(): Promise<Array<{ keyCodeSeries: KeyCode; count: number }>> {
     const series = await this.repository.getAllSeries();

@@ -1,16 +1,11 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class AgreementDTO {
-  @Field(() => ID)
-  _id: string;
+export class AgreementDTO extends FieldCore {
+  @Field()
+  text: string;
 
   @Field()
-  readonly createdAt: Date;
-
-  @Field()
-  readonly text: string;
-
-  @Field()
-  readonly isSigned: boolean;
+  isSigned: boolean;
 }

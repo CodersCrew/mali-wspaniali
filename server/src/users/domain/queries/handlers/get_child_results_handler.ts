@@ -7,9 +7,7 @@ import { GetChildResultsQuery } from '../impl';
 @QueryHandler(GetChildResultsQuery)
 export class GetChildResultHandler
   implements IQueryHandler<GetChildResultsQuery> {
-  constructor(
-    private readonly resultRepository: ChildAssessmentResultRepository,
-  ) {}
+  constructor(private resultRepository: ChildAssessmentResultRepository) {}
 
   async execute({
     childId,

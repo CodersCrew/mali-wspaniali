@@ -9,8 +9,8 @@ import { AssessmentMapper } from '../../mappers/assessment_mapper';
 export class CreateAssessmentHandler
   implements ICommandHandler<CreateAssessmentCommand> {
   constructor(
-    private readonly repository: AssessmentRepository,
-    private readonly publisher: EventPublisher,
+    private repository: AssessmentRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute({

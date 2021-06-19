@@ -4,8 +4,8 @@ import { KeyCodeRepository } from './domain/repositories/key_codes_repository';
 
 @Injectable()
 export class KeyCodesCronService {
-  constructor(private readonly keyCodeRepository: KeyCodeRepository) {}
-  private readonly logger = new Logger(KeyCodesCronService.name);
+  constructor(private keyCodeRepository: KeyCodeRepository) {}
+  private logger = new Logger(KeyCodesCronService.name);
 
   @Cron(CronExpression.EVERY_WEEK)
   async handleCron(): Promise<void> {

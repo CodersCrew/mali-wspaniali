@@ -16,7 +16,7 @@ import { CurrentUser } from './params/current_user_param';
 import { ChildInput, UpdatedChildInput } from './inputs/child_input';
 import { Child, ChildCore } from './domain/models/child_model';
 import { LoggedUser } from './params/current_user_param';
-import { ChildDTO } from './dto/children_dto';
+import { ChildDTO } from './dto/child_dto';
 import { ResultInput } from './inputs/result_input';
 import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
 import {

@@ -17,7 +17,7 @@ export class AgreementsResolver {
   constructor(
     private commandBus: CommandBus,
     private queryBus: QueryBus,
-    public readonly agreementRepository: AgreementRepository,
+    public agreementRepository: AgreementRepository,
   ) {}
 
   @Query(() => [AgreementDTO])

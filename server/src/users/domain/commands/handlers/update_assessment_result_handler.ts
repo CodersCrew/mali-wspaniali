@@ -8,8 +8,8 @@ import { PartialChildResult } from '../../../inputs/child_result_input';
 export class UpdateAssessmentResultHandler
   implements ICommandHandler<UpdateAssessmentResultCommand> {
   constructor(
-    private readonly resultRepository: ChildAssessmentResultRepository,
-    private readonly publisher: EventPublisher,
+    private resultRepository: ChildAssessmentResultRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute({

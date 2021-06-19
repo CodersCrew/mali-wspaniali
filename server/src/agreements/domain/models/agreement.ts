@@ -16,7 +16,7 @@ export class AgreementCore extends CoreModel {
 }
 
 export class Agreement extends AggregateRoot {
-  private constructor(private readonly props: AgreementCore) {
+  private constructor(private props: AgreementCore) {
     super();
   }
 

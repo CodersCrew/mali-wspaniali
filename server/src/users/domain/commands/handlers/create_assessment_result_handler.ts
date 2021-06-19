@@ -10,7 +10,7 @@ import {
 @CommandHandler(CreateAssessmentResultCommand)
 export class CreateAssessmentResultHandler
   implements ICommandHandler<CreateAssessmentResultCommand> {
-  constructor(private readonly publisher: EventPublisher) {}
+  constructor(private publisher: EventPublisher) {}
 
   async execute({
     result,

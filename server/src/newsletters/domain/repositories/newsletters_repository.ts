@@ -13,7 +13,7 @@ import { NewsletterDocument } from '../models/newsletter_model';
 export class NewslettersRepository {
   constructor(
     @InjectModel('Newsletter')
-    private readonly model: Model<NewsletterDocument>,
+    private model: Model<NewsletterDocument>,
   ) {}
 
   async create(createNewsletterDTO: NewsletterInput): Promise<Newsletter> {

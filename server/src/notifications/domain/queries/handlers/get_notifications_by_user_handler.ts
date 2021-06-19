@@ -7,9 +7,7 @@ import { NotificationCore } from '../../models/notification_model';
 @QueryHandler(GetNotificationsByUserQuery)
 export class GetNotificationsByUserHandler
   implements IQueryHandler<GetNotificationsByUserQuery> {
-  constructor(
-    private readonly notificationRepository: NotificationRepository,
-  ) {}
+  constructor(private notificationRepository: NotificationRepository) {}
 
   async execute({ id }: { id: string }): Promise<NotificationCore[]> {
     return await this.notificationRepository.getAll(id);

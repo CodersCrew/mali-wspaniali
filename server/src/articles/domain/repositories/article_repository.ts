@@ -14,7 +14,7 @@ import { LoggedUser } from '../../../users/params/current_user_param';
 export class ArticlesRepository {
   constructor(
     @InjectModel('Article')
-    private readonly articleModel: Model<ArticleDocument>,
+    private articleModel: Model<ArticleDocument>,
   ) {}
 
   create(createArticleDTO: CreateArticleInput): Promise<Article> {

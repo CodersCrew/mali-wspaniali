@@ -23,7 +23,7 @@ export class KindergartenCore extends CoreModel {
 }
 
 export class Kindergarten extends AggregateRoot {
-  private constructor(private readonly props: KindergartenCore) {
+  private constructor(private props: KindergartenCore) {
     super();
   }
 

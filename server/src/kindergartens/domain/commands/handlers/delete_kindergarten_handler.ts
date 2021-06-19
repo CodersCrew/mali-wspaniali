@@ -8,9 +8,9 @@ import { ChildRepository } from '../../../../users/domain/repositories/child_rep
 export class DeleteKindergartenHandler
   implements ICommandHandler<DeleteKindergartenCommand> {
   constructor(
-    private readonly repository: KindergartenRepository,
-    private readonly childRepository: ChildRepository,
-    private readonly publisher: EventPublisher,
+    private repository: KindergartenRepository,
+    private childRepository: ChildRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute(command: DeleteKindergartenCommand): Promise<void> {

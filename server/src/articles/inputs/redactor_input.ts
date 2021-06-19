@@ -3,20 +3,20 @@ import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class RedactorInput {
   @Field()
-  readonly firstName: string;
+  firstName: string;
 
   @Field()
-  readonly lastName: string;
+  lastName: string;
 
   @Field({ nullable: true })
-  readonly avatarUrl?: string;
+  avatarUrl?: string;
 
   @Field({ nullable: true })
-  readonly profession?: string;
+  profession?: string;
 
   @Field({ nullable: true })
-  readonly biography?: string;
+  biography?: string;
 
   @Field({ nullable: true })
-  readonly shortDescription?: string;
+  shortDescription?: string;
 }

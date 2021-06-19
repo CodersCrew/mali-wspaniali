@@ -1,40 +1,35 @@
-import { ObjectType, Field, ID, GraphQLISODateTime } from '@nestjs/graphql';
+import { ObjectType, Field, GraphQLISODateTime } from '@nestjs/graphql';
 import { KindergartenWithInstructorDTO } from './kindergarten_with_instructor_dto';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class AssessmentDTO {
-  @Field(() => ID)
-  _id: string;
-
+export class AssessmentDTO extends FieldCore {
   @Field()
   isOutdated: boolean;
-
-  @Field()
-  isDeleted: boolean;
 
   @Field()
   title: string;
 
   @Field(() => GraphQLISODateTime)
-  readonly firstMeasurementStartDate: Date;
+  firstMeasurementStartDate: Date;
 
   @Field(() => GraphQLISODateTime)
-  readonly firstMeasurementEndDate: Date;
+  firstMeasurementEndDate: Date;
 
   @Field(() => GraphQLISODateTime)
-  readonly lastMeasurementStartDate: Date;
+  lastMeasurementStartDate: Date;
 
   @Field(() => GraphQLISODateTime)
-  readonly lastMeasurementEndDate: Date;
+  lastMeasurementEndDate: Date;
 
   @Field()
-  readonly status: string;
+  status: string;
 
   @Field()
-  readonly firstMeasurementStatus: string;
+  firstMeasurementStatus: string;
 
   @Field()
-  readonly lastMeasurementStatus: string;
+  lastMeasurementStatus: string;
 
   @Field(() => [KindergartenWithInstructorDTO])
   kindergartens: any;

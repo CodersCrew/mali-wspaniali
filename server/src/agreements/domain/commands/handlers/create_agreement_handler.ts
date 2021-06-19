@@ -7,7 +7,7 @@ import { Agreement } from '../../models/agreement';
 @CommandHandler(CreateAgreementCommand)
 export class CreateAgreementHandler
   implements ICommandHandler<CreateAgreementCommand> {
-  constructor(private readonly repository: AgreementRepository) {}
+  constructor(private repository: AgreementRepository) {}
 
   async execute(command: CreateAgreementCommand): Promise<Agreement> {
     const { agreement } = command;

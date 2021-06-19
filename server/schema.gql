@@ -16,6 +16,10 @@ type RedactorDTO {
 
 type ArticleDTO {
   _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
   category: String!
   contentHTML: String!
   description: String!
@@ -23,12 +27,8 @@ type ArticleDTO {
   redactor: RedactorDTO!
   tags: [String!]!
   title: String!
-  isDeleted: Boolean
   isPublished: Boolean
   videoUrl: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  modifiedAt: DateTime
   publishedAt: DateTime
 }
 
@@ -45,8 +45,10 @@ type PaginatedArticlesDTO {
 
 type ChildAssessmentResultDTO {
   _id: ID!
+  isDeleted: Boolean!
   createdAt: DateTime!
   modifiedAt: DateTime
+  deletedAt: DateTime
   childId: ID!
   kindergartenId: ID!
   assessmentId: ID!
@@ -78,8 +80,10 @@ type ChildAssessmentResultDTO {
 
 type PartialChildResult {
   _id: ID
+  isDeleted: Boolean
   createdAt: DateTime
   modifiedAt: DateTime
+  deletedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID
@@ -109,7 +113,10 @@ type PartialChildResult {
 
 type NotificationDTO {
   _id: ID!
-  createdAt: DateTime
+  isDeleted: Boolean!
+  createdAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
   user: String!
   templateId: String!
   values: [String!]!
@@ -120,8 +127,8 @@ type KindergartenDTO {
   _id: ID!
   isDeleted: Boolean!
   createdAt: DateTime!
-  deletedAt: DateTime!
   modifiedAt: DateTime!
+  deletedAt: DateTime!
   number: Int!
   name: String!
   city: String!
@@ -131,7 +138,10 @@ type KindergartenDTO {
 
 type ChildDTO {
   _id: ID!
+  isDeleted: Boolean!
   createdAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
   firstname: String!
   lastname: String!
   birthYear: Int!
@@ -139,20 +149,25 @@ type ChildDTO {
   sex: String!
   results: [ChildAssessmentResultDTO!]!
   kindergarten: KindergartenDTO!
-  isDeleted: Boolean!
   currentParams: ChildCurrentParamsDTO!
 }
 
 type AgreementDTO {
   _id: ID!
+  isDeleted: Boolean!
   createdAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
   text: String!
   isSigned: Boolean!
 }
 
 type UserDTO {
   _id: ID!
+  isDeleted: Boolean!
   createdAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
   mail: String!
   role: String!
   notifications: [NotificationDTO!]
@@ -188,8 +203,11 @@ type ChildCurrentParamsDTO {
 }
 
 type CreateKeyCodeDTO {
-  id: ID!
+  _id: ID!
+  isDeleted: Boolean!
   createdAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
   createdBy: String!
   keyCode: String!
   series: String!
@@ -197,8 +215,11 @@ type CreateKeyCodeDTO {
 }
 
 type KeyCodeSeriesDTO {
-  id: ID!
+  _id: ID!
+  isDeleted: Boolean!
   createdAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
   createdBy: String!
   keyCode: String!
   series: String!
@@ -210,8 +231,8 @@ type KindergartenWithUsersDTO {
   _id: ID!
   isDeleted: Boolean!
   createdAt: DateTime!
-  deletedAt: DateTime!
-  modifiedAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
   number: Int!
   name: String!
   city: String!
@@ -226,8 +247,11 @@ type KindergartenWithInstructorDTO {
 
 type AssessmentDTO {
   _id: ID!
-  isOutdated: Boolean!
   isDeleted: Boolean!
+  createdAt: DateTime!
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  isOutdated: Boolean!
   title: String!
   firstMeasurementStartDate: DateTime!
   firstMeasurementEndDate: DateTime!
@@ -362,8 +386,10 @@ input ResultInput {
 }
 
 input PartialChildResultInput {
+  isDeleted: Boolean
   createdAt: DateTime
   modifiedAt: DateTime
+  deletedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID
@@ -393,8 +419,10 @@ input PartialChildResultInput {
 
 input PartialUpdateChildResultInput {
   _id: ID
+  isDeleted: Boolean
   createdAt: DateTime
   modifiedAt: DateTime
+  deletedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID

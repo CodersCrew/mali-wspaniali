@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 import { Mail } from '../../../shared/domain/mail';
 
 export interface NewsletterProps {
-  readonly _id?: string;
+  _id?: string;
   message: string;
   recipients: string[];
   title: string;
@@ -21,7 +21,7 @@ export type NewsletterDocument = NewsletterProps & Document;
 
 export class Newsletter extends AggregateRoot {
   private constructor(
-    private readonly props: NewsletterProps | NewsletterNotPersistedProps,
+    private props: NewsletterProps | NewsletterNotPersistedProps,
   ) {
     super();
 

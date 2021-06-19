@@ -1,50 +1,36 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { RedactorDTO } from './redactor_dto';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class ArticleDTO {
-  @Field(() => ID)
-  _id: string;
-
+export class ArticleDTO extends FieldCore {
   @Field(() => String)
-  readonly category: string;
+  category: string;
 
   @Field()
-  readonly contentHTML: string;
+  contentHTML: string;
 
   @Field()
-  readonly description: string;
+  description: string;
 
   @Field()
-  readonly pictureUrl: string;
+  pictureUrl: string;
 
   @Field()
-  readonly redactor: RedactorDTO;
+  redactor: RedactorDTO;
 
   @Field(() => [String])
   tags: string[];
 
   @Field()
-  readonly title: string;
+  title: string;
 
   @Field({ nullable: true })
-  readonly isDeleted?: boolean;
+  isPublished?: boolean;
 
   @Field({ nullable: true })
-  readonly isPublished?: boolean;
+  videoUrl?: string;
 
   @Field({ nullable: true })
-  readonly videoUrl?: string;
-
-  @Field({ nullable: true })
-  readonly createdAt: Date;
-
-  @Field({ nullable: true })
-  readonly deletedAt: Date;
-
-  @Field({ nullable: true })
-  readonly modifiedAt: Date;
-
-  @Field({ nullable: true })
-  readonly publishedAt: Date;
+  publishedAt: Date;
 }

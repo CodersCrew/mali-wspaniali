@@ -23,7 +23,7 @@ import { CurrentUser } from './params/current_user_param';
 import { LoggedUser } from './params/current_user_param';
 import { GetNotificationsByUserQuery } from '../notifications/domain/queries/impl/get_notifications_by_user_query';
 import { NotificationDTO } from '../notifications/dto/notification_dto';
-import { ChildDTO } from './dto/children_dto';
+import { ChildDTO } from './dto/child_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { AgreementDTO } from '../agreements/dto/agreement_dto';
 import { GetValidAgreementsQuery } from '../agreements/domain/queries/impl/get_valid_agreements_query';
@@ -68,6 +68,9 @@ export class UsersResolver {
 
   @ResolveField()
   async children(@Parent() user: UserCore): Promise<ChildDTO[]> {
+    console.log(
+      await this.queryBus.execute(new GetChildrenQuery(user.children)),
+    );
     return await this.queryBus.execute(new GetChildrenQuery(user.children));
   }
 

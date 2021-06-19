@@ -29,10 +29,7 @@ const ARTICLE_PER_PAGE = 6;
 @UseInterceptors(SentryInterceptor)
 @Resolver()
 export class ArticlesResolver {
-  constructor(
-    private commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-  ) {}
+  constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   @Query(() => PaginatedArticlesDTO)
   @UseGuards(GqlAuthGuard)

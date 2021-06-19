@@ -7,7 +7,7 @@ import { Assessment } from '../../models/assessment_model';
 @QueryHandler(GetAssessmentsQuery)
 export class GetAssessmentHandler
   implements IQueryHandler<GetAssessmentsQuery> {
-  constructor(private readonly repository: AssessmentRepository) {}
+  constructor(private repository: AssessmentRepository) {}
 
   async execute({ id }: GetAssessmentsQuery): Promise<Assessment> {
     return this.repository.get(id);

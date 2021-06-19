@@ -8,8 +8,8 @@ import { Newsletter } from '../../models/newsletter_model';
 export class CreateNewsletterHandler
   implements ICommandHandler<CreateNewsletterCommand> {
   constructor(
-    private readonly repository: NewslettersRepository,
-    private readonly publisher: EventPublisher,
+    private repository: NewslettersRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute(command: CreateNewsletterCommand): Promise<Newsletter> {

@@ -1,13 +1,8 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class CreateKeyCodeDTO {
-  @Field(() => ID)
-  id: string;
-
-  @Field()
-  createdAt: Date;
-
+export class CreateKeyCodeDTO extends FieldCore {
   @Field()
   createdBy: string;
 

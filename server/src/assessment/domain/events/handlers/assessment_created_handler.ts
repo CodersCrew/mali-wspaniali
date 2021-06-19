@@ -8,8 +8,8 @@ import { UserRepository } from '../../../../users/domain/repositories/user_repos
 export class AssessmentCreatedHandler
   implements IEventHandler<AssessmentCreatedEvent> {
   constructor(
-    private readonly notificationRepository: NotificationRepository,
-    private readonly userRepository: UserRepository,
+    private notificationRepository: NotificationRepository,
+    private userRepository: UserRepository,
   ) {}
 
   async handle({ assessment }: AssessmentCreatedEvent) {

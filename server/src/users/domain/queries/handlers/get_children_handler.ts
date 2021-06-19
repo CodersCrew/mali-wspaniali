@@ -12,9 +12,9 @@ import { ChildAssessmentResultMapper } from '../../mappers/child_assessment_resu
 @QueryHandler(GetChildrenQuery)
 export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
   constructor(
-    private readonly childRepository: ChildRepository,
-    private readonly childrResultRepository: ChildAssessmentResultRepository,
-    private readonly kindergartenRepository: KindergartenRepository,
+    private childRepository: ChildRepository,
+    private childrResultRepository: ChildAssessmentResultRepository,
+    private kindergartenRepository: KindergartenRepository,
   ) {
     this.mapChildWithKindergarten = this.mapChildWithKindergarten.bind(this);
   }

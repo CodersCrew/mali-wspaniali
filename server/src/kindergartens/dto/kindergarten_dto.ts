@@ -1,9 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 
-import { CoreModelDto } from '../../shared/utils/core_dto';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class KindergartenDTO extends CoreModelDto {
+export class KindergartenDTO extends FieldCore {
   @Field(() => Int)
   number: number;
 

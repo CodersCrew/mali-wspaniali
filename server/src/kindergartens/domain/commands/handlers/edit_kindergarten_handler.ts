@@ -7,7 +7,7 @@ import { EditKindergartenCommand } from '../impl';
 @CommandHandler(EditKindergartenCommand)
 export class EditKindergartenHandler
   implements ICommandHandler<EditKindergartenCommand> {
-  constructor(private readonly repository: KindergartenRepository) {}
+  constructor(private repository: KindergartenRepository) {}
 
   async execute(command: EditKindergartenCommand): Promise<Kindergarten> {
     const { id, kindergarten } = command;

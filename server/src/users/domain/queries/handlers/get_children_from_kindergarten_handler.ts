@@ -7,7 +7,7 @@ import { Child } from '../../models/child_model';
 @QueryHandler(GetChildrenFromKindergartenQuery)
 export class GetChildrenFromKindergartenHandler
   implements IQueryHandler<GetChildrenFromKindergartenQuery> {
-  constructor(private readonly childRepository: ChildRepository) {}
+  constructor(private childRepository: ChildRepository) {}
 
   execute({ id }: GetChildrenFromKindergartenQuery): Promise<Child[]> {
     return this.childRepository.getByKindergarten(id);

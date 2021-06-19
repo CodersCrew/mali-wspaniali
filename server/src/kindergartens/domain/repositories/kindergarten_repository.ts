@@ -11,7 +11,7 @@ import { UpdatedKindergartenInput } from '../../inputs/kindergarten_input';
 export class KindergartenRepository {
   constructor(
     @InjectModel('Kindergarten')
-    private readonly model: Model<KindergartenDocument>,
+    private model: Model<KindergartenDocument>,
   ) {}
 
   getAll(): Promise<Kindergarten[]> {

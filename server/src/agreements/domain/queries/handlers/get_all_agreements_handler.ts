@@ -7,7 +7,7 @@ import { Agreement } from '../../models/agreement';
 @QueryHandler(GetAllAgreementsQuery)
 export class GetAllAgreementsHandler
   implements IQueryHandler<GetAllAgreementsQuery> {
-  constructor(private readonly repository: AgreementRepository) {}
+  constructor(private repository: AgreementRepository) {}
 
   async execute(): Promise<Agreement[]> {
     return this.repository.getAll();

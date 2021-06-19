@@ -5,7 +5,7 @@ import { UserUpdatedEvent } from '../impl';
 
 @EventsHandler(UserUpdatedEvent)
 export class UserUpdatedHandler implements IEventHandler<UserUpdatedEvent> {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository) {}
 
   async handle({ userId, updates }: UserUpdatedEvent): Promise<void> {
     await this.userRepository.update(userId, updates);

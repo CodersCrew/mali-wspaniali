@@ -10,7 +10,7 @@ import { AgreementDocument } from '../../schemas/agreement_schema';
 export class AgreementRepository {
   constructor(
     @InjectModel('Agreement')
-    private readonly model: Model<AgreementDocument>,
+    private model: Model<AgreementDocument>,
   ) {}
 
   async get(id: string): Promise<Agreement | undefined> {

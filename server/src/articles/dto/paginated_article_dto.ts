@@ -4,11 +4,11 @@ import { ArticleDTO } from './article_dto';
 @ObjectType()
 export class PaginatedArticlesDTO {
   @Field(() => [ArticleDTO])
-  readonly articles: Record<string, any>[];
+  articles: Record<string, any>[];
 
   @Field(() => Int)
-  readonly count: number;
+  count: number;
 
   @Field()
-  readonly hasNext: boolean;
+  hasNext: boolean;
 }

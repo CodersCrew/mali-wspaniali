@@ -1,3 +1,3 @@
 export class ArticleCreatedEvent {
-  constructor(public readonly articleId: string) {}
+  constructor(public articleId: string) {}
 }

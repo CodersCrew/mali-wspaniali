@@ -12,7 +12,7 @@ import { parseDateToAge } from '../../../shared/utils/parse_date_to_age';
 export class ChildRepository {
   constructor(
     @InjectModel('Child')
-    private readonly childModel: Model<ChildDocument>,
+    private childModel: Model<ChildDocument>,
   ) {}
 
   async create(child: Child): Promise<Child> {

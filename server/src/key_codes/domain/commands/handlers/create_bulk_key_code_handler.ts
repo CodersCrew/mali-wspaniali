@@ -11,7 +11,7 @@ const uuid = new ShortUniqueId();
 @CommandHandler(CreateBulkKeyCodeCommand)
 export class CreateBulkKeyCodeHandler
   implements ICommandHandler<CreateBulkKeyCodeCommand> {
-  constructor(private readonly repository: KeyCodeRepository) {}
+  constructor(private repository: KeyCodeRepository) {}
 
   async execute(command: CreateBulkKeyCodeCommand): Promise<KeyCode[]> {
     const { createdBy, amount, target } = command;

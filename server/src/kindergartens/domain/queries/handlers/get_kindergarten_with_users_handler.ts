@@ -11,9 +11,9 @@ import { KindergartenMapper } from '../../mappers/kindergarten_mapper';
 export class GetKindergartenWithUsersHandler
   implements IQueryHandler<GetKindergartenWithUsersQuery> {
   constructor(
-    private readonly kindergartenRepository: KindergartenRepository,
-    private readonly childRepository: ChildRepository,
-    private readonly userRepository: UserRepository,
+    private kindergartenRepository: KindergartenRepository,
+    private childRepository: ChildRepository,
+    private userRepository: UserRepository,
   ) {}
 
   async execute({

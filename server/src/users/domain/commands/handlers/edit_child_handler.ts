@@ -3,7 +3,6 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UserRepository } from '../../repositories/user_repository';
 import { ChildRepository } from '../../repositories/child_repository';
 import { Child } from '../../models/child_model';
-import { isObjectId } from '../../../../shared/utils/db_utils';
 import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
 import { EditChildCommand } from '../impl/edit_child_command';
 import { Kindergarten } from '../../../../kindergartens/domain/models/kindergarten_model';
@@ -11,9 +10,9 @@ import { Kindergarten } from '../../../../kindergartens/domain/models/kindergart
 @CommandHandler(EditChildCommand)
 export class EditChildHandler implements ICommandHandler<EditChildCommand> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly childRepository: ChildRepository,
-    private readonly kindergartenRepository: KindergartenRepository,
+    private userRepository: UserRepository,
+    private childRepository: ChildRepository,
+    private kindergartenRepository: KindergartenRepository,
   ) {
     this.getKindergarten = this.getKindergarten.bind(this);
   }

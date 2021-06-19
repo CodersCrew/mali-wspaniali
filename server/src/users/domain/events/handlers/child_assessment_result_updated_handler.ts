@@ -6,9 +6,7 @@ import { ChildAssessmentResultRepository } from '../../repositories/child_assess
 @EventsHandler(ChildAssessmentResultUpdatedEvent)
 export class ChildAssessmentResultUpdatedHandler
   implements IEventHandler<ChildAssessmentResultUpdatedEvent> {
-  constructor(
-    private readonly resultRepository: ChildAssessmentResultRepository,
-  ) {}
+  constructor(private resultRepository: ChildAssessmentResultRepository) {}
 
   async handle({ result }: ChildAssessmentResultUpdatedEvent): Promise<void> {
     await this.resultRepository.update(result);

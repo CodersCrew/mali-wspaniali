@@ -5,15 +5,14 @@ import { ChangeUserAgreementCommand } from '../impl/change_user_agreement_comman
 import { AgreementRepository } from '../../../../agreements/domain/repositories/agreement_repository';
 import { AgreementMapper } from '../../../../agreements/domain/mappers/agreement_mapper';
 import { Agreement } from '@app/agreements/domain/models/agreement';
-import { User } from '@users/domain/models';
 
 @CommandHandler(ChangeUserAgreementCommand)
 export class ChangeUserAgreementHandler
   implements ICommandHandler<ChangeUserAgreementCommand> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly agreementRepository: AgreementRepository,
-    private readonly publisher: EventPublisher,
+    private userRepository: UserRepository,
+    private agreementRepository: AgreementRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute({

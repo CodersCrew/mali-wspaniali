@@ -7,7 +7,7 @@ import { Agreement } from '../../models/agreement';
 @QueryHandler(GetValidAgreementsQuery)
 export class GetValidAgreementsHandler
   implements IQueryHandler<GetValidAgreementsQuery> {
-  constructor(private readonly repository: AgreementRepository) {}
+  constructor(private repository: AgreementRepository) {}
 
   async execute({ signed }: { signed: string[] }): Promise<Agreement[]> {
     const agreements = await this.repository.getAll();

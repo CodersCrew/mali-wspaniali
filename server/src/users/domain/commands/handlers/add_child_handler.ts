@@ -10,10 +10,10 @@ import { KindergartenRepository } from '../../../../kindergartens/domain/reposit
 @CommandHandler(AddChildCommand)
 export class AddChildHandler implements ICommandHandler<AddChildCommand> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly childRepository: ChildRepository,
-    private readonly kindergartenRepository: KindergartenRepository,
-    private readonly publisher: EventPublisher,
+    private userRepository: UserRepository,
+    private childRepository: ChildRepository,
+    private kindergartenRepository: KindergartenRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute(command: AddChildCommand): Promise<Child> {

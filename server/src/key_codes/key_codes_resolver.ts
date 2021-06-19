@@ -24,7 +24,7 @@ export class KeyCodesResolver {
   constructor(
     private commandBus: CommandBus,
     private queryBus: QueryBus,
-    public readonly keyCodeRepository: KeyCodeRepository,
+    public keyCodeRepository: KeyCodeRepository,
   ) {}
 
   @Query(() => [CreateKeyCodeDTO])

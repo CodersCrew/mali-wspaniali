@@ -1,10 +1,11 @@
 import { Expose, Transform } from 'class-transformer';
 import { CoreModel } from '../../../shared/utils/core_model';
+import { AggregateRoot } from '@nestjs/cqrs';
 
 export interface CreateNotificationProps {
-  readonly userId: string | string[];
-  readonly templateId: string;
-  readonly values: string[];
+  userId: string | string[];
+  templateId: string;
+  values: string[];
 }
 
 export class NotificationCore extends CoreModel {
@@ -21,3 +22,5 @@ export class NotificationCore extends CoreModel {
   @Expose()
   values: string[];
 }
+
+export class Notification extends AggregateRoot {}

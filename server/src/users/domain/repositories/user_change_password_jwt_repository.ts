@@ -11,7 +11,7 @@ import {
 export class UserChangePasswordRepository {
   constructor(
     @InjectModel('UserChangePasswordJWT')
-    private readonly model: mongoose.Model<UserChangePasswordJWTDocument>,
+    private model: mongoose.Model<UserChangePasswordJWTDocument>,
   ) {}
 
   async create(

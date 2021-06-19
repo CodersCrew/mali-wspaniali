@@ -16,10 +16,7 @@ import { NewsletterKindergartenInput } from './inputs/newsletter_kinderkarten_in
 @UseInterceptors(SentryInterceptor)
 @Resolver()
 export class NewsletterResolver {
-  constructor(
-    private commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-  ) {}
+  constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   @Query(() => [NewsletterDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))

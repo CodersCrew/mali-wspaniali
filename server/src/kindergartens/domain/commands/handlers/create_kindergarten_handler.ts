@@ -9,8 +9,8 @@ import { Kindergarten } from '../../models/kindergarten_model';
 export class CreateKindergartenHandler
   implements ICommandHandler<CreateKindergartenCommand> {
   constructor(
-    private readonly repository: KindergartenRepository,
-    private readonly publisher: EventPublisher,
+    private repository: KindergartenRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute({

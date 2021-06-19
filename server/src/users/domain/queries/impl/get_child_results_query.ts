@@ -1,3 +1,3 @@
 export class GetChildResultsQuery {
-  constructor(public readonly childId: string) {}
+  constructor(public childId: string) {}
 }

@@ -1,36 +1,28 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { KindergartenDTO } from '../../kindergartens/dto/kindergarten_dto';
 import { ChildAssessmentResultDTO } from './child_assessment_result';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class ChildDTO {
-  @Field(() => ID)
-  _id: string;
+export class ChildDTO extends FieldCore {
+  @Field()
+  firstname: string;
 
   @Field()
-  readonly createdAt: Date;
-
-  @Field()
-  readonly firstname: string;
-
-  @Field()
-  readonly lastname: string;
+  lastname: string;
 
   @Field(() => Int)
-  readonly birthYear: number;
+  birthYear: number;
 
   @Field(() => Int)
-  readonly birthQuarter: number;
+  birthQuarter: number;
 
   @Field()
-  readonly sex: string;
+  sex: string;
 
   @Field(() => [ChildAssessmentResultDTO])
-  readonly results: string[];
+  results: string[];
 
   @Field(() => KindergartenDTO)
-  readonly kindergarten: string;
-
-  @Field()
-  readonly isDeleted: boolean;
+  kindergarten: string;
 }

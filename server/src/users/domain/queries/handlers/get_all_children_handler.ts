@@ -21,9 +21,9 @@ export interface ChildWithKindergarten {
 export class GetAllChildrenHandler
   implements IQueryHandler<GetAllChildrenQuery> {
   constructor(
-    private readonly childRepository: ChildRepository,
-    private readonly kindergartenRepository: KindergartenRepository,
-    private readonly childrResultRepository: ChildAssessmentResultRepository,
+    private childRepository: ChildRepository,
+    private kindergartenRepository: KindergartenRepository,
+    private childrResultRepository: ChildAssessmentResultRepository,
   ) {}
 
   async execute(): Promise<ChildWithKindergarten[]> {

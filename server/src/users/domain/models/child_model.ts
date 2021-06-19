@@ -42,7 +42,7 @@ export class ChildCore extends CoreModel {
 }
 
 export class Child extends AggregateRoot {
-  private constructor(private readonly props: ChildCore) {
+  private constructor(private props: ChildCore) {
     super();
   }
 

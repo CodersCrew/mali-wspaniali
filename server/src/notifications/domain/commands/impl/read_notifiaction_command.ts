@@ -1,3 +1,3 @@
 export class ReadNotificationCommand {
-  constructor(public readonly id: string) {}
+  constructor(public id: string) {}
 }

@@ -17,7 +17,7 @@ import {
 export class ChildAssessmentResultRepository {
   constructor(
     @InjectModel('ChildAssessmentResult')
-    private readonly childResultModel: Model<ChildAssessmentResultDocument>,
+    private childResultModel: Model<ChildAssessmentResultDocument>,
   ) {}
 
   async create(

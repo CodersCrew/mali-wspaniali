@@ -1,7 +1,7 @@
 export class ChildUpdatedEvent {
   constructor(
-    public readonly childId: string,
-    public readonly update: {
+    public childId: string,
+    public update: {
       [index: string]: string | number | boolean | Date;
     },
   ) {}

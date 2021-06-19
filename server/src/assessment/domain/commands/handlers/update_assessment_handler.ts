@@ -7,7 +7,7 @@ import { Assessment } from '../../models/assessment_model';
 @CommandHandler(UpdateAssessmentCommand)
 export class UpdateAssessmentHandler
   implements ICommandHandler<UpdateAssessmentCommand> {
-  constructor(private readonly repository: AssessmentRepository) {}
+  constructor(private repository: AssessmentRepository) {}
 
   async execute({
     id,

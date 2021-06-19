@@ -9,8 +9,8 @@ import { createArticleCreatedNotification } from '../../../../notifications/doma
 export class ArticleCreatedHandler
   implements IEventHandler<ArticleCreatedEvent> {
   constructor(
-    private readonly notificationRepository: NotificationRepository,
-    private readonly userRepository: UserRepository,
+    private notificationRepository: NotificationRepository,
+    private userRepository: UserRepository,
   ) {}
 
   handle(): void {

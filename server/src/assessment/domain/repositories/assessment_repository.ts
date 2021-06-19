@@ -10,7 +10,7 @@ import { AssessmentDocument } from '../../schemas/assessment_schema';
 export class AssessmentRepository {
   constructor(
     @InjectModel('Assessment')
-    private readonly model: Model<AssessmentDocument>,
+    private model: Model<AssessmentDocument>,
   ) {}
 
   get(id: string): Promise<Assessment> {

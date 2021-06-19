@@ -12,7 +12,7 @@ import { KeyCode } from '../../../key_codes/domain/models/key_code_model';
 export class UserRepository {
   constructor(
     @InjectModel('User')
-    private readonly userModel: Model<UserDocument>,
+    private userModel: Model<UserDocument>,
   ) {}
 
   async get(id: string): Promise<User> {

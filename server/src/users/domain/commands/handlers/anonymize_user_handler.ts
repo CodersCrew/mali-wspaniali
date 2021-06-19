@@ -8,9 +8,9 @@ import { User } from '../../models/user_model';
 export class AnonymizeUserHandler
   implements ICommandHandler<AnonymizeUserCommand> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly publisher: EventPublisher,
-  ) { }
+    private userRepository: UserRepository,
+    private publisher: EventPublisher,
+  ) {}
 
   async execute({ userId }: AnonymizeUserCommand): Promise<User> {
     const user = this.publisher.mergeObjectContext(

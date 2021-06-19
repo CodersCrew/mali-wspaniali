@@ -13,7 +13,7 @@ import { transformAndValidateSync } from 'class-transformer-validator';
 export class NotificationRepository {
   constructor(
     @InjectModel('Notifications')
-    private readonly repository: Model<NotificationDocument>,
+    private repository: Model<NotificationDocument>,
   ) {}
 
   async getAll(userId: string): Promise<NotificationCore[]> {

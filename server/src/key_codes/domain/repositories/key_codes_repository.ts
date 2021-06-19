@@ -10,7 +10,7 @@ import { KeyCodeMapper } from '../mappers/keycode_mapper';
 export class KeyCodeRepository {
   constructor(
     @InjectModel('KeyCode')
-    private readonly keyCodeModel: Model<KeyCodeDocument>,
+    private keyCodeModel: Model<KeyCodeDocument>,
   ) {}
 
   async getAll(series: string): Promise<KeyCode[]> {
