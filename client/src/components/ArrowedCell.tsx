@@ -46,17 +46,4 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-// function isUpwardSort(activeSort: string, sortType: string) {
-//     return activeSort === sortType;
-// }
-// function isActiveSort(activeSort: string, sortTypes: string[]) {
-//     return sortTypes.includes(activeSort);
-// }
-
-// function omitActiveStatus(activeStatus: string, aStatus: string, bStatus: string) {
-//     if (activeStatus === aStatus) return bStatus;
-
-//     return aStatus;
-// }
-
 export default ArrowedCell;

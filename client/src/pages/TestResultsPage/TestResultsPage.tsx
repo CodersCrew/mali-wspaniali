@@ -73,7 +73,6 @@ export default function TestResultsPage() {
 
     const [selectedTest, setSelectedTest] = useState('Test przedszkolaka 2020/2021');
     const [selectedMeasurement, setSelectedMeasurement] = useState('add-results-page.first-assessment');
-    // const onSelectedTest = (selectedTest) => setSelectedTest
 
     return (
         <PageContainer>
