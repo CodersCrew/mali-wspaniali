@@ -17,11 +17,9 @@ import { ChildInput, UpdatedChildInput } from './inputs/child_input';
 import { Child, ChildCore } from './domain/models/child_model';
 import { LoggedUser } from './params/current_user_param';
 import { ChildDTO } from './dto/child_dto';
-import { ResultInput } from './inputs/result_input';
 import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
 import {
   AddChildCommand,
-  AddChildResultCommand,
   CreateAssessmentResultCommand,
   UpdateAssessmentResultCommand,
 } from './domain/commands/impl';
@@ -113,19 +111,6 @@ export class ChildResolver {
     );
 
     return { status: !!edited };
-  }
-
-  @Mutation(() => ReturnedStatusDTO)
-  async addResult(
-    @Args('childId') childId: string,
-    @Args('result') result: ResultInput,
-    @Args('rootResultId', { nullable: true }) rootResultId?: string | undefined,
-  ): Promise<{ status: boolean }> {
-    const created: ChildCore = await this.commandBus.execute(
-      new AddChildResultCommand(result, childId, rootResultId),
-    );
-
-    return { status: !!created };
   }
 
   @Mutation(() => PartialChildResult)

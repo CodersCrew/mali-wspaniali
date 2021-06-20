@@ -303,7 +303,6 @@ type Mutation {
   signAgreement(agreementId: String!): AgreementDTO!
   addChild(child: ChildInput!): ChildDTO!
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
-  addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!
   updateAssessmentResult(result: PartialUpdateChildResultInput!): PartialChildResult!
   createKeyCode(target: String!): CreateKeyCodeDTO!
@@ -368,21 +367,6 @@ input UpdatedChildInput {
   sex: String
   kindergartenId: String
   childId: String!
-}
-
-input ResultInput {
-  type: String!
-  childAge: Int!
-  agilityPoints: Int!
-  agilitySeconds: Int!
-  powerCentimeters: Int!
-  powerPoints: Int!
-  schoolYearStart: Int!
-  speedPoints: Int!
-  speedSeconds: Int!
-  strengthCentimeters: Int!
-  strengthPoints: Int!
-  testPeriod: String!
 }
 
 input PartialChildResultInput {

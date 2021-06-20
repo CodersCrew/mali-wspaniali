@@ -68,9 +68,6 @@ export class UsersResolver {
 
   @ResolveField()
   async children(@Parent() user: UserCore): Promise<ChildDTO[]> {
-    console.log(
-      await this.queryBus.execute(new GetChildrenQuery(user.children)),
-    );
     return await this.queryBus.execute(new GetChildrenQuery(user.children));
   }
 

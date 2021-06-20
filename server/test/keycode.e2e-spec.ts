@@ -132,7 +132,7 @@ describe('KeyCode (e2e)', () => {
           query: `
           mutation {
             createKeyCode(target: "parent") {
-              date
+              createdAt
               keyCode
               createdBy
             }
@@ -161,12 +161,12 @@ describe('KeyCode (e2e)', () => {
           const [newKeyCode] = keyCodeSeries;
 
           expect(keyCodeSeries.length).toEqual(1);
-          expect(keyCodeSeries[0].count).toEqual(1);
+          expect(keyCodeSeries[0].count).toEqual('1');
 
           expect(newKeyCode).toEqual(
             jasmine.objectContaining({
               createdBy: adminId,
-              count: 1,
+              count: '1',
             }),
           );
         });
