@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { NewsletterInput } from '../../inputs/newsletter_input';
-import {
-  Newsletter,
-  NewsletterNotPersistedProps,
-} from '../models/newsletter_model';
-import { NewsletterProps } from '../models/newsletter_model';
+import { Newsletter } from '../models/newsletter_model';
+import { NewsletterCore } from '../models/newsletter_model';
 import { NewsletterDocument } from '../models/newsletter_model';
+import { NewsletterMapper } from '../mappers/newsletter_mapper';
 
 @Injectable()
 export class NewslettersRepository {
@@ -16,24 +13,21 @@ export class NewslettersRepository {
     private model: Model<NewsletterDocument>,
   ) {}
 
-  async create(createNewsletterDTO: NewsletterInput): Promise<Newsletter> {
-    const newsletter = Newsletter.recreate(createNewsletterDTO);
-    const createdNewsletter = new this.model(newsletter.getProps());
+  create(newsletter: NewsletterCore): Promise<Newsletter> {
+    const createdNewsletter = new this.model(newsletter);
 
-    return await createdNewsletter
+    return createdNewsletter
       .save()
-      .then((newsletter: NewsletterNotPersistedProps) =>
-        Newsletter.create(newsletter),
+      .then(newsletter =>
+        NewsletterMapper.toDomain(newsletter, { isNew: true }),
       );
   }
 
-  async get(): Promise<Newsletter[]> {
-    return await this.model
+  get(): Promise<Newsletter[]> {
+    return this.model
       .find()
       .exec()
-      .then((newsletters: NewsletterProps[]) =>
-        newsletters.map(newsletter => Newsletter.recreate(newsletter)),
-      );
+      .then(newsletters => NewsletterMapper.toDomainMany(newsletters));
   }
 
   // for e2e purpose only

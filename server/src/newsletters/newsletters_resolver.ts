@@ -9,9 +9,10 @@ import { GetAllNewsletterQuery } from './domain/queries/impl/get_all_newsletters
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
-import { Newsletter, NewsletterProps } from './domain/models/newsletter_model';
+import { Newsletter, NewsletterCore } from './domain/models/newsletter_model';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { NewsletterKindergartenInput } from './inputs/newsletter_kinderkarten_input';
+import { NewsletterMapper } from './domain/mappers/newsletter_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -20,14 +21,12 @@ export class NewsletterResolver {
 
   @Query(() => [NewsletterDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
-  async newsletters(): Promise<NewsletterProps[]> {
+  async newsletters(): Promise<NewsletterCore[]> {
     const newsletters: Newsletter[] = await this.queryBus.execute(
       new GetAllNewsletterQuery(),
     );
 
-    return newsletters.map(
-      newsletter => newsletter.getProps() as NewsletterProps,
-    );
+    return NewsletterMapper.toPlainMany(newsletters);
   }
 
   @Mutation(() => ReturnedStatusDTO)

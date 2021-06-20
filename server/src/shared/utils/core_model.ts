@@ -3,6 +3,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ValueOrNull } from './value_or_null';
 
+export interface ICoreModel<T, G> {
+  getProps(): G;
+  readonly id: string;
+  readonly isDeleted: boolean;
+  readonly createdAt: Date;
+  readonly modifiedAt: Date;
+  readonly deletedAt: Date;
+}
+
 export class CoreModel {
   @Expose()
   @Transform(value => value ?? uuidv4())

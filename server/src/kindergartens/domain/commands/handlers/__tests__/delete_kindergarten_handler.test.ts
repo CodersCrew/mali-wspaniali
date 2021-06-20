@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import MockDate from 'mockdate';
 import {
   addChild,
   createKindergartenWith,
@@ -10,7 +11,6 @@ import * as dbHandler from '@app/db_handler';
 import { KindergartenModule } from '@kindergartens/kindergarten_module';
 import { DeleteKindergartenHandler } from '../delete_kindergarten_handler';
 import { DeleteKindergartenCommand } from '../../impl';
-import MockDate from 'mockdate';
 
 describe('DeleteKindergartenHandler', () => {
   let app: TestingModule;
