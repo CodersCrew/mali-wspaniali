@@ -19,7 +19,7 @@ import { countParams } from '../shared/utils/count_params';
 export class ChildAssessmentResultResolver {
   constructor(private queryBus: QueryBus) {}
 
-  @ResolveField(() => ChildCurrentParamsDTO)
+  @ResolveField(() => ChildCurrentParamsDTO, { nullable: true })
   async currentParams(
     @Parent() result: ChildAssessmentResultDTO,
   ): Promise<ChildCurrentParamsDTO> {
@@ -31,17 +31,22 @@ export class ChildAssessmentResultResolver {
       new GetAssessmentsQuery(result.assessmentId),
     );
 
+    if (!assessment) return null;
+
     return countParams(child, assessment.firstMeasurementStartDate);
   }
 
-  @ResolveField(() => AssessmentDTO)
+  @ResolveField(() => AssessmentDTO, { nullable: true })
   async assessment(
     @Parent() result: ChildAssessmentResultDTO,
   ): Promise<AssessmentCore> {
-    const fetchedResult = await this.queryBus.execute(
-      new GetAssessmentsQuery(result.assessmentId),
-    );
+    const fetchedAssessment = await this.queryBus.execute<
+      GetAssessmentsQuery,
+      Assessment | null
+    >(new GetAssessmentsQuery(result.assessmentId));
 
-    return AssessmentMapper.toPersist(fetchedResult);
+    if (!fetchedAssessment) return null;
+
+    return AssessmentMapper.toPersist(fetchedAssessment);
   }
 }
