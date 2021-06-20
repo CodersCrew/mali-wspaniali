@@ -362,7 +362,12 @@
         "button-icon-expand-tooltip": "Expand",
         "button-icon-results-tooltip": "Results",
         "rows-number": "Rows per page:",
-        "edit": "Edit"
+        "edit": "Edit",
+        "initial-measurement": "IM",
+        "final-measurement": "FM",
+        "publish-result": "Publish result",
+        "download-result": "Download result",
+        "status-result": "result status"
     },
     "kindergarten-modal": {
         "city": "City",

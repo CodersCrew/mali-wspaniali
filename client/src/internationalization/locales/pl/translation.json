@@ -160,7 +160,12 @@
         "button-icon-expand-tooltip": "Rozwiń",
         "button-icon-results-tooltip": "Wyniki",
         "rows-number": "Pokazuj w tabeli:",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "initial-measurement": "PP",
+        "final-measurement": "PK",
+        "publish-result": "Publikuj wyniki",
+        "download-result": "Pobierz wyniki",
+        "status-result": "Status wyników"
     },
     "kindergarten-modal": {
         "city": "Miasto",

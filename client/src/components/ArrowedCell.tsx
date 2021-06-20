@@ -20,10 +20,10 @@ function ArrowedCell({ text, selectedCellName, cellName, onClick, isActive = tru
     return (
         <TableCell component="th" scope="row">
             <span className={classes.cellContainer} onClick={onClick}>
+                <span>{text}</span>
                 <IconButton>
                     <Arrow classes={{ root: clsx({ [classes.arrow]: true, [classes.isActive]: isActive }) }} />
                 </IconButton>
-                <span>{text}</span>
             </span>
         </TableCell>
     );

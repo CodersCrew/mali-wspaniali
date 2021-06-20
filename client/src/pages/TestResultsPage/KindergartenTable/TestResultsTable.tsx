@@ -38,6 +38,8 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
             setSelectedSortableCell((prev) => (prev !== KINDERGARTEN_CELL_NAME ? KINDERGARTEN_CELL_NAME : undefined)),
     };
 
+    console.log('gardens', kindergartens);
+
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Box, Grid, MenuItem } from '@material-ui/core/';
+import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
-import { Typography } from '@material-ui/core/';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import ReplyAllIcon from '@material-ui/icons/ReplyAll';
+import SearchIcon from '@material-ui/icons/Search';
 import { NoResults } from './NoResults';
-import { ResultsActions } from './ResultsActions';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { KindergartenModal } from './KindergartenModals/KindergartenModal';
 import { ChangeLogModal } from './KindergartenModals/ChangeLogModal';
@@ -14,10 +17,14 @@ import { useDeleteKindergarten } from '../../operations/mutations/Kindergartens/
 import { useUpdateKindergarten } from '../../operations/mutations/Kindergartens/updateKindergarten';
 import { Kindergarten, AddKindergartenInput } from '../../graphql/types';
 import { PageContainer } from '../../components/PageContainer';
+import { Theme } from '../../theme';
+import { SelectList } from '../../components/SelectList';
+import { TestToggleButton } from './TestToggleButton';
+import { ButtonSecondary } from '../../components/Button';
 
 export default function TestResultsPage() {
+    const classes = useStyles();
     const { t } = useTranslation();
-
     const { createKindergarten } = useCreateKindergarten();
     const { deleteKindergarten } = useDeleteKindergarten();
     const { updateKindergarten } = useUpdateKindergarten();
@@ -64,32 +71,126 @@ export default function TestResultsPage() {
         setKindergartenModalStatus({ kindergarten: null });
     };
 
+    const [selectedTest, setSelectedTest] = useState('Test przedszkolaka 2020/2021');
+    const [selectedMeasurement, setSelectedMeasurement] = useState('add-results-page.first-assessment');
+    // const onSelectedTest = (selectedTest) => setSelectedTest
+
     return (
         <PageContainer>
-            <Typography variant="h3">{t('test-results.description')}</Typography>
-            <ResultsActions
-                onAddKindergartenClick={() => setKindergartenModalStatus({ isOpen: true, kindergarten: null })}
-                onChangeLogClick={() => setChangeLogModalOpen(true)}
-            />
-            <TestResultsTable kindergartens={kindergartenList} onEditClick={onEditClick} />
-            {kindergartenModalStatus.isOpen && (
-                <KindergartenModal
-                    onClose={onKindergartenModalClose}
-                    onSubmit={handleAddOrEditKindergarten}
-                    kindergarten={kindergartenModalStatus.kindergarten}
-                    onDelete={(kindergarten: Kindergarten) => {
-                        setDeleteModalStatus({ kindergarten });
-                    }}
-                />
-            )}
-            <ChangeLogModal isOpen={isChangeLogModalOpen} onClose={() => setChangeLogModalOpen(false)} />
-            {deleteModalStatus.kindergarten && (
-                <KindergartenDeleteModal
-                    onClose={() => setDeleteModalStatus({ kindergarten: null })}
-                    onDelete={(id: string) => onDelete(id)}
-                    kindergarten={deleteModalStatus.kindergarten}
-                />
-            )}
+            <Box className={classes.wrapper}>
+                <SearchIcon className={classes.searchIcon} />
+                <Grid className={classes.options}>
+                    <Box className={classes.optionsContainer} justifyContent={'flex-start'}>
+                        <div className={classes.SelectListContainer}>
+                            <SelectList
+                                value={selectedTest}
+                                onSelect={setSelectedTest}
+                                label={t('admin-instructors-page.table-toolbar.select-test')}
+                                items={[
+                                    <MenuItem key="done" value="Test przedszkolaka 2020/2021">
+                                        Test przedszkolaka 2020/2021
+                                    </MenuItem>,
+                                ]}
+                            />
+                        </div>
+                        <TestToggleButton value={selectedMeasurement} onChange={setSelectedMeasurement} />
+                    </Box>
+                    <Box className={classes.optionsContainer} justifyContent={'flex-end'}>
+                        <ButtonSecondary
+                            onClick={() => {
+                                console.log('publikuj wyniki');
+                            }}
+                            icon={<ReplyAllIcon />}
+                            innerText={t('test-results.publish-result')}
+                        />
+                        <ButtonSecondary
+                            onClick={() => {
+                                console.log('pobierz wyniki');
+                            }}
+                            icon={<SaveAltIcon />}
+                            innerText={t('test-results.download-result')}
+                        />
+                    </Box>
+                </Grid>
+                <Box className={classes.informationContainer} justifyContent="space-between">
+                    <span className={classes.measurementText}>{t(selectedMeasurement)}</span>
+                    <p>
+                        <span className={classes.ResultStatusText}>{t('test-results.status-result')}: </span>{' '}
+                        Opublikowane
+                    </p>
+                </Box>
+                {/* <ResultsActions
+                    onAddKindergartenClick={() => setKindergartenModalStatus({ isOpen: true, kindergarten: null })}
+                    onChangeLogClick={() => setChangeLogModalOpen(true)}
+                /> */}
+                <TestResultsTable kindergartens={kindergartenList} onEditClick={onEditClick} />
+                {kindergartenModalStatus.isOpen && (
+                    <KindergartenModal
+                        onClose={onKindergartenModalClose}
+                        onSubmit={handleAddOrEditKindergarten}
+                        kindergarten={kindergartenModalStatus.kindergarten}
+                        onDelete={(kindergarten: Kindergarten) => {
+                            setDeleteModalStatus({ kindergarten });
+                        }}
+                    />
+                )}
+                <ChangeLogModal isOpen={isChangeLogModalOpen} onClose={() => setChangeLogModalOpen(false)} />
+                {deleteModalStatus.kindergarten && (
+                    <KindergartenDeleteModal
+                        onClose={() => setDeleteModalStatus({ kindergarten: null })}
+                        onDelete={(id: string) => onDelete(id)}
+                        kindergarten={deleteModalStatus.kindergarten}
+                    />
+                )}
+            </Box>
         </PageContainer>
     );
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        wrapper: {
+            backgroundColor: theme.palette.primary.contrastText,
+        },
+        options: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+            padding: theme.spacing(2),
+        },
+        SelectListContainer: {
+            display: 'flex',
+            width: '80%',
+            marginRight: theme.spacing(2),
+        },
+        optionsContainer: {
+            display: 'flex',
+            flexDirection: 'row',
+            width: '45%',
+        },
+        informationContainer: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '96%',
+            margin: theme.spacing(2),
+        },
+        measurementText: {
+            fontSize: '20px',
+            fontWeight: 500,
+        },
+        ResultStatusText: {
+            fontSize: '16px',
+            fontWeight: 500,
+        },
+        searchIcon: {
+            position: 'absolute',
+            top: '28.4%',
+            right: '5%',
+            width: '34px',
+            height: '34px',
+            color: 'gray',
+        },
+    }),
+);
