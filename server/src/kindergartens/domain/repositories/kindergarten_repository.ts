@@ -16,7 +16,7 @@ export class KindergartenRepository {
 
   getAll(): Promise<Kindergarten[]> {
     return this.model
-      .find({}, {}, { sort: { number: 1 } })
+      .find({ isDeleted: false }, {}, { sort: { number: 1 } })
       .exec()
       .then(kindergartenList => {
         return kindergartenList.map(k => KindergartenMapper.toDomainFrom(k));
@@ -25,7 +25,7 @@ export class KindergartenRepository {
 
   get(id: string): Promise<Kindergarten | null> {
     return this.model
-      .findOne({ _id: id })
+      .findOne({ _id: id, isDeleted: false })
       .lean()
       .exec()
       .then(kindergarten =>
@@ -50,6 +50,7 @@ export class KindergartenRepository {
           _id: {
             $in: ids,
           },
+          isDeleted: false,
         },
         null,
         { sort: { name: 1 } },
@@ -74,8 +75,8 @@ export class KindergartenRepository {
     kindergartenId: string,
     options: UpdatedKindergartenInput,
   ): Promise<Kindergarten> {
-    const updated = await this.model.findByIdAndUpdate(
-      kindergartenId,
+    const updated = await this.model.findOneAndUpdate(
+      { _id: kindergartenId, isDeleted: false },
       options,
       { new: true },
     );

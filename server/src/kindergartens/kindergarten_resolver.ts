@@ -106,6 +106,6 @@ export class KindergartenResolver {
       new DeleteKindergartenCommand(id),
     );
 
-    return { status: isDeleted };
+    return { status: !!isDeleted };
   }
 }

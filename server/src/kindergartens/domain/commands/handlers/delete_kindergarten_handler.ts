@@ -13,7 +13,7 @@ export class DeleteKindergartenHandler
     private publisher: EventPublisher,
   ) {}
 
-  async execute(command: DeleteKindergartenCommand): Promise<void> {
+  async execute(command: DeleteKindergartenCommand): Promise<boolean> {
     const { id } = command;
 
     const foundChildren = await this.childRepository.getByKindergarten(id);
@@ -28,6 +28,8 @@ export class DeleteKindergartenHandler
       await kindergarten.delete();
 
       await kindergarten.commit();
+
+      return true;
     }
   }
 }
