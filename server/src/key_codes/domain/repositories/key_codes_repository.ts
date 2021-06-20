@@ -13,15 +13,15 @@ export class KeyCodeRepository {
     private keyCodeModel: Model<KeyCodeDocument>,
   ) {}
 
-  async getAll(series: string): Promise<KeyCode[]> {
-    return await this.keyCodeModel
+  getAll(series: string): Promise<KeyCode[]> {
+    return this.keyCodeModel
       .find({ series }, {}, { sort: { date: -1 } })
       .exec()
       .then(keyCodes => KeyCodeMapper.toDomainMany(keyCodes));
   }
 
-  async getAllSeries(): Promise<string[]> {
-    return await this.keyCodeModel.distinct('series').exec();
+  getAllSeries(): Promise<string[]> {
+    return this.keyCodeModel.distinct('series').exec();
   }
 
   async getOne({
@@ -63,7 +63,7 @@ export class KeyCodeRepository {
   }
 
   async createBulk(keyCodes: KeyCode[]): Promise<KeyCode[]> {
-    await this.keyCodeModel.insertMany(keyCodes);
+    await this.keyCodeModel.insertMany(KeyCodeMapper.toPlainMany(keyCodes));
 
     return keyCodes;
   }

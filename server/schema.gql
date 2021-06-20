@@ -74,8 +74,8 @@ type ChildAssessmentResultDTO {
   lastMeasurementThrowResult: Float
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
-  currentParams: ChildCurrentParamsDTO!
-  assessment: AssessmentDTO!
+  currentParams: ChildCurrentParamsDTO
+  assessment: AssessmentDTO
 }
 
 type PartialChildResult {

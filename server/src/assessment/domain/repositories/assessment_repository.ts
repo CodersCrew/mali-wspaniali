@@ -15,7 +15,7 @@ export class AssessmentRepository {
 
   get(id: string): Promise<Assessment> {
     return this.model
-      .findById(id)
+      .findOne({ _id: id, isDeleted: false })
       .lean()
       .exec()
       .then(fetchAssessment => {
@@ -27,7 +27,7 @@ export class AssessmentRepository {
 
   getAll(): Promise<Assessment[]> {
     return this.model
-      .find({}, {}, { sort: { date: -1 } })
+      .find({ isDeleted: false }, {}, { sort: { date: -1 } })
       .lean()
       .exec()
       .then(fetchAssessments => {
@@ -40,6 +40,7 @@ export class AssessmentRepository {
   getAllAssignedToInstructor(instructorId: any): Promise<Assessment[]> {
     return this.model
       .find({
+        isDeleted: false,
         status: {
           $ne: 'done',
         },

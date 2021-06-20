@@ -186,7 +186,7 @@ export interface Notification {
 
 export interface KeyCode {
     id: string;
-    date: string;
+    createdAt: string;
     createdBy: string;
     keyCode: string;
     series: string;
