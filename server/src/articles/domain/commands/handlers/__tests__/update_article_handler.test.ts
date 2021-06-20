@@ -13,13 +13,15 @@ jest.setTimeout(10000);
 describe('UpdateArticleHandler', () => {
   let app: TestingModule;
 
-  afterEach(async () => {
+  afterAll(async () => {
     await app.close();
   });
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     app = await setup();
+  });
 
+  beforeEach(async () => {
     await dbHandler.clearDatabase();
   });
 
