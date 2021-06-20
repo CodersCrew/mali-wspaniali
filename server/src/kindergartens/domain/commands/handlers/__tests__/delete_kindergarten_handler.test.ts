@@ -40,8 +40,7 @@ describe('DeleteKindergartenHandler', () => {
       await anonymizeKindergarten(kindergarten.id);
       const anonymizedKindergarten = await getKindergarten(kindergarten.id);
 
-      expect(anonymizedKindergarten).toBeInstanceOf(Kindergarten);
-      expect(anonymizedKindergarten.isDeleted).toBe(true);
+      expect(anonymizedKindergarten).toBeNull();
     });
   });
 

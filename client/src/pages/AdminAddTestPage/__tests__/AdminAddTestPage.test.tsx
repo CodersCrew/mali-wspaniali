@@ -283,10 +283,10 @@ const mocks = [
             variables: {
                 assessment: {
                     title: 'new-test',
-                    firstMeasurementStartDate: '2021-20-6',
-                    firstMeasurementEndDate: '2021-19-8',
-                    lastMeasurementStartDate: '2021-20-6',
-                    lastMeasurementEndDate: '2021-19-8',
+                    firstMeasurementStartDate: '2021-21-6',
+                    firstMeasurementEndDate: '2021-20-8',
+                    lastMeasurementStartDate: '2021-21-6',
+                    lastMeasurementEndDate: '2021-20-8',
                     status: 'active',
                     firstMeasurementStatus: 'active',
                     lastMeasurementStatus: 'active',

@@ -75,7 +75,7 @@ const populatedKeyCodesList = [
                 keyCodeSeries: [
                     {
                         count: 1,
-                        date: '2020-10-11T12:20:22.086Z',
+                        createdAt: '2020-10-11T12:20:22.086Z',
                         series: 'RwNxRTO8TV',
                         target: 'instructor',
                     },
