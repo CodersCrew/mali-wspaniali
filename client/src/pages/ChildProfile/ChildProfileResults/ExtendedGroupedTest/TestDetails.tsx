@@ -100,7 +100,7 @@ export const TestDetails = ({ result, prefix }: Props) => {
     );
 };
 
-// function getTestUnavailableReason(result: TestResult) {
+// function getTestUnavailableReason(result: TestResult) { TODO!!!
 //     const testsWithNoResult = TESTS.filter((test) => !result.test[test.pointsKey as resultKey]);
 
 //     return testsWithNoResult.map((test) => (

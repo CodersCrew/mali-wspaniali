@@ -1,4 +1,3 @@
-import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
@@ -284,19 +283,47 @@ const mocks = [
             variables: {
                 assessment: {
                     title: 'new-test',
-                    startDate: formatDate(startDate),
-                    endDate: formatDate(endDate),
-                    firstMeasurementStartDate: formatDate(startDate),
-                    firstMeasurementEndDate: formatDate(endDate),
-                    lastMeasurementStartDate: formatDate(startDate),
-                    lastMeasurementEndDate: formatDate(endDate),
+                    firstMeasurementStartDate: '2021-20-6',
+                    firstMeasurementEndDate: '2021-19-8',
+                    lastMeasurementStartDate: '2021-20-6',
+                    lastMeasurementEndDate: '2021-19-8',
+                    status: 'active',
+                    firstMeasurementStatus: 'active',
+                    lastMeasurementStatus: 'active',
                     kindergartenIds: [],
                 },
             },
         },
         result: {
             data: {
-                createAssessment: { status: true },
+                createAssessment: {
+                    _id: '1',
+                    isOutdated: false,
+                    isDeleted: false,
+                    title: 'test-assessment1',
+                    startDate: '2000-01-01',
+                    endDate: '2000-01-31',
+                    firstMeasurementStartDate: '2000-01-01',
+                    firstMeasurementEndDate: '2000-01-31',
+                    lastMeasurementStartDate: '2000-01-01',
+                    lastMeasurementEndDate: '2000-01-31',
+                    status: 'active',
+                    firstMeasurementStatus: 'active',
+                    lastMeasurementStatus: 'active',
+                    kindergartens: [
+                        {
+                            kindergarten: {
+                                _id: '1',
+                                name: 'test-kindergarten1',
+                                number: 1,
+                            },
+                            instructor: {
+                                _id: '1',
+                                mail: 'test-instructor1@gmail.com',
+                            },
+                        },
+                    ],
+                },
             },
         },
     },

@@ -67,12 +67,11 @@ describe('ChildProfileResults', () => {
             it('returns grouped tests', () => {
                 const groupedResult = getGroupedTest(results);
 
-                expect(groupedResult.length).toEqual(2);
-                expect(groupedResult[0].length).toEqual(2);
+                expect(groupedResult.length).toEqual(3);
+                expect(groupedResult[0].length).toEqual(1);
                 expect(groupedResult[1].length).toEqual(1);
                 expect(groupedResult[0][0]._id).toEqual('my-first-test');
-                expect(groupedResult[0][1]._id).toEqual('my-second-test');
-                expect(groupedResult[1][0]._id).toEqual('my-third-test');
+                expect(groupedResult[1][0]._id).toEqual('my-second-test');
             });
         });
     });
