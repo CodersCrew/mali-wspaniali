@@ -23,15 +23,21 @@ export class ArticlesRepository {
 
     return createdArticle
       .save()
-      .then(article => ArticleMapper.toDomain(article.toObject()));
+      .then(article =>
+        ArticleMapper.toDomain(article.toObject(), { isNew: true }),
+      );
   }
 
   update(id: string, updates: Partial<UpdateArticleInput>) {
-    this.articleModel.findOneAndUpdate(
-      { _id: id },
-      updates as Partial<ArticleDocument>,
-      { useFindAndModify: false },
-    );
+    this.articleModel
+      .findOneAndUpdate(
+        { _id: id.toString() },
+        updates as Partial<ArticleDocument>,
+        {
+          useFindAndModify: false,
+        },
+      )
+      .exec();
   }
 
   async getPage(

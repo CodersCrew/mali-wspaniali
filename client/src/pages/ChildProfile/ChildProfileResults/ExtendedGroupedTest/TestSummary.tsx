@@ -22,7 +22,6 @@ export interface Props {
 
 export const TestSummary = ({ result, title, points, description }: Props) => {
     const { t } = useTranslation();
-    console.log(result);
 
     const { color, key } = getResultColorAndLabel(points, MAX_OVERALL_POINTS);
     const classes = useStyles({ color });

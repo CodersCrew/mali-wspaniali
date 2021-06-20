@@ -1,7 +1,5 @@
 export const coreSchema = {
-  _id: {
-    type: String,
-  },
+  _id: String,
   isDeleted: Boolean,
   createdAt: Date,
   deletedAt: Date,

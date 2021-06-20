@@ -17,7 +17,7 @@ type RedactorDTO {
 type ArticleDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   category: String!
@@ -46,7 +46,7 @@ type PaginatedArticlesDTO {
 type ChildAssessmentResultDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   childId: ID!
@@ -114,7 +114,7 @@ type PartialChildResult {
 type NotificationDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   user: String!
@@ -139,7 +139,7 @@ type KindergartenDTO {
 type ChildDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   firstname: String!
@@ -155,7 +155,7 @@ type ChildDTO {
 type AgreementDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   text: String!
@@ -165,7 +165,7 @@ type AgreementDTO {
 type UserDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   mail: String!
@@ -205,7 +205,7 @@ type ChildCurrentParamsDTO {
 type CreateKeyCodeDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   createdBy: String!
@@ -217,7 +217,7 @@ type CreateKeyCodeDTO {
 type KeyCodeSeriesDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   createdBy: String!
@@ -230,7 +230,7 @@ type KeyCodeSeriesDTO {
 type KindergartenWithUsersDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   number: Int!
@@ -248,7 +248,7 @@ type KindergartenWithInstructorDTO {
 type AssessmentDTO {
   _id: ID!
   isDeleted: Boolean!
-  createdAt: DateTime!
+  createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
   isOutdated: Boolean!
@@ -294,6 +294,7 @@ type Query {
 
 type Mutation {
   createArticle(article: CreateArticleInput!): ReturnedStatusDTO!
+  updateArticle(updates: UpdateArticleInput!, id: String!): ReturnedStatusDTO!
   anonymizeUser(id: String!): ReturnedStatusDTO!
   readNotification(id: String!): NotificationDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
@@ -336,6 +337,19 @@ input RedactorInput {
   profession: String
   biography: String
   shortDescription: String
+}
+
+input UpdateArticleInput {
+  category: String
+  contentHTML: String
+  description: String
+  pictureUrl: String
+  redactor: RedactorInput
+  tags: [String!]
+  title: String
+  videoUrl: String
+  isDeleted: Boolean
+  isPublished: Boolean
 }
 
 input UserInput {

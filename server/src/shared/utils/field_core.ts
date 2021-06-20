@@ -8,7 +8,7 @@ export class FieldCore {
   @Field()
   isDeleted: boolean;
 
-  @Field()
+  @Field({ nullable: true })
   createdAt: Date;
 
   @Field({ nullable: true })
