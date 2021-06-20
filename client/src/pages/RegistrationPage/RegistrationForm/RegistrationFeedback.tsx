@@ -2,8 +2,9 @@ import { Box, createStyles, makeStyles, Typography } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
-import { RegistrationFeedbackProps } from './types';
 import { useIsDevice } from '../../../queries/useBreakpoints';
+
+import { RegistrationFeedbackProps } from './types';
 
 export const RegistrationFeedback = ({ classWrapper }: RegistrationFeedbackProps) => {
     const { t } = useTranslation();
