@@ -60,21 +60,25 @@ export type initialValuesType = {
     contentHTML: string;
     tags: Array<string>;
     redactor: any;
+    videoUrl: string;
+    description: string;
 };
 
 export const initialValues: initialValuesType = {
     title: '',
     category: '',
     pictureUrl: '',
+    description: '',
     contentHTML: '',
+    videoUrl: '',
     tags: [],
-    redactor: { firstName: '', lastName: '', profession: '', avatar: '', biography: '' },
+    redactor: { firstName: '', lastName: '', profession: '', avatarUrl: '', biography: '' },
 };
 
 export const redactorData = [
     { data: 'firstName', label: 'author-first-name' },
     { data: 'lastName', label: 'author-last-name' },
     { data: 'profession', label: 'author-profession' },
-    { data: 'avatar', label: 'avatar' },
+    { data: 'avatarUrl', label: 'avatar' },
     { data: 'biography', label: 'author-biography' },
 ];

@@ -5,12 +5,6 @@ import clsx from 'clsx';
 import { ArticlePreviousContentHtml } from './ArticlePreviousContentHtml';
 import { articleContent, isDisabledArticleClassVisible } from './utils';
 
-export const isArticlePreviewVisible = (isPreView: boolean, componentProperty: any) => {
-    if (componentProperty || (!componentProperty && !isPreView)) return false;
-
-    return true;
-};
-
 type ArticleContentProps = {
     contentHTML: string;
     title: string;

@@ -24,21 +24,19 @@ export const TwoActionsModal: FC<Props> = ({
     const classes = useStyles();
 
     return (
-        <>
-            <Dialog maxWidth="md" open={isOpen} onClose={onClose}>
-                <DialogContent>{children}</DialogContent>
-                <DialogActions>
-                    <div className={classes.buttonsWrapper}>
-                        <ButtonDefault className={classes.button} variant="text" onClick={lowerButtonOnClick}>
-                            {lowerButtonText}
-                        </ButtonDefault>
-                        <ButtonPrimary className={classes.button} variant="text" onClick={upperButtonOnClick}>
-                            {upperButtonText}
-                        </ButtonPrimary>
-                    </div>
-                </DialogActions>
-            </Dialog>
-        </>
+        <Dialog maxWidth="md" open={isOpen} onClose={onClose}>
+            <DialogContent>{children}</DialogContent>
+            <DialogActions>
+                <div className={classes.buttonsWrapper}>
+                    <ButtonDefault className={classes.button} variant="text" onClick={lowerButtonOnClick}>
+                        {lowerButtonText}
+                    </ButtonDefault>
+                    <ButtonPrimary className={classes.button} variant="text" onClick={upperButtonOnClick}>
+                        {upperButtonText}
+                    </ButtonPrimary>
+                </div>
+            </DialogActions>
+        </Dialog>
     );
 };
 

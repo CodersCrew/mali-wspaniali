@@ -4,33 +4,26 @@ import { useTranslation } from 'react-i18next';
 
 import { ButtonPrimary } from '../Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { isDisabledArticleClassVisible } from './utils';
 
 interface Props {
     tags: string[];
     isPreview?: boolean;
 }
 
-export const isArticlePreviewVisible = (isPreView: boolean, componentProperty: any) => {
-    if (componentProperty || (!componentProperty && !isPreView)) return false;
-
-    return true;
-};
-
 export function TagList({ tags, isPreview }: Props) {
     const classes = useStyles();
     const { isMobile } = useIsDevice();
     const { t } = useTranslation();
 
-    const previousTag = [1, 2, 3].map((index: number) => {
-        return t(`admin-articles.tags.tag${index}`);
-    });
+    const previousTag = [1, 2, 3].map((index: number) => t(`admin-articles.tags.tag${index}`));
 
     const isTags = tags?.length > 0;
-    const allTags = isTags ? tags : previousTag;
+    const allTags = isDisabledArticleClassVisible(isPreview, isTags) ? previousTag : tags;
 
     return (
         <>
-            {allTags.map((tag, index) => {
+            {allTags?.map((tag: string, index: number) => {
                 return (
                     <ButtonPrimary
                         key={`${tag} ${index}`}

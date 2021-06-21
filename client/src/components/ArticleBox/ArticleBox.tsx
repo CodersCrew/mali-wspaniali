@@ -51,7 +51,7 @@ const ArticleBox = ({
                         })}
                     >
                         <ReadingTime
-                            date={new Date(article?.createdAt) || 'createdAt'}
+                            date={new Date(article?.publishedAt || article?.createdAt)}
                             readingTime={calculateReadingTime(article?.contentHTML)}
                         />
                     </div>
@@ -61,11 +61,11 @@ const ArticleBox = ({
                         contentHTML={article?.contentHTML}
                         isPreview={isPreview}
                     />
-                    <Grid item classes={{ root: classes.videoContainer }}>
+                    <Grid item classes={{ root: classes.videoContainer }} xs={12}>
                         <ArticleVideo videoUrl={article?.videoUrl} isPreview={isPreview} />
                     </Grid>
                     <Grid item classes={{ root: classes.tagContainer }}>
-                        <TagList tags={article?.tags} />
+                        <TagList tags={article?.tags} isPreview={isPreview} />
                     </Grid>
                 </Grid>
                 <Grid container xs={12}>
@@ -76,24 +76,26 @@ const ArticleBox = ({
                         <ArticleRedactor redactor={article?.redactor} isPreview={isPreview} />
                     </Grid>
                 </Grid>
-                <Grid container xs={12} justify={isPreview ? 'flex-end' : 'space-between'}>
-                    <Grid item>
-                        <ButtonDefault
-                            className={clsx({
-                                [classes.previousButton]: isPreview,
-                            })}
-                            variant="contained"
-                            onClick={onClickPreviousButtonTitle}
-                        >
-                            {previousButtonTitle}
-                        </ButtonDefault>
+                {isPreview && (
+                    <Grid container xs={12} justify="flex-end">
+                        <Grid item>
+                            <ButtonDefault
+                                className={clsx({
+                                    [classes.previousButton]: isPreview,
+                                })}
+                                variant="contained"
+                                onClick={onClickPreviousButtonTitle}
+                            >
+                                {previousButtonTitle}
+                            </ButtonDefault>
+                        </Grid>
+                        <Grid item>
+                            <ButtonDefault variant="contained" color="secondary" onClick={onClickNextButtonTitle}>
+                                {nextButtonTitle}
+                            </ButtonDefault>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <ButtonDefault variant="contained" color="secondary" onClick={onClickNextButtonTitle}>
-                            {nextButtonTitle}
-                        </ButtonDefault>
-                    </Grid>
-                </Grid>
+                )}
             </Grid>
         </>
     );
@@ -123,6 +125,9 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(5, 0, 2),
         },
         videoContainer: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             margin: theme.spacing(4, 0),
         },
         tagContainer: {

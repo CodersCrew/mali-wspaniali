@@ -2,10 +2,10 @@ import { useQuery } from '@apollo/client';
 import { PaginatedArticles } from '../../../graphql/types';
 import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../../graphql/articleRepository';
 
-interface IParams { 
-  page: number;
-  perPage: number;
-  category: string;
+interface IParams {
+    page: number;
+    perPage: number;
+    category: string;
 }
 
 export function useArticles({ page, perPage, category }: IParams) {

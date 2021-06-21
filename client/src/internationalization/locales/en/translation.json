@@ -616,6 +616,7 @@
         "category-other": "Other",
         "publish": "Publish",
         "cancel": "Cancel",
+        "preview": "Preview",
         "validation-label": {
             "title": {
                 "min": "The title of the article must be at least 10",

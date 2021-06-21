@@ -685,6 +685,7 @@
         "category-other": "Inna",
         "publish": "Opublikuj",
         "cancel": "Anuluj",
+        "preview": "Podgląd",
         "validation-label": {
             "title": {
                 "min": "Tytuł artykułu musi zawierac co najmniej 10 znaków",

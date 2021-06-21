@@ -3,7 +3,6 @@ export type ArticleType = {
     contentHTML: string;
     description: string;
     pictureUrl: string;
-    readingTime: number;
     redactor: {
         avatarUrl: string;
         firstName: string;
@@ -11,7 +10,7 @@ export type ArticleType = {
         profession: string;
         biography: string;
     };
-    tags: Array<any>;
+    tags: Array<string>;
     title: string;
     videoUrl: string;
 };

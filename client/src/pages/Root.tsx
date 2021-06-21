@@ -61,6 +61,7 @@ export function Root() {
                 <Suspense fallback={null}>
                     <Router>
                         <CookieModal />
+
                         <Switch>
                             <Route exact path="/" render={() => <Redirect to="/login" />} />
                             <Route path={['/login']}>
