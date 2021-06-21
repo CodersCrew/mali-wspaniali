@@ -904,6 +904,12 @@
         "save-and-next": "Save and next",
         "save-and-back-to-table": "Save and back to table",
         "select-child": "Select a child",
-        "note": "Note"
+        "note": "Note",
+        "result-saved-snackbar-1": "Result of ",
+        "result-saved-snackbar-2": " saved for child ",
+        "throw": "STRENGTH",
+        "pendelumRun": "DEXTERITY",
+        "jump": "POWER",
+        "run": "VELOCITY"
     }
 }
