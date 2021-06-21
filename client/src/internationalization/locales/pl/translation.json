@@ -32,7 +32,7 @@
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
         "register-success-content": "Wysłaliśmy na Twoją skrzynkę mailową wiadomość z linkiem aktywacyjnym. Skorzystaj z niego, aby potwierdzić swój adres e-mail i zakończyć rejestrację.",
-        "register-success-spam": "",
+        "register-success-spam": "Jeżeli nie dostałeś maila z linkiem aktywacyjnym, spróbuj utworzyć konto za pomocą innej skrzynki mailowej np. Gmail.com",
         "password-confirm": "Powtórz hasło",
         "register": "Rejestracja",
         "password-not-strong": "Hasło jest za słabe. Sprawdź, czy Twoje hasło posiada co najmniej osiem znaków, dużą literę, cyfrę i znak specjalny.",
