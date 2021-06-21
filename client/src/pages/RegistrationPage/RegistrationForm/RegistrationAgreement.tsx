@@ -171,7 +171,7 @@ export const RegistrationAgreement = ({
                                 )}
 
                                 <Typography variant="body2" className={classes.agreementText}>
-                                    {parse(agreement.text)}
+                                    {parse(t(agreement.text))}
                                 </Typography>
                             </div>
                             <Box mb={2} />
@@ -194,7 +194,7 @@ export const RegistrationAgreement = ({
                                             </Typography>
                                         </AccordionSummary>
                                         <AccordionDetails className={classes.agreementExtraContent}>
-                                            <Typography variant="body2">{parse(agreement.extraContent)}</Typography>
+                                            <Typography variant="body2">{parse(t(agreement.extraContent))}</Typography>
                                         </AccordionDetails>
                                     </Accordion>
                                     <Box mb={2} />

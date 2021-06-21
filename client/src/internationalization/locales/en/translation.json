@@ -62,10 +62,15 @@
             "show-more-content-modal": "See the full text in a new tab",
             "sub-title": "Agreements",
             "sub-title-description": "Consents for using your child's image and for receiving marketing information can be refused at any time on the platform in 'Consents' tab.",
-            "statement": "I declare that I have read and accepted the terms and conditions",
-            "privacy-policy": "Terms & Conditions, Privacy Policy.",
+            "statement": "I declare that I have read and accepted <a style='color: #00acc1; text-decoration: none'; href='#'>Terms & Conditions</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>Privacy Policy</a>.",
             "required-field": "mandatory field",
-            "required-agreements": "Required agreements and declarations"
+            "required-agreements": "Required agreements and declarations",
+            "select-all": "Select all consents",
+            "agreement2-text": "I agree that my child participates in general sports activities with elements of karate as part of the Mali Wspaniali program.",
+            "agreement3-text": "I agree to receive marketing information at the given email address. <span style='color: rgba(0, 0, 0, 0.54)'>(This consent will allow us to share our success stories occasionally).</span>",
+            "agreement3-extra-content": "We inform that the consent is voluntary and can be refused at any time on the platform in 'Consents' tab. <br><br>This consent will allow us to send you emails with up-to-date information about the Mali Wspaniali program. Occasionally we will share our success stories.",
+            "agreement4-text": "I agree to non-commercial processing of my child's image by the Mali Wspaniali Foundation. <span style='color: rgba(0, 0, 0, 0.54)'> This consent will enable you to see your kid in photos and films from classes published by the Foundation.</span>",
+            "agreement4-extra-content": "We inform that the consent is voluntary and can be refused at any time on the platform in 'Consents' tab. <br><br> This consent will allow us to share our success stories and to promote our Foundation by publishing child's image by means of pictures and films: <ul><li>photo-coverage in media (press, TV), </li> <li>web portals, and sites administred by the Foundation (<a style='color: #00acc1; text-decoration: none;' href='#'>mali-wspaniali.pl</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>facebook</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>youtube</a>)</li></ul>. This consent will allow you to see your kid in photos and films from classes published by the Foundation. This consent does not affect processing of child's/ children's image during group classes. We have the right to use the image when a child is photographed/ filmed as part of the group."
         }
     },
     "forgot-password-page": {
@@ -311,13 +316,13 @@
             "save": "Save",
             "snackbar-headerText": "Done",
             "snackbar-text": "Your consents have been saved",
-            "Image-title": "Consent for gratuitous processing of your child's image by the Mali Wspaniali Foundation.",
-            "Image-description-1": "Consent for gratuitous processing of your child's image by the Mali Wspaniali Foundation, registered in Wrocław, at Ślężna Street 2-24, 53-302 Wrocław, as part of its operations. This consent will allow us to share our success stories and to promote our Foundation by publishing child's image by means of pictures and films: photo-coverage in media (press, TV), web portals, and sites administred by the Foundation. ",
+            "Image-title": "Consent for non-commercial processing of your child's image by the Mali Wspaniali Foundation.",
+            "Image-description-1": "Consent for non-commercial processing of your child's image by the Mali Wspaniali Foundation, registered in Wrocław, at Ślężna Street 2-24, 53-302 Wrocław, as part of its operations. This consent will allow us to share our success stories and to promote our Foundation by publishing child's image by means of pictures and films: photo-coverage in media (press, TV), web portals, and sites administred by the Foundation. ",
             "Image-description-2": "This consent will enable you to see your kid in materials from classes published by the Foundation. ",
             "Image-description-3": "Consent does not affect processing of child's/ children's image during group classes. We have the right to use the image when a child is photographed/ filmed as part of the group. The consent is voluntary and participation in the program does not depend on it.",
             "Marketing-title": "Consent for receiving marketing information at the email address provided.",
             "Marketing-description-1": "Consent to process your email adress for marketing and commercial purposes by the Mali Wspaniali Foundation, registered in Wrocław, at Ślężna Street 2-24, 53-302 Wrocław. This consent will allow us to send you emails with up-to-date information about the Mali Wspaniali program.",
-            "Marketing-description-2": "Sometimes we will share our success stories. ",
+            "Marketing-description-2": "Occasionally we will share our success stories. ",
             "Marketing-description-3": "Consent is voluntary and participation in the program does not depend on it.",
             "general-title": "Consent to participate in the Mali Wspaniali program.",
             "general-description": "Consent for child's participation in general sports activities with elements of karate as part of the Mali Wspaniali program is obligatory. You can cancel your child's involvement in the Mali Wspaniali program any time. To this end, please contact the Foundation by sending the resignation to the email address: biuro@mali-wspaniali.pl."
