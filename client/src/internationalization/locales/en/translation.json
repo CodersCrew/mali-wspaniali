@@ -32,7 +32,7 @@
         "password-mismatch": "Passwords do not match",
         "register-success-title": "And finally - the last step!",
         "register-success-content": "An email containing an activation link has been sent to your email address. Use the link to confirm your email address and finish the registration process.",
-        "register-success-spam": "",
+        "register-success-spam": "If you did not receive any e-mail with an activation link, try to register again using a different email, e.g. Gmail.com.",
         "password-confirm": "Repeat your password",
         "register": "Registration",
         "password-not-strong": "Your password is not strong enough. Check if it contains minimum 8 characters, a capital letter, a number, and at least one special character.",
@@ -909,6 +909,12 @@
         "save-and-next": "Save and next",
         "save-and-back-to-table": "Save and back to the table",
         "select-child": "Select a child",
-        "note": "Note"
+        "note": "Note",
+        "result-saved-snackbar-1": "Result of ",
+        "result-saved-snackbar-2": " saved for child ",
+        "throw": "STRENGTH",
+        "pendelumRun": "DEXTERITY",
+        "jump": "POWER",
+        "run": "VELOCITY"
     }
 }
