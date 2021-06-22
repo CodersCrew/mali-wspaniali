@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
@@ -18,6 +18,6 @@ export class CreateKeyCodeDTO extends FieldCore {
 
 @ObjectType()
 export class KeyCodeSeriesDTO extends CreateKeyCodeDTO {
-  @Field()
-  count: string;
+  @Field(() => Int)
+  count: number;
 }
