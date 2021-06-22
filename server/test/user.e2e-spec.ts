@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
+import * as bcrypt from 'bcrypt';
+import waitForExpect from 'wait-for-expect';
 
 import { AppModule } from './../src/app.module';
 import { UserRepository } from '../src/users/domain/repositories/user_repository';
-import * as bcrypt from 'bcrypt';
 
 jest.setTimeout(10000);
 
@@ -335,13 +336,14 @@ describe('User (e2e)', () => {
         `,
         });
 
-      await request(app.getHttpServer())
-        .post('/graphql')
-        .set('Authorization', authorizationToken)
-        .send({
-          operationName: null,
-          variables: {},
-          query: `{
+      await waitForExpect(async () => {
+        await request(app.getHttpServer())
+          .post('/graphql')
+          .set('Authorization', authorizationToken)
+          .send({
+            operationName: null,
+            variables: {},
+            query: `{
             me {
               mail
               role
@@ -360,25 +362,26 @@ describe('User (e2e)', () => {
               }
             }
           }`,
-        })
-        .then(response => {
-          expect(response.body.data.me.children[0]).toEqual(
-            jasmine.objectContaining({ firstname: 'John' }),
-          );
+          })
+          .then(response => {
+            expect(response.body.data.me.children[0]).toEqual(
+              jasmine.objectContaining({ firstname: 'John' }),
+            );
 
-          expect(response.body.data.me.children[0].results[0]).toEqual(
-            jasmine.objectContaining({
-              firstMeasurementJumpResult: 10,
-              firstMeasurementPendelumRunResult: 10,
-              firstMeasurementRunResult: 10,
-              firstMeasurementThrowResult: 10,
-              lastMeasurementJumpResult: 10,
-              lastMeasurementPendelumRunResult: 10,
-              lastMeasurementRunResult: 10,
-              lastMeasurementThrowResult: 10,
-            }),
-          );
-        });
+            expect(response.body.data.me.children[0].results[0]).toEqual(
+              jasmine.objectContaining({
+                firstMeasurementJumpResult: 10,
+                firstMeasurementPendelumRunResult: 10,
+                firstMeasurementRunResult: 10,
+                firstMeasurementThrowResult: 10,
+                lastMeasurementJumpResult: 10,
+                lastMeasurementPendelumRunResult: 10,
+                lastMeasurementRunResult: 10,
+                lastMeasurementThrowResult: 10,
+              }),
+            );
+          });
+      });
 
       done();
     });
