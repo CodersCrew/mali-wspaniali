@@ -14,6 +14,7 @@
         "@material-ui/styles": "4.11.3",
         "apollo-boost": "^0.4.9",
         "apollo-link-http": "^1.5.17",
+        "caniuse-lite": "^1.0.30001239",
         "clsx": "^1.1.0",
         "dayjs": "^1.10.4",
         "formik": "^2.1.5",
