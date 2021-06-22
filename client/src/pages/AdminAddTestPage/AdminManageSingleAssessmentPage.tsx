@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -27,51 +27,10 @@ export default function AdminManageSingleAssessmentPage() {
     const isEditOnly = isState('edit');
     const isViewOnly = isState('details');
 
-    const {
-        submit,
-        kindergartens,
-        reasonForBeingDisabled,
-        assessemnt,
-        updateAssessment,
-        isLoading,
-    } = useAssessmentManager(assessmentId, onAssessmentSubmited);
+    const { submit, kindergartens, reasonForBeingDisabled, assessemnt, updateAssessment, isLoading } =
+        useAssessmentManager(assessmentId, onAssessmentSubmited);
 
-    function onAssessmentSubmited(result: SuccessState | ErrorState) {
-        if ('errors' in result) {
-            openSnackbar({ text: t(result.errors), severity: 'error' });
-        } else {
-            openSnackbar({ text: result.message! });
-            redirectIntoTestPage();
-        }
-    }
-
-    function redirectIntoTestPage() {
-        history.push('/admin/test-management');
-    }
-
-    function onPickerClick(value: string[], options: { selectedAll?: boolean } = {}) {
-        const kindergartensCopy = [...assessemnt.kindergartenIds];
-
-        if (options.selectedAll) {
-            updateAssessment({ kindergartenIds: value });
-
-            return;
-        }
-
-        if (assessemnt.kindergartenIds.includes(value[0])) {
-            updateAssessment({ kindergartenIds: kindergartensCopy.filter((id) => id !== value[0]) });
-
-            return;
-        }
-
-        updateAssessment({ kindergartenIds: [...kindergartensCopy, ...value] });
-    }
-
-    function isState(name: string) {
-        return history.location.pathname.includes(`/${name}`);
-    }
-
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.test-management']);
     }, []);
 
@@ -162,4 +121,39 @@ export default function AdminManageSingleAssessmentPage() {
             </Grid>
         </PageContainer>
     );
+
+    function onAssessmentSubmited(result: SuccessState | ErrorState) {
+        if ('errors' in result) {
+            openSnackbar({ text: t(result.errors), severity: 'error' });
+        } else {
+            openSnackbar({ text: result.message! });
+            redirectIntoTestPage();
+        }
+    }
+
+    function redirectIntoTestPage() {
+        history.push('/admin/test-management');
+    }
+
+    function onPickerClick(value: string[], options: { selectedAll?: boolean } = {}) {
+        const kindergartensCopy = [...assessemnt.kindergartenIds];
+
+        if (options.selectedAll) {
+            updateAssessment({ kindergartenIds: value });
+
+            return;
+        }
+
+        if (assessemnt.kindergartenIds.includes(value[0])) {
+            updateAssessment({ kindergartenIds: kindergartensCopy.filter((id) => id !== value[0]) });
+
+            return;
+        }
+
+        updateAssessment({ kindergartenIds: [...kindergartensCopy, ...value] });
+    }
+
+    function isState(name: string) {
+        return history.location.pathname.includes(`/${name}`);
+    }
 }

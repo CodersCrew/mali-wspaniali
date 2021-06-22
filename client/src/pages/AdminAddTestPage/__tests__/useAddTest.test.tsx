@@ -305,13 +305,15 @@ describe('useAddTest', () => {
     });
 });
 
-const renderPage = (mocks: MockedResponse[]): FC => ({ children }) => {
-    return (
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <div>{children}</div>
-        </MockedProvider>
-    );
-};
+const renderPage =
+    (mocks: MockedResponse[]): FC =>
+    ({ children }) => {
+        return (
+            <MockedProvider mocks={mocks} addTypename={false}>
+                <div>{children}</div>
+            </MockedProvider>
+        );
+    };
 
 const mocks = [
     {
