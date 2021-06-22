@@ -7,4 +7,6 @@ declare global {
   }
 }
 
+declare module 'date-faker';
+
 export {};
