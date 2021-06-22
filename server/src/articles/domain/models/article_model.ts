@@ -58,7 +58,7 @@ export class ArticleCore extends CoreModel {
   isPublished: boolean;
 
   @Expose()
-  @ValueOrNull()
+  @Transform(value => value ?? null)
   publishedAt: Date | null;
 }
 
@@ -143,7 +143,7 @@ export class Article extends AggregateRoot
   static create(props: ArticleCore): Article {
     const article = new Article(props);
 
-    article.apply(new ArticleCreatedEvent(article.id));
+    article.apply(new ArticleCreatedEvent(article.id, article.getProps()));
 
     return article;
   }

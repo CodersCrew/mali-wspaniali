@@ -13,13 +13,14 @@ export class ArticleCreatedHandler
     private userRepository: UserRepository,
   ) {}
 
-  handle(): void {
-    this.userRepository.forEach(user => {
+  handle({ article }: ArticleCreatedEvent): void {
+    this.userRepository.forEachAdmin(user => {
       {
         const userId = user._id;
+        const title = article.title;
 
         this.notificationRepository.create(
-          createArticleCreatedNotification(userId),
+          createArticleCreatedNotification(userId, title),
         );
       }
     });

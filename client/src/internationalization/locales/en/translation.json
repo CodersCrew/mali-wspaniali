@@ -651,6 +651,7 @@
     "notification-list": {
         "new-assessment": "A new test ({{name}}) has been added.",
         "new-user": "A new user ({{email}}) has been added.",
+        "new-article": "Added new, unpublished article\"{{title}}\"",
         "child-created": "A child has been added.",
         "kindergarten-created": "A new kindergarten ({{name}}) has been created."
     },

@@ -6,11 +6,12 @@ interface NotificationFactoryResult {
 
 export function createArticleCreatedNotification(
   userId: string,
+  title: string,
 ): NotificationFactoryResult {
   return {
     userId,
     templateId: 'new_article',
-    values: [],
+    values: [title],
   };
 }
 
