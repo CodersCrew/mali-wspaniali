@@ -66,7 +66,7 @@ export function KindergartenList({ kindergartens }: Props) {
 const useStyles = makeStyles(() =>
     createStyles({
         table: {
-            height: 295,
+            /* height: 295, */
         },
         kindergartenItem: {
             cursor: 'default',

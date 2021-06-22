@@ -92,7 +92,7 @@ export const KindergartenTable = ({ defaultKindergartens, selected, onSelect }: 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         table: {
-            height: 295,
+            height: 295, 
         },
         searchFieldContainer: {
             margin: theme.spacing(3, 0, 2),

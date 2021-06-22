@@ -22,7 +22,7 @@ export const LabeledContainer: FC<Props> = ({ title, children }) => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            height: '100%',
+            /* height: '100%', */
         },
         titleContainer: {
             padding: theme.spacing(2),
