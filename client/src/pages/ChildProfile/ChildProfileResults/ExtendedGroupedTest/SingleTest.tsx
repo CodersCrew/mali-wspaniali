@@ -2,19 +2,23 @@ import { makeStyles } from '@material-ui/styles';
 import { createStyles, Theme } from '@material-ui/core';
 import { TestSummary } from './TestSummary';
 import { TestDetails } from './TestDetails';
-import { TestResult } from '../../../../graphql/types';
+import { AssessmentResult } from '../../../../graphql/types';
 
 interface Props {
-    result: TestResult;
+    result: AssessmentResult;
+    title: string;
+    description: string;
+    points: number;
+    prefix: string;
 }
 
-export const SingleTest = ({ result }: Props) => {
+export const SingleTest = (props: Props) => {
     const classes = useStyles();
 
     return (
         <div className={classes.container}>
-            <TestSummary result={result} />
-            <TestDetails result={result} />
+            <TestSummary {...props} />
+            <TestDetails {...props} />
         </div>
     );
 };

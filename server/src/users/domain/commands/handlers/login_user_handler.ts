@@ -8,8 +8,8 @@ import { UserRepository } from '../../repositories/user_repository';
 @CommandHandler(LoginUserCommand)
 export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly jwtService: JwtService,
+    private userRepository: UserRepository,
+    private jwtService: JwtService,
   ) {}
 
   async execute(command: LoginUserCommand): Promise<string> {

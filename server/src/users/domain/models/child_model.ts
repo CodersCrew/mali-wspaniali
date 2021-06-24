@@ -1,53 +1,48 @@
-import * as mongoose from 'mongoose';
-
-import { ChildResultProps } from './child_result_model';
 import { AggregateRoot } from '@nestjs/cqrs';
-import { Firstname } from './firstname_value_object';
-import { Lastname } from './lastname_value_object';
-import { Sex } from './sex_value_object';
-import { BirthYear } from './birth_year_value_object';
-import { ObjectId } from './object_id_value_object';
-import { Result } from '../../../shared/domain/result';
 import { ChildCreatedEvent, ChildUpdatedEvent } from '../events/impl';
-import { KindergartenProps } from '../../../kindergartens/domain/models/kindergarten_model';
-import { BirthQuarter } from './birth_quarter_value_object';
-
-export interface ChildProps {
-  _id: string;
-  firstname: string;
-  lastname: string;
-  sex: string;
-  birthYear: number;
-  birthQuarter: number;
-  isDeleted: boolean;
-  date: Date;
-  results: string[];
-  kindergarten: string;
-}
-
-export type NotCreatedChildProps = Omit<ChildProps, '_id' | 'date'>;
+import { CoreModel } from '../../../shared/utils/core_model';
+import { Expose, Transform } from 'class-transformer';
+import { IsIn, Length, Max, Min } from 'class-validator';
+import { KindergartenCore } from '../../../kindergartens/domain/models/kindergarten_model';
+import { ChildAssessmentResultCore } from './child_assessment_result_model';
 
 export interface ChildWithKindergartenProps
-  extends Omit<ChildProps, 'kindergarten' | 'results'> {
-  kindergarten: KindergartenProps;
-  results: ChildResultProps[];
+  extends Omit<ChildCore, 'kindergarten' | 'results'> {
+  kindergarten: KindergartenCore;
+  results: ChildAssessmentResultCore[];
 }
 
-interface Props {
-  _id: ObjectId;
-  firstname: Firstname;
-  lastname: Lastname;
-  sex: Sex;
-  birthYear: BirthYear;
-  birthQuarter: BirthQuarter;
-  date: Date;
-  kindergarten: ObjectId;
-  isDeleted: boolean;
-  results: ObjectId[];
+export class ChildCore extends CoreModel {
+  @Expose()
+  @Length(3, 40)
+  firstname: string;
+
+  @Expose()
+  @Length(3, 50)
+  lastname: string;
+
+  @Expose()
+  @IsIn(['male', 'female'])
+  sex: string;
+
+  @Expose()
+  birthYear: number;
+
+  @Expose()
+  @Min(0)
+  @Max(3)
+  birthQuarter: number;
+
+  @Expose()
+  kindergarten: string;
+
+  @Expose()
+  @Transform(value => value ?? [])
+  results: string[];
 }
 
 export class Child extends AggregateRoot {
-  private constructor(private readonly props: Props) {
+  private constructor(private props: ChildCore) {
     super();
   }
 
@@ -55,86 +50,71 @@ export class Child extends AggregateRoot {
     return this.props._id;
   }
 
-  get firstname(): Firstname {
+  get firstname(): string {
     return this.props.firstname;
   }
 
-  get lastname(): Lastname {
+  get lastname(): string {
     return this.props.lastname;
   }
 
-  get sex(): Sex {
+  get sex(): string {
     return this.props.sex;
   }
 
-  get birthYear(): BirthYear {
+  get birthYear(): number {
     return this.props.birthYear;
   }
 
-  get birthQuarter(): BirthQuarter {
+  get birthQuarter(): number {
     return this.props.birthQuarter;
   }
 
-  get kindergarten(): ObjectId {
+  get kindergarten(): string {
     return this.props.kindergarten;
   }
 
-  get isDeleted() {
+  get isDeleted(): boolean {
     return this.props.isDeleted;
   }
 
-  get date(): Date {
-    return this.props.date;
+  get createdAt(): Date {
+    return this.props.createdAt;
   }
 
-  get results(): ObjectId[] {
+  get results(): string[] {
     return this.props.results;
+  }
+
+  getProps(): ChildCore {
+    return this.props;
   }
 
   delete() {
     this.props.isDeleted = true;
 
-    this.props.firstname = Firstname.create('anonymized').getValue();
-    this.props.lastname = Lastname.create('anonymized').getValue();
+    this.props.firstname = 'anonymized';
+    this.props.lastname = 'anonymized';
 
     this.apply(
-      new ChildUpdatedEvent(this.id.toString(), {
-        firstname: 'anonymized',
-        lastname: 'anonymized',
+      new ChildUpdatedEvent(this.id, {
+        firstname: this.props.firstname,
+        lastname: this.props.firstname,
         isDeleted: true,
+        deletedAt: new Date(),
       }),
     );
   }
 
-  static recreate(props: Props): Child {
+  static recreate(props: ChildCore): Child {
     return new Child(props);
   }
 
-  static create(props: Props): Child {
+  static create(props: ChildCore): Child {
     const child = new Child(props);
 
-    child.apply(new ChildCreatedEvent(child.id.toString()));
+    child.apply(new ChildCreatedEvent(child.id));
 
     return child;
-  }
-}
-
-export class ChildWithKindergarten {
-  private constructor(
-    private readonly child: Child,
-    private readonly kindergarten: any,
-  ) {}
-
-  static recreateWithKindergarten(
-    child: Child,
-    kindergarten: any,
-  ): Result<ChildWithKindergarten> {
-    if (!child.kindergarten.equals(kindergarten)) {
-      return Result.fail(
-        "Kindergarten id must be equal with child's kindergarten id",
-      );
-    }
-
-    return Result.ok(new ChildWithKindergarten(child, kindergarten));
   }
 }

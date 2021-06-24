@@ -203,7 +203,6 @@
         "image-label": "Zgoda na rozpowszechnianie wizerunku.",
         "image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji.",
         "kindergartener-test": "Test sprawności przedszkolaka",
-        "last-update-date": "Data ostatniej zmiany",
         "details": "Szczegóły",
         "collapse-details": "Zwiń szczegóły",
         "info-about-test": "Informacje o pomiarze",
@@ -328,7 +327,7 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
-        "final-test-title": "Wyniki wchodzących w skład pomiaru początkowego",
+        "final-test-title": "Wyniki wchodzących w skład pomiaru końcowego",
         "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
             "progress": "Poprawił się",
@@ -746,6 +745,7 @@
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",
         "new-user": "Nowy użytkownik ({{email}}) został dodany.",
+        "new-article": "Dodano nowy, nieopublikowany artykuł \"{{title}}\"",
         "child-created": "Dziecko zostało dodane.",
         "kindergarten-created": "Nowe przedszkole ({{name}}) zostało dodane."
     },

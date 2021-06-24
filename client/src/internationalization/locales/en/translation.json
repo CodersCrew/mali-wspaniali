@@ -148,7 +148,6 @@
         "image-label": "Permission to use the image",
         "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
         "kindergartener-test": "Kindergartener fitness test",
-        "last-update-date": "Last update",
         "details": "Details",
         "collapse-details": "Collapse details",
         "info-about-test": "Information about test",
@@ -205,7 +204,7 @@
         "scale": "Scale",
         "received-points": "Received points",
         "pts": "pts",
-        "final-test-title": "Results of particular tests with comparison of results from the initial test",
+        "final-test-title": "Results of particular tests with comparison of results from the final test",
         "initial-test-title": "Results of particular tests included into initial test",
         "difference": {
             "progress": "Get better",
@@ -650,6 +649,7 @@
     "notification-list": {
         "new-assessment": "A new test ({{name}}) has been added.",
         "new-user": "A new user ({{email}}) has been added.",
+        "new-article": "Added new, unpublished article\"{{title}}\"",
         "child-created": "A child has been added.",
         "kindergarten-created": "A new kindergarten ({{name}}) has been created."
     },

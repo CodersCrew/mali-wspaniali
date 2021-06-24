@@ -11,12 +11,13 @@ export interface Test {
 
 export interface CreatedAssessmentInput {
     title: string;
-    startDate: string;
-    endDate: string;
     firstMeasurementStartDate: string;
     firstMeasurementEndDate: string;
     lastMeasurementStartDate: string;
     lastMeasurementEndDate: string;
+    status: string;
+    firstMeasurementStatus: string;
+    lastMeasurementStatus: string;
     kindergartenIds: string[];
 }
 
@@ -31,12 +32,13 @@ export const CREATE_ASSESSMENT = gql`
             isOutdated
             isDeleted
             title
-            startDate
-            endDate
             firstMeasurementStartDate
             firstMeasurementEndDate
             lastMeasurementStartDate
             lastMeasurementEndDate
+            status
+            firstMeasurementStatus
+            lastMeasurementStatus
             kindergartens {
                 kindergarten {
                     _id

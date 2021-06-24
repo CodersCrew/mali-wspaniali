@@ -6,7 +6,7 @@ const AGREEMENTS_MUTATION = gql`
     mutation signAgreement($agreementId: String!) {
         signAgreement(agreementId: $agreementId) {
             _id
-            date
+            createdAt
             text
             isSigned
         }

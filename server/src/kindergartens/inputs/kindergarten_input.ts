@@ -3,16 +3,16 @@ import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 @InputType()
 export class KindergartenInput {
   @Field(() => Int)
-  readonly number: number;
+  number: number;
 
   @Field()
-  readonly name: string;
+  name: string;
 
   @Field()
-  readonly address: string;
+  address: string;
 
   @Field()
-  readonly city: string;
+  city: string;
 }
 
 @InputType()

@@ -1,10 +1,8 @@
 import * as mongoose from 'mongoose';
+import { coreSchema } from '../../shared/utils/core_schema';
 
 export const NewsletterSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  ...coreSchema,
   message: String,
   recipients: [String],
   title: String,

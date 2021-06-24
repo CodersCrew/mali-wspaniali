@@ -5,7 +5,7 @@ export interface Props<T> {
 }
 
 export abstract class ValueObject<T> {
-  public readonly props: Props<T>;
+  public props: Props<T>;
 
   constructor(props: Props<T>) {
     this.props = Object.freeze(props);

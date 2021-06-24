@@ -10,16 +10,16 @@ import { CreateUserCommand } from '../impl/create_user_command';
 import { User } from '../../models/user_model';
 import { UserRepository } from '../../repositories/user_repository';
 import { KeyCodeRepository } from '../../../../key_codes/domain/repositories/key_codes_repository';
-import { AgreementDTO } from '../../../../agreements/dto/agreement_dto';
 import { GetAllAgreementsQuery } from '../../../../agreements/domain/queries/impl/get_all_agreements_query';
+import { Agreement } from '../../../../agreements/domain/models/agreement';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly keyCodeRepository: KeyCodeRepository,
-    private readonly publisher: EventPublisher,
-    private readonly queryBus: QueryBus,
+    private userRepository: UserRepository,
+    private keyCodeRepository: KeyCodeRepository,
+    private publisher: EventPublisher,
+    private queryBus: QueryBus,
   ) {}
 
   async execute(command: CreateUserCommand): Promise<User> {
@@ -59,13 +59,13 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   }
 
   private async validateAgreements(possibleAgreements: string[]) {
-    const allAgreements: AgreementDTO[] = await this.queryBus.execute(
+    const allAgreements: Agreement[] = await this.queryBus.execute(
       new GetAllAgreementsQuery(),
     );
 
     return possibleAgreements.every(possibleAgreement =>
       allAgreements.find(agreement => {
-        return agreement._id.toString() === possibleAgreement.toString();
+        return agreement.id === possibleAgreement;
       }),
     );
   }

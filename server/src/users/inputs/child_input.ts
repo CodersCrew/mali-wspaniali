@@ -3,26 +3,26 @@ import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 @InputType()
 export class ChildInput {
   @Field()
-  readonly firstname: string;
+  firstname: string;
 
   @Field()
-  readonly lastname: string;
+  lastname: string;
 
   @Field(() => Int)
-  readonly birthYear: number;
+  birthYear: number;
 
   @Field(() => Int)
-  readonly birthQuarter: number;
+  birthQuarter: number;
 
   @Field()
-  readonly sex: string;
+  sex: string;
 
   @Field()
-  readonly kindergartenId: string;
+  kindergartenId: string;
 }
 
 @InputType()
 export class UpdatedChildInput extends PartialType(ChildInput) {
   @Field()
-  readonly childId: string;
+  childId: string;
 }

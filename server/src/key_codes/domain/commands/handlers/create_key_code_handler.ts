@@ -1,30 +1,23 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import ShortUniqueId from 'short-unique-id';
 
 import { CreateKeyCodeCommand } from '../impl/create_key_code_command';
 import { KeyCodeRepository } from '../../repositories/key_codes_repository';
-import { KeyCodeProps } from '../../models/key_code_model';
-
-const uuid = new ShortUniqueId();
+import { KeyCodeMapper } from '../../mappers/keycode_mapper';
+import { KeyCode } from '../../models/key_code_model';
 
 @CommandHandler(CreateKeyCodeCommand)
 export class CreateKeyCodeHandler
   implements ICommandHandler<CreateKeyCodeCommand> {
-  constructor(private readonly repository: KeyCodeRepository) {}
+  constructor(private repository: KeyCodeRepository) {}
 
-  async execute(command: CreateKeyCodeCommand): Promise<KeyCodeProps> {
+  async execute(command: CreateKeyCodeCommand): Promise<KeyCode> {
     const { createdBy, target } = command;
 
-    const keyCode = uuid.randomUUID(10);
-
-    const series = uuid.randomUUID(10);
-
-    const created = await this.repository.create(
-      { createdBy, keyCode },
-      series,
+    const keyCode = KeyCodeMapper.toDomain({
+      createdBy,
       target,
-    );
+    });
 
-    return created;
+    return await this.repository.create(keyCode);
   }
 }

@@ -51,19 +51,19 @@ describe('GetAllChildrenHandler', () => {
       });
 
       await addChild(
-        { firstname: 'child1', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child1', kindergartenId: kindergarten.id },
         parent1.id,
       );
       await addChild(
-        { firstname: 'child2', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child2', kindergartenId: kindergarten.id },
         parent1.id,
       );
       await addChild(
-        { firstname: 'child3', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child3', kindergartenId: kindergarten.id },
         parent2.id,
       );
       await addChild(
-        { firstname: 'child4', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child4', kindergartenId: kindergarten.id },
         parent2.id,
       );
 
@@ -107,19 +107,19 @@ describe('GetAllChildrenHandler', () => {
       });
 
       await addChild(
-        { firstname: 'child1', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child1', kindergartenId: kindergarten.id },
         parent1.id,
       );
       await addChild(
-        { firstname: 'child2', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child2', kindergartenId: kindergarten.id },
         parent1.id,
       );
       await addChild(
-        { firstname: 'child3', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child3', kindergartenId: kindergarten.id },
         parent2.id,
       );
       await addChild(
-        { firstname: 'child4', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child4', kindergartenId: kindergarten.id },
         parent2.id,
       );
 
@@ -130,7 +130,7 @@ describe('GetAllChildrenHandler', () => {
 
     it('returns children with kindergartens', async () => {
       await waitForExpect(async () => {
-        const children = await getAllChildren();
+        children = await getAllChildren();
 
         expect(children.map(child => child.child.firstname)).toEqual([
           'child3',
