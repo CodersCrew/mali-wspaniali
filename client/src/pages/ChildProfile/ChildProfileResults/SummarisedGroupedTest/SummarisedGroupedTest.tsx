@@ -1,5 +1,4 @@
 import React from 'react';
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { AccordionSummary, createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
@@ -16,7 +15,6 @@ interface Props {
 
 export function SummarisedGroupedTest({ onClose, isExpanded, test }: Props) {
     const classes = useStyles();
-    const { t } = useTranslation();
 
     return (
         <Grid direction="row" justify="space-between" alignItems="center" className={classes.wrapper} container>
@@ -24,12 +22,6 @@ export function SummarisedGroupedTest({ onClose, isExpanded, test }: Props) {
                 <Grid item>
                     <Typography className={classes.title} variant="subtitle2">
                         {test.assessment.title}
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <Typography variant="body2" color="textSecondary">
-                        {t('child-profile.last-change')}&nbsp;
-                        {dayjs(test.modifiedAt || test.createdAt).format('DD.MM.YYYY')}
                     </Typography>
                 </Grid>
             </Grid>

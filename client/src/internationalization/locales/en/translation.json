@@ -148,7 +148,6 @@
         "image-label": "Permission to use the image",
         "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
         "kindergartener-test": "Kindergartener fitness test",
-        "last-update-date": "Last update",
         "details": "Details",
         "collapse-details": "Collapse details",
         "info-about-test": "Information about test",
@@ -165,7 +164,6 @@
             "age-3": "5 years and 5 months.",
             "text-4": " A similar principle applies to the qualification of children in other age groups."
         },
-        "last-change":"Last change:",
         "initial-fitness-level": "Summarised result from initial test",
         "final-fitness-level": "Summarised result from final test",
         "advice": "Advice",
