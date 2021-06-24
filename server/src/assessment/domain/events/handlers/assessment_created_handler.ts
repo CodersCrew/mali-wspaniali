@@ -12,14 +12,13 @@ export class AssessmentCreatedHandler
     private userRepository: UserRepository,
   ) {}
 
-  async handle({ assessment }: AssessmentCreatedEvent) {
-    const users = await this.userRepository.getAll('admin');
+  handle({ assessment }: AssessmentCreatedEvent) {
+    this.userRepository.forEachAdmin(user => {
+      const userId = user._id;
 
-    this.notificationRepository.create(
-      createAssessmentCreatedNotification(
-        users.map(u => u.id),
-        [assessment.title],
-      ),
-    );
+      this.notificationRepository.create(
+        createAssessmentCreatedNotification(userId, [assessment.title]),
+      );
+    });
   }
 }
