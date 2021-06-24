@@ -67,13 +67,19 @@ export const PARENTS = gql`
                 birthQuarter
                 results {
                     _id
-                    date
-                    test
-                    rootResultId
+                    createdAt
+                    modifiedAt
+                    childId
+                    kindergartenId
+                    assessmentId
+                    assessment {
+                        _id
+                        title
+                    }
                 }
                 kindergarten {
                     _id
-                    date
+                    createdAt
                     number
                     name
                     city

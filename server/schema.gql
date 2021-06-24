@@ -43,31 +43,6 @@ type PaginatedArticlesDTO {
   hasNext: Boolean!
 }
 
-type NotificationDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  user: String!
-  templateId: String!
-  values: [String!]!
-  isRead: Boolean!
-}
-
-type KindergartenDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime!
-  modifiedAt: DateTime!
-  deletedAt: DateTime!
-  number: Int!
-  name: String!
-  city: String!
-  address: String!
-  children: [ChildDTO!]!
-}
-
 type ChildAssessmentResultDTO {
   _id: ID!
   isDeleted: Boolean!
@@ -101,6 +76,64 @@ type ChildAssessmentResultDTO {
   lastMeasurementJumpResult: Float
   currentParams: ChildCurrentParamsDTO
   assessment: AssessmentDTO
+}
+
+type PartialChildResult {
+  _id: ID
+  isDeleted: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+}
+
+type NotificationDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  user: String!
+  templateId: String!
+  values: [String!]!
+  isRead: Boolean!
+}
+
+type KindergartenDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime!
+  modifiedAt: DateTime!
+  deletedAt: DateTime!
+  number: Int!
+  name: String!
+  city: String!
+  address: String!
+  children: [ChildDTO!]!
 }
 
 type ChildDTO {
@@ -167,39 +200,6 @@ type ChildCurrentParamsDTO {
   pendelumRun: ParamsDTO
   throw: ParamsDTO
   jump: ParamsDTO
-}
-
-type PartialChildResult {
-  _id: ID
-  isDeleted: Boolean
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  childId: ID
-  kindergartenId: ID
-  assessmentId: ID
-  firstMeasurementRunDate: DateTime
-  lastMeasurementRunDate: DateTime
-  firstMeasurementPendelumRunDate: DateTime
-  lastMeasurementPendelumRunDate: DateTime
-  firstMeasurementThrowDate: DateTime
-  lastMeasurementThrowDate: DateTime
-  firstMeasurementJumpDate: DateTime
-  lastMeasurementJumpDate: DateTime
-  firstMeasurementNote: String
-  lastMeasurementNote: String
-  firstMeasurementKindergarten: ID
-  lastMeasurementKindergarten: ID
-  firstMeasurementInstructor: ID
-  lastMeasurementInstructor: ID
-  firstMeasurementRunResult: Float
-  lastMeasurementRunResult: Float
-  firstMeasurementPendelumRunResult: Float
-  lastMeasurementPendelumRunResult: Float
-  firstMeasurementThrowResult: Float
-  lastMeasurementThrowResult: Float
-  firstMeasurementJumpResult: Float
-  lastMeasurementJumpResult: Float
 }
 
 type CreateKeyCodeDTO {
