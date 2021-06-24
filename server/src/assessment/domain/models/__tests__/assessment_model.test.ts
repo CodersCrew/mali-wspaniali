@@ -63,21 +63,15 @@ describe('Assessment model', () => {
       assessment = createAssessment();
 
       const updatedTitle = 'updated-assessment';
-      // const updatedStartDate = new Date('2020-10-17');
-      // const updatedEndDate = new Date('2020-10-21');
 
       assessment.update({
         title: updatedTitle,
-        // startDate: updatedStartDate,
-        // endDate: updatedEndDate,
       });
     });
 
     it('returns updated assessment', () => {
       expect(typeof assessment.id).toBe('string');
       expect(assessment.title).toBe('updated-assessment');
-      // expect(assessment.startDate).toEqual(new Date('2020-10-17'));
-      // expect(assessment.endDate).toEqual(new Date('2020-10-21'));
     });
   });
 

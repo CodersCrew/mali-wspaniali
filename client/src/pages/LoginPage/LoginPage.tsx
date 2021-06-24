@@ -25,7 +25,6 @@ export default function LoginPage() {
             history.push(`/${user.role}`);
         },
         (error) => {
-            console.log(error);
             setLoading(() => false);
             setLoginError(error);
             showLoginErrorMessage();

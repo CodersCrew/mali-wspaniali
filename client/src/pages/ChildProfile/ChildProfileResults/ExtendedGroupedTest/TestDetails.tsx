@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { CarouselProvider, DotGroup, Slide, Slider } from 'pure-react-carousel';
 import { TESTS } from './constants';
 import { Measurement } from './Measurement';
-// import { NoResultsBlock } from './emptyViews/NoResultsBlock';
 import { AssessmentResult } from '../../../../graphql/types';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -95,18 +94,9 @@ export const TestDetails = ({ result, prefix }: Props) => {
                 {prefix === 'first' ? t('child-profile.initial-test-title') : t('child-profile.final-test-title')}:
             </Typography>
             {measurementScoresCharts()}
-            {/* <div>{getTestUnavailableReason(result)}</div> */}
         </div>
     );
 };
-
-// function getTestUnavailableReason(result: TestResult) { TODO!!!
-//     const testsWithNoResult = TESTS.filter((test) => !result.test[test.pointsKey as resultKey]);
-
-//     return testsWithNoResult.map((test) => (
-//         <NoResultsBlock key={test.translationKey} translationKey={test.translationKey} />
-//     ));
-// }
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({

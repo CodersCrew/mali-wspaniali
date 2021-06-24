@@ -3,7 +3,7 @@ import { Typography, makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
 import { GroupedTests } from './GroupedTest';
-import { AssessmentResult, Child } from '../../../graphql/types';
+import { Child } from '../../../graphql/types';
 
 interface Props {
     child: Child;
@@ -50,21 +50,6 @@ function Descriptiom() {
         <Typography variant="h3" className={classes.description}>
             {t('child-profile.description')}
         </Typography>
-    );
-}
-
-// export for test purposes only
-export function getGroupedTest(results: AssessmentResult[]) {
-    return (
-        results
-            // .filter((result) => !result.rootResultId)
-            .map((result) => {
-                // const endResult = results.find((lastResult) => lastResult.rootResultId === result._id);
-
-                // if (endResult) return [result, endResult];
-
-                return [result];
-            })
     );
 }
 
