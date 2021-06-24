@@ -14,18 +14,12 @@ import { useTranslation } from 'react-i18next';
 
 import { useFormikContext, ErrorMessage } from 'formik';
 import { articleCategories } from '../utils';
-
-type ArticleCategoryOptions = {
-    value: string;
-    label: string;
-};
+import { ArticleCategoryOptions } from '../types';
 
 export const ArticleInformationForm = () => {
     const { t } = useTranslation();
     const classes = useStyles();
     const formik = useFormikContext();
-
-    console.log('formik', formik);
 
     return (
         <div>

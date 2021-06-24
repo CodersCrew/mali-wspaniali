@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { ArticleInput } from '../../graphql/types';
 
 export const modules = {
     toolbar: [
@@ -53,18 +54,7 @@ export const articleCategories = () => {
 
 export const tags = ['sport', 'stres', 'odporność', 'styl życia', 'jedzenie'];
 
-export type initialValuesType = {
-    title: string;
-    category: string;
-    pictureUrl: string;
-    contentHTML: string;
-    tags: Array<string>;
-    redactor: any;
-    videoUrl: string;
-    description: string;
-};
-
-export const initialValues: initialValuesType = {
+export const initialValues: ArticleInput = {
     title: '',
     category: '',
     pictureUrl: '',
@@ -82,3 +72,16 @@ export const redactorData = [
     { data: 'avatarUrl', label: 'avatar' },
     { data: 'biography', label: 'author-biography' },
 ];
+
+export const mandatoryObject = (object: any) => {
+    const obligatoryArticleField = object;
+
+    console.log('object', object);
+
+    delete obligatoryArticleField.category;
+    delete obligatoryArticleField.videoUrl;
+    delete obligatoryArticleField.redactor.avatarUrl;
+    delete obligatoryArticleField.redactor.biography;
+
+    return obligatoryArticleField;
+};

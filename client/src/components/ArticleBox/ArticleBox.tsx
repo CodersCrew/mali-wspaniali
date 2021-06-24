@@ -32,6 +32,7 @@ const ArticleBox = ({
     return (
         <>
             {isMobile && <ArticleNavigationMobile onClick={onBackClick} />}
+
             <Grid
                 classes={{ root: clsx({ [classes.container]: true, [classes.mobileContainer]: !isDesktop }) }}
                 container

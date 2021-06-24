@@ -17,7 +17,6 @@ export const Navigation = () => {
         history.push('/admin/articles/create/preview', {
             article: formik.values,
             isPreview: true,
-            initialValues: formik.initialValues,
         });
     };
 

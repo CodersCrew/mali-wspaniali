@@ -2,41 +2,31 @@ import { Typography, makeStyles, createStyles, Theme, Button } from '@material-u
 import { useHistory } from 'react-router-dom';
 
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
-// import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-// import { createArticle } from '../../graphql/articleRepository';
-import { ActionDialog } from '../../utils/openDialog';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { createArticle } from '../../graphql/articleRepository';
+import { ActionDialog, openDialog } from '../../utils/openDialog';
 import { ArticleInput } from '../../graphql/types';
 
 interface ArticleInputWithValidation extends ArticleInput {
     isValid: boolean;
-    test: () => void;
-}
-
-interface ModalProps {
-    articles?: ArticleInputWithValidation;
 }
 
 export const ConfirmCreateArticleModal = (
-    articles: ArticleInputWithValidation & ActionDialog<{ create: Partial<any> }>,
+    articles: ArticleInputWithValidation & ActionDialog<{ create: Partial<ArticleInputWithValidation> }>,
 ) => {
     const classes = useStyles();
     const history = useHistory();
 
     const onSubmit = () => {
-        articles?.test();
-        // createArticle(articles)
-        //     .then(() => {
-        //         openSnackbar({ text: 'sucess', severity: 'success' });
-        //         articles.onClose();
-        //     })
-        //     .catch((err) => {
-        //         // openSnackbar({ text: err, severity: 'error' });
-        //         // articles.onClose();
-        //         history.push('/admin/articles/categories/all');
-        //     });
-        // history.push('/admin/articles/create');
-        // history.push('/admin/articles/create', { article: articles });
-        // history.push('/admin/articles/categories/all');
+        createArticle(articles)
+            .then(() => {
+                openSnackbar({ text: 'sucess', severity: 'success' });
+                articles.onClose();
+            })
+            .catch((err) => {
+                openSnackbar({ text: err, severity: 'error' });
+                articles.onClose();
+            });
     };
 
     return (
@@ -67,15 +57,20 @@ export const ConfirmCreateArticleModal = (
     );
 };
 
-export const openConfirmCreateArticleModal = (props: ModalProps) => {
-    console.log('PROPS', props);
-    // return openDialog<ModalProps, { create: Partial<any> }>(ConfirmCreateArticleModal, props);
+export const openConfirmCreateArticleModal = (props: ArticleInputWithValidation) => {
+    return openDialog<ArticleInputWithValidation, { create: Partial<ArticleInputWithValidation> }>(
+        ConfirmCreateArticleModal,
+        props,
+    );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         description: {
             marginTop: theme.spacing(2),
+        },
+        title: {
+            marginBottom: theme.spacing(3),
         },
     }),
 );

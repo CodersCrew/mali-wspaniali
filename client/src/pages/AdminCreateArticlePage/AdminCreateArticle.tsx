@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import 'react-quill/dist/quill.snow.css';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { createStyles, makeStyles, Theme, Paper } from '@material-ui/core';
 import { useFormik, FormikProvider } from 'formik';
 import * as Yup from 'yup';
@@ -14,6 +14,7 @@ import { ArticleContentForm } from './Forms/ArticleContentForm';
 import { Navigation } from './Navigation';
 import { ArticleAuthorInformationForm } from './Forms/ArticleAuthorInformationForm';
 import { initialValues } from './utils';
+import { ArticleState } from './types';
 
 type formArticleType = typeof ArticleContentForm | typeof ArticleAuthorInformationForm | typeof ArticleInformationForm;
 
@@ -28,8 +29,7 @@ const ArticleForm = (props: formArticleType) => {
 export default function CreateArticlePage() {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { state } = useLocation<any>();
-    const history = useHistory();
+    const { state } = useLocation<ArticleState>();
 
     const validationSchema = Yup.object().shape({
         title: Yup.string()
@@ -52,8 +52,7 @@ export default function CreateArticlePage() {
     });
 
     const handleSubmit = (values: any) => {
-        const test = { ...values, test: () => history.push('/admin/articles/create') };
-        openConfirmCreateArticleModal(test);
+        openConfirmCreateArticleModal(values);
     };
 
     const formik = useFormik({

@@ -30,7 +30,6 @@ const AdminSettingsEditModal = ({
     makeDecision,
     kindergartens,
     user,
-    preventClose,
     isCancelButtonVisible,
 }: ChildModalProps & ActionDialog<{ childData: TInitialObjectType[] }>) => {
     const { t } = useTranslation();
