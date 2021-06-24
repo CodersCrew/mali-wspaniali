@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { Tabs } from '../Tabs/Tabs';
 import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
-import { theme } from '../../theme/theme';
+import { theme } from '../../theme';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {
     onChange: (value: string) => void;

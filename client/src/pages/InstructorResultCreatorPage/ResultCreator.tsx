@@ -78,6 +78,20 @@ function EditorPanel(props: EditorPanelProps) {
         return acc + v;
     }, 0);
 
+    const isLastChild = () => {
+        if (props.resultCreator.selectedKindergarten.children?.length) {
+            const lastChildIndex = props.resultCreator.selectedKindergarten.children?.length - 1;
+
+            if (
+                props.resultCreator.selectedChild._id ===
+                props.resultCreator.selectedKindergarten.children[lastChildIndex]._id
+            )
+                return true;
+        }
+
+        return false;
+    };
+
     return (
         <Grid container direction="column" className={classes.editorContainer}>
             <Grid item>
@@ -120,18 +134,27 @@ function EditorPanel(props: EditorPanelProps) {
                         </Box>
                     </Grid>
                     <Grid item>
-                        <ActionMenuButtonSecondary
-                            label={t('add-result-page.save-and-next')}
-                            onClick={() => props.onClick('save-and-next', localResult)}
-                            options={[
-                                <MenuItem
-                                    onClick={() => props.onClick('save-and-back-to-table', localResult)}
-                                    key="add-result-page.save-and-back-to-table"
-                                >
-                                    {t('add-result-page.save-and-back-to-table')}
-                                </MenuItem>,
-                            ]}
-                        />
+                        {isLastChild() ? (
+                            <ButtonSecondary
+                                variant="contained"
+                                onClick={() => props.onClick('save-and-back-to-table', localResult)}
+                            >
+                                {t('add-result-page.save-and-back-to-table')}
+                            </ButtonSecondary>
+                        ) : (
+                            <ActionMenuButtonSecondary
+                                label={t('add-result-page.save-and-next')}
+                                onClick={() => props.onClick('save-and-next', localResult)}
+                                options={[
+                                    <MenuItem
+                                        onClick={() => props.onClick('save-and-back-to-table', localResult)}
+                                        key="add-result-page.save-and-back-to-table"
+                                    >
+                                        {t('add-result-page.save-and-back-to-table')}
+                                    </MenuItem>,
+                                ]}
+                            />
+                        )}
                     </Grid>
                 </Grid>
             </Grid>

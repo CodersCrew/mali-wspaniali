@@ -5,7 +5,7 @@ import { CssBaseline, StylesProvider } from '@material-ui/core';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { AppWrapper } from './AppWrapper';
 import { ParentWrapper } from './ParentWrapper';
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 import { CookieModal } from '../components/CookieModal/CookieModal';
@@ -41,6 +41,7 @@ const InstructorResultCreatorPage = React.lazy(
     () => import('./InstructorResultCreatorPage/InstructorResultCreatorPage'),
 );
 const ForgotPasswordPage = React.lazy(() => import('./ForgotPasswordPage/ForgotPasswordPage'));
+const PasswordChangePage = React.lazy(() => import('./PasswordChangePage/PasswordChangePage'));
 const TestResultsPage = React.lazy(() => import('./TestResultsPage/TestResultsPage'));
 const AdminKindergartensPage = React.lazy(() => import('./AdminKindergartensPage/AdminKindergartensPage'));
 
@@ -69,6 +70,11 @@ export function Root() {
                             <Route path={['/forgot-password']}>
                                 <AuthTemplate type="login">
                                     <Route path="/forgot-password" component={ForgotPasswordPage} />
+                                </AuthTemplate>
+                            </Route>
+                            <Route path={['/password-change']}>
+                                <AuthTemplate type="login">
+                                    <Route path="/password-change" component={PasswordChangePage} />
                                 </AuthTemplate>
                             </Route>
                             <Route path={['/admin', '/parent', '/instructor']}>

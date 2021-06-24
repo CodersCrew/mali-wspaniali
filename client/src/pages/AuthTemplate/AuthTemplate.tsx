@@ -2,10 +2,9 @@ import React from 'react';
 import { makeStyles, createStyles, Theme, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { mainColor, backgroundColor } from '../../colors';
 import Logo from '../../assets/MALWSP_logo.png';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
+import { LanguageSelectorLoginFlow as LanguageSelector } from '../../components/LanguageSelectorLoginFlow';
 
 import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
@@ -27,20 +26,28 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                         </div>
                         {type === 'login' && <PartnerLogotypeContainer />}
                     </div>
-                    <div className={classes.formContainer}>{children}</div>
+                    <div className={classes.formContainer}>
+                        <div className={classes.headerLanguageSelector}>
+                            <LanguageSelector />
+                        </div>
+                        {children}
+                    </div>
                 </div>
             ) : (
                 <>
                     <Box zIndex="appBar">
                         <AppBar className={classes.appBar} position="fixed">
                             <div className={classes.appBarLanguageSelector} />
-                            <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
+                            <img className={classes.appBarLogo} src={Logo} alt="Mali Wspaniali Logo" />
                             <div className={classes.appBarLanguageSelector}>
                                 <LanguageSelector />
                             </div>
                         </AppBar>
                     </Box>
-                    <div className={classes.formContainer}>{children}</div>
+                    <div className={classes.formContainer}>
+                        <Box mb={8} />
+                        {children}
+                    </div>
                 </>
             )}
         </>
@@ -50,15 +57,10 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         background: {
-            backgroundColor: mainColor,
+            backgroundColor: theme.palette.primary.main,
             minHeight: '100vh',
             height: '100%',
             display: 'flex',
-
-            [theme.breakpoints.down('md')]: {
-                flexDirection: 'column',
-                padding: 0,
-            },
         },
         logoContainer: {
             display: 'flex',
@@ -67,10 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '4 0 0',
             flexDirection: 'column',
             padding: theme.spacing(3),
-            [theme.breakpoints.down('md')]: {
-                flex: '0',
-                marginTop: 15,
-            },
         },
         logoInnerContainer: {
             display: 'flex',
@@ -81,10 +79,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         logo: {
             width: '327.04',
-            [theme.breakpoints.down('md')]: {
-                width: 109,
-                margin: 'auto',
-            },
         },
         welcomeText: {
             marginTop: theme.spacing(5),
@@ -96,35 +90,28 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: '34px',
             lineHeight: '41.45px',
             textAlign: 'center',
-
-            [theme.breakpoints.down('md')]: {
-                marginTop: theme.spacing(2),
-                marginBottom: theme.spacing(4),
-                width: 280,
-                fontSize: '21px',
-                lineHeight: 26,
-            },
         },
-        /*
-            formContainer: {
-                backgroundColor,
-                flex: '3 0 0',
-                display: 'flex',
-                flexDirection: 'column',
-                [theme.breakpoints.down('sm')]: {
-                    minHeight: 'auto',
-                },
-*/
         formContainer: {
-            backgroundColor,
+            backgroundColor: theme.palette.background.default,
             minHeight: '100vh',
-            height: '100%',
+            maxHeight: '100vh',
             flex: '3 0 0',
 
-            [theme.breakpoints.down('md')]: {
-                minHeight: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+
+            overflow: 'auto',
+            scrollbarWidth: 'none',
+            '-ms-overflow-style': 'none',
+            '&::-webkit-scrollbar': {
+                display: 'none',
             },
         },
+        headerLanguageSelector: {
+            paddingRight: theme.spacing(3),
+            paddingTop: theme.spacing(2.5),
+        },
+
         appBar: {
             height: 64,
             display: 'flex',
@@ -133,9 +120,11 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
+        appBarLogo: {
+            width: 109,
+            margin: 'auto',
+        },
         appBarLanguageSelector: {
-            height: 24,
-            width: 24,
             marginRight: theme.spacing(3),
         },
     }),

@@ -1,13 +1,14 @@
 import React from 'react';
-import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Box } from '@material-ui/core';
+import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import { ButtonSecondary } from '../../components/Button';
+import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
+import { countCurrentPoints } from './countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from './useResultCreator';
 import { ChildPickerDrawer } from './ChildPicker/ChildPickerDrawer';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
-import { ButtonSecondary } from '../../components/Button';
-import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
-import { countCurrentPoints } from './countPoints';
 
 interface Props {
     resultCreator: ResultCreatorReturnProps;
@@ -83,17 +84,11 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                     <Divider />
                 </Grid>
                 <Grid item className={classes.footer}>
-                    <Grid container justify="space-between">
+                    <Grid container direction="column" alignItems="center">
                         <Grid item>
-                            <Box mr={2}>
-                                <ButtonSecondary
-                                    size="small"
-                                    variant="text"
-                                    onClick={() => onClick('back-to-table', '')}
-                                >
-                                    {t('add-result-page.back-to-table')}
-                                </ButtonSecondary>
-                            </Box>
+                            <ButtonSecondary size="small" variant="text" onClick={() => onClick('back-to-table', '')}>
+                                {t('add-result-page.back-to-table')}
+                            </ButtonSecondary>
                         </Grid>
                         <Grid item>
                             <ActionMenuButtonSecondary
@@ -152,12 +147,11 @@ const useStyles = makeStyles((theme) =>
             height: 0,
             overflowY: 'auto',
             overflowX: 'hidden',
-            paddingBottom: 56,
+            paddingBottom: theme.spacing(10),
         },
         container: {
             maxHeight: '85vh',
             height: '85vh',
-            marginTop: 10,
         },
         footer: {
             width: '100%',
