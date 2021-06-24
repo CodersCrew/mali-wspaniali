@@ -58,6 +58,7 @@ export function ChildPickerDrawer(props: Props) {
                                     </Box>
                                     <Box fontWeight={500}>{t('add-result-page.back-to-results')}</Box>
                                 </Toolbar>
+                                <Divider />
                             </AppBar>
                         </Box>
                     }
