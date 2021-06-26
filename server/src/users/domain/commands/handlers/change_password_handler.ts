@@ -10,9 +10,9 @@ import { UserChangePasswordRepository } from '../../repositories/user_change_pas
 export class ChangePasswordHandler
   implements ICommandHandler<ChangePasswordCommand> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly jwtService: JwtService,
-    private readonly userChangePasswordRepository: UserChangePasswordRepository,
+    private userRepository: UserRepository,
+    private jwtService: JwtService,
+    private userChangePasswordRepository: UserChangePasswordRepository,
   ) {}
 
   async execute(command: ChangePasswordCommand): Promise<void> {

@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
+import * as bcrypt from 'bcrypt';
+import waitForExpect from 'wait-for-expect';
 
 import { AppModule } from './../src/app.module';
 import { UserRepository } from '../src/users/domain/repositories/user_repository';
-import * as bcrypt from 'bcrypt';
 
 jest.setTimeout(10000);
 
@@ -101,7 +102,7 @@ describe('User (e2e)', () => {
             query: `
             mutation {
               createKeyCode(target: "parent") {
-                date
+                createdAt
                 keyCode
                 createdBy
               }
@@ -199,7 +200,7 @@ describe('User (e2e)', () => {
           query: `
         mutation {
           createKeyCode(target: "parent") {
-            date
+            createdAt
             keyCode
             createdBy
           }
@@ -314,67 +315,73 @@ describe('User (e2e)', () => {
           variables: {},
           query: `
         mutation {
-          addResult(result: {
-            type: "test123"
-            childAge: 5
-            agilityPoints: 10
-            agilitySeconds: 10
-            powerCentimeters: 50
-            powerPoints: 10
-            schoolYearStart: 2019
-            speedPoints: 100
-            speedSeconds: 10
-            strengthCentimeters: 100
-            strengthPoints: 10
-            testPeriod: "START"
-          }, childId: "${childId}") {
-            status
+          createAssessmentResult(result: {
+            childId: "${childId}"
+            kindergartenId: "${createdKindergartenId}"
+            assessmentId: "some-id"
+            firstMeasurementNote: "first-note"
+            lastMeasurementNote: "last-note"
+            firstMeasurementRunResult: 10
+            lastMeasurementRunResult: 10
+            firstMeasurementPendelumRunResult: 10
+            lastMeasurementPendelumRunResult: 10
+            firstMeasurementThrowResult: 10
+            lastMeasurementThrowResult: 10
+            firstMeasurementJumpResult: 10
+            lastMeasurementJumpResult: 10
+          }) {
+            firstMeasurementNote
           }
         }
         `,
         });
 
-      await request(app.getHttpServer())
-        .post('/graphql')
-        .set('Authorization', authorizationToken)
-        .send({
-          operationName: null,
-          variables: {},
-          query: `{
+      await waitForExpect(async () => {
+        await request(app.getHttpServer())
+          .post('/graphql')
+          .set('Authorization', authorizationToken)
+          .send({
+            operationName: null,
+            variables: {},
+            query: `{
             me {
               mail
               role
               children {
                 firstname
                 results {
-                  test
+                  firstMeasurementRunResult
+                  lastMeasurementRunResult
+                  firstMeasurementPendelumRunResult
+                  lastMeasurementPendelumRunResult
+                  firstMeasurementThrowResult
+                  lastMeasurementThrowResult
+                  firstMeasurementJumpResult
+                  lastMeasurementJumpResult
                 }
               }
             }
           }`,
-        })
-        .then(response => {
-          expect(response.body.data.me.children[0]).toEqual(
-            jasmine.objectContaining({ firstname: 'John' }),
-          );
+          })
+          .then(response => {
+            expect(response.body.data.me.children[0]).toEqual(
+              jasmine.objectContaining({ firstname: 'John' }),
+            );
 
-          expect(response.body.data.me.children[0].results[0].test).toEqual(
-            jasmine.objectContaining({
-              type: 'test123',
-              childAge: 5,
-              agilityPoints: 10,
-              agilitySeconds: 10,
-              powerCentimeters: 50,
-              powerPoints: 10,
-              schoolYearStart: 2019,
-              speedPoints: 100,
-              speedSeconds: 10,
-              strengthCentimeters: 100,
-              strengthPoints: 10,
-              testPeriod: 'START',
-            }),
-          );
-        });
+            expect(response.body.data.me.children[0].results[0]).toEqual(
+              jasmine.objectContaining({
+                firstMeasurementJumpResult: 10,
+                firstMeasurementPendelumRunResult: 10,
+                firstMeasurementRunResult: 10,
+                firstMeasurementThrowResult: 10,
+                lastMeasurementJumpResult: 10,
+                lastMeasurementPendelumRunResult: 10,
+                lastMeasurementRunResult: 10,
+                lastMeasurementThrowResult: 10,
+              }),
+            );
+          });
+      });
 
       done();
     });

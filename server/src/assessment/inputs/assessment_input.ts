@@ -4,28 +4,31 @@ import { GraphQLJSONObject } from 'graphql-type-json';
 @InputType()
 export class AssessmentInput {
   @Field()
-  readonly title: string;
+  title: string;
 
   @Field()
-  readonly startDate: string;
+  firstMeasurementStartDate: Date;
 
   @Field()
-  readonly endDate: string;
+  firstMeasurementEndDate: Date;
 
   @Field()
-  readonly firstMeasurementStartDate: string;
+  lastMeasurementStartDate: Date;
 
   @Field()
-  readonly firstMeasurementEndDate: string;
+  lastMeasurementEndDate: Date;
 
   @Field()
-  readonly lastMeasurementStartDate: string;
+  status: string;
 
   @Field()
-  readonly lastMeasurementEndDate: string;
+  firstMeasurementStatus: string;
+
+  @Field()
+  lastMeasurementStatus: string;
 
   @Field(() => [String])
-  readonly kindergartenIds: string[];
+  kindergartenIds: string[];
 }
 
 @InputType()
@@ -34,19 +37,10 @@ class _UpdatedAssessmmentInput extends AssessmentInput {
   kindergartens: Array<{ kindergartenId: string; instructorId: string }>;
 
   @Field()
-  readonly isOutdated: boolean;
+  isOutdated: boolean;
 
   @Field()
-  readonly isDeleted: boolean;
-
-  @Field()
-  readonly status: string;
-
-  @Field()
-  readonly firstMeasurementStatus: string;
-
-  @Field()
-  readonly lastMeasurementStatus: string;
+  isDeleted: boolean;
 }
 
 @InputType()

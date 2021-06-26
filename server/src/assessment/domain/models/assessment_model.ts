@@ -1,125 +1,129 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { AssessmentCreatedEvent } from '../events/impl/assessment_created_event';
-import { ObjectId } from '../../../users/domain/models/object_id_value_object';
-import { SimpleDate } from './simple_date_value_object';
-import { Title } from './title_value_object';
-import { KindergartenWithInstructor } from './kindergarten_with_instructor_value_object';
+import { CoreModel } from '../../../shared/utils/core_model';
+import { Expose, Transform, Type } from 'class-transformer';
+import { Length, ValidateNested } from 'class-validator';
 
-export interface AssessmentDto {
-  _id?: string;
+export class AssessmentCore extends CoreModel {
+  @Expose()
+  @Length(5, 140)
   title: string;
+
+  @Expose()
   isOutdated: boolean;
-  isDeleted: boolean;
-  startDate: string;
-  endDate: string;
-  firstMeasurementStartDate: string;
-  firstMeasurementEndDate: string;
-  lastMeasurementStartDate: string;
-  lastMeasurementEndDate: string;
+
+  @Expose()
+  @Transform(value => (typeof value === 'string' ? new Date(value) : value))
+  firstMeasurementStartDate: Date;
+
+  @Expose()
+  @Transform(value => (typeof value === 'string' ? new Date(value) : value))
+  firstMeasurementEndDate: Date;
+
+  @Expose()
+  @Transform(value => (typeof value === 'string' ? new Date(value) : value))
+  lastMeasurementStartDate: Date;
+
+  @Expose()
+  @Transform(value => (typeof value === 'string' ? new Date(value) : value))
+  lastMeasurementEndDate: Date;
+
+  @Expose()
   status: string;
+
+  @Expose()
   firstMeasurementStatus: string;
+
+  @Expose()
   lastMeasurementStatus: string;
-  kindergartens: Array<{
-    kindergartenId: string;
-    instructorId: string | null;
-  }>;
+
+  @Expose()
+  @ValidateNested({ each: true })
+  @Type(() => KindergartenInstructorModel)
+  kindergartens: KindergartenInstructorModel[];
 }
 
-export interface AssessmentProps {
-  _id: ObjectId;
-  title: Title;
-  isOutdated: boolean;
-  isDeleted: boolean;
-  startDate: SimpleDate;
-  endDate: SimpleDate;
-  firstMeasurementStartDate: SimpleDate;
-  firstMeasurementEndDate: SimpleDate;
-  lastMeasurementStartDate: SimpleDate;
-  lastMeasurementEndDate: SimpleDate;
-  status: string;
-  firstMeasurementStatus: string;
-  lastMeasurementStatus: string;
-  kindergartens: KindergartenWithInstructor[];
+class KindergartenInstructorModel {
+  @Expose()
+  kindergartenId: string;
+
+  @Expose()
+  instructorId: string | null;
 }
 
 export class Assessment extends AggregateRoot {
-  data: AssessmentProps;
-
-  private constructor(initialData: AssessmentProps) {
+  private constructor(private props: AssessmentCore) {
     super();
 
-    this.guardAgainstStartDateSmallerThanEndDate(initialData);
-
-    this.data = initialData;
+    this.guardAgainstStartDateSmallerThanEndDate(props);
   }
 
-  get id(): ObjectId {
-    return this.data._id;
+  get id(): string {
+    return this.props._id;
   }
 
-  get title(): Title {
-    return this.data.title;
+  get title(): string {
+    return this.props.title;
   }
 
   get isOutdated(): boolean {
-    return this.data.isOutdated;
+    return this.props.isOutdated;
   }
 
   get isDeleted(): boolean {
-    return this.data.isDeleted || false;
+    return this.props.isDeleted || false;
   }
 
-  get startDate(): SimpleDate {
-    return this.data.startDate;
+  get firstMeasurementStartDate(): Date {
+    return this.props.firstMeasurementStartDate;
   }
 
-  get endDate(): SimpleDate {
-    return this.data.endDate;
+  get firstMeasurementEndDate(): Date {
+    return this.props.firstMeasurementEndDate;
   }
 
-  get firstMeasurementStartDate(): SimpleDate {
-    return this.data.firstMeasurementStartDate;
+  get lastMeasurementStartDate(): Date {
+    return this.props.lastMeasurementStartDate;
   }
 
-  get firstMeasurementEndDate(): SimpleDate {
-    return this.data.firstMeasurementEndDate;
-  }
-
-  get lastMeasurementStartDate(): SimpleDate {
-    return this.data.lastMeasurementStartDate;
-  }
-
-  get lastMeasurementEndDate(): SimpleDate {
-    return this.data.lastMeasurementEndDate;
+  get lastMeasurementEndDate(): Date {
+    return this.props.lastMeasurementEndDate;
   }
 
   get status(): string {
-    return this.data.status;
+    return this.props.status;
   }
 
   get firstMeasurementStatus(): string {
-    return this.data.firstMeasurementStatus;
+    return this.props.firstMeasurementStatus;
   }
 
   get lastMeasurementStatus(): string {
-    return this.data.lastMeasurementStatus;
+    return this.props.lastMeasurementStatus;
   }
 
-  get kindergartens(): AssessmentProps['kindergartens'] {
-    return this.data.kindergartens;
+  get kindergartens(): {
+    kindergartenId: string;
+    instructorId: string | null;
+  }[] {
+    return this.props.kindergartens;
   }
 
-  update(update: Partial<AssessmentProps>) {
+  getProps(): AssessmentCore {
+    return this.props;
+  }
+
+  update(update: Partial<AssessmentCore>) {
     if (update._id) {
       throw new Error('An id cannot be change');
     }
 
-    this.data = { ...this.data, ...update };
+    this.props = { ...this.props, ...update };
 
-    this.guardAgainstStartDateSmallerThanEndDate(this.data);
+    this.guardAgainstStartDateSmallerThanEndDate(this.props);
   }
 
-  static create(initialData: AssessmentProps): Assessment {
+  static create(initialData: AssessmentCore): Assessment {
     const assessment = new Assessment(initialData);
 
     assessment.apply(new AssessmentCreatedEvent(assessment));
@@ -127,13 +131,27 @@ export class Assessment extends AggregateRoot {
     return assessment;
   }
 
-  static recreate(initialData: AssessmentProps) {
+  static recreate(initialData: AssessmentCore) {
     return new Assessment(initialData);
   }
 
-  private guardAgainstStartDateSmallerThanEndDate(value: AssessmentProps) {
-    if (value.startDate.isGreaterThan(value.endDate)) {
+  private guardAgainstStartDateSmallerThanEndDate(value: AssessmentCore) {
+    const isFirstMeasurementValid = firstDateSmallerThanOther(
+      value.firstMeasurementStartDate,
+      value.firstMeasurementEndDate,
+    );
+
+    const isLastMeasurementValid = firstDateSmallerThanOther(
+      value.lastMeasurementStartDate,
+      value.lastMeasurementEndDate,
+    );
+
+    if (!isFirstMeasurementValid || !isLastMeasurementValid) {
       throw new Error('The start date cannot be greater than the end date');
     }
   }
+}
+
+function firstDateSmallerThanOther(date1: Date, date2: Date) {
+  return date1.getTime() < date2.getTime();
 }

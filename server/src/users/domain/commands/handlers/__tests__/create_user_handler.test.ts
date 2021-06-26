@@ -12,9 +12,9 @@ import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/comman
 import { NotificationsModule } from '../../../../../notifications/notifications.module';
 import { AgreementsModule } from '../../../../../agreements/agreements_module';
 import { CreateAgreementHandler } from '../../../../../agreements/domain/commands/handlers/create_agreement_handler';
-import { AgreementProps } from '../../../../../agreements/schemas/agreement_schema';
 import { CreateAgreementCommand } from '../../../../../agreements/domain/commands/impl/create_agreement_command';
 import { UserInput } from '../../../../../users/inputs/user_input';
+import { Agreement } from '@app/agreements/domain/models/agreement';
 
 describe('CreateUserHandler', () => {
   let parent: User;
@@ -44,16 +44,16 @@ describe('CreateUserHandler', () => {
     });
 
     describe('with valid agreements', () => {
-      let agreement: AgreementProps;
+      let agreement: Agreement;
 
       beforeEach(async () => {
         agreement = await createAgreement();
-        parent = await createParent({ agreements: [agreement._id] });
+        parent = await createParent({ agreements: [agreement.id] });
       });
 
       it('returns user instance', () => {
         expect(parent).toBeInstanceOf(User);
-        expect(parent.agreements).toEqual([agreement._id]);
+        expect(parent.agreements).toEqual([agreement.id]);
       });
     });
 
@@ -87,7 +87,7 @@ describe('CreateUserHandler', () => {
     return parent;
   }
 
-  async function createAgreement(name: string = 'my-name') {
+  async function createAgreement(name: string = 'my-name'): Promise<Agreement> {
     return await app.get(CreateAgreementHandler).execute(
       new CreateAgreementCommand({
         text: name,

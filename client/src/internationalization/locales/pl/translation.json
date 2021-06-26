@@ -62,10 +62,15 @@
             "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
             "sub-title": "Zgody",
             "sub-title-description": "Zgodę na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych może Pani/Pan w dowolnej chwili wycofać z poziomu platformy w zakładce 'Zgody'.",
-            "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
-            "privacy-policy": "Regulaminu, Polityki prywatności.",
+            "statement": "Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia <a style='color: #00acc1; text-decoration: none'; href='#'>Regulaminu</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>Polityki prywatności</a>",
             "required-field": "*pole obowiązkowe do wypełnienia",
-            "required-agreements": "Wymagane zgody lub oświadczenia"
+            "required-agreements": "Wymagane zgody lub oświadczenia",
+            "select-all": "Zaznacz wszystkie zgody",
+            "agreement2-text": "Wyrażam chęć udziału mojego dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali.",
+            "agreement3-text": "Wyrażam zgodę na otrzymywanie informacji marketingowych na podany adres e-mail. <span style='color: rgba(0, 0, 0, 0.54)'>(Dzięki niej od czasu do czasu będziemy mogli pochwalić się naszymi sukcesami).</span>",
+            "agreement3-extra-content": "Informujemy, że zgoda jest dobrowolna i może być w&nbsp;każdej chwili odwołana poprzez wycofanie jej w&nbsp;zakładce ze zgodami. <br><br>Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+            "agreement4-text": "Wyrażam zgodę na nieodpłatne przetwarzanie wizerunku mojego dziecka przez Fundację Mali Wspaniali. <span style='color: rgba(0, 0, 0, 0.54)'>(Dzięki niej będzie miał/a Pani/Pan okazję zobaczyć swoją pociechę na zdjęciach, filmach z zajęć publikowanych przez Fundację).<span>",
+            "agreement4-extra-content": "Informujemy, że zgoda jest dobrowolna i może być w&nbsp;każdej chwili odwołana poprzez wycofanie jej w&nbsp;zakładce ze zgodami. <br><br> Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: <ul><li>w fotorelacjach w mediach (prasie i telewizji), </li> <li>na portalach i stronach internetowych administrowanych przez Fundację (<a style='color: #00acc1; text-decoration: none;' href='#'>mali-wspaniali.pl</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>facebook</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>youtube</a>)</li></ul>         Ta zgoda da Panu/Pani możliwość do zobaczenia swojej pociechy na materiałach z zajęć publikowanych przez Fundację. Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/filmowanej grupy."
         }
     },
     "forgot-password-page": {
@@ -74,8 +79,8 @@
         "its-ok-mobile": "Nic się nie stało.<br/>Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
-        "continue": "Kontynuuj",
-        "problem": "Napotkałeś problem?",
+        "continue": "Resetuj hasło",
+        "problem": "Napotkałeś/łaśgit problem?",
         "contact": "Skontaktuj się z fundacją, by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
         "incorrect-email-helper-text": "Niepoprawny adres e-mail",
@@ -203,7 +208,6 @@
         "image-label": "Zgoda na rozpowszechnianie wizerunku.",
         "image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji.",
         "kindergartener-test": "Test sprawności przedszkolaka",
-        "last-update-date": "Data ostatniej zmiany",
         "details": "Szczegóły",
         "collapse-details": "Zwiń szczegóły",
         "info-about-test": "Informacje o pomiarze",
@@ -328,7 +332,7 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
-        "final-test-title": "Wyniki wchodzących w skład pomiaru początkowego",
+        "final-test-title": "Wyniki wchodzących w skład pomiaru końcowego",
         "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
             "progress": "Poprawił się",
@@ -464,9 +468,9 @@
             "snackbar-headerText": "Gotowe",
             "snackbar-text": "Udzielone przez ciebie zgody zostały zapisane",
             "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
-            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
-            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
-            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwość do zobaczenia swojej pociechy na materiałach z zajęć publikowanych przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uczestnictwa w programie.",
             "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
             "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
             "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
@@ -538,7 +542,7 @@
         "sending-success-modal": {
             "title": "Gotowe",
             "content": "Twoja wiadomość została wysłana do adresatów.",
-            "back-button": "Wróc do strony głównej",
+            "back-button": "Wróć do strony głównej",
             "next-msg-button": "Wyślij następną wiadomość"
         },
         "help-modal": {
@@ -603,7 +607,7 @@
         },
         "modal-change-kindergarden": {
             "header": "Przenieś dziecko do innego przedszkola",
-            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieśc dziecko",
+            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieść dziecko",
             "main-label": "Obecne przedszkole",
             "label": "Wybierz przedszkole",
             "checkbox-option": "Przeniesienie do tego samego przedszkola",
@@ -746,6 +750,7 @@
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",
         "new-user": "Nowy użytkownik ({{email}}) został dodany.",
+        "new-article": "Dodano nowy, nieopublikowany artykuł \"{{title}}\"",
         "child-created": "Dziecko zostało dodane.",
         "kindergarten-created": "Nowe przedszkole ({{name}}) zostało dodane."
     },

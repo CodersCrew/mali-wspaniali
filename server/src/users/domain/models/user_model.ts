@@ -7,39 +7,40 @@ import {
   UserUnsignedAgreementEvent,
   UserUpdatedEvent,
 } from '../events/impl';
-import { Mail } from '../../../shared/domain/mail';
 import { UserAnonymizedEvent } from '../events/impl/user_anonymized_event';
+import { CoreModel } from '../../../shared/utils/core_model';
+import { Expose, Transform } from 'class-transformer';
 
-export interface UserProps {
-  readonly _id: string;
-  readonly date: Date;
+export class UserCore extends CoreModel {
+  @Expose()
   mail: string;
-  readonly password: string;
-  readonly role: string;
-  notifications: string[];
+
+  @Expose()
+  password: string;
+
+  @Expose()
+  @Transform(value => value ?? [])
   children: string[];
+
+  @Expose()
+  @Transform(value => value ?? [])
   agreements: string[];
-  confirmed: boolean;
-  deleted: boolean;
+
+  @Expose()
+  role: string;
+
+  @Expose()
+  @Transform(value => value ?? false)
+  isConfirmed: boolean;
 }
 
-export type UserBeforeSaveProps = Pick<UserProps, 'mail' | 'password'>;
-
 export class User extends AggregateRoot {
-  private constructor(private props: UserProps | UserBeforeSaveProps) {
+  private constructor(private props: UserCore) {
     super();
-
-    if (isUserProps(this.props)) {
-      if (!this.props.deleted) {
-        this.props.mail = Mail.create(props.mail).getValue().value;
-      }
-    } else {
-      this.props.mail = Mail.create(props.mail).getValue().value;
-    }
   }
 
   get id(): string {
-    return (this.props as UserProps)._id;
+    return this.props._id;
   }
 
   get mail(): string {
@@ -51,116 +52,86 @@ export class User extends AggregateRoot {
   }
 
   get children(): string[] {
-    return (this.props as UserProps).children;
+    return this.props.children;
   }
 
   get agreements(): string[] {
-    return (this.props as UserProps).agreements;
+    return this.props.agreements;
   }
 
   hasAgreement(potentialAgreementId): boolean {
-    return (this.props as UserProps).agreements.includes(potentialAgreementId);
+    return this.props.agreements.includes(potentialAgreementId);
   }
 
   private setAgreements(agreements: string[]) {
-    (this.props as UserProps).agreements = agreements;
+    this.props.agreements = agreements;
   }
 
   get confirmed(): boolean {
-    if (isUserProps(this.props)) {
-      return this.props.confirmed;
-    }
-
-    return false;
+    return this.props.isConfirmed;
   }
 
   get role(): string {
-    if (!('role' in this.props)) throw Error('Need created user');
-
     return this.props.role;
   }
 
-  confirm(): void {
-    if (isUserProps(this.props)) {
-      this.props.confirmed = true;
+  getProps(): UserCore {
+    return this.props;
+  }
 
-      this.apply(new UserConfirmedEvent(this.props._id));
-    }
+  confirm(): void {
+    this.props.isConfirmed = true;
+
+    this.apply(new UserConfirmedEvent(this.props._id));
   }
 
   delete(): void {
     const { props } = this;
 
-    if (isUserProps(props)) {
-      this.props = { ...props, deleted: true, mail: '', password: '' };
+    this.props = { ...props, isDeleted: true, mail: '', password: '' };
 
-      this.apply(
-        new UserUpdatedEvent(props._id, {
-          deleted: true,
-          mail: '',
-          password: '',
-        }),
-      );
-      this.apply(new UserAnonymizedEvent(this.id));
-    }
+    this.apply(
+      new UserUpdatedEvent(props._id, {
+        isDeleted: true,
+        mail: '',
+        password: '',
+      }),
+    );
+
+    this.apply(new UserAnonymizedEvent(this.id));
   }
 
   isDeleted(): boolean {
-    if (isUserProps(this.props)) {
-      return this.props.deleted;
-    }
+    return this.props.isDeleted;
   }
 
   signAgreement(potentialAgreementId: string) {
-    if (isUserProps(this.props)) {
-      this.setAgreements([...this.agreements, potentialAgreementId]);
-      this.apply(
-        new UserSignedAgreementEvent(this.props._id, potentialAgreementId),
-      );
-    }
+    this.setAgreements([...this.agreements, potentialAgreementId]);
+    this.apply(
+      new UserSignedAgreementEvent(this.props._id, potentialAgreementId),
+    );
   }
 
   unsignAgreement(potentialAgreementId: string) {
-    if (isUserProps(this.props)) {
-      this.setAgreements(
-        this.agreements.filter(agreement => agreement !== potentialAgreementId),
-      );
-      this.apply(
-        new UserUnsignedAgreementEvent(this.props._id, potentialAgreementId),
-      );
-    }
+    this.setAgreements(
+      this.agreements.filter(agreement => agreement !== potentialAgreementId),
+    );
+    this.apply(
+      new UserUnsignedAgreementEvent(this.props._id, potentialAgreementId),
+    );
   }
 
-  static create(props: UserProps, keyCode: string): User {
+  static create(props: UserCore, keyCode: string): User {
     const user = new User(props);
 
-    if (isUserProps(user.props)) {
-      user.apply(new UserCreatedEvent(user.props._id, keyCode));
-    }
+    user.apply(new UserCreatedEvent(user.props._id, keyCode));
 
     return user;
   }
 
-  static recreate(props: UserProps | UserBeforeSaveProps): User {
+  static recreate(props: UserCore): User {
     const user = new User(props);
 
     return user;
   }
-
-  getProps(): UserProps | UserBeforeSaveProps {
-    return this.props;
-  }
-}
-
-function isUserProps(v: UserProps | UserBeforeSaveProps): v is UserProps {
-  return !!(v as UserProps)._id;
-}
-
-function anonymizeUser(user: UserProps) {
-  return {
-    ...user,
-    delete: true,
-    mail: '',
-    password: '',
-  };
 }

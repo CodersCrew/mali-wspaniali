@@ -75,16 +75,18 @@ describe('AnonymizeUserHandler', () => {
     let user: User;
     let anonymizedUser: User;
     let fetchedUser: User;
-    let fetchedChild: Child;
 
     beforeEach(async () => {
       user = await createParent({ mail: 'user1@user.com' });
+      const user2 = await createParent({ mail: 'user2@user.com' });
       await addChildCommandWith({}, user.id);
-      anonymizedUser = await anonymizeUser(user.id);
-      fetchedUser = await getParentById(user.id);
+      await addChildCommandWith({}, user2.id);
     });
 
-    it('anonymize user', () => {
+    it('anonymize user', async () => {
+      anonymizedUser = await anonymizeUser(user.id);
+      fetchedUser = await getParentById(user.id);
+
       expect(user.mail).toBe('user1@user.com');
       expect(user.isDeleted()).toBe(false);
 
@@ -97,12 +99,18 @@ describe('AnonymizeUserHandler', () => {
     });
 
     it('anonymize children', async () => {
-      await waitForExpect(async () => {
-        [fetchedChild] = await getChildren(fetchedUser.children);
+      expect((await getAllChildren()).length).toBe(2);
 
-        expect(fetchedChild.isDeleted).toBe(true);
-        expect(fetchedChild.firstname.value).toBe('anonymized');
-        expect(fetchedChild.lastname.value).toBe('anonymized');
+      anonymizedUser = await anonymizeUser(user.id);
+
+      fetchedUser = await getParentById(user.id);
+
+      await waitForExpect(async () => {
+        expect((await getAllChildren()).length).toBe(1);
+
+        const fetchedChildren = await getChildren(fetchedUser.children);
+
+        expect(fetchedChildren.length).toBe(0);
       });
     });
   });
@@ -147,7 +155,7 @@ describe('AnonymizeUserHandler', () => {
         new AddChildCommand(
           {
             ...validChildOptions,
-            kindergartenId: kindergarten.id.toString(),
+            kindergartenId: kindergarten.id,
             ...options,
           },
           parentId,
@@ -177,6 +185,10 @@ describe('AnonymizeUserHandler', () => {
 
   function getChildren(ids: string[]) {
     return app.get(ChildRepository).get(ids);
+  }
+
+  function getAllChildren() {
+    return app.get(ChildRepository).getAll();
   }
 
   function createKindergarten() {

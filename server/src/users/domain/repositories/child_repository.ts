@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { ChildDocument } from '../../schemas/child_schema';
-import { Child, ChildProps } from '../models/child_model';
+import { Child } from '../models/child_model';
 import * as mongoose from 'mongoose';
 import { ChildMapper } from '../mappers/child_mapper';
 import { parseDateToAge } from '../../../shared/utils/parse_date_to_age';
@@ -12,11 +12,11 @@ import { parseDateToAge } from '../../../shared/utils/parse_date_to_age';
 export class ChildRepository {
   constructor(
     @InjectModel('Child')
-    private readonly childModel: Model<ChildDocument>,
+    private childModel: Model<ChildDocument>,
   ) {}
 
   async create(child: Child): Promise<Child> {
-    const persistencedChild = ChildMapper.toPersistence(child);
+    const persistencedChild = ChildMapper.toPlain(child);
     const createdChild = new this.childModel(persistencedChild);
 
     const created = await createdChild.save();
@@ -25,18 +25,29 @@ export class ChildRepository {
   }
 
   async addResult(childId: string, resultId: string): Promise<void> {
-    await this.childModel.findByIdAndUpdate(childId, {
-      $addToSet: { results: new mongoose.Types.ObjectId(resultId) as any },
-    });
+    await this.childModel.findOneAndUpdate(
+      { _id: childId },
+      {
+        $addToSet: { results: new mongoose.Types.ObjectId(resultId) as any },
+      },
+      {
+        useFindAndModify: false,
+      },
+    );
   }
 
   async get(childIds: string[]): Promise<Child[]> {
     return await this.childModel
-      .find({
-        _id: {
-          $in: childIds,
+      .find(
+        {
+          _id: {
+            $in: childIds,
+          },
+          isDeleted: false,
         },
-      })
+        null,
+        { sort: { firstname: 1 } },
+      )
       .lean()
       .exec()
       .then(childList => childList.map(child => ChildMapper.toDomain(child)));
@@ -44,13 +55,13 @@ export class ChildRepository {
 
   async getByKindergarten(id: string): Promise<Child[]> {
     const results = await this.childModel
-      .find({ kindergarten: id })
+      .find({ kindergarten: id, isDeleted: false })
       .lean()
       .exec()
       .then(childList => childList.map(c => ChildMapper.toDomain(c)));
 
     return results.filter(c => {
-      const age = parseDateToAge(c.birthYear.value, c.birthQuarter.value);
+      const age = parseDateToAge(c.birthYear, c.birthQuarter);
 
       return age >= 3 && age <= 7 && !c.isDeleted;
     });
@@ -58,7 +69,7 @@ export class ChildRepository {
 
   async getAll(): Promise<Child[]> {
     return await this.childModel
-      .find()
+      .find({ isDeleted: false })
       .lean()
       .exec()
       .then(childList => childList.map(child => ChildMapper.toDomain(child)));
@@ -66,7 +77,7 @@ export class ChildRepository {
 
   async updateChild(
     id: string,
-    update: { [index: string]: string | number | boolean },
+    update: { [index: string]: string | number | boolean | Date },
   ): Promise<Child> {
     const [child] = await this.get([id]);
 
@@ -75,13 +86,18 @@ export class ChildRepository {
     }
 
     ChildMapper.toDomain({
-      ...ChildMapper.toPersistence(child),
+      ...ChildMapper.toPlain(child),
       ...update,
     });
 
-    const updated = await this.childModel.findByIdAndUpdate(id, update, {
-      new: true,
-    });
+    const updated = await this.childModel.findOneAndUpdate(
+      { _id: id },
+      update,
+      {
+        new: true,
+        useFindAndModify: false,
+      },
+    );
 
     return ChildMapper.toDomain(updated);
   }

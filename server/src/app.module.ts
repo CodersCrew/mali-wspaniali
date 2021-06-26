@@ -36,6 +36,7 @@ import { AssessmentModule } from './assessment/assessment_module';
         origin: [new RegExp(process.env.SERVER_HOST)],
         credentials: true,
       },
+      fieldResolverEnhancers: ['guards', 'interceptors'],
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(

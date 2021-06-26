@@ -8,7 +8,7 @@ interface KeyCodeSeriesResponse {
 export const KEYCODE_SERIES = gql`
     {
         keyCodeSeries {
-            date
+            createdAt
             series
             target
             count

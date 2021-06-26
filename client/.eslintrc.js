@@ -11,7 +11,6 @@ module.exports = {
         'plugin:import/typescript',
         'plugin:@typescript-eslint/recommended',
         'prettier',
-        'prettier/@typescript-eslint',
         'plugin:react/recommended',
     ],
     root: true,
@@ -59,5 +58,6 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         'no-console': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
     },
 };

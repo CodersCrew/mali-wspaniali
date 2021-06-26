@@ -1,20 +1,11 @@
 import { Schema, Document } from 'mongoose';
+import { AgreementCore } from '../domain/models/agreement';
+import { coreSchema } from '../../shared/utils/core_schema';
 
-export interface AgreementProps {
-  _id: string;
-  date: Date;
-  text: string;
-  isOutdated: boolean;
-  isSigned: boolean;
-}
-
-export type AgreementDocument = AgreementProps & Document;
+export type AgreementDocument = AgreementCore & Document;
 
 export const AgreementSchema = new Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  ...coreSchema,
   text: String,
   isOutdated: {
     type: Boolean,

@@ -16,6 +16,7 @@ export const TESTS = [
         scaleTo: 80,
         pointsKey: 'strengthPoints',
         unitOfMeasureKey: 'strengthCentimeters',
+        name: 'Throw',
     },
     {
         translationKey: 'power',
@@ -24,6 +25,7 @@ export const TESTS = [
         scaleTo: 80,
         pointsKey: 'powerPoints',
         unitOfMeasureKey: 'powerCentimeters',
+        name: 'Jump',
     },
     {
         translationKey: 'speed',
@@ -32,6 +34,7 @@ export const TESTS = [
         scaleTo: 0,
         pointsKey: 'speedPoints',
         unitOfMeasureKey: 'speedSeconds',
+        name: 'Run',
     },
     {
         translationKey: 'agility',
@@ -40,6 +43,7 @@ export const TESTS = [
         scaleTo: 0,
         pointsKey: 'agilityPoints',
         unitOfMeasureKey: 'agilitySeconds',
+        name: 'PendelumRun',
     },
 ];
 

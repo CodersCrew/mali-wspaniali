@@ -13,8 +13,8 @@ import { Article } from '../../models/article_model';
 export class UpdateArticleHandler
   implements ICommandHandler<UpdateArticleCommand> {
   constructor(
-    private readonly commandBus: QueryBus,
-    private readonly publisher: EventPublisher,
+    private commandBus: QueryBus,
+    private publisher: EventPublisher,
   ) {}
 
   async execute(command: UpdateArticleCommand): Promise<Article> {

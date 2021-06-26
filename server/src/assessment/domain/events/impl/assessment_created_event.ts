@@ -1,5 +1,5 @@
 import { Assessment } from '../../models/assessment_model';
 
 export class AssessmentCreatedEvent {
-  constructor(public readonly assessment: Assessment) {}
+  constructor(public assessment: Assessment) {}
 }

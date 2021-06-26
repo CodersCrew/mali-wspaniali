@@ -7,7 +7,7 @@ import { GetAllAssessmentsAssignedToInstructorQuery } from '../impl';
 @QueryHandler(GetAllAssessmentsAssignedToInstructorQuery)
 export class GetAllAssessmentAssignedToInstructorHandler
   implements IQueryHandler<GetAllAssessmentsAssignedToInstructorQuery> {
-  constructor(private readonly repository: AssessmentRepository) {}
+  constructor(private repository: AssessmentRepository) {}
 
   async execute({
     instructorId,

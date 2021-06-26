@@ -7,7 +7,7 @@ import { Article } from '../../models/article_model';
 @QueryHandler(GetAllArticlesQuery)
 export class GetAllArticlesHandler
   implements IQueryHandler<GetAllArticlesQuery> {
-  constructor(private readonly repository: ArticlesRepository) {}
+  constructor(private repository: ArticlesRepository) {}
 
   async execute(query: GetAllArticlesQuery): Promise<Article[]> {
     return this.repository.getPage(

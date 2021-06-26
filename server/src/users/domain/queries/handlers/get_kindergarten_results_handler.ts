@@ -7,9 +7,7 @@ import { PartialChildResult } from '../../../inputs/child_result_input';
 @QueryHandler(GetKindergartenResults)
 export class GetKindergartenResultsHandler
   implements IQueryHandler<GetKindergartenResults> {
-  constructor(
-    private readonly resultRepository: ChildAssessmentResultRepository,
-  ) {}
+  constructor(private resultRepository: ChildAssessmentResultRepository) {}
 
   async execute({
     kindergartenId,
