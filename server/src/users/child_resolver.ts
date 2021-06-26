@@ -8,6 +8,7 @@ import {
 } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
+import { classToPlain } from 'class-transformer';
 
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ReturnedStatusDTO } from '../shared/returned_status';
@@ -36,12 +37,16 @@ import {
   PartialChildResultInput,
   PartialUpdateChildResultInput,
 } from './inputs/child_result_input';
-import { GetKindergartenResults } from './domain/queries/impl';
+import {
+  GetKindergartenResults,
+  GetUserByChildIdQuery,
+} from './domain/queries/impl';
 import { KindergartenCore } from '../kindergartens/domain/models/kindergarten_model';
 import { ChildAssessmentResultDTO } from './dto/child_assessment_result';
 import { GetChildResultsQuery } from './domain/queries/impl/get_child_results_query';
 import { ChildAssessmentResultCore } from './domain/models/child_assessment_result_model';
 import { ChildAssessmentResultMapper } from './domain/mappers/child_assessment_result_mapper';
+import { UserDTO } from './dto/user_dto';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildDTO)
@@ -71,6 +76,18 @@ export class ChildResolver {
     );
 
     return results.map(result => ChildAssessmentResultMapper.toPlain(result));
+  }
+
+  @ResolveField(() => UserDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async parent(@Parent() child: ChildDTO): Promise<UserDTO> {
+    const user = await this.queryBus.execute(
+      new GetUserByChildIdQuery(child._id),
+    );
+
+    return classToPlain(user.getProps(), {
+      excludeExtraneousValues: true,
+    }) as UserDTO;
   }
 
   @Query(() => [ChildDTO])

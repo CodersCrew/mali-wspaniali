@@ -150,6 +150,7 @@ type ChildDTO {
   results: [ChildAssessmentResultDTO!]!
   kindergarten: KindergartenDTO!
   currentParams: ChildCurrentParamsDTO!
+  parent: UserDTO!
 }
 
 type AgreementDTO {
