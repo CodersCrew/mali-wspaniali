@@ -47,6 +47,31 @@ describe('UserModel', () => {
       expect(UserEvents.UserConfirmedEvent).toHaveBeenCalledWith('my-id');
     });
   });
+
+  describe('#delete', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      user = createUser();
+      user.delete();
+    });
+
+    it('sets user as deleted and anonimized', () => {
+      expect(user.isDeleted()).toBe(true);
+      expect(user.mail).toBe('');
+      expect(user.password).toBe('');
+    });
+
+    it('applies user updated and user anonimized event', () => {
+      expect(UserEvents.UserUpdatedEvent).toHaveBeenCalledTimes(1);
+      expect(UserEvents.UserUpdatedEvent).toHaveBeenCalledWith('my-id', {
+        isDeleted: true,
+        mail: '',
+        password: '',
+      });
+      expect(UserEvents.UserAnonymizedEvent).toHaveBeenCalledTimes(1);
+      expect(UserEvents.UserAnonymizedEvent).toHaveBeenCalledWith(user.id);
+    });
+  });
 });
 
 function createUser(user: Partial<UserCore> = {}) {
@@ -57,9 +82,6 @@ function createUser(user: Partial<UserCore> = {}) {
     mail: 'my-email@email.com',
     password: '',
     role: '',
-    isConfirmed: false,
-    isDeleted: false,
-    createdAt: new Date(),
     ...user,
   };
 

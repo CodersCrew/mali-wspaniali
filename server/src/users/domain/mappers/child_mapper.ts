@@ -1,7 +1,7 @@
-import { Child } from '../models';
-import { transformAndValidateSync } from 'class-transformer-validator';
-import { ChildCore } from '../models/child_model';
 import { classToPlain } from 'class-transformer';
+import { transformAndValidateSync } from 'class-transformer-validator';
+import { Child } from '../models';
+import { ChildCore } from '../models/child_model';
 
 export class ChildMapper {
   static toDomain(
