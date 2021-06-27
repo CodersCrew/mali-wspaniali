@@ -29,4 +29,10 @@ export class ChildAssessmentResultMapper {
       excludeExtraneousValues: true,
     }) as ChildAssessmentResultCore;
   }
+
+  static toPlainMany(
+    values: ChildAssessmentResult[],
+  ): ChildAssessmentResultCore[] {
+    return values.map(ChildAssessmentResultMapper.toPlain);
+  }
 }

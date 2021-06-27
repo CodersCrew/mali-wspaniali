@@ -8,7 +8,6 @@ import {
 } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
-import { classToPlain } from 'class-transformer';
 
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ReturnedStatusDTO } from '../shared/returned_status';
@@ -47,6 +46,7 @@ import { GetChildResultsQuery } from './domain/queries/impl/get_child_results_qu
 import { ChildAssessmentResultCore } from './domain/models/child_assessment_result_model';
 import { ChildAssessmentResultMapper } from './domain/mappers/child_assessment_result_mapper';
 import { UserDTO } from './dto/user_dto';
+import { UserMapper } from './domain/mappers/user_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildDTO)
@@ -75,7 +75,7 @@ export class ChildResolver {
       new GetChildResultsQuery(child._id),
     );
 
-    return results.map(result => ChildAssessmentResultMapper.toPlain(result));
+    return ChildAssessmentResultMapper.toPlainMany(results);
   }
 
   @ResolveField(() => UserDTO)
@@ -85,9 +85,7 @@ export class ChildResolver {
       new GetUserByChildIdQuery(child._id),
     );
 
-    return classToPlain(user.getProps(), {
-      excludeExtraneousValues: true,
-    }) as UserDTO;
+    return UserMapper.toPlain(user) as UserDTO;
   }
 
   @Query(() => [ChildDTO])

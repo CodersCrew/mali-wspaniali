@@ -59,7 +59,7 @@ export class UsersResolver {
     return currentUser.getProps();
   }
 
-  @ResolveField()
+  @ResolveField(() => [NotificationDTO])
   async notifications(@Parent() user: UserDTO): Promise<NotificationDTO[]> {
     return await this.queryBus.execute(
       new GetNotificationsByUserQuery(user._id),
