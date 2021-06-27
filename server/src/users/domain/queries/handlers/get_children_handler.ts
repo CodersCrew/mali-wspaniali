@@ -38,7 +38,7 @@ export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
     return {
       ...ChildMapper.toPlain(child),
       results: results.map(r => ChildAssessmentResultMapper.toPlain(r)),
-      kindergarten: KindergartenMapper.toRaw(kindergarten),
+      kindergarten: KindergartenMapper.toPlain(kindergarten),
     };
   }
 }

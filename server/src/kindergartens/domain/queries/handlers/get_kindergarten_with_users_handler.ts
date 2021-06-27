@@ -31,7 +31,7 @@ export class GetKindergartenWithUsersHandler
       );
 
       const kindergartenWithUsers = {
-        ...KindergartenMapper.toRaw(kindergarten),
+        ...KindergartenMapper.toPlain(kindergarten),
         users: parents,
       };
 

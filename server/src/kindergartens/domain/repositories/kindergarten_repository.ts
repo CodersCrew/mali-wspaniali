@@ -63,7 +63,7 @@ export class KindergartenRepository {
 
   async create(createKindergarten: Kindergarten): Promise<Kindergarten> {
     const createdKindergarden = new this.model(
-      KindergartenMapper.toPersistant(createKindergarten),
+      KindergartenMapper.toPlain(createKindergarten),
     );
 
     const result = await createdKindergarden.save();

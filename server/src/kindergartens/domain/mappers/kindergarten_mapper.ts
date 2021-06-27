@@ -21,13 +21,13 @@ export class KindergartenMapper {
     return createKindergarten(kindergarten);
   }
 
-  static toPersistant(kindergarten: Kindergarten): KindergartenCore {
+  static toPlain(kindergarten: Kindergarten): KindergartenCore {
     return classToPlain(kindergarten.getProps(), {
       excludeExtraneousValues: true,
     }) as KindergartenCore;
   }
 
-  static toRaw(kindergarten: Kindergarten): KindergartenCore {
-    return this.toPersistant(kindergarten);
+  static toPlainMany(values: Kindergarten[]): KindergartenCore[] {
+    return values.map(KindergartenMapper.toPlain);
   }
 }

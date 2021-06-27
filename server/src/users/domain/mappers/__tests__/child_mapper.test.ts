@@ -42,7 +42,7 @@ describe('ChildMapper', () => {
     });
   });
 
-  describe('#toPersistance', () => {
+  describe('#toPlain', () => {
     it('creates data without _id', () => {
       const childData = {
         firstname: 'my-name',

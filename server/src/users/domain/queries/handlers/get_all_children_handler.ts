@@ -50,7 +50,7 @@ export class GetAllChildrenHandler
 
       return {
         child: ChildMapper.toPlain(child),
-        kindergarten: KindergartenMapper.toRaw(foundKindergarten),
+        kindergarten: KindergartenMapper.toPlain(foundKindergarten),
         results: foundChildrenResults.map(e =>
           ChildAssessmentResultMapper.toPlain(e),
         ),
