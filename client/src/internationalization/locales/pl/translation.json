@@ -115,7 +115,7 @@
     "admin-setting-page": {
         "keycode-generation": {
             "title": "Generowanie kluczy",
-            "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
+            "description": "Wybierz dla kogo chcesz wygenerować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 14 dni. Po tym czasie należy wygenerować nowe klucze. ",
             "role-parent": "Rodzic",
             "role-instructor": "Instruktor",
             "filename": "Nazwa pliku",
