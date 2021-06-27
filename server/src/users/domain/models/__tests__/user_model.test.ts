@@ -7,12 +7,12 @@ jest.mock('../../events/impl');
 describe('UserModel', () => {
   let user: User;
 
-  describe('when created with correct data', () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-      user = createUser();
-    });
+  beforeEach(() => {
+    jest.clearAllMocks();
+    user = createUser();
+  });
 
+  describe('when created with correct data', () => {
     it('returns model', () => {
       expect(user).toBeInstanceOf(User);
       expect(user.mail).toBe('my-email@email.com');
@@ -33,8 +33,6 @@ describe('UserModel', () => {
 
   describe('#confirm', () => {
     beforeEach(() => {
-      jest.clearAllMocks();
-      user = createUser();
       user.confirm();
     });
 
@@ -50,8 +48,6 @@ describe('UserModel', () => {
 
   describe('#delete', () => {
     beforeEach(() => {
-      jest.clearAllMocks();
-      user = createUser();
       user.delete();
     });
 
@@ -70,6 +66,58 @@ describe('UserModel', () => {
       });
       expect(UserEvents.UserAnonymizedEvent).toHaveBeenCalledTimes(1);
       expect(UserEvents.UserAnonymizedEvent).toHaveBeenCalledWith(user.id);
+    });
+  });
+
+  describe('#signAgreement', () => {
+    it('sign agreement', () => {
+      expect(user.agreements.length).toBe(0);
+
+      user.signAgreement('new-agreement');
+
+      expect(user.agreements).toEqual(['new-agreement']);
+    });
+
+    it('applies user signed event', () => {
+      user.signAgreement('new-agreement');
+
+      expect(UserEvents.UserSignedAgreementEvent).toHaveBeenCalledTimes(1);
+      expect(UserEvents.UserSignedAgreementEvent).toHaveBeenCalledWith(
+        user.id,
+        'new-agreement',
+      );
+    });
+  });
+
+  describe('#unsignAgreement', () => {
+    it('unsign agreement', () => {
+      expect(user.agreements.length).toBe(0);
+
+      user.signAgreement('new-agreement');
+      user.signAgreement('new-agreement-2');
+      user.signAgreement('new-agreement-3');
+
+      expect(user.agreements).toEqual([
+        'new-agreement',
+        'new-agreement-2',
+        'new-agreement-3',
+      ]);
+
+      user.unsignAgreement('new-agreement');
+
+      expect(user.agreements).toEqual(['new-agreement-2', 'new-agreement-3']);
+    });
+
+    it('applies user unsigned event', () => {
+      user.signAgreement('new-agreement');
+
+      user.unsignAgreement('new-agreement');
+
+      expect(UserEvents.UserUnsignedAgreementEvent).toHaveBeenCalledTimes(1);
+      expect(UserEvents.UserUnsignedAgreementEvent).toHaveBeenCalledWith(
+        user.id,
+        'new-agreement',
+      );
     });
   });
 });

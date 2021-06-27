@@ -18,6 +18,10 @@ export class ChildMapper {
     );
   }
 
+  static toDomainMany(children: Partial<ChildCore>[]) {
+    return children.map(child => ChildMapper.toDomain(child));
+  }
+
   static toPlain(child: Child): ChildCore {
     const props = child.getProps();
 

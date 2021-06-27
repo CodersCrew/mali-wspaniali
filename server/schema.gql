@@ -111,18 +111,6 @@ type PartialChildResult {
   lastMeasurementJumpResult: Float
 }
 
-type NotificationDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  user: String!
-  templateId: String!
-  values: [String!]!
-  isRead: Boolean!
-}
-
 type KindergartenDTO {
   _id: ID!
   isDeleted: Boolean!
@@ -171,13 +159,25 @@ type UserDTO {
   deletedAt: DateTime
   mail: String!
   role: String!
-  notifications: [NotificationDTO!]
   children: [ChildDTO!]
   agreements: [AgreementDTO!]!
+  notifications: [NotificationDTO!]!
 }
 
 type ReturnedTokenDTO {
   token: String!
+}
+
+type NotificationDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  user: String!
+  templateId: String!
+  values: [String!]!
+  isRead: Boolean!
 }
 
 type ParamsDTO {

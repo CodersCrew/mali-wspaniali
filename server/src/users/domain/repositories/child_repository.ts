@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 
 import { ChildDocument } from '../../schemas/child_schema';
 import { Child } from '../models/child_model';
-import * as mongoose from 'mongoose';
 import { ChildMapper } from '../mappers/child_mapper';
 import { parseDateToAge } from '../../../shared/utils/parse_date_to_age';
 
@@ -28,7 +27,7 @@ export class ChildRepository {
     await this.childModel.findOneAndUpdate(
       { _id: childId },
       {
-        $addToSet: { results: new mongoose.Types.ObjectId(resultId) as any },
+        $addToSet: { results: resultId },
       },
       {
         useFindAndModify: false,
@@ -50,7 +49,7 @@ export class ChildRepository {
       )
       .lean()
       .exec()
-      .then(childList => childList.map(child => ChildMapper.toDomain(child)));
+      .then(ChildMapper.toDomainMany);
   }
 
   async getByKindergarten(id: string): Promise<Child[]> {
@@ -58,7 +57,7 @@ export class ChildRepository {
       .find({ kindergarten: id, isDeleted: false })
       .lean()
       .exec()
-      .then(childList => childList.map(c => ChildMapper.toDomain(c)));
+      .then(ChildMapper.toDomainMany);
 
     return results.filter(c => {
       const age = parseDateToAge(c.birthYear, c.birthQuarter);
@@ -72,7 +71,7 @@ export class ChildRepository {
       .find({ isDeleted: false })
       .lean()
       .exec()
-      .then(childList => childList.map(child => ChildMapper.toDomain(child)));
+      .then(ChildMapper.toDomainMany);
   }
 
   async updateChild(
