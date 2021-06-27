@@ -1,5 +1,6 @@
 import * as UserEvents from '../../events/impl';
 import { User, UserCore } from '../user_model';
+import { UserMapper } from '../../mappers/user_mapper';
 
 jest.mock('../../events/impl');
 
@@ -62,5 +63,5 @@ function createUser(user: Partial<UserCore> = {}) {
     ...user,
   };
 
-  return User.create(userProps, 'my-keycode');
+  return UserMapper.toDomain(userProps, { keyCode: 'my-keycode' });
 }

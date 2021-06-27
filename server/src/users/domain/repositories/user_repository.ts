@@ -7,6 +7,8 @@ import { UserCore, User } from '../models/user_model';
 import { UserDocument } from '../../schemas/user_schema';
 import { classToPlain } from 'class-transformer';
 import { KeyCode } from '../../../key_codes/domain/models/key_code_model';
+import { UserMapper } from '../mappers/user_mapper';
+import { UserDTO } from '../../dto/user_dto';
 
 @Injectable()
 export class UserRepository {
@@ -98,16 +100,9 @@ export class UserRepository {
     },
     keyCode: KeyCode,
   ): Promise<User> {
-    const user = User.create(
-      transformAndValidateSync(
-        UserCore,
-        { ...createUserDTO, role: keyCode.target },
-        {
-          transformer: { excludeExtraneousValues: true },
-          validator: { validationError: { target: false, value: false } },
-        },
-      ),
-      keyCode.keyCode,
+    const user = UserMapper.toDomain(
+      { ...createUserDTO, role: keyCode.target },
+      { keyCode: keyCode.keyCode },
     );
 
     const createdUser = new this.userModel(user.getProps());
@@ -178,31 +173,15 @@ export class UserRepository {
 
   // for e2e purpose only
   async createAdmin(mail: string, password: string): Promise<void> {
-    const user = User.recreate(
-      transformAndValidateSync(
-        UserCore,
-        { mail, password, role: 'admin' },
-        {
-          transformer: { excludeExtraneousValues: true },
-          validator: { validationError: { target: false, value: false } },
-        },
-      ),
-    );
+    const user = UserMapper.toDomain({ mail, password, role: 'admin' });
 
-    await new this.userModel(
-      classToPlain(user.getProps(), { excludeExtraneousValues: true }),
-    ).save();
+    await new this.userModel(UserMapper.toPlain(user)).save();
   }
 }
 
 function parseUser(user: UserDocument) {
   if (user) {
-    const recreatedUser = User.recreate(
-      transformAndValidateSync(UserCore, user, {
-        transformer: { excludeExtraneousValues: true },
-        validator: { validationError: { target: false, value: false } },
-      }),
-    );
+    const recreatedUser = UserMapper.toDomain((user as unknown) as UserDTO);
 
     return recreatedUser;
   }
