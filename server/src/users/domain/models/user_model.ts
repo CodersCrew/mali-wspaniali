@@ -6,8 +6,8 @@ import {
   UserSignedAgreementEvent,
   UserUnsignedAgreementEvent,
   UserUpdatedEvent,
+  UserAnonymizedEvent,
 } from '../events/impl';
-import { UserAnonymizedEvent } from '../events/impl/user_anonymized_event';
 import { CoreModel } from '../../../shared/utils/core_model';
 import { Expose, Transform } from 'class-transformer';
 
