@@ -47,7 +47,7 @@ export class KindergartenResolver {
       new GetChildrenFromKindergartenQuery(kindergarten._id),
     );
 
-    return children.map(child => ChildMapper.toPlain(child));
+    return ChildMapper.toPlainMany(children);
   }
 
   @Query(() => [KindergartenDTO])
@@ -57,7 +57,7 @@ export class KindergartenResolver {
       new GetAllKindergartensQuery(),
     );
 
-    return kindergartens.map(k => KindergartenMapper.toRaw(k));
+    return KindergartenMapper.toPlainMany(kindergartens);
   }
 
   @Query(() => [KindergartenWithUsersDTO])
@@ -81,7 +81,7 @@ export class KindergartenResolver {
       new CreateKindergartenCommand(kindergarten),
     );
 
-    return KindergartenMapper.toRaw(created);
+    return KindergartenMapper.toPlain(created);
   }
 
   @Mutation(() => KindergartenDTO)
@@ -94,7 +94,7 @@ export class KindergartenResolver {
       new EditKindergartenCommand(id, kindergarten),
     );
 
-    return KindergartenMapper.toRaw(updated);
+    return KindergartenMapper.toPlain(updated);
   }
 
   @Mutation(() => ReturnedStatusDTO)

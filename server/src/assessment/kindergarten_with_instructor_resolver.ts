@@ -50,7 +50,7 @@ export class KindergartenWithInstructorResolver {
     );
 
     if (kindergarten) {
-      return KindergartenMapper.toRaw(kindergarten);
+      return KindergartenMapper.toPlain(kindergarten);
     }
   }
 }

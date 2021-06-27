@@ -59,7 +59,7 @@ export class ChildResolver {
       new GetKindergartenQuery(child.kindergarten),
     );
 
-    return KindergartenMapper.toRaw(result);
+    return KindergartenMapper.toPlain(result);
   }
 
   @ResolveField(() => ChildCurrentParamsDTO)

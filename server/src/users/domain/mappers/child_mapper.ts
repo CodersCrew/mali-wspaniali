@@ -27,4 +27,8 @@ export class ChildMapper {
 
     return classToPlain(props, { excludeExtraneousValues: true }) as ChildCore;
   }
+
+  static toPlainMany(children: Child[]): ChildCore[] {
+    return children.map(ChildMapper.toPlain);
+  }
 }

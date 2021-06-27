@@ -45,7 +45,7 @@ describe('KindergartenMapper', () => {
     });
   });
 
-  describe('#toPersistance', () => {
+  describe('#toPlain', () => {
     it('creates data without _id', () => {
       const kindergartenData: KindergartenInput = {
         number: 5,
@@ -55,7 +55,7 @@ describe('KindergartenMapper', () => {
       };
       const kindergarten = KindergartenMapper.toDomainFrom(kindergartenData);
 
-      const parsedChildData: KindergartenInput = KindergartenMapper.toPersistant(
+      const parsedChildData: KindergartenInput = KindergartenMapper.toPlain(
         kindergarten,
       );
 
@@ -86,7 +86,7 @@ describe('KindergartenMapper', () => {
       };
       const child = KindergartenMapper.toDomainFrom(childData);
 
-      const parsedChildData: KindergartenInput = KindergartenMapper.toPersistant(
+      const parsedChildData: KindergartenInput = KindergartenMapper.toPlain(
         child,
       );
 
