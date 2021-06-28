@@ -54,10 +54,10 @@ describe('GetAllKindergartensHandler', () => {
       expect(kindergartens[2]).toBeInstanceOf(Kindergarten);
       expect(kindergartens[3]).toBeInstanceOf(Kindergarten);
 
-      expect(kindergartens[0].name.value).toEqual('my-kindergarten-1');
-      expect(kindergartens[1].name.value).toEqual('my-kindergarten-2');
-      expect(kindergartens[2].name.value).toEqual('my-kindergarten-3');
-      expect(kindergartens[3].name.value).toEqual('my-kindergarten-4');
+      expect(kindergartens[0].name).toEqual('my-kindergarten-1');
+      expect(kindergartens[1].name).toEqual('my-kindergarten-2');
+      expect(kindergartens[2].name).toEqual('my-kindergarten-3');
+      expect(kindergartens[3].name).toEqual('my-kindergarten-4');
     });
   });
 

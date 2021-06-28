@@ -21,7 +21,7 @@ export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User 
         query: gql`
             {
                 user(id: "${id}") {
-                    date
+                    createdAt
                     mail
                     children {
                         _id
@@ -32,9 +32,15 @@ export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User 
                         birthQuarter
                         results {
                             _id
-                            date
-                            test
-                            rootResultId
+                            createdAt
+                            modifiedAt
+                            childId
+                            kindergartenId
+                            assessmentId
+                            assessment {
+                                _id
+                                title
+                            }
                         }
                         kindergarten {
                             _id
@@ -44,7 +50,7 @@ export function getUserById(id: string): Promise<ApolloQueryResult<{ user: User 
                     }
                     agreements {
                         _id
-                        date
+                        createdAt
                         text
                         isSigned
                     }
@@ -62,7 +68,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                 {
                     users(role: "${role}") {
                         _id
-                        date
+                        createdAt
                         mail
                         children {
                             _id
@@ -73,9 +79,15 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                             birthQuarter
                             results {
                                 _id
-                                date
-                                test
-                                rootResultId
+                                createdAt
+                                modifiedAt
+                                childId
+                                kindergartenId
+                                assessmentId
+                                assessment {
+                                    _id
+                                    title
+                                }
                             }
                             kindergarten {
                                 _id
@@ -85,7 +97,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                         }
                         agreements {
                             _id
-                            date
+                            createdAt
                             text
                             isSigned
                         }
@@ -101,7 +113,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
             {
                 users {
                     _id
-                    date
+                    createdAt
                     mail
                     children {
                         _id
@@ -112,9 +124,15 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                         birthQuarter
                         results {
                             _id
-                            date
-                            test
-                            rootResultId
+                            createdAt
+                            modifiedAt
+                            childId
+                            kindergartenId
+                            assessmentId
+                            assessment {
+                                _id
+                                title
+                            }
                         }
                         kindergarten {
                             _id
@@ -124,7 +142,7 @@ export function getAllUsers(role?: string): Promise<ApolloQueryResult<{ users: U
                     }
                     agreements {
                         _id
-                        date
+                        createdAt
                         text
                         isSigned
                     }
@@ -148,9 +166,15 @@ export function getAllChildren(): Promise<ApolloQueryResult<{ allChildren: Child
                     birthQuaarter
                     results {
                         _id
-                        date
-                        test
-                        rootResultId
+                        createdAt
+                        modifiedAt
+                        childId
+                        kindergartenId
+                        assessmentId
+                        assessment {
+                            _id
+                            title
+                        }
                     }
                     kindergarten {
                         _id

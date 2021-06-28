@@ -2,11 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { ChildAssessmentResultProps } from '../models/child_result_model';
 import { ChildAssessmentResultDocument } from 'src/users/schemas/child_assessment_result_schema';
 import {
+  ChildAssessmentResult,
+  ChildAssessmentResultCore,
+} from '../models/child_assessment_result_model';
+import { ChildAssessmentResultMapper } from '../mappers/child_assessment_result_mapper';
+import {
   PartialChildResult,
-  PartialChildResultInput,
   PartialUpdateChildResultInput,
 } from 'src/users/inputs/child_result_input';
 
@@ -14,19 +17,17 @@ import {
 export class ChildAssessmentResultRepository {
   constructor(
     @InjectModel('ChildAssessmentResult')
-    private readonly childResultModel: Model<ChildAssessmentResultDocument>,
+    private childResultModel: Model<ChildAssessmentResultDocument>,
   ) {}
 
   async create(
-    childResult: PartialChildResultInput,
-  ): Promise<ChildAssessmentResultProps> {
-    const createdResult = new this.childResultModel({
-      ...childResult,
-    });
+    childResult: ChildAssessmentResultCore,
+  ): Promise<ChildAssessmentResult> {
+    const createdResult = new this.childResultModel(childResult);
 
     const result = await createdResult.save();
 
-    return result.toObject();
+    return ChildAssessmentResultMapper.toDomain(result.toObject());
   }
 
   async update(
@@ -39,7 +40,9 @@ export class ChildAssessmentResultRepository {
       assessmentId,
       ...rest
     } = updatedInput;
-    const foundResult = await this.childResultModel.findById(updatedInput._id);
+    const foundResult = await this.childResultModel.findOne({
+      _id: updatedInput._id,
+    });
 
     await foundResult.update(rest).exec();
 
@@ -59,5 +62,56 @@ export class ChildAssessmentResultRepository {
       .exec();
 
     return result;
+  }
+
+  async get(id: string): Promise<ChildAssessmentResult> {
+    const result = await this.childResultModel
+      .findOne({
+        _id: id,
+      })
+      .lean()
+      .exec()
+      .then(value =>
+        value
+          ? ChildAssessmentResultMapper.toDomain(
+              (value as unknown) as ChildAssessmentResultCore,
+            )
+          : value,
+      );
+
+    return (result as unknown) as Promise<ChildAssessmentResult>;
+  }
+
+  async getByChild(id: string): Promise<ChildAssessmentResult[]> {
+    const result = await this.childResultModel
+      .find({
+        childId: id,
+      })
+      .lean()
+      .exec()
+      .then(value =>
+        value.map(e =>
+          ChildAssessmentResultMapper.toDomain(
+            (e as unknown) as ChildAssessmentResultCore,
+          ),
+        ),
+      );
+
+    return (result as unknown) as Promise<ChildAssessmentResult[]>;
+  }
+
+  getMany(childIds: string[]): Promise<ChildAssessmentResult[]> {
+    return this.childResultModel
+      .find({ childId: { $in: childIds }, isDeleted: false })
+      .lean()
+      .exec()
+      .then((v: ChildAssessmentResultCore[]) =>
+        v.map(d => ChildAssessmentResultMapper.toDomain(d)),
+      );
+  }
+
+  // for e2e purpose only
+  async clearTable(): Promise<void> {
+    await this.childResultModel.deleteMany({});
   }
 }

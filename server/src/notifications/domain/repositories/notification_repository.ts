@@ -1,50 +1,54 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
 
 import { NotificationDocument } from '../../schemas/notifications_schema';
-import { CreateNotificationProps } from '../models/notification_model';
+import {
+  CreateNotificationProps,
+  NotificationCore,
+} from '../models/notification_model';
 import { Model } from 'mongoose';
-import { NotificationProps } from '../../../notifications/domain/models/notification_model';
+import { transformAndValidateSync } from 'class-transformer-validator';
 
 @Injectable()
 export class NotificationRepository {
   constructor(
     @InjectModel('Notifications')
-    private readonly repository: Model<NotificationDocument>,
+    private repository: Model<NotificationDocument>,
   ) {}
 
-  async getAll(userId: string): Promise<NotificationProps[]> {
+  async getAll(userId: string): Promise<NotificationCore[]> {
     return await this.repository
-      .find({ user: userId }, {}, { sort: { date: -1 } })
+      .find({ user: userId }, {}, { sort: { createdAt: -1 } })
       .lean()
-      .exec()
-      .then(results =>
-        results.map(result => ({
-          ...result,
-          user: result.user.toString(),
-          _id: result._id.toString(),
-        })),
-      );
+      .exec();
   }
 
   async create(
     createNotificationDTO: CreateNotificationProps,
   ): Promise<NotificationDocument> {
-    if (Array.isArray(createNotificationDTO.user)) {
+    if (Array.isArray(createNotificationDTO.userId)) {
       this.repository.insertMany(
-        createNotificationDTO.user.map(u => {
+        createNotificationDTO.userId.map(u => {
           return { ...createNotificationDTO, user: u };
         }),
       );
     } else {
-      const createdNotification = new this.repository(createNotificationDTO);
+      const createdNotification = new this.repository(
+        transformAndValidateSync(
+          NotificationCore,
+          { ...createNotificationDTO, user: createNotificationDTO.userId },
+          {
+            transformer: { excludeExtraneousValues: true },
+            validator: { validationError: { target: false, value: false } },
+          },
+        ),
+      );
 
       return await createdNotification.save();
     }
   }
 
-  async read(id: string): Promise<NotificationProps> {
+  async read(id: string): Promise<NotificationCore> {
     return await this.repository.findByIdAndUpdate(
       id,
       {

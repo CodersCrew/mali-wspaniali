@@ -2,37 +2,36 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { GetAllChildrenQuery } from '../impl/get_all_children_query';
 import { ChildRepository } from '../../repositories/child_repository';
-import { ChildProps } from '../../models/child_model';
+import { ChildCore } from '../../models/child_model';
 import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
-import { ChildResultRepository } from '../../repositories/child_result_repository';
 import { ChildMapper } from '../../mappers/child_mapper';
-import { KindergartenProps } from '../../../../kindergartens/domain/models/kindergarten_model';
-import { ChildResultProps } from '../../models/child_result_model';
 import { KindergartenMapper } from '../../../../kindergartens/domain/mappers/kindergarten_mapper';
+import { KindergartenCore } from '../../../../kindergartens/domain/models/kindergarten_model';
+import { ChildAssessmentResultCore } from '../../models/child_assessment_result_model';
+import { ChildAssessmentResultMapper } from '../../mappers/child_assessment_result_mapper';
+import { ChildAssessmentResultRepository } from '../../repositories/child_assessment_result_repository';
 
 export interface ChildWithKindergarten {
-  child: ChildProps;
-  kindergarten: KindergartenProps;
-  results: ChildResultProps[];
+  child: ChildCore;
+  kindergarten: KindergartenCore;
+  results: ChildAssessmentResultCore[];
 }
 
 @QueryHandler(GetAllChildrenQuery)
 export class GetAllChildrenHandler
   implements IQueryHandler<GetAllChildrenQuery> {
   constructor(
-    private readonly childRepository: ChildRepository,
-    private readonly kindergartenRepository: KindergartenRepository,
-    private readonly childrResultRepository: ChildResultRepository,
+    private childRepository: ChildRepository,
+    private kindergartenRepository: KindergartenRepository,
+    private childrResultRepository: ChildAssessmentResultRepository,
   ) {}
 
   async execute(): Promise<ChildWithKindergarten[]> {
     const children = await this.childRepository.getAll();
 
-    const kindergartensIds = children.map(child =>
-      child.kindergarten.value.toString(),
-    );
+    const kindergartensIds = children.map(child => child.kindergarten);
 
-    const childrenIds = children.map(child => child.id.value.toString());
+    const childrenIds = children.map(child => child.id);
 
     const kindergartenList = await this.kindergartenRepository.getMany(
       kindergartensIds,
@@ -42,22 +41,22 @@ export class GetAllChildrenHandler
 
     const childrenWithKindergartens = children.map(child => {
       const foundKindergarten = kindergartenList.find(
-        kindergarten =>
-          kindergarten.id.value.toString() ===
-          child.kindergarten.value.toString(),
+        kindergarten => kindergarten.id === child.kindergarten,
       );
 
       const foundChildrenResults = results.filter(
-        result => result.childId.toString() === child.id.value.toString(),
+        result => result.childId === child.id,
       );
 
       return {
-        child: ChildMapper.toPersistence(child) as ChildProps,
-        kindergarten: KindergartenMapper.toRaw(foundKindergarten),
-        results: foundChildrenResults,
+        child: ChildMapper.toPlain(child),
+        kindergarten: KindergartenMapper.toPlain(foundKindergarten),
+        results: foundChildrenResults.map(e =>
+          ChildAssessmentResultMapper.toPlain(e),
+        ),
       };
     });
 
-    return childrenWithKindergartens.filter(child => !child.child.isDeleted);
+    return childrenWithKindergartens;
   }
 }

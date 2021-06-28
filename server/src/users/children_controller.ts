@@ -44,7 +44,7 @@ export class ChildrenController {
     const results = children.map(child => {
       const result = { ...data[0] };
 
-      result.childId = child._id.toString();
+      result.childId = child._id;
       result.firstname = child.firstname;
 
       return result;

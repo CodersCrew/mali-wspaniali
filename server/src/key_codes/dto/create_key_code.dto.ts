@@ -1,22 +1,23 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class CreateKeyCodeDTO {
-  @Field(() => ID)
-  id: string;
+export class CreateKeyCodeDTO extends FieldCore {
+  @Field()
+  createdBy: string;
 
   @Field()
-  readonly date: Date;
+  keyCode: string;
 
   @Field()
-  readonly createdBy: string;
+  series: string;
 
   @Field()
-  readonly keyCode: string;
+  target: string;
+}
 
-  @Field()
-  readonly series: string;
-
-  @Field()
-  readonly target: string;
+@ObjectType()
+export class KeyCodeSeriesDTO extends CreateKeyCodeDTO {
+  @Field(() => Int)
+  count: number;
 }

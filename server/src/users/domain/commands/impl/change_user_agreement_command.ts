@@ -1,6 +1,3 @@
 export class ChangeUserAgreementCommand {
-  constructor(
-    public readonly userId: string,
-    public readonly agreementId: string,
-  ) {}
+  constructor(public userId: string, public agreementId: string) {}
 }

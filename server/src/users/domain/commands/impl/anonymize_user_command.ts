@@ -1,3 +1,3 @@
 export class AnonymizeUserCommand {
-  constructor(public readonly userId: string) {}
+  constructor(public userId: string) {}
 }

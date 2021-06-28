@@ -1,9 +1,6 @@
 import { KindergartenInput } from '@kindergartens/inputs/kindergarten_input';
 import { KindergartenMapper } from '../kindergarten_mapper';
-import {
-  Kindergarten,
-  KindergartenProps,
-} from '../../models/kindergarten_model';
+import { Kindergarten } from '../../models/kindergarten_model';
 describe('KindergartenMapper', () => {
   describe('#toDomain', () => {
     it('creates domain from not persisted data', () => {
@@ -16,40 +13,39 @@ describe('KindergartenMapper', () => {
       const kindergarten = KindergartenMapper.toDomainFrom(kindergartenData);
 
       expect(kindergarten).toBeInstanceOf(Kindergarten);
-      expect(kindergarten.id.isEmpty()).toBe(true);
       expect(kindergarten.address).toBe('somewhere');
-      expect(kindergarten.name.value).toBe('rainbow');
+      expect(kindergarten.name).toBe('rainbow');
       expect(kindergarten.city).toBe('wroclaw');
       expect(kindergarten.number).toBe(5);
-      expect(kindergarten.isDeleted.value).toBe(false);
+      expect(kindergarten.isDeleted).toBe(false);
     });
 
     it('creates domain from persisted data', () => {
       const creationDate = new Date();
 
-      const kindergartenData: KindergartenProps = {
+      const kindergartenData = {
         _id: 'my-id',
         number: 5,
         name: 'rainbow',
         city: 'wroclaw',
         address: 'somewhere',
-        date: creationDate,
+        createdAt: creationDate,
         isDeleted: false,
       };
       const kindergarten = KindergartenMapper.toDomainFrom(kindergartenData);
 
       expect(kindergarten).toBeInstanceOf(Kindergarten);
-      expect(kindergarten.id.isEmpty()).toBe(false);
+      expect(typeof kindergarten.id).toBe('string');
       expect(kindergarten.address).toBe('somewhere');
-      expect(kindergarten.name.value).toBe('rainbow');
+      expect(kindergarten.name).toBe('rainbow');
       expect(kindergarten.city).toBe('wroclaw');
       expect(kindergarten.number).toBe(5);
-      expect(kindergarten.isDeleted.value).toBe(false);
-      expect(kindergarten.date).toEqual(creationDate);
+      expect(kindergarten.isDeleted).toBe(false);
+      expect(kindergarten.createdAt).toEqual(creationDate);
     });
   });
 
-  describe('#toPersistance', () => {
+  describe('#toPlain', () => {
     it('creates data without _id', () => {
       const kindergartenData: KindergartenInput = {
         number: 5,
@@ -59,7 +55,7 @@ describe('KindergartenMapper', () => {
       };
       const kindergarten = KindergartenMapper.toDomainFrom(kindergartenData);
 
-      const parsedChildData: KindergartenInput = KindergartenMapper.toPersistant(
+      const parsedChildData: KindergartenInput = KindergartenMapper.toPlain(
         kindergarten,
       );
 
@@ -79,18 +75,18 @@ describe('KindergartenMapper', () => {
 
     it('creates data with _id', () => {
       const creationDate = new Date();
-      const childData: KindergartenProps = {
+      const childData = {
         _id: 'my-id',
         number: 5,
         name: 'rainbow',
         city: 'wroclaw',
         address: 'somewhere',
-        date: creationDate,
+        createdAt: creationDate,
         isDeleted: false,
       };
       const child = KindergartenMapper.toDomainFrom(childData);
 
-      const parsedChildData: KindergartenInput = KindergartenMapper.toPersistant(
+      const parsedChildData: KindergartenInput = KindergartenMapper.toPlain(
         child,
       );
 
@@ -101,7 +97,7 @@ describe('KindergartenMapper', () => {
           name: 'rainbow',
           city: 'wroclaw',
           address: 'somewhere',
-          date: creationDate,
+          createdAt: creationDate,
           isDeleted: false,
         }),
       );

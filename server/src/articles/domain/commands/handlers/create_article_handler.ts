@@ -8,8 +8,8 @@ import { Article } from '../../models/article_model';
 export class CreateArticleHandler
   implements ICommandHandler<CreateArticleCommand> {
   constructor(
-    private readonly repository: ArticlesRepository,
-    private readonly publisher: EventPublisher,
+    private repository: ArticlesRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute(command: CreateArticleCommand): Promise<Article> {

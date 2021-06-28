@@ -1,9 +1,14 @@
 import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme, fade, Tooltip } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
+
+import utc from 'dayjs/plugin/utc';
 
 import { StatusChip } from '../../../components/StatusChip';
 import { Assessment } from '../../../graphql/types';
+
+dayjs.extend(utc);
 
 interface Props {
     value: Assessment;
@@ -21,13 +26,13 @@ export function AssessmentItem({ value, onClick }: Props) {
             </TableCell>
             <TableCell align="left">{value.status === 'done' && <StatusChip value={value.status} />}</TableCell>
             <TableCell>
-                {value.firstMeasurementStartDate} - {value.firstMeasurementEndDate}
+                {parseDate(value.firstMeasurementStartDate)} - {parseDate(value.firstMeasurementEndDate)}
             </TableCell>
             <TableCell align="left">
                 {value.status !== 'done' && <StatusChip value={value.firstMeasurementStatus} />}
             </TableCell>
             <TableCell>
-                {value.lastMeasurementStartDate} - {value.lastMeasurementEndDate}
+                {parseDate(value.lastMeasurementStartDate)} - {parseDate(value.lastMeasurementEndDate)}
             </TableCell>
             <TableCell align="center">
                 <div className={classes.itemRoot}>
@@ -54,6 +59,10 @@ export function AssessmentItem({ value, onClick }: Props) {
         e.stopPropagation();
 
         onClick('edit', value._id);
+    }
+
+    function parseDate(date: string): string {
+        return dayjs.utc(date).format('DD.MM.YYYY');
     }
 }
 

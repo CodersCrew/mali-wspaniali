@@ -1,28 +1,19 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { NotificationDTO } from '../../notifications/dto/notification_dto';
-import { ChildDTO } from './children_dto';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { ChildDTO } from './child_dto';
 import { AgreementDTO } from '../../agreements/dto/agreement_dto';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class UserDTO {
-  @Field(() => ID)
-  _id: string;
+export class UserDTO extends FieldCore {
+  @Field()
+  mail: string;
 
   @Field()
-  readonly date: Date;
-
-  @Field()
-  readonly mail: string;
-
-  @Field()
-  readonly role: string;
-
-  @Field(() => [NotificationDTO], { nullable: true })
-  readonly notifications: string[];
+  role: string;
 
   @Field(() => [ChildDTO], { nullable: true })
-  readonly children: string[];
+  children: string[];
 
   @Field(() => [AgreementDTO])
-  readonly agreements: string[];
+  agreements: string[];
 }

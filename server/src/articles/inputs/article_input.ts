@@ -1,4 +1,4 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, PartialType, ObjectType } from '@nestjs/graphql';
 
 import { RedactorInput } from './redactor_input';
 
@@ -30,10 +30,10 @@ export class CreateArticleInput {
 }
 
 @InputType()
-export class UpdateArticleInput extends CreateArticleInput {
-  @Field(() => Boolean)
+export class UpdateArticleInput extends PartialType(CreateArticleInput) {
+  @Field(() => Boolean, { nullable: true })
   isDeleted: boolean;
 
-  @Field(() => Boolean)
+  @Field(() => Boolean, { nullable: true })
   isPublished: boolean;
 }
