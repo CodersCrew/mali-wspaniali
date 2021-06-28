@@ -78,7 +78,7 @@ export class KeyCodeRepository {
   async removeOlderThan(days: number): Promise<void> {
     this.keyCodeModel
       .deleteMany({
-        date: { $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
+        createdAt: { $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
       })
       .exec();
   }
