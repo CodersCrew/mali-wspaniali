@@ -16,13 +16,7 @@ export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
       await this.userRepository.get(command.userId),
     );
 
-    const { firstname, lastname } = command.update;
-
-    if (!firstname || !lastname) {
-      throw new Error('Invalid value');
-    }
-
-    user.setFullname({ firstname, lastname });
+    user.setFullname(command.update);
 
     user.commit();
 

@@ -1,4 +1,4 @@
-import { InputType, Field, PickType } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class UserInput {
@@ -18,8 +18,8 @@ export class UserInput {
 @InputType()
 export class UpdatedUserInput {
   @Field({ nullable: true })
-  firstname?: string;
+  firstname: string;
 
   @Field({ nullable: true })
-  lastname?: string;
+  lastname: string;
 }
