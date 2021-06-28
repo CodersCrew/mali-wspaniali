@@ -2,6 +2,7 @@ import { TableCell, TableRow, Theme, makeStyles, createStyles, IconButton } from
 import clsx from 'clsx';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import { useTranslation } from 'react-i18next';
 import { AgreementSortStatus } from '../../../models/AgreementSortStatus';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 export function SortableHeader({ activeSortType, onSortChange }: Props) {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <TableRow>
@@ -55,7 +57,7 @@ export function SortableHeader({ activeSortType, onSortChange }: Props) {
                     AgreementSortStatus.BY_MARKETING_RISING.id,
                     AgreementSortStatus.BY_MARKETING_FALLING.id,
                 ])}
-                text="Ilość zgód marketingowych"
+                text={t('admin-agreements-page.agreements-number')}
                 onClick={() =>
                     onSortChange(
                         omitActiveStatus(

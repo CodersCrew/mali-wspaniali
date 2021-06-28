@@ -110,7 +110,8 @@
         "agreement": "Zgoda",
         "show": "Pokaż",
         "agreements-all": "Wszystkie zgody",
-        "req": "* wymagane"
+        "req": "* wymagane",
+        "agreements-number": "Liczba zgód marketingowych"
     },
     "admin-setting-page": {
         "keycode-generation": {

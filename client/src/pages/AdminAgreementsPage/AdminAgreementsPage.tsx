@@ -96,11 +96,11 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2, 4, 3),
         },
         filterContainer: {
-            margin: `${theme.spacing(2)}px`,
-            paddingTop: `${theme.spacing(1)}px`,
+            margin: `${theme.spacing(2)}`,
+            paddingTop: `${theme.spacing(1)}`,
         },
         filterHeader: {
-            padding: '14px',
+            padding: `${theme.spacing(1.7)}`,
         },
     }),
 );

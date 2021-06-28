@@ -110,7 +110,8 @@
         "agreement": "Agreement",
         "show": "Show",
         "agreements-all": "All agreements",
-        "req": "* required"
+        "req": "* required",
+        "agreements-number": "Number of marketing consents"
     },
     "admin-setting-page": {
         "keycode-generation": {
