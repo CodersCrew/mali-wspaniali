@@ -10,7 +10,6 @@ import {
     Table,
     TableCell,
     makeStyles,
-    IconButton,
 } from '@material-ui/core';
 import { Assessment as AssessmentIcon, BarChart, EventNote, ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -37,7 +36,7 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
     const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;
 
     return (
-        <List>
+        <List disablePadding>
             {childList.map((c) => {
                 const firstNote = getFirstNote(c._id);
                 const lastNote = getLastNote(c._id);
@@ -54,7 +53,9 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
                                     <Clickable>
                                         <Grid container alignItems="center">
                                             <Grid item>
-                                                <Box mr={2}>{isOpen ? <ExpandLess /> : <ExpandMore />}</Box>
+                                                <Box mr={2} display="flex">
+                                                    {isOpen ? <ExpandLess /> : <ExpandMore />}
+                                                </Box>
                                             </Grid>
                                             <Grid item>
                                                 <Typography variant="body2">
@@ -76,7 +77,7 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
                                                                     {t('add-results-page.age')}
                                                                 </Typography>
                                                             </TableCell>
-                                                            <TableCell classes={{ root: classes.cell }}>
+                                                            <TableCell colSpan={2} classes={{ root: classes.cell }}>
                                                                 <Typography variant="body2">
                                                                     {age} {t('add-results-page.years', { count: age })}
                                                                 </Typography>
@@ -182,15 +183,17 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell classes={{ root: classes.cell }}>
-                                                                <IconButton
+                                                                <CustomIconButton
                                                                     disabled={isResultDisabled}
-                                                                    classes={{ root: classes.iconButton }}
                                                                     onClick={() => onClick('see-results', c._id)}
-                                                                >
-                                                                    <AssessmentIcon
-                                                                        titleAccess={t('add-results-page.see-results')}
-                                                                    />
-                                                                </IconButton>
+                                                                    icon={
+                                                                        <AssessmentIcon
+                                                                            titleAccess={t(
+                                                                                'add-results-page.see-results',
+                                                                            )}
+                                                                        />
+                                                                    }
+                                                                />
                                                             </TableCell>
                                                         </TableRow>
                                                     </TableBody>
@@ -233,8 +236,5 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
 const useStyles = makeStyles({
     cell: {
         border: 'none',
-    },
-    iconButton: {
-        padding: 0,
     },
 });
