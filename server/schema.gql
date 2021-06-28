@@ -157,6 +157,8 @@ type UserDTO {
   createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
+  firstname: String
+  lastname: String
   mail: String!
   role: String!
   children: [ChildDTO!]
@@ -303,6 +305,7 @@ type Mutation {
   resetPassword(mail: String!): ReturnedStatusDTO!
   changePassword(password: String!, jwt: String!): ReturnedStatusDTO!
   signAgreement(agreementId: String!): AgreementDTO!
+  updateUser(updatedUser: UpdatedUserInput!): UserDTO!
   addChild(child: ChildInput!): ChildDTO!
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
   createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!
@@ -363,6 +366,11 @@ input UserInput {
 input LoginInput {
   mail: String!
   password: String!
+}
+
+input UpdatedUserInput {
+  firstname: String
+  lastname: String
 }
 
 input ChildInput {
