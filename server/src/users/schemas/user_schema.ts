@@ -10,6 +10,8 @@ export type UserDocument = Omit<UserCore, 'children' | 'agreements'> & {
 
 export const UserSchema: Schema = new Schema({
   ...coreSchema,
+  firstname: String,
+  lastname: String,
   mail: String,
   password: String,
   role: {

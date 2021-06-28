@@ -157,6 +157,8 @@ type UserDTO {
   createdAt: DateTime
   modifiedAt: DateTime
   deletedAt: DateTime
+  firstname: String
+  lastname: String
   mail: String!
   role: String!
   children: [ChildDTO!]
