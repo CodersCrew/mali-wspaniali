@@ -12,7 +12,9 @@ import {
     TextField,
     Theme,
     Typography,
+    InputAdornment,
 } from '@material-ui/core';
+import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { LabeledContainer } from '../../components/LabeledContainer';
@@ -45,6 +47,13 @@ export function KindergartenPicker({ isDisabled, kindergartens, onSelect }: Prop
                         value={searchPhrase}
                         onChange={({ target: { value } }) => setSearchPhrase(value)}
                         size="small"
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon color="action" />
+                                </InputAdornment>
+                            ),
+                        }}
                     />
                 </div>
                 <TableContainer classes={{ root: classes.table }}>
