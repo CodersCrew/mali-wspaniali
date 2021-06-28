@@ -111,7 +111,10 @@
         "show": "Pokaż",
         "agreements-all": "Wszystkie zgody",
         "req": "* wymagane",
-        "agreements-number": "Liczba zgód marketingowych"
+        "kindergarten-name": "Nazwa przedszkola",
+        "marketing-agreements-number": "Liczba zgód marketingowych",
+        "image-agreements-number": "Liczba zgód wizerunkowych",
+        "status": "Statusy"
     },
     "admin-setting-page": {
         "keycode-generation": {

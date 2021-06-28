@@ -111,7 +111,10 @@
         "show": "Show",
         "agreements-all": "All agreements",
         "req": "* required",
-        "agreements-number": "Number of marketing consents"
+        "kindergarten-name": "Kindergarten name",
+        "marketing-agreements-number": "Number of marketing consents",
+        "image-agreements-number": "Number of image consents",
+        "status": "Status"
     },
     "admin-setting-page": {
         "keycode-generation": {
