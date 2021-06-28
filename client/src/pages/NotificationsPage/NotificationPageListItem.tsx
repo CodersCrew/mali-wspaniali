@@ -15,7 +15,7 @@ export const NotificationPageListItem = ({ notification, onClick }: Props) => {
     const classes = useStyles();
     const { getNotification } = useNotificationContent();
     const text = getNotification(notification.templateId, notification.values);
-    const date = new Date(notification.date);
+    const date = new Date(notification.createdAt);
     const isVisited = notification.isRead;
 
     return (

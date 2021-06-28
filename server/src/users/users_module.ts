@@ -18,8 +18,6 @@ import { JwtStrategy } from './strategy/jwt_strategy';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { ChildRepository } from './domain/repositories/child_repository';
 import { ChildSchema } from './schemas/child_schema';
-import { ChildResultSchema } from './schemas/child_result_schema';
-import { ChildResultRepository } from './domain/repositories/child_result_repository';
 import { ChildrenController } from './children_controller';
 import { SendMail } from '../shared/services/send_mail/send_mail';
 import { NodemailerProvider } from '../shared/services/send_mail/nodemailer_provider';
@@ -30,6 +28,7 @@ import { AgreementsModule } from '../agreements/agreements_module';
 import { KindergartenModule } from '../kindergartens/kindergarten_module';
 import { ChildAssessmentResultRepository } from './domain/repositories/child_assessment_result_repository';
 import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_schema';
+import { ChildAssessmentResultResolver } from './child_assessment_result_resolver';
 
 @Module({
   imports: [
@@ -45,9 +44,6 @@ import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_s
       { name: 'ChildAssessmentResult', schema: ChildAssessmentResultSchema },
     ]),
     MongooseModule.forFeature([
-      { name: 'ChildResult', schema: ChildResultSchema },
-    ]),
-    MongooseModule.forFeature([
       { name: 'UserChangePasswordJWT', schema: UserChangePasswordJWT },
     ]),
     PassportModule,
@@ -61,9 +57,9 @@ import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_s
     GqlAuthGuard,
     UsersResolver,
     ChildResolver,
+    ChildAssessmentResultResolver,
     UserRepository,
     ChildRepository,
-    ChildResultRepository,
     ChildAssessmentResultRepository,
     UserChangePasswordRepository,
     SendMail,

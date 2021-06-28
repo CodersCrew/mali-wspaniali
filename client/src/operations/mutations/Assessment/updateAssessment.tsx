@@ -3,8 +3,6 @@ import { AssessmentResponse } from '../../queries/Assessment/getAssessment';
 
 export type UpdatedAssessmentInput = {
     title: string;
-    startDate: string;
-    endDate: string;
     status: string;
     isOutdated: boolean;
     isDeleted: boolean;
@@ -26,8 +24,6 @@ export const UPDATE_ASSESSMENT = gql`
             isOutdated
             isDeleted
             title
-            startDate
-            endDate
             status
             firstMeasurementStatus
             lastMeasurementStatus

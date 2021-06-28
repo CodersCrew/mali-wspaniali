@@ -1,10 +1,8 @@
 import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class ChildAssessmentResultDTO {
-  @Field(() => ID)
-  _id: string;
-
+export class ChildAssessmentResultDTO extends FieldCore {
   @Field(() => ID)
   childId: string;
 
@@ -15,68 +13,68 @@ export class ChildAssessmentResultDTO {
   assessmentId: string;
 
   @Field(() => Date, { nullable: true })
-  readonly firstMeasurementRunDate: Date;
+  firstMeasurementRunDate: Date;
 
   @Field(() => Date, { nullable: true })
-  readonly lastMeasurementRunDate: Date;
+  lastMeasurementRunDate: Date;
 
   @Field(() => Date, { nullable: true })
-  readonly firstMeasurementPendelumRunDate: Date;
+  firstMeasurementPendelumRunDate: Date;
 
   @Field(() => Date, { nullable: true })
-  readonly lastMeasurementPendelumRunDate: Date;
+  lastMeasurementPendelumRunDate: Date;
 
   @Field(() => Date, { nullable: true })
-  readonly firstMeasurementThrowDate: Date;
+  firstMeasurementThrowDate: Date;
 
   @Field(() => Date, { nullable: true })
-  readonly lastMeasurementThrowDate: Date;
+  lastMeasurementThrowDate: Date;
 
   @Field(() => Date, { nullable: true })
-  readonly firstMeasurementJumpDate: Date;
+  firstMeasurementJumpDate: Date;
 
   @Field(() => Date, { nullable: true })
-  readonly lastMeasurementJumpDate: Date;
+  lastMeasurementJumpDate: Date;
 
   @Field({ nullable: true })
-  readonly firstMeasurementNote: string;
+  firstMeasurementNote: string;
 
   @Field({ nullable: true })
-  readonly lastMeasurementNote: string;
+  lastMeasurementNote: string;
 
   @Field(() => ID, { nullable: true })
-  readonly firstMeasurementKindergarten: string;
+  firstMeasurementKindergarten: string;
 
   @Field(() => ID, { nullable: true })
-  readonly lastMeasurementKindergarten: string;
+  lastMeasurementKindergarten: string;
 
   @Field(() => ID, { nullable: true })
-  readonly firstMeasurementInstructor: string;
+  firstMeasurementInstructor: string;
 
   @Field(() => ID, { nullable: true })
-  readonly lastMeasurementInstructor: string;
+  lastMeasurementInstructor: string;
 
   @Field(() => Float, { nullable: true })
-  readonly firstMeasurementRunResult: number;
+  firstMeasurementRunResult: number;
 
   @Field(() => Float, { nullable: true })
-  readonly lastMeasurementRunResult: number;
+  lastMeasurementRunResult: number;
 
   @Field(() => Float, { nullable: true })
-  readonly firstMeasurementPendelumRunResult: number;
+  firstMeasurementPendelumRunResult: number;
 
   @Field(() => Float, { nullable: true })
-  readonly lastMeasurementPendelumRunResult: number;
+  lastMeasurementPendelumRunResult: number;
 
   @Field(() => Float, { nullable: true })
-  readonly firstMeasurementThrowResult: number;
+  firstMeasurementThrowResult: number;
 
   @Field(() => Float, { nullable: true })
-  readonly lastMeasurementThrowResult: number;
+  lastMeasurementThrowResult: number;
 
   @Field(() => Float, { nullable: true })
-  readonly firstMeasurementJumpResult: number;
+  firstMeasurementJumpResult: number;
 
   @Field(() => Float, { nullable: true })
-  readonly lastMeasurementJumpResult: number;
+  lastMeasurementJumpResult: number;
 }

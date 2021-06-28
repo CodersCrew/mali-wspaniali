@@ -1,3 +1,3 @@
 export class GetLastArticlesQuery {
-  constructor(public readonly count: number) {}
+  constructor(public count: number) {}
 }

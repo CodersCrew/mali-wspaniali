@@ -18,8 +18,6 @@ export const GET_ASSESSMENT = gql`
             isOutdated
             isDeleted
             title
-            startDate
-            endDate
             status
             firstMeasurementStatus
             lastMeasurementStatus

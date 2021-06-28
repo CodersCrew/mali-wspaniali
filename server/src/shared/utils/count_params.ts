@@ -20,9 +20,8 @@ interface AssessmentParam {
   veryGoodStageLimit: number;
 }
 
-export function countParams(details: UserDetails) {
-  const currentDate = new Date().getFullYear();
-  const age = currentDate - details.birthYear;
+export function countParams(details: UserDetails, date: Date = new Date()) {
+  const age = date.getFullYear() - details.birthYear;
 
   return {
     run: getRunParams(age, details),

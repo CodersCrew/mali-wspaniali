@@ -1,13 +1,11 @@
 import { Schema, Document } from 'mongoose';
-import { ChildProps } from '../domain/models/child_model';
+import { ChildCore } from '../domain/models/child_model';
+import { coreSchema } from '../../shared/utils/core_schema';
 
-export type ChildDocument = ChildProps & Document;
+export type ChildDocument = ChildCore & Document;
 
 export const ChildSchema = new Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  ...coreSchema,
   firstname: String,
   lastname: String,
   birthYear: Number,
@@ -17,12 +15,8 @@ export const ChildSchema = new Schema({
   },
   sex: String,
   results: {
-    type: [Schema.Types.ObjectId],
+    type: [String],
     default: [],
   },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-  kindergarten: Schema.Types.ObjectId,
+  kindergarten: String,
 });

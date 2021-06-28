@@ -5,12 +5,10 @@ import { CreateKindergartenHandler } from '../create_kindergarten_handler';
 import { KindergartenModule } from '../../../../kindergarten_module';
 import * as dbHandler from '@app/db_handler';
 import { Kindergarten } from '../../../models/kindergarten_model';
-import { ObjectId } from '../../../../../users/domain/models/object_id_value_object';
-import { KindergartenTitle } from '../../../models/kindergarten_title_value_object';
-import { IsDeleted } from '../../../models/is_deleted_value_object';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import { UserRepository } from '../../../../../users/domain/repositories/user_repository';
 import { User } from '../../../../../users/domain/models/user_model';
+import { KindergartenInput } from '../../../../inputs/kindergarten_input';
 
 describe('CreatKindergartenHandler', () => {
   let module: TestingModule;
@@ -45,14 +43,12 @@ describe('CreatKindergartenHandler', () => {
 
     it('returns Kindergarten instance', () => {
       expect(createdKindergarten).toBeInstanceOf(Kindergarten);
-      expect(createdKindergarten.id).toBeInstanceOf(ObjectId);
-      expect(createdKindergarten.name).toBeInstanceOf(KindergartenTitle);
-      expect(createdKindergarten.name.value).toEqual('my-name');
+      expect(typeof createdKindergarten.id).toBe('string');
+      expect(createdKindergarten.name).toEqual('my-name');
       expect(createdKindergarten.number).toEqual(1);
       expect(createdKindergarten.address).toEqual('my-address');
       expect(createdKindergarten.city).toEqual('my-city');
-      expect(createdKindergarten.isDeleted).toBeInstanceOf(IsDeleted);
-      expect(createdKindergarten.isDeleted.value).toEqual(false);
+      expect(createdKindergarten.isDeleted).toEqual(false);
     });
 
     it('invokes child added notification', async () => {
@@ -69,21 +65,15 @@ describe('CreatKindergartenHandler', () => {
     });
   });
 
-  describe('when executed with incorrect', () => {
-    describe('name', () => {
-      it('throws an error', async () => {
-        await expect(
-          createKindergartenWith({ name: 'my' }),
-        ).rejects.toThrowError('KindergartenTitle must be valid');
-      });
+  describe('when executed with incorrect data', () => {
+    it('throws an error', async () => {
+      await expect(async () => {
+        await createKindergartenWith({ name: 'my' });
+      }).rejects.toBeDefined();
     });
   });
 
-  describe('when the kindergarten with the same data already exists', () => {
-    it.todo('throws an error');
-  });
-
-  function createKindergartenWith(options) {
+  function createKindergartenWith(options: Partial<KindergartenInput>) {
     return module.get(CreateKindergartenHandler).execute(
       new CreateKindergartenCommand({
         ...validKindergartenOptions,

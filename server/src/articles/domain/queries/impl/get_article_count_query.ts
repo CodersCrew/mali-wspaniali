@@ -1,3 +1,3 @@
 export class GetArticlesCountQuery {
-  constructor(public readonly category?: string) {}
+  constructor(public category?: string) {}
 }

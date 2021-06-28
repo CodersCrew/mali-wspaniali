@@ -1,8 +1,5 @@
-import { UserProps } from '../../models/user_model';
+import { UserCore } from '../../models/user_model';
 
 export class UserUpdatedEvent {
-  constructor(
-    public readonly userId: string,
-    public readonly updates: Partial<UserProps>,
-  ) {}
+  constructor(public userId: string, public updates: Partial<UserCore>) {}
 }

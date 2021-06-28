@@ -16,6 +16,10 @@ type RedactorDTO {
 
 type ArticleDTO {
   _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   category: String!
   contentHTML: String!
   description: String!
@@ -23,12 +27,8 @@ type ArticleDTO {
   redactor: RedactorDTO!
   tags: [String!]!
   title: String!
-  isDeleted: Boolean
   isPublished: Boolean
   videoUrl: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  modifiedAt: DateTime
   publishedAt: DateTime
 }
 
@@ -43,8 +43,47 @@ type PaginatedArticlesDTO {
   hasNext: Boolean!
 }
 
+type ChildAssessmentResultDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  childId: ID!
+  kindergartenId: ID!
+  assessmentId: ID!
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+  currentParams: ChildCurrentParamsDTO
+  assessment: AssessmentDTO
+}
+
 type PartialChildResult {
   _id: ID
+  isDeleted: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID
@@ -72,30 +111,12 @@ type PartialChildResult {
   lastMeasurementJumpResult: Float
 }
 
-type NotificationDTO {
-  _id: ID!
-  date: DateTime!
-  user: String!
-  templateId: String!
-  values: [String!]!
-  isRead: Boolean!
-}
-
-type ChildResultDTO {
-  _id: ID!
-  date: DateTime!
-  test: JSONObject!
-  rootResultId: String
-}
-
-"""
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
 type KindergartenDTO {
   _id: ID!
-  date: DateTime!
+  isDeleted: Boolean!
+  createdAt: DateTime!
+  modifiedAt: DateTime!
+  deletedAt: DateTime!
   number: Int!
   name: String!
   city: String!
@@ -105,37 +126,58 @@ type KindergartenDTO {
 
 type ChildDTO {
   _id: ID!
-  date: DateTime!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   firstname: String!
   lastname: String!
   birthYear: Int!
   birthQuarter: Int!
   sex: String!
-  results: [ChildResultDTO!]!
+  results: [ChildAssessmentResultDTO!]!
   kindergarten: KindergartenDTO!
-  isDeleted: Boolean!
   currentParams: ChildCurrentParamsDTO!
+  parent: UserDTO!
 }
 
 type AgreementDTO {
   _id: ID!
-  date: DateTime!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   text: String!
   isSigned: Boolean!
 }
 
 type UserDTO {
   _id: ID!
-  date: DateTime!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   mail: String!
   role: String!
-  notifications: [NotificationDTO!]
   children: [ChildDTO!]
   agreements: [AgreementDTO!]!
+  notifications: [NotificationDTO!]!
 }
 
 type ReturnedTokenDTO {
   token: String!
+}
+
+type NotificationDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  user: String!
+  templateId: String!
+  values: [String!]!
+  isRead: Boolean!
 }
 
 type ParamsDTO {
@@ -162,8 +204,11 @@ type ChildCurrentParamsDTO {
 }
 
 type CreateKeyCodeDTO {
-  id: ID!
-  date: DateTime!
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   createdBy: String!
   keyCode: String!
   series: String!
@@ -171,7 +216,11 @@ type CreateKeyCodeDTO {
 }
 
 type KeyCodeSeriesDTO {
-  date: DateTime!
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   createdBy: String!
   keyCode: String!
   series: String!
@@ -181,12 +230,38 @@ type KeyCodeSeriesDTO {
 
 type KindergartenWithUsersDTO {
   _id: ID!
-  date: DateTime!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   number: Int!
   name: String!
   city: String!
   address: String!
   users: [UserDTO!]!
+}
+
+type KindergartenWithInstructorDTO {
+  kindergarten: KindergartenDTO
+  instructor: UserDTO
+}
+
+type AssessmentDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  isOutdated: Boolean!
+  title: String!
+  firstMeasurementStartDate: DateTime!
+  firstMeasurementEndDate: DateTime!
+  lastMeasurementStartDate: DateTime!
+  lastMeasurementEndDate: DateTime!
+  status: String!
+  firstMeasurementStatus: String!
+  lastMeasurementStatus: String!
+  kindergartens: [KindergartenWithInstructorDTO!]!
 }
 
 type NewsletterDTO {
@@ -197,28 +272,6 @@ type NewsletterDTO {
   title: String!
   type: String!
   isDone: Boolean!
-}
-
-type KindergartenWithInstructorDTO {
-  kindergarten: KindergartenDTO
-  instructor: UserDTO
-}
-
-type AssessmentDTO {
-  _id: ID!
-  isOutdated: Boolean!
-  isDeleted: Boolean!
-  title: String!
-  startDate: String!
-  endDate: String!
-  firstMeasurementStartDate: String!
-  firstMeasurementEndDate: String!
-  lastMeasurementStartDate: String!
-  lastMeasurementEndDate: String!
-  status: String!
-  firstMeasurementStatus: String!
-  lastMeasurementStatus: String!
-  kindergartens: [KindergartenWithInstructorDTO!]!
 }
 
 type Query {
@@ -242,6 +295,7 @@ type Query {
 
 type Mutation {
   createArticle(article: CreateArticleInput!): ReturnedStatusDTO!
+  updateArticle(updates: UpdateArticleInput!, id: String!): ReturnedStatusDTO!
   anonymizeUser(id: String!): ReturnedStatusDTO!
   readNotification(id: String!): NotificationDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
@@ -251,7 +305,6 @@ type Mutation {
   signAgreement(agreementId: String!): AgreementDTO!
   addChild(child: ChildInput!): ChildDTO!
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
-  addResult(rootResultId: String, result: ResultInput!, childId: String!): ReturnedStatusDTO!
   createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!
   updateAssessmentResult(result: PartialUpdateChildResultInput!): PartialChildResult!
   createKeyCode(target: String!): CreateKeyCodeDTO!
@@ -287,6 +340,19 @@ input RedactorInput {
   shortDescription: String
 }
 
+input UpdateArticleInput {
+  category: String
+  contentHTML: String
+  description: String
+  pictureUrl: String
+  redactor: RedactorInput
+  tags: [String!]
+  title: String
+  videoUrl: String
+  isDeleted: Boolean
+  isPublished: Boolean
+}
+
 input UserInput {
   mail: String!
   password: String!
@@ -318,22 +384,11 @@ input UpdatedChildInput {
   childId: String!
 }
 
-input ResultInput {
-  type: String!
-  childAge: Int!
-  agilityPoints: Int!
-  agilitySeconds: Int!
-  powerCentimeters: Int!
-  powerPoints: Int!
-  schoolYearStart: Int!
-  speedPoints: Int!
-  speedSeconds: Int!
-  strengthCentimeters: Int!
-  strengthPoints: Int!
-  testPeriod: String!
-}
-
 input PartialChildResultInput {
+  isDeleted: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID
@@ -363,6 +418,10 @@ input PartialChildResultInput {
 
 input PartialUpdateChildResultInput {
   _id: ID
+  isDeleted: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
   childId: ID
   kindergartenId: ID
   assessmentId: ID
@@ -420,27 +479,31 @@ input NewsletterKindergartenInput {
 
 input AssessmentInput {
   title: String!
-  startDate: String!
-  endDate: String!
-  firstMeasurementStartDate: String!
-  firstMeasurementEndDate: String!
-  lastMeasurementStartDate: String!
-  lastMeasurementEndDate: String!
+  firstMeasurementStartDate: DateTime!
+  firstMeasurementEndDate: DateTime!
+  lastMeasurementStartDate: DateTime!
+  lastMeasurementEndDate: DateTime!
+  status: String!
+  firstMeasurementStatus: String!
+  lastMeasurementStatus: String!
   kindergartenIds: [String!]!
 }
 
 input UpdatedAssessmentInput {
   title: String
-  startDate: String
-  endDate: String
-  firstMeasurementStartDate: String
-  firstMeasurementEndDate: String
-  lastMeasurementStartDate: String
-  lastMeasurementEndDate: String
-  kindergartens: [JSONObject!]
-  isOutdated: Boolean
-  isDeleted: Boolean
+  firstMeasurementStartDate: DateTime
+  firstMeasurementEndDate: DateTime
+  lastMeasurementStartDate: DateTime
+  lastMeasurementEndDate: DateTime
   status: String
   firstMeasurementStatus: String
   lastMeasurementStatus: String
+  kindergartens: [JSONObject!]
+  isOutdated: Boolean
+  isDeleted: Boolean
 }
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")

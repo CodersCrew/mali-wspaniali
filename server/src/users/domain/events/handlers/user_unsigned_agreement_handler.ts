@@ -6,7 +6,7 @@ import { UserUnsignedAgreementEvent } from '../impl';
 @EventsHandler(UserUnsignedAgreementEvent)
 export class UserUnsignedAgreementHandler
   implements IEventHandler<UserUnsignedAgreementEvent> {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository) {}
 
   async handle(event: UserUnsignedAgreementEvent): Promise<void> {
     const { agreementId, userId } = event;

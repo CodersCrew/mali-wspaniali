@@ -1,22 +1,17 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class NotificationDTO {
-  @Field(() => ID)
-  _id: string;
+export class NotificationDTO extends FieldCore {
+  @Field()
+  user: string;
 
   @Field()
-  readonly date: Date;
-
-  @Field()
-  readonly user: string;
-
-  @Field()
-  readonly templateId: string;
+  templateId: string;
 
   @Field(() => [String])
-  readonly values: string[];
+  values: string[];
 
   @Field()
-  readonly isRead: boolean;
+  isRead: boolean;
 }
