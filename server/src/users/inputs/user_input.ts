@@ -14,3 +14,12 @@ export class UserInput {
   @Field(() => [String], { nullable: true })
   agreements?: string[];
 }
+
+@InputType()
+export class UpdatedUserInput {
+  @Field({ nullable: true })
+  firstname: string;
+
+  @Field({ nullable: true })
+  lastname: string;
+}

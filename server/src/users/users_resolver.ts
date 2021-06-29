@@ -14,7 +14,7 @@ import { GetUserQuery } from './domain/queries/impl/get_user_query';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { User, UserCore } from './domain/models/user_model';
 import { UserDTO } from './dto/user_dto';
-import { UserInput } from './inputs/user_input';
+import { UpdatedUserInput, UserInput } from './inputs/user_input';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { ReturnedTokenDTO } from '../shared/returned_token';
 import { LoginInput } from './inputs/login_input';
@@ -34,11 +34,13 @@ import {
   LoginUserCommand,
   CreateUserCommand,
   ResetPasswordCommand,
+  UpdateUserCommand,
 } from './domain/commands/impl';
 import { ReadNotificationCommand } from '../notifications/domain/commands/impl/read_notifiaction_command';
 import { AnonymizeUserCommand } from './domain/commands/impl/anonymize_user_command';
 import { AgreementMapper } from '../agreements/domain/mappers/agreement_mapper';
 import { NotificationCore } from '../notifications/domain/models/notification_model';
+import { UserMapper } from './domain/mappers/user_mapper';
 import {
   Agreement,
   AgreementCore,
@@ -180,5 +182,18 @@ export class UsersResolver {
     );
 
     return agreement.getProps();
+  }
+
+  @Mutation(() => UserDTO)
+  @UseGuards(GqlAuthGuard)
+  async updateUser(
+    @CurrentUser() user: LoggedUser,
+    @Args('updatedUser') updatedUser: UpdatedUserInput,
+  ) {
+    const userResult: User = await this.commandBus.execute(
+      new UpdateUserCommand(user.userId, updatedUser),
+    );
+
+    return UserMapper.toPlain(userResult);
   }
 }
