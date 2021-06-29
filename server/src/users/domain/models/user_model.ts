@@ -13,6 +13,14 @@ import { Expose, Transform } from 'class-transformer';
 
 export class UserCore extends CoreModel {
   @Expose()
+  @Transform(value => value ?? null)
+  firstname: string;
+
+  @Expose()
+  @Transform(value => value ?? null)
+  lastname: string;
+
+  @Expose()
   mail: string;
 
   @Expose()
@@ -119,6 +127,12 @@ export class User extends AggregateRoot {
     this.apply(
       new UserUnsignedAgreementEvent(this.props._id, potentialAgreementId),
     );
+  }
+
+  setFullname(options: { firstname: string; lastname: string }) {
+    this.props = { ...this.props, ...options };
+
+    this.apply(new UserUpdatedEvent(this.props._id, options));
   }
 
   static create(props: UserCore, keyCode: string): User {

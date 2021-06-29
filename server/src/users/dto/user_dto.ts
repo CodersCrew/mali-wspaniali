@@ -5,6 +5,12 @@ import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
 export class UserDTO extends FieldCore {
+  @Field({ nullable: true })
+  firstname: string;
+
+  @Field({ nullable: true })
+  lastname: string;
+
   @Field()
   mail: string;
 
