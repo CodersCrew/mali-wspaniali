@@ -7,7 +7,7 @@ import { KindergartenRepository } from '../../repositories/kindergarten_reposito
 @QueryHandler(GetAllKindergartensQuery)
 export class GetAllKindergartensHandler
   implements IQueryHandler<GetAllKindergartensQuery> {
-  constructor(private readonly repository: KindergartenRepository) {}
+  constructor(private repository: KindergartenRepository) {}
 
   async execute(): Promise<Kindergarten[]> {
     return this.repository.getAll();

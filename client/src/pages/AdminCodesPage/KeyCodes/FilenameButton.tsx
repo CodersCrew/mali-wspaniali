@@ -14,19 +14,20 @@ export function FilenameButton({ text, tooltip, onClick, primary }: Props) {
     const classes = useStyles();
 
     return (
-        <ArrowTooltip title={tooltip}>
-            <Link
-                component="button"
-                variant="caption"
-                onClick={onClick}
-                classes={{ root: clsx({ [classes.buttonWrapper]: true, [classes.highlight]: !!primary }) }}
-            >
-                <>
-                    <SaveAltIcon className={classes.downloadIcon} />
-                    <Typography variant="caption">{text}</Typography>
-                </>
-            </Link>
-        </ArrowTooltip>
+        <span onClick={onClick}>
+            <ArrowTooltip title={tooltip}>
+                <Link
+                    component="button"
+                    variant="caption"
+                    classes={{ root: clsx({ [classes.buttonWrapper]: true, [classes.highlight]: !!primary }) }}
+                >
+                    <>
+                        <SaveAltIcon className={classes.downloadIcon} />
+                        <Typography variant="caption">{text}</Typography>
+                    </>
+                </Link>
+            </ArrowTooltip>
+        </span>
     );
 }
 

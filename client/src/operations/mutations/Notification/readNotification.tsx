@@ -10,7 +10,7 @@ export const READ_NOTIFICATION = gql`
     mutation ReadNotification($id: String!) {
         readNotification(id: $id) {
             _id
-            date
+            createdAt
             values
             templateId
             isRead

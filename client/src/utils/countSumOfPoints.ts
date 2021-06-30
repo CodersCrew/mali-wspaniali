@@ -1,9 +1,27 @@
-import { TestResult } from '../graphql/types';
+import { AssessmentResult } from '../graphql/types';
 
-export function countSumOfPoints(result: TestResult['test']) {
-    const { agilityPoints, powerPoints, speedPoints, strengthPoints } = result;
+export function countSumOfPoints(result: AssessmentResult) {
+    const {
+        firstMeasurementJumpResult,
+        firstMeasurementPendelumRunResult,
+        firstMeasurementRunResult,
+        firstMeasurementThrowResult,
+        lastMeasurementJumpResult,
+        lastMeasurementPendelumRunResult,
+        lastMeasurementRunResult,
+        lastMeasurementThrowResult,
+    } = result;
 
-    const sumOfPoints = agilityPoints + powerPoints + speedPoints + strengthPoints;
+    const sumOfPointsFirstMeasurement =
+        firstMeasurementJumpResult +
+        firstMeasurementPendelumRunResult +
+        firstMeasurementRunResult +
+        firstMeasurementThrowResult;
+    const sumOfPointsLastMeasurement =
+        lastMeasurementJumpResult +
+        lastMeasurementPendelumRunResult +
+        lastMeasurementRunResult +
+        lastMeasurementThrowResult;
 
-    return sumOfPoints;
+    return { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement };
 }

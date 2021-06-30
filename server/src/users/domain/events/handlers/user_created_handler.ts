@@ -9,9 +9,9 @@ import { createUserCreatedNotification } from '../../../../notifications/domain/
 @EventsHandler(UserCreatedEvent)
 export class UserCreatedHandler implements IEventHandler<UserCreatedEvent> {
   constructor(
-    private readonly keyCodeRepository: KeyCodeRepository,
-    private readonly userRepository: UserRepository,
-    private readonly notificationRepository: NotificationRepository,
+    private keyCodeRepository: KeyCodeRepository,
+    private userRepository: UserRepository,
+    private notificationRepository: NotificationRepository,
   ) {}
 
   async handle(event: UserCreatedEvent): Promise<void> {

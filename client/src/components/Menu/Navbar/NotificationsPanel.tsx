@@ -50,14 +50,14 @@ function ListComponent({ notifications, onClick }: { notifications: Notification
     return (
         <MenuList dense={true} classes={{ padding: classes.list }}>
             {notifications.map((notification) => {
-                const { templateId, date, _id, isRead } = notification;
+                const { templateId, createdAt, _id, isRead } = notification;
 
                 return (
                     <NotificationItem
                         key={_id}
                         id={_id}
                         text={getNotification(templateId, notification.values)}
-                        date={date}
+                        date={createdAt}
                         isRead={isRead}
                         onClick={onClick}
                     />

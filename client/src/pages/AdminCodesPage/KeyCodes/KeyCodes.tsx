@@ -62,7 +62,7 @@ export function KeyCodes() {
                         }}
                     />
                 </div>
-                <div className={classes.generatedFileContainer}>
+                <span className={classes.generatedFileContainer}>
                     {created && (
                         <FilenameButton
                             primary
@@ -71,7 +71,7 @@ export function KeyCodes() {
                             onClick={() => generateExcel(created.series)}
                         />
                     )}
-                </div>
+                </span>
             </Grid>
             <div className={classes.fileListContainer}>
                 <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={(series) => generateExcel(series)} />
@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(3),
         },
         generatedFileContainer: {
+            display: 'flex',
             marginTop: 12,
         },
         container: {

@@ -4,7 +4,7 @@ import { Me } from '../../../graphql/types';
 export const GET_ME = gql`
     {
         me {
-            date
+            createdAt
             mail
             children {
                 _id
@@ -15,9 +15,91 @@ export const GET_ME = gql`
                 birthQuarter
                 results {
                     _id
-                    date
-                    test
-                    rootResultId
+                    createdAt
+                    modifiedAt
+                    childId
+                    kindergartenId
+                    assessmentId
+                    assessment {
+                        _id
+                        title
+                    }
+                    currentParams {
+                        run {
+                            a
+                            b
+                            lowerLimit
+                            lowerLimitPoints
+                            upperLimit
+                            upperLimitPoints
+                            badStageLimit
+                            weakStageLimit
+                            middleStageLimit
+                            goodStageLimit
+                            veryGoodStageLimit
+                        }
+                        pendelumRun {
+                            a
+                            b
+                            lowerLimit
+                            lowerLimitPoints
+                            upperLimit
+                            upperLimitPoints
+                            badStageLimit
+                            weakStageLimit
+                            middleStageLimit
+                            goodStageLimit
+                            veryGoodStageLimit
+                        }
+                        jump {
+                            a
+                            b
+                            lowerLimit
+                            lowerLimitPoints
+                            upperLimit
+                            upperLimitPoints
+                            badStageLimit
+                            weakStageLimit
+                            middleStageLimit
+                            goodStageLimit
+                            veryGoodStageLimit
+                        }
+                        throw {
+                            a
+                            b
+                            lowerLimit
+                            lowerLimitPoints
+                            upperLimit
+                            upperLimitPoints
+                            badStageLimit
+                            weakStageLimit
+                            middleStageLimit
+                            goodStageLimit
+                            veryGoodStageLimit
+                        }
+                    }
+                    firstMeasurementRunDate
+                    lastMeasurementRunDate
+                    firstMeasurementPendelumRunDate
+                    lastMeasurementPendelumRunDate
+                    firstMeasurementThrowDate
+                    lastMeasurementThrowDate
+                    firstMeasurementJumpDate
+                    lastMeasurementJumpDate
+                    firstMeasurementNote
+                    lastMeasurementNote
+                    firstMeasurementKindergarten
+                    lastMeasurementKindergarten
+                    firstMeasurementInstructor
+                    lastMeasurementInstructor
+                    firstMeasurementRunResult
+                    lastMeasurementRunResult
+                    firstMeasurementPendelumRunResult
+                    lastMeasurementPendelumRunResult
+                    firstMeasurementThrowResult
+                    lastMeasurementThrowResult
+                    firstMeasurementJumpResult
+                    lastMeasurementJumpResult
                 }
                 kindergarten {
                     _id
@@ -27,14 +109,14 @@ export const GET_ME = gql`
             }
             agreements {
                 _id
-                date
+                createdAt
                 text
                 isSigned
             }
             role
             notifications {
                 _id
-                date
+                createdAt
                 values
                 templateId
                 isRead

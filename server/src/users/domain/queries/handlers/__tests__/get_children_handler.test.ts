@@ -45,15 +45,15 @@ describe('GetChildrenHandler', () => {
       const kindergarten = await createKindergartenWith();
 
       child1 = await addChild(
-        { firstname: 'child-1', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child-1', kindergartenId: kindergarten.id },
         parent.id,
       );
       await addChild(
-        { firstname: 'child-2', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child-2', kindergartenId: kindergarten.id },
         parent.id,
       );
       child3 = await addChild(
-        { firstname: 'child-3', kindergartenId: kindergarten.id.toString() },
+        { firstname: 'child-3', kindergartenId: kindergarten.id },
         parent2.id,
       );
     });
@@ -64,10 +64,7 @@ describe('GetChildrenHandler', () => {
 
         expect(children.length).toBe(3);
 
-        const fetchedChildren = await getChildren([
-          child1.id.toString(),
-          child3.id.toString(),
-        ]);
+        const fetchedChildren = await getChildren([child1.id, child3.id]);
 
         expect(fetchedChildren.length).toBe(2);
         expect(fetchedChildren.map(child => child.firstname)).toEqual([
@@ -87,8 +84,8 @@ describe('GetChildrenHandler', () => {
       });
 
       const potentiallyAnonymizedChildren = await getChildren([
-        child1.id.toString(),
-        child3.id.toString(),
+        child1.id,
+        child3.id,
       ]);
 
       expect(potentiallyAnonymizedChildren.length).toBe(1);

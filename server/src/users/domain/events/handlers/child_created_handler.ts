@@ -8,8 +8,8 @@ import { createChildNotification } from '../../../../notifications/domain/reposi
 @EventsHandler(ChildCreatedEvent)
 export class ChildCreatedHandler implements IEventHandler<ChildCreatedEvent> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly notificationRepository: NotificationRepository,
+    private userRepository: UserRepository,
+    private notificationRepository: NotificationRepository,
   ) {}
 
   async handle({ childId }: ChildCreatedEvent): Promise<void> {

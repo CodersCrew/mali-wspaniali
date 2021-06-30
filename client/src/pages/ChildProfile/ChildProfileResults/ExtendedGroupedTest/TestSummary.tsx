@@ -7,23 +7,23 @@ import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_OVERALL_POINTS } from './constants';
 import { ButtonSecondary } from '../../../../components/Button';
-import { TestResult } from '../../../../graphql/types';
+import { AssessmentResult } from '../../../../graphql/types';
 import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
 import dayjs from '../../../../localizedMoment';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
 import { openAdviceModal } from './modals/AdviceModal';
 
 export interface Props {
-    result: TestResult;
+    result: AssessmentResult;
+    title: string;
+    description: string;
+    points: number;
 }
 
-export const TestSummary = ({ result }: Props) => {
+export const TestSummary = ({ result, title, points, description }: Props) => {
     const { t } = useTranslation();
 
-    const { agilityPoints, powerPoints, speedPoints, strengthPoints, childAge, testPeriod } = result.test;
-
-    const sumOfPoints = agilityPoints + powerPoints + speedPoints + strengthPoints;
-    const { color, key } = getResultColorAndLabel(sumOfPoints, MAX_OVERALL_POINTS);
+    const { color, key } = getResultColorAndLabel(points, MAX_OVERALL_POINTS);
     const classes = useStyles({ color });
     const { childId } = useParams<{
         childId: string;
@@ -37,12 +37,10 @@ export const TestSummary = ({ result }: Props) => {
                         {t('child-profile.info-about-test')}
                     </Typography>
                     <Box my={1}>
-                        <Typography variant="h4">
-                            {testPeriod === 'START' ? t('child-profile.initial-test') : t('child-profile.final-test')}
-                        </Typography>
+                        <Typography variant="h4">{title}</Typography>
                     </Box>
                     <Typography variant="caption" color="textSecondary">
-                        {t('child-profile.carries-out-on')} {dayjs(result.date).fromNow()}
+                        {t('child-profile.carries-out-on')} {dayjs(result.createdAt).fromNow()}
                     </Typography>
                 </Box>
                 <Divider />
@@ -51,7 +49,7 @@ export const TestSummary = ({ result }: Props) => {
                         <Typography variant="body1">
                             {t('child-profile.age-group')}:&nbsp;
                             <strong>
-                                {childAge} {t('years', { count: childAge })}
+                                {5} {t('years', { count: 5 })}
                             </strong>
                         </Typography>
                     </Grid>
@@ -75,17 +73,14 @@ export const TestSummary = ({ result }: Props) => {
                 <Divider />
                 <Box display="flex" flexDirection="column" alignItems="center" px={4} py={2}>
                     <Typography variant="body1" className={classes.fitnessLevelLabel}>
-                        {testPeriod === 'START'
-                            ? t('child-profile.initial-fitness-level')
-                            : t('child-profile.final-fitness-level')}
-                        :
+                        {description}:
                     </Typography>
                     <div className={classes.chart}>
                         <CircleChart
                             color={color}
-                            value={sumOfPoints}
+                            value={points}
                             maxValue={MAX_OVERALL_POINTS}
-                            label={String(sumOfPoints)}
+                            label={String(points)}
                             labelSuffix={t('child-profile.pts')}
                             enableInfoIcon
                         />

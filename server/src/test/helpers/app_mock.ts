@@ -9,7 +9,6 @@ import { CreateKeyCodeHandler } from '../../key_codes/domain/commands/handlers/c
 import { CreateUserHandler } from '../../users/domain/commands/handlers/create_user_handler';
 import { UserInput } from '../../users/inputs/user_input';
 import { User } from '../../users/domain/models/user_model';
-import { CreateBulkKeyCodeCommand } from '../../key_codes/domain/commands/impl/create_bulk_key_code_command';
 import { CreateUserCommand } from '../../users/domain/commands/impl/create_user_command';
 import { AnonymizeUserHandler } from '../../users/domain/commands/handlers/anonymize_user_handler';
 import { AnonymizeUserCommand } from '../../users/domain/commands/impl/anonymize_user_command';
@@ -26,9 +25,9 @@ import { GetNotificationsByUserQuery } from '../../notifications/domain/queries/
 import { ArticlesModule } from '../../articles/articles_module';
 import { GetAllUsersHandler } from '../../users/domain/queries/handlers/get_all_users_handler';
 import { GetAllUsersQuery } from '../../users/domain/queries/impl/get_all_users_query';
-import waitForExpect from 'wait-for-expect';
 import { GetAllArticlesHandler } from '../../articles/domain/queries/handlers/get_all_articles_handler';
 import { GetAllArticlesQuery } from '../../articles/domain/queries/impl/get_all_articles_query';
+import { CreateKeyCodeCommand } from '../../key_codes/domain/commands/impl';
 
 let app: TestingModule;
 
@@ -63,7 +62,7 @@ export async function createParent(
 
   const keyCodeResult = await app
     .get(CreateKeyCodeHandler)
-    .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
+    .execute(new CreateKeyCodeCommand('admin', 'parent'));
 
   const parent = app.get(CreateUserHandler).execute(
     new CreateUserCommand({

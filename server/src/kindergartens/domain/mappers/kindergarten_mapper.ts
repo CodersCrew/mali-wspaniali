@@ -1,105 +1,33 @@
-import { KindergartenProps } from '../../../kindergartens/domain/models/kindergarten_model';
-import { Kindergarten } from '../models/kindergarten_model';
-import { ObjectId } from '../../../users/domain/models/object_id_value_object';
-import { KindergartenTitle } from '../models/kindergarten_title_value_object';
-import { IsDeleted } from '../models/is_deleted_value_object';
-import { KindergartenInput } from '@kindergartens/inputs/kindergarten_input';
-import { Result } from '../../../shared/domain/result';
+import { classToPlain } from 'class-transformer';
+import { transformAndValidateSync } from 'class-transformer-validator';
 
-interface DomainMapperOptions {
-  isNew?: boolean;
-}
+import { Kindergarten, KindergartenCore } from '../models/kindergarten_model';
+import { KindergartenInput } from '@kindergartens/inputs/kindergarten_input';
 
 export class KindergartenMapper {
   static toDomainFrom(
-    props: KindergartenInput | KindergartenProps,
-    options: DomainMapperOptions = {},
+    props: KindergartenInput | KindergartenCore,
+    options: { isNew: boolean } = { isNew: false },
   ): Kindergarten {
-    const create = options.isNew ? Kindergarten.create : Kindergarten.recreate;
+    const createKindergarten = options.isNew
+      ? Kindergarten.create
+      : Kindergarten.recreate;
 
-    if (isKindergartenProps(props)) {
-      const _id = ObjectId.create(props._id);
-      const kindergartenTitle = KindergartenTitle.create(props.name);
-      const isDeleted = IsDeleted.create(props.isDeleted);
+    const kindergarten = transformAndValidateSync(KindergartenCore, props, {
+      transformer: { excludeExtraneousValues: true },
+      validator: { validationError: { target: false, value: false } },
+    });
 
-      const result = Result.combine([_id, kindergartenTitle, isDeleted as any]);
-
-      if (result.isSuccess) {
-        return create({
-          _id: _id.getValue(),
-          date: props.date,
-          number: props.number,
-          name: kindergartenTitle.getValue(),
-          address: props.address,
-          city: props.city,
-          isDeleted: isDeleted.getValue(),
-        });
-      } else {
-        throw new Error(result.error as string);
-      }
-    } else {
-      const _id = ObjectId.create();
-
-      const kindergartenTitle = KindergartenTitle.create(props.name);
-
-      const result = Result.combine([_id, kindergartenTitle]);
-
-      if (result.isSuccess) {
-        return create({
-          _id: _id.getValue(),
-          date: new Date(Date.now()),
-          number: props.number,
-          name: kindergartenTitle.getValue(),
-          address: props.address,
-          city: props.city,
-          isDeleted: IsDeleted.create().getValue(),
-        });
-      } else {
-        throw new Error(result.error as string);
-      }
-    }
+    return createKindergarten(kindergarten);
   }
 
-  static toPersistant(
-    kindergarten: Kindergarten,
-  ): KindergartenProps | Omit<KindergartenProps, '_id'> {
-    if (kindergarten.id.isEmpty()) {
-      return {
-        date: kindergarten.date,
-        number: kindergarten.number,
-        name: kindergarten.name.value,
-        address: kindergarten.address,
-        city: kindergarten.city,
-        isDeleted: kindergarten.isDeleted.value,
-      };
-    }
-
-    return {
-      _id: kindergarten.id.value,
-      date: kindergarten.date,
-      number: kindergarten.number,
-      name: kindergarten.name.value,
-      address: kindergarten.address,
-      city: kindergarten.city,
-      isDeleted: kindergarten.isDeleted.value,
-    };
+  static toPlain(kindergarten: Kindergarten): KindergartenCore {
+    return classToPlain(kindergarten.getProps(), {
+      excludeExtraneousValues: true,
+    }) as KindergartenCore;
   }
 
-  static toRaw(kindergarten: Kindergarten): KindergartenProps {
-    return {
-      _id: kindergarten.id.value.toString(),
-      date: kindergarten.date,
-      number: kindergarten.number,
-      name: kindergarten.name.value,
-      address: kindergarten.address,
-      city: kindergarten.city,
-      isDeleted: kindergarten.isDeleted.value,
-    };
+  static toPlainMany(values: Kindergarten[]): KindergartenCore[] {
+    return values.map(KindergartenMapper.toPlain);
   }
-}
-
-function isKindergartenProps(
-  value: KindergartenInput | KindergartenProps,
-): value is KindergartenProps {
-  return '_id' in value;
 }

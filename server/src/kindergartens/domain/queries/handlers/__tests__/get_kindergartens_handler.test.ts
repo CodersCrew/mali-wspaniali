@@ -40,11 +40,11 @@ describe('GetKindergartensHandler', () => {
     beforeEach(async () => {
       const kindergarten1 = await createKindergarten('my-kindergarten-1', 1);
       await createKindergarten('my-kindergarten-2', 2);
-      const kindergarten2 = await createKindergarten('my-kindergarten-3', 3);
+      const kindergarten3 = await createKindergarten('my-kindergarten-3', 3);
 
       kindergartens = await getKindergartens([
-        kindergarten1.id.value,
-        kindergarten2.id.value,
+        kindergarten1.id,
+        kindergarten3.id,
       ]);
 
       await awaitForResponse();
@@ -55,8 +55,8 @@ describe('GetKindergartensHandler', () => {
       expect(kindergartens[0]).toBeInstanceOf(Kindergarten);
       expect(kindergartens[1]).toBeInstanceOf(Kindergarten);
 
-      expect(kindergartens[0].name.value).toEqual('my-kindergarten-1');
-      expect(kindergartens[1].name.value).toEqual('my-kindergarten-3');
+      expect(kindergartens[0].name).toEqual('my-kindergarten-1');
+      expect(kindergartens[1].name).toEqual('my-kindergarten-3');
     });
   });
 
@@ -69,7 +69,7 @@ describe('GetKindergartensHandler', () => {
       await createKindergarten('my-kindergarten-3', 3);
 
       kindergartens = await getKindergartens([
-        kindergarten1.id.value,
+        kindergarten1.id,
         '5f944c57ac3334f90c8baeb0',
       ]);
 
@@ -80,7 +80,7 @@ describe('GetKindergartensHandler', () => {
       expect(kindergartens.length).toEqual(1);
       expect(kindergartens[0]).toBeInstanceOf(Kindergarten);
 
-      expect(kindergartens[0].name.value).toEqual('my-kindergarten-1');
+      expect(kindergartens[0].name).toEqual('my-kindergarten-1');
     });
   });
 

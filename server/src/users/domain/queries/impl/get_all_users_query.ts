@@ -1,3 +1,3 @@
 export class GetAllUsersQuery {
-  constructor(public readonly role?: string) {}
+  constructor(public role?: string) {}
 }

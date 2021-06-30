@@ -6,3 +6,5 @@ export * from './user_signed_agreement_event';
 export * from './user_unsigned_agreement_event';
 export * from './user_updated_event';
 export * from './user_anonymized_event';
+export * from './child_assessment_result_created_event';
+export * from './child_assessment_result_updated_event';

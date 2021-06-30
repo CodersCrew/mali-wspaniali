@@ -1,3 +1,3 @@
 export class KindergartenCreatedEvent {
-  constructor(public readonly kindergartenId: string) {}
+  constructor(public kindergartenId: string) {}
 }

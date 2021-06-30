@@ -2,7 +2,7 @@ import { Query, Resolver, Mutation, Args, Int } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
-import { CreateArticleInput } from './inputs/article_input';
+import { CreateArticleInput, UpdateArticleInput } from './inputs/article_input';
 import { Article } from './domain/models/article_model';
 import { CreateArticleCommand } from './domain/commands/impl/create_article_command';
 import { GetAllArticlesQuery } from './domain/queries/impl';
@@ -23,16 +23,14 @@ import { PaginatedArticlesDTO } from './dto/paginated_article_dto';
 import { GetArticlesCountQuery } from './domain/queries/impl/get_article_count_query';
 import { classToPlain } from 'class-transformer';
 import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
+import { UpdateArticleCommand } from './domain/commands/impl/update_article_command';
 
 const ARTICLE_PER_PAGE = 6;
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
 export class ArticlesResolver {
-  constructor(
-    private commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-  ) {}
+  constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   @Query(() => PaginatedArticlesDTO)
   @UseGuards(GqlAuthGuard)
@@ -109,5 +107,25 @@ export class ArticlesResolver {
       );
     }
     return { status: !!articleContent };
+  }
+
+  @Mutation(() => ReturnedStatusDTO)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async updateArticle(
+    @Args('id') id: string,
+    @Args('updates') updates: UpdateArticleInput,
+  ): Promise<{ status: boolean }> {
+    const updated: Article = await this.commandBus.execute(
+      new UpdateArticleCommand(id, updates),
+    );
+
+    const articleContent = updated.getProps();
+
+    if (articleContent) {
+      Sentry.captureMessage(
+        `[Mali Wspaniali]: Created a new article ${articleContent.title}`,
+      );
+    }
+    return { status: !!updated };
   }
 }

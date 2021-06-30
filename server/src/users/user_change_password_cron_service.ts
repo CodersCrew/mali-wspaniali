@@ -4,8 +4,8 @@ import { UserChangePasswordRepository } from './domain/repositories/user_change_
 
 @Injectable()
 export class UserChangePasswordCronService {
-  constructor(private readonly repository: UserChangePasswordRepository) {}
-  private readonly logger = new Logger(UserChangePasswordCronService.name);
+  constructor(private repository: UserChangePasswordRepository) {}
+  private logger = new Logger(UserChangePasswordCronService.name);
 
   @Cron(CronExpression.EVERY_12_HOURS)
   async handleCron(): Promise<void> {

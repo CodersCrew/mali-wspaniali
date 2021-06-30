@@ -72,7 +72,7 @@ function EditorPanel(props: EditorPanelProps) {
         setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 
-    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => {
+    const pointSum = Object.values(countCurrentPoints(localResult, child.currentParams)).reduce((acc, v) => {
         if (Number.isNaN(v)) return acc;
 
         return acc + v;

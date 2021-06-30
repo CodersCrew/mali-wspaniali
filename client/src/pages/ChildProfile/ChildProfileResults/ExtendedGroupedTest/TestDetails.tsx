@@ -2,23 +2,35 @@ import { makeStyles } from '@material-ui/styles';
 import { createStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CarouselProvider, DotGroup, Slide, Slider } from 'pure-react-carousel';
-import { resultKey, TESTS } from './constants';
+import { TESTS } from './constants';
 import { Measurement } from './Measurement';
-import { NoResultsBlock } from './emptyViews/NoResultsBlock';
-import { TestResult } from '../../../../graphql/types';
+import { AssessmentResult } from '../../../../graphql/types';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+import { countCurrentPoints } from '../../../InstructorResultCreatorPage/countPoints';
 
 export interface Props {
-    result: TestResult;
+    result: AssessmentResult;
+    title: string;
+    description: string;
+    points: number;
+    prefix: string;
 }
 
-export const TestDetails = ({ result }: Props) => {
+export const TestDetails = ({ result, prefix }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
 
-    if (!result) return null;
+    const points = countCurrentPoints(
+        {
+            run: result[`${prefix}MeasurementRunResult` as keyof AssessmentResult] as number,
+            pendelumRun: result[`${prefix}MeasurementPendelumRunResult` as keyof AssessmentResult] as number,
+            jump: result[`${prefix}MeasurementJumpResult` as keyof AssessmentResult] as number,
+            throw: result[`${prefix}MeasurementThrowResult` as keyof AssessmentResult] as number,
+        },
+        result.currentParams,
+    );
 
     const measurementScoresCharts = () => {
         return isSmallMobile ? (
@@ -32,33 +44,46 @@ export const TestDetails = ({ result }: Props) => {
                 infinite
             >
                 <Slider className={classes.slider}>
-                    {TESTS.map((test, index) => (
-                        <Slide index={index} key={test.translationKey} className={classes.slide}>
-                            <Measurement
-                                valueInUnitOfMeasure={
-                                    result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number
-                                }
-                                valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
-                                unitOfMeasure={test.unitOfMeasure}
-                                translationKey={test.translationKey}
-                                key={test.translationKey}
-                            />
-                        </Slide>
-                    ))}
+                    {TESTS.map((test, index) => {
+                        return (
+                            <Slide index={index} key={test.translationKey} className={classes.slide}>
+                                <Measurement
+                                    valueInUnitOfMeasure={
+                                        (result[
+                                            `${prefix}Measurement${test.name}Result` as keyof AssessmentResult
+                                        ] as number) || 0
+                                    }
+                                    valueInPoints={points[lowercaseFirstLetter(test.name) as keyof typeof points]}
+                                    unitOfMeasure={test.unitOfMeasure}
+                                    translationKey={test.translationKey}
+                                    key={test.translationKey}
+                                />
+                            </Slide>
+                        );
+                    })}
                 </Slider>
                 <DotGroup className={classes.dotGroup} showAsSelectedForCurrentSlideOnly />
             </CarouselProvider>
         ) : (
             <div className={classes.chartsWrapper}>
-                {TESTS.map((test) => (
-                    <Measurement
-                        valueInUnitOfMeasure={result.test[test.unitOfMeasureKey as keyof TestResult['test']] as number}
-                        valueInPoints={result.test[test.pointsKey as keyof TestResult['test']] as number}
-                        unitOfMeasure={test.unitOfMeasure}
-                        translationKey={test.translationKey}
-                        key={test.translationKey}
-                    />
-                ))}
+                {TESTS.map((test) => {
+                    const valueInUnitOfMeasure =
+                        (result[`${prefix}Measurement${test.name}Result` as keyof AssessmentResult] as number) || 0;
+
+                    return (
+                        <Measurement
+                            valueInUnitOfMeasure={valueInUnitOfMeasure}
+                            valueInPoints={
+                                valueInUnitOfMeasure
+                                    ? points[lowercaseFirstLetter(test.name) as keyof typeof points]
+                                    : 0
+                            }
+                            unitOfMeasure={test.unitOfMeasure}
+                            translationKey={test.translationKey}
+                            key={test.translationKey}
+                        />
+                    );
+                })}
             </div>
         );
     };
@@ -66,24 +91,12 @@ export const TestDetails = ({ result }: Props) => {
     return (
         <div className={classes.wrapper}>
             <Typography className={classes.title} variant="subtitle1">
-                {result.test.testPeriod === 'START'
-                    ? t('child-profile.initial-test-title')
-                    : t('child-profile.final-test-title')}
-                :
+                {prefix === 'first' ? t('child-profile.initial-test-title') : t('child-profile.final-test-title')}:
             </Typography>
             {measurementScoresCharts()}
-            <div>{getTestUnavailableReason(result)}</div>
         </div>
     );
 };
-
-function getTestUnavailableReason(result: TestResult) {
-    const testsWithNoResult = TESTS.filter((test) => !result.test[test.pointsKey as resultKey]);
-
-    return testsWithNoResult.map((test) => (
-        <NoResultsBlock key={test.translationKey} translationKey={test.translationKey} />
-    ));
-}
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -143,3 +156,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
+function lowercaseFirstLetter(text: string) {
+    return text.charAt(0).toLowerCase() + text.slice(1);
+}
