@@ -89,6 +89,7 @@ export default function AdminInstructorsPage() {
         }
     }
 
+    // test pr
     function onInstructorChange(mailList: string[]) {
         const selected = mailList
             .map((mail) => instructors.find((instructor) => instructor.mail === mail))
