@@ -11,7 +11,7 @@ export class KeyCodesCronService {
   async handleCron(): Promise<void> {
     this.logger.log('[KeyCodes - cron] Job started');
 
-    await this.keyCodeRepository.removeOlderThan(7);
+    await this.keyCodeRepository.removeOlderThan(14);
 
     this.logger.log('[KeyCodes - cron] Job started');
   }
