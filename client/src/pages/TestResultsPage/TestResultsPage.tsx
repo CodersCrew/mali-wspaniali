@@ -111,10 +111,10 @@ export default function TestResultsPage() {
                         />
                     </Box>
                 </Grid>
-                <Box className={classes.informationContainer} justifyContent="space-between">
+                <Box className={classes.informationContainer} justifyContent="space-between" alignItems={'center'}>
                     <span className={classes.measurementText}>{t(selectedMeasurement)}</span>
                     <p>
-                        <span className={classes.ResultStatusText}>{t('test-results.status-result')}: </span>{' '}
+                        <span className={classes.ResultStatusText}>{t('test-results.status-result')}: </span>
                         Opublikowane
                     </p>
                 </Box>
@@ -153,6 +153,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         options: {
             display: 'flex',
+            flexWrap: 'wrap',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -185,11 +186,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         searchIcon: {
             position: 'absolute',
-            top: '28.4%',
-            right: '5%',
+            top: '31.7%',
+            right: '4%',
             width: '34px',
             height: '34px',
             color: 'gray',
+            cursor: 'pointer',
         },
     }),
 );

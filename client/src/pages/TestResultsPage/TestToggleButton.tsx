@@ -1,6 +1,7 @@
-import { Box } from '@material-ui/core';
+import { Box, Theme, makeStyles, createStyles } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
+import Tooltip from '@material-ui/core/Tooltip';
 
 interface Props {
     value: string;
@@ -9,10 +10,7 @@ interface Props {
 
 export function TestToggleButton({ value, onChange }: Props) {
     const { t } = useTranslation();
-    const ToggleButtonStyle = {
-        paddingLeft: '16px',
-        paddingRight: '16px',
-    };
+    const classes = useStyles();
 
     return (
         <Box alignItems={'center'} display="flex">
@@ -28,20 +26,35 @@ export function TestToggleButton({ value, onChange }: Props) {
                 }}
             >
                 <ToggleButton
-                    style={ToggleButtonStyle}
+                    className={classes.ToggleButtonStyle}
                     value={'add-results-page.first-assessment'}
                     aria-label="left aligned"
                 >
-                    {t('test-results.initial-measurement')}
+                    <Tooltip title={t('add-results-page.first-assessment').toString()}>
+                        <div className={classes.ToggleButtonContentStyle}>{t('test-results.first-measurement')}</div>
+                    </Tooltip>
                 </ToggleButton>
                 <ToggleButton
-                    style={ToggleButtonStyle}
+                    className={classes.ToggleButtonStyle}
                     value={'add-results-page.last-assessment'}
                     aria-label="right aligned"
                 >
-                    {t('test-results.final-measurement')}
+                    <Tooltip title={t('add-results-page.last-assessment').toString()}>
+                        <div className={classes.ToggleButtonContentStyle}>{t('test-results.last-measurement')}</div>
+                    </Tooltip>
                 </ToggleButton>
             </ToggleButtonGroup>
         </Box>
     );
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        ToggleButtonStyle: {
+            padding: '0px 0px',
+        },
+        ToggleButtonContentStyle: {
+            padding: '6px 16px',
+        },
+    }),
+);

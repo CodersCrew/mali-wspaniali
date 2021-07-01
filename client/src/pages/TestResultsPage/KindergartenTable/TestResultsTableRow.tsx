@@ -17,23 +17,20 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     const classes = useStyles();
 
     const { name } = kindergarten;
-    // const editIconTooltip = t('test-results.button-icon-edit-tooltip');
     const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
-
-    console.log('gard', kindergarten);
 
     return (
         <>
             <TableRow className={classes.root} onClick={() => setOpen((prev) => !prev)}>
-                <TableCell className={classes.cellRoot}>
+                <TableCell className={classes.cell}>
                     <Tooltip title={expandIconTooltip}>
                         <IconButton size="small" aria-label="expand row">
                             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </IconButton>
                     </Tooltip>
                 </TableCell>
-                <TableCell className={classes.cellRoot}>{name}</TableCell>
-                <TableCell className={classes.cellRoot}>
+                <TableCell className={classes.cell}>{name}</TableCell>
+                <TableCell className={classes.cell}>
                     <div className={classes.progressBarContainer}>
                         <div className={classes.progressBar}>
                             <ProgressBar value={(200 / 300) * 100} />
@@ -49,13 +46,11 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        '& > *': {
-            borderBottom: 'unset',
-        },
         '&:hover': {
             backgroundColor: theme.palette.background.default,
         },
         cursor: 'pointer',
+        height: '50px',
     },
     button: {
         '&:hover': {
@@ -72,7 +67,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '70%',
         marginRight: theme.spacing(2),
     },
-    cellRoot: {
+    cell: {
+        maxWidth: '10%',
         padding: theme.spacing(1),
     },
 }));

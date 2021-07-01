@@ -155,6 +155,7 @@
         "kindergarten-address": "Adres przedszkola",
         "parents-email": "Adres e-mail rodziców",
         "children": "Dzieci",
+        "age": "Wiek",
         "kindergarten-prefix": "Przedszkole nr",
         "search": "Szukaj",
         "add-kindergarten-success": "Przedszkole zostało dodane pomyślnie",
@@ -166,8 +167,8 @@
         "button-icon-results-tooltip": "Wyniki",
         "rows-number": "Pokazuj w tabeli:",
         "edit": "Edytuj",
-        "initial-measurement": "PP",
-        "final-measurement": "PK",
+        "first-measurement": "PP",
+        "last-measurement": "PK",
         "publish-result": "Publikuj wyniki",
         "download-result": "Pobierz wyniki",
         "status-result": "Status wyników"

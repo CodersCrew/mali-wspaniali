@@ -42,7 +42,7 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
-                    <TableRow>
+                    <TableRow style={{ height: '50px' }}>
                         <TableCell />
                         <ArrowedCell
                             text={t('test-results.kindergarten-name')}
