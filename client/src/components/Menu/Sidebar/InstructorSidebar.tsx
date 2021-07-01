@@ -1,4 +1,4 @@
-import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
+import { makeStyles, createStyles, List, Grid, Divider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Me } from '../../../graphql/types';
@@ -51,6 +51,7 @@ export const InstructorSidebar = ({ onClick, user, active }: Props) => {
             <Grid item>
                 <List>
                     <SingleItem item={MainPageItem} onClick={onClick} />
+                    <Divider />
                     <SingleItem item={AgreementsItem} onClick={onClick} />
                     <CollapsibleList mainItem={BlogItem.mainItem} subItems={BlogItem.subItems} onClick={onClick} />
                     <SingleItem item={NotificationsItem} onClick={onClick} />
