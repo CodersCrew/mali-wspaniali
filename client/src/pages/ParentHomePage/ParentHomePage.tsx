@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { makeStyles, Grid, createStyles, Typography } from '@material-ui/core';
+import { makeStyles, Grid, createStyles, Typography, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
@@ -51,8 +51,10 @@ export default function ParentHomePage() {
                 <Grid item xs={12}>
                     <p className={classes.description}>
                         <Typography variant={isMobile ? 'subtitle1' : 'h3'} align={isMobile ? 'center' : 'left'}>
-                            {t('home-page-content.check-children-activity')}{' '}
-                            <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+                            {t('home-page-content.learn-more')}
+                            <Link className={classes.link} href="http://mali-wspaniali.pl/pl/index.html">
+                                {t('home-page-content.mali-wspaniali')}
+                            </Link>
                         </Typography>
                     </p>
                 </Grid>
