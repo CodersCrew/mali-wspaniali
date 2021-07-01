@@ -9,8 +9,8 @@ interface KeyCodeResponse {
 const KEYCODES = gql`
     query KeyCodes($series: String!) {
         keyCodes(series: $series) {
-            id
-            date
+            _id
+            createdAt
             createdBy
             keyCode
             target

@@ -1,7 +1,7 @@
 export class CreateBulkKeyCodeCommand {
   constructor(
-    public readonly createdBy: string,
-    public readonly amount: number,
-    public readonly target: string,
+    public createdBy: string,
+    public amount: number,
+    public target: string,
   ) {}
 }

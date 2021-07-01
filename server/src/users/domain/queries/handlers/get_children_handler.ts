@@ -1,52 +1,44 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { ChildRepository } from '../../repositories/child_repository';
-import { ChildResultRepository } from '../../repositories/child_result_repository';
 import { KindergartenMapper } from '../../../../kindergartens/domain/mappers/kindergarten_mapper';
-import { Child, ChildWithKindergartenProps } from '../../models/child_model';
-import { ChildProps } from '@users/domain/models/child_model';
+import { Child } from '../../models/child_model';
 import { GetChildrenQuery } from '../impl/get_children_query';
 import { KindergartenRepository } from '../../../../kindergartens/domain/repositories/kindergarten_repository';
 import { ChildMapper } from '../../mappers/child_mapper';
+import { ChildAssessmentResultRepository } from '../../repositories/child_assessment_result_repository';
+import { ChildAssessmentResultMapper } from '../../mappers/child_assessment_result_mapper';
 
 @QueryHandler(GetChildrenQuery)
 export class GetChildrenHandler implements IQueryHandler<GetChildrenQuery> {
   constructor(
-    private readonly childRepository: ChildRepository,
-    private readonly childrResultRepository: ChildResultRepository,
-    private readonly kindergartenRepository: KindergartenRepository,
+    private childRepository: ChildRepository,
+    private childrResultRepository: ChildAssessmentResultRepository,
+    private kindergartenRepository: KindergartenRepository,
   ) {
     this.mapChildWithKindergarten = this.mapChildWithKindergarten.bind(this);
   }
 
-  async execute({
-    ids,
-  }: {
-    ids: string[];
-  }): Promise<ChildWithKindergartenProps[]> {
+  async execute({ ids }: { ids: string[] }) {
     const children = await this.childRepository.get(ids);
 
-    const childWithKindergarten: ChildWithKindergartenProps[] = await Promise.all(
+    const childWithKindergarten = await Promise.all(
       children.map(this.mapChildWithKindergarten),
     );
 
-    return childWithKindergarten.filter(this.removeDeletedChildren);
+    return childWithKindergarten.filter(child => !child.isDeleted);
   }
 
   async mapChildWithKindergarten(child: Child) {
-    const results = await this.childrResultRepository.get(child.id.value);
+    const results = await this.childrResultRepository.getByChild(child.id);
     const kindergarten = await this.kindergartenRepository.get(
-      child.kindergarten.toString(),
+      child.kindergarten,
     );
 
     return {
-      ...(ChildMapper.toPersistence(child) as ChildProps),
-      results,
-      kindergarten: KindergartenMapper.toRaw(kindergarten),
+      ...ChildMapper.toPlain(child),
+      results: results.map(r => ChildAssessmentResultMapper.toPlain(r)),
+      kindergarten: KindergartenMapper.toPlain(kindergarten),
     };
-  }
-
-  removeDeletedChildren(child: ChildWithKindergartenProps) {
-    return !child.isDeleted;
   }
 }

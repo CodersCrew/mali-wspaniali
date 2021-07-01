@@ -8,9 +8,9 @@ import { ChildRepository } from '../../repositories/child_repository';
 export class UserAnonymizedHandler
   implements IEventHandler<UserAnonymizedEvent> {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly childRepository: ChildRepository,
-    private readonly publisher: EventPublisher,
+    private userRepository: UserRepository,
+    private childRepository: ChildRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async handle({ userId }: UserAnonymizedEvent): Promise<void> {

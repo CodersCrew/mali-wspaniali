@@ -6,7 +6,7 @@ import { GetAllUsersQuery } from '../impl/get_all_users_query';
 
 @QueryHandler(GetAllUsersQuery)
 export class GetAllUsersHandler implements IQueryHandler<GetAllUsersQuery> {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository) {}
 
   async execute({ role }: GetAllUsersQuery): Promise<User[]> {
     return await this.userRepository.getAll(role);

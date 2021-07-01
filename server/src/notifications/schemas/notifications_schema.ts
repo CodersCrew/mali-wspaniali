@@ -1,14 +1,12 @@
 import { Schema, Document } from 'mongoose';
-import { NotificationProps } from '../domain/models/notification_model';
+import { coreSchema } from '../../shared/utils/core_schema';
+import { NotificationCore } from '../domain/models/notification_model';
 
-export type NotificationDocument = NotificationProps & Document;
+export type NotificationDocument = NotificationCore & Document;
 
 export const NotificationSchema = new Schema({
-  user: Schema.Types.ObjectId,
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  ...coreSchema,
+  user: String,
   templateId: String,
   values: [String],
   isRead: {

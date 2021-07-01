@@ -1,14 +1,14 @@
-import { act as actRender } from 'react-dom/test-utils';
 import { act as actHook } from '@testing-library/react-hooks';
+import TestRenderer from 'react-test-renderer';
 
 export function awaitForResponse(): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
-export async function awaitForRenderResponse(): Promise<void> {
-    return await actRender(async () => await awaitForResponse());
+export function awaitForRenderResponse(): Promise<void> {
+    return TestRenderer.act(() => awaitForResponse());
 }
 
-export async function awaitForHookResponse(): Promise<void> {
-    return await actHook(async () => await awaitForResponse());
+export function awaitForHookResponse(): Promise<void> {
+    return actHook(() => awaitForResponse());
 }

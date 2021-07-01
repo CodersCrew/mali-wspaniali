@@ -1,22 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
+import { transformAndValidateSync } from 'class-transformer-validator';
 
-import { UserProps, User } from '../models/user_model';
+import { UserCore, User } from '../models/user_model';
 import { UserDocument } from '../../schemas/user_schema';
-import { KeyCodeProps } from '../../../key_codes/domain/models/key_code_model';
-import { ObjectId } from '../models/object_id_value_object';
+import { classToPlain } from 'class-transformer';
+import { KeyCode } from '../../../key_codes/domain/models/key_code_model';
+import { UserMapper } from '../mappers/user_mapper';
+import { UserDTO } from '../../dto/user_dto';
 
 @Injectable()
 export class UserRepository {
   constructor(
     @InjectModel('User')
-    private readonly userModel: Model<UserDocument>,
+    private userModel: Model<UserDocument>,
   ) {}
 
   async get(id: string): Promise<User> {
     return await this.userModel
-      .findById(id, { password: 0 })
+      .findOne({ _id: id }, { password: 0 })
       .lean()
       .exec()
       .then(parseUser);
@@ -39,7 +42,7 @@ export class UserRepository {
 
   async getAll(role?: string): Promise<User[]> {
     let query: { [index: string]: string | boolean | unknown } = {
-      deleted: {
+      isDeleted: {
         $in: [false, undefined],
       },
     };
@@ -67,7 +70,7 @@ export class UserRepository {
     return await this.userModel
       .find({
         children: {
-          $in: childrenIds.map(child => Types.ObjectId(child)),
+          $in: childrenIds,
         },
       })
       .lean()
@@ -93,89 +96,74 @@ export class UserRepository {
     createUserDTO: {
       mail: string;
       password: string;
-      agreements?: string[];
+      agreements: string[];
     },
-    keyCode: KeyCodeProps,
+    keyCode: KeyCode,
   ): Promise<User> {
-    const user = User.recreate(createUserDTO);
-
-    const createdUser = new this.userModel({
-      ...user.getProps(),
-      role: keyCode.target,
-    });
-    const {
-      children: _children,
-      _id,
-      agreements: _agreements,
-      ...rawUser
-    }: UserDocument = await (await createdUser.save()).toObject();
-
-    return User.create(
-      {
-        ...rawUser,
-        _id: _id.toString(),
-        children: _children.map(agreement => agreement.toString()),
-        agreements: _agreements.map(agreement => agreement.toString()),
-      },
-      keyCode.keyCode,
+    const user = UserMapper.toDomain(
+      { ...createUserDTO, role: keyCode.target },
+      { keyCode: keyCode.keyCode },
     );
+
+    const createdUser = new this.userModel(user.getProps());
+
+    await (await createdUser.save()).toObject();
+
+    return user;
   }
 
-  async addChild(childId: ObjectId, userId: string): Promise<void> {
-    await this.userModel.findByIdAndUpdate(
-      userId,
+  async addChild(childId: string, userId: string): Promise<void> {
+    await this.userModel.findOneAndUpdate(
+      { _id: userId },
       {
-        $addToSet: { children: childId.toMongoId() },
+        $addToSet: { children: childId },
       },
-      { new: true },
+      { new: true, useFindAndModify: false },
     );
   }
 
   async writePassword(userId: string, password: string): Promise<void> {
-    await this.userModel.findByIdAndUpdate(userId, { password });
+    await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { password },
+      { useFindAndModify: false },
+    );
   }
 
   async addAgreement(
     userId: string,
     agreementId: string,
   ): Promise<UserDocument> {
-    return this.userModel.findByIdAndUpdate(userId, {
-      $addToSet: { agreements: Types.ObjectId(agreementId) },
-    });
+    return this.userModel.findOneAndUpdate(
+      { _id: userId },
+      {
+        $addToSet: { agreements: agreementId },
+      },
+      {
+        useFindAndModify: false,
+      },
+    );
   }
 
   async removeAgreement(
     userId: string,
     agreementId: string,
   ): Promise<UserDocument> {
-    return this.userModel.findByIdAndUpdate(userId, {
-      $pull: { agreements: Types.ObjectId(agreementId) },
-    });
+    return this.userModel.findOneAndUpdate(
+      { _id: userId },
+      {
+        $pull: { agreements: agreementId },
+      },
+      {
+        useFindAndModify: false,
+      },
+    );
   }
 
-  update(
-    id: string,
-    { children, agreements, ...updates }: Partial<Omit<UserProps, '_id'>>,
-  ) {
-    const updatedChildren = children?.map(child => Types.ObjectId(child));
-    const updatedAgreements = agreements?.map(agreement =>
-      Types.ObjectId(agreement),
-    );
-
-    let updateObject: typeof updates & {
-      children?: Types.ObjectId[];
-      agreements?: Types.ObjectId[];
-    } = updates;
-
-    if (updatedChildren) {
-      updateObject.children = updatedChildren;
-    }
-
-    if (updatedAgreements) {
-      updateObject.agreements = updatedAgreements;
-    }
-
-    return this.userModel.findByIdAndUpdate(id, updateObject);
+  update(id: string, updates: Partial<Omit<UserCore, '_id'>>) {
+    return this.userModel.findOneAndUpdate({ _id: id }, updates, {
+      useFindAndModify: false,
+    });
   }
 
   // for e2e purpose only
@@ -185,20 +173,16 @@ export class UserRepository {
 
   // for e2e purpose only
   async createAdmin(mail: string, password: string): Promise<void> {
-    await new this.userModel({ mail, password, role: 'admin' }).save();
+    const user = UserMapper.toDomain({ mail, password, role: 'admin' });
+
+    await new this.userModel(UserMapper.toPlain(user)).save();
   }
 }
 
 function parseUser(user: UserDocument) {
   if (user) {
-    const _id = user._id.toString();
-    // if admin
-    const agreements = (user.agreements || []).map(agreement =>
-      agreement.toString(),
-    );
-    const children = (user.children || []).map(child => child.toString());
-    const deleted = !!user.deleted;
+    const recreatedUser = UserMapper.toDomain((user as unknown) as UserDTO);
 
-    return User.recreate({ ...user, _id, agreements, children, deleted });
+    return recreatedUser;
   }
 }

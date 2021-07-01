@@ -11,9 +11,9 @@ import { KindergartenMapper } from '../../mappers/kindergarten_mapper';
 export class GetKindergartenWithUsersHandler
   implements IQueryHandler<GetKindergartenWithUsersQuery> {
   constructor(
-    private readonly kindergartenRepository: KindergartenRepository,
-    private readonly childRepository: ChildRepository,
-    private readonly userRepository: UserRepository,
+    private kindergartenRepository: KindergartenRepository,
+    private childRepository: ChildRepository,
+    private userRepository: UserRepository,
   ) {}
 
   async execute({
@@ -27,11 +27,11 @@ export class GetKindergartenWithUsersHandler
       const children = await this.childRepository.getByKindergarten(id);
 
       const parents = await this.userRepository.getByChildren(
-        children.map(c => c.id.toString()),
+        children.map(c => c.id),
       );
 
       const kindergartenWithUsers = {
-        ...KindergartenMapper.toRaw(kindergarten),
+        ...KindergartenMapper.toPlain(kindergarten),
         users: parents,
       };
 

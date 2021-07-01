@@ -1,13 +1,11 @@
 import { Schema, Document } from 'mongoose';
-import { KindergartenProps } from '../domain/models/kindergarten_model';
+import { coreSchema } from '../../shared/utils/core_schema';
+import { KindergartenCore } from '../domain/models/kindergarten_model';
 
-export type KindergartenDocument = KindergartenProps & Document;
+export type KindergartenDocument = KindergartenCore & Document;
 
 export const KindergartenSchema = new Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  ...coreSchema,
   number: {
     type: Number,
   },
@@ -19,17 +17,5 @@ export const KindergartenSchema = new Schema({
   },
   city: {
     type: String,
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  modifiedAt: {
-    type: Date,
-    default: Date.now,
   },
 });

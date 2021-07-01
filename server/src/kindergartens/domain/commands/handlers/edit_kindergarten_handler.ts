@@ -1,19 +1,17 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { KindergartenRepository } from '../../repositories/kindergarten_repository';
-import { KindergartenProps } from '../../models/kindergarten_model';
+import { Kindergarten } from '../../models/kindergarten_model';
 import { EditKindergartenCommand } from '../impl';
 
 @CommandHandler(EditKindergartenCommand)
 export class EditKindergartenHandler
   implements ICommandHandler<EditKindergartenCommand> {
-  constructor(private readonly repository: KindergartenRepository) {}
+  constructor(private repository: KindergartenRepository) {}
 
-  async execute(command: EditKindergartenCommand): Promise<KindergartenProps> {
+  async execute(command: EditKindergartenCommand): Promise<Kindergarten> {
     const { id, kindergarten } = command;
 
-    const created = await this.repository.update(id, kindergarten);
-
-    return created;
+    return await this.repository.update(id, kindergarten);
   }
 }

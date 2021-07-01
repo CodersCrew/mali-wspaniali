@@ -3,56 +3,56 @@ import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 @ObjectType()
 class ParamsDTO {
   @Field(() => String)
-  readonly sex: string;
+  sex: string;
 
   @Field(() => Int)
-  readonly age: number;
+  age: number;
 
   @Field(() => Float)
-  readonly a: number;
+  a: number;
 
   @Field(() => Float)
-  readonly b: number;
+  b: number;
 
   @Field(() => Float)
-  readonly lowerLimit: number;
+  lowerLimit: number;
 
   @Field(() => Float)
-  readonly lowerLimitPoints: number;
+  lowerLimitPoints: number;
 
   @Field(() => Float)
-  readonly upperLimit: number;
+  upperLimit: number;
 
   @Field(() => Float)
-  readonly upperLimitPoints: number;
+  upperLimitPoints: number;
 
   @Field(() => Float)
-  readonly badStageLimit: number;
+  badStageLimit: number;
 
   @Field(() => Float)
-  readonly weakStageLimit: number;
+  weakStageLimit: number;
 
   @Field(() => Float)
-  readonly middleStageLimit: number;
+  middleStageLimit: number;
 
   @Field(() => Float)
-  readonly goodStageLimit: number;
+  goodStageLimit: number;
 
   @Field(() => Float)
-  readonly veryGoodStageLimit: number;
+  veryGoodStageLimit: number;
 }
 
 @ObjectType()
 export class ChildCurrentParamsDTO {
   @Field(() => ParamsDTO, { nullable: true })
-  readonly run: ParamsDTO;
+  run: ParamsDTO;
 
   @Field(() => ParamsDTO, { nullable: true })
-  readonly pendelumRun: ParamsDTO;
+  pendelumRun: ParamsDTO;
 
   @Field(() => ParamsDTO, { nullable: true })
-  readonly throw: ParamsDTO;
+  throw: ParamsDTO;
 
   @Field(() => ParamsDTO, { nullable: true })
-  readonly jump: ParamsDTO;
+  jump: ParamsDTO;
 }

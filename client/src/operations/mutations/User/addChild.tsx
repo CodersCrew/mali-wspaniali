@@ -19,9 +19,15 @@ export const ADD_CHILD = gql`
             birthQuarter
             results {
                 _id
-                date
-                test
-                rootResultId
+                createdAt
+                modifiedAt
+                childId
+                kindergartenId
+                assessmentId
+                assessment {
+                    _id
+                    title
+                }
             }
             kindergarten {
                 _id

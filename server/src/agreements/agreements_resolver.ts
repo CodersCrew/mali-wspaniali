@@ -8,7 +8,8 @@ import { GetAllAgreementsQuery } from './domain/queries/impl/get_all_agreements_
 import { AgreementDTO } from './dto/agreement_dto';
 import { ReturnedStatusDTO } from '../shared/returned_status';
 import { CreateAgreementCommand } from './domain/commands/impl/create_agreement_command';
-import { AgreementProps } from './schemas/agreement_schema';
+import { Agreement, AgreementCore } from './domain/models/agreement';
+import { AgreementMapper } from './domain/mappers/agreement_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver()
@@ -16,16 +17,16 @@ export class AgreementsResolver {
   constructor(
     private commandBus: CommandBus,
     private queryBus: QueryBus,
-    public readonly agreementRepository: AgreementRepository,
+    public agreementRepository: AgreementRepository,
   ) {}
 
   @Query(() => [AgreementDTO])
-  async agreements(): Promise<AgreementDTO[]> {
-    const agreements: AgreementDTO[] = await this.queryBus.execute(
+  async agreements(): Promise<AgreementCore[]> {
+    const agreements: Agreement[] = await this.queryBus.execute(
       new GetAllAgreementsQuery(),
     );
 
-    return agreements;
+    return agreements.map(a => AgreementMapper.toRaw(a));
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -33,7 +34,7 @@ export class AgreementsResolver {
   async createAgreement(
     @Args('agreement') agreement: string,
   ): Promise<ReturnedStatusDTO> {
-    const created: AgreementProps = await this.commandBus.execute(
+    const created: AgreementCore = await this.commandBus.execute(
       new CreateAgreementCommand({ text: agreement }),
     );
 

@@ -38,7 +38,7 @@ export function KindergartenList({ kindergartens }: Props) {
                     onChange={({ target: { value } }) => setSearchPhrase(value)}
                     size="small"
                 />
-                <TableContainer classes={{ root: classes.table }}>
+                <TableContainer>
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -65,9 +65,6 @@ export function KindergartenList({ kindergartens }: Props) {
 
 const useStyles = makeStyles(() =>
     createStyles({
-        table: {
-            height: 295,
-        },
         kindergartenItem: {
             cursor: 'default',
         },

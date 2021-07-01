@@ -6,7 +6,7 @@ import { Article } from '../../models/article_model';
 @QueryHandler(GetArticleByIdQuery)
 export class GetArticleByIdHandler
   implements IQueryHandler<GetArticleByIdQuery> {
-  constructor(private readonly repository: ArticlesRepository) {}
+  constructor(private repository: ArticlesRepository) {}
 
   async execute(query: GetArticleByIdQuery): Promise<Article> {
     return this.repository.get(query.id);

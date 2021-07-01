@@ -24,7 +24,7 @@ export const KINDERGARTEN_WITH_USERS = gql`
                 }
                 agreements {
                     _id
-                    date
+                    createdAt
                     text
                     isSigned
                 }
