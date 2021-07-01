@@ -6,7 +6,7 @@ import { GetUsersQuery } from '../impl';
 
 @QueryHandler(GetUsersQuery)
 export class GetUsersHandler implements IQueryHandler<GetUsersQuery> {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository) {}
 
   async execute({ ids }: GetUsersQuery): Promise<User[]> {
     return await this.userRepository.getMany(ids);

@@ -6,20 +6,20 @@ export class NewsletterDTO {
   _id: string;
 
   @Field(() => String)
-  readonly message: string;
+  message: string;
 
   @Field(() => [String])
-  readonly recipients: string[];
+  recipients: string[];
 
   @Field()
-  readonly date: Date;
+  date: Date;
 
   @Field()
-  readonly title: string;
+  title: string;
 
   @Field()
-  readonly type: string;
+  type: string;
 
   @Field()
-  readonly isDone: boolean;
+  isDone: boolean;
 }

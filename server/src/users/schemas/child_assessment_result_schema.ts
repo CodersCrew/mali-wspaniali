@@ -1,17 +1,15 @@
 import { Schema, Document } from 'mongoose';
-import { ChildAssessmentResultProps } from '../domain/models/child_result_model';
+import { coreSchema } from '../../shared/utils/core_schema';
+import { ChildAssessmentResultCore } from '../domain/models/child_assessment_result_model';
 
-export type ChildAssessmentResultDocument = ChildAssessmentResultProps &
+export type ChildAssessmentResultDocument = ChildAssessmentResultCore &
   Document;
 
 export const ChildAssessmentResultSchema = new Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  childId: Schema.Types.ObjectId,
-  kindergartenId: Schema.Types.ObjectId,
-  assessmentId: Schema.Types.ObjectId,
+  ...coreSchema,
+  childId: String,
+  kindergartenId: String,
+  assessmentId: String,
   firstMeasurementNote: String,
   lastMeasurementNote: String,
   firstMeasurementRunDate: Date,
@@ -30,6 +28,6 @@ export const ChildAssessmentResultSchema = new Schema({
   lastMeasurementThrowResult: Number,
   firstMeasurementJumpResult: Number,
   lastMeasurementJumpResult: Number,
-  firstMeasurementKindergarten: Schema.Types.ObjectId,
-  lastMeasurementKindergarten: Schema.Types.ObjectId,
+  firstMeasurementKindergarten: String,
+  lastMeasurementKindergarten: String,
 });

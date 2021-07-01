@@ -9,8 +9,8 @@ export interface CreateKeyCodeSeriesResponse {
 export const CREATE_KEYCODES = gql`
     mutation createKeyCodeBulk($target: String!, $amount: Int!) {
         createKeyCodeBulk(target: $target, amount: $amount) {
-            id
-            date
+            _id
+            createdAt
             createdBy
             target
             series

@@ -3,38 +3,38 @@ import { InputType, Field, Int } from '@nestjs/graphql';
 @InputType()
 export class ResultInput {
   @Field()
-  readonly type: string;
+  type: string;
 
   @Field(() => Int)
-  readonly childAge: number;
+  childAge: number;
 
   @Field(() => Int)
-  readonly agilityPoints: number;
+  agilityPoints: number;
 
   @Field(() => Int)
-  readonly agilitySeconds: number;
+  agilitySeconds: number;
 
   @Field(() => Int)
-  readonly powerCentimeters: number;
+  powerCentimeters: number;
 
   @Field(() => Int)
-  readonly powerPoints: number;
+  powerPoints: number;
 
   @Field(() => Int)
-  readonly schoolYearStart: number;
+  schoolYearStart: number;
 
   @Field(() => Int)
-  readonly speedPoints: number;
+  speedPoints: number;
 
   @Field(() => Int)
-  readonly speedSeconds: number;
+  speedSeconds: number;
 
   @Field(() => Int)
-  readonly strengthCentimeters: number;
+  strengthCentimeters: number;
 
   @Field(() => Int)
-  readonly strengthPoints: number;
+  strengthPoints: number;
 
   @Field()
-  readonly testPeriod: string;
+  testPeriod: string;
 }

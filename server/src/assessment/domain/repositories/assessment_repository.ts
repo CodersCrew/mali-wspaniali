@@ -1,60 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Assessment } from '../models/assessment_model';
 import { AssessmentMapper } from '../mappers/assessment_mapper';
 
-import {
-  AssessmentDocument,
-  KindergartenWithInstructorDocumentProps,
-} from '../../schemas/assessment_schema';
+import { AssessmentDocument } from '../../schemas/assessment_schema';
 
 @Injectable()
 export class AssessmentRepository {
   constructor(
     @InjectModel('Assessment')
-    private readonly model: Model<AssessmentDocument>,
+    private model: Model<AssessmentDocument>,
   ) {}
 
   get(id: string): Promise<Assessment> {
     return this.model
-      .findById(id)
+      .findOne({ _id: id, isDeleted: false })
       .lean()
       .exec()
       .then(fetchAssessment => {
         if (!fetchAssessment) return null;
 
-        const _id = (fetchAssessment._id as Types.ObjectId).toHexString();
-        const stringifiedKindergartenWithInstructor = fetchAssessment.kindergartens.map(
-          k => this.mapToRawKindergarten(k),
-        );
-
-        return AssessmentMapper.toDomain({
-          ...fetchAssessment,
-          _id,
-          kindergartens: stringifiedKindergartenWithInstructor,
-        });
+        return AssessmentMapper.toDomain(fetchAssessment);
       });
   }
 
   getAll(): Promise<Assessment[]> {
     return this.model
-      .find({}, {}, { sort: { date: -1 } })
+      .find({ isDeleted: false }, {}, { sort: { date: -1 } })
       .lean()
       .exec()
       .then(fetchAssessments => {
         return fetchAssessments.map(assessment => {
-          const _id = (assessment._id as Types.ObjectId).toHexString();
-
-          const stringifiedKindergartenWithInstructor = assessment.kindergartens.map(
-            k => this.mapToRawKindergarten(k),
-          );
-
-          return AssessmentMapper.toDomain({
-            ...assessment,
-            _id,
-            kindergartens: stringifiedKindergartenWithInstructor,
-          });
+          return AssessmentMapper.toDomain(assessment);
         });
       });
   }
@@ -62,6 +40,7 @@ export class AssessmentRepository {
   getAllAssignedToInstructor(instructorId: any): Promise<Assessment[]> {
     return this.model
       .find({
+        isDeleted: false,
         status: {
           $ne: 'done',
         },
@@ -71,15 +50,12 @@ export class AssessmentRepository {
       .exec()
       .then(fetchAssessments => {
         return fetchAssessments.map(assessment => {
-          const _id = (assessment._id as Types.ObjectId).toHexString();
-
-          const stringifiedKindergartenWithInstructor = assessment.kindergartens
-            .map(k => this.mapToRawKindergarten(k))
-            .filter(k => k.instructorId === instructorId);
+          const stringifiedKindergartenWithInstructor = assessment.kindergartens.filter(
+            k => k.instructorId === instructorId,
+          );
 
           return AssessmentMapper.toDomain({
             ...assessment,
-            _id,
             kindergartens: stringifiedKindergartenWithInstructor,
           });
         });
@@ -99,21 +75,10 @@ export class AssessmentRepository {
   }
 
   async update(assessment: Assessment): Promise<Assessment> {
-    const assessmentDocument = await this.model.findById(
-      assessment.id.toString(),
-    );
+    const assessmentDocument = await this.model.findById(assessment.id);
 
     await assessmentDocument.update(AssessmentMapper.toPersist(assessment));
 
     return assessment;
-  }
-
-  private mapToRawKindergarten(
-    kindergarten: KindergartenWithInstructorDocumentProps,
-  ) {
-    return {
-      kindergartenId: kindergarten.kindergartenId?.toHexString() || null,
-      instructorId: kindergarten.instructorId?.toHexString() || null,
-    };
   }
 }

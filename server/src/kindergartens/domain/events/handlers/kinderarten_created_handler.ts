@@ -10,9 +10,9 @@ import { UserRepository } from '../../../../users/domain/repositories/user_repos
 export class KindergartenCreatedHandler
   implements IEventHandler<KindergartenCreatedEvent> {
   constructor(
-    private readonly kindergartenRepository: KindergartenRepository,
-    private readonly userRepository: UserRepository,
-    private readonly notificationRepository: NotificationRepository,
+    private kindergartenRepository: KindergartenRepository,
+    private userRepository: UserRepository,
+    private notificationRepository: NotificationRepository,
   ) {}
 
   async handle({ kindergartenId }: KindergartenCreatedEvent): Promise<void> {
@@ -23,7 +23,7 @@ export class KindergartenCreatedHandler
     this.notificationRepository.create(
       createKindergartenCreatedNotification(
         users.map(u => u.id),
-        kindergarten.name.value,
+        kindergarten.name,
       ),
     );
   }

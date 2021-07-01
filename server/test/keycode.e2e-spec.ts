@@ -132,7 +132,7 @@ describe('KeyCode (e2e)', () => {
           query: `
           mutation {
             createKeyCode(target: "parent") {
-              date
+              createdAt
               keyCode
               createdBy
             }

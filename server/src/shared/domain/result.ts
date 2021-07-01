@@ -61,7 +61,7 @@ export class Result<T> {
 export type Either<L, A> = Left<L, A> | Right<L, A>;
 
 export class Left<L, A> {
-  readonly value: L;
+  value: L;
 
   constructor(value: L) {
     this.value = value;
@@ -77,7 +77,7 @@ export class Left<L, A> {
 }
 
 export class Right<L, A> {
-  readonly value: A;
+  value: A;
 
   constructor(value: A) {
     this.value = value;

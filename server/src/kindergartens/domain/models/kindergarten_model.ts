@@ -1,51 +1,45 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import { ObjectId } from '../../../users/domain/models/object_id_value_object';
-import { KindergartenTitle } from './kindergarten_title_value_object';
-import { Document } from 'mongoose';
-import { IsDeleted } from './is_deleted_value_object';
+import { Expose } from 'class-transformer';
+import { Length, Min } from 'class-validator';
+
 import { KindergartenCreatedEvent } from '../events/impl';
 import { KindergartenUpdatedEvent } from '../events/impl/kindergarten_updated_event';
+import { CoreModel } from '../../../shared/utils/core_model';
 
-export interface KindergartenProps {
-  _id: string;
-  date: Date;
-  number: number;
+export class KindergartenCore extends CoreModel {
+  @Expose()
+  @Length(3, 40)
   name: string;
+
+  @Expose()
   address: string;
+
+  @Expose()
+  @Min(0)
+  number: number;
+
+  @Expose()
   city: string;
-  isDeleted: boolean;
-}
-
-export type KindergartenDocument = Document & KindergartenProps;
-
-export interface Props {
-  readonly _id: ObjectId;
-  readonly date: Date;
-  readonly number: number;
-  readonly name: KindergartenTitle;
-  readonly address: string;
-  readonly city: string;
-  isDeleted: IsDeleted;
 }
 
 export class Kindergarten extends AggregateRoot {
-  private constructor(private readonly props: Props) {
+  private constructor(private props: KindergartenCore) {
     super();
   }
 
-  get id(): ObjectId {
+  get id(): string {
     return this.props._id;
   }
 
-  get date(): Date {
-    return this.props.date;
+  get createdAt(): Date {
+    return this.props.createdAt;
   }
 
   get number(): number {
     return this.props.number;
   }
 
-  get name(): KindergartenTitle {
+  get name(): string {
     return this.props.name;
   }
 
@@ -57,31 +51,33 @@ export class Kindergarten extends AggregateRoot {
     return this.props.city;
   }
 
-  get isDeleted(): IsDeleted {
+  get isDeleted(): boolean {
     return this.props.isDeleted;
   }
 
+  getProps(): KindergartenCore {
+    return this.props;
+  }
+
   delete() {
-    this.props.isDeleted = IsDeleted.create(true).getValue();
+    this.props.isDeleted = true;
 
     this.apply(
-      new KindergartenUpdatedEvent(this.id.toString(), {
+      new KindergartenUpdatedEvent(this.id, {
         isDeleted: true,
       }),
     );
   }
 
-  static create(value: Props) {
+  static create(value: KindergartenCore) {
     const kindergarten = new Kindergarten(value);
 
-    kindergarten.apply(
-      new KindergartenCreatedEvent(kindergarten.id.toString()),
-    );
+    kindergarten.apply(new KindergartenCreatedEvent(kindergarten.id));
 
     return kindergarten;
   }
 
-  static recreate(value: Props) {
+  static recreate(value: KindergartenCore) {
     return new Kindergarten(value);
   }
 }

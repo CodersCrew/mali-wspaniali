@@ -1,4 +1,5 @@
 import XLSX from 'xlsx';
+import dayjs from 'dayjs';
 
 import { KeyCode } from '../../../graphql/types';
 
@@ -49,5 +50,5 @@ function createWorkSheetWithKeyCodes(columnLabels: string[], keyCodes: KeyCode[]
 }
 
 function mapKeyCodesToSpreadsheetRows(keyCode: KeyCode) {
-    return [keyCode.date, keyCode.keyCode];
+    return [dayjs(keyCode.createdAt).format('DD.MM.YYYY HH:MM'), keyCode.keyCode];
 }

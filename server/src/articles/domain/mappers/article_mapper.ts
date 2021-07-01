@@ -10,8 +10,13 @@ export class ArticleMapper {
     return classToPlain(props, { excludeExtraneousValues: true });
   }
 
-  static toDomain(props: CreateArticleInput): Article {
-    return Article.recreate(
+  static toDomain(
+    props: CreateArticleInput,
+    options: { isNew: boolean } = { isNew: false },
+  ): Article {
+    const createArticle = options.isNew ? Article.create : Article.recreate;
+
+    return createArticle(
       transformAndValidateSync(ArticleCore, props, {
         transformer: { excludeExtraneousValues: true },
         validator: { validationError: { target: false, value: false } },

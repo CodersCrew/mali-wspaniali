@@ -119,8 +119,9 @@ function getSelected({
     childId: string;
 }) {
     const selectedAssessment = assessments.find((a) => a._id === assessmentId);
-    const selectedKindergarten = selectedAssessment?.kindergartens.find((k) => k.kindergarten?._id === kindergartenId)
-        ?.kindergarten;
+    const selectedKindergarten = selectedAssessment?.kindergartens.find(
+        (k) => k.kindergarten?._id === kindergartenId,
+    )?.kindergarten;
     const selectedChild = selectedKindergarten?.children?.find((c) => c._id === childId);
 
     return {

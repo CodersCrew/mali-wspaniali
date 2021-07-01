@@ -1,3 +1,3 @@
 export class CreateAgreementCommand {
-  constructor(public readonly agreement: { text: string }) {}
+  constructor(public agreement: { text: string }) {}
 }

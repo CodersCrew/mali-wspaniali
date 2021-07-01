@@ -1,8 +1,5 @@
-import { KindergartenProps } from '../../models/kindergarten_model';
+import { KindergartenCore } from '../../models/kindergarten_model';
 
 export class KindergartenUpdatedEvent {
-  constructor(
-    public readonly id: string,
-    public readonly updates: Partial<KindergartenProps>,
-  ) {}
+  constructor(public id: string, public updates: Partial<KindergartenCore>) {}
 }

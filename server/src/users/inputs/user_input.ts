@@ -3,14 +3,23 @@ import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class UserInput {
   @Field()
-  readonly mail: string;
+  mail: string;
 
   @Field()
-  readonly password: string;
+  password: string;
 
   @Field()
-  readonly keyCode: string;
+  keyCode: string;
 
   @Field(() => [String], { nullable: true })
-  readonly agreements?: string[];
+  agreements?: string[];
+}
+
+@InputType()
+export class UpdatedUserInput {
+  @Field({ nullable: true })
+  firstname: string;
+
+  @Field({ nullable: true })
+  lastname: string;
 }

@@ -1,27 +1,23 @@
-import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
-import { UserProps } from '../../users/domain/models/user_model';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+
 import { UserDTO } from '../../users/dto/user_dto';
+import { UserCore } from '../../users/domain/models/user_model';
+import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
-export class KindergartenWithUsersDTO {
-  @Field(() => ID)
-  _id: string;
-
-  @Field()
-  readonly date: Date;
-
+export class KindergartenWithUsersDTO extends FieldCore {
   @Field(() => Int)
-  readonly number: number;
+  number: number;
 
   @Field()
-  readonly name: string;
+  name: string;
 
   @Field()
-  readonly city: string;
+  city: string;
 
   @Field()
-  readonly address: string;
+  address: string;
 
   @Field(() => [UserDTO])
-  readonly users: UserProps;
+  users: UserCore;
 }

@@ -8,18 +8,17 @@ import { UserRepository } from '../../../../users/domain/repositories/user_repos
 export class AssessmentCreatedHandler
   implements IEventHandler<AssessmentCreatedEvent> {
   constructor(
-    private readonly notificationRepository: NotificationRepository,
-    private readonly userRepository: UserRepository,
+    private notificationRepository: NotificationRepository,
+    private userRepository: UserRepository,
   ) {}
 
-  async handle({ assessment }: AssessmentCreatedEvent) {
-    const users = await this.userRepository.getAll('admin');
+  handle({ assessment }: AssessmentCreatedEvent) {
+    this.userRepository.forEachAdmin(user => {
+      const userId = user._id;
 
-    this.notificationRepository.create(
-      createAssessmentCreatedNotification(
-        users.map(u => u.id),
-        [assessment.title.value],
-      ),
-    );
+      this.notificationRepository.create(
+        createAssessmentCreatedNotification(userId, [assessment.title]),
+      );
+    });
   }
 }

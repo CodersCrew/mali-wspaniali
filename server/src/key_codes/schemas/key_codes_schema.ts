@@ -1,13 +1,11 @@
 import * as mongoose from 'mongoose';
-import { KeyCodeProps } from '../domain/models/key_code_model';
+import { coreSchema } from '../../shared/utils/core_schema';
+import { KeyCodeCore } from '../domain/models/key_code_model';
 
-export type KeyCodeDocument = KeyCodeProps & mongoose.Document;
+export type KeyCodeDocument = KeyCodeCore & mongoose.Document;
 
 export const KeyCodeSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  ...coreSchema,
   createdBy: String,
   keyCode: String,
   series: String,

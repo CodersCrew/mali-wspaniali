@@ -30,10 +30,6 @@ export class KindergartenWithInstructor extends ValueObject<
       return Result.fail(isNull.message);
     }
 
-    if (!(value.kindergartenId instanceof ObjectId)) {
-      return Result.fail('KindergartenWithInstructor must be valid');
-    }
-
     return Result.ok(new KindergartenWithInstructor({ value }));
   }
 }

@@ -7,9 +7,7 @@ import { GetKindergartensQuery } from '../impl';
 @QueryHandler(GetKindergartensQuery)
 export class GetKindergartensHandler
   implements IQueryHandler<GetKindergartensQuery> {
-  constructor(
-    private readonly kindergartenRepository: KindergartenRepository,
-  ) {}
+  constructor(private kindergartenRepository: KindergartenRepository) {}
 
   async execute({ ids }: GetKindergartensQuery): Promise<Kindergarten[]> {
     const kindergartens = await this.kindergartenRepository.getMany(ids);

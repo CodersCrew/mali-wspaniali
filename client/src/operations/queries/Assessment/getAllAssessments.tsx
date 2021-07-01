@@ -23,8 +23,6 @@ export const GET_ALL_ASSESSMENTS = gql`
             isOutdated
             isDeleted
             title
-            startDate
-            endDate
             status
             firstMeasurementStatus
             lastMeasurementStatus
@@ -54,8 +52,6 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
             isOutdated
             isDeleted
             title
-            startDate
-            endDate
             firstMeasurementStartDate
             firstMeasurementEndDate
             lastMeasurementStartDate
