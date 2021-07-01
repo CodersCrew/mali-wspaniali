@@ -51,7 +51,6 @@ export const InstructorSidebar = ({ onClick, user, active }: Props) => {
             <Grid item>
                 <List>
                     <SingleItem item={MainPageItem} onClick={onClick} />
-                    <Divider />
                     <SingleItem item={AgreementsItem} onClick={onClick} />
                     <CollapsibleList mainItem={BlogItem.mainItem} subItems={BlogItem.subItems} onClick={onClick} />
                     <SingleItem item={NotificationsItem} onClick={onClick} />
