@@ -36,13 +36,13 @@ const useStyles = makeStyles((theme: Theme) =>
         flexContainer: {
             alignItems: 'flex-end',
             backgroundColor: 'theme.palette.primary.contrastText',
-            marginLeft: ({ isMobile }: propStyle) => (isMobile ? theme.spacing(0) : theme.spacing(3)),
+            marginLeft: ({ isMobile }: propStyle) => (isMobile ? theme.spacing(1) : theme.spacing(3)),
         },
         indicator: {
             backgroundColor: ({ indicator }: propStyle) => indicator,
         },
         scrollButtons: {
-            width: '20px',
+            display: 'none',
         },
     }),
 );
