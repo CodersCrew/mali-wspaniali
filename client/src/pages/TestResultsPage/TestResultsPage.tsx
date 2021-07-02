@@ -4,18 +4,10 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ReplyAllIcon from '@material-ui/icons/ReplyAll';
-import SearchIcon from '@material-ui/icons/Search';
 import { NoResults } from './NoResults';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
-import { KindergartenModal } from './KindergartenModals/KindergartenModal';
-import { ChangeLogModal } from './KindergartenModals/ChangeLogModal';
-import { KindergartenDeleteModal } from './KindergartenModals/KindergartenDeleteModal';
 import { activePage } from '../../apollo_client';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
-import { useCreateKindergarten } from '../../operations/mutations/Kindergartens/createKindergarten';
-import { useDeleteKindergarten } from '../../operations/mutations/Kindergartens/deleteKindergarten';
-import { useUpdateKindergarten } from '../../operations/mutations/Kindergartens/updateKindergarten';
-import { Kindergarten, AddKindergartenInput } from '../../graphql/types';
 import { PageContainer } from '../../components/PageContainer';
 import { Theme } from '../../theme';
 import { SelectList } from '../../components/SelectList';
@@ -25,22 +17,9 @@ import { ButtonSecondary } from '../../components/Button';
 export default function TestResultsPage() {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { createKindergarten } = useCreateKindergarten();
-    const { deleteKindergarten } = useDeleteKindergarten();
-    const { updateKindergarten } = useUpdateKindergarten();
     const { kindergartenList } = useKindergartens();
 
-    const [kindergartenModalStatus, setKindergartenModalStatus] = useState<{
-        isOpen?: boolean;
-        kindergarten: Kindergarten | null;
-    }>({
-        kindergarten: null,
-    });
-    const [isChangeLogModalOpen, setChangeLogModalOpen] = useState(false);
-    const [deleteModalStatus, setDeleteModalStatus] = useState<{ kindergarten: Kindergarten | null }>({
-        kindergarten: null,
-    });
-
+    const [SearchedValue, setSearchedValue] = useState('');
     useEffect(() => {
         activePage(['admin-menu.results.title', 'admin-menu.results.table']);
     }, []);
@@ -49,35 +28,12 @@ export default function TestResultsPage() {
         return <NoResults />;
     }
 
-    const onEditClick = (kindergarten: Kindergarten) => {
-        setKindergartenModalStatus({ isOpen: true, kindergarten });
-    };
-
-    const onDelete = (id: string) => {
-        deleteKindergarten(id);
-        setDeleteModalStatus({ kindergarten: null });
-    };
-
-    const onKindergartenModalClose = () => {
-        setKindergartenModalStatus({ kindergarten: null });
-    };
-
-    const handleAddOrEditKindergarten = (values: AddKindergartenInput) => {
-        if (kindergartenModalStatus.kindergarten) {
-            updateKindergarten(kindergartenModalStatus.kindergarten._id, values);
-        } else {
-            createKindergarten(values);
-        }
-        setKindergartenModalStatus({ kindergarten: null });
-    };
-
     const [selectedTest, setSelectedTest] = useState('Test przedszkolaka 2020/2021');
     const [selectedMeasurement, setSelectedMeasurement] = useState('add-results-page.first-assessment');
 
     return (
         <PageContainer>
             <Box className={classes.wrapper}>
-                <SearchIcon className={classes.searchIcon} />
                 <Grid className={classes.options}>
                     <Box className={classes.optionsContainer} justifyContent={'flex-start'}>
                         <div className={classes.SelectListContainer}>
@@ -118,29 +74,11 @@ export default function TestResultsPage() {
                         Opublikowane
                     </p>
                 </Box>
-                {/* <ResultsActions
-                    onAddKindergartenClick={() => setKindergartenModalStatus({ isOpen: true, kindergarten: null })}
-                    onChangeLogClick={() => setChangeLogModalOpen(true)}
-                /> */}
-                <TestResultsTable kindergartens={kindergartenList} onEditClick={onEditClick} />
-                {kindergartenModalStatus.isOpen && (
-                    <KindergartenModal
-                        onClose={onKindergartenModalClose}
-                        onSubmit={handleAddOrEditKindergarten}
-                        kindergarten={kindergartenModalStatus.kindergarten}
-                        onDelete={(kindergarten: Kindergarten) => {
-                            setDeleteModalStatus({ kindergarten });
-                        }}
-                    />
-                )}
-                <ChangeLogModal isOpen={isChangeLogModalOpen} onClose={() => setChangeLogModalOpen(false)} />
-                {deleteModalStatus.kindergarten && (
-                    <KindergartenDeleteModal
-                        onClose={() => setDeleteModalStatus({ kindergarten: null })}
-                        onDelete={(id: string) => onDelete(id)}
-                        kindergarten={deleteModalStatus.kindergarten}
-                    />
-                )}
+                <TestResultsTable
+                    kindergartens={kindergartenList}
+                    searchedValue={SearchedValue}
+                    setSearchValue={setSearchedValue}
+                />
             </Box>
         </PageContainer>
     );
@@ -183,15 +121,6 @@ const useStyles = makeStyles((theme: Theme) =>
         ResultStatusText: {
             fontSize: '16px',
             fontWeight: 500,
-        },
-        searchIcon: {
-            position: 'absolute',
-            top: '31.7%',
-            right: '4%',
-            width: '34px',
-            height: '34px',
-            color: 'gray',
-            cursor: 'pointer',
         },
     }),
 );

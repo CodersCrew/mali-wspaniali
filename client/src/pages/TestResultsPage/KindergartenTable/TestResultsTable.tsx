@@ -8,8 +8,13 @@ import {
     TableRow,
     Paper,
     TablePagination,
+    makeStyles,
+    Theme,
+    createStyles,
+    IconButton,
 } from '@material-ui/core';
 import { useState } from 'react';
+import SearchIcon from '@material-ui/icons/Search';
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { Kindergarten } from '../../../graphql/types';
 import ArrowedCell from '../../../components/ArrowedCell';
@@ -19,11 +24,13 @@ const KINDERGARTEN_CELL_NAME = 'kindergartenCellName';
 
 interface Props {
     kindergartens: Kindergarten[];
-    onEditClick: (value: Kindergarten) => void;
+    searchedValue: string;
+    setSearchValue: (value: string) => void;
 }
 
-export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
+export const TestResultsTable = ({ kindergartens, searchedValue, setSearchValue }: Props) => {
     const { t } = useTranslation();
+    const classes = useStyles();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [selectedSortableCell, setSelectedSortableCell] = useState<string | undefined>(undefined);
@@ -42,7 +49,7 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
-                    <TableRow style={{ height: '50px' }}>
+                    <TableRow className={classes.tableRow}>
                         <TableCell />
                         <ArrowedCell
                             text={t('test-results.kindergarten-name')}
@@ -56,7 +63,11 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
                             cellName={resultCell.name}
                             onClick={resultCell.changeActive}
                         />
-                        <TableCell />
+                        <TableCell className={classes.cell}>
+                            <IconButton className={classes.searchIconBtn}>
+                                <SearchIcon className={classes.icon} />
+                            </IconButton>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -64,11 +75,7 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
                         ? kindergartens.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : kindergartens
                     ).map((kindergarten) => (
-                        <TestResultsTableRow
-                            key={kindergarten._id}
-                            kindergarten={kindergarten}
-                            onEditClick={onEditClick}
-                        />
+                        <TestResultsTableRow key={kindergarten._id} kindergarten={kindergarten} />
                     ))}
                 </TableBody>
             </Table>
@@ -98,3 +105,22 @@ export const TestResultsTable = ({ kindergartens, onEditClick }: Props) => {
         return [5, 10, 25].filter((v) => kindergartens.length >= v);
     }
 };
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        tableRow: {
+            height: '50px',
+        },
+        searchIconBtn: {
+            padding: '3px',
+            color: 'gray',
+        },
+        icon: {
+            width: '30px',
+            height: '30px',
+        },
+        cell: {
+            padding: theme.spacing(0),
+        },
+    }),
+);

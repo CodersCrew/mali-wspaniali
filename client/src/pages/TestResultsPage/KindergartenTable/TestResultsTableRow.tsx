@@ -8,7 +8,7 @@ import { ProgressBar } from '../../../components/ProgressBar';
 
 interface Props {
     kindergarten: Kindergarten;
-    onEditClick: (value: Kindergarten) => void;
+    onEditClick?: (value: Kindergarten) => void;
 }
 
 export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {

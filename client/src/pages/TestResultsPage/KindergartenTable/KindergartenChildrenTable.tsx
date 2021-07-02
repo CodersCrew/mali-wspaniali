@@ -111,6 +111,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         collapseContainer: {
             margin: '0px 9.6%',
+            paddingBottom: '8px',
         },
         button: {
             '&:hover': {
@@ -134,7 +135,6 @@ const useStyles = makeStyles((theme: Theme) =>
         cell: {
             padding: theme.spacing(0),
             paddingLeft: '6px',
-            // width: '44%',
         },
         iconCell: {
             padding: theme.spacing(0),
