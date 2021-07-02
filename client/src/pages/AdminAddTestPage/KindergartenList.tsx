@@ -38,7 +38,6 @@ export function KindergartenList({ kindergartens }: Props) {
                     data-testid="search-field"
                     value={searchPhrase}
                     onChange={({ target: { value } }) => setSearchPhrase(value)}
-                    size="small"
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
