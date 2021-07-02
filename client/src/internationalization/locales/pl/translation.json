@@ -332,7 +332,7 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
-        "final-test-title": "Wyniki wchodzących w skład pomiaru końcowego",
+        "final-test-title": "Wyniki prób wchodzących w skład pomiaru końcowego",
         "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
             "progress": "Poprawił się",
@@ -778,7 +778,7 @@
         "basic-information-form": {
             "title": "Podstawowe informacje",
             "description": "Uzupełnij podstawowe informacje dotyczące testu przedszkolaka",
-            "measurement-amount": "Ilość przeprowadzonych prób",
+            "measurement-amount": "Liczba przeprowadzonych prób",
             "test-name": "Nazwa testu",
             "status": "Status",
             "first-measurement": "Próba początkowa",
@@ -797,7 +797,6 @@
         },
         "kindergartens": {
             "title": "Przedszkola",
-            "description": "Wybierz przedszkola, biorące udział w teście przedszkolaka",
             "kindergarten-name": "Nazwa przedszkola",
             "find-kindergarten": "Znajdź przedszkole"
         },
