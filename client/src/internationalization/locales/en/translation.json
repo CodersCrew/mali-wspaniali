@@ -701,7 +701,6 @@
         },
         "kindergartens": {
             "title": "Kindergartens",
-            "description": "Select kindergartens participating in the preschool agility test",
             "kindergarten-name": "Name",
             "find-kindergarten": "Find a kindergarten"
         },
