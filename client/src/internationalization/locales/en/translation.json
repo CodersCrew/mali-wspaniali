@@ -18,7 +18,7 @@
         "register": "Register"
     },
     "login-wrapper": {
-        "welcome-text": "Welcome to the world of 'Mali Wspaniali'",
+        "welcome-text": "Welcome to the world of Mali Wspaniali",
         "subheading": "Join the community of conscious parents",
         "made-by": "Made by:",
         "partners": "Strategic partners:"
@@ -36,15 +36,15 @@
         "password-confirm": "Repeat your password",
         "register": "Registration",
         "password-not-strong": "Your password is not strong enough. Check if it contains minimum 8 characters, a capital letter, a number, and at least one special character.",
-        "agreements-and-regulations": "Agreements and terms & conditions",
+        "agreements-and-regulations": "Consents and terms & conditions",
         "agreements-fetch-failed": "Fetching data failed. Try again later.",
         "create-password": "Register an account",
         "confirmation": "Confirmation",
         "create-password-text": "Create a password to the Mali Wspaniali platform that will be used for future logins.",
-        "go-to-homepage": "Go to home page",
-        "go-to-loginpage": "Go to login page",
+        "go-to-homepage": "Go to the home page",
+        "go-to-loginpage": "Go to the login page",
         "enter-code": "Code",
-        "enter-code-text": "Please enter the code provided by Mali Wspaniali foundation. Thanks to this code, your data will be secure.",
+        "enter-code-text": "Please enter the code provided by the Mali Wspaniali Foundation. Thanks to this code, your data will be secure.",
         "no-code": "Don't have a code?",
         "no-code-desc": "Such situations may happen, but nothing's lost. Please notify the Mali Wspaniali Foundation about your problem so our employees can generate new code for you. Send an email to: <strong>biuro@mali-wspaniali.pl</strong>",
         "invalid-code": "Code is invalid, please try again.",
@@ -60,11 +60,11 @@
             "show-more": "Show more",
             "show-less": "Show less",
             "show-more-content-modal": "See the full text in a new tab",
-            "sub-title": "Agreements",
+            "sub-title": "Consents",
             "sub-title-description": "Consents for using your child's image and for receiving marketing information can be refused at any time on the platform in 'Consents' tab.",
             "statement": "I declare that I have read and accepted <a style='color: #00acc1; text-decoration: none'; href='#'>Terms & Conditions</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>Privacy Policy</a>.",
             "required-field": "mandatory field",
-            "required-agreements": "Required agreements and declarations",
+            "required-agreements": "Required consents and declarations",
             "select-all": "Select all consents",
             "agreement2-text": "I agree that my child participates in general sports activities with elements of karate as part of the Mali Wspaniali program.",
             "agreement3-text": "I agree to receive marketing information at the given email address. <span style='color: rgba(0, 0, 0, 0.54)'>(This consent will allow us to share our success stories occasionally).</span>",
@@ -74,14 +74,14 @@
         }
     },
     "forgot-password-page": {
-        "forgot-password": "Forgot the password?",
+        "forgot-password": "Forgot password?",
         "its-ok": "Don't worry. Type in your email address.",
         "its-ok-mobile": "Don't worry.<br/>Type in your email address.",
         "receive-link": "You will receive a link to create a new password.",
-        "insert-email": "Type in the email address provided to the foundation",
+        "insert-email": "Type in the email address provided to the Foundation",
         "continue": "Reset the password",
         "problem": "Encountered a problem?",
-        "contact": "Please contact the foundation to resolve it",
+        "contact": "Please contact the Foundation to resolve it",
         "email-helper-text": "Type in the email address used during registration",
         "incorrect-email-helper-text": "Incorrect email address",
         "back-to-login": "Back to login",
@@ -102,14 +102,14 @@
         "login": "Login"
     },
     "users-page": {
-        "agreements": "Agreements",
+        "agreements": "Consents",
         "users-list": "User List"
     },
     "admin-agreements-page": {
-        "agreements-list": "List of agreements",
-        "agreement": "Agreement",
+        "agreements-list": "List of consents",
+        "agreement": "Consent",
         "show": "Show",
-        "agreements-all": "All agreements",
+        "agreements-all": "All consents",
         "req": "* required"
     },
     "admin-setting-page": {
@@ -142,17 +142,17 @@
     },
     "child-profile": {
         "no-child": "Sorry, there is no child with this id",
-        "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali foundation look like.",
+        "description": "Check how your child managed fitness tests. Find out how tests prepared by specialists from the Mali Wspaniali Foundation look like.",
         "results-list": "Result list",
         "tests-information": "Tests' description",
-        "your-agreements": "Your agreements",
+        "your-agreements": "Your consents",
         "participation-label": "Permission to participate in the Mali Wspaniali program",
-        "participation-description": "This agreement is required as its allows your child to participate in classes organized by Mali Wapaniali - unchecking is impossible",
+        "participation-description": "This consent is required as its allows your child to participate in classes organized by the Mali Wspaniali Foundation- unchecking is impossible",
         "marketing-label": "Permission to receive marketing information on provided email address",
-        "marketing-description": "Optional agreement that allows us to send you emails with current information about the Mali Wspaniali program.",
+        "marketing-description": "Optional consent that allows us to send you emails with current information about the Mali Wspaniali program.",
         "image-label": "Permission to use the image",
-        "image-description": "Optional agreement that allows us to use materials created during our classes (e.g. for program promotion)",
-        "kindergartener-test": "Kindergartener fitness test",
+        "image-description": "Optional consent that allows us to use materials created during our classes (e.g. for program promotion)",
+        "kindergartener-test": "Preschool agility test",
         "details": "Details",
         "collapse-details": "Collapse details",
         "info-about-test": "Information about the test",
@@ -169,11 +169,11 @@
             "age-3": "5 years and 5 months.",
             "text-4": " A similar principle applies to the qualification of children in other age groups."
         },
-        "initial-fitness-level": "Total result from initial test",
-        "final-fitness-level": "Total result from final test",
+        "initial-fitness-level": "Total result of initial measurement",
+        "final-fitness-level": "Total result of final measurement",
         "advice": "Advice",
-        "initial-test": "Initial test",
-        "final-test": "Final test",
+        "initial-test": "Initial measurement",
+        "final-test": "Final measurement",
         "result-level": "Feature level",
         "result-description": {
             "bad": "LOW FITNESS LEVEL",
@@ -209,8 +209,8 @@
         "scale": "Scale",
         "received-points": "Received points",
         "pts": "pts",
-        "final-test-title": "Results of particular tests with comparison of results from the final test",
-        "initial-test-title": "Results of particular tests included into initial test",
+        "final-test-title": "Results of particular attempts from the final measurement",
+        "initial-test-title": "Results of particular attempts from the initial measurement",
         "difference": {
             "progress": "improved",
             "regress": "regressed",
@@ -219,7 +219,7 @@
         "summary-info": "Measurement information",
         "test-result": "Test result",
         "comparison-label": "By comparing both tests, your child's fitness level",
-        "comparison-right-title": "Learn more about your child's shape. The chart shows how the child's results have changed over the two tests",
+        "comparison-right-title": "Learn more about your child's shape. The chart shows how the child's results have changed over the two measurements",
         "comparison-legend": {
             "title": "Chart information",
             "progress": "Physical level progress:",
@@ -229,35 +229,35 @@
         },
         "comparison-button": "What can I do?",
         "no-results-title": "No results",
-        "no-results-text": "The results have not yet been entered because the initial test was not taken, or the results are being elaborated.",
+        "no-results-text": "The results have not yet been entered because the initial measurement was not taken, or the results are being elaborated.",
         "no-results-text-last": "The results have not yet been added for one of three reasons:",
-        "no-results-list-1": "The initial test was not taken or the results are being elaborated.",
-        "no-results-list-2": "Your child was absent on the day of the initial test or was unable to take part in the test due to random reasons.",
-        "no-results-list-3": "Your child joined the Mali Wspaniali programme after the first test. The next fitness test will be taken in the spring.",
-        "no-results-bottom": "To find out what the fitness test looks like, visit the tab",
+        "no-results-list-1": "The initial measurement was not taken or the results are being elaborated.",
+        "no-results-list-2": "Your child was absent on the day of the initial measurement or was unable to take part in the test due to random reasons.",
+        "no-results-list-3": "Your child joined the Mali Wspaniali program after the intial measurement. The next agility test will be taken in the spring.",
+        "no-results-bottom": "To find out what the agility test looks like, visit the tab",
         "no-results-link": "Test Information",
         "tests-informations": {
             "about": {
-                "panelTitle": "About the Wrocław Preschool Test - a few words in general",
-                "title": "The Preschooler Test is a very accessible fitness test for children aged 3-7.",
+                "panelTitle": "About the Wrocław Preschool Agility Test - a few words in general",
+                "title": "The preschool agility test is a very accessible fitness test for children aged 3-7.",
                 "text1": "It is used to assess physical development. It is very simple to do in preschool settings. It does not require complicated and specialized measuring tools, rooms or devices.",
-                "text2-1": "It consists of four physical tests, which in their results take into account the basic and most important motor skills:",
+                "text2-1": "It consists of four physical attempts, which in their results take into account the basic and most important motor skills:",
                 "text2-test-names": "strength, speed, agility and power.",
                 "text2-2": "These abilities are used in sports, but also in everyday activities in adult life, such as: physical work, carrying shopping, cleaning or even taking things out of a hard-to-reach place."
             },
             "conditions": {
-                "panelTitle": "How do we perform the preschooler test and calculate its results?",
-                "title": "The preschooler's fitness test is performed once a semester.",
-                "text1": "It consists of two tests: the initial test (measurement at the turn of October and November) and the final test (measurement at the turn of April and May). Each sample has four components, the sum of which makes the total score. This result gives an indication of your child's fitness level.",
-                "text2": "A certain number of points is assigned for each trial. Children are assessed according to a scale prepared by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength tests (strength and power), the greater the distance the child has covered during the test, the more points he/she will receive, while in the case of agility tests (speed and agility), more points will be awarded to the child with shorter execution time.",
-                "text3": "The sum of points makes up the total score. This result signifies your child's fitness level (low, medium, good or very good). The results are collected from children who are present at the facility and willing to participate in the Mali Wspaniali classes held by the Instructor. A missing trial result may be due to child's absence that day or to non-participation in a given exercise. In this case, you receive individual test results without insights into child's overall fitness.",
+                "panelTitle": "How do we perform the preschool agility test and calculate its results?",
+                "title": "The preschool agility test is performed once a semester.",
+                "text1": "It consists of two measurements: the initial measurement (at the turn of October and November) and the final measurement (at the turn of April and May). Each measurement has four attempts, the sum of which makes up the total score. This result gives an indication of your child's fitness level.",
+                "text2": "A certain number of points is assigned for each attempt. Children are assessed according to a scale prepared by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength attempts (strength and power), the greater the distance the child has covered during the test, the more points he/she will receive, while in the case of agility attempts (speed and agility), more points will be awarded to the child with shorter execution time.",
+                "text3": "The sum of points makes up the total score. This result signifies your child's fitness level (low, medium, good or very good). The results are collected from children who are present at the facility and willing to participate in the Mali Wspaniali classes held by the Instructor. A missing attempt result may be due to child's absence that day or to non-participation in a given attempt. In this case, you receive individual test results without insights into child's overall fitness.",
                 "test1-name": "Agility",
                 "test1-description": "4 x 5 m shuttle run while carrying a block",
                 "test1-scale": "Scale: 0 s - 80 s",
                 "test2-name": "Power",
                 "test2-description": "Standing long jump",
                 "test2-scale": "Scale: 0 cm - 80 cm",
-                "test3-name": "Force",
+                "test3-name": "Strength",
                 "test3-description": "Medicine ball overhead slam",
                 "test3-scale": "Scale: 0 s - 80 s",
                 "test4-name": "Speed",
@@ -273,7 +273,7 @@
                 "score100": "Great! Keep it up!",
                 "title": "The conducted research is not diagnostic, but only illustrative.",
                 "text1": "Your child's score may vary from day to day. It is influenced by a number of physical and psychological factors. Therefore, the results should not be treated as an accurate source of knowledge about the child's fitness, but even a visual control of physical development is extremely important due to the healthy and proper course of shaping the human body and its future possibilities.",
-                "text2": "Thanks to appropriate motivation and learning by means of repeated repetition of exercises, the child continously improves specific skills, verified as motor skills in the preschooler test.",
+                "text2": "Thanks to appropriate motivation and learning by means of repeated repetition of exercises, the child continously improves specific skills, verified as motor skills in the preschool agility test.",
                 "text3": "The optimal results of the child, and thus a healthy and harmonious motor development, allows the child to gradually achieve its own independence and safety, and subsequently self-confidence. It can also have an impact on social acceptance.",
                 "text4": "Lack of movement can cause internal imbalances in a child's body, which can result in inappropriate behavior, tension or emotional resignation, and mood swings. Physical fitness is not only helpful for sports and physical education, it is also a major factor in living a happy life to the fullest."
             },
@@ -311,7 +311,7 @@
         },
         "agreements": {
             "heading": "Manage consents granted to the Mali Wspaniali Foundation. Have full control over the security of your personal data, being able to increase or limit the rights granted at any time.",
-            "title": "Below you can check and edit the signed agreements.",
+            "title": "Below you can check and edit the signed consents.",
             "save": "Save",
             "snackbar-headerText": "Done",
             "snackbar-text": "Your consents have been saved",
@@ -342,7 +342,7 @@
         "next-assesment-time": "Next measurement"
     },
     "test-results": {
-        "search-result": "Search result",
+        "search-result": "Search results",
         "no-results": "No results",
         "description": "Select kindergartens you need and work easily with tabs",
         "add-kindergarten": "Add a kindergarten",
@@ -435,7 +435,7 @@
         "recipient-single-kindergarten-label": "Select kindergartens from the list",
         "recipient-single-kindergarten-label-filled": "The message will be sent to these kindergartens:",
         "recipient-select-kindergarten-label": "Select kindergartens from the list",
-        "recipient-select-kindergarten-label-filled": "The message will be sent to parents from these kindergartens:",
+        "recipient-select-kindergarten-label-filled": "The message will be sent to parents from these kindergartens: ",
         "recipient-helper-text": "This field can't be empty. Specify recipients. If you wish to send a message to all recipients change the previous selection.",
         "type-input-label": "Select a type",
         "type-input-label-filled": "Type",
@@ -465,7 +465,7 @@
         "placeholder": "Write your message here",
         "newsletter-types": {
             "results": "Results",
-            "agreements": "Agreements",
+            "agreements": "Consents",
             "events": "Events",
             "important": "Important",
             "other": "Other"
@@ -552,7 +552,7 @@
             "details": "Child details"
         },
         "blog": "Blog",
-        "agreements": "Agreements",
+        "agreements": "Consents",
         "settings": "Settings",
         "notifications": "Notifications",
         "logout": "Log out"
@@ -590,7 +590,7 @@
         },
         "create-blog-article": "Articles",
         "archive": "Archive",
-        "agreements": "Agreements",
+        "agreements": "Consents",
         "test-management": "Tests",
         "logout": "Log out"
     },
@@ -606,11 +606,11 @@
     },
     "home-page-content": {
         "greeting": "Good Afternoon!",
-        "check-children-activity": "Check out the children's activity in the programme",
+        "check-children-activity": "Check out the children's activity in the program",
         "mali-wspaniali": "Mali Wspaniali",
         "foundation-header": "Dear Parent!",
-        "foundation-content": "We are a foundation from Wrocław that coordinates general sports activities with elements of karate in your child's kindergarten. Instructors conducting trainings focus primarily on cheerful, safe and active play, and supporting the harmonious development of your child. An inseparable element of the 'Mali Wspaniali' program are also tests of children's fitness. On the platform you will find test results that your child achieved in subsequent attempts, you will learn further recommendations and you will receive information about the development of children aged 3-6 that may be of interest to you.",
-        "foundation-content-summary": "Welcome! The Mali Wspaniali Foundation .",
+        "foundation-content": "We are a foundation from Wrocław that coordinates general sports activities with elements of karate in your child's kindergarten. Instructors conducting trainings focus primarily on cheerful, safe and active play, and supporting the harmonious development of your child. An inseparable element of the Mali Wspaniali program are also tests of children's fitness. On the platform you will find test results that your child achieved in subsequent attempts, you will learn further recommendations and you will receive information about the development of children aged 3-6 that may be of interest to you.",
+        "foundation-content-summary": "Welcome! The Mali Wspaniali Foundation.",
         "recent-news": "Recent articles",
         "read-more": "Read more",
         "read-less": "Less"
@@ -664,8 +664,8 @@
         },
         "test-list": {
             "name": "Name",
-            "first-assessment": "First assessment",
-            "last-assessment": "Last assessment",
+            "first-assessment": "Initial measurement",
+            "last-assessment": "Final measurement",
             "status": "Status",
             "active": "Active",
             "done": "Done",
@@ -682,11 +682,11 @@
         "basic-information-form": {
             "title": "Basic information",
             "description": "Please fill in test information",
-            "measurement-amount": "Measurement amount",
+            "measurement-amount": "Number of measurements",
             "test-name": "Test name",
             "status": "Status",
-            "first-measurement": "First measurement",
-            "last-measurement": "Last measurement",
+            "first-measurement": "Initial measurement",
+            "last-measurement": "Final measurement",
             "start-date": "Start date",
             "end-date": "End date",
             "active": "Active",
@@ -697,7 +697,7 @@
             "search": "Search"
         },
         "test-trials": {
-            "title": "Test trials information"
+            "title": "Attempts"
         },
         "kindergartens": {
             "title": "Kindergartens",
@@ -708,8 +708,8 @@
             "title": "Delete the test",
             "description": "Are you sure you want to delete the selected test?"
         },
-        "assessment-created": "A new assesment has been created",
-        "assessment-updated": "The assesment has been updated",
+        "assessment-created": "A new test has been created",
+        "assessment-updated": "The test has been updated",
         "create-test": "Create a new test",
         "update-test": "Save",
         "cancel": "Cancel",
@@ -724,7 +724,7 @@
     "add-child-modal": {
         "button": "Add",
         "cancel": "Cancel",
-        "heading": "Welcome on the website Mali Wspaniali",
+        "heading": "Welcome on the Mali Wspaniali website!",
         "description": "Enter your child's details before going to the home page.",
         "inputs": {
             "firstname": "First name",
@@ -763,16 +763,16 @@
     },
     "agreements": {
         "show-all": "Show all",
-        "marketing": "Marketing agreements",
-        "image": "Image agreements",
-        "given": "Given agreements",
-        "not-given": "Not given agreements",
+        "marketing": "Marketing consents",
+        "image": "Image consents",
+        "given": "Given consents",
+        "not-given": "Consents not given",
         "email": "Parent's email",
         "children": "Children"
     },
     "agreements-filter": {
-        "by-agreement-type": "Filter by agreement's type",
-        "by-agreement-status": "Filter by agreement's status",
+        "by-agreement-type": "Filter by consent's type",
+        "by-agreement-status": "Filter by consent's status",
         "by-kindergarten": "Filter by kindergarten"
     },
     "settings-page": {
@@ -796,7 +796,7 @@
         "something-went-wrong": "Something went wrong. Contact your Administrator.",
         "wrong-old-password": "Incorrect password",
         "delete-account-header": "It is not possible to delete an account from the user's level",
-        "delete-account-content": "To delete an account in the application, contact the foundation"
+        "delete-account-content": "To delete an account in the application, contact the Foundation"
     },
     "settings-modal": {
         "button": "Send a message",
@@ -835,7 +835,7 @@
             "unassigned-kindergartens": "Unassigned kidnergartens: {{count}}"
         },
         "snackbars": {
-            "info": "To add unassigned kindergarten: 1. Select the test, 2. Select the instructor and press the button to assign him/her to the selected kindergarten.",
+            "info": "To add an unassigned kindergarten: 1. Select the test, 2. Select the instructor and press the button to assign him/her to the selected kindergarten.",
             "assessment-updated": "Changed kindergartens for {{name}}"
         },
         "modal": {
@@ -858,17 +858,17 @@
         "full-name": "Full name",
         "age": "Age",
         "birth-quarter": "Birth quarter",
-        "first-assessment": "First measurement",
-        "last-assessment": "Last measurement",
-        "first-assessment-progress": "Trials performed by me in the initial measurement",
-        "last-assessment-progress": "Trials performed by me in the last measurement",
+        "first-assessment": "Initial measurement",
+        "last-assessment": "Final measurement",
+        "first-assessment-progress": "Attempts led by me in the initial measurement",
+        "last-assessment-progress": "Attempts led by me in the final measurement",
         "see-results": "See results",
         "add-result": "Add test result",
-        "add-first-assessment-result": "Add first test result",
-        "add-last-assessment-result": "Add last test result",
+        "add-first-assessment-result": "Add an intial measurement result",
+        "add-last-assessment-result": "Add a final measurement result",
         "add-note": "Add note",
-        "note-first-measurement": "Note - First measurement",
-        "note-last-measurement": "Note - Last measurement",
+        "note-first-measurement": "Note - Initial measurement",
+        "note-last-measurement": "Note - Final measurement",
         "add-note-modal": {
             "description": "Add and manage notes regarding important information about a specific child. Add information about past injuries, medications taken, or reasons for not taking the test.",
             "placeholder": "Click here to start typing",
@@ -884,27 +884,27 @@
         "child-list": "Child list",
         "edit": "Edit",
         "add": "Add",
-        "added-first-note-for": "A first measurement note for {{name}} has been added",
-        "added-last-note-for": "A last measurement note for {{name}} has been added",
+        "added-first-note-for": "An initial measurement note for {{name}} has been added",
+        "added-last-note-for": "A final measurement note for {{name}} has been added",
         "years": "years"
     },
     "add-result-page": {
         "kindergarten": "Kindergarten",
         "select-measurement": "Select measurement",
-        "first": "First",
-        "last": "Last",
+        "first": "Initial",
+        "last": "Final",
         "no-result": "No result",
         "received-points": "Received points",
         "points": "pts",
-        "title-first-measurement": "FIRST MEASUREMENT EFFICIENCY LEVEL",
-        "title-last-measurement": "LAST MEASUREMENT EFFICIENCY LEVEL",
+        "title-first-measurement": "INITIAL MEASUREMENT EFFICIENCY LEVEL",
+        "title-last-measurement": "FINAL MEASUREMENT EFFICIENCY LEVEL",
         "back-to-table": "Back to the table",
-        "back-to-results": "Back to results",
+        "back-to-results": "Back to the results",
         "child-list": "Child list",
         "strength": "STRENGTH",
-        "dexterity": "DEXTERITY",
+        "dexterity": "AGILITY",
         "power": "POWER",
-        "velocity": "VELOCITY",
+        "velocity": "SPEEED",
         "save-and-next": "Save and next",
         "save-and-back-to-table": "Save and back to the table",
         "select-child": "Select a child",
@@ -912,8 +912,8 @@
         "result-saved-snackbar-1": "Result of ",
         "result-saved-snackbar-2": " saved for child ",
         "throw": "STRENGTH",
-        "pendelumRun": "DEXTERITY",
+        "pendelumRun": "AGILITY",
         "jump": "POWER",
-        "run": "VELOCITY"
+        "run": "SPEED"
     }
 }
