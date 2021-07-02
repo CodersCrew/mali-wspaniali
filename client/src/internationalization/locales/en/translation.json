@@ -109,6 +109,10 @@
         "agreements-list": "List of consents",
         "agreement": "Consent",
         "show": "Show",
+        "kindergarten-name": "Kindergarten name",
+        "marketing-agreements-number": "Number of marketing consents",
+        "image-agreements-number": "Number of image consents",
+        "status": "Status",
         "agreements-all": "All consents",
         "req": "* required"
     },
