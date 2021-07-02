@@ -11,7 +11,6 @@ import {
     TableRow,
     TextField,
     Theme,
-    Typography,
     InputAdornment,
 } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
@@ -36,7 +35,6 @@ export function KindergartenPicker({ isDisabled, kindergartens, onSelect }: Prop
     return (
         <LabeledContainer title={t('add-test-view.kindergartens.title')}>
             <>
-                <Typography variant="subtitle1">{t('add-test-view.kindergartens.description')}</Typography>
                 <div className={classes.searchFieldContainer}>
                     <TextField
                         label={t('add-test-view.kindergartens.find-kindergarten')}
@@ -128,7 +126,7 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 295,
         },
         searchFieldContainer: {
-            margin: theme.spacing(3, 0, 2),
+            marginBottom: theme.spacing(2),
         },
         kindergartenItem: {
             cursor: 'pointer',
