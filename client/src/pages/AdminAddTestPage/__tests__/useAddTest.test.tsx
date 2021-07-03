@@ -57,7 +57,7 @@ describe('useAddTest', () => {
                         isOutdated: false,
                         isDeleted: false,
                     },
-                    message: 'A new assesment has been created',
+                    message: 'A new test has been created',
                 });
             });
         });
