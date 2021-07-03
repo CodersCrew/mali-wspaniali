@@ -32,5 +32,5 @@ export class AssessmentDTO extends FieldCore {
   lastMeasurementStatus: string;
 
   @Field(() => [KindergartenWithInstructorDTO])
-  kindergartens: any;
+  kindergartens: Array<{ kindergartenId: string; instructorId: string }>;
 }

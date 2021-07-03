@@ -24,6 +24,12 @@ export class ChildAssessmentResultMapper {
     return result;
   }
 
+  static toDomainMany(
+    values: ChildAssessmentResultCore[],
+  ): ChildAssessmentResult[] {
+    return values.map(value => ChildAssessmentResultMapper.toDomain(value));
+  }
+
   static toPlain(value: ChildAssessmentResult): ChildAssessmentResultCore {
     return classToPlain(value.getProps(), {
       excludeExtraneousValues: true,
