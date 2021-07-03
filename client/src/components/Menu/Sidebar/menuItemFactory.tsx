@@ -254,7 +254,7 @@ function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): Men
     const mainItem = {
         icon: <Icon icon={<VerticalSplit />} />,
         name: t('admin-menu.tests.title'),
-        link: '/admin/tests',
+        link: '/admin',
         active: active.includes('admin-menu.results.title'),
     };
 
@@ -262,7 +262,7 @@ function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): Men
         {
             icon: <Icon icon={<Assessment />} />,
             name: t('admin-menu.tests.results'),
-            link: '/admin/tests',
+            link: '/admin',
             active: active.includes('admin-menu.results.table'),
         },
         {
@@ -311,7 +311,7 @@ function getNewsletterMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): 
 function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
     const ResultsItem = {
         name: 'admin-menu.results',
-        link: '/admin/tests',
+        link: '/admin',
         icon: <Icon icon={<Assessment />} />,
         rightIcon,
     };
