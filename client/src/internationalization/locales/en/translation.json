@@ -523,15 +523,11 @@
         "success-message": "Removed (Anonymized) parent"
     },
     "single-article": {
-        "blog": "blog",
-        "length": "length",
         "emotions": "emotions",
         "activity": "activity",
         "food": "food",
         "other": "other",
-        "reading-time": "minutes of reading",
-        "go-to-previous-page": "previous",
-        "go-to-next-page": "next"
+        "reading-time": "minutes of reading"
     },
     "database-backup": {
         "get-backup-json": "Get database as JSON"
