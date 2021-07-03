@@ -77,7 +77,7 @@ export default function TestResultsPage() {
                 <TestResultsTable
                     kindergartens={kindergartenList}
                     searchedValue={SearchedValue}
-                    setSearchValue={setSearchedValue}
+                    onSearchValue={setSearchedValue}
                 />
             </Box>
         </PageContainer>

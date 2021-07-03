@@ -40,7 +40,7 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                 </TableCell>
                 <TableCell className={classes.cell} />
             </TableRow>
-            {<KindergartenChildrenTable open={open} />}
+            <KindergartenChildrenTable open={open} />
         </>
     );
 };
