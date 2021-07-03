@@ -266,7 +266,7 @@ type AssessmentDTO {
   kindergartens: [KindergartenWithInstructorDTO!]!
   firstMeasurementResultCount: Int!
   lastMeasurementResultCount: Int!
-  totalResultCount: Int!
+  maxResultCount: Int!
 }
 
 type NewsletterDTO {

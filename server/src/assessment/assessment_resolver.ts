@@ -62,7 +62,7 @@ export class AssessmentResolver {
 
   @ResolveField(() => Int)
   @UseGuards(GqlAuthGuard)
-  async totalResultCount(@Parent() assessment: AssessmentDTO): Promise<number> {
+  async maxResultCount(@Parent() assessment: AssessmentDTO): Promise<number> {
     const childrenResults = assessment.kindergartens.map(kindergarten => {
       return this.queryBus.execute(
         new GetChildrenFromKindergartenQuery(kindergarten.kindergartenId),
