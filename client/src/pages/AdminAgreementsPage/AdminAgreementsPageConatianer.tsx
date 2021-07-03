@@ -19,6 +19,7 @@ import {
     GET_AGREEMENTS_KINDERGARTEN_FILTER,
 } from '../../operations/queries/Agreements/getAgreementsKindergartenFilter';
 import { GET_AGREEMENTS_SORT_STATUS } from '../../operations/queries/Agreements/getAgreementsSortStatus';
+import { ASSESSMENTS_TITLES_QUERY } from '../../operations/queries/Assessment/getAssessmentsTitles';
 import { AgreementTypeFilters } from '../../models/AgreementTypeFilters';
 import { AgreementStatusFilters } from '../../models/AgreementStatusFilter';
 import { agreementSortStatusVar } from '../../apollo_client';
@@ -41,6 +42,8 @@ export default function AdminAgreementsPageContainer() {
     const agreementsKindergartenFilterQuery = useQuery<GetAgreementsKindergartenFilterQuery>(
         GET_AGREEMENTS_KINDERGARTEN_FILTER,
     );
+
+    const assessmentsTitles = useQuery(ASSESSMENTS_TITLES_QUERY);
 
     const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter!;
 
@@ -65,6 +68,7 @@ export default function AdminAgreementsPageContainer() {
     return (
         <AdminAgreementsPage
             kindergartens={mapWithFilters([...(kindergartens?.kindergartenWithUsers || [])])}
+            assessments={assessmentsTitles?.data?.assessments}
             agreementsStatusFilter={agreementsStatusFilter}
             agreementsTypeFilter={agreementsTypeFilter}
             agreementsKindergartenFilter={agreementsKindergartenFilter}
@@ -100,6 +104,10 @@ function setAgreementFilter(type: string, value: string | string[]) {
         if (type === 'STATUS') {
             AgreementsTypeFilterMutations.setAgreementsStatusFilter(AgreementStatusFilters[value]);
         }
+        
+        // if (type === 'ASSESSMENT') {
+
+        // }
     }
 }
 

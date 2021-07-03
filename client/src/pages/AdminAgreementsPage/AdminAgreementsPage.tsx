@@ -25,6 +25,7 @@ import { PageContainer } from '../../components/PageContainer';
 
 interface Props {
     kindergartens: KindergartenWithUsers[];
+    assessments: string[];
     agreementsStatusFilter: AgreementStatusFilter;
     agreementsTypeFilter: AgreementTypeFilter;
     agreementsKindergartenFilter: AgreementKindergartenFilter[];
@@ -39,6 +40,7 @@ interface Props {
 
 export const AdminAgreementsPage = ({
     kindergartens,
+    assessments,
     agreementsStatusFilter,
     agreementsTypeFilter,
     agreementsKindergartenFilter,
@@ -66,6 +68,7 @@ export const AdminAgreementsPage = ({
 
                 <Collapse in={isFiltersListOpen} unmountOnExit className={classes.filterContainer}>
                     <AgreementsFilter
+                        assessments={assessments}
                         agreementType={agreementsTypeFilter}
                         agreementStatus={agreementsStatusFilter}
                         agreementKindergarten={agreementsKindergartenFilter}

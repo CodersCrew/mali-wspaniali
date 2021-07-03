@@ -252,6 +252,11 @@ export interface AssessmentResult {
     modifiedAt: Date;
 }
 
+export interface AssessmentTitle {
+    title: string;
+    __typename: 'AssessmentDTO';
+}
+
 export interface ReturnedStatusDTO {
     status: boolean;
 }
