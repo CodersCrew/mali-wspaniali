@@ -14,7 +14,7 @@ interface Props {
 export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     const { t } = useTranslation();
     const [open, setOpen] = React.useState(false);
-    const classes = useStyles();
+    const classes = useStyles({ open });
 
     const { name } = kindergarten;
     const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
@@ -38,10 +38,15 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                         <span> 200 / 300</span>
                     </div>
                 </TableCell>
+                <TableCell className={classes.cell} />
             </TableRow>
-            <KindergartenChildrenTable open={open} />
+            {<KindergartenChildrenTable open={open} />}
         </>
     );
+};
+
+type propStyle = {
+    open: boolean;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -51,6 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
         cursor: 'pointer',
         height: '50px',
+        borderBottom: ({ open }: propStyle) => (!open ? '1px solid rgba(224, 224, 224, 1)' : 'none'),
     },
     button: {
         '&:hover': {
@@ -68,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginRight: theme.spacing(2),
     },
     cell: {
-        maxWidth: '10%',
         padding: theme.spacing(1),
+        borderBottom: 'none',
     },
 }));

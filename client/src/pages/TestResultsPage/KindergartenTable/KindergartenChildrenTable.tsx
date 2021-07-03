@@ -26,7 +26,7 @@ const RESULT_CELL_NAME = 'resultCellName';
 const KINDERGARTEN_CELL_NAME = 'kindergartenCellName';
 
 export const KindergartenChildrenTable = ({ open }: Props) => {
-    const classes = useStyles();
+    const classes = useStyles({ open });
     const { t } = useTranslation();
 
     const editIconTooltip = t('test-results.button-icon-edit-tooltip');
@@ -45,7 +45,7 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
     };
 
     return (
-        <TableRow>
+        <TableRow className={classes.mainRow}>
             <TableCell className={classes.collapseCell} colSpan={6}>
                 <Collapse in={open} timeout="auto" unmountOnExit>
                     <Box className={classes.collapseContainer}>
@@ -104,10 +104,15 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
     );
 };
 
+type propStyle = {
+    open: boolean;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         collapseCell: {
             padding: 0,
+            borderBottom: 'none',
         },
         collapseContainer: {
             margin: '0px 9.6%',
@@ -123,6 +128,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         headRow: {
             height: '34px',
+        },
+        mainRow: {
+            borderBottom: ({ open }: propStyle) => (open ? '1px solid rgba(224, 224, 224, 1)' : 'none'),
         },
         row: {
             '&:hover': {
