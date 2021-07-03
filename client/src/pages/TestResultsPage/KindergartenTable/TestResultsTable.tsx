@@ -25,10 +25,10 @@ const KINDERGARTEN_CELL_NAME = 'kindergartenCellName';
 interface Props {
     kindergartens: Kindergarten[];
     searchedValue: string;
-    onSearchValue: (value: string) => void;
+    onSearchChange: (value: string) => void;
 }
 
-export const TestResultsTable = ({ kindergartens, searchedValue, onSearchValue }: Props) => {
+export const TestResultsTable = ({ kindergartens, searchedValue, onSearchChange }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const [page, setPage] = useState(0);
