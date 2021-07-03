@@ -68,7 +68,7 @@ export function ChildListCompactContainer({ results, childList, assessment, onCl
                                 {isOpen && (
                                     <Grid container alignItems="center">
                                         <Grid item>
-                                            <Box ml={3}>
+                                            <Box ml={3} pt={1}>
                                                 <Table>
                                                     <TableBody>
                                                         <TableRow>
