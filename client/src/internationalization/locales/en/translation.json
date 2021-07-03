@@ -356,9 +356,11 @@
         "change-log": "Change log",
         "kindergarten-number": "Kindergarten no.",
         "kindergarten-name": "Kindergarten name",
+        "kindergarten-results": "Added results",
         "kindergarten-address": "Kindergarten address",
         "parents-email": "Parents' email address",
         "children": "Children",
+        "age": "Age",
         "kindergarten-prefix": "Kindergarten no.",
         "search": "Search",
         "add-kindergarten-success": "Kindergarten has been added successfully",
@@ -369,7 +371,12 @@
         "button-icon-expand-tooltip": "Expand",
         "button-icon-results-tooltip": "Results",
         "rows-number": "Rows per page:",
-        "edit": "Edit"
+        "edit": "Edit",
+        "first-measurement": "FM",
+        "last-measurement": "LM",
+        "publish-result": "Publish result",
+        "download-result": "Download result",
+        "status-result": "result status"
     },
     "kindergarten-modal": {
         "city": "City",
