@@ -78,14 +78,14 @@ export class ChildResolver {
     return ChildAssessmentResultMapper.toPlainMany(results);
   }
 
-  @ResolveField(() => UserDTO)
+  @ResolveField(() => UserDTO, { nullable: true })
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async parent(@Parent() child: ChildDTO): Promise<UserDTO> {
     const user = await this.queryBus.execute(
       new GetUserByChildIdQuery(child._id),
     );
 
-    return UserMapper.toPlain(user) as UserDTO;
+    if (user) return UserMapper.toPlain(user) as UserDTO;
   }
 
   @Query(() => [ChildDTO])
