@@ -12,9 +12,8 @@ interface Props {
 }
 
 export function AgreementAssessmentInput({ value: currentValue, assessments, onChange }: Props) {
-    const classes = useStyles()
+    const classes = useStyles();
     const { t } = useTranslation();
-    console.log(assessments);
 
     return (
         <FormControl variant="outlined" className={classes.formControl}>

@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-import { KindergartenWithUsers } from '../../graphql/types';
+import { AssessmentTitle, KindergartenWithUsers } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { AgreementsList } from './AgreementsList/AgreementsList';
 import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
@@ -25,7 +25,7 @@ import { PageContainer } from '../../components/PageContainer';
 
 interface Props {
     kindergartens: KindergartenWithUsers[];
-    assessments: string[];
+    assessments: AssessmentTitle[];
     agreementsStatusFilter: AgreementStatusFilter;
     agreementsTypeFilter: AgreementTypeFilter;
     agreementsKindergartenFilter: AgreementKindergartenFilter[];
