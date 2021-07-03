@@ -419,8 +419,15 @@ function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryPr
         icon: <Icon icon={<PowerSettingsNew />} />,
     };
 
+    const AgreementsItem = {
+        name: 'admin-menu.agreements',
+        link: '/admin/agreements',
+        icon: <Icon icon={<AssignmentTurnedIn />} />,
+    };
+
     const options: { [index: string]: SingleItemProps } = {
         'add-results': AddResultsItem,
+        agreements: AgreementsItem,
         settings: SettingsItem,
         notifications: NotificationsItem,
         logout: LogoutItem,
