@@ -53,14 +53,12 @@ export const TestResultsTable = ({ kindergartens, searchedValue, setSearchValue 
                         <TableCell />
                         <ArrowedCell
                             text={t('test-results.kindergarten-name')}
-                            selectedCellName={selectedSortableCell}
-                            cellName={kindergartenCell.name}
+                            isSelected={selectedSortableCell === kindergartenCell.name}
                             onClick={kindergartenCell.changeActive}
                         />
                         <ArrowedCell
                             text={t('test-results.kindergarten-results')}
-                            selectedCellName={selectedSortableCell}
-                            cellName={resultCell.name}
+                            isSelected={selectedSortableCell === resultCell.name}
                             onClick={resultCell.changeActive}
                         />
                         <TableCell className={classes.cell}>

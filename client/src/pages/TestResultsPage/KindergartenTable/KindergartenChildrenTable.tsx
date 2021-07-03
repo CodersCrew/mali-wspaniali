@@ -54,15 +54,13 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                 <TableRow className={classes.headRow}>
                                     <ArrowedCell
                                         text={t('test-results.children')}
-                                        selectedCellName={selectedSortableCell}
-                                        cellName={kindergartenCell.name}
+                                        isSelected={selectedSortableCell === kindergartenCell.name}
                                         onClick={kindergartenCell.changeActive}
                                         arrowSize="0.85em"
                                     />
                                     <ArrowedCell
                                         text={t('test-results.age')}
-                                        selectedCellName={selectedSortableCell}
-                                        cellName={resultCell.name}
+                                        isSelected={selectedSortableCell === resultCell.name}
                                         onClick={resultCell.changeActive}
                                         arrowSize="0.85em"
                                     />
@@ -104,7 +102,7 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
     );
 };
 
-type propStyle = {
+type PropStyle = {
     open: boolean;
 };
 
@@ -130,7 +128,7 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '34px',
         },
         mainRow: {
-            borderBottom: ({ open }: propStyle) => (open ? '1px solid rgba(224, 224, 224, 1)' : 'none'),
+            borderBottom: ({ open }: PropStyle) => (open ? '1px solid rgba(224, 224, 224, 1)' : 'none'),
         },
         row: {
             '&:hover': {

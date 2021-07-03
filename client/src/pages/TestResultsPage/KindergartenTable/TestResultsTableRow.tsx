@@ -45,7 +45,7 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
     );
 };
 
-type propStyle = {
+type PropStyle = {
     open: boolean;
 };
 
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
         cursor: 'pointer',
         height: '50px',
-        borderBottom: ({ open }: propStyle) => (!open ? '1px solid rgba(224, 224, 224, 1)' : 'none'),
+        borderBottom: ({ open }: PropStyle) => (!open ? '1px solid rgba(224, 224, 224, 1)' : 'none'),
     },
     button: {
         '&:hover': {

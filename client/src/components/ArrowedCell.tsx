@@ -6,28 +6,19 @@ import { Theme } from '../theme';
 
 interface ArrowedCellProps {
     text: string;
-    selectedCellName?: string;
-    cellName: string;
+    isSelected: boolean;
     isActive?: boolean;
     arrowSize?: string;
     onClick: () => void;
 }
 
-function ArrowedCell({
-    text,
-    selectedCellName,
-    cellName,
-    onClick,
-    arrowSize = '1em',
-    isActive = true,
-}: ArrowedCellProps) {
+function ArrowedCell({ text, isSelected, onClick, arrowSize = '1em', isActive = true }: ArrowedCellProps) {
     const classes = useStyles({ arrowSize });
-    const isSelected = () => selectedCellName === cellName;
-    const Arrow = isSelected() ? ArrowUpwardIcon : ArrowDownwardIcon;
+    const Arrow = isSelected ? ArrowUpwardIcon : ArrowDownwardIcon;
 
     return (
         <TableCell component="th" scope="row" padding="none">
-            <span className={classes.cellContainer} onClick={onClick}>
+            <span className={classes.cellContainer} onClick={() => isActive && onClick()}>
                 <span>{text}</span>
                 <IconButton className={classes.arrowIcon}>
                     <Arrow classes={{ root: clsx({ [classes.arrow]: true, [classes.isActive]: isActive }) }} />
@@ -37,7 +28,7 @@ function ArrowedCell({
     );
 }
 
-type propStyle = {
+type PropStyle = {
     arrowSize: string;
 };
 
@@ -55,8 +46,8 @@ const useStyles = makeStyles((theme: Theme) =>
         arrow: {
             color: theme.palette.text.hint,
             cursor: 'pointer',
-            width: ({ arrowSize }: propStyle) => arrowSize,
-            height: ({ arrowSize }: propStyle) => arrowSize,
+            width: ({ arrowSize }: PropStyle) => arrowSize,
+            height: ({ arrowSize }: PropStyle) => arrowSize,
         },
         isActive: {
             color: theme.palette.text.secondary,
