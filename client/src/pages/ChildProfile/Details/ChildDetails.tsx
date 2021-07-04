@@ -7,7 +7,6 @@ import { useKindergartens } from '../../../operations/queries/Kindergartens/getK
 import { Loader } from '../../../components/Loader';
 import { Child } from '../../../graphql/types';
 import { useEditChild } from '../../../operations/mutations/User/editChild';
-import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 interface Props {
     child: Child;
@@ -37,7 +36,7 @@ export function ChildDetails({ child }: Props) {
                         birthQuarter: parseInt(updatedChild['birth-quarter'], 10),
                         sex: updatedChild.sex,
                         kindergartenId: updatedChild.kindergarten,
-                    })?.then(() => openSnackbar({ text: t('child-profile.child-details.success-message') }));
+                    });
                 }}
                 kindergartens={kindergartenList}
             />
