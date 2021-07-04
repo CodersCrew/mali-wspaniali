@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { KindergartenProps, Kindergarten } from '../models/kindergarten_model';
+import { Kindergarten } from '../models/kindergarten_model';
 import { KindergartenDocument } from '../../schemas/kindergarten_schema';
 import { KindergartenMapper } from '../mappers/kindergarten_mapper';
 import { UpdatedKindergartenInput } from '../../inputs/kindergarten_input';
@@ -11,12 +11,12 @@ import { UpdatedKindergartenInput } from '../../inputs/kindergarten_input';
 export class KindergartenRepository {
   constructor(
     @InjectModel('Kindergarten')
-    private readonly model: Model<KindergartenDocument>,
+    private model: Model<KindergartenDocument>,
   ) {}
 
   getAll(): Promise<Kindergarten[]> {
     return this.model
-      .find({}, {}, { sort: { number: 1 } })
+      .find({ isDeleted: false }, {}, { sort: { number: 1 } })
       .exec()
       .then(kindergartenList => {
         return kindergartenList.map(k => KindergartenMapper.toDomainFrom(k));
@@ -25,7 +25,17 @@ export class KindergartenRepository {
 
   get(id: string): Promise<Kindergarten | null> {
     return this.model
-      .findById(id)
+      .findOne({ _id: id, isDeleted: false })
+      .lean()
+      .exec()
+      .then(kindergarten =>
+        kindergarten ? KindergartenMapper.toDomainFrom(kindergarten) : null,
+      );
+  }
+
+  getByProps(props: { [key: string]: unknown }): Promise<Kindergarten | null> {
+    return this.model
+      .findOne(props)
       .lean()
       .exec()
       .then(kindergarten =>
@@ -35,11 +45,16 @@ export class KindergartenRepository {
 
   getMany(ids: string[]): Promise<Kindergarten[]> {
     return this.model
-      .find({
-        _id: {
-          $in: ids,
+      .find(
+        {
+          _id: {
+            $in: ids,
+          },
+          isDeleted: false,
         },
-      })
+        null,
+        { sort: { name: 1 } },
+      )
       .exec()
       .then(kindergartenList => {
         return kindergartenList.map(k => KindergartenMapper.toDomainFrom(k));
@@ -48,7 +63,7 @@ export class KindergartenRepository {
 
   async create(createKindergarten: Kindergarten): Promise<Kindergarten> {
     const createdKindergarden = new this.model(
-      KindergartenMapper.toPersistant(createKindergarten),
+      KindergartenMapper.toPlain(createKindergarten),
     );
 
     const result = await createdKindergarden.save();
@@ -59,18 +74,14 @@ export class KindergartenRepository {
   async update(
     kindergartenId: string,
     options: UpdatedKindergartenInput,
-  ): Promise<KindergartenProps> {
-    const updated = await this.model.findByIdAndUpdate(
-      kindergartenId,
+  ): Promise<Kindergarten> {
+    const updated = await this.model.findOneAndUpdate(
+      { _id: kindergartenId, isDeleted: false },
       options,
       { new: true },
     );
 
-    return updated;
-  }
-
-  async removeKindergarten(kindergartenId: string): Promise<KindergartenProps> {
-    return this.model.findByIdAndDelete(kindergartenId).exec();
+    return KindergartenMapper.toDomainFrom(updated);
   }
 
   // for e2e purpose only

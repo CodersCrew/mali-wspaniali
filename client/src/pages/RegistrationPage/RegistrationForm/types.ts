@@ -1,4 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+
 import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
 
 export type RegisterForm = {
@@ -50,6 +51,8 @@ export type RegistrationPasswordProps = {
     classFormItem: string;
     skip?: Dispatch<SetStateAction<boolean>>;
     loading: boolean;
+    error: boolean;
+    setError: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type RegistrationFeedbackProps = {

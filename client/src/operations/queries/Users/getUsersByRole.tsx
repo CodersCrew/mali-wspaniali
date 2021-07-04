@@ -26,13 +26,14 @@ interface UseParentsReturnType {
 interface UseUsersReturnType {
     users: User[];
     isUserListLoading: boolean;
+    refetch: () => void;
 }
 
 export const INSTRUCTORS = gql`
     query Users {
         users(role: "instructor") {
             _id
-            date
+            createdAt
             mail
             role
         }
@@ -43,7 +44,7 @@ export const ADMINS = gql`
     query Users {
         users(role: "admin") {
             _id
-            date
+            createdAt
             mail
             role
         }
@@ -54,7 +55,7 @@ export const PARENTS = gql`
     query Users {
         users(role: "parent") {
             _id
-            date
+            createdAt
             mail
             role
             children {
@@ -66,13 +67,19 @@ export const PARENTS = gql`
                 birthQuarter
                 results {
                     _id
-                    date
-                    test
-                    rootResultId
+                    createdAt
+                    modifiedAt
+                    childId
+                    kindergartenId
+                    assessmentId
+                    assessment {
+                        _id
+                        title
+                    }
                 }
                 kindergarten {
                     _id
-                    date
+                    createdAt
                     number
                     name
                     city
@@ -81,7 +88,7 @@ export const PARENTS = gql`
             }
             agreements {
                 _id
-                date
+                createdAt
                 text
                 isSigned
             }
@@ -117,11 +124,12 @@ export function useParents(): UseParentsReturnType {
 }
 
 export function useUsers(role: string): UseUsersReturnType {
-    const { data, loading } = useQuery<ParentsListResponse>(role === 'parent' ? PARENTS : INSTRUCTORS);
+    const { data, loading, refetch } = useQuery<ParentsListResponse>(role === 'parent' ? PARENTS : INSTRUCTORS);
 
     return {
         users: data?.users.map(normalizeUser) || [],
         isUserListLoading: loading,
+        refetch,
     };
 }
 

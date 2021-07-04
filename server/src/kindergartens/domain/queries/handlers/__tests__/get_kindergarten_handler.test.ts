@@ -41,7 +41,7 @@ describe('GetKindergartenHandler', () => {
     beforeEach(async () => {
       createdKindergarten = await createKindergarten('my-kindergarten-1', 1);
 
-      foundKindergarten = await getKindergarten(createdKindergarten.id.value);
+      foundKindergarten = await getKindergarten(createdKindergarten.id);
 
       await awaitForResponse();
     });
@@ -49,7 +49,7 @@ describe('GetKindergartenHandler', () => {
     it('returns Kindergarten instances', async () => {
       expect(foundKindergarten).toBeInstanceOf(Kindergarten);
 
-      expect(foundKindergarten.name.value).toEqual('my-kindergarten-1');
+      expect(foundKindergarten.name).toEqual('my-kindergarten-1');
     });
   });
 

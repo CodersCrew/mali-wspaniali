@@ -7,7 +7,8 @@ import {
     makeStyles,
     createStyles,
 } from '@material-ui/core';
-import { Theme } from '../../theme/types';
+
+import { Theme } from '../../theme';
 
 import { Option } from './useSelectValues';
 
@@ -32,6 +33,13 @@ export function Select({ label, value, options, disabled, name, error, touched, 
                 {label}
             </InputLabel>
             <SelectField
+                MenuProps={{
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    },
+                    getContentAnchorEl: null,
+                }}
                 error={!!errorText}
                 id={name}
                 label={label}

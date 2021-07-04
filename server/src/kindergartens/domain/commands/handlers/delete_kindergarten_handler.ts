@@ -8,12 +8,12 @@ import { ChildRepository } from '../../../../users/domain/repositories/child_rep
 export class DeleteKindergartenHandler
   implements ICommandHandler<DeleteKindergartenCommand> {
   constructor(
-    private readonly repository: KindergartenRepository,
-    private readonly childRepository: ChildRepository,
-    private readonly publisher: EventPublisher,
+    private repository: KindergartenRepository,
+    private childRepository: ChildRepository,
+    private publisher: EventPublisher,
   ) {}
 
-  async execute(command: DeleteKindergartenCommand): Promise<void> {
+  async execute(command: DeleteKindergartenCommand): Promise<boolean> {
     const { id } = command;
 
     const foundChildren = await this.childRepository.getByKindergarten(id);
@@ -28,6 +28,8 @@ export class DeleteKindergartenHandler
       await kindergarten.delete();
 
       await kindergarten.commit();
+
+      return true;
     }
   }
 }

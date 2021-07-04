@@ -28,7 +28,12 @@ const QuestionDialog = (props: QuestionDialogProps & ActionDialog) => {
             </DialogContent>
             <DialogActions>
                 <ButtonDefault onClick={onDeclined} variant="text" innerText={t('question-dialog.cancel')} />
-                <ButtonDefault onClick={onAccepted} variant="text" innerText={props.primaryButtonLabel} />
+                <ButtonDefault
+                    color="secondary"
+                    variant="text"
+                    onClick={onAccepted}
+                    innerText={props.primaryButtonLabel}
+                />
             </DialogActions>
         </Dialog>
     );

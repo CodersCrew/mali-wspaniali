@@ -1,5 +1,5 @@
-import { Typography, makeStyles, createStyles, Theme, Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
@@ -15,7 +15,7 @@ export const ConfirmCreateArticleModal = (
     articles: ArticleInputWithValidation & ActionDialog<{ create: Partial<ArticleInputWithValidation> }>,
 ) => {
     const classes = useStyles();
-    const history = useHistory();
+    const { t } = useTranslation();
 
     const onSubmit = () => {
         createArticle(articles)
@@ -38,20 +38,16 @@ export const ConfirmCreateArticleModal = (
             isOpen
             onClose={articles.onClose}
         >
-            <Typography variant="h4" color="primary">
-                {articles.isValid ? 'Publikacja artykułu' : 'Nie wszystkie pola obowiązkowe zostały wypełnione'}
+            <Typography variant="h4">
+                {articles.isValid
+                    ? t('admin-articles.add-article-modal.title-is-valid')
+                    : t('admin-articles.add-article-modal.title-is-not-valid')}
             </Typography>
-            <Button
-                onClick={() => {
-                    history.push('/admin/articles/categories/all');
-                }}
-            >
-                TEST
-            </Button>
+
             <Typography variant="body1" color="textSecondary" className={classes.description}>
                 {articles.isValid
-                    ? 'Czy na pewno chcesz opublikować dany artykuł?'
-                    : 'Wróć do “dodawania artykułu” i wypełnij wszystkie pola obowiązkowe, aby móc opublikować artykuł.'}
+                    ? t('admin-articles.add-article-modal.body-text-is-valid')
+                    : t('admin-articles.add-article-modal.body-text-is-not-valid')}
             </Typography>
         </TwoActionsModal>
     );

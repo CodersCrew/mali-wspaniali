@@ -38,7 +38,7 @@ export const ArticleContent = ({ title, description, contentHTML, isPreview }: A
             </Typography>
             <Grid item>
                 {contentHTML ? (
-                    <Typography variant="h3">{contentHTML.replace(parseHtml, '')}</Typography>
+                    <Typography variant="body1">{contentHTML.replace(parseHtml, '')}</Typography>
                 ) : (
                     <div className={classes.disabled}>
                         <ArticlePreviousContentHtml />

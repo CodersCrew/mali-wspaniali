@@ -2,6 +2,7 @@ import { TableCell, TableRow, Theme, makeStyles, createStyles, IconButton } from
 import clsx from 'clsx';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import { useTranslation } from 'react-i18next';
 import { AgreementSortStatus } from '../../../models/AgreementSortStatus';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 export function SortableHeader({ activeSortType, onSortChange }: Props) {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <TableRow>
@@ -21,7 +23,7 @@ export function SortableHeader({ activeSortType, onSortChange }: Props) {
                     AgreementSortStatus.BY_NAME_RISING.id,
                     AgreementSortStatus.BY_NAME_FALLING.id,
                 ])}
-                text="Nazwa przedszkola"
+                text={t('admin-agreements-page.kindergarten-name')}
                 onClick={() =>
                     onSortChange(
                         omitActiveStatus(
@@ -38,7 +40,7 @@ export function SortableHeader({ activeSortType, onSortChange }: Props) {
                     AgreementSortStatus.BY_IMAGE_RISING.id,
                     AgreementSortStatus.BY_IMAGE_FALLING.id,
                 ])}
-                text="Ilość zgód wizerunkowych"
+                text={t('admin-agreements-page.image-agreements-number')}
                 onClick={() =>
                     onSortChange(
                         omitActiveStatus(
@@ -55,7 +57,7 @@ export function SortableHeader({ activeSortType, onSortChange }: Props) {
                     AgreementSortStatus.BY_MARKETING_RISING.id,
                     AgreementSortStatus.BY_MARKETING_FALLING.id,
                 ])}
-                text="Ilość zgód margetingowych"
+                text={t('admin-agreements-page.marketing-agreements-number')}
                 onClick={() =>
                     onSortChange(
                         omitActiveStatus(
@@ -67,7 +69,7 @@ export function SortableHeader({ activeSortType, onSortChange }: Props) {
                 }
             />
             <TableCell component="th" scope="row">
-                <span className={classes.cellContainer}>Statusy</span>
+                <span className={classes.cellContainer}>{t('admin-agreements-page.status')}</span>
             </TableCell>
         </TableRow>
     );

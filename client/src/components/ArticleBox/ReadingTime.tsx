@@ -4,16 +4,19 @@ import { useTranslation } from 'react-i18next';
 interface Props {
     readingTime: number;
     date: Date;
+    isPreview: boolean;
 }
 
-export function ReadingTime({ readingTime, date }: Props) {
+export function ReadingTime({ readingTime, date, isPreview }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
     const options: { [index: string]: 'numeric' } = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
     return (
         <span className={classes.container}>
-            <Typography variant="overline">{date.toLocaleString('pl-PL', options)}</Typography>
+            <Typography variant="overline">
+                {(isPreview ? new Date() : date).toLocaleString('pl-PL', options)}
+            </Typography>
             <div className={classes.ellipse}>&nbsp;</div>
             <Typography variant="overline">
                 {readingTime} {t('single-article.reading-time')}

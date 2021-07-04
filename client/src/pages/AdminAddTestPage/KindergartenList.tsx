@@ -9,7 +9,9 @@ import {
     TableHead,
     TableRow,
     TextField,
+    InputAdornment,
 } from '@material-ui/core';
+import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { LabeledContainer } from '../../components/LabeledContainer';
@@ -36,9 +38,15 @@ export function KindergartenList({ kindergartens }: Props) {
                     data-testid="search-field"
                     value={searchPhrase}
                     onChange={({ target: { value } }) => setSearchPhrase(value)}
-                    size="small"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon color="action" />
+                            </InputAdornment>
+                        ),
+                    }}
                 />
-                <TableContainer classes={{ root: classes.table }}>
+                <TableContainer>
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -65,9 +73,6 @@ export function KindergartenList({ kindergartens }: Props) {
 
 const useStyles = makeStyles(() =>
     createStyles({
-        table: {
-            height: 295,
-        },
         kindergartenItem: {
             cursor: 'default',
         },

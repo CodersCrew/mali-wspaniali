@@ -1,17 +1,20 @@
-import { Types } from 'mongoose';
+import { transformAndValidateSync } from 'class-transformer-validator';
 
-import { AgreementProps, Agreement } from '../models/agreement';
-
-type PersistedAgreement = Omit<AgreementProps, '_id'> & { _id: Types.ObjectId };
+import { Agreement, AgreementCore } from '../models/agreement';
 
 export class AgreementMapper {
-  static toDomain(value: PersistedAgreement): Agreement {
-    const _id = value._id.toString();
+  static toDomain(value: Partial<AgreementCore>): Agreement {
+    const agreement = Agreement.create(
+      transformAndValidateSync(AgreementCore, value, {
+        transformer: { excludeExtraneousValues: true },
+        validator: { validationError: { target: false, value: false } },
+      }),
+    );
 
-    return Agreement.create({ ...value, _id });
+    return agreement;
   }
 
-  static toRaw(agreement: Agreement): AgreementProps {
-    return agreement.toObject();
+  static toRaw(agreement: Agreement): AgreementCore {
+    return agreement.getProps();
   }
 }

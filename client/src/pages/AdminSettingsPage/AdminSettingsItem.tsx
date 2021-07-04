@@ -9,6 +9,8 @@ import { openChanageChildrenKindergarten } from '../../components/ChilModals/Cha
 import { User } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useAnonymizeUser } from '../../operations/mutations/User/anonymizeUser';
+import { useEditChild } from '../../operations/mutations/User/editChild';
+import { useUsers } from '../../operations/queries/Users/getUsersByRole';
 
 interface AdminSettingsItemProps {
     user: User;
@@ -20,6 +22,8 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
     const { t } = useTranslation();
     const { kindergartenList } = useKindergartens();
     const { anonymizeUser } = useAnonymizeUser();
+    const { editChild } = useEditChild();
+    const { refetch: refetchUser } = useUsers('parent');
     const childrenData = user.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
     const editIconTooltip = t('user-settings.button-icon-edit-tooltip');
@@ -46,6 +50,7 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
                                     kindergartens: kindergartenList,
                                 }).then((result) => {
                                     if (!result.close) {
+                                        editChild(result.decision!.child)?.then(refetchUser);
                                         openSnackbar({
                                             text: t('user-settings.modal-edit-account.success-message'),
                                         });

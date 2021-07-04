@@ -1,14 +1,15 @@
 import React from 'react';
 import { Box, createStyles, Divider, Grid, makeStyles, MenuItem, Paper, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import { ButtonSecondary } from '../../components/Button';
+import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
+import { Kindergarten } from '../../graphql/types';
 import { ChildPicker } from './ChildPicker/ChildPicker';
 import { ResultCreatorReturnProps, AssessmentValues } from './useResultCreator';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
-import { ButtonSecondary } from '../../components/Button';
-import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
 import { countCurrentPoints } from './countPoints';
-import { Kindergarten } from '../../graphql/types';
 
 interface Props {
     resultCreator: ResultCreatorReturnProps;
@@ -29,7 +30,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
         <Paper>
             <Grid container className={classes.container}>
                 <Grid item xs={4} className={classes.childPickerContainer}>
-                    <Paper>
+                    <Paper className={classes.childPickerPaper}>
                         <ChildPicker
                             header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
                             selectedKindergarten={selectedKindergarten}
@@ -71,11 +72,25 @@ function EditorPanel(props: EditorPanelProps) {
         setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 
-    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => {
+    const pointSum = Object.values(countCurrentPoints(localResult, child.currentParams)).reduce((acc, v) => {
         if (Number.isNaN(v)) return acc;
 
         return acc + v;
     }, 0);
+
+    const isLastChild = () => {
+        if (props.resultCreator.selectedKindergarten.children?.length) {
+            const lastChildIndex = props.resultCreator.selectedKindergarten.children?.length - 1;
+
+            if (
+                props.resultCreator.selectedChild._id ===
+                props.resultCreator.selectedKindergarten.children[lastChildIndex]._id
+            )
+                return true;
+        }
+
+        return false;
+    };
 
     return (
         <Grid container direction="column" className={classes.editorContainer}>
@@ -119,18 +134,27 @@ function EditorPanel(props: EditorPanelProps) {
                         </Box>
                     </Grid>
                     <Grid item>
-                        <ActionMenuButtonSecondary
-                            label={t('add-result-page.save-and-next')}
-                            onClick={() => props.onClick('save-and-next', localResult)}
-                            options={[
-                                <MenuItem
-                                    onClick={() => props.onClick('back-to-table', localResult)}
-                                    key="add-result-page.save-and-back-to-table"
-                                >
-                                    {t('add-result-page.save-and-back-to-table')}
-                                </MenuItem>,
-                            ]}
-                        />
+                        {isLastChild() ? (
+                            <ButtonSecondary
+                                variant="contained"
+                                onClick={() => props.onClick('save-and-back-to-table', localResult)}
+                            >
+                                {t('add-result-page.save-and-back-to-table')}
+                            </ButtonSecondary>
+                        ) : (
+                            <ActionMenuButtonSecondary
+                                label={t('add-result-page.save-and-next')}
+                                onClick={() => props.onClick('save-and-next', localResult)}
+                                options={[
+                                    <MenuItem
+                                        onClick={() => props.onClick('save-and-back-to-table', localResult)}
+                                        key="add-result-page.save-and-back-to-table"
+                                    >
+                                        {t('add-result-page.save-and-back-to-table')}
+                                    </MenuItem>,
+                                ]}
+                            />
+                        )}
                     </Grid>
                 </Grid>
             </Grid>
@@ -183,6 +207,11 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             height: '100%',
             paddingRight: 2,
+        },
+        childPickerPaper: {
+            height: '100%',
+            overflowY: 'auto',
+            overflowX: 'hidden',
         },
         editorContainer: {
             height: '100%',

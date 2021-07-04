@@ -1,10 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { Grid, TextField, createStyles, makeStyles, Theme, MenuItem, Typography } from '@material-ui/core';
+import dayjs from 'dayjs';
+
+import utc from 'dayjs/plugin/utc';
 
 import { LabeledContainer } from '../../components/LabeledContainer';
 import { AssessmentManagerState } from './useAssessmentManager';
 import { SelectList } from '../../components/SelectList';
 import { OutlinedDateField } from '../../components/OutlinedDateField';
+
+dayjs.extend(utc);
 
 interface Props {
     isDisabled: boolean;
@@ -66,7 +71,7 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                                 <OutlinedDateField
                                     disabled={isDisabled}
                                     label={t('add-test-view.basic-information-form.start-date')}
-                                    value={assessment.firstMeasurementStartDate}
+                                    value={parseDate(assessment.firstMeasurementStartDate)}
                                     onChange={(value) => onChange({ ...assessment, firstMeasurementStartDate: value })}
                                 />
                             </Grid>
@@ -74,7 +79,7 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                                 <OutlinedDateField
                                     disabled={isDisabled}
                                     label={t('add-test-view.basic-information-form.end-date')}
-                                    value={assessment.firstMeasurementEndDate}
+                                    value={parseDate(assessment.firstMeasurementEndDate)}
                                     onChange={(value) => onChange({ ...assessment, firstMeasurementEndDate: value })}
                                 />
                             </Grid>
@@ -111,7 +116,7 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                                 <OutlinedDateField
                                     disabled={isDisabled}
                                     label={t('add-test-view.basic-information-form.start-date')}
-                                    value={assessment.lastMeasurementStartDate}
+                                    value={parseDate(assessment.lastMeasurementStartDate)}
                                     onChange={(value) => onChange({ ...assessment, lastMeasurementStartDate: value })}
                                 />
                             </Grid>
@@ -119,7 +124,7 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                                 <OutlinedDateField
                                     disabled={isDisabled}
                                     label={t('add-test-view.basic-information-form.end-date')}
-                                    value={assessment.lastMeasurementEndDate}
+                                    value={parseDate(assessment.lastMeasurementEndDate)}
                                     onChange={(value) => onChange({ ...assessment, lastMeasurementEndDate: value })}
                                 />
                             </Grid>
@@ -162,3 +167,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
+function parseDate(date: string): string {
+    return dayjs.utc(date).format('YYYY-MM-DD');
+}

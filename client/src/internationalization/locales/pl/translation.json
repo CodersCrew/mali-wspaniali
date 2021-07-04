@@ -32,10 +32,10 @@
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
         "register-success-content": "Wysłaliśmy na Twoją skrzynkę mailową wiadomość z linkiem aktywacyjnym. Skorzystaj z niego, aby potwierdzić swój adres e-mail i zakończyć rejestrację.",
-        "register-success-spam": "",
+        "register-success-spam": "Jeżeli nie dostałeś maila z linkiem aktywacyjnym, spróbuj utworzyć konto za pomocą innej skrzynki mailowej np. Gmail.com",
         "password-confirm": "Powtórz hasło",
         "register": "Rejestracja",
-        "password-not-strong": "Hasło za słabe",
+        "password-not-strong": "Hasło jest za słabe. Sprawdź, czy Twoje hasło posiada co najmniej osiem znaków, dużą literę, cyfrę i znak specjalny.",
         "agreements-and-regulations": "Zgody i regulaminy",
         "agreements-fetch-failed": "Nie udało się pobrać danych. Spróbuj ponownie później.",
         "create-password": "Zarejestruj się",
@@ -46,8 +46,7 @@
         "enter-code": "Kod",
         "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu Twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
-        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: ",
-        "no-code-desc-email": "biuro@mali-wspaniali.pl",
+        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: <strong>biuro@mali-wspaniali.pl</strong>",
         "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go ponownie",
         "invalid-email": "Niepoprawny adres e-mail.",
         "length": "8 znaków",
@@ -63,10 +62,15 @@
             "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
             "sub-title": "Zgody",
             "sub-title-description": "Zgodę na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych może Pani/Pan w dowolnej chwili wycofać z poziomu platformy w zakładce 'Zgody'.",
-            "statement": "*Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia",
-            "privacy-policy": "Regulaminu, Polityki prywatności.",
+            "statement": "Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia <a style='color: #00acc1; text-decoration: none'; href='#'>Regulaminu</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>Polityki prywatności</a>",
             "required-field": "*pole obowiązkowe do wypełnienia",
-            "required-agreements": "Wymagane zgody lub oświadczenia"
+            "required-agreements": "Wymagane zgody lub oświadczenia",
+            "select-all": "Zaznacz wszystkie zgody",
+            "agreement2-text": "Wyrażam chęć udziału mojego dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali.",
+            "agreement3-text": "Wyrażam zgodę na otrzymywanie informacji marketingowych na podany adres e-mail. <span style='color: rgba(0, 0, 0, 0.54)'>(Dzięki niej od czasu do czasu będziemy mogli pochwalić się naszymi sukcesami).</span>",
+            "agreement3-extra-content": "Informujemy, że zgoda jest dobrowolna i może być w&nbsp;każdej chwili odwołana poprzez wycofanie jej w&nbsp;zakładce ze zgodami. <br><br>Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
+            "agreement4-text": "Wyrażam zgodę na nieodpłatne przetwarzanie wizerunku mojego dziecka przez Fundację Mali Wspaniali. <span style='color: rgba(0, 0, 0, 0.54)'>(Dzięki niej będzie miał/a Pani/Pan okazję zobaczyć swoją pociechę na zdjęciach, filmach z zajęć publikowanych przez Fundację).<span>",
+            "agreement4-extra-content": "Informujemy, że zgoda jest dobrowolna i może być w&nbsp;każdej chwili odwołana poprzez wycofanie jej w&nbsp;zakładce ze zgodami. <br><br> Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: <ul><li>w fotorelacjach w mediach (prasie i telewizji), </li> <li>na portalach i stronach internetowych administrowanych przez Fundację (<a style='color: #00acc1; text-decoration: none;' href='#'>mali-wspaniali.pl</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>facebook</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>youtube</a>)</li></ul>         Ta zgoda da Panu/Pani możliwość do zobaczenia swojej pociechy na materiałach z zajęć publikowanych przez Fundację. Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/filmowanej grupy."
         }
     },
     "forgot-password-page": {
@@ -75,14 +79,27 @@
         "its-ok-mobile": "Nic się nie stało.<br/>Wpisz swój adres email.",
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
-        "continue": "Kontynuuj",
-        "problem": "Napotkałeś problem?",
+        "continue": "Resetuj hasło",
+        "problem": "Napotkałeś/łaśgit problem?",
         "contact": "Skontaktuj się z fundacją, by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
+        "incorrect-email-helper-text": "Niepoprawny adres e-mail",
         "back-to-login": "Wróć do logowania",
         "avatar": "Małgosia",
         "email-sent": "Na Twój adres e-mail wysłaliśmy maila.",
         "when-received": "Wprowadź otrzymany kod."
+    },
+    "password-change-page": {
+        "new-password-title": "Nowe hasło",
+        "new-password-subtitle": "Stwórz swoje nowe hasło do platformy Mali Wspaniali",
+        "create-new-password": "Stwórz nowe hasło",
+        "new-password": "Nowe hasło",
+        "repeat-password": "Powtórz hasło"
+    },
+    "password-change-success-page": {
+        "password-change-success-title": "Zmiana hasła zakończona pomyślnie",
+        "password-change-success-subtitle": "Zaloguj się swoim nowym hasłem, aby móc znowu korzystać z platformy Mali Wspaniali.",
+        "login": "Zaloguj"
     },
     "users-page": {
         "agreements": "Zgody",
@@ -93,12 +110,16 @@
         "agreement": "Zgoda",
         "show": "Pokaż",
         "agreements-all": "Wszystkie zgody",
-        "req": "* wymagane"
+        "req": "* wymagane",
+        "kindergarten-name": "Nazwa przedszkola",
+        "marketing-agreements-number": "Liczba zgód marketingowych",
+        "image-agreements-number": "Liczba zgód wizerunkowych",
+        "status": "Statusy"
     },
     "admin-setting-page": {
         "keycode-generation": {
             "title": "Generowanie kluczy",
-            "description": "Wybierz dla kogo chcesz wygenrować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 7 dni. Po tym czasie należy wygenerować nowe klucze. ",
+            "description": "Wybierz dla kogo chcesz wygenerować kody do rejestracji i wpisz ich liczbę. Po naciśnięciu “GENERUJ” kody zostaną wyeksportowane do pliku .xlsx. Klucze będą aktywne przez 14 dni. Po tym czasie należy wygenerować nowe klucze. ",
             "role-parent": "Rodzic",
             "role-instructor": "Instruktor",
             "filename": "Nazwa pliku",
@@ -191,7 +212,6 @@
         "image-label": "Zgoda na rozpowszechnianie wizerunku.",
         "image-description": "Zgoda opcjonalna, ale dzięki niej możemy wykorzystywać materiały zebrane podczas trwania zajęć, na przykład zdjęcia do celów promocyjnych, by innych rodziców zachęcić do promocji.",
         "kindergartener-test": "Test sprawności przedszkolaka",
-        "last-update-date": "Data ostatniej zmiany",
         "details": "Szczegóły",
         "collapse-details": "Zwiń szczegóły",
         "info-about-test": "Informacje o pomiarze",
@@ -316,7 +336,7 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
-        "final-test-title": "Wyniki wchodzących w skład pomiaru początkowego",
+        "final-test-title": "Wyniki prób wchodzących w skład pomiaru końcowego",
         "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
             "progress": "Poprawił się",
@@ -452,9 +472,9 @@
             "snackbar-headerText": "Gotowe",
             "snackbar-text": "Udzielone przez ciebie zgody zostały zapisane",
             "Image-title": "Zgoda na nieodpłatne przetwarzanie wizerunku dziecka przez Fundację Mali Wspaniali.",
-            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie  wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
-            "Image-description-2": "Ta zgoda da Panu/Pani możliwosć do zobaczenia swojej pociechy na materiałach z zajęć publikowanyh przez Fundację. ",
-            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegółcałości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
+            "Image-description-1": "Zgoda na nieodpłatne przetwarzanie wizerunku Pana/Pani dziecka przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w ramach prowadzonej działalności. Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi  sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: w fotorelacjach w mediach (prasie i telewizji), na portalach i stronach internetowych administrowanych przez Fundację. ",
+            "Image-description-2": "Ta zgoda da Panu/Pani możliwość do zobaczenia swojej pociechy na materiałach z zajęć publikowanych przez Fundację. ",
+            "Image-description-3": "Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/filmowanej grupy. Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uczestnictwa w programie.",
             "Marketing-title": "Zgoda na otrzymywanie informacji marketingowych na podany adres e-mail.",
             "Marketing-description-1": "Zgoda na przetwarzanie Pana/Pani adresu e-mail przez Fundację Mali Wspaniali, z siedzibą we Wrocławiu przy ul. Ślężnej 2-24, 53-302 Wrocław w celach marketingowych oraz handlowych. Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. ",
             "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
@@ -526,7 +546,7 @@
         "sending-success-modal": {
             "title": "Gotowe",
             "content": "Twoja wiadomość została wysłana do adresatów.",
-            "back-button": "Wróc do strony głównej",
+            "back-button": "Wróć do strony głównej",
             "next-msg-button": "Wyślij następną wiadomość"
         },
         "help-modal": {
@@ -591,7 +611,7 @@
         },
         "modal-change-kindergarden": {
             "header": "Przenieś dziecko do innego przedszkola",
-            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieśc dziecko",
+            "subtitle": "Wybierz z listy przedszkole, do którgo chcesz przenieść dziecko",
             "main-label": "Obecne przedszkole",
             "label": "Wybierz przedszkole",
             "checkbox-option": "Przeniesienie do tego samego przedszkola",
@@ -730,6 +750,14 @@
             "lastName": "Nałęcz",
             "profession": "Psycholog Dziecięcy",
             "biography": "Hanna Nałęcz,   dr   n.   o   kulturze   fizycznej,   pedagog,   specjalista   zdrowia   pub-licznego.   Zastępca   kierownika  Zakładu   Zdrowia  Dzieci   i  Młodzieży  w   InstytucieMatki i Dziecka w Warszawie. Współautorka ponad 80 krajowych i międzynarodowych publikacji dotyczących  aktywności fizycznej dzieci i młodzieży.  Członek polskiego zespołu  The Active Healthy Kids Global Alliance. Redaktor tematyczny w  the Activity Health Kids Global Alliance. Mama dwóch córek"
+        },
+        "add-article-modal": {
+            "title-is-valid": "Publikacja artykułu",
+            "title-is-not-valid": "Nie wszystkie pola obowiązkowe zostały wypełnione",
+            "body-text-is-valid": "Czy na pewno chcesz opublikować dany artykuł?",
+            "body-text-is-not-valid": "Wróć do “dodawania artykułu” i wypełnij wszystkie pola obowiązkowe, aby móc opublikować artykuł.",
+            "isValid": "Opublikuj",
+            "isnotValid": "Uzupełnij dane"
         }
     },
     "parent-menu": {
@@ -804,6 +832,7 @@
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",
         "new-user": "Nowy użytkownik ({{email}}) został dodany.",
+        "new-article": "Dodano nowy, nieopublikowany artykuł \"{{title}}\"",
         "child-created": "Dziecko zostało dodane.",
         "kindergarten-created": "Nowe przedszkole ({{name}}) zostało dodane."
     },
@@ -831,7 +860,7 @@
         "basic-information-form": {
             "title": "Podstawowe informacje",
             "description": "Uzupełnij podstawowe informacje dotyczące testu przedszkolaka",
-            "measurement-amount": "Ilość przeprowadzonych prób",
+            "measurement-amount": "Liczba przeprowadzonych prób",
             "test-name": "Nazwa testu",
             "status": "Status",
             "first-measurement": "Próba początkowa",
@@ -850,7 +879,6 @@
         },
         "kindergartens": {
             "title": "Przedszkola",
-            "description": "Wybierz przedszkola, biorące udział w teście przedszkolaka",
             "kindergarten-name": "Nazwa przedszkola",
             "find-kindergarten": "Znajdź przedszkole"
         },
@@ -1058,6 +1086,12 @@
         "save-and-next": "Zapisz i następny",
         "save-and-back-to-table": "Zapisz i wróć do tabeli",
         "select-child": "Wybierz dziecko",
-        "note": "Notatka"
+        "note": "Notatka",
+        "result-saved-snackbar-1": "Zapisno wynik próby ",
+        "result-saved-snackbar-2": " dla dziecka ",
+        "throw": "SIŁA",
+        "pendelumRun": "ZWINNOŚĆ",
+        "jump": "MOC",
+        "run": "SZYBKOŚĆ"
     }
 }

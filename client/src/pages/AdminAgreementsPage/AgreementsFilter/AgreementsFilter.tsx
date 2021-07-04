@@ -1,12 +1,9 @@
 import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
-import { AgreementTypeFilter, AgreementTypeFilters } from '../../../models/AgreementTypeFilters';
-import { AgreementStatusFilter, AgreementStatusFilters } from '../../../models/AgreementStatusFilter';
-import {
-    AgreementKindergartenFilter,
-    AgreementKindergartenFilters,
-} from '../../../models/AgreementKindergartenFilters';
+import { AgreementTypeFilter } from '../../../models/AgreementTypeFilters';
+import { AgreementStatusFilter } from '../../../models/AgreementStatusFilter';
+import { AgreementKindergartenFilter } from '../../../models/AgreementKindergartenFilters';
 import { ButtonSecondary } from '../../../components/Button';
 
 import { AgreementTypeInput } from './AgreementTypeInput';
@@ -38,16 +35,6 @@ export function AgreementsFilter({ agreementType, agreementStatus, agreementKind
                 <AgreementKindergartenInput values={agreementKindergarten} onChange={onChange} />
             </Grid>
             <Grid container justify="flex-end">
-                <ButtonSecondary
-                    variant="outlined"
-                    onClick={() => {
-                        onChange('TYPE', AgreementTypeFilters.SHOW_ALL.id);
-                        onChange('STATUS', AgreementStatusFilters.SHOW_ALL.id);
-                        onChange('KINDERGARTEN', [AgreementKindergartenFilters.SHOW_ALL.id]);
-                    }}
-                >
-                    Wyczyść
-                </ButtonSecondary>
                 <ButtonSecondary variant="contained" className={classes.filterButton} onClick={onSubmit}>
                     <CheckCircleOutlineIcon />
                 </ButtonSecondary>

@@ -57,28 +57,22 @@ export const AdminAgreementsPage = ({
     return (
         <PageContainer>
             <Paper elevation={0}>
-                <div className={classes.filterContainer}>
-                    <Grid
-                        container
-                        justify="space-between"
-                        alignItems="center"
-                        classes={{ root: classes.filterHeader }}
-                    >
-                        <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
-                        <IconButton onClick={() => setIsFilterListOpen((prev) => !prev)}>
-                            <FilterListIcon />
-                        </IconButton>
-                    </Grid>
-                    <Collapse in={isFiltersListOpen} unmountOnExit>
-                        <AgreementsFilter
-                            agreementType={agreementsTypeFilter}
-                            agreementStatus={agreementsStatusFilter}
-                            agreementKindergarten={agreementsKindergartenFilter}
-                            onChange={setAgreementFilter}
-                            onSubmit={sendFilterChanges}
-                        />
-                    </Collapse>
-                </div>
+                <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader }}>
+                    <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
+                    <IconButton onClick={() => setIsFilterListOpen((prev) => !prev)}>
+                        <FilterListIcon />
+                    </IconButton>
+                </Grid>
+
+                <Collapse in={isFiltersListOpen} unmountOnExit className={classes.filterContainer}>
+                    <AgreementsFilter
+                        agreementType={agreementsTypeFilter}
+                        agreementStatus={agreementsStatusFilter}
+                        agreementKindergarten={agreementsKindergartenFilter}
+                        onChange={setAgreementFilter}
+                        onSubmit={sendFilterChanges}
+                    />
+                </Collapse>
                 <Divider />
                 <AgreementsList
                     isLoading={isKindergartenLoading}
@@ -102,10 +96,11 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2, 4, 3),
         },
         filterContainer: {
-            margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`,
+            margin: theme.spacing(2),
+            paddingTop: theme.spacing(1),
         },
         filterHeader: {
-            paddingTop: 14,
+            padding: theme.spacing(1.7),
         },
     }),
 );

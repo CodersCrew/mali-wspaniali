@@ -117,40 +117,6 @@ export const RegistrationAgreement = ({
     const [expanded, setExpanded] = useState('panel1');
     const [allRequiredChecked, setAllRequiredChecked] = useState(false);
 
-    const toggleModal = () => setIsOpen(!isOpen);
-    const handleMoreContent = (panel: string) => (
-        event: React.ChangeEvent<Record<string, unknown>>,
-        newExpanded: boolean,
-    ) => {
-        setExpanded(newExpanded ? panel : '');
-    };
-
-    const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, checked } = target;
-        const checks = [...boxChecked];
-        const agreementState = [...agreements];
-        checks[parseInt(id, 10)] = checked;
-        agreementState[parseInt(id, 10)].isSigned = checked;
-        if (id === '0') {
-            for (let i = 0; i < checks.length; i += 1) {
-                checks[i] = checked;
-                agreementState[i].isSigned = checked;
-            }
-        } else if (!checked) checks[0] = false;
-
-        setBoxChecked(() => checks);
-        setAgreements(() => agreementState);
-
-        let allChecked = true;
-        // eslint-disable-next-line array-callback-return
-        checks.map((check, key) => {
-            if (agreements[key].isRequired) {
-                allChecked = allChecked && check;
-            }
-        });
-        setAllRequiredChecked(() => allChecked);
-    };
-
     return (
         <>
             <div className={agreementContainer}>
@@ -205,7 +171,7 @@ export const RegistrationAgreement = ({
                                 )}
 
                                 <Typography variant="body2" className={classes.agreementText}>
-                                    {parse(agreement.text)}
+                                    {parse(t(agreement.text))}
                                 </Typography>
                             </div>
                             <Box mb={2} />
@@ -228,7 +194,7 @@ export const RegistrationAgreement = ({
                                             </Typography>
                                         </AccordionSummary>
                                         <AccordionDetails className={classes.agreementExtraContent}>
-                                            <Typography variant="body2">{parse(agreement.extraContent)}</Typography>
+                                            <Typography variant="body2">{parse(t(agreement.extraContent))}</Typography>
                                         </AccordionDetails>
                                     </Accordion>
                                     <Box mb={2} />
@@ -256,4 +222,40 @@ export const RegistrationAgreement = ({
             />
         </>
     );
+
+    function toggleModal() {
+        setIsOpen(!isOpen);
+    }
+
+    function handleMoreContent(panel: string) {
+        return (event: React.ChangeEvent<Record<string, unknown>>, newExpanded: boolean) => {
+            setExpanded(newExpanded ? panel : '');
+        };
+    }
+
+    function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+        const { id, checked } = target;
+        const checks = [...boxChecked];
+        const agreementState = [...agreements];
+        checks[parseInt(id, 10)] = checked;
+        agreementState[parseInt(id, 10)].isSigned = checked;
+        if (id === '0') {
+            for (let i = 0; i < checks.length; i += 1) {
+                checks[i] = checked;
+                agreementState[i].isSigned = checked;
+            }
+        } else if (!checked) checks[0] = false;
+
+        setBoxChecked(() => checks);
+        setAgreements(() => agreementState);
+
+        let allChecked = true;
+        // eslint-disable-next-line array-callback-return
+        checks.map((check, key) => {
+            if (agreements[key].isRequired) {
+                allChecked = allChecked && check;
+            }
+        });
+        setAllRequiredChecked(() => allChecked);
+    }
 };

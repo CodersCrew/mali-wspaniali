@@ -3,9 +3,8 @@ import { Typography, Box } from '@material-ui/core';
 
 import { htmlContent } from './utils';
 
-type dataType = {
+type DataType = {
     text: string;
-    variant: any;
     marginBottom: number;
 };
 
@@ -14,9 +13,9 @@ export const ArticlePreviousContentHtml = () => {
 
     return (
         <>
-            {htmlContent.map(({ variant, text, marginBottom }: dataType) => (
+            {htmlContent.map(({ text, marginBottom }: DataType) => (
                 <Box key={text} mb={marginBottom}>
-                    <Typography variant={variant}>{t(`admin-articles.html-content.${text}`)}</Typography>
+                    <Typography variant="body1">{t(`admin-articles.html-content.${text}`)}</Typography>
                 </Box>
             ))}
         </>

@@ -1,62 +1,101 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
-import { ResetPasswordForm } from './ResetPasswordForm';
-import { ResetPasswordConfirmation } from './ResetPasswordConfirmation';
-import { isValidEmail } from './isValidEmail';
+import clsx from 'clsx';
+
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
-import { Theme } from '../../theme/types';
+import { Theme } from '../../theme';
 import { useResetPassword } from '../../operations/mutations/User/resetPassword';
 import { ButtonSecondary } from '../../components/Button';
-import { LanguageSelector } from '../../components/LanguageSelector';
-import dayjs from '../../localizedMoment';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { emailTest } from '../../utils/emailTest';
 import { useIsDevice } from '../../queries/useBreakpoints';
+
+import { ResetPasswordForm } from './ResetPasswordForm';
 
 type ImageState = 'DEFAULT' | 'ERROR' | 'SUCCESS';
 
 export default function ForgotPasswordPage() {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [email, setEmail] = useState('');
-    const [imageState, setImageState] = useState<ImageState>('ERROR');
-    const { i18n } = useTranslation();
-    const language = localStorage.getItem('i18nextLng')!;
-    const [resetPasswordState, setResetPasswordState] = useState<'FORM' | 'CONFIRMATION'>('FORM');
+    const { isDesktop } = useIsDevice();
     const { resetPassword } = useResetPassword(
         () => setImageState('SUCCESS'),
         () => setImageState('ERROR'),
     );
-    const { isMobile } = useIsDevice();
 
-    const handleLanguageChange = (lng: string) => {
-        dayjs.locale(lng);
+    const [email, setEmail] = useState('');
+    const [imageState, setImageState] = useState<ImageState>('ERROR');
 
-        return i18n.changeLanguage(lng);
-    };
+    return (
+        <div className={classes.container}>
+            <div
+                className={clsx({
+                    [classes.innerContainer]: true,
+                    [classes.innerContainerMobile]: !isDesktop,
+                })}
+            >
+                <img
+                    className={clsx({
+                        [classes.image]: true,
+                        [classes.imageMobile]: !isDesktop,
+                    })}
+                    src={getImageSource(imageState)}
+                    alt={t('forgot-password-page.avatar')}
+                />
+                <Typography
+                    variant="h4"
+                    className={clsx({
+                        [classes.title]: true,
+                        [classes.titleMobile]: !isDesktop,
+                    })}
+                >
+                    {t('forgot-password-page.forgot-password')}
+                </Typography>
+                <ResetPasswordForm onChange={handleInputChange} onSubmit={handleCreateNewPassword} email={email} />
+                <Box className={classes.separator} />
+            </div>
+            <div
+                className={clsx({
+                    [classes.footer]: true,
+                    [classes.footerMobile]: !isDesktop,
+                })}
+            >
+                <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
+                <Link underline="always" color="textPrimary" href="mailto:test@test.pl">
+                    <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
+                </Link>
+                <ButtonSecondary variant="text" href="/" className={classes.backToLoginButton}>
+                    {t('forgot-password-page.back-to-login')}
+                </ButtonSecondary>
+            </div>
+        </div>
+    );
 
-    const handleInputChange = (value: string): void => {
+    function handleInputChange(value: string): void {
         if (value === '') {
             setEmail('');
 
             return setImageState('ERROR');
         }
 
-        const validEmail = isValidEmail(value);
-
-        setImageState(validEmail ? 'SUCCESS' : 'DEFAULT');
+        setImageState(emailTest(value) ? 'SUCCESS' : 'DEFAULT');
 
         return setEmail(value);
-    };
+    }
 
-    const handleCreateNewPassword = () => {
-        setResetPasswordState('CONFIRMATION');
-
+    function handleCreateNewPassword() {
+        onPasswordChange(t('settings-page.password-change-message'));
         resetPassword(email);
-    };
+    }
 
-    const getImageSource = (state: ImageState) => {
+    function onPasswordChange(text: string) {
+        openSnackbar({ text });
+    }
+
+    function getImageSource(state: ImageState) {
         const options = {
             DEFAULT: DefaultImage,
             SUCCESS: SuccessImage,
@@ -64,105 +103,63 @@ export default function ForgotPasswordPage() {
         };
 
         return options[state];
-    };
-
-    return (
-        <div className={classes.container}>
-            <div className={classes.header}>
-                <LanguageSelector language={language} onClick={handleLanguageChange} />
-            </div>
-            <Box
-                display="flex"
-                justifyContent="space-around"
-                alignItems="center"
-                flexDirection="column"
-                width={isMobile ? '90%' : '80%'}
-                flex={1}
-            >
-                <div className={classes.layout}>
-                    <img
-                        className={classes.image}
-                        src={getImageSource(imageState)}
-                        alt={t('forgot-password-page.avatar')}
-                    />
-                    <Typography variant="h4" className={classes.title}>
-                        {t('forgot-password-page.forgot-password')}
-                    </Typography>
-                    {resetPasswordState === 'FORM' ? (
-                        <ResetPasswordForm
-                            onChange={handleInputChange}
-                            onSubmit={handleCreateNewPassword}
-                            isDisabled={!isValidEmail(email)}
-                            email={email}
-                        />
-                    ) : (
-                        <ResetPasswordConfirmation />
-                    )}
-                </div>
-                <div className={classes.footer}>
-                    <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
-                    <Link underline="always" color="textPrimary">
-                        <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
-                    </Link>
-                    <Box mt={3}>
-                        <ButtonSecondary variant="text" href="/" className={classes.backToLoginButton}>
-                            {t('forgot-password-page.back-to-login')}
-                        </ButtonSecondary>
-                    </Box>
-                </div>
-            </Box>
-        </div>
-    );
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
+            height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-start',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            flex: 1,
-            minHeight: '100vh',
         },
-        header: {
-            marginLeft: 'auto',
-        },
-        layout: {
+        innerContainer: {
+            width: '100%',
+            minWidth: 'calc(328px + 2 * 24px)',
+            padding: theme.spacing(0, 3),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            width: '80%',
-
-            [theme.breakpoints.down('sm')]: {
-                width: '90%',
-                maxWidth: '480px',
-                margin: '0 15px',
-            },
         },
-        title: {
-            textAlign: 'center',
-            marginBottom: '20px',
-            marginTop: '20px',
-            textTransform: 'uppercase',
+        innerContainerMobile: {
+            justifyContent: 'space-between',
         },
         image: {
             borderRadius: '50%',
-            width: '214px',
-            [theme.breakpoints.down('sm')]: {
-                width: '150px',
-                marginTop: '40px',
-            },
+            width: theme.spacing(28),
+        },
+        imageMobile: {
+            width: 100,
+            marginTop: theme.spacing(4),
+        },
+        title: {
+            textAlign: 'center',
+            marginBottom: theme.spacing(2),
+            marginTop: theme.spacing(2),
+            textTransform: 'uppercase',
+        },
+        titleMobile: {
+            marginTop: theme.spacing(4),
+        },
+        separator: {
+            marginBottom: '3em',
         },
         footer: {
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'flex-start',
             alignItems: 'center',
         },
+        footerMobile: {
+            marginTop: 0,
+            justifyContent: 'flex-end',
+            paddingBottom: theme.spacing(2),
+        },
         backToLoginButton: {
-            textAlign: 'center',
-            whiteSpace: 'normal',
-            fontSize: '12px',
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2.25),
         },
     }),
 );

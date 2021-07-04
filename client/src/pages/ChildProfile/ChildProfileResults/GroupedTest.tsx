@@ -1,21 +1,21 @@
 import { Accordion, AccordionSummary, AccordionDetails, makeStyles, Theme, createStyles } from '@material-ui/core';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
 import { ResultComparison } from './ExtendedGroupedTest/ResultComparison';
 import { SingleTest } from './ExtendedGroupedTest/SingleTest';
-import { TestResult } from '../../../graphql/types';
+import { AssessmentResult } from '../../../graphql/types';
 import { countSumOfPoints } from '../../../utils/countSumOfPoints';
 
 interface Props {
+    test: AssessmentResult;
     isExpanded: boolean;
     onOpen: () => void;
     onClose: () => void;
-    date: Date;
-    tests: TestResult[];
 }
 
-export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props) => {
+export function GroupedTests({ isExpanded, onOpen, onClose, test }: Props) {
     const classes = useStyles();
 
     return (
@@ -27,32 +27,41 @@ export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props
                     [classes.expansionPanelSummaryExpanded]: isExpanded,
                 })}
             >
-                <SummarisedGroupedTest
-                    schoolYearStart={date.getFullYear()}
-                    onClose={onClose}
-                    isExpanded={isExpanded}
-                    date={date}
-                    childId={tests[0]._id}
-                />
+                <SummarisedGroupedTest test={test} onClose={onClose} isExpanded={isExpanded} />
             </AccordionSummary>
-            <AccordionDetails className={classes.expansionPanelDetails}>{getTestSections(tests)}</AccordionDetails>
+            <AccordionDetails className={classes.expansionPanelDetails}>
+                <GetTestSections test={test} />
+            </AccordionDetails>
         </Accordion>
     );
-};
+}
 
-function getTestSections(tests: TestResult[]) {
-    const [startTest, endTest] = tests;
+function GetTestSections(props: { test: AssessmentResult }) {
+    const { t } = useTranslation();
+    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(props.test);
 
     return (
         <>
-            <SingleTest result={startTest} />
-            {endTest && (
+            <SingleTest
+                result={props.test}
+                title={t('child-profile.initial-test')}
+                description={t('child-profile.initial-fitness-level')}
+                points={sumOfPointsFirstMeasurement}
+                prefix="first"
+            />
+            {props.test && (
                 <>
-                    <SingleTest result={endTest} />
+                    <SingleTest
+                        result={props.test}
+                        title={t('child-profile.final-test')}
+                        description={t('child-profile.final-fitness-level')}
+                        points={sumOfPointsLastMeasurement}
+                        prefix="last"
+                    />
                     <ResultComparison
-                        firstResultPoints={countSumOfPoints(startTest.test)}
-                        lastResultPoints={countSumOfPoints(endTest.test)}
-                        childAge={startTest.test.childAge}
+                        firstResultPoints={sumOfPointsFirstMeasurement}
+                        lastResultPoints={sumOfPointsLastMeasurement}
+                        childAge={5}
                     />
                 </>
             )}

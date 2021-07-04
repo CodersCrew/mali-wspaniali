@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 import { activePage } from '../../apollo_client';
 import { childProfileCategoriesList } from './ChildProfileCategory';
@@ -13,13 +13,11 @@ import { useMe } from '../../utils/useMe';
 import { PageContainer } from '../../components/PageContainer';
 
 export default function ChildResultsPage() {
-    const { t } = useTranslation();
     const { childId, category } = useParams<{
         childId: string;
         category: string;
     }>();
     const history = useHistory();
-    const classes = useStyles();
     const user = useMe();
     const child = user?.children.find((_child) => _child._id === childId);
 
@@ -52,14 +50,7 @@ export default function ChildResultsPage() {
                 categories={childProfileCategoriesList}
             />
             <PageContainer>
-                {category === 'results' && (
-                    <>
-                        <Typography variant="h3" className={classes.description}>
-                            {t('child-profile.description')}
-                        </Typography>
-                        <ChildProfileResults child={child} onNoResultClick={() => onTabChange('tests-information')} />
-                    </>
-                )}
+                {category === 'results' && <ChildProfileResults child={child} />}
                 {category === 'recommendations' && <ChildRecommendations />}
                 {category === 'tests-information' && <ChildProfileAboutTests />}
                 {category === 'details' && <ChildDetails child={child} />}
@@ -77,9 +68,3 @@ function EmptyProfile() {
 
     return <Grid container>{t('child-profile.no-child')}</Grid>;
 }
-
-const useStyles = makeStyles({
-    description: {
-        marginBottom: 40,
-    },
-});

@@ -25,8 +25,6 @@ export interface ErrorState {
 
 export interface AssessmentManagerState {
     title: string;
-    startDate: string;
-    endDate: string;
     isOutdated: boolean;
     isDeleted: boolean;
     status: string;
@@ -41,8 +39,6 @@ export interface AssessmentManagerState {
 
 const defaultAssessment: AssessmentManagerState = {
     title: '',
-    startDate: formatDate(defaultStartDate),
-    endDate: formatDate(defaultEndDate),
     isOutdated: false,
     isDeleted: false,
     status: 'active',
@@ -75,8 +71,6 @@ export function useAssessmentManager(
 
         setUpdateLocalAssessment({
             title: assessment.title,
-            startDate: assessment.startDate,
-            endDate: assessment.endDate,
             status: assessment.status,
             firstMeasurementStatus: assessment.firstMeasurementStatus,
             lastMeasurementStatus: assessment.lastMeasurementStatus,
@@ -156,12 +150,13 @@ export function useAssessmentManager(
     function mapToCreatedAssessment(assessmentState: AssessmentManagerState): CreatedAssessmentInput {
         return {
             title: assessmentState.title,
-            startDate: assessmentState.startDate,
-            endDate: assessmentState.endDate,
             firstMeasurementStartDate: assessmentState.firstMeasurementStartDate,
             firstMeasurementEndDate: assessmentState.firstMeasurementEndDate,
             lastMeasurementStartDate: assessmentState.lastMeasurementStartDate,
             lastMeasurementEndDate: assessmentState.lastMeasurementEndDate,
+            status: assessmentState.status,
+            firstMeasurementStatus: assessmentState.firstMeasurementStatus,
+            lastMeasurementStatus: assessmentState.lastMeasurementStatus,
             kindergartenIds: assessmentState.kindergartenIds,
         };
     }
@@ -223,8 +218,6 @@ export function useAssessmentManager(
 async function validate(state: AssessmentManagerState) {
     const newTestSchema = yup.object().shape({
         title: yup.string().min(5, 'add-test-view.errors.name-too-short'),
-        startDate: yup.string().required(),
-        endDate: yup.string().required(),
         kindergartenIds: yup.array(),
     });
 

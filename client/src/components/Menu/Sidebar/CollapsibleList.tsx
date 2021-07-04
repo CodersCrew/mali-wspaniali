@@ -45,5 +45,6 @@ export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
 const useStyles = makeStyles({
     container: {
         marginTop: 4,
+        marginBottom: 4,
     },
 });

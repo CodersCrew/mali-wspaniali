@@ -22,17 +22,9 @@ interface Props {
 }
 
 export function Navbar({ device, language, notifications, activePage, onLanguageChange }: Props) {
-    const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
-    const { readNotification } = useReadNotification();
     const classes = useStyles();
-    const popupRef = useRef<HTMLElement | null>(null);
-    useOnClickOutside(popupRef, () => setIsNotificationPopupOpen(false));
     const { t } = useTranslation();
     const sidebarState = useSidebarState();
-
-    function handleNotificationPopupClick() {
-        setIsNotificationPopupOpen((prev) => !prev);
-    }
 
     return (
         <Box zIndex="appBar">
@@ -60,21 +52,7 @@ export function Navbar({ device, language, notifications, activePage, onLanguage
                         </Typography>
                         <div className={classes.menuSide}>
                             <LanguageSelector language={language} onClick={onLanguageChange} />
-                            <span ref={popupRef}>
-                                <IconButton
-                                    aria-label="notifications"
-                                    onClick={handleNotificationPopupClick}
-                                    color={notifications.find((n) => !n.isRead) ? 'secondary' : 'default'}
-                                >
-                                    <Notifications />
-                                </IconButton>
-                                {isNotificationPopupOpen && (
-                                    <NotificationsPanel
-                                        onClick={(id) => readNotification(id)}
-                                        notifications={notifications}
-                                    />
-                                )}
-                            </span>
+                            <NotificationPopup notifications={notifications} />
                         </div>
                     </div>
                 </Toolbar>
@@ -83,13 +61,38 @@ export function Navbar({ device, language, notifications, activePage, onLanguage
     );
 }
 
+function NotificationPopup({ notifications }: { notifications: Notification[] }) {
+    const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
+    const { readNotification } = useReadNotification();
+    const popupRef = useRef<HTMLElement | null>(null);
+    useOnClickOutside(popupRef, () => setIsNotificationPopupOpen(false));
+
+    return (
+        <span ref={popupRef}>
+            <IconButton
+                aria-label="notifications"
+                onClick={handleNotificationPopupClick}
+                color={notifications.find((n) => !n.isRead) ? 'secondary' : 'default'}
+            >
+                <Notifications width={24} height={24} />
+            </IconButton>
+            {isNotificationPopupOpen && (
+                <NotificationsPanel onClick={(id) => readNotification(id)} notifications={notifications} />
+            )}
+        </span>
+    );
+
+    function handleNotificationPopupClick() {
+        setIsNotificationPopupOpen((prev) => !prev);
+    }
+}
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             minHeight: theme.spacing(8),
         },
         containerMobile: {
-            // boxShadow: 'none',
             borderBottom: `1px solid ${theme.palette.primary.main}`,
         },
         toolbar: theme.mixins.toolbar,

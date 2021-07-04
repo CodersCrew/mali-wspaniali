@@ -1,3 +1,3 @@
 export class ChildCreatedEvent {
-  constructor(public readonly childId: string) {}
+  constructor(public childId: string) {}
 }

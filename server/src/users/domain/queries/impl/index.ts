@@ -3,5 +3,8 @@ export * from './get_children_query';
 export * from './get_children_from_kindergarten_query';
 export * from './get_all_children_query';
 export * from './get_user_query';
+export * from './get_user_by_child_id_query';
 export * from './get_users_query';
 export * from './get_kindergarten_results_query';
+export * from './get_child_results_query';
+export * from './get_results_query';

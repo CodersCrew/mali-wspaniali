@@ -5,7 +5,7 @@ import { CssBaseline, StylesProvider } from '@material-ui/core';
 import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { AppWrapper } from './AppWrapper';
 import { ParentWrapper } from './ParentWrapper';
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 import { CookieModal } from '../components/CookieModal/CookieModal';
@@ -20,7 +20,6 @@ const ParentHomePage = React.lazy(() => import('./ParentHomePage/ParentHomePage'
 const ArticlePage = React.lazy(() => import('./ArticlePage/ArticlePage'));
 const ArticleListPage = React.lazy(() => import('./ArticleListPage/ArticleListPage'));
 const NotificationsPage = React.lazy(() => import('./NotificationsPage/NotificationsPage'));
-const AdminHomePage = React.lazy(() => import('./AdminHomePage/AdminHomePage'));
 const ParentAgreementsPage = React.lazy(() => import('./ParentAgreementsPage/ParentAgreementsPage'));
 const ParentSettingsPage = React.lazy(() => import('./ParentSettingsPage/ParentSettingsPage'));
 const ArchivePage = React.lazy(() => import('./ArchivePage/ArchivePage'));
@@ -44,6 +43,7 @@ const InstructorResultCreatorPage = React.lazy(
     () => import('./InstructorResultCreatorPage/InstructorResultCreatorPage'),
 );
 const ForgotPasswordPage = React.lazy(() => import('./ForgotPasswordPage/ForgotPasswordPage'));
+const PasswordChangePage = React.lazy(() => import('./PasswordChangePage/PasswordChangePage'));
 const TestResultsPage = React.lazy(() => import('./TestResultsPage/TestResultsPage'));
 const AdminKindergartensPage = React.lazy(() => import('./AdminKindergartensPage/AdminKindergartensPage'));
 
@@ -75,11 +75,15 @@ export function Root() {
                                     <Route path="/forgot-password" component={ForgotPasswordPage} />
                                 </AuthTemplate>
                             </Route>
+                            <Route path={['/password-change']}>
+                                <AuthTemplate type="login">
+                                    <Route path="/password-change" component={PasswordChangePage} />
+                                </AuthTemplate>
+                            </Route>
                             <Route path={['/admin', '/parent', '/instructor']}>
                                 <AppWrapper>
                                     <Switch>
-                                        <Route exact path="/admin" component={AdminHomePage} />
-                                        <Route path="/admin/tests" component={TestResultsPage} />
+                                        <Route exact path="/admin" component={TestResultsPage} />
                                         <Route path="/admin/users" component={UsersPage} />
                                         <Route path="/admin/parent/:id" component={ParentProfilePage} />
                                         <Route path="/admin/agreements" component={AdminAgreementsPageContainer} />

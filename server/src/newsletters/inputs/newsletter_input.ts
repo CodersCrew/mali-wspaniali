@@ -3,14 +3,14 @@ import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class NewsletterInput {
   @Field()
-  readonly message: string;
+  message: string;
 
   @Field(() => [String])
-  readonly recipients: string[];
+  recipients: string[];
 
   @Field()
-  readonly title: string;
+  title: string;
 
   @Field()
-  readonly type: string;
+  type: string;
 }

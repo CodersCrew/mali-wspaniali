@@ -254,7 +254,7 @@ function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): Men
     const mainItem = {
         icon: <Icon icon={<VerticalSplit />} />,
         name: t('admin-menu.tests.title'),
-        link: '/admin/tests',
+        link: '/admin',
         active: active.includes('admin-menu.results.title'),
     };
 
@@ -262,7 +262,7 @@ function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): Men
         {
             icon: <Icon icon={<Assessment />} />,
             name: t('admin-menu.tests.results'),
-            link: '/admin/tests',
+            link: '/admin',
             active: active.includes('admin-menu.results.table'),
         },
         {
@@ -311,7 +311,7 @@ function getNewsletterMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): 
 function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
     const ResultsItem = {
         name: 'admin-menu.results',
-        link: '/admin/tests',
+        link: '/admin',
         icon: <Icon icon={<Assessment />} />,
         rightIcon,
     };
@@ -419,8 +419,15 @@ function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryPr
         icon: <Icon icon={<PowerSettingsNew />} />,
     };
 
+    const AgreementsItem = {
+        name: 'admin-menu.agreements',
+        link: '/admin/agreements',
+        icon: <Icon icon={<AssignmentTurnedIn />} />,
+    };
+
     const options: { [index: string]: SingleItemProps } = {
         'add-results': AddResultsItem,
+        agreements: AgreementsItem,
         settings: SettingsItem,
         notifications: NotificationsItem,
         logout: LogoutItem,

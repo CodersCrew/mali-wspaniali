@@ -4,10 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
-import { Theme } from '../../theme/types';
+import { Theme } from '../../theme';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { LanguageSelector } from '../RegistrationPage/RegistrationForm/LanguageSelector';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { PartnerLogotypeContainer } from '../AuthTemplate/PartnerLogotypeContainer';
 
@@ -17,10 +16,6 @@ const initialError: Error = {
 };
 
 export default function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loginError, setLoginError] = useState(initialError);
-    const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();
@@ -37,24 +32,13 @@ export default function LoginPage() {
     );
     const { isDesktop } = useIsDevice();
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-        event.preventDefault();
-        setLoading(() => true);
-        authorizeMe(email, password);
-    };
-
-    const showLoginErrorMessage = () => {
-        openSnackbar({
-            text: t('login-page.login-error'),
-            severity: 'error',
-            anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
-        });
-    };
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState(initialError);
+    const [loading, setLoading] = useState(false);
 
     return (
         <div className={classes.container}>
-            <div className={classes.topHeader}>{isDesktop && <LanguageSelector />}</div>
-
             <div className={classes.innerContainer}>
                 <form onSubmit={handleSubmit} autoComplete="off" className={classes.form}>
                     <Typography variant="h3" className={classes.loginHeader}>
@@ -64,7 +48,9 @@ export default function LoginPage() {
                         <Box mb={6} />
                     ) : (
                         <>
-                            <Typography className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</Typography>
+                            <Typography variant="subtitle1" className={classes.welcomeText}>
+                                {t('login-wrapper.welcome-text')}
+                            </Typography>
                             <Box mb={5} />
                         </>
                     )}
@@ -140,6 +126,20 @@ export default function LoginPage() {
             </div>
         </div>
     );
+
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
+        setLoading(() => true);
+        authorizeMe(email, password);
+    }
+
+    function showLoginErrorMessage() {
+        openSnackbar({
+            text: t('login-page.login-error'),
+            severity: 'error',
+            anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
+        });
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

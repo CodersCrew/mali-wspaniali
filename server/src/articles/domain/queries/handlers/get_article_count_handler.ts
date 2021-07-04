@@ -6,7 +6,7 @@ import { ArticlesRepository } from '../../repositories/article_repository';
 @QueryHandler(GetArticlesCountQuery)
 export class GetArticlesCountHandler
   implements IQueryHandler<GetArticlesCountQuery> {
-  constructor(private readonly repository: ArticlesRepository) {}
+  constructor(private repository: ArticlesRepository) {}
 
   async execute({ category }: GetArticlesCountQuery): Promise<number> {
     return this.repository.countArticles(category);

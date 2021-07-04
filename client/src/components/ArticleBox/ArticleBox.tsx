@@ -54,6 +54,7 @@ const ArticleBox = ({
                         <ReadingTime
                             date={new Date(article?.publishedAt || article?.createdAt)}
                             readingTime={calculateReadingTime(article?.contentHTML)}
+                            isPreview={isPreview}
                         />
                     </div>
                     <ArticleContent

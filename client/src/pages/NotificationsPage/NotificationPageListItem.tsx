@@ -15,7 +15,7 @@ export const NotificationPageListItem = ({ notification, onClick }: Props) => {
     const classes = useStyles();
     const { getNotification } = useNotificationContent();
     const text = getNotification(notification.templateId, notification.values);
-    const date = new Date(notification.date);
+    const date = new Date(notification.createdAt);
     const isVisited = notification.isRead;
 
     return (
@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingLeft: 0,
     },
     visited: {
-        color: '#C4C4C4',
-        background: theme.palette.background.default,
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.background.default,
         transition: 'backgroundColor .3s',
     },
     background: {
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     calendarCell: {
         width: 215,
-        padding: 8,
-        paddingRight: 16,
+        padding: theme.spacing(1),
+        paddingRight: theme.spacing(2),
     },
 }));
