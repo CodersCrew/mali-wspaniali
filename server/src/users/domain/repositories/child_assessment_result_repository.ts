@@ -51,15 +51,22 @@ export class ChildAssessmentResultRepository {
 
   async getByKindergarten(
     kindergartenId: string,
-    assessmentId: string,
+    assessmentId?: string,
   ): Promise<PartialChildResult[]> {
+    const query = assessmentId
+      ? {
+          assessmentId,
+          kindergartenId,
+        }
+      : {
+          kindergartenId,
+        };
+
     const result = await this.childResultModel
-      .find({
-        assessmentId,
-        kindergartenId,
-      })
+      .find(query)
       .lean()
-      .exec();
+      .exec()
+      .then(ChildAssessmentResultMapper.toDomainMany);
 
     return result;
   }

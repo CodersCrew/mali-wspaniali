@@ -37,7 +37,7 @@ import {
   PartialUpdateChildResultInput,
 } from './inputs/child_result_input';
 import {
-  GetKindergartenResults,
+  GetKindergartenResultsQuery,
   GetUserByChildIdQuery,
 } from './domain/queries/impl';
 import { KindergartenCore } from '../kindergartens/domain/models/kindergarten_model';
@@ -152,7 +152,7 @@ export class ChildResolver {
     @Args('kindergartenId') kindergartenId: string,
   ) {
     const results: PartialChildResult[] = await this.queryBus.execute(
-      new GetKindergartenResults(assessmentId, kindergartenId),
+      new GetKindergartenResultsQuery(kindergartenId, assessmentId),
     );
 
     return results;

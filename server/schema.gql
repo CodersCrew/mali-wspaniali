@@ -122,6 +122,9 @@ type KindergartenDTO {
   city: String!
   address: String!
   children: [ChildDTO!]!
+  firstMeasurementResultCount: Int!
+  lastMeasurementResultCount: Int!
+  maxResultCount: Int!
 }
 
 type ChildDTO {
