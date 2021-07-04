@@ -52,7 +52,11 @@ export default function ParentHomePage() {
                     <p className={classes.description}>
                         <Typography variant={isMobile ? 'subtitle1' : 'h3'} align={isMobile ? 'center' : 'left'}>
                             {t('home-page-content.learn-more')}
-                            <Link className={classes.link} href="http://mali-wspaniali.pl/pl/index.html" target="_blank">
+                            <Link
+                                className={classes.link}
+                                href="http://mali-wspaniali.pl/pl/index.html"
+                                target="_blank"
+                            >
                                 {t('home-page-content.mali-wspaniali')}
                             </Link>
                         </Typography>
