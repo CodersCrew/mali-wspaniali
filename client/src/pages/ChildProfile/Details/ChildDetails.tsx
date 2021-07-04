@@ -1,11 +1,13 @@
 import { createStyles, makeStyles, Paper, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { EditChildPanel } from './EditChildPanel';
 import { Theme } from '../../../theme';
 import { useKindergartens } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Loader } from '../../../components/Loader';
 import { Child } from '../../../graphql/types';
 import { useEditChild } from '../../../operations/mutations/User/editChild';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 interface Props {
     child: Child;
@@ -35,7 +37,7 @@ export function ChildDetails({ child }: Props) {
                         birthQuarter: parseInt(updatedChild['birth-quarter'], 10),
                         sex: updatedChild.sex,
                         kindergartenId: updatedChild.kindergarten,
-                    });
+                    })?.then(() => openSnackbar({ text: t('child-profile.child-details.success-message') }));
                 }}
                 kindergartens={kindergartenList}
             />
