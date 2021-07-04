@@ -11,6 +11,7 @@ import { Input } from '../../../components/ChildForm/Input';
 import { Select } from '../../../components/ChildForm/Select';
 import { ButtonSecondary } from '../../../components/Button';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
+import { useEditChild } from '../../../operations/mutations/User/editChild';
 
 interface ChildFormProps {
     kindergartens: Kindergarten[];
@@ -38,6 +39,7 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useBreakpoints();
+    const { editChild } = useEditChild();
 
     const initialValues = {
         id: child._id,
@@ -144,7 +146,17 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
                     color="secondary"
                     variant="contained"
                     size="large"
-                    onClick={() => openSnackbar({ text: t('child-profile.child-details.success-message') })}
+                    onClick={() =>
+                        editChild({
+                            childId: formik.values.id,
+                            firstname: formik.values.firstname,
+                            lastname: formik.values.lastname,
+                            birthYear: Number(formik.values['birth-date']),
+                            birthQuarter: Number(formik.values['birth-quarter']),
+                            sex: formik.values.sex,
+                            kindergartenId: formik.values.kindergarten,
+                        })?.then((res) => openSnackbar({ text: t('child-profile.child-details.success-message') }))
+                    }
                 >
                     {t('child-profile.child-details.button')}
                 </ButtonSecondary>
