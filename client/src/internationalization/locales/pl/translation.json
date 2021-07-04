@@ -627,15 +627,11 @@
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
     "single-article": {
-        "blog": "blog",
-        "length": "długość",
         "emotions": "emocje",
         "activity": "aktywność",
         "food": "żywienie",
         "other": "inne",
-        "reading-time": "min czytania",
-        "go-to-previous-page": "poprzednia",
-        "go-to-next-page": "nastepna"
+        "reading-time": "min czytania"
     },
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
