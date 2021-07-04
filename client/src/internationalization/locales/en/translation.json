@@ -333,7 +333,8 @@
         "child-details": {
             "page": "Child's details",
             "form": "Edit your child's details if necessary.",
-            "button": "Save"
+            "button": "Save",
+            "success-message": "Information of your child has been updated"
         },
         "your-child-result-1": "YOUR CHILD'S",
         "your-child-result-2": "RESULT"
