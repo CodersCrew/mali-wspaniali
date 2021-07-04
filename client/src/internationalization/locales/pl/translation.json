@@ -958,7 +958,7 @@
     "add-results-page": {
         "test-name": "Nazwa testu",
         "kindergarten-name": "Przedszkole",
-        "search-by-child-firstname": "Szukaj po imieniu dziecka",
+        "search-by-child-full-name": "Imię lub nazwisko dziecka",
         "firstname": "Imie",
         "lastname": "Nazwisko",
         "full-name": "Imie i nazwisko",

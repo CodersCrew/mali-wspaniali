@@ -98,7 +98,11 @@ export function ChildPicker({
     );
 
     function getFilteredChildrenByName() {
-        return childList.filter((c) => c.firstname.toLowerCase().includes(searchTerm.toLowerCase()));
+        return childList.filter((c) => {
+            const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
+
+            return fullName.includes(searchTerm.toLowerCase());
+        });
     }
 
     function isAssessmentDisabled() {
