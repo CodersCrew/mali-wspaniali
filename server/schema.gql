@@ -138,7 +138,7 @@ type ChildDTO {
   results: [ChildAssessmentResultDTO!]!
   kindergarten: KindergartenDTO!
   currentParams: ChildCurrentParamsDTO!
-  parent: UserDTO!
+  parent: UserDTO
 }
 
 type AgreementDTO {
@@ -264,6 +264,9 @@ type AssessmentDTO {
   firstMeasurementStatus: String!
   lastMeasurementStatus: String!
   kindergartens: [KindergartenWithInstructorDTO!]!
+  firstMeasurementResultCount: Int!
+  lastMeasurementResultCount: Int!
+  maxResultCount: Int!
 }
 
 type NewsletterDTO {

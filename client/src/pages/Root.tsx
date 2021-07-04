@@ -20,7 +20,6 @@ const ParentHomePage = React.lazy(() => import('./ParentHomePage/ParentHomePage'
 const ArticlePage = React.lazy(() => import('./ArticlePage/ArticlePage'));
 const ArticleListPage = React.lazy(() => import('./ArticleListPage/ArticleListPage'));
 const NotificationsPage = React.lazy(() => import('./NotificationsPage/NotificationsPage'));
-const AdminHomePage = React.lazy(() => import('./AdminHomePage/AdminHomePage'));
 const ParentAgreementsPage = React.lazy(() => import('./ParentAgreementsPage/ParentAgreementsPage'));
 const ParentSettingsPage = React.lazy(() => import('./ParentSettingsPage/ParentSettingsPage'));
 const ArchivePage = React.lazy(() => import('./ArchivePage/ArchivePage'));
@@ -80,8 +79,7 @@ export function Root() {
                             <Route path={['/admin', '/parent', '/instructor']}>
                                 <AppWrapper>
                                     <Switch>
-                                        <Route exact path="/admin" component={AdminHomePage} />
-                                        <Route path="/admin/tests" component={TestResultsPage} />
+                                        <Route exact path="/admin" component={TestResultsPage} />
                                         <Route path="/admin/users" component={UsersPage} />
                                         <Route path="/admin/parent/:id" component={ParentProfilePage} />
                                         <Route path="/admin/agreements" component={AdminAgreementsPageContainer} />
