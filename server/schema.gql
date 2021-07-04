@@ -142,6 +142,11 @@ type ChildDTO {
   kindergarten: KindergartenDTO!
   currentParams: ChildCurrentParamsDTO!
   parent: UserDTO
+
+  """
+  Returns child's age, if run on concrete assessment context, returns age in relation to firstMeasuremtnDate / lastMeasurementDate if the first is not available, if run without any context in returns age in realation to the current date
+  """
+  age: Int
 }
 
 type AgreementDTO {
