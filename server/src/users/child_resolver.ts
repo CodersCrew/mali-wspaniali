@@ -37,7 +37,7 @@ import {
   PartialUpdateChildResultInput,
 } from './inputs/child_result_input';
 import {
-  GetKindergartenResults,
+  GetKindergartenResultsQuery,
   GetUserByChildIdQuery,
 } from './domain/queries/impl';
 import { KindergartenCore } from '../kindergartens/domain/models/kindergarten_model';
@@ -47,6 +47,11 @@ import { ChildAssessmentResultCore } from './domain/models/child_assessment_resu
 import { ChildAssessmentResultMapper } from './domain/mappers/child_assessment_result_mapper';
 import { UserDTO } from './dto/user_dto';
 import { UserMapper } from './domain/mappers/user_mapper';
+import { Int } from '@nestjs/graphql';
+import { parseDateToAge } from '../shared/utils/parse_date_to_age';
+import { CurrentAssessment } from './params/current_assessment_param';
+import { Assessment } from '../assessment/domain/models/assessment_model';
+import { GetAssessmentsQuery } from '../assessment/domain/queries/impl/get_assessment_query';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildDTO)
@@ -86,6 +91,32 @@ export class ChildResolver {
     );
 
     if (user) return UserMapper.toPlain(user) as UserDTO;
+  }
+
+  @ResolveField(() => Int, {
+    nullable: true,
+    description:
+      "Returns child's age, if run on concrete assessment context, returns age in relation to firstMeasuremtnDate / lastMeasurementDate if the first is not available, if run without any context in returns age in realation to the current date",
+  })
+  @UseGuards(GqlAuthGuard)
+  async age(
+    @Parent() child: ChildDTO,
+    @CurrentAssessment() assessmentId: string,
+  ): Promise<number> {
+    if (assessmentId) {
+      const assessment: Assessment = await this.queryBus.execute(
+        new GetAssessmentsQuery(assessmentId),
+      );
+
+      const date =
+        assessment.firstMeasurementStatus !== 'not-planned'
+          ? assessment.firstMeasurementStartDate
+          : assessment.lastMeasurementStartDate;
+
+      return parseDateToAge(child.birthYear, child.birthQuarter, date);
+    }
+
+    return parseDateToAge(child.birthYear, child.birthQuarter);
   }
 
   @Query(() => [ChildDTO])
@@ -152,7 +183,7 @@ export class ChildResolver {
     @Args('kindergartenId') kindergartenId: string,
   ) {
     const results: PartialChildResult[] = await this.queryBus.execute(
-      new GetKindergartenResults(assessmentId, kindergartenId),
+      new GetKindergartenResultsQuery(kindergartenId, assessmentId),
     );
 
     return results;
