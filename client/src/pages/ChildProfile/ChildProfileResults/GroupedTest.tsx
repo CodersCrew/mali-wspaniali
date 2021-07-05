@@ -59,6 +59,7 @@ function GetTestSections(props: { test: AssessmentResult }) {
                         prefix="last"
                     />
                     <ResultComparison
+                        params={props.test.currentParams}
                         firstResultPoints={sumOfPointsFirstMeasurement}
                         lastResultPoints={sumOfPointsLastMeasurement}
                         childAge={5}

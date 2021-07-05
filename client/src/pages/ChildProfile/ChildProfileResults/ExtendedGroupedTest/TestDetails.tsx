@@ -48,6 +48,7 @@ export const TestDetails = ({ result, prefix }: Props) => {
                         return (
                             <Slide index={index} key={test.translationKey} className={classes.slide}>
                                 <Measurement
+                                    param={result.currentParams[lowercaseFirstLetter(test.name) as 'run']}
                                     valueInUnitOfMeasure={
                                         (result[
                                             `${prefix}Measurement${test.name}Result` as keyof AssessmentResult
@@ -72,6 +73,7 @@ export const TestDetails = ({ result, prefix }: Props) => {
 
                     return (
                         <Measurement
+                            param={result.currentParams[lowercaseFirstLetter(test.name) as 'run']}
                             valueInUnitOfMeasure={valueInUnitOfMeasure}
                             valueInPoints={
                                 valueInUnitOfMeasure

@@ -104,6 +104,11 @@ export interface AssessmentParam {
     middleStageLimit: number;
     goodStageLimit: number;
     veryGoodStageLimit: number;
+    minScale: number;
+    scale39: number;
+    scale49: number;
+    scale59: number;
+    maxScale: number;
 }
 
 export interface Child {

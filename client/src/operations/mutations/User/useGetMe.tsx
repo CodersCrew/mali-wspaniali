@@ -37,6 +37,11 @@ export const GET_ME = gql`
                             middleStageLimit
                             goodStageLimit
                             veryGoodStageLimit
+                            minScale
+                            scale39
+                            scale49
+                            scale59
+                            maxScale
                         }
                         pendelumRun {
                             a
@@ -50,6 +55,11 @@ export const GET_ME = gql`
                             middleStageLimit
                             goodStageLimit
                             veryGoodStageLimit
+                            minScale
+                            scale39
+                            scale49
+                            scale59
+                            maxScale
                         }
                         jump {
                             a
@@ -63,6 +73,11 @@ export const GET_ME = gql`
                             middleStageLimit
                             goodStageLimit
                             veryGoodStageLimit
+                            minScale
+                            scale39
+                            scale49
+                            scale59
+                            maxScale
                         }
                         throw {
                             a
@@ -76,6 +91,11 @@ export const GET_ME = gql`
                             middleStageLimit
                             goodStageLimit
                             veryGoodStageLimit
+                            minScale
+                            scale39
+                            scale49
+                            scale59
+                            maxScale
                         }
                     }
                     firstMeasurementRunDate

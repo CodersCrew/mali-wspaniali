@@ -21,14 +21,16 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
 
     const percentile = 36;
 
+    const { minScale, maxScale, scale39, scale49, scale59 } = measurementProps.param!;
+
     const resultsData = {
-        v1: 60,
-        v2: 120,
-        v3: 150,
-        v4: 180,
-        v5: 240,
-        unit: 'pkt',
-        result: 180,
+        v1: minScale,
+        v2: scale39,
+        v3: scale49,
+        v4: scale59,
+        v5: maxScale,
+        unit: measurementProps.unitOfMeasure,
+        result: measurementProps.valueInUnitOfMeasure,
         resultStart: 160,
         hasScoreRangeLabels: false,
         sex: 'male',
