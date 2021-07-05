@@ -8,14 +8,21 @@ import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
 import Results from './Results';
 import { ChartLegend } from './ChartLegend';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
+import { AssessmentParam } from '../../../../graphql/types';
 
 interface Props {
     firstResultPoints: number;
     lastResultPoints: number;
     childAge: number;
+    params: {
+        run?: AssessmentParam;
+        pendelumRun?: AssessmentParam;
+        throw?: AssessmentParam;
+        jump?: AssessmentParam;
+    };
 }
 
-export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props) => {
+export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }: Props) => {
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);

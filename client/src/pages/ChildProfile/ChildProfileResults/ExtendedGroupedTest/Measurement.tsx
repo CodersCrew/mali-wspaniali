@@ -7,12 +7,14 @@ import { white } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { openDetailsModal } from './modals/DetailsModal';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+import { AssessmentParam } from '../../../../graphql/types';
 
 interface Props {
     valueInUnitOfMeasure: number;
     valueInPoints: number;
     unitOfMeasure: string;
     translationKey: string;
+    param?: AssessmentParam;
 }
 
 export const Measurement = (props: Props) => {
@@ -54,6 +56,7 @@ export const Measurement = (props: Props) => {
                 variant="text"
                 className={classes.detailsButton}
                 innerText={t('child-profile.details')}
+                disabled={!props.valueInPoints}
                 onClick={() => {
                     openDetailsModal({
                         isCancelButtonVisible: true,

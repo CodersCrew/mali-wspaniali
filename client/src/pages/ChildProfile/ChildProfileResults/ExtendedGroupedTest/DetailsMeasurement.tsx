@@ -42,7 +42,7 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
             </Typography>
             <Typography variant="subtitle1">{t('child-profile.received-points')}:</Typography>
             <div className={classes.points}>
-                {valueInPoints} {t('child-profile.pts')}
+                {Math.round(valueInPoints)} {t('child-profile.pts')}
             </div>
         </div>
     );
