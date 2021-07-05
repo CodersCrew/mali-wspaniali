@@ -1,3 +1,5 @@
+import { parseDateToAge } from './parse_date_to_age';
+
 interface UserDetails {
   birthYear: number;
   birthQuarter: number;
@@ -26,7 +28,7 @@ interface AssessmentParam {
 }
 
 export function countParams(details: UserDetails, date: Date = new Date()) {
-  const age = date.getFullYear() - details.birthYear;
+  const age = parseDateToAge(details.birthYear, details.birthQuarter, date);
 
   return {
     run: getRunParams(age, details),
