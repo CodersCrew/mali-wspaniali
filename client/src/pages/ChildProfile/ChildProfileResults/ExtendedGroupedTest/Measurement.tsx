@@ -56,6 +56,7 @@ export const Measurement = (props: Props) => {
                 variant="text"
                 className={classes.detailsButton}
                 innerText={t('child-profile.details')}
+                disabled={!props.valueInPoints}
                 onClick={() => {
                     openDetailsModal({
                         isCancelButtonVisible: true,
