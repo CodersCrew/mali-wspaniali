@@ -10,8 +10,22 @@ export interface Props {
 }
 
 export function Results({ resultsData, displayHistoricalResults }: Props) {
-    const { v1, v2, v3, v4, v5, unit, result, resultStart, hasScoreRangeLabels, sex, redRange, middleRange } =
-        resultsData;
+    const {
+        v1,
+        v2,
+        v3,
+        v4,
+        v5,
+        unit,
+        result,
+        resultStart,
+        hasScoreRangeLabels,
+        sex,
+        rangeMin,
+        range39,
+        range59,
+        rangeMax,
+    } = resultsData;
     const { t } = useTranslation();
     const avatar = sex === 'male' ? Boy : Girl;
     const range = v1 - v5;
@@ -164,13 +178,13 @@ export function Results({ resultsData, displayHistoricalResults }: Props) {
                 <div className={classes.scoring}>
                     <svg width="100%" height="30" viewBox="0 0 100% 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <text x={`${shiftFirstScoreRange}%`} y="20" fill="black" className={classes.label}>
-                            ({redRange} pkt)
+                            ({rangeMin}-{range39} pkt)
                         </text>
                         <text x={`${shiftSecondScoreRange}%`} y="20" fill="black" className={classes.label}>
-                            ({redRange}-{middleRange} pkt)
+                            ({range39! + 1}-{range59} pkt)
                         </text>
                         <text x={`${shiftThirdScoreRange}%`} y="20" fill="black" className={classes.label}>
-                            (22-79 pkt)
+                            ({range59! + 1}-{rangeMax} pkt)
                         </text>
                     </svg>
                 </div>

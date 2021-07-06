@@ -20,8 +20,11 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
     const device = useIsDevice();
 
     const percentile = 36;
+    console.log(measurementProps);
 
     const { minScale, maxScale, scale39, scale49, scale59, a, b } = measurementProps.param!;
+
+    const rangeMax = Math.min(Math.round(a * maxScale + b), measurementProps.param?.lowerLimitPoints!);
 
     const resultsData = {
         v1: minScale,
@@ -34,8 +37,10 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
         resultStart: 160,
         hasScoreRangeLabels: true,
         sex: 'male',
-        redRange: Math.round(a * scale39 + b - (a * minScale + b)),
-        middleRange: Math.round(a * scale59 + b - (a * scale39 + b)),
+        rangeMin: measurementProps.param?.upperLimitPoints!,
+        range39: Math.round(a * scale39 + b),
+        range59: Math.round(a * scale59 + b),
+        rangeMax,
     };
     const classes = useStyles();
 

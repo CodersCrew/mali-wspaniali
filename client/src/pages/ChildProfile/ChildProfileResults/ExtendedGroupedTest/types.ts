@@ -11,8 +11,10 @@ export type ResultsData = {
     resultStart: number;
     hasScoreRangeLabels: boolean;
     sex: string;
-    redRange?: number;
-    middleRange?: number;
+    rangeMin?: number;
+    range39?: number;
+    range59?: number;
+    rangeMax?: number;
 };
 
 export type MeasurementProps = {
