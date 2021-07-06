@@ -20,11 +20,10 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
     const device = useIsDevice();
 
     const percentile = 36;
-    console.log(measurementProps);
 
     const { minScale, maxScale, scale39, scale49, scale59, a, b } = measurementProps.param!;
 
-    const rangeMax = Math.min(Math.round(a * maxScale + b), measurementProps.param?.lowerLimitPoints!);
+    const rangeMax = Math.min(countValue(maxScale), measurementProps.param?.lowerLimitPoints!);
 
     const resultsData = {
         v1: minScale,
@@ -38,8 +37,8 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
         hasScoreRangeLabels: true,
         sex: 'male',
         rangeMin: measurementProps.param?.upperLimitPoints!,
-        range39: Math.round(a * scale39 + b),
-        range59: Math.round(a * scale59 + b),
+        range39: countValue(scale39),
+        range59: countValue(scale59),
         rangeMax,
     };
     const classes = useStyles();
@@ -74,7 +73,7 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
                     <Typography className={(classes.typographySpacing, classes.titleSpacing)} variant="h4">
                         {t(`${T_DETAILS_PREFIX}.result-details.title`)}
                     </Typography>
-                    <Box pl={4} pr={4} maxWidth="95%">
+                    <Box pl={4} pr={4}>
                         <Results resultsData={resultsData} />
                     </Box>
                     <Grid container>
@@ -98,7 +97,7 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
                         </Grid>
                         <Grid item>
                             <Typography className={classes.typographySpacing} variant="body2">
-                                {`${resultsData.result}/${resultsData.result}`}
+                                {`${countValue(resultsData.result)}/${countValue(measurementProps.param?.maxScale!)}`}
                                 {t(`${T_DETAILS_PREFIX}.result-details.text-1`)}
                             </Typography>
                         </Grid>
@@ -127,6 +126,12 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
             </Box>
         </BasicModal>
     );
+
+    function countValue(value: number) {
+        console.log(value);
+
+        return Math.round(a * value + b);
+    }
 };
 
 export const openDetailsModal = (props: DetailsModalProps) => {
