@@ -120,25 +120,25 @@ export function Results({ resultsData, displayHistoricalResults }: Props) {
             <div className={classes.mark} style={{ left: '0' }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v1} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v1}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v2} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v2}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow + rangeLightGreen}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v4} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v4}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: '100%' }}>
-                <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="55" height="100" viewBox="0 0 55 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v5} ${unit}`}</text>
+                    <text x="0" y="100" fill="black" className={classes.label}>{`${v5} ${unit}`}</text>
                 </svg>
             </div>
             {displayHistoricalResults && (
