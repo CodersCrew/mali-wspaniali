@@ -11,6 +11,8 @@ export type ResultsData = {
     resultStart: number;
     hasScoreRangeLabels: boolean;
     sex: string;
+    redRange?: number;
+    middleRange?: number;
 };
 
 export type MeasurementProps = {

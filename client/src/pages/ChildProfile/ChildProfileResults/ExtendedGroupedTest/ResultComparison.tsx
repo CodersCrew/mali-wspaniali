@@ -5,7 +5,7 @@ import { gray, lightTextColor, resultColors } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { openResultsModal } from './modals/ResultsModal';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
-import Results from './Results';
+import { Results } from './Results';
 import { ChartLegend } from './ChartLegend';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
 import { AssessmentParam } from '../../../../graphql/types';

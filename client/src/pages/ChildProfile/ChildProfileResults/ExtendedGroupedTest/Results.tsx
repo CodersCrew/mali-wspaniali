@@ -9,10 +9,11 @@ export interface Props {
     displayHistoricalResults?: boolean;
 }
 
-const Results = ({ resultsData, displayHistoricalResults }: Props) => {
-    const { v1, v2, v3, v4, v5, unit, result, resultStart, hasScoreRangeLabels, sex } = resultsData;
+export function Results({ resultsData, displayHistoricalResults }: Props) {
+    const { v1, v2, v3, v4, v5, unit, result, resultStart, hasScoreRangeLabels, sex, redRange, middleRange } =
+        resultsData;
     const { t } = useTranslation();
-    const avatar = sex !== 'male' ? Boy : Girl;
+    const avatar = sex === 'male' ? Boy : Girl;
     const range = v1 - v5;
     const calculatePercent = (value: number) => {
         return (value / range) * 100;
@@ -105,25 +106,25 @@ const Results = ({ resultsData, displayHistoricalResults }: Props) => {
             <div className={classes.mark} style={{ left: '0' }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v1} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v1} ${unit}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v2} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v2} ${unit}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow + rangeLightGreen}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v4} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v4} ${unit}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: '100%' }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v5} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v5} ${unit}`}</text>
                 </svg>
             </div>
             {displayHistoricalResults && (
@@ -136,10 +137,24 @@ const Results = ({ resultsData, displayHistoricalResults }: Props) => {
             <div className={classes.result}>
                 <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <image href={avatar} x="88" height="28" width="28" />
-                    <text x="100" y="42" fill="black" dominantBaseline="middle" textAnchor="middle">
+                    <text
+                        x="100"
+                        y="42"
+                        fill="black"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        className={classes.label}
+                    >
                         {t('child-profile.your-child-result-1')}
                     </text>
-                    <text x="100" y="56" fill="black" dominantBaseline="middle" textAnchor="middle">
+                    <text
+                        x="100"
+                        y="56"
+                        fill="black"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        className={classes.label}
+                    >
                         {t('child-profile.your-child-result-2')}
                     </text>
                     <rect width="8" height="80" rx="4" x="98" y="68" fill="#212121" />
@@ -148,13 +163,13 @@ const Results = ({ resultsData, displayHistoricalResults }: Props) => {
             {hasScoreRangeLabels && (
                 <div className={classes.scoring}>
                     <svg width="100%" height="30" viewBox="0 0 100% 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text x={`${shiftFirstScoreRange}%`} y="20" fill="black">
-                            (21 pkt)
+                        <text x={`${shiftFirstScoreRange}%`} y="20" fill="black" className={classes.label}>
+                            ({redRange} pkt)
                         </text>
-                        <text x={`${shiftSecondScoreRange}%`} y="20" fill="black">
-                            (22-78 pkt)
+                        <text x={`${shiftSecondScoreRange}%`} y="20" fill="black" className={classes.label}>
+                            ({redRange}-{middleRange} pkt)
                         </text>
-                        <text x={`${shiftThirdScoreRange}%`} y="20" fill="black">
+                        <text x={`${shiftThirdScoreRange}%`} y="20" fill="black" className={classes.label}>
                             (22-79 pkt)
                         </text>
                     </svg>
@@ -162,7 +177,7 @@ const Results = ({ resultsData, displayHistoricalResults }: Props) => {
             )}
         </div>
     );
-};
+}
 
 interface IStyleProps {
     resultMarkShift: number;
@@ -173,6 +188,10 @@ const useStyles = makeStyles({
     wrapper: {
         position: 'relative',
         margin: '80px 20px 100px',
+    },
+    label: {
+        userSelect: 'none',
+        cursor: 'default',
     },
     rectangles: {
         display: 'flex',
@@ -210,5 +229,3 @@ const useStyles = makeStyles({
         width: '100%',
     },
 });
-
-export default Results;
