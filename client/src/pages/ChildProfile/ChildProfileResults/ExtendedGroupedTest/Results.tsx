@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import { useTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 import Girl from '../../../../assets/girl.svg';
 import Boy from '../../../../assets/boy.svg';
 import { ResultsData } from './types';
@@ -25,8 +25,8 @@ export function Results({ resultsData, displayHistoricalResults }: Props) {
         range39,
         range59,
         rangeMax,
+        firstName,
     } = resultsData;
-    const { t } = useTranslation();
     const avatar = sex === 'male' ? Boy : Girl;
     const range = v1 - v5;
     const calculatePercent = (value: number) => {
@@ -159,17 +159,12 @@ export function Results({ resultsData, displayHistoricalResults }: Props) {
                         textAnchor="middle"
                         className={classes.label}
                     >
-                        {t('child-profile.your-child-result-1')}
-                    </text>
-                    <text
-                        x="100"
-                        y="56"
-                        fill="black"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        className={classes.label}
-                    >
-                        {t('child-profile.your-child-result-2')}
+                        <Trans i18nKey="child-profile.your-child-result">
+                            <tspan></tspan>
+                            <tspan x="50%" dy="1.2em">
+                                {{ name: firstName?.toUpperCase() }}
+                            </tspan>
+                        </Trans>
                     </text>
                     <rect width="8" height="80" rx="4" x="98" y="68" fill="#212121" />
                 </svg>

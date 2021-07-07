@@ -1,7 +1,7 @@
 import { createStyles, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
-import { ChildInput } from '../../../../../graphql/types';
+import { ChildInput, Child } from '../../../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
 import { DetailsMeasurement } from '../DetailsMeasurement';
 import { Results } from '../Results';
@@ -13,9 +13,14 @@ const T_DETAILS_PREFIX = 'child-profile.details-modal';
 type DetailsModalProps = {
     isCancelButtonVisible: boolean;
     measurementProps: MeasurementProps;
+    child: Child;
 };
 
-const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionDialog<{ child: ChildInput }>) => {
+const DetailsModal = ({
+    onClose,
+    measurementProps,
+    child,
+}: DetailsModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
     const device = useIsDevice();
 
@@ -40,6 +45,7 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
         range39: countValue(scale39),
         range59: countValue(scale59),
         rangeMax,
+        firstName: child?.firstname ?? '',
     };
     const classes = useStyles();
 

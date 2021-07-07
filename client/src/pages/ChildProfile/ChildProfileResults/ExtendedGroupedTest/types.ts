@@ -15,6 +15,7 @@ export type ResultsData = {
     range39?: number;
     range59?: number;
     rangeMax?: number;
+    firstName?: string;
 };
 
 export type MeasurementProps = {

@@ -335,8 +335,7 @@
             "form": "Edit your child's details if necessary.",
             "button": "Save"
         },
-        "your-child-result-1": "YOUR CHILD'S",
-        "your-child-result-2": "RESULT",
+        "your-child-result": "{{name}}'s <1>RESULTS</1> ",
         "details-modal": {
             "next-assesment": {
                 "title": "Next attempt measurement",
