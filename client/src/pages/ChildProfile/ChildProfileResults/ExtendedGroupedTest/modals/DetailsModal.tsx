@@ -1,10 +1,10 @@
 import { createStyles, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../../../../components/Modal/BasicModal';
-import { ChildInput } from '../../../../../graphql/types';
+import { ChildInput, Child } from '../../../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
 import { DetailsMeasurement } from '../DetailsMeasurement';
-import Results from '../Results';
+import { Results } from '../Results';
 import { MeasurementProps } from '../types';
 import { useIsDevice } from '../../../../../queries/useBreakpoints';
 
@@ -13,15 +13,22 @@ const T_DETAILS_PREFIX = 'child-profile.details-modal';
 type DetailsModalProps = {
     isCancelButtonVisible: boolean;
     measurementProps: MeasurementProps;
+    child: Child;
 };
 
-const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionDialog<{ child: ChildInput }>) => {
+const DetailsModal = ({
+    onClose,
+    measurementProps,
+    child,
+}: DetailsModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
     const device = useIsDevice();
 
     const percentile = 36;
 
-    const { minScale, maxScale, scale39, scale49, scale59 } = measurementProps.param!;
+    const { minScale, maxScale, scale39, scale49, scale59, a, b } = measurementProps.param!;
+
+    const rangeMax = Math.min(countValue(maxScale), measurementProps.param?.lowerLimitPoints!);
 
     const resultsData = {
         v1: minScale,
@@ -32,8 +39,13 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
         unit: measurementProps.unitOfMeasure,
         result: measurementProps.valueInUnitOfMeasure,
         resultStart: 160,
-        hasScoreRangeLabels: false,
+        hasScoreRangeLabels: true,
         sex: 'male',
+        rangeMin: measurementProps.param?.upperLimitPoints!,
+        range39: countValue(scale39),
+        range59: countValue(scale59),
+        rangeMax,
+        firstName: child?.firstname ?? '',
     };
     const classes = useStyles();
 
@@ -54,17 +66,7 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
                 <Box minWidth="176" px={2} pb={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
                     <Box display="flex" flexDirection="column" justifyContent="space-between">
                         <DetailsMeasurement measurmentProps={measurementProps} />
-                        <Hidden only="xs">
-                            <Grid item>
-                                <Typography variant="subtitle2">
-                                    {t(`${T_DETAILS_PREFIX}.next-assesment.title`)}
-                                </Typography>
-                                <Typography variant="body2">
-                                    {t(`${T_DETAILS_PREFIX}.next-assesment.text-1`)}6
-                                    {t(`${T_DETAILS_PREFIX}.next-assesment.text-2`)}
-                                </Typography>
-                            </Grid>
-                        </Hidden>
+                        <NextMeasurement />
                     </Box>
                 </Box>
                 <Box display="flex" flex="1" flexDirection="column" py={2}>
@@ -77,7 +79,7 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
                     <Typography className={(classes.typographySpacing, classes.titleSpacing)} variant="h4">
                         {t(`${T_DETAILS_PREFIX}.result-details.title`)}
                     </Typography>
-                    <Box pl={4} pr={4} maxWidth="95%">
+                    <Box pl={4} pr={4}>
                         <Results resultsData={resultsData} />
                     </Box>
                     <Grid container>
@@ -101,7 +103,7 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
                         </Grid>
                         <Grid item>
                             <Typography className={classes.typographySpacing} variant="body2">
-                                {`${resultsData.result}/${resultsData.result}`}
+                                {`${countValue(resultsData.result)}/${countValue(measurementProps.param?.maxScale!)}`}
                                 {t(`${T_DETAILS_PREFIX}.result-details.text-1`)}
                             </Typography>
                         </Grid>
@@ -130,11 +132,32 @@ const DetailsModal = ({ onClose, measurementProps }: DetailsModalProps & ActionD
             </Box>
         </BasicModal>
     );
+
+    function countValue(value: number) {
+        console.log(value);
+
+        return Math.round(a * value + b);
+    }
 };
 
 export const openDetailsModal = (props: DetailsModalProps) => {
     return openDialog<DetailsModalProps>(DetailsModal, props);
 };
+
+function NextMeasurement() {
+    const { t } = useTranslation();
+
+    return (
+        <Hidden only="xs">
+            <Grid item>
+                <Typography variant="subtitle2">{t(`${T_DETAILS_PREFIX}.next-assesment.title`)}</Typography>
+                <Typography variant="body2">
+                    {t(`${T_DETAILS_PREFIX}.next-assesment.text-1`)}6{t(`${T_DETAILS_PREFIX}.next-assesment.text-2`)}
+                </Typography>
+            </Grid>
+        </Hidden>
+    );
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

@@ -1,5 +1,6 @@
 import { createStyles, Theme, Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_POINTS_FOR_TEST } from './constants';
@@ -8,6 +9,7 @@ import { ButtonSecondary } from '../../../../components/Button';
 import { openDetailsModal } from './modals/DetailsModal';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
 import { AssessmentParam } from '../../../../graphql/types';
+import { useMe } from '../../../../utils/useMe';
 
 interface Props {
     valueInUnitOfMeasure: number;
@@ -17,7 +19,12 @@ interface Props {
     param?: AssessmentParam;
 }
 
-export const Measurement = (props: Props) => {
+export function Measurement(props: Props) {
+    const { childId } = useParams<{
+        childId: string;
+    }>();
+    const user = useMe();
+    const child = user?.children.find((_child) => _child._id === childId);
     const { t } = useTranslation();
     const { color, key } = getResultColorAndLabel(props.valueInPoints, MAX_POINTS_FOR_TEST);
 
@@ -58,9 +65,12 @@ export const Measurement = (props: Props) => {
                 innerText={t('child-profile.details')}
                 disabled={!props.valueInPoints}
                 onClick={() => {
+                    if (!child) return;
+
                     openDetailsModal({
                         isCancelButtonVisible: true,
                         measurementProps: props,
+                        child,
                     }).then((res) => {
                         if (!res.close)
                             openSnackbar({
@@ -71,7 +81,7 @@ export const Measurement = (props: Props) => {
             />
         </div>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

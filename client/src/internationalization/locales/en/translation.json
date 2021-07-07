@@ -335,16 +335,41 @@
             "form": "Edit your child's details if necessary.",
             "button": "Save"
         },
-        "your-child-result-1": "YOUR CHILD'S",
-        "your-child-result-2": "RESULT"
+        "your-child-result": "{{name}}'s <1>RESULTS</1> ",
+        "details-modal": {
+            "next-assesment": {
+                "title": "Next attempt measurement",
+                "text-1": "In about",
+                "text-2": "months"
+            },
+            "content": {
+                "strength": "The instructor marks a clear line at which a child will attempt throws. About 70-100 cm away from the starting line, two chairs should  be placed with a tape hung on their backrests. A child stands astride, bringing fingers to the starting line. He or she makes an overhead swing with a 1kg ball and throws it as far as possible above the tape.",
+                "speed": "In the open area, a straight 25 m long line is marked. The instructor draws a clear starting line, 20 m away - a thin, parallel line denoting a time control point, and 5 m further - a second clear line indicating \"Finishing line\". The child stands on the line and on a given signal tries to run as fast as possible towards the finishing line. ",
+                "power": "The child stands at the edge of the mattress, bringing toes to the drawn line. From there he or she performs a long jump as far as possible. The distance is measured to the first point where the child's body touches the ground.",
+                "agility": "A flat surface is marked with two lines, 5 meters apart. Two blocks are placed on one line, and the child stands in front of the other marked line. In this attempt the child has to cover a 4 x 5 m long distance while moving a block from one line to the other. "
+            },
+            "assesment-details": "Attempt description",
+            "result-details": {
+                "title": "Result details",
+                "child-result": "Child's result:",
+                "points": "Number of points:",
+                "text-1": "possible",
+                "text-2": "Meaning of the result in comparison to the whole age group:",
+                "text-3": "children were equal to or better than your child.",
+                "next-level": {
+                    "title": "Next feature level:",
+                    "text-1": "- from",
+                    "text-2": "(only missing",
+                    "text-3": "!)"
+                }
+            }
+        }
     },
     "parent-profile": {
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
     },
-    "details-modal": {
-        "next-assesment-time": "Next measurement"
-    },
+
     "test-results": {
         "search-result": "Search results",
         "no-results": "No results",

@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import { useTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 import Girl from '../../../../assets/girl.svg';
 import Boy from '../../../../assets/boy.svg';
 import { ResultsData } from './types';
@@ -9,10 +9,25 @@ export interface Props {
     displayHistoricalResults?: boolean;
 }
 
-const Results = ({ resultsData, displayHistoricalResults }: Props) => {
-    const { v1, v2, v3, v4, v5, unit, result, resultStart, hasScoreRangeLabels, sex } = resultsData;
-    const { t } = useTranslation();
-    const avatar = sex !== 'male' ? Boy : Girl;
+export function Results({ resultsData, displayHistoricalResults }: Props) {
+    const {
+        v1,
+        v2,
+        v3,
+        v4,
+        v5,
+        unit,
+        result,
+        resultStart,
+        hasScoreRangeLabels,
+        sex,
+        rangeMin,
+        range39,
+        range59,
+        rangeMax,
+        firstName,
+    } = resultsData;
+    const avatar = sex === 'male' ? Boy : Girl;
     const range = v1 - v5;
     const calculatePercent = (value: number) => {
         return (value / range) * 100;
@@ -105,25 +120,25 @@ const Results = ({ resultsData, displayHistoricalResults }: Props) => {
             <div className={classes.mark} style={{ left: '0' }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v1} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v1}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v2} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v2}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: `${rangeRed + rangeYellow + rangeLightGreen}%` }}>
                 <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v4} ${unit}`}</text>
+                    <text x="-0" y="100" fill="black" className={classes.label}>{`${v4}`}</text>
                 </svg>
             </div>
             <div className={classes.mark} style={{ left: '100%' }}>
-                <svg width="50" height="100" viewBox="0 0 50 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="55" height="100" viewBox="0 0 55 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="10" y1="2.18557e-08" x2="10" y2="80" stroke="#616161" strokeDasharray="10 10" />
-                    <text x="-0" y="100" fill="black">{`${v5} ${unit}`}</text>
+                    <text x="0" y="100" fill="black" className={classes.label}>{`${v5} ${unit}`}</text>
                 </svg>
             </div>
             {displayHistoricalResults && (
@@ -136,11 +151,20 @@ const Results = ({ resultsData, displayHistoricalResults }: Props) => {
             <div className={classes.result}>
                 <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <image href={avatar} x="88" height="28" width="28" />
-                    <text x="100" y="42" fill="black" dominantBaseline="middle" textAnchor="middle">
-                        {t('child-profile.your-child-result-1')}
-                    </text>
-                    <text x="100" y="56" fill="black" dominantBaseline="middle" textAnchor="middle">
-                        {t('child-profile.your-child-result-2')}
+                    <text
+                        x="100"
+                        y="42"
+                        fill="black"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        className={classes.label}
+                    >
+                        <Trans i18nKey="child-profile.your-child-result">
+                            <tspan></tspan>
+                            <tspan x="50%" dy="1.2em">
+                                {{ name: firstName?.toUpperCase() }}
+                            </tspan>
+                        </Trans>
                     </text>
                     <rect width="8" height="80" rx="4" x="98" y="68" fill="#212121" />
                 </svg>
@@ -148,21 +172,21 @@ const Results = ({ resultsData, displayHistoricalResults }: Props) => {
             {hasScoreRangeLabels && (
                 <div className={classes.scoring}>
                     <svg width="100%" height="30" viewBox="0 0 100% 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text x={`${shiftFirstScoreRange}%`} y="20" fill="black">
-                            (21 pkt)
+                        <text x={`${shiftFirstScoreRange}%`} y="20" fill="black" className={classes.label}>
+                            ({rangeMin}-{range39} pkt)
                         </text>
-                        <text x={`${shiftSecondScoreRange}%`} y="20" fill="black">
-                            (22-78 pkt)
+                        <text x={`${shiftSecondScoreRange}%`} y="20" fill="black" className={classes.label}>
+                            ({range39! + 1}-{range59} pkt)
                         </text>
-                        <text x={`${shiftThirdScoreRange}%`} y="20" fill="black">
-                            (22-79 pkt)
+                        <text x={`${shiftThirdScoreRange}%`} y="20" fill="black" className={classes.label}>
+                            ({range59! + 1}-{rangeMax} pkt)
                         </text>
                     </svg>
                 </div>
             )}
         </div>
     );
-};
+}
 
 interface IStyleProps {
     resultMarkShift: number;
@@ -173,6 +197,10 @@ const useStyles = makeStyles({
     wrapper: {
         position: 'relative',
         margin: '80px 20px 100px',
+    },
+    label: {
+        userSelect: 'none',
+        cursor: 'default',
     },
     rectangles: {
         display: 'flex',
@@ -210,5 +238,3 @@ const useStyles = makeStyles({
         width: '100%',
     },
 });
-
-export default Results;
