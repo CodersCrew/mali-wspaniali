@@ -43,7 +43,10 @@ import {
 import { KindergartenCore } from '../kindergartens/domain/models/kindergarten_model';
 import { ChildAssessmentResultDTO } from './dto/child_assessment_result';
 import { GetChildResultsQuery } from './domain/queries/impl/get_child_results_query';
-import { ChildAssessmentResultCore } from './domain/models/child_assessment_result_model';
+import {
+  ChildAssessmentResult,
+  ChildAssessmentResultCore,
+} from './domain/models/child_assessment_result_model';
 import { ChildAssessmentResultMapper } from './domain/mappers/child_assessment_result_mapper';
 import { UserDTO } from './dto/user_dto';
 import { UserMapper } from './domain/mappers/user_mapper';
@@ -182,10 +185,10 @@ export class ChildResolver {
     @Args('assessmentId') assessmentId: string,
     @Args('kindergartenId') kindergartenId: string,
   ) {
-    const results: PartialChildResult[] = await this.queryBus.execute(
+    const results: ChildAssessmentResult[] = await this.queryBus.execute(
       new GetKindergartenResultsQuery(kindergartenId, assessmentId),
     );
 
-    return results;
+    return ChildAssessmentResultMapper.toPlainMany(results);
   }
 }

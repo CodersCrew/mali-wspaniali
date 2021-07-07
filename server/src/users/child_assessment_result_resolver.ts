@@ -13,6 +13,7 @@ import {
 import { ChildCurrentParamsDTO } from './dto/child_current_params_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { countParams } from '../shared/utils/count_params';
+import { ChildDTO } from './dto/child_dto';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildAssessmentResultDTO)
@@ -34,6 +35,17 @@ export class ChildAssessmentResultResolver {
     if (!assessment) return null;
 
     return countParams(child, assessment.firstMeasurementStartDate);
+  }
+
+  @ResolveField(() => ChildDTO, { nullable: true })
+  async child(
+    @Parent() result: ChildAssessmentResultDTO,
+  ): Promise<ChildCurrentParamsDTO> {
+    const [child] = await this.queryBus.execute(
+      new GetChildrenQuery([result.childId]),
+    );
+
+    return child;
   }
 
   @ResolveField(() => AssessmentDTO, { nullable: true })
