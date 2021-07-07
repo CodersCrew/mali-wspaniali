@@ -134,8 +134,6 @@ const DetailsModal = ({
     );
 
     function countValue(value: number) {
-        console.log(value);
-
         return Math.round(a * value + b);
     }
 };

@@ -222,7 +222,7 @@
         "details": "Szczegóły",
         "collapse-details": "Zwiń szczegóły",
         "info-about-test": "Informacje o pomiarze",
-        "carries-out-on": "przeprowadzony dnia",
+        "carries-out-on": "przeprowadzony {{date}}",
         "age-group": "Wiek dziecka",
         "age-group-description": {
             "title": "W jaki sposób przypisujemy dziecko do danej grupy wiekowej?",
@@ -268,6 +268,8 @@
                 "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
             },
             "very-good": {
+                "title": "Porada - Bardzo dobry poziom sprawności",
+                "subtitle": "Bądź dumny ze swojego dziecka!",
                 "text-1": "Jest bardzo sprawne fizycznie i może być przykładem dla rówieśników. Podziękowania należą się także Tobie za dbanie o zdrowie i prawidłowy rozwój twojego dziecka – tak trzymajcie! ",
                 "text-2": "Koniecznie zobacz ",
                 "text-2-1": "artykuł",

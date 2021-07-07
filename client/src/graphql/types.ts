@@ -235,6 +235,9 @@ export interface AssessmentResult {
         throw?: AssessmentParam;
         jump?: AssessmentParam;
     };
+    child: {
+        age: number;
+    };
     firstMeasurementNote: string;
     lastMeasurementNote: string;
     firstMeasurementRunResult: number;

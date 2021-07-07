@@ -27,14 +27,16 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
     const { isSmallMobile } = useIsDevice();
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);
     const difference = Math.abs(firstResultPoints - lastResultPoints);
+    console.log(firstResultPoints, lastResultPoints, params);
     const differenceColor = getDifferenceColor(key);
     const classes = useStyles({ differenceColor });
+    console.log(params);
     const resultsData = {
-        v1: 60,
-        v2: 120,
-        v3: 150,
-        v4: 180,
-        v5: 240,
+        v1: countCategoryPoints('minScale'),
+        v2: countCategoryPoints('weakStageLimit'),
+        v3: countCategoryPoints('middleStageLimit'),
+        v4: countCategoryPoints('goodStageLimit'),
+        v5: countCategoryPoints('maxScale'),
         unit: 'pkt',
         result: lastResultPoints,
         resultStart: firstResultPoints,
@@ -63,18 +65,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
                         </Box>
                         <ButtonSecondary
                             variant="contained"
-                            onClick={() => {
-                                openResultsModal({
-                                    preventClose: false,
-                                    isCancelButtonVisible: true,
-                                    progressKey: key,
-                                }).then((res) => {
-                                    if (!res.close)
-                                        openSnackbar({
-                                            text: t('user-settings.modal-edit-account.success-message'),
-                                        });
-                                });
-                            }}
+                            onClick={onOpenResultsClick}
                             innerText={t('child-profile.comparison-button')}
                         />
                     </div>
@@ -91,7 +82,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
                         spacing={5}
                     >
                         <Grid item xs={12} sm={8} lg={8} className={classes.ruller}>
-                            <Results resultsData={resultsData} displayHistoricalResults />
+                            <Results resultsData={resultsData} displayHistoricalResults={firstResultPoints > 0} />
                         </Grid>
                         <Grid item xs={12} sm={4} lg={4} className={classes.info}>
                             <ChartLegend resultKey={key} color={differenceColor} difference={difference} />
@@ -101,6 +92,35 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
             </div>
         </>
     );
+
+    function onOpenResultsClick() {
+        openResultsModal({
+            preventClose: false,
+            isCancelButtonVisible: true,
+            progressKey: key,
+        }).then((res) => {
+            if (!res.close)
+                openSnackbar({
+                    text: t('user-settings.modal-edit-account.success-message'),
+                });
+        });
+    }
+
+    function countCategoryPoints(name: string) {
+        const categories = Object.entries(params);
+
+        return categories.reduce((acc, [, category]) => {
+            const { a, b } = category;
+
+            const value = category[name as keyof AssessmentParam] || 0;
+
+            if (a && b) {
+                return Math.round(acc + a * value + b);
+            }
+
+            return acc;
+        }, 0);
+    }
 };
 
 function getDifferenceKey(firstValue: number, lastValue: number) {
