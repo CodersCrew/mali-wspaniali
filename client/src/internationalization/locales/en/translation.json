@@ -160,7 +160,7 @@
         "details": "Details",
         "collapse-details": "Collapse details",
         "info-about-test": "Information about the test",
-        "carries-out-on": "carries out on",
+        "carries-out-on": "carried out {{date}}",
         "age-group": "Child's age",
         "age-group-description": {
             "title": "How we assign a child to an age group",

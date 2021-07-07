@@ -28,6 +28,7 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
     const { childId } = useParams<{
         childId: string;
     }>();
+    const { age } = result.child;
 
     return (
         <Card elevation={0}>
@@ -40,7 +41,7 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
                         <Typography variant="h4">{title}</Typography>
                     </Box>
                     <Typography variant="caption" color="textSecondary">
-                        {t('child-profile.carries-out-on')} {dayjs(result.createdAt).fromNow()}
+                        {t('child-profile.carries-out-on', { date: dayjs(result.createdAt).format('LL') })}
                     </Typography>
                 </Box>
                 <Divider />
@@ -49,7 +50,7 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
                         <Typography variant="body1">
                             {t('child-profile.age-group')}:&nbsp;
                             <strong>
-                                {5} {t('years', { count: 5 })}
+                                {age} {t('years', { count: age })}
                             </strong>
                         </Typography>
                     </Grid>

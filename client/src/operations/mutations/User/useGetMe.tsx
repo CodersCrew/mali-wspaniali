@@ -24,6 +24,9 @@ export const GET_ME = gql`
                         _id
                         title
                     }
+                    child {
+                        age
+                    }
                     currentParams {
                         run {
                             a
