@@ -955,7 +955,7 @@
     "add-results-page": {
         "test-name": "Test name",
         "kindergarten-name": "Kindergarten",
-        "search-by-child-firstname": "Search by child's first name",
+        "search-by-child-full-name": "Search by child's full name",
         "firstname": "First name",
         "lastname": "Last name",
         "full-name": "Full name",
