@@ -1,37 +1,15 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { AssessmentResult, Child } from '../../graphql/types';
-import { countSumOfPoints } from '../../utils/countSumOfPoints';
 import { ResultComparison } from './ResultComparison';
 import { TestDetails } from './TestDetails';
 import { TestSummary } from './TestSummary';
 
 export function ResultPreview(props: { result: AssessmentResult; child: Child }) {
-    const { t } = useTranslation();
-    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(props.result);
-
     return (
         <>
-            <SingleTest
-                {...props}
-                title={t('child-profile.initial-test')}
-                description={t('child-profile.initial-fitness-level')}
-                points={sumOfPointsFirstMeasurement}
-                prefix="first"
-            />
-            <SingleTest
-                {...props}
-                title={t('child-profile.final-test')}
-                description={t('child-profile.final-fitness-level')}
-                points={sumOfPointsLastMeasurement}
-                prefix="last"
-            />
-            <ResultComparison
-                {...props}
-                params={props.result.currentParams}
-                firstResultPoints={sumOfPointsFirstMeasurement}
-                lastResultPoints={sumOfPointsLastMeasurement}
-            />
+            <SingleTest {...props} prefix="first" />
+            <SingleTest {...props} prefix="last" />
+            <ResultComparison {...props} params={props.result.currentParams} />
         </>
     );
 }
@@ -39,9 +17,6 @@ export function ResultPreview(props: { result: AssessmentResult; child: Child })
 interface SingleTestProps {
     result: AssessmentResult;
     child: Child;
-    title: string;
-    description: string;
-    points: number;
     prefix: string;
 }
 

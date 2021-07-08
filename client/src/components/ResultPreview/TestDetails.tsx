@@ -9,14 +9,7 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { countCurrentPoints } from '../../pages/InstructorResultCreatorPage/countPoints';
 
-export const TestDetails = (props: {
-    result: AssessmentResult;
-    title: string;
-    description: string;
-    points: number;
-    prefix: string;
-    child: Child;
-}) => {
+export const TestDetails = (props: { result: AssessmentResult; prefix: string; child: Child }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();

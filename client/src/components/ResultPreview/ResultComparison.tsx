@@ -8,11 +8,11 @@ import { openSnackbar } from '../Snackbar/openSnackbar';
 import { Results } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
 import { ChartLegend } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/ChartLegend';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { AssessmentParam, Child } from '../../graphql/types';
+import { AssessmentParam, AssessmentResult, Child } from '../../graphql/types';
+import { countSumOfPoints } from '../../utils/countSumOfPoints';
 
 interface Props {
-    firstResultPoints: number;
-    lastResultPoints: number;
+    result: AssessmentResult;
     params: {
         run?: AssessmentParam;
         pendelumRun?: AssessmentParam;
@@ -22,12 +22,13 @@ interface Props {
     child: Child;
 }
 
-export const ResultComparison = ({ firstResultPoints, lastResultPoints, params, child }: Props) => {
+export const ResultComparison = ({ result, params, child }: Props) => {
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
-    const key = getDifferenceKey(firstResultPoints, lastResultPoints);
-    const difference = Math.abs(firstResultPoints - lastResultPoints);
-    console.log(firstResultPoints, lastResultPoints, params);
+    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(result);
+    const key = getDifferenceKey(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement);
+    const difference = Math.abs(sumOfPointsFirstMeasurement - sumOfPointsLastMeasurement);
+    console.log(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement, params);
     const differenceColor = getDifferenceColor(key);
     const classes = useStyles({ differenceColor });
     console.log(params);
@@ -38,8 +39,8 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params, 
         v4: countCategoryPoints('goodStageLimit'),
         v5: countCategoryPoints('maxScale'),
         unit: 'pkt',
-        result: lastResultPoints,
-        resultStart: firstResultPoints,
+        result: sumOfPointsLastMeasurement,
+        resultStart: sumOfPointsFirstMeasurement,
         hasScoreRangeLabels: false,
         sex: 'male',
     };
@@ -82,7 +83,10 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params, 
                         spacing={5}
                     >
                         <Grid item xs={12} sm={8} lg={8} className={classes.ruller}>
-                            <Results resultsData={resultsData} displayHistoricalResults={firstResultPoints > 0} />
+                            <Results
+                                resultsData={resultsData}
+                                displayHistoricalResults={sumOfPointsFirstMeasurement > 0}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={4} lg={4} className={classes.info}>
                             <ChartLegend resultKey={key} color={differenceColor} difference={difference} />

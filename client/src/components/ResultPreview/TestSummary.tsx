@@ -11,21 +11,25 @@ import { openAdviceModal } from './modals/AdviceModal';
 import { CircleChart } from '../CircleChart';
 import dayjs from '../../localizedMoment';
 import { AssessmentResult, Child } from '../../graphql/types';
+import { countSumOfPoints } from '../../utils/countSumOfPoints';
 
 export interface Props {
     result: AssessmentResult;
-    title: string;
-    description: string;
-    points: number;
     child: Child;
+    prefix: string;
 }
 
-export const TestSummary = ({ result, title, points, description, child }: Props) => {
+export const TestSummary = ({ result, child, prefix }: Props) => {
     const { t } = useTranslation();
 
+    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(result);
+    const points = prefix === 'first' ? sumOfPointsFirstMeasurement : sumOfPointsLastMeasurement;
     const { color, key } = getResultColorAndLabel(points, MAX_OVERALL_POINTS);
     const classes = useStyles({ color });
     const { age } = result.child;
+    const title = prefix === 'first' ? t('child-profile.initial-test') : t('child-profile.final-test');
+    const description =
+        prefix === 'first' ? t('child-profile.initial-fitness-level') : t('child-profile.final-fitness-level');
 
     return (
         <Card elevation={0}>
