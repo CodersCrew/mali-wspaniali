@@ -98,6 +98,7 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params, 
             preventClose: false,
             isCancelButtonVisible: true,
             progressKey: key,
+            child,
         }).then((res) => {
             if (!res.close)
                 openSnackbar({
