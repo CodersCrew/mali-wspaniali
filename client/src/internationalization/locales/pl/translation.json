@@ -496,7 +496,8 @@
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
             "button": "Zapisz"
         },
-        "your-child-result": "WYNIKI <1>{{name}}</1>"
+        "your-child-result": "WYNIKI <1>{{name}}</1>",
+        "your-child-result-general": "WYNIKI"
     },
     "parent-profile": {
         "parent": "Rodzic",

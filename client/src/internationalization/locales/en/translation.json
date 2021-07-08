@@ -336,6 +336,7 @@
             "button": "Save"
         },
         "your-child-result": "{{name}}'s <1>RESULTS</1> ",
+        "your-child-result-general": "RESULTS",
         "details-modal": {
             "next-assesment": {
                 "title": "Next attempt measurement",
