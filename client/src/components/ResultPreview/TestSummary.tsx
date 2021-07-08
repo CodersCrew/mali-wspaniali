@@ -27,9 +27,6 @@ export const TestSummary = ({ result, child, prefix }: Props) => {
     const { color, key } = getResultColorAndLabel(points, MAX_OVERALL_POINTS);
     const classes = useStyles({ color });
     const { age } = result.child;
-    const title = prefix === 'first' ? t('child-profile.initial-test') : t('child-profile.final-test');
-    const description =
-        prefix === 'first' ? t('child-profile.initial-fitness-level') : t('child-profile.final-fitness-level');
 
     return (
         <Card elevation={0}>
@@ -39,7 +36,7 @@ export const TestSummary = ({ result, child, prefix }: Props) => {
                         {t('child-profile.info-about-test')}
                     </Typography>
                     <Box my={1}>
-                        <Typography variant="h4">{title}</Typography>
+                        <Typography variant="h4">{getTitle()}</Typography>
                     </Box>
                     <Typography variant="caption" color="textSecondary">
                         {t('child-profile.carries-out-on', { date: dayjs(result.createdAt).format('LL') })}
@@ -64,7 +61,7 @@ export const TestSummary = ({ result, child, prefix }: Props) => {
                 <Divider />
                 <Box display="flex" flexDirection="column" alignItems="center" px={4} py={2}>
                     <Typography variant="body1" className={classes.fitnessLevelLabel}>
-                        {description}:
+                        {getDescription()}:
                     </Typography>
                     <div className={classes.chart}>
                         <CircleChart
@@ -88,6 +85,14 @@ export const TestSummary = ({ result, child, prefix }: Props) => {
             </Box>
         </Card>
     );
+
+    function getTitle() {
+        return prefix === 'first' ? t('child-profile.initial-test') : t('child-profile.final-test');
+    }
+
+    function getDescription() {
+        return prefix === 'first' ? t('child-profile.initial-fitness-level') : t('child-profile.final-fitness-level');
+    }
 
     function onDescriptionButtonClick() {
         openAgeDescriptionModal().then((dialogResult) => {

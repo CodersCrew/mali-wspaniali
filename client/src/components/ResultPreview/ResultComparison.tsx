@@ -28,10 +28,8 @@ export const ResultComparison = ({ result, params, child }: Props) => {
     const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(result);
     const key = getDifferenceKey(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement);
     const difference = Math.abs(sumOfPointsFirstMeasurement - sumOfPointsLastMeasurement);
-    console.log(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement, params);
     const differenceColor = getDifferenceColor(key);
     const classes = useStyles({ differenceColor });
-    console.log(params);
     const resultsData = {
         v1: countCategoryPoints('minScale'),
         v2: countCategoryPoints('weakStageLimit'),
@@ -82,13 +80,13 @@ export const ResultComparison = ({ result, params, child }: Props) => {
                         alignItems={isSmallMobile ? 'flex-start' : 'center'}
                         spacing={5}
                     >
-                        <Grid item xs={12} sm={8} lg={8} className={classes.ruller}>
+                        <Grid item xs={12} sm={9}>
                             <Results
                                 resultsData={resultsData}
                                 displayHistoricalResults={sumOfPointsFirstMeasurement > 0}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={4} lg={4} className={classes.info}>
+                        <Grid item xs={12} sm={3} className={classes.info}>
                             <ChartLegend resultKey={key} color={differenceColor} difference={difference} />
                         </Grid>
                     </Grid>
@@ -185,7 +183,6 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             margin: `0 ${theme.spacing(4)}px`,
         },
-        ruller: {},
         info: {
             [theme.breakpoints.down('xs')]: {
                 marginTop: theme.spacing(4),
