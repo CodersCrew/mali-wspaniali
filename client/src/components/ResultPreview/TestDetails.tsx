@@ -3,24 +3,17 @@ import { createStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CarouselProvider, DotGroup, Slide, Slider } from 'pure-react-carousel';
 import { TESTS } from './constants';
-import { Measurement } from './Measurement';
-import { AssessmentResult } from '../../../../graphql/types';
-import { useIsDevice } from '../../../../queries/useBreakpoints';
+import { Measurement } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Measurement';
+import { AssessmentResult, Child } from '../../graphql/types';
+import { useIsDevice } from '../../queries/useBreakpoints';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import { countCurrentPoints } from '../../../InstructorResultCreatorPage/countPoints';
+import { countCurrentPoints } from '../../pages/InstructorResultCreatorPage/countPoints';
 
-export interface Props {
-    result: AssessmentResult;
-    title: string;
-    description: string;
-    points: number;
-    prefix: string;
-}
-
-export const TestDetails = ({ result, prefix }: Props) => {
+export const TestDetails = (props: { result: AssessmentResult; prefix: string; child: Child }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
+    const { child, result, prefix } = props;
 
     const points = countCurrentPoints(
         {
@@ -48,6 +41,7 @@ export const TestDetails = ({ result, prefix }: Props) => {
                         return (
                             <Slide index={index} key={test.translationKey} className={classes.slide}>
                                 <Measurement
+                                    child={child}
                                     param={result.currentParams[lowercaseFirstLetter(test.name) as 'run']}
                                     valueInUnitOfMeasure={
                                         (result[
@@ -73,6 +67,7 @@ export const TestDetails = ({ result, prefix }: Props) => {
 
                     return (
                         <Measurement
+                            child={child}
                             param={result.currentParams[lowercaseFirstLetter(test.name) as 'run']}
                             valueInUnitOfMeasure={valueInUnitOfMeasure}
                             valueInPoints={

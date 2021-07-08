@@ -1,8 +1,6 @@
-import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
-import { createStyles, Grid, Typography, Box } from '@material-ui/core';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import TrendingDownIcon from '@material-ui/icons/TrendingDown';
+import { createStyles, Grid, Typography, Box, makeStyles } from '@material-ui/core';
+import { TrendingUp as TrendingUpIcon, TrendingDown as TrendingDownIcon } from '@material-ui/icons';
 
 interface Props {
     resultKey: string;
@@ -13,6 +11,7 @@ interface Props {
 export const ChartLegend = ({ resultKey, color, difference }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles({ color });
+    const icon = resultKey === 'progress' ? <TrendingUpIcon /> : <TrendingDownIcon />;
 
     return (
         <>
@@ -22,7 +21,7 @@ export const ChartLegend = ({ resultKey, color, difference }: Props) => {
                 {resultKey !== 'constant' && (
                     <Typography variant="h4" className={classes.legendPoints}>
                         <Box display="flex">
-                            <Box mr={1}>{resultKey === 'progress' ? <TrendingUpIcon /> : <TrendingDownIcon />}</Box>
+                            <Box mr={1}>{icon}</Box>
                             {difference}
                             {t('child-profile.pts')}
                         </Box>

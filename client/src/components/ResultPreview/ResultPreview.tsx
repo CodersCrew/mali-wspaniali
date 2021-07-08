@@ -1,18 +1,26 @@
-import { makeStyles } from '@material-ui/styles';
-import { createStyles, Theme } from '@material-ui/core';
-import { TestSummary } from './TestSummary';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { AssessmentResult, Child } from '../../graphql/types';
+import { ResultComparison } from './ResultComparison';
 import { TestDetails } from './TestDetails';
-import { AssessmentResult } from '../../../../graphql/types';
+import { TestSummary } from './TestSummary';
 
-interface Props {
+export function ResultPreview(props: { result: AssessmentResult; child: Child }) {
+    return (
+        <>
+            <SingleTest {...props} prefix="first" />
+            <SingleTest {...props} prefix="last" />
+            <ResultComparison {...props} params={props.result.currentParams} />
+        </>
+    );
+}
+
+interface SingleTestProps {
     result: AssessmentResult;
-    title: string;
-    description: string;
-    points: number;
+    child: Child;
     prefix: string;
 }
 
-export const SingleTest = (props: Props) => {
+function SingleTest(props: SingleTestProps) {
     const classes = useStyles();
 
     return (
@@ -21,7 +29,7 @@ export const SingleTest = (props: Props) => {
             <TestDetails {...props} />
         </div>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
