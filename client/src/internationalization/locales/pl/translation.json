@@ -110,7 +110,11 @@
         "agreement": "Zgoda",
         "show": "Pokaż",
         "agreements-all": "Wszystkie zgody",
-        "req": "* wymagane"
+        "req": "* wymagane",
+        "kindergarten-name": "Nazwa przedszkola",
+        "marketing-agreements-number": "Liczba zgód marketingowych",
+        "image-agreements-number": "Liczba zgód wizerunkowych",
+        "status": "Statusy"
     },
     "admin-setting-page": {
         "keycode-generation": {
@@ -151,9 +155,11 @@
         "change-log": "Historia zmian",
         "kindergarten-number": "Numer przedszkola",
         "kindergarten-name": "Nazwa przedszkola",
+        "kindergarten-results": "Liczba dodanych wyników",
         "kindergarten-address": "Adres przedszkola",
         "parents-email": "Adres e-mail rodziców",
         "children": "Dzieci",
+        "age": "Wiek",
         "kindergarten-prefix": "Przedszkole nr",
         "search": "Szukaj",
         "add-kindergarten-success": "Przedszkole zostało dodane pomyślnie",
@@ -164,7 +170,12 @@
         "button-icon-expand-tooltip": "Rozwiń",
         "button-icon-results-tooltip": "Wyniki",
         "rows-number": "Pokazuj w tabeli:",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "first-measurement": "PP",
+        "last-measurement": "PK",
+        "publish-result": "Publikuj wyniki",
+        "download-result": "Pobierz wyniki",
+        "status-result": "Status wyników"
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -211,7 +222,7 @@
         "details": "Szczegóły",
         "collapse-details": "Zwiń szczegóły",
         "info-about-test": "Informacje o pomiarze",
-        "carries-out-on": "przeprowadzony dnia",
+        "carries-out-on": "przeprowadzony {{date}}",
         "age-group": "Wiek dziecka",
         "age-group-description": {
             "title": "W jaki sposób przypisujemy dziecko do danej grupy wiekowej?",
@@ -257,6 +268,8 @@
                 "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
             },
             "very-good": {
+                "title": "Porada - Bardzo dobry poziom sprawności",
+                "subtitle": "Bądź dumny ze swojego dziecka!",
                 "text-1": "Jest bardzo sprawne fizycznie i może być przykładem dla rówieśników. Podziękowania należą się także Tobie za dbanie o zdrowie i prawidłowy rozwój twojego dziecka – tak trzymajcie! ",
                 "text-2": "Koniecznie zobacz ",
                 "text-2-1": "artykuł",
@@ -275,10 +288,10 @@
             "constant": {
                 "title": "Uwaga! brak poprawy",
                 "subtitle": "Od ostatniego testu nie nastąpił wzrost wyników w przeprowadzonych próbach u Twojego dziecka.",
-                "text-1": "Musimy cos z tym zrobić. Warto zastanowic się, dlaczego tak się stało. Sprawdź zakładkę ",
+                "text-1": "Musimy coś z tym zrobić. Warto zastanowić się, dlaczego tak się stało. Sprawdź zakładkę",
                 "text-1-1": "informacje o teście",
                 "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu sprawności.",
-                "text-2": "To nie wszystko co dla Ciebie przygotowaliśmy. Sprawdź co jescze możesz zrobić, by poprawić sprawność swojego dziecka. Pomogą Ci w tym stworone przez naszych ekspertów",
+                "text-2": "To nie wszystko co dla Ciebie przygotowaliśmy. Sprawdź, co jeszcze możesz zrobić, by poprawić sprawność swojego dziecka. Pomogą Ci w tym stworzone przez naszych ekspertów",
                 "text-2-1": "rekomendacje",
                 "text-2-2": " lub ",
                 "text-2-3": "artykuły."
@@ -286,12 +299,12 @@
             "regress": {
                 "title": "Uwaga! Pogorszenie!",
                 "subtitle": "Od ostatniego testu Twoje dziecko gorzej radzi sobie z badanymi przez nas cechami. Dlatego trzeba działać!",
-                "text-1": "Musimy zastanowić się dlaczego tak się stało, by zadbac o prawidłowy Twojego dziecka. Sprawdź zakładkę ",
+                "text-1": "Musimy zastanowić się, dlaczego tak się stało, by zadbać o prawidłowy rozwój Twojego dziecka. Sprawdź zakładkę ",
                 "text-1-1": "informacje o teście",
                 "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu.",
                 "text-2": "Już dziś zacznij realizować zalecenia przygotowane przez nas w zakładce ",
                 "text-2-1": "rekomendacje",
-                "text-3": "Sprawdź co jescze możesz zrobić by poprawić sprawności swojego dziecka. pomoże Ci w tym stworzony przez naszych ekspertów ",
+                "text-3": "Sprawdź, co jeszcze możesz zrobić, by poprawić sprawność swojego dziecka. Pomoże Ci w tym stworzony przez naszych ekspertów",
                 "text-3-1": "artykuł."
             }
         },
@@ -483,8 +496,8 @@
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
             "button": "Zapisz"
         },
-        "your-child-result-1": "WYNIK",
-        "your-child-result-2": "TWOJEGO DZIECKA"
+        "your-child-result": "WYNIKI <1>{{name}}</1>",
+        "your-child-result-general": "WYNIKI"
     },
     "parent-profile": {
         "parent": "Rodzic",
@@ -616,15 +629,11 @@
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
     "single-article": {
-        "blog": "blog",
-        "length": "długość",
         "emotions": "emocje",
         "activity": "aktywność",
         "food": "żywienie",
         "other": "inne",
-        "reading-time": "min czytania",
-        "go-to-previous-page": "poprzednia",
-        "go-to-next-page": "nastepna"
+        "reading-time": "min czytania"
     },
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
@@ -723,8 +732,8 @@
     },
     "home-page-content": {
         "greeting": "Dzień Dobry!",
-        "check-children-activity": "Sprawdź aktywność swoich dzieci w programie",
-        "mali-wspaniali": "Mali Wspaniali",
+        "learn-more": "Dowiedz się więcej na temat ",
+        "mali-wspaniali": "Fundacji Mali Wspaniali",
         "foundation-header": "Drogi Rodzicu!",
         "foundation-content": "Jesteśmy wrocławską fundacją, która koordynuje sportowe zajęcia ogólnorozwojowe z elementami karate w przedszkolu Twojego Dziecka. Instruktorzy prowadzący treningi skupiają się przede wszystkim na wesołej, bezpiecznej i aktywnej zabawie, oraz wspieraniu harmonijnego rozwoju Twojej Pociechy. Nieodłącznym elementem programu „Mali Wspaniali” są również testy sprawności dzieciaków. Na platformie znajdziesz wyniki testów, jakie osiągnął Twój Przedszkolak w kolejnych próbach, poznasz dalsze rekomendacje i otrzymasz informacje o rozwoju dzieci w wieku 3-6 lat, które mogą Cię zainteresować.",
         "foundation-content-summary": "Zapraszamy! Fundacja Mali Wspaniali.",
@@ -947,7 +956,7 @@
     "add-results-page": {
         "test-name": "Nazwa testu",
         "kindergarten-name": "Przedszkole",
-        "search-by-child-firstname": "Szukaj po imieniu dziecka",
+        "search-by-child-full-name": "Imię lub nazwisko dziecka",
         "firstname": "Imie",
         "lastname": "Nazwisko",
         "full-name": "Imie i nazwisko",

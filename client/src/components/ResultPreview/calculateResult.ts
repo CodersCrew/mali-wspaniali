@@ -1,4 +1,4 @@
-import { resultColors } from '../../../../colors';
+import { resultColors } from '../../colors';
 
 const testResults = {
     bad: {

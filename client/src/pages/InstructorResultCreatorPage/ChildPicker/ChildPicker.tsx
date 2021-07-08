@@ -36,22 +36,6 @@ export function ChildPicker({
     const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
 
-    const getFilteredChildrenByName = () =>
-        childList.filter((child) => child.firstname.toLowerCase().includes(searchTerm.toLowerCase()));
-
-    const isAssessmentDisabled = () =>
-        assessment.firstMeasurementStatus !== 'active' || assessment.lastMeasurementStatus !== 'active';
-
-    const countResultProgress = (childId: string) => {
-        const foundResult = results.find((result) => result.childId === childId);
-
-        if (foundResult) {
-            return countProgress(measurement, foundResult);
-        }
-
-        return 0;
-    };
-
     return (
         <CustomContainer
             header={header}
@@ -96,7 +80,7 @@ export function ChildPicker({
                     </Grid>
                     <List disablePadding>
                         <Divider />
-                        {getFilteredChildrenByName().map((c) => {
+                        {getFilteredChildrenByFullName().map((c) => {
                             return (
                                 <ChildItem
                                     key={c._id}
@@ -113,6 +97,28 @@ export function ChildPicker({
             disableShadow
         />
     );
+
+    function getFilteredChildrenByFullName() {
+        return childList.filter((c) => {
+            const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
+
+            return fullName.includes(searchTerm.toLowerCase());
+        });
+    }
+
+    function isAssessmentDisabled() {
+        return assessment.firstMeasurementStatus !== 'active' || assessment.lastMeasurementStatus !== 'active';
+    }
+
+    function countResultProgress(childId: string) {
+        const foundResult = results.find((r) => r.childId === childId);
+
+        if (foundResult) {
+            return countProgress(measurement, foundResult);
+        }
+
+        return 0;
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

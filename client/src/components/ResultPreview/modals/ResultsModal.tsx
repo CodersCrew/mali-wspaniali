@@ -1,22 +1,17 @@
 import { createStyles, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { BasicModal } from '../../../../../components/Modal/BasicModal';
-import { ChildInput } from '../../../../../graphql/types';
-import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
+import { BasicModal } from '../../Modal/BasicModal';
+import { Child, ChildInput } from '../../../graphql/types';
+import { ActionDialog, openDialog } from '../../../utils/openDialog';
 
 const RESULTS_PREFIX = 'child-profile.results-modal-content';
 
 type ResultsModalProps = {
-    preventClose: boolean;
-    isCancelButtonVisible: boolean;
     progressKey: string;
+    child: Child;
 };
 
-const ResultsModal = ({
-    onClose,
-    preventClose,
-    progressKey,
-}: ResultsModalProps & ActionDialog<{ child: ChildInput }>) => {
+const ResultsModal = ({ onClose, progressKey, child }: ResultsModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -24,12 +19,8 @@ const ResultsModal = ({
         <BasicModal
             actionName={t('close')}
             isOpen={true}
-            onClose={() => {
-                if (!preventClose) {
-                    onClose();
-                }
-            }}
-            isCancelButtonVisible={false}
+            onClose={onClose}
+            isCancelButtonVisible
             dialogProps={{ maxWidth: 'sm' }}
         >
             <Box mb={2}>
@@ -52,7 +43,7 @@ const ResultsModal = ({
             )}
             <Typography gutterBottom variant={progressKey === 'regress' ? 'subtitle2' : 'body2'}>
                 {t(`${RESULTS_PREFIX}.${progressKey}.text-2`)}{' '}
-                <a href="/recommendations">
+                <a href={`/parent/child/${child._id}/recommendations`}>
                     <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${progressKey}.text-2-1`)} </strong>
                 </a>{' '}
                 {progressKey !== 'regress' && t(`${RESULTS_PREFIX}.${progressKey}.text-2-2`)}

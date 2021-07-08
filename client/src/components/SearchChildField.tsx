@@ -20,7 +20,7 @@ export function SearchChildField(props: SearchChildFieldProps) {
     }
 
     if (!props.isCompact) {
-        const placeholder = t('add-results-page.search-by-child-firstname');
+        const placeholder = t('add-results-page.search-by-child-full-name');
 
         return (
             <OutlinedTextField
@@ -75,7 +75,7 @@ interface ExtendedSearchFieldProps {
 
 function ExtendedSearchField(props: ExtendedSearchFieldProps) {
     const { t } = useTranslation();
-    const placeholder = t('add-results-page.search-by-child-firstname');
+    const placeholder = t('add-results-page.search-by-child-full-name');
 
     return (
         <Grid container direction="column">

@@ -1,21 +1,24 @@
 import { createStyles, Theme, Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CircleChart } from '../../../../components/CircleChart';
-import { getResultColorAndLabel } from './calculateResult';
-import { MAX_POINTS_FOR_TEST } from './constants';
+import { getResultColorAndLabel } from '../../../../components/ResultPreview/calculateResult';
+import { MAX_POINTS_FOR_TEST } from '../../../../components/ResultPreview/constants';
 import { white } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
-import { openDetailsModal } from './modals/DetailsModal';
+import { openDetailsModal } from '../../../../components/ResultPreview/modals/DetailsModal';
 import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+import { AssessmentParam, Child } from '../../../../graphql/types';
 
 interface Props {
     valueInUnitOfMeasure: number;
     valueInPoints: number;
     unitOfMeasure: string;
     translationKey: string;
+    param?: AssessmentParam;
+    child: Child;
 }
 
-export const Measurement = (props: Props) => {
+export function Measurement(props: Props) {
     const { t } = useTranslation();
     const { color, key } = getResultColorAndLabel(props.valueInPoints, MAX_POINTS_FOR_TEST);
 
@@ -48,27 +51,31 @@ export const Measurement = (props: Props) => {
                 {t('child-profile.received-points')}:
             </Typography>
             <div className={classes.points}>
-                {props.valueInPoints} {t('child-profile.pts')}
+                {Math.round(props.valueInPoints)} {t('child-profile.pts')}
             </div>
             <ButtonSecondary
                 variant="text"
                 className={classes.detailsButton}
                 innerText={t('child-profile.details')}
-                onClick={() => {
-                    openDetailsModal({
-                        isCancelButtonVisible: true,
-                        measurementProps: props,
-                    }).then((res) => {
-                        if (!res.close)
-                            openSnackbar({
-                                text: t('parent-settings.modal-edit-account.success-message'),
-                            });
-                    });
-                }}
+                disabled={!props.valueInPoints}
+                onClick={onDetailsButtonClick}
             />
         </div>
     );
-};
+
+    function onDetailsButtonClick() {
+        openDetailsModal({
+            isCancelButtonVisible: true,
+            measurementProps: props,
+            child: props.child,
+        }).then((res) => {
+            if (!res.close)
+                openSnackbar({
+                    text: t('parent-settings.modal-edit-account.success-message'),
+                });
+        });
+    }
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

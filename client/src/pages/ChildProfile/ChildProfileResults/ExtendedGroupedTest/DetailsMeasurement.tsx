@@ -1,8 +1,8 @@
-import { makeStyles, Box, createStyles, Theme, Typography } from '@material-ui/core';
+import { makeStyles, Box, createStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CircleChart } from '../../../../components/CircleChart';
-import { getResultColorAndLabel } from './calculateResult';
-import { MAX_POINTS_FOR_TEST } from './constants';
+import { getResultColorAndLabel } from '../../../../components/ResultPreview/calculateResult';
+import { MAX_POINTS_FOR_TEST } from '../../../../components/ResultPreview/constants';
 import { white } from '../../../../colors';
 import { MeasurementProps } from './types';
 
@@ -42,13 +42,13 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
             </Typography>
             <Typography variant="subtitle1">{t('child-profile.received-points')}:</Typography>
             <div className={classes.points}>
-                {valueInPoints} {t('child-profile.pts')}
+                {Math.round(valueInPoints)} {t('child-profile.pts')}
             </div>
         </div>
     );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         points: {
             fontFamily: 'Montserrat',

@@ -1,22 +1,20 @@
 import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Grid, Theme, CardMedia, Divider } from '@material-ui/core';
 import clsx from 'clsx';
+
+import { activePage } from '../../apollo_client';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { calculateReadingTime } from '../../utils/calculateReadingTime';
+import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
+import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
 import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
-import { ArticleNavigationMobile } from '../ArticleListPage/ArticleNavigationMobile';
-import { activePage } from '../../apollo_client';
-import { useIsDevice } from '../../queries/useBreakpoints';
-import { ButtonDefault } from '../../components/Button';
 import { ReadingTime } from './ReadingTime';
 import { TagList } from './TagList';
-import { calculateReadingTime } from '../../utils/calculateReadingTime';
-import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
 
 export default function ArticlePage() {
-    const { t } = useTranslation();
     const { articleId } = useParams<{ articleId: string }>();
     const { isMobile, isTablet, isDesktop } = useIsDevice();
     const classes = useStyles();
@@ -71,16 +69,6 @@ export default function ArticlePage() {
                     </Grid>
                     <Grid item xs={12} classes={{ root: classes.redactorContainer }}>
                         <ArticleRedactor redactor={redactor} />
-                    </Grid>
-                </Grid>
-                <Grid container xs={12} justify="space-between">
-                    <Grid item>
-                        <ButtonDefault variant="contained">{t('single-article.go-to-previous-page')}</ButtonDefault>
-                    </Grid>
-                    <Grid item>
-                        <ButtonDefault variant="contained" color="secondary">
-                            {t('single-article.go-to-next-page')}
-                        </ButtonDefault>
                     </Grid>
                 </Grid>
             </Grid>

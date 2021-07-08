@@ -1,33 +1,32 @@
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, createStyles, Grid, IconButton, Theme, Typography, Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_OVERALL_POINTS } from './constants';
-import { ButtonSecondary } from '../../../../components/Button';
-import { AssessmentResult } from '../../../../graphql/types';
+import { ButtonSecondary } from '../Button';
 import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
-import dayjs from '../../../../localizedMoment';
-import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+import { openSnackbar } from '../Snackbar/openSnackbar';
 import { openAdviceModal } from './modals/AdviceModal';
+import { CircleChart } from '../CircleChart';
+import dayjs from '../../localizedMoment';
+import { AssessmentResult, Child } from '../../graphql/types';
+import { countSumOfPoints } from '../../utils/countSumOfPoints';
 
 export interface Props {
     result: AssessmentResult;
-    title: string;
-    description: string;
-    points: number;
+    child: Child;
+    prefix: string;
 }
 
-export const TestSummary = ({ result, title, points, description }: Props) => {
+export const TestSummary = ({ result, child, prefix }: Props) => {
     const { t } = useTranslation();
 
+    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(result);
+    const points = prefix === 'first' ? sumOfPointsFirstMeasurement : sumOfPointsLastMeasurement;
     const { color, key } = getResultColorAndLabel(points, MAX_OVERALL_POINTS);
     const classes = useStyles({ color });
-    const { childId } = useParams<{
-        childId: string;
-    }>();
+    const { age } = result.child;
 
     return (
         <Card elevation={0}>
@@ -37,10 +36,10 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
                         {t('child-profile.info-about-test')}
                     </Typography>
                     <Box my={1}>
-                        <Typography variant="h4">{title}</Typography>
+                        <Typography variant="h4">{getTitle()}</Typography>
                     </Box>
                     <Typography variant="caption" color="textSecondary">
-                        {t('child-profile.carries-out-on')} {dayjs(result.createdAt).fromNow()}
+                        {t('child-profile.carries-out-on', { date: dayjs(result.createdAt).format('LL') })}
                     </Typography>
                 </Box>
                 <Divider />
@@ -49,23 +48,12 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
                         <Typography variant="body1">
                             {t('child-profile.age-group')}:&nbsp;
                             <strong>
-                                {5} {t('years', { count: 5 })}
+                                {age} {t('years', { count: age })}
                             </strong>
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <IconButton
-                            aria-label="notifications"
-                            onClick={() => {
-                                openAgeDescriptionModal().then((dialogResult) => {
-                                    if (dialogResult.close) return;
-
-                                    openSnackbar({
-                                        text: t('user-settings.modal-edit-account.success-message'),
-                                    });
-                                });
-                            }}
-                        >
+                        <IconButton aria-label="notifications" onClick={onDescriptionButtonClick}>
                             <InfoOutlinedIcon />
                         </IconButton>
                     </Grid>
@@ -73,7 +61,7 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
                 <Divider />
                 <Box display="flex" flexDirection="column" alignItems="center" px={4} py={2}>
                     <Typography variant="body1" className={classes.fitnessLevelLabel}>
-                        {description}:
+                        {getDescription()}:
                     </Typography>
                     <div className={classes.chart}>
                         <CircleChart
@@ -90,25 +78,45 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
                     </Typography>
                     <ButtonSecondary
                         variant="contained"
-                        onClick={() => {
-                            openAdviceModal({
-                                preventClose: false,
-                                isCancelButtonVisible: true,
-                                resultKey: key,
-                                childId,
-                            }).then((res) => {
-                                if (!res.close)
-                                    openSnackbar({
-                                        text: t('user-settings.modal-edit-account.success-message'),
-                                    });
-                            });
-                        }}
+                        onClick={onAdviceButtonClick}
                         innerText={t('child-profile.advice')}
                     />
                 </Box>
             </Box>
         </Card>
     );
+
+    function getTitle() {
+        return prefix === 'first' ? t('child-profile.initial-test') : t('child-profile.final-test');
+    }
+
+    function getDescription() {
+        return prefix === 'first' ? t('child-profile.initial-fitness-level') : t('child-profile.final-fitness-level');
+    }
+
+    function onDescriptionButtonClick() {
+        openAgeDescriptionModal().then((dialogResult) => {
+            if (dialogResult.close) return;
+
+            openSnackbar({
+                text: t('user-settings.modal-edit-account.success-message'),
+            });
+        });
+    }
+
+    function onAdviceButtonClick() {
+        openAdviceModal({
+            preventClose: false,
+            isCancelButtonVisible: true,
+            resultKey: key,
+            child,
+        }).then((res) => {
+            if (!res.close)
+                openSnackbar({
+                    text: t('user-settings.modal-edit-account.success-message'),
+                });
+        });
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) =>

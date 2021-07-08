@@ -1,4 +1,13 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Mutation,
+  Query,
+  Args,
+  ResolveField,
+  Parent,
+  Int,
+  Context,
+} from '@nestjs/graphql';
 import { QueryBus, CommandBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
 
@@ -19,11 +28,52 @@ import {
   GetAssessmentsQuery,
 } from './domain/queries/impl';
 import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
+import { GetResultsQuery } from '../users/domain/queries/impl/get_results_query';
+import { GetChildrenFromKindergartenQuery } from '../users/domain/queries/impl/get_children_from_kindergarten_query';
+import { countResults } from '../shared/utils/count_results';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
 export class AssessmentResolver {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
+
+  @ResolveField(() => Int)
+  @UseGuards(GqlAuthGuard)
+  async firstMeasurementResultCount(
+    @Parent() assessment: AssessmentDTO,
+  ): Promise<number> {
+    const results = await this.queryBus.execute(
+      new GetResultsQuery(assessment._id),
+    );
+
+    return countResults(results, 'first');
+  }
+
+  @ResolveField(() => Int)
+  @UseGuards(GqlAuthGuard)
+  async lastMeasurementResultCount(
+    @Parent() assessment: AssessmentDTO,
+  ): Promise<number> {
+    const results = await this.queryBus.execute(
+      new GetResultsQuery(assessment._id),
+    );
+
+    return countResults(results, 'last');
+  }
+
+  @ResolveField(() => Int)
+  @UseGuards(GqlAuthGuard)
+  async maxResultCount(@Parent() assessment: AssessmentDTO): Promise<number> {
+    const childrenResults = assessment.kindergartens.map(kindergarten => {
+      return this.queryBus.execute(
+        new GetChildrenFromKindergartenQuery(kindergarten.kindergartenId),
+      );
+    });
+
+    const children = await Promise.all(childrenResults);
+
+    return children.flat().length * 8;
+  }
 
   @Mutation(() => AssessmentDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
@@ -66,12 +116,17 @@ export class AssessmentResolver {
 
   @Query(() => AssessmentDTO)
   @UseGuards(GqlAuthGuard)
-  async assessment(@Args('id') id: string): Promise<AssessmentCore> {
+  async assessment(
+    @Args('id') id: string,
+    @Context() context,
+  ): Promise<AssessmentCore> {
     const assessment: Assessment | undefined = await this.queryBus.execute(
       new GetAssessmentsQuery(id),
     );
 
     if (!assessment) return null;
+
+    context.req.assessmentId = assessment.id;
 
     return AssessmentMapper.toPersist(assessment);
   }
