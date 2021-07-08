@@ -18,8 +18,10 @@ import {
     KeyboardArrowUp as KeyboardArrowUpIcon,
     AddCircle as AddIcon,
 } from '@material-ui/icons';
+
 import { InstructorRelation } from '../types';
 import { Assessment } from '../../../graphql/types';
+import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 
 interface InstructorRowProps {
     relation: InstructorRelation;
@@ -36,7 +38,12 @@ export function InstructorsTableRow(props: InstructorRowProps) {
     const [open, setOpen] = useState(false);
     const [showAddButton, setShowAddButton] = useState(false);
 
+    const { updateAssessment } = useUpdateAssessment();
+
     const { mail } = props.relation.instructor;
+
+    // console.log(props.assessment?._id);
+    // console.log(props.relation);
 
     return (
         <>
@@ -87,7 +94,18 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                             {t(`${T_PREFIX}.kindergartens-count`, { count: props.relation.kindergartens.length })}
                             {props.relation.kindergartens.map((kindergarten) => (
                                 <Box m={1} ml={2} mb={1} key={kindergarten._id}>
-                                    <Chip label={`${kindergarten.number}/${kindergarten.name}`} />
+                                    <Chip
+                                        onDelete={() => {
+                                            updateAssessment(props.assessment!._id, {
+                                                kindergartens: [
+                                                    {
+                                                        kindergartenId: kindergarten._id, // inverse: filter the array
+                                                        instructorId: props.relation.instructor._id,
+                                                    },
+                                                ],
+                                            });
+                                        }}
+                                    />
                                 </Box>
                             ))}
                         </Box>
