@@ -20,7 +20,7 @@ import {
 } from '@material-ui/icons';
 
 import { InstructorRelation } from '../types';
-import { Assessment } from '../../../graphql/types';
+import { Assessment, Kindergarten } from '../../../graphql/types';
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 
 interface InstructorRowProps {
@@ -42,8 +42,16 @@ export function InstructorsTableRow(props: InstructorRowProps) {
 
     const { mail } = props.relation.instructor;
 
-    // console.log(props.assessment?._id);
-    // console.log(props.relation);
+    function filterKindergartens(kindergarten: Kindergarten) {
+        return props.relation.kindergartens
+            .filter((kinderGarten) => kinderGarten._id !== kindergarten._id)
+            .map((k) => {
+                return {
+                    kindergartenId: k._id,
+                    instructorId: props.relation.instructor._id,
+                };
+            });
+    }
 
     return (
         <>
@@ -97,12 +105,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                                     <Chip
                                         onDelete={() => {
                                             updateAssessment(props.assessment!._id, {
-                                                kindergartens: [
-                                                    {
-                                                        kindergartenId: kindergarten._id, // inverse: filter the array
-                                                        instructorId: props.relation.instructor._id,
-                                                    },
-                                                ],
+                                                kindergartens: filterKindergartens(kindergarten),
                                             });
                                         }}
                                     />
