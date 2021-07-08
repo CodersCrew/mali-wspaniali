@@ -379,7 +379,6 @@
                 "text-2": " miesięcy"
             },
             "assesment-details": "Opis próby",
-
             "content": {
                 "strength": "Instruktor zaznacza wyraźną linię, z której dziecko będzie wykonywało rzuty. W odległości około 70-100 cm od linii początkowej ustawia się dwa krzesła, na ich oparciach zawiesza się taśmę. Dziecko staje w lekkim rozkroku, dosuwając palce do linii początkowej. Robi zamach piłką 1kg zza głowy wyrzuca piłkę najdalej jak potrafi ponad zawieszoną taśmą",
                 "speed": "Na terenie otwartym wyznacza się prosty odcinek liczący 25 m. Instruktor zaznacza wyraźną linię startową, w odległości 20 m od linii startu wyznacza się cienką, równoległą linię punktu pomiaru czasu, a 5 m dalej zaznacza się drugą wyraźną linię, oznaczającą „metę”.  Dziecko staje na linii i na sygnał stara się pobiec jak najszybciej do linii mety. ",
@@ -494,7 +493,8 @@
         "child-details": {
             "page": "Dane dziecka",
             "form": "Edytuj dane swojego dziecka, kiedy pojawi się taka potrzeba.",
-            "button": "Zapisz"
+            "button": "Zapisz",
+            "success-message": "Dane twojego dziecka zostały zapisane"
         },
         "your-child-result": "WYNIKI <1>{{name}}</1>",
         "your-child-result-general": "WYNIKI"
