@@ -1,8 +1,8 @@
 import { createStyles, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { BasicModal } from '../../../../../components/Modal/BasicModal';
-import { ChildInput } from '../../../../../graphql/types';
-import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
+import { BasicModal } from '../../Modal/BasicModal';
+import { ChildInput } from '../../../graphql/types';
+import { ActionDialog, openDialog } from '../../../utils/openDialog';
 
 const RESULTS_PREFIX = 'child-profile.results-modal-content';
 

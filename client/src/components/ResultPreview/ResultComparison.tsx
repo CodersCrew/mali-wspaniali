@@ -1,28 +1,28 @@
 import { Card, Grid, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { gray, lightTextColor, resultColors } from '../../../../colors';
-import { ButtonSecondary } from '../../../../components/Button';
+import { gray, lightTextColor, resultColors } from '../../colors';
+import { ButtonSecondary } from '../Button';
 import { openResultsModal } from './modals/ResultsModal';
-import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
-import { Results } from './Results';
-import { ChartLegend } from './ChartLegend';
-import { useIsDevice } from '../../../../queries/useBreakpoints';
-import { AssessmentParam } from '../../../../graphql/types';
+import { openSnackbar } from '../Snackbar/openSnackbar';
+import { Results } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
+import { ChartLegend } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/ChartLegend';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { AssessmentParam, Child } from '../../graphql/types';
 
 interface Props {
     firstResultPoints: number;
     lastResultPoints: number;
-    childAge: number;
     params: {
         run?: AssessmentParam;
         pendelumRun?: AssessmentParam;
         throw?: AssessmentParam;
         jump?: AssessmentParam;
     };
+    child: Child;
 }
 
-export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }: Props) => {
+export const ResultComparison = ({ firstResultPoints, lastResultPoints, params, child }: Props) => {
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
     const key = getDifferenceKey(firstResultPoints, lastResultPoints);
@@ -106,13 +106,13 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
         });
     }
 
-    function countCategoryPoints(name: string) {
+    function countCategoryPoints(name: keyof AssessmentParam) {
         const categories = Object.entries(params);
 
         return categories.reduce((acc, [, category]) => {
             const { a, b } = category;
 
-            const value = category[name as keyof AssessmentParam] || 0;
+            const value = category[name] || 0;
 
             if (a && b) {
                 return Math.round(acc + a * value + b);

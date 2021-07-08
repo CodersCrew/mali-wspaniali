@@ -1,12 +1,12 @@
 import { createStyles, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { BasicModal } from '../../../../../components/Modal/BasicModal';
-import { ChildInput, Child } from '../../../../../graphql/types';
-import { ActionDialog, openDialog } from '../../../../../utils/openDialog';
-import { DetailsMeasurement } from '../DetailsMeasurement';
-import { Results } from '../Results';
-import { MeasurementProps } from '../types';
-import { useIsDevice } from '../../../../../queries/useBreakpoints';
+import { BasicModal } from '../../Modal/BasicModal';
+import { ChildInput, Child } from '../../../graphql/types';
+import { ActionDialog, openDialog } from '../../../utils/openDialog';
+import { DetailsMeasurement } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/DetailsMeasurement';
+import { Results } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
+import { MeasurementProps } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/types';
+import { useIsDevice } from '../../../queries/useBreakpoints';
 
 const T_DETAILS_PREFIX = 'child-profile.details-modal';
 
@@ -16,19 +16,15 @@ type DetailsModalProps = {
     child: Child;
 };
 
-const DetailsModal = ({
-    onClose,
-    measurementProps,
-    child,
-}: DetailsModalProps & ActionDialog<{ child: ChildInput }>) => {
+function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInput }>) {
     const { t } = useTranslation();
     const device = useIsDevice();
 
     const percentile = 36;
 
-    const { minScale, maxScale, scale39, scale49, scale59, a, b } = measurementProps.param!;
+    const { minScale, maxScale, scale39, scale49, scale59, a, b } = props.measurementProps.param!;
 
-    const rangeMax = Math.min(countValue(maxScale), measurementProps.param?.lowerLimitPoints!);
+    const rangeMax = Math.min(countValue(maxScale), props.measurementProps.param?.lowerLimitPoints!);
 
     const resultsData = {
         v1: minScale,
@@ -36,16 +32,16 @@ const DetailsModal = ({
         v3: scale49,
         v4: scale59,
         v5: maxScale,
-        unit: measurementProps.unitOfMeasure,
-        result: measurementProps.valueInUnitOfMeasure,
+        unit: props.measurementProps.unitOfMeasure,
+        result: props.measurementProps.valueInUnitOfMeasure,
         resultStart: 160,
         hasScoreRangeLabels: true,
         sex: 'male',
-        rangeMin: measurementProps.param?.upperLimitPoints!,
+        rangeMin: props.measurementProps.param?.upperLimitPoints!,
         range39: countValue(scale39),
         range59: countValue(scale59),
         rangeMax,
-        firstName: child?.firstname ?? '',
+        firstName: props.child?.firstname ?? '',
     };
     const classes = useStyles();
 
@@ -53,7 +49,7 @@ const DetailsModal = ({
         <BasicModal
             actionName={t('close')}
             isOpen
-            onClose={onClose}
+            onClose={props.onClose}
             isCancelButtonVisible
             dialogProps={{ maxWidth: 'md' }}
             closeButtonText={t('close')}
@@ -65,7 +61,7 @@ const DetailsModal = ({
             >
                 <Box minWidth="176" px={2} pb={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
                     <Box display="flex" flexDirection="column" justifyContent="space-between">
-                        <DetailsMeasurement measurmentProps={measurementProps} />
+                        <DetailsMeasurement measurmentProps={props.measurementProps} />
                         <NextMeasurement />
                     </Box>
                 </Box>
@@ -74,7 +70,7 @@ const DetailsModal = ({
                         {t(`${T_DETAILS_PREFIX}.assesment-details`)}
                     </Typography>
                     <Typography className={classes.typographySpacing} variant="body2">
-                        {t(`${T_DETAILS_PREFIX}.content.${measurementProps.translationKey}`)}
+                        {t(`${T_DETAILS_PREFIX}.content.${props.measurementProps.translationKey}`)}
                     </Typography>
                     <Typography className={(classes.typographySpacing, classes.titleSpacing)} variant="h4">
                         {t(`${T_DETAILS_PREFIX}.result-details.title`)}
@@ -103,13 +99,15 @@ const DetailsModal = ({
                         </Grid>
                         <Grid item>
                             <Typography className={classes.typographySpacing} variant="body2">
-                                {`${countValue(resultsData.result)}/${countValue(measurementProps.param?.maxScale!)}`}
+                                {`${countValue(resultsData.result)}/${countValue(
+                                    props.measurementProps.param?.maxScale!,
+                                )}`}
                                 {t(`${T_DETAILS_PREFIX}.result-details.text-1`)}
                             </Typography>
                         </Grid>
                     </Grid>
                     <Typography className={classes.typographySpacing} variant="subtitle2">
-                        {t(`${T_DETAILS_PREFIX}.result-details.text-2`)}
+                        {t(`${T_DETAILS_PREFIX}.result-details.text-2`)}&nbsp;
                     </Typography>
                     <Typography className={classes.typographySpacing} variant="body2">
                         {percentile} {t(`${T_DETAILS_PREFIX}.result-details.text-3`)}
@@ -120,10 +118,10 @@ const DetailsModal = ({
                     <Typography variant="body2">
                         {/* TBD: I want to check new backend response before adding logic to next level text */}
                         Niski
-                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-1`)}
+                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-1`)}&nbsp;
                         {resultsData.result}
                         {resultsData.unit}
-                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-2`)}
+                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-2`)}&nbsp;
                         {resultsData.v5 - resultsData.result}
                         {resultsData.unit}
                         {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-3`)}
@@ -136,7 +134,7 @@ const DetailsModal = ({
     function countValue(value: number) {
         return Math.round(a * value + b);
     }
-};
+}
 
 export const openDetailsModal = (props: DetailsModalProps) => {
     return openDialog<DetailsModalProps>(DetailsModal, props);

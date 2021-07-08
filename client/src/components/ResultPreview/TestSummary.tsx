@@ -1,33 +1,30 @@
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, createStyles, Grid, IconButton, Theme, Typography, Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from './calculateResult';
 import { MAX_OVERALL_POINTS } from './constants';
-import { ButtonSecondary } from '../../../../components/Button';
-import { AssessmentResult } from '../../../../graphql/types';
+import { ButtonSecondary } from '../Button';
 import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
-import dayjs from '../../../../localizedMoment';
-import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
+import { openSnackbar } from '../Snackbar/openSnackbar';
 import { openAdviceModal } from './modals/AdviceModal';
+import { CircleChart } from '../CircleChart';
+import dayjs from '../../localizedMoment';
+import { AssessmentResult, Child } from '../../graphql/types';
 
 export interface Props {
     result: AssessmentResult;
     title: string;
     description: string;
     points: number;
+    child: Child;
 }
 
-export const TestSummary = ({ result, title, points, description }: Props) => {
+export const TestSummary = ({ result, title, points, description, child }: Props) => {
     const { t } = useTranslation();
 
     const { color, key } = getResultColorAndLabel(points, MAX_OVERALL_POINTS);
     const classes = useStyles({ color });
-    const { childId } = useParams<{
-        childId: string;
-    }>();
     const { age } = result.child;
 
     return (
@@ -55,18 +52,7 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <IconButton
-                            aria-label="notifications"
-                            onClick={() => {
-                                openAgeDescriptionModal().then((dialogResult) => {
-                                    if (dialogResult.close) return;
-
-                                    openSnackbar({
-                                        text: t('user-settings.modal-edit-account.success-message'),
-                                    });
-                                });
-                            }}
-                        >
+                        <IconButton aria-label="notifications" onClick={onDescriptionButtonClick}>
                             <InfoOutlinedIcon />
                         </IconButton>
                     </Grid>
@@ -91,25 +77,37 @@ export const TestSummary = ({ result, title, points, description }: Props) => {
                     </Typography>
                     <ButtonSecondary
                         variant="contained"
-                        onClick={() => {
-                            openAdviceModal({
-                                preventClose: false,
-                                isCancelButtonVisible: true,
-                                resultKey: key,
-                                childId,
-                            }).then((res) => {
-                                if (!res.close)
-                                    openSnackbar({
-                                        text: t('user-settings.modal-edit-account.success-message'),
-                                    });
-                            });
-                        }}
+                        onClick={onAdviceButtonClick}
                         innerText={t('child-profile.advice')}
                     />
                 </Box>
             </Box>
         </Card>
     );
+
+    function onDescriptionButtonClick() {
+        openAgeDescriptionModal().then((dialogResult) => {
+            if (dialogResult.close) return;
+
+            openSnackbar({
+                text: t('user-settings.modal-edit-account.success-message'),
+            });
+        });
+    }
+
+    function onAdviceButtonClick() {
+        openAdviceModal({
+            preventClose: false,
+            isCancelButtonVisible: true,
+            resultKey: key,
+            child,
+        }).then((res) => {
+            if (!res.close)
+                openSnackbar({
+                    text: t('user-settings.modal-edit-account.success-message'),
+                });
+        });
+    }
 };
 
 const useStyles = makeStyles((theme: Theme) =>
