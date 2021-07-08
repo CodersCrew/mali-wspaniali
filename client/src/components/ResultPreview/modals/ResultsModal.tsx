@@ -7,18 +7,11 @@ import { ActionDialog, openDialog } from '../../../utils/openDialog';
 const RESULTS_PREFIX = 'child-profile.results-modal-content';
 
 type ResultsModalProps = {
-    preventClose: boolean;
-    isCancelButtonVisible: boolean;
     progressKey: string;
     child: Child;
 };
 
-const ResultsModal = ({
-    onClose,
-    preventClose,
-    progressKey,
-    child,
-}: ResultsModalProps & ActionDialog<{ child: ChildInput }>) => {
+const ResultsModal = ({ onClose, progressKey, child }: ResultsModalProps & ActionDialog<{ child: ChildInput }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -26,12 +19,8 @@ const ResultsModal = ({
         <BasicModal
             actionName={t('close')}
             isOpen={true}
-            onClose={() => {
-                if (!preventClose) {
-                    onClose();
-                }
-            }}
-            isCancelButtonVisible={false}
+            onClose={onClose}
+            isCancelButtonVisible
             dialogProps={{ maxWidth: 'sm' }}
         >
             <Box mb={2}>

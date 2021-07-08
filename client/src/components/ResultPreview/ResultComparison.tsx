@@ -95,8 +95,6 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params, 
 
     function onOpenResultsClick() {
         openResultsModal({
-            preventClose: false,
-            isCancelButtonVisible: true,
             progressKey: key,
             child,
         }).then((res) => {
