@@ -250,7 +250,7 @@
                 "text-3-1": "zestawu ćwiczeń."
             },
             "medium": {
-                "title": "Porada - Średni poziom sprawnośc",
+                "title": "Porada - Średni poziom sprawność",
                 "subtitle": "Mamy nad czym pracować!",
                 "text-1": "Podstawy sprawności są, ale by Twoje dziecko mogło lepiej się rozwijać, trzeba popracować nad jej poprawą. Tu z pomocą przychodzimy my! ",
                 "text-2": "Przygotowane przez naszych ekspertów ",
@@ -733,12 +733,18 @@
         "greeting": "Dzień Dobry!",
         "learn-more": "Dowiedz się więcej na temat ",
         "mali-wspaniali": "Fundacji Mali Wspaniali",
+        "visit": "Odwiedź nas na: ",
         "foundation-header": "Drogi Rodzicu!",
         "foundation-content": "Jesteśmy wrocławską fundacją, która koordynuje sportowe zajęcia ogólnorozwojowe z elementami karate w przedszkolu Twojego Dziecka. Instruktorzy prowadzący treningi skupiają się przede wszystkim na wesołej, bezpiecznej i aktywnej zabawie, oraz wspieraniu harmonijnego rozwoju Twojej Pociechy. Nieodłącznym elementem programu „Mali Wspaniali” są również testy sprawności dzieciaków. Na platformie znajdziesz wyniki testów, jakie osiągnął Twój Przedszkolak w kolejnych próbach, poznasz dalsze rekomendacje i otrzymasz informacje o rozwoju dzieci w wieku 3-6 lat, które mogą Cię zainteresować.",
         "foundation-content-summary": "Zapraszamy! Fundacja Mali Wspaniali.",
         "recent-news": "Najnowsze ARTYKUŁY",
         "read-more": "Czytaj więcej",
-        "read-less": "Zwiń"
+        "read-less": "Zwiń",
+        "footer": {
+            "contact": "Kontakt",
+            "privacy": "Polityka prywatności",
+            "rights-reserved": "© 2020 Wszelkie prawa zastrzeżone"
+        }
     },
     "notification-panel": {
         "title": "Powiadomienia",
