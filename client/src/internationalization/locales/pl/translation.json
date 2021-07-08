@@ -288,10 +288,10 @@
             "constant": {
                 "title": "Uwaga! brak poprawy",
                 "subtitle": "Od ostatniego testu nie nastąpił wzrost wyników w przeprowadzonych próbach u Twojego dziecka.",
-                "text-1": "Musimy cos z tym zrobić. Warto zastanowic się, dlaczego tak się stało. Sprawdź zakładkę ",
+                "text-1": "Musimy coś z tym zrobić. Warto zastanowić się, dlaczego tak się stało. Sprawdź zakładkę",
                 "text-1-1": "informacje o teście",
                 "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu sprawności.",
-                "text-2": "To nie wszystko co dla Ciebie przygotowaliśmy. Sprawdź co jescze możesz zrobić, by poprawić sprawność swojego dziecka. Pomogą Ci w tym stworone przez naszych ekspertów",
+                "text-2": "To nie wszystko co dla Ciebie przygotowaliśmy. Sprawdź, co jeszcze możesz zrobić, by poprawić sprawność swojego dziecka. Pomogą Ci w tym stworzone przez naszych ekspertów",
                 "text-2-1": "rekomendacje",
                 "text-2-2": " lub ",
                 "text-2-3": "artykuły."
@@ -299,12 +299,12 @@
             "regress": {
                 "title": "Uwaga! Pogorszenie!",
                 "subtitle": "Od ostatniego testu Twoje dziecko gorzej radzi sobie z badanymi przez nas cechami. Dlatego trzeba działać!",
-                "text-1": "Musimy zastanowić się dlaczego tak się stało, by zadbac o prawidłowy Twojego dziecka. Sprawdź zakładkę ",
+                "text-1": "Musimy zastanowić się, dlaczego tak się stało, by zadbać o prawidłowy rozwój Twojego dziecka. Sprawdź zakładkę ",
                 "text-1-1": "informacje o teście",
                 "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu.",
                 "text-2": "Już dziś zacznij realizować zalecenia przygotowane przez nas w zakładce ",
                 "text-2-1": "rekomendacje",
-                "text-3": "Sprawdź co jescze możesz zrobić by poprawić sprawności swojego dziecka. pomoże Ci w tym stworzony przez naszych ekspertów ",
+                "text-3": "Sprawdź, co jeszcze możesz zrobić, by poprawić sprawność swojego dziecka. Pomoże Ci w tym stworzony przez naszych ekspertów",
                 "text-3-1": "artykuł."
             }
         },

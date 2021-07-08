@@ -364,6 +364,76 @@
                     "text-3": "!)"
                 }
             }
+        },
+        "advice-modal-content": {
+            "bad": {
+                "title": "Tip - Low level of fitness",
+                "subtitle": "Something went wrong!",
+                "text-1": "Test result of your child's physical fitness is low. This should not be underestimated.",
+                "text-2": "It could have been influenced by various",
+                "text-2-1": "factors,",
+                "text-2-2": "however, it is worth checking the cause of the lower result and working with the child to improve mobility so that he or she can develop healthy.",
+                "text-3": "Our experts are eager to help. They have prepared guidelines for you which you can apply today for the sake of your child! You can also use our",
+                "text-3-1": "exercise set."
+            },
+            "medium": {
+                "title": "Tip - Average level of efficiency",
+                "subtitle": "We have something to work on!",
+                "text-1": "Basics of fitness have been reached, but for your child to develop better, you need to work on improvements. Here are here to help!",
+                "text-2": "Prepared by our experts",
+                "text-2-1": "exercises",
+                "text-2-2": "will definitely help to improve your child's fitness.",
+                "text-3": "This is not everything we have prepared for you! Check out what else you can do to improve your child's fitness thanks to our expert",
+                "text-3-1": "article"
+            },
+            "good": {
+                "title": "Advice - Good level of efficiency",
+                "subtitle": "You have many reasons to be pleased!",
+                "text-1": "Your child is developing well in terms of physical fitness. Now we have work to do to reach the very good level. It is close!",
+                "text-2": "Remember the time reserved for your child for daily physical activity. It will help you with this",
+                "text-2-1": "article",
+                "text-2-2": "prepared by our experts, with a handful of advice to apply immediately!"
+            },
+            "very-good": {
+                "title": "Tip - Very good level of fitness",
+                "subtitle": "Be proud of your kid!",
+                "text-1": "He or she is physically very fit and can be an example for their peers. You also deserve congratulations for taking care of your child's health and proper development - keep it up!",
+                "text-2": "You should see",
+                "text-2-1": "article",
+                "text-2-2": "prepared by our experts, with a handful of advice to apply immediately!"
+            }
+        },
+        "results-modal-content": {
+            "progress": {
+                "title": "There is progress! Bravo!",
+                "subtitle": "Well done, we can see that you care about your child's activity.",
+                "text-1": "You are well on your way towards your kid’s health and well-being. Keep on going!",
+                "text-2": "You must see the advice prepared by our experts in the tab",
+                "text-2-1": "recommendations",
+                "text-2-2": "to become an even more conscious parent."
+            },
+            "constant": {
+                "title": "Attention! No improvement",
+                "subtitle": "There has been no increase in the results of your child's attempts since the last measurement.",
+                "text-1": "We have to do something about it. It is worth considering why this happened. Check the tab",
+                "text-1-1": "test information",
+                "text-1-2": ", where we have listed all the factors that may have contributed to worse fitness test results.",
+                "text-2": "This is not everything we have prepared for you. Check what else you can do to improve your child's fitness. Our experts will help you with ",
+                "text-2-1": "recommendations",
+                "text-2-2": "or",
+                "text-2-3": "articles."
+            },
+            "regress": {
+                "title": "Warning! Regress!",
+                "subtitle": "Since the last test, your child is less able to cope with the features we tested. That's why you need to act!",
+                "text-1": "We need to consider why this happened to take care of your kid’s development. Check the tab",
+                "text-1-1": "test information",
+                "text-1-2": ", where we have listed all the factors that may have resulted in a worse test result.",
+                "text-2": "From now on, start implementing the recommendations prepared by us in the tab ",
+                "text-2-1": "recommendations",
+                "text-3": "Check what else you can do to improve your child's fitness. Our experts will help you with ",
+                "text-3-1": "article"
+            }
         }
     },
     "parent-profile": {
