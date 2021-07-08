@@ -12,13 +12,7 @@ interface Props {
 export function ChildProfileResults({ child }: Props) {
     const [active, setActive] = useState('');
 
-    if (child.results.length === 0)
-        return (
-            <>
-                <Descriptiom />
-                <EmptyPageMessage />
-            </>
-        );
+    if (child.results.length === 0) return <EmptyPanel />;
 
     return (
         <div data-testid="grouped-tests">
@@ -26,15 +20,25 @@ export function ChildProfileResults({ child }: Props) {
             {child.results.map((test) => {
                 return (
                     <GroupedTests
+                        child={child}
+                        test={test}
                         isExpanded={active === test._id}
+                        key={test._id}
                         onOpen={() => setActive(test._id)}
                         onClose={() => setActive('')}
-                        key={test._id}
-                        test={test}
                     />
                 );
             })}
         </div>
+    );
+}
+
+function EmptyPanel() {
+    return (
+        <>
+            <Descriptiom />
+            <EmptyPageMessage />
+        </>
     );
 }
 
