@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Facebook from '../../assets/socialMedia/Facebook.png';
 import Youtube from '../../assets/socialMedia/Youtube.png';
 
-export default function SocialMediaBar() {
+export function SocialMediaBar() {
     const { t } = useTranslation();
 
     return (

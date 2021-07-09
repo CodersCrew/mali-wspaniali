@@ -14,9 +14,8 @@ import { useAddChild } from '../../operations/mutations/User/addChild';
 import { PageContainer } from '../../components/PageContainer';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { HomePageInfo } from './HomePageTopSection/HomePageInfo';
-import SocialMediaBar from './SocialMediaBar';
-import Footer from './HomePageFooter/Footer';
-import { ContactModal } from './HomePageFooter/ContactModal';
+import { SocialMediaBar } from './SocialMediaBar';
+import { Footer } from './HomePageFooter/Footer';
 
 export default function ParentHomePage() {
     const user = useMe();
@@ -52,7 +51,6 @@ export default function ParentHomePage() {
                             {t('home-page-content.greeting')}
                         </Typography>
                     </Grid>
-                    <ContactModal />
                     <Grid item xs={12}>
                         <p className={classes.description}>
                             <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
