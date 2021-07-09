@@ -43,14 +43,12 @@ export function InstructorsTableRow(props: InstructorRowProps) {
     const { mail } = props.relation.instructor;
 
     function filterKindergartens(kindergarten: Kindergarten) {
-        return props.relation.kindergartens
-            .filter(({ _id }) => _id !== kindergarten._id)
-            .map(({ _id }) => {
-                return {
-                    kindergartenId: _id,
-                    instructorId: props.relation.instructor._id,
-                };
-            });
+        return props.relation.kindergartens.map(({ _id }) => {
+            return {
+                kindergartenId: _id,
+                instructorId: _id === kindergarten._id ? undefined : props.relation.instructor._id,
+            };
+        });
     }
 
     return (
