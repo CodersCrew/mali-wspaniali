@@ -101,6 +101,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                             {props.relation.kindergartens.map((kindergarten) => (
                                 <Box m={1} ml={2} mb={1} key={kindergarten._id}>
                                     <Chip
+                                        label={kindergarten.name}
                                         onDelete={() => {
                                             updateAssessment(props.assessment!._id, {
                                                 kindergartens: filterKindergartens(kindergarten),
