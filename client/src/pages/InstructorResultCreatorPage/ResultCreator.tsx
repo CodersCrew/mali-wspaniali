@@ -6,9 +6,9 @@ import { ButtonSecondary } from '../../components/Button';
 import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
 import { Kindergarten } from '../../graphql/types';
 import { ChildPicker } from './ChildPicker/ChildPicker';
-import { ResultCreatorReturnProps, AssessmentValues } from './useResultCreator';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
+import { ResultCreatorReturnProps, AssessmentValues } from './useResultCreator';
 import { countCurrentPoints } from './countPoints';
 
 interface Props {
@@ -30,7 +30,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
         <Paper>
             <Grid container className={classes.container}>
                 <Grid item xs={4} className={classes.childPickerContainer}>
-                    <Paper className={classes.childPickerPaper}>
+                    <Paper classes={{ root: classes.childPickerPaper }}>
                         <ChildPicker
                             header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
                             selectedKindergarten={selectedKindergarten}

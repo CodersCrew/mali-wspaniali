@@ -1,36 +1,35 @@
 import { Card, Grid, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { gray, lightTextColor, resultColors } from '../../../../colors';
-import { ButtonSecondary } from '../../../../components/Button';
+import { gray, lightTextColor, resultColors } from '../../colors';
+import { ButtonSecondary } from '../Button';
 import { openResultsModal } from './modals/ResultsModal';
-import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
-import { Results } from './Results';
-import { ChartLegend } from './ChartLegend';
-import { useIsDevice } from '../../../../queries/useBreakpoints';
-import { AssessmentParam } from '../../../../graphql/types';
+import { openSnackbar } from '../Snackbar/openSnackbar';
+import { Results } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
+import { ChartLegend } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/ChartLegend';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { AssessmentParam, AssessmentResult, Child } from '../../graphql/types';
+import { countSumOfPoints } from '../../utils/countSumOfPoints';
 
 interface Props {
-    firstResultPoints: number;
-    lastResultPoints: number;
-    childAge: number;
+    result: AssessmentResult;
     params: {
         run?: AssessmentParam;
         pendelumRun?: AssessmentParam;
         throw?: AssessmentParam;
         jump?: AssessmentParam;
     };
+    child: Child;
 }
 
-export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }: Props) => {
+export const ResultComparison = ({ result, params, child }: Props) => {
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
-    const key = getDifferenceKey(firstResultPoints, lastResultPoints);
-    const difference = Math.abs(firstResultPoints - lastResultPoints);
-    console.log(firstResultPoints, lastResultPoints, params);
+    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(result);
+    const key = getDifferenceKey(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement);
+    const difference = Math.abs(sumOfPointsFirstMeasurement - sumOfPointsLastMeasurement);
     const differenceColor = getDifferenceColor(key);
     const classes = useStyles({ differenceColor });
-    console.log(params);
     const resultsData = {
         v1: countCategoryPoints('minScale'),
         v2: countCategoryPoints('weakStageLimit'),
@@ -38,8 +37,8 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
         v4: countCategoryPoints('goodStageLimit'),
         v5: countCategoryPoints('maxScale'),
         unit: 'pkt',
-        result: lastResultPoints,
-        resultStart: firstResultPoints,
+        result: sumOfPointsLastMeasurement,
+        resultStart: sumOfPointsFirstMeasurement,
         hasScoreRangeLabels: false,
         sex: 'male',
     };
@@ -81,10 +80,13 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
                         alignItems={isSmallMobile ? 'flex-start' : 'center'}
                         spacing={5}
                     >
-                        <Grid item xs={12} sm={8} lg={8} className={classes.ruller}>
-                            <Results resultsData={resultsData} displayHistoricalResults={firstResultPoints > 0} />
+                        <Grid item xs={12} sm={9}>
+                            <Results
+                                resultsData={resultsData}
+                                displayHistoricalResults={sumOfPointsFirstMeasurement > 0}
+                            />
                         </Grid>
-                        <Grid item xs={12} sm={4} lg={4} className={classes.info}>
+                        <Grid item xs={12} sm={3} className={classes.info}>
                             <ChartLegend resultKey={key} color={differenceColor} difference={difference} />
                         </Grid>
                     </Grid>
@@ -95,9 +97,8 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
 
     function onOpenResultsClick() {
         openResultsModal({
-            preventClose: false,
-            isCancelButtonVisible: true,
             progressKey: key,
+            child,
         }).then((res) => {
             if (!res.close)
                 openSnackbar({
@@ -106,13 +107,13 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints, params }
         });
     }
 
-    function countCategoryPoints(name: string) {
+    function countCategoryPoints(name: keyof AssessmentParam) {
         const categories = Object.entries(params);
 
         return categories.reduce((acc, [, category]) => {
             const { a, b } = category;
 
-            const value = category[name as keyof AssessmentParam] || 0;
+            const value = category[name] || 0;
 
             if (a && b) {
                 return Math.round(acc + a * value + b);
@@ -182,7 +183,6 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             margin: `0 ${theme.spacing(4)}px`,
         },
-        ruller: {},
         info: {
             [theme.breakpoints.down('xs')]: {
                 marginTop: theme.spacing(4),

@@ -7,7 +7,6 @@ export function countResults(
   let measurements = 0;
 
   results.forEach(result => {
-    !(result instanceof ChildAssessmentResult) && console.log(result);
     const props = result.getProps();
 
     if (measurement === 'first') {
