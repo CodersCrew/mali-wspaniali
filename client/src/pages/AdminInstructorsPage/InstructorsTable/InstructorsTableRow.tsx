@@ -44,10 +44,10 @@ export function InstructorsTableRow(props: InstructorRowProps) {
 
     function filterKindergartens(kindergarten: Kindergarten) {
         return props.relation.kindergartens
-            .filter((kinderGarten) => kinderGarten._id !== kindergarten._id)
-            .map((k) => {
+            .filter(({ _id }) => _id !== kindergarten._id)
+            .map(({ _id }) => {
                 return {
-                    kindergartenId: k._id,
+                    kindergartenId: _id,
                     instructorId: props.relation.instructor._id,
                 };
             });
