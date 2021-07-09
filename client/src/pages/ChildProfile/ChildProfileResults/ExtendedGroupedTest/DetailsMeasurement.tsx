@@ -2,18 +2,20 @@ import { makeStyles, Box, createStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CircleChart } from '../../../../components/CircleChart';
 import { getResultColorAndLabel } from '../../../../components/ResultPreview/calculateResult';
-import { MAX_POINTS_FOR_TEST } from '../../../../components/ResultPreview/constants';
 import { white } from '../../../../colors';
 import { MeasurementProps } from './types';
+import { AssessmentParam } from '../../../../graphql/types';
 
 interface Props {
     measurmentProps: MeasurementProps;
+    param: AssessmentParam;
+    name: string;
 }
 
-export const DetailsMeasurement = ({ measurmentProps }: Props) => {
+export function DetailsMeasurement({ measurmentProps, param, name }: Props) {
     const { valueInUnitOfMeasure, valueInPoints, unitOfMeasure, translationKey } = measurmentProps;
     const { t } = useTranslation();
-    const { color, key } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
+    const { color, key, maxValueInPoints } = getResultColorAndLabel(valueInPoints, param, name);
 
     const classes = useStyles({ color });
 
@@ -23,7 +25,7 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
                 <CircleChart
                     color={color}
                     value={valueInPoints}
-                    maxValue={MAX_POINTS_FOR_TEST}
+                    maxValue={maxValueInPoints}
                     label={String(valueInUnitOfMeasure)}
                     labelSuffix={unitOfMeasure}
                 />
@@ -46,7 +48,7 @@ export const DetailsMeasurement = ({ measurmentProps }: Props) => {
             </div>
         </div>
     );
-};
+}
 
 const useStyles = makeStyles(() =>
     createStyles({

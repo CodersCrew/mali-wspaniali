@@ -181,15 +181,15 @@
         "result-level": "Feature level",
         "result-description": {
             "bad": "LOW FITNESS LEVEL",
-            "medium": "MEDIUM FITNESS LEVEL",
+            "weak": "WEAK FITNESS LEVEL",
             "good": "GOOD FITNESS LEVEL",
             "very-good": "VERY GOOD FITNESS LEVEL"
         },
         "result-levels": {
-            "bad": "bad",
-            "medium": "medium",
-            "good": "good",
-            "very-good": "very good"
+            "scale39": "bad",
+            "scale49": "weak",
+            "scale59": "good",
+            "maxScale": "very good"
         },
         "tests": {
             "strength": "Strength",

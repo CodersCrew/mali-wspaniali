@@ -38,17 +38,23 @@ export const TestDetails = (props: { result: AssessmentResult; prefix: string; c
             >
                 <Slider className={classes.slider}>
                     {TESTS.map((test, index) => {
+                        const param = result.currentParams[lowercaseFirstLetter(test.name) as 'run'];
+                        const normalizedName = lowercaseFirstLetter(test.name) as keyof typeof points;
+
+                        if (!param) return null;
+
                         return (
                             <Slide index={index} key={test.translationKey} className={classes.slide}>
                                 <Measurement
+                                    name={normalizedName}
                                     child={child}
-                                    param={result.currentParams[lowercaseFirstLetter(test.name) as 'run']}
+                                    param={param}
                                     valueInUnitOfMeasure={
                                         (result[
-                                            `${prefix}Measurement${test.name}Result` as keyof AssessmentResult
+                                            `${prefix}Measurement${normalizedName}Result` as keyof AssessmentResult
                                         ] as number) || 0
                                     }
-                                    valueInPoints={points[lowercaseFirstLetter(test.name) as keyof typeof points]}
+                                    valueInPoints={points[normalizedName]}
                                     unitOfMeasure={test.unitOfMeasure}
                                     translationKey={test.translationKey}
                                     key={test.translationKey}
@@ -64,17 +70,18 @@ export const TestDetails = (props: { result: AssessmentResult; prefix: string; c
                 {TESTS.map((test) => {
                     const valueInUnitOfMeasure =
                         (result[`${prefix}Measurement${test.name}Result` as keyof AssessmentResult] as number) || 0;
+                    const normalizedName = lowercaseFirstLetter(test.name) as keyof typeof points;
+                    const param = result.currentParams[normalizedName];
+
+                    if (!param) return null;
 
                     return (
                         <Measurement
+                            name={normalizedName}
                             child={child}
-                            param={result.currentParams[lowercaseFirstLetter(test.name) as 'run']}
+                            param={param}
                             valueInUnitOfMeasure={valueInUnitOfMeasure}
-                            valueInPoints={
-                                valueInUnitOfMeasure
-                                    ? points[lowercaseFirstLetter(test.name) as keyof typeof points]
-                                    : 0
-                            }
+                            valueInPoints={valueInUnitOfMeasure ? points[normalizedName] : 0}
                             unitOfMeasure={test.unitOfMeasure}
                             translationKey={test.translationKey}
                             key={test.translationKey}

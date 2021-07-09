@@ -313,15 +313,15 @@
         "result-level": "Poziom cechy",
         "result-description": {
             "bad": "NISKI POZIOM SPRAWNOŚCI FIZYCZNEJ",
-            "medium": "ŚREDNI POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "weak": "SŁABY POZIOM SPRAWNOŚCI FIZYCZNEJ",
             "good": "DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ",
             "very-good": "BARDZO DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ"
         },
         "result-levels": {
-            "bad": "niski",
-            "medium": "średni",
-            "good": "dobry",
-            "very-good": "bardzo dobry"
+            "scale39": "niski",
+            "scale49": "słaby",
+            "scale59": "dobry",
+            "maxScale": "bardzo dobry"
         },
         "tests": {
             "strength": "Siła",

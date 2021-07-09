@@ -10,17 +10,18 @@ import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
 import { AssessmentParam, Child } from '../../../../graphql/types';
 
 interface Props {
+    name: string;
     valueInUnitOfMeasure: number;
     valueInPoints: number;
     unitOfMeasure: string;
     translationKey: string;
-    param?: AssessmentParam;
+    param: AssessmentParam;
     child: Child;
 }
 
 export function Measurement(props: Props) {
     const { t } = useTranslation();
-    const { color, key } = getResultColorAndLabel(props.valueInPoints, MAX_POINTS_FOR_TEST);
+    const { color, key } = getResultColorAndLabel(props.valueInPoints, props.param, props.name);
 
     const classes = useStyles({ color });
 
@@ -68,6 +69,7 @@ export function Measurement(props: Props) {
             isCancelButtonVisible: true,
             measurementProps: props,
             child: props.child,
+            name: props.name,
         }).then((res) => {
             if (!res.close)
                 openSnackbar({
