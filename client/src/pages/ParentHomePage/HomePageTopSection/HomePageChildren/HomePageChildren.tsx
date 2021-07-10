@@ -136,7 +136,7 @@ function MobileCarousel({ childList, onAddChildClick, onChildClick }: MobileCaro
                         </Slide>
                     );
                 })}
-                <Slide index={childList.length} innerClassName={classes.slide}>
+                <Slide index={childList.length}>
                     <HomePageAddChildButton onClick={onAddChildClick} />
                 </Slide>
             </Slider>
