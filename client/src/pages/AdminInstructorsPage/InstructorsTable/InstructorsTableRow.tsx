@@ -22,6 +22,8 @@ import {
 import { InstructorRelation } from '../types';
 import { Assessment, Kindergarten } from '../../../graphql/types';
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
+import { openQuestionDialog } from '../../../components/QuestionDialog';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 interface InstructorRowProps {
     relation: InstructorRelation;
@@ -103,8 +105,24 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                                     <Chip
                                         label={kindergarten.name}
                                         onDelete={() => {
-                                            updateAssessment(props.assessment!._id, {
-                                                kindergartens: filterKindergartens(kindergarten),
+                                            openQuestionDialog({
+                                                title: 'Odznaczenie przedszkola',
+                                                description:
+                                                    'Czy na pewno chcesz odznaczyć wybrane przedszkole od tego instruktora?',
+                                                primaryButtonLabel: 'ODZNACZ',
+                                                color: 'primary',
+                                            }).then((result) => {
+                                                if (result.close) return;
+
+                                                if (result.decision?.accepted) {
+                                                    updateAssessment(props.assessment!._id, {
+                                                        kindergartens: filterKindergartens(kindergarten),
+                                                    });
+
+                                                    openSnackbar({
+                                                        text: `Odznaczono przedszkole ${kindergarten.name}.Owoce Leśne od instruktora Zuzanna Wspaniała`,
+                                                    });
+                                                }
                                             });
                                         }}
                                     />
