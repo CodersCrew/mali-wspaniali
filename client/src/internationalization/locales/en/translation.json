@@ -354,15 +354,13 @@
             "result-details": {
                 "title": "Result details",
                 "child-result": "Child's result:",
-                "points": "Number of points:",
-                "text-1": "possible",
-                "text-2": "Meaning of the result in comparison to the whole age group:",
-                "text-3": "children were equal to or better than your child.",
+                "possible-points-title": "Number of points:",
+                "possible-points": "{{min}}/{{max}} possible",
+                "better-results-title": "Meaning of the result in comparison to the whole age group:",
+                "better-results": "{{count}} children were equal to or better than your child.",
                 "next-level": {
                     "title": "Next feature level:",
-                    "text-1": "- from",
-                    "text-2": "(only missing",
-                    "text-3": "!)"
+                    "text": "{{nextLevel}} - from {{value}}{{unit}} (only missing {{valueToNextLevel}}{{unit}}!)"
                 }
             }
         },

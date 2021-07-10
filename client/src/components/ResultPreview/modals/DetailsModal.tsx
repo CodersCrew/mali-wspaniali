@@ -12,7 +12,6 @@ import { getResultColorAndLabel } from '../calculateResult';
 const T_DETAILS_PREFIX = 'child-profile.details-modal';
 
 type DetailsModalProps = {
-    isCancelButtonVisible: boolean;
     measurementProps: MeasurementProps;
     child: Child;
     name: string;
@@ -98,38 +97,41 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
                     </Box>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.typographySpacing} variant="subtitle2">
+                            <Typography className={classes.typographySpacing} variant="subtitle2" component="span">
                                 {t(`${T_DETAILS_PREFIX}.result-details.child-result`)}
                             </Typography>
-                        </Grid>
-                        <Grid item>
+                            &nbsp;
                             <Typography
                                 className={classes.typographySpacing}
                                 variant="body2"
+                                component="span"
                             >{`${resultsData.result}  ${resultsData.unit}`}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.typographySpacing} variant="subtitle2">
-                                {t(`${T_DETAILS_PREFIX}.result-details.points`)}
+                            <Typography className={classes.typographySpacing} variant="subtitle2" component="span">
+                                {t(`${T_DETAILS_PREFIX}.result-details.possible-points-title`)}
                             </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography className={classes.typographySpacing} variant="body2">
-                                {`${countValue(resultsData.result)}/${countValue(
-                                    props.measurementProps.param?.maxScale!,
-                                )}`}
-                                {t(`${T_DETAILS_PREFIX}.result-details.text-1`)}
+                            &nbsp;
+                            <Typography className={classes.typographySpacing} variant="body2" component="span">
+                                {t(`${T_DETAILS_PREFIX}.result-details.possible-points`, {
+                                    min: countValue(resultsData.result),
+                                    max: countValue(props.measurementProps.param?.maxScale!),
+                                })}
                             </Typography>
                         </Grid>
                     </Grid>
-                    <Typography className={classes.typographySpacing} variant="subtitle2">
-                        {t(`${T_DETAILS_PREFIX}.result-details.text-2`)}&nbsp;
-                    </Typography>
-                    <Typography className={classes.typographySpacing} variant="body2">
-                        {percentile} {t(`${T_DETAILS_PREFIX}.result-details.text-3`)}
-                    </Typography>
+                    <Grid container>
+                        <Grid item>
+                            <Typography className={classes.typographySpacing} variant="subtitle2">
+                                {t(`${T_DETAILS_PREFIX}.result-details.better-results-title`)}&nbsp;
+                            </Typography>
+                            <Typography className={classes.typographySpacing} variant="body2">
+                                {t(`${T_DETAILS_PREFIX}.result-details.better-results`, { count: percentile })}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                     {nextLimit && (
                         <NextFeatureLevel
                             unit={resultsData.unit}
@@ -171,15 +173,12 @@ function NextFeatureLevel(props: NextFeatureLevelProps) {
                 {t(`${T_DETAILS_PREFIX}.result-details.next-level.title`)}
             </Typography>
             <Typography variant="body2">
-                {/* TBD: I want to check new backend response before adding logic to next level text */}
-                {t(`child-profile.result-levels.${props.nextKey}`)}
-                {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-1`)}&nbsp;
-                {props.nextLimit}
-                {props.unit}
-                {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-2`)}&nbsp;
-                {props.valueToNextLimit}
-                {props.unit}
-                {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-3`)}
+                {t(`${T_DETAILS_PREFIX}.result-details.next-level.text`, {
+                    nextLevel: t(`child-profile.result-levels.${props.nextKey}`),
+                    value: props.nextLimit,
+                    unit: props.unit,
+                    valueToNextLevel: props.valueToNextLimit,
+                })}
             </Typography>
         </>
     );

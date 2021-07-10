@@ -388,15 +388,13 @@
             "result-details": {
                 "title": "Szczegóły wyniku",
                 "child-result": "Wynik dziecka: ",
-                "points": "Liczba punktów:  ",
-                "text-1": " możliwych",
-                "text-2": "Znaczenie wyniku na tle całej grupy wiekowej:",
-                "text-3": "dzieci uzyskało wynik równy lub lepszy od Twojego dziecka.",
+                "possible-points-title": "Liczba punktów:",
+                "possible-points": "{{min}}/{{max}} możliwych",
+                "better-results-title": "Znaczenie wyniku na tle całej grupy wiekowej:",
+                "better-results": "{{count}} dzieci uzyskało wynik równy lub lepszy od Twojego dziecka.",
                 "next-level": {
                     "title": "Następny poziom cechy:",
-                    "text-1": " - od ",
-                    "text-2": " (zabrakło tylko ",
-                    "text-3": "!)"
+                    "text": "{{nextLevel}} - od  {{value}}{{unit}} (zabrakło tylko {{valueToNextLevel}}{{unit}}!)"
                 }
             }
         },
