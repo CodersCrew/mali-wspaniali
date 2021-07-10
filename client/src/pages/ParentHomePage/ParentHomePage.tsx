@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { makeStyles, Grid, createStyles, Typography, Link } from '@material-ui/core';
+import { makeStyles, Grid, createStyles, Typography, Link, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
-import { HomePageArticles } from './HomePageArticles';
 import { Theme } from '../../theme';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
@@ -13,6 +11,9 @@ import { useKindergartens } from '../../operations/queries/Kindergartens/getKind
 import { useAddChild } from '../../operations/mutations/User/addChild';
 import { PageContainer } from '../../components/PageContainer';
 import { useIsDevice } from '../../queries/useBreakpoints';
+
+import { HomePageArticles } from './HomePageArticles';
+import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageInfo } from './HomePageTopSection/HomePageInfo';
 
 export default function ParentHomePage() {
@@ -69,9 +70,20 @@ export default function ParentHomePage() {
                         history.push(`parent/child/${id}/results`);
                     }}
                 />
-                <div className={classes.infoContainer}>
-                    {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
-                </div>
+                {(isMobile || user.children.length > 1) && (
+                    <>
+                        <Box mb={3} />
+                        <div className={classes.infoContainer}>
+                            {isInfoComponentVisible && (
+                                <HomePageInfo
+                                    toggleInfoComponent={toggleInfoComponent}
+                                    childrenCount={user.children.length}
+                                />
+                            )}
+                        </div>
+                    </>
+                )}
+                <Box mb={4} />
                 <HomePageArticles articles={articles} />
             </Grid>
         </PageContainer>
@@ -81,10 +93,10 @@ export default function ParentHomePage() {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            padding: '0 0 54px 0',
+            padding: theme.spacing(0, 0, 6.75, 0),
 
             [theme.breakpoints.down('md')]: {
-                padding: '0 0 5px 0',
+                padding: theme.spacing(0, 0, 0.625, 0),
             },
         },
         description: {
@@ -107,15 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         infoContainer: {
             display: 'flex',
-            marginBottom: theme.spacing(5),
             flexWrap: 'wrap',
-
-            [theme.breakpoints.down('md')]: {
-                flexDirection: 'column',
-                alignItems: 'center',
-                paddingRight: theme.spacing(0),
-                marginBottom: theme.spacing(4),
-            },
         },
     }),
 );
