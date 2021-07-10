@@ -27,7 +27,6 @@ export function ContactModal({ onClose }: ActionDialog) {
             onClose={onClose}
             isCancelButtonVisible={false}
             isActionButtonVisible={true}
-            dialogProps={{ fullScreen: false }}
         >
             <div className={classes.innerContent}>
                 <Box
@@ -50,7 +49,7 @@ export function ContactModal({ onClose }: ActionDialog) {
                         flexDirection="column"
                         width={device === 'DESKTOP' ? 'fit-content' : '100%'}
                         justifyContent="center"
-                        alignItems={device === 'DESKTOP' ? 'flex-end' : 'center'}
+                        alignItems={device === 'MOBILE' ? 'center' : 'flex-end'}
                         className={classes.social}
                     >
                         {device === 'DESKTOP' && <Box height="25%" />}
@@ -67,6 +66,9 @@ export const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.up('sm')]: {
             minWidth: 572,
         },
+        [theme.breakpoints.down('sm')]: {
+            height: '80%',
+        },
     },
     title: {
         padding: theme.spacing(2, 0),
@@ -77,9 +79,13 @@ export const useStyles = makeStyles((theme: Theme) => ({
         margin: theme.spacing(2, 0),
         [theme.breakpoints.down('sm')]: {
             alignSelf: 'center',
+            margin: theme.spacing(5, 0),
         },
     },
     social: {
         marginTop: theme.spacing(1),
+        [theme.breakpoints.down('sm')]: {
+            marginTop: theme.spacing(5),
+        },
     },
 }));
