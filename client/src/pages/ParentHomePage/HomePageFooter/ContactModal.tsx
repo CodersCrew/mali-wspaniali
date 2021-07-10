@@ -41,6 +41,7 @@ export function ContactModal({ onClose }: ActionDialog) {
                         <img src={Logo} alt="MALWSP logo" className={classes.logo} />
                         <Typography variant="body1">Fundacja Mali Wspaniali </Typography>
                         <Typography variant="body1">Ślężna 2 - 24, Wrocław, 53-302 </Typography>
+                        <Box mb={2} />
                         <Typography variant="body1">+48 510 454 457</Typography>
                         <Typography variant="body1">biuro@mali-wspaniali.pl</Typography>
                     </Box>
@@ -52,6 +53,7 @@ export function ContactModal({ onClose }: ActionDialog) {
                         alignItems={device === 'DESKTOP' ? 'flex-end' : 'center'}
                         className={classes.social}
                     >
+                        {device === 'DESKTOP' && <Box height="25%" />}
                         <SocialMediaBar />
                     </Box>
                 </Box>
@@ -73,7 +75,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
         height: theme.spacing(10),
         width: '218px',
         margin: theme.spacing(2, 0),
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             alignSelf: 'center',
         },
     },

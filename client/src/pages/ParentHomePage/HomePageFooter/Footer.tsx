@@ -16,7 +16,7 @@ export function Footer() {
         <Paper>
             <Box
                 display="flex"
-                flexDirection={device === 'DESKTOP' ? 'row' : 'column'}
+                flexDirection={device !== 'MOBILE' ? 'row' : 'column'}
                 alignItems="center"
                 justifyContent="space-around"
                 className={classes.container}
@@ -38,7 +38,13 @@ export function Footer() {
 
                 <Typography variant="caption">{t('home-page-content.footer.rights-reserved')} </Typography>
 
-                <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center">
+                <Box
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    pb={device === 'MOBILE' ? 2 : 0}
+                >
                     <Typography variant="caption">Designed and Developed by</Typography>
                     <img src={CCLogo} alt="Logo CodersCrew" className={classes.logo} />
                 </Box>
@@ -52,18 +58,20 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             width: '100%',
             height: theme.spacing(7),
+            [theme.breakpoints.down('lg')]: {
+                height: theme.spacing(10),
+            },
             [theme.breakpoints.down('xs')]: {
                 height: theme.spacing(14),
             },
         },
         link: {
-            color: theme.palette.primary.main,
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
+            fontWeight: theme.typography.button.fontWeight,
+            color: theme.palette.primary.light,
         },
         logo: {
             height: theme.spacing(3),
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('md')]: {
                 height: theme.spacing(2),
             },
             marginLeft: theme.spacing(1),
