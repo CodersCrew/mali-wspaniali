@@ -82,64 +82,26 @@ export default function ParentHomePage() {
                             history.push(`parent/child/${id}/results`);
                         }}
                     />
-                    <div className={classes.infoContainer}>
-                        {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
-                    </div>
+                    {(isMobile || user.children.length > 1) && (
+                        <>
+                            <Box mb={3} />
+                            <div className={classes.infoContainer}>
+                                {isInfoComponentVisible && (
+                                    <HomePageInfo
+                                        toggleInfoComponent={toggleInfoComponent}
+                                        childrenCount={user.children.length}
+                                    />
+                                )}
+                            </div>
+                        </>
+                    )}
+                    <Box mb={4} />
                     <HomePageArticles articles={articles} />
                 </Grid>
             </PageContainer>
             <Footer />
         </>
     );
-/*
-    return (
-        <PageContainer>
-            <Grid className={classes.container}>
-                <Grid item xs={12}>
-                    <Typography variant={isMobile ? 'h2' : 'h1'} align={isMobile ? 'center' : 'left'}>
-                        {t('home-page-content.greeting')}
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <p className={classes.description}>
-                        <Typography variant={isMobile ? 'subtitle1' : 'h3'} align={isMobile ? 'center' : 'left'}>
-                            {t('home-page-content.learn-more')}
-                            <Link
-                                className={classes.link}
-                                href="http://mali-wspaniali.pl/pl/index.html"
-                                target="_blank"
-                            >
-                                {t('home-page-content.mali-wspaniali')}
-                            </Link>
-                        </Typography>
-                    </p>
-                </Grid>
-                <HomePageChildren
-                    childrenList={user.children}
-                    handleModalSubmit={addChild}
-                    onChildClick={(id) => {
-                        history.push(`parent/child/${id}/results`);
-                    }}
-                />
-                {(isMobile || user.children.length > 1) && (
-                    <>
-                        <Box mb={3} />
-                        <div className={classes.infoContainer}>
-                            {isInfoComponentVisible && (
-                                <HomePageInfo
-                                    toggleInfoComponent={toggleInfoComponent}
-                                    childrenCount={user.children.length}
-                                />
-                            )}
-                        </div>
-                    </>
-                )}
-                <Box mb={4} />
-                <HomePageArticles articles={articles} />
-            </Grid>
-        </PageContainer>
-    );
-*/
 }
 
 const useStyles = makeStyles((theme: Theme) =>
