@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { makeStyles, Grid, createStyles, Typography, Link, Box } from '@material-ui/core';
+import { Box, createStyles, Grid, Link, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
@@ -12,9 +12,11 @@ import { useAddChild } from '../../operations/mutations/User/addChild';
 import { PageContainer } from '../../components/PageContainer';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
+import { Footer } from './HomePageFooter/Footer';
 import { HomePageArticles } from './HomePageArticles';
 import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageInfo } from './HomePageTopSection/HomePageInfo';
+import { SocialMediaBar } from './SocialMediaBar';
 
 export default function ParentHomePage() {
     const user = useMe();
@@ -41,6 +43,55 @@ export default function ParentHomePage() {
 
     if (!user || !kindergartenList) return null;
 
+    return (
+        <>
+            <PageContainer>
+                <Grid className={classes.container}>
+                    <Grid item xs={12}>
+                        <Typography variant={isMobile ? 'h2' : 'h1'} align={isMobile ? 'center' : 'left'}>
+                            {t('home-page-content.greeting')}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p className={classes.description}>
+                            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
+                                <Box width={isMobile ? '100%' : 'fit-content'}>
+                                    <Typography
+                                        variant={isMobile ? 'subtitle1' : 'h3'}
+                                        align={isMobile ? 'center' : 'left'}
+                                    >
+                                        {t('home-page-content.learn-more')}
+                                        <Link
+                                            className={classes.link}
+                                            href="http://mali-wspaniali.pl/pl/index.html"
+                                            target="_blank"
+                                        >
+                                            {t('home-page-content.mali-wspaniali')}
+                                        </Link>
+                                    </Typography>
+                                </Box>
+
+                                {!isMobile && <SocialMediaBar />}
+                            </Box>
+                        </p>
+                    </Grid>
+                    <HomePageChildren
+                        childrenList={user.children}
+                        handleModalSubmit={addChild}
+                        onChildClick={(id) => {
+                            history.push(`parent/child/${id}/results`);
+                        }}
+                    />
+                    <div className={classes.infoContainer}>
+                        {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
+                    </div>
+                    <HomePageArticles articles={articles} />
+                </Grid>
+            </PageContainer>
+            <Footer />
+        </>
+    );
+/*
     return (
         <PageContainer>
             <Grid className={classes.container}>
@@ -88,6 +139,7 @@ export default function ParentHomePage() {
             </Grid>
         </PageContainer>
     );
+*/
 }
 
 const useStyles = makeStyles((theme: Theme) =>
