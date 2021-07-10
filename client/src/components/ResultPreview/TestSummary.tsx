@@ -24,7 +24,7 @@ export const TestSummary = ({ result, child, prefix }: Props) => {
 
     const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(result);
     const points = prefix === 'first' ? sumOfPointsFirstMeasurement : sumOfPointsLastMeasurement;
-    const { color, key } = getResultColorAndLabel(points, MAX_OVERALL_POINTS);
+    const { color, key } = getResultColorAndLabel(points, result.currentParams.run!, 'ffff');
     const classes = useStyles({ color });
     const { age } = result.child;
 

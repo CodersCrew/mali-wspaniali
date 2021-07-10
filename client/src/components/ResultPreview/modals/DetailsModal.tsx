@@ -7,13 +7,14 @@ import { DetailsMeasurement } from '../../../pages/ChildProfile/ChildProfileResu
 import { Results } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
 import { MeasurementProps } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/types';
 import { useIsDevice } from '../../../queries/useBreakpoints';
+import { getResultColorAndLabel } from '../calculateResult';
 
 const T_DETAILS_PREFIX = 'child-profile.details-modal';
 
 type DetailsModalProps = {
-    isCancelButtonVisible: boolean;
     measurementProps: MeasurementProps;
     child: Child;
+    name: string;
 };
 
 function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInput }>) {
@@ -42,8 +43,20 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
         range59: countValue(scale59),
         rangeMax,
         firstName: props.child?.firstname ?? '',
+        minScale,
+        maxScale,
+        scale39,
+        scale49,
+        scale59,
     };
     const classes = useStyles();
+    const { nextKey, key } = getResultColorAndLabel(
+        props.measurementProps.valueInPoints,
+        props.measurementProps.param!,
+        props.name,
+    );
+
+    const nextLimit = nextKey ? (resultsData[key as keyof typeof resultsData] as number) : null;
 
     return (
         <BasicModal
@@ -61,7 +74,11 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
             >
                 <Box minWidth="176" px={2} pb={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
                     <Box display="flex" flexDirection="column" justifyContent="space-between">
-                        <DetailsMeasurement measurmentProps={props.measurementProps} />
+                        <DetailsMeasurement
+                            measurmentProps={props.measurementProps}
+                            param={props.measurementProps.param!}
+                            name={props.name}
+                        />
                         <NextMeasurement />
                     </Box>
                 </Box>
@@ -80,52 +97,51 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
                     </Box>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.typographySpacing} variant="subtitle2">
+                            <Typography className={classes.typographySpacing} variant="subtitle2" component="span">
                                 {t(`${T_DETAILS_PREFIX}.result-details.child-result`)}
                             </Typography>
-                        </Grid>
-                        <Grid item>
+                            &nbsp;
                             <Typography
                                 className={classes.typographySpacing}
                                 variant="body2"
+                                component="span"
                             >{`${resultsData.result}  ${resultsData.unit}`}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.typographySpacing} variant="subtitle2">
-                                {t(`${T_DETAILS_PREFIX}.result-details.points`)}
+                            <Typography className={classes.typographySpacing} variant="subtitle2" component="span">
+                                {t(`${T_DETAILS_PREFIX}.result-details.possible-points-title`)}
                             </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography className={classes.typographySpacing} variant="body2">
-                                {`${countValue(resultsData.result)}/${countValue(
-                                    props.measurementProps.param?.maxScale!,
-                                )}`}
-                                {t(`${T_DETAILS_PREFIX}.result-details.text-1`)}
+                            &nbsp;
+                            <Typography className={classes.typographySpacing} variant="body2" component="span">
+                                {t(`${T_DETAILS_PREFIX}.result-details.possible-points`, {
+                                    min: countValue(resultsData.result),
+                                    max: countValue(props.measurementProps.param?.maxScale!),
+                                })}
                             </Typography>
                         </Grid>
                     </Grid>
-                    <Typography className={classes.typographySpacing} variant="subtitle2">
-                        {t(`${T_DETAILS_PREFIX}.result-details.text-2`)}&nbsp;
-                    </Typography>
-                    <Typography className={classes.typographySpacing} variant="body2">
-                        {percentile} {t(`${T_DETAILS_PREFIX}.result-details.text-3`)}
-                    </Typography>
-                    <Typography className={classes.typographySpacing} variant="subtitle2">
-                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.title`)}
-                    </Typography>
-                    <Typography variant="body2">
-                        {/* TBD: I want to check new backend response before adding logic to next level text */}
-                        Niski
-                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-1`)}&nbsp;
-                        {resultsData.result}
-                        {resultsData.unit}
-                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-2`)}&nbsp;
-                        {resultsData.v5 - resultsData.result}
-                        {resultsData.unit}
-                        {t(`${T_DETAILS_PREFIX}.result-details.next-level.text-3`)}
-                    </Typography>
+                    <Grid container>
+                        <Grid item>
+                            <Typography className={classes.typographySpacing} variant="subtitle2">
+                                {t(`${T_DETAILS_PREFIX}.result-details.better-results-title`)}&nbsp;
+                            </Typography>
+                            <Typography className={classes.typographySpacing} variant="body2">
+                                {t(`${T_DETAILS_PREFIX}.result-details.better-results`, { count: percentile })}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    {nextLimit && (
+                        <NextFeatureLevel
+                            unit={resultsData.unit}
+                            nextLimit={nextLimit}
+                            nextKey={nextKey!}
+                            valueToNextLimit={
+                                Math.round((props.measurementProps.valueInUnitOfMeasure - nextLimit) * 100) / 100
+                            }
+                        />
+                    )}
                 </Box>
             </Box>
         </BasicModal>
@@ -139,6 +155,34 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
 export const openDetailsModal = (props: DetailsModalProps) => {
     return openDialog<DetailsModalProps>(DetailsModal, props);
 };
+
+interface NextFeatureLevelProps {
+    unit: string;
+    nextLimit: number;
+    valueToNextLimit: number;
+    nextKey: string;
+}
+
+function NextFeatureLevel(props: NextFeatureLevelProps) {
+    const classes = useStyles();
+    const { t } = useTranslation();
+
+    return (
+        <>
+            <Typography className={classes.typographySpacing} variant="subtitle2">
+                {t(`${T_DETAILS_PREFIX}.result-details.next-level.title`)}
+            </Typography>
+            <Typography variant="body2">
+                {t(`${T_DETAILS_PREFIX}.result-details.next-level.text`, {
+                    nextLevel: t(`child-profile.result-levels.${props.nextKey}`),
+                    value: props.nextLimit,
+                    unit: props.unit,
+                    valueToNextLevel: props.valueToNextLimit,
+                })}
+            </Typography>
+        </>
+    );
+}
 
 function NextMeasurement() {
     const { t } = useTranslation();
