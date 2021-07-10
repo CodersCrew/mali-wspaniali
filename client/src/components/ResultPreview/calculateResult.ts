@@ -1,34 +1,58 @@
 import { resultColors } from '../../colors';
+import { AssessmentParam } from '../../graphql/types';
+import { countInvertedPoints, countPoints } from '../../pages/InstructorResultCreatorPage/countPoints';
+
+interface Calculation {
+    color: string;
+    lightColor: string;
+    key: string;
+    nextKey: string | null;
+    maxValueInPoints: number;
+}
 
 const testResults = {
     bad: {
         color: resultColors.red,
         lightColor: resultColors.lightRed,
-        key: 'bad',
+        key: 'scale39',
+        nextKey: 'scale49',
     },
-    medium: {
+    weak: {
         color: resultColors.yellow,
         lightColor: resultColors.lightYellow,
-        key: 'medium',
+        key: 'scale49',
+        nextKey: 'scale59',
     },
     good: {
         color: resultColors.green,
         lightColor: resultColors.lightGreen,
-        key: 'good',
+        key: 'scale59',
+        nextKey: 'maxScale',
     },
     veryGood: {
         color: resultColors.green,
         lightColor: resultColors.lightGreen,
-        key: 'very-good',
+        key: 'maxScale',
+        nextKey: null,
     },
 };
 
-export const getResultColorAndLabel = (value: number, maxValue: number) => {
-    const percentageValue = (value / maxValue) * 100;
+export function getResultColorAndLabel(valueInPoints: number, param: AssessmentParam, name: string): Calculation {
+    const count = name === 'run' || name === 'pendelumRun' ? countPoints : countInvertedPoints;
 
-    if (percentageValue < 67) return testResults.bad;
-    if (percentageValue < 83) return testResults.medium;
-    if (percentageValue < 100) return testResults.good;
+    let result: Partial<Calculation>;
 
-    return testResults.veryGood;
-};
+    if (valueInPoints < count(param?.scale39 || 0, param)) {
+        result = testResults.bad;
+    } else if (valueInPoints < count(param?.scale49 || 0, param)) {
+        result = testResults.weak;
+    } else if (valueInPoints < count(param?.scale59 || 0, param)) {
+        result = testResults.good;
+    } else {
+        result = testResults.veryGood;
+    }
+
+    const maxValueInPoints = Math.max(count(param.maxScale, param), count(param.minScale, param));
+
+    return { ...result, maxValueInPoints } as Calculation;
+}

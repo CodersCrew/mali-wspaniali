@@ -6,21 +6,21 @@ import { MAX_POINTS_FOR_TEST } from '../../../../components/ResultPreview/consta
 import { white } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { openDetailsModal } from '../../../../components/ResultPreview/modals/DetailsModal';
-import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
 import { AssessmentParam, Child } from '../../../../graphql/types';
 
 interface Props {
+    name: string;
     valueInUnitOfMeasure: number;
     valueInPoints: number;
     unitOfMeasure: string;
     translationKey: string;
-    param?: AssessmentParam;
+    param: AssessmentParam;
     child: Child;
 }
 
 export function Measurement(props: Props) {
     const { t } = useTranslation();
-    const { color, key } = getResultColorAndLabel(props.valueInPoints, MAX_POINTS_FOR_TEST);
+    const { color, key } = getResultColorAndLabel(props.valueInPoints, props.param, props.name);
 
     const classes = useStyles({ color });
 
@@ -65,14 +65,9 @@ export function Measurement(props: Props) {
 
     function onDetailsButtonClick() {
         openDetailsModal({
-            isCancelButtonVisible: true,
             measurementProps: props,
             child: props.child,
-        }).then((res) => {
-            if (!res.close)
-                openSnackbar({
-                    text: t('parent-settings.modal-edit-account.success-message'),
-                });
+            name: props.name,
         });
     }
 }
