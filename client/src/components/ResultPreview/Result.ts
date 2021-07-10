@@ -64,6 +64,10 @@ export class Result {
         return this.result.child.age || 0;
     }
 
+    getSex() {
+        return this.result.child.sex;
+    }
+
     countCategoryPoints(name: keyof AssessmentParam) {
         const categories = Object.entries(this.result.currentParams);
 

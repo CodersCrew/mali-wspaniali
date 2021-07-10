@@ -30,7 +30,7 @@ export const ResultComparison = () => {
         result: sumOfPointsLastMeasurement,
         resultStart: sumOfPointsFirstMeasurement,
         hasScoreRangeLabels: false,
-        sex: 'male',
+        sex: resultWrapper.getSex(),
         minScale: resultWrapper.countCategoryPoints('minScale'),
         maxScale: resultWrapper.countCategoryPoints('maxScale'),
         scale39: resultWrapper.countCategoryPoints('weakStageLimit'),

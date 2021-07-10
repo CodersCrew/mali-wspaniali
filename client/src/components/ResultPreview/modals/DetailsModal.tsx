@@ -25,7 +25,7 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ child: C
         result: props.resultWrapper.getValue(),
         resultStart: 160,
         hasScoreRangeLabels: true,
-        sex: 'male',
+        sex: props.resultWrapper.getSex(),
         rangeMin: upperLimitPoints,
         range39: countValue(scale39),
         range59: countValue(scale59),
