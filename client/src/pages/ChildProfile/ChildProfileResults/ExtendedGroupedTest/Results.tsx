@@ -88,9 +88,9 @@ export function Results(props: Props) {
                 />
             </div>
             <HorizontalLine />
-            <ValueLabel label={minScale.toString()} x={0} width="50" />
-            <ValueLabel label={scale39.toString()} x={rangeRed} width="50" />
-            <ValueLabel label={scale59.toString()} x={rangeRed + rangeYellow + rangeLightGreen} width="50" />
+            <ValueLabel label={`${minScale} ${props.unit}`} x={0} width="50" />
+            <ValueLabel label={`${scale39} ${props.unit}`} x={rangeRed} width="50" />
+            <ValueLabel label={`${scale59} ${props.unit}`} x={rangeRed + rangeYellow + rangeLightGreen} width="50" />
             <ValueLabel label={`${maxScale} ${props.unit}`} x={100} width="55" />
             {props.displayHistoricalResults && <HistoricalLine x={resultStartShift} />}
             <CurrentResultLine sex={sex} x={resultMarkShift} firstName={firstName} />
