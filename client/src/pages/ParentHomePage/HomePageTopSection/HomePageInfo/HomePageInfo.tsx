@@ -4,8 +4,9 @@ import { makeStyles, createStyles, Theme, Typography, Paper, Button, Box } from 
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { HomePageInfoPropTypes } from './types';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
+
+import { HomePageInfoPropTypes } from './types';
 
 export const HomePageInfo = ({ toggleInfoComponent, childrenCount }: HomePageInfoPropTypes) => {
     const classes = useStyles();
