@@ -180,10 +180,10 @@
         "final-test": "Final measurement",
         "result-level": "Feature level",
         "result-description": {
-            "bad": "LOW FITNESS LEVEL",
-            "weak": "WEAK FITNESS LEVEL",
-            "good": "GOOD FITNESS LEVEL",
-            "very-good": "VERY GOOD FITNESS LEVEL"
+            "scale39": "LOW FITNESS LEVEL",
+            "scale49": "WEAK FITNESS LEVEL",
+            "scale59": "GOOD FITNESS LEVEL",
+            "maxScale": "VERY GOOD FITNESS LEVEL"
         },
         "result-levels": {
             "scale39": "bad",
@@ -365,7 +365,7 @@
             }
         },
         "advice-modal-content": {
-            "bad": {
+            "scale39": {
                 "title": "Tip - Low level of fitness",
                 "subtitle": "Something went wrong!",
                 "text-1": "Test result of your child's physical fitness is low. This should not be underestimated.",
@@ -375,7 +375,7 @@
                 "text-3": "Our experts are eager to help. They have prepared guidelines for you which you can apply today for the sake of your child! You can also use our",
                 "text-3-1": "exercise set."
             },
-            "medium": {
+            "scale49": {
                 "title": "Tip - Average level of efficiency",
                 "subtitle": "We have something to work on!",
                 "text-1": "Basics of fitness have been reached, but for your child to develop better, you need to work on improvements. Here are here to help!",
@@ -385,7 +385,7 @@
                 "text-3": "This is not everything we have prepared for you! Check out what else you can do to improve your child's fitness thanks to our expert",
                 "text-3-1": "article"
             },
-            "good": {
+            "scale59": {
                 "title": "Advice - Good level of efficiency",
                 "subtitle": "You have many reasons to be pleased!",
                 "text-1": "Your child is developing well in terms of physical fitness. Now we have work to do to reach the very good level. It is close!",
@@ -393,7 +393,7 @@
                 "text-2-1": "article",
                 "text-2-2": "prepared by our experts, with a handful of advice to apply immediately!"
             },
-            "very-good": {
+            "maxScale": {
                 "title": "Tip - Very good level of fitness",
                 "subtitle": "Be proud of your kid!",
                 "text-1": "He or she is physically very fit and can be an example for their peers. You also deserve congratulations for taking care of your child's health and proper development - keep it up!",
