@@ -1,10 +1,12 @@
-import { makeStyles, Theme, Typography, Box } from '@material-ui/core';
+import { Box, makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { BasicModal } from '../../../components/Modal/BasicModal';
-import Logo from '../../../assets/MALWSP_logo_black_name.png';
-import { SocialMediaBar } from '../SocialMediaBar';
+
 import { ActionDialog, openDialog } from '../../../utils/openDialog';
+import { BasicModal } from '../../../components/Modal/BasicModal';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
+import { SocialMediaBar } from '../SocialMediaBar';
+
+import Logo from '../../../assets/MALWSP_logo_black_name.png';
 
 export const openContactModal = () => {
     return openDialog(ContactModal);
@@ -36,13 +38,12 @@ export function ContactModal({ onClose }: ActionDialog) {
                     <Box display="flex" flexDirection="column" width={device === 'DESKTOP' ? 'fit-content' : '100%'}>
                         <Typography variant="h4">{t('home-page-content.footer.contact')}</Typography>
 
-                        <img src={Logo} alt="logo MALWSP" className={classes.logo} />
-                        <Typography variant="body1">
-                            Fundacja Mali Wspaniali <br /> Ślężna 2 - 24, Wrocław, 53-302 <br />
-                            <br />
-                            +48 510 454 457 <br /> biuro@mali-wspaniali.pl
-                        </Typography>
-                    </Box>{' '}
+                        <img src={Logo} alt="MALWSP logo" className={classes.logo} />
+                        <Typography variant="body1">Fundacja Mali Wspaniali </Typography>
+                        <Typography variant="body1">Ślężna 2 - 24, Wrocław, 53-302 </Typography>
+                        <Typography variant="body1">+48 510 454 457</Typography>
+                        <Typography variant="body1">biuro@mali-wspaniali.pl</Typography>
+                    </Box>
                     <Box
                         display="flex"
                         flexDirection="column"

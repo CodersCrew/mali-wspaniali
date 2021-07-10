@@ -1,9 +1,11 @@
 import { makeStyles, createStyles, Box, Typography, Paper, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import CCLogo from '../../../assets/authTemplateLogos/maker/maker.png';
 import { Theme } from '../../../theme';
-import { openContactModal } from './ContactModal';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
+
+import { openContactModal } from './ContactModal';
 
 export function Footer() {
     const { t } = useTranslation();
@@ -20,12 +22,18 @@ export function Footer() {
                 className={classes.container}
             >
                 <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
-                    <Button className={classes.link} onClick={() => openContactModal()}>
+                    <Button className={classes.link} onClick={openContactModal}>
                         {t('home-page-content.footer.contact')}
                     </Button>
                     {device === 'DESKTOP' ? '' : <Typography variant="subtitle1">|</Typography>}
                     <Button className={classes.link}>{t('home-page-content.footer.privacy')}</Button>
-                    {device === 'DESKTOP' ? <Typography variant="subtitle1">|</Typography> : ''}
+                    {device === 'DESKTOP' ? (
+                        <Typography variant="subtitle1" className={classes.separator}>
+                            |
+                        </Typography>
+                    ) : (
+                        ''
+                    )}
                 </Box>
 
                 <Typography variant="caption">{t('home-page-content.footer.rights-reserved')} </Typography>
@@ -59,6 +67,9 @@ const useStyles = makeStyles((theme: Theme) =>
                 height: theme.spacing(2),
             },
             marginLeft: theme.spacing(1),
+        },
+        separator: {
+            opacity: '54%',
         },
     }),
 );
