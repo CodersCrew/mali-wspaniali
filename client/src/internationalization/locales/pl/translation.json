@@ -932,7 +932,10 @@
             "email": "Adres e-mail",
             "kindergarten-count": "Liczba przedszkoli",
             "tooltip": "Przydziel do przedszkola",
-            "kindergartens-count": "{{count}} przedszkola"
+            "kindergartens-count": "{{count}} przedszkola",
+            "unassign-dialog-title": "Odznaczono przedszkole",
+            "unassign-kindergarten-question": "Czy na pewno chcesz odznaczyć wybrane przedszkole od tego instruktora?",
+            "unassign": "odznacz"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",

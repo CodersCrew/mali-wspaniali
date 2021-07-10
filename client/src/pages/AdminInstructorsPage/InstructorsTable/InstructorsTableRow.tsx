@@ -106,10 +106,9 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                                         label={kindergarten.name}
                                         onDelete={() => {
                                             openQuestionDialog({
-                                                title: 'Odznaczenie przedszkola',
-                                                description:
-                                                    'Czy na pewno chcesz odznaczyć wybrane przedszkole od tego instruktora?',
-                                                primaryButtonLabel: 'ODZNACZ',
+                                                title: t(`${T_PREFIX}.unassign-dialog-title`),
+                                                description: t(`${T_PREFIX}.unassign-kindergarten-question`),
+                                                primaryButtonLabel: t(`${T_PREFIX}.unassign`),
                                                 color: 'primary',
                                             }).then((result) => {
                                                 if (result.close) return;
@@ -120,7 +119,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                                                     });
 
                                                     openSnackbar({
-                                                        text: `Odznaczono przedszkole ${kindergarten.name}.Owoce Leśne od instruktora Zuzanna Wspaniała`,
+                                                        text: `Odznaczono przedszkole ${kindergarten.name} od instruktora ${props.relation.instructor.mail}`,
                                                     });
                                                 }
                                             });

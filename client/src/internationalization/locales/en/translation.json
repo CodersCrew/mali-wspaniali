@@ -441,7 +441,6 @@
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
     },
-
     "test-results": {
         "search-result": "Search results",
         "no-results": "No results",
@@ -931,7 +930,10 @@
             "email": "Email address",
             "kindergarten-count": "Kindergarten count",
             "tooltip": "Assign to a kindergarten",
-            "kindergartens-count": "{{count}} kindergartens"
+            "kindergartens-count": "{{count}} kindergartens",
+            "unassign-dialog-title": "Unassign the kindergarten",
+            "unassign-kindergarten-question": "Are you sure you want to unassign this kindergarten from the instructor?",
+            "unassign": "unassign"
         },
         "table-toolbar": {
             "select-test": "Select the test",
