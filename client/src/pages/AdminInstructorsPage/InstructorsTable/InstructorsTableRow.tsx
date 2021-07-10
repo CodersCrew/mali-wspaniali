@@ -119,7 +119,10 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                                                     });
 
                                                     openSnackbar({
-                                                        text: `Odznaczono przedszkole ${kindergarten.name} od instruktora ${props.relation.instructor.mail}`,
+                                                        text: t(`${T_PREFIX}.snackbar-message`, {
+                                                            name: kindergarten.name,
+                                                            mail: props.relation.instructor.mail,
+                                                        }),
                                                     });
                                                 }
                                             });

@@ -935,7 +935,8 @@
             "kindergartens-count": "{{count}} przedszkola",
             "unassign-dialog-title": "Odznaczono przedszkole",
             "unassign-kindergarten-question": "Czy na pewno chcesz odznaczyć wybrane przedszkole od tego instruktora?",
-            "unassign": "odznacz"
+            "unassign": "odznacz",
+            "snackbar-message": "Odznaczono przedszkole {{name}} od instruktora {{mail}}"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",
