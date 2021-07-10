@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, Grid, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
@@ -8,40 +9,38 @@ import { openSnackbar } from '../Snackbar/openSnackbar';
 import { Results } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
 import { ChartLegend } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/ChartLegend';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { AssessmentParam, AssessmentResult, Child } from '../../graphql/types';
-import { countSumOfPoints } from '../../utils/countSumOfPoints';
+import { Result } from './Result';
+import { ResultContext } from './context';
 
-interface Props {
-    result: AssessmentResult;
-    params: {
-        run?: AssessmentParam;
-        pendelumRun?: AssessmentParam;
-        throw?: AssessmentParam;
-        jump?: AssessmentParam;
-    };
-    child: Child;
-}
-
-export const ResultComparison = ({ result, params, child }: Props) => {
+export const ResultComparison = () => {
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
-    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(result);
-    const key = getDifferenceKey(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement);
-    const difference = Math.abs(sumOfPointsFirstMeasurement - sumOfPointsLastMeasurement);
-    const differenceColor = getDifferenceColor(key);
-    const classes = useStyles({ differenceColor });
+
+    const classes = useStyles();
+
+    const result = React.useContext(ResultContext);
+
+    if (!result) return null;
+
+    const resultWrapper = new Result({ result });
+    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = resultWrapper.countSumOfPoints();
+
     const resultsData = {
-        v1: countCategoryPoints('minScale'),
-        v2: countCategoryPoints('weakStageLimit'),
-        v3: countCategoryPoints('middleStageLimit'),
-        v4: countCategoryPoints('goodStageLimit'),
-        v5: countCategoryPoints('maxScale'),
         unit: 'pkt',
         result: sumOfPointsLastMeasurement,
         resultStart: sumOfPointsFirstMeasurement,
         hasScoreRangeLabels: false,
-        sex: 'male',
+        sex: resultWrapper.getSex(),
+        minScale: resultWrapper.countCategoryPoints('minScale'),
+        maxScale: resultWrapper.countCategoryPoints('maxScale'),
+        scale39: resultWrapper.countCategoryPoints('weakStageLimit'),
+        scale49: resultWrapper.countCategoryPoints('middleStageLimit'),
+        scale59: resultWrapper.countCategoryPoints('goodStageLimit'),
     };
+
+    const key = getDifferenceKey(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement);
+    const difference = Math.abs(sumOfPointsFirstMeasurement - sumOfPointsLastMeasurement);
+    const differenceColor = getDifferenceColor(key);
 
     return (
         <>
@@ -58,7 +57,11 @@ export const ResultComparison = ({ result, params, child }: Props) => {
                     <div className={classes.cardBottom}>
                         <Typography variant="body1">{t('child-profile.comparison-label')}</Typography>
                         <Box my={3}>
-                            <Typography variant="subtitle2" className={classes.difference}>
+                            <Typography
+                                variant="subtitle2"
+                                className={classes.difference}
+                                style={{ color: differenceColor }}
+                            >
                                 {t(`child-profile.difference.${key}`)}
                             </Typography>
                         </Box>
@@ -82,6 +85,7 @@ export const ResultComparison = ({ result, params, child }: Props) => {
                     >
                         <Grid item xs={12} sm={9}>
                             <Results
+                                unit="pkt"
                                 resultsData={resultsData}
                                 displayHistoricalResults={sumOfPointsFirstMeasurement > 0}
                             />
@@ -96,31 +100,12 @@ export const ResultComparison = ({ result, params, child }: Props) => {
     );
 
     function onOpenResultsClick() {
-        openResultsModal({
-            progressKey: key,
-            child,
-        }).then((res) => {
+        openResultsModal({ progressKey: key, result: resultWrapper }).then((res) => {
             if (!res.close)
                 openSnackbar({
                     text: t('user-settings.modal-edit-account.success-message'),
                 });
         });
-    }
-
-    function countCategoryPoints(name: keyof AssessmentParam) {
-        const categories = Object.entries(params);
-
-        return categories.reduce((acc, [, category]) => {
-            const { a, b } = category;
-
-            const value = category[name] || 0;
-
-            if (a && b) {
-                return Math.round(acc + a * value + b);
-            }
-
-            return acc;
-        }, 0);
     }
 };
 
@@ -177,7 +162,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         difference: {
             textTransform: 'uppercase',
-            color: ({ differenceColor }: { differenceColor: string }) => differenceColor,
         },
         rightWrapper: {
             width: '100%',

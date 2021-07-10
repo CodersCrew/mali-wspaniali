@@ -1,6 +1,6 @@
-import { UseInterceptors } from '@nestjs/common';
+import { UseGuards, UseInterceptors } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { ChildAssessmentResultDTO } from './dto/child_assessment_result';
 import { AssessmentDTO } from '../assessment/dto/assessment_dto';
@@ -14,6 +14,9 @@ import { ChildCurrentParamsDTO } from './dto/child_current_params_dto';
 import { GetChildrenQuery } from './domain/queries/impl/get_children_query';
 import { countParams } from '../shared/utils/count_params';
 import { ChildDTO } from './dto/child_dto';
+import { GqlAuthGuard } from './guards/jwt_guard';
+import { GetResultByIdQuery } from './domain/queries/impl/get_result_by_id_query';
+import { ChildAssessmentResultMapper } from './domain/mappers/child_assessment_result_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildAssessmentResultDTO)
@@ -60,5 +63,13 @@ export class ChildAssessmentResultResolver {
     if (!fetchedAssessment) return null;
 
     return AssessmentMapper.toPersist(fetchedAssessment);
+  }
+
+  @Query(() => ChildAssessmentResultDTO)
+  @UseGuards(GqlAuthGuard)
+  async result(@Args('id') id: string) {
+    const result = await this.queryBus.execute(new GetResultByIdQuery(id));
+
+    return ChildAssessmentResultMapper.toPlain(result);
   }
 }
