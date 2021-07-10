@@ -1,32 +1,32 @@
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, createStyles, Grid, IconButton, Theme, Typography, Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { getResultColorAndLabel } from './calculateResult';
-import { MAX_OVERALL_POINTS } from './constants';
 import { ButtonSecondary } from '../Button';
 import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
 import { openSnackbar } from '../Snackbar/openSnackbar';
 import { openAdviceModal } from './modals/AdviceModal';
 import { CircleChart } from '../CircleChart';
 import dayjs from '../../localizedMoment';
-import { AssessmentResult, Child } from '../../graphql/types';
-import { countSumOfPoints } from '../../utils/countSumOfPoints';
+import { ResultContext } from './context';
+import { Result } from './Result';
 
 export interface Props {
-    result: AssessmentResult;
-    child: Child;
     prefix: string;
 }
 
-export const TestSummary = ({ result, child, prefix }: Props) => {
+export const TestSummary = ({ prefix }: Props) => {
     const { t } = useTranslation();
+    const result = React.useContext(ResultContext);
 
-    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = countSumOfPoints(result);
-    const points = prefix === 'first' ? sumOfPointsFirstMeasurement : sumOfPointsLastMeasurement;
-    const { color, key } = getResultColorAndLabel(points, result.currentParams.run!, 'ffff');
-    const classes = useStyles({ color });
-    const { age } = result.child;
+    const classes = useStyles();
+
+    if (!result) return null;
+
+    const resultWrapper = new Result({ result, prefix });
+    const age = resultWrapper.getChildAge();
+    const chartDetails = resultWrapper.getUniversalParam();
 
     return (
         <Card elevation={0}>
@@ -39,7 +39,9 @@ export const TestSummary = ({ result, child, prefix }: Props) => {
                         <Typography variant="h4">{getTitle()}</Typography>
                     </Box>
                     <Typography variant="caption" color="textSecondary">
-                        {t('child-profile.carries-out-on', { date: dayjs(result.createdAt).format('LL') })}
+                        {t('child-profile.carries-out-on', {
+                            date: dayjs(resultWrapper.result.createdAt).format('LL'),
+                        })}
                     </Typography>
                 </Box>
                 <Divider />
@@ -65,16 +67,20 @@ export const TestSummary = ({ result, child, prefix }: Props) => {
                     </Typography>
                     <div className={classes.chart}>
                         <CircleChart
-                            color={color}
-                            value={points}
-                            maxValue={MAX_OVERALL_POINTS}
-                            label={String(points)}
+                            color={chartDetails.color!}
+                            value={chartDetails.valueInPoints!}
+                            maxValue={chartDetails.maxValueInPoints!}
+                            label={String(Math.round(chartDetails.valueInPoints!))}
                             labelSuffix={t('child-profile.pts')}
                             enableInfoIcon
                         />
                     </div>
-                    <Typography variant="subtitle2" className={classes.resultDescription}>
-                        {t(`child-profile.result-description.${key}`)}
+                    <Typography
+                        variant="subtitle2"
+                        className={classes.resultDescription}
+                        style={{ color: chartDetails.color }}
+                    >
+                        {t(`child-profile.result-description.${chartDetails.key}`)}
                     </Typography>
                     <ButtonSecondary
                         variant="contained"
@@ -106,10 +112,8 @@ export const TestSummary = ({ result, child, prefix }: Props) => {
 
     function onAdviceButtonClick() {
         openAdviceModal({
-            preventClose: false,
-            isCancelButtonVisible: true,
-            resultKey: key,
-            child,
+            resultKey: chartDetails.key!,
+            result: resultWrapper,
         }).then((res) => {
             if (!res.close)
                 openSnackbar({
@@ -132,7 +136,6 @@ const useStyles = makeStyles((theme: Theme) =>
             textTransform: 'uppercase',
             marginBottom: theme.spacing(2),
             marginTop: theme.spacing(1),
-            color: ({ color }: { color: string }) => color,
         },
         fitnessLevelLabel: {
             textAlign: 'center',

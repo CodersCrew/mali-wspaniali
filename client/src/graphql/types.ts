@@ -119,6 +119,7 @@ export interface Child {
     kindergarten: Kindergarten;
     birthYear: number;
     birthQuarter: number;
+    age?: number;
     results: AssessmentResult[];
     currentParams?: {
         run?: AssessmentParam;
@@ -235,9 +236,7 @@ export interface AssessmentResult {
         throw?: AssessmentParam;
         jump?: AssessmentParam;
     };
-    child: {
-        age: number;
-    };
+    child: Child;
     firstMeasurementNote: string;
     lastMeasurementNote: string;
     firstMeasurementRunResult: number;

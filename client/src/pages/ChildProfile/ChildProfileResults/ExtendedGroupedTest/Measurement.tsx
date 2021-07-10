@@ -1,37 +1,44 @@
+import React from 'react';
 import { createStyles, Theme, Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CircleChart } from '../../../../components/CircleChart';
-import { getResultColorAndLabel } from '../../../../components/ResultPreview/calculateResult';
-import { MAX_POINTS_FOR_TEST } from '../../../../components/ResultPreview/constants';
 import { white } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
 import { openDetailsModal } from '../../../../components/ResultPreview/modals/DetailsModal';
-import { AssessmentParam, Child } from '../../../../graphql/types';
+import { ResultContext } from '../../../../components/ResultPreview/context';
+import { Result } from '../../../../components/ResultPreview/Result';
 
 interface Props {
     name: string;
-    valueInUnitOfMeasure: number;
-    valueInPoints: number;
+    prefix: string;
     unitOfMeasure: string;
     translationKey: string;
-    param: AssessmentParam;
-    child: Child;
 }
 
 export function Measurement(props: Props) {
+    const result = React.useContext(ResultContext);
     const { t } = useTranslation();
-    const { color, key } = getResultColorAndLabel(props.valueInPoints, props.param, props.name);
+    const classes = useStyles();
 
-    const classes = useStyles({ color });
+    if (!result) return null;
+
+    const resultWrapper = new Result({
+        result,
+        unit: props.unitOfMeasure,
+        name: props.name,
+        prefix: props.prefix,
+        translationKey: props.translationKey,
+    });
+    const chartDetails = resultWrapper.getChartDetails();
 
     return (
         <div className={classes.container}>
             <Box width="110px" height="110px">
                 <CircleChart
-                    color={color}
-                    value={props.valueInPoints}
-                    maxValue={MAX_POINTS_FOR_TEST}
-                    label={String(props.valueInUnitOfMeasure)}
+                    color={chartDetails.color}
+                    value={chartDetails.valueInPoints}
+                    maxValue={chartDetails.maxValueInPoints}
+                    label={String(resultWrapper.getValue())}
                     labelSuffix={props.unitOfMeasure}
                 />
             </Box>
@@ -44,31 +51,27 @@ export function Measurement(props: Props) {
             <Typography variant="subtitle2" className={classes.levelLabel}>
                 {t('child-profile.result-level')}
             </Typography>
-            <Typography variant="subtitle2" className={classes.level}>
-                {t(`child-profile.result-levels.${key}`)}
+            <Typography variant="subtitle2" className={classes.level} style={{ color: chartDetails.color }}>
+                {t(`child-profile.result-levels.${chartDetails.key}`)}
             </Typography>
             <Typography variant="subtitle1" className={classes.pointsHeader}>
                 {t('child-profile.received-points')}:
             </Typography>
-            <div className={classes.points}>
-                {Math.round(props.valueInPoints)} {t('child-profile.pts')}
+            <div className={classes.points} style={{ backgroundColor: chartDetails.color }}>
+                {Math.round(chartDetails.valueInPoints)} {t('child-profile.pts')}
             </div>
             <ButtonSecondary
                 variant="text"
                 className={classes.detailsButton}
                 innerText={t('child-profile.details')}
-                disabled={!props.valueInPoints}
+                disabled={!chartDetails.valueInPoints}
                 onClick={onDetailsButtonClick}
             />
         </div>
     );
 
     function onDetailsButtonClick() {
-        openDetailsModal({
-            measurementProps: props,
-            child: props.child,
-            name: props.name,
-        });
+        openDetailsModal(resultWrapper);
     }
 }
 
@@ -110,7 +113,6 @@ const useStyles = makeStyles((theme: Theme) =>
             color: white,
             width: 'fit-content',
             padding: theme.spacing(0.5, 1),
-            backgroundColor: ({ color }: { color: string }) => color,
         },
         description: {
             paddingBottom: theme.spacing(2),
@@ -118,7 +120,6 @@ const useStyles = makeStyles((theme: Theme) =>
         level: {
             paddingBottom: theme.spacing(2),
             textTransform: 'uppercase',
-            color: ({ color }: { color: string }) => color,
         },
         levelLabel: {
             paddingBottom: theme.spacing(0.5),

@@ -4,12 +4,11 @@ import Girl from '../../../../assets/girl.svg';
 import Boy from '../../../../assets/boy.svg';
 
 type ResultsData = {
-    v1: number;
-    v2: number;
-    v3: number;
-    v4: number;
-    v5: number;
-    unit: string;
+    minScale: number;
+    maxScale: number;
+    scale39: number;
+    scale49: number;
+    scale59: number;
     result: number;
     resultStart: number;
     hasScoreRangeLabels: boolean;
@@ -24,16 +23,11 @@ type ResultsData = {
 export interface Props {
     resultsData: ResultsData;
     displayHistoricalResults?: boolean;
+    unit: string;
 }
 
-export function Results({ resultsData, displayHistoricalResults }: Props) {
+export function Results(props: Props) {
     const {
-        v1,
-        v2,
-        v3,
-        v4,
-        v5,
-        unit,
         result,
         resultStart,
         hasScoreRangeLabels,
@@ -43,19 +37,24 @@ export function Results({ resultsData, displayHistoricalResults }: Props) {
         range59 = 0,
         rangeMax = 0,
         firstName,
-    } = resultsData;
+        minScale,
+        maxScale,
+        scale39,
+        scale49,
+        scale59,
+    } = props.resultsData;
 
-    const range = v1 - v5;
+    const range = minScale - maxScale;
     const calculatePercent = (value: number) => {
         return (value / range) * 100;
     };
 
-    const rangeRed = calculatePercent(v1 - v2);
-    const rangeYellow = calculatePercent(v2 - v3);
-    const rangeLightGreen = calculatePercent(v3 - v4);
-    const rangeGreen = calculatePercent(v4 - v5);
-    const resultMarkShift = calculatePercent(v1 - result);
-    const resultStartShift = calculatePercent(v1 - resultStart);
+    const rangeRed = calculatePercent(minScale - scale39);
+    const rangeYellow = calculatePercent(scale39 - scale49);
+    const rangeLightGreen = calculatePercent(scale49 - scale59);
+    const rangeGreen = calculatePercent(scale59 - maxScale);
+    const resultMarkShift = calculatePercent(minScale - result);
+    const resultStartShift = calculatePercent(minScale - resultStart);
 
     const ranges: Record<string, number> = {
         shiftFirstScoreRange: rangeRed / 2 - 5,
@@ -89,11 +88,11 @@ export function Results({ resultsData, displayHistoricalResults }: Props) {
                 />
             </div>
             <HorizontalLine />
-            <ValueLabel label={v1.toString()} x={0} width="50" />
-            <ValueLabel label={v2.toString()} x={rangeRed} width="50" />
-            <ValueLabel label={v4.toString()} x={rangeRed + rangeYellow + rangeLightGreen} width="50" />
-            <ValueLabel label={`${v5} ${unit}`} x={100} width="55" />
-            {displayHistoricalResults && <HistoricalLine x={resultStartShift} />}
+            <ValueLabel label={minScale.toString()} x={0} width="50" />
+            <ValueLabel label={scale39.toString()} x={rangeRed} width="50" />
+            <ValueLabel label={scale59.toString()} x={rangeRed + rangeYellow + rangeLightGreen} width="50" />
+            <ValueLabel label={`${maxScale} ${props.unit}`} x={100} width="55" />
+            {props.displayHistoricalResults && <HistoricalLine x={resultStartShift} />}
             <CurrentResultLine sex={sex} x={resultMarkShift} firstName={firstName} />
             {hasScoreRangeLabels && <ScoreRangeLabels ranges={ranges} />}
         </div>

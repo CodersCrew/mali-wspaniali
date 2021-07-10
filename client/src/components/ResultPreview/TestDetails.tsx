@@ -4,26 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { CarouselProvider, DotGroup, Slide, Slider } from 'pure-react-carousel';
 import { TESTS } from './constants';
 import { Measurement } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Measurement';
-import { AssessmentResult, Child } from '../../graphql/types';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import { countCurrentPoints } from '../../pages/InstructorResultCreatorPage/countPoints';
 
-export const TestDetails = (props: { result: AssessmentResult; prefix: string; child: Child }) => {
+export const TestDetails = (props: { prefix: string }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
-    const { child, result, prefix } = props;
-
-    const points = countCurrentPoints(
-        {
-            run: result[`${prefix}MeasurementRunResult` as keyof AssessmentResult] as number,
-            pendelumRun: result[`${prefix}MeasurementPendelumRunResult` as keyof AssessmentResult] as number,
-            jump: result[`${prefix}MeasurementJumpResult` as keyof AssessmentResult] as number,
-            throw: result[`${prefix}MeasurementThrowResult` as keyof AssessmentResult] as number,
-        },
-        result.currentParams,
-    );
 
     const measurementScoresCharts = () => {
         return isSmallMobile ? (
@@ -35,26 +22,16 @@ export const TestDetails = (props: { result: AssessmentResult; prefix: string; c
                 // we need to add 0.5 to the amount of total slides to properly work dots because we display 1.5 slides
                 visibleSlides={1.5}
                 infinite
+                touchEnabled
+                dragEnabled
             >
                 <Slider className={classes.slider}>
                     {TESTS.map((test, index) => {
-                        const param = result.currentParams[lowercaseFirstLetter(test.name) as 'run'];
-                        const normalizedName = lowercaseFirstLetter(test.name) as keyof typeof points;
-
-                        if (!param) return null;
-
                         return (
                             <Slide index={index} key={test.translationKey} className={classes.slide}>
                                 <Measurement
-                                    name={normalizedName}
-                                    child={child}
-                                    param={param}
-                                    valueInUnitOfMeasure={
-                                        (result[
-                                            `${prefix}Measurement${normalizedName}Result` as keyof AssessmentResult
-                                        ] as number) || 0
-                                    }
-                                    valueInPoints={points[normalizedName]}
+                                    prefix={props.prefix}
+                                    name={test.name}
                                     unitOfMeasure={test.unitOfMeasure}
                                     translationKey={test.translationKey}
                                     key={test.translationKey}
@@ -68,20 +45,10 @@ export const TestDetails = (props: { result: AssessmentResult; prefix: string; c
         ) : (
             <div className={classes.chartsWrapper}>
                 {TESTS.map((test) => {
-                    const valueInUnitOfMeasure =
-                        (result[`${prefix}Measurement${test.name}Result` as keyof AssessmentResult] as number) || 0;
-                    const normalizedName = lowercaseFirstLetter(test.name) as keyof typeof points;
-                    const param = result.currentParams[normalizedName];
-
-                    if (!param) return null;
-
                     return (
                         <Measurement
-                            name={normalizedName}
-                            child={child}
-                            param={param}
-                            valueInUnitOfMeasure={valueInUnitOfMeasure}
-                            valueInPoints={valueInUnitOfMeasure ? points[normalizedName] : 0}
+                            prefix={props.prefix}
+                            name={test.name}
                             unitOfMeasure={test.unitOfMeasure}
                             translationKey={test.translationKey}
                             key={test.translationKey}
@@ -95,7 +62,8 @@ export const TestDetails = (props: { result: AssessmentResult; prefix: string; c
     return (
         <div className={classes.wrapper}>
             <Typography className={classes.title} variant="subtitle1">
-                {prefix === 'first' ? t('child-profile.initial-test-title') : t('child-profile.final-test-title')}:
+                {props.prefix === 'first' ? t('child-profile.initial-test-title') : t('child-profile.final-test-title')}
+                :
             </Typography>
             {measurementScoresCharts()}
         </div>
@@ -160,7 +128,3 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-function lowercaseFirstLetter(text: string) {
-    return text.charAt(0).toLowerCase() + text.slice(1);
-}
