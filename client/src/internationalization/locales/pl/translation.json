@@ -239,7 +239,7 @@
         "final-fitness-level": "Łączny wynik z pomiaru końcowego",
         "advice": "Porada",
         "advice-modal-content": {
-            "bad": {
+            "scale39": {
                 "title": "Porada - Niski poziom sprawności",
                 "subtitle": "Coś poszło nie tak!",
                 "text-1": "Wynik testu sprawności fizycznej Twojego dziecka jest na niskim poziomie. Nie należy tego bagatelizować. ",
@@ -249,6 +249,7 @@
                 "text-3": "Nasi eksperci służą pomocą. Przygotowali dla Ciebie wytyczne, które możesz zastosować już dziś dla dobra swojego dziecka! Możesz także skorzystać z naszego ",
                 "text-3-1": "zestawu ćwiczeń."
             },
+
             "medium": {
                 "title": "Porada - Średni poziom sprawności",
                 "subtitle": "Mamy nad czym pracować!",
@@ -259,6 +260,7 @@
                 "text-3": "To nie wszystko co dla Ciebie przygotowaliśmy! Sprawdź co jeszcze możesz zrobić by poprawić sprawności Twojego dziecka dzięki przygotowanemu przez naszych ekspertów ",
                 "text-3-1": "artykułowi"
             },
+
             "good": {
                 "title": "Porada - Dobry poziom sprawności",
                 "subtitle": "Masz wiele powodów do zadowolenia!",
@@ -267,7 +269,7 @@
                 "text-2-1": "artykuł",
                 "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
             },
-            "very-good": {
+            "maxScale": {
                 "title": "Porada - Bardzo dobry poziom sprawności",
                 "subtitle": "Bądź dumny ze swojego dziecka!",
                 "text-1": "Jest bardzo sprawne fizycznie i może być przykładem dla rówieśników. Podziękowania należą się także Tobie za dbanie o zdrowie i prawidłowy rozwój twojego dziecka – tak trzymajcie! ",
@@ -312,10 +314,10 @@
         "final-test": "Pomiar końcowy",
         "result-level": "Poziom cechy",
         "result-description": {
-            "bad": "NISKI POZIOM SPRAWNOŚCI FIZYCZNEJ",
-            "weak": "SŁABY POZIOM SPRAWNOŚCI FIZYCZNEJ",
-            "good": "DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ",
-            "very-good": "BARDZO DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ"
+            "scale39": "NISKI POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "scale49": "SŁABY POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "scale59": "DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ",
+            "maxScale": "BARDZO DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ"
         },
         "result-levels": {
             "scale39": "niski",

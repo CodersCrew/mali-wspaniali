@@ -9,6 +9,7 @@ export function GroupedTests(props: {
     test: AssessmentResult;
     child: Child;
     isExpanded: boolean;
+    resultId: string;
     onOpen: () => void;
     onClose: () => void;
 }) {
@@ -27,7 +28,7 @@ export function GroupedTests(props: {
                     <SummarisedGroupedTest test={props.test} onClose={props.onClose} isExpanded={props.isExpanded} />
                 </AccordionSummary>
                 <AccordionDetails className={classes.expansionPanelDetails}>
-                    <ResultPreview result={props.test} child={props.child} />
+                    <ResultPreview resultId={props.resultId} />
                 </AccordionDetails>
             </Accordion>
         </>

@@ -25,6 +25,12 @@ export const GET_ME = gql`
                         title
                     }
                     child {
+                        _id
+                        firstname
+                        lastname
+                        sex
+                        birthYear
+                        birthQuarter
                         age
                     }
                     currentParams {
