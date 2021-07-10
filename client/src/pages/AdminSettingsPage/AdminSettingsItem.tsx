@@ -74,6 +74,8 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
                                         kindergartens: kindergartenList,
                                     }).then((result) => {
                                         if (!result.close) {
+                                            result.decision?.childDetailsList?.forEach(
+                                                childDetails => editChild(childDetails)?.then(refetchUser));
                                             openSnackbar({
                                                 text: t('user-settings.modal-change-kindergarden.success-message'),
                                             });

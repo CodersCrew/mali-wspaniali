@@ -5,24 +5,29 @@ import { Formik } from 'formik';
 import { BasicModal } from '../Modal/BasicModal';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildModalProps } from './ChildModalTypes';
-import { Child } from '../../graphql/types';
+import {Child, UpdatedChildInput} from '../../graphql/types';
 import { ChangeKindergartenModal } from '../ChildForm/ChangeKindergartenForm';
+import {normalizeChild} from './utils';
 
-interface TInitialObjectType {
+interface TinitialObjestType {
     firstname: string;
     lastname: string;
     id: string;
     kindergarden: string;
     kindergardenName: string;
+    sex: string;
+    birthYear: number;
+    birthQuarter: number;
 }
+
 
 const normalizeTransformKindergarten = (child: Child) => {
     const kindergarden = child.kindergarten._id;
     const id = child._id;
     const kindergardenName = child.kindergarten.name;
-    const { firstname, lastname } = child;
+    const { firstname, lastname, sex, birthYear, birthQuarter } = child;
 
-    return { kindergarden, id, firstname, lastname, kindergardenName };
+    return { kindergarden, id, firstname, lastname, kindergardenName, sex, birthYear, birthQuarter };
 };
 
 const AdminSettingsEditModal = ({
@@ -32,10 +37,10 @@ const AdminSettingsEditModal = ({
     user,
     preventClose,
     isCancelButtonVisible,
-}: ChildModalProps & ActionDialog<{ childData: TInitialObjectType[] }>) => {
+}: ChildModalProps & ActionDialog<{ childDetailsList: UpdatedChildInput[] }>) => {
     const { t } = useTranslation();
 
-    const newObjectChild = user.children.map(normalizeTransformKindergarten);
+    const newObjectChild: TinitialObjestType[] = user.children.map(normalizeTransformKindergarten);
 
     const initialValues = {
         childData: newObjectChild,
@@ -48,7 +53,18 @@ const AdminSettingsEditModal = ({
             enableReinitialize
             initialValues={initialValues}
             onSubmit={(values) => {
-                makeDecision({ accepted: true, childData: values.childData });
+                makeDecision({ accepted: true, childDetailsList:  values.childData?.map(child => {
+                    return {
+                        ...normalizeChild({
+                            firstname: child.firstname,
+                            lastname: child.lastname,
+                            sex: child.sex,
+                            'birth-date': child.birthYear?.toString(),
+                            'birth-quarter': child.birthQuarter?.toString(),
+                            kindergarten: child.kindergarden,
+                        }), childId: child.id
+                    };
+                })});
             }}
         >
             {(formik) => (
@@ -57,6 +73,7 @@ const AdminSettingsEditModal = ({
                     isOpen={true}
                     onAction={formik.handleSubmit}
                     onClose={onClose}
+                    isActionButtonVisible
                     isCancelButtonVisible={isCancelButtonVisible}
                     dialogProps={{ maxWidth: 'sm' }}
                 >
@@ -76,5 +93,5 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export const openChanageChildrenKindergarten = (props: ChildModalProps) => {
-    return openDialog<ChildModalProps>(AdminSettingsEditModal, props);
+    return openDialog<ChildModalProps, { childDetailsList: UpdatedChildInput[] }>(AdminSettingsEditModal, props);
 };
