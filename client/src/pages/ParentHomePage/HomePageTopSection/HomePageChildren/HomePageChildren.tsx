@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
-import { HomePageChildCard } from './HomePageChildCard';
+import clsx from 'clsx';
+
 import BoyAvatar from '../../../../assets/boy.png';
 import GirlAvatar from '../../../../assets/girl.png';
 import { Child, ChildInput } from '../../../../graphql/types';
@@ -9,6 +10,11 @@ import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChi
 import { openAddChildModal } from '../../../../components/ChilModals/AddChildModal';
 import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
+import { HomePageInfo } from '../HomePageInfo';
+
+import { HomePageChildCard } from './HomePageChildCard';
+
+import 'pure-react-carousel/dist/react-carousel.es.css';
 
 interface Props {
     childrenList: Child[];
@@ -18,11 +24,19 @@ interface Props {
 
 export const HomePageChildren = ({ childrenList: children, handleModalSubmit, onChildClick }: Props) => {
     const classes = useStyles();
-    const device = useIsDevice();
-
     const { kindergartenList } = useKindergartens();
+    const { isMobile } = useIsDevice();
 
-    return device.isMobile ? (
+    const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(
+        () => localStorage.getItem('infoNote') !== 'closed',
+    );
+
+    function toggleInfoComponent() {
+        setIsInfoComponentVisible((prev) => !prev);
+        localStorage.setItem('infoNote', 'closed');
+    }
+
+    return isMobile ? (
         <MobileCarousel
             childList={children}
             onAddChildClick={() => {
@@ -38,10 +52,17 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
             onChildClick={onChildClick}
         />
     ) : (
-        <Grid container spacing={3}>
+        <Grid
+            container
+            spacing={3}
+            className={clsx({
+                [classes.gridContainer]: true,
+                [classes.gridContainerMobile]: children.length > 1,
+            })}
+        >
             {children.map(({ firstname, _id, sex }) => {
                 return (
-                    <Grid item key={_id} xs={6} sm={3}>
+                    <Grid item key={_id}>
                         <HomePageChildCard
                             firstName={firstname}
                             PictureComponent={
@@ -56,7 +77,7 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
                     </Grid>
                 );
             })}
-            <Grid item xs={6} sm={3}>
+            <Grid item>
                 <HomePageAddChildButton
                     onClick={() => {
                         openAddChildModal({
@@ -70,6 +91,11 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
                     }}
                 />
             </Grid>
+            {isInfoComponentVisible && children.length <= 1 && (
+                <Grid item>
+                    <HomePageInfo childrenCount={children.length} toggleInfoComponent={toggleInfoComponent} />
+                </Grid>
+            )}
         </Grid>
     );
 };
@@ -126,6 +152,18 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         slide: {
             paddingRight: theme.spacing(2),
+        },
+        infoContainer: {
+            display: 'flex',
+            marginRight: theme.spacing(2),
+            flexWrap: 'wrap',
+        },
+        gridContainer: {
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 2fr',
+        },
+        gridContainerMobile: {
+            gridTemplateColumns: '1fr 1fr 1fr 1fr',
         },
     }),
 );
