@@ -307,6 +307,7 @@ type Query {
   agreements: [AgreementDTO!]!
   kindergartens: [KindergartenDTO!]!
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
+  result(id: String!): ChildAssessmentResultDTO!
   newsletters: [NewsletterDTO!]!
   assessments: [AssessmentDTO!]!
   assessment(id: String!): AssessmentDTO!

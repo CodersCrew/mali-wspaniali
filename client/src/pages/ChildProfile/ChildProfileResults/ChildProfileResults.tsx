@@ -21,6 +21,7 @@ export function ChildProfileResults({ child }: Props) {
                 return (
                     <GroupedTests
                         child={child}
+                        resultId={test._id}
                         test={test}
                         isExpanded={active === test._id}
                         key={test._id}

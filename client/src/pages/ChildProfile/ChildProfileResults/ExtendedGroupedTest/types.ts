@@ -1,7 +1,7 @@
 import { AssessmentParam } from '../../../../graphql/types';
 
 export type MeasurementProps = {
-    valueInUnitOfMeasure: number;
+    value: number;
     valueInPoints: number;
     unitOfMeasure: string;
     translationKey: string;

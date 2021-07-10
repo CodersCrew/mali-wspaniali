@@ -2,15 +2,21 @@ import { resultColors } from '../../colors';
 import { AssessmentParam } from '../../graphql/types';
 import { countInvertedPoints, countPoints } from '../../pages/InstructorResultCreatorPage/countPoints';
 
-interface Calculation {
+export interface Calculation {
     color: string;
     lightColor: string;
     key: string;
     nextKey: string | null;
     maxValueInPoints: number;
+    valueInPoints: number;
+    scale39InPoints: number;
+    scale49InPoints: number;
+    scale59InPoints: number;
+    minScaleInPoints: number;
+    maxScaleInPoints: number;
 }
 
-const testResults = {
+export const testResults = {
     bad: {
         color: resultColors.red,
         lightColor: resultColors.lightRed,
@@ -37,16 +43,23 @@ const testResults = {
     },
 };
 
-export function getResultColorAndLabel(valueInPoints: number, param: AssessmentParam, name: string): Calculation {
+export function getResultColorAndLabel(value: number, param: AssessmentParam, name: string): Calculation {
     const count = name === 'run' || name === 'pendelumRun' ? countPoints : countInvertedPoints;
+    const valueInPoints = count(value, param);
 
     let result: Partial<Calculation>;
 
-    if (valueInPoints < count(param?.scale39 || 0, param)) {
+    const scale39InPoints = count(param?.scale39 || 0, param);
+    const scale49InPoints = count(param?.scale49 || 0, param);
+    const scale59InPoints = count(param?.scale59 || 0, param);
+    const minScaleInPoints = count(param?.minScale || 0, param);
+    const maxScaleInPoints = count(param?.maxScale || 0, param);
+
+    if (valueInPoints < scale39InPoints) {
         result = testResults.bad;
-    } else if (valueInPoints < count(param?.scale49 || 0, param)) {
+    } else if (valueInPoints < scale49InPoints) {
         result = testResults.weak;
-    } else if (valueInPoints < count(param?.scale59 || 0, param)) {
+    } else if (valueInPoints < scale59InPoints) {
         result = testResults.good;
     } else {
         result = testResults.veryGood;
@@ -54,5 +67,14 @@ export function getResultColorAndLabel(valueInPoints: number, param: AssessmentP
 
     const maxValueInPoints = Math.max(count(param.maxScale, param), count(param.minScale, param));
 
-    return { ...result, maxValueInPoints } as Calculation;
+    return {
+        ...result,
+        maxValueInPoints,
+        valueInPoints,
+        scale39InPoints,
+        scale49InPoints,
+        scale59InPoints,
+        minScaleInPoints,
+        maxScaleInPoints,
+    } as Calculation;
 }

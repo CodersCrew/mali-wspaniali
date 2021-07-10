@@ -1,19 +1,17 @@
 import { createStyles, Link, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../Modal/BasicModal';
-import { Child, ChildInput } from '../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../utils/openDialog';
+import { Result } from '../Result';
 
 const T_ADVICE_PREFIX = 'child-profile.advice-modal-content';
 
 type AdviceModalProps = {
-    preventClose: boolean;
-    isCancelButtonVisible: boolean;
     resultKey: string;
-    child: Child;
+    result: Result;
 };
 
-function AdviceModal(props: AdviceModalProps & ActionDialog<{ child: ChildInput }>) {
+function AdviceModal(props: AdviceModalProps & ActionDialog<{ result: Result }>) {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -21,8 +19,8 @@ function AdviceModal(props: AdviceModalProps & ActionDialog<{ child: ChildInput 
         <BasicModal
             actionName={t('close')}
             isOpen={true}
-            onClose={onClose}
-            isCancelButtonVisible={true}
+            onClose={props.onClose}
+            isCancelButtonVisible
             dialogProps={{ maxWidth: 'sm' }}
             closeButtonText={'zamknij'}
             isActionButtonSecondary={false}
@@ -41,7 +39,7 @@ function AdviceModal(props: AdviceModalProps & ActionDialog<{ child: ChildInput 
                     {t(`${T_ADVICE_PREFIX}.${props.resultKey}.text-2`)}{' '}
                     <Link
                         className={classes.link}
-                        href={`/parent/child/${props.child._id}/tests-information`}
+                        href={`/parent/child/${props.result.getChildId()}/tests-information`}
                         underline="none"
                     >
                         {t(`${T_ADVICE_PREFIX}.${props.resultKey}.text-2-1`)}{' '}
@@ -57,11 +55,6 @@ function AdviceModal(props: AdviceModalProps & ActionDialog<{ child: ChildInput 
             )}
         </BasicModal>
     );
-    function onClose() {
-        if (!props.preventClose) {
-            props.onClose();
-        }
-    }
 }
 
 export const openAdviceModal = (props: AdviceModalProps) => {

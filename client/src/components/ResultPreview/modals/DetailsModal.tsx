@@ -1,48 +1,36 @@
 import { createStyles, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../Modal/BasicModal';
-import { ChildInput, Child } from '../../../graphql/types';
+import { ChildInput } from '../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../utils/openDialog';
 import { DetailsMeasurement } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/DetailsMeasurement';
 import { Results } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
-import { MeasurementProps } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/types';
 import { useIsDevice } from '../../../queries/useBreakpoints';
-import { getResultColorAndLabel } from '../calculateResult';
+import { Result } from '../Result';
 
 const T_DETAILS_PREFIX = 'child-profile.details-modal';
 
-type DetailsModalProps = {
-    measurementProps: MeasurementProps;
-    child: Child;
-    name: string;
-};
-
-function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInput }>) {
+function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ child: ChildInput }>) {
     const { t } = useTranslation();
     const device = useIsDevice();
 
     const percentile = 36;
 
-    const { minScale, maxScale, scale39, scale49, scale59, a, b } = props.measurementProps.param!;
+    const { minScale, maxScale, scale39, scale49, scale59, a, b, lowerLimitPoints, upperLimitPoints } =
+        props.resultWrapper.getParam()!;
 
-    const rangeMax = Math.min(countValue(maxScale), props.measurementProps.param?.lowerLimitPoints!);
+    const rangeMax = Math.min(countValue(maxScale), lowerLimitPoints!);
 
     const resultsData = {
-        v1: minScale,
-        v2: scale39,
-        v3: scale49,
-        v4: scale59,
-        v5: maxScale,
-        unit: props.measurementProps.unitOfMeasure,
-        result: props.measurementProps.valueInUnitOfMeasure,
+        result: props.resultWrapper.getValue(),
         resultStart: 160,
         hasScoreRangeLabels: true,
         sex: 'male',
-        rangeMin: props.measurementProps.param?.upperLimitPoints!,
+        rangeMin: upperLimitPoints,
         range39: countValue(scale39),
         range59: countValue(scale59),
         rangeMax,
-        firstName: props.child?.firstname ?? '',
+        firstName: props.resultWrapper.getChildName(),
         minScale,
         maxScale,
         scale39,
@@ -50,13 +38,11 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
         scale59,
     };
     const classes = useStyles();
-    const { nextKey, key } = getResultColorAndLabel(
-        props.measurementProps.valueInPoints,
-        props.measurementProps.param!,
-        props.name,
-    );
 
-    const nextLimit = nextKey ? (resultsData[key as keyof typeof resultsData] as number) : null;
+    const chartDetails = props.resultWrapper.getChartDetails();
+    const nextLimit = chartDetails.nextKey
+        ? (resultsData[chartDetails.key as keyof typeof resultsData] as number)
+        : null;
 
     return (
         <BasicModal
@@ -74,11 +60,7 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
             >
                 <Box minWidth="176" px={2} pb={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
                     <Box display="flex" flexDirection="column" justifyContent="space-between">
-                        <DetailsMeasurement
-                            measurmentProps={props.measurementProps}
-                            param={props.measurementProps.param!}
-                            name={props.name}
-                        />
+                        <DetailsMeasurement result={props.resultWrapper} />
                         <NextMeasurement />
                     </Box>
                 </Box>
@@ -87,13 +69,13 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
                         {t(`${T_DETAILS_PREFIX}.assesment-details`)}
                     </Typography>
                     <Typography className={classes.typographySpacing} variant="body2">
-                        {t(`${T_DETAILS_PREFIX}.content.${props.measurementProps.translationKey}`)}
+                        {t(`${T_DETAILS_PREFIX}.content.${props.resultWrapper.translationKey}`)}
                     </Typography>
                     <Typography className={(classes.typographySpacing, classes.titleSpacing)} variant="h4">
                         {t(`${T_DETAILS_PREFIX}.result-details.title`)}
                     </Typography>
                     <Box pl={4} pr={4}>
-                        <Results resultsData={resultsData} />
+                        <Results resultsData={resultsData} unit={props.resultWrapper.unit || ''} />
                     </Box>
                     <Grid container>
                         <Grid item>
@@ -105,7 +87,7 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
                                 className={classes.typographySpacing}
                                 variant="body2"
                                 component="span"
-                            >{`${resultsData.result}  ${resultsData.unit}`}</Typography>
+                            >{`${resultsData.result}  ${props.resultWrapper.unit}`}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
@@ -116,8 +98,8 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
                             &nbsp;
                             <Typography className={classes.typographySpacing} variant="body2" component="span">
                                 {t(`${T_DETAILS_PREFIX}.result-details.possible-points`, {
-                                    min: countValue(resultsData.result),
-                                    max: countValue(props.measurementProps.param?.maxScale!),
+                                    min: Math.round(chartDetails.valueInPoints),
+                                    max: Math.round(chartDetails.maxValueInPoints),
                                 })}
                             </Typography>
                         </Grid>
@@ -134,12 +116,10 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
                     </Grid>
                     {nextLimit && (
                         <NextFeatureLevel
-                            unit={resultsData.unit}
+                            unit={props.resultWrapper.unit || ''}
                             nextLimit={nextLimit}
-                            nextKey={nextKey!}
-                            valueToNextLimit={
-                                Math.round((props.measurementProps.valueInUnitOfMeasure - nextLimit) * 100) / 100
-                            }
+                            nextKey={chartDetails.nextKey!}
+                            valueToNextLimit={Math.round((props.resultWrapper.getValue() - nextLimit) * 100) / 100}
                         />
                     )}
                 </Box>
@@ -147,14 +127,14 @@ function DetailsModal(props: DetailsModalProps & ActionDialog<{ child: ChildInpu
         </BasicModal>
     );
 
-    function countValue(value: number) {
-        return Math.round(a * value + b);
+    function countValue(value2: number) {
+        return Math.round(a * value2 + b);
     }
 }
 
-export const openDetailsModal = (props: DetailsModalProps) => {
-    return openDialog<DetailsModalProps>(DetailsModal, props);
-};
+export function openDetailsModal(resultWrapper: Result) {
+    return openDialog<{ resultWrapper: Result }>(DetailsModal, { resultWrapper });
+}
 
 interface NextFeatureLevelProps {
     unit: string;

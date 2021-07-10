@@ -1,26 +1,25 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { AssessmentResult, Child } from '../../graphql/types';
 import { ResultComparison } from './ResultComparison';
-import { TestDetails } from './TestDetails';
 import { TestSummary } from './TestSummary';
+import { useResult } from '../../operations/queries/Results/getResult';
+import { ResultContext } from './context';
+import { TestDetails } from './TestDetails';
 
-export function ResultPreview(props: { result: AssessmentResult; child: Child }) {
+export function ResultPreview(props: { resultId: string }) {
+    const { result } = useResult(props.resultId);
+
+    if (!result) return null;
+
     return (
-        <>
-            <SingleTest {...props} prefix="first" />
-            <SingleTest {...props} prefix="last" />
-            <ResultComparison {...props} params={props.result.currentParams} />
-        </>
+        <ResultContext.Provider value={result}>
+            <SingleTest prefix="first" />
+            <SingleTest prefix="last" />
+            <ResultComparison />
+        </ResultContext.Provider>
     );
 }
 
-interface SingleTestProps {
-    result: AssessmentResult;
-    child: Child;
-    prefix: string;
-}
-
-function SingleTest(props: SingleTestProps) {
+function SingleTest(props: { prefix: string }) {
     const classes = useStyles();
 
     return (
