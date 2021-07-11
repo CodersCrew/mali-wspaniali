@@ -6,12 +6,11 @@ import { AssessmentResult, Child } from '../../../graphql/types';
 import { ResultPreview } from '../../../components/ResultPreview/ResultPreview';
 
 export function GroupedTests(props: {
-    test: AssessmentResult;
+    result: AssessmentResult;
     child: Child;
     isExpanded: boolean;
     resultId: string;
-    onOpen: () => void;
-    onClose: () => void;
+    onToggle: () => void;
 }) {
     const classes = useStyles();
 
@@ -19,13 +18,13 @@ export function GroupedTests(props: {
         <>
             <Accordion expanded={props.isExpanded} className={classes.expansionPanel}>
                 <AccordionSummary
-                    onClick={props.onOpen}
+                    onClick={props.onToggle}
                     className={clsx({
                         [classes.expansionPanelSummary]: true,
                         [classes.expansionPanelSummaryExpanded]: props.isExpanded,
                     })}
                 >
-                    <SummarisedGroupedTest test={props.test} onClose={props.onClose} isExpanded={props.isExpanded} />
+                    <SummarisedGroupedTest test={props.result} onClose={props.onToggle} isExpanded={props.isExpanded} />
                 </AccordionSummary>
                 <AccordionDetails className={classes.expansionPanelDetails}>
                     <ResultPreview resultId={props.resultId} />
