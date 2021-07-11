@@ -61,7 +61,7 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ child: C
                 <Box minWidth="176" px={2} pb={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
                     <Box display="flex" flexDirection="column" justifyContent="space-between">
                         <DetailsMeasurement result={props.resultWrapper} />
-                        <NextMeasurement />
+                        {props.resultWrapper.isLastMeasurementFinished() && <NextMeasurement />}
                     </Box>
                 </Box>
                 <Box display="flex" flex="1" flexDirection="column" py={2}>

@@ -362,6 +362,14 @@
                 }
             }
         },
+        "results-empty-view": {
+            "title": "No results",
+            "empty-results-reason": "The results have not been entered yet for one of three reasons:",
+            "reason-1": "1. The initial measurement has not yet taken place or the results are in preparation.",
+            "reason-2": "2. Your child was absent on the day of the initial measurement or was not able to take part in the measurement for random reasons.",
+            "reason-3": "3. Your child joined the Mali Magnificent program after the first measurement. Another fitness measurement will take place in the spring.",
+            "read-more": "To find out what the bump test looks like, please visit the <span>Test Information tab</span>"
+        },
         "advice-modal-content": {
             "scale39": {
                 "title": "Tip - Low level of fitness",

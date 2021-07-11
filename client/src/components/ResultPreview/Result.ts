@@ -86,6 +86,10 @@ export class Result {
         return this.result.child.sex;
     }
 
+    isLastMeasurementFinished() {
+        return this.props.result.assessment.lastMeasurementStatus === 'done';
+    }
+
     countCategoryPoints(name: keyof AssessmentParam) {
         const categories = Object.entries(this.result.currentParams);
 
