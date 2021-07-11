@@ -48,8 +48,6 @@ export default function TestResultsPage() {
         pushToAdminResult(assessmentId, selectedAssessmentType.type);
     };
 
-    console.log('kind', kindergartenList);
-
     if (!kindergartenList) return <NoResults />;
 
     return (

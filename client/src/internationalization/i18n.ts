@@ -9,6 +9,8 @@ i18n.use(LanguageDetector)
     .init({
         react: {
             useSuspense: false,
+            transSupportBasicHtmlNodes: true,
+            transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p'],
         },
         resources: {
             pl: {
@@ -18,9 +20,7 @@ i18n.use(LanguageDetector)
                 translation: translationEn,
             },
         },
-        interpolation: {
-            escapeValue: false,
-        },
+        fallbackLng: 'pl',
         detection: {
             order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
             lookupQuerystring: 'lng',

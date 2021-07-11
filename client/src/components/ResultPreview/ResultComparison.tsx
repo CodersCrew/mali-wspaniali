@@ -1,39 +1,46 @@
+import React from 'react';
 import { Card, Grid, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { gray, lightTextColor, resultColors } from '../../../../colors';
-import { ButtonSecondary } from '../../../../components/Button';
+import { gray, lightTextColor, resultColors } from '../../colors';
+import { ButtonSecondary } from '../Button';
 import { openResultsModal } from './modals/ResultsModal';
-import { openSnackbar } from '../../../../components/Snackbar/openSnackbar';
-import Results from './Results';
-import { ChartLegend } from './ChartLegend';
-import { useIsDevice } from '../../../../queries/useBreakpoints';
+import { openSnackbar } from '../Snackbar/openSnackbar';
+import { Results } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
+import { ChartLegend } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/ChartLegend';
+import { useIsDevice } from '../../queries/useBreakpoints';
+import { Result } from './Result';
+import { ResultContext } from './context';
 
-interface Props {
-    firstResultPoints: number;
-    lastResultPoints: number;
-    childAge: number;
-}
-
-export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props) => {
+export const ResultComparison = () => {
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
-    const key = getDifferenceKey(firstResultPoints, lastResultPoints);
-    const difference = Math.abs(firstResultPoints - lastResultPoints);
-    const differenceColor = getDifferenceColor(key);
-    const classes = useStyles({ differenceColor });
+
+    const classes = useStyles();
+
+    const result = React.useContext(ResultContext);
+
+    if (!result) return null;
+
+    const resultWrapper = new Result({ result });
+    const { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement } = resultWrapper.countSumOfPoints();
+
     const resultsData = {
-        v1: 60,
-        v2: 120,
-        v3: 150,
-        v4: 180,
-        v5: 240,
         unit: 'pkt',
-        result: lastResultPoints,
-        resultStart: firstResultPoints,
+        result: sumOfPointsLastMeasurement,
+        resultStart: sumOfPointsFirstMeasurement,
         hasScoreRangeLabels: false,
-        sex: 'male',
+        sex: resultWrapper.getSex(),
+        minScale: resultWrapper.countCategoryPoints('minScale'),
+        maxScale: resultWrapper.countCategoryPoints('maxScale'),
+        scale39: resultWrapper.countCategoryPoints('weakStageLimit'),
+        scale49: resultWrapper.countCategoryPoints('middleStageLimit'),
+        scale59: resultWrapper.countCategoryPoints('goodStageLimit'),
     };
+
+    const key = getDifferenceKey(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement);
+    const difference = Math.abs(sumOfPointsFirstMeasurement - sumOfPointsLastMeasurement);
+    const differenceColor = getDifferenceColor(key);
 
     return (
         <>
@@ -50,24 +57,17 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                     <div className={classes.cardBottom}>
                         <Typography variant="body1">{t('child-profile.comparison-label')}</Typography>
                         <Box my={3}>
-                            <Typography variant="subtitle2" className={classes.difference}>
+                            <Typography
+                                variant="subtitle2"
+                                className={classes.difference}
+                                style={{ color: differenceColor }}
+                            >
                                 {t(`child-profile.difference.${key}`)}
                             </Typography>
                         </Box>
                         <ButtonSecondary
                             variant="contained"
-                            onClick={() => {
-                                openResultsModal({
-                                    preventClose: false,
-                                    isCancelButtonVisible: true,
-                                    progressKey: key,
-                                }).then((res) => {
-                                    if (!res.close)
-                                        openSnackbar({
-                                            text: t('user-settings.modal-edit-account.success-message'),
-                                        });
-                                });
-                            }}
+                            onClick={onOpenResultsClick}
                             innerText={t('child-profile.comparison-button')}
                         />
                     </div>
@@ -83,10 +83,14 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
                         alignItems={isSmallMobile ? 'flex-start' : 'center'}
                         spacing={5}
                     >
-                        <Grid item xs={12} sm={8} lg={8} className={classes.ruller}>
-                            <Results resultsData={resultsData} displayHistoricalResults />
+                        <Grid item xs={12} sm={9}>
+                            <Results
+                                unit="pkt"
+                                resultsData={resultsData}
+                                displayHistoricalResults={sumOfPointsFirstMeasurement > 0}
+                            />
                         </Grid>
-                        <Grid item xs={12} sm={4} lg={4} className={classes.info}>
+                        <Grid item xs={12} sm={3} className={classes.info}>
                             <ChartLegend resultKey={key} color={differenceColor} difference={difference} />
                         </Grid>
                     </Grid>
@@ -94,6 +98,15 @@ export const ResultComparison = ({ firstResultPoints, lastResultPoints }: Props)
             </div>
         </>
     );
+
+    function onOpenResultsClick() {
+        openResultsModal({ progressKey: key, result: resultWrapper }).then((res) => {
+            if (!res.close)
+                openSnackbar({
+                    text: t('user-settings.modal-edit-account.success-message'),
+                });
+        });
+    }
 };
 
 function getDifferenceKey(firstValue: number, lastValue: number) {
@@ -149,13 +162,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         difference: {
             textTransform: 'uppercase',
-            color: ({ differenceColor }: { differenceColor: string }) => differenceColor,
         },
         rightWrapper: {
             width: '100%',
             margin: `0 ${theme.spacing(4)}px`,
         },
-        ruller: {},
         info: {
             [theme.breakpoints.down('xs')]: {
                 marginTop: theme.spacing(4),

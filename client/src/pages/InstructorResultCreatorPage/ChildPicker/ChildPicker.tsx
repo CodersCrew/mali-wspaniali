@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { CustomContainer } from '../../../components/CustomContainer';
-import { Assessment, Child, Kindergarten, AssessmentResult } from '../../../graphql/types';
-import { ChildItem } from './ChildItem';
 import { SelectList } from '../../../components/SelectList';
 import { SearchChildField } from '../../../components/SearchChildField';
+import { Assessment, Child, Kindergarten, AssessmentResult } from '../../../graphql/types';
 import { countProgress } from '../countProgress';
+import { ChildItem } from './ChildItem';
 
 interface Props {
     childList: Child[];
@@ -39,7 +40,7 @@ export function ChildPicker({
         <CustomContainer
             header={header}
             container={
-                <>
+                <React.Fragment>
                     <Grid container className={classes.container} spacing={2} direction="column">
                         <Grid item className={classes.fullWidth}>
                             <SelectList
@@ -79,7 +80,7 @@ export function ChildPicker({
                     </Grid>
                     <List disablePadding>
                         <Divider />
-                        {getFilteredChildrenByName().map((c) => {
+                        {getFilteredChildrenByFullName().map((c) => {
                             return (
                                 <ChildItem
                                     key={c._id}
@@ -91,14 +92,18 @@ export function ChildPicker({
                             );
                         })}
                     </List>
-                </>
+                </React.Fragment>
             }
             disableShadow
         />
     );
 
-    function getFilteredChildrenByName() {
-        return childList.filter((c) => c.firstname.toLowerCase().includes(searchTerm.toLowerCase()));
+    function getFilteredChildrenByFullName() {
+        return childList.filter((c) => {
+            const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
+
+            return fullName.includes(searchTerm.toLowerCase());
+        });
     }
 
     function isAssessmentDisabled() {

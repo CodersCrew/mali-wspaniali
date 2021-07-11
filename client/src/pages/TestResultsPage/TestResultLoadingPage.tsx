@@ -21,7 +21,7 @@ const TestResultLoadingPage = () => {
         });
 
     return (
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
             <CircularProgress />
         </div>
     );

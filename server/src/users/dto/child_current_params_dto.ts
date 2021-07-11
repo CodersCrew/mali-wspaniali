@@ -40,6 +40,21 @@ class ParamsDTO {
 
   @Field(() => Float)
   veryGoodStageLimit: number;
+
+  @Field(() => Float)
+  minScale: number;
+
+  @Field(() => Float)
+  scale39: number;
+
+  @Field(() => Float)
+  scale49: number;
+
+  @Field(() => Float)
+  scale59: number;
+
+  @Field(() => Float)
+  maxScale: number;
 }
 
 @ObjectType()

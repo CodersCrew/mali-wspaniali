@@ -25,7 +25,7 @@ export function CircleChart({ color, value, maxValue, label, enableInfoIcon, lab
                 totalValue={maxValue}
                 data={[dataEntry]}
                 label={() => {
-                    if (!value || disable) return '-';
+                    if (value === 0 || label === '0' || disable) return '-';
 
                     return labelSuffix ? `${label} ${labelSuffix}` : label;
                 }}

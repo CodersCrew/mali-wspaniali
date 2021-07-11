@@ -8,3 +8,4 @@ export * from './get_users_query';
 export * from './get_kindergarten_results_query';
 export * from './get_child_results_query';
 export * from './get_results_query';
+export * from './get_result_by_id_query';

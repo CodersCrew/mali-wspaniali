@@ -11264,6 +11264,11 @@ react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-lazy-with-preload@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-lazy-with-preload/-/react-lazy-with-preload-2.0.1.tgz#5b6db529d235362539fb670c85ac568534b4d4ce"
+  integrity sha512-oww+nyE5n1IjLOszppkVIe+cCcBfw8YqVxj3g3J/1b9MEv6tWWlymxCTn+H8OFlASb940B8yDCZbyybYR6Z46w==
+
 react-material-ui-carousel@2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/react-material-ui-carousel/-/react-material-ui-carousel-2.2.6.tgz#9440d0dce52f83fe3e8ae2238b8f9b899c84d7c1"

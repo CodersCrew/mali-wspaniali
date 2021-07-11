@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { makeStyles, Grid, createStyles, Typography } from '@material-ui/core';
+import { Box, createStyles, Grid, Link, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
-import { HomePageArticles } from './HomePageArticles';
 import { Theme } from '../../theme';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
@@ -13,7 +11,12 @@ import { useKindergartens } from '../../operations/queries/Kindergartens/getKind
 import { useAddChild } from '../../operations/mutations/User/addChild';
 import { PageContainer } from '../../components/PageContainer';
 import { useIsDevice } from '../../queries/useBreakpoints';
+
+import { Footer } from './HomePageFooter/Footer';
+import { HomePageArticles } from './HomePageArticles';
+import { HomePageChildren } from './HomePageTopSection/HomePageChildren/HomePageChildren';
 import { HomePageInfo } from './HomePageTopSection/HomePageInfo';
+import { SocialMediaBar } from './SocialMediaBar';
 
 export default function ParentHomePage() {
     const user = useMe();
@@ -41,44 +44,73 @@ export default function ParentHomePage() {
     if (!user || !kindergartenList) return null;
 
     return (
-        <PageContainer>
-            <Grid className={classes.container}>
-                <Grid item xs={12}>
-                    <Typography variant={isMobile ? 'h2' : 'h1'} align={isMobile ? 'center' : 'left'}>
-                        {t('home-page-content.greeting')}
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <p className={classes.description}>
-                        <Typography variant={isMobile ? 'subtitle1' : 'h3'} align={isMobile ? 'center' : 'left'}>
-                            {t('home-page-content.check-children-activity')}{' '}
-                            <span className={classes.link}>{t('home-page-content.mali-wspaniali')}</span>
+        <>
+            <PageContainer>
+                <Grid className={classes.container}>
+                    <Grid item xs={12}>
+                        <Typography variant={isMobile ? 'h2' : 'h1'} align={isMobile ? 'center' : 'left'}>
+                            {t('home-page-content.greeting')}
                         </Typography>
-                    </p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p className={classes.description}>
+                            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
+                                <Box width={isMobile ? '100%' : 'fit-content'}>
+                                    <Typography
+                                        variant={isMobile ? 'subtitle1' : 'h3'}
+                                        align={isMobile ? 'center' : 'left'}
+                                    >
+                                        {t('home-page-content.learn-more')}
+                                        <Link
+                                            className={classes.link}
+                                            href="http://mali-wspaniali.pl/pl/index.html"
+                                            target="_blank"
+                                        >
+                                            {t('home-page-content.mali-wspaniali')}
+                                        </Link>
+                                    </Typography>
+                                </Box>
+
+                                {!isMobile && <SocialMediaBar />}
+                            </Box>
+                        </p>
+                    </Grid>
+                    <HomePageChildren
+                        childrenList={user.children}
+                        handleModalSubmit={addChild}
+                        onChildClick={(id) => {
+                            history.push(`parent/child/${id}/results`);
+                        }}
+                    />
+                    {(isMobile || user.children.length > 1) && (
+                        <>
+                            <Box mb={3} />
+                            <div className={classes.infoContainer}>
+                                {isInfoComponentVisible && (
+                                    <HomePageInfo
+                                        toggleInfoComponent={toggleInfoComponent}
+                                        childrenCount={user.children.length}
+                                    />
+                                )}
+                            </div>
+                        </>
+                    )}
+                    <Box mb={4} />
+                    <HomePageArticles articles={articles} />
                 </Grid>
-                <HomePageChildren
-                    childrenList={user.children}
-                    handleModalSubmit={addChild}
-                    onChildClick={(id) => {
-                        history.push(`parent/child/${id}/results`);
-                    }}
-                />
-                <div className={classes.infoContainer}>
-                    {isInfoComponentVisible && <HomePageInfo toggleInfoComponent={toggleInfoComponent} />}
-                </div>
-                <HomePageArticles articles={articles} />
-            </Grid>
-        </PageContainer>
+            </PageContainer>
+            <Footer />
+        </>
     );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            padding: '0 0 54px 0',
+            padding: theme.spacing(0, 0, 6.75, 0),
 
             [theme.breakpoints.down('md')]: {
-                padding: '0 0 5px 0',
+                padding: theme.spacing(0, 0, 0.625, 0),
             },
         },
         description: {
@@ -101,15 +133,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         infoContainer: {
             display: 'flex',
-            marginBottom: theme.spacing(5),
             flexWrap: 'wrap',
-
-            [theme.breakpoints.down('md')]: {
-                flexDirection: 'column',
-                alignItems: 'center',
-                paddingRight: theme.spacing(0),
-                marginBottom: theme.spacing(4),
-            },
         },
     }),
 );
