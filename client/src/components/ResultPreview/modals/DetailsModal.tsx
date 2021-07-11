@@ -92,20 +92,6 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ child: C
                     </Grid>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.typographySpacing} variant="subtitle2" component="span">
-                                {t(`${T_DETAILS_PREFIX}.result-details.possible-points-title`)}
-                            </Typography>
-                            &nbsp;
-                            <Typography className={classes.typographySpacing} variant="body2" component="span">
-                                {t(`${T_DETAILS_PREFIX}.result-details.possible-points`, {
-                                    min: Math.round(chartDetails.valueInPoints),
-                                    max: Math.round(chartDetails.maxValueInPoints),
-                                })}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item>
                             <Typography className={classes.typographySpacing} variant="subtitle2">
                                 {t(`${T_DETAILS_PREFIX}.result-details.better-results-title`)}&nbsp;
                             </Typography>

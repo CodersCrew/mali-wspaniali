@@ -48,6 +48,24 @@ export class Result {
         );
     }
 
+    getChartValue() {
+        const name = this.getNormalizedName();
+
+        if (name === 'run' || name === 'pendelumRun') {
+            return this.getMaxValue() - this.getValue();
+        }
+
+        return this.getMaxValue() - (this.getMaxValue() - this.getValue());
+    }
+
+    getMaxValue() {
+        return Math.max(this.getParam().maxScale, this.getParam().minScale);
+    }
+
+    getMinValue(): number {
+        return Math.min(this.getParam().maxScale, this.getParam().minScale);
+    }
+
     getChartDetails() {
         return getResultColorAndLabel(this.getValue() as number, this.getParam()!, this.getNormalizedName());
     }

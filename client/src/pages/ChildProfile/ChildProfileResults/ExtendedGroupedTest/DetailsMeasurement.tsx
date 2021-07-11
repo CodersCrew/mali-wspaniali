@@ -15,8 +15,8 @@ export function DetailsMeasurement(props: { result: Result }) {
             <Box width="110px" height="110px">
                 <CircleChart
                     color={chartDetails.color}
-                    value={chartDetails.valueInPoints}
-                    maxValue={chartDetails.maxValueInPoints}
+                    value={props.result.getChartValue()}
+                    maxValue={props.result.getMaxValue() - props.result.getMinValue()}
                     label={String(props.result.getValue())}
                     labelSuffix={props.result.unit}
                 />
