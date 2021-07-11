@@ -36,10 +36,11 @@ export function Measurement(props: Props) {
             <Box width="110px" height="110px">
                 <CircleChart
                     color={chartDetails.color}
-                    value={chartDetails.valueInPoints}
-                    maxValue={chartDetails.maxValueInPoints}
+                    value={resultWrapper.getChartValue()}
+                    maxValue={resultWrapper.getMaxValue() - resultWrapper.getMinValue()}
                     label={String(resultWrapper.getValue())}
                     labelSuffix={props.unitOfMeasure}
+                    disable={!resultWrapper.getValue()}
                 />
             </Box>
             <Typography variant="h4" className={classes.testName}>
