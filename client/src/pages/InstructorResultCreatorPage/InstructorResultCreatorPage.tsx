@@ -149,6 +149,10 @@ export default function InstructorResultCreatorPage() {
             `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Date`
         ] = new Date().toISOString();
 
+        if (results.note) {
+            (result as any)[`${measurement}MeasurementNote`] = results.note;
+        }
+
         return result;
     }
 

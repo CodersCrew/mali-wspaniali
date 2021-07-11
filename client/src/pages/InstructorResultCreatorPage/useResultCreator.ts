@@ -15,6 +15,7 @@ export interface AssessmentValues {
     pendelumRun: number;
     jump: number;
     throw: number;
+    note: string;
 }
 
 export interface ResultCreatorReturnProps {
@@ -86,6 +87,7 @@ export function useResultCreator({
                 pendelumRun: 0,
                 throw: 0,
                 jump: 0,
+                note: '',
             };
         }
 
@@ -95,6 +97,7 @@ export function useResultCreator({
                 pendelumRun: childResult.firstMeasurementPendelumRunResult || 0,
                 throw: childResult.firstMeasurementThrowResult || 0,
                 jump: childResult.firstMeasurementJumpResult || 0,
+                note: childResult.firstMeasurementNote || '',
             };
         }
 
@@ -103,6 +106,7 @@ export function useResultCreator({
             pendelumRun: childResult.lastMeasurementPendelumRunResult || 0,
             throw: childResult.lastMeasurementThrowResult || 0,
             jump: childResult.lastMeasurementJumpResult || 0,
+            note: childResult.lastMeasurementNote || '',
         };
     }
 }
@@ -119,9 +123,8 @@ function getSelected({
     childId: string;
 }) {
     const selectedAssessment = assessments.find((a) => a._id === assessmentId);
-    const selectedKindergarten = selectedAssessment?.kindergartens.find(
-        (k) => k.kindergarten?._id === kindergartenId,
-    )?.kindergarten;
+    const selectedKindergarten = selectedAssessment?.kindergartens.find((k) => k.kindergarten?._id === kindergartenId)
+        ?.kindergarten;
     const selectedChild = selectedKindergarten?.children?.find((c) => c._id === childId);
 
     return {
