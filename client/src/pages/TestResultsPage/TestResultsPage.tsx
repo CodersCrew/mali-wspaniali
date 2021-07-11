@@ -4,32 +4,53 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ReplyAllIcon from '@material-ui/icons/ReplyAll';
+import { useHistory, useParams } from 'react-router-dom';
 import { NoResults } from './NoResults';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { activePage } from '../../apollo_client';
-import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
+import { useKindergartensWithChildren } from '../../operations/queries/Kindergartens/getKindergartensWithChildren';
 import { PageContainer } from '../../components/PageContainer';
 import { Theme } from '../../theme';
 import { SelectList } from '../../components/SelectList';
-import { TestToggleButton } from './TestToggleButton';
+import { AssessmentPart, assessmentParts, AssessmentType, TestToggleButton } from './TestToggleButton';
 import { ButtonSecondary } from '../../components/Button';
+import { Assessment } from '../../graphql/types';
+// import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 export default function TestResultsPage() {
+    const history = useHistory<Assessment[]>();
+    const { assessmentId, assessmentType } = useParams<{ assessmentId: string; assessmentType: AssessmentType }>();
     const classes = useStyles();
     const { t } = useTranslation();
-    const { kindergartenList } = useKindergartens();
 
+    const { kindergartenList } = useKindergartensWithChildren(assessmentId);
     const [SearchedValue, setSearchedValue] = useState('');
+
+    const selectedAssessmentPart = assessmentParts.find((a) => a.type === assessmentType) ?? assessmentParts[0];
+
+    const orderedAssessments = history.location.state;
+    const selectedAssessment = orderedAssessments.find((a) => a._id === assessmentId) ?? orderedAssessments[0];
+
+    const pushToAdminResult = (selectedAssessmentId: string, selectedAssessmentType: string) => {
+        history.push({
+            pathname: `/admin/${selectedAssessmentId}/${selectedAssessmentType}`,
+            state: orderedAssessments,
+        });
+    };
     useEffect(() => {
         activePage(['admin-menu.results.title', 'admin-menu.results.table']);
     }, []);
 
-    if (!kindergartenList) {
-        return <NoResults />;
-    }
+    const handleSelectAssessment = (selectedAssessmentId: string) => {
+        pushToAdminResult(selectedAssessmentId, assessmentType);
+    };
+    const handleSelectAssessmentType = (selectedAssessmentType: AssessmentPart) => {
+        pushToAdminResult(assessmentId, selectedAssessmentType.type);
+    };
 
-    const [selectedTest, setSelectedTest] = useState('Test przedszkolaka 2020/2021');
-    const [selectedMeasurement, setSelectedMeasurement] = useState('add-results-page.first-assessment');
+    console.log('kind', kindergartenList);
+
+    if (!kindergartenList) return <NoResults />;
 
     return (
         <PageContainer>
@@ -38,17 +59,17 @@ export default function TestResultsPage() {
                     <Box className={classes.optionsContainer} justifyContent={'flex-start'}>
                         <div className={classes.SelectListContainer}>
                             <SelectList
-                                value={selectedTest}
-                                onSelect={setSelectedTest}
+                                value={assessmentId}
+                                onSelect={handleSelectAssessment}
                                 label={t('admin-instructors-page.table-toolbar.select-test')}
-                                items={[
-                                    <MenuItem key="done" value="Test przedszkolaka 2020/2021">
-                                        Test przedszkolaka 2020/2021
-                                    </MenuItem>,
-                                ]}
+                                items={orderedAssessments.map((assessment) => (
+                                    <MenuItem key={assessment._id} value={assessment._id}>
+                                        {assessment.title}
+                                    </MenuItem>
+                                ))}
                             />
                         </div>
-                        <TestToggleButton value={selectedMeasurement} onChange={setSelectedMeasurement} />
+                        <TestToggleButton value={selectedAssessmentPart} onChange={handleSelectAssessmentType} />
                     </Box>
                     <Box className={classes.optionsContainer} justifyContent={'flex-end'}>
                         <ButtonSecondary
@@ -68,13 +89,14 @@ export default function TestResultsPage() {
                     </Box>
                 </Grid>
                 <Box className={classes.informationContainer} justifyContent="space-between" alignItems={'center'}>
-                    <span className={classes.measurementText}>{t(selectedMeasurement)}</span>
+                    <span className={classes.measurementText}>{t(selectedAssessmentPart.assessmentName)}</span>
                     <p>
                         <span className={classes.ResultStatusText}>{t('test-results.status-result')}: </span>
-                        Opublikowane
+                        {t(`manage-test-view.test-list.${selectedAssessment.status}`)}
                     </p>
                 </Box>
                 <TestResultsTable
+                    assessmentType={assessmentType}
                     kindergartens={kindergartenList}
                     searchedValue={SearchedValue}
                     onSearchChange={setSearchedValue}
@@ -119,7 +141,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 500,
         },
         ResultStatusText: {
-            fontSize: '16px',
+            fontSize: 16,
             fontWeight: 500,
         },
     }),

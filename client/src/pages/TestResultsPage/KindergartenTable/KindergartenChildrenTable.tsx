@@ -14,35 +14,28 @@ import {
     fade,
     Tooltip,
 } from '@material-ui/core';
-import { Edit as EditIcon, InsertChart as InsertChartIcon } from '@material-ui/icons';
-import { useState } from 'react';
-import ArrowedCell from '../../../components/ArrowedCell';
+import { InsertChart as InsertChartIcon } from '@material-ui/icons';
+import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
+import { BaseChildInfo } from '../../../graphql/types';
 
 interface Props {
     open: boolean;
+    childrenInfo: BaseChildInfo[];
 }
 
-const RESULT_CELL_NAME = 'resultCellName';
-const KINDERGARTEN_CELL_NAME = 'kindergartenCellName';
+const CHILD_NAME = 'childName';
+const AGE_NAME = 'AgeName';
 
-export const KindergartenChildrenTable = ({ open }: Props) => {
+export const KindergartenChildrenTable = ({ open, childrenInfo }: Props) => {
     const classes = useStyles({ open });
     const { t } = useTranslation();
+    const [children, selectedSortableCell, cellParameters] = useArrowedCell(childrenInfo);
 
-    const editIconTooltip = t('test-results.button-icon-edit-tooltip');
-    const resultsIconTooltip = t('test-results.button-icon-results-tooltip');
-    const [selectedSortableCell, setSelectedSortableCell] = useState<string | undefined>(undefined);
-
-    const resultCell = {
-        name: RESULT_CELL_NAME,
-        changeActive: () =>
-            setSelectedSortableCell((prev) => (prev !== RESULT_CELL_NAME ? RESULT_CELL_NAME : undefined)),
-    };
-    const kindergartenCell = {
-        name: KINDERGARTEN_CELL_NAME,
-        changeActive: () =>
-            setSelectedSortableCell((prev) => (prev !== KINDERGARTEN_CELL_NAME ? KINDERGARTEN_CELL_NAME : undefined)),
-    };
+    const childCell = cellParameters(
+        CHILD_NAME,
+        (c: BaseChildInfo, b: BaseChildInfo) => `${c.firstname} ${c.lastname}` < `${b.firstname} ${b.lastname}`,
+    );
+    const ageCell = cellParameters(AGE_NAME, (c: BaseChildInfo, b: BaseChildInfo) => (c.age ?? 0) < (b.age ?? 0));
 
     return (
         <TableRow className={classes.mainRow}>
@@ -54,38 +47,35 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
                                 <TableRow className={classes.headRow}>
                                     <ArrowedCell
                                         text={t('test-results.children')}
-                                        isSelected={selectedSortableCell === kindergartenCell.name}
-                                        onClick={kindergartenCell.changeActive}
+                                        isSelected={selectedSortableCell === childCell.name}
+                                        onClick={childCell.changeActive}
                                         arrowSize="0.85em"
                                     />
                                     <ArrowedCell
                                         text={t('test-results.age')}
-                                        isSelected={selectedSortableCell === resultCell.name}
-                                        onClick={resultCell.changeActive}
+                                        isSelected={selectedSortableCell === ageCell.name}
+                                        onClick={ageCell.changeActive}
                                         arrowSize="0.85em"
                                     />
                                     <TableCell />
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {[1, 2, 3].map((children) => (
-                                    <TableRow className={classes.row} key={children}>
+                                {children.map((child) => (
+                                    <TableRow className={classes.row} key={child._id}>
                                         <TableCell
                                             className={classes.cell}
                                             component="th"
                                             scope="row"
                                             style={{ width: '46%' }}
                                         >
-                                            Małgorzata Pilarczyk
+                                            {child.firstname} {child.lastname}
                                         </TableCell>
-                                        <TableCell className={classes.cell}>3 lata</TableCell>
+                                        <TableCell className={classes.cell}>
+                                            {child.age} {t('years_1')}
+                                        </TableCell>
                                         <TableCell className={classes.iconCell} align="right">
-                                            <Tooltip title={editIconTooltip}>
-                                                <IconButton className={classes.button} aria-label="edit child">
-                                                    <EditIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title={resultsIconTooltip}>
+                                            <Tooltip title={t('test-results.button-icon-results-tooltip').toString()}>
                                                 <IconButton className={classes.button} aria-label="view results">
                                                     <InsertChartIcon />
                                                 </IconButton>

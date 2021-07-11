@@ -3,9 +3,30 @@ import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import Tooltip from '@material-ui/core/Tooltip';
 
+export type AssessmentType = 'PP' | 'PK';
+
+export const assessmentParts: AssessmentPart[] = [
+    {
+        type: 'PP',
+        assessmentName: 'add-results-page.first-assessment',
+        assessmentShortName: 'test-results.first-measurement',
+    },
+    {
+        type: 'PK',
+        assessmentName: 'add-results-page.last-assessment',
+        assessmentShortName: 'test-results.last-measurement',
+    },
+];
+
+export type AssessmentPart = {
+    type: AssessmentType;
+    assessmentName: string;
+    assessmentShortName: string;
+};
+
 interface Props {
-    value: string;
-    onChange: (value: string) => void;
+    value: AssessmentPart;
+    onChange: (value: AssessmentPart) => void;
 }
 
 export function TestToggleButton({ value, onChange }: Props) {
@@ -25,24 +46,20 @@ export function TestToggleButton({ value, onChange }: Props) {
                     }
                 }}
             >
-                <ToggleButton
-                    className={classes.ToggleButtonStyle}
-                    value={'add-results-page.first-assessment'}
-                    aria-label="left aligned"
-                >
-                    <Tooltip title={t('add-results-page.first-assessment').toString()}>
-                        <div className={classes.ToggleButtonContentStyle}>{t('test-results.first-measurement')}</div>
-                    </Tooltip>
-                </ToggleButton>
-                <ToggleButton
-                    className={classes.ToggleButtonStyle}
-                    value={'add-results-page.last-assessment'}
-                    aria-label="right aligned"
-                >
-                    <Tooltip title={t('add-results-page.last-assessment').toString()}>
-                        <div className={classes.ToggleButtonContentStyle}>{t('test-results.last-measurement')}</div>
-                    </Tooltip>
-                </ToggleButton>
+                {assessmentParts.map((assessmentPart) => (
+                    <ToggleButton
+                        key={assessmentPart.type}
+                        className={classes.ToggleButtonStyle}
+                        value={assessmentPart}
+                        aria-label="left aligned"
+                    >
+                        <Tooltip title={t(assessmentPart.assessmentName).toString()}>
+                            <div className={classes.ToggleButtonContentStyle}>
+                                {t(assessmentPart.assessmentShortName)}
+                            </div>
+                        </Tooltip>
+                    </ToggleButton>
+                ))}
             </ToggleButtonGroup>
         </Box>
     );

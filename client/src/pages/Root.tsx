@@ -9,6 +9,7 @@ import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 import { CookieModal } from '../components/CookieModal/CookieModal';
+import TestResultLoadingPage from './TestResultsPage/TestResultLoadingPage';
 
 const LoginPage = React.lazy(() => import('./LoginPage/LoginPage'));
 const RegistrationPage = React.lazy(() => import('./RegistrationPage/RegistrationPage'));
@@ -79,7 +80,12 @@ export function Root() {
                             <Route path={['/admin', '/parent', '/instructor']}>
                                 <AppWrapper>
                                     <Switch>
-                                        <Route exact path="/admin" component={TestResultsPage} />
+                                        <Route exact path="/admin" component={TestResultLoadingPage} />
+                                        <Route
+                                            exact
+                                            path="/admin/:assessmentId/:assessmentType"
+                                            component={TestResultsPage}
+                                        />
                                         <Route path="/admin/users" component={UsersPage} />
                                         <Route path="/admin/parent/:id" component={ParentProfilePage} />
                                         <Route path="/admin/agreements" component={AdminAgreementsPageContainer} />
@@ -108,6 +114,7 @@ export function Root() {
                                         <Route path="/admin/keycodes" component={AdminCodesPage} />
                                         <Route path="/admin/instructors" component={AdminInstructorsPage} />
                                         <Route path="/admin/settings" component={AdminSettingsPage} />
+                                        <Route path="/admin/child/:childId/:category" component={ChildResultsPage} />
                                         <Route
                                             exact
                                             path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"

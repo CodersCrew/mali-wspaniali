@@ -7,43 +7,59 @@ import {
     TableHead,
     TableRow,
     Paper,
+    Collapse,
     TablePagination,
     makeStyles,
     Theme,
     createStyles,
     IconButton,
+    Tooltip,
 } from '@material-ui/core';
 import { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import { TestResultsTableRow } from './TestResultsTableRow';
-import { Kindergarten } from '../../../graphql/types';
-import ArrowedCell from '../../../components/ArrowedCell';
+import { BaseChildInfo, KindergartenWithChildren } from '../../../graphql/types';
+import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
+import { AssessmentType } from '../TestToggleButton';
+import { Input } from '../../../components/ChildForm/Input';
+import { getMeasurementResult } from '../../../utils/getMeasurementResult';
 
 const RESULT_CELL_NAME = 'resultCellName';
 const KINDERGARTEN_CELL_NAME = 'kindergartenCellName';
 
 interface Props {
-    kindergartens: Kindergarten[];
+    assessmentType: AssessmentType;
+    kindergartens: KindergartenWithChildren[];
     searchedValue: string;
     onSearchChange: (value: string) => void;
 }
 
-export const TestResultsTable = ({ kindergartens, searchedValue, onSearchChange }: Props) => {
+export const TestResultsTable = ({ assessmentType, kindergartens, searchedValue, onSearchChange }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const [page, setPage] = useState(0);
+    const [searchOpened, setSearchOpened] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [selectedSortableCell, setSelectedSortableCell] = useState<string | undefined>(undefined);
-    const resultCell = {
-        name: RESULT_CELL_NAME,
-        changeActive: () =>
-            setSelectedSortableCell((prev) => (prev !== RESULT_CELL_NAME ? RESULT_CELL_NAME : undefined)),
-    };
-    const kindergartenCell = {
-        name: KINDERGARTEN_CELL_NAME,
-        changeActive: () =>
-            setSelectedSortableCell((prev) => (prev !== KINDERGARTEN_CELL_NAME ? KINDERGARTEN_CELL_NAME : undefined)),
-    };
+    const [selectedKindergartens, selectedSortableCell, cellParameters] = useArrowedCell(kindergartens);
+
+    const searchChildren = (child: BaseChildInfo) =>
+        `${child.firstname} ${child.lastname}`.toLocaleLowerCase().includes(searchedValue.toLocaleLowerCase());
+
+    const displayedKindergartens = [
+        ...selectedKindergartens
+            .map((k) => ({
+                ...k.kindergarten,
+                children: k.kindergarten.children.filter(searchChildren),
+            }))
+            .filter((k) => k.children.length > 0),
+    ];
+    const resultCell = cellParameters(RESULT_CELL_NAME, (c, b) => c.kindergarten.name > b.kindergarten.name);
+    const kindergartenCell = cellParameters(KINDERGARTEN_CELL_NAME, (c, b) => {
+        const getResult = (kindergarten: KindergartenWithChildren) =>
+            getMeasurementResult(assessmentType, kindergarten);
+
+        return getResult(c) / c.kindergarten.maxResultCount > getResult(b) / c.kindergarten.maxResultCount;
+    });
 
     return (
         <TableContainer component={Paper}>
@@ -62,18 +78,44 @@ export const TestResultsTable = ({ kindergartens, searchedValue, onSearchChange 
                             onClick={resultCell.changeActive}
                         />
                         <TableCell className={classes.cell}>
-                            <IconButton className={classes.searchIconBtn}>
-                                <SearchIcon className={classes.icon} />
-                            </IconButton>
+                            <Tooltip title={t('add-test-view.basic-information-form.search').toString()}>
+                                <IconButton
+                                    className={classes.searchIconBtn}
+                                    onClick={() => setSearchOpened(!searchOpened)}
+                                >
+                                    <SearchIcon className={classes.icon} />
+                                </IconButton>
+                            </Tooltip>
                         </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
+                    <TableRow>
+                        <TableCell colSpan={4} className={classes.searchCell}>
+                            <Collapse in={searchOpened} timeout="auto" unmountOnExit>
+                                <div className={classes.searchInput}>
+                                    <Input
+                                        label={t('test-results.filter-children-label')}
+                                        value={searchedValue}
+                                        onChange={(name, value) => onSearchChange(value)}
+                                        name="search"
+                                        error="error"
+                                    />
+                                </div>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+                <TableBody>
                     {(rowsPerPage > 0
-                        ? kindergartens.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : kindergartens
+                        ? displayedKindergartens.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : displayedKindergartens
                     ).map((kindergarten) => (
-                        <TestResultsTableRow key={kindergarten._id} kindergarten={kindergarten} />
+                        <TestResultsTableRow
+                            key={kindergarten._id}
+                            kindergarten={{ kindergarten }}
+                            assessmentType={assessmentType}
+                        />
                     ))}
                 </TableBody>
             </Table>
@@ -81,7 +123,7 @@ export const TestResultsTable = ({ kindergartens, searchedValue, onSearchChange 
                 rowsPerPageOptions={countRowsPerPageOptions()}
                 component="div"
                 labelRowsPerPage={t('test-results.rows-number')}
-                count={kindergartens.length}
+                count={displayedKindergartens.length}
                 page={page}
                 onChangePage={handleChangePage}
                 rowsPerPage={rowsPerPage}
@@ -119,6 +161,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         cell: {
             padding: theme.spacing(0),
+        },
+        searchCell: {
+            borderBottom: 'none',
+            padding: 0,
+        },
+        searchInput: {
+            margin: theme.spacing(2),
         },
     }),
 );

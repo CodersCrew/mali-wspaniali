@@ -376,7 +376,8 @@
         "last-measurement": "LM",
         "publish-result": "Publish result",
         "download-result": "Download result",
-        "status-result": "result status"
+        "status-result": "result status",
+        "filter-children-label": "Search by children"
     },
     "kindergarten-modal": {
         "city": "City",
