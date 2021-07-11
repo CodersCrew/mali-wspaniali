@@ -5,9 +5,9 @@ import { Formik } from 'formik';
 import { BasicModal } from '../Modal/BasicModal';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildModalProps } from './ChildModalTypes';
-import {Child, UpdatedChildInput} from '../../graphql/types';
+import { Child, UpdatedChildInput } from '../../graphql/types';
 import { ChangeKindergartenModal } from '../ChildForm/ChangeKindergartenForm';
-import {normalizeChild} from './utils';
+import { normalizeChild } from './utils';
 
 interface TinitialObjestType {
     firstname: string;
@@ -19,7 +19,6 @@ interface TinitialObjestType {
     birthYear: number;
     birthQuarter: number;
 }
-
 
 const normalizeTransformKindergarten = (child: Child) => {
     const kindergarden = child.kindergarten._id;
@@ -48,23 +47,36 @@ const AdminSettingsEditModal = ({
 
     const classes = useStyles();
 
+    const listOfChildToUpdate = (
+        listOfChildFromFormik: TinitialObjestType[],
+        listOfChildFromInitialState: TinitialObjestType[],
+    ): TinitialObjestType[] => {
+        return listOfChildFromFormik.filter(
+            (child, index): boolean => child.kindergarden !== listOfChildFromInitialState[index].kindergarden,
+        );
+    };
+
     return (
         <Formik
             enableReinitialize
             initialValues={initialValues}
             onSubmit={(values) => {
-                makeDecision({ accepted: true, childDetailsList:  values.childData?.map(child => {
-                    return {
-                        ...normalizeChild({
-                            firstname: child.firstname,
-                            lastname: child.lastname,
-                            sex: child.sex,
-                            'birth-date': child.birthYear?.toString(),
-                            'birth-quarter': child.birthQuarter?.toString(),
-                            kindergarten: child.kindergarden,
-                        }), childId: child.id
-                    };
-                })});
+                makeDecision({
+                    accepted: true,
+                    childDetailsList: listOfChildToUpdate(values.childData, initialValues.childData)?.map((child) => {
+                        return {
+                            ...normalizeChild({
+                                firstname: child.firstname,
+                                lastname: child.lastname,
+                                sex: child.sex,
+                                'birth-date': child.birthYear?.toString(),
+                                'birth-quarter': child.birthQuarter?.toString(),
+                                kindergarten: child.kindergarden,
+                            }),
+                            childId: child.id,
+                        };
+                    }),
+                });
             }}
         >
             {(formik) => (
