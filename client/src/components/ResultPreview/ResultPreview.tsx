@@ -14,7 +14,7 @@ export function ResultPreview(props: { resultId: string }) {
 
     if (!result) return null;
 
-    if (!isFirstMeasurementDone() || !isLastMeasurementDone()) return <EmptyView childId={result.child._id} />;
+    if (!isFirstMeasurementDone() && !isLastMeasurementDone()) return <EmptyView childId={result.child._id} />;
 
     return (
         <ResultContext.Provider value={result}>
