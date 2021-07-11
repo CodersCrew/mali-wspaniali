@@ -936,7 +936,11 @@
             "email": "Adres e-mail",
             "kindergarten-count": "Liczba przedszkoli",
             "tooltip": "Przydziel do przedszkola",
-            "kindergartens-count": "{{count}} przedszkola"
+            "kindergartens-count": "{{count}} przedszkola",
+            "unassign-dialog-title": "Odznaczono przedszkole",
+            "unassign-kindergarten-question": "Czy na pewno chcesz odznaczyć wybrane przedszkole od tego instruktora?",
+            "unassign": "odznacz",
+            "unassign-kindergarten": "Odznaczono przedszkole {{name}} od instruktora {{mail}}"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",
@@ -944,7 +948,8 @@
             "unassigned-kindergartens": "Nieprzydzielone przedszkola: {{count}}"
         },
         "snackbars": {
-            "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola."
+            "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola.",
+            "assessment-updated": "Przydzielono przedszkola do instruktora {{name}}"
         },
         "modal": {
             "cancel": "Anuluj",
