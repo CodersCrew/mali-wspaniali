@@ -119,7 +119,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                                                     });
 
                                                     openSnackbar({
-                                                        text: t(`${T_PREFIX}.snackbar-message`, {
+                                                        text: t(`${T_PREFIX}.unassign-kindergarten`, {
                                                             name: kindergarten.name,
                                                             mail: props.relation.instructor.mail,
                                                         }),
