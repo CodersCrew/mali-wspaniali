@@ -390,8 +390,6 @@
             "result-details": {
                 "title": "Szczegóły wyniku",
                 "child-result": "Wynik dziecka: ",
-                "possible-points-title": "Liczba punktów:",
-                "possible-points": "{{min}}/{{max}} możliwych",
                 "better-results-title": "Znaczenie wyniku na tle całej grupy wiekowej:",
                 "better-results": "{{count}} dzieci uzyskało wynik równy lub lepszy od Twojego dziecka.",
                 "next-level": {

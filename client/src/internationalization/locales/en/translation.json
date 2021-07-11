@@ -354,8 +354,6 @@
             "result-details": {
                 "title": "Result details",
                 "child-result": "Child's result:",
-                "possible-points-title": "Number of points:",
-                "possible-points": "{{min}}/{{max}} possible",
                 "better-results-title": "Meaning of the result in comparison to the whole age group:",
                 "better-results": "{{count}} children were equal to or better than your child.",
                 "next-level": {

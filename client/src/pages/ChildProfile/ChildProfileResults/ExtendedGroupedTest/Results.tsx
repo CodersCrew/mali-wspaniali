@@ -27,22 +27,7 @@ export interface Props {
 }
 
 export function Results(props: Props) {
-    const {
-        result,
-        resultStart,
-        hasScoreRangeLabels,
-        sex,
-        rangeMin = 0,
-        range39 = 0,
-        range59 = 0,
-        rangeMax = 0,
-        firstName,
-        minScale,
-        maxScale,
-        scale39,
-        scale49,
-        scale59,
-    } = props.resultsData;
+    const { result, resultStart, sex, firstName, minScale, maxScale, scale39, scale49, scale59 } = props.resultsData;
 
     const range = minScale - maxScale;
     const calculatePercent = (value: number) => {
@@ -55,16 +40,6 @@ export function Results(props: Props) {
     const rangeGreen = calculatePercent(scale59 - maxScale);
     const resultMarkShift = calculatePercent(minScale - result);
     const resultStartShift = calculatePercent(minScale - resultStart);
-
-    const ranges: Record<string, number> = {
-        shiftFirstScoreRange: rangeRed / 2 - 5,
-        shiftSecondScoreRange: rangeRed + (rangeYellow + rangeLightGreen) / 2 - 5,
-        shiftThirdScoreRange: rangeRed + rangeYellow + rangeLightGreen + rangeGreen / 2 - 5,
-        rangeMin,
-        range39,
-        range59,
-        rangeMax,
-    };
 
     const classes = useStyles({
         resultMarkShift,
@@ -89,12 +64,11 @@ export function Results(props: Props) {
             </div>
             <HorizontalLine />
             <ValueLabel label={`${minScale} ${props.unit}`} x={0} width="50" />
-            <ValueLabel label={`${scale39} ${props.unit}`} x={rangeRed} width="50" />
-            <ValueLabel label={`${scale59} ${props.unit}`} x={rangeRed + rangeYellow + rangeLightGreen} width="50" />
+            <ValueLabel label={scale39.toString()} x={rangeRed} width="50" />
+            <ValueLabel label={scale59.toString()} x={rangeRed + rangeYellow + rangeLightGreen} width="50" />
             <ValueLabel label={`${maxScale} ${props.unit}`} x={100} width="55" />
             {props.displayHistoricalResults && <HistoricalLine x={resultStartShift} />}
             <CurrentResultLine sex={sex} x={resultMarkShift} firstName={firstName} />
-            {hasScoreRangeLabels && <ScoreRangeLabels ranges={ranges} />}
         </div>
     );
 }
@@ -196,36 +170,6 @@ function ValueLabel(props: { x: number; label: string; width: string }) {
                 </text>
             </svg>
         </div>
-    );
-}
-
-function ScoreRangeLabels({ ranges }: { ranges: Record<string, number> }) {
-    const classes = useStyles({});
-
-    return (
-        <div className={classes.scoring}>
-            <svg width="100%" height="30" viewBox="0 0 100% 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <RangeLegend x={ranges.shiftFirstScoreRange} label={`(${ranges.rangeMin}-${ranges.range39} pkt)`} />
-                <RangeLegend
-                    x={ranges.shiftSecondScoreRange}
-                    label={` (${ranges.range39! + 1}-${ranges.range59} pkt)`}
-                />
-                <RangeLegend
-                    x={ranges.shiftThirdScoreRange}
-                    label={` (${ranges.range59! + 1}-${ranges.rangeMax} pkt)`}
-                />
-            </svg>
-        </div>
-    );
-}
-
-function RangeLegend(props: { x: number; label: string }) {
-    const classes = useStyles({});
-
-    return (
-        <text x={`${props.x}%`} y="20" fill="black" className={classes.label}>
-            {props.label}
-        </text>
     );
 }
 
