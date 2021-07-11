@@ -72,7 +72,9 @@ export const useArrowedCell = <T,>(rowElements: T[]) => {
         changeActive: () => {
             setSelectedSortableCell((prev) => (prev !== cellValueName ? cellValueName : undefined));
 
-            const compare = (val: 1 | -1) => (c: T, b: T) => (compareExpression(c, b) ? val : -val);
+            const compare = (val: 1 | -1) => {
+                return (c: T, b: T) => (compareExpression(c, b) ? val : -val);
+            };
 
             if (selectedSortableCell === cellValueName) setElements(elements.sort(compare(-1)));
             if (selectedSortableCell !== cellValueName) setElements(elements.sort(compare(1)));

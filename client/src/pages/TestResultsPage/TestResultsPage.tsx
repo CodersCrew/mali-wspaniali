@@ -15,7 +15,6 @@ import { SelectList } from '../../components/SelectList';
 import { AssessmentPart, assessmentParts, AssessmentType, TestToggleButton } from './TestToggleButton';
 import { ButtonSecondary } from '../../components/Button';
 import { Assessment } from '../../graphql/types';
-// import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 export default function TestResultsPage() {
     const history = useHistory<Assessment[]>();
