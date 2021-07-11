@@ -58,9 +58,5 @@ const useStyles = makeStyles((theme: Theme) =>
                 maxWidth: '100vw',
             },
         },
-        link: {
-            color: theme.palette.secondary.main,
-            textDecoration: 'none',
-        },
     }),
 );
