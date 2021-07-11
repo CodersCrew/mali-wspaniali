@@ -24,7 +24,7 @@ export function GroupedTests(props: {
                         [classes.expansionPanelSummaryExpanded]: props.isExpanded,
                     })}
                 >
-                    <SummarisedGroupedTest test={props.result} onClose={props.onToggle} isExpanded={props.isExpanded} />
+                    <SummarisedGroupedTest test={props.result} onClick={props.onToggle} isExpanded={props.isExpanded} />
                 </AccordionSummary>
                 <AccordionDetails className={classes.expansionPanelDetails}>
                     <ResultPreview resultId={props.resultId} />
