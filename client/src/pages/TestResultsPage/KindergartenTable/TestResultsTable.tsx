@@ -53,13 +53,16 @@ export const TestResultsTable = ({ assessmentType, kindergartens, searchedValue,
             }))
             .filter((k) => k.children.length > 0),
     ];
-    const resultCell = cellParameters(RESULT_CELL_NAME, (c, b) => c.kindergarten.name > b.kindergarten.name);
-    const kindergartenCell = cellParameters(KINDERGARTEN_CELL_NAME, (c, b) => {
+    const resultCell = cellParameters(RESULT_CELL_NAME, (c, b) => {
         const getResult = (kindergarten: KindergartenWithChildren) =>
             getMeasurementResult(assessmentType, kindergarten);
 
-        return getResult(c) / c.kindergarten.maxResultCount > getResult(b) / c.kindergarten.maxResultCount;
+        return getResult(c) / c.kindergarten.maxResultCount < getResult(b) / c.kindergarten.maxResultCount;
     });
+    const kindergartenCell = cellParameters(
+        KINDERGARTEN_CELL_NAME,
+        (c, b) => c.kindergarten.name < b.kindergarten.name,
+    );
 
     return (
         <TableContainer component={Paper}>
