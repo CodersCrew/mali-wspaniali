@@ -69,7 +69,7 @@ export const TestResultsTable = ({ assessmentType, kindergartens, searchedValue,
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow className={classes.tableRow}>
-                        <TableCell />
+                        <TableCell style={{ width: '82px' }} />
                         <ArrowedCell
                             text={t('test-results.kindergarten-name')}
                             isSelected={selectedSortableCell === kindergartenCell.name}
