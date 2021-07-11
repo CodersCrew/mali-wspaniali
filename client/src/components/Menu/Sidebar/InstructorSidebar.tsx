@@ -1,4 +1,4 @@
-import { makeStyles, createStyles, List, Grid, Divider } from '@material-ui/core';
+import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Me } from '../../../graphql/types';
@@ -32,6 +32,7 @@ export const InstructorSidebar = ({ onClick, user, active }: Props) => {
     const BlogItemFactory = getBlogMenuItemFactory({ active, t });
 
     const MainPageItem = ItemFactory.create({ name: 'add-results' });
+    const AgreementsItem = ItemFactory.create({ name: 'agreements' });
     const SettingsItem = ItemFactory.create({ name: 'settings' });
     const LogoutItem = ItemFactory.create({ name: 'logout' });
     const BlogItem = BlogItemFactory.create({ active, t });
@@ -50,7 +51,7 @@ export const InstructorSidebar = ({ onClick, user, active }: Props) => {
             <Grid item>
                 <List>
                     <SingleItem item={MainPageItem} onClick={onClick} />
-                    <Divider />
+                    <SingleItem item={AgreementsItem} onClick={onClick} />
                     <CollapsibleList mainItem={BlogItem.mainItem} subItems={BlogItem.subItems} onClick={onClick} />
                     <SingleItem item={NotificationsItem} onClick={onClick} />
                     <SingleItem item={SettingsItem} onClick={onClick} />

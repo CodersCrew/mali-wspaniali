@@ -146,6 +146,7 @@ const useStyles = makeStyles((theme) =>
             flex: '1 1 auto',
             height: 0,
             overflowY: 'auto',
+            overflowX: 'hidden',
             paddingBottom: theme.spacing(10),
         },
         container: {

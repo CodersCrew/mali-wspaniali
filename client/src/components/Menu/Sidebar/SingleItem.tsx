@@ -8,6 +8,7 @@ export interface SingleItemProps {
     link?: string;
     rightIcon?: React.ReactNode;
     active?: boolean;
+    preload?: () => void;
 }
 
 interface Props {
@@ -29,6 +30,7 @@ export function SingleItem({ item, leftPadding, grayed, onClick }: Props) {
             button
             key={item.name}
             onClick={() => onClick(item.link)}
+            onMouseOver={() => item.preload && item.preload()}
             classes={{
                 button: clsx({ [classes.button]: true, [classes.grayed]: grayed, [classes.activeButton]: item.active }),
                 gutters: classes.rootButton,

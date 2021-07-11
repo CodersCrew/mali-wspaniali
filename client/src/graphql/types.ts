@@ -104,6 +104,11 @@ export interface AssessmentParam {
     middleStageLimit: number;
     goodStageLimit: number;
     veryGoodStageLimit: number;
+    minScale: number;
+    scale39: number;
+    scale49: number;
+    scale59: number;
+    maxScale: number;
 }
 
 export interface Child {
@@ -114,6 +119,7 @@ export interface Child {
     kindergarten: Kindergarten;
     birthYear: number;
     birthQuarter: number;
+    age?: number;
     results: AssessmentResult[];
     parent: Parent;
     currentParams?: {
@@ -247,6 +253,7 @@ export interface AssessmentResult {
         throw?: AssessmentParam;
         jump?: AssessmentParam;
     };
+    child: Child;
     firstMeasurementNote: string;
     lastMeasurementNote: string;
     firstMeasurementRunResult: number;

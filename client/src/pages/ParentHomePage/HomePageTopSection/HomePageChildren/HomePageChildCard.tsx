@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         justifyContent: 'flex-end',
         padding: 12,
-        // height: '100%',
 
         '&:hover': {
             cursor: 'pointer',

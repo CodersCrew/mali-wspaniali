@@ -1,54 +1,47 @@
-import { makeStyles, Box, createStyles, Theme, Typography } from '@material-ui/core';
+import { makeStyles, Box, createStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CircleChart } from '../../../../components/CircleChart';
-import { getResultColorAndLabel } from './calculateResult';
-import { MAX_POINTS_FOR_TEST } from './constants';
 import { white } from '../../../../colors';
-import { MeasurementProps } from './types';
+import { Result } from '../../../../components/ResultPreview/Result';
 
-interface Props {
-    measurmentProps: MeasurementProps;
-}
-
-export const DetailsMeasurement = ({ measurmentProps }: Props) => {
-    const { valueInUnitOfMeasure, valueInPoints, unitOfMeasure, translationKey } = measurmentProps;
+export function DetailsMeasurement(props: { result: Result }) {
     const { t } = useTranslation();
-    const { color, key } = getResultColorAndLabel(valueInPoints, MAX_POINTS_FOR_TEST);
 
-    const classes = useStyles({ color });
+    const chartDetails = props.result.getChartDetails();
+    const classes = useStyles({ color: chartDetails.color });
 
     return (
         <div>
             <Box width="110px" height="110px">
                 <CircleChart
-                    color={color}
-                    value={valueInPoints}
-                    maxValue={MAX_POINTS_FOR_TEST}
-                    label={String(valueInUnitOfMeasure)}
-                    labelSuffix={unitOfMeasure}
+                    color={chartDetails.color}
+                    value={props.result.getChartValue()}
+                    maxValue={props.result.getMaxValue() - props.result.getMinValue()}
+                    label={String(props.result.getValue())}
+                    labelSuffix={props.result.unit}
                 />
             </Box>
             <Box mt={2} mb={1}>
-                <Typography variant="h4">{t(`child-profile.tests-in-block.${translationKey}`)}</Typography>
+                <Typography variant="h4">{t(`child-profile.tests-in-block.${props.result.translationKey}`)}</Typography>
             </Box>
             <Typography variant="body2" className={classes.description}>
-                {t(`child-profile.test-description.${translationKey}`)}
+                {t(`child-profile.test-description.${props.result.translationKey}`)}
             </Typography>
             <Box mb={1}>
                 <Typography variant="subtitle1">{t('child-profile.result-level')}</Typography>
             </Box>
             <Typography variant="subtitle2" className={classes.level}>
-                {t(`child-profile.result-levels.${key}`)}
+                {t(`child-profile.result-levels.${chartDetails.key}`)}
             </Typography>
             <Typography variant="subtitle1">{t('child-profile.received-points')}:</Typography>
             <div className={classes.points}>
-                {valueInPoints} {t('child-profile.pts')}
+                {Math.round(chartDetails.valueInPoints)} {t('child-profile.pts')}
             </div>
         </div>
     );
-};
+}
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         points: {
             fontFamily: 'Montserrat',
