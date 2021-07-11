@@ -1,10 +1,10 @@
-import { makeStyles, Box, createStyles, Typography } from '@material-ui/core';
+import { makeStyles, Box, createStyles, Typography, Link, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CircleChart } from '../../../../components/CircleChart';
 import { white } from '../../../../colors';
 import { Result } from '../../../../components/ResultPreview/Result';
 
-export function DetailsMeasurement(props: { result: Result }) {
+export function DetailsMeasurement(props: { result: Result; onReadMoreClick: () => void }) {
     const { t } = useTranslation();
 
     const chartDetails = props.result.getChartDetails();
@@ -35,13 +35,18 @@ export function DetailsMeasurement(props: { result: Result }) {
             </Typography>
             <Typography variant="subtitle1">{t('child-profile.received-points')}:</Typography>
             <div className={classes.points}>
-                {Math.round(chartDetails.valueInPoints)} {t('child-profile.pts')}
+                {Math.round(chartDetails.valueInPoints)}/{chartDetails.maxValueInPoints} {t('child-profile.pts')}
             </div>
+            <Box width="80%" mt={2}>
+                <Link className={classes.link} onClick={props.onReadMoreClick}>
+                    {t('child-profile.count-points-read-more')}
+                </Link>
+            </Box>
         </div>
     );
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         points: {
             fontFamily: 'Montserrat',
@@ -67,6 +72,10 @@ const useStyles = makeStyles(() =>
             marginLeft: 'auto',
             marginRight: 'auto',
             width: '100%',
+        },
+        link: {
+            color: theme.palette.text.secondary,
+            cursor: 'pointer',
         },
     }),
 );
