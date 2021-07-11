@@ -347,6 +347,7 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
+        "count-points-read-more": "Dowiedz się jak obliczamy punkty",
         "final-test-title": "Wyniki prób wchodzących w skład pomiaru końcowego",
         "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
@@ -397,6 +398,14 @@
                     "text": "{{nextLevel}} - od  {{value}}{{unit}} (zabrakło tylko {{valueToNextLevel}}{{unit}}!)"
                 }
             }
+        },
+        "results-empty-view": {
+            "title": "Brak wyników",
+            "empty-results-reason": "Wyniki nie zostały jeszcze wprowadzone z jednego z trzech powodów:",
+            "reason-1": "1. Pomiar początkowy jeszcze się nie odbył lub wyniki są w opracowaniu. ",
+            "reason-2": "2. Twoje dziecko było nieobecne w dniu przeprowadzania pomiaru początkowego lub z przyczyn losowych nie było w stanie wziąć udziału w pomiarze.",
+            "reason-3": "3. Twoje dziecko dołączyło do programu Mali Wspaniali po odbyciu pierwszego pomiaru. Kolejny pomiar sprawności odbędzie się na wiosnę.",
+            "read-more": "Aby dowiedzieć się, jak wygląda test sprawności, odwiedź zakładkę <span>Informacje o testach</span>"
         },
         "tests-informations": {
             "about": {

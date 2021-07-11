@@ -1,7 +1,6 @@
 import { createStyles, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../Modal/BasicModal';
-import { ChildInput } from '../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../utils/openDialog';
 import { DetailsMeasurement } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/DetailsMeasurement';
 import { Results } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
@@ -10,7 +9,7 @@ import { Result } from '../Result';
 
 const T_DETAILS_PREFIX = 'child-profile.details-modal';
 
-function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ child: ChildInput }>) {
+function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMoreClicked: boolean }>) {
     const { t } = useTranslation();
     const device = useIsDevice();
 
@@ -60,8 +59,11 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ child: C
             >
                 <Box minWidth="176" px={2} pb={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
                     <Box display="flex" flexDirection="column" justifyContent="space-between">
-                        <DetailsMeasurement result={props.resultWrapper} />
-                        <NextMeasurement />
+                        <DetailsMeasurement
+                            result={props.resultWrapper}
+                            onReadMoreClick={() => props.makeDecision({ accepted: true, readMoreClicked: true })}
+                        />
+                        {props.resultWrapper.isLastMeasurementFinished() && <NextMeasurement />}
                     </Box>
                 </Box>
                 <Box display="flex" flex="1" flexDirection="column" py={2}>
@@ -119,7 +121,7 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ child: C
 }
 
 export function openDetailsModal(resultWrapper: Result) {
-    return openDialog<{ resultWrapper: Result }>(DetailsModal, { resultWrapper });
+    return openDialog<{ resultWrapper: Result }, { readMoreClicked: boolean }>(DetailsModal, { resultWrapper });
 }
 
 interface NextFeatureLevelProps {

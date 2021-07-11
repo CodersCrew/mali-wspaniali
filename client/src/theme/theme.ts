@@ -86,7 +86,7 @@ export const theme: ThemeObject = {
         subtitle1: {
             fontSize: '16px',
             lineHeight: '20px',
-            fontWeight: 400,
+            fontWeight: 500,
             letterSpacing: '0.15px',
         },
         subtitle2: {

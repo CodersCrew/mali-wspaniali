@@ -23,6 +23,9 @@ export const GET_ASSESSMENT_RESULTS = gql`
             assessment {
                 _id
                 title
+                status
+                firstMeasurementStatus
+                lastMeasurementStatus
             }
             child {
                 _id

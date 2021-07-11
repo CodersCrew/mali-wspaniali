@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStyles, Theme, Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { CircleChart } from '../../../../components/CircleChart';
 import { white } from '../../../../colors';
 import { ButtonSecondary } from '../../../../components/Button';
@@ -19,8 +20,11 @@ export function Measurement(props: Props) {
     const result = React.useContext(ResultContext);
     const { t } = useTranslation();
     const classes = useStyles();
+    const history = useHistory();
 
     if (!result) return null;
+
+    const childId = result.child._id;
 
     const resultWrapper = new Result({
         result,
@@ -59,7 +63,8 @@ export function Measurement(props: Props) {
                 {t('child-profile.received-points')}:
             </Typography>
             <div className={classes.points} style={{ backgroundColor: chartDetails.color }}>
-                {Math.round(chartDetails.valueInPoints)} {t('child-profile.pts')}
+                {Math.round(chartDetails.valueInPoints)}/{Math.round(chartDetails.maxValueInPoints)}
+                {t('child-profile.pts')}
             </div>
             <ButtonSecondary
                 variant="text"
@@ -72,7 +77,11 @@ export function Measurement(props: Props) {
     );
 
     function onDetailsButtonClick() {
-        openDetailsModal(resultWrapper);
+        openDetailsModal(resultWrapper).then(({ decision }) => {
+            if (decision && decision.accepted && decision.readMoreClicked) {
+                history.push(`/parent/child/${childId}/tests-information`);
+            }
+        });
     }
 }
 
