@@ -115,6 +115,7 @@ export interface Child {
     birthYear: number;
     birthQuarter: number;
     results: AssessmentResult[];
+    parent: Parent;
     currentParams?: {
         run?: AssessmentParam;
         pendelumRun?: AssessmentParam;
@@ -150,6 +151,13 @@ export interface KindergartenWithUsers {
     users: User[];
 }
 
+export interface KindergartenWithChildrens {
+    _id: string;
+    name: string;
+    number: number;
+    children: Child[];
+}
+
 export interface TestResult {
     _id: string;
     rootResultId: string | null;
@@ -167,6 +175,15 @@ export interface TestResult {
         strengthCentimeters: number;
         strengthPoints: number;
     };
+}
+
+export interface Parent {
+    _id: string;
+    firstname: string;
+    lastname: string;
+    mail: string;
+    children: Child[];
+    agreements: Agreement[];
 }
 
 export interface Agreement {

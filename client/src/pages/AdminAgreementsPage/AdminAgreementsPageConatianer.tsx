@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
-import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';
-import { KINDERGARTEN_WITH_USERS } from '../../graphql/kindergartensRepository';
+import { Kindergarten, KindergartenWithChildrens } from '../../graphql/types';
+import { KINDERGARTEN_WITH_CHILDRENS } from '../../graphql/kindergartensRepository';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
@@ -30,8 +30,8 @@ export default function AdminAgreementsPageContainer() {
     const { kindergartenList, isKindergartenListLoading } = useKindergartens();
 
     const [getSpecificKindergartens, { data: kindergartens, loading: isKindergartenLoading }] = useLazyQuery<{
-        kindergartenWithUsers: KindergartenWithUsers[];
-    }>(KINDERGARTEN_WITH_USERS);
+        kindergartens: KindergartenWithChildrens[];
+    }>(KINDERGARTEN_WITH_CHILDRENS);
 
     const agreementsStatusFilterQuery = useQuery<GetAgreementsStatusFilterQuery>(GET_AGREEMENTS_STATUS_FILTER);
     const { agreementsStatusFilter } = agreementsStatusFilterQuery.data!;
@@ -67,7 +67,7 @@ export default function AdminAgreementsPageContainer() {
 
     return (
         <AdminAgreementsPage
-            kindergartens={mapWithFilters([...(kindergartens?.kindergartenWithUsers || [])])}
+            kindergartens={mapWithFilters([...(kindergartens?.kindergartens || [])])}
             assessments={assessmentsTitles?.data?.assessments}
             agreementsStatusFilter={agreementsStatusFilter}
             agreementsTypeFilter={agreementsTypeFilter}
@@ -104,10 +104,6 @@ function setAgreementFilter(type: string, value: string | string[]) {
         if (type === 'STATUS') {
             AgreementsTypeFilterMutations.setAgreementsStatusFilter(AgreementStatusFilters[value]);
         }
-        
-        // if (type === 'ASSESSMENT') {
-
-        // }
     }
 }
 
@@ -115,11 +111,11 @@ function sendFilterChanges() {
     console.log('sent');
 }
 
-function mapWithFilters(kindergartens: KindergartenWithUsers[]) {
+function mapWithFilters(kindergartens: KindergartenWithChildrens[]) {
     return mapWithSorting(kindergartens);
 }
 
-function mapWithSorting(kindergartens: KindergartenWithUsers[]) {
+function mapWithSorting(kindergartens: KindergartenWithChildrens[]) {
     const { id: sortBy } = agreementSortStatusVar();
 
     if (sortBy === AgreementSortStatus.BY_NAME_RISING.id) {

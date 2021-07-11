@@ -104,9 +104,6 @@ function ArrowedCell({ text, isUpward, isActive, onClick }: ArrowedCellProps) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         cellContainer: {
-            '&:nth-of-type(2)': {
-                width: '35%',
-            },
             '& span': {
                 display: 'flex',
                 alignItems: 'center',

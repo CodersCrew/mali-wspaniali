@@ -14,13 +14,12 @@ import {
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-import { KindergartenWithUsers, User } from '../../../graphql/types';
 import { ArrowTooltip } from '../../../components/Tooltip/ArrowTooltip';
-import { KindergartenAgreementsList, Parent } from './KindergartenAgreementsList';
-import { Status } from '../../../components/Icons/Status';
+import { KindergartenAgreementsList } from './KindergartenAgreementsList';
+import { KindergartenWithChildrens } from '../../../graphql/types';
 
 interface Props {
-    kindergarten: KindergartenWithUsers;
+    kindergarten: KindergartenWithChildrens;
     viewAgreement: AgreementResult;
     marketingAgreement: AgreementResult;
 }
@@ -30,8 +29,6 @@ interface AgreementResult {
     total: number;
 }
 
-type AgreementStatus = 'RECIEVED' | 'NOT_RECIEVED';
-
 export function ChildrenFromKindergartenList({ kindergarten, viewAgreement, marketingAgreement }: Props) {
     const [isOpen, setIsOpen] = useState(false);
     const classes = useStyles();
@@ -40,7 +37,7 @@ export function ChildrenFromKindergartenList({ kindergarten, viewAgreement, mark
         <>
             <TableRow key={kindergarten.name} classes={{ root: classes.rowContainer }}>
                 <TableCell size="small">
-                    {kindergarten.users.length > 0 && (
+                    {kindergarten.children.length > 0 && (
                         <IconButton aria-label="expand row" size="small" onClick={() => setIsOpen(!isOpen)}>
                             {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </IconButton>
@@ -49,7 +46,7 @@ export function ChildrenFromKindergartenList({ kindergarten, viewAgreement, mark
                 <TableCell classes={{ root: classes.root }} size="small">
                     <ArrowTooltip title={`${kindergarten.number}/${kindergarten.name}`}>
                         <span>
-                            {kindergarten.number}/{kindergarten.name.slice(0, 15)}
+                            {kindergarten.number} /{kindergarten.name}
                         </span>
                     </ArrowTooltip>
                 </TableCell>
@@ -59,16 +56,13 @@ export function ChildrenFromKindergartenList({ kindergarten, viewAgreement, mark
                 <TableCell classes={{ root: classes.root }} size="small">
                     <ProgressedCell value={marketingAgreement.value} total={marketingAgreement.total} />
                 </TableCell>
-                <TableCell classes={{ root: classes.statusCellRoot }} size="small">
-                    <StatusCell status={countStatus(viewAgreement, marketingAgreement)} />
-                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={isOpen}>
                         <Box margin={1} marginRight={11} marginLeft={11}>
                             <KindergartenAgreementsList
-                                parents={mapUsersToAgreemetList(kindergarten.users, kindergarten._id)}
+                                parents={accumulateChildrenToParents(kindergarten.children, kindergarten._id)}
                             />
                         </Box>
                     </Collapse>
@@ -82,6 +76,7 @@ interface ProgressedCellProps {
     value: number;
     total: number;
 }
+
 function ProgressedCell({ value, total }: ProgressedCellProps) {
     const classes = useStyles();
 
@@ -103,62 +98,29 @@ function ProgressedCell({ value, total }: ProgressedCellProps) {
     );
 }
 
-interface StatusCellProps {
-    status: 'RECIEVED' | 'NOT_RECIEVED';
-}
+// TO FIX: Issue with agreements view. (Agreements counter shows amount of total agreements/children, not parents)
+function accumulateChildrenToParents(users: any[], kindergartenId: string): any[] {
+    const parents = users.reduce((acc, child) => {
+        if (!child.parent) {
+            return { ...acc };
+        }
 
-function StatusCell({ status }: StatusCellProps) {
-    if (status === 'RECIEVED') return <Recieved />;
+        if(!acc[child.parent.mail]) {
+            return {
+                ...acc,
+                [child.parent.mail]: {
+                    __typename: child.parent.__typename,
+                    mail: child.parent.mail,
+                    agreements: child.parent.agreements,
+                    children: [child]
+                }
+            };
+        }
 
-    return <NotRecieved />;
-}
+        return { ...acc, ...acc[child.parent.mail].children.push(child) };
+    }, {});
 
-function Recieved() {
-    const classes = useStyles();
-
-    return (
-        <span className={classes.status}>
-            <span>
-                <Status success />
-            </span>
-            <span>Oddane</span>
-        </span>
-    );
-}
-
-function NotRecieved() {
-    const classes = useStyles();
-
-    return (
-        <span className={classes.status}>
-            <span>
-                <Status />
-            </span>
-            <span>Nieoddane</span>
-        </span>
-    );
-}
-
-function countStatus(agreementResultA: AgreementResult, agreementResultB: AgreementResult): AgreementStatus {
-    const results = [
-        agreementResultA.value === agreementResultA.total ? 'RECIEVED' : 'NOT_RECIEVED',
-        agreementResultB.value === agreementResultB.total ? 'RECIEVED' : 'NOT_RECIEVED',
-    ];
-
-    return results.includes('RECIEVED') ? 'RECIEVED' : 'NOT_RECIEVED';
-}
-
-function mapUsersToAgreemetList(users: User[], kindergartenId: string): Parent[] {
-    return users.map((u) => {
-        return {
-            email: u.mail,
-            children: u.children
-                .filter((c) => c.kindergarten._id === kindergartenId)
-                .map((c) => `${c.firstname} ${c.lastname}`),
-            viewAgreement: u.agreements.find((a) => a.text === 'Image')!.isSigned,
-            marketingAgreement: u.agreements.find((a) => a.text === 'Marketing')!.isSigned,
-        };
-    });
+    return [...Object.values(parents)];
 }
 
 const useStyles = makeStyles((theme: Theme) =>
