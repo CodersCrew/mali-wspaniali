@@ -8,12 +8,12 @@ import { useIsDevice } from '../../../../queries/useBreakpoints';
 import { AssessmentResult } from '../../../../graphql/types';
 
 interface Props {
-    onClose: () => void;
+    onClick: () => void;
     isExpanded: boolean;
     test: AssessmentResult;
 }
 
-export function SummarisedGroupedTest({ onClose, isExpanded, test }: Props) {
+export function SummarisedGroupedTest({ onClick, isExpanded, test }: Props) {
     const classes = useStyles();
 
     return (
@@ -26,7 +26,7 @@ export function SummarisedGroupedTest({ onClose, isExpanded, test }: Props) {
                 </Grid>
             </Grid>
             <Grid item>
-                <DetailsButton onClick={onClose} isExpanded={isExpanded} />
+                <DetailsButton onClick={onClick} isExpanded={isExpanded} />
             </Grid>
         </Grid>
     );
@@ -38,22 +38,20 @@ function DetailsButton({ onClick, isExpanded }: { isExpanded: boolean; onClick: 
     const { t } = useTranslation();
 
     if (device.isSmallMobile) {
-        return <AccordionSummary expandIcon={<ExpandMoreIcon onClick={onDetailsBtnClick} />}></AccordionSummary>;
+        return <AccordionSummary expandIcon={<ExpandMoreIcon onClick={onDetailsButtonClick} />}></AccordionSummary>;
     }
 
     return (
         <ButtonSecondary
-            onClick={onDetailsBtnClick}
+            onClick={onDetailsButtonClick}
             variant={isExpanded ? 'outlined' : 'contained'}
             className={classes.detailsButton}
             innerText={isExpanded ? t('child-profile.collapse-details') : t('child-profile.details')}
         />
     );
 
-    function onDetailsBtnClick(event: React.MouseEvent<SVGSVGElement | HTMLButtonElement>) {
-        if (isExpanded) {
-            event.stopPropagation();
-        }
+    function onDetailsButtonClick(event: React.MouseEvent<SVGSVGElement | HTMLButtonElement>) {
+        event.stopPropagation();
 
         onClick();
     }

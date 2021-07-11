@@ -64,12 +64,12 @@ export const theme: ThemeObject = {
         h1: {
             fontSize: '48px',
             lineHeight: '59px',
-            fontWeight: 300,
+            fontWeight: 400,
         },
         h2: {
             fontSize: '34px',
             lineHeight: '41px',
-            fontWeight: 300,
+            fontWeight: 400,
             letterSpacing: '0.25px',
         },
         h3: {
