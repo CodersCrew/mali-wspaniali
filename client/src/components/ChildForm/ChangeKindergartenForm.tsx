@@ -12,6 +12,9 @@ interface TinitialObjestType {
     id: string;
     kindergarden: string;
     kindergardenName: string;
+    sex: string;
+    birthYear: number;
+    birthQuarter: number;
 }
 
 interface ChildData {
@@ -54,13 +57,16 @@ export const ChangeKindergartenModal = ({ formik, kindergartens }: ChangeKinderg
                                     options={kindergartenOptions}
                                     name={`childData[${index}]`}
                                     onChange={(name: string, value: string) => {
-                                        const { id, firstname, lastname } = child;
+                                        const { id, firstname, lastname, birthYear, birthQuarter, sex } = child;
                                         const kindergarden = value;
                                         formik.setFieldValue(name, {
                                             id,
                                             kindergarden,
                                             firstname,
                                             lastname,
+                                            birthYear,
+                                            birthQuarter,
+                                            sex,
                                         });
                                     }}
                                 />
