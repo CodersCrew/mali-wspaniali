@@ -59,11 +59,11 @@ export const AdminAgreementsPage = ({
     return (
         <PageContainer>
             <Paper elevation={0}>
-                <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader }}>
-                    <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
+                <Grid container alignItems="center" classes={{ root: classes.filterHeader }}>
                     <IconButton onClick={() => setIsFilterListOpen((prev) => !prev)}>
                         <FilterListIcon />
                     </IconButton>
+                    <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
                 </Grid>
 
                 <Collapse in={isFiltersListOpen} unmountOnExit className={classes.filterContainer}>
