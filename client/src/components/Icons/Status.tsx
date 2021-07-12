@@ -20,13 +20,15 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         successStatus: {
             color: theme.palette.success.dark,
-            width: 13,
-            height: 13,
+            width: 20,
+            height: 20,
+            '& > path': {
+            }
         },
         notSuccessStatus: {
             color: theme.palette.error.dark,
-            width: 13,
-            height: 13,
+            width: 20,
+            height: 20,
         },
     }),
 );
