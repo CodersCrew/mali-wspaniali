@@ -73,6 +73,10 @@ const useStyles = makeStyles((theme: Theme) =>
             maxWidth: '100%',
             display: 'flex',
             flexDirection: 'column',
+            // outlineOffset: 0,
+            // overflow: 'scroll',
+            overscrollBehavior: 'none',
+            overflowScrolling: 'touch',
         },
         toolbar: {
             ...theme.mixins.toolbar,
