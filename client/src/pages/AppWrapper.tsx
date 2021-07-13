@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Box } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@apollo/client';
+import { enableBodyScroll } from 'body-scroll-lock';
 
 import { Theme } from '../theme/types';
 import { useBreakpoints } from '../queries/useBreakpoints';
@@ -20,16 +21,23 @@ export const AppWrapper: React.FC = ({ children }) => {
     const { i18n } = useTranslation();
     const { data: ActivePageState } = useQuery(ACTIVE_PAGE);
     const device = useBreakpoints();
+    const ref = React.useRef<HTMLElement | null>(null);
 
     const history = useHistory();
     const language = localStorage.getItem('i18nextLng')!;
+
+    React.useEffect(() => {
+        if (!ref.current) return;
+
+        enableBodyScroll(ref.current);
+    }, [ref.current]);
 
     if (!user) return null;
 
     return (
         <UserContext.Provider value={user}>
             <SidebarStateProvider>
-                <Box display="flex">
+                <Box display="flex" className={classes.box}>
                     <Navbar
                         device={device}
                         activePage={ActivePageState.activePage}
@@ -39,7 +47,7 @@ export const AppWrapper: React.FC = ({ children }) => {
                     />
                     <Sidebar user={user} activePage={ActivePageState.activePage} onClick={handleClick} />
 
-                    <main className={classes.content}>
+                    <main ref={ref} className={classes.content}>
                         <div className={classes.toolbar}>{children}</div>
                     </main>
                 </Box>
@@ -75,14 +83,30 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             // outlineOffset: 0,
             // overflow: 'scroll',
-            overscrollBehavior: 'none',
-            overflowScrolling: 'touch',
+            // overscrollBehavior: 'none',
+            // overflowScrolling: 'touch',
+            // height: '100%',
+            // overflow: 'hidden',
         },
         toolbar: {
             ...theme.mixins.toolbar,
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
+        },
+        box: {
+            // outlineOffset: 0,
+            // overflow: 'scroll',
+            // overscrollBehavior: 'none',
+            // overflowScrolling: 'touch',
+            // touchAction: 'none',
+            // position: 'fixed',
+            // overflow: 'hidden',
+            // height: '100%',
+            // overflow: 'hidden',
+            overflow: 'auto',
+            overflowScrolling: 'touch',
+            border: '1px solid gray',
         },
     }),
 );
