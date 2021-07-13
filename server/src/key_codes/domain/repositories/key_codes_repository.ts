@@ -15,7 +15,7 @@ export class KeyCodeRepository {
 
   getAll(series: string): Promise<KeyCode[]> {
     return this.keyCodeModel
-      .find({ series }, {}, { sort: { date: -1 } })
+      .find({ series }, {}, { sort: { createdAt: -1 } })
       .exec()
       .then(keyCodes => KeyCodeMapper.toDomainMany(keyCodes));
   }
