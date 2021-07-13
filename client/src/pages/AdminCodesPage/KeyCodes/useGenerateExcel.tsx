@@ -11,7 +11,9 @@ export function useGenerateExcel(onCreate: (filename: string) => void) {
             getKeyCodes(series);
 
             if (keyCodes.length > 0) {
-                const filename = `mw-keycodes-${series}.xlsx`;
+                const { target } = keyCodes[0];
+
+                const filename = `mw-keycodes-${target}-${keyCodes.length}-${series}.xlsx`;
                 const workbook = getKeyCodesWorkbook(
                     keyCodes.map((code) => ({
                         ...code,

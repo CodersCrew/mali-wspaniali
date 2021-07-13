@@ -58,16 +58,16 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                         </TableHead>
                         <TableBody>
                             {[...keyCodeSeries]
-                                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                                .map(({ series, count, target, date }) => {
-                                    const expirationDate = dayjs(date).add(7, 'days');
+                                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                                .map(({ series, count, target, createdAt }) => {
+                                    const expirationDate = dayjs(createdAt).add(14, 'days');
 
                                     return (
                                         <TableRow key={series} data-testid="keycode-item">
                                             <TableCell component="th" scope="row" classes={{ root: classes.cell }}>
                                                 <span>
                                                     <FilenameButton
-                                                        text={`mw-keycodes-${series}.clsx`}
+                                                        text={`mw-keycodes-${target}-${count}-${series}.clsx`}
                                                         tooltip={t('admin-setting-page.keycode-generation.download')}
                                                         onClick={() => onKeyCodeClick(series)}
                                                     />
@@ -86,7 +86,7 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                                                 {count}
                                             </TableCell>
                                             <TableCell classes={{ root: classes.cell }}>
-                                                {expirationDate.toDate().toLocaleDateString()}&nbsp;(
+                                                {expirationDate.format('LL')}&nbsp;(
                                                 {expirationDate.fromNow()})
                                             </TableCell>
                                         </TableRow>
