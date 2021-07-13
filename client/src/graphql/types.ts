@@ -200,7 +200,7 @@ export interface KeyCode {
 }
 
 export interface KeyCodeSeries {
-    date: string;
+    createdAt: string;
     series: string;
     target: string;
     count: number;
