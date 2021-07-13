@@ -20,6 +20,10 @@ export class GetAllKeyCodeSeriesHandler
       foundKeycodes.push({ keyCodeSeries: keyCode, count });
     }
 
-    return foundKeycodes;
+    return [...foundKeycodes].sort(
+      (a, b) =>
+        b.keyCodeSeries.createdAt.getTime() -
+        a.keyCodeSeries.createdAt.getTime(),
+    );
   }
 }

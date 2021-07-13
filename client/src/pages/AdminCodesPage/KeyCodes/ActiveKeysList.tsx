@@ -57,41 +57,36 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {[...keyCodeSeries]
-                                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-                                .map(({ series, count, target, createdAt }) => {
-                                    const expirationDate = dayjs(createdAt).add(14, 'days');
+                            {keyCodeSeries.map(({ series, count, target, createdAt }) => {
+                                const expirationDate = dayjs(createdAt).add(14, 'days');
 
-                                    return (
-                                        <TableRow key={series} data-testid="keycode-item">
-                                            <TableCell component="th" scope="row" classes={{ root: classes.cell }}>
-                                                <span>
-                                                    <FilenameButton
-                                                        text={`mw-keycodes-${target}-${count}-${series}.clsx`}
-                                                        tooltip={t('admin-setting-page.keycode-generation.download')}
-                                                        onClick={() => onKeyCodeClick(series)}
-                                                    />
-                                                </span>
-                                            </TableCell>
-                                            <TableCell
-                                                classes={{ root: clsx(classes.targetCell, classes.cell) }}
-                                                data-testid="keycode-item-target"
-                                            >
-                                                {t(`admin-setting-page.keycode-generation.role-${target}`)}
-                                            </TableCell>
-                                            <TableCell
-                                                classes={{ root: classes.cell }}
-                                                data-testid="keycode-item-count"
-                                            >
-                                                {count}
-                                            </TableCell>
-                                            <TableCell classes={{ root: classes.cell }}>
-                                                {expirationDate.format('LL')}&nbsp;(
-                                                {expirationDate.fromNow()})
-                                            </TableCell>
-                                        </TableRow>
-                                    );
-                                })}
+                                return (
+                                    <TableRow key={series} data-testid="keycode-item">
+                                        <TableCell component="th" scope="row" classes={{ root: classes.cell }}>
+                                            <span>
+                                                <FilenameButton
+                                                    text={`mw-keycodes-${target}-${count}-${series}.clsx`}
+                                                    tooltip={t('admin-setting-page.keycode-generation.download')}
+                                                    onClick={() => onKeyCodeClick(series)}
+                                                />
+                                            </span>
+                                        </TableCell>
+                                        <TableCell
+                                            classes={{ root: clsx(classes.targetCell, classes.cell) }}
+                                            data-testid="keycode-item-target"
+                                        >
+                                            {t(`admin-setting-page.keycode-generation.role-${target}`)}
+                                        </TableCell>
+                                        <TableCell classes={{ root: classes.cell }} data-testid="keycode-item-count">
+                                            {count}
+                                        </TableCell>
+                                        <TableCell classes={{ root: classes.cell }}>
+                                            {expirationDate.format('LL')}&nbsp;(
+                                            {expirationDate.fromNow()})
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>
