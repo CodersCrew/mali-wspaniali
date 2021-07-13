@@ -5,6 +5,7 @@ import {
   Args,
   ResolveField,
   Parent,
+  Int,
 } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
@@ -35,6 +36,9 @@ import {
   UpdatedKindergartenInput,
 } from './inputs/kindergarten_input';
 import { KindergartenWithUsersProps } from './domain/models/kindergarten_with_users_model';
+import { GetKindergartenResultsQuery } from '../users/domain/queries/impl/get_kindergarten_results_query';
+import { countResults } from '../shared/utils/count_results';
+import { CurrentAssessment } from '../users/params/current_assessment_param';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => KindergartenDTO)
@@ -48,6 +52,44 @@ export class KindergartenResolver {
     );
 
     return ChildMapper.toPlainMany(children);
+  }
+
+  @ResolveField(() => Int)
+  @UseGuards(GqlAuthGuard)
+  async firstMeasurementResultCount(
+    @Parent() kindergarten: KindergartenDTO,
+    @CurrentAssessment() assessmentId: string,
+  ): Promise<number> {
+    const results = await this.queryBus.execute(
+      new GetKindergartenResultsQuery(kindergarten._id, assessmentId),
+    );
+
+    return countResults(results, 'first');
+  }
+
+  @ResolveField(() => Int)
+  @UseGuards(GqlAuthGuard)
+  async lastMeasurementResultCount(
+    @Parent() kindergarten: KindergartenDTO,
+    @CurrentAssessment() assessmentId: string,
+  ): Promise<number> {
+    const results = await this.queryBus.execute(
+      new GetKindergartenResultsQuery(kindergarten._id, assessmentId),
+    );
+
+    return countResults(results, 'last');
+  }
+
+  @ResolveField(() => Int)
+  @UseGuards(GqlAuthGuard)
+  async maxResultCount(
+    @Parent() kindergarten: KindergartenDTO,
+  ): Promise<number> {
+    const children = await this.queryBus.execute(
+      new GetChildrenFromKindergartenQuery(kindergarten._id),
+    );
+
+    return children.length * 8;
   }
 
   @Query(() => [KindergartenDTO])

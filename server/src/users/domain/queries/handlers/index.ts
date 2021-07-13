@@ -7,7 +7,8 @@ import { GetUsersHandler } from './get_users_handler';
 import { GetKindergartenResultsHandler } from './get_kindergarten_results_handler';
 import { GetChildResultHandler } from './get_child_results_handler';
 import { GetUserByChildIdHandler } from './get_user_by_child_id_handler';
-
+import { GetResultsHandler } from './get_results_handler';
+import { GetResultByIdHandler } from './get_result_by_id_handler';
 export { GetUserHandler } from './get_user_handler';
 export { GetChildrenHandler } from './get_children_handler';
 export { GetChildrenFromKindergartenHandler } from './get_children_from_kindergarten_handler';
@@ -26,4 +27,6 @@ export const QueryHandlers = [
   GetKindergartenResultsHandler,
   GetChildResultHandler,
   GetAllChildrenHandler,
+  GetResultsHandler,
+  GetResultByIdHandler,
 ];

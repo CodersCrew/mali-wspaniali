@@ -51,15 +51,22 @@ export class ChildAssessmentResultRepository {
 
   async getByKindergarten(
     kindergartenId: string,
-    assessmentId: string,
+    assessmentId?: string,
   ): Promise<PartialChildResult[]> {
+    const query = assessmentId
+      ? {
+          assessmentId,
+          kindergartenId,
+        }
+      : {
+          kindergartenId,
+        };
+
     const result = await this.childResultModel
-      .find({
-        assessmentId,
-        kindergartenId,
-      })
+      .find(query)
       .lean()
-      .exec();
+      .exec()
+      .then(ChildAssessmentResultMapper.toDomainMany);
 
     return result;
   }
@@ -89,15 +96,21 @@ export class ChildAssessmentResultRepository {
       })
       .lean()
       .exec()
-      .then(value =>
-        value.map(e =>
-          ChildAssessmentResultMapper.toDomain(
-            (e as unknown) as ChildAssessmentResultCore,
-          ),
-        ),
-      );
+      .then(ChildAssessmentResultMapper.toDomainMany);
 
-    return (result as unknown) as Promise<ChildAssessmentResult[]>;
+    return result;
+  }
+
+  async getByAssessment(id: string): Promise<ChildAssessmentResult[]> {
+    const result = await this.childResultModel
+      .find({
+        assessmentId: id,
+      })
+      .lean()
+      .exec()
+      .then(ChildAssessmentResultMapper.toDomainMany);
+
+    return result;
   }
 
   getMany(childIds: string[]): Promise<ChildAssessmentResult[]> {
@@ -105,9 +118,7 @@ export class ChildAssessmentResultRepository {
       .find({ childId: { $in: childIds }, isDeleted: false })
       .lean()
       .exec()
-      .then((v: ChildAssessmentResultCore[]) =>
-        v.map(d => ChildAssessmentResultMapper.toDomain(d)),
-      );
+      .then(ChildAssessmentResultMapper.toDomainMany);
   }
 
   // for e2e purpose only

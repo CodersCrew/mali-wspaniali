@@ -29,6 +29,7 @@ import {
 import { Child } from '../../../graphql/types';
 import { SingleItemProps } from './SingleItem';
 import { ChildAvatar, Icon } from './Icon';
+import { getRootLazyImports } from '../../../pages/rootLazyImports';
 
 interface ChildMenuItemFactoryProps {
     child: Child;
@@ -254,7 +255,7 @@ function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): Men
     const mainItem = {
         icon: <Icon icon={<VerticalSplit />} />,
         name: t('admin-menu.tests.title'),
-        link: '/admin/tests',
+        link: '/admin',
         active: active.includes('admin-menu.results.title'),
     };
 
@@ -262,20 +263,23 @@ function getResultsMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): Men
         {
             icon: <Icon icon={<Assessment />} />,
             name: t('admin-menu.tests.results'),
-            link: '/admin/tests',
+            link: '/admin',
             active: active.includes('admin-menu.results.table'),
+            preload: getRootLazyImports('TestResultsPage').preload,
         },
         {
             icon: <Icon icon={<Dashboard />} />,
             name: t('admin-menu.tests.manage-tests'),
             link: '/admin/test-management',
             active: active.includes('admin-menu.test-management'),
+            preload: getRootLazyImports('AdminAssessmentHistoryPage').preload,
         },
         {
             icon: <Icon icon={<PeopleAlt />} />,
             name: t('admin-menu.tests.instructors'),
             link: '/admin/instructors',
             active: active.includes('admin-menu.instructors'),
+            preload: getRootLazyImports('AdminInstructorsPage').preload,
         },
     ];
 
@@ -296,12 +300,14 @@ function getNewsletterMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): 
             name: t('admin-menu.newsletter.new-message'),
             link: '/admin/newsletter',
             active: active.includes('admin-menu.newsletter.new-message'),
+            preload: getRootLazyImports('NewsletterPage').preload,
         },
         {
             icon: <Icon icon={<Archive />} />,
             name: t('admin-menu.newsletter.archive'),
             link: '/admin/archive',
             active: active.includes('admin-menu.newsletter.archive'),
+            preload: getRootLazyImports('ArchivePage').preload,
         },
     ];
 
@@ -311,9 +317,10 @@ function getNewsletterMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): 
 function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps): SingleItemProps {
     const ResultsItem = {
         name: 'admin-menu.results',
-        link: '/admin/tests',
+        link: '/admin',
         icon: <Icon icon={<Assessment />} />,
         rightIcon,
+        preload: getRootLazyImports('TestResultsPage').preload,
     };
 
     const NotificationsItem = {
@@ -321,18 +328,21 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         link: '/admin/notifications',
         icon: <Icon icon={<Notifications />} />,
         rightIcon,
+        preload: getRootLazyImports('NotificationsPage').preload,
     };
 
     const ArticlesItem = {
         name: 'admin-menu.articles.title',
         link: '/admin/articles',
         icon: <Icon icon={<LibraryBooks />} />,
+        preload: getRootLazyImports('AdminArticlesPage').preload,
     };
 
     const SettingsItem = {
         name: 'admin-menu.settings.title',
         link: '/admin/settings',
         icon: <Icon icon={<Build />} />,
+        preload: getRootLazyImports('AdminSettingsPage').preload,
     };
 
     const LogoutItem = {
@@ -345,30 +355,35 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
         name: 'admin-menu.agreements',
         link: '/admin/agreements',
         icon: <Icon icon={<AssignmentTurnedIn />} />,
+        preload: getRootLazyImports('AdminAgreementsPageContainer').preload,
     };
 
     const ArchiveItem = {
         name: 'admin-menu.archive',
         link: '/admin/archive',
         icon: <Icon icon={<Archive />} />,
+        preload: getRootLazyImports('ArchivePage').preload,
     };
 
     const NewsletterItem = {
         name: 'admin-menu.newsletter',
         link: '/admin/newsletter',
         icon: <Icon icon={<Message />} />,
+        preload: getRootLazyImports('NewsletterPage').preload,
     };
 
     const KindergartensItem = {
         name: 'admin-menu.kindergartens.title',
         link: '/admin/kindergartens',
         icon: <Icon icon={<School />} />,
+        preload: getRootLazyImports('AdminKindergartensPage').preload,
     };
 
     const CodeItem = {
         name: 'admin-menu.keycodes',
         link: '/admin/keycodes',
         icon: <Icon icon={<HorizontalSplit />} />,
+        preload: getRootLazyImports('AdminCodesPage').preload,
     };
 
     const options: { [index: string]: SingleItemProps } = {
@@ -419,8 +434,15 @@ function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryPr
         icon: <Icon icon={<PowerSettingsNew />} />,
     };
 
+    const AgreementsItem = {
+        name: 'admin-menu.agreements',
+        link: '/admin/agreements',
+        icon: <Icon icon={<AssignmentTurnedIn />} />,
+    };
+
     const options: { [index: string]: SingleItemProps } = {
         'add-results': AddResultsItem,
+        agreements: AgreementsItem,
         settings: SettingsItem,
         notifications: NotificationsItem,
         logout: LogoutItem,

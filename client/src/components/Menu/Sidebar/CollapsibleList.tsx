@@ -27,11 +27,11 @@ export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
             />
             <Collapse in={isOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    {subItems.map(({ name, icon, link, active }) => (
+                    {subItems.map((item) => (
                         <SingleItem
-                            key={name}
-                            item={{ name, icon, link, active }}
-                            onClick={() => link && onClick(link)}
+                            key={item.name}
+                            item={item}
+                            onClick={() => item.link && onClick(item.link)}
                             leftPadding
                             grayed
                         />
@@ -45,5 +45,6 @@ export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
 const useStyles = makeStyles({
     container: {
         marginTop: 4,
+        marginBottom: 4,
     },
 });

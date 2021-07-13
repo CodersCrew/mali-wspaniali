@@ -1,40 +1,44 @@
 import { useState } from 'react';
-import { Typography, makeStyles } from '@material-ui/core/';
+import { Typography, Box, makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
 import { GroupedTests } from './GroupedTest';
 import { Child } from '../../../graphql/types';
 
-interface Props {
-    child: Child;
-}
+export function ChildProfileResults({ child }: { child: Child }) {
+    const [activeItem, setActiveItem] = useState('');
 
-export function ChildProfileResults({ child }: Props) {
-    const [active, setActive] = useState('');
-
-    if (child.results.length === 0)
-        return (
-            <>
-                <Descriptiom />
-                <EmptyPageMessage />
-            </>
-        );
+    if (child.results.length === 0) return <EmptyPanel />;
 
     return (
-        <div data-testid="grouped-tests">
+        <Box pb={3}>
             <Descriptiom />
-            {child.results.map((test) => {
+            {child.results.map((result) => {
                 return (
                     <GroupedTests
-                        isExpanded={active === test._id}
-                        onOpen={() => setActive(test._id)}
-                        onClose={() => setActive('')}
-                        key={test._id}
-                        test={test}
+                        child={child}
+                        resultId={result._id}
+                        result={result}
+                        isExpanded={activeItem === result._id}
+                        key={result._id}
+                        onToggle={() => onToggle(result._id)}
                     />
                 );
             })}
-        </div>
+        </Box>
+    );
+
+    function onToggle(resultId: string) {
+        setActiveItem((prev) => (prev === resultId ? '' : resultId));
+    }
+}
+
+function EmptyPanel() {
+    return (
+        <>
+            <Descriptiom />
+            <EmptyPageMessage />
+        </>
     );
 }
 

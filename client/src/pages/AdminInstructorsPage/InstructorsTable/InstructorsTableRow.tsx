@@ -18,8 +18,12 @@ import {
     KeyboardArrowUp as KeyboardArrowUpIcon,
     AddCircle as AddIcon,
 } from '@material-ui/icons';
+
 import { InstructorRelation } from '../types';
-import { Assessment } from '../../../graphql/types';
+import { Assessment, Kindergarten } from '../../../graphql/types';
+import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
+import { openQuestionDialog } from '../../../components/QuestionDialog';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 interface InstructorRowProps {
     relation: InstructorRelation;
@@ -36,7 +40,18 @@ export function InstructorsTableRow(props: InstructorRowProps) {
     const [open, setOpen] = useState(false);
     const [showAddButton, setShowAddButton] = useState(false);
 
+    const { updateAssessment } = useUpdateAssessment();
+
     const { mail } = props.relation.instructor;
+
+    function filterKindergartens(kindergarten: Kindergarten) {
+        return props.relation.kindergartens.map(({ _id }) => {
+            return {
+                kindergartenId: _id,
+                instructorId: _id === kindergarten._id ? undefined : props.relation.instructor._id,
+            };
+        });
+    }
 
     return (
         <>
@@ -87,7 +102,32 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                             {t(`${T_PREFIX}.kindergartens-count`, { count: props.relation.kindergartens.length })}
                             {props.relation.kindergartens.map((kindergarten) => (
                                 <Box m={1} ml={2} mb={1} key={kindergarten._id}>
-                                    <Chip label={`${kindergarten.number}/${kindergarten.name}`} />
+                                    <Chip
+                                        label={kindergarten.name}
+                                        onDelete={() => {
+                                            openQuestionDialog({
+                                                title: t(`${T_PREFIX}.unassign-dialog-title`),
+                                                description: t(`${T_PREFIX}.unassign-kindergarten-question`),
+                                                primaryButtonLabel: t(`${T_PREFIX}.unassign`),
+                                                color: 'primary',
+                                            }).then((result) => {
+                                                if (result.close) return;
+
+                                                if (result.decision?.accepted) {
+                                                    updateAssessment(props.assessment!._id, {
+                                                        kindergartens: filterKindergartens(kindergarten),
+                                                    });
+
+                                                    openSnackbar({
+                                                        text: t(`${T_PREFIX}.unassign-kindergarten`, {
+                                                            name: kindergarten.name,
+                                                            mail: props.relation.instructor.mail,
+                                                        }),
+                                                    });
+                                                }
+                                            });
+                                        }}
+                                    />
                                 </Box>
                             ))}
                         </Box>

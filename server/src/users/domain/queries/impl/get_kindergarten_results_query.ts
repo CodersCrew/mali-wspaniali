@@ -1,3 +1,3 @@
-export class GetKindergartenResults {
-  constructor(public assessmentId: string, public kindergartenId: string) {}
+export class GetKindergartenResultsQuery {
+  constructor(public kindergartenId: string, public assessmentId?: string) {}
 }

@@ -250,9 +250,11 @@ export default function InstructorAddResultsPage() {
     }
 
     function getFiltredAndSortedChildList() {
-        const filtredChildList = currentChildren.filter((c) =>
-            c.firstname.toLowerCase().includes(searchTerm.toLowerCase()),
-        );
+        const filtredChildList = currentChildren.filter((c) => {
+            const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
+
+            return fullName.includes(searchTerm.toLowerCase());
+        });
 
         if (fullNameSortType !== '') {
             filtredChildList.sort((a, b) => {

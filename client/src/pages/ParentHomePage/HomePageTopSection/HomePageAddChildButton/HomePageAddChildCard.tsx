@@ -24,9 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            height: '100%',
-            padding: 12,
+            minWidth: '144px',
+            padding: theme.spacing(1.5),
 
             '&:hover': {
                 cursor: 'pointer',
@@ -38,7 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
         icon: {
             color: theme.palette.text.secondary,
             width: '75px',
-            height: '126px',
+            height: '120px',
+            marginBottom: theme.spacing(3.5),
+
+            [theme.breakpoints.down('md')]: {
+                marginBottom: theme.spacing(0.5),
+            },
         },
     }),
 );

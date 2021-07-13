@@ -75,6 +75,7 @@ type ChildAssessmentResultDTO {
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
   currentParams: ChildCurrentParamsDTO
+  child: ChildDTO
   assessment: AssessmentDTO
 }
 
@@ -122,6 +123,9 @@ type KindergartenDTO {
   city: String!
   address: String!
   children: [ChildDTO!]!
+  firstMeasurementResultCount: Int!
+  lastMeasurementResultCount: Int!
+  maxResultCount: Int!
 }
 
 type ChildDTO {
@@ -138,7 +142,12 @@ type ChildDTO {
   results: [ChildAssessmentResultDTO!]!
   kindergarten: KindergartenDTO!
   currentParams: ChildCurrentParamsDTO!
-  parent: UserDTO!
+  parent: UserDTO
+
+  """
+  Returns child's age, if run on concrete assessment context, returns age in relation to firstMeasuremtnDate / lastMeasurementDate if the first is not available, if run without any context in returns age in realation to the current date
+  """
+  age: Int
 }
 
 type AgreementDTO {
@@ -196,6 +205,11 @@ type ParamsDTO {
   middleStageLimit: Float!
   goodStageLimit: Float!
   veryGoodStageLimit: Float!
+  minScale: Float!
+  scale39: Float!
+  scale49: Float!
+  scale59: Float!
+  maxScale: Float!
 }
 
 type ChildCurrentParamsDTO {
@@ -264,6 +278,9 @@ type AssessmentDTO {
   firstMeasurementStatus: String!
   lastMeasurementStatus: String!
   kindergartens: [KindergartenWithInstructorDTO!]!
+  firstMeasurementResultCount: Int!
+  lastMeasurementResultCount: Int!
+  maxResultCount: Int!
 }
 
 type NewsletterDTO {
@@ -290,6 +307,7 @@ type Query {
   agreements: [AgreementDTO!]!
   kindergartens: [KindergartenDTO!]!
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
+  result(id: String!): ChildAssessmentResultDTO!
   newsletters: [NewsletterDTO!]!
   assessments: [AssessmentDTO!]!
   assessment(id: String!): AssessmentDTO!
