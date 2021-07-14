@@ -10,13 +10,12 @@ import { ButtonSecondary } from '../../components/Button';
 export const Navigation = () => {
     const { t } = useTranslation();
     const history = useHistory();
-    const formik = useFormikContext();
+    const formik = useFormikContext<any>();
     const classes = useStyles();
 
     const onPreview = () => {
         history.push('/admin/articles/create/preview', {
-            article: formik.values,
-            isPreview: true,
+            article: { values: formik.values, isPreview: true },
         });
     };
 

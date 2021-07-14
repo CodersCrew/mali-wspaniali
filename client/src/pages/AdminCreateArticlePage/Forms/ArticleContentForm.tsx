@@ -18,11 +18,12 @@ import ReactQuill from 'react-quill';
 import { useFormikContext, ErrorMessage, Field } from 'formik';
 
 import { modules, formats, tags } from '../utils';
+import { ArticleInput } from '../../../graphql/types';
 
 export const ArticleContentForm = () => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const formik = useFormikContext<any>();
+    const formik = useFormikContext<ArticleInput>();
 
     return (
         <div>

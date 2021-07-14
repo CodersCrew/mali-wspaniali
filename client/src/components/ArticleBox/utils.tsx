@@ -1,11 +1,15 @@
-export const articleContent = (isPreView: boolean | undefined, componentProperty: string, previewText: string) => {
-    if (componentProperty || (!componentProperty && !isPreView)) return componentProperty;
+export const articleContent = (isPreview: boolean | undefined, componentProperty: string, previewText: string) => {
+    if (isPreview) {
+        if (componentProperty) return componentProperty;
 
-    return previewText;
+        return previewText;
+    }
+
+    return componentProperty;
 };
 
-export const isDisabledArticleClassVisible = (isPreView: boolean | undefined, componentProperty: string | boolean) => {
-    return !componentProperty && isPreView;
+export const isDisabledArticleClassVisible = (isPreview: boolean | undefined, componentProperty: string | boolean) => {
+    return !componentProperty && isPreview;
 };
 
 export const htmlContent = [

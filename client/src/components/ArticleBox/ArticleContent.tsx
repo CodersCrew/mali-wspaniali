@@ -9,7 +9,7 @@ type ArticleContentProps = {
     contentHTML: string;
     title: string;
     description: string;
-    isPreview: boolean;
+    isPreview?: boolean;
 };
 
 export const ArticleContent = ({ title, description, contentHTML, isPreview }: ArticleContentProps) => {

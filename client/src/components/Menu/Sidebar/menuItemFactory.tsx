@@ -324,7 +324,7 @@ function getAdminMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps):
     };
 
     const ArticlesItem = {
-        name: 'admin-menu.articles.title',
+        name: 'admin-menu.articles.title-basic',
         link: '/admin/articles/categories/all',
         icon: <Icon icon={<LibraryBooks />} />,
     };

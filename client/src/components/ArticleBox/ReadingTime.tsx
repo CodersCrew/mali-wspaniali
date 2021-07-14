@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 interface Props {
     readingTime: number;
     date: Date;
-    isPreview: boolean;
+    isPreview?: boolean;
 }
 
 export function ReadingTime({ readingTime, date, isPreview }: Props) {
@@ -14,9 +14,7 @@ export function ReadingTime({ readingTime, date, isPreview }: Props) {
 
     return (
         <span className={classes.container}>
-            <Typography variant="overline">
-                {(isPreview ? new Date() : date).toLocaleString('pl-PL', options)}
-            </Typography>
+            <Typography variant="overline">{new Date().toLocaleString('pl-PL', options)}</Typography>
             <div className={classes.ellipse}>&nbsp;</div>
             <Typography variant="overline">
                 {readingTime} {t('single-article.reading-time')}

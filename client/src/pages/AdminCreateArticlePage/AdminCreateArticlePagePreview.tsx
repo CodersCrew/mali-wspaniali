@@ -6,32 +6,25 @@ import ArticleBox from '../../components/ArticleBox/ArticleBox';
 import { openConfirmCreateArticleModal } from './AdminCreateArticleModal';
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
 import { mandatoryObject } from './utils';
-import { ArticleInput } from '../../graphql/types';
-
-type ArticleState = {
-    isPreview: boolean;
-    article: ArticleInput;
-    isValid?: boolean;
-};
+// import { ArticleInput } from '../../graphql/types';
 
 const AdminCreateArticlePagePreview = () => {
-    const { state } = useLocation<ArticleState>();
+    const { state } = useLocation<any>();
     const history = useHistory();
     const className = useStyles();
 
+    const article = { ...state.article };
     const obligatoryArticleFieldTest = mandatoryObject(state.article);
 
     const [open, setOpen] = useState<boolean>(false);
 
-    const articleWithValidation = { ...state?.article, isValid: isValid(obligatoryArticleFieldTest) };
+    const articleWithValidation = { ...article, isValid: isValid(obligatoryArticleFieldTest) };
 
     function isValid(item: any) {
-        let currentValue: Array<boolean> = [];
-        Object?.keys(item)?.forEach((key) => {
-            if (typeof item[key] === 'object') {
-                isValid(item[key]);
-            }
-            if (item[key] === '') currentValue = [...currentValue, false];
+        const currentValue: Array<boolean> = [];
+
+        Object?.keys(item?.values)?.forEach((key) => {
+            if (item?.values[key] === '') currentValue.push(false);
         });
 
         return !currentValue.includes(false);
@@ -46,8 +39,8 @@ const AdminCreateArticlePagePreview = () => {
 
     const onSubmit = () => {
         history.push('/admin/articles/create', {
-            article: state?.article,
-            isPreview: state?.isPreview,
+            article: state.article.values,
+            isPreview: false,
         });
     };
 
@@ -56,15 +49,14 @@ const AdminCreateArticlePagePreview = () => {
             <TwoActionsModal
                 lowerButtonOnClick={handleClose}
                 upperButtonOnClick={onSubmit}
-                lowerButtonText="Anuluj"
+                lowerButtonText="Wróć"
                 upperButtonText="Uzupełnij dane"
                 isOpen={open}
                 onClose={handleClose}
             >
-                <Typography variant="h4" color="primary" className={className.title}>
+                <Typography variant="h4" color="textPrimary" className={className.title}>
                     Nie wszystkie pola obowiązkowe zostały wypełnione
                 </Typography>
-
                 <Typography variant="body1" color="textSecondary">
                     <Typography>Wróć do “dodawania artykułu” i wypełnij wszystkie pola obowiązkowe,</Typography>
                     <Typography variant="body1" color="textSecondary" className={className.title}>
@@ -72,11 +64,10 @@ const AdminCreateArticlePagePreview = () => {
                     </Typography>
                 </Typography>
             </TwoActionsModal>
-
             <ArticleBox
-                article={state?.article}
+                article={article}
                 nextButtonTitle="OPUBLIKUJ"
-                previousButtonTitle="ANULUJ"
+                previousButtonTitle="WRÓĆ"
                 isPreview
                 onClickNextButtonTitle={onClickNextButtonTitle}
                 onClickPreviousButtonTitle={onSubmit}

@@ -46,7 +46,7 @@ export const ArticleRedactor = ({ redactor, isPreview }: Props) => {
                             })}
                             variant="overline"
                         >
-                            {articleContent(isPreview, redactor?.profession, t('admin-articles.redactor.firstName'))}
+                            {articleContent(isPreview, redactor?.profession, t('admin-articles.redactor.profession'))}
                         </Typography>
                         <Box className={classes.redactorDataContainer}>
                             <Typography

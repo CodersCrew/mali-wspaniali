@@ -11,8 +11,8 @@ import {
     FormControl,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
 import { useFormikContext, ErrorMessage } from 'formik';
+
 import { articleCategories } from '../utils';
 import { ArticleCategoryOptions } from '../types';
 
@@ -37,8 +37,14 @@ export const ArticleInformationForm = () => {
                 />
                 <ErrorMessage name="title">{(msg) => <div className={classes.error}>{msg}</div>}</ErrorMessage>
                 <FormControl variant="outlined" fullWidth>
-                    <InputLabel htmlFor="category">{t('admin-articles.category')}</InputLabel>
-                    <Select {...formik.getFieldProps('category')} autoWidth className={classes.input}>
+                    <InputLabel>Kategoria</InputLabel>
+                    <Select
+                        label="Kategoria"
+                        {...formik.getFieldProps('category')}
+                        autoWidth
+                        className={classes.input}
+                        variant="outlined"
+                    >
                         {articleCategories().map((option: ArticleCategoryOptions) => {
                             return (
                                 <MenuItem value={option.value} key={option.value}>
@@ -87,6 +93,10 @@ const useStyles = makeStyles((theme: Theme) =>
         input: {
             width: '100%',
             marginBottom: theme.spacing(2),
+        },
+        formControl: {
+            margin: theme.spacing(1),
+            minWidth: 120,
         },
     }),
 );

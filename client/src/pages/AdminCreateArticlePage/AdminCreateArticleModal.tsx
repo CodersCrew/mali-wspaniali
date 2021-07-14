@@ -12,52 +12,42 @@ interface ArticleInputWithValidation extends ArticleInput {
 }
 
 export const ConfirmCreateArticleModal = (
-    articles: ArticleInputWithValidation & ActionDialog<{ create: Partial<ArticleInputWithValidation> }>,
+    props: any & ActionDialog<{ create: Partial<ArticleInputWithValidation> }>,
 ) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     const onSubmit = () => {
-        createArticle(articles)
+        createArticle(props.values)
             .then(() => {
                 openSnackbar({ text: 'sucess', severity: 'success' });
-                articles.onClose();
+                props.onClose();
             })
             .catch((err) => {
                 openSnackbar({ text: err, severity: 'error' });
-                articles.onClose();
+                props.onClose();
             });
     };
 
     return (
         <TwoActionsModal
-            lowerButtonOnClick={articles.onClose}
+            lowerButtonOnClick={props.onClose}
             upperButtonOnClick={() => onSubmit()}
-            lowerButtonText="Anuluj"
-            upperButtonText={articles.isValid ? 'Opublikuj' : 'Uzupełnij dane'}
+            lowerButtonText="Wróć"
+            upperButtonText="Opublikuj"
             isOpen
-            onClose={articles.onClose}
+            onClose={props.onClose}
         >
-            <Typography variant="h4">
-                {articles.isValid
-                    ? t('admin-articles.add-article-modal.title-is-valid')
-                    : t('admin-articles.add-article-modal.title-is-not-valid')}
-            </Typography>
-
+            <Typography variant="h4">{t('admin-articles.add-article-modal.title-is-valid')}</Typography>
             <Typography variant="body1" color="textSecondary" className={classes.description}>
-                {articles.isValid
-                    ? t('admin-articles.add-article-modal.body-text-is-valid')
-                    : t('admin-articles.add-article-modal.body-text-is-not-valid')}
+                {t('admin-articles.add-article-modal.body-text-is-valid')}
             </Typography>
         </TwoActionsModal>
     );
 };
 
 export const openConfirmCreateArticleModal = (props: ArticleInputWithValidation) => {
-    return openDialog<ArticleInputWithValidation, { create: Partial<ArticleInputWithValidation> }>(
-        ConfirmCreateArticleModal,
-        props,
-    );
+    return openDialog<ArticleInputWithValidation>(ConfirmCreateArticleModal, props);
 };
 
 const useStyles = makeStyles((theme: Theme) =>

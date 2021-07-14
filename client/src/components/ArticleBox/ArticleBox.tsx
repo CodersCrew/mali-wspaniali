@@ -13,6 +13,18 @@ import { ReadingTime } from './ReadingTime';
 import { TagList } from './TagList';
 import { calculateReadingTime } from '../../utils/calculateReadingTime';
 import photoHeader from '../../assets/adminPreviewPhoto/headerPhoto.png';
+import { Article } from '../../graphql/types';
+
+// Remember change type
+
+type ArticleBoxType = {
+    article: Article | any;
+    previousButtonTitle: string;
+    nextButtonTitle: string;
+    onClickNextButtonTitle?: () => void;
+    onClickPreviousButtonTitle?: () => void;
+    isPreview?: boolean;
+};
 
 const ArticleBox = ({
     article,
@@ -21,13 +33,16 @@ const ArticleBox = ({
     onClickNextButtonTitle,
     onClickPreviousButtonTitle,
     isPreview,
-}: any) => {
+}: ArticleBoxType) => {
     const { isMobile, isTablet, isDesktop } = useIsDevice();
     const classes = useStyles();
     const history = useHistory();
+
     function onBackClick() {
         history.goBack();
     }
+
+    console.log('ARTICLE', article);
 
     return (
         <>
@@ -41,7 +56,7 @@ const ArticleBox = ({
                 <CardMedia
                     classes={{ root: classes.imageContainer }}
                     component="img"
-                    image={article?.pictureUrl || photoHeader}
+                    image={isPreview ? article?.values?.pictureUrl ?? photoHeader : article?.pictureUrl}
                 />
                 <Grid item>
                     <div
@@ -52,22 +67,29 @@ const ArticleBox = ({
                         })}
                     >
                         <ReadingTime
-                            date={new Date(article?.publishedAt || article?.createdAt)}
-                            readingTime={calculateReadingTime(article?.contentHTML)}
+                            date={
+                                isPreview
+                                    ? new Date(article?.values?.publishedAt || article?.values?.createdAt)
+                                    : article?.publishedAt
+                            }
+                            readingTime={calculateReadingTime(article?.values?.contentHTML)}
                             isPreview={isPreview}
                         />
                     </div>
                     <ArticleContent
-                        title={article?.title}
-                        description={article?.description}
-                        contentHTML={article?.contentHTML}
+                        title={isPreview ? article?.values?.title : article?.title}
+                        description={isPreview ? article?.values?.description : article?.description}
+                        contentHTML={isPreview ? article?.values?.contentHTML : article?.contentHTML}
                         isPreview={isPreview}
                     />
                     <Grid item classes={{ root: classes.videoContainer }} xs={12}>
-                        <ArticleVideo videoUrl={article?.videoUrl} isPreview={isPreview} />
+                        <ArticleVideo
+                            videoUrl={isPreview ? article?.values?.videoUrl : article?.videoUrl}
+                            isPreview={isPreview}
+                        />
                     </Grid>
                     <Grid item classes={{ root: classes.tagContainer }}>
-                        <TagList tags={article?.tags} isPreview={isPreview} />
+                        <TagList tags={isPreview ? article?.values?.tags : article?.tags} isPreview={isPreview} />
                     </Grid>
                 </Grid>
                 <Grid container xs={12}>
@@ -75,7 +97,10 @@ const ArticleBox = ({
                         <Divider />
                     </Grid>
                     <Grid item xs={12} classes={{ root: classes.redactorContainer }}>
-                        <ArticleRedactor redactor={article?.redactor} isPreview={isPreview} />
+                        <ArticleRedactor
+                            redactor={isPreview ? article?.values?.redactor : article?.redactor}
+                            isPreview={isPreview}
+                        />
                     </Grid>
                 </Grid>
                 {isPreview && (

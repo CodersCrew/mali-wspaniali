@@ -155,9 +155,11 @@
         "change-log": "Historia zmian",
         "kindergarten-number": "Numer przedszkola",
         "kindergarten-name": "Nazwa przedszkola",
+        "kindergarten-results": "Liczba dodanych wyników",
         "kindergarten-address": "Adres przedszkola",
         "parents-email": "Adres e-mail rodziców",
         "children": "Dzieci",
+        "age": "Wiek",
         "kindergarten-prefix": "Przedszkole nr",
         "search": "Szukaj",
         "add-kindergarten-success": "Przedszkole zostało dodane pomyślnie",
@@ -168,7 +170,12 @@
         "button-icon-expand-tooltip": "Rozwiń",
         "button-icon-results-tooltip": "Wyniki",
         "rows-number": "Pokazuj w tabeli:",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "first-measurement": "PP",
+        "last-measurement": "PK",
+        "publish-result": "Publikuj wyniki",
+        "download-result": "Pobierz wyniki",
+        "status-result": "Status wyników"
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -620,15 +627,11 @@
         "success-message": "Usunięto (Zaanonimozowano) rodzica"
     },
     "single-article": {
-        "blog": "blog",
-        "length": "długość",
         "emotions": "emocje",
         "activity": "aktywność",
         "food": "żywienie",
         "other": "inne",
-        "reading-time": "min czytania",
-        "go-to-previous-page": "poprzednia",
-        "go-to-next-page": "nastepna"
+        "reading-time": "min czytania"
     },
     "database-backup": {
         "get-backup-json": "Pobierz kopię bazy jako JSON"
@@ -659,7 +662,9 @@
             "advice-and-recommendations": "Porady i rekomendacje"
         },
         "articles": {
-            "title": "Artykuły"
+            "title-basic": "Artykuły",
+            "title-create": "Artykuły",
+            "title-preview": "Artykuły"
         },
         "keycodes": "Kody",
         "kindergartens": {

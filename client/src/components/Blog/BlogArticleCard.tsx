@@ -26,10 +26,12 @@ interface Props {
 export const BlogArticleCard = ({ pictureUrl, title, description, link, category, onEdit, onDelete }: Props) => {
     const classes = useStyles();
 
+    console.log('pictureURl', pictureUrl);
+
     return (
         <Card className={classes.card}>
             <CardActionArea href={link}>
-                <CardMedia component="img" alt={title} image={pictureUrl} title={title} className={classes.cardImage} />
+                <CardMedia component="img" alt={title} image={pictureUrl} className={classes.cardImage} />
                 <CardContent className={classes.cardContent}>
                     <div className={classes.tagContainer}>
                         <Chip color="secondary" size="small" label={category} />

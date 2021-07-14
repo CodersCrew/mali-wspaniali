@@ -4,6 +4,8 @@ import { client } from '../apollo_client';
 import { ReturnedStatus, ArticleInput } from './types';
 
 export function createArticle(article: ArticleInput): Promise<FetchResult<ReturnedStatus>> {
+    console.log('article', article);
+
     return client.mutate({
         mutation: gql`
             mutation createArticle($article: CreateArticleInput!) {

@@ -32,7 +32,7 @@ export default function AdminArticlesPage() {
     });
 
     useEffect(() => {
-        activePage(['admin-menu.articles.title']);
+        activePage(['Articles']);
         setCurrentPage(1);
     }, []);
 

@@ -13,11 +13,7 @@ const ArticlePage = () => {
         activePage(['parent-menu.blog']);
     }, [articleId]);
 
-    return (
-        <div>
-            <ArticleBox article={article} nextButtonTitle="opublikuj" previousButtonTitle="poprzedni" />
-        </div>
-    );
+    return <ArticleBox article={article} nextButtonTitle="opublikuj" previousButtonTitle="poprzedni" />;
 };
 
 export default ArticlePage;

@@ -26,7 +26,7 @@ export const ArticleAuthorInformationForm = () => {
                             label={t(`admin-articles.${label}`)}
                             fullWidth
                         />
-                        <ErrorMessage name={`redactor.${data}`}>
+                        <ErrorMessage name={`redactor${data}`}>
                             {(msg) => <div className={classes.error}>{msg}</div>}
                         </ErrorMessage>
                     </div>
@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
         box: {
             padding: theme.spacing(2),
         },
-
         input: {
             width: '100%',
             marginBottom: theme.spacing(2),

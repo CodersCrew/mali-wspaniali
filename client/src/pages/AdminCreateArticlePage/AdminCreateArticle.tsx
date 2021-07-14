@@ -32,13 +32,12 @@ export default function CreateArticlePage() {
     const { state } = useLocation<ArticleState>();
 
     const validationSchema = Yup.object().shape({
+        category: Yup.string().required(t('admin-articles.validation-label.title.require')),
         title: Yup.string()
             .required(t('admin-articles.validation-label.title.require'))
             .min(10, t('admin-articles.validation-label.title.min'))
             .max(100, t('admin-articles.validation-label.title.max')),
-        pictureUrl: Yup.string()
-            .required(t('admin-articles.validation-label.picture-url.require'))
-            .url(t('admin-articles.validation-label.picture-url.url')),
+        pictureUrl: Yup.string().required(t('admin-articles.validation-label.picture-url.require')),
         description: Yup.string()
             .required(t('admin-articles.validation-label.description.require'))
             .min(30, t('admin-articles.validation-label.description.min'))
@@ -46,8 +45,9 @@ export default function CreateArticlePage() {
         contentHTML: Yup.string().required(t('admin-articles.validation-label.article-content.require')),
         redactor: Yup.object({
             firstName: Yup.string().required(t('admin-articles.validation-label.redactor.firstName.require')),
-            lastName: Yup.string().required(t('admin-articles.validation-label.redactor.lastName.require')),
             profession: Yup.string().required(t('admin-articles.validation-label.redactor.profession.require')),
+            biography: Yup.string().required(t('admin-articles.validation-label.redactor.biography.require')),
+            lastName: Yup.string().required(t('admin-articles.validation-label.redactor.lastName.require')),
         }),
     });
 
@@ -62,7 +62,7 @@ export default function CreateArticlePage() {
     });
 
     useEffect(() => {
-        activePage(['admin-menu.articles.title']);
+        activePage(['Create article']);
     }, []);
 
     return (
