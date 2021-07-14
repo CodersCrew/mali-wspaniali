@@ -590,6 +590,9 @@
         "articles": {
             "title": "Articles"
         },
+        "articles-create": {
+            "title": "Create Articles"
+        },
         "keycodes": "Keycodes",
         "kindergartens": {
             "title": "Kindergartens",
@@ -602,61 +605,79 @@
         "logout": "Log out"
     },
     "admin-articles": {
-        "title": "Select article or create new article",
-        "add-article": "Add article",
-        "article-added": "Article was added",
-        "article-information": "Information about article",
-        "article-content": "Article content",
-        "article-title": "Title of the article",
-        "title-validation": "Title of the article must have min. 10 and max. 100 characters",
+        "mandatory": "mandatory field",
+        "title": "Article title",
+        "back": "Come back",
+        "tags-field": "Select or enter a tag",
+        "add-article": "Submit an article",
+        "article-added": "The article has been added",
+        "article-information": "Article information",
+        "article-content": "The content of the article",
+        "article-title": "Article title",
+        "article-url": "Article addres",
+        "title-validation": "The title of the article must be at least 10 and max. 100 characters",
         "category": "Category",
-        "description": "Article description",
-        "description-validation": "Article description must have min. 30 and max. 300 characters",
-        "picture": "URL link to main article photo, e.g. https://example.com",
-        "video": "URL link to video, e.g. https://example.com",
-        "avatar": "URL link to author's photo, e.g. https://example.com",
-        "author-information": "Information about author",
-        "author-first-name": "First name",
-        "author-last-name": "Last name",
-        "author-profession": "Profession",
-        "author-biography": "Information about author",
+        "description": "Description of the article",
+        "description-validation": "The description of the article must be at least 30 and max. 300 characters",
+        "picture": "Main photo URL, e.g. https://example.com",
+        "video": "Video URL, e.g. https://example.com",
+        "avatar": "Author's photo URL, e.g. https://example.com",
+        "author-information": "Information about the author",
+        "author-first-name": "Author's first name",
+        "author-last-name": "Author's surname",
+        "author-profession": "Specialization",
+        "author-biography": "Information about the author",
         "category-food": "Food",
         "category-activity": "Activity",
-        "category-emotions": "Emotions",
+        "category-emotions": "EmocjEmotionse",
         "category-other": "Other",
         "publish": "Publish",
         "cancel": "Cancel",
         "preview": "Preview",
         "validation-label": {
             "title": {
-                "min": "The title of the article must be at least 10",
-                "max": "and max 100",
-                "require": "Title is require field",
-                "type": "Title should be a string"
+                "min": "Article title must be at least 10 characters long",
+                "max": "and max 100 characters",
+                "require": "Title is required"
             },
             "picture-url": {
-                "url": "Picture url type is invalid",
-                "require": "Picture url is require field",
-                "type": "Picture url should be a string"
+                "url": "The url type is invalid",
+                "require": "The photo url is required"
             },
             "description": {
-                "min": "Description of the article must be at least 30",
+                "min": "The description should be at least 30 characters long",
                 "max": "and max 300",
-                "require": "Description is require field",
-                "type": "Description should be a string"
+                "require": "Description is required"
             },
             "article-content": {
-                "require": "Article content is require",
-                "type": "Article content should be a string"
+                "require": "The content of the article is required"
             },
             "tags": {
-                "require": "Tags is require field"
+                "require": "Tags are required"
             },
             "redactor": {
-                "firstName": { "require": "First name is require", "type": "First name should be a string" },
-                "lastName": { "require": "Last name is require", "type": "last name content should be a string" },
-                "profession": { "require": "Profession is require", "type": "Profession content should be a string" }
+                "firstName": { "require": "First name is required" },
+                "lastName": { "require": "Last name is required" },
+                "profession": { "require": "Profession is required" }
             }
+        },
+        "previewView": {
+            "title": "Here is an example text showing the structure of the article",
+            "description": "Few activities affect our health as well as sport. Regularly practicing sports improves our condition, burns adipose tissue and also has a beneficial effect on our well-being. However, is there a limit to when it is too early to sport and can alienate you for the rest of your life?"
+        },
+        "html-content": {
+            "title": "Physical activity - what and how?",
+            "first-paragraph": "Physical activity is every movement, every muscle work, in which the energy expenditure is greater than when we rest - lying down or sitting.",
+            "second-paragraph": "light - very low energy expenditure - we won't even choke, and every step counts, e.g. a slow walk, walking during breaks, performing small household chores;",
+            "third-paragraph": "moderate - moderate energy expenditure, we stimulate our circulatory system and respiratory system to work, we catch a little breathlessness, e.g. intensive work in the garden, recreational team games, free running, cycling, experts call this activity - moderate-to-intense;",
+            "fourth-paragraph": "intensive - training, practicing sports, fast games and fun, then we strengthen bones and muscles, during such activity we will certainly sweat and we will not be able to talk to a friend, e.g. sports games, running, swimming training."
+        },
+        "tags": { "tag1": "sport", "tag2": "lifestyle", "tag3": "hobby" },
+        "redactor": {
+            "firstName": "Hanna",
+            "lastName": "Nałęcz",
+            "profession": "Child psychologist",
+            "biography": "Hanna Nałęcz, Ph.D. on physical culture, educator, specialist in public health. Deputy head of the Department of Children's and Youth Health at the Institute of Mother and Child in Warsaw. Co-author of over 80 national and international publications on the physical activity of children and youth. Member of the Polish team The Active Healthy Kids Global Alliance. Thematic editor for the Activity Health Kids Global Alliance. Mother of two daughters"
         },
         "add-article-modal": {
             "title-is-valid": "Publication of the article",
@@ -666,16 +687,8 @@
             "isValid": "Publish",
             "isnotValid": "Complete the data"
         },
-        "previewView": {
-            "title": "Here is an example text showing the structure of the article",
-            "description": "Few activities affect our health as well as sport. Regularly practicing sports improves our condition, burns adipose tissue and also has a beneficial effect on our well-being. However, is there a limit to when it is too early to sport and can alienate yourself for the rest of your life?"
-        },
-        "html-content": {
-            "title": "Physical activity - what and how?",
-            "first-paragraph": "Physical activity is every movement, every muscle work, in which the energy expenditure is greater than when we rest - lying down or sitting.",
-            "second-paragraph": "light - very low energy expenditure - we won't even choke, and every step counts, e.g. a slow walk, walking during breaks, performing small household chores;",
-            "third-paragraph": "moderate - moderate energy expenditure, we stimulate our circulatory system and respiratory system to work, we catch a slight shortness of breath, e.g. intensive work in the garden, recreational team games, slow running, cycling, experts call this activity - moderate-to-intense;",
-            "fourth-paragraph": "intensive - training, practicing sports, fast games and fun, then we strengthen bones and muscles, during such activity we will certainly sweat and we will not be able to talk to a friend, e.g. sports games, running, swimming training."
+        "modal-preview": {
+            "content": "Not all mandatory fields have been completed"
         }
     },
     "instructor-menu": {

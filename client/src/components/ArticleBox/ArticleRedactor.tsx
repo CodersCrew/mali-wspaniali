@@ -62,7 +62,6 @@ export const ArticleRedactor = ({ redactor, isPreview }: Props) => {
                                     t('admin-articles.redactor.firstName'),
                                 )} `}
                             </Typography>
-
                             <Typography
                                 className={clsx({
                                     [classes.contentRedactorName]: true,

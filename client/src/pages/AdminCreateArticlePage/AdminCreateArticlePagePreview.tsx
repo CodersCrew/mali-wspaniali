@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
 
 import ArticleBox from '../../components/ArticleBox/ArticleBox';
 import { openConfirmCreateArticleModal } from './AdminCreateArticleModal';
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
 import { mandatoryObject } from './utils';
-// import { ArticleInput } from '../../graphql/types';
 
 const AdminCreateArticlePagePreview = () => {
     const { state } = useLocation<any>();
     const history = useHistory();
     const className = useStyles();
+    const { t } = useTranslation();
 
     const article = { ...state.article };
     const obligatoryArticleFieldTest = mandatoryObject(state.article);
@@ -55,19 +56,16 @@ const AdminCreateArticlePagePreview = () => {
                 onClose={handleClose}
             >
                 <Typography variant="h4" color="textPrimary" className={className.title}>
-                    Nie wszystkie pola obowiązkowe zostały wypełnione
+                    {t('admin-articles.modal-preview.content')}
                 </Typography>
                 <Typography variant="body1" color="textSecondary">
-                    <Typography>Wróć do “dodawania artykułu” i wypełnij wszystkie pola obowiązkowe,</Typography>
-                    <Typography variant="body1" color="textSecondary" className={className.title}>
-                        aby móc opublikować artykuł
-                    </Typography>
+                    {t('admin-articles.add-article-modal.body-text-is-not-valid')}
                 </Typography>
             </TwoActionsModal>
             <ArticleBox
                 article={article}
-                nextButtonTitle="OPUBLIKUJ"
-                previousButtonTitle="WRÓĆ"
+                nextButtonTitle={t('admin-articles.publish')}
+                previousButtonTitle={t('admin-articles.back')}
                 isPreview
                 onClickNextButtonTitle={onClickNextButtonTitle}
                 onClickPreviousButtonTitle={onSubmit}

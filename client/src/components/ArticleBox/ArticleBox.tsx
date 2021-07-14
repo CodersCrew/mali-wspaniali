@@ -42,8 +42,6 @@ const ArticleBox = ({
         history.goBack();
     }
 
-    console.log('ARTICLE', article);
-
     return (
         <>
             {isMobile && <ArticleNavigationMobile onClick={onBackClick} />}
@@ -55,8 +53,8 @@ const ArticleBox = ({
             >
                 <CardMedia
                     classes={{ root: classes.imageContainer }}
-                    component="img"
-                    image={isPreview ? article?.values?.pictureUrl ?? photoHeader : article?.pictureUrl}
+                    component="iframe"
+                    src={isPreview ? article?.values?.pictureUrl || photoHeader : article?.pictureUrl}
                 />
                 <Grid item>
                     <div

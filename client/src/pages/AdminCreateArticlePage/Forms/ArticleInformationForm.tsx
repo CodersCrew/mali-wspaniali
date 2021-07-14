@@ -31,15 +31,15 @@ export const ArticleInformationForm = () => {
                     {...formik.getFieldProps('title')}
                     className={classes.input}
                     variant="outlined"
-                    label="Tytuł artykułu"
+                    label={t('admin-articles.title')}
                     fullWidth
                     multiline
                 />
                 <ErrorMessage name="title">{(msg) => <div className={classes.error}>{msg}</div>}</ErrorMessage>
                 <FormControl variant="outlined" fullWidth>
-                    <InputLabel>Kategoria</InputLabel>
+                    <InputLabel>{t('admin-articles.category')}</InputLabel>
                     <Select
-                        label="Kategoria"
+                        label={t('admin-articles.category')}
                         {...formik.getFieldProps('category')}
                         autoWidth
                         className={classes.input}
@@ -60,7 +60,7 @@ export const ArticleInformationForm = () => {
                     name="pictureUrl"
                     className={classes.input}
                     variant="outlined"
-                    label="Adres Url"
+                    label={t('admin-articles.article-url')}
                     fullWidth
                     multiline
                 />

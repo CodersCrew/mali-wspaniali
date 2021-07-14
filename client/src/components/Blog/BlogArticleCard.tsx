@@ -26,8 +26,6 @@ interface Props {
 export const BlogArticleCard = ({ pictureUrl, title, description, link, category, onEdit, onDelete }: Props) => {
     const classes = useStyles();
 
-    console.log('pictureURl', pictureUrl);
-
     return (
         <Card className={classes.card}>
             <CardActionArea href={link}>

@@ -662,9 +662,10 @@
             "advice-and-recommendations": "Porady i rekomendacje"
         },
         "articles": {
-            "title-basic": "Artykuły",
-            "title-create": "Artykuły",
-            "title-preview": "Artykuły"
+            "title": "Artykuły"
+        },
+        "articles-create": {
+            "title": "Stwórz Articles"
         },
         "keycodes": "Kody",
         "kindergartens": {
@@ -685,13 +686,14 @@
     },
     "admin-articles": {
         "mandatory": "pole obowiązkowe",
-        "title": "Wybierz artykuł albo dodaj nowy",
+        "title": "Tytuł artykułu",
         "tags-field": "Wybierz lub wpisz tag",
         "add-article": "Dodaj artykuł",
         "article-added": "Artykuł został dodany",
         "article-information": "Informacje o artykule",
         "article-content": "Treść artykułu",
         "article-title": "Tytuł artukułu",
+        "article-url": "Adres artykułu",
         "title-validation": "Tytuł artykułu musi mieć min. 10 i max. 100 znaków",
         "category": "Kategoria",
         "description": "Opis artykułu",
@@ -710,6 +712,7 @@
         "category-other": "Inna",
         "publish": "Opublikuj",
         "cancel": "Anuluj",
+        "back": "Wróć",
         "preview": "Podgląd",
         "validation-label": {
             "title": {
@@ -763,6 +766,9 @@
             "body-text-is-not-valid": "Wróć do “dodawania artykułu” i wypełnij wszystkie pola obowiązkowe, aby móc opublikować artykuł.",
             "isValid": "Opublikuj",
             "isnotValid": "Uzupełnij dane"
+        },
+        "modal-preview": {
+            "content": "Nie wszystkie pola obowiązkowe zostały wypełnione"
         }
     },
     "parent-menu": {
