@@ -18,7 +18,7 @@ export function KeyCodes() {
     const { t } = useTranslation();
     const classes = useStyles();
     const { keyCodeSeries } = useKeyCodeSeries();
-    const { createKeyCodes, created } = useCreateKeyCodes();
+    const { createKeyCodes, created, resetCreated } = useCreateKeyCodes();
     const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(INITIAL_KEY_CODE_AMOUNT);
     const [target, setTarget] = useState('parent');
     const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +38,7 @@ export function KeyCodes() {
                         onChange={(role) => {
                             setTarget(role);
                             setKeyCodesToGenerate(INITIAL_KEY_CODE_AMOUNT);
+                            resetCreated();
                         }}
                     />
                 </div>
