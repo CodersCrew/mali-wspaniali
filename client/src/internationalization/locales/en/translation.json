@@ -709,6 +709,7 @@
     },
     "instructor-menu": {
         "results-table": "Results table",
+        "result-creator": "Add result",
         "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Log out"

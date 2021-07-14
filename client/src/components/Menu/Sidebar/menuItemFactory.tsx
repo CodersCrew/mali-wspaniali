@@ -415,6 +415,12 @@ function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryPr
         icon: <Icon icon={<Assessment />} />,
     };
 
+    const ResultCreatorItem = {
+        name: 'instructor-menu.result-creator',
+        link: '/instructor/result',
+        icon: <Icon icon={<Assessment />} />,
+    };
+
     const NotificationsItem = {
         name: 'instructor-menu.notifications',
         link: '/instructor/notifications',
@@ -442,6 +448,7 @@ function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryPr
 
     const options: { [index: string]: SingleItemProps } = {
         'add-results': AddResultsItem,
+        resultCreator: ResultCreatorItem,
         agreements: AgreementsItem,
         settings: SettingsItem,
         notifications: NotificationsItem,
