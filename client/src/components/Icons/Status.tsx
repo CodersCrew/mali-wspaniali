@@ -22,8 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.success.dark,
             width: 20,
             height: 20,
-            '& > path': {
-            }
         },
         notSuccessStatus: {
             color: theme.palette.error.dark,
