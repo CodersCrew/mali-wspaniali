@@ -175,7 +175,8 @@
         "last-measurement": "PK",
         "publish-result": "Publikuj wyniki",
         "download-result": "Pobierz wyniki",
-        "status-result": "Status wyników"
+        "status-result": "Status wyników",
+        "filter-children-label": "Szukaj po dziecku"
     },
     "kindergarten-modal": {
         "city": "Miasto",

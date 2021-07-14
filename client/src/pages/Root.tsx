@@ -52,7 +52,16 @@ export function Root() {
                             <Route path={['/admin', '/parent', '/instructor']}>
                                 <AppWrapper>
                                     <Switch>
-                                        <Route exact path="/admin" component={getRootLazyImports('TestResultsPage')} />
+                                        <Route
+                                            exact
+                                            path="/admin"
+                                            component={getRootLazyImports('TestResultLoadingPage')}
+                                        />
+                                        <Route
+                                            exact
+                                            path="/admin/:assessmentId/:assessmentType"
+                                            component={getRootLazyImports('TestResultsPage')}
+                                        />
                                         <Route path="/admin/users" component={getRootLazyImports('UsersPage')} />
                                         <Route
                                             path="/admin/parent/:id"

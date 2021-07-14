@@ -2,6 +2,7 @@ import { TableCell, IconButton, makeStyles, createStyles } from '@material-ui/co
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import clsx from 'clsx';
+import { useState, useEffect } from 'react';
 import { Theme } from '../theme';
 
 interface ArrowedCellProps {
@@ -56,3 +57,29 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default ArrowedCell;
+
+export const useArrowedCell = <T,>(rowElements: T[]) => {
+    const [selectedSortableCell, setSelectedSortableCell] = useState<string | undefined>();
+    const [elements, setElements] = useState([...rowElements]);
+
+    useEffect(() => {
+        setElements([...rowElements]);
+        setSelectedSortableCell(undefined);
+    }, [rowElements]);
+
+    const cellParameters = (cellValueName: string, compareExpression: (c: T, b: T) => boolean) => ({
+        name: cellValueName,
+        changeActive: () => {
+            setSelectedSortableCell((prev) => (prev !== cellValueName ? cellValueName : undefined));
+
+            const compare = (val: 1 | -1) => {
+                return (c: T, b: T) => (compareExpression(c, b) ? val : -val);
+            };
+
+            if (selectedSortableCell === cellValueName) setElements(elements.sort(compare(-1)));
+            if (selectedSortableCell !== cellValueName) setElements(elements.sort(compare(1)));
+        },
+    });
+
+    return [elements, selectedSortableCell, cellParameters] as const;
+};
