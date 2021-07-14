@@ -5,7 +5,7 @@ import { ResetPasswordCommand } from '../impl';
 import { UserRepository } from '../../repositories/user_repository';
 import { SendMail } from '../../../../shared/services/send_mail/send_mail';
 import { UserChangePasswordRepository } from '../../repositories/user_change_password_jwt_repository';
-import { SendGridMail } from '../../../../shared/services/send_mail/sendgrid_mail';
+import { FreshmailProvider } from '../../../../shared/services/send_mail/freshmail_provider';
 
 @CommandHandler(ResetPasswordCommand)
 export class ResetPasswordHandler
@@ -15,7 +15,7 @@ export class ResetPasswordHandler
     private readonly userChangePasswordRepository: UserChangePasswordRepository,
     private readonly jwtService: JwtService,
     private readonly sendMail: SendMail,
-    private readonly sendGridMail: SendGridMail,
+    private readonly freshmail_provider: FreshmailProvider,
   ) {}
 
   async execute(command: ResetPasswordCommand): Promise<void> {
@@ -35,7 +35,7 @@ export class ResetPasswordHandler
         jwt: payload,
       });
 
-      this.sendGridMail.send(
+      this.freshmail_provider.send(
         mail,
         this.createTemplate(
           `${process.env.SERVER_RESPONSE_HOST}/password-change/${payload}`,

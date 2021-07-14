@@ -148,6 +148,7 @@ export class UsersResolver {
   async resetPassword(
     @Args('mail') mail: string,
   ): Promise<{ status: boolean }> {
+    console.log('bbbbbb');
     await this.commandBus.execute(new ResetPasswordCommand(mail));
 
     return { status: true };
@@ -158,6 +159,7 @@ export class UsersResolver {
     @Args('jwt') jwt: string,
     @Args('password') password: string,
   ): Promise<{ status: boolean }> {
+    console.log('hhhh');
     await this.commandBus.execute(new ChangePasswordCommand(jwt, password));
 
     return { status: true };

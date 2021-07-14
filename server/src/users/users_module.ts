@@ -32,8 +32,8 @@ import { UserChangePasswordRepository } from './domain/repositories/user_change_
 import { UserChangePasswordCronService } from './user_change_password_cron_service';
 import { ChildAssessmentResultRepository } from './domain/repositories/child_assessment_result_repository';
 import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_schema';
-import { SendGridProvider } from '../shared/services/send_mail/sendgrid_provider';
-import { SendGridMail } from '../shared/services/send_mail/sendgrid_mail';
+import { FreshmailProvider } from '../shared/services/send_mail/freshmail_provider';
+import { FreshmailService } from '../shared/services/send_mail/freshmail_service';
 
 @Module({
   imports: [
@@ -79,8 +79,8 @@ import { SendGridMail } from '../shared/services/send_mail/sendgrid_mail';
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,
-    SendGridProvider,
-    SendGridMail,
+    FreshmailProvider,
+    FreshmailService,
   ],
   controllers: [ChildrenController],
   exports: [UserRepository, ChildRepository],
