@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: theme.spacing(1),
         },
         filterHeader: {
-            padding: theme.spacing(1.7),
+            padding: theme.spacing(2.75),
         },
     }),
 );
