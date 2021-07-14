@@ -1,3 +1,3 @@
 export class GetAllAssessmentsAssignedToInstructorQuery {
-  constructor(public readonly instructorId: string) {}
+  constructor(public instructorId: string) {}
 }

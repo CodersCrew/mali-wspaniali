@@ -12,7 +12,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest  --detectOpenHandles --runInBand --forceExit",
     "test:watch": "jest --watch --detectOpenHandles --runInBand",
@@ -116,7 +116,8 @@
       "^@keyCodes/(.*)$": "<rootDir>/key_codes/$1",
       "^@articles/(.*)$": "<rootDir>/articles/$1",
       "^@app/(.*)$": "<rootDir>/$1"
-    }
+    },
+    "setupFilesAfterEnv": ["<rootDir>/../setupTests.ts"]
   },
   "_moduleAliases": {
     "@users": "dist/users",

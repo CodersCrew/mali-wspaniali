@@ -7,6 +7,7 @@ type QuestionDialogProps = {
     title: string;
     description: string;
     primaryButtonLabel: string;
+    color?: 'primary' | 'secondary' | 'inherit' | 'default' | undefined;
 };
 
 export const openQuestionDialog = (props: QuestionDialogProps) => {
@@ -28,7 +29,12 @@ const QuestionDialog = (props: QuestionDialogProps & ActionDialog) => {
             </DialogContent>
             <DialogActions>
                 <ButtonDefault onClick={onDeclined} variant="text" innerText={t('question-dialog.cancel')} />
-                <ButtonDefault onClick={onAccepted} variant="text" innerText={props.primaryButtonLabel} />
+                <ButtonDefault
+                    color={props.color ? props.color : 'secondary'}
+                    variant="text"
+                    onClick={onAccepted}
+                    innerText={props.primaryButtonLabel}
+                />
             </DialogActions>
         </Dialog>
     );

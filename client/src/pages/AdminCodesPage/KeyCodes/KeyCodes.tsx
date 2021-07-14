@@ -12,12 +12,14 @@ import { useCreateKeyCodes } from '../../../operations/mutations/KeyCodes/create
 import { useGenerateExcel } from './useGenerateExcel';
 import { useKeyCodeSeries } from '../../../operations/queries/KeyCodes/getKeyCodesSeries';
 
+const INITIAL_KEY_CODE_AMOUNT = 1;
+
 export function KeyCodes() {
     const { t } = useTranslation();
     const classes = useStyles();
     const { keyCodeSeries } = useKeyCodeSeries();
-    const { createKeyCodes, created } = useCreateKeyCodes();
-    const [keyCodesToGenerate, setKeyCodesToGenerate] = useState<string>('1');
+    const { createKeyCodes, created, resetCreated } = useCreateKeyCodes();
+    const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(INITIAL_KEY_CODE_AMOUNT);
     const [target, setTarget] = useState('parent');
     const [isLoading, setIsLoading] = useState(false);
     const { generateExcel } = useGenerateExcel((filename) => {
@@ -31,12 +33,19 @@ export function KeyCodes() {
             <Typography variant="body2">{t('admin-setting-page.keycode-generation.description')}</Typography>
             <Grid container direction="column" spacing={4} classes={{ root: classes.container }}>
                 <div className={classes.toggleContainer}>
-                    <RoleToggleButton value={target} onChange={setTarget} />
+                    <RoleToggleButton
+                        value={target}
+                        onChange={(role) => {
+                            setTarget(role);
+                            setKeyCodesToGenerate(INITIAL_KEY_CODE_AMOUNT);
+                            resetCreated();
+                        }}
+                    />
                 </div>
                 <div className={classes.amountContainer}>
                     <KeyCodesToGenerateTextfield
                         value={keyCodesToGenerate}
-                        onChange={(amount) => setKeyCodesToGenerate(amount)}
+                        onChange={(amount) => setKeyCodesToGenerate(parseInt(amount, 10))}
                     />
                 </div>
                 <div className={classes.generateButtonContainer}>
@@ -44,11 +53,7 @@ export function KeyCodes() {
                         data-testid="generate-keycodes-series"
                         isLoading={isLoading}
                         isDisabled={
-                            isLoading ||
-                            !keyCodesToGenerate ||
-                            !parseInt(keyCodesToGenerate, 10) ||
-                            parseInt(keyCodesToGenerate, 10) > 1000 ||
-                            parseInt(keyCodesToGenerate, 10) < 1
+                            isLoading || !keyCodesToGenerate || keyCodesToGenerate > 1000 || keyCodesToGenerate < 1
                         }
                         text={t('admin-setting-page.keycode-generation.generate')}
                         onClick={() => {
@@ -56,13 +61,16 @@ export function KeyCodes() {
                             createKeyCodes({
                                 variables: {
                                     target,
-                                    amount: parseInt(keyCodesToGenerate, 10),
+                                    amount: keyCodesToGenerate,
                                 },
-                            }).then(() => setIsLoading(false));
+                            }).then(() => {
+                                setIsLoading(false);
+                                setKeyCodesToGenerate(INITIAL_KEY_CODE_AMOUNT);
+                            });
                         }}
                     />
                 </div>
-                <div className={classes.generatedFileContainer}>
+                <span className={classes.generatedFileContainer}>
                     {created && (
                         <FilenameButton
                             primary
@@ -71,7 +79,7 @@ export function KeyCodes() {
                             onClick={() => generateExcel(created.series)}
                         />
                     )}
-                </div>
+                </span>
             </Grid>
             <div className={classes.fileListContainer}>
                 <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={(series) => generateExcel(series)} />
@@ -92,6 +100,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(3),
         },
         generatedFileContainer: {
+            display: 'flex',
             marginTop: 12,
         },
         container: {

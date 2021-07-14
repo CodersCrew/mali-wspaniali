@@ -24,8 +24,6 @@ import { GqlAuthGuard } from './guards/jwt_guard';
 import { JwtStrategy } from './strategy/jwt_strategy';
 import { ChildRepository } from './domain/repositories/child_repository';
 import { ChildSchema } from './schemas/child_schema';
-import { ChildResultSchema } from './schemas/child_result_schema';
-import { ChildResultRepository } from './domain/repositories/child_result_repository';
 import { ChildrenController } from './children_controller';
 import { UserChangePasswordJWT } from './schemas/user_change_password_jwt_schema';
 import { UserChangePasswordRepository } from './domain/repositories/user_change_password_jwt_repository';
@@ -34,6 +32,7 @@ import { ChildAssessmentResultRepository } from './domain/repositories/child_ass
 import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_schema';
 import { FreshmailProvider } from '../shared/services/send_mail/freshmail_provider';
 import { FreshmailService } from '../shared/services/send_mail/freshmail_service';
+import { ChildAssessmentResultResolver } from './child_assessment_result_resolver';
 
 @Module({
   imports: [
@@ -47,9 +46,6 @@ import { FreshmailService } from '../shared/services/send_mail/freshmail_service
     MongooseModule.forFeature([{ name: 'Child', schema: ChildSchema }]),
     MongooseModule.forFeature([
       { name: 'ChildAssessmentResult', schema: ChildAssessmentResultSchema },
-    ]),
-    MongooseModule.forFeature([
-      { name: 'ChildResult', schema: ChildResultSchema },
     ]),
     MongooseModule.forFeature([
       { name: 'UserChangePasswordJWT', schema: UserChangePasswordJWT },
@@ -68,9 +64,9 @@ import { FreshmailService } from '../shared/services/send_mail/freshmail_service
     GqlAuthGuard,
     UsersResolver,
     ChildResolver,
+    ChildAssessmentResultResolver,
     UserRepository,
     ChildRepository,
-    ChildResultRepository,
     ChildAssessmentResultRepository,
     UserChangePasswordRepository,
     SendMail,

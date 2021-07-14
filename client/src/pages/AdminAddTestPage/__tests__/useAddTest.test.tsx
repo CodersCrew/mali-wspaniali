@@ -26,8 +26,6 @@ describe('useAddTest', () => {
                 act(() => {
                     result.current.updateAssessment({
                         title: 'my-test',
-                        startDate: '2021-6-1',
-                        endDate: '2021-7-3',
                         firstMeasurementEndDate: '2021-7-3',
                         firstMeasurementStartDate: '2021-6-1',
                         firstMeasurementStatus: 'active',
@@ -48,8 +46,6 @@ describe('useAddTest', () => {
                 expect(onSubmit).toHaveBeenCalledWith({
                     assessment: {
                         title: 'my-test',
-                        startDate: '2021-6-1',
-                        endDate: '2021-7-3',
                         status: 'active',
                         firstMeasurementEndDate: '2021-7-3',
                         firstMeasurementStartDate: '2021-6-1',
@@ -61,7 +57,7 @@ describe('useAddTest', () => {
                         isOutdated: false,
                         isDeleted: false,
                     },
-                    message: 'A new assesment has been created',
+                    message: 'A new test has been created',
                 });
             });
         });
@@ -309,13 +305,15 @@ describe('useAddTest', () => {
     });
 });
 
-const renderPage = (mocks: MockedResponse[]): FC => ({ children }) => {
-    return (
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <div>{children}</div>
-        </MockedProvider>
-    );
-};
+const renderPage =
+    (mocks: MockedResponse[]): FC =>
+    ({ children }) => {
+        return (
+            <MockedProvider mocks={mocks} addTypename={false}>
+                <div>{children}</div>
+            </MockedProvider>
+        );
+    };
 
 const mocks = [
     {
@@ -324,12 +322,13 @@ const mocks = [
             variables: {
                 assessment: {
                     title: 'my-test',
-                    startDate: '2021-6-1',
-                    endDate: '2021-7-3',
                     firstMeasurementStartDate: '2021-6-1',
                     firstMeasurementEndDate: '2021-7-3',
                     lastMeasurementStartDate: '2021-6-1',
                     lastMeasurementEndDate: '2021-7-3',
+                    status: 'active',
+                    firstMeasurementStatus: 'active',
+                    lastMeasurementStatus: 'active',
                     kindergartenIds: [],
                 },
             },
@@ -341,13 +340,26 @@ const mocks = [
                     isOutdated: false,
                     isDeleted: false,
                     title: 'my-test',
-                    startDate: '2021-6-1',
-                    endDate: '2021-7-3',
                     firstMeasurementStartDate: '2021-6-1',
                     firstMeasurementEndDate: '2021-7-3',
                     lastMeasurementStartDate: '2021-6-1',
                     lastMeasurementEndDate: '2021-7-3',
-                    kindergartens: [],
+                    status: 'active',
+                    firstMeasurementStatus: 'active',
+                    lastMeasurementStatus: 'active',
+                    kindergartens: [
+                        {
+                            kindergarten: {
+                                _id: '1',
+                                name: 'test-kindergarten1',
+                                number: 1,
+                            },
+                            instructor: {
+                                _id: '1',
+                                mail: 'test-instructor1@gmail.com',
+                            },
+                        },
+                    ],
                 },
             },
         },
@@ -375,8 +387,6 @@ const mocks = [
                         isOutdated: false,
                         isDeleted: false,
                         title: 'test-assessment1',
-                        startDate: '2021-6-1',
-                        endDate: '2021-7-3',
                         firstMeasurementEndDate: '2021-7-3',
                         firstMeasurementStartDate: '2021-6-1',
                         lastMeasurementEndDate: '2021-7-3',

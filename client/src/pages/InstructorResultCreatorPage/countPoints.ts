@@ -25,7 +25,7 @@ export function countInvertedPoints(value: number, param: AssessmentParam) {
     return points;
 }
 
-export function countCurrentPoints(values: AssessmentValues, { currentParams }: Child) {
+export function countCurrentPoints(values: AssessmentValues, currentParams: Child['currentParams']) {
     if (!currentParams) {
         return {
             run: 0,

@@ -1,16 +1,12 @@
 import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
-import {
-    ResultCreatorErrorReturnProps,
-    ResultCreatorReturnProps,
-    useResultCreator,
-    AssessmentValues,
-} from './useResultCreator';
-import { ResultCreator } from './ResultCreator';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { MobileResultCreator } from './MobileResultCreator';
 import {
     useUpdateAssessmentResult,
     UpdatedAssessmentInput,
@@ -19,6 +15,14 @@ import {
     CreatedAssessmentInput,
     useCreateAssessmentResult,
 } from '../../operations/mutations/Results/createAssessmentResult';
+import {
+    ResultCreatorErrorReturnProps,
+    ResultCreatorReturnProps,
+    useResultCreator,
+    AssessmentValues,
+} from './useResultCreator';
+import { ResultCreator } from './ResultCreator';
+import { MobileResultCreator } from './MobileResultCreator';
 
 interface PageParams {
     assessmentId: string;
@@ -34,9 +38,10 @@ export default function InstructorResultCreatorPage() {
 
     const history = useHistory();
     const device = useIsDevice();
+    const { t } = useTranslation();
 
     useEffect(() => {
-        activePage(['instructor-menu.results-table']);
+        activePage(['instructor-menu.result-creator']);
     }, []);
 
     const resultCreator = useResultCreator({
@@ -104,6 +109,8 @@ export default function InstructorResultCreatorPage() {
                 resultCreator,
             );
 
+            onSaveSnackbar(resultCreator);
+
             redirectToNextChild();
         }
 
@@ -113,8 +120,20 @@ export default function InstructorResultCreatorPage() {
                 resultCreator,
             );
 
+            onSaveSnackbar(resultCreator);
+
             redirectToResultTable();
         }
+    }
+
+    function onSaveSnackbar(results: ResultCreatorReturnProps) {
+        const { edited, selectedChild } = results;
+
+        openSnackbar({
+            text: `${t('add-result-page.result-saved-snackbar-1')}${t(`add-result-page.${edited}`)}${t(
+                'add-result-page.result-saved-snackbar-2',
+            )}${selectedChild.firstname} ${selectedChild?.lastname}`,
+        });
     }
 
     function mapValuesToResult(results: AssessmentValues): Partial<CreatedAssessmentInput> {

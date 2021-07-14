@@ -1,3 +1,5 @@
+import { parseDateToAge } from './parse_date_to_age';
+
 interface UserDetails {
   birthYear: number;
   birthQuarter: number;
@@ -18,11 +20,15 @@ interface AssessmentParam {
   middleStageLimit: number;
   goodStageLimit: number;
   veryGoodStageLimit: number;
+  minScale: number;
+  scale39: number;
+  scale49: number;
+  scale59: number;
+  maxScale: number;
 }
 
-export function countParams(details: UserDetails) {
-  const currentDate = new Date().getFullYear();
-  const age = currentDate - details.birthYear;
+export function countParams(details: UserDetails, date: Date = new Date()) {
+  const age = parseDateToAge(details.birthYear, details.birthQuarter, date);
 
   return {
     run: getRunParams(age, details),
@@ -75,6 +81,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 7.4,
     goodStageLimit: 6.7,
     veryGoodStageLimit: 3.7,
+    minScale: 9.1,
+    scale39: 8.1,
+    scale49: 7.4,
+    scale59: 6.7,
+    maxScale: 3.7,
   },
   {
     sex: 'female',
@@ -90,6 +101,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 6.4,
     goodStageLimit: 5.9,
     veryGoodStageLimit: 3.7,
+    minScale: 9.1,
+    scale39: 7,
+    scale49: 6.4,
+    scale59: 5.9,
+    maxScale: 3.7,
   },
   {
     sex: 'female',
@@ -105,6 +121,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 5.7,
     goodStageLimit: 5.2,
     veryGoodStageLimit: 3.7,
+    minScale: 9.1,
+    scale39: 6.3,
+    scale49: 5.7,
+    scale59: 5.2,
+    maxScale: 3.7,
   },
   {
     sex: 'female',
@@ -120,6 +141,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 5.2,
     goodStageLimit: 4.7,
     veryGoodStageLimit: 3.7,
+    minScale: 9.1,
+    scale39: 5.7,
+    scale49: 5.2,
+    scale59: 4.7,
+    maxScale: 3.7,
   },
   {
     sex: 'female',
@@ -135,6 +161,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 5,
     goodStageLimit: 4.5,
     veryGoodStageLimit: 3.7,
+    minScale: 9.1,
+    scale39: 5.4,
+    scale49: 5,
+    scale59: 4.5,
+    maxScale: 3.7,
   },
   {
     sex: 'male',
@@ -150,6 +181,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 6.9,
     goodStageLimit: 6.2,
     veryGoodStageLimit: 3.6,
+    minScale: 8.4,
+    scale39: 7.6,
+    scale49: 6.9,
+    scale59: 6.2,
+    maxScale: 3.6,
   },
   {
     sex: 'male',
@@ -165,6 +201,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 6.1,
     goodStageLimit: 5.5,
     veryGoodStageLimit: 3.6,
+    minScale: 8.4,
+    scale39: 6.6,
+    scale49: 6.1,
+    scale59: 5.5,
+    maxScale: 3.6,
   },
   {
     sex: 'male',
@@ -180,6 +221,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 5.6,
     goodStageLimit: 5.1,
     veryGoodStageLimit: 3.6,
+    minScale: 8.4,
+    scale39: 6.2,
+    scale49: 5.6,
+    scale59: 5.1,
+    maxScale: 3.6,
   },
   {
     sex: 'male',
@@ -195,6 +241,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 5.2,
     goodStageLimit: 4.7,
     veryGoodStageLimit: 3.6,
+    minScale: 8.4,
+    scale39: 5.7,
+    scale49: 5.2,
+    scale59: 4.7,
+    maxScale: 3.6,
   },
   {
     sex: 'male',
@@ -210,6 +261,11 @@ const pointsRun: AssessmentParam[] = [
     middleStageLimit: 4.7,
     goodStageLimit: 4.3,
     veryGoodStageLimit: 3.6,
+    minScale: 8.4,
+    scale39: 5.2,
+    scale49: 4.7,
+    scale59: 4.3,
+    maxScale: 3.6,
   },
 ];
 
@@ -228,6 +284,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 14.3,
     goodStageLimit: 13.1,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 15.6,
+    scale49: 14.3,
+    scale59: 13.1,
+    maxScale: 7.2,
   },
   {
     sex: 'female',
@@ -243,6 +304,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 12,
     goodStageLimit: 10.7,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 13.2,
+    scale49: 12,
+    scale59: 10.7,
+    maxScale: 7.2,
   },
   {
     sex: 'female',
@@ -258,6 +324,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 10.9,
     goodStageLimit: 9.8,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 11.9,
+    scale49: 10.9,
+    scale59: 9.8,
+    maxScale: 7.2,
   },
   {
     sex: 'female',
@@ -273,6 +344,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 9.8,
     goodStageLimit: 8.9,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 10.8,
+    scale49: 9.8,
+    scale59: 8.9,
+    maxScale: 7.2,
   },
   {
     sex: 'female',
@@ -288,6 +364,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 9.5,
     goodStageLimit: 8.6,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 10.4,
+    scale49: 9.5,
+    scale59: 8.6,
+    maxScale: 7.2,
   },
   {
     sex: 'male',
@@ -303,6 +384,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 13.7,
     goodStageLimit: 12.6,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 14.8,
+    scale49: 13.7,
+    scale59: 12.6,
+    maxScale: 7.2,
   },
   {
     sex: 'male',
@@ -318,6 +404,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 11.5,
     goodStageLimit: 10.4,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 12.7,
+    scale49: 11.5,
+    scale59: 10.4,
+    maxScale: 7.2,
   },
   {
     sex: 'male',
@@ -333,6 +424,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 10.8,
     goodStageLimit: 9.6,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 12,
+    scale49: 10.8,
+    scale59: 9.6,
+    maxScale: 7.2,
   },
   {
     sex: 'male',
@@ -348,6 +444,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 10,
     goodStageLimit: 9,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 11,
+    scale49: 10,
+    scale59: 9,
+    maxScale: 7.2,
   },
   {
     sex: 'male',
@@ -363,6 +464,11 @@ const pointsPendulumRun: AssessmentParam[] = [
     middleStageLimit: 9.2,
     goodStageLimit: 8.4,
     veryGoodStageLimit: 7.2,
+    minScale: 17.1,
+    scale39: 10,
+    scale49: 9.2,
+    scale59: 8.4,
+    maxScale: 7.2,
   },
 ];
 
@@ -381,6 +487,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 120,
     goodStageLimit: 130,
     veryGoodStageLimit: 500,
+    minScale: 70,
+    scale39: 100,
+    scale49: 120,
+    scale59: 130,
+    maxScale: 500,
   },
   {
     sex: 'female',
@@ -396,6 +507,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 160,
     goodStageLimit: 190,
     veryGoodStageLimit: 500,
+    minScale: 70,
+    scale39: 120,
+    scale49: 160,
+    scale59: 190,
+    maxScale: 500,
   },
   {
     sex: 'female',
@@ -411,6 +527,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 200,
     goodStageLimit: 230,
     veryGoodStageLimit: 500,
+    minScale: 70,
+    scale39: 160,
+    scale49: 200,
+    scale59: 230,
+    maxScale: 500,
   },
   {
     sex: 'female',
@@ -426,6 +547,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 250,
     goodStageLimit: 290,
     veryGoodStageLimit: 500,
+    minScale: 70,
+    scale39: 210,
+    scale49: 250,
+    scale59: 290,
+    maxScale: 500,
   },
   {
     sex: 'female',
@@ -441,6 +567,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 290,
     goodStageLimit: 350,
     veryGoodStageLimit: 500,
+    minScale: 70,
+    scale39: 240,
+    scale49: 290,
+    scale59: 350,
+    maxScale: 500,
   },
   {
     sex: 'male',
@@ -456,6 +587,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 140,
     goodStageLimit: 160,
     veryGoodStageLimit: 540,
+    minScale: 70,
+    scale39: 110,
+    scale49: 140,
+    scale59: 160,
+    maxScale: 540,
   },
   {
     sex: 'male',
@@ -471,6 +607,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 180,
     goodStageLimit: 210,
     veryGoodStageLimit: 540,
+    minScale: 70,
+    scale39: 140,
+    scale49: 180,
+    scale59: 210,
+    maxScale: 540,
   },
   {
     sex: 'male',
@@ -486,6 +627,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 220,
     goodStageLimit: 260,
     veryGoodStageLimit: 540,
+    minScale: 70,
+    scale39: 180,
+    scale49: 220,
+    scale59: 260,
+    maxScale: 540,
   },
   {
     sex: 'male',
@@ -501,6 +647,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 270,
     goodStageLimit: 330,
     veryGoodStageLimit: 540,
+    minScale: 70,
+    scale39: 220,
+    scale49: 270,
+    scale59: 330,
+    maxScale: 540,
   },
   {
     sex: 'male',
@@ -516,6 +667,11 @@ const pointsThrow: AssessmentParam[] = [
     middleStageLimit: 340,
     goodStageLimit: 400,
     veryGoodStageLimit: 540,
+    minScale: 70,
+    scale39: 280,
+    scale49: 340,
+    scale59: 400,
+    maxScale: 540,
   },
 ];
 
@@ -534,6 +690,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 46,
     goodStageLimit: 58,
     veryGoodStageLimit: 165,
+    minScale: 21,
+    scale39: 35,
+    scale49: 46,
+    scale59: 58,
+    maxScale: 165,
   },
   {
     sex: 'female',
@@ -549,6 +710,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 68,
     goodStageLimit: 83,
     veryGoodStageLimit: 165,
+    minScale: 21,
+    scale39: 53,
+    scale49: 68,
+    scale59: 83,
+    maxScale: 165,
   },
   {
     sex: 'female',
@@ -564,6 +730,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 86,
     goodStageLimit: 102,
     veryGoodStageLimit: 165,
+    minScale: 21,
+    scale39: 70,
+    scale49: 86,
+    scale59: 102,
+    maxScale: 165,
   },
   {
     sex: 'female',
@@ -579,6 +750,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 103,
     goodStageLimit: 118,
     veryGoodStageLimit: 165,
+    minScale: 21,
+    scale39: 89,
+    scale49: 103,
+    scale59: 118,
+    maxScale: 165,
   },
   {
     sex: 'female',
@@ -594,6 +770,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 113,
     goodStageLimit: 131,
     veryGoodStageLimit: 165,
+    minScale: 21,
+    scale39: 96,
+    scale49: 113,
+    scale59: 131,
+    maxScale: 165,
   },
   {
     sex: 'male',
@@ -609,6 +790,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 52,
     goodStageLimit: 66,
     veryGoodStageLimit: 170,
+    minScale: 21,
+    scale39: 39,
+    scale49: 52,
+    scale59: 66,
+    maxScale: 170,
   },
   {
     sex: 'male',
@@ -624,6 +810,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 75,
     goodStageLimit: 90,
     veryGoodStageLimit: 170,
+    minScale: 21,
+    scale39: 60,
+    scale49: 75,
+    scale59: 90,
+    maxScale: 170,
   },
   {
     sex: 'male',
@@ -639,6 +830,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 89,
     goodStageLimit: 105,
     veryGoodStageLimit: 170,
+    minScale: 21,
+    scale39: 73,
+    scale49: 89,
+    scale59: 105,
+    maxScale: 170,
   },
   {
     sex: 'male',
@@ -654,6 +850,11 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 106,
     goodStageLimit: 122,
     veryGoodStageLimit: 170,
+    minScale: 21,
+    scale39: 90,
+    scale49: 106,
+    scale59: 122,
+    maxScale: 170,
   },
   {
     sex: 'male',
@@ -669,5 +870,10 @@ const pointsJump: AssessmentParam[] = [
     middleStageLimit: 121,
     goodStageLimit: 138,
     veryGoodStageLimit: 170,
+    minScale: 21,
+    scale39: 104,
+    scale49: 121,
+    scale59: 138,
+    maxScale: 170,
   },
 ];

@@ -14,16 +14,16 @@ import { AgreementsModule } from '../../../../../agreements/agreements_module';
 import { CreateAgreementHandler } from '../../../../../agreements/domain/commands/handlers/create_agreement_handler';
 import { CreateAgreementCommand } from '../../../../../agreements/domain/commands/impl/create_agreement_command';
 import { UserInput } from '../../../../../users/inputs/user_input';
-import { AgreementProps } from '../../../../../agreements/domain/models/agreement';
 import { ChangeUserAgreementCommand } from '../../impl/change_user_agreement_command';
 import { ChangeUserAgreementHandler } from '../change_user_agreement_handler';
 import { GetUserQuery } from '../../../queries/impl/get_user_query';
 import { GetUserHandler } from '../../../queries/handlers/get_user_handler';
+import { Agreement } from '@app/agreements/domain/models/agreement';
 
 describe('CreateUserHandler', () => {
   let parent: User;
-  let viewAgreement: AgreementProps;
-  let marketingAgreement: AgreementProps;
+  let viewAgreement: Agreement;
+  let marketingAgreement: Agreement;
   let app: TestingModule;
 
   afterEach(async () => {
@@ -50,8 +50,8 @@ describe('CreateUserHandler', () => {
     });
 
     describe('and user signed all agreements', () => {
-      let signViewAgreementResult: AgreementProps;
-      let signMarketingAgreementResult: AgreementProps;
+      let signViewAgreementResult: Agreement;
+      let signMarketingAgreementResult: Agreement;
       let reFetchedParent: User;
 
       beforeEach(async () => {
@@ -63,30 +63,31 @@ describe('CreateUserHandler', () => {
       it('returns user with agreements', async () => {
         signViewAgreementResult = await signAgreement(
           parent.id,
-          viewAgreement._id,
+          viewAgreement.id,
         );
-        expect(signViewAgreementResult.isSigned).toBe(true);
+
+        expect(signViewAgreementResult.isSigned()).toBe(true);
         reFetchedParent = await getParentById(parent.id);
 
-        expect(reFetchedParent.agreements).toEqual([viewAgreement._id]);
+        expect(reFetchedParent.agreements).toEqual([viewAgreement.id]);
 
         signMarketingAgreementResult = await signAgreement(
           parent.id,
-          marketingAgreement._id,
+          marketingAgreement.id,
         );
-        expect(signMarketingAgreementResult.isSigned).toBe(true);
+        expect(signMarketingAgreementResult.isSigned()).toBe(true);
         reFetchedParent = await getParentById(parent.id);
 
         expect(reFetchedParent.agreements).toEqual([
-          viewAgreement._id,
-          marketingAgreement._id,
+          viewAgreement.id,
+          marketingAgreement.id,
         ]);
       });
     });
 
     describe('and user unsigned agreement', () => {
-      let signViewAgreementResult: AgreementProps;
-      let signMarketingAgreementResult: AgreementProps;
+      let signViewAgreementResult: Agreement;
+      let signMarketingAgreementResult: Agreement;
       let reFetchedParent: User;
 
       beforeEach(async () => {
@@ -95,11 +96,11 @@ describe('CreateUserHandler', () => {
         marketingAgreement = await createAgreement('my-marketing-agreement');
         signViewAgreementResult = await signAgreement(
           parent.id,
-          viewAgreement._id,
+          viewAgreement.id,
         );
         signMarketingAgreementResult = await signAgreement(
           parent.id,
-          marketingAgreement._id,
+          marketingAgreement.id,
         );
       });
 
@@ -107,18 +108,18 @@ describe('CreateUserHandler', () => {
         reFetchedParent = await getParentById(parent.id);
 
         expect(reFetchedParent.agreements).toEqual([
-          viewAgreement._id,
-          marketingAgreement._id,
+          viewAgreement.id,
+          marketingAgreement.id,
         ]);
 
         signViewAgreementResult = await signAgreement(
           parent.id,
-          viewAgreement._id,
+          viewAgreement.id,
         );
 
         reFetchedParent = await getParentById(parent.id);
 
-        expect(reFetchedParent.agreements).toEqual([marketingAgreement._id]);
+        expect(reFetchedParent.agreements).toEqual([marketingAgreement.id]);
       });
     });
   });
@@ -126,7 +127,7 @@ describe('CreateUserHandler', () => {
   async function signAgreement(
     userId: string,
     agreementId: string,
-  ): Promise<AgreementProps> {
+  ): Promise<Agreement> {
     const agreement = app
       .get(ChangeUserAgreementHandler)
       .execute(new ChangeUserAgreementCommand(userId, agreementId));
@@ -157,7 +158,7 @@ describe('CreateUserHandler', () => {
     return parent;
   }
 
-  async function createAgreement(name = 'my-name') {
+  async function createAgreement(name: string = 'my-name'): Promise<Agreement> {
     return await app.get(CreateAgreementHandler).execute(
       new CreateAgreementCommand({
         text: name,

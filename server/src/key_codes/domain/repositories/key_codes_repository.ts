@@ -3,24 +3,25 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { KeyCodeDocument } from '../../schemas/key_codes_schema';
-import { KeyCodeProps } from '../models/key_code_model';
-import { KeyCodeInput } from '../../inputs/key_code_input';
+import { KeyCode, KeyCodeCore } from '../models/key_code_model';
+import { KeyCodeMapper } from '../mappers/keycode_mapper';
 
 @Injectable()
 export class KeyCodeRepository {
   constructor(
     @InjectModel('KeyCode')
-    private readonly keyCodeModel: Model<KeyCodeDocument>,
+    private keyCodeModel: Model<KeyCodeDocument>,
   ) {}
 
-  async getAll(series: string): Promise<KeyCodeProps[]> {
-    return await this.keyCodeModel
-      .find({ series }, {}, { sort: { date: -1 } })
-      .exec();
+  getAll(series: string): Promise<KeyCode[]> {
+    return this.keyCodeModel
+      .find({ series }, {}, { sort: { createdAt: -1 } })
+      .exec()
+      .then(keyCodes => KeyCodeMapper.toDomainMany(keyCodes));
   }
 
-  async getAllSeries(): Promise<string[]> {
-    return await this.keyCodeModel.distinct('series').exec();
+  getAllSeries(): Promise<string[]> {
+    return this.keyCodeModel.distinct('series').exec();
   }
 
   async getOne({
@@ -29,7 +30,7 @@ export class KeyCodeRepository {
   }: {
     series?: string;
     keyCode?: string;
-  }): Promise<KeyCodeProps> {
+  }): Promise<KeyCode | undefined> {
     let query;
 
     if (series) {
@@ -38,35 +39,36 @@ export class KeyCodeRepository {
       query = { keyCode };
     }
 
-    return await this.keyCodeModel
+    return this.keyCodeModel
       .findOne(query)
       .lean()
-      .exec();
+      .exec()
+      .then((keyCode: KeyCodeCore | undefined) => {
+        if (keyCode) return KeyCodeMapper.toDomain(keyCode);
+      });
   }
 
-  async count(series: string): Promise<number> {
-    return await this.keyCodeModel.count({ series }).exec();
+  count(series: string): Promise<number> {
+    return this.keyCodeModel.count({ series }).exec();
   }
 
-  async create(
-    createKeyCodeDTO: KeyCodeInput,
-    series: string,
-    target: string,
-  ): Promise<KeyCodeProps> {
-    const createdKeyCode = new this.keyCodeModel({
-      ...createKeyCodeDTO,
-      series,
-      target,
-    });
+  async create(keyCode: KeyCode): Promise<KeyCode> {
+    const createdKeyCode = new this.keyCodeModel(
+      KeyCodeMapper.toPlain(keyCode),
+    );
 
-    return await createdKeyCode.save();
+    await createdKeyCode.save();
+
+    return keyCode;
   }
 
-  async createBulk(createKeyCodeDTO: KeyCodeInput[]): Promise<KeyCodeProps[]> {
-    return this.keyCodeModel.insertMany(createKeyCodeDTO);
+  async createBulk(keyCodes: KeyCode[]): Promise<KeyCode[]> {
+    await this.keyCodeModel.insertMany(KeyCodeMapper.toPlainMany(keyCodes));
+
+    return keyCodes;
   }
 
-  async isKeyCode(keyCode: string): Promise<boolean> {
+  isKeyCode(keyCode: string): Promise<boolean> {
     return this.keyCodeModel
       .findOne({ keyCode })
       .exec()
@@ -76,7 +78,7 @@ export class KeyCodeRepository {
   async removeOlderThan(days: number): Promise<void> {
     this.keyCodeModel
       .deleteMany({
-        date: { $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
+        createdAt: { $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
       })
       .exec();
   }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Box, Grid, IconButton, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Search as SearchIcon } from '@material-ui/icons';
+
 import { OutlinedTextField } from './OutlinedTextField';
 
 interface SearchChildFieldProps {
@@ -19,7 +20,7 @@ export function SearchChildField(props: SearchChildFieldProps) {
     }
 
     if (!props.isCompact) {
-        const placeholder = t('add-results-page.search-by-child-firstname');
+        const placeholder = t('add-results-page.search-by-child-full-name');
 
         return (
             <OutlinedTextField
@@ -49,16 +50,20 @@ function SearchFieldLabel(props: SearchFieldLabelProps) {
     const label = t('add-results-page.child-list');
 
     return (
-        <Grid container justify="space-between" alignItems="center">
-            <Grid item>
-                <Typography>{label}</Typography>
+        <Box mb={1} mt={1}>
+            <Grid container justify="space-between" alignItems="center">
+                <Grid item>
+                    <Typography component={'span'}>
+                        <Box fontWeight={500}>{label}</Box>
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <IconButton size="small" aria-label="notifications" onClick={props.onClick}>
+                        <SearchIcon />
+                    </IconButton>
+                </Grid>
             </Grid>
-            <Grid item>
-                <IconButton size="small" aria-label="notifications" onClick={props.onClick}>
-                    <SearchIcon />
-                </IconButton>
-            </Grid>
-        </Grid>
+        </Box>
     );
 }
 
@@ -70,7 +75,7 @@ interface ExtendedSearchFieldProps {
 
 function ExtendedSearchField(props: ExtendedSearchFieldProps) {
     const { t } = useTranslation();
-    const placeholder = t('add-results-page.search-by-child-firstname');
+    const placeholder = t('add-results-page.search-by-child-full-name');
 
     return (
         <Grid container direction="column">
@@ -83,7 +88,7 @@ function ExtendedSearchField(props: ExtendedSearchFieldProps) {
                 />
             </Grid>
             <Grid item>
-                <Box mb={1}>
+                <Box mb={2} mt={1}>
                     <OutlinedTextField
                         label={placeholder}
                         input={props.searchTerm}

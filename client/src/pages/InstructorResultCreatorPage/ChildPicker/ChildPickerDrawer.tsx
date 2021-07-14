@@ -1,12 +1,23 @@
 import React from 'react';
-import { Box, createStyles, Divider, Grid, makeStyles, SwipeableDrawer, Theme, Typography } from '@material-ui/core';
+import {
+    Box,
+    createStyles,
+    Divider,
+    Grid,
+    makeStyles,
+    SwipeableDrawer,
+    Theme,
+    AppBar,
+    Toolbar,
+} from '@material-ui/core';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Child, Kindergarten } from '../../../graphql/types';
-import { ChildPicker } from './ChildPicker';
+
 import { ButtonSecondary } from '../../../components/Button';
-import { ResultCreatorReturnProps } from '../useResultCreator';
+import { Child, Kindergarten } from '../../../graphql/types';
 import { useSidebarState } from '../../../utils/useSidebar';
+import { ResultCreatorReturnProps } from '../useResultCreator';
+import { ChildPicker } from './ChildPicker';
 
 interface Props {
     childList: Child[];
@@ -39,12 +50,17 @@ export function ChildPickerDrawer(props: Props) {
                 <ChildPicker
                     assessment={props.resultCreator.selectedAssessment}
                     header={
-                        <span className={classes.header} onClick={() => setIsDrawerOpen(false)}>
-                            <Box mr={1}>
-                                <ArrowBack className={classes.icon} />
-                            </Box>
-                            <Typography variant="body2">{t('add-result-page.back-to-results')}</Typography>
-                        </span>
+                        <Box className={classes.header} onClick={() => setIsDrawerOpen(false)}>
+                            <AppBar elevation={0} classes={{ root: classes.appBar }}>
+                                <Toolbar>
+                                    <Box mr={1}>
+                                        <ArrowBack className={classes.icon} />
+                                    </Box>
+                                    <Box fontWeight={500}>{t('add-result-page.back-to-results')}</Box>
+                                </Toolbar>
+                                <Divider />
+                            </AppBar>
+                        </Box>
                     }
                     selectedKindergarten={props.selectedKindergarten}
                     kindergartens={props.kindergartens}
@@ -78,14 +94,21 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         paper: {
             width: '90%',
+            overflowX: 'hidden',
         },
         header: {
             display: 'flex',
             alignItems: 'center',
             cursor: 'pointer',
+            marginBottom: theme.spacing(3),
+        },
+        appBar: {
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.secondary.main,
+            width: '90%',
         },
         icon: {
-            color: theme.palette.text.secondary,
+            color: theme.palette.secondary.main,
         },
         backButtonContainer: {
             padding: theme.spacing(1, 2),

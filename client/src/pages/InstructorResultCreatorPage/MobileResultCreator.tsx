@@ -1,13 +1,14 @@
 import React from 'react';
-import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Box } from '@material-ui/core';
+import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import { ButtonSecondary } from '../../components/Button';
+import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
+import { countCurrentPoints } from './countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from './useResultCreator';
 import { ChildPickerDrawer } from './ChildPicker/ChildPickerDrawer';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
-import { ButtonSecondary } from '../../components/Button';
-import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
-import { countCurrentPoints } from './countPoints';
 
 interface Props {
     resultCreator: ResultCreatorReturnProps;
@@ -28,7 +29,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
         setLocalResult(resultCreator.values);
     }, [resultCreator.values, getCurrentNote()]);
 
-    const pointSum = Object.values(countCurrentPoints(localResult, child)).reduce((acc, v) => {
+    const pointSum = Object.values(countCurrentPoints(localResult, child.currentParams)).reduce((acc, v) => {
         if (Number.isNaN(v)) return acc;
 
         return acc + v;
@@ -83,17 +84,11 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                     <Divider />
                 </Grid>
                 <Grid item className={classes.footer}>
-                    <Grid container justify="space-between">
+                    <Grid container direction="column" alignItems="center">
                         <Grid item>
-                            <Box mr={2}>
-                                <ButtonSecondary
-                                    size="small"
-                                    variant="text"
-                                    onClick={() => onClick('back-to-table', '')}
-                                >
-                                    {t('add-result-page.back-to-table')}
-                                </ButtonSecondary>
-                            </Box>
+                            <ButtonSecondary size="small" variant="text" onClick={() => onClick('back-to-table', '')}>
+                                {t('add-result-page.back-to-table')}
+                            </ButtonSecondary>
                         </Grid>
                         <Grid item>
                             <ActionMenuButtonSecondary
@@ -151,12 +146,12 @@ const useStyles = makeStyles((theme) =>
             flex: '1 1 auto',
             height: 0,
             overflowY: 'auto',
-            paddingBottom: 56,
+            overflowX: 'hidden',
+            paddingBottom: theme.spacing(10),
         },
         container: {
             maxHeight: '85vh',
             height: '85vh',
-            marginTop: 10,
         },
         footer: {
             width: '100%',

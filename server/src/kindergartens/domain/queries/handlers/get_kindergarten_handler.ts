@@ -7,9 +7,7 @@ import { Kindergarten } from '../../models/kindergarten_model';
 @QueryHandler(GetKindergartenQuery)
 export class GetKindergartenHandler
   implements IQueryHandler<GetKindergartenQuery> {
-  constructor(
-    private readonly kindergartenRepository: KindergartenRepository,
-  ) {}
+  constructor(private kindergartenRepository: KindergartenRepository) {}
 
   async execute({ id }: GetKindergartenQuery): Promise<Kindergarten | null> {
     const kindergarten = await this.kindergartenRepository.get(id);

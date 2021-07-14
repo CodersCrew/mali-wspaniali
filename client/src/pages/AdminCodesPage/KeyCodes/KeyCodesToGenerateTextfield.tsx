@@ -2,7 +2,7 @@ import { createStyles, makeStyles, TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
-    value: string;
+    value: number;
     onChange: (amount: string) => void;
 }
 

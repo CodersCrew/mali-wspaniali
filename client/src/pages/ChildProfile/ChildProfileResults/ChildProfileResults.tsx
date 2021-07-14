@@ -1,55 +1,64 @@
 import { useState } from 'react';
+import { Typography, Box, makeStyles } from '@material-ui/core/';
+import { useTranslation } from 'react-i18next';
 
 import { GroupedTests } from './GroupedTest';
-import { Child, TestResult } from '../../../graphql/types';
+import { Child } from '../../../graphql/types';
 
-interface Props {
-    onNoResultClick(): void;
-    child: Child;
-}
+export function ChildProfileResults({ child }: { child: Child }) {
+    const [activeItem, setActiveItem] = useState('');
 
-export const ChildProfileResults = ({ child }: Props) => {
-    const [active, setActive] = useState('');
-
-    const { results } = child;
-
-    const grouped = getGroupedTest(results);
-
-    if (results.length === 0) return getEmptyMessage();
+    if (child.results.length === 0) return <EmptyPanel />;
 
     return (
-        <div data-testid="grouped-tests">
-            {grouped.map((groupedTest) => {
-                const [startTest] = groupedTest;
-
+        <Box pb={3}>
+            <Descriptiom />
+            {child.results.map((result) => {
                 return (
                     <GroupedTests
-                        isExpanded={active === startTest._id}
-                        onOpen={() => setActive(startTest._id)}
-                        onClose={() => setActive('')}
-                        key={startTest._id}
-                        date={new Date(startTest.date)}
-                        tests={groupedTest}
+                        child={child}
+                        resultId={result._id}
+                        result={result}
+                        isExpanded={activeItem === result._id}
+                        key={result._id}
+                        onToggle={() => onToggle(result._id)}
                     />
                 );
             })}
-        </div>
+        </Box>
     );
-};
 
-function getEmptyMessage() {
+    function onToggle(resultId: string) {
+        setActiveItem((prev) => (prev === resultId ? '' : resultId));
+    }
+}
+
+function EmptyPanel() {
+    return (
+        <>
+            <Descriptiom />
+            <EmptyPageMessage />
+        </>
+    );
+}
+
+function EmptyPageMessage() {
     return <div data-testid="no-test-assigned">There is no test assigned to your child</div>;
 }
 
-// export for test purposes only
-export function getGroupedTest(results: TestResult[]) {
-    return results
-        .filter((result) => !result.rootResultId)
-        .map((result) => {
-            const endResult = results.find((lastResult) => lastResult.rootResultId === result._id);
+function Descriptiom() {
+    const { t } = useTranslation();
+    const classes = useStyles();
 
-            if (endResult) return [result, endResult];
-
-            return [result];
-        });
+    return (
+        <Typography variant="h3" className={classes.description}>
+            {t('child-profile.description')}
+        </Typography>
+    );
 }
+
+const useStyles = makeStyles({
+    description: {
+        marginBottom: 40,
+    },
+});

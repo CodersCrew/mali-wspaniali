@@ -35,7 +35,7 @@ export default function AdminInstructorsPage() {
 
     useEffect(() => {
         if (assessments.length > 0) {
-            setSelectedAssessment(getAvailableAssessments()[0]._id);
+            setSelectedAssessment(getAvailableAssessments()[0]?._id);
         }
     }, [assessments.length]);
 

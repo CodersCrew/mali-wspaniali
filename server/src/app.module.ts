@@ -36,6 +36,7 @@ import { KeyCodesModule } from './key_codes/key_codes_module';
         origin: [new RegExp(process.env.SERVER_HOST)],
         credentials: true,
       },
+      fieldResolverEnhancers: ['guards', 'interceptors'],
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(

@@ -1,5 +1,6 @@
 import { createStyles, makeStyles, Paper, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { EditChildPanel } from './EditChildPanel';
 import { Theme } from '../../../theme';
 import { useKindergartens } from '../../../operations/queries/Kindergartens/getKindergartens';

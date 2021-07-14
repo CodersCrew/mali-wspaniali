@@ -4,10 +4,8 @@ import { NotificationRepository } from './domain/repositories/notification_repos
 
 @Injectable()
 export class NotificationsCronService {
-  constructor(
-    private readonly notificationRepository: NotificationRepository,
-  ) {}
-  private readonly logger = new Logger(NotificationsCronService.name);
+  constructor(private notificationRepository: NotificationRepository) {}
+  private logger = new Logger(NotificationsCronService.name);
 
   @Cron(CronExpression.EVERY_WEEK)
   async handleCron(): Promise<void> {

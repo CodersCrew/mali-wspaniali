@@ -6,9 +6,7 @@ import { KindergartenRepository } from '../../repositories/kindergarten_reposito
 @EventsHandler(KindergartenUpdatedEvent)
 export class KindergartenUpdatedHandler
   implements IEventHandler<KindergartenUpdatedEvent> {
-  constructor(
-    private readonly kindergartenRepository: KindergartenRepository,
-  ) {}
+  constructor(private kindergartenRepository: KindergartenRepository) {}
 
   async handle({ id, updates }: KindergartenUpdatedEvent): Promise<void> {
     await this.kindergartenRepository.update(id, updates);

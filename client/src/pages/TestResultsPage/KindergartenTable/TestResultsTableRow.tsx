@@ -1,81 +1,85 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TableRow, TableCell, IconButton, makeStyles, Tooltip, Theme, fade } from '@material-ui/core';
-import {
-    Edit as EditIcon,
-    KeyboardArrowDown as KeyboardArrowDownIcon,
-    KeyboardArrowUp as KeyboardArrowUpIcon,
-} from '@material-ui/icons';
+import { TableRow, TableCell, IconButton, Tooltip, makeStyles, Theme, fade } from '@material-ui/core';
+import { KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
-import { Kindergarten } from '../../../graphql/types';
+import { KindergartenWithChildren } from '../../../graphql/types';
+import { ProgressBar } from '../../../components/ProgressBar';
+import { AssessmentType } from '../TestToggleButton';
+import { getMeasurementResult } from '../../../utils/getMeasurementResult';
 
 interface Props {
-    kindergarten: Kindergarten;
-    onEditClick: (value: Kindergarten) => void;
+    assessmentType: AssessmentType;
+    kindergarten: KindergartenWithChildren;
 }
 
-export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
+export const TestResultsTableRow = ({ assessmentType, kindergarten }: Props) => {
     const { t } = useTranslation();
     const [open, setOpen] = React.useState(false);
-    const classes = useStyles();
+    const classes = useStyles({ open });
 
-    const { number, name, address, city } = kindergarten;
-    const editIconTooltip = t('test-results.button-icon-edit-tooltip');
+    const { name, maxResultCount, children } = kindergarten.kindergarten;
+    const measurementResult = getMeasurementResult(assessmentType, kindergarten);
     const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
 
     return (
         <>
             <TableRow className={classes.root} onClick={() => setOpen((prev) => !prev)}>
-                <TableCell>
+                <TableCell className={classes.cell}>
                     <Tooltip title={expandIconTooltip}>
                         <IconButton size="small" aria-label="expand row">
                             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </IconButton>
                     </Tooltip>
                 </TableCell>
-                <TableCell component="th" scope="row">
-                    {`${t('test-results.kindergarten-prefix')} ${number}`}
+                <TableCell className={classes.cell}>{name}</TableCell>
+                <TableCell className={classes.cell}>
+                    <div className={classes.progressBarContainer}>
+                        <div className={classes.progressBar}>
+                            <ProgressBar value={(measurementResult / (maxResultCount / 2)) * 100} />
+                        </div>
+                        <span>
+                            {measurementResult} / {maxResultCount / 2}
+                        </span>
+                    </div>
                 </TableCell>
-                <TableCell>{name}</TableCell>
-                <TableCell>{`${address}, ${city}`}</TableCell>
-                <TableCell align="right">
-                    <Tooltip title={editIconTooltip}>
-                        <IconButton
-                            className={classes.button}
-                            aria-label="edit kindergarten"
-                            size="small"
-                            onClick={onEditButtonClick}
-                        >
-                            <EditIcon />
-                        </IconButton>
-                    </Tooltip>
-                </TableCell>
+                <TableCell className={classes.cell} />
             </TableRow>
-            <KindergartenChildrenTable open={open} />
+            <KindergartenChildrenTable open={open} childrenInfo={children} />
         </>
     );
+};
 
-    function onEditButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
-        e.stopPropagation();
-
-        onEditClick(kindergarten);
-    }
+type PropStyle = {
+    open: boolean;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        '& > *': {
-            borderBottom: 'unset',
-        },
         '&:hover': {
             backgroundColor: theme.palette.background.default,
         },
         cursor: 'pointer',
+        height: '50px',
+        borderBottom: ({ open }: PropStyle) => (!open ? '1px solid rgba(224, 224, 224, 1)' : 'none'),
     },
     button: {
         '&:hover': {
             color: theme.palette.primary.main,
             backgroundColor: fade(theme.palette.primary.main, 0.2),
         },
+    },
+    progressBarContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    progressBar: {
+        width: '70%',
+        marginRight: theme.spacing(2),
+    },
+    cell: {
+        padding: theme.spacing(1),
+        borderBottom: 'none',
     },
 }));

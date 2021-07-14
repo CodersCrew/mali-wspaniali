@@ -31,7 +31,7 @@ export class ResetPasswordHandler
       );
 
       await this.userChangePasswordRepository.create({
-        userId: user.id.toString(),
+        userId: user.id,
         jwt: payload,
       });
 

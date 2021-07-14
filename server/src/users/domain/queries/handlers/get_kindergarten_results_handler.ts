@@ -1,20 +1,18 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { GetKindergartenResults } from '../impl';
+import { GetKindergartenResultsQuery } from '../impl';
 import { ChildAssessmentResultRepository } from '../../repositories/child_assessment_result_repository';
 import { PartialChildResult } from '../../../inputs/child_result_input';
 
-@QueryHandler(GetKindergartenResults)
+@QueryHandler(GetKindergartenResultsQuery)
 export class GetKindergartenResultsHandler
-  implements IQueryHandler<GetKindergartenResults> {
-  constructor(
-    private readonly resultRepository: ChildAssessmentResultRepository,
-  ) {}
+  implements IQueryHandler<GetKindergartenResultsQuery> {
+  constructor(private resultRepository: ChildAssessmentResultRepository) {}
 
   async execute({
     kindergartenId,
     assessmentId,
-  }: GetKindergartenResults): Promise<PartialChildResult[]> {
+  }: GetKindergartenResultsQuery): Promise<PartialChildResult[]> {
     return await this.resultRepository.getByKindergarten(
       kindergartenId,
       assessmentId,

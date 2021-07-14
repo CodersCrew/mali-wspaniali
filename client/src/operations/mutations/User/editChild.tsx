@@ -1,8 +1,12 @@
 import { gql, useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
+
 import { Child, UpdatedChildInput, Kindergarten } from '../../../graphql/types';
 import { client } from '../../../apollo_client';
 import { GET_ME, useGetMe } from './useGetMe';
 import { useKindergartens } from '../../queries/Kindergartens/getKindergartens';
+
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 export interface EditChildResponse {
     status: boolean;
@@ -20,6 +24,7 @@ export function useEditChild() {
     const [editChild] = useMutation<EditChildResponse, { child: UpdatedChildInput }>(EDIT_CHILD);
     const { user } = useGetMe();
     const { kindergartenList } = useKindergartens();
+    const { t } = useTranslation();
 
     return {
         editChild: (update: UpdatedChildInput) => {
@@ -27,12 +32,14 @@ export function useEditChild() {
 
             if (!updatedKindergarten) return;
 
-            editChild({
+            return editChild({
                 variables: {
                     child: update,
                 },
             }).then(() => {
                 if (!user || !kindergartenList) return;
+
+                openSnackbar({ text: t('child-profile.child-details.success-message') });
 
                 client.writeQuery({
                     query: GET_ME,

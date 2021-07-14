@@ -1,3 +1,4 @@
+import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 
 import { KeyCode } from '../../../graphql/types';
@@ -9,8 +10,8 @@ export interface CreateKeyCodeSeriesResponse {
 export const CREATE_KEYCODES = gql`
     mutation createKeyCodeBulk($target: String!, $amount: Int!) {
         createKeyCodeBulk(target: $target, amount: $amount) {
-            id
-            date
+            _id
+            createdAt
             createdBy
             target
             series
@@ -20,6 +21,8 @@ export const CREATE_KEYCODES = gql`
 `;
 
 export function useCreateKeyCodes() {
+    const [created, setCreated] = React.useState<KeyCode | undefined>();
+
     const [createKeyCodes, { data }] = useMutation<CreateKeyCodeSeriesResponse>(CREATE_KEYCODES, {
         update(cache, { data: newKeyCodeResponse }) {
             if (newKeyCodeResponse) {
@@ -36,5 +39,9 @@ export function useCreateKeyCodes() {
         },
     });
 
-    return { createKeyCodes, created: data?.createKeyCodeBulk[0] };
+    React.useEffect(() => {
+        setCreated(data?.createKeyCodeBulk[0]);
+    }, [data]);
+
+    return { createKeyCodes, created, resetCreated: () => setCreated(undefined) };
 }

@@ -1,23 +1,49 @@
-import { makeStyles, createStyles, Theme, Typography, Paper } from '@material-ui/core';
+import { useState } from 'react';
+import clsx from 'clsx';
+import { makeStyles, createStyles, Theme, Typography, Paper, Button, Box } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
+import { useIsDevice } from '../../../../queries/useBreakpoints';
+
 import { HomePageInfoPropTypes } from './types';
 
-export const HomePageInfo = ({ toggleInfoComponent }: HomePageInfoPropTypes) => {
+export const HomePageInfo = ({ toggleInfoComponent, childrenCount }: HomePageInfoPropTypes) => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { isTablet } = useIsDevice();
+
+    const [readMore, setReadMore] = useState(false);
+
+    const toggleReadMore = () => {
+        setReadMore((prevState) => !prevState);
+    };
 
     return (
-        <Paper className={classes.infoContainer}>
+        <Paper
+            className={clsx({
+                [classes.infoContainer]: true,
+                [classes.infoContainerReadMore]: readMore,
+            })}
+        >
             <Close className={classes.contentCloseIcon} onClick={() => toggleInfoComponent()} />
             <Typography variant="h4" className={classes.contentTitle}>
                 {t('home-page-content.foundation-header')}
             </Typography>
-            <Typography variant="body1" className={classes.contentDescription}>
-                {t('home-page-content.foundation-content')}
-            </Typography>
-            <Typography variant="body1">{t('home-page-content.foundation-content-summary')}</Typography>
+            <div
+                className={clsx({
+                    [classes.contentDescription]: true,
+                    [classes.contentDescriptionTablet]: isTablet && childrenCount <= 1,
+                    [classes.contentReadMore]: readMore,
+                })}
+            >
+                <Typography variant="body1">{t('home-page-content.foundation-content')}</Typography>
+                <Box mb={2} />
+                <Typography variant="body1">{t('home-page-content.foundation-content-summary')}</Typography>
+            </div>
+            <Button className={classes.link} onClick={toggleReadMore}>
+                {t(readMore ? 'home-page-content.read-less' : 'home-page-content.read-more')}
+            </Button>
         </Paper>
     );
 };
@@ -30,10 +56,10 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2),
             position: 'relative',
             textAlign: 'left',
-            marginTop: theme.spacing(2),
+            maxHeight: 189,
 
             [theme.breakpoints.down('md')]: {
-                marginTop: theme.spacing(4),
+                height: '100%',
             },
         },
         contentCloseIcon: {
@@ -55,7 +81,32 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(2),
         },
         contentDescription: {
+            flexDirection: 'column',
             marginBottom: theme.spacing(2),
+
+            display: '-webkit-box',
+            WebkitLineClamp: 4,
+            '-webkit-box-orient': 'vertical',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+        },
+        contentDescriptionTablet: {
+            WebkitLineClamp: 2,
+        },
+        link: {
+            color: theme.palette.primary.main,
+            textTransform: 'uppercase',
+            margin: 0,
+            padding: theme.spacing(0, 1),
+            width: 'auto',
+            alignSelf: 'flex-end',
+        },
+        contentReadMore: {
+            display: 'flex',
+            overflow: 'visible',
+        },
+        infoContainerReadMore: {
+            maxHeight: 'none',
         },
     }),
 );

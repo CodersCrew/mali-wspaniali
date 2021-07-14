@@ -14,14 +14,12 @@ import { ReturnedStatusDTO } from '../shared/returned_status';
 import { GqlAuthGuard } from './guards/jwt_guard';
 import { CurrentUser } from './params/current_user_param';
 import { ChildInput, UpdatedChildInput } from './inputs/child_input';
-import { ChildProps, Child } from './domain/models/child_model';
+import { Child, ChildCore } from './domain/models/child_model';
 import { LoggedUser } from './params/current_user_param';
-import { ChildDTO } from './dto/children_dto';
-import { ResultInput } from './inputs/result_input';
+import { ChildDTO } from './dto/child_dto';
 import { GetAllChildrenQuery } from './domain/queries/impl/get_all_children_query';
 import {
   AddChildCommand,
-  AddChildResultCommand,
   CreateAssessmentResultCommand,
   UpdateAssessmentResultCommand,
 } from './domain/commands/impl';
@@ -38,7 +36,25 @@ import {
   PartialChildResultInput,
   PartialUpdateChildResultInput,
 } from './inputs/child_result_input';
-import { GetKindergartenResults } from './domain/queries/impl';
+import {
+  GetKindergartenResultsQuery,
+  GetUserByChildIdQuery,
+} from './domain/queries/impl';
+import { KindergartenCore } from '../kindergartens/domain/models/kindergarten_model';
+import { ChildAssessmentResultDTO } from './dto/child_assessment_result';
+import { GetChildResultsQuery } from './domain/queries/impl/get_child_results_query';
+import {
+  ChildAssessmentResult,
+  ChildAssessmentResultCore,
+} from './domain/models/child_assessment_result_model';
+import { ChildAssessmentResultMapper } from './domain/mappers/child_assessment_result_mapper';
+import { UserDTO } from './dto/user_dto';
+import { UserMapper } from './domain/mappers/user_mapper';
+import { Int } from '@nestjs/graphql';
+import { parseDateToAge } from '../shared/utils/parse_date_to_age';
+import { CurrentAssessment } from './params/current_assessment_param';
+import { Assessment } from '../assessment/domain/models/assessment_model';
+import { GetAssessmentsQuery } from '../assessment/domain/queries/impl/get_assessment_query';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => ChildDTO)
@@ -46,17 +62,64 @@ export class ChildResolver {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   @ResolveField(() => KindergartenDTO)
-  async kindergarten(@Parent() child: ChildDTO): Promise<KindergartenDTO> {
+  async kindergarten(@Parent() child: ChildDTO): Promise<KindergartenCore> {
     const result = await this.queryBus.execute(
-      new GetKindergartenQuery((child.kindergarten as any) as string),
+      new GetKindergartenQuery(child.kindergarten),
     );
 
-    return KindergartenMapper.toRaw(result);
+    return KindergartenMapper.toPlain(result);
   }
 
   @ResolveField(() => ChildCurrentParamsDTO)
   currentParams(@Parent() child: ChildDTO): ChildCurrentParamsDTO {
     return countParams(child);
+  }
+
+  @ResolveField(() => [ChildAssessmentResultDTO])
+  async results(
+    @Parent() child: ChildDTO,
+  ): Promise<ChildAssessmentResultCore[]> {
+    const results = await this.queryBus.execute(
+      new GetChildResultsQuery(child._id),
+    );
+
+    return ChildAssessmentResultMapper.toPlainMany(results);
+  }
+
+  @ResolveField(() => UserDTO, { nullable: true })
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  async parent(@Parent() child: ChildDTO): Promise<UserDTO> {
+    const user = await this.queryBus.execute(
+      new GetUserByChildIdQuery(child._id),
+    );
+
+    if (user) return UserMapper.toPlain(user) as UserDTO;
+  }
+
+  @ResolveField(() => Int, {
+    nullable: true,
+    description:
+      "Returns child's age, if run on concrete assessment context, returns age in relation to firstMeasuremtnDate / lastMeasurementDate if the first is not available, if run without any context in returns age in realation to the current date",
+  })
+  @UseGuards(GqlAuthGuard)
+  async age(
+    @Parent() child: ChildDTO,
+    @CurrentAssessment() assessmentId: string,
+  ): Promise<number> {
+    if (assessmentId) {
+      const assessment: Assessment = await this.queryBus.execute(
+        new GetAssessmentsQuery(assessmentId),
+      );
+
+      const date =
+        assessment.firstMeasurementStatus !== 'not-planned'
+          ? assessment.firstMeasurementStartDate
+          : assessment.lastMeasurementStartDate;
+
+      return parseDateToAge(child.birthYear, child.birthQuarter, date);
+    }
+
+    return parseDateToAge(child.birthYear, child.birthQuarter);
   }
 
   @Query(() => [ChildDTO])
@@ -78,12 +141,12 @@ export class ChildResolver {
   async addChild(
     @CurrentUser() user: LoggedUser,
     @Args('child') child: ChildInput,
-  ): Promise<ChildDTO> {
+  ): Promise<ChildCore> {
     const created: Child = await this.commandBus.execute(
       new AddChildCommand(child, user.userId),
     );
 
-    return ChildMapper.toDTO(created);
+    return ChildMapper.toPlain(created);
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -92,24 +155,11 @@ export class ChildResolver {
     @CurrentUser() user: LoggedUser,
     @Args('child') child: UpdatedChildInput,
   ): Promise<{ status: boolean }> {
-    const edited: ChildProps = await this.commandBus.execute(
+    const edited: ChildCore = await this.commandBus.execute(
       new EditChildCommand(child, user.userId),
     );
 
     return { status: !!edited };
-  }
-
-  @Mutation(() => ReturnedStatusDTO)
-  async addResult(
-    @Args('childId') childId: string,
-    @Args('result') result: ResultInput,
-    @Args('rootResultId', { nullable: true }) rootResultId?: string | undefined,
-  ): Promise<{ status: boolean }> {
-    const created: ChildProps = await this.commandBus.execute(
-      new AddChildResultCommand(result, childId, rootResultId),
-    );
-
-    return { status: !!created };
   }
 
   @Mutation(() => PartialChildResult)
@@ -135,10 +185,10 @@ export class ChildResolver {
     @Args('assessmentId') assessmentId: string,
     @Args('kindergartenId') kindergartenId: string,
   ) {
-    const results: PartialChildResult[] = await this.queryBus.execute(
-      new GetKindergartenResults(assessmentId, kindergartenId),
+    const results: ChildAssessmentResult[] = await this.queryBus.execute(
+      new GetKindergartenResultsQuery(kindergartenId, assessmentId),
     );
 
-    return results;
+    return ChildAssessmentResultMapper.toPlainMany(results);
   }
 }

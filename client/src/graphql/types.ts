@@ -104,17 +104,27 @@ export interface AssessmentParam {
     middleStageLimit: number;
     goodStageLimit: number;
     veryGoodStageLimit: number;
+    minScale: number;
+    scale39: number;
+    scale49: number;
+    scale59: number;
+    maxScale: number;
 }
 
-export interface Child {
+export interface BaseChildInfo {
     _id: string;
     firstname: string;
     lastname: string;
     sex: Sex;
+    age?: number;
+}
+
+export interface Child extends BaseChildInfo {
     kindergarten: Kindergarten;
     birthYear: number;
     birthQuarter: number;
-    results: TestResult[];
+    age?: number;
+    results: AssessmentResult[];
     currentParams?: {
         run?: AssessmentParam;
         pendelumRun?: AssessmentParam;
@@ -124,6 +134,17 @@ export interface Child {
 }
 
 export type Sex = 'male' | 'female';
+
+export interface KindergartenWithChildren {
+    kindergarten: {
+        _id: string;
+        name: string;
+        firstMeasurementResultCount: number;
+        lastMeasurementResultCount: number;
+        maxResultCount: number;
+        children: BaseChildInfo[];
+    };
+}
 
 export interface Kindergarten {
     _id: string;
@@ -178,7 +199,7 @@ export interface Agreement {
 
 export interface Notification {
     _id: string;
-    date: string;
+    createdAt: string;
     values: string[];
     templateId: string;
     isRead: boolean;
@@ -186,7 +207,7 @@ export interface Notification {
 
 export interface KeyCode {
     id: string;
-    date: string;
+    createdAt: string;
     createdBy: string;
     keyCode: string;
     series: string;
@@ -194,7 +215,7 @@ export interface KeyCode {
 }
 
 export interface KeyCodeSeries {
-    date: string;
+    createdAt: string;
     series: string;
     target: string;
     count: number;
@@ -205,8 +226,6 @@ export interface Assessment {
     isOutdated: boolean;
     isDeleted: boolean;
     title: string;
-    startDate: string;
-    endDate: string;
     status: string;
     firstMeasurementStatus: string;
     lastMeasurementStatus: string;
@@ -225,6 +244,14 @@ export interface AssessmentResult {
     childId: string;
     kindergartenId: string;
     assessmentId: string;
+    assessment: Assessment;
+    currentParams: {
+        run?: AssessmentParam;
+        pendelumRun?: AssessmentParam;
+        throw?: AssessmentParam;
+        jump?: AssessmentParam;
+    };
+    child: Child;
     firstMeasurementNote: string;
     lastMeasurementNote: string;
     firstMeasurementRunResult: number;
@@ -243,6 +270,8 @@ export interface AssessmentResult {
     lastMeasurementThrowDate: Date;
     firstMeasurementJumpDate: Date;
     lastMeasurementJumpDate: Date;
+    createdAt: Date;
+    modifiedAt: Date;
 }
 
 export interface ReturnedStatusDTO {

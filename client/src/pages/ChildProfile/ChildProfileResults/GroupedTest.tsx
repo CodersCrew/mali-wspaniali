@@ -2,60 +2,34 @@ import { Accordion, AccordionSummary, AccordionDetails, makeStyles, Theme, creat
 import clsx from 'clsx';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
-import { ResultComparison } from './ExtendedGroupedTest/ResultComparison';
-import { SingleTest } from './ExtendedGroupedTest/SingleTest';
-import { TestResult } from '../../../graphql/types';
-import { countSumOfPoints } from '../../../utils/countSumOfPoints';
+import { AssessmentResult, Child } from '../../../graphql/types';
+import { ResultPreview } from '../../../components/ResultPreview/ResultPreview';
 
-interface Props {
+export function GroupedTests(props: {
+    result: AssessmentResult;
+    child: Child;
     isExpanded: boolean;
-    onOpen: () => void;
-    onClose: () => void;
-    date: Date;
-    tests: TestResult[];
-}
-
-export const GroupedTests = ({ isExpanded, onOpen, date, onClose, tests }: Props) => {
+    resultId: string;
+    onToggle: () => void;
+}) {
     const classes = useStyles();
 
     return (
-        <Accordion expanded={isExpanded} className={classes.expansionPanel}>
-            <AccordionSummary
-                onClick={onOpen}
-                className={clsx({
-                    [classes.expansionPanelSummary]: true,
-                    [classes.expansionPanelSummaryExpanded]: isExpanded,
-                })}
-            >
-                <SummarisedGroupedTest
-                    schoolYearStart={date.getFullYear()}
-                    onClose={onClose}
-                    isExpanded={isExpanded}
-                    date={date}
-                    childId={tests[0]._id}
-                />
-            </AccordionSummary>
-            <AccordionDetails className={classes.expansionPanelDetails}>{getTestSections(tests)}</AccordionDetails>
-        </Accordion>
-    );
-};
-
-function getTestSections(tests: TestResult[]) {
-    const [startTest, endTest] = tests;
-
-    return (
         <>
-            <SingleTest result={startTest} />
-            {endTest && (
-                <>
-                    <SingleTest result={endTest} />
-                    <ResultComparison
-                        firstResultPoints={countSumOfPoints(startTest.test)}
-                        lastResultPoints={countSumOfPoints(endTest.test)}
-                        childAge={startTest.test.childAge}
-                    />
-                </>
-            )}
+            <Accordion expanded={props.isExpanded} className={classes.expansionPanel}>
+                <AccordionSummary
+                    onClick={props.onToggle}
+                    className={clsx({
+                        [classes.expansionPanelSummary]: true,
+                        [classes.expansionPanelSummaryExpanded]: props.isExpanded,
+                    })}
+                >
+                    <SummarisedGroupedTest test={props.result} onClick={props.onToggle} isExpanded={props.isExpanded} />
+                </AccordionSummary>
+                <AccordionDetails className={classes.expansionPanelDetails}>
+                    <ResultPreview resultId={props.resultId} />
+                </AccordionDetails>
+            </Accordion>
         </>
     );
 }

@@ -4,14 +4,14 @@ import { KeyCodeRepository } from './domain/repositories/key_codes_repository';
 
 @Injectable()
 export class KeyCodesCronService {
-  constructor(private readonly keyCodeRepository: KeyCodeRepository) {}
-  private readonly logger = new Logger(KeyCodesCronService.name);
+  constructor(private keyCodeRepository: KeyCodeRepository) {}
+  private logger = new Logger(KeyCodesCronService.name);
 
-  @Cron(CronExpression.EVERY_WEEK)
+  @Cron(CronExpression.EVERY_HOUR)
   async handleCron(): Promise<void> {
     this.logger.log('[KeyCodes - cron] Job started');
 
-    await this.keyCodeRepository.removeOlderThan(7);
+    await this.keyCodeRepository.removeOlderThan(14);
 
     this.logger.log('[KeyCodes - cron] Job started');
   }

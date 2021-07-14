@@ -14,69 +14,75 @@ import {
     fade,
     Tooltip,
 } from '@material-ui/core';
-import { Edit as EditIcon, InsertChart as InsertChartIcon } from '@material-ui/icons';
+import { InsertChart as InsertChartIcon } from '@material-ui/icons';
+import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
+import { BaseChildInfo } from '../../../graphql/types';
 
 interface Props {
     open: boolean;
+    childrenInfo: BaseChildInfo[];
 }
 
-export const KindergartenChildrenTable = ({ open }: Props) => {
-    const classes = useStyles();
-    const { t } = useTranslation();
+const CHILD_NAME = 'childName';
+const AGE_NAME = 'AgeName';
 
-    const editIconTooltip = t('test-results.button-icon-edit-tooltip');
-    const resultsIconTooltip = t('test-results.button-icon-results-tooltip');
+export const KindergartenChildrenTable = ({ open, childrenInfo }: Props) => {
+    const classes = useStyles({ open });
+    const { t } = useTranslation();
+    const [children, selectedSortableCell, cellParameters] = useArrowedCell(childrenInfo);
+
+    const childCell = cellParameters(
+        CHILD_NAME,
+        (c: BaseChildInfo, b: BaseChildInfo) => `${c.firstname} ${c.lastname}` < `${b.firstname} ${b.lastname}`,
+    );
+    const ageCell = cellParameters(AGE_NAME, (c: BaseChildInfo, b: BaseChildInfo) => (c.age ?? 0) < (b.age ?? 0));
 
     return (
-        <TableRow>
+        <TableRow className={classes.mainRow}>
             <TableCell className={classes.collapseCell} colSpan={6}>
                 <Collapse in={open} timeout="auto" unmountOnExit>
                     <Box className={classes.collapseContainer}>
                         <Table size="small" aria-label="children">
                             <TableHead>
-                                <TableRow>
-                                    <TableCell>{t('test-results.parents-email')}</TableCell>
-                                    <TableCell>{t('test-results.children')}</TableCell>
+                                <TableRow className={classes.headRow}>
+                                    <ArrowedCell
+                                        text={t('test-results.children')}
+                                        isSelected={selectedSortableCell === childCell.name}
+                                        onClick={childCell.changeActive}
+                                        arrowSize="0.85em"
+                                    />
+                                    <ArrowedCell
+                                        text={t('test-results.age')}
+                                        isSelected={selectedSortableCell === ageCell.name}
+                                        onClick={ageCell.changeActive}
+                                        arrowSize="0.85em"
+                                    />
                                     <TableCell />
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                <TableRow>
-                                    <TableCell component="th" scope="row">
-                                        wojtek.kowalski@gmail.com
-                                    </TableCell>
-                                    <TableCell>Kasia Kowalska, Zbyszek Kowalski</TableCell>
-                                    <TableCell align="right">
-                                        <Tooltip title={editIconTooltip}>
-                                            <IconButton className={classes.button} aria-label="edit child">
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title={resultsIconTooltip}>
-                                            <IconButton className={classes.button} aria-label="view results">
-                                                <InsertChartIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell component="th" scope="row">
-                                        aniapilarczyk20@gmail.com
-                                    </TableCell>
-                                    <TableCell>Małgorzata Pilarczyk</TableCell>
-                                    <TableCell align="right">
-                                        <Tooltip title={editIconTooltip}>
-                                            <IconButton className={classes.button} aria-label="edit child">
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title={resultsIconTooltip}>
-                                            <IconButton className={classes.button} aria-label="view results">
-                                                <InsertChartIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </TableCell>
-                                </TableRow>
+                                {children.map((child) => (
+                                    <TableRow className={classes.row} key={child._id}>
+                                        <TableCell
+                                            className={classes.cell}
+                                            component="th"
+                                            scope="row"
+                                            style={{ width: '46%' }}
+                                        >
+                                            {child.firstname} {child.lastname}
+                                        </TableCell>
+                                        <TableCell className={classes.cell}>
+                                            {child.age} {t('years_1')}
+                                        </TableCell>
+                                        <TableCell className={classes.iconCell} align="right">
+                                            <Tooltip title={t('test-results.button-icon-results-tooltip').toString()}>
+                                                <IconButton className={classes.button} aria-label="view results">
+                                                    <InsertChartIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                             </TableBody>
                         </Table>
                     </Box>
@@ -86,19 +92,48 @@ export const KindergartenChildrenTable = ({ open }: Props) => {
     );
 };
 
+type PropStyle = {
+    open: boolean;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         collapseCell: {
             padding: 0,
+            borderBottom: 'none',
         },
         collapseContainer: {
-            margin: theme.spacing(0, 11),
+            margin: '0px 9.6%',
+            paddingBottom: '8px',
         },
         button: {
             '&:hover': {
                 color: theme.palette.primary.main,
                 backgroundColor: fade(theme.palette.primary.main, 0.2),
             },
+            marginRight: theme.spacing(1),
+            padding: theme.spacing(0),
+        },
+        headRow: {
+            height: '34px',
+        },
+        mainRow: {
+            borderBottom: ({ open }: PropStyle) => (open ? '1px solid rgba(224, 224, 224, 1)' : 'none'),
+        },
+        row: {
+            '&:hover': {
+                backgroundColor: theme.palette.background.default,
+            },
+            height: '34px',
+            padding: '0px auto',
+            left: '4px',
+        },
+        cell: {
+            padding: theme.spacing(0),
+            paddingLeft: '6px',
+        },
+        iconCell: {
+            padding: theme.spacing(0),
         },
     }),
 );
