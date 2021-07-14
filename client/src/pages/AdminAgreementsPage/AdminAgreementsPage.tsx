@@ -26,7 +26,7 @@ import { PageContainer } from '../../components/PageContainer';
 interface Props {
     kindergartens: KindergartenWithChildrens[];
     assessments: AssessmentTitle[];
-    agreementsStatusFilter: AgreementStatusFilter;
+    agreementsStatusFilter: AgreementStatusFilter[];
     agreementsTypeFilter: AgreementTypeFilter;
     agreementsKindergartenFilter: AgreementKindergartenFilter[];
     agreementsSortStatus: AgreementSortType;

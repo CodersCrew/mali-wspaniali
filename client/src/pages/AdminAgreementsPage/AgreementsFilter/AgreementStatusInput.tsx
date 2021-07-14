@@ -1,15 +1,25 @@
-import { createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Theme } from '@material-ui/core';
+import {
+    Checkbox,
+    createStyles,
+    FormControl,
+    InputLabel,
+    ListItemText,
+    makeStyles,
+    MenuItem,
+    Select,
+    Theme,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { FilterMenuProps } from './FilterMenuProps';
-import { AgreementStatusFilters } from '../../../models/AgreementStatusFilter';
+import { AgreementStatusFilter } from '../../../models/AgreementStatusFilter';
 
 interface Props {
-    value: string;
-    onChange: (type: string, value: string) => void;
+    values: AgreementStatusFilter[];
+    onChange: (type: string, value: string[]) => void;
 }
 
-export function AgreementStatusInput({ value: currentValue, onChange }: Props) {
+export function AgreementStatusInput({ values: currentValues, onChange }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -17,9 +27,21 @@ export function AgreementStatusInput({ value: currentValue, onChange }: Props) {
         <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel htmlFor="outlined-age-native-simple">{t('agreements-filter.by-agreement-status')}</InputLabel>
             <Select
+                multiple
                 label={t('agreements-filter.by-agreement-status')}
-                value={currentValue}
-                onChange={({ target: { name, value } }) => onChange(name as string, value as string)}
+                renderValue={(selected) => {
+                    return (selected as string[])
+                        .map((e) => {
+                            const option = currentValues.find((k) => k.id === e);
+
+                            if (!option) return e;
+
+                            return option.displayNameKey ? t(option.displayNameKey) : option.displayName;
+                        })
+                        .join(', ');
+                }}
+                value={currentValues.filter((e) => e.selected).map((e) => e.id)}
+                onChange={({ target: { name, value } }) => onChange(name as string, value as string[])}
                 fullWidth
                 inputProps={{
                     name: 'STATUS',
@@ -27,15 +49,16 @@ export function AgreementStatusInput({ value: currentValue, onChange }: Props) {
                 }}
                 MenuProps={FilterMenuProps}
             >
-                <MenuItem value={AgreementStatusFilters.SHOW_ALL.id}>
-                    {t(AgreementStatusFilters.SHOW_ALL.displayNameKey)}
-                </MenuItem>
-                <MenuItem value={AgreementStatusFilters.GIVEN_AGREEMENT.id}>
-                    {t(AgreementStatusFilters.GIVEN_AGREEMENT.displayNameKey)}
-                </MenuItem>
-                <MenuItem value={AgreementStatusFilters.NOT_GIVEN_AGREEMENT.id}>
-                    {t(AgreementStatusFilters.NOT_GIVEN_AGREEMENT.displayNameKey)}
-                </MenuItem>
+                {currentValues.map((status) => {
+                    return (
+                        <MenuItem key={status.id} value={status.id}>
+                            <Checkbox checked={status.selected} />
+                            <ListItemText
+                                primary={status.displayNameKey ? t(status.displayNameKey) : status.displayNameKey}
+                            />
+                        </MenuItem>
+                    );
+                })}
             </Select>
         </FormControl>
     );

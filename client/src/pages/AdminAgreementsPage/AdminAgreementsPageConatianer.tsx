@@ -35,6 +35,7 @@ export default function AdminAgreementsPageContainer() {
 
     const agreementsStatusFilterQuery = useQuery<GetAgreementsStatusFilterQuery>(GET_AGREEMENTS_STATUS_FILTER);
     const { agreementsStatusFilter } = agreementsStatusFilterQuery.data!;
+    console.log(agreementsStatusFilter);
 
     const agreementsTypeFilterQuery = useQuery<GetAgreementsTypeFilterQuery>(GET_AGREEMENTS_TYPE_FILTER);
     const { agreementsTypeFilter } = agreementsTypeFilterQuery.data!;
@@ -42,10 +43,9 @@ export default function AdminAgreementsPageContainer() {
     const agreementsKindergartenFilterQuery = useQuery<GetAgreementsKindergartenFilterQuery>(
         GET_AGREEMENTS_KINDERGARTEN_FILTER,
     );
+    const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter!;
 
     const assessmentsTitles = useQuery(ASSESSMENTS_TITLES_QUERY);
-
-    const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter!;
 
     const sortStatusQuery = useQuery(GET_AGREEMENTS_SORT_STATUS);
     const { agreementsSortStatus } = sortStatusQuery.data;
@@ -69,7 +69,8 @@ export default function AdminAgreementsPageContainer() {
         <AdminAgreementsPage
             kindergartens={mapWithFilters([...(kindergartens?.kindergartens || [])])}
             assessments={assessmentsTitles?.data?.assessments}
-            agreementsStatusFilter={agreementsStatusFilter}
+            // agreementsStatusFilter={agreementsStatusFilter} - update query? to fix - query returns empty [];
+            agreementsStatusFilter={Object.values(AgreementStatusFilters)}
             agreementsTypeFilter={agreementsTypeFilter}
             agreementsKindergartenFilter={agreementsKindergartenFilter}
             agreementsSortStatus={agreementsSortStatus}
@@ -96,14 +97,12 @@ function setAgreementFilter(type: string, value: string | string[]) {
         if (type === 'KINDERGARTEN') {
             AgreementsTypeFilterMutations.setAgreementsKindergartenFilter(value);
         }
-    } else {
-        if (type === 'TYPE') {
-            AgreementsTypeFilterMutations.setAgreementsTypeFilter(AgreementTypeFilters[value]);
-        }
 
         if (type === 'STATUS') {
-            AgreementsTypeFilterMutations.setAgreementsStatusFilter(AgreementStatusFilters[value]);
+            AgreementsTypeFilterMutations.setAgreementsStatusFilter(value);
         }
+    } else if (type === 'TYPE') {
+        AgreementsTypeFilterMutations.setAgreementsTypeFilter(AgreementTypeFilters[value]);
     }
 }
 

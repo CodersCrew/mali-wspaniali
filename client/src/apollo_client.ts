@@ -21,7 +21,9 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 export const activePage = makeVar<string[]>([]);
 export const agreementTypeFilterVar = makeVar<AgreementTypeFilter>(AgreementTypeFilters.SHOW_ALL);
-export const agreementStatusFilterVar = makeVar<AgreementStatusFilter>(AgreementStatusFilters.SHOW_ALL);
+export const agreementStatusFilterVar = makeVar<AgreementStatusFilter[]>([
+    AgreementStatusFilters.GIVEN
+]);
 export const agreementKindergartenFilterVar = makeVar<AgreementKindergartenFilter[]>([
     AgreementKindergartenFilters.SHOW_ALL,
 ]);

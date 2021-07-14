@@ -14,7 +14,7 @@ import { AgreementAssessmentInput } from './AgreementAssessmentInput';
 interface Props {
     assessments: any;
     agreementType: AgreementTypeFilter;
-    agreementStatus: AgreementStatusFilter;
+    agreementStatus: AgreementStatusFilter[];
     agreementKindergarten: AgreementKindergartenFilter[];
     onChange: (type: string, value: string | string[]) => void;
     onSubmit: () => void;
@@ -36,7 +36,7 @@ export function AgreementsFilter({ agreementType, agreementStatus, agreementKind
                     <AgreementTypeInput value={agreementType.id} onChange={onChange} />
                 </Grid>
                 <Grid item xs={4}>
-                    <AgreementStatusInput value={agreementStatus.id} onChange={onChange} />
+                    <AgreementStatusInput values={agreementStatus} onChange={onChange} />
                 </Grid>
             </Grid>
             <Grid container justify="flex-end">
