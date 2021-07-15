@@ -7,6 +7,7 @@ interface ActionMenuButtonSecondaryProps {
     options: ReactNode[];
     onClick: () => void;
     size?: 'small' | 'medium' | 'large';
+    style?: React.CSSProperties;
 }
 
 export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps) {
@@ -15,9 +16,15 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
 
     return (
         <Grid container direction="column" alignItems="center">
-            <Grid item xs={12}>
-                <ButtonGroup variant="contained" color="secondary" ref={anchorRef} aria-label="split button">
-                    <Button size={props.size || 'medium'} onClick={props.onClick}>
+            <Grid style={{ width: '100%' }} item xs={12}>
+                <ButtonGroup
+                    style={props.style}
+                    variant="contained"
+                    color="secondary"
+                    ref={anchorRef}
+                    aria-label="split button"
+                >
+                    <Button style={props.style} size={props.size || 'medium'} onClick={props.onClick}>
                         {props.label}
                     </Button>
                     <Button size="small" onClick={handleMenuToggle}>

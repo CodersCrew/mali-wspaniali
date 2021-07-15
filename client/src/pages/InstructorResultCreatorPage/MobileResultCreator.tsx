@@ -85,13 +85,9 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                 </Grid>
                 <Grid item className={classes.footer}>
                     <Grid container direction="column" alignItems="center">
-                        <Grid item>
-                            <ButtonSecondary size="small" variant="text" onClick={() => onClick('back-to-table', '')}>
-                                {t('add-result-page.back-to-table')}
-                            </ButtonSecondary>
-                        </Grid>
-                        <Grid item>
+                        <Grid item classes={{ root: classes.footerButton }}>
                             <ActionMenuButtonSecondary
+                                style={{ width: '100%' }}
                                 size="small"
                                 label={t('add-result-page.save-and-next')}
                                 onClick={() => onClick('save-and-next', localResult)}
@@ -104,6 +100,16 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                                     </MenuItem>,
                                 ]}
                             />
+                        </Grid>
+                        <Grid item classes={{ root: classes.footerButton }}>
+                            <ButtonSecondary
+                                style={{ width: '100%' }}
+                                size="small"
+                                variant="text"
+                                onClick={() => onClick('back-to-table', '')}
+                            >
+                                {t('add-result-page.back-to-table')}
+                            </ButtonSecondary>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -161,6 +167,9 @@ const useStyles = makeStyles((theme) =>
             zIndex: 800,
             padding: theme.spacing(1, 2),
             backgroundColor: theme.palette.primary.contrastText,
+        },
+        footerButton: {
+            width: '100%',
         },
     }),
 );
