@@ -33,6 +33,10 @@ export class KeyCode {
     return this.props.target;
   }
 
+  get createdAt(): Date {
+    return this.props.createdAt;
+  }
+
   getProps(): KeyCodeCore {
     return this.props;
   }

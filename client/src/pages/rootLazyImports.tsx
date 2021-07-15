@@ -29,6 +29,7 @@ const options = {
     ForgotPasswordPage: lazy(() => import('./ForgotPasswordPage/ForgotPasswordPage')),
     PasswordChangePage: lazy(() => import('./PasswordChangePage/PasswordChangePage')),
     TestResultsPage: lazy(() => import('./TestResultsPage/TestResultsPage')),
+    TestResultLoadingPage: lazy(() => import('./TestResultsPage/TestResultLoadingPage')),
     AdminKindergartensPage: lazy(() => import('./AdminKindergartensPage/AdminKindergartensPage')),
 };
 

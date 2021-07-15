@@ -245,6 +245,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(3),
         },
         rootConnecter: {
+            width: 1,
             top: '70px',
             left: '46.5px',
             margin: 0,

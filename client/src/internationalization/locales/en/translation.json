@@ -477,7 +477,8 @@
         "last-measurement": "LM",
         "publish-result": "Publish result",
         "download-result": "Download result",
-        "status-result": "result status"
+        "status-result": "result status",
+        "filter-children-label": "Search by children"
     },
     "kindergarten-modal": {
         "city": "City",
@@ -708,6 +709,7 @@
     },
     "instructor-menu": {
         "results-table": "Results table",
+        "result-creator": "Add result",
         "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Log out"
