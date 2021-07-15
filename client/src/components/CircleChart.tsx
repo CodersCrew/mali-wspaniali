@@ -1,3 +1,4 @@
+import React from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import { DataEntry } from 'react-minimal-pie-chart/types/commonTypes';
 import InfoIcon from '@material-ui/icons/Info';
@@ -13,31 +14,33 @@ interface Props {
     disable?: boolean;
 }
 
-export function CircleChart({ color, value, maxValue, label, enableInfoIcon, labelSuffix, disable }: Props) {
-    const classes = useStyles();
+export const CircleChart = React.memo(
+    ({ color, value, maxValue, label, enableInfoIcon, labelSuffix, disable }: Props) => {
+        const classes = useStyles();
 
-    const dataEntry: DataEntry = { color, value: disable ? 0 : value };
+        const dataEntry: DataEntry = { color, value: disable ? 0 : value };
 
-    return (
-        <>
-            <PieChart
-                lineWidth={16}
-                totalValue={maxValue}
-                data={[dataEntry]}
-                label={() => {
-                    if (value === 0 || label === '0' || disable) return '-';
+        return (
+            <>
+                <PieChart
+                    lineWidth={16}
+                    totalValue={maxValue}
+                    data={[dataEntry]}
+                    label={() => {
+                        if (value === 0 || label === '0' || disable) return '-';
 
-                    return labelSuffix ? `${label} ${labelSuffix}` : label;
-                }}
-                labelPosition={0}
-                labelStyle={{ fontSize: '14px', fontFamily: 'Montserrat', fontWeight: 'bold' }}
-                background="rgba(0, 0, 0, 0.04)"
-                startAngle={270}
-            />
-            {!value && enableInfoIcon && <InfoIcon className={classes.icon} />}
-        </>
-    );
-}
+                        return labelSuffix ? `${label} ${labelSuffix}` : label;
+                    }}
+                    labelPosition={0}
+                    labelStyle={{ fontSize: '14px', fontFamily: 'Montserrat', fontWeight: 'bold' }}
+                    background="rgba(0, 0, 0, 0.04)"
+                    startAngle={270}
+                />
+                {!value && enableInfoIcon && <InfoIcon className={classes.icon} />}
+            </>
+        );
+    },
+);
 
 const useStyles = makeStyles({
     icon: {
