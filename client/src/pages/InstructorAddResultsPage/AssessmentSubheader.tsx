@@ -6,14 +6,18 @@ import { StatusChip } from '../../components/StatusChip';
 import dayjs from '../../localizedMoment';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { SearchChildField } from '../../components/SearchChildField';
 
 interface Props {
     max: number;
     assessment: Assessment;
     results: AssessmentResult[];
+    searchTerm: string;
+    compact?: boolean;
+    onChange: (type: string, value: string) => void;
 }
 
-export function AssessmentSubheader({ results, max, assessment }: Props) {
+export function AssessmentSubheader({ results, max, assessment, searchTerm, compact, onChange }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
     const currentMeasurement = getMostRecentMeasurement();
@@ -83,6 +87,13 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                             </Grid>
                         </Grid>
                     </Grid>
+                    <Grid item xs={compact ? 12 : 4}>
+                        <SearchChildField
+                            isCompact={!!compact}
+                            searchTerm={searchTerm}
+                            onChange={(value) => onChange('searchTerm', value)}
+                        />
+                    </Grid>
                 </Grid>
             ) : (
                 <Grid container direction="column" spacing={1}>
@@ -142,6 +153,14 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                 </Typography>
                             </Grid>
                         </Grid>
+                    </Grid>
+
+                    <Grid item xs={compact ? 12 : 4}>
+                        <SearchChildField
+                            isCompact={!!compact}
+                            searchTerm={searchTerm}
+                            onChange={(value) => onChange('searchTerm', value)}
+                        />
                     </Grid>
                 </Grid>
             )}

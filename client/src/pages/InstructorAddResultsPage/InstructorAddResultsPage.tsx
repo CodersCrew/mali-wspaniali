@@ -77,20 +77,22 @@ export default function InstructorAddResultsPage() {
             {!device.isSmallMobile ? (
                 <>
                     <CustomContainer
-                        header={
-                            <ChildListHeader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                searchTerm={searchTerm}
-                                onChange={handleFilterChanged}
-                            />
-                        }
                         subheader={
                             <AssessmentSubheader
                                 results={kindergartenResults}
                                 max={maxResults}
                                 assessment={currentAssessment}
+                                searchTerm={searchTerm}
+                                onChange={handleFilterChanged}
+                                compact
+                            />
+                        }
+                        header={
+                            <ChildListHeader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
+                                onChange={handleFilterChanged}
                             />
                         }
                         container={
@@ -115,21 +117,23 @@ export default function InstructorAddResultsPage() {
             ) : (
                 <>
                     <CustomContainer
-                        header={
-                            <ChildListHeader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                searchTerm={searchTerm}
-                                onChange={handleFilterChanged}
-                                compact
-                            />
-                        }
                         subheader={
                             <AssessmentSubheader
                                 results={kindergartenResults}
                                 max={maxResults}
                                 assessment={currentAssessment}
+                                searchTerm={searchTerm}
+                                onChange={handleFilterChanged}
+                                compact
+                            />
+                        }
+                        header={
+                            <ChildListHeader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
+                                onChange={handleFilterChanged}
+                                compact
                             />
                         }
                         container={

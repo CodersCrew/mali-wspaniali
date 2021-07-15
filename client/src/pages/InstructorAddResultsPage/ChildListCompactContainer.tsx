@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { Assessment as AssessmentIcon, BarChart, EventNote, ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+
 import { Assessment, Child, AssessmentResult } from '../../graphql/types';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { Clickable } from '../../components/Clickable';
