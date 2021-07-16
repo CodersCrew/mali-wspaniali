@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     createStyles,
     Grid,
@@ -32,7 +33,7 @@ interface Props {
     onClick: () => void;
 }
 
-export function MeasurementPoint(props: Props) {
+export const MeasurementPoint = React.memo((props: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useIsDevice();
@@ -157,7 +158,7 @@ export function MeasurementPoint(props: Props) {
 
         return marks;
     }
-}
+});
 
 interface SelectButtonProps {
     disabled: boolean;
