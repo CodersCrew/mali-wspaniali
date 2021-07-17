@@ -46,7 +46,7 @@
         "enter-code": "Code",
         "enter-code-text": "Please enter the code provided by the Mali Wspaniali Foundation. Thanks to this code, your data will be secure.",
         "no-code": "Don't have a code?",
-        "no-code-desc": "Such situations may happen, but nothing's lost. Please notify the Mali Wspaniali Foundation about your problem so our employees can generate new code for you. Send an email to: <strong>biuro@mali-wspaniali.pl</strong>",
+        "no-code-desc": "Such situations may happen, but nothing's lost. Please notify the Mali Wspaniali Foundation about your problem so our employees can generate new code for you. Send an email to: <strong>fundacja@mali-wspaniali.pl</strong>",
         "invalid-code": "Code is invalid, please try again.",
         "invalid-email": "Invalid email address",
         "length": "8 chars",
@@ -329,7 +329,7 @@
             "Marketing-description-2": "Occasionally we will share our success stories. ",
             "Marketing-description-3": "Consent is voluntary and participation in the program does not depend on it.",
             "general-title": "Consent to participate in the Mali Wspaniali program.",
-            "general-description": "Consent for child's participation in general sports activities with elements of karate as part of the Mali Wspaniali program is obligatory. You can cancel your child's involvement in the Mali Wspaniali program any time. To this end, please contact the Foundation by sending the resignation to the email address: biuro@mali-wspaniali.pl."
+            "general-description": "Consent for child's participation in general sports activities with elements of karate as part of the Mali Wspaniali program is obligatory. You can cancel your child's involvement in the Mali Wspaniali program any time. To this end, please contact the Foundation by sending the resignation to the email address: fundacja@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Child's details",
