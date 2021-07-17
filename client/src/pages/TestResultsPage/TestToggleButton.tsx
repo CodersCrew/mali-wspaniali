@@ -3,23 +3,23 @@ import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import Tooltip from '@material-ui/core/Tooltip';
 
-export type AssessmentType = 'PP' | 'PK';
+export type MeasurementType = 'first' | 'last';
 
 export const assessmentParts: AssessmentPart[] = [
     {
-        type: 'PP',
+        type: 'first',
         assessmentName: 'add-results-page.first-assessment',
         assessmentShortName: 'test-results.first-measurement',
     },
     {
-        type: 'PK',
+        type: 'last',
         assessmentName: 'add-results-page.last-assessment',
         assessmentShortName: 'test-results.last-measurement',
     },
 ];
 
 export type AssessmentPart = {
-    type: AssessmentType;
+    type: MeasurementType;
     assessmentName: string;
     assessmentShortName: string;
 };
@@ -41,9 +41,7 @@ export function TestToggleButton({ value, onChange }: Props) {
                 size="small"
                 value={value}
                 onChange={(e, toggleValue) => {
-                    if (toggleValue) {
-                        onChange(toggleValue);
-                    }
+                    if (toggleValue) onChange(toggleValue);
                 }}
             >
                 {assessmentParts.map((assessmentPart) => (

@@ -14,21 +14,25 @@ import {
     fade,
     Tooltip,
 } from '@material-ui/core';
-import { InsertChart as InsertChartIcon } from '@material-ui/icons';
+import { InsertChart as InsertChartIcon, Edit as EditIcon } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom';
 import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
 import { BaseChildInfo } from '../../../graphql/types';
+import { ResultParametersInfo } from './ResultParametersInfo';
 
 interface Props {
     open: boolean;
     childrenInfo: BaseChildInfo[];
+    parameterInfo: ResultParametersInfo;
 }
 
 const CHILD_NAME = 'childName';
 const AGE_NAME = 'AgeName';
 
-export const KindergartenChildrenTable = ({ open, childrenInfo }: Props) => {
+export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }: Props) => {
     const classes = useStyles({ open });
     const { t } = useTranslation();
+    const history = useHistory<object>();
     const [children, selectedSortableCell, cellParameters] = useArrowedCell(childrenInfo);
 
     const childCell = cellParameters(
@@ -36,6 +40,21 @@ export const KindergartenChildrenTable = ({ open, childrenInfo }: Props) => {
         (c: BaseChildInfo, b: BaseChildInfo) => `${c.firstname} ${c.lastname}` < `${b.firstname} ${b.lastname}`,
     );
     const ageCell = cellParameters(AGE_NAME, (c: BaseChildInfo, b: BaseChildInfo) => (c.age ?? 0) < (b.age ?? 0));
+
+    const onEditChildInfo = (childId: string) => {
+        const { measurementType, assessmentId, kindergartenId } = parameterInfo;
+        const actualPath = history.location.pathname;
+        const actualState = history.location.state;
+        console.log('his', history);
+
+        history.push({
+            pathname: `/instructor/result/add/${measurementType}/${assessmentId}/${kindergartenId}/${childId}`,
+            state: {
+                ...actualState,
+                sourcePage: actualPath,
+            },
+        });
+    };
 
     return (
         <TableRow className={classes.mainRow}>
@@ -75,6 +94,15 @@ export const KindergartenChildrenTable = ({ open, childrenInfo }: Props) => {
                                             {child.age} {t('years_1')}
                                         </TableCell>
                                         <TableCell className={classes.iconCell} align="right">
+                                            <Tooltip title={t('test-results.edit').toString()}>
+                                                <IconButton
+                                                    onClick={() => onEditChildInfo(child._id)}
+                                                    className={classes.button}
+                                                    aria-label="view results"
+                                                >
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Tooltip>
                                             <Tooltip title={t('test-results.button-icon-results-tooltip').toString()}>
                                                 <IconButton className={classes.button} aria-label="view results">
                                                     <InsertChartIcon />

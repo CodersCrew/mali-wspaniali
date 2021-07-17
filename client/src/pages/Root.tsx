@@ -59,7 +59,7 @@ export function Root() {
                                         />
                                         <Route
                                             exact
-                                            path="/admin/:assessmentId/:assessmentType"
+                                            path="/admin/:assessmentId/:measurementType"
                                             component={getRootLazyImports('TestResultsPage')}
                                         />
                                         <Route path="/admin/users" component={getRootLazyImports('UsersPage')} />

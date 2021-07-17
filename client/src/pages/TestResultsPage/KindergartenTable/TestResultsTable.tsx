@@ -20,7 +20,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { BaseChildInfo, KindergartenWithChildren } from '../../../graphql/types';
 import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
-import { AssessmentType } from '../TestToggleButton';
+import { MeasurementType } from '../TestToggleButton';
 import { Input } from '../../../components/ChildForm/Input';
 import { getMeasurementResult } from '../../../utils/getMeasurementResult';
 
@@ -28,13 +28,20 @@ const RESULT_CELL_NAME = 'resultCellName';
 const KINDERGARTEN_CELL_NAME = 'kindergartenCellName';
 
 interface Props {
-    assessmentType: AssessmentType;
+    assessmentId: string;
+    measurementType: MeasurementType;
     kindergartens: KindergartenWithChildren[];
     searchedValue: string;
     onSearchChange: (value: string) => void;
 }
 
-export const TestResultsTable = ({ assessmentType, kindergartens, searchedValue, onSearchChange }: Props) => {
+export const TestResultsTable = ({
+    assessmentId,
+    measurementType,
+    kindergartens,
+    searchedValue,
+    onSearchChange,
+}: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const [page, setPage] = useState(0);
@@ -45,17 +52,15 @@ export const TestResultsTable = ({ assessmentType, kindergartens, searchedValue,
     const searchChildren = (child: BaseChildInfo) =>
         `${child.firstname} ${child.lastname}`.toLocaleLowerCase().includes(searchedValue.toLocaleLowerCase());
 
-    const displayedKindergartens = [
-        ...selectedKindergartens
-            .map((k) => ({
-                ...k.kindergarten,
-                children: k.kindergarten.children.filter(searchChildren),
-            }))
-            .filter((k) => k.children.length > 0),
-    ];
+    const displayedKindergartens = selectedKindergartens
+        .map((k) => ({
+            ...k.kindergarten,
+            children: k.kindergarten.children.filter(searchChildren),
+        }))
+        .filter((k) => k.children.length > 0);
     const resultCell = cellParameters(RESULT_CELL_NAME, (c, b) => {
         const getResult = (kindergarten: KindergartenWithChildren) =>
-            getMeasurementResult(assessmentType, kindergarten);
+            getMeasurementResult(measurementType, kindergarten);
 
         return getResult(c) / c.kindergarten.maxResultCount < getResult(b) / c.kindergarten.maxResultCount;
     });
@@ -117,7 +122,11 @@ export const TestResultsTable = ({ assessmentType, kindergartens, searchedValue,
                         <TestResultsTableRow
                             key={kindergarten._id}
                             kindergarten={{ kindergarten }}
-                            assessmentType={assessmentType}
+                            parameterInfo={{
+                                measurementType,
+                                assessmentId,
+                                kindergartenId: kindergarten._id,
+                            }}
                         />
                     ))}
                 </TableBody>

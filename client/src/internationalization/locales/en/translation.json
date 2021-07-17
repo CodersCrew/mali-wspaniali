@@ -364,11 +364,11 @@
             }
         },
         "results-empty-view": {
-             "title": "No results",
-             "empty-results-reason": "The results have not yet been entered for one of three reasons:",
-             "reason-1": "1. The initial measurement has not yet taken place or the results are in preparation.",
-             "reason-2": "2. Your child was absent on the day of the initial measurement or was not able to take part in the measurement for random reasons.",
-             "reason-3": "3. Your child joined the Mali Wspaniali program after the first measurement. Another fitness measurement will take place in the Spring.",
+            "title": "No results",
+            "empty-results-reason": "The results have not yet been entered for one of three reasons:",
+            "reason-1": "1. The initial measurement has not yet taken place or the results are in preparation.",
+            "reason-2": "2. Your child was absent on the day of the initial measurement or was not able to take part in the measurement for random reasons.",
+            "reason-3": "3. Your child joined the Mali Wspaniali program after the first measurement. Another fitness measurement will take place in the Spring.",
             "read-more": "To find out what the agility test looks like, please visit the <span>Test Information tab</span>"
         },
         "advice-modal-content": {
@@ -472,7 +472,7 @@
         "button-icon-expand-tooltip": "Expand",
         "button-icon-results-tooltip": "Results",
         "rows-number": "Rows per page:",
-        "edit": "Edit",
+        "edit": "Edit data",
         "first-measurement": "FM",
         "last-measurement": "LM",
         "publish-result": "Publish result",

@@ -5,21 +5,21 @@ import { KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as Keyboard
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
 import { KindergartenWithChildren } from '../../../graphql/types';
 import { ProgressBar } from '../../../components/ProgressBar';
-import { AssessmentType } from '../TestToggleButton';
 import { getMeasurementResult } from '../../../utils/getMeasurementResult';
+import { ResultParametersInfo } from './ResultParametersInfo';
 
 interface Props {
-    assessmentType: AssessmentType;
+    parameterInfo: ResultParametersInfo;
     kindergarten: KindergartenWithChildren;
 }
 
-export const TestResultsTableRow = ({ assessmentType, kindergarten }: Props) => {
+export const TestResultsTableRow = ({ parameterInfo, kindergarten }: Props) => {
     const { t } = useTranslation();
     const [open, setOpen] = React.useState(false);
     const classes = useStyles({ open });
 
-    const { name, maxResultCount, children } = kindergarten.kindergarten;
-    const measurementResult = getMeasurementResult(assessmentType, kindergarten);
+    const { name, maxResultCount, children: childrenInfo } = kindergarten.kindergarten;
+    const measurementResult = getMeasurementResult(parameterInfo.measurementType, kindergarten);
     const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
 
     return (
@@ -45,7 +45,7 @@ export const TestResultsTableRow = ({ assessmentType, kindergarten }: Props) => 
                 </TableCell>
                 <TableCell className={classes.cell} />
             </TableRow>
-            <KindergartenChildrenTable open={open} childrenInfo={children} />
+            <KindergartenChildrenTable {...{ open, childrenInfo, parameterInfo }} />
         </>
     );
 };

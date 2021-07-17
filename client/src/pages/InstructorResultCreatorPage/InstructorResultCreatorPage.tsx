@@ -36,7 +36,7 @@ export default function InstructorResultCreatorPage() {
     const { createAssessmentResult } = useCreateAssessmentResult();
     const { updateAssessmentResult } = useUpdateAssessmentResult();
 
-    const history = useHistory();
+    const history = useHistory<{ sourcePage: string }>();
     const device = useIsDevice();
     const { t } = useTranslation();
 
@@ -163,7 +163,15 @@ export default function InstructorResultCreatorPage() {
     }
 
     function redirectToResultTable() {
-        history.push('/instructor');
+        const sourcePage = history.location.state?.sourcePage ?? '/instructor';
+        const actualState = history.location.state;
+        history.push({
+            pathname: sourcePage,
+            state: {
+                ...actualState,
+                sourcePage: history.location.pathname,
+            },
+        });
     }
 
     function redirectToNextChild() {
