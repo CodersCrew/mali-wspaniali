@@ -10,6 +10,7 @@ import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 import { CookieModal } from '../components/CookieModal/CookieModal';
 import { getRootLazyImports } from './rootLazyImports';
+import { InstructorWrapper } from './InstructorWrapper';
 
 const generateClassName = createGenerateClassName();
 
@@ -138,25 +139,27 @@ export function Root() {
                                             path="/admin/settings"
                                             component={getRootLazyImports('AdminSettingsPage')}
                                         />
-                                        <Route
-                                            exact
-                                            path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"
-                                            component={getRootLazyImports('InstructorResultCreatorPage')}
-                                        />
-                                        <Route
-                                            exact
-                                            path="/instructor"
-                                            component={getRootLazyImports('InstructorAddResultsPage')}
-                                        />
-                                        <Route
-                                            exact
-                                            path="/instructor/notifications"
-                                            component={getRootLazyImports('NotificationsPage')}
-                                        />
-                                        <Route
-                                            path="/instructor/settings"
-                                            component={getRootLazyImports('InstructorSettingsPage')}
-                                        />
+                                        <InstructorWrapper>
+                                            <Route
+                                                exact
+                                                path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"
+                                                component={getRootLazyImports('InstructorResultCreatorPage')}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/instructor"
+                                                component={getRootLazyImports('InstructorAddResultsPage')}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/instructor/notifications"
+                                                component={getRootLazyImports('NotificationsPage')}
+                                            />
+                                            <Route
+                                                path="/instructor/settings"
+                                                component={getRootLazyImports('InstructorSettingsPage')}
+                                            />
+                                        </InstructorWrapper>
                                         <ParentWrapper>
                                             <Route
                                                 exact

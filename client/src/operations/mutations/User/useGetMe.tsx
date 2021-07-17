@@ -5,6 +5,8 @@ export const GET_ME = gql`
     {
         me {
             createdAt
+            firstname
+            lastname
             mail
             children {
                 _id

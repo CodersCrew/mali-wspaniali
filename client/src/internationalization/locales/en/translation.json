@@ -868,6 +868,17 @@
             }
         }
     },
+    "add-instructor-name-modal": {
+        "inputs": {
+            "firstname": "First name",
+            "lastname": "Last name"
+        },
+        "button": "Add",
+        "heading": "Welcome on the Mali Wspaniali website!",
+        "description": "Enter your first and last name before going to the home page.",
+        "first-name-required": "First name is required",
+        "last-name-required": "Last name is required"
+    },
     "years_0": "year",
     "years_1": "years",
     "pagination": {
