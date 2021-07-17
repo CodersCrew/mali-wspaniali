@@ -36,7 +36,7 @@ export class ResetPasswordHandler
       this.sendMail.send({
         to: mail,
         from: 'piotrek@coderscrew.pl',
-        subject: 'register',
+        subject: 'Zmiana hasła na platformie Mali Wspaniali',
         text: 'register',
         html: this.createTemplate(
           `${process.env.SERVER_RESPONSE_HOST}/password-change/${payload}`,
@@ -71,6 +71,7 @@ export class ResetPasswordHandler
           .button-container { margin: 38px 0; }
           .divider { border-bottom: 1px solid #64B5F6; margin: 32px 0 24px 0 }
           .footer { display: flex; text-align: left; justify-content: space-between; }
+          .links { margin-top: 12px; }
         </style>
       </head>
       <body>
@@ -102,8 +103,10 @@ export class ResetPasswordHandler
             </div>
             <div class="contact">
               Odwiedź nas na:</br>
-              <a href="https://www.facebook.com/maliwspanialifundacja"><img src="https://i.imgur.com/WflVPeN.png" /></a>
-              <a href="https://www.youtube.com/channel/UC8_5pq7EqIwJZNBRPtEEqwQ"><img src="https://i.imgur.com/RV9kI6n.png" /></a>
+              <div class="links">
+                <a href="https://www.facebook.com/maliwspanialifundacja"><img src="https://i.imgur.com/WflVPeN.png" /></a>
+                <a href="https://www.youtube.com/channel/UC8_5pq7EqIwJZNBRPtEEqwQ"><img src="https://i.imgur.com/RV9kI6n.png" /></a>
+              </div>
             </div>
           </div>
         </div>
