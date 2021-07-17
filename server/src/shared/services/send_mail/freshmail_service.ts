@@ -1,9 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { Sendable } from '../../../shared/services/send_mail/send_mail';
 
 @Injectable()
-export class FreshmailService {
-  send(v: string) {
+export class FreshmailProvider implements Sendable {
+  send(options: {
+    from: string;
+    to: string;
+    subject: string;
+    text: string;
+    html: string;
+  }) {
     console.log('bbbbb');
 
     axios
@@ -12,36 +19,26 @@ export class FreshmailService {
         {
           recipients: [
             {
-              email: 'piotr.pietruszka@o2.pl',
-              name: 'Example Recipient',
-              personalization: {
-                key1: 'value1',
-                key2: 'value2',
-              },
-              headers: {
-                'x-custom-header-1': 'Custom message header',
-              },
+              email: options.to,
+              name: options.to,
             },
           ],
           from: {
-            name: 'John Sender',
-            email: 'sender@example.com',
+            name: options.from,
+            email: options.from,
           },
-          subject: 'Message subject',
+          subject: options.subject,
+
           contents: [
             {
               type: 'text/html',
-              body: '<p>sample HTML</p>',
+              body: options.html,
             },
             {
               type: 'text/plain',
-              body: 'same text',
+              body: options.text,
             },
           ],
-          headers: {
-            'x-custom-header-1': 'Custom message header',
-            'x-custom-header-2': 'Custom message header',
-          },
         },
         { headers: this.createHeader() },
       )

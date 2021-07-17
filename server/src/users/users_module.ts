@@ -7,7 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { SendGridModule } from '@anchan828/nest-sendgrid';
 
 import { SendMail } from '../shared/services/send_mail/send_mail';
-import { NodemailerProvider } from '../shared/services/send_mail/nodemailer_provider';
+import { SandboxProvider } from '../shared/services/send_mail/nodemailer_provider';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { AgreementsModule } from '../agreements/agreements_module';
 import { KeyCodesModule } from '../key_codes/key_codes_module';
@@ -30,8 +30,7 @@ import { UserChangePasswordRepository } from './domain/repositories/user_change_
 import { UserChangePasswordCronService } from './user_change_password_cron_service';
 import { ChildAssessmentResultRepository } from './domain/repositories/child_assessment_result_repository';
 import { ChildAssessmentResultSchema } from './schemas/child_assessment_result_schema';
-import { FreshmailProvider } from '../shared/services/send_mail/freshmail_provider';
-import { FreshmailService } from '../shared/services/send_mail/freshmail_service';
+import { FreshmailProvider } from '../shared/services/send_mail/freshmail_service';
 import { ChildAssessmentResultResolver } from './child_assessment_result_resolver';
 
 @Module({
@@ -70,13 +69,13 @@ import { ChildAssessmentResultResolver } from './child_assessment_result_resolve
     ChildAssessmentResultRepository,
     UserChangePasswordRepository,
     SendMail,
-    NodemailerProvider,
+    SandboxProvider,
     UserChangePasswordCronService,
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,
+    SendMail,
     FreshmailProvider,
-    FreshmailService,
   ],
   controllers: [ChildrenController],
   exports: [UserRepository, ChildRepository],
