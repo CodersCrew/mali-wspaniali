@@ -49,6 +49,7 @@ export function Root() {
                                         component={getRootLazyImports('PasswordChangePage')}
                                     />
                                     <Route
+                                        exact
                                         path="/password-change"
                                         component={getRootLazyImports('PasswordChangePage')}
                                     />

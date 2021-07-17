@@ -7,8 +7,8 @@ import {
     makeStyles,
     createStyles,
 } from '@material-ui/core';
-import { Theme } from '../../theme';
 
+import { Theme } from '../../theme';
 import { Option } from './useSelectValues';
 
 interface Props {
