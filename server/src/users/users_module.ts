@@ -4,7 +4,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
-import { SendGridModule } from '@anchan828/nest-sendgrid';
 
 import { SendMail } from '../shared/services/send_mail/send_mail';
 import { SandboxProvider } from '../shared/services/send_mail/nodemailer_provider';
@@ -53,9 +52,6 @@ import { ChildAssessmentResultResolver } from './child_assessment_result_resolve
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '7d' },
-    }),
-    SendGridModule.forRoot({
-      apikey: process.env.SENDGRID_API_KEY,
     }),
   ],
   providers: [
