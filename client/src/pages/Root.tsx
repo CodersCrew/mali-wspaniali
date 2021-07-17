@@ -44,6 +44,12 @@ export function Root() {
                             <Route path={['/password-change']}>
                                 <AuthTemplate type="login">
                                     <Route
+                                        exact
+                                        path="/password-change/:confirmation"
+                                        component={getRootLazyImports('PasswordChangePage')}
+                                    />
+                                    <Route
+                                        exact
                                         path="/password-change"
                                         component={getRootLazyImports('PasswordChangePage')}
                                     />

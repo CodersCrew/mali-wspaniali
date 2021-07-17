@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { Sendable } from './send_mail';
 
 @Injectable()
-export class NodemailerProvider implements Sendable {
+export class SandboxProvider implements Sendable {
   private transporter: nodemailer.Transporter;
 
   constructor() {
@@ -19,13 +19,13 @@ export class NodemailerProvider implements Sendable {
     });
   }
 
-  send(
-    from: string,
-    to: string,
-    subject: string,
-    text: string,
-    html: string,
-  ): void {
-    this.transporter.sendMail({ from, to, subject, text, html });
+  send(options: {
+    from: string;
+    to: string;
+    subject: string;
+    text: string;
+    html: string;
+  }): void {
+    this.transporter.sendMail(options);
   }
 }
