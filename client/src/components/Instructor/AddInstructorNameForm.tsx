@@ -50,7 +50,7 @@ export const useStyles = makeStyles(() => ({
     container: {
         maxWidth: 640,
     },
-    // item: {
-    //     flex: 1,
-    // },
+    item: {
+        flex: 1,
+    },
 }));
