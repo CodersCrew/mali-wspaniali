@@ -50,7 +50,10 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
             pathname: `/instructor/result/add/${measurementType}/${assessmentId}/${kindergartenId}/${childId}`,
             state: {
                 ...actualState,
-                sourcePage: actualPath,
+                sourcePageInfo: {
+                    actualPath,
+                    backBtnName: 'back-to-results',
+                },
             },
         });
     };

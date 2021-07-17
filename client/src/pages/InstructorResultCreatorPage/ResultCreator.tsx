@@ -15,9 +15,13 @@ interface Props {
     resultCreator: ResultCreatorReturnProps;
     measurement: string;
     onClick: (type: string, value: string | AssessmentValues) => void;
+    buttonName: {
+        backBtnName: string;
+        saveAndBackBtnName: string;
+    };
 }
 
-export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
+export function ResultCreator({ resultCreator, measurement, onClick, buttonName }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -45,7 +49,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
-                    <EditorPanel measurement={measurement} onClick={onClick} resultCreator={resultCreator} />
+                    <EditorPanel {...{ resultCreator, measurement, onClick, buttonName }} />
                 </Grid>
             </Grid>
         </Paper>
@@ -56,6 +60,10 @@ interface EditorPanelProps {
     measurement: string;
     resultCreator: ResultCreatorReturnProps;
     onClick: (type: string, value: string | AssessmentValues) => void;
+    buttonName: {
+        backBtnName: string;
+        saveAndBackBtnName: string;
+    };
 }
 
 function EditorPanel(props: EditorPanelProps) {
@@ -129,7 +137,7 @@ function EditorPanel(props: EditorPanelProps) {
                     <Grid item>
                         <Box mr={2}>
                             <ButtonSecondary onClick={() => props.onClick('back-to-table', '')} variant="text">
-                                {t('add-result-page.back-to-table')}
+                                {t(`add-result-page.${props.buttonName.backBtnName}`)}
                             </ButtonSecondary>
                         </Box>
                     </Grid>
@@ -139,7 +147,7 @@ function EditorPanel(props: EditorPanelProps) {
                                 variant="contained"
                                 onClick={() => props.onClick('save-and-back-to-table', localResult)}
                             >
-                                {t('add-result-page.save-and-back-to-table')}
+                                {t(`add-result-page.${props.buttonName.saveAndBackBtnName}`)}
                             </ButtonSecondary>
                         ) : (
                             <ActionMenuButtonSecondary

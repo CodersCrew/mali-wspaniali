@@ -14,9 +14,13 @@ interface Props {
     resultCreator: ResultCreatorReturnProps;
     measurement: string;
     onClick: (type: string, value: string | AssessmentValues) => void;
+    buttonName: {
+        backBtnName: string;
+        saveAndBackBtnName: string;
+    };
 }
 
-export function MobileResultCreator({ resultCreator, measurement, onClick }: Props) {
+export function MobileResultCreator({ resultCreator, measurement, onClick, buttonName }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -87,7 +91,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                     <Grid container direction="column" alignItems="center">
                         <Grid item>
                             <ButtonSecondary size="small" variant="text" onClick={() => onClick('back-to-table', '')}>
-                                {t('add-result-page.back-to-table')}
+                                {t(`add-result-page.${buttonName.backBtnName}`)}
                             </ButtonSecondary>
                         </Grid>
                         <Grid item>
@@ -100,7 +104,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                                         key="add-result-page.save-and-back-to-table"
                                         onClick={() => onClick('save-and-back-to-table', localResult)}
                                     >
-                                        {t('add-result-page.save-and-back-to-table')}
+                                        {t(`add-result-page.save-and-${buttonName.saveAndBackBtnName}`)}
                                     </MenuItem>,
                                 ]}
                             />
