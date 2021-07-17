@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import * as uuid from 'uuid';
 import * as mongoose from 'mongoose';
 
 import {
@@ -17,7 +18,10 @@ export class UserChangePasswordRepository {
   async create(
     userChangePasswordDTO: Omit<UserChangePasswordJWTProps, '_id'>,
   ): Promise<void> {
-    const createdChangePasswordJWT = new this.model(userChangePasswordDTO);
+    const createdChangePasswordJWT = new this.model({
+      ...userChangePasswordDTO,
+      _id: uuid.v4(),
+    });
 
     await createdChangePasswordJWT.save();
   }

@@ -94,7 +94,8 @@
         "new-password-subtitle": "Stwórz swoje nowe hasło do platformy Mali Wspaniali",
         "create-new-password": "Stwórz nowe hasło",
         "new-password": "Nowe hasło",
-        "repeat-password": "Powtórz hasło"
+        "repeat-password": "Powtórz hasło",
+        "password-change-failure": "Zmiana hasła nie powiodła się"
     },
     "password-change-success-page": {
         "password-change-success-title": "Zmiana hasła zakończona pomyślnie",
