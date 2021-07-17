@@ -11,40 +11,34 @@ export class FreshmailProvider implements Sendable {
     text: string;
     html: string;
   }) {
-    console.log('bbbbb');
-
-    axios
-      .post(
-        `${this.getRootUrl()}/messaging/emails/`,
-        {
-          recipients: [
-            {
-              email: options.to,
-              name: options.to,
-            },
-          ],
-          from: {
-            name: options.from,
-            email: options.from,
+    axios.post(
+      `${this.getRootUrl()}/messaging/emails/`,
+      {
+        recipients: [
+          {
+            email: options.to,
+            name: options.to,
           },
-          subject: options.subject,
-
-          contents: [
-            {
-              type: 'text/html',
-              body: options.html,
-            },
-            {
-              type: 'text/plain',
-              body: options.text,
-            },
-          ],
+        ],
+        from: {
+          name: options.from,
+          email: options.from,
         },
-        { headers: this.createHeader() },
-      )
-      .then(e => {
-        console.log(e);
-      });
+        subject: options.subject,
+
+        contents: [
+          {
+            type: 'text/html',
+            body: options.html,
+          },
+          {
+            type: 'text/plain',
+            body: options.text,
+          },
+        ],
+      },
+      { headers: this.createHeader() },
+    );
   }
 
   private createHeader() {

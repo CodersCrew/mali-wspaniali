@@ -26,6 +26,6 @@ export class SandboxProvider implements Sendable {
     text: string;
     html: string;
   }): void {
-    this.transporter.sendMail(options).then(e => console.log(e));
+    this.transporter.sendMail(options);
   }
 }

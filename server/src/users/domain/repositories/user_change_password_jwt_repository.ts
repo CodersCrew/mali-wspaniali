@@ -18,7 +18,6 @@ export class UserChangePasswordRepository {
   async create(
     userChangePasswordDTO: Omit<UserChangePasswordJWTProps, '_id'>,
   ): Promise<void> {
-    console.log({ ...userChangePasswordDTO, _id: uuid.v4() });
     const createdChangePasswordJWT = new this.model({
       ...userChangePasswordDTO,
       _id: uuid.v4(),
