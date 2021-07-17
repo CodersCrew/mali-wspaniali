@@ -62,7 +62,7 @@ export default function CreateArticlePage() {
     });
 
     useEffect(() => {
-        activePage(['admin-menu.articles.title']);
+        activePage(['admin-menu.articles-create.title']);
     }, []);
 
     return (
