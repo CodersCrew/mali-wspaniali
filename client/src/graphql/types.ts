@@ -277,3 +277,11 @@ export interface AssessmentResult {
 export interface ReturnedStatusDTO {
     status: boolean;
 }
+
+export interface Group {
+    _id: string;
+    name: string;
+    children?: Child[];
+    instructor: User | null;
+    kindergarten: Kindergarten | null;
+}

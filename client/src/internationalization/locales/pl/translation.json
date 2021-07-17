@@ -753,7 +753,7 @@
         "footer": {
             "contact": "Kontakt",
             "privacy": "Polityka prywatności",
-            "rights-reserved": "© 2020 Wszelkie prawa zastrzeżone"
+            "rights-reserved": "© 2021 Wszelkie prawa zastrzeżone"
         }
     },
     "notification-panel": {
@@ -1040,5 +1040,20 @@
         "pendelumRun": "ZWINNOŚĆ",
         "jump": "MOC",
         "run": "SZYBKOŚĆ"
+    },
+    "groupsModal": {
+        "close": "zamknij",
+        "save": "zapisz",
+        "kindergarten-name": "Przedszkole",
+        "new-name": "Wpisz nazwę nowej grupy",
+        "add-group": "Dodaj grupę",
+        "kindergarten-groups": "Grupy w przedszkolu",
+        "group-name": "Nazwa grupy",
+        "no-groups": "Nie dodano grup w tym przedszkolu",
+        "instruction": "Wybierz przedszkole, wpisz nazwę nowej grupy i kliknij przycisk dodaj grupę, by utworzyć nową grupę.",
+        "select": "Następnie wybierz z listy grupę, którą chcesz edytować.",
+        "groups": "Grupy",
+        "unassigned": "Nieprzydzielone",
+        "selected": "zaznaczonych"
     }
 }

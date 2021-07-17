@@ -364,11 +364,11 @@
             }
         },
         "results-empty-view": {
-             "title": "No results",
-             "empty-results-reason": "The results have not yet been entered for one of three reasons:",
-             "reason-1": "1. The initial measurement has not yet taken place or the results are in preparation.",
-             "reason-2": "2. Your child was absent on the day of the initial measurement or was not able to take part in the measurement for random reasons.",
-             "reason-3": "3. Your child joined the Mali Wspaniali program after the first measurement. Another fitness measurement will take place in the Spring.",
+            "title": "No results",
+            "empty-results-reason": "The results have not yet been entered for one of three reasons:",
+            "reason-1": "1. The initial measurement has not yet taken place or the results are in preparation.",
+            "reason-2": "2. Your child was absent on the day of the initial measurement or was not able to take part in the measurement for random reasons.",
+            "reason-3": "3. Your child joined the Mali Wspaniali program after the first measurement. Another fitness measurement will take place in the Spring.",
             "read-more": "To find out what the agility test looks like, please visit the <span>Test Information tab</span>"
         },
         "advice-modal-content": {
@@ -728,7 +728,7 @@
         "footer": {
             "contact": "Contact",
             "privacy": "Privacy policy",
-            "rights-reserved": "© 2020 All rights reserved"
+            "rights-reserved": "© 2021 All rights reserved"
         }
     },
     "blog-article-card": {
@@ -1035,5 +1035,21 @@
         "pendelumRun": "AGILITY",
         "jump": "POWER",
         "run": "SPEED"
+    },
+
+    "groupsModal": {
+        "close": "close",
+        "save": "save",
+        "kindergarten-name": "Kindergarten",
+        "new-name": "Enter a new group name",
+        "add-group": "Add a group",
+        "kindergarten-groups": "Groups in the kindergarten",
+        "group-name": "Group name",
+        "no-groups": "There are no grups in the kindergarten",
+        "instruction": "Choose a kindergarten, enter a new grup name and click 'Add a group' button to create a new group.",
+        "select": "Next choose a group from the list you wish to edit.",
+        "groups": "Groups",
+        "unassigned": "Unassigned",
+        "selected": "selected"
     }
 }

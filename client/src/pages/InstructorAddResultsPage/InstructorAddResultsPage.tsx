@@ -23,6 +23,7 @@ import {
     useUpdateAssessmentResult,
     UpdatedAssessmentInput,
 } from '../../operations/mutations/Results/updateAssessmentResult';
+import { GroupsSubheader } from './GroupsModal/GroupsSubheader';
 
 export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
@@ -93,6 +94,13 @@ export default function InstructorAddResultsPage() {
                                 assessment={currentAssessment}
                             />
                         }
+                        subsubheader={
+                            <GroupsSubheader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
+                            />
+                        }
                         container={
                             <ChildListContainer
                                 assessment={currentAssessment}
@@ -130,6 +138,13 @@ export default function InstructorAddResultsPage() {
                                 results={kindergartenResults}
                                 max={maxResults}
                                 assessment={currentAssessment}
+                            />
+                        }
+                        subsubheader={
+                            <GroupsSubheader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
                             />
                         }
                         container={
