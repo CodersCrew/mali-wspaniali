@@ -45,7 +45,6 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
         const { measurementType, assessmentId, kindergartenId } = parameterInfo;
         const actualPath = history.location.pathname;
         const actualState = history.location.state;
-        console.log('his', history);
 
         history.push({
             pathname: `/instructor/result/add/${measurementType}/${assessmentId}/${kindergartenId}/${childId}`,
