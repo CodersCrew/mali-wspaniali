@@ -28,7 +28,7 @@ export default function LoginPage() {
         (error) => {
             setLoading(() => false);
             setLoginError(error);
-            showLoginErrorMessage();
+            handleConfirmationErrors(error);
         },
     );
     const { isDesktop } = useIsDevice();
@@ -43,7 +43,6 @@ export default function LoginPage() {
 
     React.useEffect(() => {
         if (params.confirm) {
-            console.log(params);
             confirmUser(params.confirm);
         }
     }, [params.confirm]);
@@ -144,14 +143,6 @@ export default function LoginPage() {
         authorizeMe(email, password);
     }
 
-    function showLoginErrorMessage() {
-        openSnackbar({
-            text: t('login-page.login-error'),
-            severity: 'error',
-            anchor: { vertical: 'top', horizontal: 'center' },
-        });
-    }
-
     function handleConfirmationErrors(error: Error) {
         if (error.message === 'confirmation-failed') {
             openSnackbar({
@@ -159,7 +150,15 @@ export default function LoginPage() {
                 text: t('login-page.confirmation-error.description'),
                 severity: 'error',
             });
+
+            return;
         }
+
+        openSnackbar({
+            text: t('login-page.login-error'),
+            severity: 'error',
+            anchor: { vertical: 'top', horizontal: 'center' },
+        });
     }
 
     function handleConfirmationSuccess() {

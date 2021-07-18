@@ -230,6 +230,8 @@ describe('User (e2e)', () => {
         })
         .expect(200);
 
+      await app.get(UserRepository).confirmUser('test@test.pl');
+
       await request(app.getHttpServer())
         .post('/graphql')
         .send({
