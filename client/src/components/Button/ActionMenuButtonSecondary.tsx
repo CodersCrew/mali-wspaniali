@@ -8,7 +8,7 @@ interface ActionMenuButtonSecondaryProps {
     onClick: () => void;
     size?: 'small' | 'medium' | 'large';
     style?: React.CSSProperties;
-    popperStyle?: React.CSSProperties;
+    popperStyle?: string;
 }
 
 export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps) {
@@ -33,7 +33,7 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
                     </Button>
                 </ButtonGroup>
                 <Popper
-                    style={props.popperStyle}
+                    className={props.popperStyle}
                     open={isActionMenuOpen}
                     anchorEl={anchorRef.current}
                     transition
