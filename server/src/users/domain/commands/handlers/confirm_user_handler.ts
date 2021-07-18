@@ -6,17 +6,14 @@ import {
 } from '@nestjs/cqrs';
 
 import { ConfirmUserCommand } from '../impl';
-import { UserRepository } from '../../repositories/user_repository';
 import { JwtService } from '@nestjs/jwt';
 import { UserChangePasswordRepository } from '../../repositories/user_change_password_jwt_repository';
-import { GetUserQuery } from '@users/domain/queries/impl';
-import { KeyCodeRepository } from '@keyCodes/domain/repositories/key_codes_repository';
 import { User } from '@users/domain/models';
+import { GetUserQuery } from '../../queries/impl';
 
 @CommandHandler(ConfirmUserCommand)
 export class ConfirmUserHandler implements ICommandHandler<ConfirmUserCommand> {
   constructor(
-    private userRepository: UserRepository,
     private jwtService: JwtService,
     private userChangePasswordRepository: UserChangePasswordRepository,
     private queryBus: QueryBus,

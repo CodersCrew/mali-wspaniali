@@ -5,7 +5,7 @@ import { KeyCodeRepository } from '../../../../key_codes/domain/repositories/key
 import { UserRepository } from '../../repositories/user_repository';
 import { NotificationRepository } from '../../../../notifications/domain/repositories/notification_repository';
 import { createUserCreatedNotification } from '../../../../notifications/domain/repositories/notification_factory';
-import { CreateConfirmationRequestCommand } from '@users/domain/commands/impl';
+import { CreateConfirmationRequestCommand } from '../../commands/impl/create_confirmation_request_command';
 
 @EventsHandler(UserCreatedEvent)
 export class UserCreatedHandler implements IEventHandler<UserCreatedEvent> {
