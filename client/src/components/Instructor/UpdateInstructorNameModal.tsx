@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { BasicModal } from '../Modal/BasicModal';
 import { ActionDialog, openDialog } from '../../utils/openDialog';
-import { UpdateInstructorNameResult } from '../../graphql/types';
+import { UpdatedUserInput, UpdateInstructorNameResult } from '../../graphql/types';
 // eslint-disable-next-line import/no-cycle
 import { UpdateInstructorNameForm } from './UpdateInstructorNameForm';
 
@@ -15,7 +15,7 @@ export type UpdateInstructorNameModalProps = {
 };
 
 export const openUpdateInstructorNameModal = (options: UpdateInstructorNameModalProps) => {
-    return openDialog<UpdateInstructorNameModalProps>(UpdateInstructorNameModal, options);
+    return openDialog<UpdateInstructorNameModalProps, { name: UpdatedUserInput }>(UpdateInstructorNameModal, options);
 };
 
 export const UpdateInstructorNameModal = ({

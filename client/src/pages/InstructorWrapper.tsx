@@ -15,8 +15,7 @@ export const InstructorWrapper: React.FC = ({ children }) => {
         if (!firstname || !lastname) {
             openUpdateInstructorNameModal({ lastname, firstname, mail }).then((result) => {
                 if (result.decision && result.decision.accepted) {
-                    // TODO: find the proper type
-                    updateUser((result.decision as any).name);
+                    updateUser(result.decision.name);
                 }
             });
         }
