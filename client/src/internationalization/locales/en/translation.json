@@ -597,6 +597,12 @@
             "file-error": "File error"
         }
     },
+    "newsletter-archive": {
+        "search": {
+            "title": "Search for a message",
+            "search-by-email": "Serach by email"
+        }
+    },
     "user-settings": {
         "header": "Account settings",
         "parent-option": "Parent",
