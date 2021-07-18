@@ -53,7 +53,7 @@ export const UpdateInstructorNameForm = ({ formik }: UpdateInstructorNameFormPro
                     <Grid item>
                         <Input
                             disabled
-                            label="email"
+                            label={t('add-instructor-name-modal.inputs.email')}
                             value={formik.values.mail}
                             name="mail"
                             error={formik.errors.mail}

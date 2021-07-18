@@ -890,7 +890,8 @@
     "add-instructor-name-modal": {
         "inputs": {
             "firstname": "Imię",
-            "lastname": "Nazwisko"
+            "lastname": "Nazwisko",
+            "email": "Email"
         },
         "button": "Zapisz",
         "heading": "Witaj na platformie Mali Wspaniali",

@@ -886,7 +886,8 @@
     "add-instructor-name-modal": {
         "inputs": {
             "firstname": "First name",
-            "lastname": "Last name"
+            "lastname": "Last name",
+            "email": "Email"
         },
         "button": "Save",
         "heading": "Welcome on the Mali Wspaniali website!",
