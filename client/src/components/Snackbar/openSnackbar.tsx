@@ -38,7 +38,7 @@ export function openSnackbar({ text, headerText, variant, severity, anchor }: Pr
                     severity={severity || 'success'}
                     variant={variant || 'filled'}
                 >
-                    {device.isDesktop && headerText && (
+                    {headerText && (
                         <AlertTitle>
                             <Typography variant="subtitle1">{headerText}</Typography>
                         </AlertTitle>

@@ -151,6 +151,8 @@ export default function LoginPage() {
                 severity: 'error',
             });
 
+            history.push('/login');
+
             return;
         }
 
@@ -163,6 +165,7 @@ export default function LoginPage() {
 
     function handleConfirmationSuccess() {
         openSnackbar({ text: t('login-page.confirmation-success'), severity: 'success' });
+        history.push('/login');
     }
 }
 
