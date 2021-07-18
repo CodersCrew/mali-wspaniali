@@ -92,7 +92,8 @@
         "back-to-login": "Back to login",
         "avatar": "Małgosia",
         "email-sent": "The email has been sent.",
-        "when-received": "Input code you received."
+        "when-received": "Input code you received.",
+        "mailto": "fundacja@mali-wspaniali.pl"
     },
     "password-change-page": {
         "new-password-title": "New password",
