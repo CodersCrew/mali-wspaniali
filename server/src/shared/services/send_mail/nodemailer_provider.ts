@@ -21,7 +21,7 @@ export class SandboxProvider implements Sendable {
 
   send(options: {
     from: string;
-    to: string;
+    bcc: string[];
     subject: string;
     text: string;
     html: string;

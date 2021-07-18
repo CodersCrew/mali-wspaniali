@@ -6,7 +6,7 @@ import { Sendable } from '../../../shared/services/send_mail/send_mail';
 export class FreshmailProvider implements Sendable {
   send(options: {
     from: string;
-    to: string;
+    bcc: string[];
     subject: string;
     text: string;
     html: string;
@@ -15,10 +15,10 @@ export class FreshmailProvider implements Sendable {
       `${this.getRootUrl()}/messaging/emails/`,
       {
         recipients: [
-          {
-            email: options.to,
-            name: options.to,
-          },
+          options.bcc.map(mail => ({
+            email: mail,
+            name: mail,
+          })),
         ],
         from: {
           name: options.from,
