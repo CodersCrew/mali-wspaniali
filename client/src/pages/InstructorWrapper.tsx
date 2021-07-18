@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMe } from '../utils/useMe';
-import { openAddInstructorNameModal } from '../components/Instructor/AddInstructorNameModal';
+import { openUpdateInstructorNameModal } from '../components/Instructor/UpdateInstructorNameModal';
 
 export const InstructorWrapper: React.FC = ({ children }) => {
     const user = useMe();
@@ -10,8 +10,12 @@ export const InstructorWrapper: React.FC = ({ children }) => {
 
     const { firstname, lastname } = user;
 
+    // TODO: remove!
+    console.log('firstname:', firstname);
+    console.log('lastname:', lastname);
+
     if (!firstname || !lastname) {
-        openAddInstructorNameModal({ lastname, firstname }).then((result) => {
+        openUpdateInstructorNameModal({ lastname, firstname }).then((result) => {
             if (result.decision && result.decision.accepted) {
                 console.log('result:', result);
             }

@@ -3,13 +3,13 @@ import { FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Input } from '../ChildForm/Input';
 import { useBreakpoints } from '../../queries/useBreakpoints';
-import { AddInstructorNameResult } from '../../graphql/types';
+import { UpdateInstructorNameResult } from '../../graphql/types';
 
-export type AddInstructorNameFormProps = {
-    formik: FormikProps<AddInstructorNameResult>;
+export type UpdateInstructorNameFormProps = {
+    formik: FormikProps<UpdateInstructorNameResult>;
 };
 
-export const AddInstructorNameForm = ({ formik }: AddInstructorNameFormProps) => {
+export const UpdateInstructorNameForm = ({ formik }: UpdateInstructorNameFormProps) => {
     const classes = useStyles();
     const device = useBreakpoints();
     const { t } = useTranslation();

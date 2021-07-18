@@ -1,8 +1,6 @@
-/*
-import {gql, useMutation} from '@apollo/client';
-import {Me} from "../../../graphql/types";
-import {useGetMe} from "./useGetMe";
-*/
+import { gql, useMutation } from '@apollo/client';
+import { UpdatedUserInput } from '../../../graphql/types';
+import { useGetMe } from './useGetMe';
 
 /*
 interface UpdateUserReturn {
@@ -11,31 +9,32 @@ interface UpdateUserReturn {
 }
 */
 
-/*
 export const UPDATE_USER = gql`
-mutation updateUser($updateUser: {firstname: string, lastname: string}!) {
-    updateUser(updateUser: $updateUser) {
-        firstname
-        lastname
+    mutation updateUser($updatedUser: UpdatedUserInput!) {
+        updateUser(updatedUser: $updatedUser) {
+            firstname
+            lastname
+        }
     }
-}
 `;
-*/
 
 export const useUpdateUser = () => {
-    /*
-    const [mutate, {error}] = useMutation<{updateUser: Me}>(UPDATE_USER)
-    const {refetch} = useGetMe()
+    const [mutate, { error }] = useMutation<{ updateUser: UpdatedUserInput }>(UPDATE_USER);
+    const { user, refetch } = useGetMe();
 
     return {
-        updateUser: (props: {firstname: string, lastname: string}) => {
+        updateUser: (props: UpdatedUserInput) => {
             mutate({
-updateUser:
+                variables: {
+                    me: {
+                        ...user,
+                        ...props,
+                    },
+                },
             }).then(() => {
-                refetch()
-            })
+                refetch();
+            });
         },
-        error
-    }
-*/
+        error,
+    };
 };

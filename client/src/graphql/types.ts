@@ -50,6 +50,7 @@ export interface UserInput {
 }
 
 export type Role = 'parent' | 'admin' | 'instructor';
+
 export interface ChildInput {
     firstname: string;
     lastname: string;
@@ -78,7 +79,12 @@ export interface AddChildResult {
     kindergarten: string;
 }
 
-export interface AddInstructorNameResult {
+export interface UpdatedUserInput {
+    firstname: string;
+    lastname: string;
+}
+
+export interface UpdateInstructorNameResult {
     firstname: string;
     lastname: string;
 }

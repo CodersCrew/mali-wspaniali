@@ -4,24 +4,24 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { BasicModal } from '../Modal/BasicModal';
 import { ActionDialog, openDialog } from '../../utils/openDialog';
-import { AddInstructorNameResult } from '../../graphql/types';
-import { AddInstructorNameForm } from './AddInstructorNameForm';
+import { UpdateInstructorNameResult } from '../../graphql/types';
+import { UpdateInstructorNameForm } from './UpdateInstructorNameForm';
 
-type AddInstructorNameModalProps = {
+type UpdateInstructorNameModalProps = {
     firstname: string;
     lastname: string;
 };
 
-const initialValues: AddInstructorNameResult = {
+const initialValues: UpdateInstructorNameResult = {
     firstname: '',
     lastname: '',
 };
 
-export const openAddInstructorNameModal = (options: AddInstructorNameModalProps) => {
-    return openDialog<AddInstructorNameModalProps>(AddInstructorNameModal, options);
+export const openUpdateInstructorNameModal = (options: UpdateInstructorNameModalProps) => {
+    return openDialog<UpdateInstructorNameModalProps>(UpdateInstructorNameModal, options);
 };
 
-export const AddInstructorNameModal = ({ makeDecision }: ActionDialog<{ name: AddInstructorNameResult }>) => {
+export const UpdateInstructorNameModal = ({ makeDecision }: ActionDialog<{ name: UpdateInstructorNameResult }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -54,7 +54,7 @@ export const AddInstructorNameModal = ({ makeDecision }: ActionDialog<{ name: Ad
                     {t('add-instructor-name-modal.description')}
                 </Typography>
                 <form onSubmit={formik.handleSubmit}>
-                    <AddInstructorNameForm formik={formik} />
+                    <UpdateInstructorNameForm formik={formik} />
                 </form>
             </div>
         </BasicModal>
