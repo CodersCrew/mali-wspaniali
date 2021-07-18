@@ -601,7 +601,11 @@
     "newsletter-archive": {
         "search": {
             "title": "Wyszukaj wiadomość",
-            "search-by-email": "Szukaj po email"
+            "search-by-email": "Szukaj po email",
+            "button": "Szukaj"
+        },
+        "list": {
+            "title": "Lista wiadomości zarchiwizowanych"
         }
     },
     "user-settings": {
