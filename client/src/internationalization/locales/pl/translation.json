@@ -598,6 +598,12 @@
             "file-error": "Nieprawidłowy format pliku"
         }
     },
+    "newsletter-archive": {
+        "search": {
+            "title": "Wyszukaj wiadomość",
+            "search-by-email": "Szukaj po email"
+        }
+    },
     "user-settings": {
         "header": "Ustawienia kont",
         "parent-option": "Rodzic",
