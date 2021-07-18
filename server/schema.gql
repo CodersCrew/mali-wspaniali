@@ -330,6 +330,7 @@ type Mutation {
   changePassword(password: String!, jwt: String!): ReturnedStatusDTO!
   signAgreement(agreementId: String!): AgreementDTO!
   updateUser(updatedUser: UpdatedUserInput!): UserDTO!
+  confirmUser(jwt: String!): ReturnedStatusDTO!
   addChild(child: ChildInput!): ChildDTO!
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
   createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!

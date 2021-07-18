@@ -91,6 +91,7 @@ export class User extends AggregateRoot {
     this.props.isConfirmed = true;
 
     this.apply(new UserConfirmedEvent(this.props._id));
+    this.apply(new UserUpdatedEvent(this.props._id, { isConfirmed: true }));
   }
 
   delete(): void {
