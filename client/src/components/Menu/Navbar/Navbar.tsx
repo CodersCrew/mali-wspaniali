@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { NotificationsPanel } from './NotificationsPanel';
 import { Notification } from '../../../graphql/types';
-import { Device } from '../../../queries/useBreakpoints';
+import { Device, useIsDevice } from '../../../queries/useBreakpoints';
 import { LanguageSelector } from '../../LanguageSelector';
 import { AppLogo } from '../../AppLogo';
 import { useOnClickOutside } from '../../../utils/useOnClickOutside';
@@ -25,9 +25,11 @@ export function Navbar({ device, language, notifications, activePage, onLanguage
     const classes = useStyles();
     const { t } = useTranslation();
     const sidebarState = useSidebarState();
+    const { isDesktop } = useIsDevice();
+    const zIndex = isDesktop ? '1100' : '800';
 
     return (
-        <Box zIndex="appBar">
+        <Box zIndex={zIndex}>
             <AppBar
                 position="fixed"
                 classes={{

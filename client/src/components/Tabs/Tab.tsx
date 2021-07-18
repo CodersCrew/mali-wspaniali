@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 0,
             minWidth: 'fit-content',
             '&:hover': {
-                color: '#B22A00',
+                color: (props: { isMobile: boolean }) => !props.isMobile && '#B22A00',
             },
         },
         wrapper: {
