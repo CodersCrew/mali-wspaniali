@@ -1,6 +1,7 @@
 import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import parse from 'html-react-parser';
 
 import { ArticlePreviousContentHtml } from './ArticlePreviousContentHtml';
 import { articleContent, isDisabledArticleClassVisible } from './utils';
@@ -15,7 +16,6 @@ type ArticleContentProps = {
 export const ArticleContent = ({ title, description, contentHTML, isPreview }: ArticleContentProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const parseHtml = /(<([^>]+)>)/gi;
 
     return (
         <Grid container direction="column">
@@ -38,7 +38,7 @@ export const ArticleContent = ({ title, description, contentHTML, isPreview }: A
             </Typography>
             <Grid item>
                 {contentHTML ? (
-                    <Typography variant="body1">{contentHTML.replace(parseHtml, '')}</Typography>
+                    <Typography variant="body1">{parse(contentHTML)}</Typography>
                 ) : (
                     <div className={classes.disabled}>
                         <ArticlePreviousContentHtml />

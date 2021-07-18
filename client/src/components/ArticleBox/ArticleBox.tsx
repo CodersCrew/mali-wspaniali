@@ -53,7 +53,7 @@ const ArticleBox = ({
             >
                 <CardMedia
                     classes={{ root: classes.imageContainer }}
-                    component="iframe"
+                    component="img"
                     src={isPreview ? article?.values?.pictureUrl || photoHeader : article?.pictureUrl}
                 />
                 <Grid item>
