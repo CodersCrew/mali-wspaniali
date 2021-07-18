@@ -1,6 +1,5 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Expose, Transform } from 'class-transformer';
-import { IsEmail } from 'class-validator';
 
 import { Document } from 'mongoose';
 import { ICoreModel, CoreModel } from '../../../shared/utils/core_model';
@@ -13,7 +12,6 @@ export class NewsletterCore extends CoreModel {
   message: string;
 
   @Expose()
-  @IsEmail({}, { each: true })
   recipients: string[];
 
   @Expose()
