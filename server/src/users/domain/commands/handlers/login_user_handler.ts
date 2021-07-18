@@ -21,6 +21,10 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
       const isValidPassword = await bcrypt.compare(password, user.password);
 
       if (isValidPassword) {
+        if (!user.isConfirmed) {
+          throw new Error('confirmation-failed');
+        }
+
         const payload = this.jwtService.sign({
           role: user.role,
           mail: user.mail,

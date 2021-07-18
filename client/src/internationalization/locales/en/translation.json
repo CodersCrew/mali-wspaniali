@@ -19,7 +19,7 @@
         "confirmation-success": "The e-mail address has been confirmed. Now you can log in without any problems",
         "confirmation-error": {
             "title": "This account has not been confirmed yet",
-            "description": "Go to your e-mail inbox and find an e-mail from the Mali Magnificent Foundation, thanks to which you can confirm your e-mail."
+            "description": "Go to your e-mail inbox and find an e-mail from the Mali Wspaniali Foundation, thanks to which you can confirm your e-mail."
         }
     },
     "login-wrapper": {

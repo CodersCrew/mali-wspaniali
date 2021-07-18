@@ -83,6 +83,10 @@ export class User extends AggregateRoot {
     return this.props.role;
   }
 
+  get isConfirmed(): boolean {
+    return this.props.isConfirmed;
+  }
+
   getProps(): UserCore {
     return this.props;
   }
