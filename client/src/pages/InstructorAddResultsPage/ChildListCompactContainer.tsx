@@ -27,10 +27,21 @@ interface Props {
     childList: Child[];
     assessment: Assessment;
     results: AssessmentResult[];
+    searchTerm: string;
+    compact?: boolean;
+    onChange: (type: string, value: string) => void;
     onClick: (type: string, value: string) => void;
 }
 
-export function ChildListCompactContainer({ results, childList, assessment, onClick }: Props) {
+export function ChildListCompactContainer({
+    childList,
+    assessment,
+    results,
+    compact,
+    searchTerm,
+    onChange,
+    onClick,
+}: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
     const [selectedChild, setSelectedChild] = useState(childList[0]?._id);

@@ -83,13 +83,6 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={compact ? 12 : 4}>
-                        <SearchChildField
-                            isCompact={!!compact}
-                            searchTerm={searchTerm}
-                            onChange={(value) => onChange('searchTerm', value)}
-                        />
-                    </Grid>
                 </Grid>
             ) : (
                 <Grid container direction="column" spacing={1}>
@@ -149,14 +142,6 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                 </Typography>
                             </Grid>
                         </Grid>
-                    </Grid>
-
-                    <Grid item xs={compact ? 12 : 4}>
-                        <SearchChildField
-                            isCompact={!!compact}
-                            searchTerm={searchTerm}
-                            onChange={(value) => onChange('searchTerm', value)}
-                        />
                     </Grid>
                 </Grid>
             )}
