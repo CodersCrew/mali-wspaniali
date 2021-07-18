@@ -46,7 +46,7 @@ export class NewsletterCreatedHandler
           h4 { font-weight: 500; font-size: 20px; line-height: 24px; letter-spacing: 0.15px; }
           .subtitle { font-weight: 500; font-size: 16px; line-height: 20px; letter-spacing: 0.15px; }
           .caption { font-weight: 400; font-size: 12px; line-height: 15px; letter-spacing: 0.4px; }
-          .container { text-align: center; color: #212121; }
+          .container { text-align: left; color: #212121; }
           .header { background-color: #00ACC1; display: flex; justify-content: center; padding: 12px 0;
           box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12);
           }
