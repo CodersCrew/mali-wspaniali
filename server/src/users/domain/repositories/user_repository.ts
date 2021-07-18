@@ -173,9 +173,19 @@ export class UserRepository {
 
   // for e2e purpose only
   async createAdmin(mail: string, password: string): Promise<void> {
-    const user = UserMapper.toDomain({ mail, password, role: 'admin' });
+    const user = UserMapper.toDomain({
+      mail,
+      password,
+      role: 'admin',
+      isConfirmed: true,
+    });
 
     await new this.userModel(UserMapper.toPlain(user)).save();
+  }
+
+  // for e2e purpose only
+  async confirmUser(mail: string): Promise<void> {
+    await this.userModel.findOneAndUpdate({ mail }, { isConfirmed: true });
   }
 }
 

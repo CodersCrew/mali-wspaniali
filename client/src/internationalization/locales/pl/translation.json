@@ -15,7 +15,12 @@
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
         "login-wrong-password": "Podane hasło jest nieprawidłowe",
         "no-account": "Pierwszy raz na platformie Mali Wspaniali?",
-        "register": "Utwórz konto"
+        "register": "Utwórz konto",
+        "confirmation-success": "Adres e-mail został potwierdzony. Teraz bez problemu możesz się już zalogować",
+        "confirmation-error": {
+            "title": "To konto nie zostało jeszcze potwierdzone",
+            "description": "Wejdź na swoją skrzynkę mailową i znajdź maila od Fundacji Mali Wspaniali, dzięki, któremu potwierdzisz maila."
+        }
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
@@ -94,7 +99,8 @@
         "new-password-subtitle": "Stwórz swoje nowe hasło do platformy Mali Wspaniali",
         "create-new-password": "Stwórz nowe hasło",
         "new-password": "Nowe hasło",
-        "repeat-password": "Powtórz hasło"
+        "repeat-password": "Powtórz hasło",
+        "password-change-failure": "Zmiana hasła nie powiodła się"
     },
     "password-change-success-page": {
         "password-change-success-title": "Zmiana hasła zakończona pomyślnie",
@@ -588,6 +594,16 @@
             "done": "Gotowe",
             "error": "Uzupełnij dane",
             "file-error": "Nieprawidłowy format pliku"
+        }
+    },
+    "newsletter-archive": {
+        "search": {
+            "title": "Wyszukaj wiadomość",
+            "search-by-email": "Szukaj po email",
+            "button": "Szukaj"
+        },
+        "list": {
+            "title": "Lista wiadomości zarchiwizowanych"
         }
     },
     "user-settings": {

@@ -277,3 +277,10 @@ export interface AssessmentResult {
 export interface ReturnedStatusDTO {
     status: boolean;
 }
+
+export interface NewsletterInput {
+    message: string;
+    recipients: string[];
+    title: string;
+    type: string;
+}

@@ -163,7 +163,7 @@ export function getAllChildren(): Promise<ApolloQueryResult<{ allChildren: Child
                     lastname
                     sex
                     birthYear
-                    birthQuaarter
+                    birthQuarter
                     results {
                         _id
                         createdAt
