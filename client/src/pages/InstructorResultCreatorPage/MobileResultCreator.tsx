@@ -88,7 +88,6 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                         <Grid item classes={{ root: classes.footerButton }}>
                             <ActionMenuButtonSecondary
                                 style={{ width: '100%' }}
-                                size="small"
                                 label={t('add-result-page.save-and-next')}
                                 onClick={() => onClick('save-and-next', localResult)}
                                 options={[
@@ -104,7 +103,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                         <Grid item classes={{ root: classes.footerButton }}>
                             <ButtonSecondary
                                 style={{ width: '100%' }}
-                                size="small"
+                                size="medium"
                                 variant="text"
                                 onClick={() => onClick('back-to-table', '')}
                             >
@@ -170,6 +169,7 @@ const useStyles = makeStyles((theme) =>
         },
         footerButton: {
             width: '100%',
+            marginTop: theme.spacing(1),
         },
     }),
 );
