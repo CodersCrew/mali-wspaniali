@@ -19,12 +19,14 @@ import { NewsletterRecipent } from './NewsletterRecipient';
 import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
+import { useCreateNewsletter } from '../../operations/mutations/Newsletter/createNewsletter';
 
 const parser = new DOMParser();
 
 export default function NewsletterPage() {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { createNewsletter } = useCreateNewsletter();
 
     const formik = useFormik<NewsletterFormValues>({
         initialValues: {
@@ -45,8 +47,12 @@ export default function NewsletterPage() {
         },
         validate,
         onSubmit: (values) => {
-            // eslint-disable-next-line
-            console.log(values);
+            createNewsletter({
+                message: values.message,
+                recipients: values.recipients,
+                title: values.topic,
+                type: `${values.generalRecipientType} ${values.specificRecipientType} ${values.type}`,
+            });
         },
     });
 

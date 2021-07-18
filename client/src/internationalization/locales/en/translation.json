@@ -600,7 +600,11 @@
     "newsletter-archive": {
         "search": {
             "title": "Search for a message",
-            "search-by-email": "Serach by email"
+            "search-by-email": "Serach by email",
+            "button": "Search"
+        },
+        "list": {
+            "title": "Archived messages list"
         }
     },
     "user-settings": {
