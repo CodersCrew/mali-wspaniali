@@ -2,6 +2,7 @@ export * from './add_child_command';
 export * from './create_user_command';
 export * from './login_user_command';
 export * from './change_password_command';
+export * from './confirm_user_command';
 export * from './reset_password_command';
 export * from './create_assessment_result_command';
 export * from './update_assessment_result_command';
