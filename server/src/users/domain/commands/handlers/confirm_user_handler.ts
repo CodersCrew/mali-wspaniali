@@ -41,7 +41,6 @@ export class ConfirmUserHandler implements ICommandHandler<ConfirmUserCommand> {
             new GetUserQuery(parsed.sub),
           );
 
-          console.log(user);
           const eventAwareUser = this.publisher.mergeObjectContext(user);
 
           eventAwareUser.confirm();
