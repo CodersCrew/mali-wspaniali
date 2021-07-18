@@ -9,6 +9,7 @@ import {
     TableRow,
     Table,
     TableCell,
+    Divider,
     makeStyles,
 } from '@material-ui/core';
 import { Assessment as AssessmentIcon, BarChart, EventNote, ExpandLess, ExpandMore } from '@material-ui/icons';
@@ -16,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Assessment, Child, AssessmentResult } from '../../graphql/types';
 import { parseDateToAge } from '../../utils/parseDateToAge';
+import { SearchChildField } from '../../components/SearchChildField';
 import { Clickable } from '../../components/Clickable';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
 import { CountIcon } from '../../components/CountIcon';

@@ -8,10 +8,18 @@ interface Props {
     selectedAssessment: string;
     selectedKindergarten: string;
     compact?: boolean;
+    searchTerm: string;
     onChange: (type: string, value: string) => void;
 }
 
-export function ChildListHeader({ assessments, selectedAssessment, selectedKindergarten, compact, onChange }: Props) {
+export function ChildListHeader({
+    assessments,
+    selectedAssessment,
+    selectedKindergarten,
+    compact,
+    searchTerm,
+    onChange,
+}: Props) {
     const { t } = useTranslation();
     const kindergartens = assessments.find((a) => a._id === selectedAssessment)?.kindergartens || [];
 

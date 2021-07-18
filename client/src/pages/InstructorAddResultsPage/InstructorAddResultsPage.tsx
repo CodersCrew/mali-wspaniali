@@ -82,9 +82,6 @@ export default function InstructorAddResultsPage() {
                                 results={kindergartenResults}
                                 max={maxResults}
                                 assessment={currentAssessment}
-                                searchTerm={searchTerm}
-                                onChange={handleFilterChanged}
-                                compact
                             />
                         }
                         header={
@@ -92,6 +89,7 @@ export default function InstructorAddResultsPage() {
                                 assessments={assessments}
                                 selectedAssessment={selectedAssessment}
                                 selectedKindergarten={selectedKindergarten}
+                                searchTerm={searchTerm}
                                 onChange={handleFilterChanged}
                             />
                         }
@@ -122,9 +120,6 @@ export default function InstructorAddResultsPage() {
                                 results={kindergartenResults}
                                 max={maxResults}
                                 assessment={currentAssessment}
-                                searchTerm={searchTerm}
-                                onChange={handleFilterChanged}
-                                compact
                             />
                         }
                         header={
@@ -134,6 +129,7 @@ export default function InstructorAddResultsPage() {
                                 selectedKindergarten={selectedKindergarten}
                                 onChange={handleFilterChanged}
                                 compact
+                                searchTerm={searchTerm}
                             />
                         }
                         container={
@@ -141,6 +137,9 @@ export default function InstructorAddResultsPage() {
                                 assessment={currentAssessment}
                                 childList={childList}
                                 results={kindergartenResults}
+                                onChange={handleFilterChanged}
+                                compact
+                                searchTerm={searchTerm}
                                 onClick={handleClick}
                             />
                         }
