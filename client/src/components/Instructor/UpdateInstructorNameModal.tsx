@@ -5,36 +5,46 @@ import { useFormik } from 'formik';
 import { BasicModal } from '../Modal/BasicModal';
 import { ActionDialog, openDialog } from '../../utils/openDialog';
 import { UpdateInstructorNameResult } from '../../graphql/types';
+// eslint-disable-next-line import/no-cycle
 import { UpdateInstructorNameForm } from './UpdateInstructorNameForm';
 
-type UpdateInstructorNameModalProps = {
+export type UpdateInstructorNameModalProps = {
     firstname: string;
     lastname: string;
-};
-
-const initialValues: UpdateInstructorNameResult = {
-    firstname: '',
-    lastname: '',
+    mail: string;
 };
 
 export const openUpdateInstructorNameModal = (options: UpdateInstructorNameModalProps) => {
     return openDialog<UpdateInstructorNameModalProps>(UpdateInstructorNameModal, options);
 };
 
-export const UpdateInstructorNameModal = ({ makeDecision }: ActionDialog<{ name: UpdateInstructorNameResult }>) => {
+export const UpdateInstructorNameModal = ({
+    makeDecision,
+    onClose,
+    firstname,
+    lastname,
+    mail,
+}: UpdateInstructorNameModalProps & ActionDialog<{ name: UpdateInstructorNameResult }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
+
+    const initialValues: UpdateInstructorNameModalProps = {
+        firstname: firstname || '',
+        lastname: lastname || '',
+        mail,
+    };
 
     const validationSchema = yup.object({
         firstname: yup.string().required(t('add-instructor-name-modal.first-name-required')),
         lastname: yup.string().required(t('add-instructor-name-modal.last-name-required')),
+        mail: yup.string(),
     });
 
     const formik = useFormik({
         initialValues,
         validationSchema,
         onSubmit: (values) => {
-            makeDecision({ accepted: true, name: { ...values } });
+            makeDecision({ accepted: true, name: { firstname: values.firstname, lastname: values.lastname } });
         },
     });
 
@@ -45,6 +55,7 @@ export const UpdateInstructorNameModal = ({ makeDecision }: ActionDialog<{ name:
             onAction={formik.handleSubmit}
             isCancelButtonVisible={false}
             isActionButtonVisible={true}
+            onClose={onClose}
         >
             <div className={classes.innerContent}>
                 <Typography variant="h4" className={classes.title}>
@@ -64,7 +75,8 @@ export const UpdateInstructorNameModal = ({ makeDecision }: ActionDialog<{ name:
 const useStyles = makeStyles((theme: Theme) => ({
     innerContent: {
         minHeight: 200,
+        maxWidth: 680,
     },
-    description: { marginBottom: theme.spacing(2) },
-    title: { marginBottom: theme.spacing(3) },
+    description: { marginBottom: theme.spacing(3) },
+    title: { marginBottom: theme.spacing(4) },
 }));

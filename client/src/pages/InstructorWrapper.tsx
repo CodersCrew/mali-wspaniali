@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useMe } from '../utils/useMe';
 import { openUpdateInstructorNameModal } from '../components/Instructor/UpdateInstructorNameModal';
+import { useUpdateUser } from '../operations/mutations/User/useUpdateUser';
 
 export const InstructorWrapper: React.FC = ({ children }) => {
     const user = useMe();
+    const { updateUser } = useUpdateUser();
 
-    if (!user) return null;
-    if (user.role !== 'instructor') return null;
+    useEffect(() => {
+        if (user?.role !== 'instructor') return;
 
-    const { firstname, lastname } = user;
+        const { firstname, lastname, mail } = user;
 
-    // TODO: remove!
-    console.log('firstname:', firstname);
-    console.log('lastname:', lastname);
-
-    if (!firstname || !lastname) {
-        openUpdateInstructorNameModal({ lastname, firstname }).then((result) => {
-            if (result.decision && result.decision.accepted) {
-                console.log('result:', result);
-            }
-        });
-    }
+        if (!firstname || !lastname) {
+            openUpdateInstructorNameModal({ lastname, firstname, mail }).then((result) => {
+                if (result.decision && result.decision.accepted) {
+                    // TODO: find the proper type
+                    updateUser((result.decision as any).name);
+                }
+            });
+        }
+    }, [user?.firstname, user?.lastname]);
 
     return <>{children}</>;
 };

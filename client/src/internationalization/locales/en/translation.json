@@ -888,9 +888,9 @@
             "firstname": "First name",
             "lastname": "Last name"
         },
-        "button": "Add",
+        "button": "Save",
         "heading": "Welcome on the Mali Wspaniali website!",
-        "description": "Enter your first and last name before going to the home page.",
+        "description": "Before you open your Instructor Panel complete this form. In the future, you won't be able to change the provided data anymore.",
         "first-name-required": "First name is required",
         "last-name-required": "Last name is required"
     },

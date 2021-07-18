@@ -892,9 +892,9 @@
             "firstname": "Imię",
             "lastname": "Nazwisko"
         },
-        "button": "Dodaj",
-        "heading": "Witaj na stronie Mali Wspaniali",
-        "description": "Zanim przejdziesz do strony głównej wprowadź swoje imię i nazwisko.",
+        "button": "Zapisz",
+        "heading": "Witaj na platformie Mali Wspaniali",
+        "description": "Zanim przejdziesz do Panelu Instruktora uzupełnij swoje dane. Danych nie będzie można później zmienić.",
         "first-name-required": "Podanie imienia jest wymagane",
         "last-name-required": "Podanie nazwiska jest wymagane"
     },

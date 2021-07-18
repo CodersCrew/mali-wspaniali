@@ -1,23 +1,31 @@
-import { makeStyles, Grid } from '@material-ui/core';
+import { makeStyles, Grid, Box } from '@material-ui/core';
 import { FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Input } from '../ChildForm/Input';
 import { useBreakpoints } from '../../queries/useBreakpoints';
-import { UpdateInstructorNameResult } from '../../graphql/types';
+import { useTheme } from '../../theme';
+// eslint-disable-next-line import/no-cycle
+import { UpdateInstructorNameModalProps } from './UpdateInstructorNameModal';
 
-export type UpdateInstructorNameFormProps = {
-    formik: FormikProps<UpdateInstructorNameResult>;
+type UpdateInstructorNameFormProps = {
+    formik: FormikProps<UpdateInstructorNameModalProps>;
 };
 
 export const UpdateInstructorNameForm = ({ formik }: UpdateInstructorNameFormProps) => {
-    const classes = useStyles();
+    const theme = useTheme();
+    const classes = useStyles(theme);
     const device = useBreakpoints();
     const { t } = useTranslation();
 
     return (
-        <Grid container spacing={2} className={classes.container}>
+        <Grid container-fluid spacing={2}>
             <Grid item xs={12}>
-                <Grid container spacing={2} direction={device !== 'DESKTOP' ? 'column' : 'row'}>
+                <Grid
+                    container
+                    spacing={2}
+                    direction={device !== 'DESKTOP' ? 'column' : 'row'}
+                    className={classes.container}
+                >
                     <Grid item classes={{ root: classes.item }}>
                         <Input
                             value={formik.values.firstname}
@@ -41,14 +49,29 @@ export const UpdateInstructorNameForm = ({ formik }: UpdateInstructorNameFormPro
                         />
                     </Grid>
                 </Grid>
+                <Grid container-fluid className={classes.container}>
+                    <Grid item>
+                        <Input
+                            disabled
+                            label="email"
+                            value={formik.values.mail}
+                            name="mail"
+                            error={formik.errors.mail}
+                            onChange={(name: string, value: string) => {
+                                formik.setFieldValue(name, value);
+                            }}
+                        />
+                    </Grid>
+                </Grid>
+                <Box mb={4} />
             </Grid>
         </Grid>
     );
 };
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
     container: {
-        maxWidth: 640,
+        marginBottom: theme.spacing(1),
     },
     item: {
         flex: 1,
