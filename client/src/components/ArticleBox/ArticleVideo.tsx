@@ -1,4 +1,7 @@
-import { createStyles, makeStyles, Box } from '@material-ui/core';
+import { CardMedia, Box, createStyles, makeStyles } from '@material-ui/core';
+
+import video from '../../assets/adminPreviewPhoto/video.png';
+import { articleContent } from './utils';
 
 interface Props {
     videoUrl: string;
@@ -7,9 +10,16 @@ interface Props {
 
 export const ArticleVideo = ({ videoUrl, isPreview }: Props) => {
     const classes = useStyles();
-    console.log(classes);
 
-    return <Box>{videoUrl && <iframe width="560" height="349" src={videoUrl}></iframe>}</Box>;
+    return (
+        <Box>
+            <CardMedia
+                className={classes.contentVideoPlayer}
+                component="iframe"
+                src={articleContent(isPreview, videoUrl, video)}
+            />
+        </Box>
+    );
 };
 
 const useStyles = makeStyles(() =>

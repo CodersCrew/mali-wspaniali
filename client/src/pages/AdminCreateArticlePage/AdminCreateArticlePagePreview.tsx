@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
@@ -7,7 +7,6 @@ import ArticleBox from '../../components/ArticleBox/ArticleBox';
 import { openConfirmCreateArticleModal } from './AdminCreateArticleModal';
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
 import { mandatoryObject } from './utils';
-import { activePage } from '../../apollo_client';
 
 const AdminCreateArticlePagePreview = () => {
     const { state } = useLocation<any>();
@@ -19,10 +18,6 @@ const AdminCreateArticlePagePreview = () => {
     const obligatoryArticleFieldTest = mandatoryObject(state.article);
 
     const [open, setOpen] = useState<boolean>(false);
-
-    useEffect(() => {
-        activePage(['admin-menu.articles-create-preview.title']);
-    }, []);
 
     const articleWithValidation = { ...article, isValid: isValid(obligatoryArticleFieldTest) };
 

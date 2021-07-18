@@ -667,9 +667,6 @@
         "articles-create": {
             "title": "Stwórz Articles"
         },
-        "articles-create-preview": {
-            "title": "Podgląd artykułu"
-        },
         "keycodes": "Kody",
         "kindergartens": {
             "title": "Przedszkola",
@@ -696,7 +693,7 @@
         "article-information": "Informacje o artykule",
         "article-content": "Treść artykułu",
         "article-title": "Tytuł artukułu",
-        "article-url": "Adres URL zdjęcia",
+        "article-url": "Adres artykułu",
         "title-validation": "Tytuł artykułu musi mieć min. 10 i max. 100 znaków",
         "category": "Kategoria",
         "description": "Opis artykułu",
@@ -728,8 +725,8 @@
                 "require": "Url zdjęcia jest wymagany"
             },
             "description": {
-                "min": "Opis powinien mieć co najmniej 30 znaków",
-                "max": "Opis powinien mieć max 300",
+                "min": "Opis powinien miec co najmniej 30 znaków",
+                "max": "i max 300",
                 "require": "Opis jest wymagany"
             },
             "article-content": {

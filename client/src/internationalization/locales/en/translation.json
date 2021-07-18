@@ -591,10 +591,7 @@
             "title": "Articles"
         },
         "articles-create": {
-            "title": "Create Article"
-        },
-        "articles-create-preview": {
-            "title": "Preview Article"
+            "title": "Create Articles"
         },
         "keycodes": "Keycodes",
         "kindergartens": {
@@ -617,7 +614,7 @@
         "article-information": "Article information",
         "article-content": "The content of the article",
         "article-title": "Article title",
-        "article-url": "Image url adress",
+        "article-url": "Article addres",
         "title-validation": "The title of the article must be at least 10 and max. 100 characters",
         "category": "Category",
         "description": "Description of the article",
@@ -649,7 +646,7 @@
             },
             "description": {
                 "min": "The description should be at least 30 characters long",
-                "max": "The description should be at max 300",
+                "max": "and max 300",
                 "require": "Description is required"
             },
             "article-content": {
