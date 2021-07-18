@@ -34,7 +34,7 @@ export class CreateConfirmationRequestHandler
       });
 
       this.sendMail.send({
-        to: user.mail,
+        bcc: [user.mail],
         from: 'piotrek@coderscrew.pl',
         subject:
           'Potwierdzenie maila dzieli cię od wejścia do świata Małych Wspaniałych',

@@ -5,7 +5,7 @@ import { SandboxProvider } from './nodemailer_provider';
 
 interface MailOptions {
   from: string;
-  to: string;
+  bcc: string[];
   subject: string;
   text: string;
   html: string;

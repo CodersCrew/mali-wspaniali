@@ -34,7 +34,7 @@ export class ResetPasswordHandler
       });
 
       this.sendMail.send({
-        to: mail,
+        bcc: [mail],
         from: 'piotrek@coderscrew.pl',
         subject: 'Zmiana hasła na platformie Mali Wspaniali',
         text: 'register',
