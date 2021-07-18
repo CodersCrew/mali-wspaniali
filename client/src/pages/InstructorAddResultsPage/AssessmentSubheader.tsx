@@ -6,18 +6,14 @@ import { StatusChip } from '../../components/StatusChip';
 import dayjs from '../../localizedMoment';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { SearchChildField } from '../../components/SearchChildField';
 
 interface Props {
     max: number;
     assessment: Assessment;
     results: AssessmentResult[];
-    searchTerm: string;
-    compact?: boolean;
-    onChange: (type: string, value: string) => void;
 }
 
-export function AssessmentSubheader({ results, max, assessment, searchTerm, compact, onChange }: Props) {
+export function AssessmentSubheader({ results, max, assessment }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
     const currentMeasurement = getMostRecentMeasurement();
