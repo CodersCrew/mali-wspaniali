@@ -29,10 +29,11 @@ export function Root() {
                             <Route exact path="/" render={() => <Redirect to="/login" />} />
                             <Route path={['/login']}>
                                 <AuthTemplate type="login">
-                                    <Route path="/login" component={getRootLazyImports('LoginPage')} />
+                                    <Route exact path="/login/:confirm" component={getRootLazyImports('LoginPage')} />
+                                    <Route exact path="/login" component={getRootLazyImports('LoginPage')} />
                                 </AuthTemplate>
                             </Route>
-                            <Route path={['/register']} component={getRootLazyImports('RegistrationPage')} />
+                            <Route exact path={['/register']} component={getRootLazyImports('RegistrationPage')} />
                             <Route path={['/forgot-password']}>
                                 <AuthTemplate type="login">
                                     <Route

@@ -1,6 +1,6 @@
-import { FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles, Typography, Box, Divider, CircularProgress } from '@material-ui/core/';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
@@ -9,6 +9,7 @@ import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { PartnerLogotypeContainer } from '../AuthTemplate/PartnerLogotypeContainer';
+import { useConfirmUser } from '../../operations/mutations/User/confirmUser';
 
 const initialError: Error = {
     name: '',
@@ -36,6 +37,16 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(initialError);
     const [loading, setLoading] = useState(false);
+    const { confirmUser } = useConfirmUser(handleConfirmationSuccess, handleConfirmationErrors);
+
+    const params = useParams<{ confirm?: string }>();
+
+    React.useEffect(() => {
+        if (params.confirm) {
+            console.log(params);
+            confirmUser(params.confirm);
+        }
+    }, [params.confirm]);
 
     return (
         <div className={classes.container}>
@@ -139,6 +150,20 @@ export default function LoginPage() {
             severity: 'error',
             anchor: { vertical: 'top', horizontal: 'center' },
         });
+    }
+
+    function handleConfirmationErrors(error: Error) {
+        if (error.message === 'confirmation-failed') {
+            openSnackbar({
+                headerText: t('login-page.confirmation-error.title'),
+                text: t('login-page.confirmation-error.description'),
+                severity: 'error',
+            });
+        }
+    }
+
+    function handleConfirmationSuccess() {
+        openSnackbar({ text: t('login-page.confirmation-success'), severity: 'success' });
     }
 }
 
