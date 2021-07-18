@@ -8,6 +8,7 @@ interface ActionMenuButtonSecondaryProps {
     onClick: () => void;
     size?: 'small' | 'medium' | 'large';
     style?: React.CSSProperties;
+    popperStyle?: React.CSSProperties;
 }
 
 export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps) {
@@ -32,22 +33,33 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
                     </Button>
                 </ButtonGroup>
                 <Popper
+                    style={props.popperStyle}
                     open={isActionMenuOpen}
                     anchorEl={anchorRef.current}
                     transition
                     disablePortal
-                    placement="top-end"
+                    placement="top"
                 >
                     {({ TransitionProps }) => (
                         <Grow
                             {...TransitionProps}
                             style={{
-                                transformOrigin: 'left top',
+                                transformOrigin: 'center',
                             }}
                         >
-                            <Paper>
+                            <Paper
+                                style={{
+                                    height: '40px',
+                                }}
+                            >
                                 <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList>{props.options}</MenuList>
+                                    <MenuList
+                                        style={{
+                                            paddingTop: '0px',
+                                        }}
+                                    >
+                                        {props.options}
+                                    </MenuList>
                                 </ClickAwayListener>
                             </Paper>
                         </Grow>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem } from '@material-ui/core';
+import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
@@ -88,14 +88,22 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                         <Grid item classes={{ root: classes.footerButton }}>
                             <ActionMenuButtonSecondary
                                 style={{ width: '100%' }}
+                                popperStyle={{
+                                    width: '93%',
+                                    top: '23px',
+                                    boxShadow: '#000000, 12%',
+                                }}
                                 label={t('add-result-page.save-and-next')}
                                 onClick={() => onClick('save-and-next', localResult)}
                                 options={[
                                     <MenuItem
                                         key="add-result-page.save-and-back-to-table"
                                         onClick={() => onClick('save-and-back-to-table', localResult)}
+                                        style={{ display: 'flex', justifyContent: 'center' }}
                                     >
-                                        {t('add-result-page.save-and-back-to-table')}
+                                        <Typography variant="button">
+                                            {t('add-result-page.save-and-back-to-table')}
+                                        </Typography>
                                     </MenuItem>,
                                 ]}
                             />
@@ -170,6 +178,7 @@ const useStyles = makeStyles((theme) =>
         footerButton: {
             width: '100%',
             marginTop: theme.spacing(1),
+            boxShadow: theme.shadows[8],
         },
     }),
 );
