@@ -33,8 +33,8 @@ export const ConfirmCreateArticleModal = (
         <TwoActionsModal
             lowerButtonOnClick={props.onClose}
             upperButtonOnClick={() => onSubmit()}
-            lowerButtonText="Wróć"
-            upperButtonText="Opublikuj"
+            lowerButtonText={t('admin-articles.back')}
+            upperButtonText={t('admin-articles.add-article-modal.isValid')}
             isOpen
             onClose={props.onClose}
         >

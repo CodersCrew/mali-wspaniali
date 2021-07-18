@@ -55,8 +55,8 @@ const AdminCreateArticlePagePreview = () => {
             <TwoActionsModal
                 lowerButtonOnClick={handleClose}
                 upperButtonOnClick={onSubmit}
-                lowerButtonText="Wróć"
-                upperButtonText="Uzupełnij dane"
+                lowerButtonText={t('admin-articles.back')}
+                upperButtonText={t('admin-articles.add-article-modal.isnotValid')}
                 isOpen={open}
                 onClose={handleClose}
             >
