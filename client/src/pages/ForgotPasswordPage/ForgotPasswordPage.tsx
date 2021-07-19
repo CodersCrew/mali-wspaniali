@@ -64,7 +64,7 @@ export default function ForgotPasswordPage() {
                 })}
             >
                 <Typography variant="caption">{t('forgot-password-page.problem')}</Typography>
-                <Link underline="always" color="textPrimary" href="mailto:test@test.pl">
+                <Link underline="always" color="textPrimary" href={`mailto:${t('forgot-password-page.mailto')}`}>
                     <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
                 </Link>
                 <ButtonSecondary variant="text" href="/" className={classes.backToLoginButton}>
