@@ -241,6 +241,10 @@ export default function InstructorAddResultsPage() {
             setAgeSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
             setFullNameSortType('');
         }
+
+        if (type === 'see-results') {
+            history.push(`/instructor/results/${value}`);
+        }
     }
 
     function onFabClick() {

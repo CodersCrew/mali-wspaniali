@@ -728,6 +728,9 @@
     },
     "instructor-menu": {
         "results-table": "Tabela wyników",
+        "child": {
+            "results": "Wyniki testów"
+        },
         "result-creator": "Dodaj wynik",
         "notifications": "Powiadomienia",
         "settings": "Ustawienia",

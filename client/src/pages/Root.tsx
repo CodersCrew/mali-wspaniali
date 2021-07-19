@@ -165,6 +165,10 @@ export function Root() {
                                                 path="/instructor/settings"
                                                 component={getRootLazyImports('InstructorSettingsPage')}
                                             />
+                                            <Route
+                                                path="/instructor/results/:resultId"
+                                                component={getRootLazyImports('InstructorResultPage')}
+                                            />
                                         </InstructorWrapper>
                                         <ParentWrapper>
                                             <Route
