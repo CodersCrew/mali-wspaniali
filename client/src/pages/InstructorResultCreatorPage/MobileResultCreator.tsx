@@ -87,7 +87,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                     <Grid container direction="column" alignItems="center">
                         <Grid item classes={{ root: classes.footerButton }}>
                             <ActionMenuButtonSecondary
-                                style={{ width: '100%' }}
+                                buttonStyle={{ width: '100%' }}
                                 popperStyle={classes.popper}
                                 label={t('add-result-page.save-and-next')}
                                 onClick={() => onClick('save-and-next', localResult)}
@@ -178,8 +178,7 @@ const useStyles = makeStyles((theme) =>
         },
         menuItem: { display: 'flex', justifyContent: 'center' },
         popper: {
-            width: '93%',
-            top: '23px',
+            width: '92.5%',
             boxShadow: theme.shadows[2],
         },
     }),

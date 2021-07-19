@@ -7,7 +7,7 @@ interface ActionMenuButtonSecondaryProps {
     options: ReactNode[];
     onClick: () => void;
     size?: 'small' | 'medium' | 'large';
-    style?: React.CSSProperties;
+    buttonStyle?: React.CSSProperties;
     popperStyle?: string;
 }
 
@@ -19,13 +19,13 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
         <Grid container direction="column" alignItems="center">
             <Grid style={{ width: '100%' }} item xs={12}>
                 <ButtonGroup
-                    style={props.style}
+                    style={props.buttonStyle}
                     variant="contained"
                     color="secondary"
                     ref={anchorRef}
                     aria-label="split button"
                 >
-                    <Button style={props.style} size={props.size || 'medium'} onClick={props.onClick}>
+                    <Button style={props.buttonStyle} size={props.size || 'medium'} onClick={props.onClick}>
                         {props.label}
                     </Button>
                     <Button size="small" onClick={handleMenuToggle}>
@@ -49,7 +49,8 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
                         >
                             <Paper
                                 style={{
-                                    height: '40px',
+                                    height: '48px',
+                                    boxShadow: 'inherit',
                                 }}
                             >
                                 <ClickAwayListener onClickAway={handleClose}>
