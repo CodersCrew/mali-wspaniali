@@ -35,6 +35,8 @@ export const INSTRUCTORS = gql`
             _id
             createdAt
             mail
+            firstname
+            lastname
             role
         }
     }

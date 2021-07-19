@@ -42,7 +42,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
 
     const { updateAssessment } = useUpdateAssessment();
 
-    const { mail } = props.relation.instructor;
+    const { mail, firstname, lastname } = props.relation.instructor;
 
     function filterKindergartens(kindergarten: Kindergarten) {
         return props.relation.kindergartens.map(({ _id }) => {
@@ -68,8 +68,8 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                         </IconButton>
                     )}
                 </TableCell>
-                <TableCell>{mail}</TableCell>
-                <TableCell>{mail}</TableCell>
+                <TableCell>{firstname}</TableCell>
+                <TableCell>{lastname}</TableCell>
                 <TableCell data-testid="instructor-mail">{mail}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
                     {isRowActive() && (
