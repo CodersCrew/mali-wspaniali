@@ -50,7 +50,6 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
                             <Paper
                                 style={{
                                     height: '48px',
-                                    boxShadow: 'inherit',
                                 }}
                             >
                                 <ClickAwayListener onClickAway={handleClose}>

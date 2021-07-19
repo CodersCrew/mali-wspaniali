@@ -170,11 +170,11 @@ const useStyles = makeStyles((theme) =>
             zIndex: 800,
             padding: theme.spacing(1, 2),
             backgroundColor: theme.palette.primary.contrastText,
+            boxShadow: theme.shadows[8],
         },
         footerButton: {
             width: '100%',
             marginTop: theme.spacing(1),
-            boxShadow: theme.shadows[8],
         },
         menuItem: { display: 'flex', justifyContent: 'center' },
         popper: {
