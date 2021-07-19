@@ -22,7 +22,6 @@ export function ChildListContainer(props: Props) {
     const { childList, results, assessment, fullNameSortType, ageSortType, onClick } = props;
     const isFirstMeasurementDisabled = assessment.firstMeasurementStatus !== 'active';
     const isLastMeasurementDisabled = assessment.lastMeasurementStatus !== 'active';
-    const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;
 
     return (
         <Table size="small">
@@ -125,7 +124,7 @@ export function ChildListContainer(props: Props) {
                                 </Grid>
                             </TableCell>
                             <TableCell align="center">
-                                <IconButton onClick={() => onClick('see-results', c._id)} disabled={isResultDisabled}>
+                                <IconButton onClick={() => onClick('see-results', c._id)} disabled={isResultDisabled()}>
                                     <AssessmentIcon titleAccess={t('add-results-page.see-results')} />
                                 </IconButton>
                             </TableCell>
@@ -135,6 +134,10 @@ export function ChildListContainer(props: Props) {
             </TableBody>
         </Table>
     );
+
+    function isResultDisabled() {
+        return props.assessment.firstMeasurementStatus !== 'done' || props.assessment.lastMeasurementStatus !== 'done';
+    }
 
     function matchResultWithColor(result: number) {
         if (result === 4) return 'success-dark';
