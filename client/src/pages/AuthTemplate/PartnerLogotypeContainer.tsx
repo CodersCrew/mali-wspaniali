@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Maker from '../../assets/authTemplateLogos/maker/maker.png';
 import Ecm from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
-import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu.png';
+import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu-nowe.jpg';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
 export const PartnerLogotypeContainer = (): JSX.Element => {
