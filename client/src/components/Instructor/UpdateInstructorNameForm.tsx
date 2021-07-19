@@ -1,9 +1,11 @@
 import { makeStyles, Grid, Box } from '@material-ui/core';
 import { FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
+
 import { Input } from '../ChildForm/Input';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { useTheme } from '../../theme';
+
 // eslint-disable-next-line import/no-cycle
 import { UpdateInstructorNameModalProps } from './UpdateInstructorNameModal';
 

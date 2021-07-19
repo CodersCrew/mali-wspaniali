@@ -1,5 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
+
 import { UpdatedUserInput } from '../../../graphql/types';
+
 import { useGetMe } from './useGetMe';
 
 export const UPDATE_USER = gql`

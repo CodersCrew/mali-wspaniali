@@ -2,9 +2,11 @@ import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+
 import { BasicModal } from '../Modal/BasicModal';
 import { ActionDialog, openDialog } from '../../utils/openDialog';
 import { UpdatedUserInput, UpdateInstructorNameResult } from '../../graphql/types';
+
 // eslint-disable-next-line import/no-cycle
 import { UpdateInstructorNameForm } from './UpdateInstructorNameForm';
 
