@@ -2,13 +2,15 @@ import { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
-import { AuthTemplate } from './AuthTemplate/AuthTemplate';
-import { AppWrapper } from './AppWrapper';
-import { ParentWrapper } from './ParentWrapper';
+
 import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 import { CookieModal } from '../components/CookieModal/CookieModal';
+
+import { ParentWrapper } from './ParentWrapper';
+import { AppWrapper } from './AppWrapper';
+import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { getRootLazyImports } from './rootLazyImports';
 import { InstructorWrapper } from './InstructorWrapper';
 
@@ -118,7 +120,10 @@ export function Root() {
                                             path="/admin/articles/create"
                                             component={getRootLazyImports('AdminCreateArticlePage')}
                                         />
-                                        {/* TODO: add ArticlePage component for Admin, currently we display the same component as for Parent */}
+                                        {/*
+                                         TODO: add ArticlePage component for Admin,
+                                         currently we display the same component as for Parent
+*/}
                                         <Route
                                             exact
                                             path="/admin/article/:articleId"

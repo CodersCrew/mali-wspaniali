@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import { useMe } from '../utils/useMe';
 import { openUpdateInstructorNameModal } from '../components/Instructor/UpdateInstructorNameModal';
 import { useUpdateUser } from '../operations/mutations/User/useUpdateUser';
