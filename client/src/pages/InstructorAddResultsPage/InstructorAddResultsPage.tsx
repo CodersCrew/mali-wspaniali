@@ -77,6 +77,13 @@ export default function InstructorAddResultsPage() {
             {!device.isSmallMobile ? (
                 <>
                     <CustomContainer
+                        subheader={
+                            <AssessmentSubheader
+                                results={kindergartenResults}
+                                max={maxResults}
+                                assessment={currentAssessment}
+                            />
+                        }
                         header={
                             <ChildListHeader
                                 assessments={assessments}
@@ -84,13 +91,6 @@ export default function InstructorAddResultsPage() {
                                 selectedKindergarten={selectedKindergarten}
                                 searchTerm={searchTerm}
                                 onChange={handleFilterChanged}
-                            />
-                        }
-                        subheader={
-                            <AssessmentSubheader
-                                results={kindergartenResults}
-                                max={maxResults}
-                                assessment={currentAssessment}
                             />
                         }
                         container={
@@ -115,16 +115,6 @@ export default function InstructorAddResultsPage() {
             ) : (
                 <>
                     <CustomContainer
-                        header={
-                            <ChildListHeader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                searchTerm={searchTerm}
-                                onChange={handleFilterChanged}
-                                compact
-                            />
-                        }
                         subheader={
                             <AssessmentSubheader
                                 results={kindergartenResults}
@@ -132,11 +122,24 @@ export default function InstructorAddResultsPage() {
                                 assessment={currentAssessment}
                             />
                         }
+                        header={
+                            <ChildListHeader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
+                                onChange={handleFilterChanged}
+                                compact
+                                searchTerm={searchTerm}
+                            />
+                        }
                         container={
                             <ChildListCompactContainer
                                 assessment={currentAssessment}
                                 childList={childList}
                                 results={kindergartenResults}
+                                onChange={handleFilterChanged}
+                                compact
+                                searchTerm={searchTerm}
                                 onClick={handleClick}
                             />
                         }
@@ -240,6 +243,10 @@ export default function InstructorAddResultsPage() {
         if (type === 'age') {
             setAgeSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
             setFullNameSortType('');
+        }
+
+        if (type === 'see-results') {
+            history.push(`/instructor/results/${value}`);
         }
     }
 

@@ -43,6 +43,57 @@ type PaginatedArticlesDTO {
   hasNext: Boolean!
 }
 
+type AgreementDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  text: String!
+  isSigned: Boolean!
+}
+
+type CreateKeyCodeDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  createdBy: String!
+  keyCode: String!
+  series: String!
+  target: String!
+}
+
+type KeyCodeSeriesDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  createdBy: String!
+  keyCode: String!
+  series: String!
+  target: String!
+  count: Int!
+}
+
+type KindergartenDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime!
+  modifiedAt: DateTime!
+  deletedAt: DateTime!
+  number: Int!
+  name: String!
+  city: String!
+  address: String!
+  children: [ChildDTO!]!
+  firstMeasurementResultCount: Int!
+  lastMeasurementResultCount: Int!
+  maxResultCount: Int!
+}
+
 type ChildAssessmentResultDTO {
   _id: ID!
   isDeleted: Boolean!
@@ -79,6 +130,56 @@ type ChildAssessmentResultDTO {
   assessment: AssessmentDTO
 }
 
+type ChildDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  firstname: String!
+  lastname: String!
+  birthYear: Int!
+  birthQuarter: Int!
+  sex: String!
+  results: [ChildAssessmentResultDTO!]!
+  kindergarten: KindergartenDTO!
+  currentParams: ChildCurrentParamsDTO!
+  parent: UserDTO
+
+  """
+  Returns child's age, if run on concrete assessment context, returns age in relation to firstMeasuremtnDate / lastMeasurementDate if the first is not available, if run without any context in returns age in realation to the current date
+  """
+  age: Int
+}
+
+type UserDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  firstname: String
+  lastname: String
+  mail: String!
+  role: String!
+  children: [ChildDTO!]
+  agreements: [AgreementDTO!]!
+  notifications: [NotificationDTO!]!
+}
+
+type KindergartenWithUsersDTO {
+  _id: ID!
+  isDeleted: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  number: Int!
+  name: String!
+  city: String!
+  address: String!
+  users: [UserDTO!]!
+}
+
 type PartialChildResult {
   _id: ID
   isDeleted: Boolean
@@ -110,69 +211,6 @@ type PartialChildResult {
   lastMeasurementThrowResult: Float
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
-}
-
-type KindergartenDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime!
-  modifiedAt: DateTime!
-  deletedAt: DateTime!
-  number: Int!
-  name: String!
-  city: String!
-  address: String!
-  children: [ChildDTO!]!
-  firstMeasurementResultCount: Int!
-  lastMeasurementResultCount: Int!
-  maxResultCount: Int!
-}
-
-type ChildDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  firstname: String!
-  lastname: String!
-  birthYear: Int!
-  birthQuarter: Int!
-  sex: String!
-  results: [ChildAssessmentResultDTO!]!
-  kindergarten: KindergartenDTO!
-  currentParams: ChildCurrentParamsDTO!
-  parent: UserDTO
-
-  """
-  Returns child's age, if run on concrete assessment context, returns age in relation to firstMeasuremtnDate / lastMeasurementDate if the first is not available, if run without any context in returns age in realation to the current date
-  """
-  age: Int
-}
-
-type AgreementDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  text: String!
-  isSigned: Boolean!
-}
-
-type UserDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  firstname: String
-  lastname: String
-  mail: String!
-  role: String!
-  children: [ChildDTO!]
-  agreements: [AgreementDTO!]!
-  notifications: [NotificationDTO!]!
 }
 
 type ReturnedTokenDTO {
@@ -219,44 +257,6 @@ type ChildCurrentParamsDTO {
   jump: ParamsDTO
 }
 
-type CreateKeyCodeDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  createdBy: String!
-  keyCode: String!
-  series: String!
-  target: String!
-}
-
-type KeyCodeSeriesDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  createdBy: String!
-  keyCode: String!
-  series: String!
-  target: String!
-  count: Int!
-}
-
-type KindergartenWithUsersDTO {
-  _id: ID!
-  isDeleted: Boolean!
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  number: Int!
-  name: String!
-  city: String!
-  address: String!
-  users: [UserDTO!]!
-}
-
 type KindergartenWithInstructorDTO {
   kindergarten: KindergartenDTO
   instructor: UserDTO
@@ -297,16 +297,16 @@ type Query {
   paginatedArticles(perPage: Int, category: String, page: Int!): PaginatedArticlesDTO!
   lastArticles(count: Int!): [ArticleDTO!]!
   article(id: String!): ArticleDTO!
+  agreements: [AgreementDTO!]!
+  keyCodes(series: String!): [CreateKeyCodeDTO!]!
+  keyCodeSeries: [KeyCodeSeriesDTO!]!
+  kindergartens: [KindergartenDTO!]!
+  kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   me: UserDTO!
   user(id: String!): UserDTO!
   users(role: String): [UserDTO!]!
   allChildren: [ChildDTO!]!
   kindergartenResults(kindergartenId: String!, assessmentId: String!): [PartialChildResult!]!
-  keyCodes(series: String!): [CreateKeyCodeDTO!]!
-  keyCodeSeries: [KeyCodeSeriesDTO!]!
-  agreements: [AgreementDTO!]!
-  kindergartens: [KindergartenDTO!]!
-  kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   result(id: String!): ChildAssessmentResultDTO!
   newsletters: [NewsletterDTO!]!
   assessments: [AssessmentDTO!]!
@@ -316,6 +316,12 @@ type Query {
 type Mutation {
   createArticle(article: CreateArticleInput!): ReturnedStatusDTO!
   updateArticle(updates: UpdateArticleInput!, id: String!): ReturnedStatusDTO!
+  createAgreement(agreement: String!): ReturnedStatusDTO!
+  createKeyCode(target: String!): CreateKeyCodeDTO!
+  createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
+  createKindergarten(kindergarten: KindergartenInput!): KindergartenDTO!
+  updateKindergarten(kindergarten: UpdatedKindergartenInput!, id: String!): KindergartenDTO!
+  deleteKindergarten(id: String!): ReturnedStatusDTO!
   anonymizeUser(id: String!): ReturnedStatusDTO!
   readNotification(id: String!): NotificationDTO!
   createUser(user: UserInput!): ReturnedStatusDTO!
@@ -324,16 +330,11 @@ type Mutation {
   changePassword(password: String!, jwt: String!): ReturnedStatusDTO!
   signAgreement(agreementId: String!): AgreementDTO!
   updateUser(updatedUser: UpdatedUserInput!): UserDTO!
+  confirmUser(jwt: String!): ReturnedStatusDTO!
   addChild(child: ChildInput!): ChildDTO!
   editChild(child: UpdatedChildInput!): ReturnedStatusDTO!
   createAssessmentResult(result: PartialChildResultInput!): PartialChildResult!
   updateAssessmentResult(result: PartialUpdateChildResultInput!): PartialChildResult!
-  createKeyCode(target: String!): CreateKeyCodeDTO!
-  createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
-  createAgreement(agreement: String!): ReturnedStatusDTO!
-  createKindergarten(kindergarten: KindergartenInput!): KindergartenDTO!
-  updateKindergarten(kindergarten: UpdatedKindergartenInput!, id: String!): KindergartenDTO!
-  deleteKindergarten(id: String!): ReturnedStatusDTO!
   createNewsletter(newsletter: NewsletterInput!): ReturnedStatusDTO!
   createKindergartenNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
   createParentNewsletter(newsletter: NewsletterKindergartenInput!): ReturnedStatusDTO!
@@ -372,6 +373,20 @@ input UpdateArticleInput {
   videoUrl: String
   isDeleted: Boolean
   isPublished: Boolean
+}
+
+input KindergartenInput {
+  number: Int!
+  name: String!
+  address: String!
+  city: String!
+}
+
+input UpdatedKindergartenInput {
+  number: Int
+  name: String
+  address: String
+  city: String
 }
 
 input UserInput {
@@ -473,20 +488,6 @@ input PartialUpdateChildResultInput {
   lastMeasurementThrowResult: Float
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
-}
-
-input KindergartenInput {
-  number: Int!
-  name: String!
-  address: String!
-  city: String!
-}
-
-input UpdatedKindergartenInput {
-  number: Int
-  name: String
-  address: String
-  city: String
 }
 
 input NewsletterInput {

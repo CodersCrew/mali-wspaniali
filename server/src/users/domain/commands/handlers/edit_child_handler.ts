@@ -39,7 +39,7 @@ export class EditChildHandler implements ICommandHandler<EditChildCommand> {
       throw new Error('Parent not found');
     }
 
-    let updateQuery: Partial<EditChildCommand['child']> & {
+    const updateQuery: Partial<EditChildCommand['child']> & {
       kindergarten?: string;
     } = rawChild;
 

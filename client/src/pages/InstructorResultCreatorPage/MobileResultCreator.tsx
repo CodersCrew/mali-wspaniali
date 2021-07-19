@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem } from '@material-ui/core';
+import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
@@ -89,25 +89,34 @@ export function MobileResultCreator({ resultCreator, measurement, onClick, butto
                 </Grid>
                 <Grid item className={classes.footer}>
                     <Grid container direction="column" alignItems="center">
-                        <Grid item>
-                            <ButtonSecondary size="small" variant="text" onClick={() => onClick('back-to-table', '')}>
-                                {t(`add-result-page.${buttonName.backBtnName}`)}
-                            </ButtonSecondary>
-                        </Grid>
-                        <Grid item>
+                        <Grid item classes={{ root: classes.footerButton }}>
                             <ActionMenuButtonSecondary
-                                size="small"
+                                buttonStyle={{ width: '100%' }}
+                                popperStyle={classes.popper}
                                 label={t('add-result-page.save-and-next')}
                                 onClick={() => onClick('save-and-next', localResult)}
                                 options={[
                                     <MenuItem
                                         key="add-result-page.save-and-back-to-table"
                                         onClick={() => onClick('save-and-back-to-table', localResult)}
+                                        className={classes.menuItem}
                                     >
-                                        {t(`add-result-page.save-and-${buttonName.saveAndBackBtnName}`)}
+                                        <Typography variant="button">
+                                            {t('add-result-page.save-and-back-to-table')}
+                                        </Typography>
                                     </MenuItem>,
                                 ]}
                             />
+                        </Grid>
+                        <Grid item classes={{ root: classes.footerButton }}>
+                            <ButtonSecondary
+                                style={{ width: '100%' }}
+                                size="medium"
+                                variant="text"
+                                onClick={() => onClick('back-to-table', '')}
+                            >
+                                {t('add-result-page.back-to-table')}
+                            </ButtonSecondary>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -165,6 +174,16 @@ const useStyles = makeStyles((theme) =>
             zIndex: 800,
             padding: theme.spacing(1, 2),
             backgroundColor: theme.palette.primary.contrastText,
+            boxShadow: theme.shadows[8],
+        },
+        footerButton: {
+            width: '100%',
+            marginTop: theme.spacing(1),
+        },
+        menuItem: { display: 'flex', justifyContent: 'center' },
+        popper: {
+            width: '92.5%',
+            boxShadow: theme.shadows[2],
         },
     }),
 );
