@@ -14,13 +14,9 @@ interface Props {
     resultCreator: ResultCreatorReturnProps;
     measurement: string;
     onClick: (type: string, value: string | AssessmentValues) => void;
-    buttonName: {
-        backBtnName: string;
-        saveAndBackBtnName: string;
-    };
 }
 
-export function MobileResultCreator({ resultCreator, measurement, onClick, buttonName }: Props) {
+export function MobileResultCreator({ resultCreator, measurement, onClick }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 

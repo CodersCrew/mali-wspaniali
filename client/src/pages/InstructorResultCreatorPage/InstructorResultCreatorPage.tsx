@@ -62,16 +62,11 @@ export default function InstructorResultCreatorPage() {
         return null;
     }
 
-    const historyState = history.location.state?.sourcePageInfo;
-    const backBtnName = historyState?.backBtnName ?? 'back-to-table';
-    const saveAndBackBtnName = `save-and-${historyState?.backBtnName ?? 'back-to-table'}`;
-    const buttonName = { backBtnName, saveAndBackBtnName };
-
     const ResultCreator = device.isSmallMobile ? MobileResultCreator : DesktopResultCreator;
 
     return (
         <PageContainer>
-            <ResultCreator {...{ resultCreator, measurement, buttonName, onClick: handleClick }} />
+            <ResultCreator {...{ resultCreator, measurement, onClick: handleClick }} />
         </PageContainer>
     );
 
