@@ -7,14 +7,8 @@ import { BasicModal } from '../Modal/BasicModal';
 import { ActionDialog, openDialog } from '../../utils/openDialog';
 import { UpdatedUserInput, UpdateInstructorNameResult } from '../../graphql/types';
 
-// eslint-disable-next-line import/no-cycle
 import { UpdateInstructorNameForm } from './UpdateInstructorNameForm';
-
-export type UpdateInstructorNameModalProps = {
-    firstname: string;
-    lastname: string;
-    mail: string;
-};
+import { UpdateInstructorNameModalProps } from './UpdateInstructorName.types';
 
 export const openUpdateInstructorNameModal = (options: UpdateInstructorNameModalProps) => {
     return openDialog<UpdateInstructorNameModalProps, { name: UpdatedUserInput }>(UpdateInstructorNameModal, options);
@@ -26,6 +20,7 @@ export const UpdateInstructorNameModal = ({
     firstname,
     lastname,
     mail,
+    preventClose,
 }: UpdateInstructorNameModalProps & ActionDialog<{ name: UpdateInstructorNameResult }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -39,7 +34,6 @@ export const UpdateInstructorNameModal = ({
     const validationSchema = yup.object({
         firstname: yup.string().required(t('add-instructor-name-modal.first-name-required')),
         lastname: yup.string().required(t('add-instructor-name-modal.last-name-required')),
-        mail: yup.string(),
     });
 
     const formik = useFormik({
@@ -56,8 +50,12 @@ export const UpdateInstructorNameModal = ({
             actionName={t('add-instructor-name-modal.button')}
             onAction={formik.handleSubmit}
             isCancelButtonVisible={false}
-            isActionButtonVisible={true}
-            onClose={onClose}
+            isActionButtonVisible
+            onClose={() => {
+                if (!preventClose) {
+                    onClose();
+                }
+            }}
         >
             <div className={classes.innerContent}>
                 <Typography variant="h4" className={classes.title}>

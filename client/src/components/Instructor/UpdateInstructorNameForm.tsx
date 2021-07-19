@@ -1,17 +1,11 @@
 import { makeStyles, Grid, Box } from '@material-ui/core';
-import { FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 
 import { Input } from '../ChildForm/Input';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { useTheme } from '../../theme';
 
-// eslint-disable-next-line import/no-cycle
-import { UpdateInstructorNameModalProps } from './UpdateInstructorNameModal';
-
-type UpdateInstructorNameFormProps = {
-    formik: FormikProps<UpdateInstructorNameModalProps>;
-};
+import { UpdateInstructorNameFormProps } from './UpdateInstructorName.types';
 
 export const UpdateInstructorNameForm = ({ formik }: UpdateInstructorNameFormProps) => {
     const theme = useTheme();
@@ -58,10 +52,6 @@ export const UpdateInstructorNameForm = ({ formik }: UpdateInstructorNameFormPro
                             label={t('add-instructor-name-modal.inputs.email')}
                             value={formik.values.mail}
                             name="mail"
-                            error={formik.errors.mail}
-                            onChange={(name: string, value: string) => {
-                                formik.setFieldValue(name, value);
-                            }}
                         />
                     </Grid>
                 </Grid>

@@ -14,7 +14,7 @@ export const InstructorWrapper: React.FC = ({ children }) => {
         const { firstname, lastname, mail } = user;
 
         if (!firstname || !lastname) {
-            openUpdateInstructorNameModal({ lastname, firstname, mail }).then((result) => {
+            openUpdateInstructorNameModal({ lastname, firstname, mail, preventClose: true }).then((result) => {
                 if (result.decision && result.decision.accepted) {
                     updateUser(result.decision.name);
                 }
