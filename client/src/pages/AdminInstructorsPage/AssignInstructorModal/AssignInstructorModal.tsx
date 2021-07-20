@@ -8,13 +8,15 @@ import {
     InputLabel,
     MenuItem,
     Select,
+    Grid,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { UpdatedAssessmentInput } from '../../../operations/mutations/Assessment/updateAssessment';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, Assessment } from '../../../graphql/types';
 import { InstructorRelation } from '../types';
-import { KindergartenTable } from './KindergartenTable';
+// import { KindergartenTable } from './KindergartenTable';
+import { KindergartenTransferList } from './KindergartenTransferList';
 import { openDialog, ActionDialog } from '../../../utils/openDialog';
 
 interface ModalProps {
@@ -39,6 +41,7 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
     const select = (kindergartenIds: string[]) => {
         setSelectedKindergartens(kindergartenIds);
     };
+    console.log(select);
 
     const onSubmitAssignInstructor = (updatedAssessment: Partial<UpdatedAssessmentInput>) => {
         props.makeDecision({ accepted: true, updates: updatedAssessment });
@@ -83,43 +86,47 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
                 <Typography variant="h4" className={classes.title}>
                     {t('admin-instructors-page.modal.assign-to-kindergarten')}
                 </Typography>
-                <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="test-select-label">{t(`${T_PREFIX}.select-test`)}</InputLabel>
-                    <Select
-                        labelId="test-select-label"
-                        id="test-select"
-                        label={t(`${T_PREFIX}.select-test`)}
-                        value={props.assessment?._id}
-                        disabled
-                        MenuProps={{
-                            getContentAnchorEl: null,
-                            anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-                        }}
-                    >
-                        <MenuItem value={props.assessment?._id}>{props.assessment?.title}</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="instructor-select-label">{t(`${T_PREFIX}.select-instructor`)}</InputLabel>
-                    <Select
-                        labelId="instructor-select-label"
-                        id="instructor-select"
-                        label={t(`${T_PREFIX}.select-instructor`)}
-                        value={props.instructorId}
-                        disabled
-                        MenuProps={{
-                            getContentAnchorEl: null,
-                            anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-                        }}
-                    >
-                        <MenuItem value={props.instructorId}>{currentInstructor.mail}</MenuItem>
-                    </Select>
-                </FormControl>
-                <KindergartenTable
+                <Grid container justify="space-evenly">
+                    <FormControl variant="outlined">
+                        <InputLabel id="test-select-label">{t(`${T_PREFIX}.select-test`)}</InputLabel>
+                        <Select
+                            labelId="test-select-label"
+                            id="test-select"
+                            label={t(`${T_PREFIX}.select-test`)}
+                            value={props.assessment?._id}
+                            disabled
+                            MenuProps={{
+                                getContentAnchorEl: null,
+                                anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                            }}
+                        >
+                            <MenuItem value={props.assessment?._id}>{props.assessment?.title}</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl variant="outlined">
+                        <InputLabel id="instructor-select-label">{t(`${T_PREFIX}.select-instructor`)}</InputLabel>
+                        <Select
+                            labelId="instructor-select-label"
+                            id="instructor-select"
+                            label={t(`${T_PREFIX}.select-instructor`)}
+                            value={props.instructorId}
+                            disabled
+                            MenuProps={{
+                                getContentAnchorEl: null,
+                                anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                            }}
+                        >
+                            <MenuItem value={props.instructorId}>{currentInstructor.mail}</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+                <KindergartenTransferList />
+                {/* <KindergartenTable
                     defaultKindergartens={getDefaultItems()}
                     selected={selectedKindergartens}
                     onSelect={(value) => select(value)}
-                />
+                /> */}
             </div>
         </TwoActionsModal>
     );
