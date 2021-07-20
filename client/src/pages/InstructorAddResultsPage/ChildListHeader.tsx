@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Grid, MenuItem, TextField } from '@material-ui/core';
 
 import { Assessment } from '../../graphql/types';
+import { SearchChildField } from '../../components/SearchChildField';
 
 interface Props {
     assessments: Assessment[];
@@ -69,6 +70,13 @@ export function ChildListHeader({
                             </MenuItem>
                         ))}
                     </TextField>
+                </Grid>
+                <Grid item xs={compact ? 12 : 4}>
+                    <SearchChildField
+                        isCompact={!!compact}
+                        searchTerm={searchTerm}
+                        onChange={(value) => onChange('searchTerm', value)}
+                    />
                 </Grid>
             </Grid>
         </div>
