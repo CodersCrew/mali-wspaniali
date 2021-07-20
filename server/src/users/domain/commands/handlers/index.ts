@@ -9,7 +9,8 @@ import { CreateAssessmentResultHandler } from './create_assessment_result_handle
 import { UpdateAssessmentResultHandler } from './update_assessment_result_handler';
 import { AnonymizeUserHandler } from './anonymize_user_handler';
 import { UpdateUserHandler } from './update_user_handler';
-
+import { ConfirmUserHandler } from './confirm_user_handler';
+import { CreateConfirmationRequestHandler } from './create_confirmation_request_handler';
 export { CreateUserHandler } from './create_user_handler';
 export { LoginUserHandler } from './login_user_handler';
 export { AddChildHandler } from './add_child_handler';
@@ -28,8 +29,10 @@ export const CommandHandlers = [
   CreateAssessmentResultHandler,
   UpdateAssessmentResultHandler,
   ChangePasswordHandler,
+  ConfirmUserHandler,
   ResetPasswordHandler,
   ChangeUserAgreementHandler,
   AnonymizeUserHandler,
   UpdateUserHandler,
+  CreateConfirmationRequestHandler,
 ];

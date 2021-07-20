@@ -9,9 +9,8 @@ import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 import { CookieModal } from '../components/CookieModal/CookieModal';
+import { getRootLazyImports } from './rootLazyImports';
 
-const LoginPage = React.lazy(() => import('./LoginPage/LoginPage'));
-const RegistrationPage = React.lazy(() => import('./RegistrationPage/RegistrationPage'));
 const ChildResultsPage = React.lazy(() => import('./ChildProfile/ChildResultsPage'));
 const ParentProfilePage = React.lazy(() => import('./ParentProfilePage/ParentProfilePage'));
 const UsersPage = React.lazy(() => import('./UsersPage/UsersPage'));
@@ -66,10 +65,11 @@ export function Root() {
                             <Route exact path="/" render={() => <Redirect to="/login" />} />
                             <Route path={['/login']}>
                                 <AuthTemplate type="login">
-                                    <Route path="/login" component={LoginPage} />
+                                    <Route exact path="/login/:confirm" component={getRootLazyImports('LoginPage')} />
+                                    <Route exact path="/login" component={getRootLazyImports('LoginPage')} />
                                 </AuthTemplate>
                             </Route>
-                            <Route path={['/register']} component={RegistrationPage} />
+                            <Route exact path={['/register']} component={getRootLazyImports('RegistrationPage')} />
                             <Route path={['/forgot-password']}>
                                 <AuthTemplate type="login">
                                     <Route path="/forgot-password" component={ForgotPasswordPage} />

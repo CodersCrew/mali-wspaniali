@@ -4,7 +4,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles_module';
 import { isProduction, isTest } from './shared/utils/is_production';
@@ -43,7 +42,6 @@ import { AssessmentModule } from './assessment/assessment_module';
       isTest() ? process.env.MONGO_KEY_TEST : process.env.MONGO_KEY,
     ),
   ],
-  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

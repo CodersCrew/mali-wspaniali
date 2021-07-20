@@ -15,7 +15,12 @@
         "login-notfound": "We cannot find your account in the system",
         "login-wrong-password": "Entered password is incorrect",
         "no-account": "Don't have an account?",
-        "register": "Register"
+        "register": "Register",
+        "confirmation-success": "The e-mail address has been confirmed. Now you can log in without any problems",
+        "confirmation-error": {
+            "title": "This account has not been confirmed yet",
+            "description": "Go to your e-mail inbox and find an e-mail from the Mali Wspaniali Foundation, thanks to which you can confirm your e-mail."
+        }
     },
     "login-wrapper": {
         "welcome-text": "Welcome to the world of Mali Wspaniali",
@@ -487,6 +492,16 @@
             "done": "Done",
             "error": "Fill in data",
             "file-error": "File error"
+        }
+    },
+    "newsletter-archive": {
+        "search": {
+            "title": "Search for a message",
+            "search-by-email": "Serach by email",
+            "button": "Search"
+        },
+        "list": {
+            "title": "Archived messages list"
         }
     },
     "user-settings": {
