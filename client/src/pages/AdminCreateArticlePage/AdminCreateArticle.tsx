@@ -32,7 +32,6 @@ export default function CreateArticlePage() {
     const { state } = useLocation<ArticleState>();
 
     const validationSchema = Yup.object().shape({
-        category: Yup.string().required(t('admin-articles.validation-label.title.require')),
         title: Yup.string()
             .required(t('admin-articles.validation-label.title.require'))
             .min(10, t('admin-articles.validation-label.title.min'))

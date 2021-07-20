@@ -15,8 +15,6 @@ import { calculateReadingTime } from '../../utils/calculateReadingTime';
 import photoHeader from '../../assets/adminPreviewPhoto/headerPhoto.png';
 import { Article } from '../../graphql/types';
 
-// Remember change type
-
 type ArticleBoxType = {
     article: Article | any;
     previousButtonTitle: string;
@@ -37,6 +35,8 @@ const ArticleBox = ({
     const { isMobile, isTablet, isDesktop } = useIsDevice();
     const classes = useStyles();
     const history = useHistory();
+
+    const isVideo = isPreview ? article?.values?.videoUrl : article?.videoUrl;
 
     function onBackClick() {
         history.goBack();
@@ -80,12 +80,13 @@ const ArticleBox = ({
                         contentHTML={isPreview ? article?.values?.contentHTML : article?.contentHTML}
                         isPreview={isPreview}
                     />
+
                     <Grid item classes={{ root: classes.videoContainer }} xs={12}>
-                        <ArticleVideo
-                            videoUrl={isPreview ? article?.values?.videoUrl : article?.videoUrl}
-                            isPreview={isPreview}
-                        />
+                        {isVideo && (
+                            <ArticleVideo videoUrl={isPreview ? article?.values?.videoUrl : article?.videoUrl} />
+                        )}
                     </Grid>
+
                     <Grid item classes={{ root: classes.tagContainer }}>
                         <TagList tags={isPreview ? article?.values?.tags : article?.tags} isPreview={isPreview} />
                     </Grid>
