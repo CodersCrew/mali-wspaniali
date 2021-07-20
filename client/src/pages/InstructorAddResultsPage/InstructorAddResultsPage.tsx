@@ -29,6 +29,7 @@ export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
     const [selectedAssessment, setSelectedAssessment] = useState('');
     const [selectedKindergarten, setSelectedKindergarten] = useState('');
+    const [selectedGroup, setSelectedGroup] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [fullNameSortType, setFullNameSortType] = useState('asc');
     const [ageSortType, setAgeSortType] = useState('');
@@ -44,7 +45,7 @@ export default function InstructorAddResultsPage() {
     const currentChildren =
         currentAssessment?.kindergartens
             .filter((k) => !!k.kindergarten)
-            .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || [];
+            .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || []; // we need intersection with selectedGroup.children
 
     useEffect(() => {
         activePage(['instructor-menu.results-table']);
@@ -99,6 +100,7 @@ export default function InstructorAddResultsPage() {
                                 assessments={assessments}
                                 selectedAssessment={selectedAssessment}
                                 selectedKindergarten={selectedKindergarten}
+                                onChange={handleFilterChanged}
                             />
                         }
                         container={
@@ -145,6 +147,7 @@ export default function InstructorAddResultsPage() {
                                 assessments={assessments}
                                 selectedAssessment={selectedAssessment}
                                 selectedKindergarten={selectedKindergarten}
+                                onChange={handleFilterChanged}
                             />
                         }
                         container={
@@ -177,6 +180,13 @@ export default function InstructorAddResultsPage() {
 
         if (type === 'searchTerm') {
             setSearchTerm(value);
+
+            return;
+        }
+
+        if (type === 'group') {
+            setSelectedGroup(value);
+            console.log(selectedGroup);
 
             return;
         }

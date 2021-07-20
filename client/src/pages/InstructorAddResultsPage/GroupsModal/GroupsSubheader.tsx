@@ -1,44 +1,77 @@
 import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
 
 import { Grid, Typography } from '@material-ui/core';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 // import { useIsDevice } from '../../queries/useBreakpoints';
-import { Assessment } from '../../../graphql/types';
+import { Assessment, Group } from '../../../graphql/types';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 
 import { openGroupsModal } from './GroupsModal';
+import { GroupsChip } from './GroupsChip';
 
 interface Props {
     selectedKindergarten: string;
     selectedAssessment: string;
     assessments: Assessment[];
+    onChange: (type: string, value: string) => void;
 }
 export function GroupsSubheader(props: Props) {
+    const [groups, setGroups] = useState<Group[]>([]);
+    const [selectedGroup, setSelectedGroup] = useState('unassigned');
+    const toggleOrSelect = (groupId: string) => {
+        if (selectedGroup === groupId) {
+            setSelectedGroup('');
+            props.onChange('group', '');
+        } else {
+            setSelectedGroup(groupId);
+            props.onChange('group', groupId);
+        }
+    };
+
     const { t } = useTranslation();
-    // const classes = useStyles();
 
+    useEffect(() => {
+        setGroups([
+            { _id: '123', name: 'motylki', instructor: null, kindergarten: null },
+            { _id: '124', name: 'kotki', instructor: null, kindergarten: null },
+        ]);
+    }, []);
     // const device = useIsDevice();
-    return (
-        <Grid container direction="row" alignItems="center" justify="space-between">
-            <Grid item>
-                <Typography variant="subtitle1">{t('groupsModal.groups')}</Typography>
-            </Grid>
 
-            <Grid item>
-                <ButtonSecondary
-                    aria-label="groups"
-                    variant="contained"
-                    startIcon={<PermIdentityIcon />}
-                    innerText={t('groupsModal.groups')}
-                    onClick={() => openGroupsModal({ ...props })}
-                />
+    return (
+        <>
+            <Grid container direction="row" alignItems="center">
+                <Grid item xs={1}>
+                    <Typography variant="subtitle1">{t('groupsModal.groups')}</Typography>
+                </Grid>
+                <Grid item xs={9}>
+                    <GroupsChip
+                        label={t('groupsModal.unassigned')}
+                        onClick={() => toggleOrSelect('unassigned')}
+                        selected={selectedGroup === 'unassigned'}
+                    />
+                    {groups.map((group, index) => (
+                        <GroupsChip
+                            key={index}
+                            label={group.name}
+                            onClick={() => toggleOrSelect(group._id)}
+                            selected={selectedGroup === group._id}
+                        />
+                    ))}
+                </Grid>
+
+                <Grid item xs={2}>
+                    <ButtonSecondary
+                        aria-label="groups"
+                        variant="contained"
+                        startIcon={<PermIdentityIcon />}
+                        innerText={t('groupsModal.groups')}
+                        onClick={() => openGroupsModal({ ...props })}
+                    />
+                </Grid>
             </Grid>
-        </Grid>
+        </>
     );
 }
-
-/* const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        
-    }) */
