@@ -121,7 +121,11 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
                     </FormControl>
                 </Grid>
 
-                <KindergartenTransferList />
+                <KindergartenTransferList
+                    defaultKindergartens={getDefaultItems()}
+                    selected={selectedKindergartens}
+                    onSelect={(value) => select(value)}
+                />
                 {/* <KindergartenTable
                     defaultKindergartens={getDefaultItems()}
                     selected={selectedKindergartens}

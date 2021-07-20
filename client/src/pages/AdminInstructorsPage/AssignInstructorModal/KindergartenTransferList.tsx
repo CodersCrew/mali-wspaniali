@@ -1,37 +1,24 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
+import { Grid, List, ListItem, ListItemIcon, ListItemText, Checkbox, Button, Paper } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        margin: 'auto',
-    },
-    paper: {
-        width: 200,
-        height: 230,
-        overflow: 'auto',
-    },
-    button: {
-        margin: theme.spacing(0.5, 0),
-    },
-}));
+import { Kindergarten } from '../../../graphql/types';
 
-function not(a, b) {
-    return a.filter((value) => b.indexOf(value) === -1);
+interface Props {
+    defaultKindergartens: Array<{ kindergarten: Kindergarten; selected: boolean; disabled: boolean }>;
+    selected: string[];
+    onSelect: (id: string[]) => void;
 }
 
-function intersection(a, b) {
-    return a.filter((value) => b.indexOf(value) !== -1);
+function not(a: any, b: any) {
+    return a.filter((value: any) => b.indexOf(value) === -1);
 }
 
-export function KindergartenTransferList() {
+function intersection(a: any[], b: string | any[]) {
+    return a.filter((value: any) => b.indexOf(value) !== -1);
+}
+
+export function KindergartenTransferList({ defaultKindergartens, selected, onSelect }: Props) {
     const classes = useStyles();
     const [checked, setChecked] = React.useState([]);
     const [left, setLeft] = React.useState([0, 1, 2, 3]);
@@ -40,7 +27,7 @@ export function KindergartenTransferList() {
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
 
-    const handleToggle = (value) => () => {
+    const handleToggle = (value: never) => () => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
 
@@ -65,23 +52,28 @@ export function KindergartenTransferList() {
         setChecked(not(checked, rightChecked));
     };
 
-    const customList = (items) => (
+    const customList = (items: Kindergarten[]) => (
         <Paper className={classes.paper}>
             <List dense component="div" role="list">
-                {items.map((value) => {
-                    const labelId = `transfer-list-item-${value}-label`;
+                {items.map((kindergarten: Kindergarten, index: number) => {
+                    const labelId = `transfer-list-item-${kindergarten?._id}-label`;
 
                     return (
-                        <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
+                        <ListItem
+                            key={kindergarten?.number}
+                            role="listitem"
+                            button
+                            onClick={handleToggle(kindergarten)}
+                        >
                             <ListItemIcon>
                                 <Checkbox
-                                    checked={checked.indexOf(value) !== -1}
+                                    checked={checked.indexOf(kindergarten as never) !== -1}
                                     tabIndex={-1}
                                     disableRipple
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+                            <ListItemText id={labelId} primary={kindergarten?.name} />
                         </ListItem>
                     );
                 })}
@@ -91,8 +83,8 @@ export function KindergartenTransferList() {
     );
 
     return (
-        <Grid container spacing={2} justifyContent="center" alignItems="center" className={classes.root}>
-            <Grid item>{customList(left)}</Grid>
+        <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
+            <Grid item>{customList(defaultKindergartens.map((kinder) => kinder.kindergarten))}</Grid>
             <Grid item>
                 <Grid container direction="column" alignItems="center">
                     <Button
@@ -117,7 +109,21 @@ export function KindergartenTransferList() {
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item>{customList(right)}</Grid>
+            <Grid item>{customList(defaultKindergartens.filter((kinder) => kinder.selected === true))}</Grid>
         </Grid>
     );
 }
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        margin: 'auto',
+    },
+    paper: {
+        width: 200,
+        height: 230,
+        overflow: 'auto',
+    },
+    button: {
+        margin: theme.spacing(0.5, 0),
+    },
+}));
