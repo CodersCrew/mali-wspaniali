@@ -52,4 +52,17 @@ describe('Newsletter model', () => {
       expect(newsletter.getUncommittedEvents()).toEqual([]);
     });
   });
+
+  describe('if created with invalid', () => {
+    it('throws an error', () => {
+      expect(() =>
+        NewsletterMapper.toDomain({
+          message: 'my-message',
+          recipients: ['wrong-email'],
+          title: 'my-title',
+          type: 'advice',
+        }),
+      ).toHaveValidationErrorSync('each value in recipients must be an email');
+    });
+  });
 });

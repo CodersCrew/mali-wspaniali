@@ -83,10 +83,6 @@ export class User extends AggregateRoot {
     return this.props.role;
   }
 
-  get isConfirmed(): boolean {
-    return this.props.isConfirmed;
-  }
-
   getProps(): UserCore {
     return this.props;
   }
@@ -95,7 +91,6 @@ export class User extends AggregateRoot {
     this.props.isConfirmed = true;
 
     this.apply(new UserConfirmedEvent(this.props._id));
-    this.apply(new UserUpdatedEvent(this.props._id, { isConfirmed: true }));
   }
 
   delete(): void {

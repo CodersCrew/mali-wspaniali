@@ -11,9 +11,6 @@ import { QueryHandlers } from './domain/queries/handlars';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { UsersModule } from '../users/users_module';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
-import { SendMail } from '../shared/services/send_mail/send_mail';
-import { FreshmailProvider } from '../shared/services/send_mail/freshmail_service';
-import { SandboxProvider } from '../shared/services/send_mail/nodemailer_provider';
 
 @Module({
   imports: [
@@ -27,9 +24,6 @@ import { SandboxProvider } from '../shared/services/send_mail/nodemailer_provide
   providers: [
     NewsletterResolver,
     NewslettersRepository,
-    SendMail,
-    FreshmailProvider,
-    SandboxProvider,
     ...CommandHandlers,
     ...EventHandlers,
     ...QueryHandlers,

@@ -42,8 +42,6 @@ const ArticleBox = ({
         history.goBack();
     }
 
-    const isVideo = isPreview ? article?.values?.videoUrl : article?.videoUrl;
-
     return (
         <>
             {isMobile && <ArticleNavigationMobile onClick={onBackClick} />}
@@ -83,9 +81,10 @@ const ArticleBox = ({
                         isPreview={isPreview}
                     />
                     <Grid item classes={{ root: classes.videoContainer }} xs={12}>
-                        {isVideo && (
-                            <ArticleVideo videoUrl={isPreview ? article?.values?.videoUrl : article?.videoUrl} />
-                        )}
+                        <ArticleVideo
+                            videoUrl={isPreview ? article?.values?.videoUrl : article?.videoUrl}
+                            isPreview={isPreview}
+                        />
                     </Grid>
                     <Grid item classes={{ root: classes.tagContainer }}>
                         <TagList tags={isPreview ? article?.values?.tags : article?.tags} isPreview={isPreview} />

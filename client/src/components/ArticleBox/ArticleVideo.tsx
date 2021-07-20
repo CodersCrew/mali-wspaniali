@@ -1,15 +1,23 @@
 import { CardMedia, Box, createStyles, makeStyles } from '@material-ui/core';
 
+import video from '../../assets/adminPreviewPhoto/video.png';
+import { articleContent } from './utils';
+
 interface Props {
     videoUrl: string;
+    isPreview?: boolean;
 }
 
-export const ArticleVideo = ({ videoUrl }: Props) => {
+export const ArticleVideo = ({ videoUrl, isPreview }: Props) => {
     const classes = useStyles();
 
     return (
         <Box>
-            <CardMedia className={classes.contentVideoPlayer} component="iframe" src={videoUrl} />
+            <CardMedia
+                className={classes.contentVideoPlayer}
+                component="iframe"
+                src={articleContent(isPreview, videoUrl, video)}
+            />
         </Box>
     );
 };

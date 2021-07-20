@@ -35,7 +35,6 @@ import {
   CreateUserCommand,
   ResetPasswordCommand,
   UpdateUserCommand,
-  ConfirmUserCommand,
 } from './domain/commands/impl';
 import { ReadNotificationCommand } from '../notifications/domain/commands/impl/read_notifiaction_command';
 import { AnonymizeUserCommand } from './domain/commands/impl/anonymize_user_command';
@@ -196,12 +195,5 @@ export class UsersResolver {
     );
 
     return UserMapper.toPlain(userResult);
-  }
-
-  @Mutation(() => ReturnedStatusDTO)
-  async confirmUser(@Args('jwt') jwt: string): Promise<ReturnedStatusDTO> {
-    await this.commandBus.execute(new ConfirmUserCommand(jwt));
-
-    return { status: true };
   }
 }

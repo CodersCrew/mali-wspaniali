@@ -1,6 +1,6 @@
-import React, { FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles, Typography, Box, Divider, CircularProgress } from '@material-ui/core/';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
@@ -9,7 +9,6 @@ import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { PartnerLogotypeContainer } from '../AuthTemplate/PartnerLogotypeContainer';
-import { useConfirmUser } from '../../operations/mutations/User/confirmUser';
 
 const initialError: Error = {
     name: '',
@@ -28,7 +27,7 @@ export default function LoginPage() {
         (error) => {
             setLoading(() => false);
             setLoginError(error);
-            handleConfirmationErrors(error);
+            showLoginErrorMessage();
         },
     );
     const { isDesktop } = useIsDevice();
@@ -37,15 +36,6 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(initialError);
     const [loading, setLoading] = useState(false);
-    const { confirmUser } = useConfirmUser(handleConfirmationSuccess, handleConfirmationErrors);
-
-    const params = useParams<{ confirm?: string }>();
-
-    React.useEffect(() => {
-        if (params.confirm) {
-            confirmUser(params.confirm);
-        }
-    }, [params.confirm]);
 
     return (
         <div className={classes.container}>
@@ -143,29 +133,12 @@ export default function LoginPage() {
         authorizeMe(email, password);
     }
 
-    function handleConfirmationErrors(error: Error) {
-        if (error.message === 'confirmation-failed') {
-            openSnackbar({
-                headerText: t('login-page.confirmation-error.title'),
-                text: t('login-page.confirmation-error.description'),
-                severity: 'error',
-            });
-
-            history.push('/login');
-
-            return;
-        }
-
+    function showLoginErrorMessage() {
         openSnackbar({
             text: t('login-page.login-error'),
             severity: 'error',
             anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
         });
-    }
-
-    function handleConfirmationSuccess() {
-        openSnackbar({ text: t('login-page.confirmation-success'), severity: 'success' });
-        history.push('/login');
     }
 }
 
