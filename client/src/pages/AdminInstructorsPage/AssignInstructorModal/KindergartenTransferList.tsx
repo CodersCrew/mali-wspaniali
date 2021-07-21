@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, List, ListItem, ListItemIcon, ListItemText, Checkbox, Button, Paper } from '@material-ui/core';
 
@@ -20,14 +20,23 @@ function intersection(a: any[], b: string | any[]) {
 
 export function KindergartenTransferList({ defaultKindergartens, selected, onSelect }: Props) {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([]);
-    const [left, setLeft] = React.useState([0, 1, 2, 3]);
-    const [right, setRight] = React.useState([4, 5, 6, 7]);
+    const [checked, setChecked] = useState([]);
+    const [left, setLeft] = useState(
+        defaultKindergartens
+            .filter((singleKindergarten) => singleKindergarten.selected === false)
+            .map((k) => k.kindergarten),
+    );
+    const [right, setRight] = useState(
+        defaultKindergartens
+            .filter((singleKindergarten) => singleKindergarten.selected === true)
+            .map((k) => k.kindergarten),
+    );
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
 
     const handleToggle = (value: never) => () => {
+        console.log(value);
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
 
@@ -52,39 +61,38 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
         setChecked(not(checked, rightChecked));
     };
 
-    const customList = (items: Kindergarten[]) => (
-        <Paper className={classes.paper}>
-            <List dense component="div" role="list">
-                {items.map((kindergarten: Kindergarten, index: number) => {
-                    const labelId = `transfer-list-item-${kindergarten?._id}-label`;
+    const customList = (items: any[]) => {
+        console.log(items);
 
-                    return (
-                        <ListItem
-                            key={kindergarten?.number}
-                            role="listitem"
-                            button
-                            onClick={handleToggle(kindergarten)}
-                        >
-                            <ListItemIcon>
-                                <Checkbox
-                                    checked={checked.indexOf(kindergarten as never) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={kindergarten?.name} />
-                        </ListItem>
-                    );
-                })}
-                <ListItem />
-            </List>
-        </Paper>
-    );
+        return (
+            <Paper className={classes.paper}>
+                <List dense component="div" role="list">
+                    {items.map((value: any, index: number) => {
+                        const labelId = `transfer-list-item-${value._id}-label`;
+
+                        return (
+                            <ListItem key={value.number} role="listitem" button onClick={handleToggle(value as never)}>
+                                <ListItemIcon>
+                                    <Checkbox
+                                        checked={checked.indexOf(value as never) !== -1}
+                                        tabIndex={-1}
+                                        disableRipple
+                                        inputProps={{ 'aria-labelledby': labelId }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText id={labelId} primary={value.name} />
+                            </ListItem>
+                        );
+                    })}
+                    <ListItem />
+                </List>
+            </Paper>
+        );
+    };
 
     return (
         <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
-            <Grid item>{customList(defaultKindergartens.map((kinder) => kinder.kindergarten))}</Grid>
+            <Grid item>{customList(left)}</Grid>
             <Grid item>
                 <Grid container direction="column" alignItems="center">
                     <Button
@@ -109,7 +117,7 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item>{customList(defaultKindergartens.filter((kinder) => kinder.selected === true))}</Grid>
+            <Grid item>{customList(right)}</Grid>
         </Grid>
     );
 }
