@@ -10,33 +10,28 @@ interface Props {
     onSelect: (id: string[]) => void;
 }
 
-function not(a: any, b: any) {
-    return a.filter((value: any) => b.indexOf(value) === -1);
+function not(a: Kindergarten[], b: Kindergarten[]) {
+    return a.filter((value) => b.indexOf(value) === -1);
 }
 
-function intersection(a: any[], b: string | any[]) {
-    return a.filter((value: any) => b.indexOf(value) !== -1);
+function intersection(a: Kindergarten[], b: Kindergarten[]) {
+    return a.filter((value) => b.indexOf(value) !== -1);
 }
 
 export function KindergartenTransferList({ defaultKindergartens, selected, onSelect }: Props) {
     const classes = useStyles();
-    const [checked, setChecked] = useState([]);
+    const [checked, setChecked] = useState<Kindergarten[]>([]);
     const [left, setLeft] = useState(
-        defaultKindergartens
-            .filter((singleKindergarten) => singleKindergarten.selected === false)
-            .map((k) => k.kindergarten),
+        defaultKindergartens.filter((singleKindergarten) => !singleKindergarten.selected).map((k) => k.kindergarten),
     );
     const [right, setRight] = useState(
-        defaultKindergartens
-            .filter((singleKindergarten) => singleKindergarten.selected === true)
-            .map((k) => k.kindergarten),
+        defaultKindergartens.filter((singleKindergarten) => !!singleKindergarten.selected).map((k) => k.kindergarten),
     );
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
 
-    const handleToggle = (value: never) => () => {
-        console.log(value);
+    const handleToggle = (value: Kindergarten) => () => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
 
@@ -61,34 +56,30 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
         setChecked(not(checked, rightChecked));
     };
 
-    const customList = (items: any[]) => {
-        console.log(items);
+    const customList = (items: Kindergarten[]) => (
+        <Paper className={classes.paper}>
+            <List dense component="div" role="list">
+                {items.map((value) => {
+                    const labelId = `transfer-list-item-${value._id}-label`;
 
-        return (
-            <Paper className={classes.paper}>
-                <List dense component="div" role="list">
-                    {items.map((value: any, index: number) => {
-                        const labelId = `transfer-list-item-${value._id}-label`;
-
-                        return (
-                            <ListItem key={value.number} role="listitem" button onClick={handleToggle(value as never)}>
-                                <ListItemIcon>
-                                    <Checkbox
-                                        checked={checked.indexOf(value as never) !== -1}
-                                        tabIndex={-1}
-                                        disableRipple
-                                        inputProps={{ 'aria-labelledby': labelId }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText id={labelId} primary={value.name} />
-                            </ListItem>
-                        );
-                    })}
-                    <ListItem />
-                </List>
-            </Paper>
-        );
-    };
+                    return (
+                        <ListItem key={value.number} role="listitem" button onClick={handleToggle(value)}>
+                            <ListItemIcon>
+                                <Checkbox
+                                    checked={checked.indexOf(value) !== -1}
+                                    tabIndex={-1}
+                                    disableRipple
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={value.name} />
+                        </ListItem>
+                    );
+                })}
+                <ListItem />
+            </List>
+        </Paper>
+    );
 
     return (
         <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
