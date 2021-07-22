@@ -10,6 +10,7 @@ import {
 import clsx from 'clsx';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { ChangeEvent, useState } from 'react';
+
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { Theme } from '../../theme';
 

@@ -18,6 +18,7 @@ const options = {
     AdminInstructorsPage: lazy(() => import('./AdminInstructorsPage/AdminInstructorsPage')),
     AdminAgreementsPageContainer: lazy(() => import('./AdminAgreementsPage/AdminAgreementsPageConatianer')),
     InstructorAddResultsPage: lazy(() => import('./InstructorAddResultsPage/InstructorAddResultsPage')),
+    InstructorResultPage: lazy(() => import('./InstructorResultPage/InstructorResultPage')),
     InstructorSettingsPage: lazy(() => import('./InstructorSettingsPage/InstructorSettingsPage')),
     AdminAssessmentHistoryPage: lazy(() => import('./AdminAssessmentManagementPage/AdminAssessmentHistoryPage')),
     AdminRecommendationsPage: lazy(() => import('./AdminRecommendationsPage/AdminRecommendationsPage')),

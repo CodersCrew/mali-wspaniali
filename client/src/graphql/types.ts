@@ -85,6 +85,8 @@ export type PrivilegedUser = Omit<User, 'children' | 'agreements'>;
 export interface Me {
     _id: string;
     mail: string;
+    firstname: string;
+    lastname: string;
     date: string;
     role: Role;
     children: Child[];
@@ -284,4 +286,11 @@ export interface Group {
     children?: Child[];
     instructor: User | null;
     kindergarten: Kindergarten | null;
+}
+
+export interface NewsletterInput {
+    message: string;
+    recipients: string[];
+    title: string;
+    type: string;
 }

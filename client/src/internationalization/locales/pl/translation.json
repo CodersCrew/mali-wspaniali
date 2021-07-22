@@ -15,7 +15,12 @@
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
         "login-wrong-password": "Podane hasło jest nieprawidłowe",
         "no-account": "Pierwszy raz na platformie Mali Wspaniali?",
-        "register": "Utwórz konto"
+        "register": "Utwórz konto",
+        "confirmation-success": "Adres e-mail został potwierdzony. Teraz bez problemu możesz się już zalogować",
+        "confirmation-error": {
+            "title": "To konto nie zostało jeszcze potwierdzone",
+            "description": "Wejdź na swoją skrzynkę mailową i znajdź maila od Fundacji Mali Wspaniali, dzięki, któremu potwierdzisz maila."
+        }
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
@@ -28,7 +33,7 @@
         "already-have-account": "Masz już konto?",
         "register-failure": "Rejestracja nie powiodła się",
         "register-failure-keycode": "Podany kod nie jest prawidłowy",
-        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>biuro@mali-wspaniali.pl</strong>",
+        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>fundacja@mali-wspaniali.pl</strong>",
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
         "register-success-content": "Wysłaliśmy na Twoją skrzynkę mailową wiadomość z linkiem aktywacyjnym. Skorzystaj z niego, aby potwierdzić swój adres e-mail i zakończyć rejestrację.",
@@ -46,7 +51,7 @@
         "enter-code": "Kod",
         "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu Twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
-        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: <strong>biuro@mali-wspaniali.pl</strong>",
+        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: <strong>fundacja@mali-wspaniali.pl</strong>",
         "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go ponownie",
         "invalid-email": "Niepoprawny adres e-mail.",
         "length": "8 znaków",
@@ -87,14 +92,16 @@
         "back-to-login": "Wróć do logowania",
         "avatar": "Małgosia",
         "email-sent": "Na Twój adres e-mail wysłaliśmy maila.",
-        "when-received": "Wprowadź otrzymany kod."
+        "when-received": "Wprowadź otrzymany kod.",
+        "mailto": "fundacja@mali-wspaniali.pl"
     },
     "password-change-page": {
         "new-password-title": "Nowe hasło",
         "new-password-subtitle": "Stwórz swoje nowe hasło do platformy Mali Wspaniali",
         "create-new-password": "Stwórz nowe hasło",
         "new-password": "Nowe hasło",
-        "repeat-password": "Powtórz hasło"
+        "repeat-password": "Powtórz hasło",
+        "password-change-failure": "Zmiana hasła nie powiodła się"
     },
     "password-change-success-page": {
         "password-change-success-title": "Zmiana hasła zakończona pomyślnie",
@@ -250,7 +257,6 @@
                 "text-3": "Nasi eksperci służą pomocą. Przygotowali dla Ciebie wytyczne, które możesz zastosować już dziś dla dobra swojego dziecka! Możesz także skorzystać z naszego ",
                 "text-3-1": "zestawu ćwiczeń."
             },
-
             "medium": {
                 "title": "Porada - Średni poziom sprawności",
                 "subtitle": "Mamy nad czym pracować!",
@@ -261,7 +267,6 @@
                 "text-3": "To nie wszystko co dla Ciebie przygotowaliśmy! Sprawdź co jeszcze możesz zrobić by poprawić sprawności Twojego dziecka dzięki przygotowanemu przez naszych ekspertów ",
                 "text-3-1": "artykułowi"
             },
-
             "good": {
                 "title": "Porada - Dobry poziom sprawności",
                 "subtitle": "Masz wiele powodów do zadowolenia!",
@@ -496,7 +501,7 @@
             "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
             "Marketing-description-3": "Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
             "general-title": "Zgoda na udział w programie Mali Wspaniali.",
-            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: biuro@mali-wspaniali.pl."
+            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: fundacja@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Dane dziecka",
@@ -590,6 +595,16 @@
             "done": "Gotowe",
             "error": "Uzupełnij dane",
             "file-error": "Nieprawidłowy format pliku"
+        }
+    },
+    "newsletter-archive": {
+        "search": {
+            "title": "Wyszukaj wiadomość",
+            "search-by-email": "Szukaj po email",
+            "button": "Szukaj"
+        },
+        "list": {
+            "title": "Lista wiadomości zarchiwizowanych"
         }
     },
     "user-settings": {
@@ -711,6 +726,9 @@
     },
     "instructor-menu": {
         "results-table": "Tabela wyników",
+        "child": {
+            "results": "Wyniki testów"
+        },
         "result-creator": "Dodaj wynik",
         "notifications": "Powiadomienia",
         "settings": "Ustawienia",
@@ -974,7 +992,7 @@
         }
     },
     "add-results-page": {
-        "test-name": "Nazwa testu",
+        "test-name": "Nazwa roku",
         "kindergarten-name": "Przedszkole",
         "search-by-child-full-name": "Imię lub nazwisko dziecka",
         "firstname": "Imie",
@@ -1023,7 +1041,7 @@
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
-        "back-to-table": "Wróć do tabeli",
+        "back-to-table": "Wróć do tabeli wyników",
         "back-to-results": "DODAJ WYNIKI",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",

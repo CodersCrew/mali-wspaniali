@@ -1,14 +1,14 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
 
-import { ResetPasswordCommand } from '../impl';
+import { CreateConfirmationRequestCommand } from '../impl';
 import { UserRepository } from '../../repositories/user_repository';
 import { SendMail } from '../../../../shared/services/send_mail/send_mail';
 import { UserChangePasswordRepository } from '../../repositories/user_change_password_jwt_repository';
 
-@CommandHandler(ResetPasswordCommand)
-export class ResetPasswordHandler
-  implements ICommandHandler<ResetPasswordCommand> {
+@CommandHandler(CreateConfirmationRequestCommand)
+export class CreateConfirmationRequestHandler
+  implements ICommandHandler<CreateConfirmationRequestCommand> {
   constructor(
     private userRepository: UserRepository,
     private userChangePasswordRepository: UserChangePasswordRepository,
@@ -16,10 +16,10 @@ export class ResetPasswordHandler
     private sendMail: SendMail,
   ) {}
 
-  async execute(command: ResetPasswordCommand): Promise<void> {
-    const { mail } = command;
+  async execute(command: CreateConfirmationRequestCommand): Promise<void> {
+    const { userId } = command;
 
-    const user = await this.userRepository.getByMail(mail);
+    const user = await this.userRepository.get(userId);
     if (user) {
       const payload = this.jwtService.sign(
         {
@@ -34,12 +34,13 @@ export class ResetPasswordHandler
       });
 
       this.sendMail.send({
-        bcc: [mail],
+        bcc: [user.mail],
         from: 'piotrek@coderscrew.pl',
-        subject: 'Zmiana hasła na platformie Mali Wspaniali',
+        subject:
+          'Potwierdzenie maila dzieli cię od wejścia do świata Małych Wspaniałych',
         text: 'register',
         html: this.createTemplate(
-          `${process.env.SERVER_RESPONSE_HOST}/password-change/${payload}`,
+          `${process.env.SERVER_RESPONSE_HOST}/login/${payload}`,
         ),
       });
     }
@@ -80,15 +81,15 @@ export class ResetPasswordHandler
           <img src="https://i.imgur.com/MsaTTCa.png" />
         </div>
         <div class="content">
-          <h4>Dzień dobry!</h4>
+          <h4>Witaj w świecie Małych Wspaniałych!</h4>
           <p class="subtitle">
-            Otrzymaliśmy prośbę dotyczącą zresetowania Twojego hasła na platformie Mali Wspaniali.
-            </br>
-            </br>
-            Skorzystaj z przycisku poniżej, aby stworzyć nowe hasło do Twojego konta.
+          Już tylko jeden krok dzieli Cię od dołączenia do społeczności świadomych rodziców.
+          </br>
+          </br>
+          Skorzystaj z przycisku poniżej, aby potwierdzić swój adres e-mail podany przy rejestracji.
           </p>
           <div class="button-container">
-            <a class="button" href="${responsePath}">stwórz nowe hasło</a>
+            <a class="button" href="${responsePath}">Potwierdź e-mail</a>
           </div>
           <p class="caption">
             Jeśli nie rejestrowałeś/łaś się na platformie Mali Wspaniali to zignoruj tą wiadomość.

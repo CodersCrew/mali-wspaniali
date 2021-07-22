@@ -3,7 +3,7 @@ import { createStyles, Divider, makeStyles, Paper, Theme } from '@material-ui/co
 import clsx from 'clsx';
 
 interface Props {
-    header: ReactNode;
+    header?: ReactNode;
     container: ReactNode;
     subheader?: ReactNode;
     subsubheader?: ReactNode;
@@ -15,8 +15,12 @@ export function CustomContainer({ header, subheader, subsubheader, disableShadow
 
     return (
         <Paper classes={{ root: clsx({ [classes.disabledShadow]: disableShadow }) }}>
-            <div className={classes.titleContainer}>{header}</div>
-            <Divider />
+            {header && (
+                <>
+                    <div className={classes.titleContainer}>{header}</div>
+                    <Divider />
+                </>
+            )}
             {subheader && (
                 <>
                     <div className={classes.titleContainer}>{subheader}</div>

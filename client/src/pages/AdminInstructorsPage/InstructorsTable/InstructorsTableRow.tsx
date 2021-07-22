@@ -29,6 +29,7 @@ interface InstructorRowProps {
     relation: InstructorRelation;
     onAssignInstructorClick: (id: InstructorRelation) => void;
     assessment: Assessment | null;
+    isActive: boolean;
 }
 
 const T_PREFIX = 'admin-instructors-page.table';
@@ -42,7 +43,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
 
     const { updateAssessment } = useUpdateAssessment();
 
-    const { mail } = props.relation.instructor;
+    const { mail, firstname, lastname } = props.relation.instructor;
 
     function filterKindergartens(kindergarten: Kindergarten) {
         return props.relation.kindergartens.map(({ _id }) => {
@@ -68,11 +69,11 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                         </IconButton>
                     )}
                 </TableCell>
-                <TableCell>{mail}</TableCell>
-                <TableCell>{mail}</TableCell>
+                <TableCell>{firstname}</TableCell>
+                <TableCell>{lastname}</TableCell>
                 <TableCell data-testid="instructor-mail">{mail}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
-                    {props.assessment && (
+                    {(props.isActive || props.relation.kindergartens.length > 0) && (
                         <Fade in={showAddButton} mountOnEnter unmountOnExit timeout={500}>
                             <div className={classes.iconButtonContainer}>
                                 <Tooltip
@@ -91,7 +92,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                             </div>
                         </Fade>
                     )}
-                    {props.relation.kindergartens.length}
+                    <span className={classes.countKindergarten}>{props.relation.kindergartens.length}</span>
                 </TableCell>
             </TableRow>
             <TableRow>
@@ -163,6 +164,10 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'flex-end',
             alignItems: 'center',
             paddingRight: theme.spacing(8),
+        },
+        countKindergarten: {
+            cursor: 'default',
+            userSelect: 'none',
         },
     }),
 );
