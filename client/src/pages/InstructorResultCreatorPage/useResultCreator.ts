@@ -9,7 +9,7 @@ interface Props {
     childId: string;
     measurement: string;
 }
-
+console.log('temp')
 export interface AssessmentValues {
     run: number;
     pendelumRun: number;
