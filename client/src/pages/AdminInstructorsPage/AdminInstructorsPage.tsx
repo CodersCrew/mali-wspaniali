@@ -75,6 +75,7 @@ export default function AdminInstructorsPage() {
                         relation={relation}
                         onAssignInstructorClick={onAssignClick}
                         assessment={getSelectedAssessment()}
+                        isActive={countUnassigned() > 0}
                     />
                 ))}
             </InstructorsTableContainer>
