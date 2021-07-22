@@ -1,6 +1,19 @@
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, List, ListItem, ListItemIcon, ListItemText, Checkbox, Button, Paper } from '@material-ui/core';
+import {
+    Grid,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Checkbox,
+    Button,
+    Paper,
+    InputAdornment,
+    TextField,
+} from '@material-ui/core';
+import { Search as SearchIcon } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 
 import { Kindergarten } from '../../../graphql/types';
 
@@ -10,23 +23,13 @@ interface Props {
     onSelect: (id: string[]) => void;
 }
 
-function not(a: Kindergarten[], b: Kindergarten[]) {
-    return a.filter((value) => b.indexOf(value) === -1);
-}
-
-function intersection(a: Kindergarten[], b: Kindergarten[]) {
-    return a.filter((value) => b.indexOf(value) !== -1);
-}
-
 export function KindergartenTransferList({ defaultKindergartens, selected, onSelect }: Props) {
     const classes = useStyles();
     const [checked, setChecked] = useState<Kindergarten[]>([]);
-    const [left, setLeft] = useState(
-        defaultKindergartens.filter((singleKindergarten) => !singleKindergarten.selected).map((k) => k.kindergarten),
-    );
-    const [right, setRight] = useState(
-        defaultKindergartens.filter((singleKindergarten) => !!singleKindergarten.selected).map((k) => k.kindergarten),
-    );
+    const [left, setLeft] = useState(defaultKindergartens.filter((k) => !k.selected).map((k) => k.kindergarten));
+    const [right, setRight] = useState(defaultKindergartens.filter((k) => !!k.selected).map((k) => k.kindergarten));
+    const [searchPhrase, setSearchPhrase] = useState('');
+    const { t } = useTranslation();
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
@@ -48,12 +51,20 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
+
+        selected.concat(leftChecked.map((k) => k._id));
+
+        onSelect(leftChecked.map((k) => k._id));
     };
 
     const handleCheckedLeft = () => {
         setLeft(left.concat(rightChecked));
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
+
+        rightChecked.forEach((kindergarten) => {
+            selected.splice(selected.indexOf(kindergarten._id), 1);
+        });
     };
 
     const customList = (items: Kindergarten[]) => (
@@ -82,40 +93,89 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
     );
 
     return (
-        <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
-            <Grid item>{customList(left)}</Grid>
-            <Grid item>
-                <Grid container direction="column" alignItems="center">
-                    <Button
+        <>
+            <Grid container spacing={2} direction="row" className={classes.root}>
+                <Grid item>
+                    <TextField
+                        margin="dense"
+                        id="search"
+                        label={t('add-test-view.basic-information-form.search')}
                         variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
-                        aria-label="move selected right"
-                    >
-                        &gt;
-                    </Button>
-                    <Button
+                        autoComplete="off"
+                        value={searchPhrase}
+                        onChange={({ target: { value } }) => setSearchPhrase(value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <SearchIcon color="disabled" />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    {customList(left)}
+                </Grid>
+                <Grid item>
+                    <Grid container direction="column" alignItems="center">
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            className={classes.button}
+                            onClick={handleCheckedRight}
+                            disabled={leftChecked.length === 0}
+                            aria-label="move selected right"
+                        >
+                            &gt;
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            className={classes.button}
+                            onClick={handleCheckedLeft}
+                            disabled={rightChecked.length === 0}
+                            aria-label="move selected left"
+                        >
+                            &lt;
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid item>
+                    <TextField
+                        margin="dense"
+                        id="search"
+                        label={t('add-test-view.basic-information-form.search')}
                         variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
-                        aria-label="move selected left"
-                    >
-                        &lt;
-                    </Button>
+                        autoComplete="off"
+                        value={searchPhrase}
+                        onChange={({ target: { value } }) => setSearchPhrase(value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <SearchIcon color="disabled" />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    {customList(right)}
                 </Grid>
             </Grid>
-            <Grid item>{customList(right)}</Grid>
-        </Grid>
+        </>
     );
+}
+
+function not(a: Kindergarten[], b: Kindergarten[]) {
+    return a.filter((value) => b.indexOf(value) === -1);
+}
+
+function intersection(a: Kindergarten[], b: Kindergarten[]) {
+    console.log(a.filter((value) => b.indexOf(value) !== -1));
+
+    return a.filter((value) => b.indexOf(value) !== -1);
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: 'auto',
+        flexWrap: 'nowrap',
     },
     paper: {
         width: 200,

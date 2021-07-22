@@ -39,9 +39,9 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
     const { t } = useTranslation();
 
     const select = (kindergartenIds: string[]) => {
+        console.log(kindergartenIds);
         setSelectedKindergartens(kindergartenIds);
     };
-    console.log(select);
 
     const onSubmitAssignInstructor = (updatedAssessment: Partial<UpdatedAssessmentInput>) => {
         props.makeDecision({ accepted: true, updates: updatedAssessment });
