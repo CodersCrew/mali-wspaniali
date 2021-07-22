@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
-// import { useIsDevice } from '../../queries/useBreakpoints';
+import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { Assessment, Group } from '../../../graphql/types';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 
@@ -37,16 +37,24 @@ export function GroupsSubheader(props: Props) {
             { _id: '123', name: 'motylki', instructor: null, kindergarten: null },
             { _id: '124', name: 'kotki', instructor: null, kindergarten: null },
         ]);
-    }, []);
-    // const device = useIsDevice();
+    }, []); // to be deleted
+    const device = useBreakpoints();
 
     return (
         <>
-            <Grid container direction="row" alignItems="center">
-                <Grid item xs={1}>
-                    <Typography variant="subtitle1">{t('groupsModal.groups')}</Typography>
-                </Grid>
-                <Grid item xs={9}>
+            <Grid
+                container
+                direction="row"
+                alignItems="center"
+                wrap="wrap"
+                justify={device === 'MOBILE' ? 'flex-start' : 'space-between'}
+            >
+                {device === 'DESKTOP' && (
+                    <Grid item xs={1}>
+                        <Typography variant="subtitle1">{t('groupsModal.groups')}</Typography>
+                    </Grid>
+                )}
+                <Grid item xs={12} md={9}>
                     <GroupsChip
                         label={t('groupsModal.unassigned')}
                         onClick={() => toggleOrSelect('unassigned')}
@@ -61,16 +69,17 @@ export function GroupsSubheader(props: Props) {
                         />
                     ))}
                 </Grid>
-
-                <Grid item xs={2}>
-                    <ButtonSecondary
-                        aria-label="groups"
-                        variant="contained"
-                        startIcon={<PermIdentityIcon />}
-                        innerText={t('groupsModal.groups')}
-                        onClick={() => openGroupsModal({ ...props })}
-                    />
-                </Grid>
+                {device === 'DESKTOP' && (
+                    <Grid item xs={2}>
+                        <ButtonSecondary
+                            aria-label="groups"
+                            variant="contained"
+                            startIcon={<PermIdentityIcon />}
+                            innerText={t('groupsModal.groups')}
+                            onClick={() => openGroupsModal({ ...props })}
+                        />
+                    </Grid>
+                )}
             </Grid>
         </>
     );

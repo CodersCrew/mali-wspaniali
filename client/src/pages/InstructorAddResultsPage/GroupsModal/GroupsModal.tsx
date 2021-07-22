@@ -14,15 +14,15 @@ import {
     TextField,
 } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import EditIcon from '@material-ui/icons/Edit';
 
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Assessment } from '../../../graphql/types';
 import { openDialog, ActionDialog } from '../../../utils/openDialog';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 
+// import { GroupsTransferList } from './GroupsTransferList';
 // import { NoGroups } from './NoGroups';
-import { GroupsTransferList } from './GroupsTransferList';
+import { GroupsList } from './GroupsList';
 
 interface ModalProps {
     selectedKindergarten: string;
@@ -120,14 +120,11 @@ function GroupsModal(props: ModalProps & ActionDialog) {
                     </Grid>
                 </Grid>
                 <Typography variant="subtitle1">{t('groupsModal.kindergarten-groups')}</Typography>
-                <Grid container direction="row" justify="space-between">
-                    <Typography variant="subtitle2">{t('groupsModal.group-name')}</Typography>
-                    <EditIcon color="disabled" />
-                </Grid>
-                <Divider />
+                {/*
                 <GroupsTransferList />
-                {/* <NoGroups />
-                 */}
+                */}
+                {/* <NoGroups /> */}
+                <GroupsList />
             </div>
         </TwoActionsModal>
     );

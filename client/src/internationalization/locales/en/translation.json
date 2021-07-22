@@ -1050,6 +1050,12 @@
         "select": "Next choose a group from the list you wish to edit.",
         "groups": "Groups",
         "unassigned": "Unassigned",
-        "selected": "selected"
+        "selected": "selected",
+        "cancel": "cancel",
+        "delete": "delete",
+        "delete-group": "Delete a group",
+        "confirm": "Are you sure you want to delete the group {{name}}?",
+        "edit-groups": "edit groups",
+        "edit": "edit"
     }
 }

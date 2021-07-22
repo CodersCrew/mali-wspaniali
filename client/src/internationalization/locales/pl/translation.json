@@ -1054,6 +1054,12 @@
         "select": "Następnie wybierz z listy grupę, którą chcesz edytować.",
         "groups": "Grupy",
         "unassigned": "Nieprzydzielone",
-        "selected": "zaznaczonych"
+        "selected": "zaznaczonych",
+        "cancel": "anuluj",
+        "delete": "usuń",
+        "delete-group": "Usuń grupę",
+        "confirm": "Czy na pewno chcesz usunąć grupę {{name}}?",
+        "edit-groups": "włącz edycję grup",
+        "edit": "edytuj"
     }
 }
