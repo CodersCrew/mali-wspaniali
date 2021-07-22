@@ -81,7 +81,8 @@ function AddNoteDialog({
                                 <Box mt={1}>
                                     <Typography variant="caption" color="textSecondary">
                                         {t('add-results-page.add-note-modal.text-limit', {
-                                            characters: `${note.length}/${LENGTH_LIMIT}`,
+                                            noteLength: note.length,
+                                            noteLimit: LENGTH_LIMIT,
                                         })}
                                     </Typography>
                                 </Box>

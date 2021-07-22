@@ -437,7 +437,6 @@
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
     },
-
     "test-results": {
         "search-result": "Search results",
         "no-results": "No results",
@@ -980,7 +979,7 @@
             "placeholder": "Click here to start typing",
             "cancel": "Cancel",
             "save": "Save",
-            "text-limit": "{{characters}} characters left"
+            "text-limit": "{{noteLength}}/{{noteLimit}} characters left"
         },
         "no-assessments": {
             "title": "Sorry, you cannot add results at this point",
