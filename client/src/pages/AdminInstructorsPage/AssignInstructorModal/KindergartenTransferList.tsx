@@ -1,20 +1,10 @@
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-    Grid,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Checkbox,
-    Button,
-    Paper,
-    InputAdornment,
-    TextField,
-} from '@material-ui/core';
+import { Grid, Button, InputAdornment, TextField } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
+import { KindergartenColumn } from './KindergartenColumn';
 import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
@@ -24,37 +14,24 @@ interface Props {
 }
 
 export function KindergartenTransferList({ defaultKindergartens, selected, onSelect }: Props) {
-    const classes = useStyles();
     const [checked, setChecked] = useState<Kindergarten[]>([]);
     const [left, setLeft] = useState(defaultKindergartens.filter((k) => !k.selected).map((k) => k.kindergarten));
     const [right, setRight] = useState(defaultKindergartens.filter((k) => !!k.selected).map((k) => k.kindergarten));
     const [searchPhrase, setSearchPhrase] = useState('');
+
     const { t } = useTranslation();
+    const classes = useStyles();
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
-
-    const handleToggle = (value: Kindergarten) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
-    };
 
     const handleCheckedRight = () => {
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
+        console.log(leftChecked);
 
-        selected.concat(leftChecked.map((k) => k._id));
-
-        onSelect(leftChecked.map((k) => k._id));
+        onSelect(selected.concat(leftChecked.map((k) => k._id)));
     };
 
     const handleCheckedLeft = () => {
@@ -66,31 +43,6 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
             selected.splice(selected.indexOf(kindergarten._id), 1);
         });
     };
-
-    const customList = (items: Kindergarten[]) => (
-        <Paper className={classes.paper}>
-            <List dense component="div" role="list">
-                {items.map((value) => {
-                    const labelId = `transfer-list-item-${value._id}-label`;
-
-                    return (
-                        <ListItem key={value.number} role="listitem" button onClick={handleToggle(value)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={value.name} />
-                        </ListItem>
-                    );
-                })}
-                <ListItem />
-            </List>
-        </Paper>
-    );
 
     return (
         <>
@@ -112,7 +64,7 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                             ),
                         }}
                     />
-                    {customList(left)}
+                    {KindergartenColumn(left)}
                 </Grid>
                 <Grid item>
                     <Grid container direction="column" alignItems="center">
@@ -155,7 +107,7 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                             ),
                         }}
                     />
-                    {customList(right)}
+                    {KindergartenColumn(right)}
                 </Grid>
             </Grid>
         </>
@@ -167,8 +119,6 @@ function not(a: Kindergarten[], b: Kindergarten[]) {
 }
 
 function intersection(a: Kindergarten[], b: Kindergarten[]) {
-    console.log(a.filter((value) => b.indexOf(value) !== -1));
-
     return a.filter((value) => b.indexOf(value) !== -1);
 }
 
@@ -176,11 +126,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         margin: 'auto',
         flexWrap: 'nowrap',
-    },
-    paper: {
-        width: 200,
-        height: 230,
-        overflow: 'auto',
     },
     button: {
         margin: theme.spacing(0.5, 0),
