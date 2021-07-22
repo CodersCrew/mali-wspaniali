@@ -7,6 +7,8 @@ interface ActionMenuButtonSecondaryProps {
     options: ReactNode[];
     onClick: () => void;
     size?: 'small' | 'medium' | 'large';
+    buttonStyle?: React.CSSProperties;
+    popperStyle?: string;
 }
 
 export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps) {
@@ -15,9 +17,15 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
 
     return (
         <Grid container direction="column" alignItems="center">
-            <Grid item xs={12}>
-                <ButtonGroup variant="contained" color="secondary" ref={anchorRef} aria-label="split button">
-                    <Button size={props.size || 'medium'} onClick={props.onClick}>
+            <Grid style={{ width: '100%' }} item xs={12}>
+                <ButtonGroup
+                    style={props.buttonStyle}
+                    variant="contained"
+                    color="secondary"
+                    ref={anchorRef}
+                    aria-label="split button"
+                >
+                    <Button style={props.buttonStyle} size={props.size || 'medium'} onClick={props.onClick}>
                         {props.label}
                     </Button>
                     <Button size="small" onClick={handleMenuToggle}>
@@ -25,22 +33,33 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
                     </Button>
                 </ButtonGroup>
                 <Popper
+                    className={props.popperStyle}
                     open={isActionMenuOpen}
                     anchorEl={anchorRef.current}
                     transition
                     disablePortal
-                    placement="top-end"
+                    placement="top"
                 >
                     {({ TransitionProps }) => (
                         <Grow
                             {...TransitionProps}
                             style={{
-                                transformOrigin: 'left top',
+                                transformOrigin: 'center',
                             }}
                         >
-                            <Paper>
+                            <Paper
+                                style={{
+                                    height: '48px',
+                                }}
+                            >
                                 <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList>{props.options}</MenuList>
+                                    <MenuList
+                                        style={{
+                                            paddingTop: '0px',
+                                        }}
+                                    >
+                                        {props.options}
+                                    </MenuList>
                                 </ClickAwayListener>
                             </Paper>
                         </Grow>

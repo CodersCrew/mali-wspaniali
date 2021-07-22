@@ -64,12 +64,12 @@ export const theme: ThemeObject = {
         h1: {
             fontSize: '48px',
             lineHeight: '59px',
-            fontWeight: 300,
+            fontWeight: 400,
         },
         h2: {
             fontSize: '34px',
             lineHeight: '41px',
-            fontWeight: 300,
+            fontWeight: 400,
             letterSpacing: '0.25px',
         },
         h3: {
@@ -86,7 +86,7 @@ export const theme: ThemeObject = {
         subtitle1: {
             fontSize: '16px',
             lineHeight: '20px',
-            fontWeight: 400,
+            fontWeight: 500,
             letterSpacing: '0.15px',
         },
         subtitle2: {

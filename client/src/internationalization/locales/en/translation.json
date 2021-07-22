@@ -15,7 +15,12 @@
         "login-notfound": "We cannot find your account in the system",
         "login-wrong-password": "Entered password is incorrect",
         "no-account": "Don't have an account?",
-        "register": "Register"
+        "register": "Register",
+        "confirmation-success": "The e-mail address has been confirmed. Now you can log in without any problems",
+        "confirmation-error": {
+            "title": "This account has not been confirmed yet",
+            "description": "Go to your e-mail inbox and find an e-mail from the Mali Wspaniali Foundation, thanks to which you can confirm your e-mail."
+        }
     },
     "login-wrapper": {
         "welcome-text": "Welcome to the world of Mali Wspaniali",
@@ -46,7 +51,7 @@
         "enter-code": "Code",
         "enter-code-text": "Please enter the code provided by the Mali Wspaniali Foundation. Thanks to this code, your data will be secure.",
         "no-code": "Don't have a code?",
-        "no-code-desc": "Such situations may happen, but nothing's lost. Please notify the Mali Wspaniali Foundation about your problem so our employees can generate new code for you. Send an email to: <strong>biuro@mali-wspaniali.pl</strong>",
+        "no-code-desc": "Such situations may happen, but nothing's lost. Please notify the Mali Wspaniali Foundation about your problem so our employees can generate new code for you. Send an email to: <strong>fundacja@mali-wspaniali.pl</strong>",
         "invalid-code": "Code is invalid, please try again.",
         "invalid-email": "Invalid email address",
         "length": "8 chars",
@@ -87,14 +92,16 @@
         "back-to-login": "Back to login",
         "avatar": "Małgosia",
         "email-sent": "The email has been sent.",
-        "when-received": "Input code you received."
+        "when-received": "Input code you received.",
+        "mailto": "fundacja@mali-wspaniali.pl"
     },
     "password-change-page": {
         "new-password-title": "New password",
         "new-password-subtitle": "Create a new password for the Mali Wspaniali platform.",
         "create-new-password": "Create a new password",
         "new-password": "New password",
-        "repeat-password": "Repeat password"
+        "repeat-password": "Repeat password",
+        "password-change-failure": "Password change failed"
     },
     "password-change-success-page": {
         "password-change-success-title": "Password changed successfully",
@@ -213,6 +220,7 @@
         "scale": "Scale",
         "received-points": "Received points",
         "pts": "pts",
+        "count-points-read-more": "Find out how we calculate points",
         "final-test-title": "Results of particular attempts from the final measurement",
         "initial-test-title": "Results of particular attempts from the initial measurement",
         "difference": {
@@ -328,7 +336,7 @@
             "Marketing-description-2": "Occasionally we will share our success stories. ",
             "Marketing-description-3": "Consent is voluntary and participation in the program does not depend on it.",
             "general-title": "Consent to participate in the Mali Wspaniali program.",
-            "general-description": "Consent for child's participation in general sports activities with elements of karate as part of the Mali Wspaniali program is obligatory. You can cancel your child's involvement in the Mali Wspaniali program any time. To this end, please contact the Foundation by sending the resignation to the email address: biuro@mali-wspaniali.pl."
+            "general-description": "Consent for child's participation in general sports activities with elements of karate as part of the Mali Wspaniali program is obligatory. You can cancel your child's involvement in the Mali Wspaniali program any time. To this end, please contact the Foundation by sending the resignation to the email address: fundacja@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Child's details",
@@ -361,6 +369,14 @@
                     "text": "{{nextLevel}} - from {{value}}{{unit}} (only missing {{valueToNextLevel}}{{unit}}!)"
                 }
             }
+        },
+        "results-empty-view": {
+            "title": "No results",
+            "empty-results-reason": "The results have not yet been entered for one of three reasons:",
+            "reason-1": "1. The initial measurement has not yet taken place or the results are in preparation.",
+            "reason-2": "2. Your child was absent on the day of the initial measurement or was not able to take part in the measurement for random reasons.",
+            "reason-3": "3. Your child joined the Mali Wspaniali program after the first measurement. Another fitness measurement will take place in the Spring.",
+            "read-more": "To find out what the agility test looks like, please visit the <span>Test Information tab</span>"
         },
         "advice-modal-content": {
             "scale39": {
@@ -468,7 +484,8 @@
         "last-measurement": "LM",
         "publish-result": "Publish result",
         "download-result": "Download result",
-        "status-result": "result status"
+        "status-result": "result status",
+        "filter-children-label": "Search by children"
     },
     "kindergarten-modal": {
         "city": "City",
@@ -579,6 +596,16 @@
             "done": "Done",
             "error": "Fill in data",
             "file-error": "File error"
+        }
+    },
+    "newsletter-archive": {
+        "search": {
+            "title": "Search for a message",
+            "search-by-email": "Serach by email",
+            "button": "Search"
+        },
+        "list": {
+            "title": "Archived messages list"
         }
     },
     "user-settings": {
@@ -699,6 +726,10 @@
     },
     "instructor-menu": {
         "results-table": "Results table",
+        "child": {
+            "results": "Wyniki testów"
+        },
+        "result-creator": "Add result",
         "notifications": "Notifications",
         "settings": "Settings",
         "logout": "Log out"
@@ -932,7 +963,11 @@
             "email": "Email address",
             "kindergarten-count": "Kindergarten count",
             "tooltip": "Assign to a kindergarten",
-            "kindergartens-count": "{{count}} kindergartens"
+            "kindergartens-count": "{{count}} kindergartens",
+            "unassign-dialog-title": "Unassign the kindergarten",
+            "unassign-kindergarten-question": "Are you sure you want to unassign this kindergarten from the instructor?",
+            "unassign": "unassign",
+            "unassign-kindergarten": "The kindergarten {{name}} has been unassigned from the instructor {{mail}}"
         },
         "table-toolbar": {
             "select-test": "Select the test",
@@ -955,7 +990,7 @@
         }
     },
     "add-results-page": {
-        "test-name": "Test name",
+        "test-name": "Year",
         "kindergarten-name": "Kindergarten",
         "search-by-child-full-name": "Search by child's full name",
         "firstname": "First name",

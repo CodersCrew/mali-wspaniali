@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Grid, MenuItem, TextField } from '@material-ui/core';
+
 import { Assessment } from '../../graphql/types';
 import { SearchChildField } from '../../components/SearchChildField';
 
@@ -7,8 +8,8 @@ interface Props {
     assessments: Assessment[];
     selectedAssessment: string;
     selectedKindergarten: string;
-    searchTerm: string;
     compact?: boolean;
+    searchTerm: string;
     onChange: (type: string, value: string) => void;
 }
 
@@ -16,8 +17,8 @@ export function ChildListHeader({
     assessments,
     selectedAssessment,
     selectedKindergarten,
-    searchTerm,
     compact,
+    searchTerm,
     onChange,
 }: Props) {
     const { t } = useTranslation();

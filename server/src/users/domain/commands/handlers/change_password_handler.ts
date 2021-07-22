@@ -26,16 +26,18 @@ export class ChangePasswordHandler
         jwt,
       );
 
-      if (jwtExists) {
-        this.userRepository.writePassword(
-          parsed.sub,
-          await bcrypt.hash(password, await bcrypt.genSalt(10)),
-        );
+      try {
+        if (jwtExists) {
+          this.userRepository.writePassword(
+            parsed.sub,
+            await bcrypt.hash(password, await bcrypt.genSalt(10)),
+          );
 
-        await this.userChangePasswordRepository.remove(parsed.sub, jwt);
+          await this.userChangePasswordRepository.remove(parsed.sub, jwt);
+        }
+      } catch (error) {
+        throw new Error(`Authorization failed. ${error.message}`);
       }
-
-      throw new Error('Authorization failed.');
     }
   }
 }

@@ -29,10 +29,11 @@ export function Root() {
                             <Route exact path="/" render={() => <Redirect to="/login" />} />
                             <Route path={['/login']}>
                                 <AuthTemplate type="login">
-                                    <Route path="/login" component={getRootLazyImports('LoginPage')} />
+                                    <Route exact path="/login/:confirm" component={getRootLazyImports('LoginPage')} />
+                                    <Route exact path="/login" component={getRootLazyImports('LoginPage')} />
                                 </AuthTemplate>
                             </Route>
-                            <Route path={['/register']} component={getRootLazyImports('RegistrationPage')} />
+                            <Route exact path={['/register']} component={getRootLazyImports('RegistrationPage')} />
                             <Route path={['/forgot-password']}>
                                 <AuthTemplate type="login">
                                     <Route
@@ -44,6 +45,12 @@ export function Root() {
                             <Route path={['/password-change']}>
                                 <AuthTemplate type="login">
                                     <Route
+                                        exact
+                                        path="/password-change/:confirmation"
+                                        component={getRootLazyImports('PasswordChangePage')}
+                                    />
+                                    <Route
+                                        exact
                                         path="/password-change"
                                         component={getRootLazyImports('PasswordChangePage')}
                                     />
@@ -52,7 +59,16 @@ export function Root() {
                             <Route path={['/admin', '/parent', '/instructor']}>
                                 <AppWrapper>
                                     <Switch>
-                                        <Route exact path="/admin" component={getRootLazyImports('TestResultsPage')} />
+                                        <Route
+                                            exact
+                                            path="/admin"
+                                            component={getRootLazyImports('TestResultLoadingPage')}
+                                        />
+                                        <Route
+                                            exact
+                                            path="/admin/:assessmentId/:assessmentType"
+                                            component={getRootLazyImports('TestResultsPage')}
+                                        />
                                         <Route path="/admin/users" component={getRootLazyImports('UsersPage')} />
                                         <Route
                                             path="/admin/parent/:id"
@@ -141,6 +157,10 @@ export function Root() {
                                         <Route
                                             path="/instructor/settings"
                                             component={getRootLazyImports('InstructorSettingsPage')}
+                                        />
+                                        <Route
+                                            path="/instructor/results/:resultId"
+                                            component={getRootLazyImports('InstructorResultPage')}
                                         />
                                         <ParentWrapper>
                                             <Route

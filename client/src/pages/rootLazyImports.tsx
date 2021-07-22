@@ -18,6 +18,7 @@ const options = {
     AdminInstructorsPage: lazy(() => import('./AdminInstructorsPage/AdminInstructorsPage')),
     AdminAgreementsPageContainer: lazy(() => import('./AdminAgreementsPage/AdminAgreementsPageConatianer')),
     InstructorAddResultsPage: lazy(() => import('./InstructorAddResultsPage/InstructorAddResultsPage')),
+    InstructorResultPage: lazy(() => import('./InstructorResultPage/InstructorResultPage')),
     InstructorSettingsPage: lazy(() => import('./InstructorSettingsPage/InstructorSettingsPage')),
     AdminAssessmentHistoryPage: lazy(() => import('./AdminAssessmentManagementPage/AdminAssessmentHistoryPage')),
     AdminRecommendationsPage: lazy(() => import('./AdminRecommendationsPage/AdminRecommendationsPage')),
@@ -29,6 +30,7 @@ const options = {
     ForgotPasswordPage: lazy(() => import('./ForgotPasswordPage/ForgotPasswordPage')),
     PasswordChangePage: lazy(() => import('./PasswordChangePage/PasswordChangePage')),
     TestResultsPage: lazy(() => import('./TestResultsPage/TestResultsPage')),
+    TestResultLoadingPage: lazy(() => import('./TestResultsPage/TestResultLoadingPage')),
     AdminKindergartensPage: lazy(() => import('./AdminKindergartensPage/AdminKindergartensPage')),
 };
 

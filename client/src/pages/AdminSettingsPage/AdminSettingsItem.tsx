@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
 import { openAdminSettingsEditModal } from '../../components/ChilModals/EditChildModal';
-import { openChanageChildrenKindergarten } from '../../components/ChilModals/ChangeCildrenKindergarten';
+import { openChanageChildrenKindergarten } from '../../components/ChilModals/ChangeChildKindergarten';
 import { User } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useAnonymizeUser } from '../../operations/mutations/User/anonymizeUser';
@@ -73,7 +73,13 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
                                         user,
                                         kindergartens: kindergartenList,
                                     }).then((result) => {
-                                        if (!result.close) {
+                                        if (!result.close && result.decision?.childDetailsList?.length !== 0) {
+                                            const editChildPromises =
+                                                result.decision?.childDetailsList.map((childDetails) =>
+                                                    editChild(childDetails),
+                                                ) || [];
+
+                                            Promise.all(editChildPromises as Promise<void>[]).then(refetchUser);
                                             openSnackbar({
                                                 text: t('user-settings.modal-change-kindergarden.success-message'),
                                             });

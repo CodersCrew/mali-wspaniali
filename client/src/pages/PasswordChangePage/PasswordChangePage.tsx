@@ -2,20 +2,26 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Box, Link } from '@material-ui/core/';
 import clsx from 'clsx';
+import { useParams } from 'react-router-dom';
 
 import { Theme } from '../../theme';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
 import { PasswordSuccessfullyChanged } from './PasswordSuccessfullyChanged';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { useChangePassword } from '../../operations/mutations/User/changePassword';
 
 type PassChangeForm = {
     password: string;
     passwordConfirm: string;
+};
+
+type UrlParams = {
+    confirmation?: string;
 };
 
 const initialState: PassChangeForm = {
@@ -27,6 +33,16 @@ export default function PasswordChangePage() {
     const { t } = useTranslation();
     const classes = useStyles();
     const { isDesktop } = useIsDevice();
+    const { confirmation }: UrlParams = useParams();
+    const { changePassword } = useChangePassword(
+        () => setOnSuccess(true),
+        () =>
+            openSnackbar({
+                text: t('password-change-page.password-change-failure'),
+                severity: 'error',
+                anchor: { vertical: 'top', horizontal: 'center' },
+            }),
+    );
 
     const [form, setForm] = useState(initialState);
     const [onSuccess, setOnSuccess] = useState(false);
@@ -91,14 +107,14 @@ export default function PasswordChangePage() {
         </>
     );
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
 
         if (!passwordStrengthTest(password)) {
             openSnackbar({
                 text: t('registration-page.password-not-strong'),
                 severity: 'error',
-                anchor: { vertical: isDesktop ? 'top' : 'bottom', horizontal: 'center' },
+                anchor: { vertical: 'top', horizontal: 'center' },
             });
 
             return;
@@ -106,12 +122,11 @@ export default function PasswordChangePage() {
 
         if (password !== passwordConfirm) return;
 
-        // TODO: implement password change
-        setLoading(true);
-        setTimeout(() => {
-            setOnSuccess(true);
+        if (confirmation) {
+            setLoading(true);
+            await changePassword(password, confirmation);
             setLoading(false);
-        }, 2000);
+        }
     }
 
     function handleChange(event: ChangeEvent<HTMLInputElement>): void {

@@ -1,22 +1,38 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+
 import { ResultComparison } from './ResultComparison';
 import { TestSummary } from './TestSummary';
 import { useResult } from '../../operations/queries/Results/getResult';
 import { ResultContext } from './context';
 import { TestDetails } from './TestDetails';
+import { ResultEmptyView } from './ResultEmptyView';
 
 export function ResultPreview(props: { resultId: string }) {
     const { result } = useResult(props.resultId);
 
     if (!result) return null;
 
+    if (!isFirstMeasurementDone() && !isLastMeasurementDone()) return <ResultEmptyView childId={result.child._id} />;
+
     return (
         <ResultContext.Provider value={result}>
-            <SingleTest prefix="first" />
-            <SingleTest prefix="last" />
-            <ResultComparison />
+            {isFirstMeasurementDone() && <SingleTest prefix="first" />}
+            {isLastMeasurementDone() && <SingleTest prefix="last" />}
+            {isFirstMeasurementDone() && isLastMeasurementDone() && <ResultComparison />}
         </ResultContext.Provider>
     );
+
+    function isFirstMeasurementDone() {
+        if (!result) return;
+
+        return result.assessment.firstMeasurementStatus === 'done';
+    }
+
+    function isLastMeasurementDone() {
+        if (!result) return;
+
+        return result.assessment.lastMeasurementStatus === 'done';
+    }
 }
 
 function SingleTest(props: { prefix: string }) {

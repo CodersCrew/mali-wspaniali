@@ -15,7 +15,12 @@
         "login-notfound": "Nie możemy znaleźć twojego konta w systemie",
         "login-wrong-password": "Podane hasło jest nieprawidłowe",
         "no-account": "Pierwszy raz na platformie Mali Wspaniali?",
-        "register": "Utwórz konto"
+        "register": "Utwórz konto",
+        "confirmation-success": "Adres e-mail został potwierdzony. Teraz bez problemu możesz się już zalogować",
+        "confirmation-error": {
+            "title": "To konto nie zostało jeszcze potwierdzone",
+            "description": "Wejdź na swoją skrzynkę mailową i znajdź maila od Fundacji Mali Wspaniali, dzięki, któremu potwierdzisz maila."
+        }
     },
     "login-wrapper": {
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
@@ -28,7 +33,7 @@
         "already-have-account": "Masz już konto?",
         "register-failure": "Rejestracja nie powiodła się",
         "register-failure-keycode": "Podany kod nie jest prawidłowy",
-        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>biuro@mali-wspaniali.pl</strong>",
+        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>fundacja@mali-wspaniali.pl</strong>",
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
         "register-success-content": "Wysłaliśmy na Twoją skrzynkę mailową wiadomość z linkiem aktywacyjnym. Skorzystaj z niego, aby potwierdzić swój adres e-mail i zakończyć rejestrację.",
@@ -46,7 +51,7 @@
         "enter-code": "Kod",
         "enter-code-text": "Wpisz kod otrzymany od fundacji Mali Wspaniali. Dzięki niemu Twoje dane będą bezpieczniejsze.",
         "no-code": "Nie masz kodu?",
-        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: <strong>biuro@mali-wspaniali.pl</strong>",
+        "no-code-desc": "Takie sytuacje też się zdarzają. Nic straconego. Poinformuj fundację Mali Wspaniali o swoim problemie, by pracownicy mogli wygenerować dla Ciebie nowy kod. Napisz maila na adres: <strong>fundacja@mali-wspaniali.pl</strong>",
         "invalid-code": "Kod jest niepoprawny, spróbuj wpisać go ponownie",
         "invalid-email": "Niepoprawny adres e-mail.",
         "length": "8 znaków",
@@ -87,14 +92,16 @@
         "back-to-login": "Wróć do logowania",
         "avatar": "Małgosia",
         "email-sent": "Na Twój adres e-mail wysłaliśmy maila.",
-        "when-received": "Wprowadź otrzymany kod."
+        "when-received": "Wprowadź otrzymany kod.",
+        "mailto": "fundacja@mali-wspaniali.pl"
     },
     "password-change-page": {
         "new-password-title": "Nowe hasło",
         "new-password-subtitle": "Stwórz swoje nowe hasło do platformy Mali Wspaniali",
         "create-new-password": "Stwórz nowe hasło",
         "new-password": "Nowe hasło",
-        "repeat-password": "Powtórz hasło"
+        "repeat-password": "Powtórz hasło",
+        "password-change-failure": "Zmiana hasła nie powiodła się"
     },
     "password-change-success-page": {
         "password-change-success-title": "Zmiana hasła zakończona pomyślnie",
@@ -175,7 +182,8 @@
         "last-measurement": "PK",
         "publish-result": "Publikuj wyniki",
         "download-result": "Pobierz wyniki",
-        "status-result": "Status wyników"
+        "status-result": "Status wyników",
+        "filter-children-label": "Szukaj po dziecku"
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -345,6 +353,7 @@
         "scale": "Skala",
         "received-points": "Otrzymane punkty",
         "pts": "pkt",
+        "count-points-read-more": "Dowiedz się jak obliczamy punkty",
         "final-test-title": "Wyniki prób wchodzących w skład pomiaru końcowego",
         "initial-test-title": "Wyniki prób wchodzących w skład pomiaru początkowego",
         "difference": {
@@ -395,6 +404,14 @@
                     "text": "{{nextLevel}} - od  {{value}}{{unit}} (zabrakło tylko {{valueToNextLevel}}{{unit}}!)"
                 }
             }
+        },
+        "results-empty-view": {
+            "title": "Brak wyników",
+            "empty-results-reason": "Wyniki nie zostały jeszcze wprowadzone z jednego z trzech powodów:",
+            "reason-1": "1. Pomiar początkowy jeszcze się nie odbył lub wyniki są w opracowaniu. ",
+            "reason-2": "2. Twoje dziecko było nieobecne w dniu przeprowadzania pomiaru początkowego lub z przyczyn losowych nie było w stanie wziąć udziału w pomiarze.",
+            "reason-3": "3. Twoje dziecko dołączyło do programu Mali Wspaniali po odbyciu pierwszego pomiaru. Kolejny pomiar sprawności odbędzie się na wiosnę.",
+            "read-more": "Aby dowiedzieć się, jak wygląda test sprawności, odwiedź zakładkę <span>Informacje o testach</span>"
         },
         "tests-informations": {
             "about": {
@@ -484,7 +501,7 @@
             "Marketing-description-2": "Od czasu do czasu pochwalimy się naszymi sukcesami. ",
             "Marketing-description-3": "Zgoda jest dobrowolna i nie skutkuje brakiem możliwości uzcestnictwa w programie.",
             "general-title": "Zgoda na udział w programie Mali Wspaniali.",
-            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: biuro@mali-wspaniali.pl."
+            "general-description": "Zgoda na udział dziecka w zajęciach ogólnorozwojowych z elementami karate w ramach programu Mali Wspaniali jest obowiązkowa. W każdej chwili może Pan/Pani zrezygnować z uczestnictwa dziecka w programie Mali Wspaniali. W tym celu proszę skontaktować się z Fundacją poprzez wysłanie rezygnacji na adres email: fundacja@mali-wspaniali.pl."
         },
         "child-details": {
             "page": "Dane dziecka",
@@ -578,6 +595,16 @@
             "done": "Gotowe",
             "error": "Uzupełnij dane",
             "file-error": "Nieprawidłowy format pliku"
+        }
+    },
+    "newsletter-archive": {
+        "search": {
+            "title": "Wyszukaj wiadomość",
+            "search-by-email": "Szukaj po email",
+            "button": "Szukaj"
+        },
+        "list": {
+            "title": "Lista wiadomości zarchiwizowanych"
         }
     },
     "user-settings": {
@@ -699,6 +726,10 @@
     },
     "instructor-menu": {
         "results-table": "Tabela wyników",
+        "child": {
+            "results": "Wyniki testów"
+        },
+        "result-creator": "Dodaj wynik",
         "notifications": "Powiadomienia",
         "settings": "Ustawienia",
         "logout": "Wyloguj"
@@ -934,7 +965,11 @@
             "email": "Adres e-mail",
             "kindergarten-count": "Liczba przedszkoli",
             "tooltip": "Przydziel do przedszkola",
-            "kindergartens-count": "{{count}} przedszkola"
+            "kindergartens-count": "{{count}} przedszkola",
+            "unassign-dialog-title": "Odznaczono przedszkole",
+            "unassign-kindergarten-question": "Czy na pewno chcesz odznaczyć wybrane przedszkole od tego instruktora?",
+            "unassign": "odznacz",
+            "unassign-kindergarten": "Odznaczono przedszkole {{name}} od instruktora {{mail}}"
         },
         "table-toolbar": {
             "select-test": "Wybierz test",
@@ -942,7 +977,8 @@
             "unassigned-kindergartens": "Nieprzydzielone przedszkola: {{count}}"
         },
         "snackbars": {
-            "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola."
+            "info": "Aby dodać nieprzydzielone przedszkole:\n 1. Wybierz aktualny Test Przedszkolaka, 2. Najedź na odpowiedniego instruktora i naciśnij przycisk przydziel do przedszkola.",
+            "assessment-updated": "Przydzielono przedszkola do instruktora {{name}}"
         },
         "modal": {
             "cancel": "Anuluj",
@@ -956,7 +992,7 @@
         }
     },
     "add-results-page": {
-        "test-name": "Nazwa testu",
+        "test-name": "Nazwa roku",
         "kindergarten-name": "Przedszkole",
         "search-by-child-full-name": "Imię lub nazwisko dziecka",
         "firstname": "Imie",
@@ -1005,7 +1041,7 @@
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
-        "back-to-table": "Wróć do tabeli",
+        "back-to-table": "Wróć do tabeli wyników",
         "back-to-results": "DODAJ WYNIKI",
         "child-list": "Lista dzieci",
         "strength": "SIŁA",

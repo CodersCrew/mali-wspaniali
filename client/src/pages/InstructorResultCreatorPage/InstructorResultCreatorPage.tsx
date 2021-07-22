@@ -41,7 +41,7 @@ export default function InstructorResultCreatorPage() {
     const { t } = useTranslation();
 
     useEffect(() => {
-        activePage(['instructor-menu.results-table']);
+        activePage(['instructor-menu.result-creator']);
     }, []);
 
     const resultCreator = useResultCreator({

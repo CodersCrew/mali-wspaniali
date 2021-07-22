@@ -85,6 +85,8 @@ export type PrivilegedUser = Omit<User, 'children' | 'agreements'>;
 export interface Me {
     _id: string;
     mail: string;
+    firstname: string;
+    lastname: string;
     date: string;
     role: Role;
     children: Child[];
@@ -111,11 +113,15 @@ export interface AssessmentParam {
     maxScale: number;
 }
 
-export interface Child {
+export interface BaseChildInfo {
     _id: string;
     firstname: string;
     lastname: string;
     sex: Sex;
+    age?: number;
+}
+
+export interface Child extends BaseChildInfo {
     kindergarten: Kindergarten;
     birthYear: number;
     birthQuarter: number;
@@ -130,6 +136,17 @@ export interface Child {
 }
 
 export type Sex = 'male' | 'female';
+
+export interface KindergartenWithChildren {
+    kindergarten: {
+        _id: string;
+        name: string;
+        firstMeasurementResultCount: number;
+        lastMeasurementResultCount: number;
+        maxResultCount: number;
+        children: BaseChildInfo[];
+    };
+}
 
 export interface Kindergarten {
     _id: string;
@@ -200,7 +217,7 @@ export interface KeyCode {
 }
 
 export interface KeyCodeSeries {
-    date: string;
+    createdAt: string;
     series: string;
     target: string;
     count: number;
@@ -261,4 +278,11 @@ export interface AssessmentResult {
 
 export interface ReturnedStatusDTO {
     status: boolean;
+}
+
+export interface NewsletterInput {
+    message: string;
+    recipients: string[];
+    title: string;
+    type: string;
 }

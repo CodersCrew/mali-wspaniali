@@ -3,20 +3,23 @@ import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, Tooltip, makeStyles, Theme, fade } from '@material-ui/core';
 import { KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
-import { Kindergarten } from '../../../graphql/types';
+import { KindergartenWithChildren } from '../../../graphql/types';
 import { ProgressBar } from '../../../components/ProgressBar';
+import { AssessmentType } from '../TestToggleButton';
+import { getMeasurementResult } from '../../../utils/getMeasurementResult';
 
 interface Props {
-    kindergarten: Kindergarten;
-    onEditClick?: (value: Kindergarten) => void;
+    assessmentType: AssessmentType;
+    kindergarten: KindergartenWithChildren;
 }
 
-export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
+export const TestResultsTableRow = ({ assessmentType, kindergarten }: Props) => {
     const { t } = useTranslation();
     const [open, setOpen] = React.useState(false);
     const classes = useStyles({ open });
 
-    const { name } = kindergarten;
+    const { name, maxResultCount, children } = kindergarten.kindergarten;
+    const measurementResult = getMeasurementResult(assessmentType, kindergarten);
     const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
 
     return (
@@ -33,14 +36,16 @@ export const TestResultsTableRow = ({ kindergarten, onEditClick }: Props) => {
                 <TableCell className={classes.cell}>
                     <div className={classes.progressBarContainer}>
                         <div className={classes.progressBar}>
-                            <ProgressBar value={(200 / 300) * 100} />
+                            <ProgressBar value={(measurementResult / (maxResultCount / 2)) * 100} />
                         </div>
-                        <span> 200 / 300</span>
+                        <span>
+                            {measurementResult} / {maxResultCount / 2}
+                        </span>
                     </div>
                 </TableCell>
                 <TableCell className={classes.cell} />
             </TableRow>
-            <KindergartenChildrenTable open={open} />
+            <KindergartenChildrenTable open={open} childrenInfo={children} />
         </>
     );
 };

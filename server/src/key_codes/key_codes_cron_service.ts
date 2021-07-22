@@ -7,7 +7,7 @@ export class KeyCodesCronService {
   constructor(private keyCodeRepository: KeyCodeRepository) {}
   private logger = new Logger(KeyCodesCronService.name);
 
-  @Cron(CronExpression.EVERY_WEEK)
+  @Cron(CronExpression.EVERY_HOUR)
   async handleCron(): Promise<void> {
     this.logger.log('[KeyCodes - cron] Job started');
 

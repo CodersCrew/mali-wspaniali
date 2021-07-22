@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core';
 
 import { Theme } from '../../theme';
-
 import { Option } from './useSelectValues';
 
 interface Props {
