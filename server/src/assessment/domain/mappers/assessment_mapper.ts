@@ -36,7 +36,7 @@ export class AssessmentMapper {
     );
   }
 
-  static toPersist(assessment: Assessment): AssessmentCore {
+  static toPlain(assessment: Assessment): AssessmentCore {
     const props = assessment.getProps();
 
     return classToPlain(props, {
