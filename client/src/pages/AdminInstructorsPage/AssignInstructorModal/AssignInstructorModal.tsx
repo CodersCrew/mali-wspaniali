@@ -15,8 +15,8 @@ import type { UpdatedAssessmentInput } from '../../../operations/mutations/Asses
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, Assessment } from '../../../graphql/types';
 import { InstructorRelation } from '../types';
-import { KindergartenTable } from './KindergartenTable';
-// import { KindergartenTransferList } from './KindergartenTransferList';
+// import { KindergartenTable } from './KindergartenTable';
+import { KindergartenTransferList } from './KindergartenTransferList';
 import { openDialog, ActionDialog } from '../../../utils/openDialog';
 
 interface ModalProps {
@@ -121,16 +121,18 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
                     </FormControl>
                 </Grid>
 
-                {/* <KindergartenTransferList
+                {
+                    <KindergartenTransferList
+                        defaultKindergartens={getDefaultItems()}
+                        selected={selectedKindergartens}
+                        onSelect={(value) => select(value)}
+                    />
+                }
+                {/* <KindergartenTable
                     defaultKindergartens={getDefaultItems()}
                     selected={selectedKindergartens}
                     onSelect={(value) => select(value)}
                 /> */}
-                <KindergartenTable
-                    defaultKindergartens={getDefaultItems()}
-                    selected={selectedKindergartens}
-                    onSelect={(value) => select(value)}
-                />
             </div>
         </TwoActionsModal>
     );

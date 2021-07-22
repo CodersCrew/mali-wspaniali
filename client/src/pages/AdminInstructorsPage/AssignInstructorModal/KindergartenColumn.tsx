@@ -1,12 +1,15 @@
-import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemIcon, ListItemText, Checkbox, Paper } from '@material-ui/core';
 
 import { Kindergarten } from '../../../graphql/types';
 
-export const KindergartenColumn = (kindergartens: Kindergarten[]) => {
-    const [checked, setChecked] = useState<Kindergarten[]>([]);
+interface Props {
+    checked: Kindergarten[];
+    setChecked: React.Dispatch<React.SetStateAction<Kindergarten[]>>;
+    kindergartens: Kindergarten[];
+}
 
+export const KindergartenColumn = ({ checked, setChecked, kindergartens }: Props) => {
     const classes = useStyles();
 
     const handleToggle = (kindergarten: Kindergarten) => () => {

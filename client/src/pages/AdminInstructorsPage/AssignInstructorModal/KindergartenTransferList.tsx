@@ -64,7 +64,7 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                             ),
                         }}
                     />
-                    {KindergartenColumn(left)}
+                    <KindergartenColumn checked={checked} setChecked={setChecked} kindergartens={left} />
                 </Grid>
                 <Grid item>
                     <Grid container direction="column" alignItems="center">
@@ -107,7 +107,7 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                             ),
                         }}
                     />
-                    {KindergartenColumn(right)}
+                    <KindergartenColumn checked={checked} setChecked={setChecked} kindergartens={right} />
                 </Grid>
             </Grid>
         </>
