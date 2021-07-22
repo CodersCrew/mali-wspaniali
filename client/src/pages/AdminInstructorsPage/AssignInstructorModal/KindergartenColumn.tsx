@@ -4,17 +4,17 @@ import { List, ListItem, ListItemIcon, ListItemText, Checkbox, Paper } from '@ma
 
 import { Kindergarten } from '../../../graphql/types';
 
-export const KindergartenColumn = (items: Kindergarten[]) => {
+export const KindergartenColumn = (kindergartens: Kindergarten[]) => {
     const [checked, setChecked] = useState<Kindergarten[]>([]);
 
     const classes = useStyles();
 
-    const handleToggle = (value: Kindergarten) => () => {
-        const currentIndex = checked.indexOf(value);
+    const handleToggle = (kindergarten: Kindergarten) => () => {
+        const currentIndex = checked.indexOf(kindergarten);
         const newChecked = [...checked];
 
         if (currentIndex === -1) {
-            newChecked.push(value);
+            newChecked.push(kindergarten);
         } else {
             newChecked.splice(currentIndex, 1);
         }
@@ -25,20 +25,20 @@ export const KindergartenColumn = (items: Kindergarten[]) => {
     return (
         <Paper className={classes.paper}>
             <List dense component="div" role="list">
-                {items.map((value) => {
-                    const labelId = `transfer-list-item-${value._id}-label`;
+                {kindergartens.map((kindergarten) => {
+                    const labelId = `transfer-list-item-${kindergarten._id}-label`;
 
                     return (
-                        <ListItem key={value.number} role="listitem" button onClick={handleToggle(value)}>
+                        <ListItem key={kindergarten.number} role="listitem" button onClick={handleToggle(kindergarten)}>
                             <ListItemIcon>
                                 <Checkbox
-                                    checked={checked.indexOf(value) !== -1}
+                                    checked={checked.indexOf(kindergarten) !== -1}
                                     tabIndex={-1}
                                     disableRipple
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={value.name} />
+                            <ListItemText id={labelId} primary={kindergarten.name} />
                         </ListItem>
                     );
                 })}
