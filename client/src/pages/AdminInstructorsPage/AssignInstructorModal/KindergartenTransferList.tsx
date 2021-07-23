@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, InputAdornment, TextField } from '@material-ui/core';
+import { Grid, InputAdornment, TextField } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { KindergartenColumn } from './KindergartenColumn';
 import { Kindergarten } from '../../../graphql/types';
+import { ButtonBase } from '../../../components/Button/ButtonBase';
 
 interface Props {
     defaultKindergartens: Array<{ kindergarten: Kindergarten; selected: boolean; disabled: boolean }>;
@@ -17,7 +18,8 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
     const [checked, setChecked] = useState<Kindergarten[]>([]);
     const [left, setLeft] = useState(defaultKindergartens.filter((k) => !k.selected).map((k) => k.kindergarten));
     const [right, setRight] = useState(defaultKindergartens.filter((k) => !!k.selected).map((k) => k.kindergarten));
-    const [searchPhrase, setSearchPhrase] = useState('');
+    const [searchKindergarten, setSearchKindergarten] = useState('');
+    const [searchInstructor, setSearchInstructor] = useState('');
 
     const { t } = useTranslation();
     const classes = useStyles();
@@ -29,7 +31,6 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
-        console.log(leftChecked);
 
         onSelect(selected.concat(leftChecked.map((k) => k._id)));
     };
@@ -46,7 +47,7 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
 
     return (
         <>
-            <Grid container spacing={2} direction="row" className={classes.root}>
+            <Grid container spacing={2} direction="row" className={classes.root} alignItems="center">
                 <Grid item>
                     <TextField
                         margin="dense"
@@ -54,8 +55,8 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                         label={t('add-test-view.basic-information-form.search')}
                         variant="outlined"
                         autoComplete="off"
-                        value={searchPhrase}
-                        onChange={({ target: { value } }) => setSearchPhrase(value)}
+                        value={searchKindergarten}
+                        onChange={({ target: { value } }) => setSearchKindergarten(value)}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -66,29 +67,28 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                     />
                     <KindergartenColumn checked={checked} setChecked={setChecked} kindergartens={left} />
                 </Grid>
-                <Grid item>
-                    <Grid container direction="column" alignItems="center">
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            className={classes.button}
-                            onClick={handleCheckedRight}
-                            disabled={leftChecked.length === 0}
-                            aria-label="move selected right"
-                        >
-                            &gt;
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            className={classes.button}
-                            onClick={handleCheckedLeft}
-                            disabled={rightChecked.length === 0}
-                            aria-label="move selected left"
-                        >
-                            &lt;
-                        </Button>
-                    </Grid>
+
+                <Grid container direction="column" alignItems="center">
+                    <ButtonBase
+                        variant="outlined"
+                        size="small"
+                        className={classes.button}
+                        onClick={handleCheckedRight}
+                        disabled={leftChecked.length === 0}
+                        aria-label="move selected right"
+                    >
+                        &gt;
+                    </ButtonBase>
+                    <ButtonBase
+                        variant="outlined"
+                        size="small"
+                        className={classes.button}
+                        onClick={handleCheckedLeft}
+                        disabled={rightChecked.length === 0}
+                        aria-label="move selected left"
+                    >
+                        &lt;
+                    </ButtonBase>
                 </Grid>
                 <Grid item>
                     <TextField
@@ -97,8 +97,8 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                         label={t('add-test-view.basic-information-form.search')}
                         variant="outlined"
                         autoComplete="off"
-                        value={searchPhrase}
-                        onChange={({ target: { value } }) => setSearchPhrase(value)}
+                        value={searchInstructor}
+                        onChange={({ target: { value } }) => setSearchInstructor(value)}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">

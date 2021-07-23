@@ -11,11 +11,11 @@ import {
     Grid,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import type { UpdatedAssessmentInput } from '../../../operations/mutations/Assessment/updateAssessment';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, Assessment } from '../../../graphql/types';
 import { InstructorRelation } from '../types';
-// import { KindergartenTable } from './KindergartenTable';
 import { KindergartenTransferList } from './KindergartenTransferList';
 import { openDialog, ActionDialog } from '../../../utils/openDialog';
 
@@ -121,18 +121,11 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
                     </FormControl>
                 </Grid>
 
-                {
-                    <KindergartenTransferList
-                        defaultKindergartens={getDefaultItems()}
-                        selected={selectedKindergartens}
-                        onSelect={(value) => select(value)}
-                    />
-                }
-                {/* <KindergartenTable
+                <KindergartenTransferList
                     defaultKindergartens={getDefaultItems()}
                     selected={selectedKindergartens}
                     onSelect={(value) => select(value)}
-                /> */}
+                />
             </div>
         </TwoActionsModal>
     );
