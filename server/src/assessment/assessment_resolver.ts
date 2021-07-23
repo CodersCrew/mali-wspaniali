@@ -84,7 +84,7 @@ export class AssessmentResolver {
       new CreateAssessmentCommand(assessment),
     );
 
-    return AssessmentMapper.toPersist(created);
+    return AssessmentMapper.toPlain(created);
   }
 
   @Mutation(() => AssessmentDTO)
@@ -97,7 +97,7 @@ export class AssessmentResolver {
       new UpdateAssessmentCommand(id, assessment),
     );
 
-    return AssessmentMapper.toPersist(updated);
+    return AssessmentMapper.toPlain(updated);
   }
 
   @Query(() => [AssessmentDTO])
@@ -111,7 +111,7 @@ export class AssessmentResolver {
         : new GetAllAssessmentsQuery(),
     );
 
-    return assessments.map(a => AssessmentMapper.toPersist(a));
+    return assessments.map(a => AssessmentMapper.toPlain(a));
   }
 
   @Query(() => AssessmentDTO)
@@ -128,6 +128,6 @@ export class AssessmentResolver {
 
     context.req.assessmentId = assessment.id;
 
-    return AssessmentMapper.toPersist(assessment);
+    return AssessmentMapper.toPlain(assessment);
   }
 }

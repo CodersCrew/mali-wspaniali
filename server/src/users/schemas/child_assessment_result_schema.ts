@@ -30,4 +30,6 @@ export const ChildAssessmentResultSchema = new Schema({
   lastMeasurementJumpResult: Number,
   firstMeasurementKindergarten: String,
   lastMeasurementKindergarten: String,
+  firstMeasurementGroup: String,
+  lastMeasurementGroup: String,
 });
