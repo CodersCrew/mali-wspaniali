@@ -125,6 +125,8 @@ type ChildAssessmentResultDTO {
   lastMeasurementThrowResult: Float
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
+  firstMeasurementGroup: String
+  lastMeasurementGroup: String
   currentParams: ChildCurrentParamsDTO
   child: ChildDTO
   assessment: AssessmentDTO
@@ -211,6 +213,8 @@ type PartialChildResult {
   lastMeasurementThrowResult: Float
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
+  firstMeasurementGroup: String
+  lastMeasurementGroup: String
 }
 
 type ReturnedTokenDTO {
@@ -455,6 +459,8 @@ input PartialChildResultInput {
   lastMeasurementThrowResult: Float
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
+  firstMeasurementGroup: String
+  lastMeasurementGroup: String
 }
 
 input PartialUpdateChildResultInput {
@@ -488,6 +494,8 @@ input PartialUpdateChildResultInput {
   lastMeasurementThrowResult: Float
   firstMeasurementJumpResult: Float
   lastMeasurementJumpResult: Float
+  firstMeasurementGroup: String
+  lastMeasurementGroup: String
 }
 
 input NewsletterInput {
