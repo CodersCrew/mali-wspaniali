@@ -1,10 +1,24 @@
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, InputAdornment, TextField } from '@material-ui/core';
+import {
+    Grid,
+    InputAdornment,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField,
+    ListItem,
+    Checkbox,
+    List,
+    Paper,
+} from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { KindergartenColumn } from './KindergartenColumn';
+import { KindergartenListItem } from './KindergartenListItem';
 import { Kindergarten } from '../../../graphql/types';
 import { ButtonBase } from '../../../components/Button/ButtonBase';
 
@@ -45,27 +59,84 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
         });
     };
 
+    // const handleToggle = (kindergarten: Kindergarten) => () => {
+    //     const currentIndex = checked.indexOf(kindergarten);
+    //     const newChecked = [...checked];
+
+    //     if (currentIndex === -1) {
+    //         newChecked.push(kindergarten);
+    //     } else {
+    //         newChecked.splice(currentIndex, 1);
+    //     }
+
+    //     setChecked(newChecked);
+    // };
+
     return (
         <>
             <Grid container spacing={2} direction="row" className={classes.root} alignItems="center">
-                <Grid item>
-                    <TextField
-                        margin="dense"
-                        id="search"
-                        label={t('add-test-view.basic-information-form.search')}
-                        variant="outlined"
-                        autoComplete="off"
-                        value={searchKindergarten}
-                        onChange={({ target: { value } }) => setSearchKindergarten(value)}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <SearchIcon color="disabled" />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <KindergartenColumn checked={checked} setChecked={setChecked} kindergartens={left} />
+                <Grid container>
+                    <TableRow hover role="row">
+                        <TableCell padding="checkbox">
+                            <Checkbox color="default" />
+                        </TableCell>
+                        <TableCell title={'already used'}></TableCell>
+                    </TableRow>
+                    <Grid item>
+                        <TextField
+                            margin="dense"
+                            id="search"
+                            label={t('add-test-view.basic-information-form.search')}
+                            variant="outlined"
+                            autoComplete="off"
+                            value={searchKindergarten}
+                            onChange={({ target: { value } }) => setSearchKindergarten(value)}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <SearchIcon color="disabled" />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                        <TableContainer classes={{ root: classes.table }}>
+                            <Table aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell padding="checkbox"></TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <Paper className={classes.paper}>
+                                        <List dense component="div" role="list">
+                                            {defaultKindergartens
+                                                .filter((k) => !k.selected)
+                                                .filter(({ kindergarten }) => {
+                                                    if (searchKindergarten.length === 0) return true;
+
+                                                    return kindergarten.name.toLowerCase().includes(searchKindergarten);
+                                                })
+                                                .map(({ kindergarten }) => {
+                                                    const labelId = `transfer-list-item-${kindergarten._id}-label`;
+
+                                                    return (
+                                                        <KindergartenListItem
+                                                            key={kindergarten.number}
+                                                            checked={checked}
+                                                            kindergartenItem={kindergarten}
+                                                            labelId={labelId}
+                                                            setChecked={setChecked}
+                                                        />
+                                                    );
+                                                })}
+
+                                            <ListItem />
+                                        </List>
+                                    </Paper>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
                 </Grid>
 
                 <Grid container direction="column" alignItems="center">
@@ -91,23 +162,68 @@ export function KindergartenTransferList({ defaultKindergartens, selected, onSel
                     </ButtonBase>
                 </Grid>
                 <Grid item>
-                    <TextField
-                        margin="dense"
-                        id="search"
-                        label={t('add-test-view.basic-information-form.search')}
-                        variant="outlined"
-                        autoComplete="off"
-                        value={searchInstructor}
-                        onChange={({ target: { value } }) => setSearchInstructor(value)}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <SearchIcon color="disabled" />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <KindergartenColumn checked={checked} setChecked={setChecked} kindergartens={right} />
+                    <Grid container>
+                        <TableRow hover role="row">
+                            <TableCell padding="checkbox">
+                                <Checkbox color="default" />
+                            </TableCell>
+                            <TableCell title={'already used'}></TableCell>
+                        </TableRow>
+
+                        <TextField
+                            margin="dense"
+                            id="search"
+                            label={t('add-test-view.basic-information-form.search')}
+                            variant="outlined"
+                            autoComplete="off"
+                            value={searchInstructor}
+                            onChange={({ target: { value } }) => setSearchInstructor(value)}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <SearchIcon color="disabled" />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                        <TableContainer classes={{ root: classes.table }}>
+                            <Table aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell padding="checkbox"></TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <Paper className={classes.paper}>
+                                        <List dense component="div" role="list">
+                                            {defaultKindergartens
+                                                .filter((k) => !!k.selected)
+                                                .filter(({ kindergarten }) => {
+                                                    if (searchKindergarten.length === 0) return true;
+
+                                                    return kindergarten.name.toLowerCase().includes(searchInstructor);
+                                                })
+                                                .map(({ kindergarten }) => {
+                                                    const labelId = `transfer-list-item-${kindergarten._id}-label`;
+
+                                                    return (
+                                                        <KindergartenListItem
+                                                            key={kindergarten.number}
+                                                            checked={checked}
+                                                            kindergartenItem={kindergarten}
+                                                            labelId={labelId}
+                                                            setChecked={setChecked}
+                                                        />
+                                                    );
+                                                })}
+
+                                            <ListItem />
+                                        </List>
+                                    </Paper>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
                 </Grid>
             </Grid>
         </>
@@ -129,5 +245,16 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         margin: theme.spacing(0.5, 0),
+    },
+    table: {
+        height: 295,
+    },
+    searchFieldContainer: {
+        margin: theme.spacing(3, 0, 2),
+    },
+    paper: {
+        width: 200,
+        height: 230,
+        overflow: 'auto',
     },
 }));
