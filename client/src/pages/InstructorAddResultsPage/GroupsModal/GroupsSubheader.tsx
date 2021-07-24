@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Box } from '@material-ui/core';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
-import { useBreakpoints } from '../../../queries/useBreakpoints';
+import { useIsDevice } from '../../../queries/useBreakpoints';
 import { Assessment, Group } from '../../../graphql/types';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 
@@ -38,39 +38,39 @@ export function GroupsSubheader(props: Props) {
             { _id: '124', name: 'kotki', instructor: null, kindergarten: null },
         ]);
     }, []); // to be deleted
-    const device = useBreakpoints();
+    const device = useIsDevice();
 
     return (
-        <>
-            <Grid
-                container
-                direction="row"
-                alignItems="center"
-                wrap="wrap"
-                justify={device === 'MOBILE' ? 'flex-start' : 'space-between'}
-            >
-                {device === 'DESKTOP' && (
-                    <Grid item xs={1}>
-                        <Typography variant="subtitle1">{t('groupsModal.groups')}</Typography>
-                    </Grid>
-                )}
-                <Grid item xs={12} md={9}>
-                    <GroupsChip
-                        label={t('groupsModal.unassigned')}
-                        onClick={() => toggleOrSelect('unassigned')}
-                        selected={selectedGroup === 'unassigned'}
-                    />
-                    {groups.map((group, index) => (
-                        <GroupsChip
-                            key={index}
-                            label={group.name}
-                            onClick={() => toggleOrSelect(group._id)}
-                            selected={selectedGroup === group._id}
-                        />
-                    ))}
+        <Grid
+            container
+            direction="row"
+            alignItems="center"
+            wrap="wrap"
+            justify={device.isSmallMobile ? 'flex-start' : 'space-between'}
+        >
+            {device.isDesktop && (
+                <Grid item xs={1}>
+                    <Typography variant="subtitle1">{t('groupsModal.groups')}</Typography>
                 </Grid>
-                {device === 'DESKTOP' && (
-                    <Grid item xs={2}>
+            )}
+            <Grid item xs={12} md={9}>
+                <GroupsChip
+                    label={t('groupsModal.unassigned')}
+                    onClick={() => toggleOrSelect('unassigned')}
+                    selected={selectedGroup === 'unassigned'}
+                />
+                {groups.map((group, index) => (
+                    <GroupsChip
+                        key={index}
+                        label={group.name}
+                        onClick={() => toggleOrSelect(group._id)}
+                        selected={selectedGroup === group._id}
+                    />
+                ))}
+            </Grid>
+            {device.isDesktop && (
+                <Grid item xs={2}>
+                    <Box display="flex" justifyContent="flex-end">
                         <ButtonSecondary
                             aria-label="groups"
                             variant="contained"
@@ -78,9 +78,9 @@ export function GroupsSubheader(props: Props) {
                             innerText={t('groupsModal.groups')}
                             onClick={() => openGroupsModal({ ...props })}
                         />
-                    </Grid>
-                )}
-            </Grid>
-        </>
+                    </Box>
+                </Grid>
+            )}
+        </Grid>
     );
 }

@@ -119,7 +119,7 @@ function GroupsModal(props: ModalProps & ActionDialog) {
                         />
                     </Grid>
                 </Grid>
-                <Typography variant="subtitle1">{t('groupsModal.kindergarten-groups')}</Typography>
+                <Typography variant="subtitle1">{t('groupsModal.kindergarten-groups', { count: 0 })}</Typography>
                 {/*
                 <GroupsTransferList />
                 */}

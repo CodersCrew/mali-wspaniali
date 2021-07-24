@@ -25,7 +25,7 @@ export function GroupsList() {
             { _id: '123', name: 'motylki', instructor: null, kindergarten: null },
             { _id: '124', name: 'kotki', instructor: null, kindergarten: null },
         ]);
-    }, []); // to be deleted
+    }, []);
     const classes = useStyles();
 
     const setGroupName = (id: string, name: string) => {
@@ -36,7 +36,7 @@ export function GroupsList() {
         <>
             <Grid container direction="column" alignItems="center" xs={12}>
                 <Grid container direction="row" justify="space-between" alignItems="center" xs={12}>
-                    <Typography variant="body2">{t('groupsModal.group-name')}</Typography>
+                    <Typography variant="subtitle2">{t('groupsModal.group-name')}</Typography>
                     <Tooltip title={<>{t('groupsModal.edit-groups')}</>}>
                         <EditIcon
                             color={editMode ? 'secondary' : 'disabled'}

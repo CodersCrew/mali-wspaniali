@@ -1065,7 +1065,7 @@
         "kindergarten-name": "Przedszkole",
         "new-name": "Wpisz nazwę nowej grupy",
         "add-group": "Dodaj grupę",
-        "kindergarten-groups": "Grupy w przedszkolu",
+        "kindergarten-groups": "Grupy w przedszkolu ({{count}}/25)",
         "group-name": "Nazwa grupy",
         "no-groups": "Nie dodano grup w tym przedszkolu",
         "instruction": "Wybierz przedszkole, wpisz nazwę nowej grupy i kliknij przycisk dodaj grupę, by utworzyć nową grupę.",

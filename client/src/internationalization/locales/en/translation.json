@@ -1063,7 +1063,7 @@
         "kindergarten-name": "Kindergarten",
         "new-name": "Enter a new group name",
         "add-group": "Add a group",
-        "kindergarten-groups": "Groups in the kindergarten",
+        "kindergarten-groups": "Groups in the kindergarten ({{count}}/25)",
         "group-name": "Group name",
         "no-groups": "There are no grups in the kindergarten",
         "instruction": "Choose a kindergarten, enter a new grup name and click 'Add a group' button to create a new group.",
