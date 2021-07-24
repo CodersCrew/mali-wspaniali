@@ -6,10 +6,11 @@ interface Props {
     header?: ReactNode;
     container: ReactNode;
     subheader?: ReactNode;
+    subsubheader?: ReactNode;
     disableShadow?: boolean;
 }
 
-export function CustomContainer({ header, subheader, disableShadow, container }: Props) {
+export function CustomContainer({ header, subheader, subsubheader, disableShadow, container }: Props) {
     const classes = useStyles();
 
     return (
@@ -26,6 +27,12 @@ export function CustomContainer({ header, subheader, disableShadow, container }:
                     <Divider />
                 </>
             )}
+            {subsubheader && (
+                <>
+                    <div className={classes.titleContainer}>{subsubheader}</div>
+                    <Divider />
+                </>
+            )}
             <div>{container}</div>
         </Paper>
     );
@@ -37,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: 'unset',
         },
         titleContainer: {
-            padding: theme.spacing(2),
+            padding: theme.spacing(1.5, 2),
         },
     }),
 );
