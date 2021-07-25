@@ -35,6 +35,7 @@ interface Props {
 export function MeasurementEditor(props: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
+    const LENGTH_LIMIT = 500;
 
     const { selectedChild: child } = props.resultCreator;
 
@@ -130,8 +131,22 @@ export function MeasurementEditor(props: Props) {
                     variant="outlined"
                     rows={7}
                     value={props.note || ''}
-                    onChange={({ currentTarget: { value } }) => props.onNoteChange(value)}
+                    onChange={({ currentTarget: { value } }) =>
+                        value.length <= LENGTH_LIMIT && props.onNoteChange(value)
+                    }
                 />
+                <Grid container justify="flex-end">
+                    <Grid item>
+                        <Box mt={1}>
+                            <Typography variant="caption" color="textSecondary">
+                                {t('add-results-page.add-note-modal.text-limit', {
+                                    noteLength: props.note.length,
+                                    noteLimit: LENGTH_LIMIT,
+                                })}
+                            </Typography>
+                        </Box>
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     );
@@ -220,7 +235,7 @@ export function MeasurementEditor(props: Props) {
 const useStyles = makeStyles(() =>
     createStyles({
         container: {
-            padding: '10px 24px',
+            padding: '10px 24px 8px 24px',
         },
     }),
 );
