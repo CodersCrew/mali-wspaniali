@@ -988,7 +988,9 @@
             "delete-instructor-subtitle": "Czy na pewno chcesz usunąć instruktora",
             "assign-to-kindergarten": "Przydziel do przedszkola",
             "select-test": "Wybierz test",
-            "select-instructor": "Wybierz instruktora"
+            "select-instructor": "Wybierz instruktora",
+            "search-kindergarten": "Wyszukaj przedszkole",
+            "unassigned-kindergartens": "Nieprzypisane przedszkola"
         }
     },
     "add-results-page": {
@@ -1058,5 +1060,8 @@
         "pendelumRun": "ZWINNOŚĆ",
         "jump": "MOC",
         "run": "SZYBKOŚĆ"
+    },
+    "general": {
+        "selected-count": "{{count}}/{{maxCount}} zaznaczono"
     }
 }

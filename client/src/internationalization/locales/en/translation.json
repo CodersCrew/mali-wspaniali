@@ -986,7 +986,9 @@
             "delete-instructor-subtitle": "Are you sure you want to delete the instructor",
             "assign-to-kindergarten": "Assign to the kindergarten",
             "select-test": "Select the test",
-            "select-instructor": "Select the instructor"
+            "select-instructor": "Select the instructor",
+            "search-kindergarten": "Search kindergarten",
+            "unassigned-kindergartens": "Unassigned kidnergartens"
         }
     },
     "add-results-page": {
@@ -1055,5 +1057,8 @@
         "pendelumRun": "AGILITY",
         "jump": "POWER",
         "run": "SPEED"
+    },
+    "general": {
+        "selected-count": "{{count}}/{{maxCount}} items were selected"
     }
 }
