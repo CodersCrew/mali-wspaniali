@@ -52,6 +52,9 @@ describe('useAddTest', () => {
                         lastMeasurementEndDate: '2021-7-3',
                         lastMeasurementStartDate: '2021-6-1',
                         lastMeasurementStatus: 'active',
+                        firstMeasurementResultCount: 0,
+                        lastMeasurementResultCount: 0,
+                        maxResultCount: 0,
                         kindergartenIds: [],
                         isOutdated: false,
                         isDeleted: false,
@@ -70,8 +73,6 @@ describe('useAddTest', () => {
                 act(() => {
                     result.current.updateAssessment({
                         title: 'my',
-                        startDate: '2021-6-1',
-                        endDate: '2021-7-3',
                         kindergartenIds: [],
                         isOutdated: false,
                     });
@@ -325,7 +326,6 @@ const mocks = [
                     firstMeasurementEndDate: '2021-7-3',
                     lastMeasurementStartDate: '2021-6-1',
                     lastMeasurementEndDate: '2021-7-3',
-                    status: 'active',
                     firstMeasurementStatus: 'active',
                     lastMeasurementStatus: 'active',
                     kindergartenIds: [],
@@ -343,7 +343,6 @@ const mocks = [
                     firstMeasurementEndDate: '2021-7-3',
                     lastMeasurementStartDate: '2021-6-1',
                     lastMeasurementEndDate: '2021-7-3',
-                    status: 'active',
                     firstMeasurementStatus: 'active',
                     lastMeasurementStatus: 'active',
                     kindergartens: [
@@ -390,7 +389,6 @@ const mocks = [
                         firstMeasurementStartDate: '2021-6-1',
                         lastMeasurementEndDate: '2021-7-3',
                         lastMeasurementStartDate: '2021-6-1',
-                        status: 'active',
                         firstMeasurementStatus: 'active',
                         lastMeasurementStatus: 'active',
                         kindergartens: [
@@ -458,7 +456,6 @@ const mockedKindergartens = [
                         firstMeasurementStartDate: '2021-6-1',
                         lastMeasurementEndDate: '2021-7-3',
                         lastMeasurementStartDate: '2021-6-1',
-                        status: 'active',
                         firstMeasurementStatus: 'active',
                         lastMeasurementStatus: 'active',
                         kindergartens: [
