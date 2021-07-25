@@ -748,7 +748,7 @@
         "footer": {
             "contact": "Contact",
             "privacy": "Privacy policy",
-            "rights-reserved": "© 2020 All rights reserved"
+            "rights-reserved": "© 2021 All rights reserved"
         }
     },
     "blog-article-card": {
@@ -1057,6 +1057,27 @@
         "pendelumRun": "AGILITY",
         "jump": "POWER",
         "run": "SPEED"
+    },
+    "groupsModal": {
+        "close": "close",
+        "save": "save",
+        "kindergarten-name": "Kindergarten",
+        "new-name": "Enter a new group name",
+        "add-group": "Add a group",
+        "kindergarten-groups": "Groups in the kindergarten ({{count}}/25)",
+        "group-name": "Group name",
+        "no-groups": "There are no grups in the kindergarten",
+        "instruction": "Choose a kindergarten, enter a new grup name and click 'Add a group' button to create a new group.",
+        "select": "Next choose a group from the list you wish to edit.",
+        "groups": "Groups",
+        "unassigned": "Unassigned",
+        "selected": "selected",
+        "cancel": "cancel",
+        "delete": "delete",
+        "delete-group": "Delete a group",
+        "confirm": "Are you sure you want to delete the group {{name}}?",
+        "edit-groups": "edit groups",
+        "edit": "edit"
     },
     "general": {
         "selected-count": "{{count}}/{{maxCount}} items were selected"
