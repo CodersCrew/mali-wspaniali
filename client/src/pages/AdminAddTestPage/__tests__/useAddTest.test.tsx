@@ -46,7 +46,6 @@ describe('useAddTest', () => {
                 expect(onSubmit).toHaveBeenCalledWith({
                     assessment: {
                         title: 'my-test',
-                        status: 'active',
                         firstMeasurementEndDate: '2021-7-3',
                         firstMeasurementStartDate: '2021-6-1',
                         firstMeasurementStatus: 'active',

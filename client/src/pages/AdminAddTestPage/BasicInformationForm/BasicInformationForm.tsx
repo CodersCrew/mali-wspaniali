@@ -21,14 +21,6 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
                     <Grid item xs={12}>
                         <List disablePadding>
                             <AssessmentInformationItem
-                                label={t('add-test-view.basic-information-form.test-name')}
-                                subheader={assessment.title}
-                                status={assessment.status}
-                                result={67.5}
-                                divider
-                                onClick={onClick}
-                            />
-                            <AssessmentInformationItem
                                 label={t('add-test-view.basic-information-form.first-measurement')}
                                 subheader={`${assessment.firstMeasurementStartDate} - ${assessment.firstMeasurementEndDate}`}
                                 status={assessment.firstMeasurementStatus}

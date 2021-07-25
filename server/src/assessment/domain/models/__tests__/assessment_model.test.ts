@@ -108,7 +108,6 @@ function createAssessment(
       firstMeasurementEndDate: options?.endDate || new Date('2020-10-20'),
       lastMeasurementStartDate: options?.startDate || new Date('2020-10-16'),
       lastMeasurementEndDate: options?.endDate || new Date('2020-10-20'),
-      status: 'active',
       firstMeasurementStatus: 'active',
       lastMeasurementStatus: 'active',
       kindergartens: [],

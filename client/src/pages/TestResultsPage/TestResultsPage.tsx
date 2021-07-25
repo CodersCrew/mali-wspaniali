@@ -89,7 +89,7 @@ export default function TestResultsPage() {
                     <span className={classes.measurementText}>{t(selectedAssessmentPart.assessmentName)}</span>
                     <p>
                         <span className={classes.ResultStatusText}>{t('test-results.status-result')}: </span>
-                        {t(`manage-test-view.test-list.${selectedAssessment.status}`)}
+                        {t(`manage-test-view.test-list.${selectedAssessment.firstMeasurementStatus}`)}
                     </p>
                 </Box>
                 <TestResultsTable

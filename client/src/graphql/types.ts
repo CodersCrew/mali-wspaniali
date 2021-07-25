@@ -236,7 +236,6 @@ export interface Assessment {
     isOutdated: boolean;
     isDeleted: boolean;
     title: string;
-    status: string;
     firstMeasurementStatus: string;
     lastMeasurementStatus: string;
     firstMeasurementStartDate: string;

@@ -18,7 +18,6 @@ export const GET_ASSESSMENT = gql`
             isOutdated
             isDeleted
             title
-            status
             firstMeasurementStatus
             lastMeasurementStatus
             kindergartens {

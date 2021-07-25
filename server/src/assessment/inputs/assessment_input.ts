@@ -19,9 +19,6 @@ export class AssessmentInput {
   lastMeasurementEndDate: Date;
 
   @Field()
-  status: string;
-
-  @Field()
   firstMeasurementStatus: string;
 
   @Field()

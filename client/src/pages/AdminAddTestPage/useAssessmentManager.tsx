@@ -27,7 +27,6 @@ export interface AssessmentManagerState {
     title: string;
     isOutdated: boolean;
     isDeleted: boolean;
-    status: string;
     firstMeasurementStatus: string;
     lastMeasurementStatus: string;
     firstMeasurementStartDate: string;
@@ -41,7 +40,6 @@ const defaultAssessment: AssessmentManagerState = {
     title: '',
     isOutdated: false,
     isDeleted: false,
-    status: 'active',
     firstMeasurementStatus: 'active',
     lastMeasurementStatus: 'active',
     firstMeasurementStartDate: formatDate(defaultStartDate),
@@ -71,7 +69,6 @@ export function useAssessmentManager(
 
         setUpdateLocalAssessment({
             title: assessment.title,
-            status: assessment.status,
             firstMeasurementStatus: assessment.firstMeasurementStatus,
             lastMeasurementStatus: assessment.lastMeasurementStatus,
             firstMeasurementStartDate: assessment.firstMeasurementStartDate,
@@ -154,7 +151,6 @@ export function useAssessmentManager(
             firstMeasurementEndDate: assessmentState.firstMeasurementEndDate,
             lastMeasurementStartDate: assessmentState.lastMeasurementStartDate,
             lastMeasurementEndDate: assessmentState.lastMeasurementEndDate,
-            status: assessmentState.status,
             firstMeasurementStatus: assessmentState.firstMeasurementStatus,
             lastMeasurementStatus: assessmentState.lastMeasurementStatus,
             kindergartenIds: assessmentState.kindergartenIds,

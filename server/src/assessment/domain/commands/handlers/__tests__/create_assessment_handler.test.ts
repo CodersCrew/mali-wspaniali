@@ -11,7 +11,6 @@ describe('CreateAssessmentHandler', () => {
 
   const validAssessmentOptions = {
     title: 'my-title',
-    status: 'active',
     firstMeasurementStatus: 'active',
     lastMeasurementStatus: 'active',
     firstMeasurementStartDate: new Date(2020, 10, 16),
@@ -42,7 +41,6 @@ describe('CreateAssessmentHandler', () => {
       it('returns assessment instance', () => {
         expect(createdAssessment).toBeInstanceOf(Assessment);
         expect(createdAssessment.title).toBe('my-title');
-        expect(createdAssessment.status).toBe('active');
         expect(createdAssessment.firstMeasurementStatus).toEqual('active');
         expect(createdAssessment.lastMeasurementStatus).toEqual('active');
         expect(createdAssessment.firstMeasurementStartDate).toEqual(

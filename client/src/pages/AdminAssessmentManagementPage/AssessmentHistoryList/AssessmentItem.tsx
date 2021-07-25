@@ -24,12 +24,11 @@ export function AssessmentItem({ value, onClick }: Props) {
             <TableCell component="th" scope="row">
                 {value.title}
             </TableCell>
-            <TableCell align="left">{value.status === 'done' && <StatusChip value={value.status} />}</TableCell>
             <TableCell>
                 {parseDate(value.firstMeasurementStartDate)} - {parseDate(value.firstMeasurementEndDate)}
             </TableCell>
             <TableCell align="left">
-                {value.status !== 'done' && <StatusChip value={value.firstMeasurementStatus} />}
+                {value.firstMeasurementStatus !== 'done' && <StatusChip value={value.firstMeasurementStatus} />}
             </TableCell>
             <TableCell>
                 {parseDate(value.lastMeasurementStartDate)} - {parseDate(value.lastMeasurementEndDate)}
@@ -44,7 +43,7 @@ export function AssessmentItem({ value, onClick }: Props) {
                         </Tooltip>
                     </div>
                     <div className="status">
-                        {value.status !== 'done' && <StatusChip value={value.lastMeasurementStatus} />}
+                        {value.lastMeasurementStatus !== 'done' && <StatusChip value={value.lastMeasurementStatus} />}
                     </div>
                 </div>
             </TableCell>

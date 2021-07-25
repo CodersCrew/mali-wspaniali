@@ -15,7 +15,6 @@ export interface CreatedAssessmentInput {
     firstMeasurementEndDate: string;
     lastMeasurementStartDate: string;
     lastMeasurementEndDate: string;
-    status: string;
     firstMeasurementStatus: string;
     lastMeasurementStatus: string;
     kindergartenIds: string[];
@@ -36,7 +35,6 @@ export const CREATE_ASSESSMENT = gql`
             firstMeasurementEndDate
             lastMeasurementStartDate
             lastMeasurementEndDate
-            status
             firstMeasurementStatus
             lastMeasurementStatus
             kindergartens {
