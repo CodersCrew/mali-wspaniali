@@ -50,6 +50,7 @@ export interface UserInput {
 }
 
 export type Role = 'parent' | 'admin' | 'instructor';
+
 export interface ChildInput {
     firstname: string;
     lastname: string;
@@ -78,6 +79,13 @@ export interface AddChildResult {
     kindergarten: string;
 }
 
+export interface UpdatedUserInput {
+    firstname: string;
+    lastname: string;
+}
+
+export type UpdateInstructorNameResult = UpdatedUserInput;
+
 export type User = Omit<Me, 'notifications'>;
 
 export type PrivilegedUser = Omit<User, 'children' | 'agreements'>;
@@ -92,6 +100,8 @@ export interface Me {
     children: Child[];
     agreements: Agreement[];
     notifications: Notification[];
+    firstname: string;
+    lastname: string;
 }
 
 export interface AssessmentParam {

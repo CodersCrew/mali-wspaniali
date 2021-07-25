@@ -889,11 +889,23 @@
             }
         }
     },
+    "add-instructor-name-modal": {
+        "inputs": {
+            "firstname": "Imię",
+            "lastname": "Nazwisko",
+            "email": "Email"
+        },
+        "button": "Zapisz",
+        "heading": "Witaj na platformie Mali Wspaniali",
+        "description": "Zanim przejdziesz do Panelu Instruktora uzupełnij swoje dane. Danych nie będzie można później zmienić.",
+        "first-name-required": "Podanie imienia jest wymagane",
+        "last-name-required": "Podanie nazwiska jest wymagane"
+    },
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
     "cookies-popup": {
-        "link": "Polityce Prywatoności",
+        "link": "Polityce Prywatności",
         "content": "Używamy „ciasteczek” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu.  Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Przeczytaj więcej na temat naszych praktyk dotyczących “ciasteczek” w  <Link>Polityce Prywatoności</Link> serwisu."
     },
     "agreements": {
