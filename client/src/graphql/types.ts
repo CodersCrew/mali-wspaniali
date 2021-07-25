@@ -242,6 +242,9 @@ export interface Assessment {
     firstMeasurementEndDate: string;
     lastMeasurementStartDate: string;
     lastMeasurementEndDate: string;
+    firstMeasurementResultCount: number;
+    lastMeasurementResultCount: number;
+    maxResultCount: number;
     kindergartens: {
         instructor: User | null;
         kindergarten: Kindergarten | null;

@@ -4,6 +4,7 @@ import { Grid, Typography, List } from '@material-ui/core';
 import { AssessmentManagerState } from '../useAssessmentManager';
 import { AssessmentInformationItem } from './AssessmentInformationItem';
 import { CustomContainer } from '../../../components/CustomContainer';
+import dayjs from '../../../localizedMoment';
 
 interface Props {
     assessment: AssessmentManagerState;
@@ -22,18 +23,22 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
                         <List disablePadding>
                             <AssessmentInformationItem
                                 label={t('add-test-view.basic-information-form.first-measurement')}
-                                subheader={`${assessment.firstMeasurementStartDate} - ${assessment.firstMeasurementEndDate}`}
+                                subheader={`${dayjs(assessment.firstMeasurementStartDate).format('LL')} - ${dayjs(
+                                    assessment.firstMeasurementEndDate,
+                                ).format('LL')}`}
                                 status={assessment.firstMeasurementStatus}
-                                result={95}
+                                result={getFirstMeasurementCount()}
                                 divider
                                 disabled={isFirstMeasurementDisabled()}
                                 onClick={onClick}
                             />{' '}
                             <AssessmentInformationItem
                                 label={t('add-test-view.basic-information-form.last-measurement')}
-                                subheader={`${assessment.lastMeasurementStartDate} - ${assessment.lastMeasurementEndDate}`}
+                                subheader={`${dayjs(assessment.lastMeasurementStartDate).format('LL')} - ${dayjs(
+                                    assessment.lastMeasurementEndDate,
+                                ).format('LL')}`}
                                 status={assessment.lastMeasurementStatus}
-                                result={40}
+                                result={getLastMeasurementCount()}
                                 disabled={isLastMeasurementDisabled()}
                                 onClick={onClick}
                             />
@@ -43,6 +48,14 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
             }
         />
     );
+
+    function getFirstMeasurementCount() {
+        return (assessment.firstMeasurementResultCount * 100) / assessment.maxResultCount;
+    }
+
+    function getLastMeasurementCount() {
+        return (assessment.lastMeasurementResultCount * 100) / assessment.maxResultCount;
+    }
 
     function isFirstMeasurementDisabled() {
         return ['planned', 'not-planned'].includes(assessment.firstMeasurementStatus);

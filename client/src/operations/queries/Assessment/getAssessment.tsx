@@ -33,6 +33,9 @@ export const GET_ASSESSMENT = gql`
             firstMeasurementEndDate
             lastMeasurementStartDate
             lastMeasurementEndDate
+            firstMeasurementResultCount
+            lastMeasurementResultCount
+            maxResultCount
         }
     }
 `;

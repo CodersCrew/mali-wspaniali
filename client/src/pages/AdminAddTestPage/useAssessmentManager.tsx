@@ -34,6 +34,9 @@ export interface AssessmentManagerState {
     lastMeasurementStartDate: string;
     lastMeasurementEndDate: string;
     kindergartenIds: string[];
+    firstMeasurementResultCount: number;
+    lastMeasurementResultCount: number;
+    maxResultCount: number;
 }
 
 const defaultAssessment: AssessmentManagerState = {
@@ -47,6 +50,9 @@ const defaultAssessment: AssessmentManagerState = {
     lastMeasurementStartDate: formatDate(defaultStartDate),
     lastMeasurementEndDate: formatDate(defaultEndDate),
     kindergartenIds: [],
+    firstMeasurementResultCount: 0,
+    lastMeasurementResultCount: 0,
+    maxResultCount: 0,
 };
 
 export function useAssessmentManager(
@@ -78,6 +84,9 @@ export function useAssessmentManager(
             isOutdated: assessment.isOutdated,
             isDeleted: assessment.isDeleted,
             kindergartenIds: assessment.kindergartens.filter((k) => !!k.kindergarten).map((k) => k.kindergarten!._id),
+            firstMeasurementResultCount: assessment.firstMeasurementResultCount,
+            lastMeasurementResultCount: assessment.lastMeasurementResultCount,
+            maxResultCount: assessment.maxResultCount,
         });
     }, [assessment]);
 
