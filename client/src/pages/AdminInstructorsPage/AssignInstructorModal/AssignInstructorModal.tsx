@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import {
     Typography,
     makeStyles,
@@ -8,19 +8,25 @@ import {
     InputLabel,
     MenuItem,
     Select,
+    Grid,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import type { UpdatedAssessmentInput } from '../../../operations/mutations/Assessment/updateAssessment';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Kindergarten, Assessment } from '../../../graphql/types';
 import { InstructorRelation } from '../types';
-import { KindergartenTable } from './KindergartenTable';
+import {
+    KindergartenTransferList,
+    SelectableKindergarten,
+} from '../../../components/TransferList/KindergartenTransferList';
 import { openDialog, ActionDialog } from '../../../utils/openDialog';
 
 interface ModalProps {
     kindergartens: Kindergarten[];
     relations: InstructorRelation[];
     instructorId: string;
+    instructorFullName: string;
     assessment: Assessment;
 }
 
@@ -33,11 +39,11 @@ export function openAssignInstructorModal(props: ModalProps) {
 function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Partial<UpdatedAssessmentInput> }>) {
     const classes = useStyles();
     const currentRelation = props.relations.find((relation) => relation.instructor._id === props.instructorId);
-    const [selectedKindergartens, setSelectedKindergartens] = useState<string[]>(getSelectedKindergartens());
+    const [selectedKindergartens, setSelectedKindergartens] = React.useState<SelectableKindergarten[]>([]);
     const { t } = useTranslation();
 
-    const select = (kindergartenIds: string[]) => {
-        setSelectedKindergartens(kindergartenIds);
+    const select = (kindergartens: SelectableKindergarten[]) => {
+        setSelectedKindergartens(kindergartens);
     };
 
     const onSubmitAssignInstructor = (updatedAssessment: Partial<UpdatedAssessmentInput>) => {
@@ -57,23 +63,7 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
     return (
         <TwoActionsModal
             lowerButtonOnClick={props.onClose}
-            upperButtonOnClick={() =>
-                onSubmitAssignInstructor({
-                    kindergartens: exsistingKindergartemAssignements
-                        .filter((k) => !!k.kindergartenId)
-                        .map((relation) => {
-                            if (selectedKindergartens.includes(relation.kindergartenId!)) {
-                                return { ...relation, instructorId: currentInstructor._id };
-                            }
-
-                            if (relation.instructorId === currentInstructor._id) {
-                                return { ...relation, instructorId: undefined };
-                            }
-
-                            return relation;
-                        }),
-                })
-            }
+            upperButtonOnClick={onActionButtonClick}
             lowerButtonText={t(`${T_PREFIX}.cancel`)}
             upperButtonText={t(`${T_PREFIX}.assign`)}
             isOpen
@@ -83,41 +73,19 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
                 <Typography variant="h4" className={classes.title}>
                     {t('admin-instructors-page.modal.assign-to-kindergarten')}
                 </Typography>
-                <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="test-select-label">{t(`${T_PREFIX}.select-test`)}</InputLabel>
-                    <Select
-                        labelId="test-select-label"
-                        id="test-select"
-                        label={t(`${T_PREFIX}.select-test`)}
-                        value={props.assessment?._id}
-                        disabled
-                        MenuProps={{
-                            getContentAnchorEl: null,
-                            anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-                        }}
-                    >
-                        <MenuItem value={props.assessment?._id}>{props.assessment?.title}</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="instructor-select-label">{t(`${T_PREFIX}.select-instructor`)}</InputLabel>
-                    <Select
-                        labelId="instructor-select-label"
-                        id="instructor-select"
-                        label={t(`${T_PREFIX}.select-instructor`)}
-                        value={props.instructorId}
-                        disabled
-                        MenuProps={{
-                            getContentAnchorEl: null,
-                            anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-                        }}
-                    >
-                        <MenuItem value={props.instructorId}>{currentInstructor.mail}</MenuItem>
-                    </Select>
-                </FormControl>
-                <KindergartenTable
+                <KindergartenTransferHeader
+                    instructorId={props.instructorId}
+                    instructorFullName={props.instructorFullName}
+                    assessment={props.assessment}
+                />
+                <KindergartenTransferList
                     defaultKindergartens={getDefaultItems()}
-                    selected={selectedKindergartens}
+                    labels={{
+                        leftLabel: t('admin-instructors-page.modal.unassigned-kindergartens'),
+                        rightLabel: props.instructorFullName,
+                        leftInputLabel: t('admin-instructors-page.modal.search-kindergarten'),
+                        rightInputLabel: t('admin-instructors-page.modal.search-kindergarten'),
+                    }}
                     onSelect={(value) => select(value)}
                 />
             </div>
@@ -144,17 +112,80 @@ function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Parti
             });
     }
 
-    function getSelectedKindergartens() {
-        return getDefaultItems()
-            .filter((kindergarten) => kindergarten.selected)
-            .map((kindergarten) => kindergarten.kindergarten._id);
+    function onActionButtonClick() {
+        onSubmitAssignInstructor({
+            kindergartens: exsistingKindergartemAssignements
+                .filter((k) => !!k.kindergartenId)
+                .map((relation) => {
+                    const changedRelation = selectedKindergartens.find(
+                        (k) => k.kindergarten._id === relation.kindergartenId && !k.disabled,
+                    );
+
+                    if (changedRelation) {
+                        return {
+                            ...relation,
+                            instructorId: changedRelation.selected ? currentInstructor._id : undefined,
+                        };
+                    }
+
+                    return relation;
+                }),
+        });
     }
+}
+
+function KindergartenTransferHeader(props: {
+    instructorId: string;
+    instructorFullName: string;
+    assessment: Assessment;
+}) {
+    const { t } = useTranslation();
+
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={6}>
+                <FormControl variant="outlined" fullWidth>
+                    <InputLabel id="test-select-label">{t(`${T_PREFIX}.select-test`)}</InputLabel>
+                    <Select
+                        labelId="test-select-label"
+                        id="test-select"
+                        label={t(`${T_PREFIX}.select-test`)}
+                        value={props.assessment?._id}
+                        disabled
+                        MenuProps={{
+                            getContentAnchorEl: null,
+                            anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                        }}
+                    >
+                        <MenuItem value={props.assessment?._id}>{props.assessment?.title}</MenuItem>
+                    </Select>
+                </FormControl>
+            </Grid>
+            <Grid item xs={6}>
+                <FormControl variant="outlined" fullWidth>
+                    <InputLabel id="instructor-select-label">{t(`${T_PREFIX}.select-instructor`)}</InputLabel>
+                    <Select
+                        labelId="instructor-select-label"
+                        id="instructor-select"
+                        label={t(`${T_PREFIX}.select-instructor`)}
+                        value={props.instructorId}
+                        disabled
+                        MenuProps={{
+                            getContentAnchorEl: null,
+                            anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                        }}
+                    >
+                        <MenuItem value={props.instructorId}>{props.instructorFullName}</MenuItem>
+                    </Select>
+                </FormControl>
+            </Grid>
+        </Grid>
+    );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            width: 536,
             display: 'flex',
             flexDirection: 'column',
             gap: `${theme.spacing(2)}px`,

@@ -104,6 +104,7 @@ export default function AdminInstructorsPage() {
         const result = await openAssignInstructorModal({
             kindergartens: getKindergartens(),
             instructorId: instructor.instructor._id,
+            instructorFullName: getFullnameOrEmail(instructor.instructor),
             relations: getInstructorsRelations(),
             assessment: getSelectedAssessment(),
         });
@@ -116,6 +117,12 @@ export default function AdminInstructorsPage() {
                 });
             });
         }
+    }
+
+    function getFullnameOrEmail(instructor: InstructorRelation['instructor']) {
+        return instructor.firstname && instructor.lastname
+            ? `${instructor.firstname} ${instructor.lastname}`
+            : instructor.mail;
     }
 
     function countUnassigned() {

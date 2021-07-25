@@ -986,7 +986,9 @@
             "delete-instructor-subtitle": "Are you sure you want to delete the instructor",
             "assign-to-kindergarten": "Assign to the kindergarten",
             "select-test": "Select the test",
-            "select-instructor": "Select the instructor"
+            "select-instructor": "Select the instructor",
+            "search-kindergarten": "Search kindergarten",
+            "unassigned-kindergartens": "Unassigned kidnergartens"
         }
     },
     "add-results-page": {
@@ -1056,7 +1058,6 @@
         "jump": "POWER",
         "run": "SPEED"
     },
-
     "groupsModal": {
         "close": "close",
         "save": "save",
@@ -1077,5 +1078,8 @@
         "confirm": "Are you sure you want to delete the group {{name}}?",
         "edit-groups": "edit groups",
         "edit": "edit"
+    },
+    "general": {
+        "selected-count": "{{count}}/{{maxCount}} items were selected"
     }
 }
