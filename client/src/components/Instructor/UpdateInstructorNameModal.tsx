@@ -7,20 +7,17 @@ import { BasicModal } from '../Modal/BasicModal';
 import { ActionDialog, openDialog } from '../../utils/openDialog';
 import { UpdatedUserInput, UpdateInstructorNameResult } from '../../graphql/types';
 
-import { UpdateInstructorNameForm } from './UpdateInstructorNameForm';
-import { UpdateInstructorNameModalProps } from './UpdateInstructorName.types';
+import { UpdateInstructorNameForm, UpdateInstructorNameModalProps } from './UpdateInstructorNameForm';
 
 export const openUpdateInstructorNameModal = (options: UpdateInstructorNameModalProps) => {
     return openDialog<UpdateInstructorNameModalProps, { name: UpdatedUserInput }>(UpdateInstructorNameModal, options);
 };
 
 export const UpdateInstructorNameModal = ({
-    makeDecision,
-    onClose,
     firstname,
     lastname,
     mail,
-    preventClose,
+    makeDecision,
 }: UpdateInstructorNameModalProps & ActionDialog<{ name: UpdateInstructorNameResult }>) => {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -51,11 +48,6 @@ export const UpdateInstructorNameModal = ({
             onAction={formik.handleSubmit}
             isCancelButtonVisible={false}
             isActionButtonVisible
-            onClose={() => {
-                if (!preventClose) {
-                    onClose();
-                }
-            }}
         >
             <div className={classes.innerContent}>
                 <Typography variant="h4" className={classes.title}>

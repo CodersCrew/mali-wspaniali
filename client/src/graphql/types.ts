@@ -84,10 +84,7 @@ export interface UpdatedUserInput {
     lastname: string;
 }
 
-export interface UpdateInstructorNameResult {
-    firstname: string;
-    lastname: string;
-}
+export type UpdateInstructorNameResult = UpdatedUserInput;
 
 export type User = Omit<Me, 'notifications'>;
 

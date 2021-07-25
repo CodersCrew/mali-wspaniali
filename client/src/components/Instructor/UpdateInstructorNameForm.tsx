@@ -1,16 +1,25 @@
 import { makeStyles, Grid, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { FormikProps } from 'formik';
 
 import { Input } from '../ChildForm/Input';
-import { useBreakpoints } from '../../queries/useBreakpoints';
+import { useIsDevice } from '../../queries/useBreakpoints';
 import { useTheme } from '../../theme';
 
-import { UpdateInstructorNameFormProps } from './UpdateInstructorName.types';
+export interface UpdateInstructorNameModalProps {
+    firstname: string;
+    lastname: string;
+    mail: string;
+}
+
+interface UpdateInstructorNameFormProps {
+    formik: FormikProps<UpdateInstructorNameModalProps>;
+}
 
 export const UpdateInstructorNameForm = ({ formik }: UpdateInstructorNameFormProps) => {
     const theme = useTheme();
     const classes = useStyles(theme);
-    const device = useBreakpoints();
+    const device = useIsDevice();
     const { t } = useTranslation();
 
     return (
@@ -19,7 +28,7 @@ export const UpdateInstructorNameForm = ({ formik }: UpdateInstructorNameFormPro
                 <Grid
                     container
                     spacing={2}
-                    direction={device !== 'DESKTOP' ? 'column' : 'row'}
+                    direction={!device.isDesktop ? 'column' : 'row'}
                     className={classes.container}
                 >
                     <Grid item classes={{ root: classes.item }}>
