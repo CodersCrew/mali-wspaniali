@@ -29,6 +29,7 @@ interface InstructorRowProps {
     relation: InstructorRelation;
     onAssignInstructorClick: (id: InstructorRelation) => void;
     assessment: Assessment | null;
+    isActive: boolean;
 }
 
 const T_PREFIX = 'admin-instructors-page.table';
@@ -72,7 +73,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                 <TableCell>{lastname}</TableCell>
                 <TableCell data-testid="instructor-mail">{mail}</TableCell>
                 <TableCell align="right" className={classes.kindergartenCell}>
-                    {isRowActive() && (
+                    {(props.isActive || props.relation.kindergartens.length > 0) && (
                         <Fade in={showAddButton} mountOnEnter unmountOnExit timeout={500}>
                             <div className={classes.iconButtonContainer}>
                                 <Tooltip
@@ -136,10 +137,6 @@ export function InstructorsTableRow(props: InstructorRowProps) {
             </TableRow>
         </>
     );
-
-    function isRowActive() {
-        return props.assessment && props.relation.kindergartens.length > 0;
-    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -77,4 +77,10 @@ export class ChildAssessmentResultDTO extends FieldCore {
 
   @Field(() => Float, { nullable: true })
   lastMeasurementJumpResult: number;
+
+  @Field({ nullable: true })
+  firstMeasurementGroup: string;
+
+  @Field({ nullable: true })
+  lastMeasurementGroup: string;
 }

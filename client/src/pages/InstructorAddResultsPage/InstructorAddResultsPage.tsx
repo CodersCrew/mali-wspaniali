@@ -23,11 +23,13 @@ import {
     useUpdateAssessmentResult,
     UpdatedAssessmentInput,
 } from '../../operations/mutations/Results/updateAssessmentResult';
+import { GroupsSubheader } from './GroupsModal/GroupsSubheader';
 
 export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
     const [selectedAssessment, setSelectedAssessment] = useState('');
     const [selectedKindergarten, setSelectedKindergarten] = useState('');
+    const [selectedGroup, setSelectedGroup] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [fullNameSortType, setFullNameSortType] = useState('asc');
     const [ageSortType, setAgeSortType] = useState('');
@@ -43,7 +45,7 @@ export default function InstructorAddResultsPage() {
     const currentChildren =
         currentAssessment?.kindergartens
             .filter((k) => !!k.kindergarten)
-            .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || [];
+            .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || []; // we need intersection with selectedGroup.children
 
     useEffect(() => {
         activePage(['instructor-menu.results-table']);
@@ -77,6 +79,15 @@ export default function InstructorAddResultsPage() {
             {!device.isSmallMobile ? (
                 <>
                     <CustomContainer
+                        header={
+                            <ChildListHeader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
+                                searchTerm={searchTerm}
+                                onChange={handleFilterChanged}
+                            />
+                        }
                         subheader={
                             <AssessmentSubheader
                                 results={kindergartenResults}
@@ -84,12 +95,11 @@ export default function InstructorAddResultsPage() {
                                 assessment={currentAssessment}
                             />
                         }
-                        header={
-                            <ChildListHeader
+                        subsubheader={
+                            <GroupsSubheader
                                 assessments={assessments}
                                 selectedAssessment={selectedAssessment}
                                 selectedKindergarten={selectedKindergarten}
-                                searchTerm={searchTerm}
                                 onChange={handleFilterChanged}
                             />
                         }
@@ -132,6 +142,14 @@ export default function InstructorAddResultsPage() {
                                 searchTerm={searchTerm}
                             />
                         }
+                        subsubheader={
+                            <GroupsSubheader
+                                assessments={assessments}
+                                selectedAssessment={selectedAssessment}
+                                selectedKindergarten={selectedKindergarten}
+                                onChange={handleFilterChanged}
+                            />
+                        }
                         container={
                             <ChildListCompactContainer
                                 assessment={currentAssessment}
@@ -165,6 +183,13 @@ export default function InstructorAddResultsPage() {
 
         if (type === 'searchTerm') {
             setSearchTerm(value);
+
+            return;
+        }
+
+        if (type === 'group') {
+            setSelectedGroup(value);
+            console.log(selectedGroup);
 
             return;
         }

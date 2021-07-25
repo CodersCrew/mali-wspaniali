@@ -1,5 +1,5 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 import { CoreModel } from '../../../shared/utils/core_model';
 import {
   ChildAssessmentResultCreatedEvent,
@@ -77,6 +77,14 @@ export class ChildAssessmentResultCore extends CoreModel {
 
   @Expose()
   lastMeasurementKindergarten: string;
+
+  @Expose()
+  @Transform(value => value ?? '')
+  firstMeasurementGroup: string;
+
+  @Expose()
+  @Transform(value => value ?? '')
+  lastMeasurementGroup: string;
 }
 
 export class ChildAssessmentResult extends AggregateRoot {

@@ -62,7 +62,7 @@ export class ChildAssessmentResultResolver {
 
     if (!fetchedAssessment) return null;
 
-    return AssessmentMapper.toPersist(fetchedAssessment);
+    return AssessmentMapper.toPlain(fetchedAssessment);
   }
 
   @Query(() => ChildAssessmentResultDTO)

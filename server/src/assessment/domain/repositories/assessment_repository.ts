@@ -64,7 +64,7 @@ export class AssessmentRepository {
 
   async create(newAssessment: Assessment): Promise<Assessment> {
     const createdAssessment = new this.model(
-      AssessmentMapper.toPersist(newAssessment),
+      AssessmentMapper.toPlain(newAssessment),
     );
 
     const result = await createdAssessment
@@ -77,7 +77,7 @@ export class AssessmentRepository {
   async update(assessment: Assessment): Promise<Assessment> {
     const assessmentDocument = await this.model.findById(assessment.id);
 
-    await assessmentDocument.update(AssessmentMapper.toPersist(assessment));
+    await assessmentDocument.update(AssessmentMapper.toPlain(assessment));
 
     return assessment;
   }
