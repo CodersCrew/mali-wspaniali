@@ -100,8 +100,6 @@ export interface Me {
     children: Child[];
     agreements: Agreement[];
     notifications: Notification[];
-    firstname: string;
-    lastname: string;
 }
 
 export interface AssessmentParam {
