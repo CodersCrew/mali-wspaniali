@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Theme, Typography, Box } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, Typography, Box, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import Maker from '../../assets/authTemplateLogos/maker/maker.png';
@@ -27,7 +27,9 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
             </div>
             <div className={classes.makerBox}>
                 <div className={classes.imageBox}>
-                    <img src={Maker} alt="maker_logo" className={classes.image} />
+                    <Link href="https://coderscrew.pl/" target="_blank">
+                        <img src={Maker} alt="maker_logo" className={classes.image} />
+                    </Link>
                 </div>
             </div>
             <div className={classes.partnersBox}>
