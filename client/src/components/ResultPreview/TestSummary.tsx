@@ -40,7 +40,7 @@ export const TestSummary = ({ prefix }: Props) => {
                     </Box>
                     <Typography variant="caption" color="textSecondary">
                         {t('child-profile.carries-out-on', {
-                            date: dayjs(resultWrapper.result.createdAt).format('LL'),
+                            date: dayjs(resultWrapper.result.createdAt).format('l'),
                         })}
                     </Typography>
                 </Box>

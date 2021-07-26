@@ -61,7 +61,7 @@ export function AssessmentItem({ value, onClick }: Props) {
     }
 
     function parseDate(date: string): string {
-        return dayjs.utc(date).format('DD.MM.YYYY');
+        return dayjs.utc(date).format('l');
     }
 }
 

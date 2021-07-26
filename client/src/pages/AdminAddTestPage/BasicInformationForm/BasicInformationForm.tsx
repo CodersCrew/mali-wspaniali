@@ -23,9 +23,9 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
                         <List disablePadding>
                             <AssessmentInformationItem
                                 label={t('add-test-view.basic-information-form.first-measurement')}
-                                subheader={`${dayjs(assessment.firstMeasurementStartDate).format('LL')} - ${dayjs(
+                                subheader={`${dayjs(assessment.firstMeasurementStartDate).format('l')} - ${dayjs(
                                     assessment.firstMeasurementEndDate,
-                                ).format('LL')}`}
+                                ).format('l')}`}
                                 status={assessment.firstMeasurementStatus}
                                 result={getFirstMeasurementCount()}
                                 divider
@@ -34,9 +34,9 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
                             />{' '}
                             <AssessmentInformationItem
                                 label={t('add-test-view.basic-information-form.last-measurement')}
-                                subheader={`${dayjs(assessment.lastMeasurementStartDate).format('LL')} - ${dayjs(
+                                subheader={`${dayjs(assessment.lastMeasurementStartDate).format('l')} - ${dayjs(
                                     assessment.lastMeasurementEndDate,
-                                ).format('LL')}`}
+                                ).format('l')}`}
                                 status={assessment.lastMeasurementStatus}
                                 result={getLastMeasurementCount()}
                                 disabled={isLastMeasurementDisabled()}
