@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles, Avatar } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/';
 
 import { Sex } from '../../../graphql/types';
-import BoyAvatar from '../../../assets/boy.png';
-import GirlAvatar from '../../../assets/girl.png';
+import BoyAvatar from '../../../assets/boy.svg';
+import GirlAvatar from '../../../assets/girl.svg';
 
 export function ChildAvatar({ sex }: { sex: Sex }) {
     const classes = useStyles();
@@ -11,7 +11,7 @@ export function ChildAvatar({ sex }: { sex: Sex }) {
 
     return (
         <div className={classes.avatarWrapper}>
-            <Avatar src={avatar} className={classes.avatar} variant="square" />
+            <img src={avatar} className={classes.avatar} />
         </div>
     );
 }
@@ -32,7 +32,6 @@ const useStyles = makeStyles({
         height: 28,
     },
     avatar: {
-        width: 24,
         height: 24,
         '&> img': {
             objectFit: 'contain',

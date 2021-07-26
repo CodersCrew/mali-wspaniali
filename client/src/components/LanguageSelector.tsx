@@ -1,7 +1,7 @@
 import { IconButton, createStyles, makeStyles } from '@material-ui/core';
 
-import PlFlag from '../assets/pl.png';
-import EnFlag from '../assets/en.png';
+import PlFlag from '../assets/pl.svg';
+import EnFlag from '../assets/en.svg';
 
 interface Props {
     language: string | null;
@@ -25,6 +25,7 @@ export const LanguageSelector = ({ language, onClick }: Props) => {
 const useStyles = makeStyles(() =>
     createStyles({
         flag: {
+            objectFit: 'cover',
             borderRadius: '50%',
             width: 24,
             height: 24,
