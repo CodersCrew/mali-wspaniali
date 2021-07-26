@@ -6,8 +6,8 @@ import { useFormik } from 'formik';
 import { Child, AddChildResult, UpdatedChildInput } from '../../graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
 import { ChildCard } from '../ChildCard/ChildCard';
-import BoyAvatar from '../../assets/boy.png';
-import GirlAvatar from '../../assets/girl.png';
+import BoyAvatar from '../../assets/boy.svg';
+import GirlAvatar from '../../assets/girl.svg';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
 
@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     header: { marginBottom: theme.spacing(2) },
     mail: { margin: theme.spacing(0.5, 0, 1.5) },
     childAvatar: {
-        width: '100%',
+        height: 120,
         objectFit: 'contain',
         margin: '5px',
     },
