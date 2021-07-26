@@ -40,27 +40,6 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <SelectList
-                            items={[
-                                <MenuItem key="done" value="planned">
-                                    {t('add-test-view.basic-information-form.planned')}
-                                </MenuItem>,
-                                <MenuItem key="active" value="active">
-                                    {t('add-test-view.basic-information-form.active')}
-                                </MenuItem>,
-                                <MenuItem key="done" value="done">
-                                    {t('add-test-view.basic-information-form.done')}
-                                </MenuItem>,
-                            ]}
-                            disabled={isDisabled}
-                            label={t('add-test-view.basic-information-form.status')}
-                            value={assessment.status}
-                            onSelect={(status) => {
-                                onChange({ ...assessment, status });
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <Typography variant="subtitle1">

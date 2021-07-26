@@ -23,7 +23,6 @@ export const GET_ALL_ASSESSMENTS = gql`
             isOutdated
             isDeleted
             title
-            status
             firstMeasurementStatus
             lastMeasurementStatus
             kindergartens {
@@ -56,7 +55,6 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
             firstMeasurementEndDate
             lastMeasurementStartDate
             lastMeasurementEndDate
-            status
             firstMeasurementStatus
             lastMeasurementStatus
             kindergartens {

@@ -23,9 +23,6 @@ export class AssessmentDTO extends FieldCore {
   lastMeasurementEndDate: Date;
 
   @Field()
-  status: string;
-
-  @Field()
   firstMeasurementStatus: string;
 
   @Field()

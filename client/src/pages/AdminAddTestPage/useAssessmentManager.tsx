@@ -27,7 +27,6 @@ export interface AssessmentManagerState {
     title: string;
     isOutdated: boolean;
     isDeleted: boolean;
-    status: string;
     firstMeasurementStatus: string;
     lastMeasurementStatus: string;
     firstMeasurementStartDate: string;
@@ -35,13 +34,15 @@ export interface AssessmentManagerState {
     lastMeasurementStartDate: string;
     lastMeasurementEndDate: string;
     kindergartenIds: string[];
+    firstMeasurementResultCount: number;
+    lastMeasurementResultCount: number;
+    maxResultCount: number;
 }
 
 const defaultAssessment: AssessmentManagerState = {
     title: '',
     isOutdated: false,
     isDeleted: false,
-    status: 'active',
     firstMeasurementStatus: 'active',
     lastMeasurementStatus: 'active',
     firstMeasurementStartDate: formatDate(defaultStartDate),
@@ -49,6 +50,9 @@ const defaultAssessment: AssessmentManagerState = {
     lastMeasurementStartDate: formatDate(defaultStartDate),
     lastMeasurementEndDate: formatDate(defaultEndDate),
     kindergartenIds: [],
+    firstMeasurementResultCount: 0,
+    lastMeasurementResultCount: 0,
+    maxResultCount: 0,
 };
 
 export function useAssessmentManager(
@@ -71,7 +75,6 @@ export function useAssessmentManager(
 
         setUpdateLocalAssessment({
             title: assessment.title,
-            status: assessment.status,
             firstMeasurementStatus: assessment.firstMeasurementStatus,
             lastMeasurementStatus: assessment.lastMeasurementStatus,
             firstMeasurementStartDate: assessment.firstMeasurementStartDate,
@@ -81,6 +84,9 @@ export function useAssessmentManager(
             isOutdated: assessment.isOutdated,
             isDeleted: assessment.isDeleted,
             kindergartenIds: assessment.kindergartens.filter((k) => !!k.kindergarten).map((k) => k.kindergarten!._id),
+            firstMeasurementResultCount: assessment.firstMeasurementResultCount,
+            lastMeasurementResultCount: assessment.lastMeasurementResultCount,
+            maxResultCount: assessment.maxResultCount,
         });
     }, [assessment]);
 
@@ -154,7 +160,6 @@ export function useAssessmentManager(
             firstMeasurementEndDate: assessmentState.firstMeasurementEndDate,
             lastMeasurementStartDate: assessmentState.lastMeasurementStartDate,
             lastMeasurementEndDate: assessmentState.lastMeasurementEndDate,
-            status: assessmentState.status,
             firstMeasurementStatus: assessmentState.firstMeasurementStatus,
             lastMeasurementStatus: assessmentState.lastMeasurementStatus,
             kindergartenIds: assessmentState.kindergartenIds,

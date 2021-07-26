@@ -20,7 +20,6 @@ export const AssessmentSchema = new Schema({
   firstMeasurementEndDate: String,
   lastMeasurementStartDate: String,
   lastMeasurementEndDate: String,
-  status: String,
   firstMeasurementStatus: String,
   lastMeasurementStatus: String,
   kindergartens: {

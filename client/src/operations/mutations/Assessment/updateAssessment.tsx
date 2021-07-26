@@ -24,7 +24,6 @@ export const UPDATE_ASSESSMENT = gql`
             isOutdated
             isDeleted
             title
-            status
             firstMeasurementStatus
             lastMeasurementStatus
             firstMeasurementStartDate

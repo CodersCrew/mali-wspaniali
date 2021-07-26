@@ -236,13 +236,15 @@ export interface Assessment {
     isOutdated: boolean;
     isDeleted: boolean;
     title: string;
-    status: string;
     firstMeasurementStatus: string;
     lastMeasurementStatus: string;
     firstMeasurementStartDate: string;
     firstMeasurementEndDate: string;
     lastMeasurementStartDate: string;
     lastMeasurementEndDate: string;
+    firstMeasurementResultCount: number;
+    lastMeasurementResultCount: number;
+    maxResultCount: number;
     kindergartens: {
         instructor: User | null;
         kindergarten: Kindergarten | null;
