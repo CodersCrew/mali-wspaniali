@@ -1,5 +1,5 @@
-import MWLogo from '../assets/MALWSP_logo_black.png';
+import MWLogo from '../assets/MW_logo_text.svg';
 
 export function AppLogo() {
-    return <img src={MWLogo} alt="Mali Wspaniali" />;
+    return <img src={MWLogo} width={56} height={45} alt="Mali Wspaniali" />;
 }

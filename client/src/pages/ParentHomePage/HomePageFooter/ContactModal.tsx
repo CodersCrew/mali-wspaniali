@@ -6,7 +6,7 @@ import { BasicModal } from '../../../components/Modal/BasicModal';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { SocialMediaBar } from '../SocialMediaBar';
 
-import Logo from '../../../assets/MALWSP_logo_black_name.png';
+import Logo from '../../../assets/MW_logo_with_characters.svg';
 
 export const openContactModal = () => {
     return openDialog(ContactModal);

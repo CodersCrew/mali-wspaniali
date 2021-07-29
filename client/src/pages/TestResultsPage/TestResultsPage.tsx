@@ -12,28 +12,30 @@ import { useKindergartensWithChildren } from '../../operations/queries/Kindergar
 import { PageContainer } from '../../components/PageContainer';
 import { Theme } from '../../theme';
 import { SelectList } from '../../components/SelectList';
-import { AssessmentPart, assessmentParts, AssessmentType, TestToggleButton } from './TestToggleButton';
+import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
 import { ButtonSecondary } from '../../components/Button';
 import { Assessment } from '../../graphql/types';
 
 export default function TestResultsPage() {
-    const history = useHistory<Assessment[]>();
-    const { assessmentId, assessmentType } = useParams<{ assessmentId: string; assessmentType: AssessmentType }>();
+    const history = useHistory<{ assessment: Assessment[] }>();
+    const { assessmentId, measurementType } = useParams<{ assessmentId: string; measurementType: MeasurementType }>();
     const classes = useStyles();
     const { t } = useTranslation();
 
     const { kindergartenList } = useKindergartensWithChildren(assessmentId);
     const [SearchedValue, setSearchedValue] = useState('');
 
-    const selectedAssessmentPart = assessmentParts.find((a) => a.type === assessmentType) ?? assessmentParts[0];
+    const selectedAssessmentPart = assessmentParts.find((a) => a.type === measurementType) ?? assessmentParts[0];
 
-    const orderedAssessments = history.location.state;
+    const orderedAssessments = history.location.state?.assessment;
     const selectedAssessment = orderedAssessments.find((a) => a._id === assessmentId) ?? orderedAssessments[0];
 
-    const pushToAdminResult = (selectedAssessmentId: string, selectedAssessmentType: string) => {
+    const pushToAdminResult = (selectedAssessmentId: string, selectedAssessmentType: MeasurementType) => {
         history.push({
             pathname: `/admin/${selectedAssessmentId}/${selectedAssessmentType}`,
-            state: orderedAssessments,
+            state: {
+                assessment: orderedAssessments,
+            },
         });
     };
     useEffect(() => {
@@ -41,7 +43,7 @@ export default function TestResultsPage() {
     }, []);
 
     const handleSelectAssessment = (selectedAssessmentId: string) => {
-        pushToAdminResult(selectedAssessmentId, assessmentType);
+        pushToAdminResult(selectedAssessmentId, measurementType);
     };
     const handleSelectAssessmentType = (selectedAssessmentType: AssessmentPart) => {
         pushToAdminResult(assessmentId, selectedAssessmentType.type);
@@ -89,11 +91,12 @@ export default function TestResultsPage() {
                     <span className={classes.measurementText}>{t(selectedAssessmentPart.assessmentName)}</span>
                     <p>
                         <span className={classes.ResultStatusText}>{t('test-results.status-result')}: </span>
-                        {t(`manage-test-view.test-list.${selectedAssessment.status}`)}
+                        {t(`manage-test-view.test-list.${selectedAssessment.firstMeasurementStatus}`)}
                     </p>
                 </Box>
                 <TestResultsTable
-                    assessmentType={assessmentType}
+                    assessmentId={assessmentId}
+                    measurementType={measurementType}
                     kindergartens={kindergartenList}
                     searchedValue={SearchedValue}
                     onSearchChange={setSearchedValue}
@@ -119,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         SelectListContainer: {
             display: 'flex',
-            width: '80%',
+            width: 400,
             marginRight: theme.spacing(2),
         },
         optionsContainer: {

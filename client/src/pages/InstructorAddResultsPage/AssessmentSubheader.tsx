@@ -43,8 +43,8 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                 <Grid container spacing={1}>
                                     <Grid item>
                                         <Typography variant="body2">
-                                            {dayjs(currentMeasurement.startDate).format('DD.MM')}&nbsp;-&nbsp;
-                                            {dayjs(currentMeasurement.endDate).format('DD.MM.YYYY')}
+                                            {dayjs(currentMeasurement.startDate).format('l')}&nbsp;-&nbsp;
+                                            {dayjs(currentMeasurement.endDate).format('l')}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -105,8 +105,8 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                         <Grid container direction="row" spacing={1}>
                             <Grid item>
                                 <Typography className={classes.responsiveSubext1} variant="body2">
-                                    {dayjs(currentMeasurement.startDate).format('DD.MM')}&nbsp;-&nbsp;
-                                    {dayjs(currentMeasurement.endDate).format('DD.MM.YYYY')}
+                                    {dayjs(currentMeasurement.startDate).format('l')}&nbsp;-&nbsp;
+                                    {dayjs(currentMeasurement.endDate).format('l')}
                                 </Typography>
                             </Grid>
                             <Grid item>

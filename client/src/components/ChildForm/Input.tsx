@@ -4,12 +4,12 @@ interface Props {
     label: string;
     value: string;
     name: string;
-    error: string | undefined;
+    error?: string;
     touched?: boolean;
     multiline?: boolean;
     rows?: number;
     disabled?: boolean;
-    onChange: (name: string, value: string) => void;
+    onChange?: (name: string, value: string) => void;
 }
 
 export function Input({ label, value, name, onChange, error, touched, multiline, rows, disabled }: Props) {
@@ -29,7 +29,7 @@ export function Input({ label, value, name, onChange, error, touched, multiline,
             variant="outlined"
             fullWidth
             onChange={({ target: { name: inputName, value: inputValue } }) =>
-                onChange(inputName as string, inputValue as string)
+                onChange && onChange(inputName as string, inputValue as string)
             }
         />
     );

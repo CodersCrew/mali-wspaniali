@@ -1,8 +1,6 @@
 import { Box, Link, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
-import Facebook from '../../assets/socialMedia/Facebook.png';
-import Youtube from '../../assets/socialMedia/Youtube.png';
+import { Facebook, YouTube } from '@material-ui/icons';
 
 export function SocialMediaBar() {
     const { t } = useTranslation();
@@ -13,10 +11,10 @@ export function SocialMediaBar() {
                 {t('home-page-content.visit')}
             </Typography>
             <Link href="https://www.facebook.com/maliwspanialifundacja" target="_blank">
-                <img src={Facebook} alt="Facebook icon" />
+                <Facebook fontSize="large" />
             </Link>
             <Link href="https://www.youtube.com/channel/UC8_5pq7EqIwJZNBRPtEEqwQ" target="_blank">
-                <img src={Youtube} alt="Youtube icon" />
+                <YouTube fontSize="large" />
             </Link>
         </Box>
     );

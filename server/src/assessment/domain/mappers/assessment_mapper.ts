@@ -15,7 +15,6 @@ export class AssessmentMapper {
       ...value,
       isOutdated: false,
       isDeleted: false,
-      status: 'active',
       firstMeasurementStatus: 'active',
       lastMeasurementStatus: 'active',
       kindergartens,

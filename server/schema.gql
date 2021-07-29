@@ -278,7 +278,6 @@ type AssessmentDTO {
   firstMeasurementEndDate: DateTime!
   lastMeasurementStartDate: DateTime!
   lastMeasurementEndDate: DateTime!
-  status: String!
   firstMeasurementStatus: String!
   lastMeasurementStatus: String!
   kindergartens: [KindergartenWithInstructorDTO!]!
@@ -518,7 +517,6 @@ input AssessmentInput {
   firstMeasurementEndDate: DateTime!
   lastMeasurementStartDate: DateTime!
   lastMeasurementEndDate: DateTime!
-  status: String!
   firstMeasurementStatus: String!
   lastMeasurementStatus: String!
   kindergartenIds: [String!]!
@@ -530,7 +528,6 @@ input UpdatedAssessmentInput {
   firstMeasurementEndDate: DateTime
   lastMeasurementStartDate: DateTime
   lastMeasurementEndDate: DateTime
-  status: String
   firstMeasurementStatus: String
   lastMeasurementStatus: String
   kindergartens: [JSONObject!]

@@ -29,9 +29,6 @@ export class AssessmentCore extends CoreModel {
   lastMeasurementEndDate: Date;
 
   @Expose()
-  status: string;
-
-  @Expose()
   firstMeasurementStatus: string;
 
   @Expose()
@@ -88,10 +85,6 @@ export class Assessment extends AggregateRoot {
 
   get lastMeasurementEndDate(): Date {
     return this.props.lastMeasurementEndDate;
-  }
-
-  get status(): string {
-    return this.props.status;
   }
 
   get firstMeasurementStatus(): string {

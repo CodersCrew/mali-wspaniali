@@ -2,14 +2,17 @@ import { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
-import { AuthTemplate } from './AuthTemplate/AuthTemplate';
-import { AppWrapper } from './AppWrapper';
-import { ParentWrapper } from './ParentWrapper';
+
 import { ThemeProvider } from '../theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 import { CookieModal } from '../components/CookieModal/CookieModal';
+
+import { ParentWrapper } from './ParentWrapper';
+import { AppWrapper } from './AppWrapper';
+import { AuthTemplate } from './AuthTemplate/AuthTemplate';
 import { getRootLazyImports } from './rootLazyImports';
+import { InstructorWrapper } from './InstructorWrapper';
 
 const generateClassName = createGenerateClassName();
 
@@ -66,7 +69,7 @@ export function Root() {
                                         />
                                         <Route
                                             exact
-                                            path="/admin/:assessmentId/:assessmentType"
+                                            path="/admin/:assessmentId/:measurementType"
                                             component={getRootLazyImports('TestResultsPage')}
                                         />
                                         <Route path="/admin/users" component={getRootLazyImports('UsersPage')} />
@@ -117,7 +120,10 @@ export function Root() {
                                             path="/admin/articles/create"
                                             component={getRootLazyImports('AdminCreateArticlePage')}
                                         />
-                                        {/* TODO: add ArticlePage component for Admin, currently we display the same component as for Parent */}
+                                        {/*
+                                         TODO: add ArticlePage component for Admin,
+                                         currently we display the same component as for Parent
+*/}
                                         <Route
                                             exact
                                             path="/admin/article/:articleId"
@@ -139,61 +145,67 @@ export function Root() {
                                             path="/admin/settings"
                                             component={getRootLazyImports('AdminSettingsPage')}
                                         />
-                                        <Route
-                                            exact
-                                            path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"
-                                            component={getRootLazyImports('InstructorResultCreatorPage')}
-                                        />
-                                        <Route
-                                            exact
-                                            path="/instructor"
-                                            component={getRootLazyImports('InstructorAddResultsPage')}
-                                        />
-                                        <Route
-                                            exact
-                                            path="/instructor/notifications"
-                                            component={getRootLazyImports('NotificationsPage')}
-                                        />
-                                        <Route
-                                            path="/instructor/settings"
-                                            component={getRootLazyImports('InstructorSettingsPage')}
-                                        />
-                                        <Route
-                                            path="/instructor/results/:resultId"
-                                            component={getRootLazyImports('InstructorResultPage')}
-                                        />
-                                        <ParentWrapper>
-                                            <Route
-                                                exact
-                                                path="/parent"
-                                                component={getRootLazyImports('ParentHomePage')}
-                                            />
-                                            <Route
-                                                path="/parent/child/:childId/:category"
-                                                component={getRootLazyImports('ChildResultsPage')}
-                                            />
-                                            <Route
-                                                path="/parent/blog/:category"
-                                                exact
-                                                component={getRootLazyImports('ArticleListPage')}
-                                            />
-                                            <Route
-                                                path="/parent/article/:articleId"
-                                                component={getRootLazyImports('ArticlePage')}
-                                            />
-                                            <Route
-                                                path="/parent/notifications"
-                                                component={getRootLazyImports('NotificationsPage')}
-                                            />
-                                            <Route
-                                                path="/parent/agreements"
-                                                component={getRootLazyImports('ParentAgreementsPage')}
-                                            />
-                                            <Route
-                                                path="/parent/settings"
-                                                component={getRootLazyImports('ParentSettingsPage')}
-                                            />
-                                        </ParentWrapper>
+                                        <Route path="/instructor">
+                                            <InstructorWrapper>
+                                                <Route
+                                                    exact
+                                                    path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"
+                                                    component={getRootLazyImports('InstructorResultCreatorPage')}
+                                                />
+                                                <Route
+                                                    exact
+                                                    path="/instructor"
+                                                    component={getRootLazyImports('InstructorAddResultsPage')}
+                                                />
+                                                <Route
+                                                    exact
+                                                    path="/instructor/notifications"
+                                                    component={getRootLazyImports('NotificationsPage')}
+                                                />
+                                                <Route
+                                                    path="/instructor/settings"
+                                                    component={getRootLazyImports('InstructorSettingsPage')}
+                                                />
+                                                <Route
+                                                    path="/instructor/results/:resultId"
+                                                    component={getRootLazyImports('InstructorResultPage')}
+                                                />
+                                            </InstructorWrapper>
+                                        </Route>
+                                        <Route path="/parent">
+                                            <ParentWrapper>
+                                                <Route
+                                                    exact
+                                                    path="/parent"
+                                                    component={getRootLazyImports('ParentHomePage')}
+                                                />
+                                                <Route
+                                                    path="/parent/child/:childId/:category"
+                                                    component={getRootLazyImports('ChildResultsPage')}
+                                                />
+                                                <Route
+                                                    path="/parent/blog/:category"
+                                                    exact
+                                                    component={getRootLazyImports('ArticleListPage')}
+                                                />
+                                                <Route
+                                                    path="/parent/article/:articleId"
+                                                    component={getRootLazyImports('ArticlePage')}
+                                                />
+                                                <Route
+                                                    path="/parent/notifications"
+                                                    component={getRootLazyImports('NotificationsPage')}
+                                                />
+                                                <Route
+                                                    path="/parent/agreements"
+                                                    component={getRootLazyImports('ParentAgreementsPage')}
+                                                />
+                                                <Route
+                                                    path="/parent/settings"
+                                                    component={getRootLazyImports('ParentSettingsPage')}
+                                                />
+                                            </ParentWrapper>
+                                        </Route>
                                     </Switch>
                                 </AppWrapper>
                             </Route>

@@ -16,8 +16,10 @@ const TestResultLoadingPage = () => {
 
     if (!areAssessmentsLoading)
         history.push({
-            pathname: `/admin/${orderedAssessments[0]._id}/PP`,
-            state: orderedAssessments,
+            pathname: `/admin/${orderedAssessments[0]._id}/first`,
+            state: {
+                assessment: orderedAssessments,
+            },
         });
 
     return (

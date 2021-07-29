@@ -177,7 +177,7 @@
         "button-icon-expand-tooltip": "Rozwiń",
         "button-icon-results-tooltip": "Wyniki",
         "rows-number": "Pokazuj w tabeli:",
-        "edit": "Edytuj",
+        "edit": "Edytuj dane",
         "first-measurement": "PP",
         "last-measurement": "PK",
         "publish-result": "Publikuj wyniki",
@@ -889,11 +889,23 @@
             }
         }
     },
+    "add-instructor-name-modal": {
+        "inputs": {
+            "firstname": "Imię",
+            "lastname": "Nazwisko",
+            "email": "Email"
+        },
+        "button": "Zapisz",
+        "heading": "Witaj na platformie Mali Wspaniali",
+        "description": "Zanim przejdziesz do Panelu Instruktora uzupełnij swoje dane. Danych nie będzie można później zmienić.",
+        "first-name-required": "Podanie imienia jest wymagane",
+        "last-name-required": "Podanie nazwiska jest wymagane"
+    },
     "years_0": "rok",
     "years_1": "lata",
     "years_2": "lat",
     "cookies-popup": {
-        "link": "Polityce Prywatoności",
+        "link": "Polityce Prywatności",
         "content": "Używamy „ciasteczek” (cookies) w celu gromadzenia informacji związanych z korzystaniem z serwisu.  Można wyłączyć ten mechanizm w ustawieniach przeglądarki. Przeczytaj więcej na temat naszych praktyk dotyczących “ciasteczek” w  <Link>Polityce Prywatoności</Link> serwisu."
     },
     "agreements": {
@@ -988,7 +1000,9 @@
             "delete-instructor-subtitle": "Czy na pewno chcesz usunąć instruktora",
             "assign-to-kindergarten": "Przydziel do przedszkola",
             "select-test": "Wybierz test",
-            "select-instructor": "Wybierz instruktora"
+            "select-instructor": "Wybierz instruktora",
+            "search-kindergarten": "Wyszukaj przedszkole",
+            "unassigned-kindergartens": "Nieprzypisane przedszkola"
         }
     },
     "add-results-page": {
@@ -1005,7 +1019,7 @@
         "first-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze początkowym",
         "last-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze końcowym",
         "see-results": "Zobacz wyniki",
-        "add-result": "Dodaj wynik",
+        "add-result": "Dodaj wyniki",
         "add-first-assessment-result": "Dodaj wyniki pomiaru początkowego",
         "add-last-assessment-result": "Dodaj wyniki pomiaru końcowego",
         "add-note": "Dodaj notatkę",
@@ -1041,6 +1055,7 @@
         "points": "pkt",
         "title-first-measurement": "POZIOM SPRAWNOŚCI PRÓBY POCZĄTKOWEJ",
         "title-last-measurement": "POZIOM SPRAWNOŚCI PRÓBY KOŃCOWEJ",
+        "back-to-add-results": "Dodaj wyniki",
         "back-to-table": "Wróć do tabeli wyników",
         "back-to-results": "DODAJ WYNIKI",
         "child-list": "Lista dzieci",
@@ -1079,5 +1094,8 @@
         "confirm": "Czy na pewno chcesz usunąć grupę {{name}}?",
         "edit-groups": "włącz edycję grup",
         "edit": "edytuj"
+    },
+    "general": {
+        "selected-count": "{{count}}/{{maxCount}} zaznaczono"
     }
 }

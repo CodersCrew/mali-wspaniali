@@ -4,6 +4,7 @@ import { Grid, Typography, List } from '@material-ui/core';
 import { AssessmentManagerState } from '../useAssessmentManager';
 import { AssessmentInformationItem } from './AssessmentInformationItem';
 import { CustomContainer } from '../../../components/CustomContainer';
+import dayjs from '../../../localizedMoment';
 
 interface Props {
     assessment: AssessmentManagerState;
@@ -21,27 +22,23 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
                     <Grid item xs={12}>
                         <List disablePadding>
                             <AssessmentInformationItem
-                                label={t('add-test-view.basic-information-form.test-name')}
-                                subheader={assessment.title}
-                                status={assessment.status}
-                                result={67.5}
-                                divider
-                                onClick={onClick}
-                            />
-                            <AssessmentInformationItem
                                 label={t('add-test-view.basic-information-form.first-measurement')}
-                                subheader={`${assessment.firstMeasurementStartDate} - ${assessment.firstMeasurementEndDate}`}
+                                subheader={`${dayjs(assessment.firstMeasurementStartDate).format('l')} - ${dayjs(
+                                    assessment.firstMeasurementEndDate,
+                                ).format('l')}`}
                                 status={assessment.firstMeasurementStatus}
-                                result={95}
+                                result={getFirstMeasurementCount()}
                                 divider
                                 disabled={isFirstMeasurementDisabled()}
                                 onClick={onClick}
                             />{' '}
                             <AssessmentInformationItem
                                 label={t('add-test-view.basic-information-form.last-measurement')}
-                                subheader={`${assessment.lastMeasurementStartDate} - ${assessment.lastMeasurementEndDate}`}
+                                subheader={`${dayjs(assessment.lastMeasurementStartDate).format('l')} - ${dayjs(
+                                    assessment.lastMeasurementEndDate,
+                                ).format('l')}`}
                                 status={assessment.lastMeasurementStatus}
-                                result={40}
+                                result={getLastMeasurementCount()}
                                 disabled={isLastMeasurementDisabled()}
                                 onClick={onClick}
                             />
@@ -51,6 +48,14 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
             }
         />
     );
+
+    function getFirstMeasurementCount() {
+        return (assessment.firstMeasurementResultCount * 100) / assessment.maxResultCount;
+    }
+
+    function getLastMeasurementCount() {
+        return (assessment.lastMeasurementResultCount * 100) / assessment.maxResultCount;
+    }
 
     function isFirstMeasurementDisabled() {
         return ['planned', 'not-planned'].includes(assessment.firstMeasurementStatus);

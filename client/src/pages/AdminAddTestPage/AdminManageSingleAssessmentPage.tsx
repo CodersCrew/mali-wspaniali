@@ -36,7 +36,13 @@ export default function AdminManageSingleAssessmentPage() {
 
     return (
         <PageContainer>
-            <Grid container alignItems="flex-end" spacing={6}>
+            <Grid
+                container
+                direction="column"
+                alignItems="flex-end"
+                spacing={6}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
+            >
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item xs={7}>
@@ -67,7 +73,7 @@ export default function AdminManageSingleAssessmentPage() {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                     {!isViewOnly && (
                         <Grid container justify="space-between">
                             <Grid item xs={6}>

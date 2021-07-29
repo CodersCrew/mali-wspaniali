@@ -16,7 +16,6 @@ interface UseKindergartensReturnType {
 export const KINDERGARTENS_WITH_CHILDREN = gql`
     query Assessment($assessmentId: String!) {
         assessment(id: $assessmentId) {
-            status
             kindergartens {
                 kindergarten {
                     _id
