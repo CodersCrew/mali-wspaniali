@@ -53,10 +53,10 @@ export function ChildPickerDrawer(props: Props) {
                         <Box className={classes.header} onClick={() => setIsDrawerOpen(false)}>
                             <AppBar elevation={0} classes={{ root: classes.appBar }}>
                                 <Toolbar>
-                                    <Box mr={1}>
-                                        <ArrowBack className={classes.icon} />
-                                    </Box>
-                                    <Box fontWeight={500}>{t('add-result-page.back-to-results')}</Box>
+                                    <ButtonSecondary
+                                        icon={<ArrowBack />}
+                                        innerText={t('add-result-page.back-to-add-results')}
+                                    />
                                 </Toolbar>
                                 <Divider />
                             </AppBar>

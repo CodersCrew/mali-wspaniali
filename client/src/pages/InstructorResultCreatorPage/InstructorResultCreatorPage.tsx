@@ -21,7 +21,7 @@ import {
     useResultCreator,
     AssessmentValues,
 } from './useResultCreator';
-import { ResultCreator } from './ResultCreator';
+import { ResultCreator as DesktopResultCreator } from './ResultCreator';
 import { MobileResultCreator } from './MobileResultCreator';
 
 interface PageParams {
@@ -30,13 +30,20 @@ interface PageParams {
     childId: string;
     measurement: string;
 }
+interface HistoryResultCreatorParams {
+    sourcePageInfo: {
+        actualPath: string;
+        backBtnName: string;
+    };
+}
 
 export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
     const { createAssessmentResult } = useCreateAssessmentResult();
     const { updateAssessmentResult } = useUpdateAssessmentResult();
 
-    const history = useHistory();
+    const history = useHistory<HistoryResultCreatorParams | undefined>();
+
     const device = useIsDevice();
     const { t } = useTranslation();
 
@@ -55,21 +62,17 @@ export default function InstructorResultCreatorPage() {
         return null;
     }
 
+    const ResultCreator = device.isSmallMobile ? MobileResultCreator : DesktopResultCreator;
+
     return (
-        <>
-            <PageContainer>
-                {device.isSmallMobile ? (
-                    <MobileResultCreator
-                        resultCreator={resultCreator}
-                        measurement={measurement}
-                        onClick={handleClick}
-                    />
-                ) : (
-                    <ResultCreator resultCreator={resultCreator} measurement={measurement} onClick={handleClick} />
-                )}
-            </PageContainer>
-        </>
+        <PageContainer>
+            <ResultCreator {...{ resultCreator, measurement, onClick: handleClick }} />
+        </PageContainer>
     );
+
+    function pushHistory(destinationPath: string) {
+        history.push(`/instructor/result/add/${destinationPath}`, history.location.state);
+    }
 
     function handleClick(type: string, value: string | AssessmentValues) {
         if (isResultCreatorErrorReturnProps(resultCreator)) {
@@ -77,13 +80,13 @@ export default function InstructorResultCreatorPage() {
         }
 
         if (type === 'child') {
-            history.push(
-                `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${value}`,
+            pushHistory(
+                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${value}`,
             );
         }
 
         if (type === 'measurement') {
-            history.push(`/instructor/result/add/${value}/${assessmentId}/${kindergartenId}/${childId}`);
+            pushHistory(`${value}/${assessmentId}/${kindergartenId}/${childId}`);
         }
 
         if (type === 'kindergarten') {
@@ -93,9 +96,7 @@ export default function InstructorResultCreatorPage() {
             const firstChildren = currentSelectedKindergarten?.children![0];
 
             if (firstChildren) {
-                history.push(
-                    `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${value}/${firstChildren._id}`,
-                );
+                pushHistory(`${measurement}/${resultCreator.selectedAssessment._id}/${value}/${firstChildren._id}`);
             }
         }
 
@@ -163,7 +164,15 @@ export default function InstructorResultCreatorPage() {
     }
 
     function redirectToResultTable() {
-        history.push('/instructor');
+        const sourcePage = history.location.state?.sourcePageInfo.actualPath ?? '/instructor';
+        const actualState = history.location.state;
+        history.push({
+            pathname: sourcePage,
+            state: actualState && {
+                ...actualState,
+                sourcePageInfo: { ...actualState.sourcePageInfo, actualPath: history.location.pathname },
+            },
+        });
     }
 
     function redirectToNextChild() {
@@ -178,8 +187,8 @@ export default function InstructorResultCreatorPage() {
         const foundNextChild = resultCreator.selectedKindergarten.children![currentChildIndex + 1];
 
         if (foundNextChild) {
-            history.push(
-                `/instructor/result/add/${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
+            pushHistory(
+                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
             );
         }
     }

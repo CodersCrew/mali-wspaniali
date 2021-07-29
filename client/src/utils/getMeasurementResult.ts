@@ -1,11 +1,11 @@
 import { KindergartenWithChildren } from '../graphql/types';
-import { AssessmentType } from '../pages/TestResultsPage/TestToggleButton';
+import { MeasurementType } from '../pages/TestResultsPage/TestToggleButton';
 
-export const getMeasurementResult = (assessmentType: AssessmentType, kindergarten: KindergartenWithChildren) => {
+export const getMeasurementResult = (assessmentType: MeasurementType, kindergarten: KindergartenWithChildren) => {
     switch (assessmentType) {
-        case 'PP':
+        case 'first':
             return kindergarten.kindergarten.firstMeasurementResultCount;
-        case 'PK':
+        case 'last':
             return kindergarten.kindergarten.lastMeasurementResultCount;
         default: {
             // eslint-disable-next-line no-case-declarations

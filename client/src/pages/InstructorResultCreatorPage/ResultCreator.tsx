@@ -45,7 +45,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
-                    <EditorPanel measurement={measurement} onClick={onClick} resultCreator={resultCreator} />
+                    <EditorPanel {...{ resultCreator, measurement, onClick }} />
                 </Grid>
             </Grid>
         </Paper>
