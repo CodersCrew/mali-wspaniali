@@ -131,16 +131,14 @@ export function MeasurementEditor(props: Props) {
                     variant="outlined"
                     rows={7}
                     value={props.note || ''}
-                    onChange={({ currentTarget: { value } }) =>
-                        value.length <= LENGTH_LIMIT && props.onNoteChange(value)
-                    }
+                    onChange={({ target: { value } }) => value.length <= LENGTH_LIMIT && props.onNoteChange(value)}
                 />
                 <Grid container justify="flex-end">
                     <Grid item>
                         <Box mt={1}>
                             <Typography variant="caption" color="textSecondary">
                                 {t('add-results-page.add-note-modal.text-limit', {
-                                    noteLength: props.note.length,
+                                    noteLength: props.note?.length || 0,
                                     noteLimit: LENGTH_LIMIT,
                                 })}
                             </Typography>

@@ -138,23 +138,25 @@ export default function InstructorResultCreatorPage() {
     }
 
     function mapValuesToResult(results: AssessmentValues): Partial<CreatedAssessmentInput> {
-        const result: Partial<CreatedAssessmentInput> = {};
+        const result: Record<string, string | number> = {};
 
-        const measurementName = (resultCreator as ResultCreatorReturnProps).edited;
+        const measurementName = getEditedMeasurement();
 
-        (result as any)[
-            `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Result`
-        ] = results[measurementName as keyof AssessmentValues];
+        const measurementResult = `${measurement}Measurement${normalizeEditedMeasurementName(measurementName)}Result`;
+        const measurementDate = `${measurement}Measurement${normalizeEditedMeasurementName(measurementName)}Date`;
 
-        (result as any)[
-            `${measurement}Measurement${measurementName[0].toUpperCase()}${measurementName.substr(1)}Date`
-        ] = new Date().toISOString();
+        result[measurementResult] = results[measurementName];
+        result[measurementDate] = new Date().toISOString();
 
         if (results.note) {
-            (result as any)[`${measurement}MeasurementNote`] = results.note;
+            result[`${measurement}MeasurementNote`] = results.note;
         }
 
         return result;
+    }
+
+    function getEditedMeasurement() {
+        return (resultCreator as ResultCreatorReturnProps).edited as keyof AssessmentValues;
     }
 
     function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>, results: ResultCreatorReturnProps) {
@@ -202,4 +204,8 @@ function isResultCreatorErrorReturnProps(
     value: ResultCreatorReturnProps | ResultCreatorErrorReturnProps,
 ): value is ResultCreatorErrorReturnProps {
     return !!value.error;
+}
+
+function normalizeEditedMeasurementName(value: string) {
+    return value[0].toUpperCase() + value.substr(1);
 }

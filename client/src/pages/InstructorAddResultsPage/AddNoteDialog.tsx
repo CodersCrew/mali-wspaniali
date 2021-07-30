@@ -72,16 +72,17 @@ function AddNoteDialog({
                             multiline
                             variant="outlined"
                             fullWidth
+                            autoFocus
                             rows={7}
                             value={note}
-                            onChange={({ target: { value } }) => value.length <= LENGTH_LIMIT && setNote(value)}
+                            onChange={({ target: { value } }) => setNote(value)}
                         />
                         <Grid container justify="flex-end">
                             <Grid item>
                                 <Box mt={1}>
                                     <Typography variant="caption" color="textSecondary">
                                         {t('add-results-page.add-note-modal.text-limit', {
-                                            noteLength: note.length,
+                                            noteLength: note?.length || 0,
                                             noteLimit: LENGTH_LIMIT,
                                         })}
                                     </Typography>
@@ -99,17 +100,13 @@ function AddNoteDialog({
                 />
                 <ButtonPrimary
                     onClick={onAccepted}
-                    disabled={isSaveDisabled()}
+                    disabled={note.length > LENGTH_LIMIT}
                     variant="text"
                     innerText={t('add-results-page.add-note-modal.save')}
                 />
             </DialogActions>
         </Dialog>
     );
-
-    function isSaveDisabled() {
-        return note.length < 3 || note === initialNote;
-    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
