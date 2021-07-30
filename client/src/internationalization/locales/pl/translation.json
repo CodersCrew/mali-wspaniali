@@ -1030,7 +1030,7 @@
             "placeholder": "Kliknij by zacząć pisać",
             "cancel": "Anuluj",
             "save": "Zapisz",
-            "text-limit": "Zostało {{characters}} znaków"
+            "text-limit": "Zostało {{noteLength}}/{{noteLimit}}  znaków"
         },
         "no-assessments": {
             "title": "Wybacz, w tym momencie nie możesz jeszcze dodawać wyników",

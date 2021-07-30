@@ -69,6 +69,9 @@ function EditorPanel(props: EditorPanelProps) {
 
     React.useEffect(() => {
         setLocalResult(props.resultCreator.values);
+    }, [props.resultCreator.values]);
+
+    React.useEffect(() => {
         setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 
@@ -137,17 +140,21 @@ function EditorPanel(props: EditorPanelProps) {
                         {isLastChild() ? (
                             <ButtonSecondary
                                 variant="contained"
-                                onClick={() => props.onClick('save-and-back-to-table', localResult)}
+                                onClick={() =>
+                                    props.onClick('save-and-back-to-table', { ...localResult, note: localNote })
+                                }
                             >
                                 {t('add-result-page.save-and-back-to-table')}
                             </ButtonSecondary>
                         ) : (
                             <ActionMenuButtonSecondary
                                 label={t('add-result-page.save-and-next')}
-                                onClick={() => props.onClick('save-and-next', localResult)}
+                                onClick={() => props.onClick('save-and-next', { ...localResult, note: localNote })}
                                 options={[
                                     <MenuItem
-                                        onClick={() => props.onClick('save-and-back-to-table', localResult)}
+                                        onClick={() =>
+                                            props.onClick('save-and-back-to-table', { ...localResult, note: localNote })
+                                        }
                                         key="add-result-page.save-and-back-to-table"
                                     >
                                         {t('add-result-page.save-and-back-to-table')}
