@@ -1,9 +1,10 @@
 import { createStyles, makeStyles, Theme, Typography, Box, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Maker from '../../assets/authTemplateLogos/maker/maker.png';
-import Ecm from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
-import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu-nowe.jpg';
+import MakerLogotype from '../../assets/authTemplateLogos/maker/maker.png';
+import EcmLogotype from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
+import MinisterstwoSportuLogotype from '../../assets/authTemplateLogos/partners/ministerstwo-sportu-nowe.jpg';
+import WroclawLogotype from '../../assets/authTemplateLogos/partners/wroclaw-miasto-spotkan.svg';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
 export const PartnerLogotypeContainer = (): JSX.Element => {
@@ -11,7 +12,7 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
-    const partners = [Ecm, MinisterstwoSportu];
+    const partners = [MinisterstwoSportuLogotype, WroclawLogotype, EcmLogotype];
 
     return (
         <div className={classes.partnersContainer}>
@@ -28,7 +29,7 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
             <div className={classes.makerBox}>
                 <div className={classes.imageBox}>
                     <Link href="https://coderscrew.pl/" target="_blank">
-                        <img src={Maker} alt="maker_logo" className={classes.image} />
+                        <img src={MakerLogotype} alt="maker_logo" className={classes.image} />
                     </Link>
                 </div>
             </div>
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
         partnersContainer: {
             width: '100%',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
+            gridTemplateColumns: '1fr 1fr 1fr 1fr',
             columnGap: theme.spacing(2),
             [theme.breakpoints.down('md')]: {
                 columnGap: theme.spacing(1),
@@ -56,20 +57,20 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         headerBox: {
             width: '100%',
-            gridColumnStart: 'span 3',
+            gridColumnStart: 'span 4',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
+            gridTemplateColumns: '1fr 1fr 1fr 1fr',
         },
         headerMaker: {},
         headerPartners: {
-            gridColumnStart: 'span 2',
+            gridColumnStart: 'span 3',
         },
         makerBox: {},
         partnersBox: {
             width: '100%',
-            gridColumnStart: 'span 2',
+            gridColumnStart: 'span 3',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: '1fr 1fr 1fr',
             columnGap: theme.spacing(2),
             [theme.breakpoints.down('md')]: {
                 columnGap: theme.spacing(1),
