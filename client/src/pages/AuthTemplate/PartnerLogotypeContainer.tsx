@@ -1,5 +1,6 @@
 import { createStyles, makeStyles, Theme, Typography, Box, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 import MakerLogotype from '../../assets/authTemplateLogos/maker/maker.png';
 import EcmLogotype from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
@@ -7,12 +8,18 @@ import MinisterstwoSportuLogotype from '../../assets/authTemplateLogos/partners/
 import WroclawLogotype from '../../assets/authTemplateLogos/partners/wroclaw-miasto-spotkan.svg';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
-export const PartnerLogotypeContainer = (): JSX.Element => {
-    const classes = useStyles();
-    const { t } = useTranslation();
-    const { isDesktop } = useIsDevice();
+type UseStylesProps = {
+    visiblePartners: number;
+};
 
-    const partners = [MinisterstwoSportuLogotype, WroclawLogotype, EcmLogotype];
+export const PartnerLogotypeContainer = (): JSX.Element => {
+    const { t } = useTranslation();
+    const { isDesktop, isSmallMobile } = useIsDevice();
+
+    const partners = [WroclawLogotype, MinisterstwoSportuLogotype, EcmLogotype];
+    const visiblePartners = isSmallMobile ? 2 : 3;
+
+    const classes = useStyles({ visiblePartners });
 
     return (
         <div className={classes.partnersContainer}>
@@ -35,7 +42,10 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
             </div>
             <div className={classes.partnersBox}>
                 {partners.map((logo, key) => (
-                    <div className={classes.imageBox} key={key}>
+                    <div
+                        className={clsx({ [classes.imageBox]: true, [classes.invisible]: key >= visiblePartners })}
+                        key={key}
+                    >
                         <img src={partners[key]} alt={`maker_logo_${key}`} className={classes.image} />
                     </div>
                 ))}
@@ -46,36 +56,38 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        partnersContainer: {
+        partnersContainer: ({ visiblePartners }: UseStylesProps) => ({
             width: '100%',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr 1fr',
+            gridTemplateColumns: `repeat(${visiblePartners + 1}, 1fr)`,
             columnGap: theme.spacing(2),
             [theme.breakpoints.down('md')]: {
                 columnGap: theme.spacing(1),
             },
-        },
-        headerBox: {
+        }),
+
+        headerBox: ({ visiblePartners }: UseStylesProps) => ({
             width: '100%',
-            gridColumnStart: 'span 4',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr 1fr',
-        },
+            gridColumnStart: `span ${visiblePartners + 1}`,
+            gridTemplateColumns: `repeat(${visiblePartners + 1}, 1fr)`,
+        }),
         headerMaker: {},
-        headerPartners: {
-            gridColumnStart: 'span 3',
-        },
+        headerPartners: ({ visiblePartners }: UseStylesProps) => ({
+            gridColumnStart: `span ${visiblePartners}`,
+        }),
+
         makerBox: {},
-        partnersBox: {
+        partnersBox: ({ visiblePartners }: UseStylesProps) => ({
             width: '100%',
-            gridColumnStart: 'span 3',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
+            gridColumnStart: `span ${visiblePartners}`,
+            gridTemplateColumns: `repeat(${visiblePartners}, 1fr)`,
             columnGap: theme.spacing(2),
             [theme.breakpoints.down('md')]: {
                 columnGap: theme.spacing(1),
             },
-        },
+        }),
         imageBox: {
             minWidth: `calc(100% / 3 - 2 * ${theme.spacing(3)}px / 3)`,
             height: '70px',
@@ -93,6 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: theme.spacing(0.25),
             },
         },
+
         image: {
             maxWidth: `calc(100% - 2 * ${theme.spacing(0.5)}px)`,
             maxHeight: `calc(70px - 2 * ${theme.spacing(0.5)}px)`,
@@ -100,6 +113,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 maxWidth: `calc(100% - 2 * ${theme.spacing(0.5)}px)`,
                 maxHeight: `calc(40px - 2 * ${theme.spacing(0.5)}px)`,
             },
+        },
+
+        invisible: {
+            display: 'none',
         },
     }),
 );
