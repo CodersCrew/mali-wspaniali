@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useDebounce } from 'use-debounce';
 
 import { CustomContainer } from '../../components/CustomContainer';
 import { AdminSettingsListContainers } from './AdminSettingsListContainer';
@@ -16,6 +17,8 @@ export function AdminSettingsList() {
     const { kindergartenList } = useKindergartens();
     const [selectedKindergaraden, setSelectedKindergarden] = React.useState<string>('');
     const [selectedRole, setSelectedRole] = React.useState<string>('parent');
+    const [search, setSearch] = React.useState<string>('');
+    const [debouncedSearch] = useDebounce(search, 500);
 
     return (
         <CustomContainer
@@ -26,9 +29,16 @@ export function AdminSettingsList() {
                     selectedRole={selectedRole}
                     onKindergartenChange={handleKindergartenChange}
                     onRoleChange={handleRoleChange}
+                    onSearchChange={setSearch}
                 />
             }
-            container={<AdminSettingsListContainers role={selectedRole} />}
+            container={
+                <AdminSettingsListContainers
+                    role={selectedRole}
+                    search={debouncedSearch}
+                    kindergartenId={selectedKindergaraden}
+                />
+            }
         />
     );
 
@@ -47,11 +57,12 @@ interface SettingsHeaderProps {
     selectedRole: string;
     onKindergartenChange: (id: string) => void;
     onRoleChange: (role: string) => void;
+    onSearchChange: (value: string) => void;
 }
 
 function SettingsHeader(props: SettingsHeaderProps) {
     const { t } = useTranslation();
-    const kindergartenOptions = props.kindergartens.map(mapKindergartenToOption);
+    const kindergartenOptions = [{ label: '-', value: '' }, ...props.kindergartens.map(mapKindergartenToOption)];
 
     const classes = useStyles();
 
@@ -60,14 +71,17 @@ function SettingsHeader(props: SettingsHeaderProps) {
             <Typography variant="h4">{t(`${T_PREFIX}.header`)}</Typography>
             <Grid container spacing={3} className={classes.headerContainer}>
                 <Grid item xs={12} sm={4}>
-                    <SearchInput />
+                    <SearchInput onChange={props.onSearchChange} />
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <AdminKindergardenSelect
                         label={t(`${T_PREFIX}.role-select`)}
                         value={props.selectedRole}
                         options={getRoleOptions()}
-                        onChange={props.onRoleChange}
+                        onChange={(role) => {
+                            props.onRoleChange(role);
+                            props.onKindergartenChange('');
+                        }}
                     />
                 </Grid>
                 {props.selectedRole === 'parent' && (

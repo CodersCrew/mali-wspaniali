@@ -42,6 +42,7 @@ import { AnonymizeUserCommand } from './domain/commands/impl/anonymize_user_comm
 import { AgreementMapper } from '../agreements/domain/mappers/agreement_mapper';
 import { NotificationCore } from '../notifications/domain/models/notification_model';
 import { UserMapper } from './domain/mappers/user_mapper';
+import { UserPagination } from './params/user_pagination';
 import {
   Agreement,
   AgreementCore,
@@ -92,10 +93,10 @@ export class UsersResolver {
   @Query(() => [UserDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async users(
-    @Args('role', { nullable: true }) role: string,
+    @Args('options', { nullable: true }) options: UserPagination,
   ): Promise<UserCore[]> {
     const users: User[] = await this.queryBus.execute(
-      new GetAllUsersQuery(role),
+      new GetAllUsersQuery(options),
     );
 
     return users.map(user => user.getProps()) as UserCore[];

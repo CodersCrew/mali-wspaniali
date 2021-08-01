@@ -30,8 +30,8 @@ interface UseUsersReturnType {
 }
 
 export const INSTRUCTORS = gql`
-    query Users {
-        users(role: "instructor") {
+    query Users($options: UserPagination!) {
+        users(options: $options) {
             _id
             createdAt
             mail
@@ -43,8 +43,8 @@ export const INSTRUCTORS = gql`
 `;
 
 export const ADMINS = gql`
-    query Users {
-        users(role: "admin") {
+    query Users($options: UserPagination!) {
+        users(options: $options) {
             _id
             createdAt
             mail
@@ -54,8 +54,8 @@ export const ADMINS = gql`
 `;
 
 export const PARENTS = gql`
-    query Users {
-        users(role: "parent") {
+    query Users($options: UserPagination!) {
+        users(options: $options) {
             _id
             createdAt
             mail
@@ -125,8 +125,13 @@ export function useParents(): UseParentsReturnType {
     };
 }
 
-export function useUsers(role: string): UseUsersReturnType {
-    const { data, loading, refetch } = useQuery<ParentsListResponse>(role === 'parent' ? PARENTS : INSTRUCTORS);
+export function useUsers(options: { role: string; page?: string; search?: string }): UseUsersReturnType {
+    const { data, loading, refetch } = useQuery<ParentsListResponse>(
+        options.role === 'parent' ? PARENTS : INSTRUCTORS,
+        {
+            variables: { options },
+        },
+    );
 
     return {
         users: data?.users.map(normalizeUser) || [],
