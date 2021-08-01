@@ -307,13 +307,20 @@ type Query {
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   me: UserDTO!
   user(id: String!): UserDTO!
-  users(role: String): [UserDTO!]!
+  users(options: UserPagination): [UserDTO!]!
   allChildren: [ChildDTO!]!
   kindergartenResults(kindergartenId: String!, assessmentId: String!): [PartialChildResult!]!
   result(id: String!): ChildAssessmentResultDTO!
   newsletters: [NewsletterDTO!]!
   assessments: [AssessmentDTO!]!
   assessment(id: String!): AssessmentDTO!
+}
+
+input UserPagination {
+  kindergartenId: String
+  role: String
+  search: String
+  page: String
 }
 
 type Mutation {

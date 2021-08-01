@@ -170,7 +170,7 @@ export async function getUsers(role = 'parent') {
   }
 
   return app.resolve(GetAllUsersHandler).then(handler => {
-    return handler.execute(new GetAllUsersQuery(role));
+    return handler.execute(new GetAllUsersQuery({ role }));
   });
 }
 
