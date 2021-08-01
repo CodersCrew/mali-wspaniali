@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { TextField, InputAdornment } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 
-export const SearchInput = () => {
+export function SearchInput(props: { onChange: (value: string) => void }) {
     const { t } = useTranslation();
 
     return (
@@ -11,6 +11,7 @@ export const SearchInput = () => {
             id="search"
             label={t('user-settings.input-label')}
             fullWidth
+            onChange={({ target: { value } }) => props.onChange(value)}
             InputProps={
                 <InputAdornment position="end">
                     <SearchIcon />
@@ -18,4 +19,4 @@ export const SearchInput = () => {
             }
         />
     );
-};
+}
