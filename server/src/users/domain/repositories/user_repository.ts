@@ -9,6 +9,7 @@ import { classToPlain } from 'class-transformer';
 import { KeyCode } from '../../../key_codes/domain/models/key_code_model';
 import { UserMapper } from '../mappers/user_mapper';
 import { UserDTO } from '../../dto/user_dto';
+import { UserPagination } from '@users/params/user_pagination';
 
 @Injectable()
 export class UserRepository {
@@ -40,22 +41,48 @@ export class UserRepository {
       .then(users => users.map(parseUser));
   }
 
-  async getAll(role?: string): Promise<User[]> {
-    let query: { [index: string]: string | boolean | unknown } = {
-      isDeleted: {
-        $in: [false, undefined],
-      },
-    };
+  async getAll(options: UserPagination): Promise<User[]> {
+    const result = this.userModel
+      .aggregate([{ $project: { password: 0 } }])
+      .match({
+        isDeleted: {
+          $in: [false, undefined],
+        },
+      });
 
-    if (role) {
-      query.role = role;
+    if (options.search && options.search.length !== 0) {
+      result.match({
+        $or: [
+          { mail: { $regex: options.search, $options: 'i' } },
+          { firstname: { $regex: options.search, $options: 'i' } },
+          { lastname: { $regex: options.search, $options: 'i' } },
+        ],
+      });
     }
 
-    return await this.userModel
-      .find(query, { password: 0 })
-      .lean()
-      .exec()
-      .then(users => users.map(parseUser));
+    if (options.role) {
+      result.match({ role: options.role });
+    }
+
+    if (options.kindergartenId) {
+      result.lookup({
+        from: 'children',
+        localField: 'children',
+        foreignField: '_id',
+        as: 'ChildrenData',
+      });
+
+      result.match({
+        'ChildrenData.kindergarten': options.kindergartenId,
+      });
+    }
+
+    if (options.page) {
+      result.skip(10 * parseInt(options.page, 10));
+      result.limit(10);
+    }
+
+    return await result.exec().then(users => users.map(parseUser));
   }
 
   async getByMail(mail: string): Promise<User> {
