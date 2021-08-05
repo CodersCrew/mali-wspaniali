@@ -1095,6 +1095,21 @@
         "edit-groups": "włącz edycję grup",
         "edit": "edytuj"
     },
+    "add-article": {
+        "basic-information-form": {
+            "title": "Informacja o artykule",
+            "form-title": "Tytuł artykułu",
+            "category": "Kategoria",
+            "categories": {
+                "emotions": "emocje",
+                "activity": "aktywność",
+                "food": "żywienie",
+                "other": "inne"
+            },
+            "picture-url": "Adres URL zdjęcia głównego ",
+            "description": "Opis artykułu"
+        }
+    },
     "general": {
         "selected-count": "{{count}}/{{maxCount}} zaznaczono"
     }
