@@ -1092,6 +1092,21 @@
         "edit-groups": "edit groups",
         "edit": "edit"
     },
+    "add-article": {
+        "basic-information-form": {
+            "title": "Article information",
+            "form-title": "Title",
+            "category": "Category",
+            "categories": {
+                "emotions": "emotions",
+                "activity": "activity",
+                "food": "food",
+                "other": "other"
+            },
+            "picture-url": "Picture URL",
+            "description": "Description"
+        }
+    },
     "general": {
         "selected-count": "{{count}}/{{maxCount}} items were selected"
     }
