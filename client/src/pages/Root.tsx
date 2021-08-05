@@ -40,6 +40,7 @@ export function Root() {
                             <Route path={['/forgot-password']}>
                                 <AuthTemplate type="login">
                                     <Route
+                                        exact
                                         path="/forgot-password"
                                         component={getRootLazyImports('ForgotPasswordPage')}
                                     />
@@ -67,58 +68,67 @@ export function Root() {
                                             path="/admin"
                                             component={getRootLazyImports('TestResultLoadingPage')}
                                         />
+
+                                        <Route exact path="/admin/users" component={getRootLazyImports('UsersPage')} />
                                         <Route
                                             exact
-                                            path="/admin/:assessmentId/:measurementType"
-                                            component={getRootLazyImports('TestResultsPage')}
-                                        />
-                                        <Route path="/admin/users" component={getRootLazyImports('UsersPage')} />
-                                        <Route
                                             path="/admin/parent/:id"
                                             component={getRootLazyImports('ParentProfilePage')}
                                         />
                                         <Route
+                                            exact
                                             path="/admin/agreements"
                                             component={getRootLazyImports('AdminAgreementsPageContainer')}
                                         />
                                         <Route
+                                            exact
                                             path="/admin/newsletter"
                                             component={getRootLazyImports('NewsletterPage')}
                                         />
-                                        <Route path="/admin/archive" component={getRootLazyImports('ArchivePage')} />
                                         <Route
+                                            exact
+                                            path="/admin/archive"
+                                            component={getRootLazyImports('ArchivePage')}
+                                        />
+                                        <Route
+                                            exact
                                             path="/admin/notifications"
                                             component={getRootLazyImports('NotificationsPage')}
                                         />
                                         <Route
+                                            exact
                                             path="/admin/test-management/add"
                                             component={getRootLazyImports('AdminManageSingleAssessmentPage')}
                                         />
                                         <Route
+                                            exact
                                             path="/admin/test-management/:id/edit"
                                             component={getRootLazyImports('AdminManageSingleAssessmentPage')}
                                         />
                                         <Route
+                                            exact
                                             path="/admin/test-management/:id/details"
                                             component={getRootLazyImports('AdminManageSingleAssessmentPage')}
                                         />
                                         <Route
+                                            exact
                                             path="/admin/test-management"
                                             component={getRootLazyImports('AdminAssessmentHistoryPage')}
                                         />
                                         <Route
+                                            exact
                                             path="/admin/recommendations"
                                             component={getRootLazyImports('AdminRecommendationsPage')}
                                         />
                                         <Route
                                             exact
-                                            path="/admin/articles"
-                                            component={getRootLazyImports('AdminArticlesPage')}
+                                            path="/admin/articles/create"
+                                            component={getRootLazyImports('AdminCreateArticlePage')}
                                         />
                                         <Route
                                             exact
-                                            path="/admin/articles/create"
-                                            component={getRootLazyImports('AdminCreateArticlePage')}
+                                            path="/admin/articles"
+                                            component={getRootLazyImports('AdminArticlesPage')}
                                         />
                                         {/*
                                          TODO: add ArticlePage component for Admin,
@@ -145,6 +155,11 @@ export function Root() {
                                             path="/admin/settings"
                                             component={getRootLazyImports('AdminSettingsPage')}
                                         />
+                                        <Route
+                                            exact
+                                            path="/admin/:assessmentId/:measurementType"
+                                            component={getRootLazyImports('TestResultsPage')}
+                                        />
                                         <Route path="/instructor">
                                             <InstructorWrapper>
                                                 <Route
@@ -163,10 +178,12 @@ export function Root() {
                                                     component={getRootLazyImports('NotificationsPage')}
                                                 />
                                                 <Route
+                                                    exact
                                                     path="/instructor/settings"
                                                     component={getRootLazyImports('InstructorSettingsPage')}
                                                 />
                                                 <Route
+                                                    exact
                                                     path="/instructor/results/:resultId"
                                                     component={getRootLazyImports('InstructorResultPage')}
                                                 />
@@ -180,6 +197,7 @@ export function Root() {
                                                     component={getRootLazyImports('ParentHomePage')}
                                                 />
                                                 <Route
+                                                    exact
                                                     path="/parent/child/:childId/:category"
                                                     component={getRootLazyImports('ChildResultsPage')}
                                                 />
@@ -189,18 +207,22 @@ export function Root() {
                                                     component={getRootLazyImports('ArticleListPage')}
                                                 />
                                                 <Route
+                                                    exact
                                                     path="/parent/article/:articleId"
                                                     component={getRootLazyImports('ArticlePage')}
                                                 />
                                                 <Route
+                                                    exact
                                                     path="/parent/notifications"
                                                     component={getRootLazyImports('NotificationsPage')}
                                                 />
                                                 <Route
+                                                    exact
                                                     path="/parent/agreements"
                                                     component={getRootLazyImports('ParentAgreementsPage')}
                                                 />
                                                 <Route
+                                                    exact
                                                     path="/parent/settings"
                                                     component={getRootLazyImports('ParentSettingsPage')}
                                                 />
