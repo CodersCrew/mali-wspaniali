@@ -12,7 +12,6 @@ import { PaginatedArticles } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
-import { Loader } from '../../components/Loader';
 import { Pagination } from '../../components/Blog/Pagination';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { useCreateArticle } from '../../operations/mutations/Articles/createArticle';
@@ -41,8 +40,7 @@ export default function AdminArticlesPage() {
         setCurrentPage(1);
     }, []);
 
-    if (loading && !data) return <Loader />;
-    if (!data) return null;
+    if (!data || loading) return null;
 
     const { articles, count, hasNext } = data.paginatedArticles;
 
