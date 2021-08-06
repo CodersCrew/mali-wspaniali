@@ -112,13 +112,6 @@ export class ArticlesResolver {
       new UpdateArticleCommand(id, updates),
     );
 
-    const articleContent = updated.getProps();
-
-    if (articleContent) {
-      Sentry.captureMessage(
-        `[Mali Wspaniali]: Created a new article ${articleContent.title}`,
-      );
-    }
     return { status: !!updated };
   }
 }

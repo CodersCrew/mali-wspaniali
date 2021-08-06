@@ -1,4 +1,4 @@
-import { Box, createStyles, fade, Grid, ListItem, makeStyles, Theme, Typography } from '@material-ui/core';
+import { Box, createStyles, alpha, Grid, ListItem, makeStyles, Theme, Typography } from '@material-ui/core';
 import { BarChart, KeyboardArrowRight } from '@material-ui/icons';
 import clsx from 'clsx';
 import { Child } from '../../../graphql/types';
@@ -68,11 +68,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         listItemRoot: {
             '&:hover': {
-                backgroundColor: `${fade(theme.palette.primary.main, 0.08)} !important`,
+                backgroundColor: `${alpha(theme.palette.primary.main, 0.08)} !important`,
             },
         },
         listItemSelected: {
-            backgroundColor: `${fade(theme.palette.primary.main, 0.08)} !important`,
+            backgroundColor: `${alpha(theme.palette.primary.main, 0.08)} !important`,
         },
     }),
 );

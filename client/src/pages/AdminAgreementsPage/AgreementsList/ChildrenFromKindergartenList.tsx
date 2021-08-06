@@ -7,7 +7,7 @@ import {
     makeStyles,
     Theme,
     LinearProgress,
-    fade,
+    alpha,
     Collapse,
     Box,
 } from '@material-ui/core';
@@ -180,7 +180,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginLeft: theme.spacing(1),
         },
         progressbarPrimary: {
-            background: fade(theme.palette.success.light, 0.24),
+            background: alpha(theme.palette.success.light, 0.24),
         },
         progressbarSecondary: {
             background: theme.palette.success.dark,
