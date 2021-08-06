@@ -36,10 +36,11 @@ export function useCreateArticle() {
             return mutate({
                 variables: {
                     article: {
-                        title: 'Artykuł',
+                        title: 'Nowy artykuł',
                         category: 'other',
                         contentHTML: '',
-                        description: '',
+                        description:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                         pictureUrl: getRandomImage(),
                         redactor: {
                             firstName: '',
