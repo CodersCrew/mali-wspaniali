@@ -20,13 +20,7 @@ export const HomePageArticles = ({ articles }: Props) => {
         return articlesArray.map((article) => {
             return (
                 <Grid item key={article._id} xs={12} sm={6} md={4}>
-                    <BlogArticleCard
-                        title={article.title}
-                        pictureUrl={article.pictureUrl}
-                        description={article.description}
-                        link={`/parent/article/${article._id}`}
-                        category={t(`single-article.${article.category}`)}
-                    />
+                    <BlogArticleCard article={article} readOnly />
                 </Grid>
             );
         });

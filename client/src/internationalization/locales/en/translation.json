@@ -1110,6 +1110,14 @@
             "created": "Article created"
         }
     },
+    "admin-article-list": {
+        "card": {
+            "edit": "Edit",
+            "publish": "Publish (Notifications will be sent)",
+            "unpublish": "Hide (In case of re-publication, notifications will not be sent)",
+            "delete": "Delete"
+        }
+    },
     "general": {
         "selected-count": "{{count}}/{{maxCount}} items were selected"
     }

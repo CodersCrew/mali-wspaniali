@@ -1113,6 +1113,14 @@
             "created": "Utworzono artykuł"
         }
     },
+    "admin-article-list": {
+        "card": {
+            "edit": "Edytuj",
+            "publish": "Publikuj (Notyfikacje zostanę wysłane)",
+            "unpublish": "Ukryj (W przypadku ponownego opublikowania, powiadomienia nie zostaną wysłane)",
+            "delete": "Skasuj"
+        }
+    },
     "general": {
         "selected-count": "{{count}}/{{maxCount}} zaznaczono"
     }
