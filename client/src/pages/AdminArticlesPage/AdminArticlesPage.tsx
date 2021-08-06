@@ -1,22 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme, Typography, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import clsx from 'clsx';
 
-import { ARTICLES } from '../../graphql/articleRepository';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
-import { PaginatedArticles } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 import { Pagination } from '../../components/Blog/Pagination';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { useCreateArticle } from '../../operations/mutations/Articles/createArticle';
-
-const ARTICLES_PER_PAGE = 6;
+import { ARTICLES_PER_PAGE, useArticles } from '../../operations/queries/Articles/getArticles';
 
 export default function AdminArticlesPage() {
     const history = useHistory();
@@ -26,23 +22,17 @@ export default function AdminArticlesPage() {
     const { createArticle } = useCreateArticle();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, loading, fetchMore } = useQuery<{
-        paginatedArticles: PaginatedArticles;
-    }>(ARTICLES, {
-        variables: {
-            page: currentPage,
-            perPage: ARTICLES_PER_PAGE,
-        },
-    });
+
+    const { paginatedArticles, loading, fetchMore } = useArticles(currentPage);
 
     useEffect(() => {
         activePage(['admin-menu.articles.title']);
         setCurrentPage(1);
     }, []);
 
-    if (!data || loading) return null;
+    if (!paginatedArticles || loading) return null;
 
-    const { articles, count, hasNext } = data.paginatedArticles;
+    const { articles, count, hasNext } = paginatedArticles;
 
     return (
         <PageContainer>
