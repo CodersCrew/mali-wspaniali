@@ -134,7 +134,7 @@ mutation {
               tags: ["life-style"],
               title: "my title lorem ipsum"
             }) {
-              status
+              _id
             }
           }
           `,
@@ -247,7 +247,7 @@ mutation {
             tags: ["life-style"],
             title: "my title lorem ipsum"
           }) {
-            status
+            _id
           }
         }
         `,
