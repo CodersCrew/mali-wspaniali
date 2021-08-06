@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { makeStyles, Typography, Paper, Theme, fade } from '@material-ui/core';
+import { makeStyles, Typography, Paper, Theme, alpha } from '@material-ui/core';
 import clsx from 'clsx';
 
 interface Props {
@@ -35,11 +35,11 @@ const useStyles = makeStyles((theme: Theme) => ({
             opacity: 0.8,
             boxShadow: '0 0 2px 0px #fff',
             transition: 'all 0.3s ease-in-out',
-            backgroundColor: fade(theme.palette.primary.main, 0.2),
+            backgroundColor: alpha(theme.palette.primary.main, 0.2),
         },
     },
     activeImg: {
-        backgroundColor: fade(theme.palette.primary.main, 0.2),
+        backgroundColor: alpha(theme.palette.primary.main, 0.2),
     },
     name: {
         marginTop: theme.spacing(3),

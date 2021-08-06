@@ -11,7 +11,7 @@ import {
     createStyles,
     makeStyles,
     Theme,
-    fade,
+    alpha,
     Tooltip,
 } from '@material-ui/core';
 import { InsertChart as InsertChartIcon, Edit as EditIcon } from '@material-ui/icons';
@@ -139,7 +139,7 @@ const useStyles = makeStyles((theme: Theme) =>
         button: {
             '&:hover': {
                 color: theme.palette.primary.main,
-                backgroundColor: fade(theme.palette.primary.main, 0.2),
+                backgroundColor: alpha(theme.palette.primary.main, 0.2),
             },
             marginRight: theme.spacing(1),
             padding: theme.spacing(0),

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItem, ListItemIcon, ListItemText, makeStyles, Theme, createStyles, fade } from '@material-ui/core';
+import { ListItem, ListItemIcon, ListItemText, makeStyles, Theme, createStyles, alpha } from '@material-ui/core';
 import clsx from 'clsx';
 
 export interface SingleItemProps {
@@ -46,11 +46,11 @@ export function SingleItem({ item, leftPadding, grayed, onClick }: Props) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         activeButton: {
-            background: `${fade(theme.palette.primary.main, 0.2)} !important`,
+            background: `${alpha(theme.palette.primary.main, 0.2)} !important`,
         },
         button: {
             '&:hover': {
-                background: fade(theme.palette.primary.main, 0.2),
+                background: alpha(theme.palette.primary.main, 0.2),
             },
         },
         rootButton: {
