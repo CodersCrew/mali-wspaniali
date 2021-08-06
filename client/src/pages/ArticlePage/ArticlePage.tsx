@@ -98,9 +98,6 @@ const useStyles = makeStyles((theme: Theme) =>
         videoContainer: {
             margin: `${theme.spacing(4)}px 0`,
         },
-        tagContainer: {
-            marginBottom: theme.spacing(4),
-        },
         redactorContainer: {
             margin: `${theme.spacing(4)}px 0`,
         },

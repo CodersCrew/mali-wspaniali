@@ -9,7 +9,6 @@ export const ArticleSchema = new Schema({
   description: String,
   pictureUrl: String,
   redactor: RedactorSchema,
-  tags: [String],
   title: String,
   videoUrl: String,
   isPublished: Boolean,

@@ -5,7 +5,6 @@ export interface Article {
     pictureUrl: string;
     title: string;
     contentHTML: string;
-    tags: string[];
     category: ArticleCategory;
     description: string;
     videoUrl: string;
