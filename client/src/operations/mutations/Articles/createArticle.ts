@@ -40,7 +40,7 @@ export function useCreateArticle() {
                         category: 'other',
                         contentHTML: '',
                         description: '',
-                        pictureUrl: 'https://picsum.photos/1200/800',
+                        pictureUrl: getRandomImage(),
                         redactor: {
                             firstName: '',
                             lastName: '',
@@ -54,4 +54,8 @@ export function useCreateArticle() {
             });
         },
     };
+}
+
+function getRandomImage() {
+    return `https://picsum.photos/id/${Math.floor(Math.random() * 1000) + 1}/1200/800`;
 }
