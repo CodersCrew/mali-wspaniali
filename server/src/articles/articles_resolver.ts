@@ -56,7 +56,7 @@ export class ArticlesResolver {
     const result = {
       articles: articles
         .slice(0, perPage || ARTICLE_PER_PAGE)
-        .map(article => ArticleMapper.toRaw(article)),
+        .map(article => ArticleMapper.toPlain(article)),
       count: articleCount,
       hasNext: articles.length === (perPage || ARTICLE_PER_PAGE) + 1,
     };
@@ -73,7 +73,7 @@ export class ArticlesResolver {
       new GetLastArticlesQuery(count),
     );
 
-    return articles.map(article => ArticleMapper.toRaw(article));
+    return articles.map(article => ArticleMapper.toPlain(article));
   }
 
   @Query(() => ArticleDTO)
@@ -84,7 +84,7 @@ export class ArticlesResolver {
     );
 
     if (classToPlain(article.getProps())) {
-      return ArticleMapper.toRaw(article);
+      return ArticleMapper.toPlain(article);
     }
 
     throw new HttpException('Article not found', HttpStatus.NOT_FOUND);

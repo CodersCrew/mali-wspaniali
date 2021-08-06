@@ -19,7 +19,9 @@ export class ArticlesRepository {
 
   create(createArticleDTO: CreateArticleInput): Promise<Article> {
     const article = ArticleMapper.toDomain(createArticleDTO);
-    const createdArticle = new this.articleModel(ArticleMapper.toRaw(article));
+    const createdArticle = new this.articleModel(
+      ArticleMapper.toPlain(article),
+    );
 
     return createdArticle
       .save()
