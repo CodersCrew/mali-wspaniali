@@ -63,13 +63,7 @@ export default function ArticleListPage() {
                 <Grid container justify="flex-start" spacing={isSmallMobile ? 2 : 3}>
                     {articles.map((article) => (
                         <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
-                            <BlogArticleCard
-                                title={article.title}
-                                pictureUrl={article.pictureUrl}
-                                description={article.description}
-                                link={`/parent/article/${article._id}`}
-                                category={t(`single-article.${article.category}`)}
-                            />
+                            <BlogArticleCard article={article} readOnly />
                         </Grid>
                     ))}
                 </Grid>

@@ -50,13 +50,7 @@ export default function AdminArticlesPage() {
             <Grid container justify="center" spacing={isSmallMobile ? 2 : 4}>
                 {articles.map((article) => (
                     <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
-                        <BlogArticleCard
-                            title={article.title}
-                            pictureUrl={article.pictureUrl}
-                            description={article.description}
-                            link={`/parent/article/${article._id}`}
-                            category={t(`single-article.${article.category}`)}
-                        />
+                        <BlogArticleCard article={article} />
                     </Grid>
                 ))}
             </Grid>
