@@ -12,7 +12,6 @@ import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { ReadingTime } from './ReadingTime';
-import { TagList } from './TagList';
 
 export default function ArticlePage() {
     const { articleId } = useParams<{ articleId: string }>();
@@ -31,7 +30,7 @@ export default function ArticlePage() {
 
     if (!article) return null;
 
-    const { pictureUrl, createdAt, publishedAt, title, description, contentHTML, tags, videoUrl, redactor } = article;
+    const { pictureUrl, createdAt, publishedAt, title, description, contentHTML, videoUrl, redactor } = article;
 
     return (
         <>
@@ -59,9 +58,6 @@ export default function ArticlePage() {
                     <ArticleContent title={title} description={description} contentHTML={contentHTML} />
                     <Grid item classes={{ root: classes.videoContainer }}>
                         <ArticleVideo videoUrl={videoUrl} />
-                    </Grid>
-                    <Grid item classes={{ root: classes.tagContainer }}>
-                        <TagList tags={tags} />
                     </Grid>
                 </Grid>
                 <Grid container xs={12}>
