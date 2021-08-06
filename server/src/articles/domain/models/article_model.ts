@@ -34,9 +34,6 @@ export class ArticleCore extends CoreModel {
   category: string;
 
   @Expose()
-  tags: string[];
-
-  @Expose()
   @IsOptional()
   @ValueOrNull()
   videoUrl: string | null;
@@ -98,10 +95,6 @@ export class Article extends AggregateRoot
 
   get redactor(): Redactor {
     return this.props.redactor;
-  }
-
-  get tags(): string[] {
-    return this.props.tags;
   }
 
   get isDeleted(): boolean {

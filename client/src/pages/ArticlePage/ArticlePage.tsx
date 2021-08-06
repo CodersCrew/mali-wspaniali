@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme, CardMedia, Divider } from '@material-ui/core';
 import clsx from 'clsx';
@@ -12,7 +12,6 @@ import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { ReadingTime } from './ReadingTime';
-import { TagList } from './TagList';
 
 export default function ArticlePage() {
     const { articleId } = useParams<{ articleId: string }>();
@@ -21,7 +20,7 @@ export default function ArticlePage() {
     const history = useHistory();
     const { article } = useArticleWithId(articleId);
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['parent-menu.blog']);
     }, [articleId]);
 
@@ -31,7 +30,7 @@ export default function ArticlePage() {
 
     if (!article) return null;
 
-    const { pictureUrl, createdAt, publishedAt, title, description, contentHTML, tags, videoUrl, redactor } = article;
+    const { pictureUrl, createdAt, publishedAt, title, description, contentHTML, videoUrl, redactor } = article;
 
     return (
         <>
@@ -39,9 +38,10 @@ export default function ArticlePage() {
             <Grid
                 classes={{ root: clsx({ [classes.container]: true, [classes.mobileContainer]: !isDesktop }) }}
                 container
-                direction="column"
             >
-                <CardMedia classes={{ root: classes.imageContainer }} component="img" image={pictureUrl} />
+                <Grid item xs={12}>
+                    <CardMedia classes={{ root: classes.imageContainer }} component="img" image={pictureUrl} />
+                </Grid>
                 <Grid item xs={12} lg={10} md={11}>
                     <div
                         className={clsx({
@@ -58,9 +58,6 @@ export default function ArticlePage() {
                     <ArticleContent title={title} description={description} contentHTML={contentHTML} />
                     <Grid item classes={{ root: classes.videoContainer }}>
                         <ArticleVideo videoUrl={videoUrl} />
-                    </Grid>
-                    <Grid item classes={{ root: classes.tagContainer }}>
-                        <TagList tags={tags} />
                     </Grid>
                 </Grid>
                 <Grid container xs={12}>
@@ -100,9 +97,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         videoContainer: {
             margin: `${theme.spacing(4)}px 0`,
-        },
-        tagContainer: {
-            marginBottom: theme.spacing(4),
         },
         redactorContainer: {
             margin: `${theme.spacing(4)}px 0`,

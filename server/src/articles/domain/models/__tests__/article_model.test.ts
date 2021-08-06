@@ -9,7 +9,6 @@ describe('Article', () => {
         contentHTML: '<div>my-content</div>',
         description: 'my-description-30-characters-lorem-ipsum',
         pictureUrl: 'http://some-page.com/image.png',
-        tags: [],
         title: 'my-title-10-characters',
         redactor: {
           firstName: 'Alice',
@@ -28,7 +27,6 @@ describe('Article', () => {
             contentHTML: '<div>my-content</div>',
             description: 'my-description-30-characters-lorem-ipsum',
             pictureUrl: 'http://some-page.com/image.png',
-            tags: [],
             title: 'my-title-10-characters',
             redactor: {
               firstName: 'Alice',
@@ -54,7 +52,6 @@ describe('Article', () => {
         contentHTML: '<div>my-content</div>',
         description: 'my-description-30-characters-lorem-ipsum',
         pictureUrl: 'http://some-page.com/image.png',
-        tags: [],
         title: 'my-title-10-characters',
         redactor: {
           firstName: 'Alice',
@@ -79,7 +76,6 @@ describe('Article', () => {
         contentHTML: '<div>my-content</div>',
         description: 'my-description-30-characters-lorem-ipsum',
         pictureUrl: 'http://some-page.com/image.png',
-        tags: [],
         title: 'my-title-10-characters',
         redactor: {
           firstName: 'Alice',

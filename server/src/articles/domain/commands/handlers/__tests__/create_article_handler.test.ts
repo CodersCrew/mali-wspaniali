@@ -64,7 +64,6 @@ describe('CreateArticleHandler', () => {
         lastName: 'smith',
         profession: 'teacher',
       },
-      tags: ['school'],
       videoUrl: 'https://www.google.com',
     };
 

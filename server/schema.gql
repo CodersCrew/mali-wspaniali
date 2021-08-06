@@ -25,7 +25,6 @@ type ArticleDTO {
   description: String!
   pictureUrl: String!
   redactor: RedactorDTO!
-  tags: [String!]!
   title: String!
   isPublished: Boolean
   videoUrl: String
@@ -359,7 +358,6 @@ input CreateArticleInput {
   description: String!
   pictureUrl: String!
   redactor: RedactorInput!
-  tags: [String!]
   videoUrl: String
 }
 
@@ -379,7 +377,6 @@ input UpdateArticleInput {
   description: String
   pictureUrl: String
   redactor: RedactorInput
-  tags: [String!]
   videoUrl: String
   isDeleted: Boolean
   isPublished: Boolean

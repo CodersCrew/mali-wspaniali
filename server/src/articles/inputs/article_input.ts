@@ -22,9 +22,6 @@ export class CreateArticleInput {
   @Field()
   redactor: RedactorInput;
 
-  @Field(() => [String], { nullable: true })
-  tags: string[];
-
   @Field({ nullable: true })
   videoUrl?: string;
 }

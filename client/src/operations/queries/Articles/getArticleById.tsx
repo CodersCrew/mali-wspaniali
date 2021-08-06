@@ -11,7 +11,6 @@ const ARTICLE_BY_ID = gql`
             pictureUrl
             contentHTML
             videoUrl
-            tags
             redactor {
                 avatarUrl
                 firstName
