@@ -40,7 +40,7 @@ export const AdminSettingsListContainers = React.memo(function AdminSettingsList
                 count={-1}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                onChangePage={handleChangePage}
+                onPageChange={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
         </div>
