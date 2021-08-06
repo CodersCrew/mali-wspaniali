@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme, CardMedia, Divider } from '@material-ui/core';
 import clsx from 'clsx';
@@ -21,7 +21,7 @@ export default function ArticlePage() {
     const history = useHistory();
     const { article } = useArticleWithId(articleId);
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['parent-menu.blog']);
     }, [articleId]);
 
@@ -39,9 +39,10 @@ export default function ArticlePage() {
             <Grid
                 classes={{ root: clsx({ [classes.container]: true, [classes.mobileContainer]: !isDesktop }) }}
                 container
-                direction="column"
             >
-                <CardMedia classes={{ root: classes.imageContainer }} component="img" image={pictureUrl} />
+                <Grid item xs={12}>
+                    <CardMedia classes={{ root: classes.imageContainer }} component="img" image={pictureUrl} />
+                </Grid>
                 <Grid item xs={12} lg={10} md={11}>
                     <div
                         className={clsx({
