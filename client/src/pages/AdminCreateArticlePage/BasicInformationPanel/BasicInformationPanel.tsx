@@ -45,6 +45,7 @@ export function BasicInformationPanel(props: { value: Article; onChange: (key: s
                         value={props.value.description}
                         label={t(`${T_PREFIX}.description`)}
                         onChange={(value) => props.onChange('description', value)}
+                        options={{ multiline: true }}
                     />
                 </Box>
             }
