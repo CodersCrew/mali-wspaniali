@@ -2,10 +2,11 @@ import { Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { CustomContainer } from '../../../components/CustomContainer';
+import { Article } from '../../../graphql/types';
 import { CommonSelectField } from '../Components/CommonSelectFiled';
 import { CommonTextField } from '../Components/CommonTextFiled';
 
-export function BasicInformationPanel(props: { onChange: (key: string, value: string) => void }) {
+export function BasicInformationPanel(props: { value: Article; onChange: (key: string, value: string) => void }) {
     const { t } = useTranslation();
     const T_PREFIX = 'add-article.basic-information-form';
 
@@ -16,6 +17,7 @@ export function BasicInformationPanel(props: { onChange: (key: string, value: st
                 <Box p={2}>
                     <Box mb={2}>
                         <CommonTextField
+                            value={props.value.title}
                             label={t(`${T_PREFIX}.form-title`)}
                             onChange={(value) => props.onChange('title', value)}
                         />
@@ -34,13 +36,15 @@ export function BasicInformationPanel(props: { onChange: (key: string, value: st
                     </Box>
                     <Box mb={2}>
                         <CommonTextField
+                            value={props.value.pictureUrl}
                             label={t(`${T_PREFIX}.picture-url`)}
                             onChange={(value) => props.onChange('pictureUrl', value)}
                         />
                     </Box>
                     <CommonTextField
+                        value={props.value.description}
                         label={t(`${T_PREFIX}.description`)}
-                        onChange={(value) => props.onChange('desciption', value)}
+                        onChange={(value) => props.onChange('description', value)}
                     />
                 </Box>
             }
