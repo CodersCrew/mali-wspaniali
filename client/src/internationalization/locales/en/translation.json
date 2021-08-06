@@ -1105,6 +1105,9 @@
             },
             "picture-url": "Picture URL",
             "description": "Description"
+        },
+        "events": {
+            "created": "Article created"
         }
     },
     "general": {

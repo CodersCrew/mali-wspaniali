@@ -4,6 +4,9 @@ import { RedactorInput } from './redactor_input';
 
 @InputType()
 export class CreateArticleInput {
+  @Field()
+  title: string;
+
   @Field(() => String)
   category: string;
 
@@ -19,11 +22,8 @@ export class CreateArticleInput {
   @Field()
   redactor: RedactorInput;
 
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   tags: string[];
-
-  @Field()
-  title: string;
 
   @Field({ nullable: true })
   videoUrl?: string;

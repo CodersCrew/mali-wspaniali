@@ -154,7 +154,7 @@ export class Article extends AggregateRoot
 }
 
 function updateArticle(article: Article, updates: Partial<UpdateArticleInput>) {
-  const articleProps = ArticleMapper.toRaw(article);
+  const articleProps = ArticleMapper.toPlain(article);
 
   updatedReadOnlyFields(updates);
 

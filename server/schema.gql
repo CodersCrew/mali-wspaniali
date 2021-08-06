@@ -324,7 +324,7 @@ input UserPagination {
 }
 
 type Mutation {
-  createArticle(article: CreateArticleInput!): ReturnedStatusDTO!
+  createArticle(article: CreateArticleInput!): ArticleDTO!
   updateArticle(updates: UpdateArticleInput!, id: String!): ReturnedStatusDTO!
   createAgreement(agreement: String!): ReturnedStatusDTO!
   createKeyCode(target: String!): CreateKeyCodeDTO!
@@ -353,13 +353,13 @@ type Mutation {
 }
 
 input CreateArticleInput {
+  title: String!
   category: String!
   contentHTML: String!
   description: String!
   pictureUrl: String!
   redactor: RedactorInput!
-  tags: [String!]!
-  title: String!
+  tags: [String!]
   videoUrl: String
 }
 
@@ -373,13 +373,13 @@ input RedactorInput {
 }
 
 input UpdateArticleInput {
+  title: String
   category: String
   contentHTML: String
   description: String
   pictureUrl: String
   redactor: RedactorInput
   tags: [String!]
-  title: String
   videoUrl: String
   isDeleted: Boolean
   isPublished: Boolean

@@ -137,7 +137,7 @@ export const TestResultsTable = ({
                 labelRowsPerPage={t('test-results.rows-number')}
                 count={displayedKindergartens.length}
                 page={page}
-                onChangePage={handleChangePage}
+                onPageChange={handleChangePage}
                 rowsPerPage={rowsPerPage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />

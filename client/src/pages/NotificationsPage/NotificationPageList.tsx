@@ -69,7 +69,7 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
                                 inputProps: { 'aria-label': 'rows per page' },
                                 native: true,
                             }}
-                            onChangePage={(_, pages) => handleChangePage(pages)}
+                            onPageChange={(_, pages) => handleChangePage(pages)}
                             onChangeRowsPerPage={handleChangeRowsPerPage}
                             ActionsComponent={TablePaginationActions}
                         />

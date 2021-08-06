@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme, Typography, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import clsx from 'clsx';
 
 import { ARTICLES } from '../../graphql/articleRepository';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
@@ -11,16 +12,18 @@ import { PaginatedArticles } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
-import { Loader } from '../../components/Loader';
 import { Pagination } from '../../components/Blog/Pagination';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { useCreateArticle } from '../../operations/mutations/Articles/createArticle';
 
 const ARTICLES_PER_PAGE = 6;
 
 export default function AdminArticlesPage() {
+    const history = useHistory();
     const classes = useStyles();
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
+    const { createArticle } = useCreateArticle();
 
     const [currentPage, setCurrentPage] = useState(1);
     const { data, loading, fetchMore } = useQuery<{
@@ -37,8 +40,7 @@ export default function AdminArticlesPage() {
         setCurrentPage(1);
     }, []);
 
-    if (loading && !data) return <Loader />;
-    if (!data) return null;
+    if (!data || loading) return null;
 
     const { articles, count, hasNext } = data.paginatedArticles;
 
@@ -47,12 +49,14 @@ export default function AdminArticlesPage() {
             <Typography className={classes.headerText} variant="h3">
                 {t('admin-articles.title')}
             </Typography>
-            <Link to="/admin/articles/create" className={classes.link}>
-                <ButtonSecondary variant="contained" className={classes.addButton}>
-                    <AddIcon className={classes.addIcon} />
-                    {t('admin-articles.add-article')}
-                </ButtonSecondary>
-            </Link>
+            <ButtonSecondary
+                variant="contained"
+                className={clsx(classes.addButton, classes.link)}
+                onClick={onCreateArticleClick}
+            >
+                <AddIcon className={classes.addIcon} />
+                {t('admin-articles.add-article')}
+            </ButtonSecondary>
             <Grid container justify="center" spacing={isSmallMobile ? 2 : 4}>
                 {articles.map((article) => (
                     <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
@@ -105,6 +109,10 @@ export default function AdminArticlesPage() {
             </div>
         </PageContainer>
     );
+
+    function onCreateArticleClick() {
+        createArticle().then((id) => history.push(`/admin/article/${id}/edit`));
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

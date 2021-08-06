@@ -19,7 +19,9 @@ export class ArticlesRepository {
 
   create(createArticleDTO: CreateArticleInput): Promise<Article> {
     const article = ArticleMapper.toDomain(createArticleDTO);
-    const createdArticle = new this.articleModel(ArticleMapper.toRaw(article));
+    const createdArticle = new this.articleModel(
+      ArticleMapper.toPlain(article),
+    );
 
     return createdArticle
       .save()
@@ -58,7 +60,7 @@ export class ArticlesRepository {
     if (page < 1) return [];
 
     return await this.articleModel
-      .find(query, {}, { sort: { date: -1 } })
+      .find(query, {}, { sort: { createdAt: -1 } })
       .skip((page - 1) * perPage)
       .limit(perPage + 1)
       .exec()

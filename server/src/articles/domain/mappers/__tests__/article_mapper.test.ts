@@ -122,7 +122,7 @@ describe('ArticleMapper', () => {
           },
         });
 
-        const articleProps = ArticleMapper.toRaw(article);
+        const articleProps = ArticleMapper.toPlain(article);
 
         expect(articleProps).toEqual(
           jasmine.objectContaining({
@@ -161,7 +161,7 @@ describe('ArticleMapper', () => {
           },
         });
 
-        const articleProps = ArticleMapper.toRaw(article);
+        const articleProps = ArticleMapper.toPlain(article);
 
         expect(articleProps).toEqual(
           jasmine.objectContaining({

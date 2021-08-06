@@ -1108,6 +1108,9 @@
             },
             "picture-url": "Adres URL zdjęcia głównego ",
             "description": "Opis artykułu"
+        },
+        "events": {
+            "created": "Utworzono artykuł"
         }
     },
     "general": {

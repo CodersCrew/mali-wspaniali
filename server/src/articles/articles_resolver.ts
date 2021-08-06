@@ -3,7 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
 import { CreateArticleInput, UpdateArticleInput } from './inputs/article_input';
-import { Article } from './domain/models/article_model';
+import { Article, ArticleCore } from './domain/models/article_model';
 import { CreateArticleCommand } from './domain/commands/impl/create_article_command';
 import { GetAllArticlesQuery } from './domain/queries/impl';
 import { GetArticleByIdQuery } from './domain/queries/impl/get_article_by_id_query';
@@ -56,7 +56,7 @@ export class ArticlesResolver {
     const result = {
       articles: articles
         .slice(0, perPage || ARTICLE_PER_PAGE)
-        .map(article => ArticleMapper.toRaw(article)),
+        .map(article => ArticleMapper.toPlain(article)),
       count: articleCount,
       hasNext: articles.length === (perPage || ARTICLE_PER_PAGE) + 1,
     };
@@ -73,7 +73,7 @@ export class ArticlesResolver {
       new GetLastArticlesQuery(count),
     );
 
-    return articles.map(article => ArticleMapper.toRaw(article));
+    return articles.map(article => ArticleMapper.toPlain(article));
   }
 
   @Query(() => ArticleDTO)
@@ -84,29 +84,22 @@ export class ArticlesResolver {
     );
 
     if (classToPlain(article.getProps())) {
-      return ArticleMapper.toRaw(article);
+      return ArticleMapper.toPlain(article);
     }
 
     throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
   }
 
-  @Mutation(() => ReturnedStatusDTO)
+  @Mutation(() => ArticleDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async createArticle(
     @Args('article') article: CreateArticleInput,
-  ): Promise<{ status: boolean }> {
+  ): Promise<ArticleCore> {
     const newArticle: Article = await this.commandBus.execute(
       new CreateArticleCommand(article),
     );
 
-    const articleContent = newArticle.getProps();
-
-    if (articleContent) {
-      Sentry.captureMessage(
-        `[Mali Wspaniali]: Created a new article ${articleContent.title}`,
-      );
-    }
-    return { status: !!articleContent };
+    return ArticleMapper.toPlain(newArticle);
   }
 
   @Mutation(() => ReturnedStatusDTO)
