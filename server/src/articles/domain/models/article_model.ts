@@ -19,11 +19,11 @@ import { ICoreModel } from '../../../shared/utils/core_model';
 
 export class ArticleCore extends CoreModel {
   @Expose()
-  @Length(0, 100)
+  @Length(10, 100)
   title: string;
 
   @Expose()
-  @Length(0, 300)
+  @Length(30, 300)
   description: string;
 
   @Expose()
