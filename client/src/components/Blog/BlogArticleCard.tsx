@@ -49,7 +49,7 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
             {!props.readOnly && (
                 <CardActions classes={{ root: classes.cardActions }}>
                     <Tooltip title={<>{t('admin-article-list.card.edit')}</>}>
-                        <IconButton href={`http://localhost:3000/admin/article/${props.article._id}/edit`}>
+                        <IconButton href={`/admin/article/${props.article._id}/edit`}>
                             <Create />
                         </IconButton>
                     </Tooltip>
