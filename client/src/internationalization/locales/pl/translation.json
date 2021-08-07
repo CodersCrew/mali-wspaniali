@@ -792,7 +792,7 @@
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",
         "new-user": "Nowy użytkownik ({{email}}) został dodany.",
-        "new-article": "Dodano nowy, nieopublikowany artykuł \"{{title}}\"",
+        "new-article": "Dodano nowy, nieopublikowany artykuł",
         "child-created": "Dziecko zostało dodane.",
         "kindergarten-created": "Nowe przedszkole ({{name}}) zostało dodane."
     },
