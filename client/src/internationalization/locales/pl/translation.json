@@ -526,7 +526,9 @@
         "yes": "Tak",
         "no": "Nie",
         "cancel": "Anuluj",
-        "delete": "Usuń"
+        "delete": "Usuń",
+        "publish": "Opublikuj",
+        "hide": "Ukryj"
     },
     "parent-children": {
         "children": "Dzieci",
@@ -1139,6 +1141,12 @@
             "delete": "Skasuj",
             "delete-article-dialog": {
                 "title": "Skasować artykuł \"{{title}}\"?"
+            },
+            "publish-article-dialog": {
+                "title": "Opublikować artykuł \"{{title}}\"?"
+            },
+            "hide-article-dialog": {
+                "title": "Ukryć artykuł \"{{title}}\"?"
             }
         }
     },
