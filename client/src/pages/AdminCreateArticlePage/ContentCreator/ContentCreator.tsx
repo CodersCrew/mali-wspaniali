@@ -1,3 +1,4 @@
+import React from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { Theme, createStyles, makeStyles, Typography, Box } from '@material-ui/core';
 import ReactQuill from 'react-quill';
@@ -32,29 +33,34 @@ export const formats = [
     'image',
 ];
 
-export function ContentCreator(props: { value: Article; onChange: (key: string, value: string) => void }) {
-    const T_PREFIX = 'add-article.content-creator';
-    const classes = useStyles();
-    const { t } = useTranslation();
+export const ContentCreator = React.memo(
+    function ContentCreator(props: { value: Article; onChange: (key: string, value: string) => void }) {
+        const T_PREFIX = 'add-article.content-creator';
+        const classes = useStyles();
+        const { t } = useTranslation();
 
-    return (
-        <CustomContainer
-            header={<Typography variant="h3">{t(`${T_PREFIX}.title`)}</Typography>}
-            container={
-                <Box p={2}>
-                    <ReactQuill
-                        className={classes.workspace}
-                        theme="snow"
-                        modules={modules}
-                        formats={formats}
-                        value={props.value.contentHTML}
-                        onChange={(value) => props.onChange('contentHTML', value)}
-                    />
-                </Box>
-            }
-        />
-    );
-}
+        return (
+            <CustomContainer
+                header={<Typography variant="h3">{t(`${T_PREFIX}.title`)}</Typography>}
+                container={
+                    <Box p={2}>
+                        <ReactQuill
+                            className={classes.workspace}
+                            theme="snow"
+                            modules={modules}
+                            formats={formats}
+                            value={props.value.contentHTML}
+                            onChange={(value) => props.onChange('contentHTML', value)}
+                        />
+                    </Box>
+                }
+            />
+        );
+    },
+    (prev, next) => {
+        return prev.value.contentHTML === next.value.contentHTML;
+    },
+);
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
