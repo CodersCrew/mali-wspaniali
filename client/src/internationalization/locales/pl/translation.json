@@ -1136,7 +1136,10 @@
             "edit": "Edytuj",
             "publish": "Publikuj (Notyfikacje zostanę wysłane)",
             "unpublish": "Ukryj (W przypadku ponownego opublikowania, powiadomienia nie zostaną wysłane)",
-            "delete": "Skasuj"
+            "delete": "Skasuj",
+            "delete-article-dialog": {
+                "title": "Skasować artykuł \"{{title}}\"?"
+            }
         }
     },
     "general": {

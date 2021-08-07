@@ -45,5 +45,16 @@ export function useArticles(currentPage: number, category = 'all') {
         },
     });
 
-    return { paginatedArticles: data?.paginatedArticles, loading, fetchMore, refetch };
+    return {
+        paginatedArticles: data?.paginatedArticles,
+        loading,
+        fetchMore,
+        refetch: () => {
+            return refetch({
+                page: currentPage,
+                perPage: ARTICLES_PER_PAGE,
+                category: category === 'all' ? undefined : category,
+            });
+        },
+    };
 }

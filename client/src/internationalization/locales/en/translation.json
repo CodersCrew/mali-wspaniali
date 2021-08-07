@@ -1133,7 +1133,10 @@
             "edit": "Edit",
             "publish": "Publish (Notifications will be sent)",
             "unpublish": "Hide (In case of re-publication, notifications will not be sent)",
-            "delete": "Delete"
+            "delete": "Delete",
+            "delete-article-dialog": {
+                "title": "Delete article \"{{title}}\"?"
+            }
         }
     },
     "general": {

@@ -8,7 +8,6 @@ import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableCo
 import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 import { openAssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
 import { activePage } from '../../apollo_client';
-import { Loader } from '../../components/Loader';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { PrivilegedUser, Kindergarten } from '../../graphql/types';
@@ -39,13 +38,7 @@ export default function AdminInstructorsPage() {
         }
     }, [assessments.length]);
 
-    if (isInstructorsListLoading || areAssessmentsLoading) {
-        return <Loader />;
-    }
-
-    if (!getSelectedAssessment()) {
-        return null;
-    }
+    if (isInstructorsListLoading || areAssessmentsLoading || !getSelectedAssessment()) return null;
 
     return (
         <PageContainer>

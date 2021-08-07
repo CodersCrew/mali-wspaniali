@@ -23,7 +23,7 @@ export default function AdminArticlesPage() {
 
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { paginatedArticles, loading, fetchMore } = useArticles(currentPage);
+    const { paginatedArticles, loading, fetchMore, refetch } = useArticles(currentPage);
 
     useEffect(() => {
         activePage(['admin-menu.articles.title']);
@@ -95,7 +95,9 @@ export default function AdminArticlesPage() {
     );
 
     function onCreateArticleClick() {
-        createArticle().then((id) => history.push(`/admin/article/${id}/edit`));
+        createArticle().then((id) => {
+            refetch().then(() => history.push(`/admin/article/${id}/edit`));
+        });
     }
 }
 
