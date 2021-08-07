@@ -48,7 +48,7 @@ export class ArticlesRepository {
     user: LoggedUser,
     category?: string,
   ): Promise<Article[]> {
-    const query: { [index: string]: unknown } = {};
+    const query: { [index: string]: unknown } = { isDeleted: false };
 
     if (['parent', 'instructor'].includes(user.role)) {
       query.isPublished = true;
@@ -83,7 +83,7 @@ export class ArticlesRepository {
     if (count < 1) return [];
 
     return await this.articleModel
-      .find({}, {}, { sort: { date: -1 } })
+      .find({ isDeleted: false }, {}, { sort: { createdAt: -1 } })
       .limit(count)
       .exec()
       .then(articles => {
@@ -103,7 +103,7 @@ export class ArticlesRepository {
 
   get(id: string): Promise<Article> {
     return this.articleModel
-      .findOne({ _id: id })
+      .findOne({ _id: id, isDeleted: false })
       .exec()
       .then(article => article && ArticleMapper.toDomain(article.toObject()));
   }
@@ -112,6 +112,7 @@ export class ArticlesRepository {
     const query = category
       ? {
           category,
+          isDeleted: false,
         }
       : {};
 
