@@ -53,7 +53,7 @@ export const ContentCreator = React.memo(
                             modules={modules}
                             formats={formats}
                             value={props.value.contentHTML}
-                            onChange={(value) => props.onChange('contentHTML', value)}
+                            onChange={(value) => props.onChange('contentHTML', value.replaceAll('<p><br></p>', '<br>'))}
                         />
                     </Box>
                 }
@@ -73,9 +73,6 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(2),
             '& .ql-container': {
                 borderRadius: '0 0 4px 4px',
-            },
-            '& .ql-blank': {
-                minHeight: 570,
             },
             '& .ql-toolbar': {
                 borderRadius: '4px 4px 0 0',

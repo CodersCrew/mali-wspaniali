@@ -1123,7 +1123,8 @@
         "action-buttons": {
             "preview": "Podgląd",
             "back": "Wróć",
-            "update": "Aktualizuj"
+            "update": "Aktualizuj",
+            "edit": "Edytuj"
         },
         "events": {
             "created": "Utworzono artykuł",

@@ -12,14 +12,14 @@ import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { ReadingTime } from './ReadingTime';
+import { Article } from '../../graphql/types';
 
-export default function ArticlePage() {
+export default function ArticlePage(props: { localArticle: Article }) {
     const { articleId } = useParams<{ articleId: string }>();
     const { isMobile, isTablet, isDesktop } = useIsDevice();
     const classes = useStyles();
     const history = useHistory();
     const { article } = useArticleWithId(articleId);
-    const isPreview = window.location.href.includes('preview');
 
     React.useEffect(() => {
         activePage(['parent-menu.blog']);
@@ -31,7 +31,11 @@ export default function ArticlePage() {
 
     if (!article) return null;
 
-    const { pictureUrl, createdAt, publishedAt, title, description, contentHTML, videoUrl, redactor } = article;
+    const articleToDisplay = props.localArticle ? props.localArticle : article;
+    const isPreview = !!props.localArticle;
+
+    const { pictureUrl, createdAt, publishedAt, title, description, contentHTML, videoUrl, redactor } =
+        articleToDisplay;
 
     return (
         <>

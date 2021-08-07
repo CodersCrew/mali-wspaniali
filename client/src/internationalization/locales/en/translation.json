@@ -1120,7 +1120,8 @@
         "action-buttons": {
             "preview": "Preview",
             "back": "Back",
-            "update": "Update"
+            "update": "Update",
+            "edit": "Edit"
         },
         "events": {
             "created": "Article created",
