@@ -4,7 +4,10 @@ import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
 import { CommonTextField } from '../Components/CommonTextFiled';
 
-export function AuthorInformationPanel(props: { value: Article; onChange: (key: string, value: string) => void }) {
+export function AuthorInformationPanel(props: {
+    value: Article;
+    onChange: (key: string, value: string | Record<string, string>) => void;
+}) {
     const T_PREFIX = 'add-article.author-information-form';
     const { t } = useTranslation();
 
@@ -19,14 +22,18 @@ export function AuthorInformationPanel(props: { value: Article; onChange: (key: 
                                 <CommonTextField
                                     value={props.value.redactor.firstName}
                                     label={t(`${T_PREFIX}.first-name`)}
-                                    onChange={(value) => props.onChange('firstName', value)}
+                                    onChange={(value) =>
+                                        props.onChange('redactor', { ...props.value.redactor, firstName: value })
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <CommonTextField
                                     value={props.value.redactor.lastName}
                                     label={t(`${T_PREFIX}.last-name`)}
-                                    onChange={(value) => props.onChange('lastName', value)}
+                                    onChange={(value) =>
+                                        props.onChange('redactor', { ...props.value.redactor, lastName: value })
+                                    }
                                 />
                             </Grid>
                         </Grid>
@@ -35,20 +42,24 @@ export function AuthorInformationPanel(props: { value: Article; onChange: (key: 
                         <CommonTextField
                             value={props.value.redactor.profession}
                             label={t(`${T_PREFIX}.profession`)}
-                            onChange={(value) => props.onChange('profession', value)}
+                            onChange={(value) =>
+                                props.onChange('redactor', { ...props.value.redactor, profession: value })
+                            }
                         />
                     </Box>
                     <Box mb={2}>
                         <CommonTextField
                             value={props.value.redactor.avatarUrl}
                             label={t(`${T_PREFIX}.avatar-url`)}
-                            onChange={(value) => props.onChange('avatarUrl', value)}
+                            onChange={(value) =>
+                                props.onChange('redactor', { ...props.value.redactor, avatarUrl: value })
+                            }
                         />
                     </Box>
                     <CommonTextField
                         value={props.value.redactor.biography}
                         label={t(`${T_PREFIX}.biography`)}
-                        onChange={(value) => props.onChange('biography', value)}
+                        onChange={(value) => props.onChange('redactor', { ...props.value.redactor, biography: value })}
                         options={{ multiline: true }}
                     />
                 </Box>
