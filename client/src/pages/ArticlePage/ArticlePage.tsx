@@ -85,13 +85,19 @@ export default function ArticlePage() {
     );
 
     function getPreviewContentHTML() {
-        return `
+        return (
+            contentHTML ||
+            `
         Aktywność fizyczna to każdy ruch, każda praca mięśni, podczas której wydatek energii jest większy niż gdy odpoczywamy - leżymy lub siedzimy.
-        `;
+        `
+        );
     }
 
     function getPreviewRedactorFullName() {
-        return { firstName: 'Hanna', lastName: 'Nałęcz' };
+        const firstName = redactor.firstName || 'Hanna';
+        const lastName = redactor.lastName || 'Nałęcz';
+
+        return { firstName, lastName };
     }
 }
 

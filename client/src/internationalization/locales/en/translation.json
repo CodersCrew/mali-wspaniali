@@ -1117,8 +1117,14 @@
             "avatar-url": "Picture URL",
             "biography": "Bio"
         },
+        "action-buttons": {
+            "preview": "Preview",
+            "back": "Back",
+            "update": "Update"
+        },
         "events": {
-            "created": "Article created"
+            "created": "Article created",
+            "updated": "Article updated"
         }
     },
     "admin-article-list": {
