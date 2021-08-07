@@ -2,14 +2,14 @@ import { makeStyles, createStyles, Grid, Typography, Theme } from '@material-ui/
 import clsx from 'clsx';
 import parse from 'html-react-parser';
 
-interface Props {
+interface ArticleContentProps {
     contentHTML: string;
     title: string;
     description: string;
     isPreview: boolean;
 }
 
-export const ArticleContent = ({ title, description, contentHTML, isPreview }: Props) => {
+export function ArticleContent({ title, description, contentHTML, isPreview }: ArticleContentProps) {
     const classes = useStyles();
 
     return (
@@ -23,7 +23,7 @@ export const ArticleContent = ({ title, description, contentHTML, isPreview }: P
             </Grid>
         </Grid>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

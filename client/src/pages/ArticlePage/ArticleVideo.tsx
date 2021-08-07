@@ -1,12 +1,12 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
-interface Props {
+interface ArticleVideoProps {
     videoUrl: string;
     isPreview: boolean;
 }
 
-export const ArticleVideo = ({ videoUrl, isPreview }: Props) => {
+export function ArticleVideo({ videoUrl, isPreview }: ArticleVideoProps) {
     const classes = useStyles();
 
     if (!videoUrl) return null;
@@ -23,7 +23,7 @@ export const ArticleVideo = ({ videoUrl, isPreview }: Props) => {
             ></iframe>
         </div>
     );
-};
+}
 
 const useStyles = makeStyles(() =>
     createStyles({

@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { Redactor } from '../../graphql/types';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
-interface Props {
+interface ArticleRedactorProps {
     redactor: Redactor;
     isPreview: boolean;
 }
 
-export const ArticleRedactor = ({ redactor, isPreview }: Props) => {
+export function ArticleRedactor({ redactor, isPreview }: ArticleRedactorProps) {
     const classes = useStyles();
     const { isDesktop } = useIsDevice();
 
@@ -54,7 +54,7 @@ export const ArticleRedactor = ({ redactor, isPreview }: Props) => {
             </Grid>
         </Grid>
     );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
