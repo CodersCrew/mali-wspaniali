@@ -6,7 +6,7 @@
     "private": true,
     "license": "UNLICENSED",
     "scripts": {
-      "heroku-postbuild": "cd server && yarn install && yarn build"
+      "heroku-postbuild": "cd server && npm install && npm build"
     }
   }
   
