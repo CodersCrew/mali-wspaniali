@@ -2,10 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ReturnedStatusDTO {
-  status: Boolean!
-}
-
 type RedactorDTO {
   avatarUrl: String
   firstName: String!
@@ -50,6 +46,10 @@ type AgreementDTO {
   deletedAt: DateTime
   text: String!
   isSigned: Boolean!
+}
+
+type ReturnedStatusDTO {
+  status: Boolean!
 }
 
 type CreateKeyCodeDTO {
@@ -324,7 +324,7 @@ input UserPagination {
 
 type Mutation {
   createArticle(article: CreateArticleInput!): ArticleDTO!
-  updateArticle(updates: UpdateArticleInput!, id: String!): ReturnedStatusDTO!
+  updateArticle(updates: UpdateArticleInput!): ArticleDTO!
   createAgreement(agreement: String!): ReturnedStatusDTO!
   createKeyCode(target: String!): CreateKeyCodeDTO!
   createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
@@ -377,6 +377,7 @@ input UpdateArticleInput {
   pictureUrl: String
   redactor: RedactorInput
   videoUrl: String
+  _id: String!
   isDeleted: Boolean
   isPublished: Boolean
 }
