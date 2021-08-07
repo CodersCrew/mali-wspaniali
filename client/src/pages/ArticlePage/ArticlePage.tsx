@@ -19,6 +19,7 @@ export default function ArticlePage() {
     const classes = useStyles();
     const history = useHistory();
     const { article } = useArticleWithId(articleId);
+    const isPreview = window.location.href.includes('preview');
 
     React.useEffect(() => {
         activePage(['parent-menu.blog']);
@@ -52,12 +53,20 @@ export default function ArticlePage() {
                     >
                         <ReadingTime
                             date={new Date(publishedAt || createdAt)}
-                            readingTime={calculateReadingTime(contentHTML)}
+                            readingTime={calculateReadingTime(isPreview ? getPreviewContentHTML() : contentHTML)}
                         />
                     </div>
-                    <ArticleContent title={title} description={description} contentHTML={contentHTML} />
+                    <ArticleContent
+                        title={title}
+                        description={description}
+                        contentHTML={isPreview ? getPreviewContentHTML() : contentHTML}
+                        isPreview={isPreview}
+                    />
                     <Grid item classes={{ root: classes.videoContainer }}>
-                        <ArticleVideo videoUrl={videoUrl} />
+                        <ArticleVideo
+                            videoUrl={isPreview ? 'https://www.youtube.com/embed/SABaMN08NmY' : videoUrl}
+                            isPreview={isPreview}
+                        />
                     </Grid>
                 </Grid>
                 <Grid container xs={12}>
@@ -65,12 +74,25 @@ export default function ArticlePage() {
                         <Divider />
                     </Grid>
                     <Grid item xs={12} classes={{ root: classes.redactorContainer }}>
-                        <ArticleRedactor redactor={redactor} />
+                        <ArticleRedactor
+                            redactor={isPreview ? { ...redactor, ...getPreviewRedactorFullName() } : redactor}
+                            isPreview={isPreview}
+                        />
                     </Grid>
                 </Grid>
             </Grid>
         </>
     );
+
+    function getPreviewContentHTML() {
+        return `
+        Aktywność fizyczna to każdy ruch, każda praca mięśni, podczas której wydatek energii jest większy niż gdy odpoczywamy - leżymy lub siedzimy.
+        `;
+    }
+
+    function getPreviewRedactorFullName() {
+        return { firstName: 'Hanna', lastName: 'Nałęcz' };
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

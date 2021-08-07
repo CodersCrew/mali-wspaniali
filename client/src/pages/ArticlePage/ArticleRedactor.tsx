@@ -5,14 +5,15 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     redactor: Redactor;
+    isPreview: boolean;
 }
 
-export const ArticleRedactor = ({ redactor }: Props) => {
+export const ArticleRedactor = ({ redactor, isPreview }: Props) => {
     const classes = useStyles();
     const { isDesktop } = useIsDevice();
 
     return (
-        <Grid container direction="row">
+        <Grid container direction="row" className={clsx({ [classes.isPreview]: isPreview })}>
             <Grid
                 classes={{
                     root: clsx({
@@ -57,6 +58,9 @@ export const ArticleRedactor = ({ redactor }: Props) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        isPreview: {
+            opacity: 0.5,
+        },
         contentRedactorAvatarContainer: {
             paddingRight: theme.spacing(3),
         },
