@@ -59,12 +59,16 @@ export function useUpdateArticle() {
             modifiedAt,
             ...article
         }: Record<string, any>) => {
-            const {
-                redactor: { __typename: trash, ...redactorRest },
-            } = article;
+            const { redactor } = article;
+            const updates = article;
+
+            if (redactor) {
+                const { __typename: trash, ...redactorRest } = redactor;
+                updates.redactor = redactorRest;
+            }
 
             return mutate({
-                variables: { updates: { ...article, redactor: redactorRest } },
+                variables: { updates },
             }).then(() => {
                 openSnackbar({ text: t('add-article.events.updated') });
             });
