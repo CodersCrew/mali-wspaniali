@@ -3,6 +3,9 @@ import 'react-quill/dist/quill.snow.css';
 import { Theme, createStyles, makeStyles, Typography, Box } from '@material-ui/core';
 import ReactQuill from 'react-quill';
 import { useTranslation } from 'react-i18next';
+import pick from 'lodash.pick';
+import isEqual from 'lodash.isequal';
+
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
 
@@ -58,7 +61,9 @@ export const ContentCreator = React.memo(
         );
     },
     (prev, next) => {
-        return prev.value.contentHTML === next.value.contentHTML;
+        const toCompare = ['contentHTML'];
+
+        return isEqual(pick(prev.value, toCompare), pick(next.value, toCompare));
     },
 );
 

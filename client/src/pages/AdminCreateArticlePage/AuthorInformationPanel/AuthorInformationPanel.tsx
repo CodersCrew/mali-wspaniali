@@ -1,6 +1,9 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import pick from 'lodash.pick';
+import isEqual from 'lodash.isequal';
+
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
 import { CommonTextField } from '../Components/CommonTextFiled';
@@ -72,12 +75,8 @@ export const AuthorInformationPanel = React.memo(
         );
     },
     (prev, next) => {
-        return (
-            prev.value.redactor.firstName === next.value.redactor.firstName &&
-            prev.value.redactor.lastName === next.value.redactor.lastName &&
-            prev.value.redactor.profession === next.value.redactor.profession &&
-            prev.value.redactor.avatarUrl === next.value.redactor.avatarUrl &&
-            prev.value.redactor.biography === next.value.redactor.biography
-        );
+        const toCompare = ['firstName', 'lastName', 'profession', 'avatarUrl', 'biography'];
+
+        return isEqual(pick(prev.value.redactor, toCompare), pick(next.value.redactor, toCompare));
     },
 );

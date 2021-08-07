@@ -1,6 +1,8 @@
 import React from 'react';
 import { Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import pick from 'lodash.pick';
+import isEqual from 'lodash.isequal';
 
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
@@ -55,11 +57,8 @@ export const BasicInformationPanel = React.memo(
         );
     },
     (prev, next) => {
-        return (
-            prev.value.title === next.value.title &&
-            prev.value.category === next.value.category &&
-            prev.value.pictureUrl === next.value.pictureUrl &&
-            prev.value.description === next.value.description
-        );
+        const toCompare = ['title', 'category', 'pictureUrl', 'description'];
+
+        return isEqual(pick(prev.value, toCompare), pick(next.value, toCompare));
     },
 );
