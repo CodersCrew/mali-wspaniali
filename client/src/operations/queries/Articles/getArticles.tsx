@@ -28,6 +28,7 @@ export const ARTICLES = gql`
                 description
                 category
                 pictureUrl
+                isPublished
             }
             count
             hasNext

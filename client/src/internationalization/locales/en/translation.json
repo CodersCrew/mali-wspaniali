@@ -527,7 +527,9 @@
         "yes": "Yes",
         "no": "No",
         "cancel": "Cancel",
-        "delete": "Delete"
+        "delete": "Delete",
+        "publish": "Publish",
+        "hide": "Hide"
     },
     "parent-children": {
         "children": "Children",
@@ -1136,6 +1138,12 @@
             "delete": "Delete",
             "delete-article-dialog": {
                 "title": "Delete article \"{{title}}\"?"
+            },
+            "publish-article-dialog": {
+                "title": "Publish article \"{{title}}\"?"
+            },
+            "hide-article-dialog": {
+                "title": "Hide article \"{{title}}\"?"
             }
         }
     },
