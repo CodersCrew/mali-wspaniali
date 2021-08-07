@@ -1,3 +1,4 @@
+import { Box } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
@@ -5,6 +6,7 @@ import { PageContainer } from '../../components/PageContainer';
 import { Article } from '../../graphql/types';
 import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
 import { BasicInformationPanel } from './BasicInformationPanel/BasicInformationPanel';
+import { ContentCreator } from './ContentCreator/ContentCreator';
 
 export default function CreateArticlePage() {
     React.useEffect(() => {
@@ -24,16 +26,18 @@ export default function CreateArticlePage() {
 
     return (
         <PageContainer>
-            <BasicInformationPanel
-                value={updatedForm}
-                onChange={(key, value) => {
-                    setUpdatedForm((prev) => {
-                        if (!prev) return;
-
-                        return { ...prev, [key as keyof Article]: value };
-                    });
-                }}
-            />
+            <Box mb={3}>
+                <BasicInformationPanel value={updatedForm} onChange={updateLocalArticle} />
+            </Box>
+            <ContentCreator value={updatedForm} onChange={updateLocalArticle} />
         </PageContainer>
     );
+
+    function updateLocalArticle(key: string, value: string) {
+        setUpdatedForm((prev) => {
+            if (!prev) return;
+
+            return { ...prev, [key as keyof Article]: value };
+        });
+    }
 }
