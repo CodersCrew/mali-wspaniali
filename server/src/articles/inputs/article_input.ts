@@ -28,6 +28,9 @@ export class CreateArticleInput {
 
 @InputType()
 export class UpdateArticleInput extends PartialType(CreateArticleInput) {
+  @Field(() => String)
+  _id: string;
+
   @Field(() => Boolean, { nullable: true })
   isDeleted: boolean;
 

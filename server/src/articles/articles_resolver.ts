@@ -1,4 +1,4 @@
-import { Query, Resolver, Mutation, Args, Int } from '@nestjs/graphql';
+import { Query, Resolver, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as Sentry from '@sentry/minimal';
 
@@ -102,16 +102,23 @@ export class ArticlesResolver {
     return ArticleMapper.toPlain(newArticle);
   }
 
-  @Mutation(() => ReturnedStatusDTO)
+  @Mutation(() => ArticleDTO)
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async updateArticle(
-    @Args('id') id: string,
+    @Context() context,
     @Args('updates') updates: UpdateArticleInput,
-  ): Promise<{ status: boolean }> {
+  ): Promise<ArticleCore> {
     const updated: Article = await this.commandBus.execute(
-      new UpdateArticleCommand(id, updates),
+      new UpdateArticleCommand(updates),
     );
 
-    return { status: !!updated };
+    if (new RegExp(process.env.SERVER_HOST).test(context.req.headers.origin)) {
+      context.res.header(
+        'Access-Control-Allow-Origin',
+        context.req.headers.origin,
+      );
+    }
+
+    return ArticleMapper.toPlain(updated);
   }
 }
