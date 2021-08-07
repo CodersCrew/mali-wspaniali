@@ -1106,6 +1106,17 @@
             "picture-url": "Picture URL",
             "description": "Description"
         },
+        "content-creator": {
+            "title": "Content"
+        },
+        "author-information-form": {
+            "title": "Author information",
+            "first-name": "First name",
+            "last-name": "Last name",
+            "profession": "Profession",
+            "avatar-url": "Picture URL",
+            "biography": "Bio"
+        },
         "events": {
             "created": "Article created"
         }

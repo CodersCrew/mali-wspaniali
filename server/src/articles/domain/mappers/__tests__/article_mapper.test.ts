@@ -48,7 +48,6 @@ describe('ArticleMapper', () => {
               avatarUrl: 'http://some-page.com/me.png',
               biography: 'beginning',
               profession: 'my-profession',
-              shortDescription: 'my-description',
             },
           }),
         ).toThrow(
@@ -77,7 +76,6 @@ describe('ArticleMapper', () => {
             avatarUrl: 'http://some-page.com/me.png',
             biography: 'beginning',
             profession: 'my-profession',
-            shortDescription: 'my-description',
           },
         });
 
@@ -95,7 +93,6 @@ describe('ArticleMapper', () => {
           avatarUrl: 'http://some-page.com/me.png',
           biography: 'beginning',
           profession: 'my-profession',
-          shortDescription: 'my-description',
         });
       });
     });
@@ -149,7 +146,6 @@ describe('ArticleMapper', () => {
             avatarUrl: 'http://some-page.com/me.png',
             biography: 'beginning',
             profession: 'my-profession',
-            shortDescription: 'my-description',
           },
         });
 
@@ -169,7 +165,6 @@ describe('ArticleMapper', () => {
               avatarUrl: 'http://some-page.com/me.png',
               biography: 'beginning',
               profession: 'my-profession',
-              shortDescription: 'my-description',
             },
           }),
         );

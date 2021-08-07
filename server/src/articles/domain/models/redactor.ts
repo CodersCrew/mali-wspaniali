@@ -14,8 +14,5 @@ export class Redactor {
   profession?: string;
 
   @Expose()
-  shortDescription?: string;
-
-  @Expose()
   biography?: string;
 }

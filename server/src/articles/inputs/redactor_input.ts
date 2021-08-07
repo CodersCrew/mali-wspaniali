@@ -16,7 +16,4 @@ export class RedactorInput {
 
   @Field({ nullable: true })
   biography?: string;
-
-  @Field({ nullable: true })
-  shortDescription?: string;
 }

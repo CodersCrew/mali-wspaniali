@@ -1,6 +1,7 @@
 import 'react-quill/dist/quill.snow.css';
 import { Theme, createStyles, makeStyles, Typography, Box } from '@material-ui/core';
 import ReactQuill from 'react-quill';
+import { useTranslation } from 'react-i18next';
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
 
@@ -32,11 +33,13 @@ export const formats = [
 ];
 
 export function ContentCreator(props: { value: Article; onChange: (key: string, value: string) => void }) {
+    const T_PREFIX = 'add-article.content-creator';
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <CustomContainer
-            header={<Typography variant="h3">Treść artykułu</Typography>}
+            header={<Typography variant="h3">{t(`${T_PREFIX}.title`)}</Typography>}
             container={
                 <Box p={2}>
                     <ReactQuill
