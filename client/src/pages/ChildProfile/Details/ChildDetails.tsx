@@ -8,11 +8,11 @@ import { Loader } from '../../../components/Loader';
 import { Child } from '../../../graphql/types';
 import { useEditChild } from '../../../operations/mutations/User/editChild';
 
-interface Props {
+interface ChildDetailsProps {
     child: Child;
 }
 
-export function ChildDetails({ child }: Props) {
+export function ChildDetails({ child }: ChildDetailsProps) {
     const { kindergartenList, isKindergartenListLoading } = useKindergartens();
     const { editChild } = useEditChild();
     const classes = useStyles();
