@@ -5,6 +5,7 @@ import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
 import { Article } from '../../graphql/types';
 import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
+import ArticlePage from '../ArticlePage/ArticlePage';
 import { ActionButtons } from './ActionButtons/ActionButtons';
 import { AuthorInformationPanel } from './AuthorInformationPanel/AuthorInformationPanel';
 import { BasicInformationPanel } from './BasicInformationPanel/BasicInformationPanel';
@@ -15,6 +16,7 @@ export default function CreateArticlePage() {
         activePage(['admin-menu.articles.title']);
     }, []);
     const params = useParams<{ articleId: string }>();
+    const [isPreview, setIsPreview] = React.useState(false);
 
     const { article } = useArticleWithId(params.articleId);
 
@@ -25,6 +27,20 @@ export default function CreateArticlePage() {
     }, [params.articleId, article]);
 
     if (!updatedForm) return null;
+
+    if (isPreview)
+        return (
+            <>
+                <ArticlePage localArticle={updatedForm} />
+                <Box my={3}>
+                    <ActionButtons
+                        isPreview={isPreview}
+                        value={updatedForm}
+                        onPreviewClick={() => setIsPreview(true)}
+                    />
+                </Box>
+            </>
+        );
 
     return (
         <PageContainer>
@@ -38,7 +54,7 @@ export default function CreateArticlePage() {
                 <AuthorInformationPanel value={updatedForm} onChange={updateLocalArticle} />
             </Box>
             <Box mb={3}>
-                <ActionButtons value={updatedForm} />
+                <ActionButtons value={updatedForm} onPreviewClick={() => setIsPreview(true)} />
             </Box>
         </PageContainer>
     );

@@ -127,11 +127,6 @@ export function Root() {
                                         />
                                         <Route
                                             exact
-                                            path="/admin/article/:articleId/preview"
-                                            component={getRootLazyImports('ArticlePage')}
-                                        />
-                                        <Route
-                                            exact
                                             path="/admin/articles"
                                             component={getRootLazyImports('AdminArticlesPage')}
                                         />

@@ -5,7 +5,7 @@ import { ButtonSecondary } from '../../../components/Button';
 import { Article } from '../../../graphql/types';
 import { useUpdateArticle } from '../../../operations/mutations/Articles/updateArticle';
 
-export function ActionButtons(props: { value: Article }) {
+export function ActionButtons(props: { value: Article; onPreviewClick: () => void; isPreview?: boolean }) {
     const T_PREFIX = 'add-article.action-buttons';
     const { t } = useTranslation();
     const history = useHistory();
@@ -16,8 +16,8 @@ export function ActionButtons(props: { value: Article }) {
             <Grid item>
                 <ButtonSecondary
                     variant="text"
-                    innerText={t(`${T_PREFIX}.preview`)}
-                    onClick={() => history.push(`/admin/article/${props.value._id}/preview`)}
+                    innerText={props.isPreview ? t(`${T_PREFIX}.edit`) : t(`${T_PREFIX}.preview`)}
+                    onClick={props.onPreviewClick}
                 />
             </Grid>
             <Grid item>
