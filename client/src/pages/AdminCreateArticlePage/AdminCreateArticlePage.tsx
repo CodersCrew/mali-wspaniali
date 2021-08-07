@@ -5,6 +5,7 @@ import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
 import { Article } from '../../graphql/types';
 import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
+import { AuthorInformationPanel } from './AuthorInformationPanel/AuthorInformationPanel';
 import { BasicInformationPanel } from './BasicInformationPanel/BasicInformationPanel';
 import { ContentCreator } from './ContentCreator/ContentCreator';
 
@@ -29,7 +30,10 @@ export default function CreateArticlePage() {
             <Box mb={3}>
                 <BasicInformationPanel value={updatedForm} onChange={updateLocalArticle} />
             </Box>
-            <ContentCreator value={updatedForm} onChange={updateLocalArticle} />
+            <Box mb={3}>
+                <ContentCreator value={updatedForm} onChange={updateLocalArticle} />
+            </Box>
+            <AuthorInformationPanel value={updatedForm} onChange={updateLocalArticle} />
         </PageContainer>
     );
 

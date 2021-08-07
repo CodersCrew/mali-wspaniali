@@ -1109,6 +1109,13 @@
             "picture-url": "Adres URL zdjęcia głównego ",
             "description": "Opis artykułu"
         },
+        "author-information-form": {
+            "first-name": "Imie",
+            "last-name": "Nazwisko",
+            "profession": "Specjalizacja",
+            "avatar-url": "Picture URL",
+            "biography": "Informacje o autorze"
+        },
         "events": {
             "created": "Utworzono artykuł"
         }
