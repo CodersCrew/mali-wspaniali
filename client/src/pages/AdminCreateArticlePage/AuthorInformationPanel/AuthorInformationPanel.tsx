@@ -10,7 +10,7 @@ export function AuthorInformationPanel(props: { value: Article; onChange: (key: 
 
     return (
         <CustomContainer
-            header={<Typography variant="h3">Informacje o autorze</Typography>}
+            header={<Typography variant="h3">{t(`${T_PREFIX}.title`)}</Typography>}
             container={
                 <Box p={2}>
                     <Box mb={2}>
