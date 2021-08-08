@@ -25,7 +25,7 @@ export function SearchChildField(props: SearchChildFieldProps) {
         return (
             <OutlinedTextField
                 label={placeholder}
-                input={props.searchTerm}
+                value={props.searchTerm}
                 options={{ autoFocus: true }}
                 onChange={props.onChange}
             />
@@ -91,7 +91,7 @@ function ExtendedSearchField(props: ExtendedSearchFieldProps) {
                 <Box mb={2} mt={1}>
                     <OutlinedTextField
                         label={placeholder}
-                        input={props.searchTerm}
+                        value={props.searchTerm}
                         options={{ autoFocus: true }}
                         onChange={props.onChange}
                     />
