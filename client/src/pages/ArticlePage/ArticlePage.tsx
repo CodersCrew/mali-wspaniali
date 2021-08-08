@@ -67,10 +67,7 @@ export default function ArticlePage(props: { localArticle: Article }) {
                         isPreview={isPreview}
                     />
                     <Grid item classes={{ root: classes.videoContainer }}>
-                        <ArticleVideo
-                            videoUrl={isPreview ? 'https://www.youtube.com/embed/SABaMN08NmY' : videoUrl}
-                            isPreview={isPreview}
-                        />
+                        <ArticleVideo videoUrl={getPreviewVideoUrl()} isPreview={isPreview} />
                     </Grid>
                 </Grid>
                 <Grid container xs={12}>
@@ -90,7 +87,7 @@ export default function ArticlePage(props: { localArticle: Article }) {
 
     function getPreviewContentHTML() {
         return (
-            contentHTML ||
+            contentHTML.replaceAll('<p><br></p>', '<br>') ||
             `
         Aktywność fizyczna to każdy ruch, każda praca mięśni, podczas której wydatek energii jest większy niż gdy odpoczywamy - leżymy lub siedzimy.
         `
@@ -100,8 +97,16 @@ export default function ArticlePage(props: { localArticle: Article }) {
     function getPreviewRedactorFullName() {
         const firstName = redactor.firstName || 'Hanna';
         const lastName = redactor.lastName || 'Nałęcz';
+        const profession = redactor.profession || 'Psycholog Dziecięcy';
+        const biography =
+            redactor.biography ||
+            'Hanna Nałęcz,   dr   n.   o   kulturze   fizycznej,   pedagog,   specjalista   zdrowia   pub-licznego.   Zastępca   kierownika  Zakładu   Zdrowia  Dzieci   i  Młodzieży  w   InstytucieMatki i Dziecka w Warszawie. Współautorka ponad 80 krajowych i międzynarodowych publikacji dotyczących  aktywności fizycznej dzieci i młodzieży.  Członek polskiego zespołu  The Active Healthy Kids Global Alliance. Redaktor tematyczny w  the Activity Health Kids Global Alliance. Mama dwóch córek';
 
-        return { firstName, lastName };
+        return { firstName, lastName, profession, biography };
+    }
+
+    function getPreviewVideoUrl() {
+        return isPreview ? videoUrl || 'https://www.youtube.com/embed/SABaMN08NmY' : videoUrl;
     }
 }
 

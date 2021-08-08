@@ -1109,7 +1109,8 @@
             "description": "Description"
         },
         "content-creator": {
-            "title": "Content"
+            "title": "Content",
+            "video-url": "Video URL"
         },
         "author-information-form": {
             "title": "Author information",

@@ -6,7 +6,7 @@ import isEqual from 'lodash.isequal';
 
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
-import { CommonTextField } from '../Components/CommonTextFiled';
+import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 export const AuthorInformationPanel = React.memo(
     function AuthorInformationPanel(props: {
@@ -24,7 +24,7 @@ export const AuthorInformationPanel = React.memo(
                         <Box mb={2}>
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
-                                    <CommonTextField
+                                    <OutlinedTextField
                                         value={props.value.redactor.firstName}
                                         label={t(`${T_PREFIX}.first-name`)}
                                         onChange={(value) =>
@@ -33,7 +33,7 @@ export const AuthorInformationPanel = React.memo(
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <CommonTextField
+                                    <OutlinedTextField
                                         value={props.value.redactor.lastName}
                                         label={t(`${T_PREFIX}.last-name`)}
                                         onChange={(value) =>
@@ -44,7 +44,7 @@ export const AuthorInformationPanel = React.memo(
                             </Grid>
                         </Box>
                         <Box mb={2}>
-                            <CommonTextField
+                            <OutlinedTextField
                                 value={props.value.redactor.profession}
                                 label={t(`${T_PREFIX}.profession`)}
                                 onChange={(value) =>
@@ -53,7 +53,7 @@ export const AuthorInformationPanel = React.memo(
                             />
                         </Box>
                         <Box mb={2}>
-                            <CommonTextField
+                            <OutlinedTextField
                                 value={props.value.redactor.avatarUrl}
                                 label={t(`${T_PREFIX}.avatar-url`)}
                                 onChange={(value) =>
@@ -61,13 +61,13 @@ export const AuthorInformationPanel = React.memo(
                                 }
                             />
                         </Box>
-                        <CommonTextField
+                        <OutlinedTextField
                             value={props.value.redactor.biography}
                             label={t(`${T_PREFIX}.biography`)}
                             onChange={(value) =>
                                 props.onChange('redactor', { ...props.value.redactor, biography: value })
                             }
-                            options={{ multiline: true }}
+                            options={{ multiline: true, minRows: 7 }}
                         />
                     </Box>
                 }

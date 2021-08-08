@@ -32,13 +32,15 @@ export default function CreateArticlePage() {
         return (
             <>
                 <ArticlePage localArticle={updatedForm} />
-                <Box my={3}>
-                    <ActionButtons
-                        isPreview={isPreview}
-                        value={updatedForm}
-                        onPreviewClick={() => setIsPreview(true)}
-                    />
-                </Box>
+                <PageContainer>
+                    <Box my={3}>
+                        <ActionButtons
+                            isPreview={isPreview}
+                            value={updatedForm}
+                            onPreviewClick={() => setIsPreview((prev) => !prev)}
+                        />
+                    </Box>
+                </PageContainer>
             </>
         );
 

@@ -8,6 +8,7 @@ import isEqual from 'lodash.isequal';
 
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
+import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 export const modules = {
     toolbar: [
@@ -53,8 +54,15 @@ export const ContentCreator = React.memo(
                             modules={modules}
                             formats={formats}
                             value={props.value.contentHTML}
-                            onChange={(value) => props.onChange('contentHTML', value.replaceAll('<p><br></p>', '<br>'))}
+                            onChange={(value) => props.onChange('contentHTML', value)}
                         />
+                        <Box mt={2}>
+                            <OutlinedTextField
+                                value={props.value.videoUrl}
+                                label={t(`${T_PREFIX}.video-url`)}
+                                onChange={(value) => props.onChange('videoUrl', value)}
+                            />
+                        </Box>
                     </Box>
                 }
             />

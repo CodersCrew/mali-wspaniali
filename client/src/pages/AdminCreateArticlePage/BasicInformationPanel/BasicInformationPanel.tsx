@@ -7,7 +7,7 @@ import isEqual from 'lodash.isequal';
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
 import { CommonSelectField } from '../Components/CommonSelectFiled';
-import { CommonTextField } from '../Components/CommonTextFiled';
+import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 export const BasicInformationPanel = React.memo(
     function BasicInformationPanel(props: { value: Article; onChange: (key: string, value: string) => void }) {
@@ -20,7 +20,7 @@ export const BasicInformationPanel = React.memo(
                 container={
                     <Box p={2}>
                         <Box mb={2}>
-                            <CommonTextField
+                            <OutlinedTextField
                                 value={props.value.title}
                                 label={t(`${T_PREFIX}.form-title`)}
                                 onChange={(value) => props.onChange('title', value)}
@@ -39,17 +39,17 @@ export const BasicInformationPanel = React.memo(
                             />
                         </Box>
                         <Box mb={2}>
-                            <CommonTextField
+                            <OutlinedTextField
                                 value={props.value.pictureUrl}
                                 label={t(`${T_PREFIX}.picture-url`)}
                                 onChange={(value) => props.onChange('pictureUrl', value)}
                             />
                         </Box>
-                        <CommonTextField
+                        <OutlinedTextField
                             value={props.value.description}
                             label={t(`${T_PREFIX}.description`)}
                             onChange={(value) => props.onChange('description', value)}
-                            options={{ multiline: true }}
+                            options={{ multiline: true, minRows: 7 }}
                         />
                     </Box>
                 }

@@ -1112,7 +1112,8 @@
             "description": "Opis artykułu"
         },
         "content-creator": {
-            "title": "Treść artykułu"
+            "title": "Treść artykułu",
+            "video-url": "Adres URL wideo"
         },
         "author-information-form": {
             "title": "Informacje o autorze",
