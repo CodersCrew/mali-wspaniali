@@ -92,18 +92,26 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
 
     function onPublishOrHideArticleClick() {
         openQuestionDialog({
-            title: t(
-                props.article.isPublished
-                    ? 'admin-article-list.card.hide-article-dialog.title'
-                    : 'admin-article-list.card.publish-article-dialog.title',
-                { title: props.article.title },
-            ),
-            primaryButtonLabel: t(props.article.isPublished ? 'question-dialog.hide' : 'question-dialog.publish'),
+            title: getPublishOrHideArticleTitle(),
+            primaryButtonLabel: getPublishOrHideArticleButtonName(),
         }).then((response) => {
             if (response.close || !response.decision?.accepted) return;
 
             updateArticle({ ...props.article, isPublished: !props.article.isPublished }).then(refetch);
         });
+    }
+
+    function getPublishOrHideArticleTitle() {
+        return t(
+            props.article.isPublished
+                ? 'admin-article-list.card.hide-article-dialog.title'
+                : 'admin-article-list.card.publish-article-dialog.title',
+            { title: props.article.title },
+        );
+    }
+
+    function getPublishOrHideArticleButtonName() {
+        return t(props.article.isPublished ? 'question-dialog.hide' : 'question-dialog.publish');
     }
 };
 
