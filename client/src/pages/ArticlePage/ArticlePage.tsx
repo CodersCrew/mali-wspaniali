@@ -90,7 +90,7 @@ export default function ArticlePage(props: { localArticle: Article }) {
 
     function getPreviewContentHTML() {
         return (
-            contentHTML ||
+            contentHTML.replaceAll('<p><br></p>', '<br>') ||
             `
         Aktywność fizyczna to każdy ruch, każda praca mięśni, podczas której wydatek energii jest większy niż gdy odpoczywamy - leżymy lub siedzimy.
         `

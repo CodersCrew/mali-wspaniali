@@ -54,7 +54,7 @@ export const ContentCreator = React.memo(
                             modules={modules}
                             formats={formats}
                             value={props.value.contentHTML}
-                            onChange={(value) => props.onChange('contentHTML', value.replaceAll('<p><br></p>', '<br>'))}
+                            onChange={(value) => props.onChange('contentHTML', value)}
                         />
                         <Box mt={2}>
                             <CommonTextField
