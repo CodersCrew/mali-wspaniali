@@ -8,6 +8,7 @@ import isEqual from 'lodash.isequal';
 
 import { CustomContainer } from '../../../components/CustomContainer';
 import { Article } from '../../../graphql/types';
+import { CommonTextField } from '../Components/CommonTextFiled';
 
 export const modules = {
     toolbar: [
@@ -55,6 +56,13 @@ export const ContentCreator = React.memo(
                             value={props.value.contentHTML}
                             onChange={(value) => props.onChange('contentHTML', value.replaceAll('<p><br></p>', '<br>'))}
                         />
+                        <Box mt={2}>
+                            <CommonTextField
+                                value={props.value.videoUrl}
+                                label={t(`${T_PREFIX}.video-url`)}
+                                onChange={(value) => props.onChange('videoUrl', value)}
+                            />
+                        </Box>
                     </Box>
                 }
             />
