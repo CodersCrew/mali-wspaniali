@@ -1,5 +1,6 @@
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import dayjs from '../../localizedMoment';
 
 interface Props {
     readingTime: number;
@@ -9,11 +10,10 @@ interface Props {
 export function ReadingTime({ readingTime, date }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const options: { [index: string]: 'numeric' } = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
     return (
         <span className={classes.container}>
-            <Typography variant="overline">{date.toLocaleString('pl-PL', options)}</Typography>
+            <Typography variant="overline">{dayjs(date).format('L')}</Typography>
             <div className={classes.ellipse}>&nbsp;</div>
             <Typography variant="overline">
                 {readingTime} {t('single-article.reading-time')}
