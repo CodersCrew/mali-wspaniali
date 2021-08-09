@@ -39,13 +39,13 @@ export function MeasurementEditor(props: Props) {
 
     const { selectedChild: child } = props.resultCreator;
 
-    const { run, pendelumRun, jump, throw: throwBall } = child.currentParams!;
+    const { run, pendelumRun, jump, throw: _throw } = child.currentParams!;
 
     const result = props.resultCreator.kindergartenResults.find(
         (r) => r.childId === props.resultCreator.selectedChild._id,
     );
 
-    if (!child.currentParams || !run || !pendelumRun || !jump || !throwBall) {
+    if (!child.currentParams || !run || !pendelumRun || !jump || !_throw) {
         return <Typography variant="body1">The child doesnt suit to the test</Typography>;
     }
 
@@ -91,10 +91,10 @@ export function MeasurementEditor(props: Props) {
                 <MeasurementPoint
                     isEmpty={props.resultCreator.values.throw === 0 && props.resultCreator.edited !== 'throw'}
                     step={10}
-                    maxValue={throwBall.upperLimitPoints}
-                    param={throwBall}
-                    points={countInvertedPoints(props.value.throw, throwBall)}
-                    color={getColor(props.value.throw, throwBall)}
+                    maxValue={_throw.upperLimitPoints}
+                    param={_throw}
+                    points={countInvertedPoints(props.value.throw, _throw)}
+                    color={getColor(props.value.throw, _throw)}
                     value={props.value.throw}
                     changeDate={getThrowMeasurementDate()}
                     unit="cm"
