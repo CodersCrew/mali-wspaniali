@@ -89,7 +89,7 @@ export function MeasurementEditor(props: Props) {
             </Grid>
             <Grid item>
                 <MeasurementPoint
-                    isEmpty={props.resultCreator.values.throw === 0 && props.resultCreator.edited !== 'throwBall'}
+                    isEmpty={props.resultCreator.values.throw === 0 && props.resultCreator.edited !== 'throw'}
                     step={10}
                     maxValue={throwBall.upperLimitPoints}
                     param={throwBall}
