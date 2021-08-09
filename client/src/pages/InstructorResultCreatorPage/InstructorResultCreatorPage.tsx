@@ -66,7 +66,7 @@ export default function InstructorResultCreatorPage() {
 
     return (
         <PageContainer>
-            <ResultCreator {...{ resultCreator, measurement, onClick: handleClick }} />
+            <ResultCreator resultCreator={resultCreator} measurement={measurement} onClick={handleClick} />
         </PageContainer>
     );
 

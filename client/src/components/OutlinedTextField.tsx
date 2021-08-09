@@ -2,9 +2,9 @@ import React from 'react';
 import { TextField, TextFieldProps } from '@material-ui/core';
 
 interface OutlinedTextFieldProps {
-    label: string;
     value: string;
     onChange: (value: string) => void;
+    label?: string;
     options?: Partial<TextFieldProps>;
 }
 
