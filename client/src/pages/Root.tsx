@@ -68,7 +68,6 @@ export function Root() {
                                             path="/admin"
                                             component={getRootLazyImports('TestResultLoadingPage')}
                                         />
-
                                         <Route exact path="/admin/users" component={getRootLazyImports('UsersPage')} />
                                         <Route
                                             exact
@@ -130,10 +129,6 @@ export function Root() {
                                             path="/admin/articles"
                                             component={getRootLazyImports('AdminArticlesPage')}
                                         />
-                                        {/*
-                                         TODO: add ArticlePage component for Admin,
-                                         currently we display the same component as for Parent
-*/}
                                         <Route
                                             exact
                                             path="/admin/article/:articleId"
