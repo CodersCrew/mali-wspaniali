@@ -1,12 +1,4 @@
-import {
-    Box,
-    createStyles,
-    Grid,
-    makeStyles,
-    SimplePaletteColorOptions,
-    TextField,
-    Typography,
-} from '@material-ui/core';
+import { Box, createStyles, Grid, makeStyles, SimplePaletteColorOptions, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { MeasurementPoint } from './MeasurementPoint';
 import dayjs from '../../../localizedMoment';
@@ -14,6 +6,7 @@ import { countPoints, countInvertedPoints } from '../countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from '../useResultCreator';
 import { AssessmentParam } from '../../../graphql/types';
 import { theme } from '../../../theme/theme';
+import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 interface MeasurementValues {
     run: number;
@@ -125,13 +118,10 @@ export function MeasurementEditor(props: Props) {
                 <Box mb={2}>
                     <Typography variant="subtitle2">{t('add-result-page.note')}</Typography>
                 </Box>
-                <TextField
-                    fullWidth
-                    multiline
-                    variant="outlined"
-                    rows={7}
+                <OutlinedTextField
                     value={props.note || ''}
-                    onChange={({ target: { value } }) => value.length <= LENGTH_LIMIT && props.onNoteChange(value)}
+                    options={{ multiline: true, minRows: 7 }}
+                    onChange={(value) => value.length <= LENGTH_LIMIT && props.onNoteChange(value)}
                 />
                 <Grid container justify="flex-end">
                     <Grid item>
