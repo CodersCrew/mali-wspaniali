@@ -1,12 +1,4 @@
-import {
-    Box,
-    createStyles,
-    Grid,
-    makeStyles,
-    SimplePaletteColorOptions,
-    TextField,
-    Typography,
-} from '@material-ui/core';
+import { Box, createStyles, Grid, makeStyles, SimplePaletteColorOptions, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { MeasurementPoint } from './MeasurementPoint';
 import dayjs from '../../../localizedMoment';
@@ -14,6 +6,7 @@ import { countPoints, countInvertedPoints } from '../countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from '../useResultCreator';
 import { AssessmentParam } from '../../../graphql/types';
 import { theme } from '../../../theme/theme';
+import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 interface MeasurementValues {
     run: number;
@@ -39,13 +32,13 @@ export function MeasurementEditor(props: Props) {
 
     const { selectedChild: child } = props.resultCreator;
 
-    const { run, pendelumRun, jump, throw: throwBall } = child.currentParams!;
+    const { run, pendelumRun, jump, throw: _throw } = child.currentParams!;
 
     const result = props.resultCreator.kindergartenResults.find(
         (r) => r.childId === props.resultCreator.selectedChild._id,
     );
 
-    if (!child.currentParams || !run || !pendelumRun || !jump || !throwBall) {
+    if (!child.currentParams || !run || !pendelumRun || !jump || !_throw) {
         return <Typography variant="body1">The child doesnt suit to the test</Typography>;
     }
 
@@ -89,12 +82,12 @@ export function MeasurementEditor(props: Props) {
             </Grid>
             <Grid item>
                 <MeasurementPoint
-                    isEmpty={props.resultCreator.values.throw === 0 && props.resultCreator.edited !== 'throwBall'}
+                    isEmpty={props.resultCreator.values.throw === 0 && props.resultCreator.edited !== 'throw'}
                     step={10}
-                    maxValue={throwBall.upperLimitPoints}
-                    param={throwBall}
-                    points={countInvertedPoints(props.value.throw, throwBall)}
-                    color={getColor(props.value.throw, throwBall)}
+                    maxValue={_throw.upperLimitPoints}
+                    param={_throw}
+                    points={countInvertedPoints(props.value.throw, _throw)}
+                    color={getColor(props.value.throw, _throw)}
                     value={props.value.throw}
                     changeDate={getThrowMeasurementDate()}
                     unit="cm"
@@ -125,13 +118,10 @@ export function MeasurementEditor(props: Props) {
                 <Box mb={2}>
                     <Typography variant="subtitle2">{t('add-result-page.note')}</Typography>
                 </Box>
-                <TextField
-                    fullWidth
-                    multiline
-                    variant="outlined"
-                    rows={7}
+                <OutlinedTextField
                     value={props.note || ''}
-                    onChange={({ target: { value } }) => value.length <= LENGTH_LIMIT && props.onNoteChange(value)}
+                    options={{ multiline: true, minRows: 7 }}
+                    onChange={(value) => value.length <= LENGTH_LIMIT && props.onNoteChange(value)}
                 />
                 <Grid container justify="flex-end">
                     <Grid item>

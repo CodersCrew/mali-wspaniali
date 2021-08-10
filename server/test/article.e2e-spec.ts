@@ -131,10 +131,9 @@ mutation {
                 lastName: "his-lastname",
                 avatarUrl: "https://mali-wspaniali.netlify.app/"
               },
-              tags: ["life-style"],
               title: "my title lorem ipsum"
             }) {
-              status
+              _id
             }
           }
           `,
@@ -162,7 +161,6 @@ mutation {
                 lastName
                 avatarUrl
               }
-              tags
               title
               }
             }
@@ -187,7 +185,6 @@ mutation {
                 lastName: 'his-lastname',
                 avatarUrl: 'https://mali-wspaniali.netlify.app/',
               },
-              tags: ['life-style'],
               title: 'my title lorem ipsum',
             }),
           );
@@ -244,10 +241,9 @@ mutation {
               lastName: "his-lastname",
               avatarUrl: "https://mali-wspaniali.netlify.app/"
             },
-            tags: ["life-style"],
             title: "my title lorem ipsum"
           }) {
-            status
+            _id
           }
         }
         `,

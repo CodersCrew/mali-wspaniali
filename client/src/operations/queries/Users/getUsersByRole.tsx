@@ -29,9 +29,15 @@ interface UseUsersReturnType {
     refetch: () => void;
 }
 
+interface PaginatedUserOptions {
+    role: string;
+    page?: string;
+    search?: string;
+}
+
 export const INSTRUCTORS = gql`
-    query Users {
-        users(role: "instructor") {
+    query Users($options: UserPagination!) {
+        users(options: $options) {
             _id
             createdAt
             mail
@@ -43,8 +49,8 @@ export const INSTRUCTORS = gql`
 `;
 
 export const ADMINS = gql`
-    query Users {
-        users(role: "admin") {
+    query Users($options: UserPagination!) {
+        users(options: $options) {
             _id
             createdAt
             mail
@@ -54,8 +60,8 @@ export const ADMINS = gql`
 `;
 
 export const PARENTS = gql`
-    query Users {
-        users(role: "parent") {
+    query Users($options: UserPagination!) {
+        users(options: $options) {
             _id
             createdAt
             mail
@@ -98,8 +104,8 @@ export const PARENTS = gql`
     }
 `;
 
-export function useInstructors(): UseInstructorsReturnType {
-    const { data, loading } = useQuery<UsersListReponse>(INSTRUCTORS);
+export function useInstructors(options: PaginatedUserOptions = { role: 'instructor' }): UseInstructorsReturnType {
+    const { data, loading } = useQuery<UsersListReponse>(INSTRUCTORS, { variables: { options } });
 
     return {
         instructors: data?.users || [],
@@ -107,8 +113,8 @@ export function useInstructors(): UseInstructorsReturnType {
     };
 }
 
-export function useAdmins(): UseAdminsReturnType {
-    const { data, loading } = useQuery<UsersListReponse>(ADMINS);
+export function useAdmins(options: PaginatedUserOptions = { role: 'admin' }): UseAdminsReturnType {
+    const { data, loading } = useQuery<UsersListReponse>(ADMINS, { variables: { options } });
 
     return {
         admins: data?.users || [],
@@ -116,8 +122,8 @@ export function useAdmins(): UseAdminsReturnType {
     };
 }
 
-export function useParents(): UseParentsReturnType {
-    const { data, loading } = useQuery<ParentsListResponse>(PARENTS);
+export function useParents(options: PaginatedUserOptions = { role: 'parent' }): UseParentsReturnType {
+    const { data, loading } = useQuery<ParentsListResponse>(PARENTS, { variables: { options } });
 
     return {
         parents: data?.users || [],
@@ -125,8 +131,13 @@ export function useParents(): UseParentsReturnType {
     };
 }
 
-export function useUsers(role: string): UseUsersReturnType {
-    const { data, loading, refetch } = useQuery<ParentsListResponse>(role === 'parent' ? PARENTS : INSTRUCTORS);
+export function useUsers(options: PaginatedUserOptions): UseUsersReturnType {
+    const { data, loading, refetch } = useQuery<ParentsListResponse>(
+        options.role === 'parent' ? PARENTS : INSTRUCTORS,
+        {
+            variables: { options },
+        },
+    );
 
     return {
         users: data?.users.map(normalizeUser) || [],

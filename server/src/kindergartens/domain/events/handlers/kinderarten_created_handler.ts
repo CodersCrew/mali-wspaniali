@@ -18,7 +18,7 @@ export class KindergartenCreatedHandler
   async handle({ kindergartenId }: KindergartenCreatedEvent): Promise<void> {
     const kindergarten = await this.kindergartenRepository.get(kindergartenId);
 
-    const users = await this.userRepository.getAll('admin');
+    const users = await this.userRepository.getAll({ role: 'admin' });
 
     this.notificationRepository.create(
       createKindergartenCreatedNotification(

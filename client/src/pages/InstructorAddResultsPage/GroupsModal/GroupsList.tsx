@@ -68,7 +68,7 @@ export function GroupsList() {
                                     alignItems="center"
                                 >
                                     <OutlinedTextField
-                                        input={group.name}
+                                        value={group.name}
                                         label={t('groupsModal.group-name').toString()}
                                         onChange={(value: string) => setGroupName(group._id, value)}
                                     />

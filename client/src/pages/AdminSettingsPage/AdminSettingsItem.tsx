@@ -1,4 +1,5 @@
-import { TableRow, TableCell, IconButton, makeStyles, Theme, Typography, fade, Tooltip } from '@material-ui/core';
+import { TableRow, TableCell, IconButton, makeStyles, Theme, Typography, alpha, Tooltip } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 import { Delete as DeleteIcon, Edit as EditIcon, Forward as ForwardIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
@@ -23,7 +24,7 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
     const { kindergartenList } = useKindergartens();
     const { anonymizeUser } = useAnonymizeUser();
     const { editChild } = useEditChild();
-    const { refetch: refetchUser } = useUsers('parent');
+    const { refetch: refetchUser } = useUsers({ role: 'parent' });
     const childrenData = user.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
     const editIconTooltip = t('user-settings.button-icon-edit-tooltip');
@@ -120,17 +121,30 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
     );
 }
 
+export function AdminSettingsLoadingItem() {
+    return (
+        <TableRow>
+            <TableCell>
+                <Skeleton variant="rect" height={118} />
+            </TableCell>
+            <TableCell>
+                <Skeleton variant="rect" height={118} />
+            </TableCell>
+        </TableRow>
+    );
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
     editButton: {
         '&:hover': {
             color: theme.palette.primary.main,
-            backgroundColor: fade(theme.palette.primary.main, 0.2),
+            backgroundColor: alpha(theme.palette.primary.main, 0.2),
         },
     },
     deleteButton: {
         '&:hover': {
             color: theme.palette.error.main,
-            backgroundColor: fade(theme.palette.error.main, 0.2),
+            backgroundColor: alpha(theme.palette.error.main, 0.2),
         },
     },
     parentEmailColumn: {

@@ -90,7 +90,7 @@ describe('GetAllUsersHandler', () => {
   }
 
   function getAllUsers() {
-    return app.get(GetAllUsersHandler).execute(new GetAllUsersQuery());
+    return app.get(GetAllUsersHandler).execute(new GetAllUsersQuery({}));
   }
 });
 

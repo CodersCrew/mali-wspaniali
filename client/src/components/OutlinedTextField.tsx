@@ -1,21 +1,25 @@
+import React from 'react';
 import { TextField, TextFieldProps } from '@material-ui/core';
 
-interface Props {
-    label: string;
-    input: string;
-    options?: Partial<TextFieldProps>;
+interface OutlinedTextFieldProps {
+    value: string;
     onChange: (value: string) => void;
+    label?: string;
+    options?: Partial<TextFieldProps>;
 }
 
-export function OutlinedTextField({ label, input, options = {}, onChange }: Props) {
-    return (
-        <TextField
-            variant="outlined"
-            label={label}
-            value={input}
-            onChange={({ target: { value } }) => onChange(value)}
-            fullWidth
-            {...options}
-        />
-    );
-}
+export const OutlinedTextField = React.memo(
+    function OutlinedTextField({ label, value, options = {}, onChange }: OutlinedTextFieldProps) {
+        return (
+            <TextField
+                variant="outlined"
+                label={label}
+                value={value}
+                onChange={({ target: { value: _value } }) => onChange(_value)}
+                fullWidth
+                {...options}
+            />
+        );
+    },
+    (prev, next) => prev.value === next.value && prev.label === next.label,
+);

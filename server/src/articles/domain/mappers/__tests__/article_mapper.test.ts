@@ -11,7 +11,6 @@ describe('ArticleMapper', () => {
           contentHTML: '<div>my-content</div>',
           description: 'my-description-30-characters-lorem-ipsum',
           pictureUrl: 'http://some-page.com/image.png',
-          tags: [],
           title: 'my-title-10-characters',
           redactor: {
             firstName: 'Alice',
@@ -26,7 +25,6 @@ describe('ArticleMapper', () => {
           'my-description-30-characters-lorem-ipsum',
         );
         expect(article.pictureUrl).toBe('http://some-page.com/image.png');
-        expect(article.tags).toEqual([]);
         expect(article.title).toBe('my-title-10-characters');
         expect(article.redactor).toEqual({
           firstName: 'Alice',
@@ -43,7 +41,6 @@ describe('ArticleMapper', () => {
             contentHTML: '<div>my-content</div>',
             description: 'my-description',
             pictureUrl: 'http://some-page.com/image.png',
-            tags: ['behaviour'],
             title: 'my-title-10-characters',
             redactor: {
               firstName: 'Alice',
@@ -51,7 +48,6 @@ describe('ArticleMapper', () => {
               avatarUrl: 'http://some-page.com/me.png',
               biography: 'beginning',
               profession: 'my-profession',
-              shortDescription: 'my-description',
             },
           }),
         ).toThrow(
@@ -72,7 +68,6 @@ describe('ArticleMapper', () => {
           contentHTML: '<div>my-content</div>',
           description: 'my-description-30-characters-lorem-ipsum',
           pictureUrl: 'http://some-page.com/image.png',
-          tags: ['behaviour'],
           videoUrl: 'http://some-page.com/video',
           title: 'my-title-10-characters',
           redactor: {
@@ -81,7 +76,6 @@ describe('ArticleMapper', () => {
             avatarUrl: 'http://some-page.com/me.png',
             biography: 'beginning',
             profession: 'my-profession',
-            shortDescription: 'my-description',
           },
         });
 
@@ -91,7 +85,6 @@ describe('ArticleMapper', () => {
           'my-description-30-characters-lorem-ipsum',
         );
         expect(article.pictureUrl).toBe('http://some-page.com/image.png');
-        expect(article.tags).toEqual(['behaviour']);
         expect(article.videoUrl).toEqual('http://some-page.com/video');
         expect(article.title).toBe('my-title-10-characters');
         expect(article.redactor).toEqual({
@@ -100,7 +93,6 @@ describe('ArticleMapper', () => {
           avatarUrl: 'http://some-page.com/me.png',
           biography: 'beginning',
           profession: 'my-profession',
-          shortDescription: 'my-description',
         });
       });
     });
@@ -114,7 +106,6 @@ describe('ArticleMapper', () => {
           contentHTML: '<div>my-content</div>',
           description: 'my-description-30-characters-lorem-ipsum',
           pictureUrl: 'http://some-page.com/image.png',
-          tags: [],
           title: 'my-title-10-characters',
           redactor: {
             firstName: 'Alice',
@@ -122,7 +113,7 @@ describe('ArticleMapper', () => {
           },
         });
 
-        const articleProps = ArticleMapper.toRaw(article);
+        const articleProps = ArticleMapper.toPlain(article);
 
         expect(articleProps).toEqual(
           jasmine.objectContaining({
@@ -130,7 +121,6 @@ describe('ArticleMapper', () => {
             contentHTML: '<div>my-content</div>',
             description: 'my-description-30-characters-lorem-ipsum',
             pictureUrl: 'http://some-page.com/image.png',
-            tags: [],
             title: 'my-title-10-characters',
             redactor: {
               firstName: 'Alice',
@@ -148,7 +138,6 @@ describe('ArticleMapper', () => {
           contentHTML: '<div>my-content</div>',
           description: 'my-description-30-characters-lorem-ipsum',
           pictureUrl: 'http://some-page.com/image.png',
-          tags: ['behaviour'],
           videoUrl: 'http://some-page.com/video',
           title: 'my-title-10-characters',
           redactor: {
@@ -157,11 +146,10 @@ describe('ArticleMapper', () => {
             avatarUrl: 'http://some-page.com/me.png',
             biography: 'beginning',
             profession: 'my-profession',
-            shortDescription: 'my-description',
           },
         });
 
-        const articleProps = ArticleMapper.toRaw(article);
+        const articleProps = ArticleMapper.toPlain(article);
 
         expect(articleProps).toEqual(
           jasmine.objectContaining({
@@ -169,7 +157,6 @@ describe('ArticleMapper', () => {
             contentHTML: '<div>my-content</div>',
             description: 'my-description-30-characters-lorem-ipsum',
             pictureUrl: 'http://some-page.com/image.png',
-            tags: ['behaviour'],
             videoUrl: 'http://some-page.com/video',
             title: 'my-title-10-characters',
             redactor: {
@@ -178,7 +165,6 @@ describe('ArticleMapper', () => {
               avatarUrl: 'http://some-page.com/me.png',
               biography: 'beginning',
               profession: 'my-profession',
-              shortDescription: 'my-description',
             },
           }),
         );

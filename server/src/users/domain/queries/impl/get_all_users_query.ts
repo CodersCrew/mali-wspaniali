@@ -1,3 +1,5 @@
+import { UserPagination } from '../../../params/user_pagination';
+
 export class GetAllUsersQuery {
-  constructor(public role?: string) {}
+  constructor(public options: UserPagination) {}
 }

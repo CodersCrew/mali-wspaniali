@@ -19,9 +19,6 @@ export class ArticleDTO extends FieldCore {
   @Field()
   redactor: RedactorDTO;
 
-  @Field(() => [String])
-  tags: string[];
-
   @Field()
   title: string;
 

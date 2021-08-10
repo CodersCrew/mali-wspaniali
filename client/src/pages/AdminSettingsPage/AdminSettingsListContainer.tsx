@@ -3,17 +3,21 @@ import { TableBody, TableCell, Table, TableHead, TableRow, TablePagination } fro
 import { useTranslation } from 'react-i18next';
 
 import { useUsers } from '../../operations/queries/Users/getUsersByRole';
-import { AdminSettingsItem } from './AdminSettingsItem';
+import { AdminSettingsItem, AdminSettingsLoadingItem } from './AdminSettingsItem';
 import { User } from '../../graphql/types';
 
 interface AdminSettingsListContainersProps {
     role: string;
+    search?: string;
+    kindergartenId?: string;
 }
 
-export function AdminSettingsListContainers(props: AdminSettingsListContainersProps) {
-    const { users } = useUsers(props.role);
+export const AdminSettingsListContainers = React.memo(function AdminSettingsListContainers(
+    props: AdminSettingsListContainersProps,
+) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const { users, isUserListLoading } = useUsers({ ...props, page: page.toString() });
 
     const isParent = props.role === 'parent';
     const Header = isParent ? ParentHeader : InstructorHeader;
@@ -23,6 +27,7 @@ export function AdminSettingsListContainers(props: AdminSettingsListContainersPr
             <Table>
                 <Header />
                 <TableBody>
+                    {isUserListLoading && <AdminSettingsLoadingItem />}
                     {users.map((user: User) => {
                         return <AdminSettingsItem user={user} key={user.mail} />;
                     })}
@@ -30,12 +35,12 @@ export function AdminSettingsListContainers(props: AdminSettingsListContainersPr
             </Table>
 
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[10]}
                 component="div"
-                count={users.length}
+                count={-1}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                onChangePage={handleChangePage}
+                onPageChange={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
         </div>
@@ -49,7 +54,7 @@ export function AdminSettingsListContainers(props: AdminSettingsListContainersPr
         setRowsPerPage(+event.target.value);
         setPage(0);
     }
-}
+});
 
 function ParentHeader() {
     const { t } = useTranslation();

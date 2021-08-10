@@ -5,7 +5,7 @@ import { ButtonDefault } from './Button';
 
 type QuestionDialogProps = {
     title: string;
-    description: string;
+    description?: string;
     primaryButtonLabel: string;
     color?: 'primary' | 'secondary' | 'inherit' | 'default' | undefined;
 };

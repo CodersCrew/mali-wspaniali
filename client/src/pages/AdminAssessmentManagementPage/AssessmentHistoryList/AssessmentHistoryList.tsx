@@ -61,7 +61,7 @@ export function AssessmentHistoryList({ assessments, onTestClick }: Props) {
                 labelRowsPerPage={t('manage-test-view.test-list.rows-number')}
                 count={assessments.length}
                 page={page}
-                onChangePage={handleChangePage}
+                onPageChange={handleChangePage}
                 rowsPerPage={rowsPerPage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />

@@ -53,7 +53,7 @@ export const KindergartensTable = ({ kindergartens, onEditClick }: Props) => {
                 labelRowsPerPage={t('test-results.rows-number')}
                 count={kindergartens.length}
                 page={page}
-                onChangePage={handleChangePage}
+                onPageChange={handleChangePage}
                 rowsPerPage={rowsPerPage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />

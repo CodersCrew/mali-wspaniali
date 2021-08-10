@@ -526,7 +526,9 @@
         "yes": "Tak",
         "no": "Nie",
         "cancel": "Anuluj",
-        "delete": "Usuń"
+        "delete": "Usuń",
+        "publish": "Opublikuj",
+        "hide": "Ukryj"
     },
     "parent-children": {
         "children": "Dzieci",
@@ -792,7 +794,7 @@
     "notification-list": {
         "new-assessment": "Nowy test ({{name}}) został dodany.",
         "new-user": "Nowy użytkownik ({{email}}) został dodany.",
-        "new-article": "Dodano nowy, nieopublikowany artykuł \"{{title}}\"",
+        "new-article": "Dodano nowy, nieopublikowany artykuł",
         "child-created": "Dziecko zostało dodane.",
         "kindergarten-created": "Nowe przedszkole ({{name}}) zostało dodane."
     },
@@ -1095,7 +1097,70 @@
         "edit-groups": "włącz edycję grup",
         "edit": "edytuj"
     },
+    "add-article": {
+        "basic-information-form": {
+            "title": "Informacja o artykule",
+            "form-title": "Tytuł artykułu",
+            "category": "Kategoria",
+            "categories": {
+                "emotions": "emocje",
+                "activity": "aktywność",
+                "food": "żywienie",
+                "other": "inne"
+            },
+            "picture-url": "Adres URL zdjęcia głównego ",
+            "description": "Opis artykułu"
+        },
+        "content-creator": {
+            "title": "Treść artykułu",
+            "video-url": "Adres URL wideo"
+        },
+        "author-information-form": {
+            "title": "Informacje o autorze",
+            "first-name": "Imie",
+            "last-name": "Nazwisko",
+            "profession": "Specjalizacja",
+            "avatar-url": "Picture URL",
+            "biography": "Informacje o autorze"
+        },
+        "action-buttons": {
+            "preview": "Podgląd",
+            "back": "Wróć",
+            "update": "Aktualizuj",
+            "edit": "Edytuj"
+        },
+        "events": {
+            "created": "Utworzono artykuł",
+            "updated": "Artykuł zaktualizowany"
+        }
+    },
+    "admin-article-list": {
+        "card": {
+            "edit": "Edytuj",
+            "publish": "Publikuj (Notyfikacje zostanę wysłane)",
+            "unpublish": "Ukryj (W przypadku ponownego opublikowania, powiadomienia nie zostaną wysłane)",
+            "delete": "Skasuj",
+            "delete-article-dialog": {
+                "title": "Skasować artykuł \"{{title}}\"?"
+            },
+            "publish-article-dialog": {
+                "title": "Opublikować artykuł \"{{title}}\"?"
+            },
+            "hide-article-dialog": {
+                "title": "Ukryć artykuł \"{{title}}\"?"
+            }
+        }
+    },
+    "instructor-settings-page": {
+        "basic-information-panel": {
+            "title": "Podstawowe informacje",
+            "first-name":"Imie",
+            "last-name":"Nazwisko"
+        },
+        "save": "Zapisz"
+    },
     "general": {
-        "selected-count": "{{count}}/{{maxCount}} zaznaczono"
+        "selected-count": "{{count}}/{{maxCount}} zaznaczono",
+        "updated-profile": "Profil zaktualizowany"
     }
 }

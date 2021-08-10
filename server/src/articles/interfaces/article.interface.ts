@@ -9,7 +9,6 @@ export interface ArticleDocument extends Document {
   description: string;
   pictureUrl: string;
   redactor: Redactor;
-  tags: string[];
   title: string;
   videoUrl?: string;
 }

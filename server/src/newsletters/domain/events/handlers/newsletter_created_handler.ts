@@ -18,7 +18,7 @@ export class NewsletterCreatedHandler
     await this.repository.create(newsletter);
 
     if (newsletter.type.includes('ALL')) {
-      const users = await this.userRepository.getAll('parent');
+      const users = await this.userRepository.getAll({ role: 'parent' });
 
       await this.sendMail.send({
         from: 'piotrek@coderscrew.pl',

@@ -2,10 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ReturnedStatusDTO {
-  status: Boolean!
-}
-
 type RedactorDTO {
   avatarUrl: String
   firstName: String!
@@ -25,7 +21,6 @@ type ArticleDTO {
   description: String!
   pictureUrl: String!
   redactor: RedactorDTO!
-  tags: [String!]!
   title: String!
   isPublished: Boolean
   videoUrl: String
@@ -51,6 +46,10 @@ type AgreementDTO {
   deletedAt: DateTime
   text: String!
   isSigned: Boolean!
+}
+
+type ReturnedStatusDTO {
+  status: Boolean!
 }
 
 type CreateKeyCodeDTO {
@@ -307,7 +306,7 @@ type Query {
   kindergartenWithUsers(ids: [String!]!): [KindergartenWithUsersDTO!]!
   me: UserDTO!
   user(id: String!): UserDTO!
-  users(role: String): [UserDTO!]!
+  users(options: UserPagination): [UserDTO!]!
   allChildren: [ChildDTO!]!
   kindergartenResults(kindergartenId: String!, assessmentId: String!): [PartialChildResult!]!
   result(id: String!): ChildAssessmentResultDTO!
@@ -316,9 +315,16 @@ type Query {
   assessment(id: String!): AssessmentDTO!
 }
 
+input UserPagination {
+  kindergartenId: String
+  role: String
+  search: String
+  page: String
+}
+
 type Mutation {
-  createArticle(article: CreateArticleInput!): ReturnedStatusDTO!
-  updateArticle(updates: UpdateArticleInput!, id: String!): ReturnedStatusDTO!
+  createArticle(article: CreateArticleInput!): ArticleDTO!
+  updateArticle(updates: UpdateArticleInput!): ArticleDTO!
   createAgreement(agreement: String!): ReturnedStatusDTO!
   createKeyCode(target: String!): CreateKeyCodeDTO!
   createKeyCodeBulk(amount: Int!, target: String!): [CreateKeyCodeDTO!]!
@@ -346,13 +352,12 @@ type Mutation {
 }
 
 input CreateArticleInput {
+  title: String!
   category: String!
   contentHTML: String!
   description: String!
   pictureUrl: String!
   redactor: RedactorInput!
-  tags: [String!]!
-  title: String!
   videoUrl: String
 }
 
@@ -362,18 +367,17 @@ input RedactorInput {
   avatarUrl: String
   profession: String
   biography: String
-  shortDescription: String
 }
 
 input UpdateArticleInput {
+  title: String
   category: String
   contentHTML: String
   description: String
   pictureUrl: String
   redactor: RedactorInput
-  tags: [String!]
-  title: String
   videoUrl: String
+  _id: String!
   isDeleted: Boolean
   isPublished: Boolean
 }

@@ -18,10 +18,10 @@ export class UpdateArticleHandler
   ) {}
 
   async execute(command: UpdateArticleCommand): Promise<Article> {
-    const { id, updates } = command;
+    const { updates } = command;
 
     const article = await this.publisher.mergeObjectContext<Article>(
-      await this.commandBus.execute(new GetArticleByIdQuery(id)),
+      await this.commandBus.execute(new GetArticleByIdQuery(updates._id)),
     );
 
     article.update(updates);

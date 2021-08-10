@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react';
 import { makeStyles, Grid, Typography, createStyles, Theme } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { categoriesList } from './BlogCategories';
-import { PaginatedArticles } from '../../graphql/types';
 import { BlogArticleCard } from '../../components/Blog/BlogArticleCard';
 import { activePage } from '../../apollo_client';
-import { ARTICLES, ARTICLES_BY_CATEGORY } from '../../graphql/articleRepository';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { Pagination } from '../../components/Blog/Pagination';
 import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
 import { PageContainer } from '../../components/PageContainer';
-
-const ARTICLES_PER_PAGE = 6;
+import { ARTICLES_PER_PAGE, useArticles } from '../../operations/queries/Articles/getArticles';
 
 export default function ArticleListPage() {
     const classes = useStyles();
@@ -25,15 +21,7 @@ export default function ArticleListPage() {
     const { isSmallMobile } = useIsDevice();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, fetchMore } = useQuery<{
-        paginatedArticles: PaginatedArticles;
-    }>(params.category === 'all' ? ARTICLES : ARTICLES_BY_CATEGORY, {
-        variables: {
-            page: currentPage,
-            perPage: ARTICLES_PER_PAGE,
-            category: params.category === 'all' ? undefined : params.category,
-        },
-    });
+    const { paginatedArticles, fetchMore } = useArticles(currentPage, params.category);
 
     useEffect(() => {
         activePage([`blog-categories.${params.category}`, 'parent-menu.blog']);
@@ -44,7 +32,7 @@ export default function ArticleListPage() {
         history.push(`/parent/blog/${value}`);
     }
 
-    if (!data) {
+    if (!paginatedArticles) {
         return (
             <MobileAwareCategoryTabs
                 onChange={onTabChange}
@@ -55,7 +43,7 @@ export default function ArticleListPage() {
         );
     }
 
-    const { articles, count, hasNext } = data.paginatedArticles;
+    const { articles, count, hasNext } = paginatedArticles;
 
     return (
         <>
@@ -75,13 +63,7 @@ export default function ArticleListPage() {
                 <Grid container justify="flex-start" spacing={isSmallMobile ? 2 : 3}>
                     {articles.map((article) => (
                         <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
-                            <BlogArticleCard
-                                title={article.title}
-                                pictureUrl={article.pictureUrl}
-                                description={article.description}
-                                link={`/parent/article/${article._id}`}
-                                category={t(`single-article.${article.category}`)}
-                            />
+                            <BlogArticleCard article={article} readOnly />
                         </Grid>
                     ))}
                 </Grid>

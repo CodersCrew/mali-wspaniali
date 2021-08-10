@@ -1,4 +1,4 @@
-import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme, fade, Tooltip } from '@material-ui/core';
+import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme, alpha, Tooltip } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
         editButton: {
             '&:hover': {
                 color: theme.palette.primary.main,
-                backgroundColor: fade(theme.palette.primary.main, 0.2),
+                backgroundColor: alpha(theme.palette.primary.main, 0.2),
             },
         },
         itemRoot: {

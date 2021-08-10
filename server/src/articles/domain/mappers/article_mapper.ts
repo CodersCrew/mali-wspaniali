@@ -4,10 +4,12 @@ import { classToPlain } from 'class-transformer';
 import { transformAndValidateSync } from 'class-transformer-validator';
 
 export class ArticleMapper {
-  static toRaw(article: Article): Record<string, any> {
+  static toPlain(article: Article): ArticleCore {
     const props = article.getProps();
 
-    return classToPlain(props, { excludeExtraneousValues: true });
+    return classToPlain(props, {
+      excludeExtraneousValues: true,
+    }) as ArticleCore;
   }
 
   static toDomain(

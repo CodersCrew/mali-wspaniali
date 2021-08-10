@@ -61,7 +61,7 @@ export class NotificationRepository {
   async removeOlderThan(days: number): Promise<void> {
     this.repository
       .deleteMany({
-        date: { $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
+        createdAt: { $lt: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
       })
       .exec();
   }

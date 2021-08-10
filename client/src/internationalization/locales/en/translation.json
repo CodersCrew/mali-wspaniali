@@ -527,7 +527,9 @@
         "yes": "Yes",
         "no": "No",
         "cancel": "Cancel",
-        "delete": "Delete"
+        "delete": "Delete",
+        "publish": "Publish",
+        "hide": "Hide"
     },
     "parent-children": {
         "children": "Children",
@@ -790,7 +792,7 @@
     "notification-list": {
         "new-assessment": "A new test ({{name}}) has been added.",
         "new-user": "A new user ({{email}}) has been added.",
-        "new-article": "Added new, unpublished article\"{{title}}\"",
+        "new-article": "Added new, unpublished article",
         "child-created": "A child has been added.",
         "kindergarten-created": "A new kindergarten ({{name}}) has been created."
     },
@@ -1092,7 +1094,70 @@
         "edit-groups": "edit groups",
         "edit": "edit"
     },
+    "add-article": {
+        "basic-information-form": {
+            "title": "Article information",
+            "form-title": "Title",
+            "category": "Category",
+            "categories": {
+                "emotions": "emotions",
+                "activity": "activity",
+                "food": "food",
+                "other": "other"
+            },
+            "picture-url": "Picture URL",
+            "description": "Description"
+        },
+        "content-creator": {
+            "title": "Content",
+            "video-url": "Video URL"
+        },
+        "author-information-form": {
+            "title": "Author information",
+            "first-name": "First name",
+            "last-name": "Last name",
+            "profession": "Profession",
+            "avatar-url": "Picture URL",
+            "biography": "Bio"
+        },
+        "action-buttons": {
+            "preview": "Preview",
+            "back": "Back",
+            "update": "Update",
+            "edit": "Edit"
+        },
+        "events": {
+            "created": "Article created",
+            "updated": "Article updated"
+        }
+    },
+    "admin-article-list": {
+        "card": {
+            "edit": "Edit",
+            "publish": "Publish (Notifications will be sent)",
+            "unpublish": "Hide (In case of re-publication, notifications will not be sent)",
+            "delete": "Delete",
+            "delete-article-dialog": {
+                "title": "Delete article \"{{title}}\"?"
+            },
+            "publish-article-dialog": {
+                "title": "Publish article \"{{title}}\"?"
+            },
+            "hide-article-dialog": {
+                "title": "Hide article \"{{title}}\"?"
+            }
+        }
+    },
+    "instructor-settings-page": {
+        "basic-information-panel": {
+            "title": "Basic information",
+            "first-name":"First name",
+            "last-name":"Last name"
+        },
+        "save": "Save"
+    },
     "general": {
-        "selected-count": "{{count}}/{{maxCount}} items were selected"
+        "selected-count": "{{count}}/{{maxCount}} items were selected",
+        "updated-profile": "Updated profile"
     }
 }
