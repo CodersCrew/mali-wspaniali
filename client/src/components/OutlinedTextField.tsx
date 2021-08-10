@@ -21,5 +21,5 @@ export const OutlinedTextField = React.memo(
             />
         );
     },
-    (prev, next) => prev.value === next.value,
+    (prev, next) => prev.value === next.value && prev.label === next.label,
 );
