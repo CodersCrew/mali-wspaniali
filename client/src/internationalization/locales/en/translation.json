@@ -1157,6 +1157,7 @@
         "save": "Save"
     },
     "general": {
-        "selected-count": "{{count}}/{{maxCount}} items were selected"
+        "selected-count": "{{count}}/{{maxCount}} items were selected",
+        "updated-profile": "Updated profile"
     }
 }

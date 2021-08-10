@@ -1160,6 +1160,7 @@
         "save": "Zapisz"
     },
     "general": {
-        "selected-count": "{{count}}/{{maxCount}} zaznaczono"
+        "selected-count": "{{count}}/{{maxCount}} zaznaczono",
+        "updated-profile": "Profil zaktualizowany"
     }
 }
