@@ -1148,6 +1148,14 @@
             }
         }
     },
+    "instructor-settings-page": {
+        "basic-information-panel": {
+            "title": "Basic information",
+            "first-name":"First name",
+            "last-name":"Last name"
+        },
+        "save": "Save"
+    },
     "general": {
         "selected-count": "{{count}}/{{maxCount}} items were selected"
     }
