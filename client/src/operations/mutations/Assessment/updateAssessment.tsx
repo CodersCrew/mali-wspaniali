@@ -1,4 +1,5 @@
 import { gql, useMutation, FetchResult } from '@apollo/client';
+import pick from 'lodash.pick';
 import { AssessmentResponse } from '../../queries/Assessment/getAssessment';
 
 export type UpdatedAssessmentInput = {
@@ -7,6 +8,12 @@ export type UpdatedAssessmentInput = {
     isOutdated: boolean;
     isDeleted: boolean;
     kindergartens: Array<{ kindergartenId?: string; instructorId?: string }>;
+    firstMeasurementStartDate: string;
+    firstMeasurementEndDate: string;
+    lastMeasurementStartDate: string;
+    lastMeasurementEndDate: string;
+    firstMeasurementStatus: string;
+    lastMeasurementStatus: string;
 };
 
 interface UpdateAssessment {
@@ -50,8 +57,24 @@ export function useUpdateAssessment(): UpdateAssessment {
 
     return {
         updateAssessment: (id: string, updatedAssessment) => {
+            console.log(updatedAssessment);
+
             return updateAssessment({
-                variables: { id, assessment: updatedAssessment },
+                variables: {
+                    id,
+                    assessment: pick(updatedAssessment, [
+                        'title',
+                        'firstMeasurementStartDate',
+                        'firstMeasurementEndDate',
+                        'lastMeasurementStartDate',
+                        'lastMeasurementEndDate',
+                        'firstMeasurementStatus',
+                        'lastMeasurementStatus',
+                        'kindergartens',
+                        'isOutdated',
+                        'isDeleted',
+                    ]),
+                },
             });
         },
         isUpdatePending: loading,
