@@ -35,7 +35,7 @@ export class CreateConfirmationRequestHandler
 
       this.sendMail.send({
         bcc: [user.mail],
-        from: 'piotrek@coderscrew.pl',
+        from: process.env.SENDER,
         subject:
           'Potwierdzenie maila dzieli cię od wejścia do świata Małych Wspaniałych',
         text: 'register',
