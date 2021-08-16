@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-
-import { NotificationDocument } from '../../schemas/notifications_schema';
-import {
-  CreateNotificationProps,
-  NotificationCore,
-} from '../models/notification_model';
 import { Model } from 'mongoose';
-import { transformAndValidateSync } from 'class-transformer-validator';
+
+import { NotificationMapper } from '../mappers/notification_mapper';
+import { NotificationDocument } from '../../schemas/notifications_schema';
+import { Notification } from '../models/notification_model';
 
 @Injectable()
 export class NotificationRepository {
@@ -16,46 +13,32 @@ export class NotificationRepository {
     private repository: Model<NotificationDocument>,
   ) {}
 
-  async getAll(userId: string): Promise<NotificationCore[]> {
-    return await this.repository
-      .find({ user: userId }, {}, { sort: { createdAt: -1 } })
-      .lean()
-      .exec();
-  }
-
-  async create(
-    createNotificationDTO: CreateNotificationProps,
-  ): Promise<NotificationDocument> {
-    if (Array.isArray(createNotificationDTO.userId)) {
-      this.repository.insertMany(
-        createNotificationDTO.userId.map(u => {
-          return { ...createNotificationDTO, user: u };
-        }),
-      );
-    } else {
-      const createdNotification = new this.repository(
-        transformAndValidateSync(
-          NotificationCore,
-          { ...createNotificationDTO, user: createNotificationDTO.userId },
-          {
-            transformer: { excludeExtraneousValues: true },
-            validator: { validationError: { target: false, value: false } },
-          },
-        ),
-      );
-
-      return await createdNotification.save();
-    }
-  }
-
-  async read(id: string): Promise<NotificationCore> {
-    return await this.repository.findByIdAndUpdate(
-      id,
-      {
-        isRead: true,
-      },
-      { new: true },
+  async getAll(userId: string): Promise<Notification[]> {
+    const notifications = await this.repository.find(
+      { user: userId },
+      {},
+      { sort: { createdAt: -1 } },
     );
+
+    return notifications.map(NotificationMapper.toDomain);
+  }
+
+  async create(notifications: Notification[]): Promise<Notification[]> {
+    this.repository.insertMany(notifications.map(NotificationMapper.toPlain));
+
+    return notifications;
+  }
+
+  async read(id: string): Promise<Notification> {
+    return await this.repository
+      .findByIdAndUpdate(
+        id,
+        {
+          isRead: true,
+        },
+        { new: true },
+      )
+      .then(NotificationMapper.toDomain);
   }
 
   async removeOlderThan(days: number): Promise<void> {

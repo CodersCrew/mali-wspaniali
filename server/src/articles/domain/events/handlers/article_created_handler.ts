@@ -20,7 +20,7 @@ export class ArticleCreatedHandler
         const title = article.title;
 
         this.notificationRepository.create(
-          createArticleCreatedNotification(userId, title),
+          createArticleCreatedNotification([userId], title),
         );
       }
     });

@@ -1,59 +1,64 @@
-interface NotificationFactoryResult {
-  userId: string | string[];
-  templateId: string;
-  values: string[];
-}
+import { Notification } from '../models/notification_model';
+import { NotificationMapper } from '../mappers/notification_mapper';
 
 export function createArticleCreatedNotification(
-  userId: string,
+  users: string[],
   title: string,
-): NotificationFactoryResult {
-  return {
-    userId,
-    templateId: 'new_article',
-    values: [title],
-  };
+): Notification[] {
+  return NotificationMapper.toDomainMany(
+    users.map(user => ({
+      user,
+      templateId: 'new_article',
+      values: [title],
+    })),
+  );
 }
 
 export function createUserCreatedNotification(
-  userId: string,
+  users: string[],
   values: string[],
-): NotificationFactoryResult {
-  return {
-    userId,
-    templateId: 'new_user',
-    values,
-  };
+): Notification[] {
+  return NotificationMapper.toDomainMany(
+    users.map(user => ({
+      user,
+      templateId: 'new_user',
+      values,
+    })),
+  );
 }
 
-export function createChildNotification(
-  userId: string,
-): NotificationFactoryResult {
-  return {
-    userId,
-    templateId: 'child_created',
-    values: [],
-  };
+export function createChildNotification(users: string[]): Notification[] {
+  return NotificationMapper.toDomainMany(
+    users.map(user => ({
+      user,
+      templateId: 'child_created',
+      values: [],
+    })),
+  );
 }
 
 export function createAssessmentCreatedNotification(
-  users: string | string[],
+  users: string[],
   values: string[],
-): NotificationFactoryResult {
-  return {
-    userId: users,
-    templateId: 'new_assessment',
-    values,
-  };
+): Notification[] {
+  return NotificationMapper.toDomainMany(
+    users.map(user => ({
+      user,
+      templateId: 'new_assessment',
+      values,
+    })),
+  );
 }
 
 export function createKindergartenCreatedNotification(
-  userId: string[],
+  users: string[],
   name: string,
-): NotificationFactoryResult {
-  return {
-    userId,
-    templateId: 'kindergarten_created',
-    values: [name],
-  };
+): Notification[] {
+  return NotificationMapper.toDomainMany(
+    users.map(user => ({
+      user,
+      templateId: 'kindergarten_created',
+      values: [name],
+    })),
+  );
 }

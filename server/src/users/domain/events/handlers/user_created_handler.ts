@@ -32,7 +32,7 @@ export class UserCreatedHandler implements IEventHandler<UserCreatedEvent> {
         const adminId = admin._id;
 
         this.notificationRepository.create(
-          createUserCreatedNotification(adminId, [createdUser.mail]),
+          createUserCreatedNotification([adminId], [createdUser.mail]),
         );
       }
     });

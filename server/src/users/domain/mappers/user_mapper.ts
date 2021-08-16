@@ -1,6 +1,8 @@
 import { classToPlain } from 'class-transformer';
 import { transformAndValidateSync } from 'class-transformer-validator';
+
 import { User, UserCore } from '../models/user_model';
+import { getCoreValidationConfig } from '../../../shared/utils/core_validation';
 
 export class UserMapper {
   static toDomain(
@@ -10,10 +12,7 @@ export class UserMapper {
     const createUser = options.keyCode ? User.create : User.recreate;
 
     return createUser(
-      transformAndValidateSync(UserCore, props, {
-        transformer: { excludeExtraneousValues: true },
-        validator: { validationError: { target: false, value: false } },
-      }),
+      transformAndValidateSync(UserCore, props, getCoreValidationConfig()),
       options.keyCode,
     );
   }
