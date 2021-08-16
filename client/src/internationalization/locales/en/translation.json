@@ -180,6 +180,7 @@
             "age-3": "5 years and 5 months.",
             "text-4": " A similar principle applies to the qualification of children in other age groups."
         },
+        "empty-view": "There is no test assigned to your child",
         "initial-fitness-level": "Total result of initial measurement",
         "final-fitness-level": "Total result of final measurement",
         "advice": "Advice",

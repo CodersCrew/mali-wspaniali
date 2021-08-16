@@ -43,7 +43,9 @@ function EmptyPanel() {
 }
 
 function EmptyPageMessage() {
-    return <div data-testid="no-test-assigned">There is no test assigned to your child</div>;
+    const { t } = useTranslation();
+
+    return <div data-testid="no-test-assigned">{t('child-profile.empty-view')}</div>;
 }
 
 function Descriptiom() {

@@ -243,6 +243,7 @@
             "age-3": "5 lat i 5 miesięcy.",
             "text-4": " Podobna zasada obowiązuje w kwalifikacji dzieci do innych grup wiekowych."
         },
+        "empty-view": "Żaden test nie jest dostępny dla Twojego dziecka",
         "initial-fitness-level": "Łączny wynik z pomiaru początkowego",
         "final-fitness-level": "Łączny wynik z pomiaru końcowego",
         "advice": "Porada",
