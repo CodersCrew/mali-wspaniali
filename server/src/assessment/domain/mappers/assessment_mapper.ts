@@ -1,8 +1,9 @@
+import { transformAndValidateSync } from 'class-transformer-validator';
+import { classToPlain } from 'class-transformer';
 import { Assessment } from '../models/assessment_model';
 import { AssessmentInput } from '../../inputs/assessment_input';
-import { transformAndValidateSync } from 'class-transformer-validator';
 import { AssessmentCore } from '../models/assessment_model';
-import { classToPlain } from 'class-transformer';
+import { getCoreValidationConfig } from '../../../shared/utils/core_validation';
 
 export class AssessmentMapper {
   static inputToDomain({ kindergartenIds, ...value }: AssessmentInput) {
@@ -28,10 +29,11 @@ export class AssessmentMapper {
       options && options.isNew ? Assessment.create : Assessment.recreate;
 
     return createAssessment(
-      transformAndValidateSync(AssessmentCore, value, {
-        transformer: { excludeExtraneousValues: true },
-        validator: { validationError: { target: false, value: false } },
-      }),
+      transformAndValidateSync(
+        AssessmentCore,
+        value,
+        getCoreValidationConfig(),
+      ),
     );
   }
 
