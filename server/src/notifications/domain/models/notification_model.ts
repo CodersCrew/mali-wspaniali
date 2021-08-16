@@ -40,6 +40,10 @@ export class Notification extends AggregateRoot {
     return this.props.templateId;
   }
 
+  get values(): string[] {
+    return this.props.values;
+  }
+
   static create(props: NotificationCore): Notification {
     return new Notification(props);
   }
