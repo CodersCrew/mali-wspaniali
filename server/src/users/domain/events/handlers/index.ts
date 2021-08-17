@@ -7,9 +7,11 @@ import { UserAnonymizedHandler } from './user_anonymized_handler';
 import { ChildUpdatedHandler } from './child_updated_handler';
 import { ChildAssessmentResultCreatedHandler } from './child_assessment_result_created_handler';
 import { ChildAssessmentResultUpdatedHandler } from './child_assessment_result_updated_handler';
+import { UserConfirmedHandler } from './user_confirmed_handler';
 
 export const EventHandlers = [
   UserCreatedHandler,
+  UserConfirmedHandler,
   ChildCreatedHandler,
   ChildUpdatedHandler,
   UserSignedAgreementHandler,

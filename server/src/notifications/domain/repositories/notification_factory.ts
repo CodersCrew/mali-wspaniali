@@ -14,7 +14,7 @@ export function createArticleCreatedNotification(
   );
 }
 
-export function createUserCreatedNotification(
+export function createUserConfirmedNotification(
   users: string[],
   values: string[],
 ): Notification[] {

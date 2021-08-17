@@ -36,10 +36,14 @@ describe('CreateUserHandler', () => {
         parent = await createParent();
       });
 
-      it('returns user instance', async () => {
+      it('returns user instance', () => {
         expect(parent).toBeInstanceOf(User);
         expect(parent.mail).toBe('my-mail@mail.com');
         expect(parent.agreements).toEqual([]);
+      });
+
+      it('user is created as not confirmed', () => {
+        expect(parent.isConfirmed).toBe(false);
       });
     });
 

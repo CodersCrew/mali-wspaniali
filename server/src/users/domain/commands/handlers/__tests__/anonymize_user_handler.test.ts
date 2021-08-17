@@ -1,16 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
 
-import { AddChildCommand, CreateUserCommand } from '../../impl';
+import { AddChildCommand } from '../../impl';
 import * as dbHandler from '@app/db_handler';
 import { CreateUserHandler } from '../create_user_handler';
 import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
 import { UsersModule } from '../../../../users_module';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../models/user_model';
-import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/commands/impl/create_bulk_key_code_command';
 import { AgreementsModule } from '../../../../../agreements/agreements_module';
-import { UserInput } from '../../../../inputs/user_input';
 import { GetUserQuery } from '../../../queries/impl/get_user_query';
 import { GetUserHandler } from '../../../queries/handlers/get_user_handler';
 import { AnonymizeUserCommand } from '../../impl/anonymize_user_command';
@@ -21,8 +19,8 @@ import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/c
 import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import waitForExpect from 'wait-for-expect';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
-import { Child } from 'src/users/domain/models';
 import { ChildRepository } from '../../../repositories/child_repository';
+import { createParent } from '../../../../../test/helpers/app_mock';
 
 describe('AnonymizeUserHandler', () => {
   let app: TestingModule;
@@ -42,12 +40,10 @@ describe('AnonymizeUserHandler', () => {
   describe('when executed on parent without children', () => {
     let user: User;
     let anonymizedUser: User;
-    let fetchedUser: User;
 
     beforeEach(async () => {
       user = await createParent({ mail: 'user1@user.com' });
       anonymizedUser = await anonymizeUser(user.id);
-      // fetchedUser = await getParentById(user.id);
     });
 
     it('anonymize user', async () => {
@@ -56,10 +52,6 @@ describe('AnonymizeUserHandler', () => {
 
       expect(anonymizedUser.mail).toBe('');
       expect(anonymizedUser.isDeleted()).toBe(true);
-
-      // expect(fetchedUser.mail).toBe('');
-      // expect(fetchedUser.isDeleted()).toBe(true);
-      // expect(fetchedUser.children).toEqual([]);
 
       await waitForExpect(async () => {
         const fetchedUser = await getParentById(user.id);
@@ -114,23 +106,6 @@ describe('AnonymizeUserHandler', () => {
       });
     });
   });
-
-  async function createParent(options: Partial<UserInput> = {}): Promise<User> {
-    const keyCode = await app
-      .get(CreateKeyCodeHandler)
-      .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
-
-    const parent = app.get(CreateUserHandler).execute(
-      new CreateUserCommand({
-        mail: 'my-mail@mail.com',
-        password: 'my-password',
-        keyCode: keyCode.keyCode,
-        ...options,
-      }),
-    );
-
-    return parent;
-  }
 
   async function getParentById(userId: string) {
     const parent = app.get(GetUserHandler).execute(new GetUserQuery(userId));

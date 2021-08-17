@@ -14,7 +14,10 @@ import { GetAllUsersHandler } from '../get_all_users_handler';
 import { GetAllUsersQuery } from '../../impl/get_all_users_query';
 import { CreateUserHandler } from '../../../commands/handlers/create_user_handler';
 import { CreateUserCommand } from '../../../commands/impl/create_user_command';
-import { anonymizeUser } from '../../../../../test/helpers/app_mock';
+import {
+  anonymizeUser,
+  createParent,
+} from '../../../../../test/helpers/app_mock';
 
 describe('GetAllUsersHandler', () => {
   let app: TestingModule;
@@ -71,23 +74,6 @@ describe('GetAllUsersHandler', () => {
       expect(fetchedUsers[1].isDeleted()).toBe(false);
     });
   });
-
-  async function createParent(options: Partial<UserInput> = {}): Promise<User> {
-    const keyCode = await app
-      .get(CreateKeyCodeHandler)
-      .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
-
-    const parent = app.get(CreateUserHandler).execute(
-      new CreateUserCommand({
-        mail: 'my-mail@mail.com',
-        password: 'my-password',
-        keyCode: keyCode.keyCode,
-        ...options,
-      }),
-    );
-
-    return parent;
-  }
 
   function getAllUsers() {
     return app.get(GetAllUsersHandler).execute(new GetAllUsersQuery({}));

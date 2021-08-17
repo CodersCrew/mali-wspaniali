@@ -28,6 +28,7 @@ import { GetAllUsersQuery } from '../../users/domain/queries/impl/get_all_users_
 import { GetAllArticlesHandler } from '../../articles/domain/queries/handlers/get_all_articles_handler';
 import { GetAllArticlesQuery } from '../../articles/domain/queries/impl/get_all_articles_query';
 import { CreateKeyCodeCommand } from '../../key_codes/domain/commands/impl';
+import { UserRepository } from '../../users/domain/repositories/user_repository';
 
 let app: TestingModule;
 
@@ -64,7 +65,7 @@ export async function createParent(
     .get(CreateKeyCodeHandler)
     .execute(new CreateKeyCodeCommand('admin', 'parent'));
 
-  const parent = app.get(CreateUserHandler).execute(
+  const parent = await app.get(CreateUserHandler).execute(
     new CreateUserCommand({
       mail: 'my-mail@mail.com',
       password: 'my-password',
@@ -72,6 +73,8 @@ export async function createParent(
       ...options,
     }),
   );
+
+  await confirmUser(parent.mail);
 
   return parent;
 }
@@ -82,6 +85,14 @@ export async function anonymizeUser(id: string) {
   }
 
   return app.get(AnonymizeUserHandler).execute(new AnonymizeUserCommand(id));
+}
+
+export async function confirmUser(mail: string) {
+  if (!app) {
+    await setupTestApp();
+  }
+
+  return app.get(UserRepository).confirmUser(mail);
 }
 
 export async function addChild(
