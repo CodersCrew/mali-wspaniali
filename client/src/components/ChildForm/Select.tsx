@@ -44,7 +44,14 @@ export function Select({ label, value, options, disabled, name, error, touched, 
                 label={label}
                 value={value}
                 name={name}
-                renderValue={() => options.find((o) => o.value === value)?.label}
+                renderValue={() => (
+                    <div>
+                        <span>{options.find((o) => o.value === value)?.label}</span>
+                        <span className={classes.helperLabel}>
+                            {options.find((o) => o.value === value)?.helperLabel}
+                        </span>
+                    </div>
+                )}
                 labelId={name}
                 disabled={!!disabled}
                 fullWidth
