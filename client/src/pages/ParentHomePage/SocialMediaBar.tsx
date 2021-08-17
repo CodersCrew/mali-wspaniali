@@ -11,10 +11,10 @@ export function SocialMediaBar() {
                 {t('home-page-content.visit')}
             </Typography>
             <Link href="https://www.facebook.com/maliwspanialifundacja" target="_blank">
-                <Facebook fontSize="large" />
+                <Facebook fontSize="large" style={{ fill: '#3b5998' }} />
             </Link>
             <Link href="https://www.youtube.com/channel/UC8_5pq7EqIwJZNBRPtEEqwQ" target="_blank">
-                <YouTube fontSize="large" />
+                <YouTube fontSize="large" style={{ fill: '#FF0000' }} />
             </Link>
         </Box>
     );
