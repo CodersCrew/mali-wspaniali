@@ -152,7 +152,11 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
 }
 
 function mapKindergartenToOption(kindergarten: Kindergarten) {
-    return { value: kindergarten._id, label: `nr. ${kindergarten.number}, ${kindergarten.name}` };
+    return {
+        value: kindergarten._id,
+        label: `nr. ${kindergarten.number}, ${kindergarten.name}`,
+        helperLabel: kindergarten.address,
+    };
 }
 
 export const useStyles = makeStyles((theme: Theme) =>
