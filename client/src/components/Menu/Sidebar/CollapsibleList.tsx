@@ -21,6 +21,7 @@ export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
                     icon: mainItem.icon,
                     rightIcon: isOpen ? <ExpandLess /> : <ExpandMore />,
                     active: mainItem.active,
+                    preload: mainItem.preload,
                 }}
                 onClick={() => setIsOpen((prev) => !prev)}
                 grayed
