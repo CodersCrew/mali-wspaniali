@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Expose } from 'class-transformer';
-import { Length, Min } from 'class-validator';
+import { Min, MinLength } from 'class-validator';
 
 import { KindergartenCreatedEvent } from '../events/impl';
 import { KindergartenUpdatedEvent } from '../events/impl/kindergarten_updated_event';
@@ -8,7 +8,7 @@ import { CoreModel } from '../../../shared/utils/core_model';
 
 export class KindergartenCore extends CoreModel {
   @Expose()
-  @Length(3, 40)
+  @MinLength(3)
   name: string;
 
   @Expose()
