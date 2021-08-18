@@ -10,7 +10,6 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { PartnerLogotypeContainer } from '../AuthTemplate/PartnerLogotypeContainer';
 import { useConfirmUser } from '../../operations/mutations/User/confirmUser';
-import { getRootLazyImports } from '../rootLazyImports';
 
 const initialError: Error = {
     name: '',
@@ -41,11 +40,6 @@ export default function LoginPage() {
     const { confirmUser } = useConfirmUser(handleConfirmationSuccess, handleConfirmationErrors);
 
     const params = useParams<{ confirm?: string }>();
-
-    React.useEffect(() => {
-        getRootLazyImports('RegistrationPage').preload();
-        getRootLazyImports('ForgotPasswordPage').preload();
-    }, []);
 
     React.useEffect(() => {
         if (params.confirm) {
@@ -106,7 +100,6 @@ export default function LoginPage() {
                         <Link to="/forgot-password">
                             <ButtonSecondary
                                 variant="text"
-                                href="/forgot-password"
                                 innerText={t('login-page.forgot-password')}
                                 className={classes.forgotPasswordButton}
                             />

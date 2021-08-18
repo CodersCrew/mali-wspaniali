@@ -131,7 +131,6 @@ export const RegistrationForm = () => {
             <div className={classes.footer}>
                 <Link to="/login">
                     <ButtonSecondary
-                        href=""
                         className={classes.backToLoginButton}
                         innerText={t('registration-page.go-to-loginpage')}
                     />
