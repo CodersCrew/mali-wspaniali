@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles, Typography, Box, Divider, CircularProgress } from '@material-ui/core/';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
@@ -97,12 +97,13 @@ export default function LoginPage() {
                     />
                     <Box mb={6} />
                     <div className={classes.submitWrapper}>
-                        <ButtonSecondary
-                            variant="text"
-                            href="/forgot-password"
-                            innerText={t('login-page.forgot-password')}
-                            className={classes.forgotPasswordButton}
-                        />
+                        <Link to="/forgot-password">
+                            <ButtonSecondary
+                                variant="text"
+                                innerText={t('login-page.forgot-password')}
+                                className={classes.forgotPasswordButton}
+                            />
+                        </Link>
                         <div className={classes.buttonWrapper}>
                             <ButtonSecondary
                                 variant="contained"
@@ -124,12 +125,13 @@ export default function LoginPage() {
                 <div className={classes.registerWrapper}>
                     <Typography>{t('login-page.no-account')} </Typography>
                     <Box mb={3} />
-                    <ButtonSecondary
-                        variant="outlined"
-                        href="/register"
-                        innerText={t('login-page.register')}
-                        className={classes.forgotPasswordButton}
-                    />
+                    <Link to="/register">
+                        <ButtonSecondary
+                            variant="outlined"
+                            innerText={t('login-page.register')}
+                            className={classes.forgotPasswordButton}
+                        />
+                    </Link>
                 </div>
                 <Box mb={3} />
                 {!isDesktop && <PartnerLogotypeContainer />}
