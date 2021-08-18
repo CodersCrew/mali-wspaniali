@@ -176,7 +176,14 @@ function KindergartenPicker(props: {
                                         key={selectableKindergarten.kindergarten.number}
                                         checked={props.selected.includes(selectableKindergarten.kindergarten._id)}
                                         disabled={selectableKindergarten.disabled}
-                                        label={label}
+                                        label={
+                                            <div>
+                                                <div>{label}</div>
+                                                <div className={classes.helperLabel}>
+                                                    {selectableKindergarten.kindergarten.address}
+                                                </div>
+                                            </div>
+                                        }
                                         onChange={() => props.onChangeItem(selectableKindergarten.kindergarten._id)}
                                     />
                                 );
@@ -250,5 +257,9 @@ const useStyles = makeStyles((theme) => ({
     input: {
         marginTop: 0,
         cursor: 'pointer',
+    },
+    helperLabel: {
+        color: theme.palette.grey['400'],
+        marginLeft: theme.spacing(1),
     },
 }));

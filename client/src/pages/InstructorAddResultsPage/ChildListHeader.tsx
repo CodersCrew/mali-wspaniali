@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Grid, MenuItem, TextField } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, MenuItem, TextField, Theme } from '@material-ui/core';
 
 import { Assessment } from '../../graphql/types';
 import { SearchChildField } from '../../components/SearchChildField';
@@ -23,6 +23,9 @@ export function ChildListHeader({
 }: Props) {
     const { t } = useTranslation();
     const kindergartens = assessments.find((a) => a._id === selectedAssessment)?.kindergartens || [];
+    const classes = useStyles();
+
+    console.log(kindergartens);
 
     return (
         <div>
@@ -52,6 +55,7 @@ export function ChildListHeader({
                 <Grid item xs={compact ? 12 : 4}>
                     <TextField
                         select
+                        classes={{ root: classes.selectKindergarten }}
                         label={t('add-results-page.kindergarten-name')}
                         onChange={({ target: { value } }) => onChange('kindergarten', value as string)}
                         variant="outlined"
@@ -66,7 +70,10 @@ export function ChildListHeader({
                     >
                         {kindergartens.map((k) => (
                             <MenuItem value={k.kindergarten?._id} key={k.kindergarten?._id}>
-                                {k.kindergarten?.number}/{k.kindergarten?.name}
+                                <div>
+                                    {k.kindergarten?.number}/{k.kindergarten?.name}
+                                </div>
+                                <div className={classes.helperLabel}>{k.kindergarten?.address}</div>
                             </MenuItem>
                         ))}
                     </TextField>
@@ -82,3 +89,17 @@ export function ChildListHeader({
         </div>
     );
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        helperLabel: {
+            color: theme.palette.grey['400'],
+            marginLeft: theme.spacing(1),
+        },
+        selectKindergarten: {
+            '& > div': {
+                maxHeight: 55,
+            },
+        },
+    }),
+);

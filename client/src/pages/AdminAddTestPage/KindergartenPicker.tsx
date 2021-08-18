@@ -108,7 +108,12 @@ export function KindergartenPicker({ isDisabled, kindergartens, onSelect }: Prop
                                             />
                                         </TableCell>
                                         <TableCell classes={{ root: classes.kindergartenItem }}>
-                                            {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
+                                            <div>
+                                                {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
+                                            </div>
+                                            <div className={classes.helperLabel}>
+                                                {kindergarten.kindergarten.address}
+                                            </div>
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -130,6 +135,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         kindergartenItem: {
             cursor: 'pointer',
+        },
+        helperLabel: {
+            color: theme.palette.grey['400'],
+            marginLeft: theme.spacing(1),
         },
     }),
 );

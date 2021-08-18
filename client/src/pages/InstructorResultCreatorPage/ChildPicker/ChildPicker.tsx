@@ -45,10 +45,13 @@ export function ChildPicker({
                         <Grid item className={classes.fullWidth}>
                             <SelectList
                                 value={selectedKindergarten}
-                                label={t('add-results-page.test-name')}
+                                label={t('add-results-page.kindergarten-name')}
                                 items={kindergartens.map((k) => (
                                     <MenuItem value={k._id} key={k._id}>
-                                        {k.name}
+                                        <div>
+                                            {k.number}/{k.name}
+                                        </div>
+                                        <div className={classes.helperLabel}>{k.address}</div>
                                     </MenuItem>
                                 ))}
                                 onSelect={(value) => onClick('kindergarten', value)}
@@ -128,6 +131,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         fullWidth: {
             width: '100%',
+        },
+        helperLabel: {
+            color: theme.palette.grey['400'],
+            marginLeft: theme.spacing(1),
         },
     }),
 );
