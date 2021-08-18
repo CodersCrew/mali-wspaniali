@@ -17,8 +17,6 @@ export class UserConfirmedHandler implements IEventHandler<UserConfirmedEvent> {
 
     const createdUser = await this.userRepository.get(userId);
 
-    console.log(createdUser);
-
     this.userRepository.forEachAdmin(admin => {
       {
         this.notificationRepository.create(

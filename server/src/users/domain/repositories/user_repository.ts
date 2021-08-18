@@ -189,13 +189,9 @@ export class UserRepository {
   }
 
   update(id: string, updates: Partial<Omit<UserCore, '_id'>>) {
-    return this.userModel.findOneAndUpdate(
-      { _id: id, isConfirmed: true },
-      updates,
-      {
-        useFindAndModify: false,
-      },
-    );
+    return this.userModel.findOneAndUpdate({ _id: id }, updates, {
+      useFindAndModify: false,
+    });
   }
 
   // for e2e purpose only
