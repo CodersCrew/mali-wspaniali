@@ -42,6 +42,7 @@ export const UPDATE_ASSESSMENT = gql`
                     _id
                     name
                     number
+                    address
                 }
                 instructor {
                     _id

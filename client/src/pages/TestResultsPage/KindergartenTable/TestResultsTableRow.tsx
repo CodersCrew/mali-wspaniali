@@ -18,7 +18,7 @@ export const TestResultsTableRow = ({ parameterInfo, kindergarten }: Props) => {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles({ open });
 
-    const { name, maxResultCount, children: childrenInfo } = kindergarten.kindergarten;
+    const { name, maxResultCount, children: childrenInfo, address } = kindergarten.kindergarten;
     const measurementResult = getMeasurementResult(parameterInfo.measurementType, kindergarten);
     const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
 
@@ -32,7 +32,10 @@ export const TestResultsTableRow = ({ parameterInfo, kindergarten }: Props) => {
                         </IconButton>
                     </Tooltip>
                 </TableCell>
-                <TableCell className={classes.cell}>{name}</TableCell>
+                <TableCell className={classes.cell}>
+                    <div>{name}</div>
+                    <div className={classes.helperLabel}>{address}</div>
+                </TableCell>
                 <TableCell className={classes.cell}>
                     <div className={classes.progressBarContainer}>
                         <div className={classes.progressBar}>
@@ -81,5 +84,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     cell: {
         padding: theme.spacing(1),
         borderBottom: 'none',
+    },
+    helperLabel: {
+        color: theme.palette.grey['400'],
+        marginLeft: theme.spacing(1),
     },
 }));

@@ -10,6 +10,7 @@ import {
     TableRow,
     TextField,
     InputAdornment,
+    Theme,
 } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -59,7 +60,12 @@ export function KindergartenList({ kindergartens }: Props) {
                                 .map((kindergarten) => (
                                     <TableRow key={kindergarten.kindergarten._id} hover role="row">
                                         <TableCell classes={{ root: classes.kindergartenItem }}>
-                                            {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
+                                            <div>
+                                                {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
+                                            </div>
+                                            <div className={classes.helperLabel}>
+                                                {kindergarten.kindergarten.address}
+                                            </div>
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -71,10 +77,14 @@ export function KindergartenList({ kindergartens }: Props) {
     );
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         kindergartenItem: {
             cursor: 'default',
+        },
+        helperLabel: {
+            color: theme.palette.grey['400'],
+            marginLeft: theme.spacing(1),
         },
     }),
 );
