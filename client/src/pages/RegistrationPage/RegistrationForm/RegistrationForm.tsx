@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 import { createUser } from '../../../queries/userQueries';
 import { getAgreements } from '../../../graphql/agreementRepository';
@@ -128,11 +129,13 @@ export const RegistrationForm = () => {
             </form>
             {activeStep === 4 && getStepContent(activeStep)}
             <div className={classes.footer}>
-                <ButtonSecondary
-                    href="/login"
-                    className={classes.backToLoginButton}
-                    innerText={t('registration-page.go-to-loginpage')}
-                />
+                <Link to="/login">
+                    <ButtonSecondary
+                        href=""
+                        className={classes.backToLoginButton}
+                        innerText={t('registration-page.go-to-loginpage')}
+                    />
+                </Link>
                 <Box mb={3} />
             </div>
         </div>
