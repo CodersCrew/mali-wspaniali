@@ -236,7 +236,8 @@
         "comparison-legend": {
             "title": "Chart information",
             "progress": "Physical level progress:",
-            "regress": "Physical level regress",
+            "regress": "Physical level regress:",
+            "constant": "Constant physical level.",
             "initial-result": "Initial result",
             "final-result": "Final result"
         },

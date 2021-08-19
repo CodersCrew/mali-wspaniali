@@ -44,7 +44,8 @@ export function ChildListContainer(props: Props) {
                     const lastNote = getLastNote(c._id);
                     const firstMeasurementResultCount = countMeasurementResults('first', c._id);
                     const lastMeasurementResultCount = countMeasurementResults('last', c._id);
-                    const result = props.results.find((r) => r.childId === c._id);
+                    const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;
+                    const result = results.find((r) => r.childId === c._id);
 
                     return (
                         <TableRow key={c._id} hover>
@@ -128,7 +129,7 @@ export function ChildListContainer(props: Props) {
                                 {result && (
                                     <IconButton
                                         onClick={() => onClick('see-results', result._id)}
-                                        disabled={isResultDisabled()}
+                                        disabled={!isResultDisabled}
                                     >
                                         <AssessmentIcon titleAccess={t('add-results-page.see-results')} />
                                     </IconButton>
@@ -140,10 +141,6 @@ export function ChildListContainer(props: Props) {
             </TableBody>
         </Table>
     );
-
-    function isResultDisabled() {
-        return props.assessment.firstMeasurementStatus !== 'done' || props.assessment.lastMeasurementStatus !== 'done';
-    }
 
     function matchResultWithColor(result: number) {
         if (result === 4) return 'success-dark';

@@ -6,6 +6,7 @@ interface ActionMenuButtonSecondaryProps {
     label: string;
     options: ReactNode[];
     onClick: () => void;
+    isDisabled?: boolean;
     size?: 'small' | 'medium' | 'large';
     buttonStyle?: React.CSSProperties;
     popperStyle?: string;
@@ -25,10 +26,15 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
                     ref={anchorRef}
                     aria-label="split button"
                 >
-                    <Button style={props.buttonStyle} size={props.size || 'medium'} onClick={props.onClick}>
+                    <Button
+                        disabled={props.isDisabled}
+                        style={props.buttonStyle}
+                        size={props.size || 'medium'}
+                        onClick={props.onClick}
+                    >
                         {props.label}
                     </Button>
-                    <Button size="small" onClick={handleMenuToggle}>
+                    <Button disabled={props.isDisabled} size="small" onClick={handleMenuToggle}>
                         <ArrowDropDown />
                     </Button>
                 </ButtonGroup>

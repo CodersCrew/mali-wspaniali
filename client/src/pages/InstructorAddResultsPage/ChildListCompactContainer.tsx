@@ -69,6 +69,7 @@ export function ChildListCompactContainer({
                     const age = parseDateToAge(c.birthYear, c.birthQuarter);
                     const firstMeasurementResultCount = countMeasurementResults('first', c._id);
                     const lastMeasurementResultCount = countMeasurementResults('last', c._id);
+                    const result = results.find((r) => r.childId === c._id);
 
                     return (
                         <>
@@ -213,24 +214,30 @@ export function ChildListCompactContainer({
                                                                 </TableCell>
                                                             </TableRow>
                                                             <TableRow>
-                                                                <TableCell classes={{ root: classes.cell }}>
-                                                                    <Typography variant="subtitle2">
-                                                                        {t('add-results-page.see-results')}
-                                                                    </Typography>
-                                                                </TableCell>
-                                                                <TableCell classes={{ root: classes.cell }}>
-                                                                    <CustomIconButton
-                                                                        disabled={isResultDisabled}
-                                                                        onClick={() => onClick('see-results', c._id)}
-                                                                        icon={
-                                                                            <AssessmentIcon
-                                                                                titleAccess={t(
-                                                                                    'add-results-page.see-results',
-                                                                                )}
+                                                                {result && (
+                                                                    <>
+                                                                        <TableCell classes={{ root: classes.cell }}>
+                                                                            <Typography variant="subtitle2">
+                                                                                {t('add-results-page.see-results')}
+                                                                            </Typography>
+                                                                        </TableCell>
+                                                                        <TableCell classes={{ root: classes.cell }}>
+                                                                            <CustomIconButton
+                                                                                disabled={!isResultDisabled}
+                                                                                onClick={() =>
+                                                                                    onClick('see-results', result._id)
+                                                                                }
+                                                                                icon={
+                                                                                    <AssessmentIcon
+                                                                                        titleAccess={t(
+                                                                                            'add-results-page.see-results',
+                                                                                        )}
+                                                                                    />
+                                                                                }
                                                                             />
-                                                                        }
-                                                                    />
-                                                                </TableCell>
+                                                                        </TableCell>
+                                                                    </>
+                                                                )}
                                                             </TableRow>
                                                         </TableBody>
                                                     </Table>
