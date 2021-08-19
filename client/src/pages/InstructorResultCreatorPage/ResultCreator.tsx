@@ -14,10 +14,11 @@ import { countCurrentPoints } from './countPoints';
 interface Props {
     resultCreator: ResultCreatorReturnProps;
     measurement: string;
+    isLoading: boolean;
     onClick: (type: string, value: string | AssessmentValues) => void;
 }
 
-export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
+export function ResultCreator({ resultCreator, measurement, onClick, isLoading }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -45,7 +46,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
-                    <EditorPanel {...{ resultCreator, measurement, onClick }} />
+                    <EditorPanel {...{ resultCreator, measurement, onClick, isLoading }} />
                 </Grid>
             </Grid>
         </Paper>
@@ -55,6 +56,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
 interface EditorPanelProps {
     measurement: string;
     resultCreator: ResultCreatorReturnProps;
+    isLoading: boolean;
     onClick: (type: string, value: string | AssessmentValues) => void;
 }
 
@@ -140,6 +142,7 @@ function EditorPanel(props: EditorPanelProps) {
                         {isLastChild() ? (
                             <ButtonSecondary
                                 variant="contained"
+                                disabled={props.isLoading}
                                 onClick={() =>
                                     props.onClick('save-and-back-to-table', { ...localResult, note: localNote })
                                 }
@@ -148,6 +151,7 @@ function EditorPanel(props: EditorPanelProps) {
                             </ButtonSecondary>
                         ) : (
                             <ActionMenuButtonSecondary
+                                isDisabled={props.isLoading}
                                 label={t('add-result-page.save-and-next')}
                                 onClick={() => props.onClick('save-and-next', { ...localResult, note: localNote })}
                                 options={[
