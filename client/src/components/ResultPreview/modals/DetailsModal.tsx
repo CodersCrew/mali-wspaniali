@@ -145,7 +145,7 @@ function NextFeatureLevel(props: NextFeatureLevelProps) {
                     nextLevel: t(`child-profile.result-levels.${props.nextKey}`),
                     value: props.nextLimit,
                     unit: props.unit,
-                    valueToNextLevel: props.valueToNextLimit,
+                    valueToNextLevel: Math.abs(props.valueToNextLimit),
                 })}
             </Typography>
         </>
