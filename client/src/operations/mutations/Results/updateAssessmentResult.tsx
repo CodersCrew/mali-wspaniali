@@ -79,7 +79,7 @@ export function useUpdateAssessmentResult() {
                 variables: { result },
             });
         },
-        isCreationPending: loading,
+        isUpdateending: loading,
         data,
         error,
     };

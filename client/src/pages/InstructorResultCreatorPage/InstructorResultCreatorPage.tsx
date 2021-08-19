@@ -39,8 +39,8 @@ interface HistoryResultCreatorParams {
 
 export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
-    const { createAssessmentResult } = useCreateAssessmentResult();
-    const { updateAssessmentResult } = useUpdateAssessmentResult();
+    const { createAssessmentResult, isCreationPending } = useCreateAssessmentResult();
+    const { updateAssessmentResult, isUpdateending: isUpdatePending } = useUpdateAssessmentResult();
 
     const history = useHistory<HistoryResultCreatorParams | undefined>();
 
@@ -66,7 +66,12 @@ export default function InstructorResultCreatorPage() {
 
     return (
         <PageContainer>
-            <ResultCreator resultCreator={resultCreator} measurement={measurement} onClick={handleClick} />
+            <ResultCreator
+                resultCreator={resultCreator}
+                measurement={measurement}
+                onClick={handleClick}
+                isLoading={isCreationPending || isUpdatePending}
+            />
         </PageContainer>
     );
 
