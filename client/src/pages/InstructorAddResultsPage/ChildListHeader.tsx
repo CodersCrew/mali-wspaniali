@@ -25,8 +25,6 @@ export function ChildListHeader({
     const kindergartens = assessments.find((a) => a._id === selectedAssessment)?.kindergartens || [];
     const classes = useStyles();
 
-    console.log(kindergartens);
-
     return (
         <div>
             <Grid container direction={compact ? 'column' : 'row'} spacing={3}>
