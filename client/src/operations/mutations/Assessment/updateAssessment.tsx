@@ -58,8 +58,6 @@ export function useUpdateAssessment(): UpdateAssessment {
 
     return {
         updateAssessment: (id: string, updatedAssessment) => {
-            console.log(updatedAssessment);
-
             return updateAssessment({
                 variables: {
                     id,

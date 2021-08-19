@@ -44,6 +44,7 @@ export function ChildListContainer(props: Props) {
                     const lastNote = getLastNote(c._id);
                     const firstMeasurementResultCount = countMeasurementResults('first', c._id);
                     const lastMeasurementResultCount = countMeasurementResults('last', c._id);
+                    const result = props.results.find((r) => r.childId === c._id);
 
                     return (
                         <TableRow key={c._id} hover>
@@ -124,9 +125,14 @@ export function ChildListContainer(props: Props) {
                                 </Grid>
                             </TableCell>
                             <TableCell align="center">
-                                <IconButton onClick={() => onClick('see-results', c._id)} disabled={isResultDisabled()}>
-                                    <AssessmentIcon titleAccess={t('add-results-page.see-results')} />
-                                </IconButton>
+                                {result && (
+                                    <IconButton
+                                        onClick={() => onClick('see-results', result._id)}
+                                        disabled={isResultDisabled()}
+                                    >
+                                        <AssessmentIcon titleAccess={t('add-results-page.see-results')} />
+                                    </IconButton>
+                                )}
                             </TableCell>
                         </TableRow>
                     );
