@@ -64,41 +64,21 @@ export class ArticlesRepository {
       .skip((page - 1) * perPage)
       .limit(perPage + 1)
       .exec()
-      .then(articles => {
-        const validArticles: Article[] = [];
-
-        articles.forEach(article => {
-          try {
-            validArticles.push(ArticleMapper.toDomain(article.toObject()));
-          } catch (e) {
-            console.log(e);
-          }
-        });
-
-        return validArticles;
-      });
+      .then(mapArticles);
   }
 
   async getLast(count: number): Promise<Article[]> {
     if (count < 1) return [];
 
     return await this.articleModel
-      .find({ isDeleted: false }, {}, { sort: { createdAt: -1 } })
+      .find(
+        { isDeleted: false, isPublished: true },
+        {},
+        { sort: { createdAt: -1 } },
+      )
       .limit(count)
       .exec()
-      .then(articles => {
-        const validArticles: Article[] = [];
-
-        articles.forEach(article => {
-          try {
-            validArticles.push(ArticleMapper.toDomain(article.toObject()));
-          } catch (e) {
-            console.log(e);
-          }
-        });
-
-        return validArticles;
-      });
+      .then(mapArticles);
   }
 
   get(id: string): Promise<Article> {
@@ -123,4 +103,23 @@ export class ArticlesRepository {
   async clearTable(): Promise<void> {
     await this.articleModel.deleteMany({});
   }
+
+  // for e2e purpose only
+  async publishArticle(id: string): Promise<void> {
+    await this.articleModel.findByIdAndUpdate(id, { isPublished: true });
+  }
+}
+
+function mapArticles(plainArticles: ArticleDocument[]): Article[] {
+  const validArticles: Article[] = [];
+
+  plainArticles.forEach(article => {
+    try {
+      validArticles.push(ArticleMapper.toDomain(article.toObject()));
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
+  return validArticles;
 }
