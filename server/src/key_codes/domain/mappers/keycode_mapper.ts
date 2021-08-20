@@ -1,5 +1,6 @@
 import { classToPlain } from 'class-transformer';
 import { transformAndValidateSync } from 'class-transformer-validator';
+
 import { KeyCode, KeyCodeCore } from '../models/key_code_model';
 
 export class KeyCodeMapper {

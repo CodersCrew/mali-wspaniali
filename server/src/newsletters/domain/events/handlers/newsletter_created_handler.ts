@@ -21,7 +21,7 @@ export class NewsletterCreatedHandler
       const users = await this.userRepository.getAll({ role: 'parent' });
 
       await this.sendMail.send({
-        from: 'piotrek@coderscrew.pl',
+        from: process.env.SENDER,
         bcc: users.map(u => u.mail),
         subject: newsletter.title,
         html: this.createTemplate(newsletter.title, newsletter.message),

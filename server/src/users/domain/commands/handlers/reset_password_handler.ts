@@ -35,7 +35,7 @@ export class ResetPasswordHandler
 
       this.sendMail.send({
         bcc: [mail],
-        from: 'piotrek@coderscrew.pl',
+        from: process.env.SENDER,
         subject: 'Zmiana hasła na platformie Mali Wspaniali',
         text: 'register',
         html: this.createTemplate(

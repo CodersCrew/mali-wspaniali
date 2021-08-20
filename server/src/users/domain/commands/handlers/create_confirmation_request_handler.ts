@@ -35,18 +35,24 @@ export class CreateConfirmationRequestHandler
 
       this.sendMail.send({
         bcc: [user.mail],
-        from: 'piotrek@coderscrew.pl',
+        from: process.env.SENDER,
         subject:
           'Potwierdzenie maila dzieli cię od wejścia do świata Małych Wspaniałych',
         text: 'register',
         html: this.createTemplate(
           `${process.env.SERVER_RESPONSE_HOST}/login/${payload}`,
+          user.role,
         ),
       });
     }
   }
 
-  private createTemplate(responsePath: string) {
+  private createTemplate(responsePath: string, role: string) {
+    const greetingMessage =
+      role === 'instructor'
+        ? 'Już tylko jeden krok dzieli Cię od dołączenia do społeczności Małych Wspaniałych.'
+        : 'Już tylko jeden krok dzieli Cię od dołączenia do społeczności świadomych rodziców.';
+
     return `
     <html>
       <head>
@@ -83,7 +89,7 @@ export class CreateConfirmationRequestHandler
         <div class="content">
           <h4>Witaj w świecie Małych Wspaniałych!</h4>
           <p class="subtitle">
-          Już tylko jeden krok dzieli Cię od dołączenia do społeczności świadomych rodziców.
+          ${greetingMessage}
           </br>
           </br>
           Skorzystaj z przycisku poniżej, aby potwierdzić swój adres e-mail podany przy rejestracji.

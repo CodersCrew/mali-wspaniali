@@ -43,6 +43,7 @@ import { AgreementMapper } from '../agreements/domain/mappers/agreement_mapper';
 import { NotificationCore } from '../notifications/domain/models/notification_model';
 import { UserMapper } from './domain/mappers/user_mapper';
 import { UserPagination } from './params/user_pagination';
+import { NotificationMapper } from '../notifications/domain/mappers/notification_mapper';
 import {
   Agreement,
   AgreementCore,
@@ -65,9 +66,11 @@ export class UsersResolver {
 
   @ResolveField(() => [NotificationDTO])
   async notifications(@Parent() user: UserDTO): Promise<NotificationDTO[]> {
-    return await this.queryBus.execute(
+    const notifications = await this.queryBus.execute(
       new GetNotificationsByUserQuery(user._id),
     );
+
+    return notifications.map(NotificationMapper.toPlain);
   }
 
   @ResolveField()

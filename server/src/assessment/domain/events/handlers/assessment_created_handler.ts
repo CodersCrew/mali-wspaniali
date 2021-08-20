@@ -17,7 +17,7 @@ export class AssessmentCreatedHandler
       const userId = user._id;
 
       this.notificationRepository.create(
-        createAssessmentCreatedNotification(userId, [assessment.title]),
+        createAssessmentCreatedNotification([userId], [assessment.title]),
       );
     });
   }

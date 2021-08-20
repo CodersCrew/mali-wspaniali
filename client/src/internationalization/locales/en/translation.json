@@ -25,7 +25,7 @@
     "login-wrapper": {
         "welcome-text": "Welcome to the world of Mali Wspaniali",
         "subheading": "Join the community of conscious parents",
-        "made-by": "Made by:",
+        "made-by": "Developed by:",
         "partners": "Strategic partners:"
     },
     "registration-page": {
@@ -180,6 +180,7 @@
             "age-3": "5 years and 5 months.",
             "text-4": " A similar principle applies to the qualification of children in other age groups."
         },
+        "empty-view": "There is no test assigned to your child",
         "initial-fitness-level": "Total result of initial measurement",
         "final-fitness-level": "Total result of final measurement",
         "advice": "Advice",
@@ -235,7 +236,8 @@
         "comparison-legend": {
             "title": "Chart information",
             "progress": "Physical level progress:",
-            "regress": "Physical level regress",
+            "regress": "Physical level regress:",
+            "constant": "Constant physical level.",
             "initial-result": "Initial result",
             "final-result": "Final result"
         },

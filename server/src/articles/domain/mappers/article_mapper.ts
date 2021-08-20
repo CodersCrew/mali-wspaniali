@@ -1,7 +1,9 @@
+import { transformAndValidateSync } from 'class-transformer-validator';
+import { classToPlain } from 'class-transformer';
+
 import { Article, ArticleCore } from '../models/article_model';
 import { CreateArticleInput } from '../../inputs/article_input';
-import { classToPlain } from 'class-transformer';
-import { transformAndValidateSync } from 'class-transformer-validator';
+import { getCoreValidationConfig } from '../../../shared/utils/core_validation';
 
 export class ArticleMapper {
   static toPlain(article: Article): ArticleCore {
@@ -19,10 +21,7 @@ export class ArticleMapper {
     const createArticle = options.isNew ? Article.create : Article.recreate;
 
     return createArticle(
-      transformAndValidateSync(ArticleCore, props, {
-        transformer: { excludeExtraneousValues: true },
-        validator: { validationError: { target: false, value: false } },
-      }),
+      transformAndValidateSync(ArticleCore, props, getCoreValidationConfig()),
     );
   }
 }

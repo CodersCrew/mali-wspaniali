@@ -1,7 +1,9 @@
 import { classToPlain } from 'class-transformer';
 import { transformAndValidateSync } from 'class-transformer-validator';
+
 import { Child } from '../models';
 import { ChildCore } from '../models/child_model';
+import { getCoreValidationConfig } from '../../../shared/utils/core_validation';
 
 export class ChildMapper {
   static toDomain(
@@ -11,10 +13,7 @@ export class ChildMapper {
     const createChild = options.isNew ? Child.create : Child.recreate;
 
     return createChild(
-      transformAndValidateSync(ChildCore, props, {
-        transformer: { excludeExtraneousValues: true },
-        validator: { validationError: { target: false, value: false } },
-      }),
+      transformAndValidateSync(ChildCore, props, getCoreValidationConfig()),
     );
   }
 

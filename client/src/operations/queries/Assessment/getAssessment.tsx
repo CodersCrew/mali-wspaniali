@@ -24,6 +24,7 @@ export const GET_ASSESSMENT = gql`
                 kindergarten {
                     _id
                     name
+                    address
                 }
                 instructor {
                     _id

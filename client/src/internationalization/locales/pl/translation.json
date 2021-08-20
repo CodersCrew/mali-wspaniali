@@ -85,7 +85,7 @@
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
         "continue": "Resetuj hasło",
-        "problem": "Napotkałeś/łaśgit problem?",
+        "problem": "Napotkałeś/łaś problem?",
         "contact": "Skontaktuj się z fundacją, by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
         "incorrect-email-helper-text": "Niepoprawny adres e-mail",
@@ -243,6 +243,7 @@
             "age-3": "5 lat i 5 miesięcy.",
             "text-4": " Podobna zasada obowiązuje w kwalifikacji dzieci do innych grup wiekowych."
         },
+        "empty-view": "Żaden test nie jest dostępny dla Twojego dziecka",
         "initial-fitness-level": "Łączny wynik z pomiaru początkowego",
         "final-fitness-level": "Łączny wynik z pomiaru końcowego",
         "advice": "Porada",
@@ -344,7 +345,7 @@
             "agility": "Próba zwinności"
         },
         "test-description": {
-            "agility": "Bieg wahadłowy 4x5 m",
+            "agility": "Bieg wahadłowy 4x5 metrów",
             "power": "Skok w dal obunóż z miejsca",
             "strength": "Rzut piłką lekarską znad głowy",
             "speed": "Bieg na odległość 20 metrów"
@@ -369,6 +370,7 @@
             "title": "Informacja na wykresie",
             "progress": "Wzrost poziomu sprawności o:",
             "regress": "Spadek poziomu sprawności o:",
+            "constant": "Poziom sprawności nie zmienił się.",
             "initial-result": "Wynik pomiaru początkowego",
             "final-result": "Wynik pomiaru końcowego"
         },

@@ -27,7 +27,7 @@ export class AssessmentRepository {
 
   getAll(): Promise<Assessment[]> {
     return this.model
-      .find({ isDeleted: false }, {}, { sort: { date: -1 } })
+      .find({ isDeleted: false }, {}, { sort: { createdAt: -1 } })
       .lean()
       .exec()
       .then(fetchAssessments => {

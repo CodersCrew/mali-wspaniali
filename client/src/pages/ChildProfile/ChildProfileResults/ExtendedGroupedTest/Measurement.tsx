@@ -126,6 +126,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         description: {
             paddingBottom: theme.spacing(2),
+            minHeight: 49,
         },
         level: {
             paddingBottom: theme.spacing(2),

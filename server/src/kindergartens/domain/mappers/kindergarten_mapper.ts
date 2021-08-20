@@ -2,7 +2,8 @@ import { classToPlain } from 'class-transformer';
 import { transformAndValidateSync } from 'class-transformer-validator';
 
 import { Kindergarten, KindergartenCore } from '../models/kindergarten_model';
-import { KindergartenInput } from '@kindergartens/inputs/kindergarten_input';
+import { getCoreValidationConfig } from '../../../shared/utils/core_validation';
+import { KindergartenInput } from '../../inputs/kindergarten_input';
 
 export class KindergartenMapper {
   static toDomainFrom(
@@ -13,10 +14,11 @@ export class KindergartenMapper {
       ? Kindergarten.create
       : Kindergarten.recreate;
 
-    const kindergarten = transformAndValidateSync(KindergartenCore, props, {
-      transformer: { excludeExtraneousValues: true },
-      validator: { validationError: { target: false, value: false } },
-    });
+    const kindergarten = transformAndValidateSync(
+      KindergartenCore,
+      props,
+      getCoreValidationConfig(),
+    );
 
     return createKindergarten(kindergarten);
   }

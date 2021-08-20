@@ -148,6 +148,7 @@ export interface KindergartenWithChildren {
     kindergarten: {
         _id: string;
         name: string;
+        address: string;
         firstMeasurementResultCount: number;
         lastMeasurementResultCount: number;
         maxResultCount: number;

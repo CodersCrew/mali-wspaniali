@@ -125,7 +125,7 @@ export const MeasurementPoint = React.memo((props: Props) => {
             </Grid>
             <Grid item>
                 <FormControlLabel
-                    checked={props.isEmpty}
+                    checked={props.points === 0}
                     disabled={props.isEmpty}
                     control={<Checkbox color="default" />}
                     label={<Typography variant="body1">{t('add-result-page.no-result')}</Typography>}

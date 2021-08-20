@@ -53,14 +53,10 @@ describe('CreatKindergartenHandler', () => {
 
     it('invokes child added notification', async () => {
       await waitForExpect(async () => {
-        return expect(await getNotificationsForUser(admin.id)).toEqual(
-          jasmine.arrayContaining([
-            jasmine.objectContaining({
-              templateId: 'kindergarten_created',
-              values: ['my-name'],
-            }),
-          ]),
-        );
+        const notifications = await getNotificationsForUser(admin.id);
+
+        expect(notifications[0].templateId).toBe('kindergarten_created');
+        expect(notifications[0].values).toEqual(['my-name']);
       });
     });
   });
