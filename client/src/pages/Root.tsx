@@ -65,6 +65,7 @@ export function Root() {
                                     />
                                 </AuthTemplate>
                             </Route>
+                            <Route exact path="/terms" component={getRootLazyImports('TermsAndConditions')} />
                             <Route path={['/admin', '/parent', '/instructor']}>
                                 <AppWrapper>
                                     <Switch>

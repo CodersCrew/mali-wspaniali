@@ -37,6 +37,7 @@ export const AppWrapper: React.FC = ({ children }) => {
                         notifications={user.notifications}
                         onLanguageChange={handleLanguageChange}
                     />
+
                     <Sidebar user={user} activePage={ActivePageState.activePage} onClick={handleClick} />
 
                     <main className={classes.content}>

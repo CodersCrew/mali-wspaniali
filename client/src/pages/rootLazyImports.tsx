@@ -32,6 +32,7 @@ const options = {
     TestResultsPage: lazy(() => import('./TestResultsPage/TestResultsPage')),
     TestResultLoadingPage: lazy(() => import('./TestResultsPage/TestResultLoadingPage')),
     AdminKindergartensPage: lazy(() => import('./AdminKindergartensPage/AdminKindergartensPage')),
+    TermsAndConditions: lazy(() => import('./Consents/TermsAndConditionsPage')),
 };
 
 export function getRootLazyImports(name: keyof typeof options) {
