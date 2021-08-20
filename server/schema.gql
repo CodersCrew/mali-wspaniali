@@ -181,41 +181,6 @@ type KindergartenWithUsersDTO {
   users: [UserDTO!]!
 }
 
-type PartialChildResult {
-  _id: ID
-  isDeleted: Boolean
-  createdAt: DateTime
-  modifiedAt: DateTime
-  deletedAt: DateTime
-  childId: ID
-  kindergartenId: ID
-  assessmentId: ID
-  firstMeasurementRunDate: DateTime
-  lastMeasurementRunDate: DateTime
-  firstMeasurementPendelumRunDate: DateTime
-  lastMeasurementPendelumRunDate: DateTime
-  firstMeasurementThrowDate: DateTime
-  lastMeasurementThrowDate: DateTime
-  firstMeasurementJumpDate: DateTime
-  lastMeasurementJumpDate: DateTime
-  firstMeasurementNote: String
-  lastMeasurementNote: String
-  firstMeasurementKindergarten: ID
-  lastMeasurementKindergarten: ID
-  firstMeasurementInstructor: ID
-  lastMeasurementInstructor: ID
-  firstMeasurementRunResult: Float
-  lastMeasurementRunResult: Float
-  firstMeasurementPendelumRunResult: Float
-  lastMeasurementPendelumRunResult: Float
-  firstMeasurementThrowResult: Float
-  lastMeasurementThrowResult: Float
-  firstMeasurementJumpResult: Float
-  lastMeasurementJumpResult: Float
-  firstMeasurementGroup: String
-  lastMeasurementGroup: String
-}
-
 type ReturnedTokenDTO {
   token: String!
 }
@@ -258,6 +223,41 @@ type ChildCurrentParamsDTO {
   pendelumRun: ParamsDTO
   throw: ParamsDTO
   jump: ParamsDTO
+}
+
+type PartialChildResult {
+  _id: ID
+  isDeleted: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+  deletedAt: DateTime
+  childId: ID
+  kindergartenId: ID
+  assessmentId: ID
+  firstMeasurementRunDate: DateTime
+  lastMeasurementRunDate: DateTime
+  firstMeasurementPendelumRunDate: DateTime
+  lastMeasurementPendelumRunDate: DateTime
+  firstMeasurementThrowDate: DateTime
+  lastMeasurementThrowDate: DateTime
+  firstMeasurementJumpDate: DateTime
+  lastMeasurementJumpDate: DateTime
+  firstMeasurementNote: String
+  lastMeasurementNote: String
+  firstMeasurementKindergarten: ID
+  lastMeasurementKindergarten: ID
+  firstMeasurementInstructor: ID
+  lastMeasurementInstructor: ID
+  firstMeasurementRunResult: Float
+  lastMeasurementRunResult: Float
+  firstMeasurementPendelumRunResult: Float
+  lastMeasurementPendelumRunResult: Float
+  firstMeasurementThrowResult: Float
+  lastMeasurementThrowResult: Float
+  firstMeasurementJumpResult: Float
+  lastMeasurementJumpResult: Float
+  firstMeasurementGroup: String
+  lastMeasurementGroup: String
 }
 
 type KindergartenWithInstructorDTO {
