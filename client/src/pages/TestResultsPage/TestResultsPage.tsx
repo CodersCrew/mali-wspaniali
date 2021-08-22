@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ReplyAllIcon from '@material-ui/icons/ReplyAll';
 import { useHistory, useParams } from 'react-router-dom';
+import { Skeleton } from '@material-ui/lab';
+
 import { NoResults } from './NoResults';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { activePage } from '../../apollo_client';
@@ -22,7 +24,7 @@ export default function TestResultsPage() {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const { kindergartenList } = useKindergartensWithChildren(assessmentId);
+    const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId);
     const [SearchedValue, setSearchedValue] = useState('');
 
     const selectedAssessmentPart = assessmentParts.find((a) => a.type === measurementType) ?? assessmentParts[0];
@@ -94,15 +96,30 @@ export default function TestResultsPage() {
                         {t(`manage-test-view.test-list.${selectedAssessment.firstMeasurementStatus}`)}
                     </p>
                 </Box>
-                <TestResultsTable
-                    assessmentId={assessmentId}
-                    measurementType={measurementType}
-                    kindergartens={kindergartenList}
-                    searchedValue={SearchedValue}
-                    onSearchChange={setSearchedValue}
-                />
+                {isKindergartenListLoading ? (
+                    <EmptyPage />
+                ) : (
+                    <TestResultsTable
+                        assessmentId={assessmentId}
+                        measurementType={measurementType}
+                        kindergartens={kindergartenList}
+                        searchedValue={SearchedValue}
+                        onSearchChange={setSearchedValue}
+                    />
+                )}
             </Box>
         </PageContainer>
+    );
+}
+
+function EmptyPage() {
+    return (
+        <>
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+        </>
     );
 }
 
