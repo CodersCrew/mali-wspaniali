@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { TextField, makeStyles, createStyles, Typography, Box, Divider, CircularProgress } from '@material-ui/core/';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
@@ -97,13 +97,12 @@ export default function LoginPage() {
                     />
                     <Box mb={6} />
                     <div className={classes.submitWrapper}>
-                        <Link to="/forgot-password">
-                            <ButtonSecondary
-                                variant="text"
-                                innerText={t('login-page.forgot-password')}
-                                className={classes.forgotPasswordButton}
-                            />
-                        </Link>
+                        <ButtonSecondary
+                            variant="text"
+                            innerText={t('login-page.forgot-password')}
+                            className={classes.forgotPasswordButton}
+                            onClick={() => history.push('/forgot-password')}
+                        />
                         <div className={classes.buttonWrapper}>
                             <ButtonSecondary
                                 variant="contained"
@@ -125,13 +124,12 @@ export default function LoginPage() {
                 <div className={classes.registerWrapper}>
                     <Typography>{t('login-page.no-account')} </Typography>
                     <Box mb={3} />
-                    <Link to="/register">
-                        <ButtonSecondary
-                            variant="outlined"
-                            innerText={t('login-page.register')}
-                            className={classes.forgotPasswordButton}
-                        />
-                    </Link>
+                    <ButtonSecondary
+                        variant="outlined"
+                        innerText={t('login-page.register')}
+                        className={classes.forgotPasswordButton}
+                        onClick={() => history.push('/register')}
+                    />
                 </div>
                 <Box mb={3} />
                 {!isDesktop && <PartnerLogotypeContainer />}
