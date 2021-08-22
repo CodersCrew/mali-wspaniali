@@ -4,7 +4,6 @@ const options = {
     LoginPage: lazy(() => import('./LoginPage/LoginPage')),
     RegistrationPage: lazy(() => import('./RegistrationPage/RegistrationPage')),
     ChildResultsPage: lazy(() => import('./ChildProfile/ChildResultsPage')),
-    ParentProfilePage: lazy(() => import('./ParentProfilePage/ParentProfilePage')),
     UsersPage: lazy(() => import('./UsersPage/UsersPage')),
     NewsletterPage: lazy(() => import('./NewsletterPage/NewsletterPage')),
     ParentHomePage: lazy(() => import('./ParentHomePage/ParentHomePage')),
