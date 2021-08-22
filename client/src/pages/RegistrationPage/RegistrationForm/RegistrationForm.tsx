@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { createUser } from '../../../queries/userQueries';
 import { getAgreements } from '../../../graphql/agreementRepository';
@@ -35,6 +35,7 @@ export const RegistrationForm = () => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
+    const history = useHistory();
 
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
@@ -129,12 +130,11 @@ export const RegistrationForm = () => {
             </form>
             {activeStep === 4 && getStepContent(activeStep)}
             <div className={classes.footer}>
-                <Link to="/login">
-                    <ButtonSecondary
-                        className={classes.backToLoginButton}
-                        innerText={t('registration-page.go-to-loginpage')}
-                    />
-                </Link>
+                <ButtonSecondary
+                    className={classes.backToLoginButton}
+                    innerText={t('registration-page.go-to-loginpage')}
+                    onClick={() => history.push('/login')}
+                />
                 <Box mb={3} />
             </div>
         </div>
