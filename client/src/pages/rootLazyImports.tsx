@@ -21,7 +21,6 @@ const options = {
     InstructorResultPage: lazy(() => import('./InstructorResultPage/InstructorResultPage')),
     InstructorSettingsPage: lazy(() => import('./InstructorSettingsPage/InstructorSettingsPage')),
     AdminAssessmentHistoryPage: lazy(() => import('./AdminAssessmentManagementPage/AdminAssessmentHistoryPage')),
-    AdminRecommendationsPage: lazy(() => import('./AdminRecommendationsPage/AdminRecommendationsPage')),
     AdminArticlesPage: lazy(() => import('./AdminArticlesPage/AdminArticlesPage')),
     AdminCreateArticlePage: lazy(() => import('./AdminCreateArticlePage/AdminCreateArticlePage')),
     AdminSettingsPage: lazy(() => import('./AdminSettingsPage/AdminSettingsPage')),
