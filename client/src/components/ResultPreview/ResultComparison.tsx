@@ -39,7 +39,7 @@ export const ResultComparison = () => {
     };
 
     const key = getDifferenceKey(sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement);
-    const difference = Math.abs(sumOfPointsFirstMeasurement - sumOfPointsLastMeasurement);
+    const difference = Math.round(Math.abs(sumOfPointsFirstMeasurement - sumOfPointsLastMeasurement));
     const differenceColor = getDifferenceColor(key);
 
     return (
