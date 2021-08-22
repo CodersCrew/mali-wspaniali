@@ -220,10 +220,10 @@ mutation {
           authorizationToken = response.body.data.login.token;
         });
 
-      Array(7)
+      const articleList = Array(7)
         .fill(null)
-        .forEach(async () => {
-          await request(app.getHttpServer())
+        .map(() => {
+          return request(app.getHttpServer())
             .post('/graphql')
             .set('Authorization', authorizationToken)
             .send({
@@ -247,8 +247,15 @@ mutation {
           }
         }
         `,
+            })
+            .then(e => {
+              return app
+                .get(ArticlesRepository)
+                .publishArticle(e.body.data.createArticle._id);
             });
         });
+
+      await Promise.all(articleList);
     });
 
     it('returns full page of articles', async () => {
