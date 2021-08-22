@@ -187,7 +187,7 @@ export class UsersResolver {
       new ChangeUserAgreementCommand(user.userId, agreementId),
     );
 
-    return agreement.getProps();
+    return AgreementMapper.toRaw(agreement);
   }
 
   @Mutation(() => UserDTO)
