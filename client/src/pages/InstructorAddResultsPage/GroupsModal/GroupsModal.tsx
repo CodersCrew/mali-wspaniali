@@ -135,8 +135,10 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
     );
 
     function onAddGroupClick() {
+        const normalizedGroups = groups.map(({ group, kindergartenId }) => ({ group, kindergartenId }));
+
         updateAssessment(props.assessment._id, {
-            groups: [...groups, { kindergartenId: props.selectedKindergarten, group: providedName }],
+            groups: [...normalizedGroups, { kindergartenId: props.selectedKindergarten, group: providedName }],
         });
     }
 }
