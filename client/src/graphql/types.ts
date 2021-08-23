@@ -249,6 +249,7 @@ export interface Assessment {
         instructor: User | null;
         kindergarten: Kindergarten | null;
     }[];
+    groups: { kindergartenId: string; group: string }[];
 }
 
 export interface AssessmentResult {
@@ -291,11 +292,8 @@ export interface ReturnedStatusDTO {
 }
 
 export interface Group {
-    _id: string;
-    name: string;
-    children?: Child[];
-    instructor: User | null;
-    kindergarten: Kindergarten | null;
+    kindergartenId: string;
+    group: string;
 }
 
 export interface NewsletterInput {
