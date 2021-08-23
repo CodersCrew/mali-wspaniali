@@ -35,4 +35,14 @@ export const AssessmentSchema = new Schema({
     ],
     default: [],
   },
+  groups: {
+    type: [
+      {
+        _id: false,
+        kindergartenId: String,
+        group: String,
+      },
+    ],
+    default: [],
+  },
 });
