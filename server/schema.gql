@@ -265,6 +265,11 @@ type KindergartenWithInstructorDTO {
   instructor: UserDTO
 }
 
+type GroupDTO {
+  kindergartenId: String!
+  group: String!
+}
+
 type AssessmentDTO {
   _id: ID!
   isDeleted: Boolean!
@@ -280,6 +285,7 @@ type AssessmentDTO {
   firstMeasurementStatus: String!
   lastMeasurementStatus: String!
   kindergartens: [KindergartenWithInstructorDTO!]!
+  groups: [GroupDTO!]!
   firstMeasurementResultCount: Int!
   lastMeasurementResultCount: Int!
   maxResultCount: Int!

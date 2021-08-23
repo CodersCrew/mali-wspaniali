@@ -8,7 +8,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 
 @Injectable()
 export class GqlAuthGuard extends AuthGuard('jwt') {
-  private options: { role?: string };
+  private options: { role?: string | string[] };
 
   getRequest(context: ExecutionContext): Request {
     if (context.getType() === 'http') {
@@ -26,11 +26,13 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
       throw err || new UnauthorizedException();
     }
 
-    if (this.options.role && this.options.role !== user.role) {
+    const role = Array.isArray(this.options.role)
+      ? this.options.role.find(r => r === user.role)
+      : this.options.role === user.role;
+
+    if (this.options.role && !role) {
       throw err ||
-        new UnauthorizedException(
-          `You need to be logged as "${this.options.role}"`,
-        );
+        new UnauthorizedException(`You need to be logged as "${role}"`);
     }
 
     return user;

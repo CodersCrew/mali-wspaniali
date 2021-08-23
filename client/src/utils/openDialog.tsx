@@ -1,6 +1,8 @@
+import { ApolloProvider } from '@apollo/client';
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ThemeProvider } from '../theme';
+import { client } from '../apollo_client';
 
 export type Decision<T = {}> = {
     accepted: boolean;
@@ -25,21 +27,23 @@ export function openDialog<T, G = {}>(Dialog: React.FC<any>, options?: T): Promi
         body.prepend(dialogElement);
 
         ReactDOM.render(
-            <ThemeProvider>
-                {
-                    <Dialog
-                        {...options}
-                        onClose={() => {
-                            ReactDOM.unmountComponentAtNode(dialogElement);
-                            resolve({ close: true });
-                        }}
-                        makeDecision={(decision: Decision<G>) => {
-                            ReactDOM.unmountComponentAtNode(dialogElement);
-                            resolve({ decision, close: false });
-                        }}
-                    />
-                }
-            </ThemeProvider>,
+            <ApolloProvider client={client}>
+                <ThemeProvider>
+                    {
+                        <Dialog
+                            {...options}
+                            onClose={() => {
+                                ReactDOM.unmountComponentAtNode(dialogElement);
+                                resolve({ close: true });
+                            }}
+                            makeDecision={(decision: Decision<G>) => {
+                                ReactDOM.unmountComponentAtNode(dialogElement);
+                                resolve({ decision, close: false });
+                            }}
+                        />
+                    }
+                </ThemeProvider>
+            </ApolloProvider>,
             dialogElement,
         );
     });

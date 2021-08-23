@@ -76,7 +76,7 @@ export class AssessmentResolver {
   }
 
   @Mutation(() => AssessmentDTO)
-  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  @UseGuards(new GqlAuthGuard({ role: ['admin', 'instructor'] }))
   async createAssessment(
     @Args('assessment') assessment: AssessmentInput,
   ): Promise<AssessmentCore> {
