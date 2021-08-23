@@ -37,7 +37,14 @@ export class AssessmentCore extends CoreModel {
   @Expose()
   @ValidateNested({ each: true })
   @Type(() => KindergartenInstructorModel)
+  @Transform(value => (value ? value : []))
   kindergartens: KindergartenInstructorModel[];
+
+  @Expose()
+  @ValidateNested({ each: true })
+  @Type(() => KindergartenGroupModel)
+  @Transform(value => (value ? value : []))
+  groups?: KindergartenGroupModel[];
 }
 
 class KindergartenInstructorModel {
@@ -46,6 +53,14 @@ class KindergartenInstructorModel {
 
   @Expose()
   instructorId: string | null;
+}
+
+class KindergartenGroupModel {
+  @Expose()
+  kindergartenId: string;
+
+  @Expose()
+  group: string;
 }
 
 export class Assessment extends AggregateRoot {
@@ -100,6 +115,10 @@ export class Assessment extends AggregateRoot {
     instructorId: string | null;
   }[] {
     return this.props.kindergartens;
+  }
+
+  get groups(): KindergartenGroupModel[] {
+    return this.props.groups;
   }
 
   getProps(): AssessmentCore {

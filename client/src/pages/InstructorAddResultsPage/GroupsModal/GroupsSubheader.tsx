@@ -11,14 +11,15 @@ import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { openGroupsModal } from './GroupsModal';
 import { GroupsChip } from './GroupsChip';
 
-interface Props {
+interface GroupsSubheaderProps {
     selectedKindergarten: string;
     selectedAssessment: string;
     assessments: Assessment[];
     onChange: (type: string, value: string) => void;
 }
-export function GroupsSubheader(props: Props) {
+export function GroupsSubheader(props: GroupsSubheaderProps) {
     const [groups, setGroups] = useState<Group[]>([]);
+    const currentAssessment = props.assessments.find((a) => a._id === props.selectedAssessment);
     const [selectedGroup, setSelectedGroup] = useState('unassigned');
     const toggleOrSelect = (groupId: string) => {
         if (selectedGroup === groupId) {
@@ -33,11 +34,10 @@ export function GroupsSubheader(props: Props) {
     const { t } = useTranslation();
 
     useEffect(() => {
-        setGroups([
-            { _id: '123', name: 'motylki', instructor: null, kindergarten: null },
-            { _id: '124', name: 'kotki', instructor: null, kindergarten: null },
-        ]);
-    }, []); // to be deleted
+        if (currentAssessment) {
+            setGroups(currentAssessment.groups);
+        }
+    }, [currentAssessment]); // to be deleted
     const device = useIsDevice();
 
     return (
@@ -62,9 +62,9 @@ export function GroupsSubheader(props: Props) {
                 {groups.map((group, index) => (
                     <GroupsChip
                         key={index}
-                        label={group.name}
-                        onClick={() => toggleOrSelect(group._id)}
-                        selected={selectedGroup === group._id}
+                        label={group.group}
+                        onClick={() => toggleOrSelect(group.group)}
+                        selected={selectedGroup === group.group}
                     />
                 ))}
             </Grid>
@@ -76,11 +76,18 @@ export function GroupsSubheader(props: Props) {
                             variant="contained"
                             startIcon={<PermIdentityIcon />}
                             innerText={t('groupsModal.groups')}
-                            onClick={() => openGroupsModal({ ...props })}
+                            onClick={onGroupClicked}
                         />
                     </Box>
                 </Grid>
             )}
         </Grid>
     );
+
+    function onGroupClicked() {
+        openGroupsModal({
+            ...props,
+            assessment: props.assessments.find((a) => a._id === props.selectedAssessment),
+        });
+    }
 }

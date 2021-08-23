@@ -14,6 +14,7 @@ export type UpdatedAssessmentInput = {
     lastMeasurementEndDate: string;
     firstMeasurementStatus: string;
     lastMeasurementStatus: string;
+    groups: Array<{ kindergartenId: string; group: string }>;
 };
 
 interface UpdateAssessment {
@@ -72,6 +73,7 @@ export function useUpdateAssessment(): UpdateAssessment {
                         'kindergartens',
                         'isOutdated',
                         'isDeleted',
+                        'groups',
                     ]),
                 },
             });

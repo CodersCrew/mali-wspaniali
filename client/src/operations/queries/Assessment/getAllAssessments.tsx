@@ -131,6 +131,10 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                     mail
                 }
             }
+            groups {
+                kindergartenId
+                group
+            }
         }
     }
 `;
