@@ -2,6 +2,15 @@ import { InputType, Field, PartialType, OmitType } from '@nestjs/graphql';
 import { GraphQLJSONObject } from 'graphql-type-json';
 
 @InputType()
+export class GroupInput {
+  @Field()
+  kindergartenId: string;
+
+  @Field()
+  group: string;
+}
+
+@InputType()
 export class AssessmentInput {
   @Field()
   title: string;
@@ -38,6 +47,9 @@ class _UpdatedAssessmmentInput extends AssessmentInput {
 
   @Field()
   isDeleted: boolean;
+
+  @Field(() => [GroupInput])
+  groups: Array<{ kindergartenId: string; group: string }>;
 }
 
 @InputType()
