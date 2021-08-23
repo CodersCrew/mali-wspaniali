@@ -22,7 +22,7 @@ export const GroupsDeleteModal = ({ onClose, onDelete, group }: Props) => {
     return (
         <TwoActionsModal
             lowerButtonOnClick={onClose}
-            upperButtonOnClick={() => onDelete(group._id)}
+            upperButtonOnClick={() => onDelete(group.group)}
             lowerButtonText={t('groupsModal.close')}
             upperButtonText={t('groupsModal.delete')}
             isOpen
@@ -32,7 +32,7 @@ export const GroupsDeleteModal = ({ onClose, onDelete, group }: Props) => {
                 {t('groupsModal.delete-group')}
             </Typography>
             <Typography variant="body1" className={classes.description}>
-                {t('groupsModal.confirm', { name: group.name })}
+                {t('groupsModal.confirm', { name: group.group })}
             </Typography>
         </TwoActionsModal>
     );
