@@ -20,11 +20,18 @@ export const TermsAndConditionsWrapper: React.FC = ({ children }) => {
         return i18n.changeLanguage(lng);
     }
 
+    const header = (): string => {
+        if (language === 'pl') return 'Regulamin';
+        if (language === 'en') return 'Terms and Conditions';
+
+        return '';
+    };
+
     return (
         <Box display="flex" width="100%">
             <Navbar
                 device={device}
-                activePage={[]}
+                activePage={[header()]}
                 language={language}
                 notifications={[]}
                 onLanguageChange={handleLanguageChange}

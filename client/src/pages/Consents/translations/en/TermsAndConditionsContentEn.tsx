@@ -1,661 +1,707 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box, Link, Paper, Typography } from '@material-ui/core';
 
 import { DownloadIcon } from '../../../../components/Icons/DownloadIcon';
 
 export const TermsAndConditionsContentEn = () => {
     return (
         <>
-            <Typography variant="h3" align="center">
-                <strong>Terms & Conditions of the Mali Wspaniali Platform</strong>
-            </Typography>
-            <Typography variant="h3" align="center">
-                <strong>(The Little Marvelous Ones Platform)</strong>
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1" align="center">
-                <strong>§1</strong>
-            </Typography>
-            <Typography variant="subtitle1" align="center">
-                <strong>DEFINITIONS</strong>
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>Foundation</strong> – The Mali Wspaniali Foundation (The Little Marvelous Ones Foundation) with
-                a registered office at 2-24 Ślężna Street; (postal code: 53- 302) in Wrocław, entered in the National
-                Court Register (KRS) under number: 00000533789, e-mail: fundacja@mali-wspaniali.pl.
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>The Mali Wspaniali Programe/ Programme</strong> – a programme of general development activities
-                carried out in the educational establishments for children at pre-school and early school age, together
-                with measurements of fitness tests and other developmental aspects of the participants.
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>The Mali Wspaniali Platform/Application</strong> – an organisational and IT solution available
-                in the …… domain serving for the purpose of collecting, inter alia, the necessary approvals for the
-                participation of children in the programme of sports activities carried out under the Mali Wspaniali
-                Programme in the establishments, collecting and analysing data on the measurements of the programme
-                participants and results of fitness tests, providing an educational content, among others, on the proper
-                development of children at the pre-school and early school age. An access to the data entered in the
-                Application is granted only to the registered and authenticated Users to the extent corresponding to the
-                rights specific to the type of an account for: Parent/Legal Guardian, instructor or
-                administrator/controller in a form and to the extent compliant with the requirements of the law
-                provisions in force in Poland and in compliance with the law provisions on personal data processing.
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>Service</strong> – making available to the Users by the Foundation the data stored in the
-                Application, information about the required consents in the Mali Wspaniali Programme, the results of
-                fitness tests and the level of fitness of the Programme participants at the end of the tests, making
-                available educational and expert content concerning the development of children, sending content
-                electronically, making available other functionalities of the Application, as well as enabling the Users
-                with the appropriate rights to enter, modify or delete data stored in the Application (e.g.:
-                instructor).
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>User</strong> – a person who uses the Application in any manner by means of an account created
-                for him/her. Types of accounts differ, inter alia, within the scope of rights to access, enter, modify
-                or delete data entered into the Application. The users are the Parents / Legal Guardians of children
-                attending the educational establishments where the Mali Wspaniali Programme is implemented, and who have
-                accepted the consent for the child&apos;s participation in the programme contained in the Application,
-                the instructors conducting classes with the children in the educational establishments who have
-                implemented the Mali Wspaniali Programme, persons authorised by the Foundation acting as the Platform
-                Administrator/Controller. All children of a Parent/Legal Guardian participating in the Programme may be
-                entered into one account, regardless of their age, while the account may be created by one Parent/Legal
-                Guardian.
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>Kindergarten/Establishment</strong> – each educational establishment which has implemented the
-                Mali Wspaniali Programme on the basis of an agreement signed with the Foundation or an establishment for
-                which an agreement has been signed by its Leading Body or a private/governmental supervisory
-                institution, under which it has implemented the Programme and uses the Application.
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>Governing Body/Supervisory Institution</strong> – a private/public or state-owned institution/
-                organisation that supervises, manages educational establishments and undertakes obligations on their
-                behalf.
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>Platform Administrator/Controller</strong> – a person appointed by the Foundation to administer
-                the Platform/Application, responsible for the provision of services, including but not limited to:
-                posting results of fitness test results and other aspects of children&apos;s development, posting
-                content on the Platform (including educational and expert articles), assigning and managing the User’s
-                accounts on behalf of the Foundation, including the deletion of such accounts.
-            </Typography>
-            <Box mb="1rem" />
-            <Typography variant="subtitle1">
-                <strong>Terms & Conditions</strong> – means these terms and conditions of the use of the
-                Platform/Application, including the rights and obligations of the Users, the Foundation connected with
-                the use of the Platform and the provision of the Services through the intermediary of it.
-            </Typography>
-            <Box mb="1rem" />
-
-            <Typography variant="subtitle1" align="center">
-                <strong>§2</strong>
-            </Typography>
-            <Typography variant="subtitle1" align="center">
-                <strong>POSTANOWIENIA WSTĘPNE, ZASADY AKCEPTACJI REGULAMINU</strong>
-            </Typography>
-            <Typography variant="subtitle1">
-                <ol>
-                    <li>
-                        Niniejszy Regulamin określa zasady i warunki korzystania z Platformy/ Aplikacji. Każdy
-                        Użytkownik zobowiązany jest, z momentem podjęcia czynności zmierzających do korzystania z
-                        Platformy/Aplikacji, do zapoznania się z niniejszym Regulaminem, jego akceptacji i
-                        przestrzegania jego postanowień.
-                    </li>
-                    <li>
-                        Regulamin jest udostępniany nieodpłatnie, pod adresem http:// ……………. oraz jest prezentowany
-                        podczas rejestracji użytkownika, a Użytkownik ma prawo w każdym czasie utrwalić jego treść (w
-                        tym poprzez pobranie Regulaminu na swoje urządzenie końcowe w formacie PDF).
-                    </li>
-                    <li>
-                        Fundacja świadczy Usługi dla każdego Rodzica/ Opiekuna Prawnego, który zaakceptował zgodę na
-                        udział w Programie Mali Wspaniali swojego dziecka i które bierze udział w zajęciach w
-                        przedszkolu w ramach Programu, każdego instruktora zatrudnionego do prowadzenia zajęć w
-                        Programie.
-                    </li>
-                </ol>
-            </Typography>
-            <Box mb="1rem" />
-
-            <Typography variant="subtitle1" align="center">
-                <strong>§3</strong>
-            </Typography>
-            <Typography variant="subtitle1" align="center">
-                <strong>ZASADY FUNKCJONOWANIA PLATFORMY/APLIKACJI I APLIKACJI/ PLATFORMY</strong>
-            </Typography>
-            <Typography variant="subtitle1">
-                <ol>
-                    <li>
-                        Aplikacja jest nowoczesnym, stale rozwijanym narzędziem informatycznym służącym m.in. Fundacji,
-                        Rodzicom/ Opiekunom Prawnym, instruktorom przy realizacji Programu Mali Wspaniali. W Platformie
-                        gromadzone są między innymi informacje na temat wymaganych zgód na udział w Programie, postępów
-                        rozwoju sprawności fizycznej dzieci biorących udział w zajęciach, treści edukacyjne oraz
-                        eksperckie na temat rozwoju dzieci wieku przedszkolnym i wczesnoszkolnym, a które następnie
-                        udostępniane są Użytkownikom.
-                    </li>
-                    <li>
-                        Fundacja działając na polecenie instytucji zlecającej prowadzenie programu (Organu Prowadzącego/
-                        Instytucji Nadzorującej Placówkę) lub samego przedszkola, z którym ma podpisaną umowę, umożliwia
-                        użytkownikom dostęp do Platformy/Aplikacji.
-                    </li>
-                    <li>
-                        Użytkownik (Rodzic/Instruktor) dokonuje rejestracji w Aplikacji wykorzystując specjalny kod
-                        przekazany przez dyrekcję placówki edukacyjnej lub Fundację/ Administratora oraz poprzez podanie
-                        swojego adresu mailowego. Proces rejestracji kończy się w chwili, gdy Użytkownik użyje linku
-                        aktywacyjnego otrzymanego na adres mailowy podany podczas rejestracji. Adres podany przy
-                        rejestracji nie może zostać zmieniony w czasie użytkowania Aplikacji.
-                    </li>
-                    <li>
-                        W zakres Usług dla Użytkownika Rodzica/ Opiekuna Prawnego wchodzą w szczególności:
-                        <ol type="a">
-                            <li>
-                                umożliwienie wyrażenia zgody na udział w programie, przez co rozumie się między innymi
-                                działania zawarte w definicji Programu w § 1, podczas procesu rejestracji na Platformie;
-                            </li>
-                            <li>
-                                umożliwienie wyrażenia zgody marketingowej oraz zgody na wykorzystanie wizerunku dziecka
-                                w ramach Programu Mali Wspaniali;
-                            </li>
-                            <li>
-                                udostępnianie Rodzicom/ Opiekunom Prawnym zarejestrowanym w Aplikacji danych o
-                                wyrażonych zgodach dotyczących dziecka biorącego udział w Programie Mali Wspaniali;
-                            </li>
-                            <li>
-                                udostępnianie Rodzicom/ Opiekunom Prawnym zarejestrowanym na Platformie danych o
-                                wynikach dziecka biorącego udział w teście sprawności i innych pomiarach w czasie
-                                uczestniczenia w Programie;
-                            </li>
-                            <li>
-                                umożliwienie Rodzicowi/ Opiekunowi Prawnemu wprowadzania i edytowania danych
-                                identyfikacyjnych dziecka w Aplikacji/ Platformie dla prawidłowego obliczenia wyników
-                                sprawności dziecka;
-                            </li>
-                            <li>
-                                udostępnianie Rodzicowi/ Opiekunowi Prawnemu artykułów oraz innych treści eksperckich,
-                                opublikowanych w Aplikacji;
-                            </li>
-                            <li>
-                                przesyłanie wiadomości, komunikatów, ogłoszeń, i innych informacji związanych z
-                                działalnością Fundacji użytkownikom, którzy wyrazili zgodę marketingową;
-                            </li>
-                            <li>
-                                umożliwienie wysyłania wiadomości do fundacji, w szczególności Administratora Platformy,
-                                za pomocą Platformy/Aplikacji oraz publikowanie przez Administratora lub Fundację
-                                komunikatów związanych z funkcjonowaniem Platformy/Aplikacji;
-                            </li>
-                            <li>
-                                anonimizację konta zarejestrowanego Rodzica/ Opiekuna Prawnego wraz z danymi osobowymi
-                                dzieci (imieniem i nazwiskiem) po upływie co najmniej 5 lat od dnia rejestracji na
-                                Platformie. Anonimizacja polega na trwałym usunięciu przez Aplikację danych konta, tj.:
-                                adresu mailowego podanego przez Rodzica/ Opiekuna Prawnego przy rejestracji, imienia i
-                                nazwiska dziecka/ci wpisanych przez Rodzica/ Opiekuna Prawnego a pozostawienie danych
-                                związanych z pomiarami dziecka do celów statystycznych (tj.: wieku, płci, wyników
-                                testów, numeru i/lub adresu placówki);
-                            </li>
-                            <li>
-                                usunięcie konta wcześniej, niż zakończenie edukacji dziecka w placówce, na pisemną
-                                prośbę przesłaną do Fundacji, pod warunkiem braku podstaw prawnych do dalszego
-                                przetwarzania danych osobowych przez Fundację.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Odpowiedzialność za wprowadzenie do Platformy/Aplikacji danych, w szczególności dotyczących
-                        imienia i nazwiska dziecka, płci, kwartału urodzenia oraz danych przedszkola, do którego
-                        uczęszcza dziecko ponosi rodzic/opiekun prawny. Ponosi on pełną odpowiedzialność za poprawność,
-                        kompletność, zgodność z prawdą i treść wprowadzanych danych. Nieprawidłowe wprowadzenie np. płci
-                        lub kwartału roku urodzenia dziecka może skutkować nieprawidłowym przypisaniem punktacji, a co
-                        za tym idzie nieprawidłową oceną sprawności dziecka.
-                    </li>
-                    <li>
-                        W zakres Usług dla Użytkownika – Instruktora wchodzą w szczególności:
-                        <ol type="a">
-                            <li>umożliwienie przyporządkowywania uczestników Programu do grup w danych placówkach;</li>
-                            <li>
-                                umożliwienie wpisywania, edytowania, usuwania wyników z prowadzonych testów sprawności
-                                oraz innych pomiarów uczestników Programu;
-                            </li>
-                            <li>
-                                udostępnianie instruktorowi artykułów oraz innych treści eksperckich, publikowanych w
-                                Aplikacji;
-                            </li>
-                            <li>
-                                przesyłanie wiadomości, komunikatów, ogłoszeń, i innych informacji związanych z
-                                funkcjonowaniem Platformy w tym związane z testami sprawności;
-                            </li>
-                            <li>
-                                usunięcie wcześniej konta, niż zakończenie pracy w Fundacji, na pisemną prośbę przesłaną
-                                do Fundacji, pod warunkiem braku podstaw prawnych do dalszego przetwarzania danych
-                                osobowych przez Fundację.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Konta Użytkowników - Instruktorów z odpowiednimi uprawnieniami tworzone są przez Administratora
-                        Platformy, który przydziela specjalny kod do rejestracji zatrudnionemu w Fundacji Instruktorowi
-                        oraz nadaje uprawnienia poprzez wykorzystanie loginu – adresu mailowego instruktora podanego
-                        Fundacji do kontaktu.
-                    </li>
-                    <li>
-                        Dostęp do Platformy/Aplikacji ustaje z chwilą:
-                        <ol type="a">
-                            <li>
-                                usunięcia konta Rodzica/ Opiekuna Prawnego w Aplikacji przez Administratora Platformy,
-                                co może nastąpić tylko na pisemną prośbę Rodzica/ Opiekuna Prawnego lub przy użyciu
-                                wzoru z załącznika nr 1 do regulaminu, wysłanego do Fundacji za pomocą Poczty Polskiej
-                                na adres Fundacji zawarty w § 1 lub elektronicznej na adres: fundacja@mali-wspaniali.pl;
-                            </li>
-                            <li>
-                                usunięcia konta Instruktora z chwilą ustania jego pracy w Fundacji lub w sytuacji
-                                opisanej w § pkt. 5 e;
-                            </li>
-                            <li>
-                                anonimizacji konta po 5 latach od dnia rejestracji przez Rodzica/ Opiekuna Prawnego, co
-                                może nastąpić do roku od zakończenia uczęszczania dziecka do placówki przedszkolnej; a w
-                                przypadku dzieci uczęszczających do „zerówek” na terenie placówki po zakończeniu w niej
-                                edukacji,
-                            </li>
-                            <li>złamania zasad zapisanych w § 4; punkt 3 regulaminu.</li>
-                        </ol>
-                    </li>
-                </ol>
-            </Typography>
-            <Box mb="1rem" />
-
-            <Typography variant="subtitle1" align="center">
-                <strong>§4</strong>
-            </Typography>
-            <Typography variant="subtitle1" align="center">
-                <strong>
-                    PRAWA, OBOWIĄZKI, ODPOWIEDZIALNOŚĆ FUNDACJI I UŻYTKOWNIKÓW, ZASADY KORZYSTANIA Z PLATFORMY/APLIKACJI
-                </strong>
-            </Typography>
-            <Typography variant="subtitle1">
-                <ol>
-                    <li>
-                        Użytkownik Rodzic ma prawo:
-                        <ol type="a">
-                            <li>
-                                w dowolnym czasie bez konieczności podawania przyczyny zrezygnować z korzystania z
-                                Platformy/Aplikacji, w szczególności jeżeli nie akceptuje obowiązującego w danym czasie
-                                Regulaminu, którego aktualny tekst jest publikowany na Platformie, w sposób
-                                umożliwiający jego odczytanie oraz utrwalenie, przed podjęciem czynności logowania;
-                            </li>
-                            <li>
-                                do rezygnacji z korzystania z Platformy/Aplikacji, co może nastąpić poprzez wysłanie
-                                maila do Fundacji z adresu, na którym się rejestrował lub pocztą tradycyjną, o treści z
-                                załącznika nr 1 do regulaminu. Fundacja informuje, że rezygnacja powoduje usunięcie z
-                                Platformy/Aplikacji konta Rodzica/ Opiekuna Prawnego oraz zgody na uczestnictwo dziecka
-                                w Programie Mali Wspaniali a co za tym idzie zgodę na zajęcia w placówce przedszkolnej
-                                oraz innych działaniach związanych z realizacją programu, w szczególności testach i
-                                pomiarach. Dane dotyczące dziecka zostaną zanonimizowane zgodnie z zapisem w §3 pkt 4i.
-                                W przypadku chęci wrócenia do korzystania z Platformy, Użytkownik może zwrócić się do
-                                Fundacji o ponowne wygenerowanie kodu i przeprowadzić proces rejestracji ponownie. Aby
-                                otrzymać kod aktywacyjny Rodzic musi poinformować Administratora/ Fundację droga pisemną
-                                lub mailową o wznowieniu dostępu;
-                            </li>
-                            <li>
-                                kontaktować się celem udostępnienia nowego kodu dostępu w przypadku, gdy przekazany kod
-                                utracił ważność, kod traci ważność po 14 dniach;
-                            </li>
-                            <li>do zmiany danych dostępowych - tylko hasła do swojego konta.</li>
-                        </ol>
-                    </li>
-                    <li>
-                        Zabronione jest dostarczanie przez Użytkownika treści o charakterze bezprawnym, naruszających
-                        prawo lub dobre obyczaje.
-                    </li>
-                    <li>
-                        Użytkownik nie ma prawa do:
-                        <ol type="a">
-                            <li>
-                                wykorzystywania Platformy/Aplikacji do działań naruszających prawa osób trzecich,
-                                działań niezgodnych z obowiązującym prawem lub postanowieniami niniejszego Regulaminu;
-                            </li>
-                            <li>
-                                wykorzystywania wewnętrznej możliwości, jaką daje Platforma/Aplikacja, do wysyłania
-                                wiadomości celem rozpowszechniania treści: reklamowych, handlowych lub marketingowych,
-                                bezprawnych, obraźliwych, propagujących przemoc, mających charakter dyskryminacyjny,
-                                rasistowski lub naruszających powszechnie uznane dobre obyczaje, czy rozpowszechniania
-                                spamu;
-                            </li>
-                            <li>
-                                Użytkownik zobowiązany jest powstrzymać się od wszystkich działań mogących utrudnić
-                                dostęp do Platformy innym Użytkownikom oraz działań zakłócających lub uniemożliwiających
-                                funkcjonowanie Aplikacji/ Platformy.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Naruszenie przez Użytkownika zakazu dostarczania treści bezprawnych, o którym mowa w ust. 2, lub
-                        naruszenie przez Użytkownika postanowienia ust. 3 powyżej stanowi podstawę do zgłoszenia
-                        naruszeń odpowiednim organom oraz usunięcia konta Użytkownika.
-                    </li>
-                    <li>
-                        W granicach, w jakich jest to dopuszczalne, zgodnie z powszechnie obowiązującymi przepisami
-                        prawa Fundacja nie ponosi odpowiedzialności za:
-                        <ol type="a">
-                            <li>
-                                skutki wynikłe z przejęcia danych dostępowych użytkownika (login, hasło) do
-                                Platformy/Aplikacji przez osobę trzecią, jeżeli przejęcie to nastąpiło z przyczyny przez
-                                Fundację niezawinionej;
-                            </li>
-                            <li>
-                                bezprawne działania osób trzecich polegające na ingerencji w system komputerowy
-                                Użytkownika, w szczególności włamania i wirusy komputerowe, Fundacja nie ponosi winy za
-                                takie działania;
-                            </li>
-                            <li>
-                                treści wiadomości wysyłanych przez Użytkowników na zasadach określonych w powszechnie
-                                obowiązujących przepisach prawa;
-                            </li>
-                            <li>
-                                szkody Użytkownika powstałe w wyniku uniemożliwienia dostępu do danych, na zasadach
-                                określonych w powszechnie obowiązujących przepisach prawa;
-                            </li>
-                            <li>
-                                treść, prawidłowość i kompletność danych wprowadzanych do Platformy przez Użytkowników;
-                                w szczególności danych dzieci uczestniczących w programie zajęć Mali Wspaniali;
-                            </li>
-                            <li>
-                                zaprzestanie świadczenia Usługi z powodu wypowiedzenia lub rozwiązania umowy łączącej
-                                przedszkole, operatora lub instytucję nadzorująca placówki edukacyjne oraz Fundację.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Fundacja zastrzega sobie prawo do:
-                        <ol type="a">
-                            <li>
-                                udoskonalania Platformy/Aplikacji w tym jej upraszczania, rozszerzania, modyfikowania a
-                                także zmiany funkcjonalności, w szczególności w celu dostosowania do zasad prowadzenia
-                                Programu oraz w szczególności obowiązujących przepisów prawa i bezpieczeństwa;
-                            </li>
-                            <li>
-                                usunięcia konta dowolnego Użytkownika w przypadku uzasadnionego podejrzenia jego
-                                wykorzystywania wbrew postanowieniom Regulaminu, w szczególności §4 ust. 2 i ust. 3
-                                niniejszego Regulaminu lub uzasadnionego podejrzenia nieautoryzowanej próby dostępu do
-                                danych. Przed usunięciem konta Fundacja skontaktuje się z Użytkownikiem celem
-                                wyjaśnienia podejrzeń oraz poinformowania o dalszych, ewentualnych krokach, w tym
-                                zgłoszenia odpowiednim organom;
-                            </li>
-                            <li>
-                                udostępniania danych zgromadzonych w Aplikacji dotyczących statystyki wyników testów
-                                sprawności oraz innych pomiarów dzieci uprawnionym podmiotom na podstawie powszechnie
-                                obowiązujących przepisów prawa;
-                            </li>
-                            <li>
-                                wyłączenia Platformy na czas niezbędny do prawidłowej realizacji czynności
-                                administracyjnych związanych z należytym zabezpieczeniem, archiwizacją i ochroną
-                                zgromadzonych danych;
-                            </li>
-                            <li>
-                                Fundacja ma prawo przechowywać zanonimizowane dane do celów archiwizacji, statystycznych
-                                oraz przedawnienia roszczeń;
-                            </li>
-                            <li>
-                                przetwarzania danych osobowych Użytkowników w zakresie niezbędnym do udostępnienia
-                                wyników pomiarów dzieci, wysyłania informacji do Rodziców/ Opiekunów Prawnych
-                                dotyczących funkcjonowania Platformy oraz innych treści adekwatnie do podpisanych zgód;
-                            </li>
-                            <li>
-                                anonimizacji i przenoszenia do archiwum niektórych danych z Platformy/Aplikacji po
-                                zakończeniu każdego roku szkolnego, w szczególności wyników prób z testów sprawności
-                                dzieci biorących udział w pomiarach, celem przygotowania analiz statystycznych/
-                                naukowych;
-                            </li>
-                            <li>
-                                weryfikacji liczby kont uczniów wprowadzonych przez uprawnionych Użytkowników do
-                                Platformy/Aplikacji w stosunku do tej, zadeklarowanej przez Przedszkole;
-                            </li>
-                            <li>
-                                Fundacja nie gwarantuje ciągłej dostępności Platformy/Aplikacji, Usług. Użytkownik musi
-                                się liczyć z przerwami w dostępie do Platformy i Usług, w szczególności związanymi z
-                                koniecznością wprowadzania zmian, lub konserwacji. Fundacja dołoży starań aby przerwy
-                                były jak najkrótsze.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Fundacja zastrzega sobie prawo do zmiany Regulaminu. Za ważne przyczyny uznaje się:
-                        <ol type="a">
-                            <li>
-                                wprowadzenie nowych lub zmianę istniejących powszechnie obowiązujących przepisów prawa,
-                                jeżeli ma to bezpośredni wpływ na treść Regulaminu i powoduje konieczność jego zmiany;
-                            </li>
-                            <li>
-                                zmiany lub pojawienie się nowych interpretacji powszechnie obowiązujących przepisów
-                                prawa na skutek orzeczeń sądów lub decyzji organów władzy lub administracji publicznej
-                                wpływających bezpośrednio na postanowienia niniejszego Regulaminu i powodujących
-                                konieczność jego zmiany lub udoskonalenie produktów i usług, w tym dostosowanie do
-                                warunków rynkowych związanych z postępem technicznym, technologicznym i informatycznym,
-                                wpływających na postanowienia niniejszego Regulaminu;
-                            </li>
-                            <li>dostosowanie produktów i usług do grup odbiorców programu Mali Wspaniali;</li>
-                            <li>
-                                rozszerzenie lub zmianę funkcjonalności istniejących produktów i usług wpływającą na
-                                zmianę treści niniejszego Regulaminu.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        O treści zmian Regulaminu każdy Użytkownik zostanie uprzednio poinformowany za pomocą wiadomości
-                        publikowanej przez administratora platformy wysłanej Użytkownikom, zawierającej link do jego
-                        zmienionej wersji. Nowa wersja Regulaminu wiąże Użytkownika, jeśli w terminie 14 dni od daty
-                        otrzymania informacji o zmianie Użytkownik nie zrezygnuje z korzystania z Platformy/Aplikacji w
-                        sposób wskazany w §4 ust.
-                    </li>
-                    <li>
-                        Reklamacje Użytkownika dotyczące dostępności Platformy, należy składać pisemnie na adres
-                        Fundacji wskazany w § 1 niniejszego Regulaminu lub drogą elektroniczną z wykorzystaniem
-                        Platformy/Aplikacji poczty wewnętrznej dostępnej w Platformie. W przypadku reklamacji Fundacja
-                        udziela odpowiedzi w formie pisemnej (pocztą tradycyjną lub drogą elektroniczną), w terminie do
-                        30 dni od dnia jej złożenia, na adres (w tym mailowy) wskazany w piśmie reklamacyjnym.
-                    </li>
-                </ol>
-            </Typography>
-
-            <Typography variant="subtitle1" align="center">
-                <strong>§5</strong>
-            </Typography>
-            <Typography variant="subtitle1" align="center">
-                <strong>PRZETWARZANIE DANYCH OSOBOWYCH </strong>
-            </Typography>
-            <Typography variant="subtitle1">
-                <ol>
-                    <li>
-                        Administratorem danych przetwarzanych w Aplikacji zgodnie z rozporządzeniem Parlamentu
-                        Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych
-                        w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz
-                        uchylenia dyrektywy 95/46/WE (dalej: RODO) jest Fundacja.{' '}
-                    </li>
-                    <li>
-                        Administrator danych zapewnia odpowiednie środki techniczne i organizacyjne zapewniające
-                        bezpieczeństwo danych osobowych udostępnionych przez Użytkowników, w szczególności
-                        uniemożliwiające dostęp do nich osobom trzecim lub ich przetwarzanie z naruszeniem przepisów
-                        prawa, zapobiegające utracie danych, ich uszkodzeniu lub zniszczeniu.{' '}
-                    </li>
-                    <li>
-                        We wszelkich sprawach związanych z przetwarzaniem danych osobowych Użytkownika można kontaktować
-                        się z Administratorem danych pod adresem: fundacja@mali-wspaniali.pl.
-                    </li>
-                    <li>
-                        Fundacja przetwarza dane osobowe Użytkownika zgodnie z:
-                        <ol type="a">
-                            <li>
-                                art. 6 ust. 1 lit. b) RODO - przetwarzanie jest niezbędne do wykonania umowy, której
-                                stroną jest osoba, której dane dotyczą, lub do podjęcia działań na żądanie osoby, której
-                                dane dotyczą, przed zawarciem umowy. Umowa o świadczenie usług drogą elektroniczną w
-                                odniesieniu do korzystania z Platformy zawierana jest przez Użytkownika z
-                                Administratorem na warunkach przewidzianych niniejszym Regulaminem;
-                            </li>
-                            <li>
-                                art. 6 ust. 1 lit. e) RODO - przetwarzanie jest niezbędne do wykonania zadania
-                                realizowanego w interesie publicznym. Przez zadania realizowane w interesie publicznym
-                                rozumie się zadania o charakterze użyteczności publicznej, takie jak m.in. wspieranie
-                                programów edukacyjnych dla dzieci w szkołach i przedszkolach;
-                            </li>
-                            <li>
-                                art. 6 ust. 1 lit. f) RODO - przetwarzanie jest niezbędne do celów wynikających z
-                                prawnie uzasadnionych interesów realizowanych przez administratora, np. w postaci
-                                dochodzenia roszczeń, umożliwienia kontaktu.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Podstawą prawną przetwarzania danych szczególnych kategorii powstałych w wyniku opracowanie
-                        wyników testów sprawności fizycznej dziecka/ci, tj. sprawność, szybkość, siła, zwinność jest
-                        art. 9 ust. 2 lit. d) RODO - przetwarzania dokonuje się w ramach uprawnionej działalności
-                        prowadzonej z zachowaniem odpowiednich zabezpieczeń przez Fundację, stowarzyszenie lub inny
-                        niezarobkowy podmiot o celach politycznych, światopoglądowych, religijnych lub związkowych.
-                    </li>
-                    <li>
-                        Podstawą prawną przetwarzania wizerunku dziecka/ci w celach promocyjnych i/lub adresu e-mail
-                        Rodzica/ Opiekuna Prawnego/opiekuna prawnego w celach marketingowych jest art. 6 ust. 1 lit a)
-                        RODO – zgoda na przetwarzanie danych osobowych, tzn. że dane te mogą być przetwarzane przez
-                        Fundację jedynie w przypadku wyrażenia przez Rodzica/ Opiekuna Prawnego/opiekuna prawnego zgody
-                        na takie działanie.
-                    </li>
-                    <li>
-                        Dane osobowe nie będą udostępniane podmiotom trzecim, chyba że dzieje się to w przypadku:
-                        <ol type="a">
-                            <li>wyraźnej zgody użytkownika;</li>
-                            <li>przekazania danych uprawnionym organom na podstawie przepisów prawa.</li>
-                        </ol>
-                    </li>
-                    <li>
-                        Ponadto w niektórych sytuacjach Administrator ma prawo przekazywać dane, jeśli będzie to
-                        konieczne, aby móc realizować zadania spoczywające na Fundacji. Dane będą przekazywane wyłącznie
-                        dwóm grupom:
-                        <ol type="a">
-                            <li>
-                                osobom upoważnionym przez Fundację, tj. pracownikom i współpracownikom Fundacji, którzy
-                                muszą mieć dostęp do tych danych, aby wykonywać swoje obowiązki;
-                            </li>
-                            <li>
-                                podmiotowi przetwarzającemu, któremu Fundacja zleciła czynności wymagające przetwarzania
-                                danych, tj. twórcy i administratorowi Platformy/Aplikacji zarządzania i komunikacji
-                                Platformy dla Programu Mali Wspaniali oraz firmie świadczącej usługi e-mail marketingu;
-                            </li>
-                            <li>uprawnionym organom państwowym (np.: policja, sąd).</li>
-                        </ol>
-                    </li>
-                    <li>
-                        Dane osobowe Użytkownika przetwarzane będą:
-                        <ol type="a">
-                            <li>
-                                w przypadku świadczenia usług elektronicznych mających na celu umożliwienie utworzenia
-                                konta oraz korzystania z funkcjonalności Aplikacji/ Platformy – przez okres istnienia
-                                konta w ramach usług, następnie przez okres wymagany przepisami prawa i/lub do upływu
-                                terminu przedawnienia ewentualnych roszczeń, tj. przez okres 5 lat, po tym czasie dane
-                                osobowe będą zanonimizowane i w takiej formie przechowywane do celów statystycznych i
-                                archiwalnych;
-                            </li>
-                            <li>
-                                w przypadku przesyłania informacji marketingowych – do momentu zgłoszenia przez
-                                Użytkownika sprzeciwu bądź wycofania zgody na przetwarzanie danych w celach związanych z
-                                marketingiem lub do czasu zaprzestania działalności z zakresu marketingu bezpośredniego
-                                przez Fundację;
-                            </li>
-                            <li>
-                                w przypadku przetwarzania wizerunku dziecka w celach promocyjnych – do czasu wycofania
-                                zgody.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Użytkownik w każdej chwili ma prawo do wycofania zgody na przetwarzanie swoich danych osobowych
-                        w celach marketingowych (bądź w przypadku Rodziców/opiekunów prawnych - danych osobowych swojego
-                        dziecka/podopiecznego w postaci wizerunku w celach promocyjnych). Cofnięcie zgody ma skutek od
-                        momentu wycofania zgody. Cofnięcie zgody nie wpływa na przetwarzanie dokonywane przez
-                        Administratora zgodnie z prawem przed jej cofnięciem. Cofnięcie zgody nie pociąga za sobą̨ dla
-                        Użytkownika żadnych negatywnych konsekwencji. Może jednak uniemożliwić dalsze korzystanie z
-                        usług lub funkcjonalności, które zgodnie z prawem Administrator danych może świadczyć jedynie za
-                        zgodą.
-                    </li>
-                    <li>
-                        Użytkownikowi przysługuje prawo żądania dostępu do treści swoich danych osobowych oraz prawo ich
-                        sprostowania. W przypadku określonych przepisami prawa Użytkownikowi przysługuje prawo żądania
-                        usunięcia danych osobowych, żądania ograniczenia przetwarzania danych osobowych, prawo do
-                        przeniesienia danych osobowych, prawo wniesienia sprzeciwu wobec przetwarzania danych osobowych.
-                        Użytkownikowi przysługuje również prawo wniesienia skargi do organu nadzoru zajmującego się
-                        ochroną danych osobowych, gdy uzna, że Administrator danych (Fundacja) naruszył przepisy
-                        dotyczące ochrony danych osobowych.
-                    </li>
-                    <li>
-                        Z uwagi na fakt, że dane osobowe, tj. imię i nazwisko, adres e-mail będą przetwarzane przez
-                        Administratora do celów wynikających z prawnie uzasadnionego interesu Administratora,
-                        Użytkownikowi przysługuje prawo do wniesienia sprzeciwu wobec przetwarzania danych osobowych w
-                        w/w celu z przyczyn związanych ze szczególną sytuacją Użytkownika.
-                    </li>
-                    <li>
-                        Wszelkie zgłoszenia dotyczące danych osobowych Użytkownika powinny być zgłaszane bezpośrednio
-                        przez Użytkownika na adres e-mail: fundacja@mali-wspaniali.pl.
-                    </li>
-                    <li>
-                        Podanie danych osobowych nie jest obowiązkowe jednak jest niezbędne do korzystania z Platformy.
-                    </li>
-                    <li>
-                        Zgoda na wykorzystanie wizerunku dziecka/ci jak również zgoda na działania marketingowe nie jest
-                        obowiązkowa i nie skutkuje ona brakiem możliwości korzystania z Platformy.
-                    </li>
-                    <li>
-                        Wszelkie pozostałe informacje w zakresie przetwarzania danych przez Administratora danych
-                        osobowych za pośrednictwem Aplikacji/Platformy zostały szczegółowo wskazane w Polityce
-                        prywatności.
-                    </li>
-                </ol>
-            </Typography>
-
-            <Typography variant="subtitle1" align="center">
-                <strong>§6</strong>
-            </Typography>
-            <Typography variant="subtitle1" align="center">
-                <strong>POZOSTAŁE INFORMACJE</strong>
-            </Typography>
-            <Typography variant="subtitle1">
-                <ol>
-                    <li>
-                        Fundacja informuje, że pod adresem URL:
-                        https://webgate.ec.europa.eu/odr/main/index.cfm?event=main.home.show&lng=PL dostępna jest
-                        platforma internetowego Platformy/Aplikacji rozstrzygania sporów dotyczących zobowiązań umownych
-                        wynikających z internetowych umów sprzedaży lub umów o świadczenie usług pomiędzy konsumentami
-                        zamieszkałymi w Unii Europejskiej a przedsiębiorcami mającymi siedzibę w Unii Europejskiej
-                        (platforma ODR).
-                    </li>
-                    <li>
-                        Fundacja informuje, że nie korzysta z alternatywnych metod rozstrzygania sporów (pozasądowych
-                        sposobów rozpatrywania reklamacji i dochodzenia roszczeń) i nie zobowiązuje się do korzystania z
-                        takich metod, o ile obowiązek taki nie wynika z bezwzględnie obowiązującego przepisu prawa.
-                    </li>
-                    <li>
-                        Fundacja informuje, że Użytkownik będący konsumentem może uzyskać bezpłatną pomoc w sprawie
-                        rozstrzygnięcia sporu między takim Użytkownikiem a Fundacją, zwracając się do powiatowego
-                        (miejskiego) rzecznika konsumentów lub organizacji społecznej, do której zadań statutowych
-                        należy ochrona konsumentów (m.in. Federacja Konsumentów, Stowarzyszenie Konsumentów Polskich).
-                    </li>
-                </ol>
-            </Typography>
-            <Box mb="2rem" />
-
-            <Typography variant="subtitle1" align="center">
-                <strong>ZAŁĄCZNIK NR 1 DO REGULAMINU</strong>
-            </Typography>
-            <Box mb="1rem" />
-            <Box display="flex" flexDirection="row">
-                <DownloadIcon />
-                <Box mr={2} />
-                <Typography variant="subtitle1">
-                    Wzór oświadczenia o rezygnacji z korzystania z Platformy/Aplikacji
+            <Paper style={{ padding: '16px' }}>
+                <Typography variant="h3" align="center">
+                    <strong>Terms & Conditions of the Mali Wspaniali Platform</strong>
                 </Typography>
-            </Box>
+                <Typography variant="h3" align="center">
+                    <strong>(The Little Marvelous Ones Platform)</strong>
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1" align="center">
+                    <strong>§1</strong>
+                </Typography>
+                <Typography variant="subtitle1" align="center">
+                    <strong>DEFINITIONS</strong>
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>Foundation</strong> – The Mali Wspaniali Foundation (The Little Marvelous Ones Foundation)
+                    with a registered office at 2-24 Ślężna Street; (postal code: 53- 302) in Wrocław, entered in the
+                    National Court Register (KRS) under number: 00000533789, e-mail: fundacja@mali-wspaniali.pl.
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>The Mali Wspaniali Programe/ Programme</strong> – a programme of general development
+                    activities carried out in the educational establishments for children at pre-school and early school
+                    age, together with measurements of fitness tests and other developmental aspects of the
+                    participants.
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>The Mali Wspaniali Platform/Application</strong> – an organisational and IT solution
+                    available in the …… domain serving for the purpose of collecting, inter alia, the necessary
+                    approvals for the participation of children in the programme of sports activities carried out under
+                    the Mali Wspaniali Programme in the establishments, collecting and analysing data on the
+                    measurements of the programme participants and results of fitness tests, providing an educational
+                    content, among others, on the proper development of children at the pre-school and early school age.
+                    An access to the data entered in the Application is granted only to the registered and authenticated
+                    Users to the extent corresponding to the rights specific to the type of an account for: Parent/Legal
+                    Guardian, instructor or administrator/controller in a form and to the extent compliant with the
+                    requirements of the law provisions in force in Poland and in compliance with the law provisions on
+                    personal data processing.
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>Service</strong> – making available to the Users by the Foundation the data stored in the
+                    Application, information about the required consents in the Mali Wspaniali Programme, the results of
+                    fitness tests and the level of fitness of the Programme participants at the end of the tests, making
+                    available educational and expert content concerning the development of children, sending content
+                    electronically, making available other functionalities of the Application, as well as enabling the
+                    Users with the appropriate rights to enter, modify or delete data stored in the Application (e.g.:
+                    instructor).
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>User</strong> – a person who uses the Application in any manner by means of an account
+                    created for him/her. Types of accounts differ, inter alia, within the scope of rights to access,
+                    enter, modify or delete data entered into the Application. The users are the Parents / Legal
+                    Guardians of children attending the educational establishments where the Mali Wspaniali Programme is
+                    implemented, and who have accepted the consent for the child&apos;s participation in the programme
+                    contained in the Application, the instructors conducting classes with the children in the
+                    educational establishments who have implemented the Mali Wspaniali Programme, persons authorised by
+                    the Foundation acting as the Platform Administrator/Controller. All children of a Parent/Legal
+                    Guardian participating in the Programme may be entered into one account, regardless of their age,
+                    while the account may be created by one Parent/Legal Guardian.
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>Kindergarten/Establishment</strong> – each educational establishment which has implemented
+                    the Mali Wspaniali Programme on the basis of an agreement signed with the Foundation or an
+                    establishment for which an agreement has been signed by its Leading Body or a private/governmental
+                    supervisory institution, under which it has implemented the Programme and uses the Application.
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>Governing Body/Supervisory Institution</strong> – a private/public or state-owned
+                    institution/ organisation that supervises, manages educational establishments and undertakes
+                    obligations on their behalf.
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>Platform Administrator/Controller</strong> – a person appointed by the Foundation to
+                    administer the Platform/Application, responsible for the provision of services, including but not
+                    limited to: posting results of fitness test results and other aspects of children&apos;s
+                    development, posting content on the Platform (including educational and expert articles), assigning
+                    and managing the User’s accounts on behalf of the Foundation, including the deletion of such
+                    accounts.
+                </Typography>
+                <Box mb="1rem" />
+                <Typography variant="subtitle1">
+                    <strong>Terms & Conditions</strong> – means these terms and conditions of the use of the
+                    Platform/Application, including the rights and obligations of the Users, the Foundation connected
+                    with the use of the Platform and the provision of the Services through the intermediary of it.
+                </Typography>
+                <Box mb="1rem" />
+
+                <Typography variant="subtitle1" align="center">
+                    <strong>§2</strong>
+                </Typography>
+                <Typography variant="subtitle1" align="center">
+                    <strong>PRELIMINARY PROVISIONS, RULES OF ACCEPTANCE OF THE TERMS & CONDITIONS</strong>
+                </Typography>
+                <Typography variant="subtitle1">
+                    <ol>
+                        <li>
+                            These Terms & Conditions set forth the terms and conditions of use of the
+                            Platform/Application. Each User is obliged, from the moment of undertaking activities aimed
+                            at the use of the Platform/Application, to read, accept and comply with these Terms &
+                            Conditions.
+                        </li>
+                        <li>
+                            The Terms & Conditions are made available free of charge at the address http://
+                            ................. and is presented during the registration of the user and the user has the
+                            right to record the content of the Terms & Conditions at any time (including by downloading
+                            the Terms & Conditions to a terminal device in the PDF format).
+                        </li>
+                        <li>
+                            The Foundation provides the Services to every Parent/Legal Guardian who has accepted the
+                            consent to participate in the Mali Wspaniali Programme in respect of their child who
+                            participates in the kindergarten classes as a part of the Programme, every instructor hired
+                            to conduct classes as a part of the Programme.
+                        </li>
+                    </ol>
+                </Typography>
+                <Box mb="1rem" />
+
+                <Typography variant="subtitle1" align="center">
+                    <strong>§3</strong>
+                </Typography>
+                <Typography variant="subtitle1" align="center">
+                    <strong>RULES OF OPERATION OF THE PLATFORM/APPLICATION AND APPLICATION/PLATFORM</strong>
+                </Typography>
+                <Typography variant="subtitle1">
+                    <ol>
+                        <li>
+                            The Application is a modern, continuously developed IT tool, which serves, inter alia, the
+                            Foundation, Parents/Legal Guardians, instructors in the implementation of the Mali Wspaniali
+                            Programme. The Platform collects, among others, information on the required approvals for
+                            participation in the Programme, progress in the development of physical fitness of children
+                            participating in the classes, educational and expert content on the development of children
+                            at the preschool and early school age, and which is then made available to the Users.
+                        </li>
+                        <li>
+                            The Foundation, acting on the instructions of the institution commissioning the programme
+                            (Governing Body/Supervisory Institution for the establishment) or the kindergarten itself,
+                            with which it has signed an agreement, provides an access to the Platform/Application to the
+                            users.
+                        </li>
+                        <li>
+                            The User (Parent/Teacher) registers with the Application using a special code provided by
+                            the management of the educational institution or the Foundation/Administrator/Controller and
+                            by entering his/her e-mail address. The registration process is completed when the User uses
+                            the activation link received to the e-mail address provided during the registration. The
+                            address provided during the registration cannot be changed during the use of the
+                            Application.
+                        </li>
+                        <li>
+                            The Services for the User who is the Parent/Legal Guardian include in particular:
+                            <ol type="a">
+                                <li>
+                                    enabling the granting of a consent to participate in the Programme, which is
+                                    understood to include, inter alia, the actions included in the definition of the
+                                    Programme in §1, during the registration process on the Platform;
+                                </li>
+                                <li>
+                                    enabling the granting of a marketing consent and a consent to the use of the
+                                    child&apos;s image within the Mali Wspaniali Programme;
+                                </li>
+                                <li>
+                                    making available to the Parents/Legal Guardians registered in the Application the
+                                    data on the consents given concerning the child participating in the Mali Wspaniali
+                                    Programme;
+                                </li>
+                                <li>
+                                    making available to the Parents/Legal Guardians registered on the Platform data on
+                                    the results of their child participating in the fitness test and other measurements
+                                    during the participation in the Programme;
+                                </li>
+                                <li>
+                                    enabling the Parent/Legal Guardian to enter and edit the child&apos;s identification
+                                    data in the Application/Platform for the correct calculation of the child&apos;s
+                                    fitness results;
+                                </li>
+                                <li>
+                                    making available to the Parent/Legal Guardian articles and other expert content
+                                    posted in the Application;
+                                </li>
+                                <li>
+                                    sending messages, communications, announcements and other information related to the
+                                    activities undertaken by the Foundation to the users who have given their marketing
+                                    consent;
+                                </li>
+                                <li>
+                                    enabling the sending of messages to the Foundation, in particular to the
+                                    Administrator/Controller of the Platform, by means of the Platform/Application, and
+                                    the posting by the Administrator/Controller or the Foundation of messages related to
+                                    the operating of the Platform/Application;
+                                </li>
+                                <li>
+                                    providing the anonymisation of the account of the registered Parent/Legal Guardian
+                                    with the personal data of the children (first name and surname) upon an expiration
+                                    of a period of at least 5 years from the date of the registration on the Platform.
+                                    The anonymisation shall consist in the permanent deletion by the Application of the
+                                    account data, i.e.: the e-mail address provided by the Parent/Legal Guardian upon
+                                    the registration, the first name and surname of the child(ren) entered by the
+                                    Parent/Legal Guardian and the data related to the child&apos;s measurements for
+                                    statistical purposes (i.e.: age, sex, test results, number and/or address of the
+                                    establishment) shall remain;
+                                </li>
+                                <li>
+                                    deleting the account earlier than the end of the child&apos;s education in the
+                                    establishment, upon a written request sent to the Foundation, provided that there
+                                    are no legal grounds for the further processing of personal data by the Foundation.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            The Parent/Legal Guardian shall be responsible for entering into the Platform/Application
+                            the data, in particular, the child&apos;s first name and surname, sex, quarter of birth and
+                            data of the kindergarten attended by the child. He/she bears full responsibility for the
+                            correctness, completeness, truthfulness and content of the data entered. An incorrect entry
+                            of e.g., the child&apos;s sex or birth quarter may result in an incorrect allocation of
+                            scoring and thus in an incorrect assessment of the child&apos;s fitness.
+                        </li>
+                        <li>
+                            The scope of the Services intended for the User - Instructor includes in particular:
+                            <ol type="a">
+                                <li>
+                                    enabling the assignment of the participants of the Programme to the groups in the
+                                    given establishments;
+                                </li>
+                                <li>
+                                    enabling the entry, edition, deletion of results of fitness tests and other
+                                    measurements of the participants of the Programme;
+                                </li>
+                                <li>
+                                    providing the instructor with an access to articles and other expert content posted
+                                    the Application;
+                                </li>
+                                <li>
+                                    sending messages, announcements, and other information related to the operating of
+                                    the Platform, including those connected with the fitness tests;
+                                </li>
+                                <li>
+                                    deleting the account earlier than termination of employment with the Foundation, at
+                                    the written request sent to the Foundation, provided that there are no legal grounds
+                                    for the further processing of personal data by the Foundation.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            The accounts intended for the User-Instructor with appropriate permissions are created by
+                            the Platform Administrator/Controller, who assigns a special registration code to the
+                            instructor employed by the Foundation and grants permissions through the use of the login -
+                            Instructor&apos;s e-mail address given to the Foundation as a part of the contact details.
+                        </li>
+                        <li>
+                            The access to the Platform/Application shall cease upon:
+                            <ol type="a">
+                                <li>
+                                    the deletion of the Parent’s/Legal Guardian&apos;s account in the Application by the
+                                    Platform Administrator/Controller, which may only take place upon the written
+                                    request of the Parent/Legal Guardian or using the template in Appendix No. 1 to the
+                                    Terms & Conditions, sent to the Foundation by means of the Polish Post to the
+                                    Foundation&apos;s address contained in §1 or by electronic means to the following
+                                    address: fundacja@mali-wspaniali.pl;
+                                </li>
+                                <li>
+                                    the removal of the instructor’s account upon a termination of the employment of the
+                                    latter with the Foundation or in the situation described in §5 e;
+                                </li>
+                                <li>
+                                    the anonymization of the account after an expiration of 5 years from the date of
+                                    registration by the Parent/Legal Guardian, which may take place up to one year upon
+                                    the end of the child&apos;s attendance at the kindergarten; and in case where
+                                    children attending the pre-schools at the kindergarten, after the end of their
+                                    education there,
+                                </li>
+                                <li>the infringement of rules stated in §4; item 3 hereof.</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </Typography>
+                <Box mb="1rem" />
+
+                <Typography variant="subtitle1" align="center">
+                    <strong>§4</strong>
+                </Typography>
+                <Typography variant="subtitle1" align="center">
+                    <strong>
+                        RIGHTS, OBLIGATIONS, RESPONSIBILITIES OF THE FOUNDATION AND USERS, RULES OF USING THE
+                        PLATFORM/APPLICATION
+                    </strong>
+                </Typography>
+                <Typography variant="subtitle1">
+                    <ol>
+                        <li>
+                            The User- Parent has the right:
+                            <ol type="a">
+                                <li>
+                                    at any time, without having to give reasons, to unsubscribe from the use of the
+                                    Platform/Application, in particular, if the latter does not accept the Terms and
+                                    Conditions in force at that time, the valid text of which is published on the
+                                    Platform in a manner that allows it to be read and saved, before undertaking the act
+                                    of logging in;
+                                </li>
+                                <li>
+                                    to unsubscribe from the use of the Platform/Application, which can be done by
+                                    sending an e-mail to the Foundation from the address used to register or by post,
+                                    with the content as per Appendix No. 1 hereto. The Foundation informs that the
+                                    resignation causes the removal from the Platform/Application of the account of the
+                                    Parent/Legal Guardian and a consent to the child&apos;s participation in the Mali
+                                    Wspaniali Programme and thus a consent to activities carried out at the kindergarten
+                                    and other activities related to the implementation of the programme, in particular
+                                    tests and measurements. The data concerning the child shall be anonymised as
+                                    stipulated in §3 point 4 (i). Should the User wish to return to the use of the
+                                    Platform, the latter may ask the Foundation to generate the code again and carry out
+                                    the registration process again. In order to receive the activation code, the Parent
+                                    must inform the Administrator/Controller/Foundation in the written form or by e-mail
+                                    of the resumption of access;
+                                </li>
+                                <li>
+                                    to contact for a new access code in case where the code provided is no longer valid,
+                                    the code expires after 14 days;
+                                </li>
+                                <li>to amend the access data - only the password to the account of the latter.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            The User is forbidden to provide contents of an unlawful nature, infringing the law
+                            provisions or public decency.
+                        </li>
+                        <li>
+                            The User fails to have the right:
+                            <ol type="a">
+                                <li>
+                                    to use the Platform/Application for activities that infringe the rights of third
+                                    parties, activities that are contrary to the law provisions in force or the
+                                    provisions hereof;
+                                </li>
+                                <li>
+                                    to use the internal possibilities offered by the Platform/Application to send
+                                    messages for the purpose of disseminating the content: advertising, commercial or
+                                    marketing, unlawful, offensive, promoting violence, of a discriminatory or racist
+                                    nature, or infringing generally recognised public decency, or of disseminating spam;
+                                </li>
+                                <li>
+                                    the User is obliged to refrain from all activities that may hinder an access to the
+                                    Platform by other Users, and from activities that disrupt or prevent the operating
+                                    of the Application/Platform.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            The infringement by the User of the prohibition of providing an illegal content, as referred
+                            to in section 2, or the infringement by the User of the provisions of section 3 above, shall
+                            constitute grounds for reporting the infringement to the relevant authorities and for the
+                            removal of the User’s account.
+                        </li>
+                        <li>
+                            To the extent that it is permissible, according to the generally applicable law provisions,
+                            the Foundation shall not be liable for:
+                            <ol type="a">
+                                <li>
+                                    sthe consequences resulting from gaining a control of the User&apos;s access data
+                                    (login, password) to the Platform/Application by a third party, if this gaining a
+                                    control has taken place for reasons not attributable to the Foundation;
+                                </li>
+                                <li>
+                                    the unlawful actions of a third party involving the interference with the
+                                    User&apos;s computer system, in particular, intrusions and computer viruses, the
+                                    Foundation shall not be responsible for such actions;
+                                </li>
+                                <li>
+                                    the content of messages sent by the Users according to the rules set out in the
+                                    generally applicable legislation;
+                                </li>
+                                <li>
+                                    the damages suffered by the User caused by the prevention of an access to data,
+                                    according to the rules set forth in the generally applicable law provisions;
+                                </li>
+                                <li>
+                                    the content, correctness and completeness of data entered into the Platform by the
+                                    Users; in particular, the data of children participating in the curriculum of the
+                                    Mali Wspaniali classes;
+                                </li>
+                                <li>
+                                    the discontinuation of the provision of the Service due to a termination or a
+                                    dissolution of the agreement between the kindergarten, operator or institution
+                                    supervising educational establishments and the Foundation.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            The Foundation reserves the right:
+                            <ol type="a">
+                                <li>
+                                    to improve the Platform/Application, including simplifying, extending, modifying and
+                                    also changing its functionality, in particular in order to adapt it to the rules of
+                                    running the Programme and in particular the applicable law provisions and safety
+                                    regulations;
+                                </li>
+                                <li>
+                                    to delete the account of any User in case where there is a reasonable suspicion that
+                                    the account has been used in violation of the provisions of these Terms &
+                                    Conditions, in particular §4 sections 2 and 3 hereof, or in the event of a
+                                    reasonable suspicion of an unauthorised attempt to access data. Prior to the
+                                    deletion of the account, the Foundation shall contact the User in order to clarify
+                                    the suspicions and inform the latter about the further possible steps, including
+                                    reporting to the appropriate authorities;
+                                </li>
+                                <li>
+                                    to make the data collected in the Application concerning the statistics of the
+                                    results of the fitness tests and other measurements of children available to
+                                    authorised entities according to the generally applicable legislation;
+                                </li>
+                                <li>
+                                    to disable the Platform for the time necessary for the proper performance of
+                                    administrative activities related to the proper security, archiving and protection
+                                    of the collected data;
+                                </li>
+                                <li>
+                                    the Foundation has the right to keep the anonymised data for the archiving,
+                                    statistics and the limitation of claims-related purposes;
+                                </li>
+                                <li>
+                                    to process Users&apos; personal data to the extent necessary to make available the
+                                    results of the measurements of the children, to send information to the
+                                    Parents/Legal Guardians concerning the operation of the Platform and other content
+                                    adequate to the signed consent;
+                                </li>
+                                <li>
+                                    to anonymise and transfer to an archive some of the data from the
+                                    Platform/Application after the end of each school year, in particular the results of
+                                    the children&apos;s fitness tests that have taken part in the measurements, in order
+                                    to prepare the statistical/scientific analyses;
+                                </li>
+                                <li>
+                                    to verify the quantity of the student’s accounts entered by the authorised Users on
+                                    the Platform/Application in relation to that declared by the kindergarten;
+                                </li>
+                                <li>
+                                    the Foundation does not guarantee the continuous availability of the
+                                    Platform/Application, Services. The User must take into account that there may be
+                                    interruptions in access to the Platform and the Services, particularly in relation
+                                    to the need for changes or maintenance operations. The Foundation shall endeavour to
+                                    keep such interruptions as short as possible.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            The Foundation reserves the right to amend the Terms & Conditions. The material grounds are
+                            deemed to be:
+                            <ol type="a">
+                                <li>
+                                    the introduction of new or amendment to existing generally applicable law
+                                    provisions, if this has a direct impact on the content hereof and causes the need of
+                                    its amendment;
+                                </li>
+                                <li>
+                                    changes or the emergence of new interpretations of generally applicable legal
+                                    provisions as a result of court judgements or decisions of authorities or public
+                                    administration bodies directly affecting the provisions hereof and causing the need
+                                    for its amendment or an improvement of products and services, including an
+                                    adaptation to the market conditions related to the technical, technological and IT
+                                    progress, affecting the provisions hereof;
+                                </li>
+                                <li>
+                                    the adjustment of products and services to the groups of recipients of the Mali
+                                    Wspaniali Programme;
+                                </li>
+                                <li>
+                                    the extension or change in the functionality of existing products and services
+                                    having an impact on the content hereof.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            Each User shall be previously advised about the content of amendments hereto by a message
+                            posted by the administrator of the platform sent to the Users, containing a link to the
+                            amended version hereof. The new version of these Terms & Conditions is binding for the User
+                            if, within 14 days of receiving information about the change, the User does not resign from
+                            using the Platform/Application in the manner indicated in § 4 item (x).
+                        </li>
+                        <li>
+                            The complaints lodged by the user concerning the accessibility of the Platform must be
+                            submitted in the written form to the address of the Foundation specified in § 1 hereof or by
+                            electronic means using the Platform/Application of the internal mail available on the
+                            Platform. In the event of a complaint, the Foundation provides a response in the written
+                            form (by post or e-mail), within 30 days of the date of submission, to the address
+                            (including e-mail) specified in the letter of complaint.
+                        </li>
+                    </ol>
+                </Typography>
+
+                <Typography variant="subtitle1" align="center">
+                    <strong>§5</strong>
+                </Typography>
+                <Typography variant="subtitle1" align="center">
+                    <strong>PROCESSING OF PERSONAL DATA</strong>
+                </Typography>
+                <Typography variant="subtitle1">
+                    <ol>
+                        <li>
+                            The Controller of the data processed in the Application in accordance with Regulation (EU)
+                            2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of
+                            natural persons in relation to the processing of personal data and on the free movement of
+                            such data and repealing Directive 95/46/EC (hereinafter: the GDPR) is the Foundation.
+                        </li>
+                        <li>
+                            The Controller shall implement appropriate technical and organisational measures to ensure a
+                            level of security of personal data provided by the Users, in particular to prevent an access
+                            by third parties or their processing while infringing the law provisions, to prevent data
+                            loss, damage or destruction.
+                        </li>
+                        <li>
+                            In all matters related to the processing of the User&apos;s personal data, the Controller
+                            can be contacted at: fundacja@mali-wspaniali.pl.
+                        </li>
+                        <li>
+                            The Foundation processes the User&apos;s personal data according to:
+                            <ol type="a">
+                                <li>
+                                    Art. 6(1)(b) of the GDPR - processing is necessary for the performance of an
+                                    agreement to which the data subject is party or in order to take steps at the
+                                    request of the data subject prior to entering into an agreement; The agreement for
+                                    the provision of services by electronic means with regard to the use of the Platform
+                                    shall be concluded by the User with the Controller under the conditions provided for
+                                    herein;
+                                </li>
+                                <li>
+                                    Art. (1)(e) of the GDPR - processing is necessary for the performance of a task
+                                    carried out in the public interest. Tasks carried out in the public interest are
+                                    understood to be tasks of public interest, such as, inter alia, supporting
+                                    educational programmes for children in the schools and kindergartens;
+                                </li>
+                                <li>
+                                    Art. 6(1)(f) of the GDPR – processing is necessary for the purposes of the
+                                    legitimate interests pursued by the controller, e.g., in the form of asserting
+                                    claims, enabling a contact.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            The legal basis for the processing of special categories of data resulting from the
+                            development of the results of physical fitness tests of the child/children, i.e., fitness,
+                            speed, strength, agility is Article 9.2.d) of the GDPR – processing is carried out in the
+                            course of its legitimate activities with appropriate safeguards by the Foundation,
+                            association or any other not-for-profit body with a political, philosophical, religious or
+                            trade union aim.
+                        </li>
+                        <li>
+                            The legal basis for the processing of the image of the child/children for promotional
+                            purposes and/or of the e-mail address of the Parent/Legal Guardian/legal guardian for
+                            marketing purposes is Art. 6.1.a) of the GDPR – a consent given by the data subject to the
+                            processing of his or her personal data for one or more specific purposes, i.e., that such
+                            data may be processed by the Foundation only if the Parent/Legal Guardian/legal guardian
+                            consents to such action.
+                        </li>
+                        <li>
+                            Personal data shall not be made available to the third parties unless this is done in case
+                            where:
+                            <ol type="a">
+                                <li>an express consent of the user;</li>
+                                <li>a transfer of the data to the authorised bodies on the basis of law provisions.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            Furthermore, in the certain situations the Controller has the right to transfer data, if
+                            necessary, to carry out the tasks, which are incumbent on the Foundation. Data shall be
+                            transferred solely and exclusively to the two groups:
+                            <ol type="a">
+                                <li>
+                                    the persons authorised by the Foundation, i.e., employees and collaborators of the
+                                    Foundation, who must have access to the data in order to perform their duties;
+                                </li>
+                                <li>
+                                    the processor to which the Foundation has outsourced activities requiring the data
+                                    processing, i.e., the developer and controller of the Platform/Application for the
+                                    management and communication of the Platform related to the Mali Wspaniali Programme
+                                    and the company providing e-mail marketing services;
+                                </li>
+                                <li>the authorised state bodies (e.g.: police, court).</li>
+                            </ol>
+                        </li>
+                        <li>
+                            Your personal data shall be processed:
+                            <ol type="a">
+                                <li>
+                                    in case of the provision of electronic services aimed at enabling the creation of an
+                                    account and the use of the functionalities of the Application/Platform - for the
+                                    period of existence of the account as a part of rendering the services, then for the
+                                    period required by law provisions and/or until an expiration of the limitation
+                                    period for possible claims, i.e. for a period of 5 years, upon an expiration of
+                                    which time period, personal data shall be anonymised and stored in this form for the
+                                    statistical and archival purposes;
+                                </li>
+                                <li>
+                                    in case of sending marketing information - until the User raises an objection or
+                                    withdraws a consent in respect of the data processing for the marketing purposes, or
+                                    until the Foundation ceases its direct marketing activities;
+                                </li>
+                                <li>
+                                    in case of processing the image of the child for the promotional purposes - until
+                                    the withdrawal of consent.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            The User shall have the right at any time to withdraw his or her consent to the processing
+                            of his or her personal data for the marketing purposes (or, in case of the Parents/Legal
+                            Guardians, the personal data of their child/ward in the form of an image for the promotional
+                            purposes). A withdrawal of consent has effect from the moment of its withdrawal. The
+                            aforementioned withdrawal of a consent does not affect the processing carried out by the
+                            Controller lawfully prior to its withdrawal. The withdrawal of consent shall not entail any
+                            negative consequences for the User. However, it may prevent the further use of services or
+                            functionalities that the Controller may lawfully provide only while being given a consent.
+                        </li>
+                        <li>
+                            The User has the right of access to the content of his or her personal data as the data
+                            subject and the right to rectification. In cases specified by the law, the User has the
+                            right to erasure, the right to restriction of processing, the right to data portability, the
+                            right to object to the processing of personal data. The User also has the right to lodge a
+                            complaint with the supervisory body right to lodge a complaint with the supervisory body
+                            involved in the protection of personal data, if he or she considers that the Controller
+                            (Foundation) has infringed the provisions on personal data protection.
+                        </li>
+                        <li>
+                            Due to the fact that the personal data, i.e., first name and surname, e-mail address, shall
+                            be processed by the Controller for the purposes resulting from the legitimate interest of
+                            the Controller, the User has the right to object to the processing of personal data for the
+                            aforementioned purposes on grounds relating to the User’s particular situation.
+                        </li>
+                        <li>
+                            Any notifications concerning the User&apos;s personal data should be submitted directly by
+                            the User to the e-mail address: fundacja@mali-wspaniali.pl.
+                        </li>
+                        <li>Providing personal data is not mandatory, however, it is necessary to use the Platform.</li>
+                        <li>
+                            The consent for the use of the image of the child/children as well as the consent for the
+                            marketing activities is neither mandatory and nor results in the impossibility of using the
+                            Platform.
+                        </li>
+                        <li>
+                            All other information concerning data processing by the Controller through the intermediary
+                            of the Application/Platform has been set out in detail in the Privacy Policy.
+                        </li>
+                    </ol>
+                </Typography>
+
+                <Typography variant="subtitle1" align="center">
+                    <strong>§6</strong>
+                </Typography>
+                <Typography variant="subtitle1" align="center">
+                    <strong>OTHER INFORMATION</strong>
+                </Typography>
+                <Typography variant="subtitle1">
+                    <ol>
+                        <li>
+                            The Foundation informs that at the following URL:
+                            https://webgate.ec.europa.eu/odr/main/index.cfm?event=main.home.show&lng=PL; there is
+                            available an on-line Platform/Application for the resolution of disputes concerning
+                            contractual obligations arising from on-line sales agreements or service agreements between
+                            consumers residing in the European Union and traders established in the European Union (ODR
+                            platform).
+                        </li>
+                        <li>
+                            The Foundation informs that it does not use alternative dispute resolution (out-of-court
+                            manners of handling complaints and claims) and does not undertake to use such redress
+                            mechanisms, unless such an obligation arises from the mandatory law provisions.
+                        </li>
+                        <li>
+                            The Foundation informs that the User who is a consumer may obtain a free assistance in
+                            resolving a dispute between such the User and the Foundation, while addressing the
+                            aforementioned issue to the district (municipal) Consumer Ombudsman or a social consumer
+                            organisation, which statutory tasks include the protection of consumers (such as the
+                            Federation of Consumers, Association of Polish Consumers).
+                        </li>
+                    </ol>
+                </Typography>
+                <Box mb="2rem" />
+
+                <Typography variant="subtitle1" align="center">
+                    <strong>APPENDIX NO. 1 TO THE TERMS AND CONDITIONS</strong>
+                </Typography>
+                <Box mb="1rem" />
+                <Box display="flex" flexDirection="row">
+                    <Link
+                        href="https://drive.google.com/file/d/1yrjrHd4XgTKWo6LxUCMwSAU2UKmX-gsI/view?usp=sharing"
+                        target="_blank"
+                    >
+                        <DownloadIcon />
+                    </Link>
+                    <Box mr={2} />
+                    <Typography variant="subtitle1">
+                        Model statement of a resignation from the use of the Platform/Application
+                    </Typography>
+                </Box>
+            </Paper>
             <Box mb="2rem" />
         </>
     );
