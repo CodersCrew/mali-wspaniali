@@ -258,7 +258,7 @@
                 "text-3": "Nasi eksperci służą pomocą. Przygotowali dla Ciebie wytyczne, które możesz zastosować już dziś dla dobra swojego dziecka! Możesz także skorzystać z naszego ",
                 "text-3-1": "zestawu ćwiczeń."
             },
-            "medium": {
+            "scale49": {
                 "title": "Porada - Średni poziom sprawności",
                 "subtitle": "Mamy nad czym pracować!",
                 "text-1": "Podstawy sprawności są, ale by Twoje dziecko mogło lepiej się rozwijać, trzeba popracować nad jej poprawą. Tu z pomocą przychodzimy my! ",
@@ -268,7 +268,7 @@
                 "text-3": "To nie wszystko co dla Ciebie przygotowaliśmy! Sprawdź co jeszcze możesz zrobić by poprawić sprawności Twojego dziecka dzięki przygotowanemu przez naszych ekspertów ",
                 "text-3-1": "artykułowi"
             },
-            "good": {
+            "scale59": {
                 "title": "Porada - Dobry poziom sprawności",
                 "subtitle": "Masz wiele powodów do zadowolenia!",
                 "text-1": "Twoje dziecko dobrze rozwija się pod względem sprawności fizycznej. Teraz przed nami praca do wykonania, by wspiąć się na poziom bardzo dobry. Już niewiele brakuje!",
@@ -722,7 +722,7 @@
             "tests-information": "Opis testów",
             "details": "Dane dziecka"
         },
-        "blog": "Aktualności",
+        "blog": "Artykuły",
         "agreements": "Zgody",
         "settings": "Ustawienia",
         "notifications": "Powiadomienia",

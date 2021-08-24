@@ -8,12 +8,16 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { Group } from '../../../graphql/types';
+import { Assessment, Group } from '../../../graphql/types';
 import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 import { openGroupsDeleteModal } from './GroupsDeleteModal';
 
-export function GroupsList() {
+interface GroupsListProps {
+    assessment: Assessment;
+}
+
+export function GroupsList(props: GroupsListProps) {
     const [groupList, setGroupList] = useState<Group[]>([]);
     const [editMode, setEditMode] = useState(false);
     const [currentlyEdited, setCurrentlyEdited] = useState('');
@@ -21,15 +25,12 @@ export function GroupsList() {
     const { t } = useTranslation();
 
     useEffect(() => {
-        setGroupList([
-            { _id: '123', name: 'motylki', instructor: null, kindergarten: null },
-            { _id: '124', name: 'kotki', instructor: null, kindergarten: null },
-        ]);
-    }, []);
+        setGroupList(props.assessment.groups);
+    }, [props.assessment]);
     const classes = useStyles();
 
     const setGroupName = (id: string, name: string) => {
-        setGroupList(groupList.map((group) => (group._id === id ? { ...group, name } : group)));
+        setGroupList(groupList.map((group) => (group.group === id ? { ...group, name } : group)));
     };
 
     return (
@@ -59,7 +60,7 @@ export function GroupsList() {
                             alignItems="center"
                             className={classes.row}
                         >
-                            {currentlyEdited === group.name ? (
+                            {currentlyEdited === group.group ? (
                                 <Box
                                     display="flex"
                                     width="60%"
@@ -68,9 +69,9 @@ export function GroupsList() {
                                     alignItems="center"
                                 >
                                     <OutlinedTextField
-                                        value={group.name}
+                                        value={group.group}
                                         label={t('groupsModal.group-name').toString()}
-                                        onChange={(value: string) => setGroupName(group._id, value)}
+                                        onChange={(value: string) => setGroupName(group.group, value)}
                                     />
 
                                     <Tooltip title={<>{t('groupsModal.save')}</>}>
@@ -85,7 +86,7 @@ export function GroupsList() {
                                     </Tooltip>
                                 </Box>
                             ) : (
-                                <Typography>{group.name}</Typography>
+                                <Typography>{group.group}</Typography>
                             )}
                             {editMode ? (
                                 <div>
@@ -93,7 +94,7 @@ export function GroupsList() {
                                         <EditIcon
                                             color="disabled"
                                             className={classes.edit}
-                                            onClick={() => setCurrentlyEdited(group.name)}
+                                            onClick={() => setCurrentlyEdited(group.group)}
                                         />
                                     </Tooltip>
                                     <Tooltip title={<>{t('groupsModal.delete')}</>}>

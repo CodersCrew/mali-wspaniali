@@ -3,6 +3,15 @@ import { KindergartenWithInstructorDTO } from './kindergarten_with_instructor_dt
 import { FieldCore } from '../../shared/utils/field_core';
 
 @ObjectType()
+export class GroupDTO {
+  @Field()
+  kindergartenId: string;
+
+  @Field()
+  group: string;
+}
+
+@ObjectType()
 export class AssessmentDTO extends FieldCore {
   @Field()
   isOutdated: boolean;
@@ -30,4 +39,7 @@ export class AssessmentDTO extends FieldCore {
 
   @Field(() => [KindergartenWithInstructorDTO])
   kindergartens: Array<{ kindergartenId: string; instructorId: string }>;
+
+  @Field(() => [GroupDTO])
+  groups: Array<{ kindergartenId: string; group: string }>;
 }

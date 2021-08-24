@@ -48,6 +48,7 @@ import {
   Agreement,
   AgreementCore,
 } from '@app/agreements/domain/models/agreement';
+import { Notification } from '../notifications/domain/models/notification_model';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -118,11 +119,11 @@ export class UsersResolver {
   @Mutation(() => NotificationDTO)
   @UseGuards(GqlAuthGuard)
   async readNotification(@Args('id') id: string): Promise<NotificationCore> {
-    const notification: NotificationCore = await this.commandBus.execute(
+    const notification: Notification = await this.commandBus.execute(
       new ReadNotificationCommand(id),
     );
 
-    return notification;
+    return NotificationMapper.toPlain(notification);
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -186,7 +187,7 @@ export class UsersResolver {
       new ChangeUserAgreementCommand(user.userId, agreementId),
     );
 
-    return agreement.getProps();
+    return AgreementMapper.toRaw(agreement);
   }
 
   @Mutation(() => UserDTO)

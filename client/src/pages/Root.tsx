@@ -77,11 +77,6 @@ export function Root() {
                                         <Route exact path="/admin/users" component={getRootLazyImports('UsersPage')} />
                                         <Route
                                             exact
-                                            path="/admin/parent/:id"
-                                            component={getRootLazyImports('ParentProfilePage')}
-                                        />
-                                        <Route
-                                            exact
                                             path="/admin/agreements"
                                             component={getRootLazyImports('AdminAgreementsPageContainer')}
                                         />
@@ -119,11 +114,6 @@ export function Root() {
                                             exact
                                             path="/admin/test-management"
                                             component={getRootLazyImports('AdminAssessmentHistoryPage')}
-                                        />
-                                        <Route
-                                            exact
-                                            path="/admin/recommendations"
-                                            component={getRootLazyImports('AdminRecommendationsPage')}
                                         />
                                         <Route
                                             exact

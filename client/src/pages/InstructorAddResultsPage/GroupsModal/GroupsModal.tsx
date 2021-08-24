@@ -1,3 +1,4 @@
+import React from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -23,13 +24,14 @@ import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 // import { GroupsTransferList } from './GroupsTransferList';
 // import { NoGroups } from './NoGroups';
 import { GroupsList } from './GroupsList';
+import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 
 interface ModalProps {
     selectedKindergarten: string;
     selectedAssessment: string;
     handleSubmit: (value: { name: string; kindergarten: string; instructor: string; children: String[] }) => void;
     onClose: () => void;
-    assessments: Assessment[];
+    assessment: Assessment;
 }
 const validationSchema = Yup.object({
     kindergarten: Yup.string().required(),
@@ -39,12 +41,14 @@ const validationSchema = Yup.object({
 });
 
 export function openGroupsModal(props: Partial<ModalProps>) {
-    return openDialog<Partial<ModalProps>>(GroupsModal, props);
+    return openDialog<Partial<ModalProps>, { groupAdded: string }>(GroupsModal, props);
 }
 
-function GroupsModal(props: ModalProps & ActionDialog) {
+function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { updateAssessment } = useUpdateAssessment();
+    const [providedName, setProvidedName] = React.useState('');
 
     const initialValues = {
         kindergarten: props.selectedKindergarten,
@@ -59,7 +63,8 @@ function GroupsModal(props: ModalProps & ActionDialog) {
         onSubmit: props.handleSubmit,
     });
 
-    const kindergartens = props.assessments.find((a) => a._id === props.selectedAssessment)?.kindergartens || [];
+    const kindergartens = props.assessment.kindergartens || [];
+    const groups = props.assessment.groups || [];
 
     return (
         <TwoActionsModal
@@ -103,8 +108,8 @@ function GroupsModal(props: ModalProps & ActionDialog) {
                             variant="outlined"
                             fullWidth
                             {...formik.getFieldProps('name')}
-                            error={formik.touched.name && !!formik.errors.name}
-                            helperText={formik.touched.name && formik.errors.name}
+                            value={providedName}
+                            onChange={({ target: { value } }) => setProvidedName(value)}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -114,7 +119,7 @@ function GroupsModal(props: ModalProps & ActionDialog) {
                             size="medium"
                             startIcon={<AddCircleOutlineIcon />}
                             innerText={t('groupsModal.add-group')}
-                            onClick={() => openGroupsModal({ ...props })}
+                            onClick={onAddGroupClick}
                             className={classes.button}
                         />
                     </Grid>
@@ -124,10 +129,18 @@ function GroupsModal(props: ModalProps & ActionDialog) {
                 <GroupsTransferList />
                 */}
                 {/* <NoGroups /> */}
-                <GroupsList />
+                <GroupsList assessment={props.assessment} />
             </div>
         </TwoActionsModal>
     );
+
+    function onAddGroupClick() {
+        const normalizedGroups = groups.map(({ group, kindergartenId }) => ({ group, kindergartenId }));
+
+        updateAssessment(props.assessment._id, {
+            groups: [...normalizedGroups, { kindergartenId: props.selectedKindergarten, group: providedName }],
+        });
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

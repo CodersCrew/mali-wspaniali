@@ -29,6 +29,12 @@ import { GetAllArticlesHandler } from '../../articles/domain/queries/handlers/ge
 import { GetAllArticlesQuery } from '../../articles/domain/queries/impl/get_all_articles_query';
 import { CreateKeyCodeCommand } from '../../key_codes/domain/commands/impl';
 import { UserRepository } from '../../users/domain/repositories/user_repository';
+import { CreateAssessmentHandler } from '../../assessment/domain/commands/handlers/create_assessment_handler';
+import { CreateAssessmentCommand } from '../../assessment/domain/commands/impl/create_assessment_command';
+import { AssessmentInput } from '../../assessment/inputs/assessment_input';
+import { GetAssessmentHandler } from '../../assessment/domain/queries/handlers/get_assessments_handler';
+import { GetAssessmentsQuery } from '../../assessment/domain/queries/impl/get_assessment_query';
+import { AssessmentModule } from '../../assessment/assessment_module';
 
 let app: TestingModule;
 
@@ -43,6 +49,7 @@ export async function setupTestApp() {
       KindergartenModule,
       NotificationsModule,
       ArticlesModule,
+      AssessmentModule,
     ],
     providers: [CreateKeyCodeHandler, CreateUserHandler],
   }).compile();
@@ -198,5 +205,25 @@ export async function getAllArticles(page = 1, perPage = 6) {
         userId: '',
       }),
     );
+  });
+}
+
+export async function createAssessment(options: AssessmentInput) {
+  if (!app) {
+    await setupTestApp();
+  }
+
+  return app.resolve(CreateAssessmentHandler).then(handler => {
+    return handler.execute(new CreateAssessmentCommand(options));
+  });
+}
+
+export async function getAssessment(id: string) {
+  if (!app) {
+    await setupTestApp();
+  }
+
+  return app.resolve(GetAssessmentHandler).then(handler => {
+    return handler.execute(new GetAssessmentsQuery(id));
   });
 }
