@@ -922,9 +922,10 @@
         "children": "Dzieci"
     },
     "agreements-filter": {
-        "by-agreement-type": "Filtruj po rodzaju zgody",
-        "by-agreement-status": "Filtruj po statusie",
-        "by-kindergarten": "Filtruj po przedszkolu"
+        "by-agreement-type": "Szukaj po rodzaju zgody",
+        "by-agreement-status": "Szukaj po statusie",
+        "by-kindergarten": "Szukaj po przedszkolu",
+        "by-assessment": "Szukaj po teście"
     },
     "settings-page": {
         "password-change-message": "Link do zmiany hasła został pomyślnie wysłany. Sprawdź pocztę e-mail, by dokończyć proces.",

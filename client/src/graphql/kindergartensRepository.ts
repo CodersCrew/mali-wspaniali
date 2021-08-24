@@ -1,32 +1,20 @@
 import { gql } from '@apollo/client';
 
-export const KINDERGARTEN_WITH_USERS = gql`
-    query Kindergarten($ids: [String!]!) {
-        kindergartenWithUsers(ids: $ids) {
+export const KINDERGARTEN_WITH_CHILDRENS = gql`
+    query KINDERGARTEN_WITH_CHILDRENS {
+        kindergartens {
             _id
             name
             number
-            address
-            city
-            users {
-                _id
-                mail
-                children {
-                    _id
-                    firstname
-                    lastname
-                    sex
-                    birthYear
-                    birthQuarter
-                    kindergarten {
-                        _id
+            children {
+                firstname
+                lastname
+                parent {
+                    mail
+                    agreements {
+                        text
+                        isSigned
                     }
-                }
-                agreements {
-                    _id
-                    createdAt
-                    text
-                    isSigned
                 }
             }
         }

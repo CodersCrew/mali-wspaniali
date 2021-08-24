@@ -9,30 +9,35 @@ import { ButtonSecondary } from '../../../components/Button';
 import { AgreementTypeInput } from './AgreementTypeInput';
 import { AgreementStatusInput } from './AgreementStatusInput';
 import { AgreementKindergartenInput } from './AgreementKindergartenInput';
+import { AgreementAssessmentInput } from './AgreementAssessmentInput';
 
 interface Props {
+    assessments: any;
     agreementType: AgreementTypeFilter;
-    agreementStatus: AgreementStatusFilter;
+    agreementStatus: AgreementStatusFilter[];
     agreementKindergarten: AgreementKindergartenFilter[];
     onChange: (type: string, value: string | string[]) => void;
     onSubmit: () => void;
 }
 
-export function AgreementsFilter({ agreementType, agreementStatus, agreementKindergarten, onChange, onSubmit }: Props) {
+export function AgreementsFilter({ agreementType, agreementStatus, agreementKindergarten, assessments, onChange, onSubmit }: Props) {
     const classes = useStyles();
 
     return (
         <div>
-            <Grid container direction="row" spacing={2}>
-                <Grid item xs={6}>
-                    <AgreementTypeInput value={agreementType.id} onChange={onChange} />
-                </Grid>
-                <Grid item xs={6}>
-                    <AgreementStatusInput value={agreementStatus.id} onChange={onChange} />
-                </Grid>
-            </Grid>
             <Grid container>
                 <AgreementKindergartenInput values={agreementKindergarten} onChange={onChange} />
+            </Grid>
+            <Grid container direction="row" spacing={2}>
+                <Grid item xs={4}>
+                    <AgreementAssessmentInput value={assessments[0]?.title} assessments={assessments} onChange={onChange} />
+                </Grid>
+                <Grid item xs={4}>
+                    <AgreementTypeInput value={agreementType.id} onChange={onChange} />
+                </Grid>
+                <Grid item xs={4}>
+                    <AgreementStatusInput values={agreementStatus} onChange={onChange} />
+                </Grid>
             </Grid>
             <Grid container justify="flex-end">
                 <ButtonSecondary variant="contained" className={classes.filterButton} onClick={onSubmit}>

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
-import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';
-import { KINDERGARTEN_WITH_USERS } from '../../graphql/kindergartensRepository';
+import { Kindergarten, KindergartenWithChildrens } from '../../graphql/types';
+import { KINDERGARTEN_WITH_CHILDRENS } from '../../graphql/kindergartensRepository';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';
@@ -19,6 +19,7 @@ import {
     GET_AGREEMENTS_KINDERGARTEN_FILTER,
 } from '../../operations/queries/Agreements/getAgreementsKindergartenFilter';
 import { GET_AGREEMENTS_SORT_STATUS } from '../../operations/queries/Agreements/getAgreementsSortStatus';
+import { ASSESSMENTS_TITLES_QUERY } from '../../operations/queries/Assessment/getAssessmentsTitles';
 import { AgreementTypeFilters } from '../../models/AgreementTypeFilters';
 import { AgreementStatusFilters } from '../../models/AgreementStatusFilter';
 import { agreementSortStatusVar } from '../../apollo_client';
@@ -29,11 +30,12 @@ export default function AdminAgreementsPageContainer() {
     const { kindergartenList, isKindergartenListLoading } = useKindergartens();
 
     const [getSpecificKindergartens, { data: kindergartens, loading: isKindergartenLoading }] = useLazyQuery<{
-        kindergartenWithUsers: KindergartenWithUsers[];
-    }>(KINDERGARTEN_WITH_USERS);
+        kindergartens: KindergartenWithChildrens[];
+    }>(KINDERGARTEN_WITH_CHILDRENS);
 
     const agreementsStatusFilterQuery = useQuery<GetAgreementsStatusFilterQuery>(GET_AGREEMENTS_STATUS_FILTER);
     const { agreementsStatusFilter } = agreementsStatusFilterQuery.data!;
+    console.log(agreementsStatusFilter);
 
     const agreementsTypeFilterQuery = useQuery<GetAgreementsTypeFilterQuery>(GET_AGREEMENTS_TYPE_FILTER);
     const { agreementsTypeFilter } = agreementsTypeFilterQuery.data!;
@@ -41,8 +43,9 @@ export default function AdminAgreementsPageContainer() {
     const agreementsKindergartenFilterQuery = useQuery<GetAgreementsKindergartenFilterQuery>(
         GET_AGREEMENTS_KINDERGARTEN_FILTER,
     );
-
     const agreementsKindergartenFilter = agreementsKindergartenFilterQuery.data?.agreementsKindergartenFilter!;
+
+    const assessmentsTitles = useQuery(ASSESSMENTS_TITLES_QUERY);
 
     const sortStatusQuery = useQuery(GET_AGREEMENTS_SORT_STATUS);
     const { agreementsSortStatus } = sortStatusQuery.data;
@@ -64,8 +67,10 @@ export default function AdminAgreementsPageContainer() {
 
     return (
         <AdminAgreementsPage
-            kindergartens={mapWithFilters([...(kindergartens?.kindergartenWithUsers || [])])}
-            agreementsStatusFilter={agreementsStatusFilter}
+            kindergartens={mapWithFilters([...(kindergartens?.kindergartens || [])])}
+            assessments={assessmentsTitles?.data?.assessments}
+            // agreementsStatusFilter={agreementsStatusFilter} - update query? to fix - query returns empty [];
+            agreementsStatusFilter={Object.values(AgreementStatusFilters)}
             agreementsTypeFilter={agreementsTypeFilter}
             agreementsKindergartenFilter={agreementsKindergartenFilter}
             agreementsSortStatus={agreementsSortStatus}
@@ -92,14 +97,12 @@ function setAgreementFilter(type: string, value: string | string[]) {
         if (type === 'KINDERGARTEN') {
             AgreementsTypeFilterMutations.setAgreementsKindergartenFilter(value);
         }
-    } else {
-        if (type === 'TYPE') {
-            AgreementsTypeFilterMutations.setAgreementsTypeFilter(AgreementTypeFilters[value]);
-        }
 
         if (type === 'STATUS') {
-            AgreementsTypeFilterMutations.setAgreementsStatusFilter(AgreementStatusFilters[value]);
+            AgreementsTypeFilterMutations.setAgreementsStatusFilter(value);
         }
+    } else if (type === 'TYPE') {
+        AgreementsTypeFilterMutations.setAgreementsTypeFilter(AgreementTypeFilters[value]);
     }
 }
 
@@ -107,11 +110,11 @@ function sendFilterChanges() {
     console.log('sent');
 }
 
-function mapWithFilters(kindergartens: KindergartenWithUsers[]) {
+function mapWithFilters(kindergartens: KindergartenWithChildrens[]) {
     return mapWithSorting(kindergartens);
 }
 
-function mapWithSorting(kindergartens: KindergartenWithUsers[]) {
+function mapWithSorting(kindergartens: KindergartenWithChildrens[]) {
     const { id: sortBy } = agreementSortStatusVar();
 
     if (sortBy === AgreementSortStatus.BY_NAME_RISING.id) {

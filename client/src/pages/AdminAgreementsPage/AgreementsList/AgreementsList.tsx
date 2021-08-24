@@ -1,11 +1,12 @@
 import { TableContainer, Paper, Table, TableHead, TableBody, makeStyles, createStyles, Theme } from '@material-ui/core';
+
 import { ChildrenFromKindergartenList } from './ChildrenFromKindergartenList';
-import { KindergartenWithUsers } from '../../../graphql/types';
-import { SortableHeader } from './SortableHeader';
 import { ChildrenFromKindergartenListLoading } from './ChildrenFromKindergartenListLoading';
+import { Child, KindergartenWithChildrens } from '../../../graphql/types';
+import { SortableHeader } from './SortableHeader';
 
 interface Props {
-    kindergartens: KindergartenWithUsers[];
+    kindergartens: KindergartenWithChildrens[];
     activeSortType: string;
     isLoading: boolean;
     onSortChange: (value: string) => void;
@@ -55,12 +56,20 @@ export function AgreementsList({ kindergartens, activeSortType, isLoading, onSor
     );
 }
 
-function countAgreements(kindergarten: KindergartenWithUsers, name: string) {
-    return kindergarten.users.reduce(
-        (acc, user) => {
+// Counting all agreements (per children, not per parent)
+function countAgreements(kindergarten: KindergartenWithChildrens, name: string) {
+    return kindergarten?.children.reduce(
+        (acc: { value: number, total: number}, children: Child) => {
+            if(!children.parent) {
+                return {
+                    value: acc.value,
+                    total: acc.total
+                };
+            }
+
             return {
-                value: acc.value + user.agreements.filter((a) => a.text === name && a.isSigned).length,
-                total: acc.total + user.agreements.filter((a) => a.text === name).length,
+                value: acc.value + children?.parent.agreements.filter((agr: any) => agr.text === name && agr.isSigned).length,
+                total: acc.total + children?.parent.agreements.filter((agr: any) => agr.text === name).length,
             };
         },
         { value: 0, total: 0 },

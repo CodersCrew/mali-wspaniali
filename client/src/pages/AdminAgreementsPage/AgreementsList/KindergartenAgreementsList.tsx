@@ -6,14 +6,16 @@ import {
     TableCell,
     TableHead,
     TableRow,
-    Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
 import { Status } from '../../../components/Icons/Status';
+import { Agreement, Child } from '../../../graphql/types';
 
 export interface Parent {
-    email: string;
-    children: string[];
+    mail: string;
+    children: Child[];
+    agreements: Agreement[];
     viewAgreement: boolean;
     marketingAgreement: boolean;
 }
@@ -28,7 +30,7 @@ export function KindergartenAgreementsList({ parents }: Props) {
 
     return (
         <>
-            <Typography variant="h4">Osoby, które oddały zgodę wizerunkową</Typography>
+            {/* <Typography variant="h4">Osoby, które oddały zgodę wizerunkową</Typography> */}
             <Table size="small" aria-label="purchases" classes={{ root: classes.container }}>
                 <TableHead>
                     <TableRow>
@@ -39,19 +41,19 @@ export function KindergartenAgreementsList({ parents }: Props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {parents.map((parent) => (
-                        <TableRow key={parent.email}>
-                            <TableCell>{parent.email}</TableCell>
+                    {parents.map((parent, index) => (
+                        <TableRow key={index}>
+                            <TableCell>{parent.mail}</TableCell>
                             <TableCell>
-                                {parent.children.map((child) => (
-                                    <div key={child}>{child}</div>
+                                {parent.children.map((child: any, nr: number) => (
+                                    <div key={nr} style={{ margin: '0.5em 0' }}>{child.firstname} {child.lastname}</div>
                                 ))}
                             </TableCell>
                             <TableCell align="center">
-                                <Status success={parent.viewAgreement} />
+                                <Status success={parent.agreements?.find((a: any) => a.text === 'Image')!.isSigned || false} />
                             </TableCell>
                             <TableCell align="center">
-                                <Status success={parent.marketingAgreement} />
+                                <Status success={parent?.agreements.find((a: any) => a.text === 'Marketing')!.isSigned || false} />
                             </TableCell>
                         </TableRow>
                     ))}

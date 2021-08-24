@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import { AgreementStatusFilter } from '../../../models/AgreementStatusFilter';
 
 export interface GetAgreementsStatusFilterQuery {
-    agreementsStatusFilter: AgreementStatusFilter;
+    agreementsStatusFilter: AgreementStatusFilter[];
 }
 
 export const GET_AGREEMENTS_STATUS_FILTER = gql`
@@ -11,6 +11,8 @@ export const GET_AGREEMENTS_STATUS_FILTER = gql`
         agreementsStatusFilter @client {
             id
             displayNameKey
+            displayName
+            selected
         }
     }
 `;

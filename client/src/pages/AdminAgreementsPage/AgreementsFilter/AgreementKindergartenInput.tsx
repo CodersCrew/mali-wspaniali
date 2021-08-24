@@ -28,7 +28,7 @@ export function AgreementKindergartenInput({ values: currentValues, onChange }: 
             <InputLabel htmlFor="outlined-age-native-simple">{t('agreements-filter.by-kindergarten')}</InputLabel>
             <Select
                 multiple
-                label={t('agreements-filter.by-agreement-status')}
+                label={t('agreements-filter.by-kindergarten')}
                 renderValue={(selected) => {
                     return (selected as string[])
                         .map((e) => {

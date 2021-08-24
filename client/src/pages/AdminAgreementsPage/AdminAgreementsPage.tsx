@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-import { KindergartenWithUsers } from '../../graphql/types';
+import { AssessmentTitle, KindergartenWithChildrens } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { AgreementsList } from './AgreementsList/AgreementsList';
 import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
@@ -24,8 +24,9 @@ import { AgreementSortType } from '../../models/AgreementSortStatus';
 import { PageContainer } from '../../components/PageContainer';
 
 interface Props {
-    kindergartens: KindergartenWithUsers[];
-    agreementsStatusFilter: AgreementStatusFilter;
+    kindergartens: KindergartenWithChildrens[];
+    assessments: AssessmentTitle[];
+    agreementsStatusFilter: AgreementStatusFilter[];
     agreementsTypeFilter: AgreementTypeFilter;
     agreementsKindergartenFilter: AgreementKindergartenFilter[];
     agreementsSortStatus: AgreementSortType;
@@ -39,6 +40,7 @@ interface Props {
 
 export const AdminAgreementsPage = ({
     kindergartens,
+    assessments,
     agreementsStatusFilter,
     agreementsTypeFilter,
     agreementsKindergartenFilter,
@@ -57,15 +59,16 @@ export const AdminAgreementsPage = ({
     return (
         <PageContainer>
             <Paper elevation={0}>
-                <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader }}>
-                    <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
+                <Grid container alignItems="center" classes={{ root: classes.filterHeader }}>
                     <IconButton onClick={() => setIsFilterListOpen((prev) => !prev)}>
                         <FilterListIcon />
                     </IconButton>
+                    <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
                 </Grid>
 
                 <Collapse in={isFiltersListOpen} unmountOnExit className={classes.filterContainer}>
                     <AgreementsFilter
+                        assessments={assessments}
                         agreementType={agreementsTypeFilter}
                         agreementStatus={agreementsStatusFilter}
                         agreementKindergarten={agreementsKindergartenFilter}
@@ -100,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: theme.spacing(1),
         },
         filterHeader: {
-            padding: theme.spacing(1.7),
+            padding: theme.spacing(2.75),
         },
     }),
 );
