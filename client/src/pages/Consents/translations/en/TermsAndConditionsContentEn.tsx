@@ -1,8 +1,11 @@
 import { Box, Link, Paper, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 import { DownloadIcon } from '../../../../components/Icons/DownloadIcon';
 
 export const TermsAndConditionsContentEn = () => {
+    const { t } = useTranslation();
+
     return (
         <>
             <Paper style={{ padding: '16px' }}>
@@ -689,18 +692,20 @@ export const TermsAndConditionsContentEn = () => {
                     <strong>APPENDIX NO. 1 TO THE TERMS AND CONDITIONS</strong>
                 </Typography>
                 <Box mb="1rem" />
-                <Box display="flex" flexDirection="row">
-                    <Link
-                        href="https://drive.google.com/file/d/1yrjrHd4XgTKWo6LxUCMwSAU2UKmX-gsI/view?usp=sharing"
-                        target="_blank"
-                    >
+                <Link
+                    underline="always"
+                    color="textPrimary"
+                    href={t('registration-page.agreements.resignation-link')}
+                    target="_blank"
+                >
+                    <Box display="flex" flexDirection="row">
                         <DownloadIcon />
-                    </Link>
-                    <Box mr={2} />
-                    <Typography variant="subtitle1">
-                        Model statement of a resignation from the use of the Platform/Application
-                    </Typography>
-                </Box>
+                        <Box mr={2} />
+                        <Typography variant="subtitle1">
+                            Model statement of a resignation from the use of the Platform/Application
+                        </Typography>
+                    </Box>
+                </Link>
             </Paper>
             <Box mb="2rem" />
         </>

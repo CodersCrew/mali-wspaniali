@@ -1,8 +1,11 @@
 import { Box, Link, Paper, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 import { DownloadIcon } from '../../../../components/Icons/DownloadIcon';
 
 export const TermsAndConditionsContentPl = () => {
+    const { t } = useTranslation();
+
     return (
         <>
             <Paper style={{ padding: '16px' }}>
@@ -663,18 +666,20 @@ export const TermsAndConditionsContentPl = () => {
                     <strong>ZAŁĄCZNIK NR 1 DO REGULAMINU</strong>
                 </Typography>
                 <Box mb="1rem" />
-                <Box display="flex" flexDirection="row">
-                    <Link
-                        href="https://drive.google.com/file/d/1c-Lwkg6i5k7CfWC5Xwz6dNTV5Ln7e4zx/view?usp=sharing"
-                        target="_blank"
-                    >
+                <Link
+                    underline="always"
+                    color="textPrimary"
+                    href={t('registration-page.agreements.resignation-link')}
+                    target="_blank"
+                >
+                    <Box display="flex" flexDirection="row">
                         <DownloadIcon />
-                    </Link>
-                    <Box mr={2} />
-                    <Typography variant="subtitle1">
-                        Wzór oświadczenia o rezygnacji z korzystania z Platformy/Aplikacji
-                    </Typography>
-                </Box>
+                        <Box mr={2} />
+                        <Typography variant="subtitle1">
+                            Wzór oświadczenia o rezygnacji z korzystania z Platformy/Aplikacji
+                        </Typography>
+                    </Box>
+                </Link>
             </Paper>
             <Box mb="2rem" />
         </>
