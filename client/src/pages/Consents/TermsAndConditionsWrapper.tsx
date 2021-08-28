@@ -53,13 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100vh',
             display: 'flex',
             flexDirection: 'column',
-
-            overflowY: 'auto',
-            '-ms-overflow-style': 'none' /* IE and Edge */,
-            scrollbarWidth: 'none' /* Firefox */,
-            '&::-webkit-scrollbar': {
-                display: 'none',
-            },
         },
         toolbar: {
             ...theme.mixins.toolbar,
