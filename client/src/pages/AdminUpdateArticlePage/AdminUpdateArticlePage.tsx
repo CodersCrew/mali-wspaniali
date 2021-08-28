@@ -4,7 +4,6 @@ import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
-import { Article } from '../../graphql/types';
 import { useArticleWithId } from '../../operations/queries/Articles/getArticleById';
 import ArticlePage from '../ArticlePage/ArticlePage';
 import { ActionButtons } from './ActionButtons/ActionButtons';
@@ -28,13 +27,7 @@ export default observer(() => {
         }
     }, [article]);
 
-    const [updatedForm, setUpdatedForm] = React.useState<Article | undefined>(article);
-
-    React.useEffect(() => {
-        if (article) setUpdatedForm(article);
-    }, [params.articleId, article]);
-
-    if (!updatedForm || !articleStore.article) return null;
+    if (!articleStore.article) return null;
 
     if (isPreview)
         return (
@@ -42,11 +35,7 @@ export default observer(() => {
                 <ArticlePage />
                 <PageContainer>
                     <Box my={3}>
-                        <ActionButtons
-                            isPreview={isPreview}
-                            value={updatedForm}
-                            onPreviewClick={() => setIsPreview((prev) => !prev)}
-                        />
+                        <ActionButtons isPreview onPreviewClick={onPreviewClick} />
                     </Box>
                 </PageContainer>
             </>
@@ -64,8 +53,12 @@ export default observer(() => {
                 <AuthorInformationPanel />
             </Box>
             <Box mb={3}>
-                <ActionButtons value={updatedForm} onPreviewClick={() => setIsPreview(true)} />
+                <ActionButtons onPreviewClick={onPreviewClick} />
             </Box>
         </PageContainer>
     );
+
+    function onPreviewClick() {
+        setIsPreview((prev) => !prev);
+    }
 });
