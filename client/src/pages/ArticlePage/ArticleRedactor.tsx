@@ -1,19 +1,25 @@
-import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Avatar, Typography, Box, Theme, Divider } from '@material-ui/core';
 import clsx from 'clsx';
-import { Redactor } from '../../graphql/types';
+import { observer } from 'mobx-react-lite';
 import { useIsDevice } from '../../queries/useBreakpoints';
+import { articleStore } from '../AdminUpdateArticlePage/ArticleCreator/ArticleCreatorStore';
 
-interface ArticleRedactorProps {
-    redactor: Redactor;
-    isPreview: boolean;
-}
-
-export function ArticleRedactor({ redactor, isPreview }: ArticleRedactorProps) {
+export const ArticleRedactor = observer(() => {
     const classes = useStyles();
     const { isDesktop } = useIsDevice();
+    const { article } = articleStore;
+
+    if (!article || (!article.redactor.firstName && !article.redactor.lastName)) return null;
+
+    const { redactor } = article;
 
     return (
-        <Grid container direction="row" className={clsx({ [classes.isPreview]: isPreview })}>
+        <Grid container direction="row">
+            <Grid item xs={12}>
+                <Box mb={3}>
+                    <Divider />
+                </Box>
+            </Grid>
             <Grid
                 classes={{
                     root: clsx({
@@ -54,13 +60,10 @@ export function ArticleRedactor({ redactor, isPreview }: ArticleRedactorProps) {
             </Grid>
         </Grid>
     );
-}
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        isPreview: {
-            opacity: 0.5,
-        },
         contentRedactorAvatarContainer: {
             paddingRight: theme.spacing(3),
         },
