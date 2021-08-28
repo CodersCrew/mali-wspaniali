@@ -15,7 +15,7 @@ export const ActionButtons = observer(function ActionButtons(props: {
     const T_PREFIX = 'add-article.action-buttons';
     const { t } = useTranslation();
     const history = useHistory();
-    const { updateArticle } = useUpdateArticle();
+    const { updateArticle, isUpdatePending } = useUpdateArticle();
     const { article } = articleStore;
 
     if (!article) return null;
@@ -40,6 +40,7 @@ export const ActionButtons = observer(function ActionButtons(props: {
                     </Grid>
                     <Grid item>
                         <ButtonSecondary
+                            disabled={isUpdatePending}
                             variant="contained"
                             innerText={t(`${T_PREFIX}.update`)}
                             onClick={() => updateArticle(article)}

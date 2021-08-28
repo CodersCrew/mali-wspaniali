@@ -47,7 +47,7 @@ const UPDATE_ARTICLE = gql`
 `;
 
 export function useUpdateArticle() {
-    const [mutate] = useMutation<UpdateArticleResponse>(UPDATE_ARTICLE);
+    const [mutate, { loading }] = useMutation<UpdateArticleResponse>(UPDATE_ARTICLE);
     const { t } = useTranslation();
 
     return {
@@ -73,5 +73,6 @@ export function useUpdateArticle() {
                 openSnackbar({ text: t('add-article.events.updated') });
             });
         },
+        isUpdatePending: loading,
     };
 }
