@@ -702,7 +702,7 @@ export const TermsAndConditionsContentEn = () => {
                         <DownloadIcon />
                         <Box mr={2} />
                         <Typography variant="subtitle1">
-                            Model statement of a resignation from the use of the Platform/Application
+                            {t('registration-page.agreements.resignation-label')}
                         </Typography>
                     </Box>
                 </Link>

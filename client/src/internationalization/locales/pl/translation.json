@@ -76,7 +76,12 @@
             "agreement3-extra-content": "Informujemy, że zgoda jest dobrowolna i może być w&nbsp;każdej chwili odwołana poprzez wycofanie jej w&nbsp;zakładce ze zgodami. <br><br>Dzięki tej zgodzie będziemy mogli wysyłać Pani/Panu e-mail z bieżącymi informacjami dotyczącymi programu Mali Wspaniali. Od czasu do czasu pochwalimy się naszymi sukcesami.",
             "agreement4-text": "Wyrażam zgodę na nieodpłatne przetwarzanie wizerunku mojego dziecka przez Fundację Mali Wspaniali. <span style='color: rgba(0, 0, 0, 0.54)'>(Dzięki niej będzie miał/a Pani/Pan okazję zobaczyć swoją pociechę na zdjęciach, filmach z zajęć publikowanych przez Fundację).<span>",
             "agreement4-extra-content": "Informujemy, że zgoda jest dobrowolna i może być w&nbsp;każdej chwili odwołana poprzez wycofanie jej w&nbsp;zakładce ze zgodami. <br><br> Dzięki tej zgodzie, będziemy mogli pochwalić się odnoszonymi sukcesami oraz promować naszą Fundację poprzez publikowanie indywidualnego wizerunku dziecka w postaci zdjęć oraz filmów: <ul><li>w fotorelacjach w mediach (prasie i telewizji), </li> <li>na portalach i stronach internetowych administrowanych przez Fundację (<a style='color: #00acc1; text-decoration: none;' href='#'>mali-wspaniali.pl</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>facebook</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>youtube</a>)</li></ul>         Ta zgoda da Panu/Pani możliwość do zobaczenia swojej pociechy na materiałach z zajęć publikowanych przez Fundację. Zgoda nie dotyczy przetwarzania wizerunku dziecka/ci na zdjęciach grupowych. Mamy prawo przetwarzać wizerunek dziecka/ci kiedy stanowi szczegół całości fotografowanej/filmowanej grupy.",
-            "resignation-link": "docs/oswiadczenie_o_rezygnacji.pdf"
+            "resignation-link": "/docs/oswiadczenie_o_rezygnacji.pdf",
+            "resignation-label": "Wzór oświadczenia o rezygnacji z korzystania z Platformy/Aplikacji",
+            "privacy-policy": "Polityka prywatności",
+            "terms-and-conditions": "Regulamin",
+            "privacy-policy-link": "/docs/polityka_prywatnosci.pdf",
+            "terms-and-conditions-link": "/docs/regulamin.pdf"
         }
     },
     "forgot-password-page": {

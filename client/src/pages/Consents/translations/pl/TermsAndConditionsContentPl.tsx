@@ -676,7 +676,7 @@ export const TermsAndConditionsContentPl = () => {
                         <DownloadIcon />
                         <Box mr={2} />
                         <Typography variant="subtitle1">
-                            Wzór oświadczenia o rezygnacji z korzystania z Platformy/Aplikacji
+                            {t('registration-page.agreements.resignation-label')}
                         </Typography>
                     </Box>
                 </Link>

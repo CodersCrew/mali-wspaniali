@@ -1,9 +1,21 @@
-export const DownloadIcon = () => {
+import { Palette, PaletteColor } from '@material-ui/core/styles/createPalette';
+
+import { useTheme } from '../../theme';
+
+type DownloadIconProps = {
+    width?: string | number;
+    height?: string | number;
+    color?: keyof Palette;
+};
+
+export const DownloadIcon = ({ width = '22', height = '22', color }: DownloadIconProps) => {
+    const theme = useTheme();
+
     return (
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width={width} height={height} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M17.4167 11V17.4167H4.58333V11H2.75V17.4167C2.75 18.425 3.575 19.25 4.58333 19.25H17.4167C18.425 19.25 19.25 18.425 19.25 17.4167V11H17.4167ZM11.9167 11.6142L14.2908 9.24917L15.5833 10.5417L11 15.125L6.41667 10.5417L7.70917 9.24917L10.0833 11.6142V2.75H11.9167V11.6142Z"
-                fill="#212121"
+                fill={color ? (theme.palette[color] as PaletteColor).main : '#212121'}
             />
         </svg>
     );
