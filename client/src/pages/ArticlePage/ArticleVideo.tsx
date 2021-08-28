@@ -6,7 +6,7 @@ export const ArticleVideo = observer(function ArticleVideo() {
     const classes = useStyles();
     const { article } = articleStore;
 
-    if (!article) return null;
+    if (!article || !article.videoUrl) return null;
 
     return (
         <div className={classes.contentVideoPlayer}>

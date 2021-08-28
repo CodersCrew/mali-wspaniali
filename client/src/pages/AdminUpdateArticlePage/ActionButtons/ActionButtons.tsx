@@ -3,12 +3,10 @@ import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { ButtonSecondary } from '../../../components/Button';
-import { Article } from '../../../graphql/types';
 import { useUpdateArticle } from '../../../operations/mutations/Articles/updateArticle';
 import { articleStore } from '../ArticleCreator/ArticleCreatorStore';
 
 export const ActionButtons = observer(function ActionButtons(props: {
-    value: Article;
     onPreviewClick: () => void;
     isPreview?: boolean;
 }) {
