@@ -1,5 +1,6 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
 import { PageContainer } from '../../components/PageContainer';
@@ -10,8 +11,9 @@ import { ActionButtons } from './ActionButtons/ActionButtons';
 import { AuthorInformationPanel } from './AuthorInformationPanel/AuthorInformationPanel';
 import { BasicInformationPanel } from './BasicInformationPanel/BasicInformationPanel';
 import { ContentCreator } from './ContentCreator/ContentCreator';
+import { articleStore } from './ArticleCreator/ArticleCreatorStore';
 
-export default function CreateArticlePage() {
+export default observer(() => {
     React.useEffect(() => {
         activePage(['admin-menu.articles.title']);
     }, []);
@@ -20,18 +22,24 @@ export default function CreateArticlePage() {
 
     const { article } = useArticleWithId(params.articleId);
 
+    React.useEffect(() => {
+        if (article) {
+            articleStore.setArticle(article);
+        }
+    }, [article]);
+
     const [updatedForm, setUpdatedForm] = React.useState<Article | undefined>(article);
 
     React.useEffect(() => {
         if (article) setUpdatedForm(article);
     }, [params.articleId, article]);
 
-    if (!updatedForm) return null;
+    if (!updatedForm || !articleStore.article) return null;
 
     if (isPreview)
         return (
             <>
-                <ArticlePage localArticle={updatedForm} />
+                <ArticlePage />
                 <PageContainer>
                     <Box my={3}>
                         <ActionButtons
@@ -47,25 +55,17 @@ export default function CreateArticlePage() {
     return (
         <PageContainer>
             <Box mb={3}>
-                <BasicInformationPanel value={updatedForm} onChange={updateLocalArticle} />
+                <BasicInformationPanel />
             </Box>
             <Box mb={3}>
-                <ContentCreator value={updatedForm} onChange={updateLocalArticle} />
+                <ContentCreator />
             </Box>
             <Box mb={3}>
-                <AuthorInformationPanel value={updatedForm} onChange={updateLocalArticle} />
+                <AuthorInformationPanel />
             </Box>
             <Box mb={3}>
                 <ActionButtons value={updatedForm} onPreviewClick={() => setIsPreview(true)} />
             </Box>
         </PageContainer>
     );
-
-    function updateLocalArticle(key: string, value: string | Record<string, string>) {
-        setUpdatedForm((prev) => {
-            if (!prev) return;
-
-            return { ...prev, [key as keyof Article]: value };
-        });
-    }
-}
+});
