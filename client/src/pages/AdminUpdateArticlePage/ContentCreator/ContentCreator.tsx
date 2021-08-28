@@ -19,6 +19,9 @@ export const modules = {
     imageResize: {
         modules: ['Resize', 'DisplaySize', 'Toolbar'],
     },
+    clipboard: {
+        matchVisual: false,
+    },
 };
 
 export const formats = [
