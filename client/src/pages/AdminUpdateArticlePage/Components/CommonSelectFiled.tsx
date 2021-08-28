@@ -6,11 +6,10 @@ import isEqual from 'lodash.isequal';
 export const CommonSelectField = React.memo(
     function CommonSelectField(props: {
         label: string;
+        value: string;
         options: Array<{ label: string; value: string }>;
         onChange: (value: string) => void;
     }) {
-        const [value, setValue] = React.useState('');
-
         return (
             <>
                 <Box mb={1}>
@@ -20,9 +19,8 @@ export const CommonSelectField = React.memo(
                     variant="outlined"
                     fullWidth
                     displayEmpty
-                    value={value}
+                    value={props.value}
                     onChange={({ target: { value: _value } }) => {
-                        setValue(_value as string);
                         props.onChange(_value as string);
                     }}
                 >
